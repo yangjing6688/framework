@@ -1,0 +1,37 @@
+# #################################################################
+#
+#  Copyright (c) 2021 Extreme Networks, Inc.
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  the 5320-24T-8XE switch
+#
+
+vendor: Extreme
+product_name: 5320-24T-8XE
+
+files:
+    - name: system
+      filename: [../5320/system.yaml, ../5320/5320_system.yaml]
+    - name: devices
+      filename: [../5320/devices.yaml, ../5320/5320_8XE_devices.yaml]
+    - name: interrupts
+      filename: [../5320/interrupts.yaml, ../5320/5320_interrupts.yaml]
+    - name: leds
+      filename: [../5320/leds.yaml, ../5320/5320_leds.yaml]
+    - name: buttons
+      filename: [../5320/buttons.yaml, ../5320/5320_buttons.yaml]
+    - name: thermal
+      filename: [./thermal.yaml, ../5320/5320_thermal.yaml]
+    - name: fans
+      filename: [../5320/fans.yaml, ../5320/5320_2_fans.yaml]
+    - name: power
+      filename: [../5320/power.yaml, ../5320/5320_power.yaml]
+    - name: watchdog
+      filename: [../5320/watchdog.yaml, ../5320/5320_watchdog.yaml]
+    - name: capability
+      filename: [../../common/defaultcap.yaml, ../../common/Broadcom/trident3_x1.yaml, switchcap.yaml]
+    - name: ports
+      filename: [../../common/defaultports.yaml, ../5320/ports.yaml, ports.yaml]

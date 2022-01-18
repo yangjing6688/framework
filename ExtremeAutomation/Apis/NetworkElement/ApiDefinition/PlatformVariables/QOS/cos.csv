@@ -1,0 +1,8 @@
+Feature,cos,,,,
+Variable Name,OS,Platform,Version,Unit,Variables Value
+rl_port_group,EOS,base,baseversion,baseunit,1.1
+txq_port_group,EOS,base,baseversion,baseunit,1
+wfq_weights,EOS,base,baseversion,baseunit,"0,5,5,10,10,15,15,20,20,0,0"
+rl_port_group,EXOS,base,baseversion,baseunit,cos_group
+txq_port_group,EXOS,base,baseversion,baseunit,cos_group
+wfq_weights,EXOS,base,baseversion,baseunit,"5,5,10,10,15,15,20,20"

@@ -1,0 +1,11 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Query]
+#             - [OS2,Platform,Version,Unit,Query]
+
+administration:
+    show_administration_server_info:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{administration{serverInfo{freePhysicalMemory heapMemoryCommitted heapMemoryInit heapMemoryMax heapMemoryUsed peakThreadCount serverJVMStartTime startTime threadCount totalPhysicalMemory totalStartedThreadCount upTime version}}}']

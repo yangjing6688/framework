@@ -1,0 +1,25 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcaclients:
+    select_all_clients:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_client_mac_address_to_open_client_info:
+        apis:
+            - [xca,'04.26.03.0007']
+    refresh_clients_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_client_exists:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_client_does_not_exist:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_client_information:
+        apis:
+            - [xca,'04.26.03.0007||04.56.03.0004']

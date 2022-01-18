@@ -1,0 +1,91 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+sysinfo:
+    get_all_slot_numbers:
+        uuid: 7a7b1a58-b221-463b-ab9f-f7270b6f560d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_for_cores_dir:
+        uuid: 0b77470a-a9e1-4116-9d40-821ac9f216a2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    get_corefile_list:
+        uuid: 97312f7c-ad41-40ee-965d-b5c1392f4fe8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    get_cpu_usage:
+        uuid: 8467b0a1-2085-463d-831a-0fe21db9e20f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    get_slot_uptime:
+        uuid: 406b326f-33ce-4d8b-a925-255e4e81d949
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_firmware_version:
+        uuid: 876ec8f7-6c56-4b05-b093-bd340b151b70
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+                - [EOSSTACKS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [BOSS,base,baseversion,baseunit]
+                - [ICX,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    get_firmware_version:
+        uuid: f99392ac-b72b-4aec-910d-dbc51afb13bb
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+                - [EOSSTACKS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [ICX,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+                - [MLX,base,baseversion,baseunit]
+                - [VDX,base,baseversion,baseunit]
+    store_firmware_version:
+        uuid: 60342e75-f44a-4a14-b69b-741fe4db6177
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    store_model:
+        uuid: bac88ad8-5f44-11ec-bf63-0242ac130002
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_installed_xmods:
+        uuid: 29509477-5709-4b9d-befb-47462d8a8506
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    get_system_uptime:
+        uuid: bef0635f-3ca5-4918-90e8-8ed349e849f9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

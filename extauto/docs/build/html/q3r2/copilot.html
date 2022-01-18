@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>CoPilot &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Current Available Active Branches</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q3r1.html">Q3R1</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q2r2.html">Q2R2</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>CoPilot</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/copilot.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="extreme_logo.png"><img alt="alternate text" class="align-right" src="extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-xiq.flows.copilot.Copilot">
+<span id="copilot"></span><h1>CoPilot<a class="headerlink" href="#module-xiq.flows.copilot.Copilot" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">xiq.flows.copilot.Copilot.</span></span><span class="sig-name descname"><span class="pre">Copilot</span></span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiq.elements.CopilotWebElements.CopilotWebElements</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.dismiss_anomaly_in_wifi_capacity">
+<span class="sig-name descname"><span class="pre">dismiss_anomaly_in_wifi_capacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.dismiss_anomaly_in_wifi_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword dismiss an anomaly for location based on provided option</p></li>
+<li><p>If option provided is ‘yes’ it will dismiss anomaly else it won’t dismiss</p></li>
+<li><p>Flow: CoPilot–&gt; Wi-Fi CAPACITY —&gt; Get Location Name and dismiss anomaly</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dismiss</span> <span class="pre">Anomaly</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span>&#160;&#160;&#160; <span class="pre">${OPTION}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location_name</strong> – Location name to enable anomaly Pin in wifi capacity widget</p></li>
+<li><p><strong>option</strong> – confirmation option to delete anomaly(options: yes, no)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to perform dismiss operation with provided option, -1 if anomaly not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.get_anomaly_details_for_location_in_anomaly_notification_icon">
+<span class="sig-name descname"><span class="pre">get_anomaly_details_for_location_in_anomaly_notification_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.get_anomaly_details_for_location_in_anomaly_notification_icon" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will return total notification rows displaying and row details matching the location name
+after clicking anomaly Notification icon</p></li>
+<li><p>Flow : Click Anomaly Notification Icon –&gt; Check Notification entries list</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${ROW_INFO}</span>&#160; <span class="pre">${ROW_COUNT}</span> <span class="pre">=</span> <span class="pre">Get</span> <span class="pre">Anomaly</span> <span class="pre">Details</span> <span class="pre">For</span> <span class="pre">Location</span> <span class="pre">In</span> <span class="pre">Anomaly</span> <span class="pre">Notification</span> <span class="pre">Icon</span>&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to verify in anomaly Notification Entries</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>if notification entries found returns Total rows and location name matched row information in
+dictionary format else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.get_links_present_in_wifi_capacity_additional_resources">
+<span class="sig-name descname"><span class="pre">get_links_present_in_wifi_capacity_additional_resources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.get_links_present_in_wifi_capacity_additional_resources" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get the both video and documentation url Links From WiFi Capacity Additional Resources Page</p></li>
+<li><p>Flow : Copilot page –&gt;WiFi capacity widget–&gt; Video Icon —&gt; Additional Resources</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${DOCS_URL_LIST}</span>&#160;&#160;&#160; <span class="pre">${VIDEO_URL_LIST}</span> <span class="pre">=</span>&#160;&#160;&#160;&#160; <span class="pre">Get</span> <span class="pre">Links</span> <span class="pre">Present</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Additional</span> <span class="pre">Resources</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>${DOCS_URL_LIST} Documentation URL Links available in WiFi Capacity Additional Resources Page in a list</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>${VIDEO_URL_LIST} Video URL Links available in WiFi Capacity Additional Resources Page in a list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.get_poe_stability_widget_summary">
+<span class="sig-name descname"><span class="pre">get_poe_stability_widget_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.get_poe_stability_widget_summary" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets poe stability summary in copilot</p></li>
+<li><p>Flow : Copilot page –&gt;POE stability widget</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">POE</span> <span class="pre">Stability</span> <span class="pre">Widget</span> <span class="pre">Summary</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns Buildings and APs count if success else returns -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.get_port_efficiency_widget_summary">
+<span class="sig-name descname"><span class="pre">get_port_efficiency_widget_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.get_port_efficiency_widget_summary" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets port efficiency widget summary in copilot</p></li>
+<li><p>Flow : Copilot page –&gt;POE stability widget</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">POE</span> <span class="pre">Stability</span> <span class="pre">Widget</span> <span class="pre">Summary</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns Buildings and APs count if success else returns -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.get_total_assurance_scan_count">
+<span class="sig-name descname"><span class="pre">get_total_assurance_scan_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.get_total_assurance_scan_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets total scan count in Assurance scan widget</p></li>
+<li><p>Flow : Copilot page –&gt;Assurance Scan widget</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Total</span> <span class="pre">Assurance</span> <span class="pre">Scan</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>This keyword developed on q3r1 - g7r1 environment.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns 1 if success else returns -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.get_total_numbers_of_anomalies_detected">
+<span class="sig-name descname"><span class="pre">get_total_numbers_of_anomalies_detected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.get_total_numbers_of_anomalies_detected" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will Get Total Number of Anomalies Notification Detected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Total</span> <span class="pre">Numbers</span> <span class="pre">Of</span> <span class="pre">Anomalies</span> <span class="pre">Detected</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>:return:Total anomalies count if notification found else -1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.get_wifi_capacity_widget_summary">
+<span class="sig-name descname"><span class="pre">get_wifi_capacity_widget_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.get_wifi_capacity_widget_summary" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets wifi capacity widget summary in copilot</p></li>
+<li><p>Flow : Copilot page –&gt;Wifi Capacity widget</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span> <span class="pre">Summary</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>This keyword developed on q3r1 - g7r1 environment.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns Buildings and APs count if success else returns -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.get_wifi_efficiency_widget_summary">
+<span class="sig-name descname"><span class="pre">get_wifi_efficiency_widget_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.get_wifi_efficiency_widget_summary" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets WiFi efficiency widget summary in copilot</p></li>
+<li><p>Flow : Copilot page –&gt;Wifi efficiency widget</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">WiFi</span> <span class="pre">Efficiency</span> <span class="pre">Widget</span> <span class="pre">Summary</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns Buildings and APs count if success else returns -1 or -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.hide_muted_anomaly_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">hide_muted_anomaly_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.hide_muted_anomaly_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword hides the muted anomalies</p></li>
+<li><p>Flow : Copilot page –&gt;WiFi capacity widget</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Hide</span> <span class="pre">Muted</span> <span class="pre">Anomaly</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to verify in WiFi capacity widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if success else returns -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.mute_anomaly_for_location_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">mute_anomaly_for_location_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.mute_anomaly_for_location_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will mute an anomaly at building level in wifi capacity widget</p></li>
+<li><p>Flow: CoPilot–&gt; Wi-Fi CAPACITY —&gt; Get Location Name in Rows and Click More options and mute Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Mute</span> <span class="pre">Anomaly</span> <span class="pre">For</span> <span class="pre">location</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to Mute anomaly in wifi capacity widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click anomaly Mute button for the Location Name or already clicked else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.navigate_to_copilot_through_view_all_anomaly">
+<span class="sig-name descname"><span class="pre">navigate_to_copilot_through_view_all_anomaly</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.navigate_to_copilot_through_view_all_anomaly" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword navigates to Copilot Anomaly Notification Icon</p></li>
+<li><p>Clicks on view all button and validates whether we are in Copilot page or not</p></li>
+<li><p>Flow: Login–&gt; Click on View ALl of copilot Anomaly —&gt; Copilot page</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Copilot</span> <span class="pre">Through</span> <span class="pre">View</span> <span class="pre">All</span> <span class="pre">Anomaly</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.pin_anomaly_for_location_in_poe_stability_widget">
+<span class="sig-name descname"><span class="pre">pin_anomaly_for_location_in_poe_stability_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.pin_anomaly_for_location_in_poe_stability_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will pin an anomaly at building level in PoE Stability widget</p></li>
+<li><p>Flow: CoPilot–&gt;  PoE STABILITY —&gt; Get Location Name in Rows and Click Pin Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pin</span> <span class="pre">Anomaly</span> <span class="pre">For</span> <span class="pre">location</span> <span class="pre">In</span> <span class="pre">PoE</span> <span class="pre">Stability</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to enable anomaly Pin in PoE Stability widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click anomaly Pin button for the Location Name or already clicked else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.pin_anomaly_for_location_in_port_efficency_widget">
+<span class="sig-name descname"><span class="pre">pin_anomaly_for_location_in_port_efficency_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.pin_anomaly_for_location_in_port_efficency_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will pin an anomaly at building level in Port Efficiency widget</p></li>
+<li><p>Flow: CoPilot–&gt;  Port Efficiency —&gt; Get Location Name in Rows and Click Pin Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pin</span> <span class="pre">Anomaly</span> <span class="pre">For</span> <span class="pre">location</span> <span class="pre">In</span> <span class="pre">Port</span> <span class="pre">Efficiency</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to enable anomaly Pin in Port Efficiency widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click anomaly Pin button for the Location Name or already clicked else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.pin_anomaly_for_location_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">pin_anomaly_for_location_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.pin_anomaly_for_location_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will pin an anomaly at building level in wifi capacity widget</p></li>
+<li><p>Flow: CoPilot–&gt; Wi-Fi CAPACITY —&gt; Get Location Name in Rows and Click Pin Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pin</span> <span class="pre">Anomaly</span> <span class="pre">For</span> <span class="pre">location</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to enable anomaly Pin in wifi capacity widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click anomaly Pin button for the Location Name or already clicked else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.pin_anomaly_for_location_in_wifi_efficiency_widget">
+<span class="sig-name descname"><span class="pre">pin_anomaly_for_location_in_wifi_efficiency_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.pin_anomaly_for_location_in_wifi_efficiency_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will pin an anomaly at building level in wifi efficiency widget</p></li>
+<li><p>Flow: CoPilot–&gt; Wi-Fi Efficiency —&gt; Get Location Name in Rows and Click Pin Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pin</span> <span class="pre">Anomaly</span> <span class="pre">For</span> <span class="pre">location</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Efficiency</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to enable anomaly Pin in wifi efficiency widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click anomaly Pin button for the Location Name or already clicked else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.pin_individual_ap_for_location_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">pin_individual_ap_for_location_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ap_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.pin_individual_ap_for_location_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will pin an AP at building level in wifi capacity widget</p></li>
+<li><p>Flow: CoPilot–&gt; Wi-Fi CAPACITY —&gt; click Location Name in Rows –&gt; Click AP row pin Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pin</span> <span class="pre">Individual</span> <span class="pre">AP</span> <span class="pre">For</span> <span class="pre">Location</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span>&#160; <span class="pre">${AP_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location_name</strong> – Location name to enable anomaly Pin in wifi capacity widget</p></li>
+<li><p><strong>ap_name</strong> – AP name to enable pin in wifi capacity widget of particular location</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click pin button for the AP in Location or already pinned else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.show_muted_anomalies_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">show_muted_anomalies_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.show_muted_anomalies_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword shows the muted anomalies</p></li>
+<li><p>Flow : Copilot page –&gt;WiFi capacity widget</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Muted</span> <span class="pre">Anomalies</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to verify in WiFi capacity widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if success else returns -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.sort_anomalies_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">sort_anomalies_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Location'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.sort_anomalies_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sorts anomalies based on input parameter and provides details of anomalies</p></li>
+<li><p>Flow : Copilot page –&gt;WiFi capacity widget</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Sort</span> <span class="pre">Anomalies</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">${PARAMETER}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parameter</strong> – parameter(location/severity/most recent) to sort WiFi capacity widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if success else returns -1 or -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.unmute_anomaly_for_location_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">unmute_anomaly_for_location_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.unmute_anomaly_for_location_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will unmute an anomaly at building level in wifi capacity widget</p></li>
+<li><p>Flow: CoPilot–&gt; Wi-Fi CAPACITY —&gt; Get Location Name in Rows and Click More options and unmute Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Unmute</span> <span class="pre">Anomaly</span> <span class="pre">For</span> <span class="pre">location</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to unMute anomaly in wifi capacity widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click anomaly unMute button for the Location Name or already clicked else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.unpin_anomaly_for_location_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">unpin_anomaly_for_location_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.unpin_anomaly_for_location_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will unpin an anomaly at building level in wifi capacity widget</p></li>
+<li><p>Flow: CoPilot–&gt; Wi-Fi CAPACITY —&gt; Get Location Name in Rows and Click UnPin Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Unpin</span> <span class="pre">Anomaly</span> <span class="pre">For</span> <span class="pre">location</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>location_name</strong> – Location name to enable anomaly Pin in wifi capacity widget</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click anomaly unpin button for the Location Name or already unpinned else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.unpin_individual_ap_for_location_in_wifi_capacity_widget">
+<span class="sig-name descname"><span class="pre">unpin_individual_ap_for_location_in_wifi_capacity_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ap_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.unpin_individual_ap_for_location_in_wifi_capacity_widget" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will unpin an AP at building level in wifi capacity widget</p></li>
+<li><p>Flow: CoPilot–&gt; Wi-Fi CAPACITY —&gt; click Location Name in Rows –&gt; Click AP row Unpin Button</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Unpin</span> <span class="pre">Individual</span> <span class="pre">AP</span> <span class="pre">For</span> <span class="pre">Location</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span> <span class="pre">Widget</span>&#160;&#160; <span class="pre">${LOCATION_NAME}</span>&#160; <span class="pre">${AP_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location_name</strong> – Location name to enable anomaly Unpin in wifi capacity widget</p></li>
+<li><p><strong>ap_name</strong> – AP name to enable unpin in wifi capacity widget of particular location</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if able to click unpin button for the AP in Location or already unpinned else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.validate_loading_additional_resources_documentation_links_in_wifi_capacity">
+<span class="sig-name descname"><span class="pre">validate_loading_additional_resources_documentation_links_in_wifi_capacity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.validate_loading_additional_resources_documentation_links_in_wifi_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will validate loading documentation links from wifi capacity additional resources Page</p></li>
+<li><p>Flow : Copilot page –&gt;WiFi capacity widget–&gt; Video Icon —&gt; Additional Resources</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Validate</span> <span class="pre">Loading</span> <span class="pre">Additional</span> <span class="pre">Resources</span> <span class="pre">Documentation</span> <span class="pre">Links</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if All the Additional resources Documentation links loaded Successfully else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.copilot.Copilot.Copilot.validate_loading_additional_resources_video_links_in_wifi_capacity">
+<span class="sig-name descname"><span class="pre">validate_loading_additional_resources_video_links_in_wifi_capacity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.copilot.Copilot.Copilot.validate_loading_additional_resources_video_links_in_wifi_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will validate loading you tube links from wifi capacity additional resources Page</p></li>
+<li><p>Flow : Copilot page –&gt;WiFi capacity widget–&gt; Video Icon —&gt; Additional Resources</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Validate</span> <span class="pre">Loading</span> <span class="pre">Additional</span> <span class="pre">Resources</span> <span class="pre">Video</span> <span class="pre">Links</span> <span class="pre">In</span> <span class="pre">WiFi</span> <span class="pre">Capacity</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if All the Additional resources Video links loaded Successfully else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Extreme Networks.
+      <span class="lastupdated">
+        Last updated on Sep 13, 2021, 5:35:12 PM.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

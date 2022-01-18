@@ -1,0 +1,416 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for X870-32c switch
+#
+#
+
+
+# 40G port with partition enabled
+# Need to tune this as the development goes on.
+# For ex: Partition is not set here right now.
+100G_partition_port: &100G_PARTITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Ptp: true
+   Fec: true
+
+# 25G port
+25G_port: &25G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_25000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Ptp: true
+   Fec: true
+
+ports:
+   - name: 1
+     <<: *100G_PARTITION_PORT
+
+   - name: 2
+     <<: *25G_PORT
+
+   - name: 3
+     <<: *25G_PORT
+
+   - name: 4
+     <<: *25G_PORT
+
+   - name: 5
+     <<: *100G_PARTITION_PORT
+
+   - name: 6
+     <<: *25G_PORT
+
+   - name: 7
+     <<: *25G_PORT
+
+   - name: 8
+     <<: *25G_PORT
+
+   - name: 9
+     <<: *100G_PARTITION_PORT
+
+   - name: 10
+     <<: *25G_PORT
+
+   - name: 11
+     <<: *25G_PORT
+
+   - name: 12
+     <<: *25G_PORT
+
+   - name: 13
+     <<: *100G_PARTITION_PORT
+
+   - name: 14
+     <<: *25G_PORT
+
+   - name: 15
+     <<: *25G_PORT
+
+   - name: 16
+     <<: *25G_PORT
+
+   - name: 17
+     <<: *100G_PARTITION_PORT
+
+   - name: 18
+     <<: *25G_PORT
+
+   - name: 19
+     <<: *25G_PORT
+
+   - name: 20
+     <<: *25G_PORT
+
+   - name: 21
+     <<: *100G_PARTITION_PORT
+
+   - name: 22
+     <<: *25G_PORT
+
+   - name: 23
+     <<: *25G_PORT
+
+   - name: 24
+     <<: *25G_PORT
+
+   - name: 25
+     <<: *100G_PARTITION_PORT
+
+   - name: 26
+     <<: *25G_PORT
+
+   - name: 27
+     <<: *25G_PORT
+
+   - name: 28
+     <<: *25G_PORT
+
+   - name: 29
+     <<: *100G_PARTITION_PORT
+
+   - name: 30
+     <<: *25G_PORT
+
+   - name: 31
+     <<: *25G_PORT
+
+   - name: 32
+     <<: *25G_PORT
+
+   - name: 33
+     <<: *100G_PARTITION_PORT
+
+   - name: 34
+     <<: *25G_PORT
+
+   - name: 35
+     <<: *25G_PORT
+
+   - name: 36
+     <<: *25G_PORT
+
+   - name: 37
+     <<: *100G_PARTITION_PORT
+
+   - name: 38
+     <<: *25G_PORT
+
+   - name: 39
+     <<: *25G_PORT
+
+   - name: 40
+     <<: *25G_PORT
+
+   - name: 41
+     <<: *100G_PARTITION_PORT
+
+   - name: 42
+     <<: *25G_PORT
+
+   - name: 43
+     <<: *25G_PORT
+
+   - name: 44
+     <<: *25G_PORT
+
+   - name: 45
+     <<: *100G_PARTITION_PORT
+
+   - name: 46
+     <<: *25G_PORT
+
+   - name: 47
+     <<: *25G_PORT
+
+   - name: 48
+     <<: *25G_PORT
+
+   - name: 49
+     <<: *100G_PARTITION_PORT
+
+   - name: 50
+     <<: *25G_PORT
+
+   - name: 51
+     <<: *25G_PORT
+
+   - name: 52
+     <<: *25G_PORT
+
+   - name: 53
+     <<: *100G_PARTITION_PORT
+
+   - name: 54
+     <<: *25G_PORT
+
+   - name: 55
+     <<: *25G_PORT
+
+   - name: 56
+     <<: *25G_PORT
+
+   - name: 57
+     <<: *100G_PARTITION_PORT
+
+   - name: 58
+     <<: *25G_PORT
+
+   - name: 59
+     <<: *25G_PORT
+
+   - name: 60
+     <<: *25G_PORT
+
+   - name: 61
+     <<: *100G_PARTITION_PORT
+
+   - name: 62
+     <<: *25G_PORT
+
+   - name: 63
+     <<: *25G_PORT
+
+   - name: 64
+     <<: *25G_PORT
+
+   - name: 65
+     <<: *100G_PARTITION_PORT
+
+   - name: 66
+     <<: *25G_PORT
+
+   - name: 67
+     <<: *25G_PORT
+
+   - name: 68
+     <<: *25G_PORT
+
+   - name: 69
+     <<: *100G_PARTITION_PORT
+
+   - name: 70
+     <<: *25G_PORT
+
+   - name: 71
+     <<: *25G_PORT
+
+   - name: 72
+     <<: *25G_PORT
+
+   - name: 73
+     <<: *100G_PARTITION_PORT
+
+   - name: 74
+     <<: *25G_PORT
+
+   - name: 75
+     <<: *25G_PORT
+
+   - name: 76
+     <<: *25G_PORT
+
+   - name: 77
+     <<: *100G_PARTITION_PORT
+
+   - name: 78
+     <<: *25G_PORT
+
+   - name: 79
+     <<: *25G_PORT
+
+   - name: 80
+     <<: *25G_PORT
+
+   - name: 81
+     <<: *100G_PARTITION_PORT
+
+   - name: 82
+     <<: *25G_PORT
+
+   - name: 83
+     <<: *25G_PORT
+
+   - name: 84
+     <<: *25G_PORT
+
+   - name: 85
+     <<: *100G_PARTITION_PORT
+
+   - name: 86
+     <<: *25G_PORT
+
+   - name: 87
+     <<: *25G_PORT
+
+   - name: 88
+     <<: *25G_PORT
+
+   - name: 89
+     <<: *100G_PARTITION_PORT
+
+   - name: 90
+     <<: *25G_PORT
+
+   - name: 91
+     <<: *25G_PORT
+
+   - name: 92
+     <<: *25G_PORT
+
+   - name: 93
+     <<: *100G_PARTITION_PORT
+
+   - name: 94
+     <<: *25G_PORT
+
+   - name: 95
+     <<: *25G_PORT
+
+   - name: 96
+     <<: *25G_PORT
+
+   - name: 97
+     <<: *100G_PARTITION_PORT
+
+   - name: 98
+     <<: *25G_PORT
+
+   - name: 99
+     <<: *25G_PORT
+
+   - name: 100
+     <<: *25G_PORT
+
+   - name: 101
+     <<: *100G_PARTITION_PORT
+
+   - name: 102
+     <<: *25G_PORT
+
+   - name: 103
+     <<: *25G_PORT
+
+   - name: 104
+     <<: *25G_PORT
+
+   - name: 105
+     <<: *100G_PARTITION_PORT
+
+   - name: 106
+     <<: *25G_PORT
+
+   - name: 107
+     <<: *25G_PORT
+
+   - name: 108
+     <<: *25G_PORT
+
+   - name: 109
+     <<: *100G_PARTITION_PORT
+
+   - name: 110
+     <<: *25G_PORT
+
+   - name: 111
+     <<: *25G_PORT
+
+   - name: 112
+     <<: *25G_PORT
+
+   - name: 113
+     <<: *100G_PARTITION_PORT
+
+   - name: 114
+     <<: *25G_PORT
+
+   - name: 115
+     <<: *25G_PORT
+
+   - name: 116
+     <<: *25G_PORT
+
+   - name: 117
+     <<: *100G_PARTITION_PORT
+
+   - name: 118
+     <<: *25G_PORT
+
+   - name: 119
+     <<: *25G_PORT
+
+   - name: 120
+     <<: *25G_PORT
+
+   - name: 121
+     <<: *100G_PARTITION_PORT
+
+   - name: 122
+     <<: *25G_PORT
+
+   - name: 123
+     <<: *25G_PORT
+
+   - name: 124
+     <<: *25G_PORT
+
+   - name: 125
+     <<: *100G_PARTITION_PORT
+
+   - name: 126
+     <<: *25G_PORT
+
+   - name: 127
+     <<: *25G_PORT
+
+   - name: 128
+     <<: *25G_PORT

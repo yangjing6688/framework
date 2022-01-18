@@ -1,0 +1,19 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+ewcleftnavipanel:
+    left_navi_panel_select_section_tab:
+        apis:
+            - [ewc,'10.41.12']
+    left_navi_panel_select_link_in_section:
+        apis:
+            - [ewc,'10.41.12']
+    left_navi_panel_expand_tree_node_in_section:
+        apis:
+            - [ewc,'10.41.12']
+    left_navi_panel_collapse_tree_node_in_section:
+        apis:
+            - [ewc,'10.41.12']

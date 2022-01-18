@@ -1,0 +1,10 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimcertificates:
+    add_certificate:
+        apis:
+            - [gim,'8.2.3']

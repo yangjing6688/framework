@@ -1,0 +1,1018 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+active_router_id,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+allow_propagate,"Allow Propagate
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+auto_select_forwarding_address,"Auto Select Forwarding Address
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+connected_to_handle,"Scenario element this connector is connecting to
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+custom_from_node_index,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'custom' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+custom_link_multiplier,"number of links between two nodes
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'custom' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+custom_to_node_index,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'custom' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_advertise_as_stub_network,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_device,"enables/disables device.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_ip,"Enable Simulated Interface IP
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_active,"Whether this is to be advertised or not
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_e_bit,"External Metric Bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_external_route_tag,"External Route Tag
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_f_bit,"Forwarding Address Bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_forwarding_address,"128 Bits IPv6 address.
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ipv6_network_address,"Network addresses of the simulated IPv6 network
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ipv6_network_address_step,"Not defined
+DEFAULT
+	
+0:0:0:1:0:0:0:0",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_l_a_bit,"Options-LA Bit(Local Address)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_link_network_group_handle,"Network Topology this link is pointing to
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_link_router_destination,"Index of the target node as defined in toNetworkTopology
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_link_router_source,"Index of the originating node as defined in fromNetworkTopology
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_link_state_id,"Link State Id of the simulated IPv6 network
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_link_state_id_prefix,"Link State Id Prefix
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_m_c_bit,"Options-MC Bit(Multicast)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_metric,"Metric
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_n_u_bit,"Options-NU Bit(No Unicast)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_p_bit,"Options-P Bit(Propagate)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix,"Prefix Length
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_count,"Prefix Count
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_reference_ls_type,"Reference LS Type
+Valid options are:
+ignore
+	
+router
+	
+network
+	
+DEFAULT
+	None",opt,"ignore,network,router",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_referenced_link_state_id,"Referenced Link State Id
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_t_bit,"External Route Tag Bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_unused_bit4,"Options-(4)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_unused_bit5,"Options-(5)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_unused_bit6,"Options-(6)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_unused_bit7,"Options-(7)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external1_active,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external1_metric,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external1_network_address,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external1_network_address_step,"Not defined
+DEFAULT
+	
+0.0.0.1",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external1_number_of_routes,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external1_prefix,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external2_active,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external2_metric,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external2_network_address,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external2_network_address_step,"Not defined
+DEFAULT
+	
+0.0.0.1",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external2_number_of_routes,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external2_prefix,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+fat_tree_level_count,"Number of Levels
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'fat-tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+fat_tree_link_multiplier,"number of links between two nodes
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'fat-tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+fat_tree_node_count,"Number of Nodes Per Level
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'fat-tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+forwarding_address,"Forwarding addresses of the Type-7 LSA
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+forwarding_address_step,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_ip,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_ip_step,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_ipv6,"128 Bits IPv6 address.
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_ipv6_step,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_col,"Defines number of columns in a grid. This option is valid only when
+-type is grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+2
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",range,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_include_emulated_device,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_row,"Defines number of rows in a grid. This option is valid only when -type
+is grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+2
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",range,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"This option represents the handle the user *must* pass to the
+'emulation_ospf_network_group_config' procedure. This option specifies
+on which OSPF router to configure the OSPF route range. The OSPF router
+handle(s) are returned by the procedure 'emulation_ospf_config' when
+configuring OSPF routers on the Ixia interface.
+DEFAULT
+	None",any,,IxNetwork-NGPF[M],universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hub_spoke_enable_level_2,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'hub-and-spoke' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hub_spoke_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'hub-and-spoke' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hub_spoke_number_of_first_level,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'hub-and-spoke' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hub_spoke_number_of_second_level,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'hub-and-spoke' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_active,"Whether this is to be advertised or not
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_d_c_bit,"Demand Circuit bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_destination_router_id,"Destination Router Id
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_destination_router_id_step,"Destination Router Id Prefix
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_e_bit,"bit describing how AS-external-LSAs are flooded
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_link_state_id,"Link State Id of the simulated IPv6 network
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_link_state_id_step,"Link State Id Step for the LSAs to be generated for this set of IPv6
+Inter-Area networks.
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_m_c_bit,"bit for forwarding of IP multicast datagrams
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_metric,"Metric
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_n_bit,"bit for handling Type 7 LSAs
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_active,"Whether this is to be advertised or not
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_count,"Count
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_l_a_bit,"Options-LA Bit(Local Address)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_link_state_id,"Link State Id of the simulated IPv6 network
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_link_state_id_prefix,"Link State Id Prefix
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_m_c_bit,"Options-MC Bit(Multicast)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_metric,"Metric
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_n_u_bit,"Options-NU Bit(No Unicast)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_network_address,"Prefixes of the simulated IPv6 network
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_p_bit,"Options-P Bit(Propagate)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_prefix,"Prefix Length
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_prefix_count,"Prefix Count
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_unused_bit4,"Options-(4)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_unused_bit5,"Options-(5)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_unused_bit6,"Options-(6)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_prefix_unused_bit7,"Options-(7)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_r_bit,"Router bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_reserved_bit6,"(6) Reserved Bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_reserved_bit7,"(7) Reserved Bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inter_area_v6_bit,"bit for excluding the router/link from IPv6 routing calculations. If
+clear, router/link is excluded
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_active,"Whether this is to be advertised or not
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_l_a_bit,"Options-LA Bit(Local Address)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_link_state_id,"Link State Id of the simulated IPv6 network
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_link_state_id_prefix,"Link State Id Prefix
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_m_c_bit,"Options-MC Bit(Multicast)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_metric,"Metric
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_n_u_bit,"Options-NU Bit(No Unicast)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_network_address,"Prefixes of the simulated IPv6 network
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_network_address_step,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_p_bit,"Options-P Bit(Propagate)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_prefix_count,"Prefix Count
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_reference_ls_type,"Reference LS Type
+Valid options are:
+router
+	
+network
+	
+DEFAULT
+	None",opt,"network,router",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_referenced_link_state_id,"Referenced Link State Id
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_referenced_router_id,"Referenced Advertising Router Id
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_unused_bit4,"Options-(4)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_unused_bit5,"Options-(5)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_unused_bit6,"Options-(6)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intra_area_unused_bit7,"Options-(7)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_active,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv4-prefix' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_allow_propagate,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv4-prefix' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_length,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv4-prefix' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_metric,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv4-prefix' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_network_address,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv4-prefix' |",ip,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_network_address_step,"Not defined
+DEFAULT
+	
+0.0.0.1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv4-prefix' |",ip,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_number_of_addresses,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv4-prefix' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_route_origin,"Not defined
+Valid options are:
+another_area
+	
+external_type_1
+	
+external_type_2
+	
+nssa
+	
+same_area
+	
+DEFAULT
+	
+another_area
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv4-prefix' |",opt,"another_area,external_type_1,external_type_2,nssa,same_area",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_active,"Flag.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_length,"Defines the length (in bits) of the mask to be used in conjunction with
+all the addresses created in the range.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_metric,"Route Metric
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_network_address,"Network addresses of the simulated IPv4 network
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv6-prefix' |",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_network_address_step,"Network addresses step of the simulated IPv6 network
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv6-prefix' |",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_number_of_addresses,"Number of Network Addresses
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ipv6-prefix' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_route_origin,"Route Origin
+Valid options are:
+anotherarea
+	
+externaltype1
+	
+externaltype2
+	
+samearea
+	
+nssa
+	
+DEFAULT
+	None",opt,"anotherarea,externaltype1,externaltype2,nssa,samearea",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linear_link_multiplier,"number of links between two nodes
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'linear' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linear_nodes,"number of nodes
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'linear' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_metric,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te,"This parameter enables Traffic Engineering on the link to the virtual
+ospf network Range topology. This field is applicable only when the
+-type is grid. This option is available with IxTclNetwork.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_administrator_group,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_max_bw,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_max_resv_bw,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_metric,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+10
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",range,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority0,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority1,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority2,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority3,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority4,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority5,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority6,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority7,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |
+'type' | value= 'router' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_active,"Whether this is to be advertised or not
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_d_c_bit,"Demand Circuit bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_e_bit,"bit describing how AS-external-LSAs are flooded
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_l_a_bit,"Options-LA Bit(Local Address)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_link_local_address,"128 Bits IPv6 address.
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_link_state_id,"Link State Id of the simulated IPv6 network
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_link_state_id_prefix,"Link State Id Prefix
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_m_c_bit,"Options-MC Bit(Multicast)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_metric,"Metric
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_n_bit,"bit for handling Type 7 LSAs
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_n_u_bit,"Options-NU Bit(No Unicast)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_network_address,"Network addresses of the simulated IPv6 network
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_p_bit,"Options-P Bit(Propagate)
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_prefix,"Prefix
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_prefix_count,"Range Size
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_r_bit,"Router bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_reserved_bit6,"(6) Reserved Bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_reserved_bit7,"(7) Reserved Bit
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_router_priority,"Router Priority
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_unused_bit4,"Options-(4)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_unused_bit5,"Options-(5)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_unused_bit6,"Options-(6)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_unused_bit7,"Options-(7)Unused
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_v6_bit,"bit for excluding the router/link from IPv6 routing calculations. If
+clear, router/link is excluded
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linklsa_x_bit,"bit for forwarding of IP multicast datagrams
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mesh_include_emulated_device,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'mesh' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mesh_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'mesh' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mesh_number_of_nodes,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'mesh' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Mode of the procedure call. Valid options are: create modify delete
+Valid options are:
+create
+	
+modify
+	
+delete
+	
+DEFAULT
+	
+create",opt,"create,delete,modify",IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+multiplier,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_active,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_include_forwarding_address,"Include Forwarding Address
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_link_state_id,"Start Link State Id for the LSAs to be generated for this set of IPv6
+NSSA networks.
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_link_state_id_step,"Link State Id Step for the LSAs to be generated for this set of IPv6
+NSSA networks.
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_metric,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_network_address,"Not defined
+DEFAULT
+	None",ip,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_network_address_step,"Not defined
+DEFAULT
+	
+0.0.0.1",ip,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_number_of_routes,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_prefix,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_propagate,"Propagate
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix,"Prefix Length
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+protocol_name,"Not defined
+DEFAULT
+	None",alpha,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+return_detailed_handles,"This argument determines if individual interface, session or router
+handles are returned by the current command. This applies only to the
+command on which it is specified. Setting this to 0 means that only
+NGPF-specific protocol stack handles will be returned. This will
+significantly decrease the size of command results and speed up script
+execution. The default is 0, meaning only protocol stack handles will be
+returned.
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ring_include_emulated_device,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ring' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ring_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ring' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ring_number_of_nodes,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ring' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_abr,"If true (1), set router to be an area boundary router (ABR). Correspond
+to E (external) bit in router LSA. This option is valid only when -type
+is router or grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",bool_opt,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_active,"Flag.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_asbr,"If true (1), set router to be an AS boundary router (ASBR). Correspond
+to B (Border) bit in router LSA. This option is valid only when -type is
+router or grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",bool_opt,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_id,"The ID associated with the router.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_id_step,"The ID associated with the router.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_system_id,"6 Byte System Id in hex format.
+DEFAULT
+	None",hex8withspaces,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_active,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_metric,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_network_address,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_network_address_step,"Not defined
+DEFAULT
+	
+0.0.0.1",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_number_of_routes,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_prefix,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+subnet_prefix_length,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_active,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_metric,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_network_address,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_network_address_step,"Not defined
+DEFAULT
+	
+0.0.0.1",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_number_of_routes,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_ip,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_ip_step,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_ipv6,"128 Bits IPv6 address.
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_ipv6_step,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_depth,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_include_emulated_device,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_max_children_per_node,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_number_of_nodes,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_use_tree_depth,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+type,"The type of topology route to create.
+Valid options are:
+grid
+	
+mesh
+	
+custom
+	
+ring
+	
+hub-and-spoke
+	
+tree
+	
+ipv4-prefix
+	
+fat-tree
+	
+linear
+	
+ipv6-prefix
+	
+DEFAULT
+	None",opt,"custom,fattree,grid,hubandspoke,ipv4prefix,ipv6prefix,linear,mesh,ring,tree",IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

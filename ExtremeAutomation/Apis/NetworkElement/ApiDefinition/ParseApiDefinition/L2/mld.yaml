@@ -1,0 +1,73 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+mld:
+    check_mld_state:
+        uuid: ae30153c-0e1b-41f7-9f87-8b0aa0bba7b0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_mld_version:
+        uuid: 2131af80-69aa-422b-831f-8eebdf920360
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_state:
+        uuid: 58b823a0-7041-4639-a169-04427cd5589f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_querier_state:
+        uuid: 57abc508-33a9-41ad-ad8c-0e6e9e853c3e
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_fast_leave:
+        uuid: de4344f2-bc00-4d63-a1b8-67cce9410186
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_last_member_query_count:
+        uuid: cdb20a08-1ee0-4450-97ec-95aac5931afe
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_last_member_query_interval:
+        uuid: 0ac9a091-eb91-4573-b6a5-afda8d3cc81f
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_robustness_variable:
+        uuid: 71933abe-94d1-419b-9b24-5d32ecf8d298
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_startup_query_count:
+        uuid: 65675b8f-1a0d-4119-aaa6-9ab5784b2563
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_startup_query_interval:
+        uuid: 920e0b69-49b7-4acf-9c78-294be9750b3f
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    check_mld_snooping_mrouter:
+        uuid: 9ecef9d0-c03e-4a22-abcb-3b3cea3187b0
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]

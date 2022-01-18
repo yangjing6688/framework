@@ -1,0 +1,1089 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020-2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common port devices on 5420 SFP/SFP+ models
+#
+
+sfp_1_devices: &SFP_1_DEVICES
+  devices:
+    - name:         sfp_1_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_0_ch0
+      address:      0x50
+  module_eeprom:    sfp_1_eeprom
+
+sfp_2_devices: &SFP_2_DEVICES
+  devices:
+    - name:         sfp_2_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_0_ch1
+      address:      0x50
+  module_eeprom:    sfp_2_eeprom
+
+sfp_3_devices: &SFP_3_DEVICES
+  devices:
+    - name:         sfp_3_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_0_ch2
+      address:      0x50
+  module_eeprom:    sfp_3_eeprom
+
+sfp_4_devices: &SFP_4_DEVICES
+  devices:
+    - name:         sfp_4_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_0_ch3
+      address:      0x50
+  module_eeprom:    sfp_4_eeprom
+
+sfp_5_devices: &SFP_5_DEVICES
+  devices:
+    - name:         sfp_5_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_0_ch4
+      address:      0x50
+  module_eeprom:    sfp_5_eeprom
+
+sfp_6_devices: &SFP_6_DEVICES
+  devices:
+    - name:         sfp_6_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_0_ch5
+      address:      0x50
+  module_eeprom:    sfp_6_eeprom
+
+sfp_7_devices: &SFP_7_DEVICES
+  devices:
+    - name:         sfp_7_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_0_ch6
+      address:      0x50
+  module_eeprom:    sfp_7_eeprom
+
+sfp_8_devices: &SFP_8_DEVICES
+  devices:
+    - name:         sfp_8_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_0_ch7
+      address:      0x50
+  module_eeprom:    sfp_8_eeprom
+
+sfp_9_devices: &SFP_9_DEVICES
+  devices:
+    - name:         sfp_9_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_1_ch0
+      address:      0x50
+  module_eeprom:    sfp_9_eeprom
+
+sfp_10_devices: &SFP_10_DEVICES
+  devices:
+    - name:         sfp_10_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_1_ch1
+      address:      0x50
+  module_eeprom:    sfp_10_eeprom
+
+sfp_11_devices: &SFP_11_DEVICES
+  devices:
+    - name:         sfp_11_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_1_ch2
+      address:      0x50
+  module_eeprom:    sfp_11_eeprom
+
+sfp_12_devices: &SFP_12_DEVICES
+  devices:
+    - name:         sfp_12_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_1_ch3
+      address:      0x50
+  module_eeprom:    sfp_12_eeprom
+
+sfp_13_devices: &SFP_13_DEVICES
+  devices:
+    - name:         sfp_13_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_1_ch4
+      address:      0x50
+  module_eeprom:    sfp_13_eeprom
+
+sfp_14_devices: &SFP_14_DEVICES
+  devices:
+    - name:         sfp_14_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_1_ch5
+      address:      0x50
+  module_eeprom:    sfp_14_eeprom
+
+sfp_15_devices: &SFP_15_DEVICES
+  devices:
+    - name:         sfp_15_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_1_ch6
+      address:      0x50
+  module_eeprom:    sfp_15_eeprom
+
+sfp_16_devices: &SFP_16_DEVICES
+  devices:
+    - name:         sfp_16_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_1_ch7
+      address:      0x50
+  module_eeprom:    sfp_16_eeprom
+
+sfp_17_devices: &SFP_17_DEVICES
+  devices:
+    - name:         sfp_17_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_2_ch0
+      address:      0x50
+  module_eeprom:    sfp_17_eeprom
+
+sfp_18_devices: &SFP_18_DEVICES
+  devices:
+    - name:         sfp_18_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_2_ch1
+      address:      0x50
+  module_eeprom:    sfp_18_eeprom
+
+sfp_19_devices: &SFP_19_DEVICES
+  devices:
+    - name:         sfp_19_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_2_ch2
+      address:      0x50
+  module_eeprom:    sfp_19_eeprom
+
+sfp_20_devices: &SFP_20_DEVICES
+  devices:
+    - name:         sfp_20_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_2_ch3
+      address:      0x50
+  module_eeprom:    sfp_20_eeprom
+
+sfp_21_devices: &SFP_21_DEVICES
+  devices:
+    - name:         sfp_21_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_2_ch4
+      address:      0x50
+  module_eeprom:    sfp_21_eeprom
+
+sfp_22_devices: &SFP_22_DEVICES
+  devices:
+    - name:         sfp_22_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_2_ch5
+      address:      0x50
+  module_eeprom:    sfp_22_eeprom
+
+sfp_23_devices: &SFP_23_DEVICES
+  devices:
+    - name:         sfp_23_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_2_ch6
+      address:      0x50
+  module_eeprom:    sfp_23_eeprom
+
+sfp_24_devices: &SFP_24_DEVICES
+  devices:
+    - name:         sfp_24_eeprom
+      compatible:   24c02
+      bus:          sfp_pca9548_2_ch7
+      address:      0x50
+  module_eeprom:    sfp_24_eeprom
+
+sfp_1_control: &SFP_1_CONTROL
+  module_present:
+    device:         sfp_pca9506_0
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_0
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_0
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_0
+    register:       0x08
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_0
+      register:     0x18
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_0
+      register:     0x08
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_0
+      register:     0x20
+      bitmask:      0x03
+      value:        0
+
+sfp_2_control: &SFP_2_CONTROL
+  module_present:
+    device:         sfp_pca9506_0
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_0
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_0
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_0
+    register:       0x09
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_0
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_0
+      register:     0x09
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_0
+      register:     0x21
+      bitmask:      0x03
+      value:        0
+
+sfp_3_control: &SFP_3_CONTROL
+  module_present:
+    device:         sfp_pca9506_0
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_0
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_0
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_0
+    register:       0x0a
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_0
+      register:     0x1a
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_0
+      register:     0x0a
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_0
+      register:     0x22
+      bitmask:      0x03
+      value:        0
+
+sfp_4_control: &SFP_4_CONTROL
+  module_present:
+    device:         sfp_pca9506_0
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_0
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_0
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_0
+    register:       0x0b
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_0
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_0
+      register:     0x0b
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_0
+      register:     0x23
+      bitmask:      0x03
+      value:        0
+
+sfp_5_control: &SFP_5_CONTROL
+  module_present:
+    device:         sfp_pca9506_1
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_1
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_1
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_1
+    register:       0x08
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_1
+      register:     0x18
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_1
+      register:     0x08
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_1
+      register:     0x20
+      bitmask:      0x03
+      value:        0
+
+sfp_6_control: &SFP_6_CONTROL
+  module_present:
+    device:         sfp_pca9506_1
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_1
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_1
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_1
+    register:       0x09
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_1
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_1
+      register:     0x09
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_1
+      register:     0x21
+      bitmask:      0x03
+      value:        0
+
+sfp_7_control: &SFP_7_CONTROL
+  module_present:
+    device:         sfp_pca9506_1
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_1
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_1
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_1
+    register:       0x0a
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_1
+      register:     0x1a
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_1
+      register:     0x0a
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_1
+      register:     0x22
+      bitmask:      0x03
+      value:        0
+
+sfp_8_control: &SFP_8_CONTROL
+  module_present:
+    device:         sfp_pca9506_1
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_1
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_1
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_1
+    register:       0x0b
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_1
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_1
+      register:     0x0b
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_1
+      register:     0x23
+      bitmask:      0x03
+      value:        0
+
+sfp_9_control: &SFP_9_CONTROL
+  module_present:
+    device:         sfp_pca9506_2
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_2
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_2
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_2
+    register:       0x08
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_2
+      register:     0x18
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_2
+      register:     0x08
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_2
+      register:     0x20
+      bitmask:      0x03
+      value:        0
+
+sfp_10_control: &SFP_10_CONTROL
+  module_present:
+    device:         sfp_pca9506_2
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_2
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_2
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_2
+    register:       0x09
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_2
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_2
+      register:     0x09
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_2
+      register:     0x21
+      bitmask:      0x03
+      value:        0
+
+sfp_11_control: &SFP_11_CONTROL
+  module_present:
+    device:         sfp_pca9506_2
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_2
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_2
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_2
+    register:       0x0a
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_2
+      register:     0x1a
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_2
+      register:     0x0a
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_2
+      register:     0x22
+      bitmask:      0x03
+      value:        0
+
+sfp_12_control: &SFP_12_CONTROL
+  module_present:
+    device:         sfp_pca9506_2
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_2
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_2
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_2
+    register:       0x0b
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_2
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_2
+      register:     0x0b
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_2
+      register:     0x23
+      bitmask:      0x03
+      value:        0
+
+sfp_13_control: &SFP_13_CONTROL
+  module_present:
+    device:         sfp_pca9506_3
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_3
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_3
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_3
+    register:       0x08
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_3
+      register:     0x18
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_3
+      register:     0x08
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_3
+      register:     0x20
+      bitmask:      0x03
+      value:        0
+
+sfp_14_control: &SFP_14_CONTROL
+  module_present:
+    device:         sfp_pca9506_3
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_3
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_3
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_3
+    register:       0x09
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_3
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_3
+      register:     0x09
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_3
+      register:     0x21
+      bitmask:      0x03
+      value:        0
+
+sfp_15_control: &SFP_15_CONTROL
+  module_present:
+    device:         sfp_pca9506_3
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_3
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_3
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_3
+    register:       0x0a
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_3
+      register:     0x1a
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_3
+      register:     0x0a
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_3
+      register:     0x22
+      bitmask:      0x03
+      value:        0
+
+sfp_16_control: &SFP_16_CONTROL
+  module_present:
+    device:         sfp_pca9506_3
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_3
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_3
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_3
+    register:       0x0b
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_3
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_3
+      register:     0x0b
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_3
+      register:     0x23
+      bitmask:      0x03
+      value:        0
+
+sfp_17_control: &SFP_17_CONTROL
+  module_present:
+    device:         sfp_pca9506_4
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_4
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_4
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_4
+    register:       0x08
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_4
+      register:     0x18
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_4
+      register:     0x08
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_4
+      register:     0x20
+      bitmask:      0x03
+      value:        0
+
+sfp_18_control: &SFP_18_CONTROL
+  module_present:
+    device:         sfp_pca9506_4
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_4
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_4
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_4
+    register:       0x09
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_4
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_4
+      register:     0x09
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_4
+      register:     0x21
+      bitmask:      0x03
+      value:        0
+
+sfp_19_control: &SFP_19_CONTROL
+  module_present:
+    device:         sfp_pca9506_4
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_4
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_4
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_4
+    register:       0x0a
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_4
+      register:     0x1a
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_4
+      register:     0x0a
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_4
+      register:     0x22
+      bitmask:      0x03
+      value:        0
+
+sfp_20_control: &SFP_20_CONTROL
+  module_present:
+    device:         sfp_pca9506_4
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_4
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_4
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_4
+    register:       0x0b
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_4
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_4
+      register:     0x0b
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_4
+      register:     0x23
+      bitmask:      0x03
+      value:        0
+
+sfp_21_control: &SFP_21_CONTROL
+  module_present:
+    device:         sfp_pca9506_5
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_5
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_5
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_5
+    register:       0x08
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_5
+      register:     0x18
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_5
+      register:     0x08
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_5
+      register:     0x20
+      bitmask:      0x03
+      value:        0
+
+sfp_22_control: &SFP_22_CONTROL
+  module_present:
+    device:         sfp_pca9506_5
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_5
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_5
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_5
+    register:       0x09
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_5
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_5
+      register:     0x09
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_5
+      register:     0x21
+      bitmask:      0x03
+      value:        0
+
+sfp_23_control: &SFP_23_CONTROL
+  module_present:
+    device:         sfp_pca9506_5
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_5
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_5
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_5
+    register:       0x0a
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_5
+      register:     0x1a
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_5
+      register:     0x0a
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_5
+      register:     0x22
+      bitmask:      0x03
+      value:        0
+
+sfp_24_control: &SFP_24_CONTROL
+  module_present:
+    device:         sfp_pca9506_5
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         sfp_pca9506_5
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         sfp_pca9506_5
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         sfp_pca9506_5
+    register:       0x0b
+    bitmask:        0x08
+  module_init_ops:
+    - device:       sfp_pca9506_5
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       sfp_pca9506_5
+      register:     0x0b
+      bitmask:      0x08
+      value:        1
+    - device:       sfp_pca9506_5
+      register:     0x23
+      bitmask:      0x03
+      value:        0
+
+sfp_1: &SFP_1
+  connector:        SFP
+  <<: *SFP_1_DEVICES
+  <<: *SFP_1_CONTROL
+
+sfp_2: &SFP_2
+  connector:        SFP
+  <<: *SFP_2_DEVICES
+  <<: *SFP_2_CONTROL
+
+sfp_3: &SFP_3
+  connector:        SFP
+  <<: *SFP_3_DEVICES
+  <<: *SFP_3_CONTROL
+
+sfp_4: &SFP_4
+  connector:        SFP
+  <<: *SFP_4_DEVICES
+  <<: *SFP_4_CONTROL
+
+sfp_5: &SFP_5
+  connector:        SFP
+  <<: *SFP_5_DEVICES
+  <<: *SFP_5_CONTROL
+
+sfp_6: &SFP_6
+  connector:        SFP
+  <<: *SFP_6_DEVICES
+  <<: *SFP_6_CONTROL
+
+sfp_7: &SFP_7
+  connector:        SFP
+  <<: *SFP_7_DEVICES
+  <<: *SFP_7_CONTROL
+
+sfp_8: &SFP_8
+  connector:        SFP
+  <<: *SFP_8_DEVICES
+  <<: *SFP_8_CONTROL
+
+sfp_9: &SFP_9
+  connector:        SFP
+  <<: *SFP_9_DEVICES
+  <<: *SFP_9_CONTROL
+
+sfp_10: &SFP_10
+  connector:        SFP
+  <<: *SFP_10_DEVICES
+  <<: *SFP_10_CONTROL
+
+sfp_11: &SFP_11
+  connector:        SFP
+  <<: *SFP_11_DEVICES
+  <<: *SFP_11_CONTROL
+
+sfp_12: &SFP_12
+  connector:        SFP
+  <<: *SFP_12_DEVICES
+  <<: *SFP_12_CONTROL
+
+sfp_13: &SFP_13
+  connector:        SFP
+  <<: *SFP_13_DEVICES
+  <<: *SFP_13_CONTROL
+
+sfp_14: &SFP_14
+  connector:        SFP
+  <<: *SFP_14_DEVICES
+  <<: *SFP_14_CONTROL
+
+sfp_15: &SFP_15
+  connector:        SFP
+  <<: *SFP_15_DEVICES
+  <<: *SFP_15_CONTROL
+
+sfp_16: &SFP_16
+  connector:        SFP
+  <<: *SFP_16_DEVICES
+  <<: *SFP_16_CONTROL
+
+sfp_17: &SFP_17
+  connector:        SFP
+  <<: *SFP_17_DEVICES
+  <<: *SFP_17_CONTROL
+
+sfp_18: &SFP_18
+  connector:        SFP
+  <<: *SFP_18_DEVICES
+  <<: *SFP_18_CONTROL
+
+sfp_19: &SFP_19
+  connector:        SFP
+  <<: *SFP_19_DEVICES
+  <<: *SFP_19_CONTROL
+
+sfp_20: &SFP_20
+  connector:        SFP
+  <<: *SFP_20_DEVICES
+  <<: *SFP_20_CONTROL
+
+sfp_21: &SFP_21
+  connector:        SFP
+  <<: *SFP_21_DEVICES
+  <<: *SFP_21_CONTROL
+
+sfp_22: &SFP_22
+  connector:        SFP
+  <<: *SFP_22_DEVICES
+  <<: *SFP_22_CONTROL
+
+sfp_23: &SFP_23
+  connector:        SFP
+  <<: *SFP_23_DEVICES
+  <<: *SFP_23_CONTROL
+
+sfp_24: &SFP_24
+  connector:        SFP
+  <<: *SFP_24_DEVICES
+  <<: *SFP_24_CONTROL

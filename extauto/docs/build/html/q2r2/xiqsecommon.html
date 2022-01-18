@@ -1,0 +1,2001 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XIQSE COMMON &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="XIQSE ADMIN" href="xiqseadmin.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="xiqconfigure.html"><strong>CONFIGURE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmanage.html"><strong>MANAGE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqa3.html"><strong>A3</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqcommon.html"><strong>COMMON FLOWS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqglobalsettings.html"><strong>GLOBAL SETTINGS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmlinsights.html"><strong>MLINSIGHTS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonlib.html"><strong>COMMON LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="remotelib.html"><strong>REMOTE LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqsenetwork.html"><strong>XIQSE NETWORK</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqseadmin.html"><strong>XIQSE ADMIN</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>XIQSE COMMON</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-xiqse.flows.common.XIQSE_Login">XIQSE_Login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xiqse.flows.common.XIQSE_Help">XIQSE_Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xiqse.flows.common.XIQSE_Navigator">XIQSE_Navigator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xiqse.flows.common.XIQSE_OperationsPanel">XIQSE_OperationsPanel</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><strong>XIQSE COMMON</strong></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/xiqsecommon.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xiqse-common">
+<h1><strong>XIQSE COMMON</strong><a class="headerlink" href="#xiqse-common" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page Contains Python Library Definitions For XIQ SE COMMON Menu</p>
+</div>
+<a class="reference internal image-reference" href="_images/extreme_logo.png"><img alt="alternate text" class="align-right" src="_images/extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-xiqse.flows.common.XIQSE_Login">
+<span id="xiqse-login"></span><h2>XIQSE_Login<a class="headerlink" href="#module-xiqse.flows.common.XIQSE_Login" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.common.XIQSE_Login.</code><code class="sig-name descname">XIQSE_Login</code><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_close_window">
+<code class="sig-name descname">xiqse_close_window</code><span class="sig-paren">(</span><em class="sig-param">win_index</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_close_window" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Closes the specified window</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>win_index</strong> – Index of the window to close</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_confirm_login_page_displayed">
+<code class="sig-name descname">xiqse_confirm_login_page_displayed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_confirm_login_page_displayed" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword confirms the XIQ-SE Login page is being displayed.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Confirm</span> <span class="pre">Login</span> <span class="pre">Page</span> <span class="pre">Displayed</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_get_base_url_of_current_page">
+<code class="sig-name descname">xiqse_get_base_url_of_current_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_get_base_url_of_current_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword is used to get the url of current loaded page</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>url</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_get_page_title">
+<code class="sig-name descname">xiqse_get_page_title</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_get_page_title" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the title of the page</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>page title</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_get_window_index">
+<code class="sig-name descname">xiqse_get_window_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_get_window_index" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the index of the window handle for this session</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>index of window handle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_handle_connection_lost_error">
+<code class="sig-name descname">xiqse_handle_connection_lost_error</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_handle_connection_lost_error" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Closes the “Connection to server lost” error dialog, if displayed, and logs the user back in.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Handle</span> <span class="pre">Connection</span> <span class="pre">Lost</span> <span class="pre">Error</span>&#160;&#160; <span class="pre">${USERNAME}</span>&#160;&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> – login account username</p></li>
+<li><p><strong>password</strong> – login account password</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_load_page">
+<code class="sig-name descname">xiqse_load_page</code><span class="sig-paren">(</span><em class="sig-param">url='default'</em>, <em class="sig-param">incognito_mode='False'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_load_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Loads the specified URL.</p></li>
+<li><p>By default url will load from the topology file</p></li>
+<li><p>keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Load</span> <span class="pre">Page</span>&#160;&#160; <span class="pre">${URL}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – url to load</p></li>
+<li><p><strong>incognito_mode</strong> – indicates whether or not to open the browser in incognito/private mode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if login successful else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_load_page_and_log_in">
+<code class="sig-name descname">xiqse_load_page_and_log_in</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">url='default'</em>, <em class="sig-param">incognito_mode='False'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_load_page_and_log_in" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Load the Login page specified by the passed URL, and enter login credentials.</p></li>
+<li><p>By default url will load from the topology file</p></li>
+<li><p>keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Load</span> <span class="pre">Page</span> <span class="pre">and</span> <span class="pre">Log</span> <span class="pre">In</span>&#160;&#160; <span class="pre">${USERNAME}</span>&#160;&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Load</span> <span class="pre">Page</span> <span class="pre">and</span> <span class="pre">Log</span> <span class="pre">In</span>&#160;&#160; <span class="pre">${USERNAME}</span>&#160;&#160; <span class="pre">${PASSWORD}</span>&#160;&#160; <span class="pre">${URL}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Load</span> <span class="pre">Page</span> <span class="pre">and</span> <span class="pre">Log</span> <span class="pre">In</span>&#160;&#160; <span class="pre">${USERNAME}</span>&#160;&#160; <span class="pre">${PASSWORD}</span>&#160;&#160;&#160; <span class="pre">incognito_mode=True</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Load</span> <span class="pre">Page</span> <span class="pre">and</span> <span class="pre">Log</span> <span class="pre">In</span>&#160;&#160; <span class="pre">${USERNAME}</span>&#160;&#160; <span class="pre">${PASSWORD}</span>&#160;&#160; <span class="pre">${URL}</span>&#160;&#160; <span class="pre">incognito_mode=True</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> – login account username</p></li>
+<li><p><strong>password</strong> – login account password</p></li>
+<li><p><strong>url</strong> – url to load</p></li>
+<li><p><strong>incognito_mode</strong> – indicates whether or not to open the browser in incognito/private mode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if login successful else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_login_user">
+<code class="sig-name descname">xiqse_login_user</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_login_user" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Log into the XIQ-SE account with the specified username and password</p></li>
+<li><p>keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Login</span> <span class="pre">User</span>&#160;&#160; <span class="pre">${USERNAME}</span>&#160;&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> – login account username</p></li>
+<li><p><strong>password</strong> – login account password</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if login successful else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_logout_user">
+<code class="sig-name descname">xiqse_logout_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_logout_user" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Logout the current user</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Logout</span> <span class="pre">User</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_quit_browser">
+<code class="sig-name descname">xiqse_quit_browser</code><span class="sig-paren">(</span><em class="sig-param">_driver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_quit_browser" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Closes all the browser windows and ends the WebDriver session gracefully.</p></li>
+<li><p>if the driver object is passed, quits and returns</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Quit</span> <span class="pre">Browser</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_driver</strong> – specific driver to use; if not specified, default driver will be used</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_refresh_page">
+<code class="sig-name descname">xiqse_refresh_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_refresh_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Refreshes the browser page</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_switch_to_window">
+<code class="sig-name descname">xiqse_switch_to_window</code><span class="sig-paren">(</span><em class="sig-param">win_index</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Login.XIQSE_Login.xiqse_switch_to_window" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Switches to the specified window</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>win_index</strong> – Index of the window to switch to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiqse.flows.common.XIQSE_Help">
+<span id="xiqse-help"></span><h2>XIQSE_Help<a class="headerlink" href="#module-xiqse.flows.common.XIQSE_Help" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xiqse.flows.common.XIQSE_Help.XIQSE_Help">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.common.XIQSE_Help.</code><code class="sig-name descname">XIQSE_Help</code><a class="headerlink" href="#xiqse.flows.common.XIQSE_Help.XIQSE_Help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.CommonHelpWebElements.CommonHelpWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Help.XIQSE_Help.xiqse_close_help_panel">
+<code class="sig-name descname">xiqse_close_help_panel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Help.XIQSE_Help.xiqse_close_help_panel" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword closes the Context Help panel, if it is open</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Close</span> <span class="pre">Help</span> <span class="pre">Panel</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiqse.flows.common.XIQSE_Navigator">
+<span id="xiqse-navigator"></span><h2>XIQSE_Navigator<a class="headerlink" href="#module-xiqse.flows.common.XIQSE_Navigator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.common.XIQSE_Navigator.</code><code class="sig-name descname">XIQSE_Navigator</code><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.CommonNavigatorWebElements.CommonNavigatorWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_backup_restore_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_backup_restore_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_backup_restore_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Backup/Restore Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Backup</span> <span class="pre">Restore</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Backup/Restore Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_certificates_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_certificates_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_certificates_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Certificates Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Certificates</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Certificates Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_client_api_access_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_client_api_access_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_client_api_access_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Client API Access Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Client</span> <span class="pre">API</span> <span class="pre">Access</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Client API Access Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_device_types_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_device_types_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_device_types_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Device Types Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Device</span> <span class="pre">Types</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Device Types Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_diagnostics_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_diagnostics_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_diagnostics_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Diagnostics Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Diagnostics</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Diagnostics Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_options_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_options_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_options_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Options Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Options</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Options Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_profiles_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_profiles_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_profiles_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Profiles Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Profiles</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Profiles Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_server_information_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_server_information_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_server_information_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Server Information Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Server</span> <span class="pre">Information</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Server Information Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_users_tab">
+<code class="sig-name descname">xiqse_navigate_to_admin_users_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_admin_users_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration&gt; Users Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Admin</span> <span class="pre">Users</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration&gt; Users Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_administration_tab">
+<code class="sig-name descname">xiqse_navigate_to_administration_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_administration_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Administration Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Administration</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Administration Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_alarm_configuration_tab">
+<code class="sig-name descname">xiqse_navigate_to_alarm_configuration_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_alarm_configuration_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Alarms &amp; Events&gt; Alarms Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Alarm</span> <span class="pre">Configuration</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Alarms &amp; Events&gt; Alarm Configuration Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_alarms_and_events_tab">
+<code class="sig-name descname">xiqse_navigate_to_alarms_and_events_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_alarms_and_events_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Alarms &amp; Events Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Alarms</span> <span class="pre">and</span> <span class="pre">Events</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Alarms &amp; Events Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_alarms_tab">
+<code class="sig-name descname">xiqse_navigate_to_alarms_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_alarms_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Alarms &amp; Events&gt; Alarms Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Alarms</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Alarms &amp; Events&gt; Alarms Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_application_flows_tab">
+<code class="sig-name descname">xiqse_navigate_to_analytics_application_flows_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_application_flows_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Analytics&gt; Application Flows Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Analytics</span> <span class="pre">Application</span> <span class="pre">Flows</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Analytics&gt; Application Flows Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_browser_tab">
+<code class="sig-name descname">xiqse_navigate_to_analytics_browser_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_browser_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Analytics&gt; Browser Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Analytics</span> <span class="pre">Browser</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Analytics&gt; Browser Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_configuration_tab">
+<code class="sig-name descname">xiqse_navigate_to_analytics_configuration_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_configuration_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Analytics&gt; Configuration Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Analytics</span> <span class="pre">Configuration</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Analytics&gt; Configuration Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_dashboard_tab">
+<code class="sig-name descname">xiqse_navigate_to_analytics_dashboard_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_dashboard_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Analytics&gt; Dashboard Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Analytics</span> <span class="pre">Dashboard</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Analytics&gt; Dashboard Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_fingerprints_tab">
+<code class="sig-name descname">xiqse_navigate_to_analytics_fingerprints_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_fingerprints_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Analytics&gt; Fingerprints Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Analytics</span> <span class="pre">Fingerprints</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Analytics&gt; Fingerprints Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_packet_captures_tab">
+<code class="sig-name descname">xiqse_navigate_to_analytics_packet_captures_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_packet_captures_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Analytics&gt; Packet Captures Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Analytics</span> <span class="pre">Packet</span> <span class="pre">Captures</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Analytics&gt; Packet Captures Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_reports_tab">
+<code class="sig-name descname">xiqse_navigate_to_analytics_reports_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_reports_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Analytics&gt; Reports Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Analytics</span> <span class="pre">Reports</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Analytics&gt; Reports Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_tab">
+<code class="sig-name descname">xiqse_navigate_to_analytics_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_analytics_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Analytics Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Analytics</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Analytics Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_compliance_audit_tests_tab">
+<code class="sig-name descname">xiqse_navigate_to_compliance_audit_tests_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_compliance_audit_tests_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Compliance&gt; Audit Tests Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Compliance</span> <span class="pre">Audit</span> <span class="pre">Tests</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Compliance&gt; Audit Tests Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_compliance_dashboard_tab">
+<code class="sig-name descname">xiqse_navigate_to_compliance_dashboard_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_compliance_dashboard_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Compliance&gt; Dashboard Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Compliance</span> <span class="pre">Dashboard</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Compliance&gt; Dashboard Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_compliance_tab">
+<code class="sig-name descname">xiqse_navigate_to_compliance_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_compliance_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Compliance Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Compliance</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Compliance Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_connect_configuration_tab">
+<code class="sig-name descname">xiqse_navigate_to_connect_configuration_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_connect_configuration_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Connect&gt; Configuration Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Connect</span> <span class="pre">Configuration</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Connect&gt; Configuration Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_connect_diagnostics_tab">
+<code class="sig-name descname">xiqse_navigate_to_connect_diagnostics_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_connect_diagnostics_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Connect&gt; Diagnostics Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Connect</span> <span class="pre">Diagnostics</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Connect&gt; Diagnostics Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_connect_services_api_tab">
+<code class="sig-name descname">xiqse_navigate_to_connect_services_api_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_connect_services_api_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Connect&gt; Services API Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Connect</span> <span class="pre">Services</span> <span class="pre">API</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Connect&gt; Services API Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_connect_tab">
+<code class="sig-name descname">xiqse_navigate_to_connect_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_connect_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Connect Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Connect</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Connect Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_access_control_tab">
+<code class="sig-name descname">xiqse_navigate_to_control_access_control_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_access_control_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Control&gt; Access Control Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Control</span> <span class="pre">Access</span> <span class="pre">Control</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Control&gt; Access Control Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_dashboard_tab">
+<code class="sig-name descname">xiqse_navigate_to_control_dashboard_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_dashboard_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Control&gt; Dashboard Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Control</span> <span class="pre">Dashboard</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Control&gt; Dashboard Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_end_systems_tab">
+<code class="sig-name descname">xiqse_navigate_to_control_end_systems_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_end_systems_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Control&gt; End-Systems Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Control</span> <span class="pre">End</span> <span class="pre">Systems</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Control&gt; End-Systems Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_policy_tab">
+<code class="sig-name descname">xiqse_navigate_to_control_policy_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_policy_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Control&gt; Policy Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Control</span> <span class="pre">Policy</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Control&gt; Policy Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_reports_tab">
+<code class="sig-name descname">xiqse_navigate_to_control_reports_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_reports_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Control&gt; Reports Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Control</span> <span class="pre">Reports</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Control&gt; Reports Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_tab">
+<code class="sig-name descname">xiqse_navigate_to_control_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_control_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Control Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Control</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Control Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_event_configuration_tab">
+<code class="sig-name descname">xiqse_navigate_to_event_configuration_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_event_configuration_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Alarms &amp; Events&gt; Event Configuration Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Event</span> <span class="pre">Configuration</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Alarms &amp; Events&gt; Event Configuration Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_events_tab">
+<code class="sig-name descname">xiqse_navigate_to_events_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_events_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Alarms &amp; Events&gt; Events Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Events</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Alarms &amp; Events&gt; Events Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_archives_tab">
+<code class="sig-name descname">xiqse_navigate_to_network_archives_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_archives_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Network&gt; Archives Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Network</span> <span class="pre">Archives</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Network&gt; Archives Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_configuration_templates_tab">
+<code class="sig-name descname">xiqse_navigate_to_network_configuration_templates_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_configuration_templates_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Network&gt; Configuration Templates Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Network</span> <span class="pre">Configuration</span> <span class="pre">Templates</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Network&gt; Configuration Templates Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_dashboard_tab">
+<code class="sig-name descname">xiqse_navigate_to_network_dashboard_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_dashboard_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Network&gt; Dashboard Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Network</span> <span class="pre">Dashboard</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Network&gt; Dashboard Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_devices_tab">
+<code class="sig-name descname">xiqse_navigate_to_network_devices_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_devices_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Network</span> <span class="pre">Devices</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Network&gt; Devices Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_discovered_tab">
+<code class="sig-name descname">xiqse_navigate_to_network_discovered_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_discovered_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Network&gt; Discovered Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Network</span> <span class="pre">Discovered</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Network&gt; Discovered Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_firmware_tab">
+<code class="sig-name descname">xiqse_navigate_to_network_firmware_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_firmware_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Network&gt; Firmware Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Network</span> <span class="pre">Firmware</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Network&gt; Firmware Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_reports_tab">
+<code class="sig-name descname">xiqse_navigate_to_network_reports_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_reports_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Network&gt; Reports Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Network</span> <span class="pre">Reports</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Network&gt; Reports Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_tab">
+<code class="sig-name descname">xiqse_navigate_to_network_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_network_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Network Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Network</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Network Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_reports_custom_report_tab">
+<code class="sig-name descname">xiqse_navigate_to_reports_custom_report_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_reports_custom_report_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Reports&gt; Custom Report Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Reports</span> <span class="pre">Custom</span> <span class="pre">Report</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Reports&gt; Custom Report Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_reports_report_designer_tab">
+<code class="sig-name descname">xiqse_navigate_to_reports_report_designer_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_reports_report_designer_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Reports&gt; Report Designer Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Reports</span> <span class="pre">Report</span> <span class="pre">Designer</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Reports&gt; Report Designer Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_reports_reports_tab">
+<code class="sig-name descname">xiqse_navigate_to_reports_reports_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_reports_reports_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Reports&gt; Reports Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Reports</span> <span class="pre">Reports</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Reports&gt; Reports Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_reports_tab">
+<code class="sig-name descname">xiqse_navigate_to_reports_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_reports_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Reports Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Reports</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Reports Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tab">
+<code class="sig-name descname">xiqse_navigate_to_tab</code><span class="sig-paren">(</span><em class="sig-param">tab_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified tab in the main navigation panel</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">to</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Network</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">to</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Administration</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">to</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Reports</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tab_name</strong> – name of the sub tab to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_saved_tasks_tab">
+<code class="sig-name descname">xiqse_navigate_to_tasks_saved_tasks_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_saved_tasks_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Tasks&gt; Saved Tasks Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Tasks</span> <span class="pre">Saved</span> <span class="pre">Tasks</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Tasks&gt; Saved Tasks Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_scheduled_tasks_tab">
+<code class="sig-name descname">xiqse_navigate_to_tasks_scheduled_tasks_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_scheduled_tasks_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Tasks&gt; Scheduled Tasks Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Tasks</span> <span class="pre">Scheduled</span> <span class="pre">Tasks</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Tasks&gt; Scheduled Tasks Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_scripts_tab">
+<code class="sig-name descname">xiqse_navigate_to_tasks_scripts_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_scripts_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Tasks&gt; Scripts Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Tasks</span> <span class="pre">Scripts</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Tasks&gt; Scripts Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_tab">
+<code class="sig-name descname">xiqse_navigate_to_tasks_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Tasks Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Tasks</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Tasks Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_workflow_dashboard_tab">
+<code class="sig-name descname">xiqse_navigate_to_tasks_workflow_dashboard_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_workflow_dashboard_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Tasks&gt; Workflow Dashboard Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Tasks</span> <span class="pre">Workflow</span> <span class="pre">Dashboard</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Tasks&gt; Workflow Dashboard Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_workflows_tab">
+<code class="sig-name descname">xiqse_navigate_to_tasks_workflows_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_tasks_workflows_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Tasks&gt; Workflows Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Tasks</span> <span class="pre">Workflows</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Tasks&gt; Workflows Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_access_points_tab">
+<code class="sig-name descname">xiqse_navigate_to_wireless_access_points_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_access_points_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Wireless&gt; Access Points Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Wireless</span> <span class="pre">Access</span> <span class="pre">Points</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Wireless&gt; Access Points Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_clients_tab">
+<code class="sig-name descname">xiqse_navigate_to_wireless_clients_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_clients_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Wireless&gt; Clients Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Wireless</span> <span class="pre">Clients</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Wireless&gt; Clients Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_controllers_tab">
+<code class="sig-name descname">xiqse_navigate_to_wireless_controllers_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_controllers_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Wireless&gt; Controllers Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Wireless</span> <span class="pre">Controllers</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Wireless&gt; Controllers Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_dashboard_tab">
+<code class="sig-name descname">xiqse_navigate_to_wireless_dashboard_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_dashboard_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Wireless&gt; Dashboard Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Wireless</span> <span class="pre">Dashboard</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Wireless&gt; Dashboard Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_network_tab">
+<code class="sig-name descname">xiqse_navigate_to_wireless_network_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_network_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Wireless&gt; Network Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Wireless</span> <span class="pre">Network</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Wireless&gt; Network Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_reports_tab">
+<code class="sig-name descname">xiqse_navigate_to_wireless_reports_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_reports_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Wireless&gt; Reports Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Wireless</span> <span class="pre">Reports</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Wireless&gt; Reports Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_tab">
+<code class="sig-name descname">xiqse_navigate_to_wireless_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Wireless Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Wireless</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Wireless Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_threats_tab">
+<code class="sig-name descname">xiqse_navigate_to_wireless_threats_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_Navigator.XIQSE_Navigator.xiqse_navigate_to_wireless_threats_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword Navigates to the Wireless&gt; Threats Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">To</span> <span class="pre">Wireless</span> <span class="pre">Threats</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if Navigation Successful to Wireless&gt; Threats Tab, else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiqse.flows.common.XIQSE_OperationsPanel">
+<span id="xiqse-operationspanel"></span><h2>XIQSE_OperationsPanel<a class="headerlink" href="#module-xiqse.flows.common.XIQSE_OperationsPanel" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.common.XIQSE_OperationsPanel.</code><code class="sig-name descname">XIQSE_OperationsPanel</code><a class="headerlink" href="#xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.CommonOperationsPanelWebElements.CommonOperationsPanelWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_clear_operations_panel">
+<code class="sig-name descname">xiqse_clear_operations_panel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_clear_operations_panel" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clears the contents of the Operations panel</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Clear</span> <span class="pre">Operations</span> <span class="pre">Panel</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_close_operations_panel">
+<code class="sig-name descname">xiqse_close_operations_panel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_close_operations_panel" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword closes the Operations panel, if it is open</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Close</span> <span class="pre">Operations</span> <span class="pre">Panel</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_open_operations_panel">
+<code class="sig-name descname">xiqse_open_operations_panel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_open_operations_panel" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword opens the Operations panel, if it is closed</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Open</span> <span class="pre">Operations</span> <span class="pre">Panel</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_operations_expand_group">
+<code class="sig-name descname">xiqse_operations_expand_group</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_operations_expand_group" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword expands the specified group in the Operations panel, if it is not yet expanded.</p></li>
+<li><p>If there is more than one matching entry in the panel, this will expand the first matching entry.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Operations</span> <span class="pre">Expand</span> <span class="pre">Group</span>&#160; <span class="pre">Discover</span> <span class="pre">Site</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – name of the group to expand</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_operations_get_discovered_device_count">
+<code class="sig-name descname">xiqse_operations_get_discovered_device_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_operations_get_discovered_device_count" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword obtains the discovered device count from the last Site Discover operations panel entry.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Operations</span> <span class="pre">Get</span> <span class="pre">Discovered</span> <span class="pre">Device</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns the number of discovered devices as reported in the message for the Discover Site entry</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_operations_get_operation_complete">
+<code class="sig-name descname">xiqse_operations_get_operation_complete</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.common.XIQSE_OperationsPanel.XIQSE_OperationsPanel.xiqse_operations_get_operation_complete" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword checks the progress of the specified operation in the Operations panel.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Operations</span> <span class="pre">Get</span> <span class="pre">Operation</span> <span class="pre">Complete</span>&#160; <span class="pre">Discover</span> <span class="pre">Site</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – name of the operation to get the progress of</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if operation progress is at 100%, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="xiqseadmin.html" class="btn btn-neutral float-left" title="XIQSE ADMIN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramkumar Vellasamy
+      <span class="lastupdated">
+        Last updated on Jun 03, 2021, 6:58:48 PM.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+policydevice:
+    policy_device_expand_device_tree:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_device_node:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_radius_tab:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_device_radius_server:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_delete_device_radius_server:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_apply_device_radius_settings:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_ports_tab:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_device_port:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_authentication_tab:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_click_authentication_tree_panel:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_port_authentication_tab:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_port_authentication_mode:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_port_dot1x_status:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_server:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_click_port_authentication_apply:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_click_port_authentication_refresh:
+        apis:
+            - [emc,'8.4.0']
+    policy_device_add_radius_dialog_edit_ip:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_dialog_edit_secret:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_dialog_edit_access:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_dialog_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_port_macauth_status:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_radius_accounting_tab:
+        apis:
+            - [emc,'8.1.1||8.1.4']
+    policy_device_select_device_radius_accounting_server:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_delete_device_radius_accounting_server:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_apply_device_radius_accounting_settings:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_accounting_server:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_accounting_dialog_edit_ip:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_accounting_dialog_edit_secret:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_accounting_dialog_edit_access:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_add_radius_accounting_dialog_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_device_macauth_status:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_select_device_dot1x_status:
+        apis:
+            - [emc,'8.1.1']
+    policy_device_expand_device_port:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_collapse_device_port:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_click_authentication_device_tree_panel:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_click_authentication_ports_tree_panel:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_select_device_authentication_tab:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_select_mac_auth_set_password_and_mask:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_set_mac_auth_user_password:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_select_mac_auth_mask:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_select_mac_auth_address_delimiter:
+        apis:
+            - [emc,'8.1.3']
+    policy_device_select_device_rfc3580_vlan_authorization_status:
+        apis:
+            - [emc,'8.1.4']
+    policy_device_click_radius_authentication_tree_panel:
+        apis:
+            - [emc,'8.1.4']
+    policy_device_click_radius_accounting_tree_panel:
+        apis:
+            - [emc,'8.1.4']
+    policy_device_select_radius_authentication_tab:
+        apis:
+            - [emc,'8.1.4']
+    policy_device_select_radius_authentication_response_mode:
+        apis:
+            - [emc,'8.1.4']
+    policy_device_apply_radius_authentication_client_settings:
+        apis:
+            - [emc,'8.1.4']
+    policy_device_apply_radius_accounting_client_settings:
+        apis:
+            - [emc,'8.1.4']
+    policy_device_apply_device_authentication:
+        apis:
+            - [emc,'8.1.1||8.1.3']

@@ -1,0 +1,43 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+vpex:
+    verify_vpex_enabled:
+        uuid: e3c3d941-fc68-4ccb-9c3b-67ba26071b03
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_vpex_auto_configuration_enabled:
+        uuid: d0603eae-3e51-400e-9014-841051a7f506
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vpex_ring_rebalancing_set_to_auto:
+        uuid: eead3ae6-dd2b-491a-b040-6b54a770f35a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vpex_set_on_port:
+        uuid: b9e60458-2c97-438c-9ab7-45fc0eab3b17
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_all_cascade_ports:
+        uuid: 2c771de8-6e0d-4e18-b229-ba86d2b8672f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vpex_topology_on_port:
+        uuid: 984a4e16-7f77-449d-a69f-06a2a3aeee95
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

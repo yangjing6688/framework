@@ -1,0 +1,52 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcasites:
+    select_site_and_config:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_site_device_groups_page:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    click_site_open_detail_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_site_floor_plans_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_site_location_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_site_switches_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_site_snmp_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_name_to_open_device_group_edit_window:
+        apis:
+            - [xca,'04.26.03.0007']
+    close_device_group_edit_window:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_device_group_profile_edit_window:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_radios_for_device_group_profile:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_roles_for_device_group_profile:
+        apis:
+            - [xca,'04.26.03.0007']
+    deselect_roles_for_device_group_profile:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_device_group_profile_config:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_site_config_and_back_to_site_page:
+        apis:
+            - [xca,'04.26.03.0007']

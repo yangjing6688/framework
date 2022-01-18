@@ -1,0 +1,120 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2017, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for BCM Trident3 chipset based platforms.
+#  If the value for a capability variable is different from the value
+#  in default.yaml for Trident3 chipset, they should have an entry in this
+#  file (Provided the variables classify under "Override: Chipset level")
+#
+
+
+trident3_capability: &TRIDENT3_CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  # Limit/Scaling parameters
+  maxNumRules: 2048
+  # 75% VLAN_XLATE - VLAN_MAC (Double-Wide) (32k)
+  maxNumMuxRulesL: 24576
+  slice_profiles:
+    default:
+      maxNumRules_mac: 512
+      maxNumRules_ipv6: 512
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 440
+    more_ipv4_less_acl:
+      maxNumRules_mac: 512
+      maxNumRules_ipv6: 512
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 440
+    more_ipv4_no_ipv6_less_acl:
+      maxNumRules_mac: 512
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 440
+    more_ipv4_no_l2_less_acl:
+      maxNumRules_mac: 512
+      maxNumRules_ipv6: 512
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 0
+    more_ipv4_no_mac_no_ipv6_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1536
+      maxNumRules_l2: 440
+    more_ipv4_no_mac_no_ipv6_no_l2_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 2048
+      maxNumRules_l2: 0
+    more_ipv4_no_ipv6:
+      maxNumRules_mac: 512
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 440
+    more_ipv4_no_mac_no_ipv6:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1536
+      maxNumRules_l2: 440
+    more_ipv4_no_l2:
+      maxNumRules_mac: 512
+      maxNumRules_ipv6: 512
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 0
+    more_ipv4_no_mac_no_ipv6_no_l2:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 2048
+      maxNumRules_l2: 0
+    more_mac_no_ipv6:
+      maxNumRules_mac: 1024
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 440
+  sliceDepth: 512
+  vfpSliceDepth: 256
+  maxRtifMetadata: 4095
+  maxPortPerLAGroup: 64
+  maxL2McastGroup: 4096
+  maxVirtualNetworks: 4096
+  maxVirtAccPorts: 16384
+  maxVirtNetPorts: 16384
+  maxLteps: 64
+  maxRteps: 16384
+  maxMacIpBindings: 278528
+  MplsRxHwCounters: 8191
+  MplsTxHwCounters: 8191
+  MplsEchoKill: MPLS_CAP_ECHO_KILL_PORT_VLAN
+  MplsEgrLspLabelMax: 0x3FFF
+  NumVplsSupported: 1023
+  NumVpwsSupported: 4095
+  RsvpTeMaxPaths: 2000
+  RsvpTeMaxProfiles: 2000
+  IpNatMaxVlans: 4
+  IpNatMaxRules: 1024
+
+  # Boolean type supported/not-supported capability parameters.
+  Mpls: true
+  Pstag: true
+  L2VpnPwEcmp: true
+  OvrlyGw: true
+  ResilentHash: true
+  OvrlyVxlanL2Gw: true
+  OvrlyVxlanL3Gw: true
+  HwBfd: true
+  # PTP1588 is false per Kevin Frick
+  PTP1588: false
+  CutThrough: true
+  L2VPNSharingSupportedForSpokePW: true
+  PwMacMoveDetect: true
+  VpwsHwSupport: true
+  Fabric: true
+  IpNat: true
+  VpexExtMirror: false
+  VpexPolicyTciOverwrite: false
+  Pib: true
+  TunnelMtu: true

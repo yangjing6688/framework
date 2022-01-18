@@ -1,0 +1,112 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+options:
+    options_expand_option:
+        apis:
+            - [emc,'8.1.1']
+    options_collapse_option:
+        apis:
+            - [emc,'8.1.1']
+    options_select_option:
+        apis:
+            - [emc,'8.1.1']
+    options_restore_defaults:
+        apis:
+            - [emc,'8.1.1']
+    options_reset:
+        apis:
+            - [emc,'8.1.1']
+    options_save:
+        apis:
+            - [emc,'8.1.1']
+    options_set_extreme_networks_updates_credentials:
+        apis:
+            - [emc,'8.1.1']
+    options_set_db_backup_file_path:
+        apis:
+            - [emc,'8.1.1']
+    options_set_db_backup_include_additional_data:
+        apis:
+            - [emc,'8.1.1']
+    options_set_db_backup_schedule_file_format:
+        apis:
+            - [emc,'8.1.1']
+    options_set_db_backup_schedule_occurrence:
+        apis:
+            - [emc,'8.1.1']
+    options_set_db_backup_schedule_limit_backups:
+        apis:
+            - [emc,'8.1.1']
+    options_set_ftp_file_transfer:
+        apis:
+            - [emc,'8.1.1']
+    options_set_scp_file_transfer:
+        apis:
+            - [emc,'8.1.1']
+    options_set_sftp_file_transfer:
+        apis:
+            - [emc,'8.1.1']
+    options_set_tftp_file_transfer:
+        apis:
+            - [emc,'8.1.1']
+    options_set_device_tree_name_format:
+        apis:
+            - [emc,'8.1.1']
+    options_set_access_control_collection_poll_rate:
+        apis:
+            - [emc,'8.1.1']
+    options_set_device_collection_poll_rate:
+        apis:
+            - [emc,'8.1.1']
+    options_set_interface_collection_poll_rate:
+        apis:
+            - [emc,'8.1.1']
+    options_set_wireless_collection_access_point_poll_rate:
+        apis:
+            - [emc,'8.1.1']
+    options_set_wireless_collection_controller_poll_rate:
+        apis:
+            - [emc,'8.1.1']
+    options_set_status_polling_default_group:
+        apis:
+            - [emc,'8.1.1']
+    options_set_status_polling_poll_group_1:
+        apis:
+            - [emc,'8.1.1']
+    options_set_status_polling_poll_group_2:
+        apis:
+            - [emc,'8.1.1']
+    options_set_status_polling_poll_group_3:
+        apis:
+            - [emc,'8.1.1']
+    options_set_trap_snmpv1_credential_name:
+        apis:
+            - [emc,'8.1.1']
+    options_set_trap_snmpv2_credential_name:
+        apis:
+            - [emc,'8.1.1']
+    options_set_trap_snmpv3_credential_name:
+        apis:
+            - [emc,'8.1.1']
+    options_set_web_server_timeout:
+        apis:
+            - [emc,'8.1.1']
+    options_set_site_show_vlan_untagged:
+        apis:
+            - [emc,'8.1.3']
+    options_set_trap_engine_delay_start:
+        apis:
+            - [emc,'8.2.3']
+    options_set_syslog_engine_delay_start:
+        apis:
+            - [emc,'8.2.3']
+    options_site_set_length_of_snmp_timeout:
+        apis:
+            - [emc,'8.4.0']
+    options_site_set_number_of_snmp_retries:
+        apis:
+            - [emc,'8.4.0']

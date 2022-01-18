@@ -1,0 +1,134 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines fan FRUs common to 5520 series switches
+#
+
+fan_conroller_max31790: &FAN_CONTROLLER_MAX31790
+  name:             fanctl_max31790
+  bus:              i2cbus_2
+  compatible:       max31790
+  address:          0x29
+  fan_controls:
+    - name:         max31790_fan1
+      number:       1
+    - name:         max31790_fan2
+      number:       2
+    - name:         max31790_fan3
+      number:       3
+    - name:         max31790_fan4
+      number:       4
+    - name:         max31790_fan5
+      number:       5
+    - name:         max31790_fan6
+      number:       6
+
+fan_controller_cpld: &FAN_CONTROLLER_CPLD
+  name:             fanctl_cpld
+  bus:              platform
+  compatible:       cpld_fan_controller
+  device:           system_cpld_reg
+  direction_values:
+    B2F:            0x0
+    F2B:            0x1
+  fan_module_controls:
+    - name:         fanctl_module_1
+      presence:
+        register:   0x60
+        bitmask:    0x01
+      direction:
+        register:   0x6c
+        bitmask:    0x01
+    - name:         fanctl_module_2
+      presence:
+        register:   0x60
+        bitmask:    0x02
+      direction:
+        register:   0x6c
+        bitmask:    0x02
+    - name:        fanctl_module_3
+      presence:
+        register:   0x60
+        bitmask:    0x04
+      direction:
+        register:   0x6c
+        bitmask:    0x04
+
+common_fan_info: &COMMON_FAN_INFO
+  number_fan_frus:  3
+  fans_per_fru:     2
+  polling_period:   2000
+
+fan_fru_1: &FAN_FRU_1
+  number:           1
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         MODULAR
+  led:              fantray1_led
+  control:          fanctl_module_1
+  fans:
+    - number:       1
+      control:      max31790_fan1
+    - number:       2
+      control:      max31790_fan2
+
+fan_fru_2: &FAN_FRU_2
+  number:           2
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         MODULAR
+  led:              fantray2_led
+  control:          fanctl_module_2
+  fans:
+    - number:       1
+      control:      max31790_fan3
+    - number:       2
+      control:      max31790_fan4
+
+fan_fru_3: &FAN_FRU_3
+  number:           3
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         MODULAR
+  led:              fantray3_led
+  control:          fanctl_module_3
+  fans:
+    - number:       1
+      control:      max31790_fan5
+    - number:       2
+      control:      max31790_fan6
+
+common_24tx_fan_info: &COMMON_24TX_FAN_INFO
+  number_fan_frus:  2
+  fans_per_fru:     2
+  polling_period:   2000
+
+fan_fru_24tx_1: &FAN_FRU_24TX_1
+  number:           1
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         MODULAR
+  led:              fantray1_led
+  control:          fanctl_module_2
+  fans:
+    - number:       1
+      control:      max31790_fan3
+    - number:       2
+      control:      max31790_fan4
+
+fan_fru_24tx_2: &FAN_FRU_24TX_2
+  number:           2
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         MODULAR
+  led:              fantray2_led
+  control:          fanctl_module_3
+  fans:
+    - number:       1
+      control:      max31790_fan5
+    - number:       2
+      control:      max31790_fan6

@@ -1,0 +1,49 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for X435-24P-4S
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+   - name: 1
+     <<: *1G_POE_PORT
+
+   - name: 2
+     <<: *1G_POE_PORT
+
+   - name: 3
+     <<: *1G_POE_PORT
+
+   - name: 4
+     <<: *1G_POE_PORT
+
+   - name: 5
+     <<: *1G_POE_PORT
+
+   - name: 6
+     <<: *1G_POE_PORT
+
+   - name: 7
+     <<: *1G_POE_PORT
+
+   - name: 8
+     <<: *1G_POE_PORT
+
+   - name: 9
+     <<: [*SFP_1, *1G_SFP_PORT]
+
+   - name: 10
+     <<: [*SFP_2, *1G_SFP_PORT]
+
+   - name: 11
+     <<: [*SFP_3, *1G_SFP_PORT]
+
+   - name: 12
+     <<: [*SFP_4, *1G_SFP_PORT]

@@ -1,0 +1,8 @@
+robotframework
+selenium
+sauceclient
+netmiko
+paramiko
+pexpect
+Pillow
+image

@@ -1,0 +1,134 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+multiauth:
+    check_multiauth_state:
+        uuid: 2f83a69c-664e-4642-90a8-a1fccaec9017
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_exists:
+        uuid: dfdaf1f4-dfb6-4985-a135-7d2379fc0178
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_expired:
+        uuid: 7924c590-5470-4efb-96e1-c5a69f90b77d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_timeout:
+        uuid: b0e32939-fd26-46ed-85da-9afb124756ea
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_timeout_mac:
+        uuid: 300dc448-c95f-495c-90b6-72637f25a034
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_timeout_dot1x:
+        uuid: b42c3923-951b-486e-a438-228e8902c717
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_timeout_web:
+        uuid: 97f33680-39ff-465c-b799-2406355a6429
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_idle_timeout:
+        uuid: 3e31edf8-b14f-44ba-a76a-a924300dd53b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_idle_timeout_mac:
+        uuid: 34f13921-a135-4aaa-940d-e7acdae5d121
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_idle_timeout_dot1x:
+        uuid: 5f6d3177-c610-4171-b980-fdc311dd8f3f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_idle_timeout_web:
+        uuid: 146b6f0a-d145-4709-afbb-3083f330980b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_idle_time:
+        uuid: 50b0b726-eed6-4d51-b663-723710e1c7ca
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_idle_time_greater:
+        uuid: ce4c7619-c542-4630-9627-44558feef05e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_idle_time_less:
+        uuid: 8ddb8ed1-7541-4705-b3a0-f8996738750a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_duration_greater:
+        uuid: 919c0855-a5e5-401b-b08b-f59c99cda09e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_duration_less:
+        uuid: 1332caa6-91be-4c32-ab65-06c28b27d8b8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_timeout_default:
+        uuid: b55f0322-9f54-4713-9e08-000bf75a82b7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_idle_timeout_default:
+        uuid: bbe05e14-9abf-47ec-a7ee-2fbbdc936f70
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_vlan_exists:
+        uuid: a3cd21ba-ffb6-4dd3-b951-3e1f7c43e3dd
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_refresh:
+        uuid: c65bd42b-df1a-465c-812d-e42a8c35d034
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_multiauth_session_refresh_interval:
+        uuid: ea1819d9-7ce3-4247-ba6f-16eef70e8c90
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

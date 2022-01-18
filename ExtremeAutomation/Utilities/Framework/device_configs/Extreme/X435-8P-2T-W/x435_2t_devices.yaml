@@ -1,0 +1,142 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common buses and devices present on the
+#  mainboard of X435 series switches
+#
+
+
+# ##################################################################
+# Common Devices
+# ##################################################################
+
+
+i2cbus_0: &I2CBUS_0
+  name:               i2cbus_0
+  bus_type:           I2C
+  device:             CPU
+  number:             0
+
+i2cbus_1: &I2CBUS_1
+  name:               i2cbus_1
+  bus_type:           I2C
+  device:             CPU
+  number:             1
+
+
+# ##################################################################
+# Common Devices
+# ##################################################################
+
+pca9548_0: &PCA9548_0
+  name:               pca9548_0
+  compatible:         pca9548
+  bus:                i2cbus_1
+  address:            0x77
+  channel_map:
+    - number:         0
+      bus:            pca9548_0_ch0
+    - number:         1
+      bus:            pca9548_0_ch1
+    - number:         2
+      bus:            pca9548_0_ch2
+    - number:         3
+      bus:            pca9548_0_ch3
+    - number:         4
+      bus:            pca9548_0_ch4
+    - number:         5
+      bus:            pca9548_0_ch5
+    - number:         6
+      bus:            pca9548_0_ch6
+    - number:         7
+      bus:            pca9548_0_ch7
+
+pca9555_0: &PCA9555_0
+  name:               pca9555_0
+  compatible:         pca9555
+  bus:                pca9548_0_ch4
+  address:            0x26
+  regmap_desc:
+    range:            [0x0, 0x7]
+    num_reg_bits:     8
+    num_value_bits:   8
+  init_ops:
+    - register:       0x6
+      value:          0x1b
+      mask:           0xff
+      count:          1
+    - register:       0x7
+      value:          0x3
+      mask:           0xff
+      count:          1
+    - register:       0x2
+      value:          0x3
+      mask:           0xc0
+      count:          1
+
+# TMP75AIDR
+mb_ambient_tmpsn: &MB_AMBIENT_TMPSN
+  name:               mb_ambient_tmpsn
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x48
+
+system_eeprom: &SYSTEM_EEPROM
+  name:               system_eeprom
+  compatible:         24c128
+  bus:                pca9548_0_ch7
+  address:            0x50
+  format:             extreme
+
+#RTCMCP7940X
+rtc_mcp_7940x: &RTC_MCP_7940X
+  name:               rtc_mcp_7940x
+  compatible:         mcp7940x
+  bus:                pca9548_0_ch6
+  address:            0x6f
+
+
+system_gpio_0: &SYSTEM_GPIO_0
+  name:               system_gpio_0
+  compatible:         cmicd_gpio
+  location:
+    base:             0
+  pins:
+    - name:             system_led
+      index:            0
+      direction:        out
+      init:             low
+      active_low:       true
+# This pin is managed by the EXOS watchdog driver
+#    - name:             watchdog_enable
+#      index:            1
+#      direction:        out
+#      init:             low
+    - name:             board_int
+      index:            2
+      direction:        in
+      edge:             falling
+# This pin is managed by the EXOS watchdog driver
+#    - name:             watchdog_kick
+#      index:            3
+#      direction:        out
+#      init:             low
+
+system_gpio_1: &SYSTEM_GPIO_1
+  name:               system_gpio_1
+  compatible:         iproc_gpio
+  location:
+    base:             4
+  pins:
+    - name:             mode_button_int
+      index:            1
+      direction:        in
+      edge:             falling
+    - name:             9548_reset
+      index:            2
+      direction:        out
+      init:             high

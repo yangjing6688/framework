@@ -1,0 +1,85 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcaaaa:
+    click_configure_default_aaa_configuration:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_manage_certificates:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_radius_servers_tab:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_ldap_configurations_tab:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_local_password_repository_tab:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_add_to_create_a_new_radius_server:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_add_to_create_a_new_ldap_configuration:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_add_to_create_a_new_local_password_repository_user:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_aaa_authentication_method:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_aaa_primary_and_backup_radius:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_aaa_ldap_configuration:
+        apis:
+            - [xca,'04.26.03.0007']
+    check_authenticate_locally_for_mac:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_config_and_back_to_aaa_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_radius_server_to_open_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_ldap_configuration_to_open_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_local_password_repository_user_to_open_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_radius_server_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_radius_server_advanced_settings_and_close:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_ldap_connection_url:
+        apis:
+            - [xca,'04.26.03.0007']
+    add_ldap_connection_url:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_ldap_configuration_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_ldap_schema_definition_and_close:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_local_password_repository_user_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_radius_server:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_ldap_configuration:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_local_password_repository_user:
+        apis:
+            - [xca,'04.26.03.0007']

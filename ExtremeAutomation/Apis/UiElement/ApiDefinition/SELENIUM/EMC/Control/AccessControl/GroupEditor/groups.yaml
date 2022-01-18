@@ -1,0 +1,46 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+groups:
+    groups_click_add_group_button:
+        apis:
+            - [emc,'8.3.0||8.4.0']
+    groups_click_delete_group_button:
+        apis:
+            - [emc,'8.3.0||8.4.0']
+    groups_click_edit_group_button:
+        apis:
+            - [emc,'8.3.0||8.4.0']
+    groups_click_refresh_button:
+        apis:
+            - [emc,'8.3.0||8.4.0']
+    groups_dialog_set_group_name:
+        apis:
+            - [emc,'8.3.0||8.4.0']
+    groups_dialog_select_group_type:
+        apis:
+            - [emc,'8.3.0||8.4.0']
+    groups_dialog_add_location_group_entry:
+        apis:
+            - [emc,'8.3.0||8.4.0']
+    groups_dialog_save_group_entry:
+        apis:
+            - [emc,'8.3.0||8.4.0']
+    groups_select_group:
+        apis:
+            - [emc,'8.3.0']
+    groups_dialog_click_create_new_group:
+        apis:
+            - [emc,'8.3.0']
+    groups_dialog_add_ldap_user_group_entry:
+        apis:
+            - [emc,'8.3.0']
+    groups_dialog_save_and_close_group:
+        apis:
+            - [emc,'8.3.0']
+    groups_delete_group:
+        apis:
+            - [emc,'8.3.0']

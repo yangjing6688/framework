@@ -1,0 +1,101 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for BCM ranger2 chipset based platforms.
+#  If the value for a capability variable is different from the value
+#  in default.yaml for ranger2 chipset, they should have an entry in this
+#  file (Provided the variables classify under "Override: Chipset level")
+#
+
+
+ranger2_capability: &RANGER2_CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  # Limit/Scaling parameters
+  maxNumVFPRules: 512
+  # 75% VLAN_XLATE (2k)
+  maxNumMuxRulesL: 1536
+  slice_profiles:
+    default:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+    more_ipv4_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+    more_ipv4_no_ipv6_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+    more_ipv4_no_l2_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 0
+    more_ipv4_no_mac_no_ipv6_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+    more_ipv4_no_mac_no_ipv6_no_l2_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 0
+    more_ipv4_no_ipv6:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+    more_ipv4_no_mac_no_ipv6:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+    more_ipv4_no_l2:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 0
+    more_ipv4_no_mac_no_ipv6_no_l2:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 0
+    more_mac_no_ipv6:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+  sliceDepth: 256
+  vfpSliceDepth: 128
+  numIfpPdSlices: 2
+  numIfpCosSlices: 2
+  maxRoutedVR: 1
+  maxLocalOnlyVR: 16
+  maxRtif: 510
+  maxRtifMetadata: 0
+  maxL3McastGroup: 256
+  maxEgressMirroringInstances: 1
+  minFibEntry: 464
+  maxFibEntry: 480
+
+  # Boolean type supported/not-supported capability parameters.
+  Gre: false
+  GreVrf: false
+  PortBasedLag: false
+  CustomLag: false
+  Crc32LagHash: false
+  Ipv6Tunnel: false
+  FlexibleInternalTables: false
+  Alpm: false
+  L7PolicyIpCounter: false
+  Pib: true

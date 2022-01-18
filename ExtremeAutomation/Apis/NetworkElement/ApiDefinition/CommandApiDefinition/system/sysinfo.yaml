@@ -1,0 +1,60 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+sysinfo:
+    show_hardware_summary:
+        uuid: 531d77b2-554f-4fbb-b5cd-e5519a1e1951
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show slot',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show system hardware brief',userPrompt,'None','None','None',[],[]]
+    show_core_files:
+        uuid: 3c5089f2-d362-4999-9b75-6602db32b8e1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'ls internal-memory',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'dir slot{slot}/cores',userPrompt,'None','None','None',[],[]]
+    show_system_cpu_usage:
+        uuid: 1896061d-31fa-4171-9668-f344caf212d7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show cpu-monitoring',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show system utilization cpu',userPrompt,'None','None','None',[],[]]
+    show_system_info:
+        uuid: 9992c6bd-2b22-4727-ad19-cfbd352a6ca1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show switch',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show sys-info',userPrompt,'None','None','None',[],[]]
+    show_system_slot_info:
+        uuid: 603a68dd-444a-40cd-b052-10bd801852b3
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'debug messageLog message|| i|| x',debugPrompt,'None','None','None',[],[]]
+    show_slot_files:
+        uuid: 0f34134f-4468-4907-9d7f-53e5008f6880
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'dir slot{slot}',userPrompt,'None','None','None',[],[]]

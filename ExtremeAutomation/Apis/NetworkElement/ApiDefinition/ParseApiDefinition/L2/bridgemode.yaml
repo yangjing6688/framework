@@ -1,0 +1,18 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+bridgemode:
+    check_bridge_mode:
+        uuid: 7a050bab-7b61-4dd7-91ef-4bdc14dbf6cd
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]

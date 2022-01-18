@@ -1,0 +1,313 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+hostmonitor:
+    show_cpu_interval:
+        uuid: e97df02b-91bf-4939-8fa0-3af5bcc8c885
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.4.1.1916.1.32.1.1.','i','']
+    show_cpu_total_utilization:
+        uuid: 8c875734-a5cb-45cc-abf7-8952cc6fb4b1
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.4.1.1916.1.32.1.2.','i','']
+    show_cpu_5_second_utilization:
+        uuid: ac0e07c4-8548-47b5-af1d-026466f209d4
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.4.1.5.{slot}','i','']
+    show_cpu_10_second_utilization:
+        uuid: 3b1a7b24-3e73-4c58-a693-7dcf82e0df89
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.4.1.6.{slot}','i','']
+    show_cpu_30_second_utilization:
+        uuid: 7ce541fe-9ea4-4fb4-8163-f5495f571d46
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.4.1.7.{slot}','i','']
+    show_cpu_1_minute_utilization:
+        uuid: a6012dcf-37df-4ca5-8811-b639bdd3c3c7
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.4.1.8.{slot}','i','']
+    show_cpu_5_minute_utilization:
+        uuid: 6458c585-fcc0-46f3-9c72-6900df517b18
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.4.1.9.{slot}','i','']
+    show_cpu_30_minute_utilization:
+        uuid: 3d968f3c-9388-4de6-8b12-9bcafdcfe2e6
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.4.1.10.{slot}','i','']
+    show_cpu_1_hour_utilization:
+        uuid: df190893-734f-4468-9266-56a99e411910
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.4.1.11.{slot}','i','']
+    show_cpu_max_utilization:
+        uuid: f0438753-177c-4300-ae21-d037d52085a6
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.4.1.12.{slot}','i','']
+    show_cpu_threshold:
+        uuid: 1f88285a-5cfd-47f5-8ca9-4132fd276fb6
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.4.1.1916.1.32.1.5.','i','']
+    show_cpu_process_state:
+        uuid: 4a05f27c-c264-4b90-8aa5-87a413232e34
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.4.{process_name}','i','']
+    show_cpu_process_5_second_utilization:
+        uuid: 0a786eb1-b672-49ea-b8f6-89f9c79e68f5
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.5.{process_name}','i','']
+    show_cpu_process_10_second_utilization:
+        uuid: 43c01c86-ce8b-454d-9883-22680a9398ac
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.6.{process_name}','i','']
+    show_cpu_process_30_second_utilization:
+        uuid: e821e3da-92c6-4190-a3bc-9f5733ee9b48
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.7.{process_name}','i','']
+    show_cpu_process_1_minute_utilization:
+        uuid: 0c121479-86ad-4a7c-895f-daa9dc816f1c
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.8.{process_name}','i','']
+    show_cpu_process_5_minute_utilization:
+        uuid: 04955ae9-04fa-4608-8964-181008ab13cb
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.9.{process_name}','i','']
+    show_cpu_process_30_minute_utilization:
+        uuid: ca317a00-77ae-40ce-8922-a7fc8c396d1f
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.10.{process_name}','i','']
+    show_cpu_process_1_hour_utilization:
+        uuid: b43290f5-71ff-44f7-9de0-51adaf5b6f12
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.11.{process_name}','i','']
+    show_cpu_process_max_utilization:
+        uuid: 4ecc9b48-ddda-4e43-bc2e-ea41dd1877eb
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.12.{process_name}','i','']
+    show_cpu_process_application_time:
+        uuid: 20d2fcad-ed04-4f30-b3f1-d6a4e4387867
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.13.{process_name}','i','']
+    show_cpu_process_kernel_time:
+        uuid: 122757a3-d80e-4d04-bd2d-4702bbf4a6b7
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.1.3.1.14.{process_name}','i','']
+    show_cpu_current_total_utilization:
+        uuid: 4b715aa5-36a8-4a89-ba3f-f1b61104d5d9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance cpu {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.2.{slot}','i','']
+    show_cpu_5_minute_total_utilization:
+        uuid: 7baccf20-2ed6-43af-a954-1cb80f45ae16
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance cpu {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.3.{slot}','i','']
+    show_cpu_highest_5_minute_total_utilization:
+        uuid: 2c70c83d-fb44-4203-b48e-11a9f8c7b56a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance cpu {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.4.{slot}','i','']
+    show_cpu_5_minute_hi_time_total_utilization:
+        uuid: a0bb0f40-a260-4da1-b8f2-da0a8f2a28ed
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance cpu {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.5.{slot}','i','']
+    show_total_memory:
+        uuid: 19410f8f-d964-4e9f-bf92-345f8d7cf61f
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.2.2.1.2.{slot}','i','']
+    show_free_memory:
+        uuid: 02ac1ef8-4ea0-467c-ad77-331efa785913
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.2.2.1.3.{slot}','i','']
+    show_used_system_service_memory:
+        uuid: 8b66371b-2a6f-4273-84fe-51e6d604406f
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.2.2.1.4.{slot}','i','']
+    show_used_user_application_memory:
+        uuid: 64dd8cd6-436a-41c0-8edf-dbfa69abc48c
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.2.2.1.5.{slot}','i','']
+    show_used_memory_for_process:
+        uuid: 52143391-1745-400a-b2ae-286169900e50
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,get,'1.3.6.1.4.1.1916.1.32.2.3.1.3.{oid_index}','i','']
+    show_used_total_memory:
+        uuid: 0d11e377-6503-4359-878c-7e5b6fb72195
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance memory {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.6.{slot}','i','']
+    show_free_total_memory:
+        uuid: 30d88f0c-761d-45cb-95f1-6bdc0c1687c2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance memory {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.7.{slot}','i','']
+    show_memory_total_utilization:
+        uuid: 65c4b178-768a-47ae-8317-0e684c08f301
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance memory {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.8.{slot}','i','']
+    show_memory_5_minute_total_utilization:
+        uuid: 4168d780-8d0b-4fce-aa3b-c5ca5e0997c9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance memory {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.9.{slot}','i','']
+    show_memory_highest_5_minute_total_utilization:
+        uuid: 38c5fcae-0a2c-4a48-97da-25a49960dd7c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance memory {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.10.{slot}','i','']
+    show_memory_5_minute_hi_time_total_utilization:
+        uuid: d90814b2-9a48-4302-8ead-cbf3ff6f4386
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance memory {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.11.{slot}','i','']
+    show_used_fbuf:
+        uuid: b55c1af8-4739-4f06-b7f4-9e0d57f49dd6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.12.{slot}','i','']
+    show_free_fbuf:
+        uuid: 90fa9474-462f-4d83-be64-5f14c83dd3f1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.13.{slot}','i','']
+    show_exhausted_fbufs:
+        uuid: 0ad339c7-4cba-49af-b049-646a67b13cd2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.14.{slot}','i','']
+    show_net_stack_system_free_mbuf:
+        uuid: 7f29e0c2-f6fc-4c26-9d0d-a5b1d5ac676c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.15.{slot}','i','']
+    show_net_stack_data_free_mbuf:
+        uuid: 5a89ebf9-b5ba-4a80-ae48-dbfd22b5692c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.16.{slot}','i','']
+    show_net_stack_system_used_mbuf:
+        uuid: 83509ac7-a75c-466c-9208-2c30222ec012
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.17.{slot}','i','']
+    show_net_stack_data_used_mbuf:
+        uuid: 81811985-1562-4818-a333-d0275fd30025
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.18.{slot}','i','']
+    show_net_stack_system_socket_mbuf:
+        uuid: 59566cc4-9a43-434c-8c67-362597a5b2d6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.19.{slot}','i','']
+    show_highest_queue_entries_consumed:
+        uuid: 8ef38433-92db-4f8b-977f-b0d006f1c9c7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.20.{slot}','i','']
+    show_current_queue_entries_consumed:
+        uuid: 67571eb2-7e02-4ebf-8c0d-1d29ef4fbf5c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.21.{slot}','i','']
+    show_free_queue_entries:
+        uuid: a4768ae6-debc-455b-a240-0123f7d91f59
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show khi performance buffer-pool {slot}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.85.10.1.1.22.{slot}','i','']
+    show_slot:
+        uuid: 9cebe644-cb38-4cf6-a727-276929580b72
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show slot',userPrompt,'None','None','None',[],[]]

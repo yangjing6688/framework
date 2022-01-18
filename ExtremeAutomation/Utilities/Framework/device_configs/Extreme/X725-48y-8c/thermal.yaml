@@ -1,0 +1,14 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on X725-48y-8c
+#
+
+sensors:
+  - *CPU_DEFAULT_TMPSN
+  - *MB_HOTSPOT_TMPSN
+  - *MB_AMBIENT_TMPSN

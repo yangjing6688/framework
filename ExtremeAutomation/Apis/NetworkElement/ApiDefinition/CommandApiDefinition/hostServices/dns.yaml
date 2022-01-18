@@ -1,0 +1,134 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+dns:
+    create_domain_name:
+        description: "Creates the default domain used for querying the DNS Server"
+        arguments:
+            order: 
+        uuid: e52ebe68-5a1e-4318-b7eb-01f0165887db
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip domain-name {domain_name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.70.0','s','{domain_name}']
+    delete_domain_name:
+        description: "Deletes the default domain used for querying the DNS Server by setting it to a zero-length string"
+        arguments:
+            order: 
+        uuid: 24f37769-0d47-4a87-b6de-7ba2735d7daf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip domain-name',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.70.0','s','']
+    set_primary_server_ip:
+        description: "Configures the primary DNS Server"
+        arguments:
+            order: ip_addr,ip_type
+        uuid: 1a4f6daf-b175-4fd8-826b-87f0ad9d8ef5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip name-server primary {ip_addr}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.64.1.6.0||1.3.6.1.4.1.2272.1.1.64.1.7.0||1.3.6.1.4.1.2272.1.1.64.1.8.0','i||i||s','4||{ip_type}||{ip_addr}']
+    set_secondary_server_ip:
+        description: "Configures the secondary DNS Server"
+        arguments:
+            order: ip_addr,ip_type
+        uuid: e309545c-f045-4ff1-b3b5-df236f6960bf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip name-server secondary {ip_addr}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.64.1.6.1||1.3.6.1.4.1.2272.1.1.64.1.7.1||1.3.6.1.4.1.2272.1.1.64.1.8.1','i||i||s','4||{ip_type}||{ip_addr}']
+    set_tertiary_server_ip:
+        description: "Configures the tertiary DNS Server"
+        arguments:
+            order: ip_addr,ip_type
+        uuid: a7cfe8b1-4a4e-4c98-a4ee-00ccaaed6d61
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip name-server tertiary {ip_addr}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.64.1.6.2||1.3.6.1.4.1.2272.1.1.64.1.7.2||1.3.6.1.4.1.2272.1.1.64.1.8.2','i||i||s','4||{ip_type}||{ip_addr}']
+    clear_primary_server_ip:
+        description: "Clears the primary DNS Server"
+        arguments:
+            order: 
+        uuid: ff9d10d1-2200-492f-a0bc-ef9a9aaa1b9d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip name-server primary',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.64.1.6.0','i','6']
+    clear_secondary_server_ip:
+        description: "Clears the secondary DNS Server"
+        arguments:
+            order: 
+        uuid: efd8b04c-9820-463e-a4e1-1b90aa0cedc4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip name-server secondary',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.64.1.6.1','i','6']
+    clear_tertiary_server_ip:
+        description: "Clears the tertiary DNS Server"
+        arguments:
+            order: 
+        uuid: 44ad3310-2381-4b0f-87a9-0831a6b47c79
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip name-server tertiary',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.64.1.6.2','i','6']
+    show_domain_name:
+        uuid: 1e06dc66-ec69-44c8-9676-76fe265614e0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip dns',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.1.70.0','i','']
+    show_servers:
+        uuid: 3f478d14-8e1b-4411-93c9-73b85fe57ea2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip dns',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.1.64','i','']
+    show_host_by_name:
+        uuid: 4cac61fc-ac22-4d80-86d1-7b9c04e84d32
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show hosts {host_name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.1.65.1.2.{host_name}||1.3.6.1.4.1.2272.1.1.65.1.5.{host_name}||1.3.6.1.4.1.2272.1.1.65.1.6.{host_name}','i','']
+    show_host_by_ip:
+        uuid: 9513a6d8-fea3-405c-a3d9-1a4971678132
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show hosts {host_ip}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.1.65.1.2.{host_ip}||1.3.6.1.4.1.2272.1.1.65.1.5.{host_ip}||1.3.6.1.4.1.2272.1.1.65.1.6.{host_ip}','i','']

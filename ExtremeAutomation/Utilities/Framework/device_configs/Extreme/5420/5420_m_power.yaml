@@ -1,0 +1,16 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the PSUs specific to 5420
+#
+
+power_info:
+  <<: *COMMON_POWER_INFO
+
+psus:
+  - *PSU_M_1
+  - *PSU_M_2

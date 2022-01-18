@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines watchdogs specific to X690-48t-4q-2c
+#
+
+watchdogs:
+  - *WATCHDOG1

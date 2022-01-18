@@ -1,0 +1,576 @@
+from time import sleep
+from selenium.webdriver.common.keys import Keys
+
+import common.CloudDriver
+from common.AutoActions import AutoActions
+from common.Utils import Utils
+from common.Screen import Screen
+
+import xiq.flows.common.ToolTipCapture as tool_tip
+
+from xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from xiq.flows.common.Navigator import Navigator
+
+from xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
+from xiq.elements.NavigatorWebElements import NavigatorWebElements
+
+
+class DeviceTemplate(object):
+
+    def __init__(self):
+        self.utils = Utils()
+        self.auto_actions = AutoActions()
+        self.screen = Screen()
+        self.driver = common.CloudDriver.cloud_driver
+        self.navigator = NavigatorWebElements()
+        self.device_template_web_elements = DeviceTemplateWebElements()
+        self.network_policy = NetworkPolicy()
+        self.navigator = Navigator()
+
+    def check_ap_template(self, ap_template):
+        """
+        - Check the AP template in th AP template Grid
+        - Keyword Usage
+         - ``Check AP Template  ${AP_TEMPLATE_NAME}``
+
+        :param ap_template: Ap Template Name ie AP630,AP410C
+        :return: True if AP Template Found on Grid else False
+        """
+        self.utils.print_info("Click on Device Template tab button")
+        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        sleep(2)
+
+        ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()
+        if not ap_template_rows_elements:
+            return False
+        for el in ap_template_rows_elements:
+            if ap_template.upper() in el.text.upper():
+                self.utils.print_info("Template Already present in the template grid")
+                return True
+        return False
+
+    def add_ap_template(self, ap_template_name, **wifi_interface_config):
+        """
+        - Checking the AP template present in the AP Templates Grid
+        - If it is not there add New AP Template
+        - WiFi2 config was removed as per jira ticket EXTAUTO-113 and APC-44337.
+        - Keyword Usage
+         - ``Add AP Template  ${AP_TEMPLATE_NAME}   &{AP_TEMPLATE_CONFIG}``
+
+        :param ap_template_name: AP Template Name ie AP630,AP410C
+        :param wifi_interface_config: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
+        :return: 1 if AP Template Configured Successfully else -1
+        """
+        wifi0_config = wifi_interface_config['wifi0_configuration']
+        wifi1_config = wifi_interface_config['wifi1_configuration']
+        wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+
+        sleep(5)
+
+        if self.check_ap_template(ap_template_name):
+            self.utils.print_info("Template Already present in the template grid")
+            return 1
+
+        self.utils.print_info("Click on AP Template add button")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_add_button())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("select the AP: ", ap_template_name)
+        ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
+        for el in ap_list_items:
+            if not el:
+                pass
+            if ap_template_name.upper() in el.text.upper():
+                self.auto_actions.click(el)
+                break
+            print(el.text)
+        sleep(3)
+
+        self.utils.print_info("Enter the AP Template Name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_text(), ap_template_name)
+        sleep(3)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Configure WiFI0 Interface for AP Template")
+        self.config_ap_template_wifi0(**wifi0_config)
+        sleep(3)
+
+        self.utils.print_info("Configure WiFI1 Interface for AP Template")
+        self.config_ap_template_wifi1(**wifi1_config)
+        sleep(3)
+
+        if not wifi2_config == 'None':
+            self.config_ap_template_wifi2(**wifi2_config)
+
+        self.utils.print_info("Click on the save template button")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
+        sleep(3)
+
+        tool_tip_text = tool_tip.tool_tip_text
+        self.screen.save_screen_shot()
+        sleep(2)
+        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+        sub_string = "template"
+        strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
+        self.utils.print_info("Tool tip Text ap template", strings_with_substring)
+        if "AP template was saved successfully" in str(strings_with_substring):
+            return 1
+        else:
+            return -1
+
+    def config_ap_template_wifi0(self, **wifi0_profile):
+        """
+        - Configure the WIFI0 configuration on AP Template
+        - Keyword Usage
+         - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
+
+        :param wifi0_profile: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
+        :return: 1 if WiFi0 Profile Configured Successfully else None
+        """
+        client_access_status_wifi0 = wifi0_profile.get('client_access', 'Enable')
+        backhaul_mesh_status_wifi0 = wifi0_profile.get('backhaul_mesh_link', 'Enable')
+        sensor_status_wifi0 = wifi0_profile.get('sensor', 'Enable')
+        radio_profile_wifi0 = wifi0_profile.get('radio_profile', 'radio_ng_11ax-2g')
+
+        self.utils.print_info("Click on WiFi0 Tab on AP Template page")
+        self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi0_tab())
+        sleep(3)
+
+        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+        self.utils.print_info(f"select Radio Profile:{radio_profile_wifi0}")
+        sleep(2)
+        self.auto_actions.click(self.device_template_web_elements.get_wifi0_radio_profile_drop_down())
+        self.auto_actions.select_drop_down_options(self.device_template_web_elements.
+                                                   get_wifi0_radio_profile_drop_down_opts(), radio_profile_wifi0)
+        if client_access_status_wifi0.upper() == "ENABLE":
+            self.utils.print_info("Enable Client Access Checkbox on WiFi0 Interface")
+            if not self.device_template_web_elements.get_client_access_checkbox_wifi0().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi0())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
+            if self.device_template_web_elements.get_client_access_checkbox_wifi0().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi0())
+                sleep(5)
+
+        if backhaul_mesh_status_wifi0.upper() == "ENABLE":
+            self.utils.print_info("Enable Backhaul Mesh Link Checkbox on WiFi0 Interface")
+            if not self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi0 Interface")
+            if self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0())
+                sleep(5)
+
+        if sensor_status_wifi0.upper() == "ENABLE":
+            self.utils.print_info("Enable Sensor Checkbox on WiFi0 Interface")
+            if not self.device_template_web_elements.get_sensor_checkbox_wifi0().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi0())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Sensor Checkbox on WiFi0 Interface")
+            if self.device_template_web_elements.get_sensor_checkbox_wifi0().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi0())
+                sleep(5)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        if self.device_template_web_elements.get_wifi0_sdr_checkbox():
+            self.utils.print_info("Disable SDR Checkbox")
+            if self.device_template_web_elements.get_wifi0_sdr_checkbox().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_wifi0_sdr_checkbox())
+                sleep(5)
+
+        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
+        sleep(5)
+        return 1
+
+    def config_ap_template_wifi1(self, **wifi1_profile):
+        """
+        - Configure the WIFI1 configuration on AP Template
+        - Keyword Usage
+         - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
+
+        :param wifi1_profile: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
+        :return: 1 if WiFi1 Profile Configured Successfully else None
+        """
+        client_access_status_wifi1 = wifi1_profile.get('client_access', 'Enable')
+        backhaul_mesh_status_wifi1 = wifi1_profile.get('backhaul_mesh_link', 'Enable')
+        sensor_status_wifi1 = wifi1_profile.get('sensor', 'Enable')
+        radio_profile_wifi1 = wifi1_profile.get('radio_profile', 'radio_ng_11ax-5g')
+
+        self.utils.print_info("Click on WiFi1 Tab on AP Template page")
+        self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi1_tab())
+        sleep(5)
+
+        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+
+        self.utils.print_info(f"select Radio Profile:{radio_profile_wifi1}")
+        sleep(2)
+        self.auto_actions.click(self.device_template_web_elements.get_wifi1_radio_profile_drop_down())
+        self.auto_actions.select_drop_down_options(self.device_template_web_elements.
+                                                   get_wifi1_radio_profile_drop_down_opts(), radio_profile_wifi1)
+        if client_access_status_wifi1.upper() == "ENABLE":
+            self.utils.print_info("Enable Client Access Checkbox on WiFi1 Interface")
+            if not self.device_template_web_elements.get_client_access_checkbox_wifi1().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi1())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Client Access check box on WiFi1 Interface")
+            if self.device_template_web_elements.get_client_access_checkbox_wifi1().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi1())
+                sleep(5)
+
+        if backhaul_mesh_status_wifi1.upper() == "ENABLE":
+            self.utils.print_info("Enable Backhaul Mesh Link Checkbox on WiFi1 Interface")
+            if not self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi1 Interface")
+            if self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1())
+                sleep(5)
+
+        if sensor_status_wifi1.upper() == "ENABLE":
+            self.utils.print_info("Enable Sensor Checkbox on WiFi1 Interface")
+            if not self.device_template_web_elements.get_sensor_checkbox_wifi1().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi1())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Sensor Checkbox on WiFi1 Interface")
+            if self.device_template_web_elements.get_sensor_checkbox_wifi1().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi1())
+                sleep(5)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
+        sleep(5)
+        return 1
+
+    def config_ap_template_wifi2(self, **wifi2_profile):
+        """
+        - Configure the WIFI2 configuration on AP Template
+        - Keyword Usage
+         - ``Config AP Template WiFi2  &{WIFI2_CONFIG}``
+
+        :param wifi2_profile: (Config Dict) WiFi2 ADSP server Config ie primary server ip and port
+        :return: 1 if WiFi2 Profile Configured Successfully else None
+        """
+        radio_status_wifi2 = wifi2_profile.get('radio_status', 'Enable')
+
+        self.utils.print_info("Click on WiFi2 Tab on AP Template page")
+        self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab())
+        sleep(5)
+
+        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+        sleep(2)
+
+        if radio_status_wifi2.upper() == "ENABLE":
+            self.utils.print_info("Enable Radio Status on WiFi2 Interface")
+            if not self.device_template_web_elements.get_wifi2_radio_status_button().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_wifi2_radio_status_button())
+                sleep(5)
+
+                self.screen.save_screen_shot()
+                sleep(2)
+
+        else:
+            self.utils.print_info("Disable Radio Status on WiFi2 Interface")
+            if self.device_template_web_elements.get_wifi2_radio_status_button().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_wifi2_radio_status_button())
+                sleep(5)
+
+                self.screen.save_screen_shot()
+                sleep(2)
+
+        """ 
+        ##### APC-44337 UI Changes #####
+        adsp_primary_server_ip = wifi2_profile.get('primary_server_ip', '1.1.1.1')
+        adsp_primary_server_port = wifi2_profile.get('primary_server_port', '11')
+        
+        wifi2_primary_server_ip = self.device_template_web_elements.get_wifi2_primary_server_ip_textfield()
+        wifi2_primary_server_port = self.device_template_web_elements.get_wifi2_primary_server_port_textfield()
+
+        if wifi2_primary_server_ip:
+            self.utils.print_info("Enter ADSP Primary Server IP Name")
+            self.auto_actions.send_keys(self.device_template_web_elements.get_wifi2_primary_server_ip_textfield(),
+                                        adsp_primary_server_ip)
+            sleep(3)
+
+        if wifi2_primary_server_port:
+            self.utils.print_info("Enter ADSP Primary Server port")
+            self.auto_actions.send_keys(self.device_template_web_elements.get_wifi2_primary_server_port_textfield(),
+                                        adsp_primary_server_port)
+            sleep(3)
+        """
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
+
+        return 1
+
+    def _select_ap_template_from_np(self, ap_template):
+        """
+        - Select/Attach the AP template to the Network Policy
+        - Keyword Usage
+         - ``Select AP Template From NP  ${AP_TEMPLATE_NAME}``
+
+        :param ap_template: Ap Template Name ie AP630,AP410C
+        :return: 1 if AP Template Found on Grid else -1
+        """
+        self.utils.print_info("Click on Device Template Select button")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_select_button())
+        sleep(5)
+
+        if self.device_template_web_elements.get_select_ap_templates_view_all_pages():
+            self.utils.print_info("Click Full pages button")
+            self.auto_actions.click(self.device_template_web_elements.get_select_ap_templates_view_all_pages())
+            sleep(5)
+
+        self.auto_actions.scroll_up()
+        sleep(2)
+        self.utils.print_info(f'Selecting Device Template with name {ap_template}')
+        ap_template_names = self.device_template_web_elements.get_select_ap_template_from_list()
+        sleep(2)
+        flag = 0
+
+        for ap_template_name in ap_template_names:
+            if ap_template.upper() in ap_template_name.text.upper():
+                self.auto_actions.click(
+                    self.device_template_web_elements.get_click_selected_ap_template(ap_template_name))
+                self.utils.print_info(f'Selected Device Template with name {ap_template}')
+                flag = 1
+                break
+        if flag == 0:
+            self.utils.print_info(f'Device Template with name {ap_template} not found')
+            return -1
+
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_dialog_select_button())
+
+        return 1
+
+    def _click_select_rule_button_to_ap_template(self, ap_template):
+        """
+        - Clicks the Select Rule button which appears for second AP Template of same AP model
+        - Keyword Usage
+         - ``Click Select Rule to AP Template  ${AP_TEMPLATE}``
+
+        :param ap_template: Ap Template Name ie AP630,AP410C
+        :return: True if Select Rule Button Found on Grid else False
+        """
+        ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()
+        for el in ap_template_rows_elements:
+            if ap_template.upper() in el.text.upper():
+                self.utils.print_info("CLicking Classification Rule Select Button")
+                self.auto_actions.click(self.device_template_web_elements.get_ap_template_select_rule_button(el))
+                return True
+        return False
+
+    def _select_rule_to_ap_template(self, rule):
+        """
+        - Select Rule button for second AP Template of same AP model
+        - Keyword Usage
+         - ``Select Rule to AP Template  ${AP_TEMPLATE}``
+
+        :param rule: Rule is the classification Rule
+        :return: True if Rule Found else False
+        """
+        if self.device_template_web_elements.get_select_ap_templates_rules_view_all_pages():
+            self.utils.print_info("Click Full pages button")
+            self.auto_actions.click(self.device_template_web_elements.get_select_ap_templates_rules_view_all_pages())
+
+        rules = self.device_template_web_elements.get_ap_template_rule_list()
+        for el in rules:
+            if rule.upper() in el.text.upper():
+                self.utils.print_info(f"Selecting Classification Rule {rule}")
+                self.auto_actions.click(el)
+                return True
+        return False
+
+    def add_ap_template_to_network_policy(self, ap_template_name, policy_name):
+        """"
+        - Selecting Network Policy to attach existing AP Template to the same
+        - Checking the AP template presence in the AP Templates Grid
+        - If not there, then select AP Template from the list
+        - Keyword Usage
+         - ``Add AP Template To Network Policy   ${AP_TEMPLATE_NAME}       ${NETWORK_POLICY_NAME}``
+
+        :param ap_template_name: AP Template Name ie AP630,AP410C etc
+        :param policy_name: Name of the Network policy to attach the template
+        :return: 1 if AP Template Configured Successfully else -1
+        """
+
+        self.utils.print_info("Click on Network Policy card view button")
+        self.navigator.navigate_to_network_policies_card_view_page()
+
+        if self.network_policy.select_network_policy_in_card_view(policy_name) != 1:
+            self.utils.print_info(f"Network Policy {policy_name} does not exist")
+            return -2
+
+        if self.check_ap_template(ap_template_name):
+            self.utils.print_info("Template Already present in the template grid")
+            return 1
+        return self._select_ap_template_from_np(ap_template_name)
+
+    def add_ap_template_model_type(self, ap_template_name, ap_model_type, **wifi_interface_config):
+        """
+        - Checking the AP template present in the AP Templates Grid
+        - If it is not there add New AP Template
+        - Keyword Usage
+         - ``Add AP Template  ${AP_TEMPLATE_NAME}   &{AP_TEMPLATE_CONFIG}``
+
+        :param ap_template: AP Template Name ie AP630,AP410C
+        :param wifi_interface_config: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
+        :return: 1 if AP Template Configured Successfully else -1
+        """
+        wifi0_config = wifi_interface_config['wifi0_configuration']
+        wifi1_config = wifi_interface_config['wifi1_configuration']
+        wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+
+        sleep(5)
+
+        if self.check_ap_template(ap_template_name):
+            self.utils.print_info("Template Already present in the template grid")
+            return 1
+
+        return self._select_ap_template_from_np(ap_template_name)
+
+    def add_classification_rule_to_ap_template(self, ap_template_name, classification_rule):
+        """"
+
+        - Checking the AP template presence in the AP Templates Grid
+        - Select Classification Rule button will only appear in case of second AP Template for same model
+        - Selecting the Classification Rule from the list
+        - Keyword Usage
+         - ``Add Classification Rule to AP Template    ${AP_TEMPLATE_NAME}   ${CLASSIFICATION_RULE}``
+
+        :param ap_template_name: AP Template Name ie AP630-Template,AP410C-Template
+        :param classification_rule: Classification Rule to be added to AP Template
+        :return: 1 if Classification Rule added to AP Template Successfully else -1, -2, -3 depending on the scenario
+        """
+
+        if not self.check_ap_template(ap_template_name):
+            self.utils.print_info("Template does not exist in the template grid")
+            return -1
+
+        if not self._click_select_rule_button_to_ap_template(ap_template_name):
+            self.utils.print_info("This AP Template is the First Template for this AP Model. Create one more")
+            return -2
+
+        if self.device_template_web_elements.get_select_rule_in_templates_view_all_pages():
+            self.utils.print_info("Click Full pages button")
+            self.auto_actions.click(self.device_template_web_elements.get_select_rule_in_templates_view_all_pages())
+
+        if not self._select_rule_to_ap_template(classification_rule):
+            self.utils.print_info(f"Rule {classification_rule} is not available in the list")
+            return -3
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_rule_link_button())
+        return 1
+
+    def remove_ap_template_from_network_policy(self, ap_template_name, policy_name):
+        """"
+        - Selecting Network Policy to remove/detach AP Template
+        - Checking the AP template presence in the AP Templates Grid
+        - If it is not there return -1 else delete the template
+        - Keyword Usage
+         - ``Remove AP Template From Network Policy   ${AP_TEMPLATE_NAME}       ${NETWORK_POLICY_NAME}``
+
+        :param ap_template_name: AP Template Name ie AP630,AP410C
+        :param policy_name: Name of the Network policy to remove the template
+        :return: 1 if AP Template Removed Successfully else -1
+        """
+
+        self.utils.print_info("Click on Network Policy card view button")
+        self.navigator.navigate_to_network_policies_card_view_page()
+
+        if self.network_policy.select_network_policy_in_card_view(policy_name) != 1:
+            self.utils.print_info(f"Network Policy {policy_name} does not exist")
+            return -2
+
+        if not self.check_ap_template(ap_template_name):
+            self.utils.print_info("Template does not exist in the template grid")
+            return -1
+
+        ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()
+        for el in ap_template_rows_elements:
+            if ap_template_name.upper() in el.text.upper():
+                self.utils.print_info(f"Selecting checkbox for AP Template {ap_template_name}")
+                self.auto_actions.click(self.device_template_web_elements.get_device_template_grid_checkbox(el))
+                break
+
+        self.utils.print_info(f"CLicking Delete Button for AP Template {ap_template_name}")
+        self.auto_actions.click(self.device_template_web_elements.get_delete_ap_template_button())
+
+        sleep(5)
+        self.screen.save_screen_shot()
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        if "Template was deleted successfully." in tool_tp_text[-1]:
+            return 1
+        else:
+            return -3
+
+        """        
+        self.utils.print_info("Click on AP Template Add button")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_add_button())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("select the AP: ", ap_model_type)
+        ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
+        for el in ap_list_items:
+            if not el:
+                pass
+            if ap_model_type.upper() in el.text.upper():
+                self.auto_actions.click(el)
+                break
+        sleep(3)
+
+        self.utils.print_info("Enter the AP Template Name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_text(), ap_template_name)
+        sleep(3)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Configure WiFI0 Interface for AP Template")
+        self.config_ap_template_wifi0(**wifi0_config)
+        sleep(3)
+
+        self.utils.print_info("Configure WiFI1 Interface for AP Template")
+        self.config_ap_template_wifi1(**wifi1_config)
+        sleep(3)
+
+        if not wifi2_config == 'None':
+            self.config_ap_template_wifi2(**wifi2_config)
+
+        self.utils.print_info("Click on the save template button")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
+        sleep(3)
+
+        tool_tip_text = tool_tip.tool_tip_text
+        self.screen.save_screen_shot()
+        sleep(2)
+        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+        sub_string = "template"
+        strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
+        self.utils.print_info("Tool tip Text ap template", strings_with_substring)
+        if "AP template was saved successfully" in str(strings_with_substring):
+            return 1
+        else:
+            return -1
+        """

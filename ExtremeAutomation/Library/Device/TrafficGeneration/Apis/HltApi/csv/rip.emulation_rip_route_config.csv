@@ -1,0 +1,36 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+mode,"The action to be taken. The choices for mode are: create, modify, and
+delete.
+DEFAULT
+	None",opt,"create,delete,modify","IxNetwork[M] , IxOS/IxNetwork-FT[M]",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"Session to create route pools or route ranges on.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+route_handle,"The route handle is used for modes other than create.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+num_prefixes,"Number of prefixes (routes) advertised in update messages. RANGE 1-1000000.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_start,"First route (prefix) to be advertised.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_length,"Network mask width. RANGE 1-128.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_step,"How to increment prefixes. Default is using prefix length (minimum
+step). The value would be rounded to the prefix length.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+metric,"The total cost for these routes. RANGE 0-4,294,967,295.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop,"The immediate next hop IP address on the way to the destination prefix.
+Used by RIPv2 & RIPng, default is all zeros IP address which indicates
+the next hop is update source address.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+route_tag,"An arbitrary value associated with the routes in this range. Used by
+RIPv2 & RIPng. RANGE 0-65535.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

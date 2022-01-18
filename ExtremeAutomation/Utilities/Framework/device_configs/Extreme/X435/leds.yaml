@@ -1,0 +1,22 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines LEDs common to X435 series switches
+#
+led_controller_gpio: &LED_CONTROLLER_GPIO
+  name:             gpio_led_controller
+  compatible:       gpio_led_controller
+  controls:
+    - name:         gpio_system_led
+      device:       system_gpio_0
+      pin:          system_led
+
+system_led: &SYSTEM_LED
+  name:             system_led
+  type:             SYSTEM
+  compatible:       generic_led
+  controls:         [gpio_system_led]

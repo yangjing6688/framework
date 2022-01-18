@@ -1,0 +1,110 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines LEDs common to X465 series switches
+#
+led_controller_pca9551_1: &LED_CONTROLLER_PCA9551_1
+  name:             pca9551_1
+  compatible:       pca9551
+  bus:              i2cbus
+  address:          0x60
+  controls:
+    - name:         pca9551_1_led0
+      number:       0
+    - name:         pca9551_1_led1
+      number:       1
+    - name:         pca9551_1_led2
+      number:       2
+    - name:         pca9551_1_led3
+      number:       3
+    - name:         pca9551_1_led4
+      number:       4
+    - name:         pca9551_1_led5
+      number:       5
+    - name:         pca9551_1_led6
+      number:       6
+    - name:         pca9551_1_led7
+      number:       7
+
+led_controller_pca9551_2: &LED_CONTROLLER_PCA9551_2
+  name:             pca9551_2
+  compatible:       pca9551
+  bus:              i2cbus
+  address:          0x61
+  controls:
+    - name:         pca9551_2_led0
+      number:       0
+    - name:         pca9551_2_led1
+      number:       1
+    - name:         pca9551_2_led2
+      number:       2
+    - name:         pca9551_2_led3
+      number:       3
+    - name:         pca9551_2_led4
+      number:       4
+    - name:         pca9551_2_led5
+      number:       5
+    - name:         pca9551_2_led6
+      number:       6
+    - name:         pca9551_2_led7
+      number:       7
+
+system_led: &SYSTEM_LED
+  name:             system_led
+  type:             SYSTEM
+  compatible:       generic_led
+  controls:         [pca9551_1_led0, pca9551_1_led1]
+  colors:           [GREEN, AMBER]
+
+stack_mode_led: &STACK_MODE_LED
+  name:             stack_mode_led
+  compatible:       generic_led
+  type:             STACK_MODE
+  controls:         [pca9551_1_led2]
+
+speed_mode_led: &SPEED_MODE_LED
+  name:             speed_mode_led
+  type:             SPEED_MODE
+  compatible:       generic_led
+  controls:         [pca9551_1_led4, pca9551_1_led5]
+  colors:           [GREEN, AMBER]
+
+bluetooth_led: &BLUETOOTH_LED
+  name:             bluetooth_led
+  type:             BLUETOOTH
+  compatible:       generic_led
+  controls:         [pca9551_1_led6]
+
+fantray1_led: &FANTRAY1_LED
+  name:             fantray1_led
+  type:             FANTRAY
+  number:           1
+  compatible:       generic_led
+  controls:         [pca9551_2_led0, pca9551_2_led1]
+  colors:           [GREEN, AMBER]
+
+fantray2_led: &FANTRAY2_LED
+  name:             fantray2_led
+  type:             FANTRAY
+  number:           2
+  compatible:       generic_led
+  controls:         [pca9551_2_led2, pca9551_2_led3]
+  colors:           [GREEN, AMBER]
+
+fantray3_led: &FANTRAY3_LED
+  name:             fantray3_led
+  type:             FANTRAY
+  number:           3
+  compatible:       generic_led
+  controls:         [pca9551_2_led4, pca9551_2_led5]
+  colors:           [GREEN, AMBER]
+
+locator_led: &LOCATOR_LED
+  name:             locator_led
+  type:             LOCATOR
+  compatible:       generic_led
+  controls:         [pca9551_2_led6]

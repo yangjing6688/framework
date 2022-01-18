@@ -1,0 +1,18 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for VIM6-4YE
+#
+
+vendor: Extreme
+product_name: VIM6-4YE
+
+files:
+    - name: devices
+      filename: [../VIM6/devices.yaml, ../VIM6/vim6_devices.yaml]
+    - name: ports
+      filename: [../VIM6/ports.yaml, ports.yaml]

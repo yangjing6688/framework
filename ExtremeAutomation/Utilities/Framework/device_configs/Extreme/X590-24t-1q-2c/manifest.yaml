@@ -1,0 +1,43 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  the X590-24t-1q-2c switch, X590 uses the same base design as X690, but
+#  changes Maverick to FB5
+#
+#
+
+vendor: Extreme
+product_name: X590-24t-1q-2c
+
+files:
+    - name: system
+      filename: [../X590/system.yaml, system.yaml]
+    - name: devices
+      filename: [../X590/devices.yaml, devices.yaml]
+      hardware_revisions:
+        - range: [0x00, 0x00]
+          filename: [../X690/devices.yaml, devices_proto.yaml]
+    - name: thermal
+      filename: [../X590/thermal.yaml, thermal.yaml]
+    - name: fans
+      filename: [../X590/fans.yaml, fans.yaml]
+    - name: power
+      filename: [../X590/power.yaml, power.yaml]
+    - name: leds
+      filename: [../X590/leds.yaml, leds.yaml]
+    - name: watchdog
+      filename: [../X590/watchdog.yaml, watchdog.yaml]
+    - name: capability
+      filename: [../../common/defaultcap.yaml, ../../common/Broadcom/firebolt5.yaml, switchcap.yaml]
+    - name: ports
+      filename: [../../common/defaultports.yaml, ../X590/ports.yaml, ports.yaml]
+      hardware_revisions:
+        - range: [0x00, 0x00]
+          filename: [../../common/defaultports.yaml, ../X690/ports.yaml, ports_proto.yaml]
+    - name: transceivers
+      filename: [../../common/defaulttrans.yaml, trans.yaml]

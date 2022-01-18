@@ -1,0 +1,275 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+poe:
+    enable_port:
+        description: "Enables the port which can provide the PSE functions"
+        arguments:
+            order: 
+        uuid: d85ded5e-243f-4062-bd8d-ac66eb95dda9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no poe-shutdown',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable inline-power ports {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.105.1.1.1.3.{port}','i','1']
+    disable_port:
+        description: "Disables the port which can provide the PSE functions"
+        arguments:
+            order:
+        uuid: 5147e9d2-fd97-4272-b558-aa5299f90122
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'poe poe-shutdown',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable inline-power ports {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.105.1.1.1.3.{port}','i','2']
+    set_power_usage_threshold:
+        description: "Configures the usage threshold expressed as a percentage"
+        arguments:
+            order: threshold,slot
+        uuid: 142af738-8794-4d20-ab2d-9786dbeeda98
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'poe poe-power-usage-threshold {threshold}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure inline-power usage-threshold {threshold}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.105.1.3.1.1.5.{slot}','i','{threshold}']
+    set_port_power_limit:
+        description: "Configures the DTE power limit per port"
+        arguments:
+            order: port,power_limit
+        uuid: d7b94cad-7944-4f3e-8d18-13f8fb4588f1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'poe poe-limit {power_limit}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure inline-power operator-limit {power_limit} port {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.8.1.1.1.3.{port}','i','{power_limit}']
+    set_port_power_priority:
+        description: "Configures the POE port power priority"
+        arguments:
+            order: port,power_priority
+        uuid: c1d24df9-00f0-496a-b3f8-29e7b1e5ff8f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'poe poe-priority {power_priority}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure inline-power priority {power_priority} ports {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.105.1.1.1.7.{port}','i','{power_priority}']
+    set_port_detect_type:
+        description: "Specifies the mechanism used to detect powered ethernet devices attached to a powered ethernet port"
+        arguments:
+            order: port,detect_type
+        uuid: a1bb7007-736f-4b7f-ae63-16df0afdc9a2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure inline-power detection {detect_type} port {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.1.6.15.1.1.1.6.{port}','i','{detect_type}']
+
+    show_power_usage_threshold:
+        uuid: 72e7d69c-ce86-4112-b797-752234b16114
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show poe-main-status',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show inline-power',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.2.1.105.1.3.1.1.5.{slot}','i','']
+    show_port_status:
+        uuid: 4251b8a5-a8e8-4721-b7e3-4ac80ca6c683
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show poe-port-status {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show inline-power stats ports {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.2.1.105.1.1.1.3.{port}','i','']
+    show_port_measurements:
+        uuid: 83d03a4d-fbda-4712-9821-add3bd61075a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show poe-power-measurement {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.45.5.8.1.1','i','']
+    show_port_power_limit:
+        uuid: 9739e6ed-4d06-474c-b10e-6b2ce08243e0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show poe-port-status {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show inline-power configuration ports {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.8.1.1.1.3.{port}','i','']
+    show_port_power_priority:
+        uuid: f6e29478-e3f0-44c1-bca7-7759b689b892
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show poe-port-status {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show inline-power configuration ports {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.2.1.105.1.1.1.7.{port}','i','']
+    show_port_detection_status:
+        uuid: b1a45e73-1513-495c-bd1e-8736af39962b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show poe-port-status {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show inline-power configuration ports {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.2.1.105.1.1.1.6.{port}','i','']
+    show_port_power_classification:
+        uuid: c4ec8d10-3227-4f12-b170-cac9f3dc6101
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show poe-port-status {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show inline-power configuration ports {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.2.1.105.1.1.1.10.{port}','i','']
+    show_global_status:
+        uuid: cc6195c1-c167-4510-80eb-f5be4c095563
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show poe-main-status',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show inline-power stats',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.2.1.105.1.3.1.1.2.{slot}||1.3.6.1.2.1.105.1.3.1.1.3.{slot}||1.3.6.1.2.1.105.1.3.1.1.4.{slot}||1.3.6.1.2.1.105.1.3.1.1.5.{slot}','i','']
+    show_port_power_pairs:
+        uuid: bb18849a-41a3-4174-835c-558e8c0f56bf
+        apis:
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.2.1.105.1.1.1.5.{port}','i','']
+
+    show_port_detect_type:
+        arguments:
+            order: port
+        uuid: c1e39a8b-22b3-451b-a18b-1109612238dd
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show inline-power config port {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.1.6.15.1.1.1.6.{port}','i','']
+
+    enable_inline_power:
+        description: "Enables inline power"
+        arguments:
+            order:
+        uuid: 8ec88be4-58f4-4d2f-9fd5-9094f40fd3bb
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable inline-power',userPrompt,'None','None','None',[],[]]
+
+    disable_inline_power:
+        description: "Disables inline power"
+        arguments:
+            order:
+        uuid: 9025539e-fe7f-4b90-b9bf-e4a958e6cf1b
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'disable inline-power',userPrompt,'None','None','None',[ ],[ ] ]
+
+    show_inline_power:
+        description: "Show inline power system information"
+        uuid: 81267391-6ee1-4eab-90ea-c230b48cb963
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show inline-power',userPrompt,'None','None','None',[],[]]
+
+    show_inline_power_info_port:
+        description: "Show inline power port information"
+        arguments:
+            order: port
+        uuid: 38692552-cf69-451a-884b-5ecb0fac87e6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show inline-power info ports {port}',userPrompt,'None','None','None',[],[]]
+
+    enable_inline_power_legacy:
+        description: "Enable inline power legacy"
+        uuid: 6da49954-b1d9-4dd8-b905-15fd0609d2b6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable inline-power legacy',userPrompt,'None','None','None',[],[]]
+
+    disable_inline_power_legacy:
+        description: "Disable inline power legacy"
+        uuid: 249d5f97-4872-4bad-b56c-2b60459937b0
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'disable inline-power legacy',userPrompt,'None','None','None',[],[]]
+
+    show_inline_power_legacy:
+        description: "Show inline power legacy for the port"
+        arguments:
+            order: port
+        uuid: 960f6737-efc4-48cc-ac9d-8864296ec0a1
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'show inline-power config port {port}',userPrompt,'None','None','None',[],[]]
+
+    set_inline_power_disconnect_deny_port:
+        description: "Configure inline power disconnect deny port"
+        uuid: fa8aaf1d-1d6d-4282-b05d-2c793c090fa7
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'configure inline-power disconnect deny-port',userPrompt,'None','None','None',[],[]]
+
+    set_inline_power_disconnect_lowest_priority:
+        description: "Configure inline power disconnect lowest priority"
+        uuid: f9469e5c-858b-47d7-95a0-7e84b457c937
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'configure inline-power disconnect lowest-priority',userPrompt,'None','None','None',[ ],[ ] ]
+
+    clear_inline_power_disconnect:
+        description: "Unconfigure inline power disconnect"
+        uuid: a88c6ba4-5483-4c51-ba5b-7e5ac5a4bdac
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'unconfigure inline-power disconnect',userPrompt,'None','None','None',[ ],[ ] ]
+
+    set_inline_power_label:
+        description: "Configure inline power label"
+        arguments:
+            order: port,test_label
+        uuid: 83510d13-fdc3-4f04-8fb4-2cdaaa20beb5
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'configure inline-power label {test_label} port {port}',userPrompt,'None','None','None',[],[]]
+
+    show_inline_power_label:
+        description: "Show configured inline power label"
+        arguments:
+            order: port
+        uuid: 56218313-92c6-4165-aaf5-45f0c6398a50
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'show inline-power config port {port}',userPrompt,'None','None','None',[],[]]
+
+    show_inline_power_operator_limit:
+        description: "Show configured inline power operator limit"
+        arguments:
+            order: port
+        uuid: e98c8e08-fe3e-45d7-94c5-faa84e171287
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit,'show inline-power config port {port}',userPrompt,'None','None','None',[ ],[ ] ]

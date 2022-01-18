@@ -1,0 +1,18 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the fan FRUs specific to X435-24T-4S
+#
+
+devices:
+  - *FAN_CONTROLLER_PCA9555
+
+fan_info:
+  <<: *COMMON_FAN_INFO
+
+fan_frus:
+  - *FAN_FRU_1

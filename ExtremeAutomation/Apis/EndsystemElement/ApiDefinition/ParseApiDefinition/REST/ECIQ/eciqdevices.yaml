@@ -1,0 +1,26 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit]
+#             - [OS2,Platform,Version,Unit]
+
+eciqdevices:
+    store_device_id_for_serial_number:
+        apis:
+            - [ECIQ,base,baseversion,baseunit]
+    verify_device_firmware:
+        apis:
+            - [ECIQ,base,baseversion,baseunit]
+    verify_device_ip:
+        apis:
+            - [ECIQ,base,baseversion,baseunit]
+    verify_device_mac:
+        apis:
+            - [ECIQ,base,baseversion,baseunit]
+    verify_device_model:
+        apis:
+            - [ECIQ,base,baseversion,baseunit]
+    verify_device_serial_number:
+        apis:
+            - [ECIQ,base,baseversion,baseunit]

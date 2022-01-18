@@ -1,0 +1,228 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common buses and devices present on the
+#  mainboard of X690 series switches
+#
+
+# ##################################################################
+# Common Buses
+# ##################################################################
+
+smbus_0: &SMBUS_0
+  name:               smbus_0
+  bus_type:           I2C
+  device:             CPU
+  number:             0
+  timeout:            500   # I2C response wait timeout in milliseconds,
+                            # which is used by i801 driver for Intel CPU
+
+# ##################################################################
+# Common Devices
+# ##################################################################
+
+cpu_cpld: &CPU_CPLD
+  name:               cpu_cpld
+  compatible:         i2c_regmap
+  bus:                smbus_0
+  address:            0x6f
+  regmap_desc:
+    range:            [0x0, 0xb]
+    num_reg_bits:     8
+    num_value_bits:   8
+  revision:
+    register:         0x00
+    bitmask:          0x0f
+
+onie_eeprom: &ONIE_EEPROM
+  name:               onie_eeprom
+  compatible:         24c128
+  bus:                smbus_0
+  address:            0x56
+  format:             onie
+
+power_cpld: &POWER_CPLD
+  name:               power_cpld
+  compatible:         i2c_regmap
+  bus:                smbus_0
+  address:            0x5e
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+  revision:
+    register:         0x00
+    bitmask:          0x0f
+
+cpu_default_tmpsn: &CPU_DEFAULT_TMPSN
+  name:               cpu_default_tmpsn
+  compatible:         g751
+  bus:                smbus_0
+  address:            0x4f
+
+pca9548_0: &PCA9548_0
+  name:               pca9548_0
+  compatible:         pca9548
+  bus:                smbus_0
+  address:            0x70
+  channel_map:
+    - number:         0
+      bus:            pca9548_0_ch0
+    - number:         1
+      bus:            pca9548_0_ch1
+    - number:         2
+      bus:            pca9548_0_ch2
+    - number:         3
+      bus:            pca9548_0_ch3
+    - number:         4
+      bus:            pca9548_0_ch4
+    - number:         6
+      bus:            pca9548_0_ch6
+    - number:         7
+      bus:            pca9548_0_ch7
+
+fru_eeprom: &FRU_EEPROM
+  name:               fru_eeprom
+  compatible:         24c512
+  bus:                pca9548_0_ch0
+  address:            0x51
+
+cfg_eeprom: &CFG_EEPROM
+  name:               cfg_eeprom
+  compatible:         24c02
+  bus:                pca9548_0_ch1
+  address:            0x51
+
+mb_hotspot_tmpsn: &MB_HOTSPOT_TMPSN
+  name:               mb_hotspot_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_0_ch2
+  address:            0x4d
+
+mb_ambient_tmpsn: &MB_AMBIENT_TMPSN
+  name:               mb_ambient_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_0_ch3
+  address:            0x4c
+
+pca9545_0: &PCA9545_0
+  name:               pca9545_0
+  compatible:         pca9545
+  bus:                pca9548_0_ch4
+  address:            0x71
+  channel_map:
+    - number:         0
+      bus:            pca9545_0_ch0
+    - number:         1
+      bus:            pca9545_0_ch1
+
+pca9548_1: &PCA9548_1
+  name:               pca9548_1
+  compatible:         pca9548
+  bus:                pca9548_0_ch6
+  address:            0x72
+  channel_map:
+    - number:         0
+      bus:            pca9548_1_ch0
+    - number:         1
+      bus:            pca9548_1_ch1
+    - number:         2
+      bus:            pca9548_1_ch2
+    - number:         3
+      bus:            pca9548_1_ch3
+    - number:         4
+      bus:            pca9548_1_ch4
+    - number:         5
+      bus:            pca9548_1_ch5
+    - number:         6
+      bus:            pca9548_1_ch6
+    - number:         7
+      bus:            pca9548_1_ch7
+
+system_cpld: &SYSTEM_CPLD
+  name:               system_cpld
+  compatible:         i2c_regmap
+  bus:                pca9548_0_ch7
+  address:            0x5f
+  regmap_desc:
+    range:            [0x0, 0xe]
+    num_reg_bits:     8
+    num_value_bits:   8
+  revision:
+    register:         0x00
+    bitmask:          0x0f
+
+port_cpld_0: &PORT_CPLD_0
+  name:               port_cpld_0
+  compatible:         i2c_regmap
+  bus:                pca9548_1_ch6
+  address:            0x5f
+  regmap_desc:
+    range:            [0x0, 0x19]
+    num_reg_bits:     8
+    num_value_bits:   8
+  revision:
+    register:         0x00
+    bitmask:          0x0f
+
+port_cpld_0_mux: &PORT_CPLD_0_MUX
+  name:               port_cpld_0_mux
+  compatible:         seawolf_pcpld_mux
+  bus:                pca9548_1_ch6
+  address:            0x5f
+  channel_map:
+    - number:         0
+      bus:            port_cpld_0_mux_ch0
+    - number:         1
+      bus:            port_cpld_0_mux_ch1
+    - number:         2
+      bus:            port_cpld_0_mux_ch2
+
+port_cpld_1: &PORT_CPLD_1
+  name:               port_cpld_1
+  compatible:         i2c_regmap
+  bus:                pca9548_1_ch7
+  address:            0x5f
+  regmap_desc:
+    range:            [0x0, 0x19]
+    num_reg_bits:     8
+    num_value_bits:   8
+  revision:
+    register:         0x00
+    bitmask:          0x0f
+
+port_cpld_1_mux: &PORT_CPLD_1_MUX
+  name:               port_cpld_1_mux
+  compatible:         seawolf_pcpld_mux
+  bus:                pca9548_1_ch7
+  address:            0x5f
+  channel_map:
+    - number:         0
+      bus:            port_cpld_1_mux_ch0
+    - number:         1
+      bus:            port_cpld_1_mux_ch1
+    - number:         2
+      bus:            port_cpld_1_mux_ch2
+
+pca9548_2: &PCA9548_2
+  name:               pca9548_2
+  compatible:         pca9548
+  bus:                pca9548_1_ch7
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_2_ch0
+    - number:         1
+      bus:            pca9548_2_ch1
+    - number:         2
+      bus:            pca9548_2_ch2
+    - number:         3
+      bus:            pca9548_2_ch3
+    - number:         4
+      bus:            pca9548_2_ch4
+    - number:         5
+      bus:            pca9548_2_ch5

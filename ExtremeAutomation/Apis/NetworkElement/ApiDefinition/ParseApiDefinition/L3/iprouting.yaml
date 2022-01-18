@@ -1,0 +1,47 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+iprouting:
+    store_default_gateway:
+        uuid: 4b14a32a-17a9-497d-88d2-4f2580f275b9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    validate_route_entry:
+        uuid: 96916c11-05fa-4cdf-a9de-530099075640
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [LINUX,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    validate_static_route_int_exists:
+        uuid: adcd8a22-2782-4aea-bb6b-332d2597852c
+        apis:
+            CLI:
+                - [LINUX,base,baseversion,baseunit]
+    validate_ipv6_route_entry:
+        uuid: af3bd2eb-11cc-462c-aafa-db7f460784d3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    validate_vrf_route_entry:
+        uuid: 922313ce-0629-4303-83d3-01f32a904ee9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    validate_ipv6_vrf_route_entry:
+        uuid: 63f0474e-efaf-4a14-9dbe-3af108d6ff74
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

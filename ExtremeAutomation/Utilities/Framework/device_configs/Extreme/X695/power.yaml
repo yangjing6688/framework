@@ -1,0 +1,124 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines PSUs common to X695 series switches
+#
+
+common_power_info: &COMMON_POWER_INFO
+  number_psus:        2
+  polling_period:     2000
+  psu_led_control:    SW
+  psu_led_settings:
+#    pca9698_psu_fan masks
+#    OFF:              0x0
+#    SOLID_GREEN:      0x1
+#    SOLID_AMBER:      0x2
+#    BLINK_AMBER:      0x2  #gpio doesn't support blink, so use solid instead
+#    system cpld masks
+     SOLID_GREEN:      0x3
+     BLINK_GREEN:      0x2
+     SOLID_AMBER:      0x1
+     BLINK_AMBER:      0x0
+     OFF:              0x1 #cpld does not support off, so use solid amber for off
+                           #TBD  try preset the fan_psu extender to off and switch to gpio for off
+
+
+psu_1: &PSU_1
+  number:             1
+  compatible:         extreme_psu_pmbus
+  psu_type:           PMBUS_EEPROM
+  devices:
+    - name:           psu1_eeprom
+      compatible:     i2c_regmap
+      bus:            pca9548_bmc_ch5
+      addresses:      [0x58, 0x68]
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 128
+    - name:           psu1_uC
+      compatible:     i2c_regmap
+      bus:            pca9548_bmc_ch5
+      addresses:      [0x58, 0x68]
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 16
+  fru_type:           MODULAR
+  psu_pmbus:          psu1_eeprom
+  psu_controller:     psu1_uC
+  psu_led:
+#    device:           pca9698_psu_fan
+#    register:         0x09
+#    bitmask:          0x03
+#    active_low:       1
+#    use cpld intead of gpio
+    device:           system_cpld
+    register:         0x62
+    bitmask:          0x03
+  psu_present:
+    device:           pca9698_psu_fan
+    register:         0x00
+    bitmask:          0x01
+    active_low:       1
+  psu_input_ok:
+    device:           pca9698_psu_fan
+    register:         0x00
+    bitmask:          0x08
+  psu_output_ok:
+    device:           pca9698_psu_fan
+    register:         0x00
+    bitmask:          0x02
+
+
+
+psu_2: &PSU_2
+  number:             2
+  compatible:         extreme_psu_pmbus
+  psu_type:           PMBUS_EEPROM
+  devices:
+    - name:           psu2_eeprom
+      compatible:     i2c_regmap
+      bus:            pca9548_bmc_ch5
+      addresses:      [0x59, 0x69]
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 128
+    - name:           psu2_uC
+      compatible:     i2c_regmap
+      bus:            pca9548_bmc_ch5
+      addresses:      [0x59, 0x69]
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 16
+  fru_type:           MODULAR
+  psu_pmbus:          psu2_eeprom
+  psu_controller:     psu2_uC
+  psu_led:
+#    device:           pca9698_psu_fan
+#    register:         0x09
+#    bitmask:          0x0c
+#    active_low:       1
+#    use cpld intead of gpio
+    device:           system_cpld
+    register:         0x63
+    bitmask:          0x03
+  psu_present:
+    device:           pca9698_psu_fan
+    register:         0x00
+    bitmask:          0x10
+    active_low:       1
+  psu_input_ok:
+    device:           pca9698_psu_fan
+    register:         0x00
+    bitmask:          0x80
+  psu_output_ok:
+    device:           pca9698_psu_fan
+    register:         0x00
+    bitmask:          0x20

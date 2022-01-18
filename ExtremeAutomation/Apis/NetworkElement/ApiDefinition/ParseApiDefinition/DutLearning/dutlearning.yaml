@@ -1,0 +1,91 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+dutlearning:
+    is_stacked:
+        uuid: be84a986-cb24-4179-8ee5-aebd4cea7b14
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    is_chassis:
+        uuid: 73849c98-9095-45cd-bf77-8ca9f6da1f77
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    gather_unit_info:
+        uuid: be1e9d91-eef2-4644-be75-14bdcd5ac2b5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    gather_chassis_info:
+        uuid: 41a2ca3a-1d83-4daf-994c-7c9f9e23b449
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    gather_port_info:
+        uuid: 32156898-f11f-4a2e-9bf4-655074b24371
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    gather_system_info:
+        uuid: b179fb0b-4453-4113-9b23-731412b1d78f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    gather_license_info:
+        uuid: b7cd5602-2583-4adb-b9c5-9df4d96a47cc
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    get_chassis_slot_numbers:
+        uuid: 4f792be8-e9a1-4935-aa89-730622f9c6a5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    get_stack_slot_numbers:
+        uuid: 2b0b0815-ab0c-41d1-9713-4e2ce919f38d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    is_stack_in_sync:
+        uuid: 0c422810-9183-4bc8-aa78-f3f33b827b97
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_backup_slot:
+        uuid: d0fef3f8-5e6b-46ab-9119-68034b4a431a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

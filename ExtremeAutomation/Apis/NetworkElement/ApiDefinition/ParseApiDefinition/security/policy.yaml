@@ -1,0 +1,540 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+policy:
+    check_policy_profile_exists:
+        uuid: b856db30-5c84-49d6-a7eb-09c61853226b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_name:
+        uuid: e785fd82-cc29-4db3-87da-414ddf780a60
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_pvid_status:
+        uuid: cb7baaec-c9b8-41b6-9aee-18958178d546
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_pvid:
+        uuid: 4b794bf4-88c1-4cb8-9fe3-6669d9f43460
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_cos_status:
+        uuid: 778c8bbd-c1a6-4532-b15c-e5af83d55864
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_cos:
+        uuid: 43877452-47b8-421c-aa22-b90935784541
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_egress_vlan:
+        uuid: 1530e217-098f-4d96-ad5a-4b80df37421d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_untagged_vlan:
+        uuid: 0ec9c767-c630-4490-81e9-aa60b20420e4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_forbidden_vlan:
+        uuid: df4c16f4-a775-4358-b9fb-783074c3cbb9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_tci_overwrite:
+        uuid: 52c6a12d-16f0-495d-a71a-6488e017b44e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_precedence:
+        uuid: 57bee8da-e46b-41dd-b522-60707ab90940
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_profile_mirror_dest:
+        uuid: 3fd442c1-41f8-400e-a978-b9991aed6b27
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_profile_syslog:
+        uuid: 73396767-47fc-44d2-b6a9-2767af943136
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_profile_trap:
+        uuid: 38b70350-7d4b-4989-9bd4-80d50d7cac91
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_profile_disable_port:
+        uuid: 80883bf9-dfb8-43be-a566-5e6170cfb5f1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_profile_fst:
+        uuid: 419f83d1-0f96-4d59-8493-3eeaaeff5d6d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_profile_web_redirect:
+        uuid: 5c16c72f-bd09-426c-a457-122f20f955ff
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_application:
+        uuid: fa89e222-7a9f-4aa2-9450-cad2d9423b89
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ether:
+        uuid: 9d1a268a-172e-41a6-84ca-8ad0262e4422
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_icmp6type:
+        uuid: d2017ec2-8e94-4541-97ec-be4772677fee
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_icmptype:
+        uuid: de002ccf-c66c-48ab-a68e-d39ce44f2da6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ip6dest:
+        uuid: de0e03db-53e7-4ae1-b011-ed3f701e7715
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_ip6flowlabel:
+        uuid: f446c740-9ca5-4f16-a41b-cec8f2e70650
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ip6source:
+        uuid: fe9ca148-fb7e-4220-ad05-f3b1992ed080
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ipdestsocket:
+        uuid: a611bc0e-03af-418f-83b7-b68bf3334e41
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_ipfrag:
+        uuid: e0e94c3f-07a6-49d5-bd1e-4a0347c8c46d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_ipproto:
+        uuid: ec37a972-95af-43b4-9d16-4ed488742cfc
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_ipsourcesocket:
+        uuid: 1cf97aa6-fdd8-470e-8ce4-c6072979c825
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_iptos:
+        uuid: 208e70c1-9e60-4b5e-9f52-8889edfd33b9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_ipttl:
+        uuid: 4dcf5aec-c37a-434a-acef-9fcf1c29a453
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_ipxclass:
+        uuid: 185affe9-d3dc-43fb-8432-c7744f17073d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ipxdest:
+        uuid: 33dcbba9-bb87-40ef-8e72-81915235f130
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ipxdestsocket:
+        uuid: e644960c-7f1d-4550-8e2f-dbdb9cd55d64
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ipxsource:
+        uuid: 1029556b-5162-4b45-a0ce-0c7c443be3cb
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ipxsourcesocket:
+        uuid: 653c51fc-8f14-4608-adf7-26f049cf870b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_ipxtype:
+        uuid: 2a09d89b-ccbf-4918-83a7-81949bf8fe0d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_llcdsapssap:
+        uuid: 8270b55c-e9ff-443d-aa08-36a23bc7bcc1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_macdest:
+        uuid: f292991d-6087-4b39-a78a-87595eb16c65
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_macsource:
+        uuid: eced7138-3b4f-4bef-8861-388f2eeccaad
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_port:
+        uuid: 6a6d2e96-cb3b-42c9-9c71-63f3bcf79616
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_tci:
+        uuid: c24bb76b-bc20-4de4-b361-aa74a5e66cdf
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_rule_tcpdestportip:
+        uuid: 2e74ca71-9c40-4c67-8562-44661f1563fc
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_tcpsourceportip:
+        uuid: 67dc576e-09a4-47e2-835d-f0797e7f6fda
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_udpdestportip:
+        uuid: 9709b6c7-9a8a-4752-bbcf-a93d59a2697c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_udpsourceportip:
+        uuid: 03356333-5299-46c7-9822-f559c6b64db7
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_vlantag:
+        uuid: 0d0aa50e-698f-469a-8772-62bf0eb3b20f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_policy_allowed_types:
+        uuid: 4c601121-3908-45ba-bf74-349f0c01d5fe
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_port_admin_profile:
+        uuid: 15d5d181-665f-4f62-b150-08ca25554234
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_mac_source_admin_profile:
+        uuid: 8bafc7a1-e2e0-4bf1-8bb1-522d7e8c85d1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_state:
+        uuid: 51e50855-0b6f-4e7c-bfc0-296a06483a1c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_map_response:
+        uuid: 801de0fa-344c-490f-8644-24695b0e9386
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_invalid_action:
+        uuid: 40fd0343-dce9-4f89-9ec6-4580c2dcdf7c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_global_vlan_authorization_state:
+        uuid: 1155d0a3-cafe-41ad-ac30-ba8871dd8001
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_invalid_count:
+        uuid: c1a17b0d-3e4f-4a98-bb03-10d2322154d9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    store_policy_invalid_counter:
+        uuid: c8218a8d-5a28-4f0c-8ad5-ef8d1c4c7908
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_policy_invalid_count_incremented:
+        uuid: 6dc353b8-a542-4c8e-bb96-9dbae4efbee0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_model_access_list:
+        uuid: 97233589-14dc-4fa2-b788-ceed044a08df
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_rule_model_hierarchical:
+        uuid: c3833340-219d-4cc2-88db-606ec7b7a136
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_ether:
+        uuid: 06f5c996-8540-4b89-a16c-a38f5e78d03d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_icmp6type:
+        uuid: ce55fb22-8f76-4e43-9563-cf5dec171063
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_icmptype:
+        uuid: b0b84c0f-70b8-47d1-906e-9a3b49991753
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_ipdestsocket:
+        uuid: e6fb147d-35f9-46b0-b361-aec79b4197fc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_ipfrag:
+        uuid: 518c1924-d206-4262-9ac0-90a0d1ab2fd5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_ipproto:
+        uuid: 12a9f839-1537-4444-8789-0903b1c38f28
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_ipsourcesocket:
+        uuid: 0e7654e7-00a7-461d-9d0c-c0a3e0ed51b0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_iptos:
+        uuid: f5c97234-d0fd-464c-8bb1-cf0e599fced0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_ipttl:
+        uuid: 738b3edd-0030-41c1-9a36-27a242c62ed1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_tcpdestportip:
+        uuid: 2a32f853-bb5c-4012-84d1-2d8c115541d9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_tcpsourceportip:
+        uuid: 4ce28d43-7d4c-464d-a035-b7a455a52a71
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_udpdestportip:
+        uuid: 8395cc83-68fc-48f0-9692-aaef51152312
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_udpsourceportip:
+        uuid: 58028da5-b7bb-4263-821e-0335734db155
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_cos:
+        uuid: a7dd3d8f-31ee-4657-b20e-f18b248bb7f5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_mirror:
+        uuid: 72f6b06b-92b4-439a-ad52-35898d0c68ce
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_drop:
+        uuid: 56718d9d-4a12-4c55-8b18-b5534c91df80
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_forward:
+        uuid: 78208917-493c-497d-ac5c-da031b204bec
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_trap_enabled:
+        uuid: fe888a2c-5b1e-4b37-87cb-94183542a88a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_syslog_enabled:
+        uuid: 923f822f-4ebe-40bb-b611-3c007af06835
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_all:
+        uuid: 1445b6a5-2e35-4b86-a437-cc3b370824aa
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_does_not_exist:
+        uuid: 6672f9a3-9a40-4d99-aa8e-8a8169777598
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_rule_does_not_exist:
+        uuid: 1990a4ac-373a-47f0-abf9-2993c6f08724
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_set_cos:
+        uuid: 153d5fae-e7cc-4aeb-9094-a3224950a72e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_set_mirror:
+        uuid: cc251da3-ab53-483f-8dcd-1c75de1c3826
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_set_drop:
+        uuid: 803ce145-3a8e-4970-a5db-b9984f6ac1af
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_set_forward:
+        uuid: a885e45b-bb69-438e-8f36-887e035fed8c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_set_trap_enabled:
+        uuid: ab0a399e-c79b-48d6-bc71-e453a52ac7f7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_set_syslog_enabled:
+        uuid: 9336f953-34f2-4cc6-8504-4dfc21186ce7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_set_all:
+        uuid: 23e23ff9-9d2e-44d5-8d36-b7c593db4cef
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_action_set_does_not_exist:
+        uuid: 66759ba5-40e9-45bf-95dd-406793656e75
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_profile_index:
+        uuid: 1e585253-64ae-47de-bd47-e712a03a62fc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_profile_index_none:
+        uuid: c7171ed1-0a29-43e7-b4a7-617a25cc86be
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_policy_acl_app_sig:
+        uuid: cd02bd18-46fa-4725-84d3-01b41ce487de
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]

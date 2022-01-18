@@ -1,0 +1,1773 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines common ports present on X725 series switches
+#
+
+# ##################################################################
+# Common Ports
+# ##################################################################
+
+port_1: &PORT_1
+  devices:
+    - name:           port_1_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_1_8_ch0
+      address:        0x50
+  module_eeprom:      port_1_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x1
+      bitmask:        0x0040
+      value:          0
+
+port_2: &PORT_2
+  devices:
+    - name:           port_2_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_1_8_ch1
+      address:        0x50
+  module_eeprom:      port_2_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x1
+      bitmask:        0x0004
+      value:          0
+
+port_3: &PORT_3
+  devices:
+    - name:           port_3_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_1_8_ch2
+      address:        0x50
+  module_eeprom:      port_3_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x1
+      bitmask:        0x4000
+      value:          0
+
+port_4: &PORT_4
+  devices:
+    - name:           port_4_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_1_8_ch3
+      address:        0x50
+  module_eeprom:      port_4_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x1
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x1
+      bitmask:        0x0400
+      value:          0
+
+port_5: &PORT_5
+  devices:
+    - name:           port_5_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_1_8_ch4
+      address:        0x50
+  module_eeprom:      port_5_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x2
+      bitmask:        0x0040
+      value:          0
+
+port_6: &PORT_6
+  devices:
+    - name:           port_6_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_1_8_ch5
+      address:        0x50
+  module_eeprom:      port_6_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x2
+      bitmask:        0x0004
+      value:          0
+
+port_7: &PORT_7
+  devices:
+    - name:           port_7_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_1_8_ch6
+      address:        0x50
+  module_eeprom:      port_3_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x2
+      bitmask:        0x4000
+      value:          0
+
+port_8: &PORT_8
+  devices:
+    - name:           port_8_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_1_8_ch7
+      address:        0x50
+  module_eeprom:      port_8_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x2
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x2
+      bitmask:        0x0400
+      value:          0
+
+port_9: &PORT_9
+  devices:
+    - name:           port_9_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_9_16_ch0
+      address:        0x50
+  module_eeprom:      port_9_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x3
+      bitmask:        0x0040
+      value:          0
+
+port_10: &PORT_10
+  devices:
+    - name:           port_10_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_9_16_ch1
+      address:        0x50
+  module_eeprom:      port_10_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x3
+      bitmask:        0x0004
+      value:          0
+
+port_11: &PORT_11
+  devices:
+    - name:           port_11_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_9_16_ch2
+      address:        0x50
+  module_eeprom:      port_11_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x3
+      bitmask:        0x4000
+      value:          0
+
+port_12: &PORT_12
+  devices:
+    - name:           port_12_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_9_16_ch3
+      address:        0x50
+  module_eeprom:      port_12_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x3
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x3
+      bitmask:        0x0400
+      value:          0
+
+port_13: &PORT_13
+  devices:
+    - name:           port_13_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_9_16_ch4
+      address:        0x50
+  module_eeprom:      port_13_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x4
+      bitmask:        0x0040
+      value:          0
+
+port_14: &PORT_14
+  devices:
+    - name:           port_14_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_9_16_ch5
+      address:        0x50
+  module_eeprom:      port_14_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x4
+      bitmask:        0x0004
+      value:          0
+
+port_15: &PORT_15
+  devices:
+    - name:           port_15_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_9_16_ch6
+      address:        0x50
+  module_eeprom:      port_15_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x4
+      bitmask:        0x4000
+      value:          0
+
+port_16: &PORT_16
+  devices:
+    - name:           port_16_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_9_16_ch7
+      address:        0x50
+  module_eeprom:      port_16_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_1
+    register:         0x4
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_1
+      register:       0x4
+      bitmask:        0x0400
+      value:          0
+
+port_17: &PORT_17
+  devices:
+    - name:           port_17_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_17_24_ch0
+      address:        0x50
+  module_eeprom:      port_17_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x1
+      bitmask:        0x0040
+      value:          0
+
+port_18: &PORT_18
+  devices:
+    - name:           port_18_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_17_24_ch1
+      address:        0x50
+  module_eeprom:      port_18_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x1
+      bitmask:        0x0004
+      value:          0
+
+port_19: &PORT_19
+  devices:
+    - name:           port_19_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_17_24_ch2
+      address:        0x50
+  module_eeprom:      port_19_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x1
+      bitmask:        0x4000
+      value:          0
+
+port_20: &PORT_20
+  devices:
+    - name:           port_20_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_17_24_ch3
+      address:        0x50
+  module_eeprom:      port_20_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x1
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x1
+      bitmask:        0x0400
+      value:          0
+
+port_21: &PORT_21
+  devices:
+    - name:           port_21_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_17_24_ch4
+      address:        0x50
+  module_eeprom:      port_21_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x2
+      bitmask:        0x0040
+      value:          0
+
+port_22: &PORT_22
+  devices:
+    - name:           port_22_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_17_24_ch5
+      address:        0x50
+  module_eeprom:      port_22_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x2
+      bitmask:        0x0004
+      value:          0
+
+port_23: &PORT_23
+  devices:
+    - name:           port_23_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_17_24_ch6
+      address:        0x50
+  module_eeprom:      port_23_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x2
+      bitmask:        0x4000
+      value:          0
+
+port_24: &PORT_24
+  devices:
+    - name:           port_24_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_17_24_ch7
+      address:        0x50
+  module_eeprom:      port_24_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x2
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x2
+      bitmask:        0x0400
+      value:          0
+
+port_25: &PORT_25
+  devices:
+    - name:           port_25_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_25_32_ch0
+      address:        0x50
+  module_eeprom:      port_25_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x3
+      bitmask:        0x0040
+      value:          0
+
+port_26: &PORT_26
+  devices:
+    - name:           port_26_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_25_32_ch1
+      address:        0x50
+  module_eeprom:      port_26_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x3
+      bitmask:        0x0004
+      value:          0
+
+port_27: &PORT_27
+  devices:
+    - name:           port_27_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_25_32_ch2
+      address:        0x50
+  module_eeprom:      port_27_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x3
+      bitmask:        0x4000
+      value:          0
+
+port_28: &PORT_28
+  devices:
+    - name:           port_28_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_25_32_ch3
+      address:        0x50
+  module_eeprom:      port_28_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x3
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x3
+      bitmask:        0x0400
+      value:          0
+
+port_29: &PORT_29
+  devices:
+    - name:           port_29_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_25_32_ch4
+      address:        0x50
+  module_eeprom:      port_29_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x4
+      bitmask:        0x0040
+      value:          0
+
+port_30: &PORT_30
+  devices:
+    - name:           port_30_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_25_32_ch5
+      address:        0x50
+  module_eeprom:      port_30_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x4
+      bitmask:        0x0004
+      value:          0
+
+port_31: &PORT_31
+  devices:
+    - name:           port_31_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_25_32_ch6
+      address:        0x50
+  module_eeprom:      port_31_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x4
+      bitmask:        0x4000
+      value:          0
+
+port_32: &PORT_32
+  devices:
+    - name:           port_32_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_25_32_ch7
+      address:        0x50
+  module_eeprom:      port_32_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_2
+    register:         0x4
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_2
+      register:       0x4
+      bitmask:        0x0400
+      value:          0
+
+port_33: &PORT_33
+  devices:
+    - name:           port_33_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_33_40_ch0
+      address:        0x50
+  module_eeprom:      port_33_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x1
+      bitmask:        0x0040
+      value:          0
+
+port_34: &PORT_34
+  devices:
+    - name:           port_34_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_33_40_ch1
+      address:        0x50
+  module_eeprom:      port_34_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x1
+      bitmask:        0x0004
+      value:          0
+
+port_35: &PORT_35
+  devices:
+    - name:           port_35_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_33_40_ch2
+      address:        0x50
+  module_eeprom:      port_35_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x1
+      bitmask:        0x4000
+      value:          0
+
+port_36: &PORT_36
+  devices:
+    - name:           port_36_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_33_40_ch3
+      address:        0x50
+  module_eeprom:      port_36_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x1
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x1
+      bitmask:        0x0400
+      value:          0
+
+port_37: &PORT_37
+  devices:
+    - name:           port_37_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_33_40_ch4
+      address:        0x50
+  module_eeprom:      port_37_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x2
+      bitmask:        0x0040
+      value:          0
+
+port_38: &PORT_38
+  devices:
+    - name:           port_38_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_33_40_ch5
+      address:        0x50
+  module_eeprom:      port_38_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x2
+      bitmask:        0x0004
+      value:          0
+
+port_39: &PORT_39
+  devices:
+    - name:           port_39_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_33_40_ch6
+      address:        0x50
+  module_eeprom:      port_39_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x2
+      bitmask:        0x4000
+      value:          0
+
+port_40: &PORT_40
+  devices:
+    - name:           port_40_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_33_40_ch7
+      address:        0x50
+  module_eeprom:      port_41_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x2
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x2
+      bitmask:        0x0400
+      value:          0
+
+port_41: &PORT_41
+  devices:
+    - name:           port_41_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_41_48_ch0
+      address:        0x50
+  module_eeprom:      port_41_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x3
+      bitmask:        0x0040
+      value:          0
+
+port_42: &PORT_42
+  devices:
+    - name:           port_42_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_41_48_ch1
+      address:        0x50
+  module_eeprom:      port_42_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x3
+      bitmask:        0x0004
+      value:          0
+
+port_43: &PORT_43
+  devices:
+    - name:           port_43_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_41_48_ch2
+      address:        0x50
+  module_eeprom:      port_43_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x3
+      bitmask:        0x4000
+      value:          0
+
+port_44: &PORT_44
+  devices:
+    - name:           port_44_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_41_48_ch3
+      address:        0x50
+  module_eeprom:      port_44_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x3
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x3
+      bitmask:        0x0400
+      value:          0
+
+port_45: &PORT_45
+  devices:
+    - name:           port_45_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_41_48_ch4
+      address:        0x50
+  module_eeprom:      port_45_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0080
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0040
+  module_present:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0020
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0010
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x4
+      bitmask:        0x0040
+      value:          0
+
+port_46: &PORT_46
+  devices:
+    - name:           port_46_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_41_48_ch5
+      address:        0x50
+  module_eeprom:      port_46_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0008
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0004
+  module_present:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0002
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0001
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x4
+      bitmask:        0x0004
+      value:          0
+
+port_47: &PORT_47
+  devices:
+    - name:           port_47_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_41_48_ch6
+      address:        0x50
+  module_eeprom:      port_47_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x8000
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x4000
+  module_present:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x2000
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x1000
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x4
+      bitmask:        0x4000
+      value:          0
+
+port_48: &PORT_48
+  devices:
+    - name:           port_48_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_41_48_ch7
+      address:        0x50
+  module_eeprom:      port_48_eeprom
+  connector:          SFP28
+  module_tx_fault:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0800
+  module_tx_disable:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0400
+  module_present:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0200
+    active_low:       1
+  module_rx_los:
+    device:           port_cpld_3
+    register:         0x4
+    bitmask:          0x0100
+  module_init_ops:
+    - device:         port_cpld_3
+      register:       0x4
+      bitmask:        0x0400
+      value:          0
+
+port_49: &PORT_49
+  devices:
+    - name:           port_49_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_49_56_ch0
+      addresses:      [0x50, 0x68]
+  module_eeprom:      port_49_eeprom
+  connector:          ZQSFP_PLUS
+  module_reset:
+    device:           pca9698_qsfp
+    register:         0x08
+    bitmask:          0x01
+    active_low:       1
+  module_interrupt:
+    device:           pca9698_qsfp
+    register:         0x00
+    bitmask:          0x02
+    active_low:       1
+  module_present:
+    device:           pca9698_qsfp
+    register:         0x00
+    bitmask:          0x04
+    active_low:       1
+  module_lpmode:
+    device:           pca9698_qsfp
+    register:         0x08
+    bitmask:          0x08
+  module_init_ops:
+    - device:         pca9698_qsfp
+      register:       0x08
+      bitmask:        0x01
+      active_low:     1
+      value:          0
+
+port_53: &PORT_53
+  devices:
+    - name:           port_53_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_49_56_ch1
+      addresses:      [0x50, 0x68]
+  module_eeprom:      port_53_eeprom
+  connector:          ZQSFP_PLUS
+  module_reset:
+    device:           pca9698_qsfp
+    register:         0x08
+    bitmask:          0x10
+    active_low:       1
+  module_interrupt:
+    device:           pca9698_qsfp
+    register:         0x00
+    bitmask:          0x20
+    active_low:       1
+  module_present:
+    device:           pca9698_qsfp
+    register:         0x00
+    bitmask:          0x40
+    active_low:       1
+  module_lpmode:
+    device:           pca9698_qsfp
+    register:         0x08
+    bitmask:          0x80
+  module_init_ops:
+    - device:         pca9698_qsfp
+      register:       0x08
+      bitmask:        0x10
+      active_low:     1
+      value:          0
+
+port_57: &PORT_57
+  devices:
+    - name:           port_57_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_49_56_ch2
+      addresses:      [0x50, 0x68]
+  module_eeprom:      port_57_eeprom
+  connector:          ZQSFP_PLUS
+  module_reset:
+    device:           pca9698_qsfp
+    register:         0x09
+    bitmask:          0x01
+    active_low:       1
+  module_interrupt:
+    device:           pca9698_qsfp
+    register:         0x01
+    bitmask:          0x02
+    active_low:       1
+  module_present:
+    device:           pca9698_qsfp
+    register:         0x01
+    bitmask:          0x04
+    active_low:       1
+  module_lpmode:
+    device:           pca9698_qsfp
+    register:         0x09
+    bitmask:          0x08
+  module_init_ops:
+    - device:         pca9698_qsfp
+      register:       0x09
+      bitmask:        0x01
+      active_low:     1
+      value:          0
+
+port_61: &PORT_61
+  devices:
+    - name:           port_61_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_49_56_ch3
+      addresses:      [0x50, 0x68]
+  module_eeprom:      port_61_eeprom
+  connector:          ZQSFP_PLUS
+  module_reset:
+    device:           pca9698_qsfp
+    register:         0x09
+    bitmask:          0x10
+    active_low:       1
+  module_interrupt:
+    device:           pca9698_qsfp
+    register:         0x01
+    bitmask:          0x20
+    active_low:       1
+  module_present:
+    device:           pca9698_qsfp
+    register:         0x01
+    bitmask:          0x40
+    active_low:       1
+  module_lpmode:
+    device:           pca9698_qsfp
+    register:         0x09
+    bitmask:          0x80
+  module_init_ops:
+    - device:         pca9698_qsfp
+      register:       0x09
+      bitmask:        0x10
+      active_low:     1
+      value:          0
+
+port_65: &PORT_65
+  devices:
+    - name:           port_65_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_49_56_ch4
+      addresses:      [0x50, 0x68]
+  module_eeprom:      port_65_eeprom
+  connector:          ZQSFP_PLUS
+  module_reset:
+    device:           pca9698_qsfp
+    register:         0x0a
+    bitmask:          0x01
+    active_low:       1
+  module_interrupt:
+    device:           pca9698_qsfp
+    register:         0x02
+    bitmask:          0x02
+    active_low:       1
+  module_present:
+    device:           pca9698_qsfp
+    register:         0x02
+    bitmask:          0x04
+    active_low:       1
+  module_lpmode:
+    device:           pca9698_qsfp
+    register:         0x0a
+    bitmask:          0x08
+  module_init_ops:
+    - device:         pca9698_qsfp
+      register:       0x0a
+      bitmask:        0x01
+      active_low:     1
+      value:          0
+
+port_69: &PORT_69
+  devices:
+    - name:           port_69_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_49_56_ch5
+      addresses:      [0x50, 0x68]
+  module_eeprom:      port_69_eeprom
+  connector:          ZQSFP_PLUS
+  module_reset:
+    device:           pca9698_qsfp
+    register:         0x0a
+    bitmask:          0x10
+    active_low:       1
+  module_interrupt:
+    device:           pca9698_qsfp
+    register:         0x02
+    bitmask:          0x20
+    active_low:       1
+  module_present:
+    device:           pca9698_qsfp
+    register:         0x02
+    bitmask:          0x40
+    active_low:       1
+  module_lpmode:
+    device:           pca9698_qsfp
+    register:         0x0a
+    bitmask:          0x80
+  module_init_ops:
+    - device:         pca9698_qsfp
+      register:       0x0a
+      bitmask:        0x10
+      active_low:     1
+      value:          0
+
+port_73: &PORT_73
+  devices:
+    - name:           port_73_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_49_56_ch6
+      addresses:      [0x50, 0x68]
+  module_eeprom:      port_73_eeprom
+  connector:          ZQSFP_PLUS
+  module_reset:
+    device:           pca9698_qsfp
+    register:         0x0b
+    bitmask:          0x01
+    active_low:       1
+  module_interrupt:
+    device:           pca9698_qsfp
+    register:         0x03
+    bitmask:          0x02
+    active_low:       1
+  module_present:
+    device:           pca9698_qsfp
+    register:         0x03
+    bitmask:          0x04
+    active_low:       1
+  module_lpmode:
+    device:           pca9698_qsfp
+    register:         0x0b
+    bitmask:          0x08
+  module_init_ops:
+    - device:         pca9698_qsfp
+      register:       0x0b
+      bitmask:        0x01
+      active_low:     1
+      value:          0
+
+port_77: &PORT_77
+  devices:
+    - name:           port_77_eeprom
+      compatible:     24c02
+      bus:            pca9548_sfp_49_56_ch7
+      addresses:      [0x50, 0x68]
+  module_eeprom:      port_77_eeprom
+  connector:          ZQSFP_PLUS
+  module_reset:
+    device:           pca9698_qsfp
+    register:         0x0b
+    bitmask:          0x10
+    active_low:       1
+  module_interrupt:
+    device:           pca9698_qsfp
+    register:         0x03
+    bitmask:          0x20
+    active_low:       1
+  module_present:
+    device:           pca9698_qsfp
+    register:         0x03
+    bitmask:          0x40
+    active_low:       1
+  module_lpmode:
+    device:           pca9698_qsfp
+    register:         0x0b
+    bitmask:          0x80
+  module_init_ops:
+    - device:         pca9698_qsfp
+      register:       0x0b
+      bitmask:        0x10
+      active_low:     1
+      value:          0

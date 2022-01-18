@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the interrupt devices common to X465 series switches
+#
+
+devices:
+  - *INTR_CONTROLLER_GPIO
+  - *INTR_CONTROLLER_CPLD

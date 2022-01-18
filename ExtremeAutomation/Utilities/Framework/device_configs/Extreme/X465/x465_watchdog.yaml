@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the watchdogs common to X465 series switches
+#
+
+watchdogs:
+  - *WATCHDOG1

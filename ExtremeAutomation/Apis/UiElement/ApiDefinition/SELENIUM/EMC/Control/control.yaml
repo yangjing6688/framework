@@ -1,0 +1,10 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+control:
+    control_select_sub_tab:
+        apis:
+            - [emc,'8.1.1']

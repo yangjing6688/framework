@@ -1,0 +1,117 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+firmware:
+    determine_firmware:
+        uuid: ba85b548-bf68-4a74-8b3b-4c3fa9504581
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'dir images',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show switch',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show software',userPrompt,'None','None','None',[],[]]
+                - [BOSS,base,baseversion,baseunit,'show flash',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'show bootvar',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'dir',userPrompt,'None','None','None',[],[]]
+                - [ICX,base,baseversion,baseunit,'show flash',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show version',userPrompt,'None','None','None',[],[]]
+    download_firmware:
+        uuid: 67ffac3f-89d6-4c00-9bb8-a5a7862a6916
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'copy tftp://{server}/{filename} {version}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'download url tftp://{server}/{filename} vr {vr}',userPrompt,'None','Debug information files are present||Do you want to install image after downloading','{answer}||{answer}',[],[]]
+                - [BOSS,base,baseversion,baseunit,'download address {server} {image_location} image {filename} {reset}',userPrompt,'None','None','None',[],[]]
+    select_firmware:
+        uuid: db08d60b-d00c-4c50-acf9-b6a9c3edffb5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set boot system {filename}',userPrompt,'None','(y/n)','{answer}',[],[]]
+                - [EXOS,base,baseversion,baseunit,'use image {filename}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'software activate {filename}',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'boot system {filename}',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'set boot system {filename}',userPrompt,'None','Do you want to reset now (y/n) [n]?','{answer}',[],[]]
+                - [ICX,base,baseversion,baseunit,'write memory||boot system flash {filename}',userPrompt,'None',"Are you sure? (enter 'y' or 'n'):",'{answer}',[],[]]
+    delete_firmware:
+        uuid: 1633561d-c592-4b8a-a614-5cae5413d383
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'delete {filename}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'delete {filename}',userPrompt,'None','Are you sure (y/n) ?','{answer}',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'delete {filename}',userPrompt,'None','None','None',[],[]]
+    uninstall_xmod:
+        uuid: 19fd14e7-69c5-495f-ab1a-a3e53d1ae378
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'uninstall image {xmod} {partition}',userPrompt,'None','(y or n)','{save_config}',[],[]]
+    commit_firmware:
+        uuid: 983f1e85-7533-4acc-927f-054bddc1885e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'software commit',userPrompt,'None','None','None',[],[]]
+    download_firmware_sftp:
+        uuid: 674229d2-38c1-4f03-81e4-9ae3976b02f0
+        apis:
+            CLI:
+                - [BOSS,base,baseversion,baseunit,'download {server_type} address {server} {image_location} image {filename} {reset} username {username} password',userPrompt,'None','Enter password:','{password}',[],[]]
+                - [BOSS,base,'3500',baseunit,'download {server_type} address {server} {image_location} image {filename} {reset} username {username} password',userPrompt,'None','Enter password:||Confirm password:','{password}||{password}',[],[]]
+                - [BOSS,base,'4800',baseunit,'download {server_type} address {server} {image_location} image {filename} {reset} username {username} password',userPrompt,'None','Enter password:||Confirm password:','{password}||{password}',[],[]]
+                - [SLX,base,baseversion,baseunit,'firmware download fullinstall sftp host {server} user {username} password {password} directory {filename}',userPrompt,'None','Do you want to continue? [y/n]:','y',[],[]]
+    download_firmware_scp:
+        uuid: a65dab29-db0d-402e-a12c-4c36d37c4ce8
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'firmware download fullinstall scp host {server} user {username} password {password} directory {filename}',userPrompt,'None','Do you want to continue? [y/n]:','y',[],[]]
+    download_firmware_https:
+        uuid: a4696382-57e2-40ee-8ebb-8560ac93a96e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'download url https://{server}/{filename} vr {vr}',userPrompt,'None','Debug information files are present||Do you want to install image after downloading','{answer}||{answer}',[],[]]
+    show_firmware_info:
+        uuid: c7400809-980c-453b-b64c-083e8b9b9721
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'dir images',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show version',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show software',userPrompt,'None','None','None',[],[]]
+                - [BOSS,base,baseversion,baseunit,'show sys-info',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'show version',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'dir',userPrompt,'None','None','None',[],[]]
+                - [MLX,base,baseversion,baseunit,'show version',userPrompt,'None','None','None',[],[]]
+                - [VDX,base,baseversion,baseunit,'show version',userPrompt,'None','None','None',[],[]]
+                - [ICX,base,baseversion,baseunit,'show version',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show version',userPrompt,'None','None','None',[],[]]
+    show_installed_images:
+        uuid: 915a5c65-84e5-426b-a322-48bdbda9f462
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show version images',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'show bootvar',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'dir',userPrompt,'None','None','None',[],[]]
+    show_firmware_version:
+        uuid: b695cdd6-6066-11ec-8607-0242ac1300021
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show version',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show software detail',userPrompt,'None','None','None',[],[]]

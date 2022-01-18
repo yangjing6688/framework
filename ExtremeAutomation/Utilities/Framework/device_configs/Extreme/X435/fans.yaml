@@ -1,0 +1,59 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines fan FRUs common to X435 series switches
+#
+
+fan_interrupt: &FAN_INTERRUPT
+  interrupt: board_int
+
+fan_controller_pca9555: &FAN_CONTROLLER_PCA9555
+  name:               fanctl_pca9555
+  bus:                platform
+  compatible:         cpld_fan_controller
+  device:             pca9555_1
+  speed_settings:
+    type:             STEP
+    STOP:             0
+    SLOW:             0
+    NORMAL:           0
+    MEDIUM:           1
+    FAST:             1
+    MAX:              1
+  fan_all_controls:
+    - name:           fanctl_fan_all
+      target_speed:
+        register:     0x02
+        bitmask:      0x08
+  fan_controls:
+    - name:           fan_loss1
+      fault_status:
+        register:     0x00
+        bitmask:      0x80
+
+common_fan_info: &COMMON_FAN_INFO
+  number_fan_frus:    1
+  fans_per_fru:       1
+  fan_led_settings:
+    OFF:              0x0
+    SOLID_GREEN:      0x0
+    BLINK_AMBER:      0x1
+  fan_all_controls:
+    target_speed:     fanctl_fan_all
+
+fan_fru_1: &FAN_FRU_1
+  number:             1
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           FIXED
+  fan_led:
+    device:           pca9555_1
+    register:         0x03
+    bitmask:          0x40
+  fans:
+    - number:         1
+      fault_status:   fan_loss1

@@ -1,0 +1,220 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+vpex:
+    enable_global:
+        description: "Enables VPEX globally on the device"
+        arguments:
+            order: 
+        uuid: ad5e8fd5-07f8-4894-a55a-66207c4141ad
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable vpex',userPrompt,'None','None','None',[],[]]
+    disable_global:
+        description: "Disables VPEX globally on the device"
+        arguments:
+            order: 
+        uuid: 3a292f45-5876-478a-b74d-d77acdbb1899
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable vpex',userPrompt,'None','None','None',[],[]]
+    enable_auto_configuration:
+        description: ""
+        arguments:
+            order: 
+        uuid: 457451ee-6dfc-4c54-8188-a8dd65cab4aa
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable vpex auto-configuration',userPrompt,'None','None','None',[],[]]
+    disable_auto_configuration:
+        description: ""
+        arguments:
+            order: 
+        uuid: ac3de84b-ca95-4ade-ad84-d0a5ccce75ed
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable vpex auto-configuration',userPrompt,'None','None','None',[],[]]
+    set_ports:
+        description: ""
+        arguments:
+            order: 
+        uuid: fcd6f07b-9815-49cd-902c-8037df898def
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vpex ports {port} slot {slot}',userPrompt,'None','None','None',[],[]]
+    clear_ports:
+        description: ""
+        arguments:
+            order:
+        uuid: c93965cf-c7c6-4699-a240-fb69d14c0e72
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure vpex ports {port} slot',userPrompt,'None','None','None',[],[]]
+    set_ring_rebalancing_auto:
+        description: ""
+        arguments:
+            order: 
+        uuid: 38d8b33b-d2d7-4551-a008-af9dbcc390c4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vpex ring rebalancing auto',userPrompt,'None','None','None',[],[]]
+    set_ring_rebalancing_off:
+        description: ""
+        arguments:
+            order: 
+        uuid: e86cc601-ec3c-4e0e-b84e-be7957d7bb7b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vpex ring rebalancing off',userPrompt,'None','None','None',[],[]]
+    show_info:
+        uuid: ecdf3468-4f27-458b-a3d8-6991cc1058a3
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex',userPrompt,'None','None','None',[],[]]
+    show_bpe:
+        uuid: 81e59da1-f439-484c-9eb6-1c0d87ef8f8c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe',userPrompt,'None','None','None',[],[]]
+    show_bpe_cpu_utilization:
+        uuid: 947ebd0f-f016-409c-8335-0ddf1a9c29ca
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe cpu-utilization',userPrompt,'None','None','None',[],[]]
+    show_bpe_environment:
+        uuid: ff52a45c-fc43-4278-b1a8-40e0ea6930d5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe environment',userPrompt,'None','None','None',[],[]]
+    show_bpe_version_detail:
+        uuid: 25b07336-d377-4829-9af7-2a99708cd7d3
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe version detail',userPrompt,'None','None','None',[],[]]
+    show_bpe_slot:
+        uuid: 0d74db1c-fb40-4f02-a0b1-0b50c710c1c9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe slot {slot}',userPrompt,'None','None','None',[],[]]
+    show_bpe_slot_cpu_utilization:
+        uuid: c54304ee-306a-4eab-a4c8-de90af1cfb05
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe slot {slot} cpu-utilization',userPrompt,'None','None','None',[],[]]
+    show_bpe_slot_environment:
+        uuid: 732ab290-1c9d-49fe-b914-636100d7a955
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe slot {slot} environment',userPrompt,'None','None','None',[],[]]
+    show_bpe_slot_statistics:
+        uuid: af6062d7-c305-4906-a534-dfb50525f3c1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe slot {slot} statistics',userPrompt,'None','None','None',[],[]]
+    show_bpe_slot_statistics_detail:
+        uuid: 962d7438-5b93-43f5-acc4-94207b5fc057
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe slot {slot} statistics detail',userPrompt,'None','None','None',[],[]]
+    show_bpe_slot_version_detail:
+        uuid: 67b838a9-c612-442a-b6d0-894430f3b7ba
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe slot {slot} version detail',userPrompt,'None','None','None',[],[]]
+    show_bpe_statistics:
+        uuid: eacb83c3-d0df-4e4a-8870-bc10aeddf7c3
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe statistics',userPrompt,'None','None','None',[],[]]
+    show_bpe_statistics_detail:
+        uuid: 7b0432d1-3248-4741-9e22-0d41ce332e66
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe statistics detail',userPrompt,'None','None','None',[],[]]
+    show_bpe_statistics_detail_slot:
+        uuid: 8e7e3dc3-9ae6-41d4-a52e-dd5dd6c542d7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex bpe statistics detail slot {slot}',userPrompt,'None','None','None',[],[]]
+    show_ports:
+        uuid: 13c1c7fe-de4a-4ce6-931b-43fa7a982ab5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex ports',userPrompt,'None','None','None',[],[]]
+    show_ports_ecp_statistics:
+        uuid: 9e1ce645-6cef-4936-8f9d-866c02141a27
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex ports ecp statistics',userPrompt,'None','None','None',[],[]]
+    show_ports_statistics:
+        uuid: 14b44ec3-2c7e-418f-bd6b-a8badc78487e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex ports statistics',userPrompt,'None','None','None',[],[]]
+    show_ports_statistics_detail:
+        uuid: ac0b9010-0ff0-4832-b87e-c85270bc1328
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex ports statistics detail',userPrompt,'None','None','None',[],[]]
+    show_topology:
+        uuid: 65347b7e-7b26-42a5-9ac2-deee0ca4b633
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex topology',userPrompt,'None','None','None',[],[]]
+    show_topology_detail:
+        uuid: 7409021b-1d64-48ba-9686-b41a0778ec59
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex topology detail',userPrompt,'None','None','None',[],[]]
+    show_topology_detail_port:
+        uuid: a232b920-dddc-4fe0-bb3c-0538dee1b353
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex topology detail port {port}',userPrompt,'None','None','None',[],[]]
+    show_topology_port:
+        uuid: 00c5c177-da18-4803-8685-d8812613fa6f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex topology port {port}',userPrompt,'None','None','None',[],[]]
+    show_topology_port_detail:
+        uuid: 07630d62-e451-4c60-ada5-46f6cdcfa80e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex topology port {port} detail',userPrompt,'None','None','None',[],[]]
+    show_topology_port_summary:
+        uuid: df64854b-5837-4bd0-81e2-98b0864c4704
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex topology port {port} summary',userPrompt,'None','None','None',[],[]]
+    show_topology_summary:
+        uuid: 359e087e-ae2c-439e-9382-69f0ab9ec8a4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex topology summary',userPrompt,'None','None','None',[],[]]
+    show_topology_summary_port:
+        uuid: 24b2b1b3-3f53-40f3-a272-f63dd7e9c45a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vpex topology summary port {port}',userPrompt,'None','None','None',[],[]]

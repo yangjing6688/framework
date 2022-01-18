@@ -1,0 +1,49 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+ewcsites:
+    sites_create_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_delete_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_site_should_exist:
+        apis:
+            - [ewc,'10.41.12']
+    sites_site_should_not_exist:
+        apis:
+            - [ewc,'10.41.12']
+    sites_add_ap_to_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_remove_ap_from_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_add_wlan_radios_to_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_remove_wlan_radios_from_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_add_default_dns_server_to_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_ap_should_be_enabled_for_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_wlan_should_be_enabled_for_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_validate_default_dns_server_ip_for_site:
+        apis:
+            - [ewc,'10.41.12']
+    sites_click_save_button:
+        apis:
+            - [ewc,'10.41.12']
+    sites_select_tab_in_site_page:
+        apis:
+            - [ewc,'10.41.12']

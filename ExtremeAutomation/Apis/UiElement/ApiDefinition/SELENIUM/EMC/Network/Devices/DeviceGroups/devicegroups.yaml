@@ -1,0 +1,25 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+devicegroups:
+    devicegroups_create_device_group:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    devicegroups_delete_device_group:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    devicegroups_rename_device_group:
+        apis:
+            - [emc,'8.1.1']
+    devicegroups_confirm_device_group_exists:
+        apis:
+            - [emc,'8.1.1']
+    devicegroups_wait_for_device_group_add:
+        apis:
+            - [emc,'8.1.3']
+    devicegroups_wait_for_device_group_remove:
+        apis:
+            - [emc,'8.1.3']

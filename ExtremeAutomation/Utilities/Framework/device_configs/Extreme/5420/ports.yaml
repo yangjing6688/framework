@@ -1,0 +1,473 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020-2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines common ports present on 5420 series switches
+#  Half-Duplex capability on all 10/100BASE-T ports.
+#
+# ##################################################################
+# Common Ports
+# ##################################################################
+
+common_port_info: &COMMON_PORT_INFO
+
+1G_port: &1G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100_1000
+   portMediaType: HAL_PORT_MED_UTP
+   GigHalfDuplex: false
+   MacsecXflow: true
+   Eee: true
+
+1G_poe_port: &1G_POE_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100_1000
+   portMediaType: HAL_PORT_MED_UTP
+   GigHalfDuplex: false
+   Poe: true
+   FastPoe: true
+   MacsecXflow: true
+   Eee: true
+
+1G_poe_w_port: &1G_POE_W_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100_1000
+   portMediaType: HAL_PORT_MED_UTP
+   GigHalfDuplex: false
+   Poe: true
+   FastPoe: true
+   PoePlusPlus: true
+   PoeBT: true
+   MacsecXflow: true
+   Eee: true
+
+1G_sfp_port: &1G_SFP_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100_1000
+   portMediaType: HAL_PORT_MED_MGBIC
+   FullDuplexOnly: true
+   MacsecXflow: true
+
+2p5G_poe_port: &2p5G_POE_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100_1000_2500
+   portMediaType: HAL_PORT_MED_UTP
+   Poe: true
+   PoePlusPlus: true
+   PoeBT: true
+   FastPoe: true
+   MacsecXflow: true
+   Eee: true
+   FullDuplexOnly: true
+
+10G_port: &10G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Fec: true
+   autoneg1G: true
+   autoneg10G: true
+   FullDuplexOnly: true
+   MacsecXflow: true
+
+# 25G port
+25G_port: &25G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000_25000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Fec: true
+   autoneg1G: false
+   autoneg10G: true
+   FullDuplexOnly: true
+   MacsecXflow: true
+
+# Port that is part of default 4x25G partition supporting 4x10G partition
+25G_partition_port: &25G_PARTITION_PORT
+   <<: *25G_PORT
+   Partition: true
+   PartitionSize: 4
+
+
+uplink_1_devices: &UPLINK_1_DEVICES
+  devices:
+    - name:         uplink_1_eeprom
+      compatible:   24c02
+      bus:          pca9548_1_ch2
+      address:      0x50
+  module_eeprom:    uplink_1_eeprom
+
+uplink_2_devices: &UPLINK_2_DEVICES
+  devices:
+    - name:         uplink_2_eeprom
+      compatible:   24c02
+      bus:          pca9548_1_ch3
+      address:      0x50
+  module_eeprom:    uplink_2_eeprom
+
+uplink_3_devices: &UPLINK_3_DEVICES
+  devices:
+    - name:         uplink_3_eeprom
+      compatible:   24c02
+      bus:          pca9548_1_ch4
+      address:      0x50
+  module_eeprom:    uplink_3_eeprom
+
+uplink_4_devices: &UPLINK_4_DEVICES
+  devices:
+    - name:         uplink_4_eeprom
+      compatible:   24c02
+      bus:          pca9548_1_ch5
+      address:      0x50
+  module_eeprom:    uplink_4_eeprom
+
+
+uplink_1_control: &UPLINK_1_CONTROL
+  module_present:
+    device:         uplink_pca9506
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         uplink_pca9506
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         uplink_pca9506
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         uplink_pca9506
+    register:       0x08
+    bitmask:        0x08
+  module_init_ops:
+    - device:       uplink_pca9506
+      register:     0x18
+      bitmask:      0x0f
+      value:        0x07
+    - device:       uplink_pca9506
+      register:     0x08
+      bitmask:      0x08
+      value:        0
+    - device:       uplink_pca9506
+      register:     0x20
+      bitmask:      0x03
+      value:        0
+
+uplink_2_control: &UPLINK_2_CONTROL
+  module_present:
+    device:         uplink_pca9506
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         uplink_pca9506
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         uplink_pca9506
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         uplink_pca9506
+    register:       0x09
+    bitmask:        0x08
+  module_init_ops:
+    - device:       uplink_pca9506
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       uplink_pca9506
+      register:     0x09
+      bitmask:      0x08
+      value:        0
+    - device:       uplink_pca9506
+      register:     0x21
+      bitmask:      0x03
+      value:        0
+
+uplink_3_control: &UPLINK_3_CONTROL
+  module_present:
+    device:         uplink_pca9506
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         uplink_pca9506
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         uplink_pca9506
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         uplink_pca9506
+    register:       0x0a
+    bitmask:        0x08
+  module_init_ops:
+    - device:       uplink_pca9506
+      register:     0x1a
+      bitmask:      0x0f
+      value:        0x07
+    - device:       uplink_pca9506
+      register:     0x0a
+      bitmask:      0x08
+      value:        0
+    - device:       uplink_pca9506
+      register:     0x22
+      bitmask:      0x03
+      value:        0
+
+uplink_4_control: &UPLINK_4_CONTROL
+  module_present:
+    device:         uplink_pca9506
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         uplink_pca9506
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         uplink_pca9506
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         uplink_pca9506
+    register:       0x0b
+    bitmask:        0x08
+  module_init_ops:
+    - device:       uplink_pca9506
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       uplink_pca9506
+      register:     0x0b
+      bitmask:      0x08
+      value:        0
+    - device:       uplink_pca9506
+      register:     0x23
+      bitmask:      0x03
+      value:        0
+
+uplink_1: &UPLINK_1
+  connector:        SFP_PLUS
+  <<: *UPLINK_1_DEVICES
+  <<: *UPLINK_1_CONTROL
+
+uplink_2: &UPLINK_2
+  connector:        SFP_PLUS
+  <<: *UPLINK_2_DEVICES
+  <<: *UPLINK_2_CONTROL
+
+uplink_3: &UPLINK_3
+  connector:        SFP_PLUS
+  <<: *UPLINK_3_DEVICES
+  <<: *UPLINK_3_CONTROL
+
+uplink_4: &UPLINK_4
+  connector:        SFP_PLUS
+  <<: *UPLINK_4_DEVICES
+  <<: *UPLINK_4_CONTROL
+
+sfp_dd_1_devices: &SFP_DD_1_DEVICES
+  devices:
+    - name:         dd_1_eeprom
+      compatible:   24c02
+      bus:          pca9548_1_ch0
+      address:      0x50
+  module_eeprom:    dd_1_eeprom
+
+sfp_dd_3_devices: &SFP_DD_3_DEVICES
+  devices:
+    - name:         dd_3_eeprom
+      compatible:   24c02
+      bus:          pca9548_1_ch1
+      address:      0x50
+  module_eeprom:    dd_3_eeprom
+
+sfp_dd_1_control: &SFP_DD_1_CONTROL
+  module_present:
+    device:         stk_pca9506
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         stk_pca9506
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         stk_pca9506
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         stk_pca9506
+    register:       0x08
+    bitmask:        0x08
+  module_lpmode:
+    device:         stk_pca9506
+    register:       0x08
+    bitmask:        0x10
+  module_init_ops:
+    - device:       stk_pca9506
+      register:     0x18
+      bitmask:      0x1f
+      value:        0x07
+    - device:       stk_pca9506
+      register:     0x08
+      bitmask:      0x08
+      value:        0
+    - device:       stk_pca9506
+      register:     0x08
+      bitmask:      0x10
+      value:        0
+    - device:       stk_pca9506
+      register:     0x20
+      bitmask:      0x03
+      value:        0
+
+sfp_dd_2_control: &SFP_DD_2_CONTROL
+  module_present:
+    device:         stk_pca9506
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         stk_pca9506
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         stk_pca9506
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         stk_pca9506
+    register:       0x09
+    bitmask:        0x08
+#  module_lpmode:  shared with 1 above
+#    device:         stk_pca9506
+#    register:       0x09
+#    bitmask:        0x10
+  module_init_ops:
+    - device:       stk_pca9506
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       stk_pca9506
+      register:     0x09
+      bitmask:      0x08
+      value:        0
+#    - device:       stk_pca9506
+#      register:     0x09
+#      bitmask:      0x10
+#      value:        0
+    - device:       stk_pca9506
+      register:     0x21
+      bitmask:      0x03
+      value:        0
+
+
+sfp_dd_3_control: &SFP_DD_3_CONTROL
+  module_present:
+    device:         stk_pca9506
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         stk_pca9506
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         stk_pca9506
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         stk_pca9506
+    register:       0x0a
+    bitmask:        0x08
+  module_lpmode:
+    device:         stk_pca9506
+    register:       0x0a
+    bitmask:        0x10
+  module_init_ops:
+    - device:       stk_pca9506
+      register:     0x1a
+      bitmask:      0x1f
+      value:        0x07
+    - device:       stk_pca9506
+      register:     0x0a
+      bitmask:      0x08
+      value:        0
+    - device:       stk_pca9506
+      register:     0x22
+      bitmask:      0x03
+      value:        0
+
+sfp_dd_4_control: &SFP_DD_4_CONTROL
+  module_present:
+    device:         stk_pca9506
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         stk_pca9506
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         stk_pca9506
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         stk_pca9506
+    register:       0x0b
+    bitmask:        0x08
+#  module_lpmode:   shared with 3 above
+#    device:         stk_pca9506
+#    register:       0x0b
+#    bitmask:        0x10
+  module_init_ops:
+    - device:       stk_pca9506
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       stk_pca9506
+      register:     0x0b
+      bitmask:      0x08
+      value:        0
+    - device:       stk_pca9506
+      register:     0x23
+      bitmask:      0x03
+      value:        0
+
+#SFP_DD_PORT_1-4 refers to stacking front panel ports 53-56
+#SFP_DD_1_EEPROM refers to mux ch 0, _2_EEPROM to ch1
+#eeproms are shared within 2 SFP-DD sub ports
+#there is a swap between HW and FP port numbers
+
+sfp_dd_port_1: &SFP_DD_PORT_1
+  connector:        SFP_DD
+  sfpDd: true
+  <<: *SFP_DD_3_DEVICES
+  <<: *SFP_DD_3_CONTROL
+
+sfp_dd_port_2: &SFP_DD_PORT_2
+  connector:        SFP_DD
+  sfpDd: true
+  <<: *SFP_DD_3_DEVICES
+  <<: *SFP_DD_4_CONTROL
+
+sfp_dd_port_3: &SFP_DD_PORT_3
+  connector:        SFP_DD
+  sfpDd: true
+  <<: *SFP_DD_1_DEVICES
+  <<: *SFP_DD_1_CONTROL
+
+sfp_dd_port_4: &SFP_DD_PORT_4
+  connector:        SFP_DD
+  sfpDd: true
+  <<: *SFP_DD_1_DEVICES
+  <<: *SFP_DD_2_CONTROL

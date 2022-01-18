@@ -1,0 +1,8 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+port_handle,"Depending on the traffic_generator value, this option has different meanings. If traffic_generator ixnetwork_540 is used this parameter is used ixos/ixnetwork_540 - The port for which to configure traffic. Mandatory for -mode create/reset when -traffic_generator is set to ixos. For traffic_generator ixnetwork_540 this is mandatory on mode create only if parameter -emulation_src_handle is missing.ixnetwork/ixnetwork_540 - The port_handle parameter is not necessary anymore. When using IxNetwork, traffic configurations will be done using previously created handles (IP interfaces, PPP ranges, L2TP ranges, Protocol Route Ranges etc.) as sources (parameter -emulation_src_handle) and destinations (-emulation_dst_handle).",port,,"IxNetwork, IxOS/IxNetwork-FT",universal,unimplemented,6.72,,-port_handle 1/2
+action,"Not defined
+Valid options are:
+start: Closes in progres captures and starts packet capturing on the specified port_handle.
+cumulative_start: Starts packet capturing on the specified port_handle. In progress captures remain started.
+stop: Stop packet capturing
+reset: Reset the filters and triggers to the default values",opt,status,"IxNetwork [M] , IxOS/IxNetwork-FT [M]",universal,unimplemented,6.72,,#NAME?

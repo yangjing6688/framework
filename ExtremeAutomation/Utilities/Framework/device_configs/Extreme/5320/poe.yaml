@@ -1,0 +1,26 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines PoE common to 5320 series switches
+#
+
+common_poe_control: &COMMON_POE_CONTROL
+  name:             poe_control
+  compatible:       regmap_poectl
+  reset:
+    device:         system_cpld_reg
+    register:       0x28
+    bitmask:        0x20
+  enable:
+    device:         system_cpld_reg
+    register:       0x58
+    bitmask:        0x01
+    active_low:     1
+  perpetual_enable:
+    device:         system_cpld_reg
+    register:       0x58
+    bitmask:        0x02

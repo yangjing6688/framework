@@ -1,0 +1,812 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the default values for capability variables
+#  used by EXOS.  Every newly added capability variable should have
+#  an entry in this file.
+#
+#
+
+
+default_capability: &DEFAULT_CAPABILITY
+  # Limit/Scaling parameters
+  # Override: Individual switch level
+  hwHealth: -1
+  # Override: Individual switch level
+  numExternalPort: 0
+  # Override: Individual switch level
+  numMgmtPort: 1
+  # Override: Individual switch level
+  numInternalPort: 0
+  # Override: Individual switch level
+  numControlPort: 1
+  # Override: Individual switch level
+  poeMinBudget: 0
+  # Override: Individual switch level
+  poeMaxBudget: 0
+  # Override: Individual switch level
+  poeDfltBudget: 0
+  # Override: Individual switch level
+  poeLoss: 0
+  # Override: Individual switch level
+  numDefLicensePort: 0
+  # Override: Individual switch level
+  maxPortSpeedLicenses: 0
+  # Override: Individual switch level
+  numPartitionTemplates: 0
+  # Override: Chipset level
+  numIngMetersPerPort: 16
+  # Override: Chipset level
+  maxLAGroup: 128
+  # Override: Chipset level
+  maxPortPerLAGroup: 0
+  # Override: NONE
+  # The maxSlice_* values are the max number of slices (PD OR COS)
+  #  that could be allocated for a particular resource-profile
+  #  across all platforms. The total allocation for PD AND COS will be 2x
+  #  the maxSlice_* value.
+  maxSlice_default: 4
+  maxSlice_more_ipv4_less_acl: 6
+  maxSlice_more_ipv4_no_ipv6_less_acl: 6
+  maxSlice_more_ipv4_no_l2_less_acl: 6
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl: 6
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl: 6
+  maxSlice_more_ipv4_no_ipv6: 4
+  maxSlice_more_ipv4_no_l2: 4
+  maxSlice_more_ipv4_no_mac_no_ipv6: 4
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2: 4
+  maxSlice_more_mac_no_ipv6: 4
+
+  # max-slice with 'no-mac' profile-modifier
+  maxSlice_default_mod_noMac: 3
+  maxSlice_more_ipv4_less_acl_mod_noMac: 5
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noMac: 5
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noMac: 5
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noMac: 6
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noMac: 6
+  maxSlice_more_ipv4_no_ipv6_mod_noMac: 3
+  maxSlice_more_ipv4_no_l2_mod_noMac: 3
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noMac: 4
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noMac: 4
+  maxSlice_more_mac_no_ipv6_mod_noMac: 2
+
+  # max-slice with 'no-ipv4' profile-modifier
+  maxSlice_default_mod_noIpv4: 3
+  maxSlice_more_ipv4_less_acl_mod_noIpv4: 3
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noIpv4: 2
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noIpv4: 2
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noIpv4: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noIpv4: 0
+  maxSlice_more_ipv4_no_ipv6_mod_noIpv4: 2
+  maxSlice_more_ipv4_no_l2_mod_noIpv4: 2
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noIpv4: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noIpv4: 0
+  maxSlice_more_mac_no_ipv6_mod_noIpv4: 3
+
+  # max-slice with 'no-ipv6' profile-modifier
+  maxSlice_default_mod_noIpv6: 3
+  maxSlice_more_ipv4_less_acl_mod_noIpv6: 5
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noIpv6: 6
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noIpv6: 5
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noIpv6: 6
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noIpv6: 6
+  maxSlice_more_ipv4_no_ipv6_mod_noIpv6: 4
+  maxSlice_more_ipv4_no_l2_mod_noIpv6: 3
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noIpv6: 4
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noIpv6: 4
+  maxSlice_more_mac_no_ipv6_mod_noIpv6: 4
+
+  # max-slice with 'no-l2' profile-modifier
+  maxSlice_default_mod_noL2: 3
+  maxSlice_more_ipv4_less_acl_mod_noL2: 5
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noL2: 5
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noL2: 6
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noL2: 5
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noL2: 6
+  maxSlice_more_ipv4_no_ipv6_mod_noL2: 3
+  maxSlice_more_ipv4_no_l2_mod_noL2: 4
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noL2: 3
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noL2: 4
+  maxSlice_more_mac_no_ipv6_mod_noL2: 3
+
+  # max-slice with 'no-mac' and 'no-ipv4' profile-modifier
+  maxSlice_default_mod_noMacNoIpv4: 2
+  maxSlice_more_ipv4_less_acl_mod_noMacNoIpv4: 2
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noMacNoIpv4: 1
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noMacNoIpv4: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noMacNoIpv4: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noMacNoIpv4: 0
+  maxSlice_more_ipv4_no_ipv6_mod_noMacNoIpv4: 1
+  maxSlice_more_ipv4_no_l2_mod_noMacNoIpv4: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noMacNoIpv4: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noMacNoIpv4: 0
+  maxSlice_more_mac_no_ipv6_mod_noMacNoIpv4: 1
+
+  # max-slice with 'no-mac' and 'no-ipv6' profile-modifier
+  maxSlice_default_mod_noMacNoIpv6: 2
+  maxSlice_more_ipv4_less_acl_mod_noMacNoIpv6: 4
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noMacNoIpv6: 5
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noMacNoIpv6: 4
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noMacNoIpv6: 6
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noMacNoIpv6: 6
+  maxSlice_more_ipv4_no_ipv6_mod_noMacNoIpv6: 3
+  maxSlice_more_ipv4_no_l2_mod_noMacNoIpv6: 2
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noMacNoIpv6: 4
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noMacNoIpv6: 4
+  maxSlice_more_mac_no_ipv6_mod_noMacNoIpv6: 2
+
+  # max-slice with 'no-mac' and 'no-l2' profile-modifier
+  maxSlice_default_mod_noMacNoL2: 2
+  maxSlice_more_ipv4_less_acl_mod_noMacNoL2: 4
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noMacNoL2: 4
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noMacNoL2: 5
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noMacNoL2: 5
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noMacNoL2: 6
+  maxSlice_more_ipv4_no_ipv6_mod_noMacNoL2: 2
+  maxSlice_more_ipv4_no_l2_mod_noMacNoL2: 3
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noMacNoL2: 3
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noMacNoL2: 4
+  maxSlice_more_mac_no_ipv6_mod_noMacNoL2: 1
+
+  # max-slice with 'no-ipv4' and 'no-ipv6' profile-modifier
+  maxSlice_default_mod_noIpv4NoIpv6: 2
+  maxSlice_more_ipv4_less_acl_mod_noIpv4NoIpv6: 2
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noIpv4NoIpv6: 2
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noIpv4NoIpv6: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noIpv4NoIpv6: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noV4NoV6: 0
+  maxSlice_more_ipv4_no_ipv6_mod_noIpv4NoIpv6: 2
+  maxSlice_more_ipv4_no_l2_mod_noIpv4NoIpv6: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noIpv4NoIpv6: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noIpv4NoIpv6: 0
+  maxSlice_more_mac_no_ipv6_mod_noIpv4NoIpv6: 3
+
+  # max-slice with 'no-ipv4' and 'no-l2' profile-modifier
+  maxSlice_default_mod_noIpv4NoL2: 2
+  maxSlice_more_ipv4_less_acl_mod_noIpv4NoL2: 2
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noIpv4NoL2: 1
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noIpv4NoL2: 2
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noIpv4NoL2: 0
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noIpv4NoL2: 0
+  maxSlice_more_ipv4_no_ipv6_mod_noIpv4NoL2: 1
+  maxSlice_more_ipv4_no_l2_mod_noIpv4NoL2: 2
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noIpv4NoL2: 0
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noIpv4NoL2: 0
+  maxSlice_more_mac_no_ipv6_mod_noIpv4NoL2: 2
+
+  # max-slice with 'no-ipv6' and 'no-l2' profile-modifier
+  maxSlice_default_mod_noIpv6NoL2: 2
+  maxSlice_more_ipv4_less_acl_mod_noIpv6NoL2: 4
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noIpv6NoL2: 5
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noIpv6NoL2: 5
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noIpv6NoL2: 5
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_less_acl_mod_noIpv6NoL2: 6
+  maxSlice_more_ipv4_no_ipv6_mod_noIpv6NoL2: 3
+  maxSlice_more_ipv4_no_l2_mod_noIpv6NoL2: 3
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noIpv6NoL2: 3
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noIpv6NoL2: 4
+  maxSlice_more_mac_no_ipv6_mod_noIpv6NoL2: 3
+
+  # max-slice with 'no-mac' 'no-ipv4' and 'no-ipv6' profile-modifier
+  maxSlice_default_mod_noMacNoIpv4NoIpv6: 1
+  maxSlice_more_ipv4_less_acl_mod_noMacNoIpv4NoIpv6: 1
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noMacNoIpv4NoIpv6: 1
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noMacNoIpv4NoIpv6: 0
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noMacNoIpv4NoIpv6: 1
+  maxSlice_more_v4_no_mac_no_v6_no_l2_less_acl_mod_noMacNoV4NoV6: 0
+  maxSlice_more_ipv4_no_ipv6_mod_noMacNoIpv4NoIpv6: 1
+  maxSlice_more_ipv4_no_l2_mod_noMacNoIpv4NoIpv6: 0
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noMacNoIpv4NoIpv6: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noMacNoIpv4NoIpv6: 0
+  maxSlice_more_mac_no_ipv6_mod_noMacNoIpv4NoIpv6: 1
+
+  # max-slice with 'no-mac' 'no-ipv4' and 'no-l2' profile-modifier
+  maxSlice_default_mod_noMacNoIpv4NoL2: 1
+  maxSlice_more_ipv4_less_acl_mod_noMacNoIpv4NoL2: 1
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noMacNoIpv4NoL2: 0
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noMacNoIpv4NoL2: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noMacNoIpv4NoL2: 0
+  maxSlice_more_v4_no_mac_no_v6_no_l2_less_acl_mod_noMacNoV4NoL2: 0
+  maxSlice_more_ipv4_no_ipv6_mod_noMacNoIpv4NoL2: 0
+  maxSlice_more_ipv4_no_l2_mod_noMacNoIpv4NoL2: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noMacNoIpv4NoL2: 0
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noMacNoIpv4NoL2: 0
+  maxSlice_more_mac_no_ipv6_mod_noMacNoIpv4NoL2: 0
+
+  # max-slice with 'no-mac' 'no-ipv6' and 'no-l2' profile-modifier
+  maxSlice_default_mod_noMacNoIpv6NoL2: 1
+  maxSlice_more_ipv4_less_acl_mod_noMacNoIpv6NoL2: 3
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noMacNoIpv6NoL2: 4
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noMacNoIpv6NoL2: 4
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noMacNoIpv6NoL2: 5
+  maxSlice_more_v4_no_mac_no_v6_no_l2_less_acl_mod_noMacNoV6NoL2: 6
+  maxSlice_more_ipv4_no_ipv6_mod_noMacNoIpv6NoL2: 2
+  maxSlice_more_ipv4_no_l2_mod_noMacNoIpv6NoL2: 2
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noMacNoIpv6NoL2: 3
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noMacNoIpv6NoL2: 4
+  maxSlice_more_mac_no_ipv6_mod_noMacNoIpv6NoL2: 1
+
+  # max-slice with 'no-ipv4' 'no-ipv6' and 'no-l2'  profile-modifier
+  maxSlice_default_mod_noIpv4NoIpv6NoL2: 1
+  maxSlice_more_ipv4_less_acl_mod_noIpv4NoIpv6NoL2: 1
+  maxSlice_more_ipv4_no_ipv6_less_acl_mod_noIpv4NoIpv6NoL2: 1
+  maxSlice_more_ipv4_no_l2_less_acl_mod_noIpv4NoIpv6NoL2: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_less_acl_mod_noIpv4NoIpv6NoL2: 0
+  maxSlice_more_v4_no_mac_no_v6_no_l2_less_acl_mod_noV4NoV6NoL2: 0
+  maxSlice_more_ipv4_no_ipv6_mod_noIpv4NoIpv6NoL2: 1
+  maxSlice_more_ipv4_no_l2_mod_noIpv4NoIpv6NoL2: 1
+  maxSlice_more_ipv4_no_mac_no_ipv6_mod_noIpv4NoIpv6NoL2: 0
+  maxSlice_more_ipv4_no_mac_no_ipv6_no_l2_mod_noIpv4NoIpv6NoL2: 0
+  maxSlice_more_mac_no_ipv6_mod_noIpv4NoIpv6NoL2: 2
+
+  # Override: Chipset level
+  maxNumRules: 512
+  slice_profiles:
+    default:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_less_acl:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_no_ipv6_less_acl:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_no_l2_less_acl:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_no_mac_no_ipv6_less_acl:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_no_mac_no_ipv6_no_l2_less_acl:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_no_ipv6:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_no_l2:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_no_mac_no_ipv6:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_ipv4_no_mac_no_ipv6_no_l2:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+    more_mac_no_ipv6:
+      maxNumRules_l2: 0
+      maxNumRules_ipv4: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_mac: 0
+  # Override: Chipset level
+  sliceDepth: 0
+  vfpSliceDepth: 0
+  # Override: Chipset level
+  # (issue 1) meqCreateX in CPolicyExos::CPolicyExos() cant handle larger than 16bit value
+  # (issue 2) When base policy (CPolicy::Cpolicy() is initialized ruleDeadHead is set to 1.  This means
+  #           that muxRules[idx] of 0 is never used and the value here must be set to 1 more
+  #           than we advertise.
+  # 65535=65534 usable.
+  maxNumMuxRules: 65535
+  # Number of VFP rules available for mux entries.
+  # If tcioverwrite==enabled 2 VFP rules are used for each mux rule. (maxNumVFPRules/2)=(available mux rules)
+  maxNumVFPRules: 1024
+  # If non-zero, artificially limit number of IFP rules available in HW.  Zero means no artificial limit.
+  maxNumIFPRules: 0
+  # Override: Chipset level
+  # 75% of default VLAN_MAC table size (of 2k)
+  maxNumMuxRulesL: 1536
+  # Override: Chipset level
+  maxNumProfiles: 64
+  # Override: Chipset level
+  numVfpSlices: 4
+  # Override: Chipset level
+  numIfpPdSlices: 4
+  # Override: Chipset level
+  numIfpCosSlices: 4
+  # Override: Chipset level
+  meterPPSMaxRange: 80000000
+  # Override: Chipset level
+  maxL2McastGroup: 1024
+  # Override: Chipset level
+  maxRoutedVR: 1024
+  # Override: Chipset level
+  maxLocalOnlyVR: 0
+  # Override: Chipset level
+  maxRtif: 4094
+  # Override: Chipset level
+  maxRtifMetadata: 255
+  # Override: Chipset level
+  maxL3McastGroup: 4096
+  # Override: Chipset level
+  maxVirtualNetworks: 0
+  # Override: Chipset level
+  maxVirtAccPorts: 0
+  # Override: Chipset level
+  maxVirtNetPorts: 0
+  # Override: Chipset level
+  maxLteps: 0
+  # Override: Chipset level
+  maxRteps: 0
+  # Override: Chipset level
+  maxMacIpBindings: 0
+  # Override: Chipset level
+  maxEgressMirroringInstances: 2
+  # Override: Chipset level
+  minFibEntry: 12240
+  # Override: Chipset level
+  maxFibEntry: 16352
+  # Override: Chipset level - number of FP_RANGE_CHECK entries available
+  maxFpRangeCheckEntries: 32
+  bootTimeOut: 210
+  defaultLinkScanInterval: 50
+  # Num of Rx/Tx Counters supported. -1 is unlimited, 0 means not supported */
+  MplsRxHwCounters: 0
+  MplsTxHwCounters: 0
+  MplsEchoKill: MPLS_CAP_ECHO_KILL_PORT_VLAN
+  MplsEgrLspLabelMax: 0
+  NumVplsSupported: 0
+  NumVpwsSupported: 0
+  RsvpTeMaxPaths: 0
+  RsvpTeMaxProfiles: 0
+  defaultMaxEcmp: 16
+  limitMaxEcmp: 64
+  # MACsec limits. 0 implies no limit */
+  maxMacsecPorts: 0
+  maxMacsecBandwidthMbps: 0
+
+
+  # Boolean type supported/not-supported capability parameters.
+  # Software link filtering supported on. Check with Amir for more details
+  LinkFiltering: true
+  # Two-stage ingress classification infrastructure to take advantage of the
+  # VFP (VLAN Filter Processor) available in some of the newer Broadcom
+  # Chipsets.
+  # Override: Chipset level
+  VfpClassId: true
+  # L2_CLASS_Id for VMAC is supported in some platforms.
+  # Override: chipset level
+  VmacL2ClassId: false
+  # L2_DST_CLASS_Id for VMAC is supported in some platforms.
+  # Override: chipset level
+  VmacL2DstClassId: false
+  # EXOS is run on a slot or not. Might have been useful with older chassis
+  # supported with EXOS. Need to be removed, if not used.
+  Exos: true
+  # SwitchFab or not.  Used only in DM configuration. Don't know why this is
+  # set to TRUE for all platforms. Need to validate the DM code and remove it.
+  SwitchFab: true
+  # Secure Boot support.
+  # Override: Individual switch level
+  Secureboot: false
+  # Power Over Ethernet support.  Maximum power per port 15watts.
+  # Override: Individual switch level
+  Poe: false
+  # Power Over Ethernet NOT controlled by Extreme CPLD (eg.for whiteboxes like x435 etc)
+  # Override: Individual switch level
+  NonCpldPoe: false
+  # Perpetual Power Over Ethernet support
+  # Override: Individual switch level
+  PerpetualPoe: false
+  # POE+. Maximum power per port 30watts.
+  # Override: Individual switch level
+  PoePlus: false
+  # Fast PoE support. PoE runs immedately after power on according to lastly
+  # saved PoE configuration in hardware.
+  # Override: Individual switch level
+  FastPoe: false
+  # Per Port Fast PoE support.
+  # Override: Individual switch level
+  PerPortFastPoe: false
+  # Has Combo port. Copper/Fiber ports.
+  # Override: Individual switch level
+  ComboPort: false
+  # Whether chipset is from XGS2 generation or not. This will be false for
+  # all platforms supported in 21.x. Can be removed if code is cleanup is done.
+  isSlotChipXgs2: false
+  # Whether chipset is from XGS3 generation or not. This will be false for all
+  # platforms supported in 21.x. Can be removed if code is cleanup is done.
+  isSlotChipXgs3: false
+  # Switch supports Alpha diagonistics or not. Set of switches supported in
+  # 21.2, this is False.
+  # Override: Individual switch level
+  AlphaDiags: false
+  # External TCAM support.
+  # Override: Chipset level
+  ExtTcam: false
+  # Override: Chipset level
+  Mpls: false
+  # Override: Chipset level
+  Pstag: false
+  # Override: Chipset level
+  MplsCep: false
+  # MPLS CEP-VPLS with CVID translation support.
+  # Override: Chipset level
+  MplsCepXlate: false
+  # MPLS CEP-VPLS with egress filter support
+  MplsCepEgrFlt: false
+  # IP Flow Information Export Protocol
+  # Override: Chipset level
+  IpFix: false
+  # Override: Individual switch level
+  VarCap: false
+  # Override: Chipset level
+  QosWeight15: false
+  # Dot1ag. - Support of 3.3/10ms timers with the help of hw support
+  # Override: Chipset level
+  HwOam: false
+  # Override: Chipset level
+  Hw1731: false
+  # Override: Chipset level
+  SyncE: false
+  # Dynamic determination based on plugins.
+  # Always set to FALSE in default and modified in overwrite function.
+  SyncEStack: false
+  # Has reduced number of multicast QoS queues
+  # Override: Chipset level
+  ReducedMcq: false
+  # Override: Chipset level
+  Avb: true
+  # Override: Chipset level
+  Gre: true
+  GreVrf: true
+  TunlVrfLeak: false
+  # Mixed mode support in HW multicast. S,G,V lookup followed by MAC,V lookup,
+  # in case of a miss in S,G,V lookup.
+  # Override: Chipset level
+  IpmcAndL2Lkup: true
+  # Override: Chipset level
+  PortBasedLag: true
+  # Override: Chipset level
+  CustomLag: true
+  # Override: Chipset level
+  L2VpnPwEcmp: false
+  # Override: Individual switch level
+  PortCapLicen: false
+  # Override: Chipset level
+  Crc32LagHash: true
+  # Override: Chipset level
+  PortIngMeter: true
+  # Override: Chipset level
+  QosWred: true
+  # Override: Chipset level
+  OnePolicy: true
+  # Override: Chipset level
+  StrictPriCnfgSys: false
+  # Override: Chipset level
+  StrictPriCnfgPort: false
+  # Override: Chipset level
+  OvrlyGw: false
+  # Override: Chipset level
+  ResilentHash: false
+  # Override: Chipset level
+  OvrlyVxlanL2Gw: false
+  # Override: Chipset level
+  OvrlyNvgreL2Gw: false
+  # Override: Chipset level
+  OvrlyVxlanL3Gw: false
+  # Override: Chipset level
+  OvrlyNvgreL3Gw: false
+  # Override: Chipset level Check with Sukumar
+  HwBfd: false
+  # Override: Chipset level
+  MacMask: true
+  # Override: Chipset level
+  MacBasedVlans: true
+  # Override: Chipset level
+  EgressAcls: true
+  # Support to enable forwarding the packets based on ACL to IPv6 nexthop
+  # Override: Chipset level
+  PbrIpv6: true
+  # Right now this is not supported in platforms supported in 21.2.
+  # Later could be based on whether CLK module is present in or not
+  # in the switch. Dynamic determination of availability of the CLK module
+  # may override the value.
+  BitsClock: false
+  # dot1ag:
+  # Override: Chipset level
+  HwPerfMonitoring: false
+  # sFlow feature relies on sampling of packets support
+  # Override: Chipset level
+  HwSflow: true
+  LagL2Share: true
+  LagL3Share: true
+  LagL3L4Share: true
+  RouteShare: true
+  IngressMirror: true
+  MirrorModes: true
+  MirrorRemoteIp: true
+  VlanLearning: true
+  QosMaxBuffer: true
+  QosProfileCreate: true
+  QosScheduler: true
+  QosVlan: true
+  Meter: true
+  Mef: true
+  ClearFlow: true
+  MirrorLoopback: true
+  Fabric: false
+  # dot1p examination inner-tag ports
+  Dot1pInnerTag: true
+  Dot1pExam: true
+  Ipv6Hw: true
+  L3Lite: false
+  FrameLoss: true
+  PTP1588: false
+  SeparateFloodList: true
+  Ipv6Tunnel: true
+  TunnelMtu: false
+  AclRuleCompression: true
+  DoubleWideAcl: true
+  VirtSlice: true
+  AclHasDropPrec: true
+  VmanSecTpid: true
+  DosAttackCntrs: true
+  RsvdRoutesSupported: true
+  FlowControl: true
+  PriorityFlowControl: true
+  EthernetOAM: true
+  VlanStatsMon: true
+  DualHashHw: true
+  ForwardDropWithDisLearn: true
+  # Broadcom Unified Forwarding Table
+  FlexibleInternalTables: true
+  Alpm: true
+  CutThrough: false
+  FefiCapable: true
+  Dwdm: true
+  Vepa: true
+  Mlag: true
+  VmanCep: true
+  VmanCepXlateFilter: true
+  VmanCepPortCvid: true
+  L2VPNSharingSupportedForSpokePW: false
+  L3IpMc: true
+  Virtualization: false
+  # All stack related parameters can be overwritten in individual switch files.
+  StackSupportCfg: false
+  StackSupportCtrl: false
+  Stackable: false
+  AltStkOnly: false
+  AltStkPortCapable: false
+  StkUserPortInterchangeable: false
+  NativeStackable: false
+  V40StackMode: false
+  V80StackMode: false
+  V160StackMode: false
+  V320StackMode: false
+  V400StackMode: false
+  V400LRStackMode: false
+  InstallFirmWare: false
+  InstallBootRom: true
+  FanMinSpeedOverride: false
+  SWRebootOnOvertemp: false
+  PortPartition: false
+  UniversalFrontPanelOverlay: false
+  SingleModePortPartition: false
+  PwMacMoveDetect: false
+  VpwsHwSupport: false
+  ControlBridge: false
+  Broadview: false
+  DedicatedStackPorts: false
+  MacsecOrHalfDuplex: false
+  PolicyTciOverwrite: true
+  PolicyAuthOvr: true
+  PolicyNsi: true
+  PolicyWebRedirect: true
+  StackingAutoDiscovery: false
+  TrunkedStackPorts: false
+  PushButtonStacking: false
+  PolicyMirror: true
+  MacsecWithExtAdapter: false
+  PolicyPrecedenceReorder: true
+  Flowmon: false
+  Bluetooth: false
+  StackSupportDefaultEnable: false
+  L7PolicyIpCounter: true
+  OobMgmt: true
+  InstallInactive: true
+  PolicyAcl: true
+  OpDiagsReportFile: false
+  InstallLrmMacsecAdapterFirmware: false
+  VpexOnStacking: false
+  IpNat: false
+  InstallBootromFromExosImage: false
+  Docker: false
+  VpexExtMirror: true
+  VpexPolicyTciOverwrite: true
+  VpexExtLag: true
+  MacPortBasedSvpAssignment: true
+  Pib: false
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for BCM Trident3-X3 chipset based platforms.
+#  If the value for a capability variable is different from the value
+#  in default.yaml for Trident3-X3 chipset, they should have an entry in this
+#  file (Provided the variables classify under "Override: Chipset level")
+#
+
+
+trident3_x3_capability: &TRIDENT3_X3_CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  # Limit/Scaling parameters
+  maxNumRules: 4096
+  maxNumVFPRules: 2048
+  # 75% VLAN_XLATE - VLAN_MAC (Double-Wide) (12k)
+  maxNumMuxRulesL: 9216
+  slice_profiles:
+    default:
+      maxNumRules_mac: 1024
+      maxNumRules_ipv6: 1024
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 952
+    more_ipv4_less_acl:
+      maxNumRules_mac: 1024
+      maxNumRules_ipv6: 1024
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 952
+    more_ipv4_no_ipv6_less_acl:
+      maxNumRules_mac: 1024
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 2048
+      maxNumRules_l2: 952
+    more_ipv4_no_l2_less_acl:
+      maxNumRules_mac: 1024
+      maxNumRules_ipv6: 1024
+      maxNumRules_ipv4: 2048
+      maxNumRules_l2: 0
+    more_ipv4_no_mac_no_ipv6_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 3072
+      maxNumRules_l2: 952
+    more_ipv4_no_mac_no_ipv6_no_l2_less_acl:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 4096
+      maxNumRules_l2: 0
+    more_ipv4_no_ipv6:
+      maxNumRules_mac: 1024
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 2048
+      maxNumRules_l2: 952
+    more_ipv4_no_mac_no_ipv6:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 3072
+      maxNumRules_l2: 952
+    more_ipv4_no_l2:
+      maxNumRules_mac: 1024
+      maxNumRules_ipv6: 1024
+      maxNumRules_ipv4: 2048
+      maxNumRules_l2: 0
+    more_ipv4_no_mac_no_ipv6_no_l2:
+      maxNumRules_mac: 0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 4096
+      maxNumRules_l2: 0
+    more_mac_no_ipv6:
+      maxNumRules_mac: 2048
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 952
+  sliceDepth: 1024
+  vfpSliceDepth: 512
+  maxRtifMetadata: 4095
+  maxPortPerLAGroup: 64
+  maxL2McastGroup: 4096
+  maxVirtualNetworks: 4096
+  maxVirtAccPorts: 16384
+  maxVirtNetPorts: 16384
+  maxLteps: 64
+  maxRteps: 16384
+  maxMacIpBindings: 278528
+  MplsRxHwCounters: 8191
+  MplsTxHwCounters: 8191
+  MplsEchoKill: MPLS_CAP_ECHO_KILL_PORT_VLAN
+  MplsEgrLspLabelMax: 0x1FFF
+  NumVplsSupported: 1023
+  NumVpwsSupported: 1023
+  RsvpTeMaxPaths: 1000
+  RsvpTeMaxProfiles: 1000
+  defaultMaxEcmp: 4
+  limitMaxEcmp: 8
+
+  # Boolean type supported/not-supported capability parameters.
+  Mpls: true
+  Pstag: true
+  L2VpnPwEcmp: true
+  OvrlyGw: true
+  ResilentHash: true
+  OvrlyVxlanL2Gw: true
+  OvrlyVxlanL3Gw: true
+  HwBfd: false
+  # PTP1588 is false per Kevin Frick
+  PTP1588: false
+  CutThrough: false
+  L2VPNSharingSupportedForSpokePW: true
+  PwMacMoveDetect: true
+  VpwsHwSupport: true
+  Fabric: true
+  VpexExtMirror: false
+  VpexPolicyTciOverwrite: false
+  Pib: true
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for 5520-24T
+#  This inherits capability from trident3-x3 YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+capability: &CAPABILITY
+  <<: *TRIDENT3_X3_CAPABILITY
+  hwHealth: 6
+  numExternalPort: 36
+
+  # Boolean type supported/not-supported capability parameters.
+  Avb: true
+  MplsCep: true
+  MplsCepXlate: true
+  MplsCepEgrFlt: true
+  VarCap: true
+  StackSupportCfg: true
+  StackSupportCtrl: true
+  StkUserPortInterchangeable: true
+  NativeStackable: true
+  V80StackMode: true
+  V160StackMode: true
+  V200StackMode: true
+  AltStkPortCapable: true
+  PushButtonStacking: true
+  StackingAutoDiscovery: true
+  StackSupportDefaultEnable: true
+  Broadview: true
+  Secureboot: true
+  PortPartition: true
+  ControlBridge: true
+  ControlBridgeRing: true
+  VpexOnStacking: true
+  Flowmon: true
+  Bluetooth: true
+  InstallFirmWare: true
+  OpDiagsReportFile: true
+  MacsecEpdm: true
+  InstallBootromFromExosImage: true
+  MacPortBasedSvpAssignment: false

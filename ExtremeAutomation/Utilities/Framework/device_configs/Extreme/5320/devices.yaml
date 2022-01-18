@@ -1,0 +1,191 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common buses and devices present on the
+#  mainboard of 5320 series switches
+#
+
+# ##################################################################
+# Common Buses
+# ##################################################################
+
+i2cbus_0: &I2CBUS_0
+  name:               i2cbus_0
+  bus_type:           I2C
+  device:             CPU
+  number:             0
+
+i2cbus_3: &I2CBUS_3
+  name:               i2cbus_3
+  bus_type:           I2C
+  device:             CPU
+  number:             3
+
+# ##################################################################
+# Common Devices
+# ##################################################################
+
+pca954x_0: &PCA9548_0
+  name:               pca954x_0
+  compatible:         pca9548
+  bus:                i2cbus_3
+  address:            0x70
+  channel_map:
+    - number:         0
+      bus:            pca954x_0_ch0
+    - number:         1
+      bus:            pca954x_0_ch1
+    - number:         2
+      bus:            pca954x_0_ch2
+    - number:         3
+      bus:            pca954x_0_ch3
+    - number:         4
+      bus:            pca954x_0_ch4
+    - number:         5
+      bus:            pca954x_0_ch5
+    - number:         6
+      bus:            pca954x_0_ch6
+    - number:         7
+      bus:            pca954x_0_ch7
+
+pca954x_0: &PCA9546_0
+  name:               pca954x_0
+  compatible:         pca9546
+  bus:                i2cbus_3
+  address:            0x70
+  channel_map:
+    - number:         0
+      bus:            pca954x_0_ch0
+    - number:         1
+      bus:            pca954x_0_ch1
+    - number:         2
+      bus:            pca954x_0_ch2
+    - number:         3
+      bus:            pca954x_0_ch3
+
+# IO expander for SFPP ports
+uplink_pca9506_0: &UPLINK_PCA9506_0
+  name:               uplink_pca9506_0
+  compatible:         pca9506
+  bus:                i2cbus_0
+  address:            0x23
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+uplink_pca9506_1: &UPLINK_PCA9506_1
+  name:               uplink_pca9506_1
+  compatible:         pca9506
+  bus:                i2cbus_0
+  address:            0x24
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+#x_FS for Full Speed x_SD - for Shut Down
+mb_ambient_tmpsn_fs: &MB_AMBIENT_TMPSN_FS
+  name:               mb_ambient_tmpsn_fs
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x48
+
+mb_ambient_tmpsn_sd: &MB_AMBIENT_TMPSN_SD
+  name:               mb_ambient_tmpsn_sd
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x49
+
+mb_hotspot_tmpsn_fs: &MB_HOTSPOT_TMPSN_FS
+  name:               mb_hotspot_tmpsn_fs
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x4c
+
+mb_hotspot_tmpsn_sd: &MB_HOTSPOT_TMPSN_SD
+  name:               mb_hotspot_tmpsn_sd
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x4d
+
+mb_psu_tmpsn_fs: &MB_PSU_TMPSN_FS
+  name:               mb_psu_tmpsn_fs
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x4a
+
+mb_psu_tmpsn_sd: &MB_PSU_TMPSN_SD
+  name:               mb_psu_tmpsn_sd
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x4b
+
+system_eeprom: &SYSTEM_EEPROM
+  name:               system_eeprom
+  compatible:         24c128
+  bus:                i2cbus_0
+  address:            0x51
+  format:             extreme
+
+# NOTE: Do not set smb_cpld_int as a plat_dev interrupt pin because
+#       the interrupt handling will be performed by platdev_helper.
+system_gpio: &SYSTEM_GPIO
+  name:               system_gpio
+  compatible:         iproc_gpio
+  location:
+    base:             0
+  pins:
+    - name:             smb_cpld_int
+      index:            5
+      active_low:       1
+      direction:        in
+
+system_uc: &SYSTEM_UC
+  name:                 system_uc
+  type:                 SYSTEM_UC
+  compatible:           extreme_i2c_cpld
+  regmap:               system_cpld_reg
+  revisions:
+    major:
+      register:         0x0c
+      bitmask:          0xf0
+    minor:
+      register:         0x0c
+      bitmask:          0x0f
+    build:
+      register:         0x0d
+      bitmask:          0xff
+  firmware:
+    image_file:         tb_uc_app.xtr
+    image_version:
+      major:            1
+      minor:            0
+      build:            14
+    reconfig_by_master: false
+    upgrade_reconfig:
+      register:         0xc0
+      bitmask:          0x10
+      wait_time:        10000   # Wait time in ms to ensure operation complete
+      master:           true    # Master device for firmware upgrade reconfig
+    reconfig_unlock:
+      register:         0xc3
+      bitmask:          0xe0
+      value:            0x6
+    upgrade_present:
+      register:         0xc3
+      bitmask:          0xe0
+      value:            0x3
+  devices:
+    - name:             system_cpld_reg
+      compatible:       i2c_regmap
+      bus:              i2cbus_0
+      address:          0x38
+      regmap_desc:
+        range:          [0x0, 0xdf]
+        num_reg_bits:   8
+        num_value_bits: 8

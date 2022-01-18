@@ -1,0 +1,14 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit]
+#             - [OS2,Platform,Version,Unit]
+
+networking:
+    check_wireless_network_connected:
+        apis:
+            - [WINDOWS,base,baseversion,baseunit]
+    check_wireless_network_disconnected:
+        apis:
+            - [WINDOWS,base,baseversion,baseunit]

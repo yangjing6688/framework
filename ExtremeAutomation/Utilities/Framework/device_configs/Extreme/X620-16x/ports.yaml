@@ -1,0 +1,68 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for X620-16x switch
+#
+#
+
+
+10G_port: &10G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100_1000_10000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   FullDuplexOnly: true
+   MacsecWithExtAdapter: true
+
+ports:
+   - name: 1
+     <<: *10G_PORT
+
+   - name: 2
+     <<: *10G_PORT
+
+   - name: 3
+     <<: *10G_PORT
+
+   - name: 4
+     <<: *10G_PORT
+
+   - name: 5
+     <<: *10G_PORT
+
+   - name: 6
+     <<: *10G_PORT
+
+   - name: 7
+     <<: *10G_PORT
+
+   - name: 8
+     <<: *10G_PORT
+
+   - name: 9
+     <<: *10G_PORT
+
+   - name: 10
+     <<: *10G_PORT
+
+   - name: 11
+     <<: *10G_PORT
+
+   - name: 12
+     <<: *10G_PORT
+
+   - name: 13
+     <<: *10G_PORT
+
+   - name: 14
+     <<: *10G_PORT
+
+   - name: 15
+     <<: *10G_PORT
+
+   - name: 16
+     <<: *10G_PORT

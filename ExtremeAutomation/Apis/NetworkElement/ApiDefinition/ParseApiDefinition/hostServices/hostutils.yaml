@@ -1,0 +1,55 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+hostutils:
+    check_ping_result:
+        uuid: e7d39e99-020b-45af-9454-ae6ad904545a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_debug_login:
+        uuid: 8f573577-e15f-426e-8dad-94458d67af65
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_debug_login_enabled:
+        uuid: 51d00bf1-6559-4466-93fb-ef667f14ba00
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_l2ping_ipaddr_result:
+        uuid: 12ab06a6-c38b-48eb-a399-f31b529ac188
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_failed_login_attempts:
+        uuid: 507d7d62-0088-4bae-aca9-a25abc41e458
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_successful_login_attempts:
+        uuid: b43df662-db76-488a-85bd-e3f193b5031b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_last_login_date:
+        uuid: 186292d4-60ac-473d-aeb2-c6a40c8e7558
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_logout_message_exists:
+        uuid: a00cce0d-e71d-4872-b7eb-78e1ac93e672
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

@@ -1,0 +1,37 @@
+# #################################################################
+#
+#  Copyright (c) 2020, 2021 Extreme Networks, Inc.
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  the 5420F-24S-4XE switch
+#
+
+vendor: Extreme
+product_name: 5420F-24S-4XE
+
+files:
+    - name: system
+      filename: [../5420/system.yaml, ../5420/5420_system.yaml]
+    - name: devices
+      filename: [../5420/devices.yaml, devices.yaml]
+    - name: interrupts
+      filename: [../5420/interrupts.yaml, ../5420/5420_interrupts.yaml]
+    - name: leds
+      filename: [../5420/leds.yaml, ../5420/5420_leds.yaml]
+    - name: buttons
+      filename: [../5420/buttons.yaml, ../5420/5420_buttons.yaml]
+    - name: thermal
+      filename: [./thermal.yaml, ../5420/5420_thermal.yaml]
+    - name: fans
+      filename: [../5420/fans.yaml, ../5420/5420_f2_fans.yaml]
+    - name: power
+      filename: [../5420/power.yaml, ../5420/5420_t_power.yaml]
+    - name: watchdog
+      filename: [../5420/watchdog.yaml, ../5420/5420_watchdog.yaml]
+    - name: capability
+      filename: [../../common/defaultcap.yaml, ../../common/Broadcom/trident3_x2minus.yaml, switchcap.yaml]
+    - name: ports
+      filename: [../../common/defaultports.yaml, ../5420/ports.yaml, ../5420/sfp_ports.yaml, ports.yaml]

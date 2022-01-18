@@ -1,0 +1,21 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on X465-24MU
+#
+
+devices:
+  - *CPU_CORE_TMPSN
+  - *CPU_DEFAULT_TMPSN
+  - <<: *MB_HOTSPOT_TMPSN
+    hw_settings:
+      tos:            9375
+      thyst:          8875
+  - <<: *MB_AMBIENT_TMPSN
+    hw_settings:
+      tos:            7337
+      thyst:          6837

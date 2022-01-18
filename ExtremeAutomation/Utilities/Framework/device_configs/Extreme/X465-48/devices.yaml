@@ -1,0 +1,21 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the buses and devices specific to X465-48
+#
+
+buses:
+  - *I2CBUS
+
+devices:
+  - *CPU_CPLD
+  - *IOE_TCA9539
+  - *FPGA
+  - *ONIE_EEPROM
+  - *PCA9548_0
+  - *PCA9548_1
+  - *SP_PCA9506

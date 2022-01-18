@@ -1,0 +1,538 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+devices:
+    devices_select_sub_tab:
+        apis:
+            - [emc,'8.1.1']
+    devices_select_devices_summary_sub_tab:
+        apis:
+            - [emc,'8.1.1']
+    devices_select_device_tree_context:
+        apis:
+            - [emc,'8.1.1']
+    devices_expand_device_tree_node:
+        apis:
+            - [emc,'8.1.1']
+    devices_select_device_tree_node:
+        apis:
+            - [emc,'8.1.1']
+    devices_select_device_in_table:
+        apis:
+            - [emc,'8.1.1']
+    devices_select_all_devices_in_table:
+        apis:
+            - [emc,'8.1.1']
+    devices_refresh_devices_table:
+        apis:
+            - [emc,'8.1.1']
+    devices_refresh_device_tree_my_network:
+        apis:
+            - [emc,'8.1.1']
+    devices_add_device:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_open_device_terminal:
+        apis:
+            - [emc,'8.1.1']
+    devices_close_device_terminal:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_terminal_enters_device_prompt:
+        apis:
+            - [emc,'8.1.1']
+    devices_launch_webview:
+        apis:
+            - [emc,'8.1.1']
+    devices_add_device_to_group:
+        apis:
+            - [emc,'8.1.1']
+    devices_remove_device_from_group:
+        apis:
+            - [emc,'8.1.1']
+    devices_register_trap_receiver:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_unregister_trap_receiver:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_register_syslog_receiver:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_unregister_syslog_receiver:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_collect_device_statistics:
+        apis:
+            - [emc,'8.1.1']
+    devices_enable_port:
+        apis:
+            - [emc,'8.1.1']
+    devices_disable_port:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_select_tab:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_save:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_cancel:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_system_name:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_contact:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_location:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_admin_profile:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_remove_from_service:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_default_site:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_poll_group:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_poll_type:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_snmp_timeout:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_snmp_retries:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_topology_layer:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_nickname:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_asset_tag:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_user_data:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_set_note:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_vlan_definition_add:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_vlan_definition_edit:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_vlan_definition_update:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_vlan_definition_set_always_write_to_devices:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_vlan_definition_select_row:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_row_editor_update:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_row_editor_cancel:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_nickname:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_auto_negotiation:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_speed:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_duplex:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_configuration:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_pvid:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_lag:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_authentication:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_tagged:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_untagged:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_clear_tagged:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    devices_edit_device_ports_edit_row_clear_untagged:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    devices_edit_device_ports_edit_row_node_alias:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_span_guard:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_loop_protect:
+        apis:
+            - [emc,'8.1.1']
+    devices_edit_device_ports_edit_row_mvrp:
+        apis:
+            - [emc,'8.1.1']
+    devices_open_device_view_flexview:
+        apis:
+            - [emc,'8.1.1']
+    devices_open_device_view_physical_entity_summary:
+        apis:
+            - [emc,'8.1.1']
+    devices_open_device_view_interface_statistics:
+        apis:
+            - [emc,'8.1.1']
+    devices_wait_for_device_add:
+        apis:
+            - [emc,'8.1.1']
+    devices_wait_for_device_remove:
+        apis:
+            - [emc,'8.1.1']
+    devices_wait_for_device_value:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_firmware_version:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_ip_exists:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_ip_admin_profile:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_ip_stats:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_ip_collection_statistics:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_ip_syslog_status:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_ip_trap_status:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_status:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_system_name:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_contact:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_location:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_admin_profile:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_topology_layer:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_remove_from_service:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_default_site:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_poll_group:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_poll_type:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_snmp_timeout:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_snmp_retries:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_serial_number:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_nickname:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_asset_tag:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_user_data:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_note:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_vlan_name:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_vlan_vid:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_vlan_write_to_device:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_authentication:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_mvrp:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_pvid:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_tagged:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_untagged:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_nickname:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_device_nickname:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_duplex:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_auto_negotiation:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_speed:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_configuration:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_lag:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_policy:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_node_alias:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_span_guard:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_port_loop_protect:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_serial_number:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_ip_address_subnet:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_gateway_address:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_management_interface:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_domain_name:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_dns_server:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_ntp_server:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_lacp:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_lldp:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_mstp:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_mvrp:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_poe:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_xvlan:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ztp_configure_device:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_save:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_ip_archived:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_device_is_collecting_statistics:
+        apis:
+            - [emc,'8.1.1']
+    devices_confirm_table_value:
+        apis:
+            - [emc,'8.1.1']
+    devices_select_context_menu:
+        apis:
+            - [emc,'8.1.3']
+    devices_collect_port_statistics:
+        apis:
+            - [emc,'8.1.3']
+    devices_confirm_context_menu_exists:
+        apis:
+            - [emc,'8.1.3']
+    devices_device_view_select_tab:
+        apis:
+            - [emc,'8.1.3']
+    devices_device_view_ports_expand_tree:
+        apis:
+            - [emc,'8.1.3']
+    devices_device_view_verify_vlan_name_and_tag:
+        apis:
+            - [emc,'8.1.3']
+    devices_device_view_verify_vlan_name_and_tag_voss:
+        apis:
+            - [emc,'8.1.3']
+    devices_device_view_ports_verify_pvid:
+        apis:
+            - [emc,'8.1.3']
+    devices_device_view_ports_verify_vlan_id_vlan_name_untag_tag:
+        apis:
+            - [emc,'8.1.3']
+    devices_edit_device_reload_device:
+        apis:
+            - [emc,'8.1.3']
+    devices_refresh_port_status:
+        apis:
+            - [emc,'8.1.3']
+    devices_configure_device:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_delete_device:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_delete_selected_devices:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_set_device_profile:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_refresh_rediscover_device:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_edit_device_vlan_definition_delete:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_edit_device_enforce_preview:
+        apis:
+            - [emc,'8.1.1||8.3.0||8.4.0']
+    devices_confirm_firmware_version_and_rediscover:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    devices_collect_interface_statistics:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    devices_open_device_view:
+        apis:
+            - [emc,'8.1.1||8.1.2']
+    devices_edit_device_vlan_definition_set_name:
+        apis:
+            - [emc,'8.1.1||8.2.0']
+    devices_edit_device_vlan_definition_set_vid:
+        apis:
+            - [emc,'8.1.1||8.2.0']
+    devices_edit_device_ports_select_row:
+        apis:
+            - [emc,'8.1.1||8.2.0']
+    devices_edit_device_vlan_definition_set_vrf:
+        apis:
+            - [emc,'8.2.1']
+    devices_edit_device_ports_select_port:
+        apis:
+            - [emc,'8.1.1||8.2.0||8.2.4']
+    devices_edit_device_ports_edit_row_alias:
+        apis:
+            - [emc,'8.1.1||8.2.4']
+    devices_edit_device_ports_edit_row_enabled:
+        apis:
+            - [emc,'8.1.1||8.2.4']
+    devices_confirm_device_port_alias:
+        apis:
+            - [emc,'8.1.1||8.2.4']
+    devices_confirm_device_port_enabled:
+        apis:
+            - [emc,'8.1.1||8.2.4']
+    devices_edit_device_ports_show_columns:
+        apis:
+            - [emc,'8.1.1||8.1.2||8.2.1||8.2.4']
+    devices_edit_device_vendor_profile_device_type:
+        apis:
+            - [emc,'8.1.2']
+    devices_edit_device_vendor_profile_family:
+        apis:
+            - [emc,'8.1.2']
+    devices_edit_device_vendor_profile_sub_family:
+        apis:
+            - [emc,'8.1.2']
+    devices_confirm_device_vendor_profile_device_type:
+        apis:
+            - [emc,'8.1.2']
+    devices_confirm_device_vendor_profile_vendor:
+        apis:
+            - [emc,'8.1.2']
+    devices_confirm_device_vendor_profile_company:
+        apis:
+            - [emc,'8.1.2']
+    devices_confirm_device_vendor_profile_family:
+        apis:
+            - [emc,'8.1.2']
+    devices_confirm_device_vendor_profile_sub_family:
+        apis:
+            - [emc,'8.1.2']
+    devices_device_view_enable_port:
+        apis:
+            - [emc,'8.1.4']
+    devices_device_view_disable_port:
+        apis:
+            - [emc,'8.1.4']
+    devices_maps_add_to_map:
+        apis:
+            - [emc,'8.1.4']
+    devices_device_view_vlan_vlan_port_table_verify_port_and_pvid_voss:
+        apis:
+            - [emc,'8.1.3']
+    devices_device_view_vlan_vlan_table_verify_tag_and_ports_voss:
+        apis:
+            - [emc,'8.1.3']
+    devices_edit_device_ports_edit_row_port_template:
+        apis:
+            - [emc,'8.4.0']

@@ -1,0 +1,119 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for X465-24S
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+   - name: 1
+     <<: [*SFP_1, *1G_SFP_PORT]
+
+   - name: 2
+     <<: [*SFP_2, *1G_SFP_PORT]
+
+   - name: 3
+     <<: [*SFP_3, *1G_SFP_PORT]
+
+   - name: 4
+     <<: [*SFP_4, *1G_SFP_PORT]
+
+   - name: 5
+     <<: [*SFP_5, *1G_SFP_PORT]
+
+   - name: 6
+     <<: [*SFP_6, *1G_SFP_PORT]
+
+   - name: 7
+     <<: [*SFP_7, *1G_SFP_PORT]
+
+   - name: 8
+     <<: [*SFP_8, *1G_SFP_PORT]
+
+   - name: 9
+     <<: [*SFP_9, *1G_SFP_PORT]
+
+   - name: 10
+     <<: [*SFP_10, *1G_SFP_PORT]
+
+   - name: 11
+     <<: [*SFP_11, *1G_SFP_PORT]
+
+   - name: 12
+     <<: [*SFP_12, *1G_SFP_PORT]
+
+   - name: 13
+     <<: [*SFP_13, *1G_SFP_PORT]
+
+   - name: 14
+     <<: [*SFP_14, *1G_SFP_PORT]
+
+   - name: 15
+     <<: [*SFP_15, *1G_SFP_PORT]
+
+   - name: 16
+     <<: [*SFP_16, *1G_SFP_PORT]
+
+   - name: 17
+     <<: [*SFP_17, *1G_SFP_PORT]
+
+   - name: 18
+     <<: [*SFP_18, *1G_SFP_PORT]
+
+   - name: 19
+     <<: [*SFP_19, *1G_SFP_PORT]
+
+   - name: 20
+     <<: [*SFP_20, *1G_SFP_PORT]
+
+   - name: 21
+     <<: [*SFP_21, *1G_SFP_PORT]
+
+   - name: 22
+     <<: [*SFP_22, *1G_SFP_PORT]
+
+   - name: 23
+     <<: [*SFP_23, *1G_SFP_PORT]
+
+   - name: 24
+     <<: [*SFP_24, *1G_SFP_PORT]
+
+   - name: 25
+     <<: *40G_PARTITION_PORT
+     autoneg1G: false
+
+   - name: 26
+     <<: *10G_PORT
+     autoneg1G: false
+
+   - name: 27
+     <<: *10G_PORT
+     autoneg1G: false
+
+   - name: 28
+     <<: *10G_PORT
+     autoneg1G: false
+
+   - name: 29
+     <<: *40G_PARTITION_PORT
+
+   - name: 30
+     <<: *10G_PORT
+
+   - name: 31
+     <<: *10G_PORT
+
+   - name: 32
+     <<: *10G_PORT
+
+   - name: 121
+     <<: *STACKING_PORT_1
+
+   - name: 125
+     <<: *STACKING_PORT_2

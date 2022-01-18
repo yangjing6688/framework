@@ -1,0 +1,29 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines system info common to 5420 series switches
+#
+
+common_system_info: &COMMON_SYSTEM_INFO
+  system_eeprom:      system_eeprom
+  system_phy_reset:
+    device:           system_cpld_reg
+    register:         0x28
+    bitmask:          0x1C
+    active_low:       0
+
+# system_pre_reset is an optional set of operations that are
+# performed immediately before a system reset/reboot.
+# Each named operation is performed in order.
+#
+
+  system_pre_reset:
+  - name: board_reset
+    device:           system_cpld_reg
+    register:         0x14
+    bitmask:          0x01
+    active_low:       0

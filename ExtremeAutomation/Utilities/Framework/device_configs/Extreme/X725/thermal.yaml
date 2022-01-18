@@ -1,0 +1,34 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common temperature sensors in X725 series
+#  switches
+#
+
+cpu_default_tmpsn: &CPU_DEFAULT_TMPSN
+  device:             ambient_0_cpub_tmpsn
+  location:
+    board:            MAINBOARD
+    zone:             CPU
+
+mb_hotspot_tmpsn: &MB_HOTSPOT_TMPSN
+  device:             ambient_2_mgmt_tmpsn
+  location:
+    board:            MAINBOARD
+    zone:             HOTSPOT
+  hw_settings:
+    tos:              8000
+    thyst:            7500
+
+mb_ambient_tmpsn: &MB_AMBIENT_TMPSN
+  device:             ambient_4_mb_tmpsn
+  location:
+    board:            MAINBOARD
+    zone:             DEFAULT
+  hw_settings:
+    tos:              8000
+    thyst:            7500

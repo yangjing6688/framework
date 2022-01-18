@@ -1,0 +1,23 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+syslog:
+    verify_login_exists:
+        uuid: 114b05ff-d1be-4923-a8a1-933d15a54f83
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_syslog_server:
+        uuid: bfa124d6-dcd7-4918-ae7d-d0cd86c4f3cc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

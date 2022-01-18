@@ -1,0 +1,355 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for X770-32q switch
+#
+#
+
+
+# 40G port with partition enabled
+40G_partition_port: &40G_PARITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_40000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Partition: true
+   PartitionSize: 4
+   Ptp: true
+
+# 10G port
+10G_port: &10G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Ptp: true
+
+# 40G port - 49-52 and 101-104 can be partitioned only as
+# 1X40G or 1X10G, provided they are not used for stacking.
+# Though these 8 ports can be set as single mode partitioned,
+# it is dynamically determined only based on whether stacking is
+# using them or not.
+40G_single_partition_port: &40G_SINGLE_PARTITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_40000
+   portMediaType: HAL_PORT_MED_GBIC
+   SingleModePart: true
+   Pfc: true
+   Ptp: true
+
+ports:
+   - name: 1
+     <<: *40G_PARITION_PORT
+
+   - name: 2
+     <<: *10G_PORT
+
+   - name: 3
+     <<: *10G_PORT
+
+   - name: 4
+     <<: *10G_PORT
+
+   - name: 5
+     <<: *40G_PARITION_PORT
+
+   - name: 6
+     <<: *10G_PORT
+
+   - name: 7
+     <<: *10G_PORT
+
+   - name: 8
+     <<: *10G_PORT
+
+   - name: 9
+     <<: *40G_PARITION_PORT
+
+   - name: 10
+     <<: *10G_PORT
+
+   - name: 11
+     <<: *10G_PORT
+
+   - name: 12
+     <<: *10G_PORT
+
+   - name: 13
+     <<: *40G_PARITION_PORT
+
+   - name: 14
+     <<: *10G_PORT
+
+   - name: 15
+     <<: *10G_PORT
+
+   - name: 16
+     <<: *10G_PORT
+
+   - name: 17
+     <<: *40G_PARITION_PORT
+
+   - name: 18
+     <<: *10G_PORT
+
+   - name: 19
+     <<: *10G_PORT
+
+   - name: 20
+     <<: *10G_PORT
+
+   - name: 21
+     <<: *40G_PARITION_PORT
+
+   - name: 22
+     <<: *10G_PORT
+
+   - name: 23
+     <<: *10G_PORT
+
+   - name: 24
+     <<: *10G_PORT
+
+   - name: 25
+     <<: *40G_PARITION_PORT
+
+   - name: 26
+     <<: *10G_PORT
+
+   - name: 27
+     <<: *10G_PORT
+
+   - name: 28
+     <<: *10G_PORT
+
+   - name: 29
+     <<: *40G_PARITION_PORT
+
+   - name: 30
+     <<: *10G_PORT
+
+   - name: 31
+     <<: *10G_PORT
+
+   - name: 32
+     <<: *10G_PORT
+
+   - name: 33
+     <<: *40G_PARITION_PORT
+
+   - name: 34
+     <<: *10G_PORT
+
+   - name: 35
+     <<: *10G_PORT
+
+   - name: 36
+     <<: *10G_PORT
+
+   - name: 37
+     <<: *40G_PARITION_PORT
+
+   - name: 38
+     <<: *10G_PORT
+
+   - name: 39
+     <<: *10G_PORT
+
+   - name: 40
+     <<: *10G_PORT
+
+   - name: 41
+     <<: *40G_PARITION_PORT
+
+   - name: 42
+     <<: *10G_PORT
+
+   - name: 43
+     <<: *10G_PORT
+
+   - name: 44
+     <<: *10G_PORT
+
+   - name: 45
+     <<: *40G_PARITION_PORT
+
+   - name: 46
+     <<: *10G_PORT
+
+   - name: 47
+     <<: *10G_PORT
+
+   - name: 48
+     <<: *10G_PORT
+
+   - name: 49
+     <<: *40G_SINGLE_PARTITION_PORT
+
+   - name: 50
+     <<: *40G_SINGLE_PARTITION_PORT
+
+   - name: 51
+     <<: *40G_SINGLE_PARTITION_PORT
+
+   - name: 52
+     <<: *40G_SINGLE_PARTITION_PORT
+
+   - name: 53
+     <<: *40G_PARITION_PORT
+
+   - name: 54
+     <<: *10G_PORT
+
+   - name: 55
+     <<: *10G_PORT
+
+   - name: 56
+     <<: *10G_PORT
+
+   - name: 57
+     <<: *40G_PARITION_PORT
+
+   - name: 58
+     <<: *10G_PORT
+
+   - name: 59
+     <<: *10G_PORT
+
+   - name: 60
+     <<: *10G_PORT
+
+   - name: 61
+     <<: *40G_PARITION_PORT
+
+   - name: 62
+     <<: *10G_PORT
+
+   - name: 63
+     <<: *10G_PORT
+
+   - name: 64
+     <<: *10G_PORT
+
+   - name: 65
+     <<: *40G_PARITION_PORT
+
+   - name: 66
+     <<: *10G_PORT
+
+   - name: 67
+     <<: *10G_PORT
+
+   - name: 68
+     <<: *10G_PORT
+
+   - name: 69
+     <<: *40G_PARITION_PORT
+
+   - name: 70
+     <<: *10G_PORT
+
+   - name: 71
+     <<: *10G_PORT
+
+   - name: 72
+     <<: *10G_PORT
+
+   - name: 73
+     <<: *40G_PARITION_PORT
+
+   - name: 74
+     <<: *10G_PORT
+
+   - name: 75
+     <<: *10G_PORT
+
+   - name: 76
+     <<: *10G_PORT
+
+   - name: 77
+     <<: *40G_PARITION_PORT
+
+   - name: 78
+     <<: *10G_PORT
+
+   - name: 79
+     <<: *10G_PORT
+
+   - name: 80
+     <<: *10G_PORT
+
+   - name: 81
+     <<: *40G_PARITION_PORT
+
+   - name: 82
+     <<: *10G_PORT
+
+   - name: 83
+     <<: *10G_PORT
+
+   - name: 84
+     <<: *10G_PORT
+
+   - name: 85
+     <<: *40G_PARITION_PORT
+
+   - name: 86
+     <<: *10G_PORT
+
+   - name: 87
+     <<: *10G_PORT
+
+   - name: 88
+     <<: *10G_PORT
+
+   - name: 89
+     <<: *40G_PARITION_PORT
+
+   - name: 90
+     <<: *10G_PORT
+
+   - name: 91
+     <<: *10G_PORT
+
+   - name: 92
+     <<: *10G_PORT
+
+   - name: 93
+     <<: *40G_PARITION_PORT
+
+   - name: 94
+     <<: *10G_PORT
+
+   - name: 95
+     <<: *10G_PORT
+
+   - name: 96
+     <<: *10G_PORT
+
+   - name: 97
+     <<: *40G_PARITION_PORT
+
+   - name: 98
+     <<: *10G_PORT
+
+   - name: 99
+     <<: *10G_PORT
+
+   - name: 100
+     <<: *10G_PORT
+
+   - name: 101
+     <<: *40G_SINGLE_PARTITION_PORT
+
+   - name: 102
+     <<: *40G_SINGLE_PARTITION_PORT
+
+   - name: 103
+     <<: *40G_SINGLE_PARTITION_PORT
+
+   - name: 104
+     <<: *40G_SINGLE_PARTITION_PORT

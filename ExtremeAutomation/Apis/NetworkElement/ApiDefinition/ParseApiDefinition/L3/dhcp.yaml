@@ -1,0 +1,78 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+dhcp:
+    check_dhcp_vlan_address_range:
+        uuid: 737af566-ad47-4b95-a3ed-6b4c945ad730
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_netlogin_lease_timer:
+        uuid: 53cdcaf8-34e9-46a3-838f-e66111572f20
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_netlogin_lease_timer_default:
+        uuid: c890c7b5-8f36-4f07-9f25-c35f034892b9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_lease_timer:
+        uuid: 91755166-c671-4b42-87fc-bfe3e4401824
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_enabled_ports:
+        uuid: 74b711fa-916f-4563-b9f2-93aee15f1b28
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_default_gateway:
+        uuid: e4a3fbc0-28f1-44de-8f33-a7b10d9a0863
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_primary_dns:
+        uuid: f873b4c2-6a50-4047-90ac-16d32bf9af9d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_secondary_dns:
+        uuid: 080f62bc-aa9f-4928-b584-734539f4dbd1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_assigned_ip_address_allocation:
+        uuid: 7e7d1abe-fa35-409a-b031-fe3b8a9c80fb
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_vlan_assigned_mac_address_allocation:
+        uuid: 41c5de3c-8bbc-4f87-a1eb-bf02f090f366
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_bootprelay_servers:
+        uuid: f31dac82-0da7-40a4-a473-97dae98dd782
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_bootprelay_interface_enabled:
+        uuid: c51548fa-0919-4d04-bb0e-2c69ab17a116
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_bootprelay_interface_disabled:
+        uuid: 3824e6a9-5a6a-466b-8937-20eb8013ec40
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

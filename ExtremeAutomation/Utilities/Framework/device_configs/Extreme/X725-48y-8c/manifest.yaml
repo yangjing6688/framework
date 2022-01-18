@@ -1,0 +1,26 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  the X725-48y-8c switch
+#
+#
+
+vendor: Extreme
+product_name: X725-48y-8c
+
+files:
+    - name: system
+      filename: [../X725/system.yaml, system.yaml]
+    - name: devices
+      filename: [../X725/devices.yaml, devices.yaml]
+    - name: thermal
+      filename: [../X725/thermal.yaml, thermal.yaml]
+    - name: capability
+      filename: [../../common/defaultcap.yaml, ../../common/Broadcom/trident3.yaml, ../X725-48y-8c/switchcap.yaml]
+    - name: ports
+      filename: [../../common/defaultports.yaml, ../X725/ports.yaml, ports.yaml]

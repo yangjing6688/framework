@@ -1,0 +1,409 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+discovered:
+    click_clear_selected:
+        apis:
+            - [emc,'8.1.1']
+    discovered_select_device_in_table:
+        apis:
+            - [emc,'8.1.1||8.1.4']
+    discovered_wait_for_device_add:
+        apis:
+            - [emc,'8.1.1']
+    discovered_wait_for_device_remove:
+        apis:
+            - [emc,'8.1.1']
+    discovered_refresh_table:
+        apis:
+            - [emc,'8.1.1']
+    discovered_modify_table_refresh_time:
+        apis:
+            - [emc,'8.1.1']
+    discovered_reset_table:
+        apis:
+            - [emc,'8.1.1']
+    discovered_pre_register_device_set_default_site:
+        apis:
+            - [emc,'8.1.1']
+    discovered_pre_register_device_set_ip_address:
+        apis:
+            - [emc,'8.1.1']
+    discovered_pre_register_device_set_serial_numbers:
+        apis:
+            - [emc,'8.1.1']
+    discovered_pre_register_device_next:
+        apis:
+            - [emc,'8.1.1']
+    discovered_pre_register_device_previous:
+        apis:
+            - [emc,'8.1.1']
+    discovered_pre_register_device_create:
+        apis:
+            - [emc,'8.1.1']
+    discovered_pre_register_device_cancel:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_select_tab:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_system_name:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_contact:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_location:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_admin_profile:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_topology_layer:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_remove_from_service:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_poll_group:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_poll_type:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_snmp_timeout:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_snmp_retries:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_replacement_serial_number:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_trap_receiver:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_syslog_receiver:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_enable_collection:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_to_archive:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_to_map:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_to_policy_domain:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_to_access_control_group:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_engine_group_:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_switch_type:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_primary_engine:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_secondary_engine:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_auth_access_type:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_virtual_router_name:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_radius_attrs_to_send:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_radius_accounting:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_mgmt_radius_server_1:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_mgmt_radius_server_2:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_network_radius_server:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_policy_enforcement_point_1:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_policy_enforcement_point_2:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_enable_auth_using_port_template:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_advanced_settings_open:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_advanced_settings_save:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_advanced_settings_ip_subnet:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_advanced_settings_shared_secret:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_advanced_settings_reauth_type:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_edit_access_control_advanced_settings_enable_port_link:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_nickname:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_asset_tag:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_user_data:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_set_note:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_vlan_definition_add:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_vlan_definition_edit:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_vlan_definition_delete:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_vlan_definition_select_row:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_configure_device:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_serial_number:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_ip_address_subnet:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_gateway_address:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_management_interface:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_domain_name:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_dns_server:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_ntp_server:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_lacp:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_lldp:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_mstp:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_mvrp:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_poe:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ztp_set_xvlan:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_row_editor_update:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_row_editor_cancel:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_nickname:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_auto_negotiation:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_speed:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_duplex:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_configuration:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_pvid:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_lag:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_authentication:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_tagged:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_untagged:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_node_alias:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_span_guard:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_loop_protect:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_ports_edit_row_mvrp:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_click_save:
+        apis:
+            - [emc,'8.1.1']
+    discovered_edit_device_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    discovered_confirm_device_ip_exists:
+        apis:
+            - [emc,'8.1.1']
+    discovered_confirm_device_ip_profile:
+        apis:
+            - [emc,'8.1.1']
+    discovered_confirm_device_ip_status:
+        apis:
+            - [emc,'8.1.1']
+    discovery_get_device_port_auto_negotiation_value:
+        apis:
+            - [emc,'8.1.1']
+    discovered_select_row_by_column_value:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_select_tab:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_system_name:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_contact:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_location:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_admin_profile:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_topology_layer:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_default_site:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_poll_group:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_poll_type:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_snmp_timeout:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_set_snmp_retries:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_click_add:
+        apis:
+            - [emc,'8.1.3']
+    discovered_add_device_click_cancel:
+        apis:
+            - [emc,'8.1.3']
+    discovered_click_clear_selected:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    discovered_click_clear_all_devices:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    discovered_click_pre_register_device:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    discovered_click_add_devices:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    discovered_click_edit_devices:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    discovered_edit_device_set_default_site:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    discovered_edit_device_vlan_definition_set_always_write_to_devices:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    discovered_edit_device_vlan_definition_update:
+        apis:
+            - [emc,'8.1.1||8.2.0']
+    discovered_edit_device_vlan_definition_set_name:
+        apis:
+            - [emc,'8.1.1||8.2.0']
+    discovered_edit_device_vlan_definition_set_vid:
+        apis:
+            - [emc,'8.1.1||8.2.0']
+    discovered_edit_device_vlan_definition_set_vrf:
+        apis:
+            - [emc,'8.2.1']
+    discovered_edit_device_ztp_set_firmware_upgrade:
+        apis:
+            - [emc,'8.1.2']
+    discovered_edit_device_ztp_set_firmware_upgrade_date:
+        apis:
+            - [emc,'8.1.2']
+    discovered_edit_device_ztp_set_firmware_upgrade_time:
+        apis:
+            - [emc,'8.1.2']
+    discovered_edit_device_ztp_set_firmware_upgrade_utc_offset:
+        apis:
+            - [emc,'8.1.2']
+    discovered_edit_device_vendor_profile_device_type:
+        apis:
+            - [emc,'8.1.2']
+    discovered_edit_device_vendor_profile_family:
+        apis:
+            - [emc,'8.1.2']
+    discovered_edit_device_vendor_profile_sub_family:
+        apis:
+            - [emc,'8.1.2']
+    discovered_edit_device_ports_select_port:
+        apis:
+            - [emc,'8.1.1||8.2.4']
+    discovered_edit_device_ports_edit_row_alias:
+        apis:
+            - [emc,'8.1.1||8.2.4']
+    discovered_edit_device_ports_edit_row_enabled:
+        apis:
+            - [emc,'8.1.1||8.2.4']
+    discovered_edit_device_ports_show_columns:
+        apis:
+            - [emc,'8.1.1||8.1.2||8.2.1||8.2.4']

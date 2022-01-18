@@ -1,0 +1,16 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+eciqcommonobjects:
+    common_objects_expand_section:
+        apis:
+            - [eciq,'BaseAppVer']
+    common_objects_collapse_section:
+        apis:
+            - [eciq,'BaseAppVer']
+    common_objects_select_sub_section:
+        apis:
+            - [eciq,'BaseAppVer']

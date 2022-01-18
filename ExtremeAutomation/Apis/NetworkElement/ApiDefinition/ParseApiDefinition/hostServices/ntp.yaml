@@ -1,0 +1,169 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+ntp:
+    check_ntp_enabled:
+        uuid: 26b9342f-dca8-405c-a17d-0435bc1a2e2b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_exists:
+        uuid: 9e18c537-8391-4c5a-8397-7d7a9bb79cbe
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_interval:
+        uuid: d6329f3c-5b2f-4232-bd3a-5f7fc276aa91
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_enabled:
+        uuid: f05a2f3f-aeb3-49c5-935d-c132a05c6096
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_authentication_enabled:
+        uuid: a3ebfd78-0f9d-4652-baf8-456d3118a5ed
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_key_index:
+        uuid: 0e8ae499-27b2-44fc-a0ab-0ffb4e9f681a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_source_ip:
+        uuid: c21bcd30-398f-4383-bae9-76cd33c2cd6f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_key_type:
+        uuid: ba257668-69d4-4926-bf4e-462bf9ec98cf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_ntp_key_exists:
+        uuid: 70c1d997-2317-4154-a207-a2241499d7fd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_key_type:
+        uuid: 340fd7dc-0894-446c-93ae-b886d43a6633
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_key_secret:
+        uuid: f8febe31-a96b-4bb0-821c-38899efae938
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_access_attempts:
+        uuid: 4f489bef-faec-4ca6-9a08-4f92925bab02
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_access_success:
+        uuid: d5befc88-1860-490a-8371-55db96304334
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_access_failure:
+        uuid: 84188852-2752-45c1-8f24-041aff480ec1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_stratum:
+        uuid: e491bec6-6605-4bea-a7b5-4e68ed99bf0b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_version:
+        uuid: 0aa21e17-efb5-4232-b37c-75dc98f867ce
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_root_delay:
+        uuid: 75b399ee-daeb-4fce-87b0-9af73ca52c84
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_precision:
+        uuid: 5b37d7bb-df62-4b5b-bee5-57c1792cc20d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_reachable:
+        uuid: efbc5d51-4243-46f5-abcf-8dd41d54ceb0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ntp_server_synchronized:
+        uuid: 8e3c31a9-c0a3-46df-bd26-beafc37093a4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]

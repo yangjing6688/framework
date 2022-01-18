@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the interrupt devices common to 5420 series switches
+#
+
+devices:
+  - *INTR_CONTROLLER_GPIO
+  - *INTR_CONTROLLER_CPLD

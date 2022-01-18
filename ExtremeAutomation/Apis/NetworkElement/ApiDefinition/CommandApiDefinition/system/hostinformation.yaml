@@ -1,0 +1,142 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+hostinformation:
+    set_prompt:
+        description: "Sets the system prompt"
+        arguments:
+            order: 
+        uuid: 8570be79-7439-4139-bd18-5a986b3389bd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'prompt {prompt_name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.5.0','s','{prompt_name}']
+    set_host_contact:
+        description: "Sets the host contact"
+        arguments:
+            order: 
+        uuid: 783d173e-6609-4b01-a7c5-2030c6c54b0a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'snmp-server contact {contact}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.4.0','s','{contact}']
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.4.0','s','{contact}']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.4.0','s','{contact}']
+    set_host_name:
+        description: "Sets the host name"
+        arguments:
+            order: 
+        uuid: c7f45f88-cc06-4a62-981d-275f6fa8983f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'snmp-server name {name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.5.0','s','{name}']
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.5.0','s','{name}']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.5.0','s','{name}']
+    set_host_location:
+        description: "Sets the host location"
+        arguments:
+            order: 
+        uuid: 162acbb4-0e6f-43c9-8211-9b83e34bfc6b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'snmp-server location {location}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.6.0','s','{location}']
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.6.0','s','{location}']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.1.6.0','s','{location}']
+    clear_prompt:
+        description: "Clears the system prompt restoring it to the default setting"
+        arguments:
+            order: 
+        uuid: 2ff11f67-fb26-45a2-bfda-0afbd69fcae9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no prompt',routerConfigPrompt,'None','None','None',[],[]]
+    show_system_name:
+        uuid: d8dc0a12-021d-4f17-947d-f275443dca07
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show sys-info',userPrompt,'None','None','None',['Error'],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.5.','i','']
+    show_host_contact:
+        uuid: 1c4a1acc-30cd-438b-ae00-ff635a4dc656
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show snmp-server',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.4.','i','']
+                - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.4.','i','']
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.4.','i','']
+    show_host_name:
+        uuid: 64689dd6-98ef-4b8e-8be4-6a7928ca6699
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show snmp-server',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.5.','i','']
+                - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.5.','i','']
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.5.','i','']
+    show_host_location:
+        uuid: 9d709f83-dae7-4210-ae2d-4de62a70fa59
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show snmp-server',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.6.','i','']
+                - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.6.','i','']
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.6.','i','']
+    show_host_description:
+        uuid: 1ad52fdc-d1b9-46cf-9150-2b6a0001e477
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.1.','i','']
+                - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.1.','i','']
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.1.','i','']
+    show_host_uptime:
+        uuid: 672b7b89-fb7e-4ad5-b85f-e5c3e3416093
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.3.','i','']
+                - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.3.','i','']
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.3.','i','']
+    show_host_services:
+        uuid: b2a81ac5-446b-444b-9c97-8d3ebe85427c
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.7.','i','']
+                - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.7.','i','']
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.7.','i','']
+    show_host_object_id:
+        uuid: 0df15259-5c5a-4b93-8e9c-873bb9244949
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']
+                - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']

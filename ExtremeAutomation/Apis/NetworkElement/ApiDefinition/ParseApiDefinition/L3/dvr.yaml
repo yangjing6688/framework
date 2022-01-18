@@ -1,0 +1,78 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+dvr:
+    verify_dvr_domain_controller_exists:
+        uuid: 935d1923-f60d-4210-822e-6c0aef2f130c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_domain_controller_inject_default_route_all_is_disabled:
+        uuid: 84692c0e-ee06-4fc7-aebf-96d6327e8f6b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_domain_controller_inject_default_route_is_disabled:
+        uuid: 7240e4d5-6958-430e-9da9-9155d9348c83
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_leaf_id_is_set:
+        uuid: fc534e75-1f95-4672-a966-e067b70487b0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_leaf_virtual_ist_local_and_peer_ip_is_set:
+        uuid: ab2cebfa-2a35-42b9-9239-b61a6d859280
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_interface_vlan_dvr_gateway_ipv4_is_set:
+        uuid: 22e86aa8-289d-4160-bd51-feb15154d312
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_on_interface_is_enabled:
+        uuid: 4521cc1a-70f2-48e8-b2f3-339c9d2a26f3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_redistribute_direct_is_enabled:
+        uuid: 05d71c10-295d-422e-af6d-7601866f093f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_redistribute_direct_is_disabled:
+        uuid: 2a703283-dc35-4ec8-b630-8c9d4af92c3e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_redistribute_static_is_enabled:
+        uuid: 43680ff8-c6b8-4994-a86b-5e02c260bfeb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_redistribute_static_is_disabled:
+        uuid: 3dcd9532-2874-4c26-914a-b862dad42d02
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_redistribute_direct_metric_is_set:
+        uuid: 89feb2d7-8aa7-42b2-a42c-8185eb792087
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_dvr_redistribute_static_metric_is_set:
+        uuid: 97169d3c-597a-43d4-8fb9-07d0749b1646
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

@@ -1,0 +1,41 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  the X465-24P switch
+#
+
+vendor: Extreme
+product_name: X465-24P
+
+files:
+    - name: system
+      filename: [../X465/system.yaml, ../X465-24/system.yaml]
+    - name: devices
+      filename: [../X465/devices.yaml, ../X465-24/devices.yaml]
+    - name: interrupts
+      filename: [../X465/interrupts.yaml, ../X465/x465_interrupts.yaml]
+    - name: leds
+      filename: [../X465/leds.yaml, ../X465/x465_leds.yaml]
+    - name: buttons
+      filename: [../X465/buttons.yaml, ../X465/x465_buttons.yaml]
+    - name: thermal
+      filename: [../../cpu/Intel/thermal.yaml, ../X465/thermal.yaml, thermal.yaml]
+    - name: fans
+      filename: [../X465/fans.yaml, ../X465-24/fans.yaml]
+    - name: poe
+      filename: [../X465/poe.yaml, ../X465/x465_poe.yaml]
+    - name: power
+      filename: [../X465/power.yaml, ../X465-24/power.yaml]
+    - name: watchdog
+      filename: [../X465/watchdog.yaml, ../X465/x465_watchdog.yaml]
+    - name: capability
+      filename: [../../common/defaultcap.yaml, ../../common/Broadcom/firebolt5.yaml, switchcap.yaml]
+    - name: ports
+      filename: [../../common/defaultports.yaml, ../X465/ports.yaml, ports.yaml]
+    - name: vims
+      filename: [../X465/vims.yaml, ../X465-24/vims.yaml]

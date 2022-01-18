@@ -1,0 +1,153 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+macsec:
+    verify_macsec_ca:
+        uuid: 8fdd7c59-dedd-4d10-a66a-8c8f42b83150
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_ca_port:
+        uuid: 1ad6bcf9-9baa-4c7e-a9c1-297a09d113ed
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_ca_ckn:
+        uuid: 858361d3-c55c-4a9f-847b-d81318dab18b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_cipher_suite:
+        uuid: 50eb2f98-50a7-4574-916a-6df9db3ea098
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_confidentiality_offset:
+        uuid: e96b1a14-bfd8-441f-b082-e58da5bff440
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_include_sci:
+        uuid: 5e04787b-066b-457f-b567-257f7cc711c5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_mka_actor_priority:
+        uuid: 19a71f9b-9a7b-4908-b752-7da823ce3233
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_replay_protect:
+        uuid: b81ef09f-fc68-4f37-bf6a-a3bcf2a31c89
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_on_port:
+        uuid: 0a79dae9-ef86-46bf-9226-b4c1658da14a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_port_connection_status:
+        uuid: ea52f2bb-a66d-4efc-9888-5edbb6c9cbcb
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_port_confidentiality_offset_admin:
+        uuid: 1cc6f5d2-c0d8-4286-8ab9-00d5937fb719
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_port_cipher_suite_admin:
+        uuid: 906319b9-0671-4d15-bcfd-bec87a15f8df
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_port_cipher_suite_oper:
+        uuid: b57b0b2b-67df-440f-ad86-bb12862491e3
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_tx_port_key_number:
+        uuid: 6acc08d0-4400-4f2a-9749-8e3098284a53
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_rx_port_key_number:
+        uuid: 196f8ab9-53df-4072-84a5-a3f96d8c2dd9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_tx_port_association_number:
+        uuid: d469df49-3ec4-4e7b-a3f5-71ea09244f24
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_rx_port_association_number:
+        uuid: e8142474-c91a-4818-b839-1a1fdce99dcf
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_port_confidentiality_offset_oper:
+        uuid: 7eb8c1fe-18e0-4193-9530-94c22d94c235
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_self_elected_key_server:
+        uuid: c3cfa28e-078f-4ea6-af78-a0b7a794a5d0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_peer_elected_key_server:
+        uuid: dfa4daf8-4868-4be9-8d9a-00e89fa0c22b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_tx_port_no_errors:
+        uuid: c35dd752-8cfe-4e7b-a2c8-77c31866a1d4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_rx_port_no_errors:
+        uuid: 01912814-3f25-4a63-9e7b-a1deccbea9fc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_tx_sc_octets_encrypted:
+        uuid: e349be7a-30a5-493d-810b-3ef669faf66c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_tx_sc_encrypted_packets:
+        uuid: 899bacca-b4fc-4a86-80c7-92cddcaec9f3
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_tx_sa_encrypted_packets:
+        uuid: 40e4e17e-e758-418d-b1a9-63439be8ad63
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_rx_sc_octets_decrypted:
+        uuid: 943a6278-5fcf-4d00-b8cb-2de624307a78
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_rx_sc_ok_packets:
+        uuid: afa9d913-b022-4888-8fc5-defe98d91f1f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macsec_rx_sa_ok_packets:
+        uuid: ad4cf88b-d3f0-413b-869c-82ac2e6db123
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

@@ -1,0 +1,109 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#
+#  This file contains the values for capability variables
+#  for BCM Firebolt4k chipset based platforms.
+#  If the value for a capability variable is different from the value
+#  in default.yaml for Firebolt4k chipset, they should have an entry in this
+#  file (Provided the variables classify under "Override: Chipset level")
+#
+#
+
+
+firebolt4k_capability: &FIREBOLT4K_CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  # Limit/Scaling parameters
+  maxNumRules: 1536
+  maxNumVFPRules: 2048
+  # 75% VLAN_XLATE (16k)
+  maxNumMuxRulesL: 12288
+  slice_profiles:
+    default:
+      maxNumRules_mac: 256
+      maxNumRules_ipv6: 256
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+    more_ipv4_less_acl:
+      maxNumRules_mac: 256
+      maxNumRules_ipv6: 256
+      maxNumRules_ipv4: 768
+      maxNumRules_l2: 184
+    more_ipv4_no_ipv6_less_acl:
+      maxNumRules_mac: 256
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 184
+    more_ipv4_no_l2_less_acl:
+      maxNumRules_mac: 256
+      maxNumRules_ipv6: 256
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 0
+    more_ipv4_no_mac_no_ipv6_less_acl:
+      maxNumRules_mac:  0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1280
+      maxNumRules_l2: 184
+    more_ipv4_no_mac_no_ipv6_no_l2_less_acl:
+      maxNumRules_mac:  0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1536
+      maxNumRules_l2: 0
+    more_ipv4_no_ipv6:
+      maxNumRules_mac: 256
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 184
+    more_ipv4_no_mac_no_ipv6:
+      maxNumRules_mac:  0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 768
+      maxNumRules_l2: 184
+    more_ipv4_no_l2:
+      maxNumRules_mac: 256
+      maxNumRules_ipv6: 256
+      maxNumRules_ipv4: 512
+      maxNumRules_l2: 0
+    more_ipv4_no_mac_no_ipv6_no_l2:
+      maxNumRules_mac:  0
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 1024
+      maxNumRules_l2: 0
+    more_mac_no_ipv6:
+      maxNumRules_mac: 512
+      maxNumRules_ipv6: 0
+      maxNumRules_ipv4: 256
+      maxNumRules_l2: 184
+  numIfpPdSlices: 6
+  numIfpCosSlices: 6
+  sliceDepth: 256
+  vfpSliceDepth: 512
+
+  maxFibEntry: 16352
+  MplsRxHwCounters: 8191
+  MplsTxHwCounters: 8191
+  MplsEchoKill: MPLS_CAP_ECHO_KILL_PORT_VLAN
+  MplsEgrLspLabelMax: 0x1FFF
+  NumVplsSupported: 1023
+  NumVpwsSupported: 1023
+  RsvpTeMaxPaths: 1000
+  RsvpTeMaxProfiles: 1000
+
+  # Boolean type supported/not-supported capability parameters.
+  Mpls: true
+  Pstag: true
+  IpFix: true
+  HwOam: true
+  SyncE: true
+  L2VpnPwEcmp: true
+  HwBfd: true
+  PTP1588: true
+  L2VPNSharingSupportedForSpokePW: true
+  PwMacMoveDetect: true
+  VpwsHwSupport: true
+  Alpm: false
+  Pib: true

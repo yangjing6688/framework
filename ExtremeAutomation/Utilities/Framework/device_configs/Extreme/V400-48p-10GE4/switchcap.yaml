@@ -1,0 +1,27 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2017
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for V400-48p-10GE4.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  numExternalPort: 52
+  poeMaxBudget: 740
+  poeDfltBudget: 740
+
+  # Boolean type supported/not-supported capability parameters.
+  BridgePortExtender: true
+  VpexCascade: true
+  VpexRing: true
+  Poe: true
+  PoePlus: true
+  PoeLegacyDetectDefault: false
+  PortIngMeter: false

@@ -1,0 +1,125 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines fan FRUs common to 5420 (JAVELIN) series switches
+#
+
+#HW mappings
+#pwm1 --> system fan0 -- NA on beta
+#pwm2 --> system fan1
+#pwm3 --> fixed psu2 fan
+#pwm4 --> fixed psu1 fan
+fan_conroller_max31790: &FAN_CONTROLLER_MAX31790
+  name:             fanctl_max31790
+  bus:              i2cbus_2
+  compatible:       max31790
+  address:          0x29
+  fan_controls:
+    - name:         max31790_fan1
+      number:       1
+    - name:         max31790_fan2
+      number:       2
+    - name:         max31790_fan3
+      number:       3
+    - name:         max31790_fan4
+      number:       4
+    - name:         max31790_fan5
+      number:       5
+    - name:         max31790_fan6
+      number:       6
+
+fan_controller_cpld: &FAN_CONTROLLER_CPLD
+  name:             fanctl_cpld
+  bus:              platform
+  compatible:       cpld_fan_controller
+  device:           system_cpld_reg
+#no direction - all are F2B
+#fan presence are only applicable to M models for system fan1 fanctrl 2  system fan0 is not used
+  fan_module_controls:
+    - name:         fanctl_module_1
+      presence:
+        register:   0x60
+        bitmask:    0x01
+    - name:         fanctl_module_2
+      presence:
+        register:   0x60
+        bitmask:    0x02
+    - name:         fanctl_module_3
+      presence:
+        register:   0x60
+        bitmask:    0x04
+    - name:         fanctl_module_4
+      presence:
+        register:   0x60
+        bitmask:    0x08
+
+
+#every fru has 1 FAN
+#M models have only  1 fru system fan pwm2 aka system fan 1
+#48 port-F PoE models have 3 frus: system fan1,psu1 fan and psu2 fan
+#all others F models have 2 frus: system fan1, psu1 fan
+#note - M models have modular psus with build in fans,
+#these are not controlled by sw
+common_fan_info: &COMMON_FAN_1_INFO
+  number_fan_frus:  1
+  fans_per_fru:     1
+  polling_period:   2000
+
+common_fan_info: &COMMON_FAN_2_INFO
+  number_fan_frus:  2
+  fans_per_fru:     1
+  polling_period:   2000
+
+common_fan_info: &COMMON_FAN_3_INFO
+  number_fan_frus:  3
+  fans_per_fru:     1
+  polling_period:   2000
+
+
+#system fan fru1 at pwm2 on ctrl
+fan_fru_f_1: &FAN_FRU_F_1
+  number:           1
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         FIXED
+  control:          fanctl_module_2
+  fans:
+    - number:       1
+      control:      max31790_fan2
+
+#system fan is at pwm2 on ctrl
+fan_fru_m_1: &FAN_FRU_M_1
+  number:           1
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         MODULAR
+  control:          fanctl_module_2
+  fans:
+    - number:       1
+      control:      max31790_fan2
+
+#psu1 fan is at pwm4
+fan_fru_f_2: &FAN_FRU_F_2
+  number:           2
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         FIXED
+  control:          fanctl_module_4
+  fans:
+    - number:       1
+      control:      max31790_fan4
+
+#psu2 fan is at pwm3
+fan_fru_f_3: &FAN_FRU_F_3
+  number:           3
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         FIXED
+  control:          fanctl_module_3
+  fans:
+    - number:       1
+      control:      max31790_fan3

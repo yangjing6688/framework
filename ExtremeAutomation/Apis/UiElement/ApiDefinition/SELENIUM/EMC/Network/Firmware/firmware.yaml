@@ -1,0 +1,268 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+firmware:
+    firmware_tab_tree_expand_node:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    firmware_tab_menu_set_as_reference_image_tree:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    firmware_tab_menu_unset_as_reference_image_tree:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    firmware_tab_menu_delete_image_tree:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    firmware_tab_tree_select_node:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_tree_refresh:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_tree_upload_file:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_table_select_image:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_table_select_all_images:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_menu_set_as_reference_image_table:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_menu_unset_as_reference_image_table:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_menu_delete_image_table:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_delete_all_images_from_table:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_dialog_confirm_delete_image_set_delete_from_server:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_dialog_confirm_delete_image_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    firmware_tab_dialog_confirm_delete_image_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    firmware_menu_view_available_releases:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_assign_image_set_show_all_images:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_assign_image_set_bootprom_download:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_assign_image_select_image:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_assign_image_click_refresh:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_assign_image_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_assign_image_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_compare_last_configs_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_set_file_transfer_mode:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_set_server:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_set_firmware_mib:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_set_configuration_mib:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_set_script_file_name:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_click_view:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_view_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_configuration_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_current_firmware_releases_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restart_confirm_timed_restart_supported:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restart_set_show_devices_not_supporting_timed_restart:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restart_set_device_selected:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restart_set_restart_time:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restart_click_refresh:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restart_click_start:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restart_click_abort:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_tab:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_configuration_to_restore:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_configuration_to_restore_newest:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_configuration_to_restore_oldest:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_source_device:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_configuration_to_clone:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_configuration_to_clone_newest:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_configuration_to_clone_oldest:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_template:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_select_profile:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_click_start:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_restore_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_serial_numbers_click_register:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_serial_numbers_click_export_to_file:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_serial_numbers_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_serial_numbers_register_set_refresh:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_serial_numbers_register_click_register:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_serial_numbers_register_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_select_devices:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_click_assign_image:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_click_set_configuration:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_set_restart_devices_after_upgrade:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_set_schedule_upgrade:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_set_schedule_name:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_set_schedule_date_time:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_set_schedule_abort_on_failure:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_set_device_upgrade_group_size:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_click_schedule:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_click_start:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_click_close:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_confirm_start_click_yes:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_confirm_start_click_no:
+        apis:
+            - [emc,'8.1.1']
+    firmware_dialog_upgrade_wait_for_completion:
+        apis:
+            - [emc,'8.1.1']
+    firmware_confirm_config_fw_menu_enabled:
+        apis:
+            - [emc,'8.1.1']
+    firmware_confirm_upgrade_success:
+        apis:
+            - [emc,'8.1.1']
+    firmware_menu_backup_configuration:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_menu_restore_configuration:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_menu_compare_last_configurations:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_menu_upgrade_firmware:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_menu_set_configuration:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_menu_restart_device:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_menu_check_for_updates:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_menu_register_export_serial_numbers:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_confirm_config_fw_menu_exists:
+        apis:
+            - [emc,'8.1.1||8.3.0']
+    firmware_dialog_restart_click_cancel:
+        apis:
+            - [emc,'8.1.1||8.4.0']
+    firmware_dialog_upgrade_click_cancel:
+        apis:
+            - [emc,'8.1.1||8.4.0']

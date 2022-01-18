@@ -1,0 +1,70 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+alarms:
+    alarms_menu_clear_selected_alarms:
+        apis:
+            - [emc,'8.1.1']
+    alarms_menu_clear_selected_alarms_with_reason:
+        apis:
+            - [emc,'8.1.1']
+    alarms_menu_clear_all_alarms:
+        apis:
+            - [emc,'8.1.1']
+    alarms_menu_edit_alarm_definition:
+        apis:
+            - [emc,'8.1.1']
+    alarms_menu_history_all:
+        apis:
+            - [emc,'8.1.1']
+    alarms_menu_history_by_source:
+        apis:
+            - [emc,'8.1.1']
+    alarms_menu_history_by_alarm_name:
+        apis:
+            - [emc,'8.1.1']
+    alarms_dialog_edit_alarm_definition_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarms_dialog_history_close:
+        apis:
+            - [emc,'8.1.1']
+    alarms_click_next_page:
+        apis:
+            - [emc,'8.1.1']
+    alarms_click_prev_page:
+        apis:
+            - [emc,'8.1.1']
+    alarms_click_first_page:
+        apis:
+            - [emc,'8.1.1']
+    alarms_click_last_page:
+        apis:
+            - [emc,'8.1.1']
+    alarms_click_refresh:
+        apis:
+            - [emc,'8.1.1']
+    alarms_set_table_filter:
+        apis:
+            - [emc,'8.1.1']
+    alarms_clear_table_filter:
+        apis:
+            - [emc,'8.1.1']
+    alarms_select_alarm_by_name:
+        apis:
+            - [emc,'8.1.1']
+    alarms_select_alarm_by_source_ip:
+        apis:
+            - [emc,'8.1.1']
+    alarms_confirm_alarm_name_exists:
+        apis:
+            - [emc,'8.1.1']
+    alarms_confirm_alarm_info_contains:
+        apis:
+            - [emc,'8.1.1']
+    alarms_confirm_alarm_history_reason_exists:
+        apis:
+            - [emc,'8.1.1']

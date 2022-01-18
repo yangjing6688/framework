@@ -1,0 +1,314 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+loginconfig:
+    create_admin_account:
+        description: "Creates an Administrator user account on the device"
+        arguments:
+            order: username,passwd
+        uuid: b2d5d8b4-05ff-448e-bd9a-6c3128a46f72
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set system login {username} super-user enable password {passwd}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create account admin {username} {passwd}',userPrompt,'None','None','None',[],[]]
+    delete_account:
+        description: "Removes a user account from the device"
+        arguments:
+            order: 
+        uuid: 66d9fc62-de47-45e9-a80f-237df09d6830
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear system login {username}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete account {username}',userPrompt,'None','None','None',[],[]]
+    enable_cli_ro_user:
+        description: "Used to enable the read-only CLI account"
+        arguments:
+            order: 
+        uuid: ea3d9fcc-d197-417e-a031-37b620fdd097
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'password access-level ro',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.23.0','i','1']
+    disable_cli_ro_user:
+        description: "Used to disable the read-only CLI account"
+        arguments:
+            order: 
+        uuid: c5e141ea-dc47-4717-84dd-bceb13094a74
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no password access-level ro',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.23.0','i','2']
+    enable_cli_rw_user:
+        description: "Used to enable the read-write CLI account"
+        arguments:
+            order: 
+        uuid: c99b279a-18b8-42d3-b972-8d1d29003d32
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'password access-level rw',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.19.0','i','1']
+    disable_cli_rw_user:
+        description: "Used to disable the read-write CLI account"
+        arguments:
+            order: 
+        uuid: 2ad7f9bb-ab1a-45df-b0b5-37fe61245c9c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no password access-level rw',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.19.0','i','2']
+    enable_cli_l1_user:
+        description: "Used to enable the read-write-layer 1 CLI account"
+        arguments:
+            order: 
+        uuid: 207affc7-cf16-4e90-a775-4c144608e857
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'password access-level l1',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.20.0','i','1']
+    disable_cli_l1_user:
+        description: "Used to disable the read-write-layer 1 CLI account"
+        arguments:
+            order: 
+        uuid: 744838ca-cac8-4e62-9be6-c6564643150d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no password access-level l1',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.20.0','i','2']
+    enable_cli_l2_user:
+        description: "Used to enable the read-write-layer 2 CLI account"
+        arguments:
+            order: 
+        uuid: 2c4a60d8-111c-4957-9650-c41a77a7db18
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'password access-level l2',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.21.0','i','1']
+    disable_cli_l2_user:
+        description: "Used to disable the read-write-layer 2 CLI account"
+        arguments:
+            order: 
+        uuid: 8193b82e-958e-4b6c-a1f7-8c2ae3e5f7f6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no password access-level l2',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.21.0','i','2']
+    enable_cli_l3_user:
+        description: "Used to enable the read-write-layer 3 CLI account"
+        arguments:
+            order: 
+        uuid: 930c8b33-2eac-4e68-99dd-4e0b8e428282
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'password access-level l3',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.22.0','i','1']
+    disable_cli_l3_user:
+        description: "Used to disable the read-write-layer 3 CLI account"
+        arguments:
+            order: 
+        uuid: 981eaa7e-cda5-4aff-b814-f67b62d3a228
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no password access-level l3',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.22.0','i','2']
+    set_read_only_user:
+        description: "Modifies the username and password for the read-only CLI account"
+        arguments:
+            order: username,new_passwd,old_passwd
+        uuid: 4e834f1e-c3ea-4000-b985-d79bac2dd073
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'username {username} level ro',routerConfigPrompt,'None','Enter the old password :||Enter the New password :||Re-enter the New password :','{old_passwd}||{new_passwd}||{new_passwd}',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.9.0||1.3.6.1.4.1.2272.1.19.10.0','s||s','{username}||{new_passwd}']
+    set_read_write_user:
+        description: "Modifies the username and password for the read-write CLI account"
+        arguments:
+            order: username,new_passwd,old_passwd
+        uuid: c447def2-3369-4b7b-80f4-714a37436ebd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'username {username} level rw',routerConfigPrompt,'None','Enter the old password :||Enter the New password :||Re-enter the New password :','{old_passwd}||{new_passwd}||{new_passwd}',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.3.0||1.3.6.1.4.1.2272.1.19.4.0','s||s','{username}||{new_passwd}']
+    set_read_write_all_user:
+        description: "Modifies the username and password for the read-write-all CLI account"
+        arguments:
+            order: username,new_passwd,old_passwd
+        uuid: 2fc53e4e-3c43-4f6f-bbb6-64325f9fbcc9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'username {username} level rwa',routerConfigPrompt,'None','Enter the old password :||Enter the New password :||Re-enter the New password :','{old_passwd}||{new_passwd}||{new_passwd}',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.1.0||1.3.6.1.4.1.2272.1.19.2.0','s||s','{username}||{new_passwd}']
+    set_max_telnet_sessions:
+        description: "Used to indicate the maximum number of telnet sessions the system will support"
+        arguments:
+            order: 
+        uuid: 61e97777-e3ab-40f7-9a67-41fa1ab23e69
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'telnet-access sessions {max_sessions}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.11.0','i','{max_sessions}']
+    set_max_rlogin_sessions:
+        description: "Used to indicate the maximum number of rlogin sessions the system will support"
+        arguments:
+            order: 
+        uuid: facb657e-8872-4a8d-883a-2ca8b94ad3c8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'max-logins {max_sessions}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.12.0','i','{max_sessions}']
+    set_l1_user:
+        description: "Modifies the username and password for the read-write layer-1 CLI account"
+        arguments:
+            order: username,new_passwd,old_passwd
+        uuid: eb4fbd98-37be-40e4-b574-791f38b81926
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'username {username} level l1',routerConfigPrompt,'None','Enter the old password :||Enter the New password :||Re-enter the New password :','{old_passwd}||{new_passwd}||{new_passwd}',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.15.0||1.3.6.1.4.1.2272.1.19.16.0','s||s','{username}||{new_passwd}']
+    set_l2_user:
+        description: "Modifies the username and password for the read-write layer-2 CLI account"
+        arguments:
+            order: username,new_passwd,old_passwd
+        uuid: 20a0224e-6eb4-42bd-9116-e4d6774b1b13
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'username {username} level l2',routerConfigPrompt,'None','Enter the old password :||Enter the New password :||Re-enter the New password :','{old_passwd}||{new_passwd}||{new_passwd}',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.7.0||1.3.6.1.4.1.2272.1.19.8.0','s||s','{username}||{new_passwd}']
+    set_l3_user:
+        description: "Modifies the username and password for the read-write layer-3 CLI account"
+        arguments:
+            order: username,new_passwd,old_passwd
+        uuid: a9865378-42fb-41e1-8785-69d0f34e00ad
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'username {username} level l3',routerConfigPrompt,'None','Enter the old password :||Enter the New password :||Re-enter the New password :','{old_passwd}||{new_passwd}||{new_passwd}',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.5.0||1.3.6.1.4.1.2272.1.19.6.0','s||s','{username}||{new_passwd}']
+    set_cli_timeout:
+        description: "Used to indicate the amount of idle time"
+        arguments:
+            order:  in seconds to wait before timing out telnet and  rlogin sessions
+        uuid: 5829f7a8-04b5-4b23-995f-7af584d3cba6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'cli timeout {timeout}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.19.13.0','i','{timeout}']
+    set_account_password_policy_min_length:
+        description: "Configures a user account's password minimum length"
+        arguments:
+            order: username,min_length
+        uuid: 7b2711f4-0fc4-48a3-986d-9dd6cb6c9474
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure account {username} password-policy min-length {min_length}',userPrompt,'None','None','None',[],[]]
+    set_account_password_policy_min_different_chars:
+        description: "Configures a user account's password minimum different characters"
+        arguments:
+            order: username,min_chars
+        uuid: 769542b5-1b16-4127-901f-cdcf3bef674c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure account {username} password-policy min-different-characters {min_chars}',userPrompt,'None','None','None',[],[]]
+    set_account_password_policy_min_age:
+        description: "Configures a user account's password min-age"
+        arguments:
+            order: username,age
+        uuid: e4fddf5a-e021-489a-b30c-f8f928150e9b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure account {username} password-policy min-age {age}',userPrompt,'None','None','None',[],[]]
+    set_account_password_policy_max_age:
+        description: "Configures a user account's password max-age"
+        arguments:
+            order: username,age
+        uuid: 3c77851e-1dab-44cb-8076-4378392760be
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure account {username} password-policy max-age {age}',userPrompt,'None','None','None',[],[]]
+    set_account_password:
+        description: "Configures a user account's password"
+        arguments:
+            order: username,old_password,new_password
+        uuid: d4003c0a-2fad-4069-bd4c-1280e018bc1b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure account {username} password',userPrompt,'None',"Current user's password:||New password:||Reenter password:",'{old_password}||{new_password}||{new_password}',[],[]]
+    show_accounts:
+        uuid: da0f6bef-fcb4-4509-bc9c-6262c01d3079
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show system login',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show accounts',userPrompt,'None','None','None',[],[]]
+    show_logged_in_users:
+        uuid: 8ecd0acd-9ccd-42af-8c97-acc46413408b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show session',userPrompt,'None','None','None',[],[]]
+    show_logged_in_users_detail:
+        uuid: eb712e6f-91c6-4889-9864-a79c70318f94
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show session detail',userPrompt,'None','None','None',[],[]]
+    show_cli_info:
+        uuid: 02896d84-dba9-446d-af14-81389cac1372
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show cli info',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.19','i','']
+    show_cli_users_state:
+        uuid: e92c8400-0654-4a65-ad92-bef8408ac5c3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show cli password',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.19.19.0||1.3.6.1.4.1.2272.1.19.20.0||1.3.6.1.4.1.2272.1.19.21.0||1.3.6.1.4.1.2272.1.19.22.0||1.3.6.1.4.1.2272.1.19.23.0||1.3.6.1.4.1.2272.1.19.24.0','i','']
+    show_accounts_password_policy:
+        uuid: b9453801-62eb-4f8c-8a14-4254f921eb95
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show accounts password-policy',userPrompt,'None','None','None',[],[]]
+    show_cli_num_access_violations:
+        uuid: 063d8ab3-9026-4d4a-a95e-4730ace910e8
+        apis:
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.19.14.0','i','']

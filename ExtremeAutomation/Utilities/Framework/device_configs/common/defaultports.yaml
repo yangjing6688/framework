@@ -1,0 +1,53 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the default values for capability variables
+#  for the port.  Every newly added capability variable for a port
+#  should have an entry in this file.
+#
+#
+
+
+default_port_capability: &DEFAULT_PORT_CAPABILITY
+  portType: HAL_PIF_UNKNOWN
+  portMediaType: HAL_PORT_MED_NONE
+  partitionSize: 0
+  macId: 0
+  partitionTemplate: ""
+  RedunPhy: false
+  ComboPhy: false
+  Pfc: false
+  Poe: false
+  InputSyncE: false
+  OutputSyncE: false
+  Partition: false
+  T1E1: false
+  Ptp: false
+  PrimaryUtp: false
+  Eee: false
+  SingleModePart: false
+  FullDuplexOnly: false
+  Lic10GDual: false
+  Lic10GQuad: false
+  Lic10GOcto: false
+  Lic100G: false
+  Combo100MCopperOnly: false
+  GptpTimeStamp: true
+  PoePlusPlus: false
+  GigHalfDuplex: true
+  Fec: false
+  MacsecEpdm: false
+  SideBandPort: false
+  PoeBT: false
+  sideBandPortPCIMap: ""
+  MacsecOrHalfDuplex: false
+  MacsecWithExtAdapter: false
+  autoneg1G : true
+  autoneg10G : false
+  FastPoe : false
+  MacsecXflow: false
+  sfpDd: false

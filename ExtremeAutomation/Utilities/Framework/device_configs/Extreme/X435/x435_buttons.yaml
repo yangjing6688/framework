@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the button devices common to X435 series switches
+#
+
+devices:
+  - *MODE_BUTTON

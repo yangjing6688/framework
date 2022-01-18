@@ -1,0 +1,22 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines PoE  X435-8P-2T-W switch
+#
+common_poe_control: &COMMON_POE_CONTROL
+  name:             poe_control
+  compatible:       regmap_poectl
+  reset:
+    device:         pca9555_0
+    register:       0x03
+    bitmask:        0x10
+    active_low:     1
+  enable:
+    device:         pca9555_0
+    register:       0x03
+    bitmask:        0x20
+#   active_low:     1

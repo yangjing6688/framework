@@ -1,0 +1,55 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimcustomattributes:
+    cu_tab_check:
+        apis:
+            - [gim,'8.2.3']
+    cu_guest_users_tab_check:
+        apis:
+            - [gim,'8.2.3']
+    cu_devices_tab_check:
+        apis:
+            - [gim,'8.2.3']
+    cu_add_locale:
+        apis:
+            - [gim,'8.2.3']
+    cu_input_custom_field:
+        apis:
+            - [gim,'8.2.3']
+    cu_ot_with_custom_attributes:
+        apis:
+            - [gim,'8.2.3']
+    cu_gu_with_custom_attributes:
+        apis:
+            - [gim,'8.2.3']
+    cu_de_with_custom_attributes:
+        apis:
+            - [gim,'8.2.3']
+    cu_self_service:
+        apis:
+            - [gim,'8.2.3']
+    cu_validate_ssn_in_services_page:
+        apis:
+            - [gim,'8.2.3']
+    config_email_notification:
+        apis:
+            - [gim,'8.2.3']
+    entry_should_not_exist:
+        apis:
+            - [gim,'8.2.3']
+    verify_device_added:
+        apis:
+            - [gim,'8.2.3']
+    cu_validate_gu_with_custom_attributes:
+        apis:
+            - [gim,'8.2.3']
+    cu_gu_input_mandatory_values:
+        apis:
+            - [gim,'8.2.3']
+    cu_self_service_provisioning:
+        apis:
+            - [gim,'8.2.3']

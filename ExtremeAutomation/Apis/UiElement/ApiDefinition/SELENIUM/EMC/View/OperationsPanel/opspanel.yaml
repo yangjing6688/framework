@@ -1,0 +1,28 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+opspanel:
+    opspanel_click_operations:
+        apis:
+            - [emc,'8.1.1']
+    opspanel_click_clear_all:
+        apis:
+            - [emc,'8.1.1']
+    opspanel_confirm_type_exists:
+        apis:
+            - [emc,'8.1.1']
+    opspanel_confirm_result_exists:
+        apis:
+            - [emc,'8.1.1']
+    opspanel_confirm_message_exists:
+        apis:
+            - [emc,'8.1.1']
+    opspanel_confirm_target_exists:
+        apis:
+            - [emc,'8.1.1']
+    opspanel_confirm_all_parameters_exist:
+        apis:
+            - [emc,'8.1.1']

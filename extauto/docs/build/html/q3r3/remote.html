@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>WinMuConnect &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Current Available Active Branches</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q3r3.html">Q3R3</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q3r2.html">Q3R2</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>WinMuConnect</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/remote.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="extreme_logo.png"><img alt="alternate text" class="align-right" src="extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-common.tools.remote.WinMuConnect">
+<span id="winmuconnect"></span><h1>WinMuConnect<a class="headerlink" href="#module-common.tools.remote.WinMuConnect" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect">
+<em class="property">class </em><code class="descclassname">common.tools.remote.WinMuConnect.</code><code class="descname">WinMuConnect</code><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_enterprise_network">
+<code class="descname">connect_enterprise_network</code><span class="sig-paren">(</span><em>ssid</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_enterprise_network" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Assuming that profile is already created for the network with stored user name and password</li>
+<li>Refer cw_automation/testsuites/xiq/config/enterprise_wlan_profile_creation.docx  for creation of profile</li>
+<li>This keyword is used with robot remote server</li>
+<li>start the remote server in windows MU</li>
+<li>For starting remote server refer “cw_automation/testsuites/xiq/config/remote_server_config.txt”</li>
+<li>Include below library in test suite robot file</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Library</span>&#160;&#160;&#160; <span class="pre">Remote</span>&#160; <span class="pre">http://${MU1_IP}:${MU1_REMOTE_PORT}</span>&#160;&#160; <span class="pre">WITH</span> <span class="pre">NAME</span>&#160;&#160; <span class="pre">MU1</span></code></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Connect</span> <span class="pre">Enterprise</span> <span class="pre">Network</span>&#160;&#160; <span class="pre">${SSID}</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ssid</strong> – name of the ssid to connect</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">1 for connected else -1</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_open_network">
+<code class="descname">connect_open_network</code><span class="sig-paren">(</span><em>ssid</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_open_network" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Connect MU to open ssid</li>
+<li>This keyword is used with robot remote server</li>
+<li>start the remote server in windows MU</li>
+<li>For starting remote server refer “cw_automation/testsuites/xiq/config/remote_server_config.txt”</li>
+<li>Include below library in test suite robot file</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Library</span>&#160;&#160;&#160; <span class="pre">Remote</span>&#160; <span class="pre">http://${MU1_IP}:${MU1_REMOTE_PORT}</span>&#160;&#160; <span class="pre">WITH</span> <span class="pre">NAME</span>&#160;&#160; <span class="pre">MU1</span></code></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Connect</span> <span class="pre">Open</span> <span class="pre">Network</span>&#160;&#160; <span class="pre">${SSID}</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ssid</strong> – ssid name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">1 for connected else -1</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa2_ppsk_network">
+<code class="descname">connect_wpa2_ppsk_network</code><span class="sig-paren">(</span><em>ssid</em>, <em>key</em>, <em>retry_count=5</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa2_ppsk_network" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Connect the wpa2 ppsk network</li>
+<li>This keyword is used with robot remote server</li>
+<li>start the remote server in windows MU</li>
+<li>For starting remote server refer “cw_automation/testsuites/xiq/config/remote_server_config.txt”</li>
+<li>Include below library in test suite robot file</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Library</span>&#160;&#160;&#160; <span class="pre">Remote</span>&#160; <span class="pre">http://${MU1_IP}:${MU1_REMOTE_PORT}</span>&#160;&#160; <span class="pre">WITH</span> <span class="pre">NAME</span>&#160;&#160; <span class="pre">MU1</span></code></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Connect</span> <span class="pre">Wpa2</span> <span class="pre">Ppsk</span> <span class="pre">Network</span>&#160;&#160; <span class="pre">${SSID}</span>&#160;&#160; <span class="pre">${PSK_KEY}</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ssid</strong> – name of the ssid to connect</li>
+<li><strong>key</strong> – password for connection</li>
+<li><strong>retry_count</strong> – Retry count to connect the ppsk network</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1 for connected else -1</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa2_psk_network">
+<code class="descname">connect_wpa2_psk_network</code><span class="sig-paren">(</span><em>ssid</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa2_psk_network" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Connect the wpa2 psk network</li>
+<li>This keyword is used with robot remote server</li>
+<li>start the remote server in windows MU</li>
+<li>For starting remote server refer “cw_automation/testsuites/xiq/config/remote_server_config.txt”</li>
+<li>Include below library in test suite robot file</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Library</span>&#160;&#160;&#160; <span class="pre">Remote</span>&#160; <span class="pre">http://${MU1_IP}:${MU1_REMOTE_PORT}</span>&#160;&#160; <span class="pre">WITH</span> <span class="pre">NAME</span>&#160;&#160; <span class="pre">MU1</span></code></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Connect</span> <span class="pre">Wpa2</span> <span class="pre">Psk</span> <span class="pre">Network</span>&#160;&#160; <span class="pre">${SSID}</span>&#160;&#160; <span class="pre">${PSK_KEY}</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ssid</strong> – name of the ssid to connect</li>
+<li><strong>key</strong> – password for connection</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1 for connected else -1</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa3_psk_network">
+<code class="descname">connect_wpa3_psk_network</code><span class="sig-paren">(</span><em>ssid</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa3_psk_network" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Connect the wpa3 psk network</li>
+<li>This keyword is used with robot remote server</li>
+<li>start the remote server in windows MU</li>
+<li>For starting remote server refer “cw_automation/testsuites/xiq/config/remote_server_config.txt”</li>
+<li>Include below library in test suite robot file</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Library</span>&#160;&#160;&#160; <span class="pre">Remote</span>&#160; <span class="pre">http://${MU1_IP}:${MU1_REMOTE_PORT}</span>&#160;&#160; <span class="pre">WITH</span> <span class="pre">NAME</span>&#160;&#160; <span class="pre">MU1</span></code></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Connect</span> <span class="pre">Wpa3</span> <span class="pre">Psk</span> <span class="pre">Network</span>&#160;&#160; <span class="pre">${SSID}</span>&#160;&#160; <span class="pre">${PSK_KEY}</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ssid</strong> – name of the ssid to connect</li>
+<li><strong>key</strong> – password for connection</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1 for connected else -1</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connectivity_check">
+<code class="descname">connectivity_check</code><span class="sig-paren">(</span><em>destination='https://www.facebook.com/'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connectivity_check" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Connectivity check using curl</li>
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Connectivity</span> <span class="pre">Check</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>destination</strong> – destination url</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">1 if internet access available else -1</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.delete_wlan_profile">
+<code class="descname">delete_wlan_profile</code><span class="sig-paren">(</span><em>profile</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.delete_wlan_profile" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Delete network profile</li>
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Delete</span> <span class="pre">Wlan</span> <span class="pre">Profile</span>&#160;&#160; <span class="pre">${WLAN_PROFILE_NAME}</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>profile</strong> – profile name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">1 if deleted else None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.disconnect_wifi">
+<code class="descname">disconnect_wifi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.disconnect_wifi" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Disconnect to the Wi-Fi Network</li>
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Disconnect</span> <span class="pre">Wifi</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">1 if disconnected else -1</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.get_wi_fi_interface_ip_address">
+<code class="descname">get_wi_fi_interface_ip_address</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.get_wi_fi_interface_ip_address" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Get IP Address Assigned to the Wi-Fi Interface</li>
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MU1.Get</span> <span class="pre">Wi</span> <span class="pre">Fi</span> <span class="pre">Interface</span> <span class="pre">Ip</span> <span class="pre">Address</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">wlan interface Ip Address</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.ping_check">
+<code class="descname">ping_check</code><span class="sig-paren">(</span><em>destination</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.ping_check" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Ping the destination address</li>
+<li>Keyword Usage:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Ping</span> <span class="pre">Check</span>&#160;&#160; <span class="pre">${DESTINATION}</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">Ping</span> <span class="pre">Check</span>&#160; <span class="pre">www.google.com</span></code></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>destination</strong> – destination address ex www.google.com</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">1 if ping success else -1</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.tools.remote.Recording">
+<span id="recording"></span><h1>Recording<a class="headerlink" href="#module-common.tools.remote.Recording" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.tools.remote.Recording.Recording">
+<em class="property">class </em><code class="descclassname">common.tools.remote.Recording.</code><code class="descname">Recording</code><a class="headerlink" href="#common.tools.remote.Recording.Recording" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.tools.remote.Recording.Recording.start_video_recording">
+<code class="descname">start_video_recording</code><span class="sig-paren">(</span><em>_file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.Recording.Recording.start_video_recording" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts video recording for test execution and saves recoding in file
+:param _file_name: File name where recording has to be stored
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.Recording.Recording.stop_video_recording">
+<code class="descname">stop_video_recording</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.Recording.Recording.stop_video_recording" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops video recording</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.tools.remote.LinMuConnect">
+<span id="linmuconnect"></span><h1>LinMuConnect<a class="headerlink" href="#module-common.tools.remote.LinMuConnect" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.tools.remote.LinMuConnect.LinMuConnect">
+<em class="property">class </em><code class="descclassname">common.tools.remote.LinMuConnect.</code><code class="descname">LinMuConnect</code><a class="headerlink" href="#common.tools.remote.LinMuConnect.LinMuConnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.tools.remote.LinMuConnect.LinMuConnect.connect_open_network">
+<code class="descname">connect_open_network</code><span class="sig-paren">(</span><em>ssid</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.LinMuConnect.LinMuConnect.connect_open_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects open authentication network
+:param ssid: name of the ssid to connect
+:return: 1 if success</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.LinMuConnect.LinMuConnect.connect_psk_network">
+<code class="descname">connect_psk_network</code><span class="sig-paren">(</span><em>ssid=None</em>, <em>key=None</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.LinMuConnect.LinMuConnect.connect_psk_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects to psk network
+:param ssid: ssid
+:param key: ssid keys
+:return: none</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.LinMuConnect.LinMuConnect.disconnect_wi_fi">
+<code class="descname">disconnect_wi_fi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.LinMuConnect.LinMuConnect.disconnect_wi_fi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnects from wi-fi
+:return:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="common.tools.remote.LinMuConnect.LinMuConnect.execute_commands">
+<em class="property">static </em><code class="descname">execute_commands</code><span class="sig-paren">(</span><em>cmd</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.LinMuConnect.LinMuConnect.execute_commands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute command on windows command line using subprocess module
+:param cmd: command to execute
+:return: cmd_out of the command</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="common.tools.remote.LinMuConnect.LinMuConnect.get_dhcp_ip">
+<code class="descname">get_dhcp_ip</code><a class="headerlink" href="#common.tools.remote.LinMuConnect.LinMuConnect.get_dhcp_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets DHCP IP
+:return:</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="common.tools.remote.LinMuConnect.LinMuConnect.get_wi_fi_interface_ip_address">
+<code class="descname">get_wi_fi_interface_ip_address</code><a class="headerlink" href="#common.tools.remote.LinMuConnect.LinMuConnect.get_wi_fi_interface_ip_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets WiFi Interface IP addresss
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.LinMuConnect.LinMuConnect.search_network">
+<code class="descname">search_network</code><span class="sig-paren">(</span><em>ssid</em>, <em>interface</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.LinMuConnect.LinMuConnect.search_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>This keyword search for network
+:param ssid: name of the ssid to scan
+:param interface: name of the wlan interface
+:return: 1 if success</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Extreme Networks.
+      <span class="lastupdated">
+        Last updated on Oct 13, 2021, 6:51:36 PM.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

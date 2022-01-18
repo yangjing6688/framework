@@ -1,0 +1,98 @@
+netelem1:
+  name:                     "7100g"
+  ip:                       "10.52.15.21"
+  mgmt_vlan:                "VLAN_4000"
+  username:                 "admin"
+  password:                 "extremeROBOT"
+  connection_method:        "telnet"
+  os:                       "eos"
+  platform:                 "tor"
+  primary_test_target:      "True"
+  physical_device:          "True"
+  dynamic_deployment:       "False"
+  snmp_version:             "v1"
+  snmp_community_name:      "public"
+  snmp_user_name:           ""
+  snmp_auth_protocol:       ""
+  snmp_auth_password:       ""
+  snmp_privacy_protocol:    ""
+  snmp_privacy_password:    ""
+  vm_location:
+  base_cfg_location:
+  tgen:
+    port_a:
+      ifname: &netelem1_tgen_port_a_ifname "tg.1.2"
+      intnet: "intnet1"
+    port_b:
+      ifname: &netelem1_tgen_port_b_ifname "ge.1.47"
+      intnet: "intnet2"
+
+netelem2:
+  name:                     "x450G2"
+  ip:                       "10.52.15.22"
+  mgmt_vlan:                "VLAN_4000"
+  username:                 "admin"
+  password:                 "extremeROBOT"
+  connection_method:        "telnet"
+  os:                       "exos"
+  platform:                 "x450G2"
+  primary_test_target:      "True"
+  physical_device:          "True"
+  dynamic_deployment:       "False"
+  snmp_version:             "v1"
+  snmp_community_name:      "public"
+  snmp_user_name:           ""
+  snmp_auth_protocol:       ""
+  snmp_auth_password:       ""
+  snmp_privacy_protocol:    ""
+  snmp_privacy_password:    ""
+  vm_location:
+  base_cfg_location:
+  tgen:
+    port_a:
+      ifname: &netelem2_tgen_port_a_ifname "49"
+      intnet: "intnet3"
+    port_b:
+      ifname: &netelem2_tgen_port_b_ifname "47"
+      intnet: "intnet4"
+
+tgen1:
+  name: &tgen1_name "robot_ixia"
+  vendor:              "ixia"
+  chassis_type:        "ixia"
+  software:            "5.2.3"
+  ip:                  "10.52.15.11"
+  vm_ip:               "10.52.2.167"
+  username:            "robot-UnitTest"
+  password:            "test123"
+  port:                "5678"
+  physical_device:     "True"
+  dynamic_deployment:  "False"
+  vm_location:
+
+tgen_ports:
+  netelem1:
+    port_a: &tgen_ports_netelem1_port_a
+      tgen_name: *tgen1_name
+      ifname:    "1/4/12"
+      intnet:    "intnet1"
+  netelem2:
+    port_a: &tgen_ports_netelem2_port_a
+      tgen_name: *tgen1_name
+      ifname:    "1/4/13"
+      intnet:    "intnet2"
+
+uielem1:
+  name:                "XMC_Unit_Test"
+  ip:                  "10.52.15.96"
+  url:                 "https://10.0.2.15:8443"
+  username:            "Automated_User"
+  password:            "@utom@tion"
+  os:                  "windows"
+  agent:               "ext_selenium"
+  application:         "emc"
+  dynamic_deployment:  "False"
+  port:                "44444"
+  version:             "8.2.1"
+  app_version:         "8.2.1"
+  primary_aut:         "true"

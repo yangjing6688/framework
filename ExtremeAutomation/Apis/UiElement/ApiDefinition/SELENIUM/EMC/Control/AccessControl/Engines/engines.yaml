@@ -1,0 +1,130 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+engines:
+    engines_dialog_add_access_control_engine:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_delete_access_control_engine:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_add_switch:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_delete_switch:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_switch_type:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_primary_engine:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_secondary_engine:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_auth_access_type:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_virtual_router_name:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_radius_attr_to_send:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_radius_accounting:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_radius_mgmt_server_1:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_radius_mgmt_server_2:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_network_radius_server:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_set_policy_domain:
+        apis:
+            - [emc,'8.1.3']
+    engines_dialog_edit_switch_click_save:
+        apis:
+            - [emc,'8.1.3']
+    engines_navigate_to_edit_switch:
+        apis:
+            - [emc,'8.1.3']
+    engines_open_advanced_settings_dialog:
+        apis:
+            - [emc,'8.1.3']
+    engines_advanced_switch_settings_dialog_select_ip_subnet:
+        apis:
+            - [emc,'8.1.3']
+    engines_advanced_switch_settings_dialog_enter_shared_security:
+        apis:
+            - [emc,'8.1.3']
+    engines_advanced_switch_settings_dialog_select_reauth_type:
+        apis:
+            - [emc,'8.1.3']
+    engines_advanced_switch_settings_dialog_check_enable_port_link_control:
+        apis:
+            - [emc,'8.1.3']
+    engines_advanced_switch_settings_dialog_save_settings:
+        apis:
+            - [emc,'8.1.3']
+    engines_advanced_switch_settings_dialog_cancel_settings:
+        apis:
+            - [emc,'8.1.3']
+    engines_add_engine_properties:
+        apis:
+            - [emc,'8.2.3']
+    engines_remove_engine_properties:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_default_validation_gim_tab:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_default_buttons_validation:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_add_gim_ip:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_edit_gim_ip:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_delete_gim_ip:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_default_validation_details_tab:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_add_domain:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_click_on_edit_png:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_create_domain:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_details_domain:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_enforce:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_map_domain_lpr_none:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_duplicate_ip:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_select_row_from_lpr_table:
+        apis:
+            - [emc,'8.2.3']
+    engines_gim_select_row_from_manage_table:
+        apis:
+            - [emc,'8.2.3']

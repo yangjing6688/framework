@@ -1,0 +1,236 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+macsec:
+    enable_ca_port:
+        description: "Configures and enables a connectivity association on port(s)"
+        arguments:
+            order: 
+        uuid: 233d8332-a5cf-4fa2-837c-410dd31e62f2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec connectivity-association {ca_name} ports {port} enable',userPrompt,'None','None','None',[],[]]
+    disable_ca_port:
+        description: "Deletes specified port(s) from a MACsec Connectivity-Association"
+        arguments:
+            order: 
+        uuid: cd3c1607-b1dc-4495-832f-a2f20b2977c7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec connectivity-association {ca_name} ports {port} disable',userPrompt,'None','None','None',[],[]]
+    create_ca:
+        description: "Creates a macsec connectivity association name a shared key name(CKN) and assigns a secret key(CAK) to the Connectivity Association Name"
+        arguments:
+            order: ca_name,key_name,key
+        uuid: a04e7d1e-b39d-4cad-a245-60db991ba1b7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create macsec connectivity-association {ca_name} pre-shared-key ckn {key_name} cak {key}',userPrompt,'None','None','None',[],[]]
+    create_ca_encrypted:
+        description: "Creates a macsec connectivity association name a shared key name(CKN) and assigns an encrypted secret key(CAK) to the Connectivity Association Name"
+        arguments:
+            order: ca_name,key_name,key
+        uuid: a0ca20f4-aea0-49a2-a8fd-00a39e56ad49
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create macsec connectivity-association {ca_name} pre-shared-key ckn {key_name} cak encrypted {key}',userPrompt,'None','None','None',[],[]]
+    set_cipher_suite_128:
+        description: "Configures the MACsec cipher suite to 128bit encryption"
+        arguments:
+            order: 
+        uuid: bbd3da5f-92d3-4afe-8b25-607855ae6440
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec cipher-suite gcm-aes-128 ports {port}',userPrompt,'None','None','None',[],[]]
+    set_cipher_suite_256:
+        description: "Configures the MACsec cipher suite to 256bit encryption"
+        arguments:
+            order: 
+        uuid: a7b9178d-d85a-4693-b99f-5a6b1f8d3782
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec cipher-suite gcm-aes-256 ports {port}',userPrompt,'None','None','None',[],[]]
+    set_confidentiality_offset_0:
+        description: "Configures the MACsec confidentiality offset to 0"
+        arguments:
+            order: 
+        uuid: 5304635f-dfcf-41a7-b3db-f1d493fd572b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec confidentiality-offset 0 ports {port}',userPrompt,'None','None','None',[],[]]
+    set_confidentiality_offset_30:
+        description: "Configures the MACsec confidentiality offset to 30"
+        arguments:
+            order: 
+        uuid: e9182628-08d6-4e6a-820f-70858c15b917
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec confidentiality-offset 30 ports {port}',userPrompt,'None','None','None',[],[]]
+    set_confidentiality_offset_50:
+        description: "Configures the MACsec confidentiality offset to 50"
+        arguments:
+            order: 
+        uuid: 34499cc9-cf80-446a-88fd-083d70d7b8ab
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec confidentiality-offset 50 ports {port}',userPrompt,'None','None','None',[],[]]
+    set_hw_mode_half_duplex_mode:
+        description: "Configures the MACsec hardware mode to half duplex"
+        arguments:
+            order: 
+        uuid: 7b9b0748-794e-441b-9c97-886179b8f54e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec hw-mode half-duplex-mode ports {port}',userPrompt,'None','None','None',[],[]]
+    set_hw_mode_macsec_mode:
+        description: "Configures the MACsec hardware mode to MACsec mode"
+        arguments:
+            order: 
+        uuid: 749d5636-1cdd-4d82-abaf-58a3968aa4e6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec hw-mode macsec-mode ports {port}',userPrompt,'None','None','None',[],[]]
+    set_include_sci_enable:
+        description: "Configures MACsec to enable include sci mode"
+        arguments:
+            order: 
+        uuid: 4475d65a-3621-40d9-bb60-c2157f344669
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec include-sci enable ports {port}',userPrompt,'None','None','None',[],[]]
+    set_include_sci_disable:
+        description: "Configures MACsec to disable include sci mode"
+        arguments:
+            order: 
+        uuid: c1d00df9-5e3b-4fef-b8c7-df599f5b3c7d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec include-sci disable ports {port}',userPrompt,'None','None','None',[],[]]
+    set_initialize_ports:
+        description: "Initializes the MACsec ports"
+        arguments:
+            order: 
+        uuid: 3676756d-e07b-4357-b6f9-c5cbb106a208
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec initialize ports {port}',userPrompt,'None','None','None',[],[]]
+    set_mka_actor_priority:
+        description: "Configures the macsec actor priorty on port(s)"
+        arguments:
+            order: priority,port
+        uuid: 3db645df-a1a1-40ab-bb40-6549a7f6c324
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec mka actor-priority {priority} ports {port}',userPrompt,'None','None','None',[],[]]
+    set_replay_protect:
+        description: "Enables MACsec replay protect"
+        arguments:
+            order: 
+        uuid: b63cf63e-1884-4b26-a7b0-ddcf0626f629
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec replay-protect {window_size} ports {port}',userPrompt,'None','None','None',[],[]]
+    set_replay_protect_disable:
+        description: "Disables MACsec replay protect"
+        arguments:
+            order: 
+        uuid: 0a11905d-a90b-4604-ab23-7bdcd0a7aabd
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure macsec replay-protect disable ports {port}',userPrompt,'None','None','None',[],[]]
+    clear_counters_all:
+        description: "Clears all MACsec counters"
+        arguments:
+            order: 
+        uuid: ba7a6602-7e7d-4f3f-801a-1062113d739e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear macsec counters',userPrompt,'None','None','None',[],[]]
+    clear_counters_on_port:
+        description: "Clears all MACsec counters on the specified port(s)"
+        arguments:
+            order: 
+        uuid: e6e8de1d-81b2-4c87-8679-a69b4f4dc48e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear macsec counters ports {port}',userPrompt,'None','None','None',[],[]]
+    delete_ca:
+        description: "Deletes a specified MACsec Connectivity-Association"
+        arguments:
+            order: 
+        uuid: ae4bf96e-121f-4c57-a716-a7eede466818
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'delete macsec connectivity-association {ca_name}',userPrompt,'None','None','None',[],[]]
+    show:
+        uuid: 74b4a151-0750-4a8a-a517-2d38020705c9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec',userPrompt,'None','None','None',[],[]]
+    show_port:
+        uuid: 37d44773-2324-41d4-8f0b-f9598032bb1f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec ports {port}',userPrompt,'None','None','None',[],[]]
+    show_port_configuration:
+        uuid: 226173dd-ee7b-400a-bef1-b0596a0e1f43
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec ports {port} configuration',userPrompt,'None','None','None',[],[]]
+    show_port_detail:
+        uuid: b71624f5-cf44-4ada-b5fb-30d9db0fb416
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec ports {port} detail',userPrompt,'None','None','None',[' SecY Hardware Error Count'],[]]
+    show_port_counters:
+        uuid: 84da5599-b18b-408e-9e94-d6851a2f5989
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec ports {port} detail | begin "SecY Interface Statistics"',userPrompt,'None','None','None',[' SecY Hardware Error Count'],[]]
+    show_port_all:
+        uuid: 98724d26-bf74-4ac8-a968-2464089fe8c9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec ports all',userPrompt,'None','None','None',[],[]]
+    show_port_all_config:
+        uuid: 2da424eb-8975-4468-b929-52aa754c9948
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec ports all configuration',userPrompt,'None','None','None',[],[]]
+    show_port_all_detail:
+        uuid: a81825d5-5fff-48ca-9e60-2ba8d00b3ee7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec ports all detail',userPrompt,'None','None','None',[],[]]
+    show_connectivity_association:
+        uuid: d9de53c4-5be3-43cd-b8d4-33052a211c74
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec connectivity-association {ca_name}',userPrompt,'None','None','None',[],[]]
+    show_connectivity_association_all:
+        uuid: 3a2df81f-d76c-49e1-9d88-d2256b6b26cf
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show macsec connectivity-association',userPrompt,'None','None','None',[],[]]

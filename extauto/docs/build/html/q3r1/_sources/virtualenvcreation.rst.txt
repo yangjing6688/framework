@@ -1,0 +1,110 @@
+**PROCEDURE TO SETUP VIRTUAL ENVIRONMENT MANAGER**
+==================================================
+.. image:: extreme_logo.png
+   :width: 250px
+   :height: 150px
+   :scale: 100 %
+   :alt: alternate text
+   :align: right
+
+
+.. note:: This Page Contains Procedure to Configure Virtual Environment Manager
+
+
+
+**Steps:**
+
+	* VirtualEnv separates different python environments in different projects.
+
+	* Each environment has its own dependencies and packages.
+
+		* $ pip install virtualenv
+		  Installing setuptools, pip ...done.
+
+		* $ cd automation_cloud-master
+
+		* $ virtualenv  venv  --python=python3.8       #This will create a virtual image for python3 inside the automation framework folder
+
+                * $ python --version
+
+                Or
+ 
+                * $ virtualenv  -p  /usr/bin/python2.7 p2y6_env 
+
+		* $ ls
+
+		* $automation_cloud-master > venv      automation    readme.md   CODEOWNERS
+
+         * **We don’t add the project structure inside the venv folder. Why?**
+
+         * **Before install all packages and dependencies Activate the virtual environment:**
+
+
+                * $source venv/bin/activate
+
+                * > venv/Scripts\activate.bat    #in windows
+
+**Install all packages and dependencies:**
+
+           	* (venv)         #we are in the virtual environment
+		* (venv)$pip install robotframework
+		* (venv)$pip install selenium
+		* …
+		* …
+		* (venv)$which python   # it will show the current path of python we are using and project in the virtual image
+
+		* (venv)$ pip list
+			pip (6.x.x)
+			Setuptools       
+			Robotframework
+			Selenium
+			venv
+			……
+
+**Export the current packages / requirements to use another virtual image without re-installing the packages**
+
+               * (venv)$ pip freeze > requirement.txt   #Save the current project dependencies
+
+
+
+**Get out the Virtual Environment**
+
+		* $deactivate          #not in virtual env
+
+		* $which python        #it will point the python in global environment
+
+		* $pip list            #it will show all packages in global site packages not in virtual env
+
+		* $pip list --local    # it will show the available packages in the virtual image
+ 
+		* Check the project in Github
+
+
+**For instance, create a new virtual environment and imports the current requirements above without installing the packages**
+		* $ virtualenv  -p  /usr/bin/python2.7 p2y6_env   
+		* $ virtualenv -p /usr/bin/python2.7 
+                * P2y6_env  $ source venv/bin/activate
+		* P2y6_env/Scripts\activate.bat    #in windows
+		* p2y6_env$pip install -r  requirement.txt
+		* To use the virtual image in Pycharm:
+		* Each automation pulls the project with the virtual env without installing the required packages 
+
+.. image:: venv.png
+
+Or 
+
+**Select an interpreter Browse to the virtual image folder**
+
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+

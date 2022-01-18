@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the button devices common to 5420 series switches
+#
+
+devices:
+  - *LED_MODE_BUTTON
+  - *BLUETOOTH_PAIR_BUTTON

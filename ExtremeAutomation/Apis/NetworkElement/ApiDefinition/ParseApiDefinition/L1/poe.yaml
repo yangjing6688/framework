@@ -1,0 +1,195 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+poe:
+    check_poe_power_usage_threshold:
+        uuid: 886e62e3-5476-4505-a1da-8aca0eb9bc15
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_state:
+        uuid: 670d714c-5501-4d4a-9b34-7da0995bf3ce
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_power_limit:
+        uuid: 276031a3-cac0-4031-9986-f8414dc10371
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_power_priority:
+        uuid: 1c40b8f5-31db-473d-b42a-ac0be8be50c7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_detect_type:
+        uuid: 4ed2c4ab-e1ab-49c6-8b1c-5dfe55bd727e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_measured_voltage:
+        uuid: 0555a714-0b40-409c-b005-db49fe7eafe4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_measured_current:
+        uuid: cee924e7-1d30-4a81-88fd-7ee3414b8d98
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_measured_power:
+        uuid: e685c01a-288e-47f3-bb20-5af0ce745a46
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_detection_status:
+        uuid: cf81375c-155b-4fb8-a56e-0ef578ae532e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_power_classification:
+        uuid: fba4a580-6a32-430b-9851-944b1abf6da1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_power_pairs_on_signal:
+        uuid: e22a5b0d-e1a9-4622-94aa-9d596da7028e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_port_power_pairs_on_spare:
+        uuid: 3127c534-d0fd-4478-a38a-554d81d4752f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_main_operational_status:
+        uuid: adf91eab-ee64-4ee1-9448-3a87fc329435
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_main_available_power:
+        uuid: 07871a9a-4909-4296-8d4c-9bd7419eb64c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_poe_main_consumption_power:
+        uuid: bb257a6c-2d5c-4c1f-b787-fc3939d9a1fc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+
+    check_poe_inline_power_disabled:
+        uuid: 9372c78f-0ff8-4a86-a230-4d1e254b4f6e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+
+    check_poe_inline_power_enabled:
+        uuid: 25b2a925-b5c2-45fc-9d0a-e4b9fca3c2ac
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+
+    check_poe_inline_power:
+        uuid: 21fa4e97-ba4f-4182-a63f-405e191cf96d
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]
+
+    check_poe_inline_power_port_info:
+        uuid: 02618ea8-8c4c-4f83-91f0-72862eb7dc2d
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]
+
+    check_poe_inline_power_config_port:
+        uuid: 6c4785c1-ad08-4c7a-95c5-990899909802
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]
+
+    check_poe_inline_power_disconnect_deny_port:
+        uuid: a1e881ed-d376-4e44-9b4a-714a9b11b563
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]
+
+    check_poe_inline_power_disconnect_lowest_priority:
+        uuid: a6972764-604f-421d-977a-a0127734ca2b
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]
+
+    check_poe_inline_power_disconnect_unconfigure:
+        uuid: 8ead505b-746f-4d3b-9658-4dc1e7d601eb
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]
+
+    check_poe_inline_power_label:
+        uuid: fa4188d2-79f6-46a8-a130-83cfcd151779
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]
+
+    check_poe_inline_power_operator_limit:
+        uuid: f9139ec7-0596-4892-9cd9-87f03816d43f
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]

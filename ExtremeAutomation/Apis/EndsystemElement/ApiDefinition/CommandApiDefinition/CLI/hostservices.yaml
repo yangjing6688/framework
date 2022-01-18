@@ -1,0 +1,15 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+
+hostservices:
+    ping_host_from_endsys:
+        apis:
+            - [LINUX,base,baseversion,baseunit,'ping -c {count} {host_address}',userPrompt,'None','None','None',[],[]]
+            - [WINDOWS,base,baseversion,baseunit,'ping -n {count} {host_address}',userPrompt,'None','None','None',[],[]]
+    download_file_via_ftp:
+        apis:
+            - [WINDOWS,base,baseversion,baseunit,'del __ftp.txt|| echo open {host}> __ftp.txt || echo {user}>> __ftp.txt || echo {password}>> __ftp.txt || echo get {file_name}>> __ftp.txt || echo quit>> __ftp.txt || ftp -s:__ftp.txt || del __ftp.txt',userPrompt,'None','None','None',[],[]]

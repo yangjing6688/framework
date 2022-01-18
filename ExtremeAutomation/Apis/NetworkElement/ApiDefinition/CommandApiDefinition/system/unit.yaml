@@ -1,0 +1,38 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+unit:
+    change_current_slot:
+        uuid: d0470a79-e039-4743-afbc-b00867b0c018
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'telnet slot {slot}',userPrompt,'None','login','{username}||{password}',[],[]]
+                - [EOS,base,baseversion,baseunit,'telnet {slot}',debugPrompt,'None','None','None',[],[]]
+    exit_current_slot:
+        uuid: 3045df80-28a3-4efe-8eb3-a1729fba9c9d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'exit',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'exit',debugPrompt,'None','None','None',[],[]]

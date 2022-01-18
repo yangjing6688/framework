@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines LEDs specific to X695-48Y-8C
+#
+
+led_types:
+
+leds:

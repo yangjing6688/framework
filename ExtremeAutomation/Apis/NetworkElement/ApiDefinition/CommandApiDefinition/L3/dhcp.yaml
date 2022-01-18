@@ -1,0 +1,209 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+dhcp:
+    enable_vlan:
+        description: "Enables the DHCP client on a given VLAN"
+        arguments:
+            order: 
+        uuid: 95e41821-4973-49cf-8312-981cbb3160cf
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable dhcp vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+    disable_vlan:
+        description: "Disables the DHCP client on a given VLAN"
+        arguments:
+            order: 
+        uuid: 44395079-d9af-4809-ae6d-0cd93722f7b9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable dhcp vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+    enable_port:
+        description: "Enables the DHCP client on ports belonging to a given VLAN"
+        arguments:
+            order: vlan_name,port
+        uuid: 4dfb6620-78ca-4385-b300-b25861893a72
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable dhcp ports {port} vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+    disable_port:
+        description: "Disables the DHCP client on ports belonging to a given VLAN"
+        arguments:
+            order: vlan_name,port
+        uuid: 48ab5fcb-082d-4ed6-b33e-219920b3f1a7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable dhcp ports {port} vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+    enable_bootprelay_vlan:
+        description: "Enables bootprelay on the provided vlan"
+        arguments:
+            order: 
+        uuid: 66669dfd-e515-42ed-96a3-a91040ab81f6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable bootprelay ipv4 vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+    set_address_range:
+        description: "Creates the IP DHCP address range for the VLAN"
+        arguments:
+            order: vlan_name,start_addr,end_addr
+        uuid: 751f49d4-8fd5-4a9d-b177-bcbf1e8110bc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-address-range {start_addr} - {end_addr}',userPrompt,'None','None','None',[],[]]
+    set_lease_time:
+        description: "Sets the IP DHCP lease time for the VLAN"
+        arguments:
+            order: vlan_name,seconds
+        uuid: 74c693f6-a9f6-4e2c-8218-412df2631e82
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-lease-timer {seconds}',userPrompt,'None','None','None',[],[]]
+    set_netlogin_lease_time:
+        description: "Configures the timer value returned as part of the DHCP response for clients"
+        arguments:
+            order: vlan_name,seconds
+        uuid: d708d78b-4f60-4f47-92d7-a8878f97c96f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} netlogin-lease-timer {seconds}',userPrompt,'None','None','None',[],[]]
+    set_options_gateway:
+        description: "Sets the default gateway in the DHCP scope for the VLAN"
+        arguments:
+            order: vlan_name,gateway_addr
+        uuid: c53e256f-6efa-4c43-9579-b21d3ba4885a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-options default-gateway {gateway_addr}',userPrompt,'None','None','None',[],[]]
+    set_options_dns:
+        description: "Sets the DNS server in the DHCP scope for the VLAN"
+        arguments:
+            order: vlan_name,dns_addr
+        uuid: 1bf8479f-6b23-418a-b64e-c1b607df125c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-options dns-server {dns_addr}',userPrompt,'None','None','None',[],[]]
+    set_options_dns_pri:
+        description: "Sets the primary DNS server in the DHCP scope for the VLAN"
+        arguments:
+            order: vlan_name,dns_addr
+        uuid: b0ea2231-5950-43d8-90ae-b0e5e4624b86
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-options dns-server primary {dns_addr}',userPrompt,'None','None','None',[],[]]
+    set_options_dns_sec:
+        description: "Sets the secondary DNS server in the DHCP scope for the VLAN"
+        arguments:
+            order: vlan_name,dns_addr
+        uuid: ba87f7ba-07a7-447a-b8af-8d07af7b304e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-options dns-server secondary {dns_addr}',userPrompt,'None','None','None',[],[]]
+    set_bootprelay_ip:
+        description: "Adds the provided IP to bootprelay on the provided vr"
+        arguments:
+            order: 
+        uuid: b21625a1-7eb3-4836-b7e7-7aec620729d5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure bootprelay add {ip} vr {vr}',userPrompt,'None','None','None',[],[]]
+    clear_address_range:
+        description: "Removes the IP DHCP address range for the VLAN"
+        arguments:
+            order: 
+        uuid: fe3e3c6c-e698-4384-b64f-658b68054f92
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure vlan {vlan_name} dhcp-address-range',userPrompt,'None','None','None',[],[]]
+    clear_lease_time:
+        description: "Sets the IP DHCP lease time for the VLAN back to the default of 300 seconds"
+        arguments:
+            order: 
+        uuid: c56985ed-e4d9-4ac8-9ca4-cdb304e912af
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-lease-timer 300',userPrompt,'None','None','None',[],[]]
+    clear_netlogin_lease_time:
+        description: "Sets the IP DHCP netlogin lease time for the VLAN back to the default of 10 seconds"
+        arguments:
+            order: 
+        uuid: 26aa9bb0-58d7-42ac-88c0-5f3b7865ec4a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} netlogin-lease-timer 10',userPrompt,'None','None','None',[],[]]
+    clear_global:
+        description: "Removes the entire IP DHCP configuration for the VLAN"
+        arguments:
+            order: 
+        uuid: 5a3dc96a-b3f5-4a95-bea8-20afd1a27e27
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure vlan {vlan_name} dhcp',userPrompt,'None','None','None',[],[]]
+    clear_options_gateway:
+        description: "Removes the default gateway in the DHCP scope for the VLAN"
+        arguments:
+            order: 
+        uuid: eb990672-d516-471d-bc82-0a79136bc4e8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure vlan {vlan_name} dhcp-options default-gateway',userPrompt,'None','None','None',[],[]]
+    clear_options_dns:
+        description: "Removes the DNS Sever in the DHCP scope for the VLAN"
+        arguments:
+            order: 
+        uuid: 92351040-86fd-471d-bcec-1eedb2b37967
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-options dns-server',userPrompt,'None','None','None',[],[]]
+    clear_options_dns_pri:
+        description: "Removes the primary DNS Sever in the DHCP scope for the VLAN"
+        arguments:
+            order: 
+        uuid: 9035ed79-1b7d-48cc-b525-f8ddf589e889
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-options dns-server primary',userPrompt,'None','None','None',[],[]]
+    clear_options_dns_sec:
+        description: "Removes the secondary DNS Sever in the DHCP scope for the VLAN"
+        arguments:
+            order: 
+        uuid: 4bce6caf-0ce0-41eb-afcd-39331cb4b12c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan_name} dhcp-options dns-server secondary',userPrompt,'None','None','None',[],[]]
+    show_info:
+        uuid: bcd409ba-54fa-4127-acd3-c1283652926b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan_name} dhcp-config',userPrompt,'None','None','None',[],[]]
+    show_address_allocation:
+        uuid: f895139e-a019-43e0-bbde-406e33d7328a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan_name} dhcp-address-allocation',userPrompt,'None','None','None',[],[]]
+    show_bootprelay_info:
+        uuid: f34b0397-90ce-47c9-86bb-c243f31d5c2b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show bootprelay configuration',userPrompt,'None','None','None',[],[]]

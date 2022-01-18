@@ -1,0 +1,226 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+hostmonitor:
+    check_cpu_current_total_utilization:
+        uuid: 4e84468f-03dc-4bda-ac82-18e326338458
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cpu_5_minute_total_utilization:
+        uuid: 6fe99d61-373b-49f1-9b23-902ce0aea8e2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cpu_highest_5_minute_total_utilization:
+        uuid: 4c33c929-4f4c-47ea-a543-943bdfd688f2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_used_total_memory:
+        uuid: 487cd9b3-e4a9-40d2-8383-66f67e8fae55
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_free_total_memory:
+        uuid: 71e36838-fa01-4231-b3d9-fc618813856e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_memory_total_utilization:
+        uuid: 85e6cbe2-0476-46c2-8390-4e5ace2b4b42
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_memory_5_minute_total_utilization:
+        uuid: f8979226-51ca-44c8-b407-732f5772a127
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_memory_highest_5_minute_total_utilization:
+        uuid: 822a064a-ad69-4189-9286-c10ed9411f48
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_used_fbuf:
+        uuid: 3439d64e-1b74-49a6-81ae-b1e7d151d6fd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_free_fbuf:
+        uuid: cc37bb9e-c7de-47fe-99e5-b61606b73466
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_exhausted_fbufs:
+        uuid: 5d2593fa-8abe-4f61-b5b8-83a27f663522
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_net_stack_system_free_mbuf:
+        uuid: d7ba41b4-ad76-4fc5-8e2c-75f416e5955c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_net_stack_data_free_mbuf:
+        uuid: 326eb360-de46-4b78-937f-ade36442707d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_net_stack_system_used_mbuf:
+        uuid: a2cd7ee5-d44a-4fac-bcf5-0f104fa80239
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_net_stack_data_used_mbuf:
+        uuid: 0918e106-034b-41f0-a029-9708343c93b5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_net_stack_system_socket_mbuf:
+        uuid: 13ff2e1f-e5a0-4934-8c03-de6c3ba8be08
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_highest_queue_entries_consumed:
+        uuid: aa861ea5-8882-4e6e-80f6-aa5602d69a6a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_current_queue_entries_consumed:
+        uuid: 404883b4-6eef-4f8a-9512-9ae555a19cc0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_free_queue_entries:
+        uuid: 3c746554-fb5c-42ea-81ce-368c03bedda2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_slot_operational:
+        uuid: dcc4e9ff-ae77-46fc-83c2-0c1dfb6564c0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_monitor_interval:
+        uuid: cab24559-a43c-4d3d-99cd-00510b9d07c6
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_total_utilization:
+        uuid: d24fc389-3cf4-46f0-a5c4-7570d694c8e7
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_5_minute_utilization:
+        uuid: a0d2410d-7007-4dc0-9078-ac4adecdaef3
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_max_utilization:
+        uuid: ce0b30d1-a25c-491f-bc10-3e83c316a388
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_threshold:
+        uuid: e2c734bc-8fca-4dfb-9d23-42f070ea8066
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_total_memory:
+        uuid: a3046e8e-bd59-4a81-9a41-dd3205230cea
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_free_memory:
+        uuid: 05a6b2f3-d88e-4779-90c5-5e373f305576
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_used_system_service_memory:
+        uuid: 67eb0af9-db0a-452a-b976-10e4e176807f
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_used_user_application_memory:
+        uuid: ba6ffa78-a437-4ae4-a4e1-030101b972bd
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_used_memory_for_process:
+        uuid: 31f942a3-765c-488d-ae42-7109660b6d4e
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_process_state:
+        uuid: 9c3c9baf-0501-4645-ac46-196509b9f6a9
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_process_5_minute_utilization:
+        uuid: d49def1f-4e3d-429a-8bde-54e29c555d16
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_process_max_utilization:
+        uuid: de1ee09e-9d03-4a71-9bb0-d3f097566689
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_process_application_time:
+        uuid: 9f6c23e9-f1d4-4f6c-bb9a-f8199089a22f
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+    check_cpu_process_kernel_time:
+        uuid: de312f2a-7123-4584-ba1b-7931670a8c9b
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]

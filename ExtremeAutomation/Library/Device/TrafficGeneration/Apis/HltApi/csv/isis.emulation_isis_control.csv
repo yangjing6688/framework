@@ -1,0 +1,84 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+mode,"stop - Stop the protocol.start - Start the protocol.restart - Restart
+the protocol.
+DEFAULT
+	None
+IxNetwork-NGPF[M]
+	
+DESCRIPTION
+	
+Not defined
+Valid options are:
+start
+	
+Start the protocol.
+stop
+	
+Stop the protocol.
+restart
+	
+Restart the protocol.
+abort
+	
+Abort the protocol
+restart_down
+	
+Restart down the protocol
+stop_hello
+	
+Stop hello
+resume_hello
+	
+Resume hello
+age_out_routes
+	
+Age out routes
+readvertise_routes
+	
+Readvertise routes
+disconnect
+	
+Disconnent operation is being performed on either a From-Node or a
+To-Node under a simulated interface, which removes the neighborhood
+information
+reconnect
+	
+Disconnent operation is being performed on either a From-Node or a
+To-Node under a simulated interface, which brings back the neighborhood
+information
+DEFAULT
+	None",opt,"abort,age_out_routes,disconnect,readvertise_routes,reconnect,restart,restart_down,resume_hello,start,stop,stop_hello","IxNetwork[M] , IxOS/IxNetwork-FT[M]",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+age_out_percent,"The percentage of addresses that will be aged out. This argument is
+ignored when mode is not age_out_routes and *must* be specified in such
+circumstances.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+port_handle,"The port where the IS-IS is to be controlled.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"ISIS session handle where the ISIS control action is applied.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+ISIS session handle where the ISIS control action is applied.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+advertise,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+flap_count,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+flap_down_time,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+flap_interval_time,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+flap_routes,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+withdraw,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,

@@ -1,0 +1,19 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+# This file defines fan devices for 5420-M models.
+#
+
+devices:
+  - *FAN_CONTROLLER_MAX31790
+  - *FAN_CONTROLLER_CPLD
+
+fan_info:
+  <<: *COMMON_FAN_1_INFO
+
+fan_frus:
+  - *FAN_FRU_M_1

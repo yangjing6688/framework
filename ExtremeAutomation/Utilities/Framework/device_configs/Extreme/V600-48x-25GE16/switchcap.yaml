@@ -1,0 +1,20 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2017
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for V600-48x-25GE16.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  numExternalPort: 64
+
+  # Boolean type supported/not-supported capability parameters.
+  BridgePortExtender: true
+  PortIngMeter: false

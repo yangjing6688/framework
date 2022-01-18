@@ -1,0 +1,126 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+pim:
+    check_pim_interface_state:
+        uuid: 2c0f1b6a-5278-40b5-b4dc-e4f5538cc86a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_bsr:
+        uuid: 732882ba-131f-4441-9063-887f77c5eb10
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_rp:
+        uuid: 543a4138-e239-4d57-be53-2dcbb2935c3e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_pim_type_sparse:
+        uuid: 5eb7afd5-3b99-4ec8-8582-118481d08fda
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_state:
+        uuid: 0179331f-f8c3-42c4-8859-193894cfc738
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_vlan_state:
+        uuid: 5f8bc5df-9954-4212-ba59-d641af90df78
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_pim_expected_bsr:
+        uuid: 02467469-1626-4a31-9e14-88b068ef961b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_pim_rp_set:
+        uuid: a6edc8cd-82f0-491a-8193-e93e2ab3b470
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_pim_rp_set_group:
+        uuid: 335e5c79-de06-47e6-a7d4-f89935312a40
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_pim_source_group:
+        uuid: da15ede9-cb07-457e-852d-296b1ad5cade
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_pim_any_source_group:
+        uuid: 377930c1-746e-416d-8bf2-b1943ad9d632
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_pim_cache:
+        uuid: ff5d60c5-de59-4a12-a819-40a8c2800cfe
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_pim_type_ssm:
+        uuid: 1cef01e2-8787-415b-90ef-52042541b431
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_bsr_priority:
+        uuid: cc1c9e3b-816a-4874-83fe-f5113d72369f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_candidate_rp_ip:
+        uuid: 8644138b-ceb5-4fec-9a3b-bc1b54afb7ad
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_candidate_rp_ip_group_mask:
+        uuid: 952bf2a0-1d0a-4911-8764-579dfe6115d8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_mode:
+        uuid: 1c35583e-27d3-44c4-bdff-ce9343b723aa
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_opertype:
+        uuid: 30c012c4-2a63-4145-8916-22bfd3f3872d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_static_rp:
+        uuid: 9eb082d6-1f90-4057-8307-0a65c5241830
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_candidate_bsr_priority_on_interface:
+        uuid: 0b0b1997-6205-424d-a086-70f4699c3650
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_pim_candidate_bsr_priority_on_vlan:
+        uuid: 17ee98fa-8982-436e-9d56-7380be72d312
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

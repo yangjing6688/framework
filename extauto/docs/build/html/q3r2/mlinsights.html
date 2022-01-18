@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>MLInsights &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Current Available Active Branches</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q3r1.html">Q3R1</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q2r2.html">Q2R2</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>MLInsights</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/mlinsights.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="extreme_logo.png"><img alt="alternate text" class="align-right" src="extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-xiq.flows.mlinsights.MLInsights">
+<span id="mlinsights"></span><h1>MLInsights<a class="headerlink" href="#module-xiq.flows.mlinsights.MLInsights" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.MLInsights.MLInsights">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">xiq.flows.mlinsights.MLInsights.</span></span><span class="sig-name descname"><span class="pre">MLInsights</span></span><a class="headerlink" href="#xiq.flows.mlinsights.MLInsights.MLInsights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.MLInsights.MLInsights.create_location_in_ml_insights">
+<span class="sig-name descname"><span class="pre">create_location_in_ml_insights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.MLInsights.MLInsights.create_location_in_ml_insights" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Create the Location on ML Insights Network 360 Plan using Name,address and city information</p></li>
+<li><p>Flow: ML Insights–&gt; Network 360 Plan</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Name ,Address,city</p>
+</dd>
+</dl>
+<p>:return:1 if successfully created Location on ML Insights–&gt; Network 360 Plan</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiq.flows.mlinsights.MLInsightClient360">
+<span id="mlinsightclient360"></span><h1>MLInsightClient360<a class="headerlink" href="#module-xiq.flows.mlinsights.MLInsightClient360" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.MLInsightClient360.MLInsightClient360">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">xiq.flows.mlinsights.MLInsightClient360.</span></span><span class="sig-name descname"><span class="pre">MLInsightClient360</span></span><a class="headerlink" href="#xiq.flows.mlinsights.MLInsightClient360.MLInsightClient360" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiq.elements.MLInsightsClients360WebElements.MLInsightsClients360WebElements</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.MLInsightClient360.MLInsightClient360.get_real_time_client360_details">
+<span class="sig-name descname"><span class="pre">get_real_time_client360_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.MLInsightClient360.MLInsightClient360.get_real_time_client360_details" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the client360 details in client grid</p></li>
+<li><p>Client Details include “STATUS HEALTH”, “HOST-NAME”, “SSID” etc</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Real</span> <span class="pre">Time</span> <span class="pre">Client360</span> <span class="pre">Details</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – string parameter to search the client in client grid ie. client mac, hostname etc</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>client360 details dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiq.flows.mlinsights.Network360Monitor">
+<span id="network360monitor"></span><h1>Network360Monitor<a class="headerlink" href="#module-xiq.flows.mlinsights.Network360Monitor" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Monitor.Network360Monitor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">xiq.flows.mlinsights.Network360Monitor.</span></span><span class="sig-name descname"><span class="pre">Network360Monitor</span></span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Monitor.Network360Monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Monitor.Network360Monitor.get_clients_from_network360monitor_floor">
+<span class="sig-name descname"><span class="pre">get_clients_from_network360monitor_floor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">floor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Monitor.Network360Monitor.get_clients_from_network360monitor_floor" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword gets clients MACs from Network360 Monitor page in a floor</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${CLIENT_MATCHES}=</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Get</span> <span class="pre">APs</span> <span class="pre">From</span> <span class="pre">Network360Monitor</span> <span class="pre">Floor</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">floor_name=floor_02</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>floor_name</strong> – floor of the location where devices has been assigned</p></li>
+<li><p><strong>device_type</strong> – optional - type of device - AP/switch/router/VGVA/router</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>clients MAC on the floor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Monitor.Network360Monitor.get_devices_from_network360monitor_floor">
+<span class="sig-name descname"><span class="pre">get_devices_from_network360monitor_floor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">floor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Monitor.Network360Monitor.get_devices_from_network360monitor_floor" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword gets  devices name from Network360 Monitor page</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${AP_MATCHES}=</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Get</span> <span class="pre">APs</span> <span class="pre">From</span> <span class="pre">Network360Monitor</span> <span class="pre">Floor</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">floor_name=floor_02</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>floor_name</strong> – floor of the location where devices has been assigned</p></li>
+<li><p><strong>device_type</strong> – optional - type of device - AP/switch/router/VGVA/router</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>devices names on the floor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Monitor.Network360Monitor.get_network360monitor_device_health_overall_score">
+<span class="sig-name descname"><span class="pre">get_network360monitor_device_health_overall_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">floor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Monitor.Network360Monitor.get_network360monitor_device_health_overall_score" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the DEVICES card -&gt; Overall Score</p></li>
+<li><p>Device Availability Score</p></li>
+<li><p>Device Hardware Health</p></li>
+<li><p>Config &amp; Firmware Score</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Network360Monitor</span> <span class="pre">Device</span> <span class="pre">Health</span> <span class="pre">Overall</span> <span class="pre">Score</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">floor_name=floor_01</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Network360Monitor</span> <span class="pre">Device</span> <span class="pre">Health</span> <span class="pre">Overall</span> <span class="pre">Score</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>floor_name</strong> – floor_name. if no floor_name passed, returns the values for Global View</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns availability_score, hw_health, fw_health</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Monitor.Network360Monitor.get_network360monitor_devices_score">
+<span class="sig-name descname"><span class="pre">get_network360monitor_devices_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">floor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Monitor.Network360Monitor.get_network360monitor_devices_score" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the DEVICES card’s health score</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Network360Monitor</span> <span class="pre">Devices</span> <span class="pre">Score</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">floor_name=floor_03</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Network360Monitor</span> <span class="pre">Devices</span> <span class="pre">Score</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>floor_name</strong> – floor_name. if no floor_name passed, returns the values for Global View</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the devices score Ex: 94/100 EXCELLENT</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Monitor.Network360Monitor.search_floor_in_network360monitor">
+<span class="sig-name descname"><span class="pre">search_floor_in_network360monitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">floor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Monitor.Network360Monitor.search_floor_in_network360monitor" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword searches for the floor in Network360 Monitor</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${SEARCH_MATCHES}=</span>&#160;&#160;&#160;&#160; <span class="pre">Search</span> <span class="pre">Floor</span> <span class="pre">in</span> <span class="pre">Network360Monitor</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">floor_name=floor_02</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>floor_name</strong> – floor of the location where devices has been assigned</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns list of search matches. -1 if no matches</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiq.flows.mlinsights.Network360Plan">
+<span id="network360plan"></span><h1>Network360Plan<a class="headerlink" href="#module-xiq.flows.mlinsights.Network360Plan" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Plan.Network360Plan">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">xiq.flows.mlinsights.Network360Plan.</span></span><span class="sig-name descname"><span class="pre">Network360Plan</span></span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Plan.Network360Plan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Plan.Network360Plan.get_aps_from_network360plan_floor">
+<span class="sig-name descname"><span class="pre">get_aps_from_network360plan_floor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">floor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Plan.Network360Plan.get_aps_from_network360plan_floor" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword gets devices name from Network360 Plan page</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${AP_MATCHES}=</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Get</span> <span class="pre">APs</span> <span class="pre">From</span> <span class="pre">Network360Plan</span> <span class="pre">Floor</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">floor_name=floor_02</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>floor_name</strong> – floor of the location where devices has been assigned</p></li>
+<li><p><strong>device_type</strong> – optional - type of device - AP/switch/router/VGVA/router</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>devices name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Plan.Network360Plan.import_map_in_network360plan">
+<span class="sig-name descname"><span class="pre">import_map_in_network360plan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Plan.Network360Plan.import_map_in_network360plan" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will Import Map file in Network360 Plan page</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Import Map In Network360Plan    ${MAP_FILE_NAME}</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>map_file_name</strong> – Map File Name to import from /testsuites/xiq/functional/import_map_files directory</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if map uploaded successfully on Network360 Plan else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360Plan.Network360Plan.search_floor_in_network360plan">
+<span class="sig-name descname"><span class="pre">search_floor_in_network360plan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">floor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360Plan.Network360Plan.search_floor_in_network360plan" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword searches for the floor in Network360 Plan</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${SEARCH_MATCHES}=</span>&#160;&#160;&#160;&#160; <span class="pre">Search</span> <span class="pre">Floor</span> <span class="pre">in</span> <span class="pre">Network360Plan</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">floor_name=floor_02</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>floor_name</strong> – floor of the location where devices has been assigned</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns list of search matches. -1 if no matches</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiq.flows.mlinsights.Network360ScoreCard">
+<span id="network360scorecard"></span><h1>Network360ScoreCard<a class="headerlink" href="#module-xiq.flows.mlinsights.Network360ScoreCard" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360ScoreCard.Network360ScoreCard">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">xiq.flows.mlinsights.Network360ScoreCard.</span></span><span class="sig-name descname"><span class="pre">Network360ScoreCard</span></span><a class="headerlink" href="#xiq.flows.mlinsights.Network360ScoreCard.Network360ScoreCard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360ScoreCard.Network360ScoreCard.goto_ml_insights_score_card">
+<span class="sig-name descname"><span class="pre">goto_ml_insights_score_card</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360ScoreCard.Network360ScoreCard.goto_ml_insights_score_card" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword navigates to Network360 Plan page</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns 1 if successful</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.mlinsights.Network360ScoreCard.Network360ScoreCard.score_card_details">
+<span class="sig-name descname"><span class="pre">score_card_details</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.mlinsights.Network360ScoreCard.Network360ScoreCard.score_card_details" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword gets details of N360 Score Card page</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dictionary of Score Card details</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Extreme Networks.
+      <span class="lastupdated">
+        Last updated on Sep 13, 2021, 5:35:12 PM.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

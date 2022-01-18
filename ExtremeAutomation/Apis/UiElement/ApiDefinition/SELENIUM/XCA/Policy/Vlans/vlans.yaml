@@ -1,0 +1,46 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcavlans:
+    click_add_to_create_new_vlan:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_vlan_name_to_open_vlan_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_info_for_vlan_in_fabric_attach_mode:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_advanced_settings_for_vlan:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_layer3_settings_for_vlan:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_dhcp_relay_servers:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_dhcp_local_server:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_existing_vlan:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_vlan_exists:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_vlan_does_not_exist:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_info_for_vlan_in_bridged_at_ac_mode:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    edit_info_for_vlan_in_bridged_at_ap_mode:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    save_settings_and_back_to_vlans_page:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']

@@ -1,0 +1,101 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+port_handle,"A list of ports on which to control the OSPF protocol. If this option is
+not present, the port in the handle option will be applied.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+A list of ports on which to control the OSPF protocol. If this option is
+not present, the port in the handle option will be applied.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"This option represents the handle the user *must* pass to the
+'emulation_ospf_control' procedure. This option specifies on which OSPF
+session to control. If port_handle option is present, the port_handle
+takes precedence over port in the router handle. The OSPF router
+handle(s) is returned by the procedure
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option represents the handle the user *must* pass to the
+'emulation_ospf_control' procedure. This option specifies on which OSPF
+session to control. If port_handle option is present, the port_handle
+takes precedence over port in the router handle. The OSPF router
+handle(s) is returned by the procedure
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Tells which option will be performed on the OSPF protocol. Valid options
+are:restartstartstop
+DEFAULT
+	None
+IxNetwork-NGPF[M]
+	
+DESCRIPTION
+	
+Tells which option will be performed on the OSPF protocol. Valid options
+are: restart start stop abort restart_down resume_hello stop_hello
+age_out_routes readvertise_routes advertise withdraw disconnect reconnect
+Valid options are:
+start
+	
+stop
+	
+restart
+	
+abort
+	
+restart_down
+	
+resume_hello
+	
+stop_hello
+	
+age_out_routes
+	
+readvertise_routes
+	
+advertise
+	
+withdraw
+	
+disconnect
+	
+reconnect
+	
+DEFAULT
+	None",opt,"abort,advertise,age_out_routes,disconnect,readvertise_routes,reconnect,restart,restart_down,resume_hello,start,stop,stop_hello,withdraw","IxNetwork[M] , IxOS/IxNetwork-FT[M]",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+age_out_percent,"The percentage of addresses that will be aged out. This argument is
+ignored when mode is not age_out_routes and *must* be specified in such
+circumstances.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+advertise,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+advertise_lsa,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+flap_count,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+flap_down_time,"Not defined
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+flap_interval_time,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+flap_lsa,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+flap_routes,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+withdraw,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+withdraw_lsa,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,

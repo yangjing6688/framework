@@ -1,0 +1,21 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2017
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  V600-24x-25GE8 switch
+#
+#
+
+
+vendor: Extreme
+product_name: V600-24x-25GE8
+
+files:
+   - name: capability
+     filename: [../../common/defaultcap.yaml, switchcap.yaml]
+   - name: ports
+     filename: [../../common/defaultports.yaml, ports.yaml]

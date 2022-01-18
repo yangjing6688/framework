@@ -1,0 +1,2 @@
+class ControlPolicyRoleDetailsWebElementsDefinitions:
+    pass

@@ -1,0 +1,47 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+mirroring:
+    check_port_mirror_exists:
+        uuid: 9d05264a-3cc7-45ab-b144-bbcda89e10d1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_port_mirror_enabled:
+        uuid: 0cd6beaf-b23c-4c9b-9bec-6ac536deba91
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_port_mirror_ingress_exists:
+        uuid: f0a3ab82-66cc-431a-8c58-471997756f40
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_port_mirror_egress_exists:
+        uuid: 6bf67fd4-1511-4852-a01c-290eee224f7d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_port_mirror_ingress_egress_exists:
+        uuid: 9495a305-7065-451a-b042-8dd2ebd6ffb0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]

@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines system info common to 5420 series switches
+#
+
+system_info:
+  <<: *COMMON_SYSTEM_INFO

@@ -1,0 +1,7 @@
+LinMuConnect
+============
+
+.. automodule:: common.tools.remote.LinMuConnect
+   :members:
+   :undoc-members:
+   :show-inheritance:

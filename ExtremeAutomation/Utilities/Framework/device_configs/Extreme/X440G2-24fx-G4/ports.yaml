@@ -1,0 +1,108 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for X440G2-24fx-G4 switch
+#
+#
+
+
+1G_port: &1G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100_1000
+   portMediaType: HAL_PORT_MED_MGBIC
+   MacsecWithExtAdapter: true
+
+
+100M_port: &100M_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100
+   portMediaType: HAL_PORT_MED_FX
+
+ports:
+   - name: 1
+     <<: *100M_PORT
+
+   - name: 2
+     <<: *100M_PORT
+
+   - name: 3
+     <<: *100M_PORT
+
+   - name: 4
+     <<: *100M_PORT
+
+   - name: 5
+     <<: *100M_PORT
+
+   - name: 6
+     <<: *100M_PORT
+
+   - name: 7
+     <<: *100M_PORT
+
+   - name: 8
+     <<: *100M_PORT
+
+   - name: 9
+     <<: *100M_PORT
+
+   - name: 10
+     <<: *100M_PORT
+
+   - name: 11
+     <<: *100M_PORT
+
+   - name: 12
+     <<: *100M_PORT
+
+   - name: 13
+     <<: *100M_PORT
+
+   - name: 14
+     <<: *100M_PORT
+
+   - name: 15
+     <<: *100M_PORT
+
+   - name: 16
+     <<: *100M_PORT
+
+   - name: 17
+     <<: *100M_PORT
+
+   - name: 18
+     <<: *100M_PORT
+
+   - name: 19
+     <<: *100M_PORT
+
+   - name: 20
+     <<: *100M_PORT
+
+   - name: 21
+     <<: *100M_PORT
+
+   - name: 22
+     <<: *100M_PORT
+
+   - name: 23
+     <<: *100M_PORT
+
+   - name: 24
+     <<: *100M_PORT
+
+   - name: 25
+     <<: *1G_PORT
+
+   - name: 26
+     <<: *1G_PORT
+
+   - name: 27
+     <<: *1G_PORT
+
+   - name: 28
+     <<: *1G_PORT

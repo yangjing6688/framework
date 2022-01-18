@@ -1,0 +1,97 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+eciqdevices:
+    devices_check_device_checkbox:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_clear_device_search:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_click_add_and_select_advanced_onboarding:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_click_refresh:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_delete_device:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_monitor_dialog_click_close:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_monitor_dialog_click_refresh:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_monitor_dialog_select_port:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_select_device_by_hostname_and_ip:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_select_device_by_hostname_and_serial_number:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_select_device_count_per_page:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_device_firmware:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_device_ip:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_device_iq_agent_version:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_device_mac:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_device_model:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_device_serial_number:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_device_vendor:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_lacp_status:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_mode:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_name:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_power_used:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_speed:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_status:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_traffic_rx:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_traffic_tx:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_type:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_port_vlan:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_serial_number_does_not_exist:
+        apis:
+            - [eciq,'BaseAppVer']
+    devices_verify_serial_number_exists:
+        apis:
+            - [eciq,'BaseAppVer']

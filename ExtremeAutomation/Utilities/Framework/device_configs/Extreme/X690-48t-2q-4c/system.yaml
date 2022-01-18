@@ -1,0 +1,17 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the system info specific to X690-48t-4q-2c
+#
+
+system_info:
+  <<: *COMMON_SYSTEM_INFO
+  system_select_phy_mdio_load:
+    device:           system_cpld
+    register:         0x0e
+    bitmask:          0x01
+    active_low:       0

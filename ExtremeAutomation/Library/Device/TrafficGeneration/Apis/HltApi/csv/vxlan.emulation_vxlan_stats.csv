@@ -1,0 +1,50 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+port_handle,"Specifies the port upon which emulation id configured. This parameter is
+returned from emulation_dhcp_config proc. Emulation must have been
+previously enabled on the specified port via a call to
+emulation_dhcp_group_config proc. When -version is ixnetwork, one of
+-port_handle or -handle parameters should be provided.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"Allows the user to optionally select the groups to which the specified
+action is to be applied. If this parameter is not specified, then the
+specified action is applied to all groups configured on the port
+specified by the -port_handle command. The handle is obtained from the
+keyed list returned in the call to emulation_vxlan_group_config proc.
+The port handle parameter must have been initialized and vxlan group
+emulation must have been configured prior to calling this function. For
+IxTclNetwork the statistics will be aggregated at port level (the port
+on which this handle has been configured). The stats aggregate.will
+represent the aggregated port stats for the first port if multiple
+handles are provided.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"This is a mandatory argument. Used to select the task to perform. This
+parameter is supported using the following APIs: IxTclNetwork. Valid
+choices are: clear collect.
+Valid options are:
+aggregate_stats
+	
+retrieve stats aggregated per port/handle
+clear_stats
+	
+clear stats
+session
+	
+retrieves non-aggregated stats per handle
+vni
+	
+retrieves aggregated stats per vni per handle
+learned_info
+	
+retrieves learnedInfo
+DEFAULT
+	None",opt,"aggregate_stats,clear_stats,learned_info,session,vni",IxNetwork-NGPF[M],universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+execution_timeout,"This is the timeout for the function. The setting is in seconds. Setting
+this setting to 60 it will mean that the command must complete in under
+60 seconds. If the command will last more than 60 seconds the command
+will be terminated by force. This flag can be used to prevent dead locks
+occuring in IxNetwork.
+DEFAULT
+	
+1800",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

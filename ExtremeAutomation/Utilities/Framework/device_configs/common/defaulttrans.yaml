@@ -1,0 +1,11 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the default values for tranceiver variables
+#  used by EXOS.  Every newly added profile variable should have
+#  an entry in this file.
+transceivers:

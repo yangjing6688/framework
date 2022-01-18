@@ -1,0 +1,23 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for BPE-G24t.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  numExternalPort: 26
+
+  # Boolean type supported/not-supported capability parameters.
+  BridgePortExtender: true
+  Poe: true
+  PoePlus: true
+  DoubleWideAcl: false
+  RsvdRoutesSupported: false

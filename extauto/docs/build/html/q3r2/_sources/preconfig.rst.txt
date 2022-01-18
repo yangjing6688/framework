@@ -1,0 +1,109 @@
+**SELENIUM AND CHROME DRIVER CONFIGURATION**
+============================================
+.. image:: extreme_logo.png
+   :width: 250px
+   :height: 150px
+   :scale: 100 %
+   :alt: alternate text
+   :align: right
+
+
+.. note:: This Page Contains Remote or Localhost Configuration 
+
+
+**Pre-requsites Packages:**
+
+	* Java
+
+	* Selenium Standalone Server
+
+	* Chrome Driver
+
+**Install Java on Windows:**
+
+        * Download the java from **https://java.com/en/download/**
+
+	* Install by double clicking on downloaded "**JavaSetup8u241.exe**"
+
+	* It will install the java and add the java envirnomental variable
+
+	* Check Whether Java envirnomental variable is added properly or not
+
+
+           .. image:: Java_path.png
+
+        * Check Whether Java Installed Properly or not.
+
+           .. image:: java_version.png
+
+**Download Selenium Server:** 
+ 
+        * Download latest selenium standalone server jar file from  **https://selenium.dev/downloads/**
+
+	* Downloaded file is "**selenium-server-standalone-3.141.59.jar**"
+
+	* Create a folder in "**C:\selenium_server**" and copy downloaded standalone server to it
+
+**Download Chrome Driver:**
+ 
+        * Check the istalled chrome browser version in your machine
+
+
+           .. image:: chrome_driver_check.png
+
+        * Download corresponding chrome driver from https://chromedriver.chromium.org/downloads
+
+           .. image:: chrome_driver_downloads.png
+
+        * Unzip the downloaded file and keep it in "**C:\selenium_server**" 
+   
+        * Add the path "**C:\selenium_server**" under system varibale path.
+
+           .. image:: chrome_driver_path.png
+
+**Pre-config Files:**
+
+	* There are two methods to host the web browser
+
+
+           a. Local [ where script is executing]
+
+           b. Remote [remote machine to host]
+
+           c. Accordingly update the configuration variable [**web_driver_location,target_environment**]
+
+           d. Update the browser name[**chrome, firefox**] and os_platform[**windows10**]
+
+
+        * Update the **envirnomental.csv** file according to your project.
+
+            .. image:: environment.png
+
+        * Update the **topology file** for remote machine details
+
+            .. image:: topology.png 
+
+
+**Start Selenium Standalone Server For Remote Execution:**
+
+      	* Go to **C:\selenium_server**
+
+	* Execute  "**java -jar selenium-server-standalone-3.141.59.jar -timeout  600 -log selenium.log**"
+
+            .. image:: selenium_server_start.png 
+
+
+        * **Timeout**      :   timeout, -sessionTimeout
+                               <Integer> in seconds : Specifies the timeout before the server automatically kills a session that hasn't had any activity in the last X seconds. 
+                               The test slot will then be released for another test to use. This is typically used to take care of client crashes. For grid hub/node roles, cleanUpCycle must also be set. 
+                               If a node does not specify it, the hub value will be used.
+
+	* **Log filename** :  The filename to use for logging. If omitted, will log to STDOUT
+
+ 
+
+
+ 
+
+
+

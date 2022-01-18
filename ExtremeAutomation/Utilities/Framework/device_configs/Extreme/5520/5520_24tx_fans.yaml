@@ -1,0 +1,20 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+#  ##################################################################
+#
+#  This file defines fan devices for 5520 models.
+#
+
+devices:
+  - *FAN_CONTROLLER_MAX31790
+  - *FAN_CONTROLLER_CPLD
+
+fan_info:
+  <<: *COMMON_24TX_FAN_INFO
+
+fan_frus:
+  - *FAN_FRU_24TX_1
+  - *FAN_FRU_24TX_2

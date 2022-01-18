@@ -1,0 +1,477 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+vlan:
+    create_vlan:
+        description: "Creates the specified VLAN ID"
+        arguments:
+            order: vlan
+        uuid: 2e07dc6a-2f52-4bdd-b814-6a3fd6afc666
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan create {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'vlan create {vlan} type port-mstprstp 0',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,post,'/rest/restconf/data/openconfig-vlan:vlans','',[],[]]
+                - [SNAPROUTE,base,baseversion,baseunit,post,'/public/v1/config/Vlan','',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.2.1.9.{vlan}||1.3.6.1.4.1.2272.1.3.2.1.10.{vlan}||1.3.6.1.4.1.2272.1.3.2.1.20.{vlan}','i||i||i','1||1||4']
+    delete_vlan:
+        description: "Removes the specified VLAN on a given device"
+        arguments:
+            order: vlan
+        uuid: eaccd886-b51c-409d-9daa-703133a964e5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete vlan {vlan}',userPrompt,'None','None','None',['Error: The specified VLAN'],[]]
+                - [VOSS,base,baseversion,baseunit,'vlan delete {vlan}',routerConfigPrompt,'None','None','None',['Error: Invalid VLAN ID'],[]]
+                - [EXTRWIRELESS,base,baseversion,baseunit,'delete {topology_name}',topologyPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no vlan {vlan}',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,delete,'/rest/restconf/data/openconfig-vlan:vlans/vlan={vlan}','',[],[]]
+                - [SNAPROUTE,base,baseversion,baseunit,delete,'/public/v1/config/Vlan','',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.2.1.20.{vlan}','i','6']
+    create_vman:
+        description: "Creates the specified VMAN ID"
+        arguments:
+            order: vman
+        uuid: 88e93a18-aa67-42a4-920c-03d4b57d43a5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan create {vman}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create vman {vman}',userPrompt,'None','None','None',[],[]]
+    delete_vman:
+        description: "Removes a VMAN on a given device"
+        arguments:
+            order: vman
+        uuid: c1034622-3df6-43ac-bfa9-4cd8a7d15073
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear vlan {vman}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete vman {vman}',userPrompt,'None','None','None',[],[]]
+    enable_vlan:
+        description: "Enables a given VLAN"
+        arguments:
+            order: vlan
+        uuid: 8f1d1665-b71b-45ee-bcb3-062106d5c14e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan enable {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    disable_vlan:
+        description: "Disabled a given VLAN"
+        arguments:
+            order: vlan
+        uuid: 0e76a4c3-41d3-4405-a5c2-040c75793e40
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan disable {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    enable_dynamic_egress:
+        description: "Sets dynamic egress on VLAN enabled or disabled"
+        arguments:
+            order: vlan
+        uuid: 25943c13-2b66-42fb-9a65-21c384ecdd57
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan dynamicegress {vlan} enable',userPrompt,'None','None','None',[],[]]
+    disable_dynamic_egress:
+        description: "Sets dynamic egress on VLAN enabled or disabled"
+        arguments:
+            order: vlan
+        uuid: 688ba73b-d326-4b4e-8dea-ebd4fb7a260f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan dynamicegress {vlan} disable',userPrompt,'None','None','None',[],[]]
+    set_egress_untagged:
+        description: "Adds [ports] to [vlan]'s untagged egress list"
+        arguments:
+            order: vlan,port
+        uuid: 1455236d-3899-476e-a333-93fcff7ed6ad
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan egress {vlan} {port} untagged',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} add ports {port} untagged',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'vlan ports {port} tagging tagAll||vlan members add {vlan} {port}||interface GigabitEthernet {port}||default-vlan-id {vlan}||untag-port-default-vlan enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'switchport||switchport mode trunk||switchport trunk allowed vlan add {vlan}||switchport trunk native-vlan {vlan}||no switchport trunk tag native-vlan',intfPrompt,'ethernet {port}','None','None',[],[]]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit,patch,'/public/v1/config/Vlan','',[],[]]
+    set_egress_tagged:
+        description: "Adds [ports] to [vlan]'s tagged egress list"
+        arguments:
+            order: vlan,port
+        uuid: 8fb45945-51d5-43b8-b469-84d4cfc3f546
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan egress {vlan} {port} tagged',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} add ports {port} tagged',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'vlan ports {port} tagging tagAll||vlan members add {vlan} {port}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'switchport||switchport mode trunk||switchport trunk allowed vlan add {vlan}',intfPrompt,'ethernet {port}','None','None',[],[]]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit,patch,'/public/v1/config/Vlan','',[],[]]
+    set_egress_forbidden:
+        description: "Adds [ports] to [vlan]'s forbidden egress list"
+        arguments:
+            order: vlan,port
+        uuid: b75aade1-939c-4c43-b73d-c14250537fed
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan egress {vlan} {port} forbidden',userPrompt,'None','None','None',[],[]]
+    clear_egress:
+        description: "Removes [ports] from the [vlan]'s egress list"
+        arguments:
+            order: vlan,port
+        uuid: aaca0f2c-01a7-48d1-8b68-f113d9711a23
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear vlan egress {vlan} {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} delete ports {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'switchport trunk allowed vlan remove {vlan}',intfPrompt,'ethernet {port}','None','None',[],[]]
+    clear_egress_type:
+        description: ""
+        arguments:
+            order: 
+        uuid: 51de2778-983c-462e-b205-29d1b6454bc6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear vlan egress {vlan} {port} {egress_type}',userPrompt,'None','None','None',[],[]]
+    set_description:
+        description: "Set VLAN name to specified name"
+        arguments:
+            order: vlan,name
+        uuid: 5e31f606-0a42-473b-906e-651b1fdabebc
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan name {vlan} "{name}"',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} description "{name}"',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||description "{name}"||exit',routerConfigPrompt,'None','None','None',[],[]]
+    clear_description:
+        description: "Clears the  VLAN description"
+        arguments:
+            order: 
+        uuid: c5b9a551-a137-41af-aa7b-c283c9f9f12e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear vlan name {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure vlan {vlan} description',userPrompt,'None','None','None',[],[]]
+    set_name:
+        description: "Set VLAN name to specified name"
+        arguments:
+            order: vlan,name
+        uuid: b5132db1-ed57-4b19-a129-13bf3cf6efbe
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set vlan name {vlan} "{name}"',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} name "{name}"',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'vlan name {vlan} {name}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||name "{name}"||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.2.1.2.{vlan}','s','{name}']
+    clear_name:
+        description: "Clear specified VLAN's name"
+        arguments:
+            order: 
+        uuid: a435b6bd-7aec-4705-81b0-af0bc59ffaeb
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear vlan name {vlan}',userPrompt,'None','None','None',[],[]]
+    set_pvid:
+        description: "Applies the given PVID value to a port"
+        arguments:
+            order: port,vlan,modify_egress
+        uuid: b4477fa8-5f9e-449e-bc9f-c88a87add7b6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set port vlan {port} {vlan} {modify_egress}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'default-vlan-id {vlan}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'switchport trunk native-vlan {vlan}',intfPrompt,'ethernet {port}','None','None',[],[]]
+    clear_pvid:
+        description: "Clears the PVID on the given <api_utils.port>"
+        arguments:
+            order: port
+        uuid: 04479df7-6ad7-4db6-8410-9bda5e8458d9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear port vlan {port}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'default-vlan-id 1',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no switchport trunk native-vlan {vlan}',intfPrompt,'ethernet {port}','None','None',[],[]]
+    create_vlan_with_name:
+        description: "Creates a VLAN by name with a tag value"
+        arguments:
+            order: vlan,tag,topology_name,mode
+        uuid: b86d2d18-f68a-4a9a-8ad1-1cdb08fe5b12
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create vlan {vlan} tag {tag}',userPrompt,'None','None','None',[],[]]
+                - [EXTRWIRELESS,base,baseversion,baseunit,'create {topology_name} {mode} {vlan} {tag}',topologyPrompt,'None','None','None',[],[]]
+    set_vman_egress_untagged:
+        description: "Adds [ports] to [vman]'s untagged port list"
+        arguments:
+            order: vman,port
+        uuid: 04fbd352-383e-4c39-893e-dda530bd3503
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vman {vman} add ports {port} untagged',userPrompt,'None','None','None',[],[]]
+    set_vman_egress_tagged:
+        description: "Adds [ports] to [vman]'s tagged port list"
+        arguments:
+            order: vman,port
+        uuid: 407229d5-b7f8-4000-b3df-d72b175b5ff5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vman {vman} add ports {port} tagged',userPrompt,'None','None','None',[],[]]
+    clear_vman_egress:
+        description: "Removes [ports] from the [vman]'s port list"
+        arguments:
+            order: vman,port
+        uuid: 6a69ee23-2396-4360-84a1-a6e1ba89800a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vman {vman} delete ports {port}',userPrompt,'None','None','None',[],[]]
+    set_nsi:
+        description: "Configures the NSI (Network Service Identifier) for a specified VLAN"
+        arguments:
+            order: vlan,nsi
+        uuid: 610c3185-468f-4904-8271-907e501cf8cb
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} add nsi {nsi}',userPrompt,'None','None','None',[],[]]
+    clear_nsi:
+        description: "Removes the NSI (Network Service Identifier) for a specified VLAN"
+        arguments:
+            order: vlan,nsi
+        uuid: f0948db0-40b0-401c-ae27-1ec4f2b41dc1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} delete nsi {nsi}',userPrompt,'None','None','None',[],[]]
+    set_isid:
+        description: "Configures a VLAN I-SID for a specified VLAN"
+        arguments:
+            order: vlan,i_sid
+        uuid: 294d7f0f-df09-4d6e-9270-7c0828f55389
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} add isid {i_sid}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'vlan i-sid {vlan} {i_sid}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.2.1.61.{vlan}','i','{i_sid}']
+    clear_isid:
+        description: "Removes a VLAN I-SID for a specified VLAN"
+        arguments:
+            order: vlan,i_sid
+        uuid: 46694b6b-a900-4efa-a601-ee598aa753ec
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vlan {vlan} delete isid {i_sid}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no vlan i-sid {vlan}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.2.1.61.{vlan}','i','0']
+    create_spbm:
+        description: "Creates the specified SPBM VLAN on the VOSS platform"
+        arguments:
+            order: 
+        uuid: 6b27e129-327c-49c4-aab5-c2867715e0bd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'vlan create {vlan} type spbm-bvlan',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.2.1.9.{vlan}||1.3.6.1.4.1.2272.1.3.2.1.10.{vlan}||1.3.6.1.4.1.2272.1.3.2.1.20.{vlan}','i||i||i','63||11||4']
+    set_member:
+        description: "Adds a port to a vlan (Makes a port a member of a vlan)"
+        arguments:
+            order: 
+        uuid: c639c0ad-4fce-423f-ace9-15fe887fb325
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'vlan members add {vlan} {port}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.2.1.11.{vlan}','s','{port}']
+    clear_member:
+        description: "Removes a port from a specified vlan"
+        arguments:
+            order: 
+        uuid: 2d7fb185-5133-4fb8-8d98-19e72eb05776
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'vlan members remove {vlan} {port}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.2.1.11.{vlan}','s','{port}']
+    set_port_encapsulation_dot1q:
+        description: "Configures encapsulation dot1q on a given port"
+        arguments:
+            order: 
+        uuid: 345acff8-3752-4fa5-bede-4a40de99cadf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'encapsulation dot1q',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.3.1.4.{port}','i','2']
+    clear_port_encapsulation_dot1q:
+        description: "Removes encapsulation dot1q on a given port"
+        arguments:
+            order: 
+        uuid: 7c4d0acd-43c6-4374-9863-49b5ebaac0a2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no encapsulation dot1q',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.3.3.1.4.{port}','i','1']
+    show_all_info:
+        uuid: 665c60ed-ab31-4ccd-9b85-7946db3c01a3
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show vlan',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show vlan basic',userPrompt,'None','None','None',[],[]]
+                - [BOSS,base,baseversion,baseunit,'show vlan',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'show vlan',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'show vlan',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show vlan brief',userPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-vlan:vlans','',[],[]]
+                - [SNAPROUTE,base,baseversion,baseunit,get,'/public/v1/state/Vlans','',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.3.2','i','']
+                - [EXOS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.17.7.1.4.3.1.1','i','']
+                - [EOS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.17.7.1.4.3.1.1','i','']
+    show_info:
+        uuid: 62cb48f8-848b-4604-a67b-5e135a96d45a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show port vlan',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show vlan detail {vlan}',userPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-vlan:vlans/vlan={vlan}','',[],[]]
+                - [SNAPROUTE,base,baseversion,baseunit,get,'/public/v1/config/Vlan','',[],[]]
+    show_name:
+        uuid: 48cf27a1-71fd-4212-85a3-12db4d2f899d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show vlan name {vlan}',userPrompt,'None','None','None',[],[]]
+                - [BOSS,base,baseversion,baseunit,'show vlan id {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show vlan detail {vlan}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.3.2.1.2.{vlan}','i','']
+    show_names:
+        uuid: 33817197-48b1-4c12-8c3f-7ee0be7b92e2
+        apis:
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.3.2.1.2.1','i','']
+                - [EXOS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.31.1.1.1.1','i','']
+                - [EOS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.31.1.1.1.1','i','']
+    show_description:
+        uuid: eecd4686-9ec0-483b-99ca-2d7c45bd5036
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_status:
+        uuid: d487d4f0-befa-4034-9882-80fa3f609e21
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show vlan basic {vlan}',userPrompt,'None','None','None',[],[]]
+    show_pvid:
+        uuid: 49369c19-a5c0-4518-bd93-317d7ff99061
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show port vlan {port}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show port vlan {port}',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'show port vlan {port}',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'show vlan port {port}',userPrompt,'None','None','None',[],[]]
+    show_static:
+        uuid: 61b9b7fc-add0-405d-ac77-30694a708e62
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show vlan static {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show vlan mac-address-static {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'show vlan static {vlan}',userPrompt,'None','None','None',[],[]]
+    show_port_egress:
+        uuid: 5129a33b-95c8-4b61-a2b9-f18d94db9f53
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show port egress {port}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show port vlans',userPrompt,'None','None','None',[],[]]
+    show_all_vman_info:
+        uuid: 970b28f4-48a1-44ca-8fb6-db655fd6e5dc
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show vlan',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vman',userPrompt,'None','None','None',[],[]]
+    show_vman_info:
+        uuid: 0232c1ae-d430-4d55-a131-f2d3f7b14710
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vman {vman}',userPrompt,'None','None','None',[],[]]
+    show_fabric_attach_assignments:
+        uuid: 7c45c869-ca15-45f3-b775-70972371f537
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vlan fabric attach assignments',userPrompt,'None','None','None',[],[]]
+    show_nsi:
+        uuid: 27ad3b81-b4a6-4daf-a3f1-76ed5ff2ed36
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan} fabric attach mappings',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,'22.6.1.4',baseunit,'show vlan {vlan} fabric attach assignments',userPrompt,'None','None','None',[],[]]
+    show_isid:
+        uuid: d693505e-bd3f-4930-b12e-b46a62309c08
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vlan {vlan} fabric attach mappings',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show vlan i-sid {vlan}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.3.2.1.61.{vlan}','i','']
+    show_members:
+        uuid: 40751f42-ee75-4d5c-91df-31cec8779388
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show vlan members',userPrompt,'None','None','None',[],[]]
+    show_members_port:
+        uuid: ee7a03f6-be9e-4946-baf0-75d059ca98a6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show vlan members port {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.3.2.1.11.{vlan}','i','']
+    show_port:
+        uuid: f3e6ecae-2e8a-4de3-9cc3-0faede0c623f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show interfaces gigabitEthernet name {port}',userPrompt,'None','None','None',[],[]]

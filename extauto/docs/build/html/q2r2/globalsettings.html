@@ -1,0 +1,1279 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AccountManagement &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xiqconfigure.html"><strong>CONFIGURE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmanage.html"><strong>MANAGE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqa3.html"><strong>A3</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqcommon.html"><strong>COMMON FLOWS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqglobalsettings.html"><strong>GLOBAL SETTINGS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmlinsights.html"><strong>MLINSIGHTS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonlib.html"><strong>COMMON LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="remotelib.html"><strong>REMOTE LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqsenetwork.html"><strong>XIQSE NETWORK</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqseadmin.html"><strong>XIQSE ADMIN</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqsecommon.html"><strong>XIQSE COMMON</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>AccountManagement</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/globalsettings.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="_images/extreme_logo.png"><img alt="alternate text" class="align-right" src="_images/extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-xiq.flows.globalsettings.AccountManagement">
+<span id="accountmanagement"></span><h1>AccountManagement<a class="headerlink" href="#module-xiq.flows.globalsettings.AccountManagement" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement">
+<em class="property">class </em><code class="sig-prename descclassname">xiq.flows.globalsettings.AccountManagement.</code><code class="sig-name descname">AccountManagement</code><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiq.elements.AccntMgmtWebElements.AccntMgmtWebElements</span></code></p>
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.check_config_error">
+<code class="sig-name descname">check_config_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.check_config_error" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Check for Errors while Saving Configurations on XIQ</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Check</span> <span class="pre">Config</span> <span class="pre">Error</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if no error message after saving the config else returns -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.check_for_dashboard_page">
+<code class="sig-name descname">check_for_dashboard_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.check_for_dashboard_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Check for Dashboard Page</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Check</span> <span class="pre">For</span> <span class="pre">Dashboard</span> <span class="pre">Page</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if no issues in opening page else returns -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.check_packet_capture_option">
+<code class="sig-name descname">check_packet_capture_option</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.check_packet_capture_option" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Navigates to Packet Capture option Page</p></li>
+<li><p>Flow : Manage &gt; Tools–&gt;Packet Capture</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Check</span> <span class="pre">Packet</span> <span class="pre">Capture</span> <span class="pre">Option</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if no issues in opening Tools –&gt; Packet Capture page else returns -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.create_role_based_account">
+<code class="sig-name descname">create_role_based_account</code><span class="sig-paren">(</span><em class="sig-param">**accnt_config</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.create_role_based_account" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Creates an account based on the arguments from rbac_config.robot</p></li>
+<li><p>&amp;{OPERATOR_ROLE}, &amp;{MONITOR_ROLE}, &amp;{HELPDESK_ROLE}, &amp;{Guest_Management_Role}, &amp;{Observer_Role}</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Account Management</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Role</span> <span class="pre">Based</span> <span class="pre">Account</span>&#160; <span class="pre">&amp;{ACCOUNT_CONFIGS}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>accnt_config</strong> – (dict) include email, name, timeout, role, organization, location</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if there is no error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.delete_management_account">
+<code class="sig-name descname">delete_management_account</code><span class="sig-paren">(</span><em class="sig-param">email_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.delete_management_account" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Search the management account in accounts grid</p></li>
+<li><p>if exist delete the account</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Account Management</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">Management</span> <span class="pre">Account</span>&#160; <span class="pre">${ACCOUNT_EMAIL}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>email_addr</strong> – email address to search the account</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if Account found on grid and got deleted successfully else None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.get_packet_capture_button">
+<code class="sig-name descname">get_packet_capture_button</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.get_packet_capture_button" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.open_account_mgmt_page">
+<code class="sig-name descname">open_account_mgmt_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.open_account_mgmt_page" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>Navigates to Account Management Page</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Account Management</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Account</span> <span class="pre">Mgmt</span> <span class="pre">Page</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if no issues in opening Account Management page else returns -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.open_dashboard_page">
+<code class="sig-name descname">open_dashboard_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.open_dashboard_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Navigates to Dashboard Page</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Dashboard</span> <span class="pre">Page</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if no issues in opening Dashboard page else returns -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.open_guest_mgmt_page">
+<code class="sig-name descname">open_guest_mgmt_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.open_guest_mgmt_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Navigates to Guest Management Page</p></li>
+<li><p>Flow : Global settings &gt; Credential Distribution Groups</p></li>
+<li><p>Keyword Usage
+- <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Guest</span> <span class="pre">Mgmt</span> <span class="pre">Page</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if no issues in opening Guest Management page else returns -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.open_license_mgmt_page">
+<code class="sig-name descname">open_license_mgmt_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.open_license_mgmt_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Navigates to License Management Page</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; ADMINISTRATION–&gt;License Management</p></li>
+<li><p>Keyword Usage
+- <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">License</span> <span class="pre">Mgmt</span> <span class="pre">Page</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if no issues in opening License Management page else returns -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.open_tools_page">
+<code class="sig-name descname">open_tools_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.open_tools_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Navigates to Tools Page on Monitor Menu Option</p></li>
+<li><p>Flow : Manage–&gt;Tools</p></li>
+<li><p>Keyword Usage
+- <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Tools</span> <span class="pre">Page</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if no issues in opening Tools page else returns -2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.AccountManagement.AccountManagement.search_management_account">
+<code class="sig-name descname">search_management_account</code><span class="sig-paren">(</span><em class="sig-param">email_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.AccountManagement.AccountManagement.search_management_account" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Search the management account in accounts grid</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Account Management</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Search</span> <span class="pre">Management</span> <span class="pre">Account</span>&#160; <span class="pre">${ACCOUNT_EMAIL}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>email_addr</strong> – Email Address Of the Account</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>row if Exists else None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiq.flows.globalsettings.CredDistrGrup">
+<span id="creddistrgrup"></span><h1>CredDistrGrup<a class="headerlink" href="#module-xiq.flows.globalsettings.CredDistrGrup" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xiq.flows.globalsettings.CredDistrGrup.CredDistrGrup">
+<em class="property">class </em><code class="sig-prename descclassname">xiq.flows.globalsettings.CredDistrGrup.</code><code class="sig-name descname">CredDistrGrup</code><a class="headerlink" href="#xiq.flows.globalsettings.CredDistrGrup.CredDistrGrup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiq.elements.CredDistrGrupWebElemnts.CredDistrGrupWebElemnts</span></code></p>
+<dl class="method">
+<dt id="xiq.flows.globalsettings.CredDistrGrup.CredDistrGrup.create_cred_distribution_group">
+<code class="sig-name descname">create_cred_distribution_group</code><span class="sig-paren">(</span><em class="sig-param">**group_config</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.CredDistrGrup.CredDistrGrup.create_cred_distribution_group" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Flow: Global Settings –&gt; Credential Distribution Groups</p></li>
+<li><p>Create Credential distribution Groups</p></li>
+<li><p>There are two admin account type need to include the cred distribution groups</p></li>
+<li><ol class="arabic simple">
+<li><p>Guest Management Role User. 2.Active directory User</p></li>
+</ol>
+</li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Cred</span> <span class="pre">Distribution</span> <span class="pre">Groups</span>&#160; <span class="pre">&amp;{CRED_DISTR_GROUPS_CONFIG}</span></code></p></li>
+<li><p>For Creation of &amp;{CRED_DISTR_GROUPS_CONFIG}  refer emails_reports_config.robot file</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>group_config</strong> – (dict) configuration parameters</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if group created
+-1 Configure at least one guest management user</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.CredDistrGrup.CredDistrGrup.delete_cred_distr_group">
+<code class="sig-name descname">delete_cred_distr_group</code><span class="sig-paren">(</span><em class="sig-param">group_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.CredDistrGrup.CredDistrGrup.delete_cred_distr_group" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Flow: Global Settings –&gt; Credential Distribution Groups</p></li>
+<li><p>Search the credentials distribution group</p></li>
+<li><p>If exists delete the group</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">Cred</span> <span class="pre">Distr</span> <span class="pre">Group</span>&#160;&#160; <span class="pre">${GROUP_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>group_name</strong> – group name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if deleted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiq.flows.globalsettings.GlobalSetting">
+<span id="globalsetting"></span><h1>GlobalSetting<a class="headerlink" href="#module-xiq.flows.globalsettings.GlobalSetting" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting">
+<em class="property">class </em><code class="sig-prename descclassname">xiq.flows.globalsettings.GlobalSetting.</code><code class="sig-name descname">GlobalSetting</code><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiq.elements.GlobalSettingWebElements.GlobalSettingWebElements</span></code></p>
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.backup_viq_data">
+<code class="sig-name descname">backup_viq_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.backup_viq_data" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will Backup the current VIQ Data</p></li>
+<li><p>Flow : User account icon–&gt;Global Settings–&gt; VIQ Management —&gt; Backup Now</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>`` Backup VIQ Data ``</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 after successfully Backup the VIQ data else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.change_device_password">
+<code class="sig-name descname">change_device_password</code><span class="sig-paren">(</span><em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.change_device_password" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Change the Device Password String on Global Settings–&gt;Device Management Page.</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Device Management Settings</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">Device</span> <span class="pre">password</span>&#160;&#160; <span class="pre">${LANGUAGE}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>password</strong> – Password String</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if XIQ Account Language Changed Successfully else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.change_xiq_account_language">
+<code class="sig-name descname">change_xiq_account_language</code><span class="sig-paren">(</span><em class="sig-param">language</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.change_xiq_account_language" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Change the language of the account</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Account Details–&gt; Select Language–&gt;Apply</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">Xiq</span> <span class="pre">Account</span> <span class="pre">Language</span>&#160;&#160; <span class="pre">${LANGUAGE}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language</strong> – Language Name ie English</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if XIQ Account Language Changed Successfully else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.change_xiq_account_time_zone">
+<code class="sig-name descname">change_xiq_account_time_zone</code><span class="sig-paren">(</span><em class="sig-param">time_zone='(GMT) UTC'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.change_xiq_account_time_zone" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Change the time zone of the account</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Account Details–&gt; Select Time Zone–&gt;Apply</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">XIQ</span> <span class="pre">Account</span> <span class="pre">Time</span> <span class="pre">Zone</span>&#160;&#160; <span class="pre">${TIMEZONE}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_zone</strong> – Time zone to select e.g., UTC, EST5EDT, etc</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if XIQ Account Time Zone was changed successfully, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.create_organization">
+<code class="sig-name descname">create_organization</code><span class="sig-paren">(</span><em class="sig-param">organization_name</em>, <em class="sig-param">colour_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.create_organization" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses To Create Organization</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Organization</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Organization</span>&#160;&#160; <span class="pre">${ORGANIZATION_NAME}</span>&#160; <span class="pre">${ORGANIZATION_COLOUR}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>organization_name</strong> – Name of the Organization</p></li>
+<li><p><strong>colour_name</strong> – Organization Colour</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 If Organization Created Successfully else None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.delete_api_access_tokens">
+<code class="sig-name descname">delete_api_access_tokens</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.delete_api_access_tokens" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to delete the all generated access tokens</p></li>
+<li><p>Flow: Global Settings –&gt; API Token Management –&gt; Select all rows –&gt; Delete</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">Api</span> <span class="pre">Access</span> <span class="pre">Tokens`</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.enable_account_hiq">
+<code class="sig-name descname">enable_account_hiq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.enable_account_hiq" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Enable MSP Feature in the Account</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Account Details–&gt; Enable HIQ Button</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Enable</span> <span class="pre">Account</span> <span class="pre">HIQ</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 If HIQ Enabled Successfully in the Account else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.enable_ssh_availability">
+<code class="sig-name descname">enable_ssh_availability</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.enable_ssh_availability" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Enabling SSH availability in Global Settings Page</p></li>
+<li><p>Flow : User account icon–&gt;Global Settings–&gt; SSH availability</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>`` Enable SSH Availability ``</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 after successfully enabling SSH</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_accounting_logs_details">
+<code class="sig-name descname">get_accounting_logs_details</code><span class="sig-paren">(</span><em class="sig-param">search_string</em>, <em class="sig-param">search_filter=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_accounting_logs_details" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Filter the logs based on the Filter arguments Allowed Filters are: Client or user name</p></li>
+<li><p>Get accounts detailed logs from the row</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Accounting Logs</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Accounting</span> <span class="pre">Logs</span> <span class="pre">Details</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span>&#160;&#160; <span class="pre">${SEARCH_FILTER}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>search_filter</strong> – String to filter the accounting log rows</p></li>
+<li><p><strong>search_string</strong> – String to search the row</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Accounting Logs dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_accounting_logs_row">
+<code class="sig-name descname">get_accounting_logs_row</code><span class="sig-paren">(</span><em class="sig-param">search_string</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_accounting_logs_row" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the Accounting Logs from Global Settings Page</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Accounting Logs</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Accounting</span> <span class="pre">Logs</span> <span class="pre">Row</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – it should be anything which is searched on the row cell
+example search_string be like user_name, auth_type,client etc</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>row element if row exists else return None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_api_access_token_details">
+<code class="sig-name descname">get_api_access_token_details</code><span class="sig-paren">(</span><em class="sig-param">search_string</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_api_access_token_details" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This key word is used to get the token details i.e access token, refresh token, expiry time</p></li>
+<li><p>Flow:</p></li>
+<li><p>Global Settings –&gt; API Token Management</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">API</span> <span class="pre">Access</span> <span class="pre">Token</span> <span class="pre">Details</span>&#160; <span class="pre">${SEARCH_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – Search string is the access token generated from the curl command</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>access token row detail dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_auth_method">
+<code class="sig-name descname">get_authentication_logs_auth_method</code><span class="sig-paren">(</span><em class="sig-param">search_string</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_auth_method" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the Authentication method Field on authentication Logs grid</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Authentication Logs</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Authentication</span> <span class="pre">Logs</span> <span class="pre">Auth</span> <span class="pre">Method</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – Row Search String i.e client mac or user name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Authentication Logs Authentication Method Field Text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_client_detail">
+<code class="sig-name descname">get_authentication_logs_client_detail</code><span class="sig-paren">(</span><em class="sig-param">search_string</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_client_detail" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the Client Details on authentication Logs grid</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Authentication</span> <span class="pre">Logs</span> <span class="pre">Client</span> <span class="pre">Detail</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – Row Search String i.e client mac or user name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Authentication Logs callingStationId Field Text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_date">
+<code class="sig-name descname">get_authentication_logs_date</code><span class="sig-paren">(</span><em class="sig-param">search_string</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_date" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the date Field on authentication Logs grid</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Authentication Logs</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Authentication</span> <span class="pre">Logs</span> <span class="pre">Date</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – Row Search String i.e client mac or user name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Authentication Logs AuthDate Field Text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_details">
+<code class="sig-name descname">get_authentication_logs_details</code><span class="sig-paren">(</span><em class="sig-param">search_string</em>, <em class="sig-param">search_filter=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_details" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Filter the logs based on the Filter arguments Allowed Filters are: Client or user name</p></li>
+<li><p>Gets all authentication details from the row</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Authentication Logs</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Authentication</span> <span class="pre">Logs</span> <span class="pre">Details</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span>&#160;&#160;&#160; <span class="pre">${SEARCH_FILTER</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>search_filter</strong> – filter string</p></li>
+<li><p><strong>search_string</strong> – row search string i.e client mac or user name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>authentication details dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_row">
+<code class="sig-name descname">get_authentication_logs_row</code><span class="sig-paren">(</span><em class="sig-param">search_string</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_row" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the Authentication Logs from Global Settings Page</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Authentication Logs</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Authentication</span> <span class="pre">Logs</span> <span class="pre">Row</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – it should be anything which is searched on the row cell
+example search_string be like user_name, auth_type,client etc</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>row element if row exists else return None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_ssid">
+<code class="sig-name descname">get_authentication_logs_ssid</code><span class="sig-paren">(</span><em class="sig-param">search_string</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_ssid" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the ssid Field on authentication Logs grid</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Authentication</span> <span class="pre">Logs</span> <span class="pre">SSID</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – Row Search String i.e client mac or user name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Authentication Logs SSID Field Text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_username">
+<code class="sig-name descname">get_authentication_logs_username</code><span class="sig-paren">(</span><em class="sig-param">search_string</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.get_authentication_logs_username" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the username Field on authentication Logs grid</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Authentication Logs</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Authentication</span> <span class="pre">Logs</span> <span class="pre">Username</span>&#160;&#160; <span class="pre">${SEARCH_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_string</strong> – Row Search String i.e client mac or user name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Authentication Logs User Name Field Text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.reset_viq_data">
+<code class="sig-name descname">reset_viq_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.reset_viq_data" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will Delete the VIQ Data</p></li>
+<li><p>Flow : User account icon–&gt;Global Settings–&gt; VIQ Management —&gt; Reset VIQ</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>`` Reset VIQ ``</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 after successfully Resetting VIQ data else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.GlobalSetting.GlobalSetting.search_organization_name">
+<code class="sig-name descname">search_organization_name</code><span class="sig-paren">(</span><em class="sig-param">organization_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.GlobalSetting.GlobalSetting.search_organization_name" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Search the Organization Name From Global Settings Page</p></li>
+<li><p>Flow : User account image–&gt;Global Settings–&gt; Organization</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Search</span> <span class="pre">Organization</span> <span class="pre">Name</span>&#160;&#160; <span class="pre">${ORGANIZATION_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>organization_name</strong> – Name of the Organization</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 If Organization found on Grid else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiq.flows.globalsettings.PasswordReset">
+<span id="passwordreset"></span><h1>PasswordReset<a class="headerlink" href="#module-xiq.flows.globalsettings.PasswordReset" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xiq.flows.globalsettings.PasswordReset.PasswordReset">
+<em class="property">class </em><code class="sig-prename descclassname">xiq.flows.globalsettings.PasswordReset.</code><code class="sig-name descname">PasswordReset</code><a class="headerlink" href="#xiq.flows.globalsettings.PasswordReset.PasswordReset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="xiq.flows.globalsettings.PasswordReset.PasswordReset.add_account">
+<code class="sig-name descname">add_account</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">_email</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.PasswordReset.PasswordReset.add_account" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>adds an account under account management</p></li>
+<li><p>Adding administrative account</p></li>
+<li><p>Flow Global Settings –&gt; Account Management</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">Account</span>&#160; <span class="pre">${NAME}</span>&#160;&#160; <span class="pre">${EMAIL</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – </p></li>
+<li><p><strong>_email</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if account created else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.PasswordReset.PasswordReset.get_link">
+<code class="sig-name descname">get_link</code><span class="sig-paren">(</span><em class="sig-param">_email</em>, <em class="sig-param">_password</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.PasswordReset.PasswordReset.get_link" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the url link for password set to new account sent to email</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Link</span>&#160;&#160; <span class="pre">${EMAIL}</span>&#160;&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_email</strong> – </p></li>
+<li><p><strong>_password</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>password reset link</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.PasswordReset.PasswordReset.password_reset">
+<code class="sig-name descname">password_reset</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">_email</em>, <em class="sig-param">_password</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.PasswordReset.PasswordReset.password_reset" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Create administrative account and get the password reset link</p></li>
+<li><p>Flow Global Settings –&gt; Account Management</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>Password Reset   ${NAME}   ${EMAIL}   ${PASSWORD}</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – </p></li>
+<li><p><strong>_email</strong> – </p></li>
+<li><p><strong>_password</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pasword reset link</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiq.flows.globalsettings.Dashboard">
+<span id="dashboard"></span><h1>Dashboard<a class="headerlink" href="#module-xiq.flows.globalsettings.Dashboard" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard">
+<em class="property">class </em><code class="sig-prename descclassname">xiq.flows.globalsettings.Dashboard.</code><code class="sig-name descname">Dashboard</code><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_connection_status_offline_count">
+<code class="sig-name descname">dashboard_cards_connection_status_offline_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_connection_status_offline_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total Connection status offline count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Connection</span> <span class="pre">Status</span> <span class="pre">offline</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return Connection Status Online Count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_connection_status_online_count">
+<code class="sig-name descname">dashboard_cards_connection_status_online_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_connection_status_online_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total Connection status online count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Connection</span> <span class="pre">Status</span> <span class="pre">Online</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return Connection Status Online Count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_application_count">
+<code class="sig-name descname">dashboard_cards_total_application_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_application_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total aps count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Total</span> <span class="pre">Application</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return total aps Count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_clients_count">
+<code class="sig-name descname">dashboard_cards_total_clients_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_clients_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total clients count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Total</span> <span class="pre">Clients</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return total clients Count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_critical_alarm_count">
+<code class="sig-name descname">dashboard_cards_total_critical_alarm_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_critical_alarm_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total critical alarm count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Total</span> <span class="pre">Critical</span> <span class="pre">Alarm</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return total critical alarm count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_major_alarm_count">
+<code class="sig-name descname">dashboard_cards_total_major_alarm_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_major_alarm_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total Major alarm count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Total</span> <span class="pre">Major</span> <span class="pre">Alarm</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return total Major alarm count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_minor_alarm_count">
+<code class="sig-name descname">dashboard_cards_total_minor_alarm_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_minor_alarm_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total Minor alarm count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Total</span> <span class="pre">Minor</span> <span class="pre">Alarm</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return total Minor alarm count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_rogue_aps_count">
+<code class="sig-name descname">dashboard_cards_total_rogue_aps_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_rogue_aps_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total Rogue Aps Count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Total</span> <span class="pre">Rogue</span> <span class="pre">Aps</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return Rogue Aps Count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_rogue_clients_count">
+<code class="sig-name descname">dashboard_cards_total_rogue_clients_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_rogue_clients_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total Rogue Aps Count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Total</span> <span class="pre">Rogue</span> <span class="pre">clients</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return Rogue clients Count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_users_count">
+<code class="sig-name descname">dashboard_cards_total_users_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_cards_total_users_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total Users count in dashboard health card</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Cards</span> <span class="pre">Total</span> <span class="pre">Users</span> <span class="pre">Count</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return total Users Count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_stats_total_application_usage">
+<code class="sig-name descname">dashboard_stats_total_application_usage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.globalsettings.Dashboard.Dashboard.dashboard_stats_total_application_usage" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get total Application usage in Dashboard Page</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dashboard</span> <span class="pre">Stats</span> <span class="pre">Total</span> <span class="pre">Application</span> <span class="pre">Usage</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if success return total Application usage Count else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramkumar Vellasamy
+      <span class="lastupdated">
+        Last updated on Jun 03, 2021, 6:58:48 PM.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

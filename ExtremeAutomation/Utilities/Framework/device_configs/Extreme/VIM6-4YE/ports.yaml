@@ -1,0 +1,19 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for VIM6-4YE
+#
+#
+ports:
+    - local_name: 1
+      <<: *VIM6_PORT_1_SFP
+    - local_name: 2
+      <<: *VIM6_PORT_2_SFP
+    - local_name: 3
+      <<: *VIM6_PORT_3_SFP
+    - local_name: 4
+      <<: *VIM6_PORT_4_SFP

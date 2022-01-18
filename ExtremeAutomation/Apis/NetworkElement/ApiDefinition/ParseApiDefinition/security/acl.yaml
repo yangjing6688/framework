@@ -1,0 +1,104 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+acl:
+    check_ipv4_acl_exists:
+        uuid: 2ee51112-5fbe-4a1b-b83b-218808841275
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_ipv6_acl_exists:
+        uuid: f3636eea-4087-4db5-be54-f6ef28deee6e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_ace_exists:
+        uuid: b01e5255-721d-41db-99a7-21c7439d09f9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_acl_enable:
+        uuid: 0f410a86-3c97-4e51-ad22-08b2ef183065
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_acl_name:
+        uuid: cab5461c-5c94-4b8d-aec2-822d3baf78a9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_acl_action:
+        uuid: 53b2de15-8ac1-439d-b0c2-696d17f68722
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_acl_port:
+        uuid: 57cc9500-3f45-4574-bd74-9d3ae086d3b0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_acl_vlan:
+        uuid: b23b91b9-88d6-42e5-aeab-046e7c88da88
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ace_index_oper_state:
+        uuid: ecd23392-0706-4abe-986b-2408557cb0a0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ace_index_name:
+        uuid: ed7fd360-0c4f-4597-9f6f-ff13cc3e628e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ace_index_action:
+        uuid: 5556cdd7-48f0-44f7-a642-e137afe9d416
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ace_index_ethernet_ethertype:
+        uuid: 05be2863-86a9-4942-ba60-dd5288093e7c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_acl_exists:
+        uuid: 06f696b7-ff12-4cf1-97e7-8a49a6565c1e
+        apis:
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]

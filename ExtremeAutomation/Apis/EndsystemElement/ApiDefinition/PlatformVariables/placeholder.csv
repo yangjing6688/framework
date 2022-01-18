@@ -1,0 +1,5 @@
+Feature,placeholder,,,,
+Variable Name,OS,Platform,Version,Unit,Variables Value
+placeholder_var_1,LINUX,base,baseversion,baseunit,var_1
+placeholder_var_2,LINUX,base,baseversion,baseunit,var_2
+placeholder_var_3,LINUX,base,baseversion,baseunit,var_3

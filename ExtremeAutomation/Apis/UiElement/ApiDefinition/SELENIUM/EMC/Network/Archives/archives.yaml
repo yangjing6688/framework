@@ -1,0 +1,415 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+archives:
+    archives_click_create:
+        apis:
+            - [emc,'8.1.1']
+    archives_click_refresh:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_expand_node:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_collapse_node:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_select_node:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_expand_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_expand_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_collapse_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_collapse_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_select_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_select_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_create:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_refresh:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_delete_archive:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_delete_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_delete_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_delete_newest_archive_version_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_delete_oldest_archive_version_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_lock_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_lock_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_unlock_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_unlock_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_rename_archive:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_restore_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_restore_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_restore_newest_archive_version_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_restore_oldest_archive_version_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_stamp_new_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_tree_view_config_file:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_select_archive:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_delete_archive:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_delete_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_delete_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_delete_newest_archive_version_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_delete_oldest_archive_version_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_lock_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_lock_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_unlock_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_unlock_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_rename_archive:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_restore_newest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_restore_oldest_archive_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_restore_newest_archive_version_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_restore_oldest_archive_version_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_table_stamp_new_version:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_select_tab:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_click_save:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_description:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_ips_enabled:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_ips_disabled:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_process_groups:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_abort_on_failure:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_max_versions_unlimited:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_max_versions_value:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_archive_configuration_data:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_archive_capacity_planning_data:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_run_governance:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_select_regime:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_frequency:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_date:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_set_start_time:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_archive_click_configure_devices:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_version_set_locked:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_version_set_description:
+        apis:
+            - [emc,'8.1.1']
+    archives_details_device_set_memo:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_configure_devices_add_archive_member_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_configure_devices_add_archive_member_group:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_configure_devices_remove_archive_member_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_configure_devices_remove_archive_member_group:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_configure_devices_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_configure_devices_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_confirm_delete_archive_click_yes:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_confirm_delete_archive_click_no:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_confirm_delete_version_click_yes:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_confirm_delete_version_click_no:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_confirm_delete_device_click_yes:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_confirm_delete_device_click_no:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_name:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_description:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_max_versions_unlimited:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_max_versions_value:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_archive_configuration_data:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_archive_capacity_planning_data:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_add_archive_member_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_add_archive_member_group:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_remove_archive_member_device:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_remove_archive_member_group:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_frequency:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_date:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_start_time:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_process_groups:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_abort_on_failure:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_ip_sort_ascending:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_ip_sort_descending:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_set_ips_disabled:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_click_next:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_click_previous:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_click_finish:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_create_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_rename_set_name:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_rename_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_rename_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_view_config_file_find:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_view_config_file_find_in_named_block:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_view_config_click_close:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_archive_exists:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_archive_version_count:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_archive_version_success:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_archive_version_aborted:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_archive_contains_devices:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_name:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_description:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_description_contains:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_ips_enabled:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_process_groups:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_abort_on_failure:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_max_versions_value:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_max_versions_unlimited:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_configuration_data:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_capacity_planning:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_frequency:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_date:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_archive_start_time:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_version_device_count:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_version_success_count:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_version_failed_count:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_version_aborted_count:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_version_locked:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_device_description:
+        apis:
+            - [emc,'8.1.1']
+    archives_confirm_details_device_description_contains:
+        apis:
+            - [emc,'8.1.1']
+    archives_dialog_view_config_file_line_contains:
+        apis:
+            - [emc,'8.1.2']
+    archives_confirm_details_archive_run_governance:
+        apis:
+            - [emc,'8.1.3']
+    archives_confirm_details_archive_regime:
+        apis:
+            - [emc,'8.1.3']
+    archives_confirm_details_version_different_count:
+        apis:
+            - [emc,'8.1.3']
+    archives_confirm_details_version_description:
+        apis:
+            - [emc,'8.1.3']
+    archives_confirm_details_version_description_contains:
+        apis:
+            - [emc,'8.1.3']

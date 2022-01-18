@@ -1,0 +1,300 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines fan FRUs common to X725 series switches
+#
+
+common_fan_info: &COMMON_FAN_INFO
+  number_fan_frus:    6
+  fans_per_fru:       2
+  polling_period:     2000
+  fan_speed_settings:
+    type:             LINEAR
+    range:            [0x00, 0xff]
+  fan_direction:      DETECT
+  fan_direction_values:
+    F2B:              0x0
+    B2F:              0x1
+  fan_speed_multiplier: 150
+  fan_led_settings:
+    OFF:              0x0
+    SOLID_GREEN:      0x1
+    BLINK_AMBER:      0x2
+  fan_min_rps:
+    device:           power_cpld
+    register:         0x22
+    bitmask:          0xff
+
+fan_fru_1: &FAN_FRU_1
+  number:             1
+  devices:
+    - name:           fan_fru_1_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch5
+      address:        0x57
+      format:         extreme
+  fan_eeprom:         fan_fru_1_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x08
+    bitmask:          0x03
+  fan_direction_detect:
+    device:           power_cpld
+    register:         0x10
+    bitmask:          0x01
+  fan_presence:
+    device:           power_cpld
+    register:         0x10
+    bitmask:          0x02
+  fan_speed_control:
+    device:           power_cpld
+    register:         0x23
+    bitmask:          0xff
+  fans:
+    - number:         1
+      fan_fault:
+        device:       power_cpld
+        register:     0x10
+        bitmask:      0x04
+      fan_speed:
+        device:       power_cpld
+        register:     0x16
+        bitmask:      0xff
+    - number:         2
+      fan_fault:
+        device:       power_cpld
+        register:     0x10
+        bitmask:      0x08
+      fan_speed:
+        device:       power_cpld
+        register:     0x17
+        bitmask:      0xff
+
+fan_fru_2: &FAN_FRU_2
+  number:             2
+  devices:
+    - name:           fan_fru_2_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch4
+      address:        0x57
+      format:         extreme
+  fan_eeprom:         fan_fru_2_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x08
+    bitmask:          0x0c
+  fan_direction_detect:
+    device:           power_cpld
+    register:         0x11
+    bitmask:          0x01
+  fan_presence:
+    device:           power_cpld
+    register:         0x11
+    bitmask:          0x02
+  fan_speed_control:
+    device:           power_cpld
+    register:         0x23
+    bitmask:          0xff
+  fans:
+    - number:         1
+      fan_fault:
+        device:       power_cpld
+        register:     0x11
+        bitmask:      0x04
+      fan_speed:
+        device:       power_cpld
+        register:     0x18
+        bitmask:      0xff
+    - number:         2
+      fan_fault:
+        device:       power_cpld
+        register:     0x11
+        bitmask:      0x08
+      fan_speed:
+        device:       power_cpld
+        register:     0x19
+        bitmask:      0xff
+
+fan_fru_3: &FAN_FRU_3
+  number:             3
+  devices:
+    - name:           fan_fru_3_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch3
+      address:        0x57
+      format:         extreme
+  fan_eeprom:         fan_fru_3_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x08
+    bitmask:          0x30
+  fan_direction_detect:
+    device:           power_cpld
+    register:         0x12
+    bitmask:          0x01
+  fan_presence:
+    device:           power_cpld
+    register:         0x12
+    bitmask:          0x02
+  fan_speed_control:
+    device:           power_cpld
+    register:         0x23
+    bitmask:          0xff
+  fans:
+    - number:         1
+      fan_fault:
+        device:       power_cpld
+        register:     0x12
+        bitmask:      0x04
+      fan_speed:
+        device:       power_cpld
+        register:     0x1a
+        bitmask:      0xff
+    - number:         2
+      fan_fault:
+        device:       power_cpld
+        register:     0x12
+        bitmask:      0x08
+      fan_speed:
+        device:       power_cpld
+        register:     0x1b
+        bitmask:      0xff
+
+fan_fru_4: &FAN_FRU_4
+  number:             4
+  devices:
+    - name:           fan_fru_4_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch2
+      address:        0x57
+      format:         extreme
+  fan_eeprom:         fan_fru_4_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x08
+    bitmask:          0xc0
+  fan_direction_detect:
+    device:           power_cpld
+    register:         0x13
+    bitmask:          0x01
+  fan_presence:
+    device:           power_cpld
+    register:         0x13
+    bitmask:          0x02
+  fan_speed_control:
+    device:           power_cpld
+    register:         0x23
+    bitmask:          0xff
+  fans:
+    - number:         1
+      fan_fault:
+        device:       power_cpld
+        register:     0x13
+        bitmask:      0x04
+      fan_speed:
+        device:       power_cpld
+        register:     0x1c
+        bitmask:      0xff
+    - number:         2
+      fan_fault:
+        device:       power_cpld
+        register:     0x13
+        bitmask:      0x08
+      fan_speed:
+        device:       power_cpld
+        register:     0x1d
+        bitmask:      0xff
+
+fan_fru_5: &FAN_FRU_5
+  number:             5
+  devices:
+    - name:           fan_fru_5_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch1
+      address:        0x57
+      format:         extreme
+  fan_eeprom:         fan_fru_5_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x09
+    bitmask:          0x03
+  fan_direction_detect:
+    device:           power_cpld
+    register:         0x14
+    bitmask:          0x01
+  fan_presence:
+    device:           power_cpld
+    register:         0x14
+    bitmask:          0x02
+  fan_speed_control:
+    device:           power_cpld
+    register:         0x23
+    bitmask:          0xff
+  fans:
+    - number:         1
+      fan_fault:
+        device:       power_cpld
+        register:     0x14
+        bitmask:      0x04
+      fan_speed:
+        device:       power_cpld
+        register:     0x1e
+        bitmask:      0xff
+    - number:         2
+      fan_fault:
+        device:       power_cpld
+        register:     0x14
+        bitmask:      0x08
+      fan_speed:
+        device:       power_cpld
+        register:     0x1f
+        bitmask:      0xff
+
+fan_fru_6: &FAN_FRU_6
+  number:             6
+  devices:
+    - name:           fan_fru_6_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch0
+      address:        0x57
+      format:         extreme
+  fan_eeprom:         fan_fru_6_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x09
+    bitmask:          0x0c
+  fan_direction_detect:
+    device:           power_cpld
+    register:         0x15
+    bitmask:          0x01
+  fan_presence:
+    device:           power_cpld
+    register:         0x15
+    bitmask:          0x02
+  fan_speed_control:
+    device:           power_cpld
+    register:         0x23
+    bitmask:          0xff
+  fans:
+    - number:         1
+      fan_fault:
+        device:       power_cpld
+        register:     0x15
+        bitmask:      0x04
+      fan_speed:
+        device:       power_cpld
+        register:     0x20
+        bitmask:      0xff
+    - number:         2
+      fan_fault:
+        device:       power_cpld
+        register:     0x15
+        bitmask:      0x08
+      fan_speed:
+        device:       power_cpld
+        register:     0x21
+        bitmask:      0xff

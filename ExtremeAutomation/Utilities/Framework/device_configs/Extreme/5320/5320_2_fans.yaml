@@ -1,0 +1,19 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+# This file defines fan devices for 5320 models with 2 fans
+#
+
+devices:
+  - *FAN_CONTROLLER_MAX31790
+
+fan_info:
+  <<: *COMMON_FAN_2_INFO
+
+fan_frus:
+  - *FAN_FRU_1
+  - *FAN_FRU_2

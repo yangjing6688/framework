@@ -1,0 +1,17 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+
+networking:
+    connect_to_wireless_network:
+        apis:
+            - [WINDOWS,base,baseversion,baseunit,'netsh wlan connect ssid={ssid} name={ssid}',userPrompt,'None','None','None',[],[]]
+    disconnect_from_wireless_network:
+        apis:
+            - [WINDOWS,base,baseversion,baseunit,'netsh wlan disconnect',userPrompt,'None','None','None',[],[]]
+    show_wireless_network:
+        apis:
+            - [WINDOWS,base,baseversion,baseunit,'netsh wlan show interfaces',userPrompt,'None','None','None',[],[]]

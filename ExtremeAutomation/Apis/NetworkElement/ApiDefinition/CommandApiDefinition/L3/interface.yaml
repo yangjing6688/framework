@@ -1,0 +1,589 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+interface:
+    create_interface:
+        description: "Creates an interface on a given device"
+        arguments:
+            order: 
+        uuid: b5e7580f-4520-49c9-bd91-ebeb5b224013
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'',intfPrompt,'vlan.0.{interface}','exit','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'',intfPrompt,'vlan {interface}','exit','None',[],[]]
+    delete_interface:
+        description: "Removes an interface on a given device"
+        arguments:
+            order: 
+        uuid: 2f7731c4-8177-4d5d-8cdd-cc08a0f5b973
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no interface vlan.0.{interface}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no vlan {interface}',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit,delete,'/public/v1/config/IPv4Intf','',[],[]]
+    create_loopback:
+        description: "Creates a loopback-mode interface/VLAN"
+        arguments:
+            order: 
+        uuid: 2bcbdcdf-2fff-4e3f-b5ac-c3502a06458d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'',intfPrompt,'loop.0.{interface}','exit','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface Loopback {interface}',routerConfigPrompt,'None','None','None',[],[]]
+    delete_loopback:
+        description: "Removes a loopback-mode interface/VLAN"
+        arguments:
+            order: 
+        uuid: bd23349d-790b-4ab6-97ed-57cebbfefa34
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no interface loop.0.{interface}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no interface loopback {interface}',routerConfigPrompt,'None','None','None',[],[]]
+    enable_interface:
+        description: "Enable an interface on a given device"
+        arguments:
+            order: 
+        uuid: 868e70b1-cdad-49e8-bf4d-21c57260c778
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no shutdown',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no shutdown',intfPrompt,'interface Loopback {interface}','None','None',[],[]]
+    disable_interface:
+        description: "Disable an interface on a given device"
+        arguments:
+            order: 
+        uuid: e0ae15d1-2638-420b-9e85-553cbfd83300
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'shutdown',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'shutdown',intfPrompt,'interface Loopback {interface}','None','None',[],[]]
+    enable_ip_forwarding:
+        description: "Enables the forwarding of IPv4 routed traffic on the interface"
+        arguments:
+            order: 
+        uuid: 254578ba-4b09-4b11-94ab-54e2e35b6d80
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ip forwarding',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable ipforwarding vlan {interface}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.1.{interface}','i','1']
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.1.{interface}','i','1']
+    disable_ip_forwarding:
+        description: "Disables the forwarding of IPv4 routed traffic on the interface"
+        arguments:
+            order: 
+        uuid: 8cdb265e-1431-402f-83d7-7802591dcc4c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no ip forwarding',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable ipforwarding vlan {interface}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.1.{interface}','i','2']
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.1.{interface}','i','2']
+    enable_ipv6_forwarding:
+        description: "Enables the forwarding of IPv6 routed traffic on the interface"
+        arguments:
+            order: 
+        uuid: 55461a7a-832c-43ba-9686-4f3041c2fa68
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ipv6 forwarding',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable ipforwarding ipv6 vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ipv6 forwarding',intfPrompt,'vlan {interface}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.30.1.5.{interface}','i','1']
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.30.1.5.{interface}','i','1']
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.30.1.5.{interface}','i','1']
+    disable_ipv6_forwarding:
+        description: "Disables the forwarding of IPv6 routed traffic on the interface"
+        arguments:
+            order: 
+        uuid: 7f1cb95a-154e-4345-b5cc-696b449f733a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no ipv6 forwarding',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable ipforwarding ipv6 vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ipv6 forwarding',intfPrompt,'vlan {interface}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.30.1.5.{interface}','i','2']
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.30.1.5.{interface}','i','2']
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.30.1.5.{interface}','i','2']
+    enable_loopback:
+        description: "Enables loopback-mode on the interface/VLAN"
+        arguments:
+            order: 
+        uuid: 698df2b4-d089-47d8-8bad-16810ca0dfa4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no shutdown',intfPrompt,'loop.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable loopback-mode vlan {interface}',userPrompt,'None','None','None',[],[]]
+    disable_loopback:
+        description: "Disables loopback-mode on the interface/VLAN"
+        arguments:
+            order: 
+        uuid: 7b5568fb-59c7-4e53-84ee-fdba6d87d981
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'shutdown',intfPrompt,'loop.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable loopback-mode vlan {interface}',userPrompt,'None','None','None',[],[]]
+    set_ipv4_primary_addr_prefix:
+        description: "Configure a primary IPv4 address on a given interface"
+        arguments:
+            order: 
+        uuid: c1ad8979-6fde-43a8-875a-68d081681141
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ip address {ip}/{prefix} primary',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} ipaddress {ip}/{prefix}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ip address {ip}/{prefix}',intfPrompt,'vlan {interface}','None','None',[],[]]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit,post,'/public/v1/config/IPv4Intf','',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.2.1.3.{interface}||1.3.6.1.4.1.2272.1.8.2.1.6.{interface}||1.3.6.1.4.1.2272.1.8.2.1.7.{interface}||1.3.6.1.4.1.2272.1.8.2.1.9.{interface}||1.3.6.1.4.1.2272.1.8.2.1.12.{interface}','a||i||i||i||u','{prefix}||4||{interface}||0||0']
+    set_ipv4_primary_addr_prefix_on_port:
+        description: "Configure a primary IPv4 address on a given physical interface"
+        arguments:
+            order:
+        uuid: 3cd9a3e3-01b4-4f49-9175-01115be2a3fa
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ip address {ip}/{prefix}',intfPrompt,'interface Ethernet {interface}','None','None',[],[]]
+    set_ipv4_primary_addr_netmask:
+        description: "Configure a primary IPv4 address on a given interface"
+        arguments:
+            order: 
+        uuid: 4ab3999b-dd5b-49c8-823c-1662e6d27577
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ip address {ip} {netmask} primary',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} ipaddress {ip} {netmask}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ip address {ip} {netmask}',intfPrompt,'vlan {interface}','None','None',[],[]]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit,post,'/public/v1/config/IPv4Intf','',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.2.1.3.{interface}||1.3.6.1.4.1.2272.1.8.2.1.6.{interface}||1.3.6.1.4.1.2272.1.8.2.1.7.{interface}||1.3.6.1.4.1.2272.1.8.2.1.9.{interface}||1.3.6.1.4.1.2272.1.8.2.1.12.{interface}','a||i||i||i||u','{netmask}||4||{interface}||0||0']
+    set_ipv4_loopback_addr_prefix:
+        uuid: 70097850-8529-4f50-aecb-94c8ad335ffe
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ip address {ip}/{prefix} primary',intfPrompt,'loop.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} ipaddress {ip}/{prefix}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ip address {ip}/{prefix}',intfPrompt,'loopback {interface}','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ip address {ip}/{prefix}',intfPrompt,'interface Loopback {interface}','None','None',[],[]]
+    set_ipv4_loopback_addr_netmask:
+        description: "Configures an IPv4 loop back address on a given interface"
+        arguments:
+            order: 
+        uuid: c6b81f78-a585-44d5-a8a6-9133f6040147
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ip address {ip} {netmask} primary',intfPrompt,'loop.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} ipaddress {ip} {netmask}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ip address {interface} {ip} {netmask}',intfPrompt,'loopback {interface}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.2.1.3.{interface}||1.3.6.1.4.1.2272.1.8.2.1.6.{interface}||1.3.6.1.4.1.2272.1.8.2.1.7.{interface}||1.3.6.1.4.1.2272.1.8.2.1.9.{interface}||1.3.6.1.4.1.2272.1.8.2.1.12.{interface}','a||i||i||i||u','{netmask}||4||0||0||0']
+    set_ipv4_secondary_addr_prefix:
+        description: "Configure a secondary IPv4 address on a given interface"
+        arguments:
+            order: 
+        uuid: 69dabb6e-504e-4ffa-b90e-06ce2d0ac9ca
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ip address {ip}/{prefix} secondary',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} add secondary-ipaddress {ip}/{prefix}',userPrompt,'None','None','None',[],[]]
+    set_ipv4_secondary_addr_prefix_on_port:
+        description: "Configure a secondary IPv4 address on a given physical interface"
+        arguments:
+            order:
+        uuid: d91bf647-2141-431c-a333-7c18ec068987
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ip address {ip}/{prefix} secondary',intfPrompt,'interface Ethernet {interface}','None','None',[],[]]
+    set_ipv4_secondary_addr_netmask:
+        description: "Configure a secondary IPv4 address on a given interface"
+        arguments:
+            order: 
+        uuid: 7a54c0e5-3317-452d-a7af-450d8a8d72da
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ip address {ip} {netmask} secondary',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} add secondary-ipaddress {ip} {netmask}',userPrompt,'None','None','None',[],[]]
+    set_ipv6_address:
+        description: "Configures an IPv6 address on a given interface"
+        arguments:
+            order: 
+        uuid: 7b9b6449-4a37-49aa-94c2-684e7c9b16e1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ipv6 address {ipv6_addr}/{prefix}',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} ipaddress {ipv6_addr}/{prefix}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ipv6 interface address {ipv6_addr}/{prefix}',intfPrompt,'vlan {interface}','None','None',[],[]]
+    set_ipv6_address_on_port:
+        description: "Configures an IPv6 address on a given physical interface"
+        arguments:
+            order:
+        uuid: 492c31d1-b34f-4c4b-9618-410fe6f5cb1b
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ipv6 address {ipv6_addr}/{prefix}',intfPrompt,'interface Ethernet {interface}','None','None',[],[]]
+    set_ipv6_link_local_addr:
+        description: "Configures an IPv6 address on a given interface"
+        arguments:
+            order: 
+        uuid: b7dbcb5f-9cc1-427c-a664-57ca4a3ffb9e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ipv6 address {ipv6_addr} link-local',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} ipaddress {ipv6_addr}/{prefix}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ipv6 interface link-local {ipv6_addr}',intfPrompt,'vlan {interface}','None','None',[],[]]
+    set_ipv6_link_local_addr_on_port:
+        description: "Configures an IPv6 address on a given physical interface"
+        arguments:
+            order:
+        uuid: b17f7577-754e-4232-98ed-50d70106777e
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ipv6 address use-link-local-only',intfPrompt,'interface Ethernet {interface}','None','None',[],[]]
+    set_ipv6_eui64_address:
+        description: "Configures an EUI-64 IPv6 address on a given interface"
+        arguments:
+            order: 
+        uuid: d20198be-8ab6-499b-90bf-ec2fac05ab76
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ipv6 address {prefix}/{prefix_len} eui-64',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} ipaddress eui64 {prefix}/{prefix_len}',userPrompt,'None','None','None',[],[]]
+    set_ipv6_eui64_address_on_port:
+        description: "Configures an EUI-64 IPv6 address on a given physical interface"
+        arguments:
+            order:
+        uuid: 1e9e5bd7-4010-40ea-8f29-16d5c4539d0c
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ipv6 address {prefix}/{prefix_len} eui-64',intfPrompt,'interface Ethernet {interface}','None','None',[],[]]
+    set_ipv6_loopback_address:
+        uuid: 6b58151f-b851-473e-91e3-f5a93558d704
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ipv6 address {ipv6_addr}/{prefix}',intfPrompt,'loop.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure vlan {interface} ipaddress {ipv6_addr}/{prefix}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ipv6 interface address {ipv6_addr}/{prefix}',intfPrompt,'loopback {interface}','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ipv6 address {ipv6_addr}/{prefix}',intfPrompt,'interface Loopback {interface}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.62.1.1.3.1.4.{voss_oid_index}||1.3.6.1.4.1.2272.1.62.1.1.3.1.10.{voss_oid_index}','i||i','{prefix}||4']
+    clear_ipv4_addr_prefix:
+        description: "Removes the specified IP address from a given interface"
+        arguments:
+            order: 
+        uuid: b71694e4-08c1-4349-8731-8f4eda47aa4b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no ip address {ip}/{prefix}',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure vlan {interface} ipaddress',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ip address {ip}',intfPrompt,'vlan {interface}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.2.1.6.{interface}','i','6']
+    clear_ipv4_addr_prefix_on_port:
+        description: "Removes the specified IP address from a given physical interface"
+        arguments:
+            order:
+        uuid: 846dd3ea-46e2-4f4f-9391-14d796733a43
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'no ip address',intfPrompt,'interface Ethernet {interface}','None','None',[],[]]
+    clear_ipv4_loopback_addr_netmask:
+        description: "Removes a loop back IPv4 address on a given interface"
+        arguments:
+            order: 
+        uuid: 76011191-e5f1-485a-8972-a733c8aac574
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no ip address {ip} {netmask}',intfPrompt,'loop.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure vlan {interface} ipaddress',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ip address {interface} {ip}',intfPrompt,'loopback {interface}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.2.1.6.{interface}','i','6']
+    clear_ipv6_address:
+        uuid: 2ce752f3-b2f6-41bc-be3b-851216112a9c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no ipv6 address {ipv6_addr} link-local',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure vlan {interface} ipaddress',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ipv6 interface address {ipv6_addr}',intfPrompt,'vlan {interface}','None','None',[],[]]
+    clear_ipv6_address_on_port:
+        uuid: 7d48aa22-eb31-4dff-b466-994965984199
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'no ipv6 address',intfPrompt,'interface Ethernet {interface}','None','None',[],[]]
+    clear_ipv6_loopback_address:
+        uuid: a1eb4078-0a5b-4d5a-af46-fef7e95ffced
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no ipv6 address {ipv6_addr} link-local',intfPrompt,'loop.0.{interface}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure vlan {interface} ipaddress',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ipv6 interface address {ipv6_addr}',intfPrompt,'loopback {interface}','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no ipv6 address',intfPrompt,'interface Loopback {interface}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.62.1.1.3.1.10.{interface}','i','6']
+    set_mac_address:
+        description: "Configured a new MAC address on a given interface"
+        arguments:
+            order: 
+        uuid: d48f59fd-0ecf-41fd-b29e-5a25a83bec0c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'mac-address {mac}',intfPrompt,'vlan.0.{interface}','None','None',[],[]]
+    enable_ipv6_vlan:
+        description: "Enables IPv6 on an Interface Vlan for a given device"
+        arguments:
+            order: 
+        uuid: 83fdb41e-e564-4965-9745-d916eb6ab086
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ipv6 interface enable',intfPrompt,'vlan {interface}','None','None',[],[]]
+    disable_ipv6_vlan:
+        description: "Disables IPv6 on an Interface Vlan for a given device"
+        arguments:
+            order: 
+        uuid: ebb0c2a9-2647-49e0-a822-0f038f36f2d0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ipv6 interface enable',intfPrompt,'vlan {interface}','None','None',[],[]]
+    enable_ip_forwarding_global:
+        description: "Enables the forwarding of IPv4 traffic globally"
+        arguments:
+            order: 
+        uuid: 341d0432-4af1-4193-81e2-b4fc78474495
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip routing',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.1.0','i','1']
+    disable_ip_forwarding_global:
+        description: "Disables the forwarding of IPv4 traffic globally"
+        arguments:
+            order: 
+        uuid: 96cdbab4-c572-4776-9293-49dcb26a8b13
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip routing',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.1.0','i','2']
+    enable_ipv6_forwarding_global:
+        description: "Enables the forwarding of IPv6 routed traffic globally"
+        arguments:
+            order: 
+        uuid: 6d0bf439-55ff-4fef-9fe8-41921db1d612
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ipv6 forwarding',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.25.0','i','1']
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.25.0','i','1']
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.25.0','i','1']
+    disable_ipv6_forwarding_global:
+        description: "Disables the forwarding of IPv6 routed traffic globally"
+        arguments:
+            order: 
+        uuid: 4e3ca9b4-acbc-4cde-a93d-95630a943507
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ipv6 forwarding',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.25.0','i','2']
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.25.0','i','2']
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.4.25.0','i','2']
+    enable_vlan_spb_multicast:
+        description: "Enable Spb multicast on an interface vlan"
+        arguments:
+            order: 
+        uuid: ad88dae7-329a-4f54-990e-02994e9797c2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip spb-multicast enable',intfPrompt,'vlan {interface}','None','None',[],[]]
+    disable_vlan_spb_multicast:
+        description: "Disable Spb multicast on an interface vlan"
+        arguments:
+            order: 
+        uuid: f2d7faac-7535-4ac4-9274-be5991750c73
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip spb-multicast enable',intfPrompt,'vlan {interface}','None','None',[],[]]
+    enable_chassis_force_topology_ip_flag:
+        description: "Enables the flag which is used to set the CLIP-IP (circuit-less IP) as topology IP"
+        arguments:
+            order: 
+        uuid: 548a81df-daa9-44ed-b511-5cc9da7ba746
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'sys force-topology-ip-flag enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.4.53.0','i','1']
+    disable_chassis_force_topology_ip_flag:
+        description: "Disables the flag which is used to set the CLIP-IP (circuit-less IP) as topology IP"
+        arguments:
+            order: 
+        uuid: c0f16a1b-2b8e-4a47-af20-b2144ca26db5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no sys force-topology-ip-flag enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.4.53.0','i','2']
+    set_ipv4_brouter_port:
+        description: "Configures a brouter entry on a port"
+        arguments:
+            order: port,ip,netmask,vlan,mac_offset
+        uuid: aad1181d-e49c-4288-80d2-3f39043e1aa0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'brouter port {port} vlan {vlan} subnet {ip} {netmask} mac-offset {mac_offset}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.2.1.3.{port}||1.3.6.1.4.1.2272.1.8.2.1.6.{port}||1.3.6.1.4.1.2272.1.8.2.1.7.{port}||1.3.6.1.4.1.2272.1.8.2.1.9.{port}||1.3.6.1.4.1.2272.1.8.2.1.12.{port}','a||i||i||i||u','{netmask}||4||{vlan}||{mac_offset}||0']
+    clear_ipv4_brouter_port:
+        description: "Removes a brouter configuration on a port"
+        arguments:
+            order: 
+        uuid: 3c49a65a-5612-4fad-9dc4-c8235763425b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no brouter port {port}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.2.1.6.{port}','i','6']
+    show_info:
+        uuid: 15cdbea8-ad6f-4fb9-9b52-e77cf8d4cf84
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show ip interface vlan.0.{interface}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show interfaces vlan ip {interface}',userPrompt,'None','None','None',[],[]]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit,get,'/public/v1/config/IPv4Intf','',[],[]]
+    show_info_port:
+        uuid: 4c9736a8-4f91-4f5c-8b3f-cdae7f88bc1f
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show interface ethernet {interface}',userPrompt,'None','None','None',[],[]]
+    show_info_basic:
+        uuid: 06c7a0d8-5f87-4c5b-9da6-fbc301fb3286
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show interface vlan.0.{interface}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show interfaces vlan ip {interface}',userPrompt,'None','None','None',[],[]]
+    show_info_port_basic:
+        uuid: 733a9bb3-1ab7-406a-9d79-07aaaffcea64
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show interface ethernet {interface}',userPrompt,'None','None','None',[],[]]
+    show_loopback_info:
+        uuid: 236da547-93df-4d0c-85ec-a90a58052239
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show ip interface loop.0.{interface}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show interfaces vlan ip {interface}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show interface loopback {interface}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.8.2||1.3.6.1.4.1.2272.1.62.1.1.3','i','']
+    show_all:
+        uuid: d9b49c07-4e41-4aa8-99b0-591c4b8c5842
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show ip interface',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show interfaces vlan ip',userPrompt,'None','None','None',[],[]]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit,get,'/public/v1/state/IPv4Intfs','',[],[]]
+    show_all_ports:
+        uuid: 2c5f8b8b-936a-4684-b5ed-86d88866d042
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show interface status',userPrompt,'None','None','None',[],[]]
+    show_ipv6_info:
+        uuid: 3fd0af31-77fc-4b10-a61d-994c08e33347
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show ipv6 interface {interface}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show vlan {interface}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ipv6 address interface vlan {interface}',userPrompt,'None','None','None',[],[]]
+    show_ipv6_port_info:
+        uuid: 505276c0-f2b1-423d-a14a-582183dd3930
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show ipv6 interface ethernet {interface}',userPrompt,'None','None','None',[],[]]
+    show_loopback:
+        uuid: b9307bf3-9ca0-47c7-9eab-7262ac8b9500
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show interfaces loopback',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show interface loopback {loopback_id}',userPrompt,'None','None','None',[],[]]
+    show_brouter_port_vlan:
+        uuid: 05830d6c-7ed5-408e-a134-fc9c73806a84
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show brouter | include {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.4.1.2272.1.8.2.1.7.{port}','i','']
+    show_brouter_port_ipv4:
+        uuid: 715182e6-dc59-49b0-818c-c66452ea44ca
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show interfaces {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.8.2.1.2.{port}','i','']
+    show_chassis_force_topology_ip_flag:
+        uuid: f74a7839-db65-4830-ab01-a5b09061e90d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show sys setting',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.4.53.0','i','']
+    show_ipv6_vlan:
+        uuid: f6b298c6-b4d2-4208-a6d9-312f982a9bfc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ipv6 interface vlan {interface}',userPrompt,'None','None','None',[],[]]
+    show_vlan_vrf:
+        uuid: 972489ae-f177-4716-8e4b-1a225c12bd35
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show interfaces vlan vrf {vlan}',userPrompt,'None','None','None',[],[]]
+    show_vlan_vrf_spb:
+        uuid: 7372931f-f04c-4554-8799-5e9b47e27058
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip mroute interface vrf {vrf_name}',userPrompt,'None','None','None',[],[]]
+    show_vlan_spb:
+        uuid: 12a39efd-1b96-4b35-8b4e-113833270f0d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip mroute interface',userPrompt,'None','None','None',[],[]]

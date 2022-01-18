@@ -1,0 +1,33 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+hostservices:
+    verify_sys_force_topology_ip_flag_is_enabled:
+        uuid: 1be46980-f4f9-4144-b9e2-e71d192e6747
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_sys_force_topology_ip_flag_is_disabled:
+        uuid: ae909d17-aaa3-4408-8467-3b698eb62c47
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_sys_clipid_topology_ip:
+        uuid: 5fa53942-9054-4e56-9c5b-143b7d8cb133
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_autotopology_nmm_table_entries:
+        uuid: b467dcad-d534-4780-baad-1a58723d1c33
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

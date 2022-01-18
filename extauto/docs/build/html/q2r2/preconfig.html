@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SELENIUM AND CHROME DRIVER CONFIGURATION &mdash; Extreme Cloud IQ Automation Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Extreme Cloud IQ Automation
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter02.html"><strong>EXTREME CLOUD IQ PACKAGES</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Extreme Cloud IQ Automation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><strong>SELENIUM AND CHROME DRIVER CONFIGURATION</strong></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/preconfig.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="selenium-and-chrome-driver-configuration">
+<h1><strong>SELENIUM AND CHROME DRIVER CONFIGURATION</strong><a class="headerlink" href="#selenium-and-chrome-driver-configuration" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/extreme_logo.png"><img alt="alternate text" class="align-right" src="_images/extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This Page Contains Remote or Localhost Configuration</p>
+</div>
+<p><strong>Pre-requsites Packages:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Java</p></li>
+<li><p>Selenium Standalone Server</p></li>
+<li><p>Chrome Driver</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Install Java on Windows:</strong></p>
+<blockquote>
+<div><ul>
+<li><p>Download the java from <strong>https://java.com/en/download/</strong></p></li>
+<li><p>Install by double clicking on downloaded “<strong>JavaSetup8u241.exe</strong>”</p></li>
+<li><p>It will install the java and add the java envirnomental variable</p></li>
+<li><p>Check Whether Java envirnomental variable is added properly or not</p>
+<blockquote>
+<div><img alt="_images/Java_path.png" src="_images/Java_path.png" />
+</div></blockquote>
+</li>
+<li><p>Check Whether Java Installed Properly or not.</p>
+<blockquote>
+<div><img alt="_images/java_version.png" src="_images/java_version.png" />
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>Download Selenium Server:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Download latest selenium standalone server jar file from  <strong>https://selenium.dev/downloads/</strong></p></li>
+<li><p>Downloaded file is “<strong>selenium-server-standalone-3.141.59.jar</strong>”</p></li>
+<li><p>Create a folder in “<strong>C:selenium_server</strong>” and copy downloaded standalone server to it</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Download Chrome Driver:</strong></p>
+<blockquote>
+<div><ul>
+<li><p>Check the istalled chrome browser version in your machine</p>
+<blockquote>
+<div><img alt="_images/chrome_driver_check.png" src="_images/chrome_driver_check.png" />
+</div></blockquote>
+</li>
+<li><p>Download corresponding chrome driver from <a class="reference external" href="https://chromedriver.chromium.org/downloads">https://chromedriver.chromium.org/downloads</a></p>
+<blockquote>
+<div><img alt="_images/chrome_driver_downloads.png" src="_images/chrome_driver_downloads.png" />
+</div></blockquote>
+</li>
+<li><p>Unzip the downloaded file and keep it in “<strong>C:selenium_server</strong>”</p></li>
+<li><p>Add the path “<strong>C:selenium_server</strong>” under system varibale path.</p>
+<blockquote>
+<div><img alt="_images/chrome_driver_path.png" src="_images/chrome_driver_path.png" />
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>Pre-config Files:</strong></p>
+<blockquote>
+<div><ul>
+<li><p>There are two methods to host the web browser</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>Local [ where script is executing]</p></li>
+<li><p>Remote [remote machine to host]</p></li>
+<li><p>Accordingly update the configuration variable [<strong>web_driver_location,target_environment</strong>]</p></li>
+<li><p>Update the browser name[<strong>chrome, firefox</strong>] and os_platform[<strong>windows10</strong>]</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Update the <strong>envirnomental.csv</strong> file according to your project.</p>
+<blockquote>
+<div><img alt="_images/environment.png" src="_images/environment.png" />
+</div></blockquote>
+</li>
+<li><p>Update the <strong>topology file</strong> for remote machine details</p>
+<blockquote>
+<div><img alt="_images/topology.png" src="_images/topology.png" />
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>Start Selenium Standalone Server For Remote Execution:</strong></p>
+<blockquote>
+<div><ul>
+<li><p>Go to <strong>C:selenium_server</strong></p></li>
+<li><p>Execute  “<strong>java -jar selenium-server-standalone-3.141.59.jar -timeout  600 -log selenium.log</strong>”</p>
+<blockquote>
+<div><img alt="_images/selenium_server_start.png" src="_images/selenium_server_start.png" />
+</div></blockquote>
+</li>
+<li><dl class="simple">
+<dt><strong>Timeout</strong><span class="classifier">timeout, -sessionTimeout</span></dt><dd><p>&lt;Integer&gt; in seconds : Specifies the timeout before the server automatically kills a session that hasn’t had any activity in the last X seconds.
+The test slot will then be released for another test to use. This is typically used to take care of client crashes. For grid hub/node roles, cleanUpCycle must also be set.
+If a node does not specify it, the hub value will be used.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>Log filename</strong> :  The filename to use for logging. If omitted, will log to STDOUT</p></li>
+</ul>
+</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramkumar Vellasamy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

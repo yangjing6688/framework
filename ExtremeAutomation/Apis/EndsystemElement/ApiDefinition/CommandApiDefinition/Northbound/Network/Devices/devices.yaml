@@ -1,0 +1,65 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Query]
+#             - [OS2,Platform,Version,Unit,Query]
+
+devices:
+    show_all_device_assettags:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{devices{assetTag}}}']
+    show_all_device_basemacs:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{devices{baseMac}}}']
+    show_all_device_sysnames:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{devices{sysName}}}']
+    show_all_device_nicknames:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{devices{nickName}}}']
+    show_all_device_ips:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{devices{ip}}}']
+    show_device_assettag:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){assetTag}}}']
+    show_device_basemac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){baseMac}}}']
+    show_device_bootprom:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){bootProm}}}']
+    show_device_chassisid:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){chassisId}}}']
+    show_device_chassis_type:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){chassisType}}}']
+    show_device_devicedisplayfamily:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){deviceDisplayFamily}}}']
+    show_device_deviceid:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){deviceId}}}']
+    show_device_devicename:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){deviceName}}}']
+    show_device_firmware:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){firmware}}}']
+    show_device_id:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){id}}}']
+    show_device_ip:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){ip}}}']
+    show_device_name:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){name}}}']
+    show_device_nickname:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){nickName}}}']
+    show_device_sysname:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{network{device(ip:"{ip}"){sysName}}}']

@@ -1,0 +1,30 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for V300HT-8P-2X.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  numExternalPort: 10
+  poeMinBudget: 0
+  poeMaxBudget: 240
+  poeDfltBudget: 240
+  poeLoss: 0
+
+  # Boolean type supported/not-supported capability parameters.
+  BridgePortExtender: true
+  VpexV300Image: true
+  VpexCascade: true
+  VpexRing: true
+  Poe: true
+  PoePlus: true
+  PoeLegacyDetectDefault: false
+  PortIngMeter: false

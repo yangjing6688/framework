@@ -1,0 +1,34 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  the X695-48Y-8C switch
+#
+#
+
+vendor: Extreme
+product_name: X695-48Y-8C
+
+files:
+    - name: system
+      filename: [../X695/system.yaml, system.yaml]
+    - name: devices
+      filename: [../X695/devices.yaml, devices.yaml]
+    - name: thermal
+      filename: [../X695/thermal.yaml, thermal.yaml]
+    - name: fans
+      filename: [../X695/fans.yaml, fans.yaml]
+    - name: power
+      filename: [../X695/power.yaml, power.yaml]
+#    - name: watchdog
+#      filename: [../X695/watchdog.yaml, ../X695/watchdog_x695.yaml]
+    - name: capability
+      filename: [../../common/defaultcap.yaml, ../../common/Broadcom/trident3.yaml, ../X695-48Y-8C/switchcap.yaml]
+    - name: ports
+      filename: [../../common/defaultports.yaml, ../X695/ports.yaml, ports.yaml]
+    - name: transceivers
+      filename: [../../common/defaulttrans.yaml, trans.yaml]

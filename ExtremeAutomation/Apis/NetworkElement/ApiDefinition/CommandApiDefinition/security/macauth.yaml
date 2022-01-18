@@ -1,0 +1,191 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+macauth:
+    enable:
+        description: "Enables the MAC Authentication feature"
+        arguments:
+            order: 
+        uuid: f2f65c83-6b78-416f-9da0-ce91a8fdd90c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set macauth enable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable netlogin mac',userPrompt,'None','None','None',[],[]]
+    disable:
+        description: "Disables the MAC Authentication feature"
+        arguments:
+            order: 
+        uuid: d9ddd942-7c57-4736-b409-553c04fc2b41
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set macauth disable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable netlogin mac',userPrompt,'None','None','None',[],[]]
+    enable_port_reauthentication:
+        description: "Enables MAC Authentication reauthentication on the specified port(s)"
+        arguments:
+            order: 
+        uuid: 395b1bb6-11c5-4d30-a119-7a0b3eee5a9f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set macauthentication reauthentication enable {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure netlogin mac ports {port} timers reauthentication on',userPrompt,'None','None','None',[],[]]
+    disable_port_reauthentication:
+        description: "Disables MAC Authentication reauthentication on the specified port(s)"
+        arguments:
+            order: 
+        uuid: d37a9da1-aa27-4025-949f-2b129c472ae1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set macauthentication reauthentication disable {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure netlogin mac ports {port} timers reauthentication off',userPrompt,'None','None','None',[],[]]
+    set_password:
+        description: "Configures the default MAC Authentication password for all MAC users"
+        arguments:
+            order: 
+        uuid: d0055eb3-42e5-4708-a5d5-54f1aa980922
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set macauth password {password}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure netlogin add mac-list default password {password}',userPrompt,'None','None','None',[],[]]
+    set_port_state:
+        description: "Configures the MAC Authentication feature on the specified port(s)"
+        arguments:
+            order: 
+        uuid: ab8fafa9-3f90-4174-9b16-3a3e7fd83a6f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set macauth port {<api_utils.state_enable_disable>state} {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'{<api_utils.state_enable_disable>state} netlogin port {port} mac',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'{<api_utils.state_no_empty>state} endpoint-tracking enable',intfPrompt,'ethernet {port}','None','None',[],[]]
+    set_port_reauthperiod:
+        description: "Configures the MAC Authentication re-authentication period on the specified port(s)"
+        arguments:
+            order: port,interval
+        uuid: fd91672c-7db0-488e-9ce6-2e7ae0e5b96d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set macauth reauthperiod {interval} {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure netlogin mac ports {port} timers reauth-period {interval}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'endpoint-tracking timeout reauth-period {interval}',intfPrompt,'ethernet {port}','None','None',[],[]]
+    set_port_quietperiod:
+        description: "Configures the MAC Authentication port-delay on the specified port(s)"
+        arguments:
+            order: 
+        uuid: 786b6a37-d736-4d98-bd54-0b57bd046e9e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set macauth quietperiod {sec} {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure netlogin mac ports {port} timers delay {sec}',userPrompt,'None','None','None',[],[]]
+    clear_password:
+        description: "Removes the default MAC Authentication password for all MAC users. (On EOS this will revert to the default password"
+        arguments:
+            order:  EXOS will simply have no MAC Auth default password)
+        uuid: 135bdb30-0b17-4c8d-a2e7-7984dce2336d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear macauth password ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure netlogin delete mac-list default',userPrompt,'None','None','None',[],[]]
+    clear_port_reauthperiod:
+        description: "Clears the MAC Authentication re-authentication period to the default value"
+        arguments:
+            order: 
+        uuid: 9dd7a148-6bb3-43f1-b332-673a0737ea8a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear macauth reauthperiod {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure netlogin mac ports {port} timers reauth-period 3600',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no endpoint-tracking timeout reauth-period',intfPrompt,'ethernet {port}','None','None',[],[]]
+    clear_port_quietperiod:
+        description: "Removes the MAC Authentication port-delay on the specified port(s)"
+        arguments:
+            order: 
+        uuid: 5f084e54-30c8-49e8-ae95-8bc4532991da
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear macauth quietperiod {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure netlogin mac ports {port} timers delay 0',userPrompt,'None','None','None',[],[]]
+    set_mac_format_type:
+        description: "Configures the MAC Authentication octet separator for usernames to hyphen"
+        arguments:
+            order: 
+        uuid: da655f5c-3d52-4885-a016-8b5c84d5a3b4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin mac username format_type {format_type}',userPrompt,'None','None','None',[],[]]
+    set_mac_user:
+        description: "Adds the MAC address to the MacAuth mac-list.  This is an EXOS-only keyword."
+        arguments:
+            order: mac_addr,password,mask
+        uuid: 723f1833-4212-484a-a564-59ab7230c267
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin add mac-list {<str_utils.normalize_mac>mac_addr} {mask} password {password}',userPrompt,'None','None','None',[],[]]
+    set_mac_user_nopass:
+        description: "Adds the MAC address to the MacAuth mac-list without configuring a password. This is an EXOS-only keyword."
+        arguments:
+            order: 
+        uuid: b4508d75-bc40-4a1a-8d53-8506c8db5abc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin add mac-list {<str_utils.normalize_mac>mac_addr} {mask}',userPrompt,'None','None','None',[],[]]
+    set_reauthperiod:
+        description: "Configures the MAC Authentication re-authentication period"
+        arguments:
+            order: 
+        uuid: 75dc4abd-f611-4221-982d-f7f16c7c70d6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin mac timers reauth-period {interval}',userPrompt,'None','None','None',[],[]]
+    clear_mac_user:
+        description: "Removes the MAC address from the MacAuth mac-list.  This is an EXOS-only keyword"
+        arguments:
+            order: 
+        uuid: 7cc9a61d-9629-486e-abaf-2c2d4e076b0b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin delete mac-list {<str_utils.normalize_mac>mac_addr} {mask}',userPrompt,'None','None','None',[],[]]
+    show:
+        uuid: 2e73c468-f660-4e8b-9098-ddcafd5eb76d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show macauthentication',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show netlogin mac',userPrompt,'None','None','None',[],[]]
+    show_port:
+        uuid: 9fff3204-4fa6-40c2-871e-a9d512f451bc
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show macauth {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show config netlogin',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show running-config interface ethernet {port}',userPrompt,'None','None','None',[],[]]
+    show_port_authentication:
+        uuid: 373e5598-b4ba-4214-aa38-e55ccee04966
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show mac-address-table endpoint-tracking authenticated interface ethernet {port}||show mac-address-table endpoint-tracking authentication-failed interface ethernet {port}',userPrompt,'None','None','None',[],[]]
+    show_mac_list:
+        uuid: eb354c10-8a72-4050-9084-f62e5361a144
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin mac-list',userPrompt,'None','None','None',[],[]]

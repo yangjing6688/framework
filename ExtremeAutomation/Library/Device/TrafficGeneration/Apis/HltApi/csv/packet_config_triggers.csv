@@ -1,0 +1,150 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+port_handle,"Depending on the traffic_generator value, this option has different meanings. If traffic_generator ixnetwork_540 is used this parameter is used ixos/ixnetwork_540 - The port for which to configure traffic. Mandatory for -mode create/reset when -traffic_generator is set to ixos. For traffic_generator ixnetwork_540 this is mandatory on mode create only if parameter -emulation_src_handle is missing.ixnetwork/ixnetwork_540 - The port_handle parameter is not necessary anymore. When using IxNetwork, traffic configurations will be done using previously created handles (IP interfaces, PPP ranges, L2TP ranges, Protocol Route Ranges etc.) as sources (parameter -emulation_src_handle) and destinations (-emulation_dst_handle).",port,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-port_handle 1/2
+handle,"Supported with IxTclHal. handle or list of handles returned by ::::packet_config_filter. The patterns and pvc pairs represented by these handles will be used as filters, triggers and/or counters if -capture_filter_pattern, capture_trigger_pattern, -uds1_pattern and/or -uds2_pattern are set to patternAtm",opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Supported with IxTclHal and IxTclNetwork (addAtmFilter choice is not valid with IxTclNetwork). When -mode is create all the filters, triggers and counters (general and ATM specific) will be configured.When -mode is addAtmTrigger, only the ATM specific configurations will be taken in consideration. This is useful when different configurations are needed for some handles",opt,"create, addAtmTrigger",IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+async_trigger1,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 that counts the number of frames filtered. Async triggers can not be set when error type is other than errAnyFrame, errGoodFrame, errBadCRC, errBadFrame",opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger1 1
+async_trigger1_DA,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the destination MAC addresses. The possible values are as in capture_filter_DA. When configuring UDS(1-6), only one of the six UDS slots can be configured for DA1, and DA2.",opt,"any, DA1, notDA1, DA2, notDA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+async_trigger1_error,Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables the frame size constraint which specifies a range of frame sizes to filter for User Defined Statistics counter 5.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger1_error 1
+async_trigger1_framesize,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclHal). Enables or disables the frame size constraint which specifies a
+
+Valid options are:
+
+0: any framesize
+1: custom framesize
+jumbo: valid only for IxTclNetwork
+oversized: valid only for IxTclNetwork
+undersized: valid only for IxTclNetwork",opt,"0,1,jumbo,oversized,undersized","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger1_framesize 1
+async_trigger1_framesize_from,Supported with IxTclHal and IxTclNetwork. The minimum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when async_trigger1_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger1_framesize_from 100
+async_trigger1_framesize_to,Supported with IxTclHal and IxTclNetwork. The maximum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when async_trigger1_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger1_framesize_to 100
+async_trigger1_pattern,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables User Defined Statistics counter 5 to filter on the pattern.
+Valid options are:
+any: (default) disables the pattern filter constraint
+pattern1: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1 and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+notPattern1: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern1and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+pattern2: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern2 and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+notPattern2: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern2and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+pattern1and2: not supported for IxTclNetwork. Sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1, pattern2 and patternMask1, patternMask2 at offset patternOffset1 and patternOffset2 as specified with ::<namespace>::packet_config_filter
+patternAtm: not supported for IxTclNetwork. -handle parameter is mandatory. The atm patterns in conjunctions with their vpi/vci pair will be extracted from the handle and set as filter criteria.",opt,"any, pattern1, notPattern1, pattern2, notPattern2, pattern1and2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+async_trigger1_SA,Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the source MAC addresses.,opt,"any, SA1, notSA1, SA2, notSA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+async_trigger2,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 that counts the number of frames filtered. Async triggers can not be set when error type is other than errAnyFrame, errGoodFrame, errBadCRC, errBadFrame",opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger2 1
+async_trigger2_DA,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the destination MAC addresses. The possible values are as in capture_filter_DA. When configuring UDS(1-6), only one of the six UDS slots can be configured for DA1, and DA2.",opt,"any, DA1, notDA1, DA2, notDA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+async_trigger2_error,Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables the frame size constraint which specifies a range of frame sizes to filter for User Defined Statistics counter 5.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger2_error 1
+async_trigger2_framesize,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclHal). Enables or disables the frame size constraint which specifies a
+
+Valid options are:
+
+0: any framesize
+1: custom framesize
+jumbo: valid only for IxTclNetwork
+oversized: valid only for IxTclNetwork
+undersized: valid only for IxTclNetwork",opt,"0,1,jumbo,oversized,undersized","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger2_framesize 1
+async_trigger2_framesize_from,Supported with IxTclHal and IxTclNetwork. The minimum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when async_trigger2_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger2_framesize_from 100
+async_trigger2_framesize_to,Supported with IxTclHal and IxTclNetwork. The maximum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when async_trigger2_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-async_trigger2_framesize_to 100
+async_trigger2_pattern,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables User Defined Statistics counter 5 to filter on the pattern.
+Valid options are:
+any: (default) disables the pattern filter constraint
+pattern1: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1 and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+notPattern1: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern1and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+pattern2: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern2 and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+notPattern2: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern2and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+pattern1and2: not supported for IxTclNetwork. Sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1, pattern2 and patternMask1, patternMask2 at offset patternOffset1 and patternOffset2 as specified with ::<namespace>::packet_config_filter
+patternAtm: not supported for IxTclNetwork. -handle parameter is mandatory. The atm patterns in conjunctions with their vpi/vci pair will be extracted from the handle and set as filter criteria.",opt,"any, pattern1, notPattern1, pattern2, notPattern2, pattern1and2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+async_trigger2_SA,Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the source MAC addresses.,opt,"any, SA1, notSA1, SA2, notSA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+capture_trigger,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 that counts the number of frames filtered. Async triggers can not be set when error type is other than errAnyFrame, errGoodFrame, errBadCRC, errBadFrame",opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_trigger 1
+capture_trigger_DA,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the destination MAC addresses. The possible values are as in capture_filter_DA. When configuring UDS(1-6), only one of the six UDS slots can be configured for DA1, and DA2.",opt,"any, DA1, notDA1, DA2, notDA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+capture_trigger_error,Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables the frame size constraint which specifies a range of frame sizes to filter for User Defined Statistics counter 5.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_trigger_error 1
+capture_trigger_expression_string,"Supported only with IxTclNetwork. String that is composed of SA1,DA1,P1,P2, optionally negated with ! and connected with operators 'and','or','xor','nand' or 'nor'.Eg: {DA1 and SA1 or !P1 and P2}.",opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+capture_trigger_framesize,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclHal). Enables or disables the frame size constraint which specifies a
+
+Valid options are:
+
+0: any framesize
+1: custom framesize
+jumbo: valid only for IxTclNetwork
+oversized: valid only for IxTclNetwork
+undersized: valid only for IxTclNetwork",opt,"0,1,jumbo,oversized,undersized","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_trigger_framesize 1
+capture_trigger_framesize_from,Supported with IxTclHal and IxTclNetwork. The minimum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when capture_trigger_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_trigger_framesize_from 100
+capture_trigger_framesize_to,Supported with IxTclHal and IxTclNetwork. The maximum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when capture_trigger_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_trigger_framesize_to 100
+capture_trigger_pattern,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables User Defined Statistics counter 5 to filter on the pattern.
+Valid options are:
+any: (default) disables the pattern filter constraint
+pattern1: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1 and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+notPattern1: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern1and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+pattern2: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern2 and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+notPattern2: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern2and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+pattern1and2: not supported for IxTclNetwork. Sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1, pattern2 and patternMask1, patternMask2 at offset patternOffset1 and patternOffset2 as specified with ::<namespace>::packet_config_filter
+patternAtm: not supported for IxTclNetwork. -handle parameter is mandatory. The atm patterns in conjunctions with their vpi/vci pair will be extracted from the handle and set as filter criteria.",opt,"any, pattern1, notPattern1, pattern2, notPattern2, pattern1and2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+capture_trigger_SA,Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the source MAC addresses.,opt,"any, SA1, notSA1, SA2, notSA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+uds1,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 that counts the number of frames filtered. Async triggers can not be set when error type is other than errAnyFrame, errGoodFrame, errBadCRC, errBadFrame",opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds1 1
+uds1_DA,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the destination MAC addresses. The possible values are as in capture_filter_DA. When configuring UDS(1-6), only one of the six UDS slots can be configured for DA1, and DA2.",opt,"any, DA1, notDA1, DA2, notDA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+uds1_error,Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables the frame size constraint which specifies a range of frame sizes to filter for User Defined Statistics counter 5.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds1_error 1
+uds1_framesize,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclHal). Enables or disables the frame size constraint which specifies a
+
+Valid options are:
+
+0: any framesize
+1: custom framesize
+jumbo: valid only for IxTclNetwork
+oversized: valid only for IxTclNetwork
+undersized: valid only for IxTclNetwork",opt,"0,1,jumbo,oversized,undersized","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds1_framesize 1
+uds1_framesize_from,Supported with IxTclHal and IxTclNetwork. The minimum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when uds1_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds1_framesize_from 100
+uds1_framesize_to,Supported with IxTclHal and IxTclNetwork. The maximum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when uds1_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds1_framesize_to 100
+uds1_pattern,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables User Defined Statistics counter 5 to filter on the pattern.
+Valid options are:
+any: (default) disables the pattern filter constraint
+pattern1: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1 and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+notPattern1: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern1and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+pattern2: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern2 and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+notPattern2: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern2and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+pattern1and2: not supported for IxTclNetwork. Sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1, pattern2 and patternMask1, patternMask2 at offset patternOffset1 and patternOffset2 as specified with ::<namespace>::packet_config_filter
+patternAtm: not supported for IxTclNetwork. -handle parameter is mandatory. The atm patterns in conjunctions with their vpi/vci pair will be extracted from the handle and set as filter criteria.",opt,"any, pattern1, notPattern1, pattern2, notPattern2, pattern1and2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+uds1_SA,Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the source MAC addresses.,opt,"any, SA1, notSA1, SA2, notSA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+uds2,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 that counts the number of frames filtered. Async triggers can not be set when error type is other than errAnyFrame, errGoodFrame, errBadCRC, errBadFrame",opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds2 1
+uds2_DA,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the destination MAC addresses. The possible values are as in capture_filter_DA. When configuring UDS(1-6), only one of the six UDS slots can be configured for DA1, and DA2.",opt,"any, DA1, notDA1, DA2, notDA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+uds2_error,Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables the frame size constraint which specifies a range of frame sizes to filter for User Defined Statistics counter 5.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds2_error 1
+uds2_framesize,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclHal). Enables or disables the frame size constraint which specifies a
+
+Valid options are:
+
+0: any framesize
+1: custom framesize
+jumbo: valid only for IxTclNetwork
+oversized: valid only for IxTclNetwork
+undersized: valid only for IxTclNetwork",opt,"0,1,jumbo,oversized,undersized","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds2_framesize 1
+uds2_framesize_from,Supported with IxTclHal and IxTclNetwork. The minimum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when uds2_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds2_framesize_from 100
+uds2_framesize_to,Supported with IxTclHal and IxTclNetwork. The maximum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when uds2_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-uds2_framesize_to 100
+uds2_pattern,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables User Defined Statistics counter 5 to filter on the pattern.
+Valid options are:
+any: (default) disables the pattern filter constraint
+pattern1: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1 and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+notPattern1: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern1and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+pattern2: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern2 and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+notPattern2: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern2and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+pattern1and2: not supported for IxTclNetwork. Sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1, pattern2 and patternMask1, patternMask2 at offset patternOffset1 and patternOffset2 as specified with ::<namespace>::packet_config_filter
+patternAtm: not supported for IxTclNetwork. -handle parameter is mandatory. The atm patterns in conjunctions with their vpi/vci pair will be extracted from the handle and set as filter criteria.",opt,"any, pattern1, notPattern1, pattern2, notPattern2, pattern1and2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+uds2_SA,Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the source MAC addresses.,opt,"any, SA1, notSA1, SA2, notSA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+capture_filter,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 that counts the number of frames filtered. Async triggers can not be set when error type is other than errAnyFrame, errGoodFrame, errBadCRC, errBadFrame",opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_filter 1
+capture_filter_DA,"Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the destination MAC addresses. The possible values are as in capture_filter_DA. When configuring UDS(1-6), only one of the six UDS slots can be configured for DA1, and DA2.",opt,"any, DA1, notDA1, DA2, notDA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+capture_filter_error,Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables the frame size constraint which specifies a range of frame sizes to filter for User Defined Statistics counter 5.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_filter_error 1
+capture_filter_expression_string,"Supported only with IxTclNetwork. String that is composed of SA1,DA1,P1,P2, optionally negated with ! and connected with operators 'and','or','xor','nand' or 'nor'.Eg: {DA1 and SA1 or !P1 and P2}.",opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+capture_filter_framesize,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclHal). Enables or disables the frame size constraint which specifies a
+
+Valid options are:
+
+0: any framesize
+1: custom framesize
+jumbo: valid only for IxTclNetwork
+oversized: valid only for IxTclNetwork
+undersized: valid only for IxTclNetwork",opt,"0,1,jumbo,oversized,undersized","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_filter_framesize 1
+capture_filter_framesize_from,Supported with IxTclHal and IxTclNetwork. The minimum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when capture_filter_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_filter_framesize_from 100
+capture_filter_framesize_to,Supported with IxTclHal and IxTclNetwork. The maximum range of the size of frame to be filtered for User Defined Statistics counter 5. Applicable only when capture_filter_framesize is set to 1.,opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-capture_filter_framesize_to 100
+capture_filter_pattern,"Supported with IxTclHal and IxTclNetwork (not all choices supported for IxTclNetwork). Enables or disables User Defined Statistics counter 5 to filter on the pattern.
+Valid options are:
+any: (default) disables the pattern filter constraint
+pattern1: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1 and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+notPattern1: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern1and patternMask1 at offset patternOffset1 as specified with ::<namespace>::packet_config_filter
+pattern2: sets the pattern filter constraint to trigger on frames with a pattern that matches pattern2 and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+notPattern2: sets the pattern filter constraint to trigger on frames except those with a pattern that matches pattern2and patternMask2 at offset patternOffset2 as specified with ::<namespace>::packet_config_filter
+pattern1and2: not supported for IxTclNetwork. Sets the pattern filter constraint to trigger on frames with a pattern that matches pattern1, pattern2 and patternMask1, patternMask2 at offset patternOffset1 and patternOffset2 as specified with ::<namespace>::packet_config_filter
+patternAtm: not supported for IxTclNetwork. -handle parameter is mandatory. The atm patterns in conjunctions with their vpi/vci pair will be extracted from the handle and set as filter criteria.",opt,"any, pattern1, notPattern1, pattern2, notPattern2, pattern1and2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+capture_filter_SA,Supported with IxTclHal and IxTclNetwork. Enables or disables User Defined Statistics counter 5 to filter on the source MAC addresses.,opt,"any, SA1, notSA1, SA2, notSA2","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?

@@ -1,0 +1,16 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+ewcglobal:
+    global_authentication_check_strict_mode:
+        apis:
+            - [ewc,'10.41.12']
+    global_authentication_uncheck_strict_mode:
+        apis:
+            - [ewc,'10.41.12']
+    global_click_save_button:
+        apis:
+            - [ewc,'10.41.12']

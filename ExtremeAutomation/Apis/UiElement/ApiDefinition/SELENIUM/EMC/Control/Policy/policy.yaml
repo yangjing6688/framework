@@ -1,0 +1,145 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+policy:
+    click_emc_control_menu:
+        apis:
+            - [emc,'8.1.1']
+    click_emc_policy_tab:
+        apis:
+            - [emc,'8.1.1']
+    policy_create_role:
+        apis:
+            - [emc,'8.1.1']
+    policy_open_domain:
+        apis:
+            - [emc,'8.1.1']
+    policy_save_domain:
+        apis:
+            - [emc,'8.1.1']
+    policy_add_device_to_domain_menu:
+        apis:
+            - [emc,'8.1.1']
+    policy_create_local_service:
+        apis:
+            - [emc,'8.1.1']
+    policy_create_rule:
+        apis:
+            - [emc,'8.1.1']
+    policy_add_service_to_role:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_application_group:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_application:
+        apis:
+            - [emc,'8.1.1']
+    policy_delete_role:
+        apis:
+            - [emc,'8.1.1']
+    policy_create_vlan:
+        apis:
+            - [emc,'8.1.1']
+    policy_add_device_to_domain:
+        apis:
+            - [emc,'8.1.1']
+    policy_add_ports_to_domain:
+        apis:
+            - [emc,'8.1.1']
+    policy_enforce_domain:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_navigate_to_rule_name:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_cos:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_access_control:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_traffic_description_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_edit_traffic_description_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_traffic_type:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_traffic_layer_type:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_well_known_value:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_single_value:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_range_value:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_ip_tos_dialog_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_ip_tos_dialog_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_dscp:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_tos:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_tos_hex:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_tos_mask:
+        apis:
+            - [emc,'8.1.1']
+    policy_rule_set_advanced_value:
+        apis:
+            - [emc,'8.1.1']
+    policy_confirm_device_in_current_domain:
+        apis:
+            - [emc,'8.1.1']
+    policy_confirm_device_in_domain:
+        apis:
+            - [emc,'8.1.1']
+    policy_role_default_actions_click_show_all:
+        apis:
+            - [emc,'8.1.1']
+    policy_role_navigate_to_role_name:
+        apis:
+            - [emc,'8.1.1']
+    policy_role_set_access_control:
+        apis:
+            - [emc,'8.1.1']
+    policy_role_set_cos:
+        apis:
+            - [emc,'8.1.1']
+    policy_role_edit_tci_overwrite:
+        apis:
+            - [emc,'8.1.1']
+    policy_expand_tree_panel_roles_services:
+        apis:
+            - [emc,'8.1.3||8.2.0']
+    policy_expand_tree_panel_class_of_service:
+        apis:
+            - [emc,'8.1.3||8.2.0']
+    policy_expand_tree_panel_vlans:
+        apis:
+            - [emc,'8.1.3||8.2.0']
+    policy_expand_tree_panel_network_resources:
+        apis:
+            - [emc,'8.1.3||8.2.0']
+    policy_expand_tree_panel_devices_port_groups:
+        apis:
+            - [emc,'8.1.3||8.2.0']
+    policy_delete_service:
+        apis:
+            - [emc,'8.1.3']

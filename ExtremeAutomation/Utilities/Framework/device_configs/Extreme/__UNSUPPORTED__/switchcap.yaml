@@ -1,0 +1,73 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for __UNSUPPORTED__.
+#  This inherits capability from hurricane2 YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  hwHealth: -1
+  numExternalPort: 24
+  numIngMetersPerPort: 0
+  maxLAGroup: 0
+  maxPortPerLAGroup: 0
+  maxNumRules: 0
+  maxNumRules_mac: 0
+  maxNumRules_ipv4: 0
+  maxNumRules_ipv6: 0
+  maxNumRules_l2: 0
+  maxNumMuxRules: 0
+  maxNumMuxRulesL: 0
+  maxNumProfiles: 0
+  numVfpSlices: 0
+  numIfpPdSlices: 0
+  numIfpCosSlices: 0
+  meterPPSMaxRange: 0
+  maxL2McastGroup: 0
+  maxRoutedVR: 0
+  maxLocalOnlyVR: 0
+  maxRtif: 0
+  maxRtifMetadata: 0
+  maxL3McastGroup: 0
+  maxVirtualNetworks: 0
+  maxVirtAccPorts: 0
+  maxVirtNetPorts: 0
+  maxLteps: 0
+  maxRteps: 0
+  maxMacIpBindings: 0
+  maxEgressMirroringInstances: 0
+  minFibEntry: 0
+  maxFibEntry: 0
+  bootTimeOut: 0
+  defaultLinkScanInterval: 0
+
+  # Boolean type supported/not-supported capability parameters.
+  LinkFiltering: false
+  VfpClassId: false
+  Exos: false
+  SwitchFab: false
+  Avb: false
+  Gre: false
+  GreVrf: false
+  IpmcAndL2Lkup: false
+  PortBasedLag: false
+  CustomLag: false
+  Crc32LagHash: false
+  PortIngMeter: false
+  QosWred: false
+  OnePolicy: false
+  MacMask: false
+  MacBasedVlans: false
+  EgressAcls: false
+  PbrIpv6: false
+  HwSflow: false

@@ -1,0 +1,157 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+users:
+    users_handle_lock:
+        apis:
+            - [emc,'8.1.1']
+    users_click_add_user:
+        apis:
+            - [emc,'8.1.1']
+    users_click_edit_user:
+        apis:
+            - [emc,'8.1.1']
+    users_click_delete_user:
+        apis:
+            - [emc,'8.1.1']
+    users_click_add_group:
+        apis:
+            - [emc,'8.1.1']
+    users_click_edit_group:
+        apis:
+            - [emc,'8.1.1']
+    users_click_copy_group:
+        apis:
+            - [emc,'8.1.1']
+    users_click_delete_group:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_user_set_name:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_user_set_domain:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_user_set_group:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_user_click_save:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_user_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_user_set_domain:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_user_set_group:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_user_click_save:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_user_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_confirm_delete_user_click_yes:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_confirm_delete_user_click_no:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_set_name:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_set_membership_criteria:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_set_snmp_redirect:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_expand_capability:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_collapse_capability:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_enable_capability:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_disable_capability:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_click_save:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_add_group_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_group_set_membership_criteria:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_group_set_snmp_redirect:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_group_expand_capability:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_group_collapse_capability:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_group_enable_capability:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_group_disable_capability:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_group_click_save:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_edit_group_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_copy_group_set_name:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_copy_group_click_save:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_copy_group_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_confirm_delete_group_click_yes:
+        apis:
+            - [emc,'8.1.1']
+    users_dialog_confirm_delete_group_click_no:
+        apis:
+            - [emc,'8.1.1']
+    users_select_user:
+        apis:
+            - [emc,'8.1.1']
+    users_select_group:
+        apis:
+            - [emc,'8.1.1']
+    users_wait_for_user_add:
+        apis:
+            - [emc,'8.1.1']
+    users_wait_for_user_remove:
+        apis:
+            - [emc,'8.1.1']
+    users_wait_for_group_add:
+        apis:
+            - [emc,'8.1.1']
+    users_wait_for_group_remove:
+        apis:
+            - [emc,'8.1.1']
+    users_confirm_user_exists:
+        apis:
+            - [emc,'8.1.1']
+    users_confirm_group_exists:
+        apis:
+            - [emc,'8.1.1']
+    users_confirm_user_logged_in:
+        apis:
+            - [emc,'8.1.1']

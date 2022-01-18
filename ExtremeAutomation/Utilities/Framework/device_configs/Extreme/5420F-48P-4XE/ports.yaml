@@ -1,0 +1,183 @@
+# #################################################################
+#
+#  Copyright (c) 2020-2021 Extreme Networks, Inc.
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for 5420F-48P-4XL
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+  - name: 1
+    <<: *1G_POE_PORT
+
+  - name: 2
+    <<: *1G_POE_PORT
+
+  - name: 3
+    <<: *1G_POE_PORT
+
+  - name: 4
+    <<: *1G_POE_PORT
+
+  - name: 5
+    <<: *1G_POE_PORT
+
+  - name: 6
+    <<: *1G_POE_PORT
+
+  - name: 7
+    <<: *1G_POE_PORT
+
+  - name: 8
+    <<: *1G_POE_PORT
+
+  - name: 9
+    <<: *1G_POE_PORT
+
+  - name: 10
+    <<: *1G_POE_PORT
+
+  - name: 11
+    <<: *1G_POE_PORT
+
+  - name: 12
+    <<: *1G_POE_PORT
+
+  - name: 13
+    <<: *1G_POE_PORT
+
+  - name: 14
+    <<: *1G_POE_PORT
+
+  - name: 15
+    <<: *1G_POE_PORT
+
+  - name: 16
+    <<: *1G_POE_PORT
+
+  - name: 17
+    <<: *1G_POE_PORT
+
+  - name: 18
+    <<: *1G_POE_PORT
+
+  - name: 19
+    <<: *1G_POE_PORT
+
+  - name: 20
+    <<: *1G_POE_PORT
+
+  - name: 21
+    <<: *1G_POE_PORT
+
+  - name: 22
+    <<: *1G_POE_PORT
+
+  - name: 23
+    <<: *1G_POE_PORT
+
+  - name: 24
+    <<: *1G_POE_PORT
+
+  - name: 25
+    <<: *1G_POE_PORT
+
+  - name: 26
+    <<: *1G_POE_PORT
+
+  - name: 27
+    <<: *1G_POE_PORT
+
+  - name: 28
+    <<: *1G_POE_PORT
+
+  - name: 29
+    <<: *1G_POE_PORT
+
+  - name: 30
+    <<: *1G_POE_PORT
+
+  - name: 31
+    <<: *1G_POE_PORT
+
+  - name: 32
+    <<: *1G_POE_PORT
+
+  - name: 33
+    <<: *1G_POE_PORT
+
+  - name: 34
+    <<: *1G_POE_PORT
+
+  - name: 35
+    <<: *1G_POE_PORT
+
+  - name: 36
+    <<: *1G_POE_PORT
+
+  - name: 37
+    <<: *1G_POE_PORT
+
+  - name: 38
+    <<: *1G_POE_PORT
+
+  - name: 39
+    <<: *1G_POE_PORT
+
+  - name: 40
+    <<: *1G_POE_PORT
+
+  - name: 41
+    <<: *1G_POE_PORT
+
+  - name: 42
+    <<: *1G_POE_PORT
+
+  - name: 43
+    <<: *1G_POE_PORT
+
+  - name: 44
+    <<: *1G_POE_PORT
+
+  - name: 45
+    <<: *1G_POE_PORT
+
+  - name: 46
+    <<: *1G_POE_PORT
+
+  - name: 47
+    <<: *1G_POE_PORT
+
+  - name: 48
+    <<: *1G_POE_PORT
+
+  - name: 49
+    <<: [*UPLINK_1, *10G_PORT]
+
+  - name: 50
+    <<: [*UPLINK_2, *10G_PORT]
+
+  - name: 51
+    <<: [*UPLINK_3, *10G_PORT]
+
+  - name: 52
+    <<: [*UPLINK_4, *10G_PORT]
+
+  - name: 53
+    <<: [*SFP_DD_PORT_1, *10G_PORT]
+
+  - name: 54
+    <<: [*SFP_DD_PORT_2, *10G_PORT]
+    MacsecXflow: false
+
+  - name: 55
+    <<: [*SFP_DD_PORT_3, *10G_PORT]
+
+  - name: 56
+    <<: [*SFP_DD_PORT_4, *10G_PORT]
+    MacsecXflow: false

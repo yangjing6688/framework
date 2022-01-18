@@ -1,0 +1,93 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+ssh:
+    enable:
+        uuid: 19268327-5b64-4b96-ae69-92538ef45c4f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable ssh2',userPrompt,'None','Continue?','y',[],[]]
+    enable_client:
+        uuid: c4691b4a-c544-47bf-b72f-ec34e9743aab
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ssh client enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable:
+        uuid: 3a8fb625-5da1-4534-a716-32896dd5b63d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable ssh2',userPrompt,'None','None','None',[],[]]
+    disable_client:
+        uuid: efcc8ea4-695d-4272-b325-fb416a42f991
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ssh client enable',routerConfigPrompt,'None','None','None',[],[]]
+    set_version:
+        uuid: ce297f32-03ea-4a22-8288-8e4b3262bcd0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ssh version {version}',routerConfigPrompt,'None','None','None',[],[]]
+    set_client_source_interface:
+        uuid: a640fe7f-d4c0-4ae8-8d09-8d44e8a07d4e
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ssh client source-interface {interface}',routerConfigPrompt,'None','None','None',[],[]]
+    set_tcp_port:
+        uuid: f1650dc0-93b2-43f3-a95d-62d0e6c8cab8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ssh port {tcp_port}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ssh server port {tcp_port}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_client_source_interface:
+        uuid: b3492f28-5da3-4aef-bc73-e95016a55d23
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'no ssh client source-interface {interface}',routerConfigPrompt,'None','None','None',[],[]]
+    show:
+        uuid: 823e42ad-344c-4a2a-8d19-0ef08d30551c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ssh2',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ssh global',userPrompt,'None','None','None',[],[]]
+    show_client_status:
+        uuid: 29b3463d-2b88-4f75-b3dc-74df4fce2bfb
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show ssh client status',userPrompt,'None','None','None',[],[]]
+    show_server_status:
+        uuid: 5c6f721d-5043-41e0-976c-ef92fc3d3a7f
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show ssh server status',userPrompt,'None','None','None',[],[]]
+    show_session:
+        uuid: 97c26e4e-1ed6-43a1-bed7-62b2c986b62c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ssh session',userPrompt,'None','None','None',[],[]]
+    show_rekey:
+        uuid: afe63ae6-664e-4e8f-b386-9c6d3da7c584
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ssh rekey',userPrompt,'None','None','None',[],[]]

@@ -1,0 +1,158 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for X590-24x-1q-2c switch
+#
+#
+
+10G_port: &10G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   FullDuplexOnly: true
+   MacsecWithExtAdapter: true
+
+# 25G port
+25G_port: &25G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_25000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Ptp: true
+   Fec: true
+
+# 40G port with partition enabled
+40G_partition_port: &40G_PARTITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_40000
+   portMediaType: HAL_PORT_MED_GBIC
+   Partition: true
+   PartitionSize: 4
+   Pfc: true
+
+# 100G port with partition enabled
+100G_partition_port: &100G_PARTITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100000
+   portMediaType: HAL_PORT_MED_GBIC
+   Partition: true
+   PartitionSize: 4
+   Pfc: true
+   Fec: true
+
+ports:
+   - name: 1
+     <<: [*PORT_1, *10G_PORT]
+
+   - name: 2
+     <<: [*PORT_2, *10G_PORT]
+
+   - name: 3
+     <<: [*PORT_3, *10G_PORT]
+
+   - name: 4
+     <<: [*PORT_4, *10G_PORT]
+
+   - name: 5
+     <<: [*PORT_5, *10G_PORT]
+
+   - name: 6
+     <<: [*PORT_6, *10G_PORT]
+
+   - name: 7
+     <<: [*PORT_7, *10G_PORT]
+
+   - name: 8
+     <<: [*PORT_8, *10G_PORT]
+
+   - name: 9
+     <<: [*PORT_9, *10G_PORT]
+
+   - name: 10
+     <<: [*PORT_10, *10G_PORT]
+
+   - name: 11
+     <<: [*PORT_11, *10G_PORT]
+
+   - name: 12
+     <<: [*PORT_12, *10G_PORT]
+
+   - name: 13
+     <<: [*PORT_13, *10G_PORT]
+
+   - name: 14
+     <<: [*PORT_14, *10G_PORT]
+
+   - name: 15
+     <<: [*PORT_15, *10G_PORT]
+
+   - name: 16
+     <<: [*PORT_16, *10G_PORT]
+
+   - name: 17
+     <<: [*PORT_17, *10G_PORT]
+
+   - name: 18
+     <<: [*PORT_18, *10G_PORT]
+
+   - name: 19
+     <<: [*PORT_19, *10G_PORT]
+
+   - name: 20
+     <<: [*PORT_20, *10G_PORT]
+
+   - name: 21
+     <<: [*PORT_21, *10G_PORT]
+
+   - name: 22
+     <<: [*PORT_22, *10G_PORT]
+
+   - name: 23
+     <<: [*PORT_23, *10G_PORT]
+
+   - name: 24
+     <<: [*PORT_24, *10G_PORT]
+
+   - name: 25
+     <<: [*PORT_25, *40G_PARTITION_PORT]
+
+   - name: 26
+     <<: *10G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 27
+     <<: *10G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 28
+     <<: *10G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 29
+     <<: [*PORT_29, *100G_PARTITION_PORT]
+
+   - name: 30
+     <<: *25G_PORT
+
+   - name: 31
+     <<: *25G_PORT
+
+   - name: 32
+     <<: *25G_PORT
+
+   - name: 33
+     <<: [*PORT_33, *100G_PARTITION_PORT]
+
+   - name: 34
+     <<: *25G_PORT
+
+   - name: 35
+     <<: *25G_PORT
+
+   - name: 36
+     <<: *25G_PORT

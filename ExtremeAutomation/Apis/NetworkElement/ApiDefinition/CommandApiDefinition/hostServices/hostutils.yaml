@@ -1,0 +1,263 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+hostutils:
+    ping_host:
+        uuid: 57c52793-0d02-4f7f-b5b2-53bcd3024df4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ping -c {count} -i {timeout} {host_address}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'ping count {count} interval {timeout} {host_address}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ping {host_address} count {count} -t {timeout}',userPrompt,'None','None','None',[],[]]
+    enable_debug_mode:
+        uuid: 561a3b82-0d6e-456c-9c21-e8732fff4e8c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable debug-mode',userPrompt,'None','None','None',[],[]]
+    return_debug_creds:
+        uuid: 1151e4ca-cb54-4aed-b89c-d6d3cb64661e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'{response}',userPrompt,'None','None','None',[],[]]
+    enable_feature_license:
+        uuid: 5c9acf86-b925-473a-b308-755ad8b516bb
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable license {key}',userPrompt,'None','None','None',[],[]]
+    l2_ping_ipaddr:
+        uuid: b865ec88-e01c-47da-b928-d8cacd8278fb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping ip-address {ip_address}',userPrompt,'None','None','None',[],[]]
+    l2_ping_ipaddr_burst:
+        uuid: e826a9f3-d167-4d9a-b4b2-e24b370bf180
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {ip_address} burst-count {burst_count}',userPrompt,'None','None','None',[],[]]
+    l2_ping_ipaddr_data_tlv_size:
+        uuid: c03217f7-8d02-4761-82e7-3b34bac7f745
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {ip_address} data-tlv-size {tlv_size}',userPrompt,'None','None','None',[],[]]
+    l2_ping_ipaddr_frame_size:
+        uuid: 623c47a7-9076-4190-adb5-81f2fbf456d9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {ip_address} frame-size {frame_size}',userPrompt,'None','None','None',[],[]]
+    l2_ping_ipaddr_time_out:
+        uuid: e1f7fe5f-bcef-48f2-be42-169b60e75f74
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {ip_address} time-out {time_out}',userPrompt,'None','None','None',[],[]]
+    l2_ping_ipaddr_vrf:
+        uuid: 84b7d926-79ed-4786-a361-cf64e19e291d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping ip-address {ip_address} vrf {vrf_name}',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_mac:
+        uuid: e5e1cf1f-1bc4-429b-90e5-3e5b97f180f7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping vlan {vlan} mac {mac_address}',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename:
+        uuid: 876087e1-0ccd-4062-9b8a-eafd8b806609
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name}',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_burst:
+        uuid: 2f5e3a17-79c6-45dd-a236-464eb043f19c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} burst-count {burst_count}',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_data_tlv_size:
+        uuid: 3317ad1e-b519-441e-a82b-1fe05a4f4624
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} data-tlv-size {tlv_size}',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_frame_size:
+        uuid: 03afaf76-43a1-4599-97e9-5122edaee6e5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} frame_size {frame_size}',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_priority:
+        uuid: a1e82a3d-52f1-418a-bda1-2ba2d7a063d0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} priority {priority}',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_source_mode_nodal:
+        uuid: dd8b8868-c9e0-46e7-948b-666d60ac7683
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} source-mode nodal',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_source_mode_novlanmac:
+        uuid: 1bf7c148-23fd-4220-9961-7894422c0806
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} source-mode novlanmac',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_testfill_pattern_all_zero:
+        uuid: 66d4d1b0-9b11-4e0e-9c56-c6c35b5e96e6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} testfill-pattern all-zero',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_testfill_pattern_all_zero_crc:
+        uuid: 21bc24ec-1323-492a-a818-900f6fcc87ef
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} testfill-pattern all-zero-crc',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_testfill_pattern_pseudo_rand_bit_seq:
+        uuid: 93f96795-4070-4447-b3c1-e3d58ce27937
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} testfill-pattern pseudo-random-bit-sequence',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_testfill_pattern_pseudo_rand_bit_seq_crc:
+        uuid: 09e13a76-cb60-4905-82f8-3b3687353048
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} testfill-pattern pseudo-random-bit-sequence-crc',userPrompt,'None','None','None',[],[]]
+    l2_ping_vlan_routernodename_timeout:
+        uuid: 71efee42-56ee-4485-915b-e9dc4bd99bb6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 ping {vlan} routernodename {node_name} time-out {timeout}',userPrompt,'None','None','None',[],[]]
+    l2_traceroute_ipaddr:
+        uuid: b5249415-798c-409e-8847-f9ea9572540c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 traceroute ip-address {ip_address}',userPrompt,'None','None','None',[],[]]
+    l2_traceroute_ipaddr_ttl:
+        uuid: f0854239-db80-4193-9184-792ac5c1527f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 traceroute ip-address {ip_address} ttl-value {ttl}',userPrompt,'None','None','None',[],[]]
+    l2_traceroute_ipaddr_vrf:
+        uuid: 206ff912-49f4-433d-93a0-93959427859d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 traceroute ip-address {ip_address} vrf {vrf_name}',userPrompt,'None','None','None',[],[]]
+    l2_traceroute_vlan_mac:
+        uuid: 4609e598-4735-4f4d-93ed-93c2c645ba6f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 traceroute vlan {vlan} mac {mac}',userPrompt,'None','None','None',[],[]]
+    l2_traceroute_vlan_routernodename_priority:
+        uuid: 0587bdf3-05d3-4686-b780-0640a76a0fd1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 traceroute vlan {vlan} routernodename {name} priority {priority}',userPrompt,'None','None','None',[],[]]
+    l2_traceroute_vlan_routernodename_source_mode_nodal:
+        uuid: 786dcc02-9baf-429f-99f5-c3202b4e8865
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 traceroute vlan {vlan} routernodename {name} source-mode nodal',userPrompt,'None','None','None',[],[]]
+    l2_traceroute_vlan_routernodename_source_mode_novlanmac:
+        uuid: 9dd77c84-6cc7-4673-aafa-4fdcd64ae983
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 traceroute vlan {vlan} routernodename {name} source-mode novlanmac',userPrompt,'None','None','None',[],[]]
+    l2_traceroute_vlan_routernodename_ttl:
+        uuid: 5dd27024-5a9a-4bec-9876-62490a39ea72
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 traceroute vlan {vlan} routernodename {name} ttl-value {ttl}',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid:
+        uuid: 81053d9a-5b3b-46a4-93b4-1de3c8954c87
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid {isid}',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid_mac:
+        uuid: 04cb12b5-4318-4a6c-8828-82cd43cfd723
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid mac {mac}',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid_priority:
+        uuid: 44b28541-b559-4f40-b9ca-3175235e92eb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid priority {priority}',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid_routernodename:
+        uuid: f67bb98f-1f9c-4107-ac78-495ddc15b4cf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid {isid} routernodename {name}',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid_routernodename_priority:
+        uuid: 170b5bf4-9943-4328-84a8-b0e2a9b46099
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid {isid} routernodename {name} priority {priority}',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid_routernodename_source_mode_nodal:
+        uuid: e8f8e6bb-867f-4ce6-a0db-ac446df1dd52
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid {isid} routernodename {name} source-mode nodal',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid_routernodename_ttl:
+        uuid: 4eba03ce-76c2-46ee-bd04-415e3d2b93be
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid {isid} routernodename {name} ttl-value {ttl}',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid_source_mode_nodal:
+        uuid: ecbd065a-1d3b-4dbd-a56f-146a2e29ce7e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid {isid} source-mode nodal',userPrompt,'None','None','None',[],[]]
+    l2_tracetree_vlan_isid_ttl:
+        uuid: cbb445d9-b372-4fc2-9a8c-8eea9233bb38
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracetree vlan {vlan} isid {isid} ttl-value {ttl}',userPrompt,'None','None','None',[],[]]
+    l2_tracemroute:
+        uuid: 9ba90ce9-3030-4298-9a31-f35f7d39f872
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracemroute source {source_address} group {group_address}',userPrompt,'None','None','None',[],[]]
+    l2_tracemroute_priority:
+        uuid: fd70b7d6-72c3-4d62-bbb2-1ccc2b32d135
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracemroute source {source_address} group {group_address} priority {priority}',userPrompt,'None','None','None',[],[]]
+    l2_tracemroute_ttl:
+        uuid: 6a382043-bb0d-4def-bc3c-a51cb96632e3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracemroute source {source_address} group {group_address} ttl-value {ttl}',userPrompt,'None','None','None',[],[]]
+    l2_tracemroute_vlan:
+        uuid: 7df24a03-94a9-4190-81ed-cd6e0154f12e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracemroute source {source_address} group {group_address} vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    l2_tracemroute_vrf:
+        uuid: b5a1808c-2079-4ac7-a3b3-685d4fd4a0ec
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'l2 tracemroute source {source_address} group {group_address} vrf {vrf_name}',userPrompt,'None','None','None',[],[]]
+    telnet_to_ip:
+        uuid: 653ec587-88c4-4a0f-bbb8-ff81c1990bb4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'telnet {ip_address}',userPrompt,'None','login:||password:||Do you wish to save||Last Successful Login','{username}||{password}||n||exit',['Login timed out!'],[]]
+    ssh_to_ip:
+        uuid: 23546501-3087-40dd-a754-f9e6355e9a49
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'ssh user {username} {ip_address}',userPrompt,'None','password:||Do you wish to save||Last Successful Login','{password}||n||exit',['Login timed out!'],[]]

@@ -1,0 +1,39 @@
+# #################################################################
+#
+#  Copyright (c) 2019, 2021 Extreme Networks, Inc.
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  the 5520-24T switch
+#
+
+vendor: Extreme
+product_name: 5520-24T
+
+files:
+    - name: system
+      filename: [../5520/system.yaml, ../5520/5520_system.yaml]
+    - name: devices
+      filename: [../5520/devices.yaml, ../5520/5520_devices.yaml]
+    - name: interrupts
+      filename: [../5520/interrupts.yaml, ../5520/5520_interrupts.yaml]
+    - name: leds
+      filename: [../5520/leds.yaml, ../5520/5520_leds.yaml]
+    - name: buttons
+      filename: [../5520/buttons.yaml, ../5520/5520_buttons.yaml]
+    - name: thermal
+      filename: [thermal.yaml, ../5520/5520_thermal.yaml]
+    - name: fans
+      filename: [../5520/fans.yaml, ../5520/5520_24tx_fans.yaml]
+    - name: power
+      filename: [../5520/power.yaml, ../5520/5520_power.yaml]
+    - name: watchdog
+      filename: [../5520/watchdog.yaml, ../5520/5520_watchdog.yaml]
+    - name: capability
+      filename: [../../common/defaultcap.yaml, ../../common/Broadcom/trident3_x3.yaml, switchcap.yaml]
+    - name: ports
+      filename: [../../common/defaultports.yaml, ../5520/ports.yaml, ports.yaml]
+    - name: vims
+      filename: [../5520/vims.yaml, ../5520/5520_24_vims.yaml]

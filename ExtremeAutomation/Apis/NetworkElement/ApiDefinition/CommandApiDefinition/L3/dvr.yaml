@@ -1,0 +1,300 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+dvr:
+    set_domain_controller:
+        description: "Configures a DVR domain controller domain-id"
+        arguments:
+            order: 
+        uuid: a9354712-f304-477b-ad23-6e9e42e13dfa
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr controller {domain_id}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_domain_controller:
+        description: "Removes a DVR domain controller on the device"
+        arguments:
+            order: 
+        uuid: 0b080271-8fba-4eff-90ba-7c75c884eecc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no dvr controller',routerConfigPrompt,'None','None','None',[],[]]
+    disable_domain_controller_inject_default_route_all:
+        description: "Disables the injection of default routes for all DVR domain controllers"
+        arguments:
+            order: 
+        uuid: a6241fde-5aad-4228-92b7-f58aefb50a1f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr controller inject-default-route-disable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_domain_controller_inject_default_route:
+        description: "Disables injecting of default routes for the specified DVR domain controller id"
+        arguments:
+            order: 
+        uuid: 5ad92c0d-527e-43b4-8ef2-7397d22d44f1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr controller {domain_id} inject-default-route-disable',routerConfigPrompt,'None','None','None',[],[]]
+    set_leaf_id:
+        description: "Sets the domain id for the DVR leaf"
+        arguments:
+            order: 
+        uuid: 912359c5-35e4-47f8-8493-60f314775716
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr leaf {domain_id}',routerConfigPrompt,'None','None','None',[],[]]
+    set_leaf_virtual_ist:
+        description: "Sets the virtual-ist IP address for the DVR leaf on the specified interface"
+        arguments:
+            order: interface,local_ip,mask,peer_ip,cluster_id
+        uuid: 3ec2c0ab-0858-49cc-904b-dad9c3b31b94
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr leaf virtual-ist {local_ip} {mask} peer-ip {peer_ip} cluster-id {cluster_id}',intfPrompt,'vlan {interface}','None','None',[],[]]
+    clear_leaf_virtual_ist:
+        description: "Removes the virtual-ist for the DVR leaf on the specified interface"
+        arguments:
+            order: 
+        uuid: 04166cee-a168-4d87-be9a-a7066f89dd3d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no dvr leaf virtual-ist',intfPrompt,'vlan {interface}','None','None',[],[]]
+    set_interface_gateway_ipv4:
+        description: "Configures a DVR IPv4 gateway on an interface"
+        arguments:
+            order: 
+        uuid: 7b57b57b-b8da-4b65-beb6-d6378e002fa3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr gw-ipv4 {ip}',intfPrompt,'vlan {interface}','None','None',[],[]]
+    clear_interface_gateway_ipv4:
+        description: "Removes a DVR IPv4 gateway on the specified interface"
+        arguments:
+            order: 
+        uuid: 0f24691c-49cf-4a99-9286-f6a55ade9a3a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no dvr gw-ipv4',intfPrompt,'vlan {interface}','None','None',[],[]]
+    enable_interface:
+        description: "Enables DVR on an interface"
+        arguments:
+            order: 
+        uuid: 5ca6c2e3-261f-4af1-9e7b-f1a7fcd6928e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'enable dvr',intfPrompt,'vlan {interface}','None','None',[],[]]
+    disable_interface:
+        description: "Disables DVR on an interface"
+        arguments:
+            order: 
+        uuid: 675309c2-4098-4849-bf6b-35112f847d19
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no enable dvr',intfPrompt,'vlan {interface}','None','None',[],[]]
+    set_redistribute:
+        description: ""
+        arguments:
+            order: 
+        uuid: e276fd26-c1b6-4ff6-8f6a-de90d7d18a19
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr apply redistribute',routerConfigPrompt,'None','None','None',[],[]]
+    set_redistribute_direct:
+        description: ""
+        arguments:
+            order: 
+        uuid: 8218d215-1b64-4859-83aa-9c6a24e5b500
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr apply redistribute direct',routerConfigPrompt,'None','None','None',[],[]]
+    set_redistribute_direct_metric:
+        description: ""
+        arguments:
+            order: 
+        uuid: ee3ffa88-b799-48f3-9d8a-1b0d79133d3a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr redistribute direct metric {metric}',routerConfigPrompt,'None','None','None',[],[]]
+    set_redistribute_vrf:
+        description: ""
+        arguments:
+            order: 
+        uuid: 772add6c-9ead-4a38-acc5-2e2a022ec026
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr apply redistribute vrf {vrf}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_redistribute_direct:
+        description: ""
+        arguments:
+            order: 
+        uuid: 5fccb62e-e05c-48ec-bd98-52696f881319
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no dvr redistribute direct',routerConfigPrompt,'None','None','None',[],[]]
+    enable_redistribute_direct:
+        description: ""
+        arguments:
+            order: 
+        uuid: f65ace22-c6d0-42a6-a806-806faad1a763
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr redistribute direct enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_redistribute_direct:
+        description: ""
+        arguments:
+            order: 
+        uuid: 97430b8d-49f6-4ea7-8b9d-80b7f3c1f86a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no dvr redistribute direct enable',routerConfigPrompt,'None','None','None',[],[]]
+    set_redistribute_static:
+        description: ""
+        arguments:
+            order: 
+        uuid: 8580a1f9-ad78-44a7-b36a-f8dc0f0c8395
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr apply redistribute static',routerConfigPrompt,'None','None','None',[],[]]
+    set_redistribute_static_metric:
+        description: ""
+        arguments:
+            order: 
+        uuid: 79131e5a-93e3-4e81-944f-041e50b5f6dc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr redistribute static metric {metric}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_redistribute_static:
+        description: ""
+        arguments:
+            order: 
+        uuid: 649e982c-da7b-42d2-aa4e-611ccfd944f4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no dvr redistribute static',routerConfigPrompt,'None','None','None',[],[]]
+    enable_redistribute_static:
+        description: ""
+        arguments:
+            order: 
+        uuid: f84d11b1-ad75-435a-baee-686c854b42a6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'dvr redistribute static enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_redistribute_static:
+        description: ""
+        arguments:
+            order: 
+        uuid: cc74db7b-4152-4fba-a553-b6cc47c83186
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no dvr redistribute static enable',routerConfigPrompt,'None','None','None',[],[]]
+    clear_host_entries:
+        description: ""
+        arguments:
+            order: 
+        uuid: 60738e0e-9974-4a7a-bc90-750dffd6d684
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'clear dvr host-entries',userPrompt,'None','None','None',[],[]]
+    clear_host_entries_ipv4:
+        description: ""
+        arguments:
+            order: 
+        uuid: 29bfcbbc-6451-4a34-8e3e-1d6eb7c45191
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'clear dvr host-entries {ip}',userPrompt,'None','None','None',[],[]]
+    clear_host_entries_ipv4_l3isid:
+        description: ""
+        arguments:
+            order: 
+        uuid: f4fc181e-2dd8-47ed-b1ca-bb3669c97cdf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'clear dvr host-entries {ip} l3isid {isid}',userPrompt,'None','None','None',[],[]]
+    clear_host_entries_l2isid:
+        description: ""
+        arguments:
+            order: 
+        uuid: a89a7127-50d7-482d-8324-6aacf96db0c0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'clear dvr host-entries l2isid {isid}',userPrompt,'None','None','None',[],[]]
+    clear_host_entries_l3isid:
+        description: ""
+        arguments:
+            order: 
+        uuid: c8e41357-3e78-4751-9097-af9c99a8d357
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'clear dvr host-entries l3isid {isid}',userPrompt,'None','None','None',[],[]]
+    show_info:
+        uuid: cbd5c6fa-ee55-4f6e-9636-d71d8ca026fd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr',userPrompt,'None','None','None',[],[]]
+    show_interfaces:
+        uuid: f6611778-a98d-4cca-85d3-22808704c34f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr interfaces',userPrompt,'None','None','None',[],[]]
+    show_members:
+        uuid: 602dc40d-2c84-421c-b5f8-995a75a1ed65
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr members',userPrompt,'None','None','None',[],[]]
+    show_backbone_entries:
+        uuid: e75b74d4-0f45-48a2-becc-f1686af8d9d9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr backbone-entries',userPrompt,'None','None','None',[],[]]
+    show_backbone_members:
+        uuid: 8f65a37d-6dc0-40eb-8e3a-29b51dd45bd2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr backbone-members',userPrompt,'None','None','None',[],[]]
+    show_database:
+        uuid: 8d3c005b-64ed-4c3f-a34c-fc327ae47b1f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr database',userPrompt,'None','None','None',[],[]]
+    show_host_entries:
+        uuid: 3372483e-f976-446c-ab0c-20502da19b26
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr host-entries',userPrompt,'None','None','None',[],[]]
+    show_l3vsn:
+        uuid: 9bb84fef-65d1-4d69-8de6-f87f8687d0ad
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr l3vsn',userPrompt,'None','None','None',[],[]]
+    show_redistribute:
+        uuid: a776779c-56d6-4a36-afa0-a3dd2c69a086
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr redistribute',userPrompt,'None','None','None',[],[]]
+    show_routes:
+        uuid: b4a7f9a1-4412-4eac-a500-ace25fe04b87
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show dvr routes',userPrompt,'None','None','None',[],[]]

@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ###################################################################
+#
+#  This file defines VIM6 device instances.
+#
+
+# All devices except for eeprom, which should be defined outside
+devices:
+  - *VIM6_PCA9506

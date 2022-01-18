@@ -1,0 +1,19 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+browser:
+    login:
+        apis:
+            - [emc,'BaseAppVer']
+            - [xmc,'BaseAppVer']
+    open_web_page:
+        apis:
+            - [emc,'BaseAppVer']
+            - [xmc,'BaseAppVer']
+    close_web_page:
+        apis:
+            - [emc,'BaseAppVer']
+            - [xmc,'BaseAppVer']

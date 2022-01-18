@@ -1,0 +1,13 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+dfndrwizard:
+    dfndr_wizard_configuration:
+        apis:
+            - [dfndr,'03.01']
+    dfndr_cleanup_for_wizard_run:
+        apis:
+            - [dfndr,'03.01']

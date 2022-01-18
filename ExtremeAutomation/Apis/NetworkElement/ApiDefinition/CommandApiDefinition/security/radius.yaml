@@ -1,0 +1,494 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+radius:
+    enable_global:
+        description: "Enables RADIUS"
+        arguments:
+            order: 
+        uuid: 6a794411-17ce-44a1-b80f-5f467d25a8d6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius enable ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable radius',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'radius enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.1.0','i','1']
+    enable_acct:
+        description: "Enables RADIUS Accounting"
+        arguments:
+            order: 
+        uuid: d2154d3e-5129-4551-8e84-21fe67976ba5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius accounting enable ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable radius-accounting',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'radius enable||radius accounting enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.1.0||1.3.6.1.4.1.2272.1.29.1.5.0','i||i','1||1']
+    disable_global:
+        description: "Disables RADIUS"
+        arguments:
+            order: 
+        uuid: 9f41adce-7e97-45c2-addc-1b3b23dcdd4c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius disable ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable radius',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no radius enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.1.0','i','2']
+    disable_acct:
+        description: "Disables RADIUS Accounting"
+        arguments:
+            order: 
+        uuid: 55596503-345c-4584-9438-65aff18f58ea
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius accounting disable ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable radius-accounting',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no radius accounting enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.5.0','i','2']
+    set_server:
+        description: "Creates a RADIUS server"
+        arguments:
+            order: addr,secret,index,port,client_ip,vr
+        uuid: 714d2b1e-d4bc-436a-8691-dbd3ac8209b6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius server {index} {addr} {port} {secret}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius {index} server {addr} {port} client-ip {client_ip} shared-secret {secret} vr {vr}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'radius server host {client_ip} key {secret} source-ip {addr}',routerConfigPrompt,'None','None','None',[],[]]
+    set_acct_server:
+        description: "Creates a RADIUS Accounting Server"
+        arguments:
+            order: addr,index,port,secret,client_ip,vr
+        uuid: c26d9e66-84f7-43c4-b51c-6b4a215fac5d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius accounting server {index} {addr} {port} {secret}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius-accounting {index} server {addr} {port} client-ip {client_ip} shared-secret {secret} vr {vr}',userPrompt,'None','None','None',[],[]]
+    set_retries_global:
+        description: "Sets the RADIUS Server retry attempts"
+        arguments:
+            order: 
+        uuid: 37ec7b4e-7453-456d-8567-6dc1c07c3813
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius retries {num}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius retries {num}',userPrompt,'None','None','None',[],[]]
+    set_timeout_global:
+        description: "Sets the RADIUS Server timeout value in seconds"
+        arguments:
+            order: 
+        uuid: 3c29d965-525b-4e5b-82c0-ae90f35ac1d1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius timeout {sec}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius timeout {sec}',userPrompt,'None','None','None',[],[]]
+    set_algorithm_global_std:
+        description: "Sets the RADIUS Algorithm type to Standard"
+        arguments:
+            order: 
+        uuid: 9bc592d8-0738-4dc3-8ac2-0ad11d54feec
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius algorithm standard ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius algorithm standard',userPrompt,'None','None','None',[],[]]
+    set_algorithm_global_rr:
+        description: "Sets the RADIUS Algorithm type to Round Robin"
+        arguments:
+            order: 
+        uuid: 9236cb3d-b0ef-46c2-9813-d3d209c31920
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius algorithm round-robin ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius algorithm round-robin',userPrompt,'None','None','None',[],[]]
+    set_algorithm_global_srr:
+        description: "Sets the RADIUS Algorithm type to Sticky Round Robin"
+        arguments:
+            order: 
+        uuid: cceb1fc6-b521-41dc-ae71-702da2578716
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius algorithm sticky-round-robin ',userPrompt,'None','None','None',[],[]]
+    set_accounting_retries_global:
+        uuid: 6b4efe4d-560b-478d-a8fd-3ded6d09ffbd
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius accounting retries {num} all',userPrompt,'None','None','None',[],[]]
+    set_accounting_timeout_global:
+        uuid: 920d5343-c390-4865-b011-2a89384d6301
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set radius accounting timeout {sec} all',userPrompt,'None','None','None',[],[]]
+    clear_server:
+        description: "Removes a RADIUS server"
+        arguments:
+            order: 
+        uuid: 51c0947e-5037-40a8-b4da-20d97ff27f12
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear radius server {index}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure radius server {index}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no radius server host {client_ip} used-by cli',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EOS,base,baseversion,baseunit,set,'1.3.6.1.4.1.5624.1.2.4.1.5.1.8.{index}','i','{client_ip}']
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.4.1.5624.1.2.4.1.5.1.8.{index}','i','{client_ip}']
+    clear_acct_server:
+        description: "Removes a RADIUS accounting server"
+        arguments:
+            order: 
+        uuid: c1229a43-8988-4884-88a3-59da0add71a3
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear radius accounting server {index}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure radius-accounting server {index}',userPrompt,'None','None','None',[],[]]
+    clear_acct_server_global:
+        description: "Removes ALL the RADIUS accounting servers configured on the Network Element"
+        arguments:
+            order: 
+        uuid: 605ebf72-b989-4a7e-bb47-5a3c5f477542
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear radius accounting server all',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure radius-accounting',userPrompt,'None','None','None',[],[]]
+    clear_algorithm_global:
+        description: "Sets the RADIUS Algorithm type to the default setting"
+        arguments:
+            order: 
+        uuid: 89723391-2765-4306-872f-e3007199182e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear radius algorithm ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius algorithm standard',userPrompt,'None','None','None',[],[]]
+    clear_retries_global:
+        description: "Clears the RADIUS Server retry attempts setting them back to the default setting"
+        arguments:
+            order: 
+        uuid: f9a7b472-ee89-45b6-8260-e890d5a8b4c5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear radius retries ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius retries 3',userPrompt,'None','None','None',[],[]]
+    clear_timeout_global:
+        description: "Clears the RADIUS Server timeout value setting it back to the default setting"
+        arguments:
+            order: 
+        uuid: 2a17d732-4379-4e7c-83b7-7d1b6a4189c2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear radius timeout ',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure radius timeout 3',userPrompt,'None','None','None',[],[]]
+    clear_state:
+        description: "Clears the RADIUS client state and sets it back to the default value"
+        arguments:
+            order: 
+        uuid: a6ad0a18-a989-4afc-a647-2188555afbd7
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear radius state ',userPrompt,'None','None','None',[],[]]
+    enable_mgmt:
+        description: "Enables RADIUS Management Access"
+        arguments:
+            order: 
+        uuid: 9057e14d-ac0c-4761-b94b-f3a2b910e18a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable radius mgmt-access',userPrompt,'None','None','None',[],[]]
+    enable_netlogin:
+        description: "Enables RADIUS Netlogin"
+        arguments:
+            order: 
+        uuid: aee135e5-1ef4-44a7-9aa7-f08e6e866480
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable radius netlogin',userPrompt,'None','None','None',[],[]]
+    disable_mgmt:
+        description: "Disables RADIUS Management Access"
+        arguments:
+            order: 
+        uuid: 8c1a1e0b-4474-4ed2-b0ba-5ca0719b65e1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable radius mgmt-access',userPrompt,'None','None','None',[],[]]
+    disable_netlogin:
+        description: "Disables RADIUS Netlogin"
+        arguments:
+            order: 
+        uuid: 614343be-6e31-45ba-8e49-95f100ad7dde
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable radius netlogin',userPrompt,'None','None','None',[],[]]
+    enable_include_cli_cmds:
+        description: "Enables the inclusion of cli commands in RADIUS accounting updates"
+        arguments:
+            order: 
+        uuid: 47365281-4cf9-4edc-a300-c605dba1b82b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius accounting include-cli-commands',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.7.0','i','1']
+    enable_cli_profile:
+        description: "Enables RADIUS CLI Profiling"
+        arguments:
+            order: 
+        uuid: 174bcffc-fd8c-44e0-8819-b6467e53fcca
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius cli-profile',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.14.0','i','1']
+    enable_src_ip_flag:
+        description: "Enables the flag to include the configured IP address as source address in RADIUS packets"
+        arguments:
+            order: 
+        uuid: 65f9bf8e-afc4-4ba9-9524-2f6cba1014e4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius sourceip-flag',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.16.0','i','1']
+    disable_include_cli_cmds:
+        description: "Disables the inclusion of cli commands in RADIUS accounting updates"
+        arguments:
+            order: 
+        uuid: cdf8d306-4ecc-46a2-bb3c-c54e9e7e4bde
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no radius accounting include-cli-commands',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.7.0','i','2']
+    disable_cli_profile:
+        description: "Disables RADIUS CLI Profiling"
+        arguments:
+            order: 
+        uuid: d9ca9238-85ed-485a-a939-7687362b38d4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no radius cli-profile',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.14.0','i','2']
+    disable_src_ip_flag:
+        description: "Disables the flag to include the configured IP address as source address in RADIUS packets"
+        arguments:
+            order: 
+        uuid: 057b5f5e-0951-4e7d-8753-4bc8c689994d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no radius sourceip-flag',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.16.0','i','2']
+    set_max_servers:
+        description: "Configure the maximum number of RADIUS servers"
+        arguments:
+            order: 
+        uuid: 165af531-1f1e-4519-9f91-6c59f50e0cb5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius maxserver {max_servers}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.2.0','i','{max_servers}']
+    set_access_priority:
+        description: "Configure the integer value for the RADIUS Access-Priority attribute"
+        arguments:
+            order: 
+        uuid: 69907b5f-f591-4374-830f-9db39180b440
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius access-priority-attribute {attr_value}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.3.0','i','{attr_value}']
+    set_acct_attr:
+        description: "Configure the integer value for the RADIUS User-Command attribute"
+        arguments:
+            order: 
+        uuid: ff4888ac-a8c7-4635-97e9-c714020980d9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius accounting attribute-value {attr_value}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.6.0','i','{attr_value}']
+    set_mcast_addr_attr:
+        description: "Configure the integer value for the RADIUS multicast address vendor specific attribute"
+        arguments:
+            order: 
+        uuid: 3d1d1fbe-ba8d-4b2d-841f-5cc71b44a6ec
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius mcast-addr-attr-value {attr_value}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.9.0','i','{attr_value}']
+    set_auth_info_attr:
+        description: "Configure the integer value for the RADIUS Auth-Info vendor specific attribute"
+        arguments:
+            order: 
+        uuid: 2acf12a1-fa88-431e-ae57-05a286cbf7e4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius auth-info-attr-value {attr_value}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.10.0','i','{attr_value}']
+    set_cmd_access_attr:
+        description: "Configure the integer value for the RADIUS Command-Access attribute."
+        arguments:
+            order: 
+        uuid: 475ba50d-f042-41a2-a03f-e24928eb9aef
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius command-access-attribute {attr_value}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.11.0','i','{attr_value}']
+    set_cli_cmd_attr:
+        description: "Configure the integer value for the RADIUS Cli-Command attribute"
+        arguments:
+            order: 
+        uuid: f2d03fd9-f2ac-4668-a737-26e2448a57fc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius cli-commands-attribute {attr_value}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.12.0','i','{attr_value}']
+    set_cli_cmd_count:
+        description: "Configure the integer value for the RADIUS Cli-Command-count"
+        arguments:
+            order: 
+        uuid: 3a3728fc-4684-4532-87b3-7290b2a51fe0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius cli-cmd-count {value}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.18.0','i','{value}']
+    set_server_for_cli:
+        description: "Adds a RADIUS server"
+        arguments:
+            order: 
+        uuid: 80b929b7-de43-4258-a2ac-e1276374cc12
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius server host {addr} key {secret} port {auth_port} priority {priority} retry {max_retries} timeout {timeout} acct-port {acct_port} source-ip {source_ip}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.5.1.9.{addr}||1.3.6.1.4.1.2272.1.29.5.1.8.{addr}||1.3.6.1.4.1.2272.1.29.5.1.4.{addr}||1.3.6.1.4.1.2272.1.29.5.1.7.{addr}||1.3.6.1.4.1.2272.1.29.5.1.6.{addr}||1.3.6.1.4.1.2272.1.29.5.1.5.{addr}||1.3.6.1.4.1.2272.1.29.5.1.18.{addr}||1.3.6.1.4.1.2272.1.29.5.1.17.{addr}||1.3.6.1.4.1.2272.1.29.5.1.30.{addr}||1.3.6.1.4.1.2272.1.29.5.1.16.{addr}','s||i||i||i||i||i||i||i||s||i','{secret}||{auth_port}||{priority}||{max_retries}||1||{timeout}||{acct_port}||1||{source_ip}||4']
+    clear_server_for_cli:
+        description: "Removes a RADIUS server for CLI"
+        arguments:
+            order: 
+        uuid: 93acf6fd-8d47-4be8-90fb-ca762a0da238
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no radius server host {addr} used-by cli',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.5.1.16.{addr}','i','6']
+    clear_stats_global:
+        description: "Clears the RADIUS Statistics for all configured servers"
+        arguments:
+            order: 
+        uuid: d5301bc9-f275-4b44-904d-62d24a4da49e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'radius clear-stat',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.29.1.8.0','i','1']
+    show_global:
+        uuid: dc7a3e85-b914-4749-9bf6-145d7123d568
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show radius||show radius snmp||show radius-server',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.29','i','']
+                - [EOS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.5624.1.2.4.','i','']
+                - [EXOS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.5624.1.2.4.','i','']
+    show_state:
+        uuid: e4f281eb-c13f-4aaa-a1d7-a1e9a7295195
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show radius state',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.29.1.1.0','i','']
+    show_acct_state:
+        uuid: 0c4f711c-7595-43eb-921d-9d1864619ac6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show radius accounting state',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show radius-accounting',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.29.1.5.0','i','']
+    show_acct_global:
+        uuid: e6d35d83-9e33-4903-9aad-65391638b386
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show radius accounting',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show radius-accounting',userPrompt,'None','None','None',[],[]]
+    show_retries_global:
+        uuid: d69e3d97-db6c-49ed-8a28-849bf0694f5a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show radius retries',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+    show_timeout_global:
+        uuid: 24bfdc5f-8fac-442c-b6b6-8cbccc2944d1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show radius timeout',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+    show_algorithm:
+        uuid: f45aa084-6873-4729-add8-568ef037dc4f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show radius algorithm',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+    show_servers:
+        uuid: b0fd163c-1b3e-479e-9f7c-350cdfbfaed8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show radius-server',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.29.5','i','']
+    show_global_scalars:
+        uuid: 2d66e027-471a-414e-b120-72958acb1e79
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show radius',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.29.1','i','']
+    show_global_snmp_scalars:
+        uuid: 05528f95-bf92-4607-a656-841611cf718c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show radius snmp',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.29.4','i','']
+    show_global_auth_invalid_srv_addrs:
+        uuid: bf9fda04-c56a-408b-a0ed-759f2c38be36
+        apis:
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.29.1.15.0','i','']

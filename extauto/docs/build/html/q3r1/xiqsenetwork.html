@@ -1,0 +1,2568 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XIQSE NETWORK &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="XIQSE ADMIN" href="xiqseadmin.html" />
+    <link rel="prev" title="REMOTE LIBRARIES" href="remotelib.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="xiqconfigure.html"><strong>CONFIGURE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmanage.html"><strong>MANAGE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqa3.html"><strong>A3</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqcommon.html"><strong>COMMON FLOWS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqglobalsettings.html"><strong>GLOBAL SETTINGS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmlinsights.html"><strong>MLINSIGHTS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonlib.html"><strong>COMMON LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="remotelib.html"><strong>REMOTE LIBRARIES</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>XIQSE NETWORK</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-xiqse.flows.network.XIQSE_Devices">XIQSE_Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xiqse.flows.network.XIQSE_SiteActions">XIQSE_SiteActions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#xiqse-sitediscover">XIQSE_SiteDiscover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xiqse.flows.network.XIQSE_Site">XIQSE_Site</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xiqseadmin.html"><strong>XIQSE ADMIN</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqsecommon.html"><strong>XIQSE COMMON</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><strong>XIQSE NETWORK</strong></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/xiqsenetwork.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xiqse-network">
+<h1><strong>XIQSE NETWORK</strong><a class="headerlink" href="#xiqse-network" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page Contains Python Library Definitions For XIQ SE NETWORK Menu</p>
+</div>
+<a class="reference internal image-reference" href="_images/extreme_logo.png"><img alt="alternate text" class="align-right" src="_images/extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-xiqse.flows.network.XIQSE_Devices">
+<span id="xiqse-devices"></span><h2>XIQSE_Devices<a class="headerlink" href="#module-xiqse.flows.network.XIQSE_Devices" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.network.XIQSE_Devices.</code><code class="sig-name descname">XIQSE_Devices</code><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.NetworkDevicesWebElements.NetworkDevicesWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_add_device">
+<code class="sig-name descname">xiqse_add_device</code><span class="sig-paren">(</span><em class="sig-param">ip_addr</em>, <em class="sig-param">profile='public_v1_Profile'</em>, <em class="sig-param">nickname=''</em>, <em class="sig-param">status_only='False'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_add_device" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword adds a device using the Add Device toolbar button on the Network&gt; Devices&gt; Devices tab.</p></li>
+<li><p>It is assumed the user is already on the Network&gt; Devices&gt; Devices tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Add</span> <span class="pre">Device</span>&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${PROFILE}</span>&#160; <span class="pre">${NICKNAME}</span>&#160; <span class="pre">True</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Add</span> <span class="pre">Device</span>&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${PROFILE}</span>&#160; <span class="pre">${NICKNAME}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Add</span> <span class="pre">Device</span>&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${PROFILE}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Add</span> <span class="pre">Device</span>&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${PROFILE}</span>&#160; <span class="pre">status_only=True</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Add</span> <span class="pre">Device</span>&#160; <span class="pre">${IP}}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Add</span> <span class="pre">Device</span>&#160; <span class="pre">${IP}}</span>&#160; <span class="pre">nickname=TestDevice</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Add</span> <span class="pre">Device</span>&#160; <span class="pre">${IP}}</span>&#160; <span class="pre">status_only=True</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip_addr</strong> – IP address of the device to add - required</p></li>
+<li><p><strong>profile</strong> – profile to use for the device</p></li>
+<li><p><strong>nickname</strong> – nickname to use for the device</p></li>
+<li><p><strong>status_only</strong> – indicates if the device should be created with Poll Status Only selected (True/False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_annotations">
+<code class="sig-name descname">xiqse_configure_device_annotations</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">nickname=None</em>, <em class="sig-param">asset_tag=None</em>, <em class="sig-param">ud1=None</em>, <em class="sig-param">ud2=None</em>, <em class="sig-param">ud3=None</em>, <em class="sig-param">ud4=None</em>, <em class="sig-param">note=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword configures the device with the specified Device Annotation values.</p></li>
+<li><p>The Configure Device dialog is opened, the Device Annotation tab is selected and populated with the specified</p></li>
+<li><p>values, and the Save button is clicked.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>XIQSE Configure Device Annotations   1.2.3.4  nickname=MY_NICKNAME  ud2=MY DATA 2  note=MY NOTE</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p>2nd LINE``</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param device_ip</dt>
+<dd class="field-odd"><p>IP address of the device to configure</p>
+</dd>
+<dt class="field-even">param nickname</dt>
+<dd class="field-even"><p>Value to enter into the Nickname field</p>
+</dd>
+<dt class="field-odd">param asset_tag</dt>
+<dd class="field-odd"><p>Value to enter into the Asset Tag field</p>
+</dd>
+<dt class="field-even">param ud1</dt>
+<dd class="field-even"><p>Value to enter into the User Data 1 field</p>
+</dd>
+<dt class="field-odd">param ud2</dt>
+<dd class="field-odd"><p>Value to enter into the User Data 2 field</p>
+</dd>
+<dt class="field-even">param ud3</dt>
+<dd class="field-even"><p>Value to enter into the User Data 3 field</p>
+</dd>
+<dt class="field-odd">param ud4</dt>
+<dd class="field-odd"><p>Value to enter into the User Data 4 field</p>
+</dd>
+<dt class="field-even">param note</dt>
+<dd class="field-even"><p>Value to enter into the Note field</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_click_cancel">
+<code class="sig-name descname">xiqse_configure_device_dialog_click_cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_click_cancel" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword clicks Cancel in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Click</span> <span class="pre">Cancel</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_click_save">
+<code class="sig-name descname">xiqse_configure_device_dialog_click_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_click_save" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword clicks Save in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Click</span> <span class="pre">Cancel</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_select_tab">
+<code class="sig-name descname">xiqse_configure_device_dialog_select_tab</code><span class="sig-paren">(</span><em class="sig-param">tab_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_select_tab" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword selects the specified tab in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Device</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Device</span> <span class="pre">Annotation</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">VLAN</span> <span class="pre">Definitions</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Ports</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Vendor</span> <span class="pre">Profile</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tab_name</strong> – Name of the tab to select in the Configure Device dialog</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_asset_tag">
+<code class="sig-name descname">xiqse_configure_device_dialog_set_asset_tag</code><span class="sig-paren">(</span><em class="sig-param">the_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_asset_tag" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sets the Asset Tag field in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Set</span> <span class="pre">Asset</span> <span class="pre">Tag</span>&#160; <span class="pre">ASSET_TAG</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>the_value</strong> – Value to enter into the field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_nickname">
+<code class="sig-name descname">xiqse_configure_device_dialog_set_nickname</code><span class="sig-paren">(</span><em class="sig-param">the_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_nickname" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sets the Nickname field in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Set</span> <span class="pre">Nickname</span>&#160; <span class="pre">NICKNAME</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>the_value</strong> – Value to enter into the field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_note">
+<code class="sig-name descname">xiqse_configure_device_dialog_set_note</code><span class="sig-paren">(</span><em class="sig-param">the_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_note" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sets the Note field in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Set</span> <span class="pre">Note</span>&#160; <span class="pre">NOTE</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>the_value</strong> – Value to enter into the field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_user_data_1">
+<code class="sig-name descname">xiqse_configure_device_dialog_set_user_data_1</code><span class="sig-paren">(</span><em class="sig-param">the_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_user_data_1" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sets the User Data 1 field in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Set</span> <span class="pre">User</span> <span class="pre">Data</span> <span class="pre">1</span>&#160; <span class="pre">USER_DATA</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>the_value</strong> – Value to enter into the field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_user_data_2">
+<code class="sig-name descname">xiqse_configure_device_dialog_set_user_data_2</code><span class="sig-paren">(</span><em class="sig-param">the_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_user_data_2" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sets the User Data 2 field in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Set</span> <span class="pre">User</span> <span class="pre">Data</span> <span class="pre">2</span>&#160; <span class="pre">USER_DATA</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>the_value</strong> – Value to enter into the field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_user_data_3">
+<code class="sig-name descname">xiqse_configure_device_dialog_set_user_data_3</code><span class="sig-paren">(</span><em class="sig-param">the_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_user_data_3" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sets the User Data 3 field in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Set</span> <span class="pre">User</span> <span class="pre">Data</span> <span class="pre">3</span>&#160; <span class="pre">USER_DATA</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>the_value</strong> – Value to enter into the field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_user_data_4">
+<code class="sig-name descname">xiqse_configure_device_dialog_set_user_data_4</code><span class="sig-paren">(</span><em class="sig-param">the_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_dialog_set_user_data_4" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sets the User Data 4 field in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span> <span class="pre">Set</span> <span class="pre">User</span> <span class="pre">Data</span> <span class="pre">4</span>&#160; <span class="pre">USER_DATA</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>the_value</strong> – Value to enter into the field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_set_annotation_tab_values">
+<code class="sig-name descname">xiqse_configure_device_set_annotation_tab_values</code><span class="sig-paren">(</span><em class="sig-param">nickname=None</em>, <em class="sig-param">asset_tag=None</em>, <em class="sig-param">ud1=None</em>, <em class="sig-param">ud2=None</em>, <em class="sig-param">ud3=None</em>, <em class="sig-param">ud4=None</em>, <em class="sig-param">note=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_configure_device_set_annotation_tab_values" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword sets the fields on the Device Annotation tab in the Configure Device dialog.</p></li>
+<li><p>It assumes the dialog is already open.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Set</span> <span class="pre">Annotation</span> <span class="pre">Tab</span> <span class="pre">Values</span>&#160;&#160;&#160; <span class="pre">nickname=MY_NICKNAME</span>&#160; <span class="pre">note=MY</span> <span class="pre">NOTE</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nickname</strong> – Value to enter into the Nickname field</p></li>
+<li><p><strong>asset_tag</strong> – Value to enter into the Asset Tag field</p></li>
+<li><p><strong>ud1</strong> – Value to enter into the User Data 1 field</p></li>
+<li><p><strong>ud2</strong> – Value to enter into the User Data 2 field</p></li>
+<li><p><strong>ud3</strong> – Value to enter into the User Data 3 field</p></li>
+<li><p><strong>ud4</strong> – Value to enter into the User Data 4 field</p></li>
+<li><p><strong>note</strong> – Value to enter into the Note field</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_confirm_device_profile">
+<code class="sig-name descname">xiqse_confirm_device_profile</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">profile_name</em>, <em class="sig-param">retry_duration=30</em>, <em class="sig-param">retry_count=10</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_confirm_device_profile" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to wait for the device profile to be at the expected value in the Devices table.</p></li>
+<li><p>This keyword by default loops 10 times every 30 seconds to check if the device profile matches the value.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected and the Admin Profile column is displayed.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Confirm</span> <span class="pre">Device</span> <span class="pre">Profile</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160; <span class="pre">${PROFILE_NAME}</span>&#160; <span class="pre">retry_duration=10</span>&#160; <span class="pre">retry_count=12</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – device IP to look for</p></li>
+<li><p><strong>profile_name</strong> – expected value of the profile</p></li>
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device added within time; else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_create_site_click_cancel">
+<code class="sig-name descname">xiqse_create_site_click_cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_create_site_click_cancel" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Cancel button in the Create Site dialog.</p></li>
+<li><p>It is assumed the Create Site dialog is already open.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Create</span> <span class="pre">Site</span> <span class="pre">Click</span> <span class="pre">Cancel</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_delete_all_devices">
+<code class="sig-name descname">xiqse_delete_all_devices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_delete_all_devices" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword deletes all items in the Devices table.</p></li>
+<li><p>Note this needs to be done in batches as not all rows are visible at once.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns 1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_delete_device">
+<code class="sig-name descname">xiqse_delete_device</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_delete_device" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword deletes the specified device.</p></li>
+<li><p>It is assumed the user is already on the Network&gt; Devices&gt; Devices tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Delete</span> <span class="pre">Device</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Delete</span> <span class="pre">Device</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">false</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – IP address of the device to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_delete_selected_devices">
+<code class="sig-name descname">xiqse_delete_selected_devices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_delete_selected_devices" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword deletes the currently-selected devices.</p></li>
+<li><p>It is assumed the user is already on the Network&gt; Devices&gt; Devices tab and the devices to delete are selected.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Delete</span> <span class="pre">Selected</span> <span class="pre">Devices</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_device_set_profile">
+<code class="sig-name descname">xiqse_device_set_profile</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">profile_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_device_set_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the profile for the specified device.</p></li>
+<li><p>It is assumed the user is already on the Network&gt; Devices&gt; Devices tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Device</span> <span class="pre">Set</span> <span class="pre">Profile</span>&#160; <span class="pre">1.2.3.4</span>&#160; <span class="pre">new_profile</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – IP address of the device to set the profile on</p></li>
+<li><p><strong>profile_name</strong> – name of the profile to set on the device</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_create_site">
+<code class="sig-name descname">xiqse_devices_create_site</code><span class="sig-paren">(</span><em class="sig-param">site</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_create_site" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword creates the specified site on the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Create</span> <span class="pre">Site</span>&#160;&#160; <span class="pre">${SITE}</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>site</strong> – name of site to create</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_delete_site">
+<code class="sig-name descname">xiqse_devices_delete_site</code><span class="sig-paren">(</span><em class="sig-param">site</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_delete_site" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword deletes the specified site from the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Delete</span> <span class="pre">Site</span>&#160;&#160; <span class="pre">${SITE}</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>site</strong> – name of site to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_hide_columns">
+<code class="sig-name descname">xiqse_devices_hide_columns</code><span class="sig-paren">(</span><em class="sig-param">*columns</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_hide_columns" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword hides the specified list of columns if they are currently shown.</p></li>
+<li><p>Assumes already navigated to the Network&gt; Devices&gt; Devices view.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Hide</span> <span class="pre">Columns</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Admin</span> <span class="pre">Profile</span>&#160; <span class="pre">Context</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>columns</strong> – list of columns to hide</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if successful. else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_refresh_table">
+<code class="sig-name descname">xiqse_devices_refresh_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_refresh_table" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the refresh icon under the table.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Refresh</span> <span class="pre">Table</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_devices_tab">
+<code class="sig-name descname">xiqse_devices_select_devices_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_devices_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Devices tab on the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Devices</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_endpoint_locations_tab">
+<code class="sig-name descname">xiqse_devices_select_endpoint_locations_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_endpoint_locations_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Endpoint Locations tab on the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Endpoint</span> <span class="pre">Locations</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_flexreports_tab">
+<code class="sig-name descname">xiqse_devices_select_flexreports_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_flexreports_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the FlexReports tab on the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">FlexReports</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_site_summary_tab">
+<code class="sig-name descname">xiqse_devices_select_site_summary_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_site_summary_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Site Summary tab on the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Site</span> <span class="pre">Summary</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_site_tab">
+<code class="sig-name descname">xiqse_devices_select_site_tab</code><span class="sig-paren">(</span><em class="sig-param">site='World'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_site_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified site tab on the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Site</span> <span class="pre">Tab</span>&#160;&#160; <span class="pre">${SITE}</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>site</strong> – name of site tab to select (it changes name based on tree selection)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_site_tree_node">
+<code class="sig-name descname">xiqse_devices_select_site_tree_node</code><span class="sig-paren">(</span><em class="sig-param">site</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_site_tree_node" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified site tree node on the Network&gt; Devices Tab</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Site</span> <span class="pre">Tree</span> <span class="pre">Node</span>&#160;&#160; <span class="pre">${SITE}</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>site</strong> – name of site tree node to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_tab">
+<code class="sig-name descname">xiqse_devices_select_tab</code><span class="sig-paren">(</span><em class="sig-param">tab_name</em>, <em class="sig-param">site='World'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_select_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified tab of the Network&gt; Devices page</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Devices</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Site</span> <span class="pre">Summary</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Endpoint</span> <span class="pre">Locations</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">FlexReports</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tab_name</strong> – name of the sub tab to select</p></li>
+<li><p><strong>site</strong> – name of site tab to select, if tab to select is Site (it changes name based on tree selection)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_show_columns">
+<code class="sig-name descname">xiqse_devices_show_columns</code><span class="sig-paren">(</span><em class="sig-param">*columns</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_devices_show_columns" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword shows the specified list of columns if they are currently hidden.</p></li>
+<li><p>Assumes already navigated to the Network&gt; Devices&gt; Devices view.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Devices</span> <span class="pre">Show</span> <span class="pre">Columns</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Admin</span> <span class="pre">Profile</span>&#160; <span class="pre">Context</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>columns</strong> – list of columns to show</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if successful. else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_find_device_with_ip">
+<code class="sig-name descname">xiqse_find_device_with_ip</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_find_device_with_ip" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Searches for Device matching Device’s IP Address</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – Device IP Address to search for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return 1 if Device with specified IP address is found, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_asset_tag">
+<code class="sig-name descname">xiqse_get_device_asset_tag</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_asset_tag" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the Asset Tag value for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Asset</span> <span class="pre">Tag</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the value for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>asset tag for the specified device;  empty string (“”) if value cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_base_mac">
+<code class="sig-name descname">xiqse_get_device_base_mac</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_base_mac" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the base MAC for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Base</span> <span class="pre">MAC</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the base MAC for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>base MAC for the specified device;  -1 if base MAC cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_column_value">
+<code class="sig-name descname">xiqse_get_device_column_value</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">col_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_column_value" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the desired column value for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Column</span> <span class="pre">Value</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">Admin</span> <span class="pre">Profile</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Column</span> <span class="pre">Value</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">Site</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – device IP to get the value for</p></li>
+<li><p><strong>col_name</strong> – name of the column to get the value of</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>desired column value for the specified device;  empty string (“”) if value cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_nickname">
+<code class="sig-name descname">xiqse_get_device_nickname</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_nickname" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the Nickname value for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Nickname</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the value for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nickname for the specified device;  empty string (“”) if value cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_notes">
+<code class="sig-name descname">xiqse_get_device_notes</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_notes" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the Notes value for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Notes</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the value for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>notes for the specified device;  empty string (“”) if value cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_profile">
+<code class="sig-name descname">xiqse_get_device_profile</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_profile" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the profile for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Profile</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the admin profile for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>admin profile for the specified device;  empty string (“”) if admin profile cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_row">
+<code class="sig-name descname">xiqse_get_device_row</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_row" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the row for the device matching the IP address</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – IP address of the device to obtain the row for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the row object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_row_values">
+<code class="sig-name descname">xiqse_get_device_row_values</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">col_list</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_row_values" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets a dictionary of device row values based on the passed column label list</p></li>
+<li><p>The column list should be a comma-separated list of column headers, like Site,Admin Profile,Family</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;{DEVICE_VALUES}=</span>&#160; <span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Row</span> <span class="pre">Values</span>&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160; <span class="pre">Site,Admin</span> <span class="pre">Profile,Family</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – IP address of the device to obtain the values for</p></li>
+<li><p><strong>col_list</strong> – comma-separated list of column headers to obtain the values of (e.g., Site,Admin Profile,Family)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary containing the values for each of the specified columns</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_serial_number">
+<code class="sig-name descname">xiqse_get_device_serial_number</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_serial_number" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the serial number for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Serial</span> <span class="pre">Number</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the serial number for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>serial number for the specified device;  -1 if serial number cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_total_count">
+<code class="sig-name descname">xiqse_get_device_total_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_total_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the total number of items in the Devices table based on the Displaying label.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns the total number of items in the table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_user_data_1">
+<code class="sig-name descname">xiqse_get_device_user_data_1</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_user_data_1" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the User Data 1 value for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">User</span> <span class="pre">Data</span> <span class="pre">1</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the value for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>user data 1 for the specified device;  empty string (“”) if value cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_user_data_2">
+<code class="sig-name descname">xiqse_get_device_user_data_2</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_user_data_2" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the User Data 2 value for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">User</span> <span class="pre">Data</span> <span class="pre">2</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the value for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>user data 2 for the specified device;  empty string (“”) if value cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_user_data_3">
+<code class="sig-name descname">xiqse_get_device_user_data_3</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_user_data_3" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the User Data 3 value for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">User</span> <span class="pre">Data</span> <span class="pre">3</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the value for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>user data 3 for the specified device;  empty string (“”) if value cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_user_data_4">
+<code class="sig-name descname">xiqse_get_device_user_data_4</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_get_device_user_data_4" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the User Data 4 value for the specified device in the devices table.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">User</span> <span class="pre">Data</span> <span class="pre">4</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – device IP to get the value for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>user data 4 for the specified device;  empty string (“”) if value cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_open_configure_device_dialog">
+<code class="sig-name descname">xiqse_open_configure_device_dialog</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_open_configure_device_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword opens the Configure Device dialog by selecting “Configure…” from the device context menu.</p></li>
+<li><p>It assumes the Network&gt; Devices&gt; Devices view is loaded.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Open</span> <span class="pre">Configure</span> <span class="pre">Device</span> <span class="pre">Dialog</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – IP of the device to open the Configure Device dialog for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_select_all_visible_devices">
+<code class="sig-name descname">xiqse_select_all_visible_devices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_select_all_visible_devices" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword selects all visible rows in the table.  Note this may differe from the actutl total number of</p></li>
+<li><p>rows, as the table populates with data when the table is scrolled (for example, although there may be 250</p></li>
+<li><p>rows in the table, only 44 would be “visible” and obtainable by automation).</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns 1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_select_device">
+<code class="sig-name descname">xiqse_select_device</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_select_device" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified device.</p></li>
+<li><p>It is assumed the user is already on the Network&gt; Devices&gt; Devices tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Select</span> <span class="pre">Device</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_ip</strong> – IP address of the device tp select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_set_device_profile_dialog_click_cancel">
+<code class="sig-name descname">xiqse_set_device_profile_dialog_click_cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_set_device_profile_dialog_click_cancel" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is a convenience method for closing the Set Device Profile dialog with the Cancel button.</p></li>
+<li><p>It assumes the Set Device Profile dialog is being displayed.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Close</span> <span class="pre">Set</span> <span class="pre">Device</span> <span class="pre">Profile</span> <span class="pre">Dialog</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_added">
+<code class="sig-name descname">xiqse_wait_until_device_added</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">retry_duration=10</em>, <em class="sig-param">retry_count=30</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_added" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to wait for the device to show up in the devices table.</p></li>
+<li><p>This keyword by default loops 10 times every 30 seconds to check if the device exists.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Device</span> <span class="pre">Added</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">retry_duration=30</span>&#160;&#160;&#160; <span class="pre">retry_count=12</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – device IP to look for</p></li>
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device added within time; else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_archived">
+<code class="sig-name descname">xiqse_wait_until_device_archived</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">retry_duration=30</em>, <em class="sig-param">retry_count=10</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_archived" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to wait for the device to show as being archived in the devices table.</p></li>
+<li><p>This keyword by default loops 10 times every 30 seconds to check if the device is archived.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Device</span> <span class="pre">Archived</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">retry_duration=10</span>&#160;&#160;&#160; <span class="pre">retry_count=12</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – device IP to check the archive status of</p></li>
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device archived within specified time; else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_not_archived">
+<code class="sig-name descname">xiqse_wait_until_device_not_archived</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">retry_duration=30</em>, <em class="sig-param">retry_count=10</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_not_archived" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to wait for the device to show as not being archived in the devices table.</p></li>
+<li><p>This keyword by default loops 10 times every 30 seconds to check if the device is archived or not.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Device</span> <span class="pre">Not</span> <span class="pre">Archived</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">retry_duration=10</span>&#160;&#160;&#160; <span class="pre">retry_count=12</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – device IP to check the archive status of</p></li>
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device not archived within specified time; else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_removed">
+<code class="sig-name descname">xiqse_wait_until_device_removed</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">retry_duration=10</em>, <em class="sig-param">retry_count=30</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_removed" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to wait for the device to be removed from the devices table.</p></li>
+<li><p>This keyword by default loops 10 times every 30 seconds to check if the device exists.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Device</span> <span class="pre">Removed</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">retry_duration=30</span>&#160;&#160;&#160; <span class="pre">retry_count=12</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – device IP to look for</p></li>
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device removed within time; else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_status_down">
+<code class="sig-name descname">xiqse_wait_until_device_status_down</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">retry_duration=30</em>, <em class="sig-param">retry_count=10</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_status_down" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to wait for the device status to show as “Device Status Down” in the devices table.</p></li>
+<li><p>This keyword by default loops 10 times every 30 seconds to check if the device is down.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Device</span> <span class="pre">Status</span> <span class="pre">Down</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">retry_duration=10</span>&#160;&#160;&#160; <span class="pre">retry_count=12</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – device IP to check the status of</p></li>
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device status is down within specified time; else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_status_up">
+<code class="sig-name descname">xiqse_wait_until_device_status_up</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">retry_duration=30</em>, <em class="sig-param">retry_count=10</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_device_status_up" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to wait for the device status to show as “Device Status Up” in the devices table.</p></li>
+<li><p>This keyword by default loops 10 times every 30 seconds to check if the device is up.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Device</span> <span class="pre">Status</span> <span class="pre">Up</span>&#160;&#160;&#160; <span class="pre">${DEVICE_IP}</span>&#160;&#160;&#160; <span class="pre">retry_duration=10</span>&#160;&#160;&#160; <span class="pre">retry_count=12</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – device IP to check the status of</p></li>
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device status is up within specified time; else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_devices_present">
+<code class="sig-name descname">xiqse_wait_until_devices_present</code><span class="sig-paren">(</span><em class="sig-param">device_count</em>, <em class="sig-param">exact='true'</em>, <em class="sig-param">retry_duration=30</em>, <em class="sig-param">retry_count=10</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Devices.XIQSE_Devices.xiqse_wait_until_devices_present" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to wait for the specified number of devices to be present in the devices table.</p></li>
+<li><p>If “exact” is passed as “false”, then it will wait until at least the specified number of devices are present</p></li>
+<li><p>(will still succeed if more devices are present than the specified amount); otherwise, this keyword will only</p></li>
+<li><p>succeed if the device count exactly matches what is expected.</p></li>
+<li><p>This keyword by default loops 10 times every 30 seconds.</p></li>
+<li><p>It is assumed the Network&gt; Devices&gt; Devices tab is already selected.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Devices</span> <span class="pre">Present</span>&#160;&#160;&#160; <span class="pre">${DEVICE_COUNT}</span>&#160;&#160;&#160; <span class="pre">retry_duration=10</span>&#160;&#160;&#160; <span class="pre">retry_count=12</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Devices</span> <span class="pre">Present</span>&#160;&#160;&#160; <span class="pre">${DEVICE_COUNT}</span>&#160;&#160;&#160; <span class="pre">exact=false</span>&#160;&#160;&#160; <span class="pre">retry_duration=20</span>&#160;&#160;&#160; <span class="pre">retry_count=5</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_count</strong> – number of devices which should be present</p></li>
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device added within time; else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiqse.flows.network.XIQSE_SiteActions">
+<span id="xiqse-siteactions"></span><h2>XIQSE_SiteActions<a class="headerlink" href="#module-xiqse.flows.network.XIQSE_SiteActions" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.network.XIQSE_SiteActions.</code><code class="sig-name descname">XIQSE_SiteActions</code><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.NetworkSiteActionsWebElements.NetworkSiteActionsWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions.xiqse_actions_set_add_syslog_receiver">
+<code class="sig-name descname">xiqse_actions_set_add_syslog_receiver</code><span class="sig-paren">(</span><em class="sig-param">value='true'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions.xiqse_actions_set_add_syslog_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the selection state of the ‘Add Syslog Receiver’ checkbox on the Network&gt; Devices&gt; Site&gt; Actions Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Actions tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">Syslog</span> <span class="pre">Receiver</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">Syslog</span> <span class="pre">Receiver</span>&#160; <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">Syslog</span> <span class="pre">Receiver</span>&#160; <span class="pre">false</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – Indicates whether to select (true) or deselect (false) the checkbutton; default is “true”</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions.xiqse_actions_set_add_to_archive">
+<code class="sig-name descname">xiqse_actions_set_add_to_archive</code><span class="sig-paren">(</span><em class="sig-param">value='true'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions.xiqse_actions_set_add_to_archive" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the selection state of the ‘Add to Archive’ checkbox on the Network&gt; Devices&gt; Site&gt; Actions Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Actions tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">to</span> <span class="pre">Archive</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">to</span> <span class="pre">Archive</span>&#160; <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">to</span> <span class="pre">Archive</span>&#160; <span class="pre">false</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – Indicates whether to select (true) or deselect (false) the checkbutton;  default is “true”</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions.xiqse_actions_set_add_trap_receiver">
+<code class="sig-name descname">xiqse_actions_set_add_trap_receiver</code><span class="sig-paren">(</span><em class="sig-param">value='true'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions.xiqse_actions_set_add_trap_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the selection state of the ‘Add Trap Receiver’ checkbox on the Network&gt; Devices&gt; Site&gt; Actions Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Actions tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">Trap</span> <span class="pre">Receiver</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">Trap</span> <span class="pre">Receiver</span>&#160; <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Add</span> <span class="pre">Trap</span> <span class="pre">Receiver</span>&#160; <span class="pre">false</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – Indicates whether to select (true) or deselect (false) the checkbutton; default is “true”</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions.xiqse_actions_set_automatically_add_devices">
+<code class="sig-name descname">xiqse_actions_set_automatically_add_devices</code><span class="sig-paren">(</span><em class="sig-param">value='true'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteActions.XIQSE_SiteActions.xiqse_actions_set_automatically_add_devices" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the selection state of the ‘Automatically Add Devices’ checkbox on the Network&gt; Devices&gt; Site&gt; Actions Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Actions tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Automatically</span> <span class="pre">Add</span> <span class="pre">Devices</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Automatically</span> <span class="pre">Add</span> <span class="pre">Devices</span>&#160; <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Actions</span> <span class="pre">Set</span> <span class="pre">Automatically</span> <span class="pre">Add</span> <span class="pre">Devices</span>&#160; <span class="pre">false</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – Indicates whether to select (true) or deselect (false) the checkbutton; default is “true”</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="xiqse-sitediscover">
+<h2>XIQSE_SiteDiscover<a class="headerlink" href="#xiqse-sitediscover" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-xiqse.flows.network.XIQSE_SiteDiscover"></span><dl class="class">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.network.XIQSE_SiteDiscover.</code><code class="sig-name descname">XIQSE_SiteDiscover</code><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.NetworkSiteDiscoverWebElements.NetworkSiteDiscoverWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_add_address_click_cancel">
+<code class="sig-name descname">xiqse_discover_add_address_click_cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_add_address_click_cancel" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Cancel button in the Add Address dialog.</p></li>
+<li><p>It is assumed the Add Address dialog is already open.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Add</span> <span class="pre">Address</span> <span class="pre">Click</span> <span class="pre">Cancel</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_add_address_range">
+<code class="sig-name descname">xiqse_discover_addresses_add_address_range</code><span class="sig-paren">(</span><em class="sig-param">start_address</em>, <em class="sig-param">end_address</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_add_address_range" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword adds the specified address range on the Network&gt; Devices&gt; Site&gt; Discover Tab.</p></li>
+<li><p>It is assumed the view is currently navigated to the Discover tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><a href="#id3"><span class="problematic" id="id4">``</span></a>XIQSE Discover Add Address Range   1.2.3.1    1.2.3.255`</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_address</strong> – value to enter for the starting IP address range</p></li>
+<li><p><strong>end_address</strong> – value to enter for the ending IP address range</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_add_seed_address">
+<code class="sig-name descname">xiqse_discover_addresses_add_seed_address</code><span class="sig-paren">(</span><em class="sig-param">seed_address</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_add_seed_address" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword adds the specified seed address on the Network&gt; Devices&gt; Site&gt; Discover Tab.</p></li>
+<li><p>It is assumed the view is currently navigated to the Discover tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><a href="#id5"><span class="problematic" id="id6">``</span></a>XIQSE Discover Addresses Add Seed Address   1.2.3.4`</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seed_address</strong> – seed address to enter</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_add_subnet">
+<code class="sig-name descname">xiqse_discover_addresses_add_subnet</code><span class="sig-paren">(</span><em class="sig-param">subnet_mask</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_add_subnet" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword adds the specified subnet address on the Network&gt; Devices&gt; Site&gt; Discover Tab.</p></li>
+<li><p>It is assumed the view is currently navigated to the Discover tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><a href="#id7"><span class="problematic" id="id8">``</span></a>XIQSE Discover Addresses Add Subnet   1.2.3.4/24`</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>subnet_mask</strong> – subnet/mask value to enter</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_delete_address_range">
+<code class="sig-name descname">xiqse_discover_addresses_delete_address_range</code><span class="sig-paren">(</span><em class="sig-param">start_address</em>, <em class="sig-param">end_address</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_delete_address_range" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified address range in the Addresses panel and clicks the Delete toolbar button.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Addresses</span> <span class="pre">Delete</span> <span class="pre">Address</span> <span class="pre">Range</span>&#160;&#160;&#160; <span class="pre">1.2.3.4</span>&#160;&#160;&#160; <span class="pre">1.2.3.5</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_address</strong> – value of the starting IP address range to delete</p></li>
+<li><p><strong>end_address</strong> – value of the ending IP address range to delete</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_delete_seed_address">
+<code class="sig-name descname">xiqse_discover_addresses_delete_seed_address</code><span class="sig-paren">(</span><em class="sig-param">seed_address</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_delete_seed_address" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified seed address in the Addresses panel and clicks the Delete toolbar button.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Addresses</span> <span class="pre">Delete</span> <span class="pre">Seed</span> <span class="pre">Address</span>&#160;&#160;&#160; <span class="pre">1.2.3.4</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seed_address</strong> – value of the seed address to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_delete_subnet">
+<code class="sig-name descname">xiqse_discover_addresses_delete_subnet</code><span class="sig-paren">(</span><em class="sig-param">subnet_mask</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_delete_subnet" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified subnet/mask in the Addresses panel and clicks the Delete toolbar button.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Addresses</span> <span class="pre">Delete</span> <span class="pre">Seed</span> <span class="pre">Address</span>&#160;&#160;&#160; <span class="pre">1.2.3.4</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>subnet_mask</strong> – value of the subnet/mask to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_select_address_range">
+<code class="sig-name descname">xiqse_discover_addresses_select_address_range</code><span class="sig-paren">(</span><em class="sig-param">start_address</em>, <em class="sig-param">end_address</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_select_address_range" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified address range in the Addresses panel.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Addresses</span> <span class="pre">Select</span> <span class="pre">Address</span> <span class="pre">Range</span>&#160;&#160;&#160; <span class="pre">1.2.3.4</span>&#160;&#160;&#160; <span class="pre">1.2.3.5</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_address</strong> – value of the starting IP address range to select</p></li>
+<li><p><strong>end_address</strong> – value of the ending IP address range to select</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_select_seed_address">
+<code class="sig-name descname">xiqse_discover_addresses_select_seed_address</code><span class="sig-paren">(</span><em class="sig-param">seed_address</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_select_seed_address" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified seed address in the Addresses panel.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Addresses</span> <span class="pre">Select</span> <span class="pre">Seed</span> <span class="pre">Address</span>&#160;&#160;&#160; <span class="pre">1.2.3.4</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seed_address</strong> – value of the seed address to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_select_subnet">
+<code class="sig-name descname">xiqse_discover_addresses_select_subnet</code><span class="sig-paren">(</span><em class="sig-param">subnet_mask</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_addresses_select_subnet" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified subnet address in the Addresses panel.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Addresses</span> <span class="pre">Select</span> <span class="pre">Subnet</span>&#160;&#160;&#160; <span class="pre">1.2.3.1/24</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>subnet_mask</strong> – value of the subnet/mask to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_click_add_address_button">
+<code class="sig-name descname">xiqse_discover_click_add_address_button</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_click_add_address_button" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Add button in the Addresses panel on the Network&gt; Devices&gt; Site&gt; Discover Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Discover tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Click</span> <span class="pre">Add</span> <span class="pre">Address</span> <span class="pre">Button</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_delete_selected_address">
+<code class="sig-name descname">xiqse_discover_delete_selected_address</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_delete_selected_address" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword deletes the currently-selected address in the Addresses panel.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible and the address entry to delete is selected.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Delete</span> <span class="pre">Selected</span> <span class="pre">Address</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_set_accept_profile">
+<code class="sig-name descname">xiqse_discover_set_accept_profile</code><span class="sig-paren">(</span><em class="sig-param">profile_name</em>, <em class="sig-param">accept_val='true'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_set_accept_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the selected state of the Accept column for the specified profile in the Profiles panel.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Set</span> <span class="pre">Accept</span> <span class="pre">Profile</span>&#160; <span class="pre">public_v1_Profile</span>&#160; <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Set</span> <span class="pre">Accept</span> <span class="pre">Profile</span>&#160; <span class="pre">public_v2_Profile</span>&#160; <span class="pre">false</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile_name</strong> – name of the profile to mark</p></li>
+<li><p><strong>accept_val</strong> – indicates whether to select or deselect the Accept check box</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_set_reject_profile">
+<code class="sig-name descname">xiqse_discover_set_reject_profile</code><span class="sig-paren">(</span><em class="sig-param">profile_name</em>, <em class="sig-param">reject_val='true'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_SiteDiscover.XIQSE_SiteDiscover.xiqse_discover_set_reject_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword checks the Reject column for the specified profile in the Profiles panel.</p></li>
+<li><p>It is assumed the Site&gt; Discover tab is visible.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Set</span> <span class="pre">Reject</span> <span class="pre">Profile</span>&#160; <span class="pre">public_v1_Profile</span>&#160; <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Discover</span> <span class="pre">Set</span> <span class="pre">Reject</span> <span class="pre">Profile</span>&#160; <span class="pre">public_v2_Profile</span>&#160; <span class="pre">false</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile_name</strong> – name of the profile to mark</p></li>
+<li><p><strong>reject_val</strong> – indicates whether to select or deselect the Reject check box</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiqse.flows.network.XIQSE_Site">
+<span id="xiqse-site"></span><h2>XIQSE_Site<a class="headerlink" href="#module-xiqse.flows.network.XIQSE_Site" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.network.XIQSE_Site.</code><code class="sig-name descname">XIQSE_Site</code><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.NetworkSiteWebElements.NetworkSiteWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_cancel_changes">
+<code class="sig-name descname">xiqse_site_cancel_changes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_cancel_changes" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword cancels the changes on the Site tab.</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Cancel</span> <span class="pre">Changes</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_click_cancel">
+<code class="sig-name descname">xiqse_site_click_cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_click_cancel" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Cancel button on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Click</span> <span class="pre">Cancel</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_click_discover">
+<code class="sig-name descname">xiqse_site_click_discover</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_click_discover" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Discover button on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Click</span> <span class="pre">Discover</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_click_save">
+<code class="sig-name descname">xiqse_site_click_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_click_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Save button on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Click</span> <span class="pre">Save</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_perform_ip_range_discovery">
+<code class="sig-name descname">xiqse_site_perform_ip_range_discovery</code><span class="sig-paren">(</span><em class="sig-param">ip_start</em>, <em class="sig-param">ip_end</em>, <em class="sig-param">profile_names</em>, <em class="sig-param">auto_add='true'</em>, <em class="sig-param">trap='false'</em>, <em class="sig-param">syslog='false'</em>, <em class="sig-param">archive='false'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_perform_ip_range_discovery" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword configures and performs an IP range discovery.</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Perform</span> <span class="pre">IP</span> <span class="pre">Range</span> <span class="pre">Discovery</span>&#160; <span class="pre">1.1.1.1</span>&#160; <span class="pre">1.1.1.5</span>&#160; <span class="pre">public_v1_Profile</span>&#160; <span class="pre">true</span>&#160; <span class="pre">true</span>&#160; <span class="pre">true</span>&#160; <span class="pre">true</span></code></p></li>
+<li><p><a href="#id9"><span class="problematic" id="id10">``</span></a>XIQSE Site Perform IP Range Discovery  2.2.2.1  2.2.2.250  public_v1_Profile,public_v2_Profile’’</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip_start</strong> – IP starting value to use in the discovery</p></li>
+<li><p><strong>ip_end</strong> – IP ending value to use in the discovery</p></li>
+<li><p><strong>profile_names</strong> – comma-separated list of profile names to use in the discovery</p></li>
+<li><p><strong>auto_add</strong> – specifies value of Automatically Add Devices checkbox on the Actions tab  (true/false)</p></li>
+<li><p><strong>trap</strong> – specifies value of Add Trap Receiver checkbox on the Actions tab  (true/false)</p></li>
+<li><p><strong>syslog</strong> – specifies value of Add Syslog Receiver checkbox on the Actions tab  (true/false)</p></li>
+<li><p><strong>archive</strong> – specifies value of Add to Archive checkbox on the Actions tab  (true/false)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_perform_subnet_discovery">
+<code class="sig-name descname">xiqse_site_perform_subnet_discovery</code><span class="sig-paren">(</span><em class="sig-param">subnet_values</em>, <em class="sig-param">profile_names</em>, <em class="sig-param">auto_add='true'</em>, <em class="sig-param">trap='false'</em>, <em class="sig-param">syslog='false'</em>, <em class="sig-param">archive='false'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_perform_subnet_discovery" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword configures and performs a subnet discovery.</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Perform</span> <span class="pre">Subnet</span> <span class="pre">Discovery</span>&#160; <span class="pre">1.1.1.1/24</span>&#160; <span class="pre">public_v1_Profile</span>&#160; <span class="pre">true</span>&#160; <span class="pre">true</span>&#160; <span class="pre">true</span>&#160; <span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Perform</span> <span class="pre">Subnet</span> <span class="pre">Discovery</span>&#160; <span class="pre">1.1.1.1/24,2.2.2.1/24</span>&#160; <span class="pre">public_v1_Profile,public_v2_Profile</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subnet_values</strong> – comma-separated list of subnet/mask values to use in the discovery</p></li>
+<li><p><strong>profile_names</strong> – comma-separated list of profile names to use in the discovery</p></li>
+<li><p><strong>auto_add</strong> – specifies value of Automatically Add Devices checkbox on the Actions tab  (true/false)</p></li>
+<li><p><strong>trap</strong> – specifies value of Add Trap Receiver checkbox on the Actions tab  (true/false)</p></li>
+<li><p><strong>syslog</strong> – specifies value of Add Syslog Receiver checkbox on the Actions tab  (true/false)</p></li>
+<li><p><strong>archive</strong> – specifies value of Add to Archive checkbox on the Actions tab  (true/false)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_save_changes">
+<code class="sig-name descname">xiqse_site_save_changes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_save_changes" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword saves the changes on the Site tab.</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Save</span> <span class="pre">Changes</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_actions_tab">
+<code class="sig-name descname">xiqse_site_select_actions_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_actions_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Actions tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Actions</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_analytics_tab">
+<code class="sig-name descname">xiqse_site_select_analytics_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_analytics_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Analytics tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Analytics</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_custom_variables_tab">
+<code class="sig-name descname">xiqse_site_select_custom_variables_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_custom_variables_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Custom Variables tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Custom</span> <span class="pre">Variables</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_discover_tab">
+<code class="sig-name descname">xiqse_site_select_discover_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_discover_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Discover tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Discover</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_endpoint_locations_tab">
+<code class="sig-name descname">xiqse_site_select_endpoint_locations_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_endpoint_locations_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Endpoint Locations tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Endpoint</span> <span class="pre">Locations</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_port_templates_tab">
+<code class="sig-name descname">xiqse_site_select_port_templates_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_port_templates_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Port Templates tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Port</span> <span class="pre">Templates</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_services_tab">
+<code class="sig-name descname">xiqse_site_select_services_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_services_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Services tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Services</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_tab">
+<code class="sig-name descname">xiqse_site_select_tab</code><span class="sig-paren">(</span><em class="sig-param">tab_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified tab of the Network&gt; Devices&gt; Site page</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Discover</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Actions</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">VRF/VLAN</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Topologies</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Services</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Port</span> <span class="pre">Templates</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">ZTP+</span> <span class="pre">Device</span> <span class="pre">Defaults</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Endpoint</span> <span class="pre">Locations</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Analytics</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Custom</span> <span class="pre">Variables</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tab_name</strong> – name of the sub tab to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_topologies_tab">
+<code class="sig-name descname">xiqse_site_select_topologies_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_topologies_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Topologies tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">Topologies</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_vrf_vlan_tab">
+<code class="sig-name descname">xiqse_site_select_vrf_vlan_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_vrf_vlan_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the VRF/VLAN tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">VRF/VLAN</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_ztp_device_defaults_tab">
+<code class="sig-name descname">xiqse_site_select_ztp_device_defaults_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_select_ztp_device_defaults_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the ZTP+ Device Defaults tab on the Network&gt; Devices&gt; Site Tab</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Site</span> <span class="pre">Select</span> <span class="pre">ZTP</span> <span class="pre">Device</span> <span class="pre">Defaults</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_wait_until_discovery_complete">
+<code class="sig-name descname">xiqse_site_wait_until_discovery_complete</code><span class="sig-paren">(</span><em class="sig-param">retry_duration=30</em>, <em class="sig-param">retry_count=10</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.network.XIQSE_Site.XIQSE_Site.xiqse_site_wait_until_discovery_complete" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword waits until the discovery has completed by checking the Discover Site entry in the</p></li>
+<li><p>Operations panel for progress value of 100%.</p></li>
+<li><p>It is assumed the view is already navigated to the Site tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Discovery</span> <span class="pre">Complete</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Wait</span> <span class="pre">Until</span> <span class="pre">Discovery</span> <span class="pre">Complete</span>&#160;&#160;&#160; <span class="pre">retry_duration=10</span>&#160; <span class="pre">retry_cound=60</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retry_duration</strong> – duration between each retry</p></li>
+<li><p><strong>retry_count</strong> – retry count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="xiqseadmin.html" class="btn btn-neutral float-right" title="XIQSE ADMIN" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="remotelib.html" class="btn btn-neutral float-left" title="REMOTE LIBRARIES" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramkumar Vellasamy
+      <span class="lastupdated">
+        Last updated on Jun 03, 2021, 6:58:48 PM.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

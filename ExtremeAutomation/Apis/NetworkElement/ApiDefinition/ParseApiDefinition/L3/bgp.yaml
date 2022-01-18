@@ -1,0 +1,161 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+bgp:
+    check_bgp_enabled:
+        uuid: 2b386759-e66c-4a89-b9b8-2100b8e048f0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_bgp_disabled:
+        uuid: 3bc65610-a6f5-4621-af17-07f571d10774
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_route_exists:
+        uuid: 500081ae-8c1c-486f-b1fd-e362613d3da6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_neighbor_state:
+        uuid: 820f9d5a-7b36-445c-ae4e-ac0cc094dca7
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_neighbor_exists:
+        uuid: 20028c33-9b89-4602-bd90-47c3435d7367
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_linklocal_neighbor_state:
+        uuid: b982319c-59f6-40ec-b0c4-a552fc3ede06
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_bgp_deleted:
+        uuid: 63396cad-7083-4f7c-b2ec-83ba8d5e702d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_bgp_as:
+        uuid: 1007fcfc-ce2d-4f8b-82c4-410cfc1c68a6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_bgp_router_id:
+        uuid: e07deeca-f5fd-4b8f-92c0-0bb57bdcd566
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_redistributed_route_exists:
+        uuid: 266ebae5-5f22-4f69-b916-27bad0e02dbe
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_peer_group_exists:
+        uuid: 06f51d2b-3e8a-4b4b-a5ab-a71db3d5b2cf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_network_exists:
+        uuid: 389a70a0-622e-4237-9f00-8cd76e8fd383
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_bgp_auto_peering:
+        uuid: 3d7aeec3-5f68-4e93-8ef8-511cd4f000a2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_confederation_id:
+        uuid: 1d4766c5-ecb4-4531-b41c-780644a8b58c
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_confederation_peer_member_as:
+        uuid: e7cf7456-36d4-4a02-b85c-dd50fd9a8a17
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_graceful_restart:
+        uuid: 7b4a9417-070b-45b2-8571-acb40b707988
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_graceful_restart_time:
+        uuid: 5c454287-6546-4db7-ab83-d704d90bb001
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_stale_route_time:
+        uuid: 2d58a2ec-6a35-40cd-8814-39c4983b1f90
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_allow_multiple_as:
+        uuid: 55684339-b1ee-4742-97b9-9aa80164f4f3
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_always_compare_med:
+        uuid: a19bacd4-0531-4487-906f-66418666b3b1
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_advertise_inactive_routes:
+        uuid: 8a9c42b8-cf62-4568-8f69-42832987cd4e
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_maximum_paths:
+        uuid: e069b745-f5e6-44b6-b42c-05b7a0521302
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_neighbor_keep_alive_time:
+        uuid: 2a14e950-61b9-4efb-b635-75fa40ab02cf
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_neighbor_hold_time:
+        uuid: 760f3824-8a20-486f-af74-1833bf6ebe8b
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]

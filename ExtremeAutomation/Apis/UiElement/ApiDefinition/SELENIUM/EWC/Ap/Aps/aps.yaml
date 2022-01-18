@@ -1,0 +1,22 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+ewcaps:
+    aps_rename_ap_name:
+        apis:
+            - [ewc,'10.41.12']
+    aps_ap_name_should_exist:
+        apis:
+            - [ewc,'10.41.12']
+    aps_ap_name_should_not_exist:
+        apis:
+            - [ewc,'10.41.12']
+    aps_edit_ap_environment:
+        apis:
+            - [ewc,'10.41.12']
+    aps_ap_environment_should_exist:
+        apis:
+            - [ewc,'10.41.12']

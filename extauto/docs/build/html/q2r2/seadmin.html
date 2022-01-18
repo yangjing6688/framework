@@ -1,0 +1,1674 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XIQSE_Diagnostics &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xiqconfigure.html"><strong>CONFIGURE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmanage.html"><strong>MANAGE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqa3.html"><strong>A3</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqcommon.html"><strong>COMMON FLOWS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqglobalsettings.html"><strong>GLOBAL SETTINGS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmlinsights.html"><strong>MLINSIGHTS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonlib.html"><strong>COMMON LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="remotelib.html"><strong>REMOTE LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqsenetwork.html"><strong>XIQSE NETWORK</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqseadmin.html"><strong>XIQSE ADMIN</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqsecommon.html"><strong>XIQSE COMMON</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>XIQSE_Diagnostics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/seadmin.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="_images/extreme_logo.png"><img alt="alternate text" class="align-right" src="_images/extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-xiqse.flows.admin.XIQSE_Diagnostics">
+<span id="xiqse-diagnostics"></span><h1>XIQSE_Diagnostics<a class="headerlink" href="#module-xiqse.flows.admin.XIQSE_Diagnostics" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.admin.XIQSE_Diagnostics.</code><code class="sig-name descname">XIQSE_Diagnostics</code><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.AdminDiagnosticsWebElements.AdminDiagnosticsWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_auto_onboard_xiqse">
+<code class="sig-name descname">xiqse_auto_onboard_xiqse</code><span class="sig-paren">(</span><em class="sig-param">email_value</em>, <em class="sig-param">pwd_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_auto_onboard_xiqse" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Clicks the Auto Onboard XIQ-SE button, enters the email and password credentials, clicks Submit, and confirms</p></li>
+<li><p>the onboard action.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email_value</strong> – Value to enter into the Email field</p></li>
+<li><p><strong>pwd_value</strong> – Value to enter into the Password field</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_confirm_onboard_status">
+<code class="sig-name descname">xiqse_confirm_onboard_status</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">device_type</em>, <em class="sig-param">expected_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_confirm_onboard_status" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Searches for row matching device’s IP Address and Type and confirms the Onboard Status value is expected.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open and the Onboard Status column is shown.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – Device IP Address to search for</p></li>
+<li><p><strong>device_type</strong> – Device Type to search for</p></li>
+<li><p><strong>expected_value</strong> – expected value of the onboard status</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if onboard status matches the expected value, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_confirm_server_log_contents_contains_string">
+<code class="sig-name descname">xiqse_confirm_server_log_contents_contains_string</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_confirm_server_log_contents_contains_string" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword checks for the specified string in the contents of the Server Log view.</p></li>
+<li><p>Assumes already navigated to the Administration&gt; Diagnostics&gt; Server&gt; Server Log view.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Confirm</span> <span class="pre">Server</span> <span class="pre">Log</span> <span class="pre">Contents</span> <span class="pre">Contains</span> <span class="pre">String</span>&#160; <span class="pre">${STRING_TO_FIND}</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – string to look for in the server log</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_expand_server_tree_node">
+<code class="sig-name descname">xiqse_expand_server_tree_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_expand_server_tree_node" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword expands the Server tree node in the panel on the left if not already expanded.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Expand</span> <span class="pre">Server</span> <span class="pre">Tree</span> <span class="pre">Node</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_expand_system_tree_node">
+<code class="sig-name descname">xiqse_expand_system_tree_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_expand_system_tree_node" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword expands the System tree node in the panel on the left if not already expanded.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Expand</span> <span class="pre">System</span> <span class="pre">Tree</span> <span class="pre">Node</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_get_xiq_device_message_details_row">
+<code class="sig-name descname">xiqse_get_xiq_device_message_details_row</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">device_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_get_xiq_device_message_details_row" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the row for the device matching the IP address and optional type</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – IP address of the device to obtain the row for</p></li>
+<li><p><strong>device_type</strong> – Device Type of the device to obtain the row for - optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the row object if found, else None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_get_xiq_device_message_details_row_count">
+<code class="sig-name descname">xiqse_get_xiq_device_message_details_row_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_get_xiq_device_message_details_row_count" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Returns the number of rows displayed in the XIQ Device Message Details table, as reported by</p></li>
+<li><p>the “Displaying # of rows” label.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>number of rows in the table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_select_server_log_tree_node">
+<code class="sig-name descname">xiqse_select_server_log_tree_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_select_server_log_tree_node" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Server Log tree node in the panel on the left.</p></li>
+<li><p>If the parent “Server” node is not expanded, it will expand it first.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Select</span> <span class="pre">Server</span> <span class="pre">Log</span> <span class="pre">Tree</span> <span class="pre">Node</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_select_xiq_device_message_details_tree_node">
+<code class="sig-name descname">xiqse_select_xiq_device_message_details_tree_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_select_xiq_device_message_details_tree_node" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the XIQ Device Message Details tree node in the panel on the left.</p></li>
+<li><p>If the parent “System” node is not expanded, it will expand it first.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Select</span> <span class="pre">XIQ</span> <span class="pre">Device</span> <span class="pre">Message</span> <span class="pre">Details</span> <span class="pre">Tree</span> <span class="pre">Node</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_server_log_clear">
+<code class="sig-name descname">xiqse_server_log_clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_server_log_clear" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Clear button in the Server Log view.</p></li>
+<li><p>Assumes already navigated to the Administration&gt; Diagnostics&gt; Server&gt; Server Log view.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Server</span> <span class="pre">Log</span> <span class="pre">Clear</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_server_log_refresh">
+<code class="sig-name descname">xiqse_server_log_refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_server_log_refresh" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Refresh button in the Server Log view.</p></li>
+<li><p>Assumes already navigated to the Administration&gt; Diagnostics&gt; Server&gt; Server Log view.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Server</span> <span class="pre">Log</span> <span class="pre">Refresh</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_set_level_advanced">
+<code class="sig-name descname">xiqse_set_level_advanced</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_set_level_advanced" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the Level dropdown to Advanced.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Level</span> <span class="pre">Advanced</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_auto_onboard_xiqse">
+<code class="sig-name descname">xiqse_xiq_device_message_details_auto_onboard_xiqse</code><span class="sig-paren">(</span><em class="sig-param">email_value</em>, <em class="sig-param">pwd_value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_auto_onboard_xiqse" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Clicks the Auto Onboard XIQ-SE button.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email_value</strong> – Value to enter into the Email field</p></li>
+<li><p><strong>pwd_value</strong> – Value to enter into the Password field</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_clear_filter">
+<code class="sig-name descname">xiqse_xiq_device_message_details_clear_filter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_clear_filter" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Clears the filter on the XIQ Device Message Details table.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open and the search box is open.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_filter_table">
+<code class="sig-name descname">xiqse_xiq_device_message_details_filter_table</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_filter_table" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Filters the XIQ Device Message Details table by the specified value.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – string to enter in the search field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_get_last_update_time">
+<code class="sig-name descname">xiqse_xiq_device_message_details_get_last_update_time</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">device_type</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_get_last_update_time" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets the value in the Last Update Time column for the specified device in the XIQ Device Message Details table.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – IP Address of the device to obtain the information for</p></li>
+<li><p><strong>device_type</strong> – Device Type of the device to obtain the information for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Value of the ‘Last Update Time’ column if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_get_metric_from_device">
+<code class="sig-name descname">xiqse_xiq_device_message_details_get_metric_from_device</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">device_type</em>, <em class="sig-param">metric</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_get_metric_from_device" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets the specified metric value sent to XIQ for the specified device by using the Show XIQ Messages button</p></li>
+<li><p>in the XIQ Device Message Details table.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – IP Address of the device to obtain the information for</p></li>
+<li><p><strong>device_type</strong> – Device Type of the device to obtain the information for</p></li>
+<li><p><strong>metric</strong> – Value of the metric to obtain the information for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>metric value if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_get_onboard_status">
+<code class="sig-name descname">xiqse_xiq_device_message_details_get_onboard_status</code><span class="sig-paren">(</span><em class="sig-param">device_ip</em>, <em class="sig-param">device_type</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_get_onboard_status" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets the value in the Onboard Status column for the specified device in the XIQ Device Message Details table.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_ip</strong> – IP Address of the device to obtain the information for</p></li>
+<li><p><strong>device_type</strong> – Device Type of the device to obtain the information for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Value of the ‘Onboard Status’ column if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_hide_columns">
+<code class="sig-name descname">xiqse_xiq_device_message_details_hide_columns</code><span class="sig-paren">(</span><em class="sig-param">*columns</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_hide_columns" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword hides the specified list of columns if they are currently shown.</p></li>
+<li><p>Assumes already navigated to the Administration&gt; Diagnostics&gt; System&gt; XIQ Device Message Details view.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">XIQ</span> <span class="pre">Device</span> <span class="pre">Message</span> <span class="pre">Details</span> <span class="pre">Hide</span> <span class="pre">Columns</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Onboard</span> <span class="pre">Status</span>&#160; <span class="pre">Onboard</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>columns</strong> – list of columns to hide</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if successful. else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_refresh_table">
+<code class="sig-name descname">xiqse_xiq_device_message_details_refresh_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_refresh_table" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Refreshes the table on the XIQ Device Message Details page.</p></li>
+<li><p>Assumes the XIQ Device Message Details view is open.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns 1 if action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_show_columns">
+<code class="sig-name descname">xiqse_xiq_device_message_details_show_columns</code><span class="sig-paren">(</span><em class="sig-param">*columns</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Diagnostics.XIQSE_Diagnostics.xiqse_xiq_device_message_details_show_columns" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword shows the specified list of columns if they are currently hidden.</p></li>
+<li><p>Assumes already navigated to the Administration&gt; Diagnostics&gt; System&gt; XIQ Device Message Details view.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">XIQ</span> <span class="pre">Device</span> <span class="pre">Message</span> <span class="pre">Details</span> <span class="pre">Show</span> <span class="pre">Columns</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Onboard</span> <span class="pre">Status</span>&#160; <span class="pre">Onboard</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>columns</strong> – list of columns to show</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if successful. else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiqse.flows.admin.XIQSE_Options">
+<span id="xiqse-options"></span><h1>XIQSE_Options<a class="headerlink" href="#module-xiqse.flows.admin.XIQSE_Options" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.admin.XIQSE_Options.</code><code class="sig-name descname">XIQSE_Options</code><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.AdminOptionsWebElements.AdminOptionsWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.get_xiqse_serial_number">
+<code class="sig-name descname">get_xiqse_serial_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.get_xiqse_serial_number" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword navigates to the XIQ Connection option on the Administration&gt; Options tab and</p></li>
+<li><p>returns the XIQ-SE serial number.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">XIQSE</span> <span class="pre">Serial</span> <span class="pre">Number</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>XIQ-SE serial number, if found;  else, -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.get_xiqse_serial_number_label_value">
+<code class="sig-name descname">get_xiqse_serial_number_label_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.get_xiqse_serial_number_label_value" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword returns the XIQ-SE serial number, found on the XIQ Connection options page.</p></li>
+<li><p>It is assumed the view is already navigated to the XIQ Connection option on the Administration&gt; Options tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">XIQSE</span> <span class="pre">Serial</span> <span class="pre">Number</span> <span class="pre">Label</span> <span class="pre">Value</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>XIQ-SE serial number, if found;  else, empty string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_disable_xiq_connection_sharing_and_save">
+<code class="sig-name descname">xiqse_disable_xiq_connection_sharing_and_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_disable_xiq_connection_sharing_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword deselects the XIQ Connection “Enable Sharing” option and saves the changes</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Disable</span> <span class="pre">XIQ</span> <span class="pre">Connection</span> <span class="pre">Sharing</span> <span class="pre">and</span> <span class="pre">Save</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_enable_xiq_connection_sharing_and_save">
+<code class="sig-name descname">xiqse_enable_xiq_connection_sharing_and_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_enable_xiq_connection_sharing_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the XIQ Connection “Enable Sharing” option and saves the changes</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Enable</span> <span class="pre">XIQ</span> <span class="pre">Connection</span> <span class="pre">Sharing</span> <span class="pre">and</span> <span class="pre">Save</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_reset_options">
+<code class="sig-name descname">xiqse_reset_options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_reset_options" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Reset button on the Options page.
+If the button is disabled, the options are already at the last-saved values and this is a no-op.
+It is assumed the view is already navigated to the Administration&gt; Options tab and to
+the specific option to be reset.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Reset</span> <span class="pre">Options</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if options were restored to defaults (or button is disabled), else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_options">
+<code class="sig-name descname">xiqse_restore_default_options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_options" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Restore Defaults button on the Options page.
+If the button is disabled, the options are already at the defaults and this is a no-op.
+It is assumed the view is already navigated to the Administration&gt; Options tab and to
+the specific option to be restored.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Restore</span> <span class="pre">Default</span> <span class="pre">Options</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if options were restored to defaults (or button is disabled), else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_options_and_save">
+<code class="sig-name descname">xiqse_restore_default_options_and_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_options_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Restore Defaults button on the Options page and then clicks Save.
+If the button is disabled, the options are already at the defaults and this is a no-op.
+It is assumed the view is already navigated to the Administration&gt; Options tab and to
+the specific option to be restored.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Restore</span> <span class="pre">Default</span> <span class="pre">Options</span> <span class="pre">and</span> <span class="pre">Save</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if options were restored to defaults (or button is disabled), else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_site_engine_general_options_and_save">
+<code class="sig-name descname">xiqse_restore_default_site_engine_general_options_and_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_site_engine_general_options_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword restores the default values of the Site Engine - General options and saves the changes</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Restore</span> <span class="pre">Default</span> <span class="pre">Site</span> <span class="pre">Engine</span> <span class="pre">General</span> <span class="pre">Options</span> <span class="pre">and</span> <span class="pre">Save</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_web_server_options_and_save">
+<code class="sig-name descname">xiqse_restore_default_web_server_options_and_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_web_server_options_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword restores the default values of the Web Server options and saves the changes</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Restore</span> <span class="pre">Default</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Options</span> <span class="pre">and</span> <span class="pre">Save</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_xiq_connection_options_and_save">
+<code class="sig-name descname">xiqse_restore_default_xiq_connection_options_and_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_restore_default_xiq_connection_options_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword restores the default values of the XIQ Connection options and saves the changes</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Restore</span> <span class="pre">Default</span> <span class="pre">XIQ</span> <span class="pre">Connection</span> <span class="pre">Options</span> <span class="pre">and</span> <span class="pre">Save</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_save_options">
+<code class="sig-name descname">xiqse_save_options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_save_options" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks the Save button to save any unsaved options.
+If the button is disabled, there are no unsaved options and this is a no-op.
+It is assumed the view is already navigated to the Administration&gt; Options tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Save</span> <span class="pre">Options</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if options were saved (or button is disabled/no changes to save), else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_select_site_engine_general_option">
+<code class="sig-name descname">xiqse_select_site_engine_general_option</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_select_site_engine_general_option" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Site Engine - General option in the Options tree.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Select</span> <span class="pre">Site</span> <span class="pre">Engine</span> <span class="pre">General</span> <span class="pre">Option</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if selection was made, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_select_web_server_option">
+<code class="sig-name descname">xiqse_select_web_server_option</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_select_web_server_option" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Web Server option in the Options tree.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Select</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Option</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if selection was made, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_select_xiq_connection_option">
+<code class="sig-name descname">xiqse_select_xiq_connection_option</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_select_xiq_connection_option" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the XIQ Connection option in the Options tree.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Select</span> <span class="pre">XIQ</span> <span class="pre">Connection</span> <span class="pre">Option</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if selection was made, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_device_tree_name_format">
+<code class="sig-name descname">xiqse_set_device_tree_name_format</code><span class="sig-paren">(</span><em class="sig-param">value='IP Address'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_device_tree_name_format" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the Device Tree Name Format value for the Site Engine - General option.</p></li>
+<li><p>It is assumed the view is already navigated to the Site Engine - General option on the</p></li>
+<li><p>Administration&gt; Options tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Device</span> <span class="pre">Tree</span> <span class="pre">Name</span> <span class="pre">Format</span> <span class="pre">Value</span>&#160;&#160;&#160; <span class="pre">IP</span> <span class="pre">Address</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Device</span> <span class="pre">Tree</span> <span class="pre">Name</span> <span class="pre">Format</span> <span class="pre">Value</span>&#160;&#160;&#160; <span class="pre">Nickname</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Device</span> <span class="pre">Tree</span> <span class="pre">Name</span> <span class="pre">Format</span> <span class="pre">Value</span>&#160;&#160;&#160; <span class="pre">System</span> <span class="pre">Name</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – value to select in the Device Tree Name Format drop down field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if value was set, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_device_tree_name_format_and_save">
+<code class="sig-name descname">xiqse_set_device_tree_name_format_and_save</code><span class="sig-paren">(</span><em class="sig-param">value='IP Address'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_device_tree_name_format_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the value of the Site Engine - General’s Device Tree Name Format option</p></li>
+<li><p>and saves the changes</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Device</span> <span class="pre">Tree</span> <span class="pre">Name</span> <span class="pre">Fomrat</span> <span class="pre">and</span> <span class="pre">Save</span>&#160; <span class="pre">IP</span> <span class="pre">Address</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Device</span> <span class="pre">Tree</span> <span class="pre">Name</span> <span class="pre">Fomrat</span> <span class="pre">and</span> <span class="pre">Save</span>&#160; <span class="pre">Nickname</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Device</span> <span class="pre">Tree</span> <span class="pre">Name</span> <span class="pre">Fomrat</span> <span class="pre">and</span> <span class="pre">Save</span>&#160; <span class="pre">System</span> <span class="pre">Name</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – value to select in the Device Tree Name Format drop down field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_web_server_session_timeout_and_save">
+<code class="sig-name descname">xiqse_set_web_server_session_timeout_and_save</code><span class="sig-paren">(</span><em class="sig-param">value='20'</em>, <em class="sig-param">units='min(s)'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_web_server_session_timeout_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the value of the Web Server Session Timeout option (value and units) and saves the changes</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Session</span> <span class="pre">Timeout</span> <span class="pre">and</span> <span class="pre">Save</span>&#160; <span class="pre">20</span>&#160; <span class="pre">min(s)</span></code>
+<code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Session</span> <span class="pre">Timeout</span> <span class="pre">and</span> <span class="pre">Save</span>&#160;&#160; <span class="pre">8</span>&#160; <span class="pre">hr(s)</span></code>
+<code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Session</span> <span class="pre">Timeout</span> <span class="pre">and</span> <span class="pre">Save</span>&#160;&#160; <span class="pre">7</span>&#160; <span class="pre">day(s)</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – Value to enter in the HTTP Session Timeout option field</p></li>
+<li><p><strong>units</strong> – time units to select for the HTTP Session Timeout option (min(s), hr(s), day(s))</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_web_server_session_timeout_units">
+<code class="sig-name descname">xiqse_set_web_server_session_timeout_units</code><span class="sig-paren">(</span><em class="sig-param">units='min(s)'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_web_server_session_timeout_units" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the Timeout units for the Web Server HTTP Session Timeout option.</p></li>
+<li><p>It is assumed the view is already navigated to the Web Server option on the Administration&gt; Options tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Session</span> <span class="pre">Timeout</span> <span class="pre">Units</span>&#160; <span class="pre">min(s)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Session</span> <span class="pre">Timeout</span> <span class="pre">Units</span>&#160; <span class="pre">hr(s)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Session</span> <span class="pre">Timeout</span> <span class="pre">Units</span>&#160; <span class="pre">day(s)</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>units</strong> – time units to select for the HTTP Session Timeout option (min(s), hr(s), day(s))</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if value was set, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_web_server_session_timeout_value">
+<code class="sig-name descname">xiqse_set_web_server_session_timeout_value</code><span class="sig-paren">(</span><em class="sig-param">value='20'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_web_server_session_timeout_value" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the Timeout value for the Web Server HTTP Session Timeout option.</p></li>
+<li><p>It is assumed the view is already navigated to the Web Server option on the Administration&gt; Options tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Session</span> <span class="pre">Timeout</span> <span class="pre">Value</span>&#160; <span class="pre">20</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">Web</span> <span class="pre">Server</span> <span class="pre">Session</span> <span class="pre">Timeout</span> <span class="pre">Value</span>&#160; <span class="pre">7</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – Value to enter in the HTTP Session Timeout option field</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if value was set, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_xiq_connection_enable_sharing_option">
+<code class="sig-name descname">xiqse_set_xiq_connection_enable_sharing_option</code><span class="sig-paren">(</span><em class="sig-param">value='true'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_xiq_connection_enable_sharing_option" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the value of the Enable Sharing field for the XIQ Connection option.</p></li>
+<li><p>It is assumed the view is already navigated to the XIQ Connection option on the Administration&gt; Options tab.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">XIQ</span> <span class="pre">Connection</span> <span class="pre">Enable</span> <span class="pre">Sharing</span> <span class="pre">Option</span>&#160; <span class="pre">true</span></code>
+<code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">XIQ</span> <span class="pre">Connection</span> <span class="pre">Enable</span> <span class="pre">Sharing</span> <span class="pre">Option</span>&#160; <span class="pre">false</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – indicates whether to select (true) or deselect (false) the Enable Sharing option</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if value was set, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_xiq_connection_option_and_save">
+<code class="sig-name descname">xiqse_set_xiq_connection_option_and_save</code><span class="sig-paren">(</span><em class="sig-param">enable='true'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Options.XIQSE_Options.xiqse_set_xiq_connection_option_and_save" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword sets the value of the XIQ Connection option and saves the changes</p></li>
+<li><dl class="simple">
+<dt>Keyword Usage</dt><dd><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">XIQ</span> <span class="pre">Connection</span> <span class="pre">Option</span> <span class="pre">and</span> <span class="pre">Save</span>&#160; <span class="pre">true</span></code>
+<code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Set</span> <span class="pre">XIQ</span> <span class="pre">Connection</span> <span class="pre">Option</span> <span class="pre">and</span> <span class="pre">Save</span>&#160; <span class="pre">false</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>enable</strong> – indicates whether to select (true) or deselect (false) the Enable Sharing option</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xiqse.flows.admin.XIQSE_Profiles">
+<span id="xiqse-profiles"></span><h1>XIQSE_Profiles<a class="headerlink" href="#module-xiqse.flows.admin.XIQSE_Profiles" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles">
+<em class="property">class </em><code class="sig-prename descclassname">xiqse.flows.admin.XIQSE_Profiles.</code><code class="sig-name descname">XIQSE_Profiles</code><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiqse.elements.AdminProfilesWebElements.AdminProfilesWebElements</span></code></p>
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_close_add_profile_dialog">
+<code class="sig-name descname">xiqse_close_add_profile_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_close_add_profile_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks Cancel in the Add SNMP Credential dialog.</p></li>
+<li><p>It is assumed the Add SNMP Credential dialog is open.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Close</span> <span class="pre">Add</span> <span class="pre">SNMP</span> <span class="pre">Credential</span> <span class="pre">Dialog</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_close_add_snmp_credential_dialog">
+<code class="sig-name descname">xiqse_close_add_snmp_credential_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_close_add_snmp_credential_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword clicks Cancel in the Add SNMP Credential dialog.</p></li>
+<li><p>It is assumed the Add SNMP Credential dialog is open.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Close</span> <span class="pre">Add</span> <span class="pre">SNMP</span> <span class="pre">Credential</span> <span class="pre">Dialog</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_create_profile">
+<code class="sig-name descname">xiqse_create_profile</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">version='SNMPv1'</em>, <em class="sig-param">read=None</em>, <em class="sig-param">write=None</em>, <em class="sig-param">max=None</em>, <em class="sig-param">cli=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_create_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword creates a new profile in XIQ-SE.</p></li>
+<li><p>It is assumed the view is already navigated to Administration&gt; Profiles.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Create</span> <span class="pre">Profile</span>&#160; <span class="pre">test_profile_1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Create</span> <span class="pre">Profile</span>&#160; <span class="pre">test_profile_2</span>&#160; <span class="pre">SNMPv2</span>&#160; <span class="pre">public_v1</span>&#160; <span class="pre">private_v1</span>&#160; <span class="pre">private_v1</span>&#160; <span class="pre">Default</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – value to enter in the Profile Name field</p></li>
+<li><p><strong>version</strong> – value to select for the SNMP Version field (SNMPv1, SNMPv2, SNMPv3)</p></li>
+<li><p><strong>read</strong> – value to select for the Read field</p></li>
+<li><p><strong>write</strong> – value to select for the Write field</p></li>
+<li><p><strong>max</strong> – value to select for the Max Access field</p></li>
+<li><p><strong>cli</strong> – value to select for the CLI Credential field</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_create_snmp_credential">
+<code class="sig-name descname">xiqse_create_snmp_credential</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">version</em>, <em class="sig-param">comm_str</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_create_snmp_credential" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword creates a new SNMP credential in XIQ-SE.</p></li>
+<li><p>It is assumed the view is already navigated to Administration&gt; Profiles&gt; SNMP Credentials.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Create</span> <span class="pre">SNMP</span> <span class="pre">Credential</span>&#160; <span class="pre">test_cred_1</span>&#160; <span class="pre">SNMPv1</span>&#160; <span class="pre">public</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Create</span> <span class="pre">SNMP</span> <span class="pre">Credential</span>&#160; <span class="pre">test_cred_2</span>&#160; <span class="pre">SNMPv2</span>&#160; <span class="pre">private</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – value to enter in the Credential Name field</p></li>
+<li><p><strong>version</strong> – value to select for the SNMP Version field (SNMPv1, SNMPv2, SNMPv3)</p></li>
+<li><p><strong>comm_str</strong> – value to enter in the Community Name field</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_delete_profile">
+<code class="sig-name descname">xiqse_delete_profile</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_delete_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword deletes an existing profile in XIQ-SE.</p></li>
+<li><p>It is assumed the view is already navigated to Administration&gt; Profiles.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Delete</span> <span class="pre">Profile</span>&#160; <span class="pre">test_profile_1</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the profile to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_delete_snmp_credential">
+<code class="sig-name descname">xiqse_delete_snmp_credential</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_delete_snmp_credential" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword deletes an existing SNMP credential in XIQ-SE.</p></li>
+<li><p>It is assumed the view is already navigated to Administration&gt; Profiles&gt; SNMP Credentials.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Delete</span> <span class="pre">SNMP</span> <span class="pre">Credential</span>&#160; <span class="pre">test_cred_1</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the SNMP credential to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_find_profile">
+<code class="sig-name descname">xiqse_find_profile</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_find_profile" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Searches for Profile matching the specified name.</p></li>
+<li><p>Assumes the Administration&gt; Profiles tab is already selected.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – Name of the Profile to search for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return 1 if the Profile is found, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_find_snmp_credential">
+<code class="sig-name descname">xiqse_find_snmp_credential</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_find_snmp_credential" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Searches for SNMP Credential matching the specified name.</p></li>
+<li><p>Assumes the Administration&gt; Profiles&gt; SNMP Credentials tab is already selected.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – Name of the SNMP credential to search for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return 1 if the SNMP credential is found, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_create_profile">
+<code class="sig-name descname">xiqse_navigate_and_create_profile</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">version='SNMPv1'</em>, <em class="sig-param">read=None</em>, <em class="sig-param">write=None</em>, <em class="sig-param">max=None</em>, <em class="sig-param">cli=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_create_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword navigates to the Administration&gt; Profiles tab and creates a new profile in XIQ-SE.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">and</span> <span class="pre">Create</span> <span class="pre">Profile</span>&#160; <span class="pre">test_profile_1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">and</span> <span class="pre">Create</span> <span class="pre">Profile</span>&#160; <span class="pre">test_profile_2</span>&#160; <span class="pre">SNMPv2</span>&#160; <span class="pre">public_v1</span>&#160; <span class="pre">private_v1</span>&#160; <span class="pre">private_v1</span>&#160; <span class="pre">Default</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – value to enter in the Profile Name field</p></li>
+<li><p><strong>version</strong> – value to select for the SNMP Version field (SNMPv1, SNMPv2, SNMPv3)</p></li>
+<li><p><strong>read</strong> – value to select for the Read field</p></li>
+<li><p><strong>write</strong> – value to select for the Write field</p></li>
+<li><p><strong>max</strong> – value to select for the Max Access field</p></li>
+<li><p><strong>cli</strong> – value to select for the CLI Credential field</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_create_snmp_credential">
+<code class="sig-name descname">xiqse_navigate_and_create_snmp_credential</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">version</em>, <em class="sig-param">comm_str</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_create_snmp_credential" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword navigates to the Administration&gt; Profiles&gt; SNMP Credentials tab and</p></li>
+<li><p>creates a new SNMP credential in XIQ-SE.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">and</span> <span class="pre">Create</span> <span class="pre">SNMP</span> <span class="pre">Credential</span>&#160; <span class="pre">test_cred_1</span>&#160; <span class="pre">SNMPv1</span>&#160; <span class="pre">public</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">and</span> <span class="pre">Create</span> <span class="pre">SNMP</span> <span class="pre">Credential</span>&#160; <span class="pre">test_cred_2</span>&#160; <span class="pre">SNMPv2</span>&#160; <span class="pre">private</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – value to enter in the Credential Name field</p></li>
+<li><p><strong>version</strong> – value to select for the SNMP Version field (SNMPv1, SNMPv2, SNMPv3)</p></li>
+<li><p><strong>comm_str</strong> – value to enter in the Community Name field</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_delete_profile">
+<code class="sig-name descname">xiqse_navigate_and_delete_profile</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_delete_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword navigates to the Administration&gt; Profiles tab and deletes an existing profile in XIQ-SE.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">and</span> <span class="pre">Delete</span> <span class="pre">Profile</span>&#160; <span class="pre">test_profile_1</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the profile to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_delete_snmp_credential">
+<code class="sig-name descname">xiqse_navigate_and_delete_snmp_credential</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_delete_snmp_credential" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword navigates to the Administration&gt; Profiles&gt; SNMP Credentials tab and</p></li>
+<li><p>deletes an existing SNMP credential in XIQ-SE.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">and</span> <span class="pre">Delete</span> <span class="pre">SNMP</span> <span class="pre">Credential</span>&#160; <span class="pre">test_cred_1</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the SNMP credential to delete</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_select_profile">
+<code class="sig-name descname">xiqse_navigate_and_select_profile</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_select_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword navigates to the Administration&gt; Profiles tab and selects an existing profile in XIQ-SE.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">and</span> <span class="pre">Select</span> <span class="pre">Profile</span>&#160; <span class="pre">test_profile_1</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the profile to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_select_snmp_credential">
+<code class="sig-name descname">xiqse_navigate_and_select_snmp_credential</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_navigate_and_select_snmp_credential" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword navigates to the Administration&gt; Profiles&gt; SNMP Credentials tab and</p></li>
+<li><p>selects an existing SNMP credential in XIQ-SE.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Navigate</span> <span class="pre">and</span> <span class="pre">Select</span> <span class="pre">SNMP</span> <span class="pre">Credential</span>&#160; <span class="pre">test_cred_1</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the SNMP credential to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_profiles_select_cli_credentials_tab">
+<code class="sig-name descname">xiqse_profiles_select_cli_credentials_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_profiles_select_cli_credentials_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the CLI Credentials tab on the Administration&gt; Profiles page.</p></li>
+<li><p>It is assumed the Administration&gt; Profiles page is currently being displayed.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Profiles</span> <span class="pre">Select</span> <span class="pre">CLI</span> <span class="pre">Credentials</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_profiles_select_device_mapping_tab">
+<code class="sig-name descname">xiqse_profiles_select_device_mapping_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_profiles_select_device_mapping_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the Device Mapping tab on the Administration&gt; Profiles page.</p></li>
+<li><p>It is assumed the Administration&gt; Profiles page is currently being displayed.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Profiles</span> <span class="pre">Select</span> <span class="pre">Device</span> <span class="pre">Mapping</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_profiles_select_snmp_credentials_tab">
+<code class="sig-name descname">xiqse_profiles_select_snmp_credentials_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_profiles_select_snmp_credentials_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the SNMP Credentials tab on the Administration&gt; Profiles page.</p></li>
+<li><p>It is assumed the Administration&gt; Profiles page is currently being displayed.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Profiles</span> <span class="pre">Select</span> <span class="pre">SNMP</span> <span class="pre">Credentials</span> <span class="pre">Tab</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_profiles_select_tab">
+<code class="sig-name descname">xiqse_profiles_select_tab</code><span class="sig-paren">(</span><em class="sig-param">tab_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_profiles_select_tab" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects the specified tab of the Administration&gt; Profiles page</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Profiles</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">SNMP</span> <span class="pre">Credentials</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Profiles</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">CLI</span> <span class="pre">Credentials</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Profiles</span> <span class="pre">Select</span> <span class="pre">Tab</span>&#160;&#160;&#160; <span class="pre">Device</span> <span class="pre">Mapping</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tab_name</strong> – name of the sub tab to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_refresh_profiles_table">
+<code class="sig-name descname">xiqse_refresh_profiles_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_refresh_profiles_table" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Refreshes the Profiles table.</p></li>
+<li><p>Assumes the Administration&gt; Profiles tab is already selected.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return 1 if the action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_refresh_snmp_credentials_table">
+<code class="sig-name descname">xiqse_refresh_snmp_credentials_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_refresh_snmp_credentials_table" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Refreshes the SNMP Credentials table.</p></li>
+<li><p>Assumes the Administration&gt; Profiles&gt; SNMP Credentials tab is already selected.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return 1 if the action is successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_select_profile">
+<code class="sig-name descname">xiqse_select_profile</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_select_profile" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects an existing profile in XIQ-SE.</p></li>
+<li><p>It is assumed the view is already navigated to Administration&gt; Profiles.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Select</span> <span class="pre">Profile</span>&#160; <span class="pre">test_profile_1</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the profile to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_select_snmp_credential">
+<code class="sig-name descname">xiqse_select_snmp_credential</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiqse.flows.admin.XIQSE_Profiles.XIQSE_Profiles.xiqse_select_snmp_credential" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><ul class="simple">
+<li><p>This keyword selects an existing SNMP credential in XIQ-SE.</p></li>
+<li><p>It is assumed the view is already navigated to Administration&gt; Profiles&gt; SNMP Credentials.</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XIQSE</span> <span class="pre">Select</span> <span class="pre">SNMP</span> <span class="pre">Credential</span>&#160; <span class="pre">test_cred_1</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the SNMP credential to select</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramkumar Vellasamy
+      <span class="lastupdated">
+        Last updated on Jun 03, 2021, 6:58:48 PM.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

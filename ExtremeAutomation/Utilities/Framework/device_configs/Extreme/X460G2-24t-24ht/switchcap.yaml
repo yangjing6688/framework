@@ -1,0 +1,40 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for X460G2-48t-10G4-HC.
+#  This inherits capability from apollo2 YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *APOLLO2_CAPABILITY
+  hwHealth: 5
+  numExternalPort: 54
+
+  # Boolean type supported/not-supported capability parameters.
+  MplsCep: true
+  MplsCepXlate: true
+  MplsCepEgrFlt: true
+  VarCap: true
+  StackSupportCfg: true
+  StackSupportCtrl: true
+  Stackable: true
+  AltStkPortCapable: true
+  StkUserPortInterchangeable: true
+  NativeStackable: true
+  V160StackMode: true
+  DedicatedStackPorts: true
+  StackingAutoDiscovery: true
+  MacsecOrHalfDuplex: true
+  MacsecWithExtAdapter: true
+  VmacL2ClassId: true
+  VmacL2DstClassId: true
+  InstallLrmMacsecAdapterFirmware: true

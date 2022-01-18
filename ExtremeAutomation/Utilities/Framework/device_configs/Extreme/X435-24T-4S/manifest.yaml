@@ -1,0 +1,35 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  the X435-24T-4S switch
+#
+
+vendor: Extreme
+product_name: X435-24T-4S
+
+files:
+    - name: system
+      filename: [../X435/system.yaml, ../X435/x435_system.yaml]
+    - name: devices
+      filename: [../X435/devices.yaml, devices.yaml]
+    - name: interrupts
+      filename: [../X435/interrupts.yaml, ../X435/x435_interrupts.yaml]
+    - name: buttons
+      filename: [../X435/buttons.yaml, ../X435/x435_buttons.yaml]
+    - name: leds
+      filename: [../X435/leds.yaml, ../X435/x435_leds.yaml]
+    - name: thermal
+      filename: [../X435/thermal.yaml, thermal.yaml]
+    - name: fans
+      filename: [../X435/fans.yaml, fans.yaml]
+    - name: power
+      filename: [../X435/power.yaml, power.yaml]
+    - name: capability
+      filename: [../../common/defaultcap.yaml, ../../common/Broadcom/wolfhound2.yaml, switchcap.yaml]
+    - name: ports
+      filename: [../../common/defaultports.yaml, ../X435/ports.yaml, ports.yaml]

@@ -1,0 +1,230 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+mlag:
+    enable_port_peer_id:
+        description: "Enables the mlag id on the specified mlag port and peer"
+        arguments:
+            order: port,peer,pid
+        uuid: 0b8e33d5-a856-431c-b6af-08773902b814
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable mlag port {port} peer {peer} id {pid}',userPrompt,'None','None','None',[],[]]
+    enable_port_reload_delay:
+        description: "Enables MLAG reload delay for MLAG ports"
+        arguments:
+            order: 
+        uuid: 3baa4d4e-76db-4630-b6d1-66b762d8e99b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable mlag port reload-delay',userPrompt,'None','None','None',[],[]]
+    disable_port:
+        description: "Disables an MLAG port"
+        arguments:
+            order: 
+        uuid: 1ba93bc2-e255-4189-85da-38546cd52484
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable mlag port {port}',userPrompt,'None','None','None',[],[]]
+    disable_port_reload_delay:
+        description: "Disables MLAG reload delay for MLAG ports"
+        arguments:
+            order: 
+        uuid: f9d7e823-ee46-436a-8525-6e42abd57292
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable mlag port reload-delay',userPrompt,'None','None','None',[],[]]
+    create_peer:
+        description: "Creates an MLAG peer"
+        arguments:
+            order: 
+        uuid: d6090d24-851a-4809-a2d0-c5de13f07719
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create mlag peer {peer}',userPrompt,'None','None','None',[],[]]
+    create_peer_auth_md5_key:
+        description: ""
+        arguments:
+            order: 
+        uuid: 6078f6fa-eb08-4508-a326-1d1b7282842a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create mlag peer {peer} authentication md5 key',userPrompt,'None','None','None',[],[]]
+    create_peer_auth_md5_key_name:
+        description: ""
+        arguments:
+            order: 
+        uuid: 728b7687-90f1-4750-9558-a420850486b2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create mlag peer {peer} authentication md5 key {key}',userPrompt,'None','None','None',[],[]]
+    create_peer_auth_md5_key_encrypted:
+        description: ""
+        arguments:
+            order: 
+        uuid: 83442bb1-ee4a-414c-ad3a-ef70cde3634e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create mlag peer {peer} authentication md5 key encrypted {key}',userPrompt,'None','None','None',[],[]]
+    delete_peer:
+        description: "Removes an MLAG peer"
+        arguments:
+            order: 
+        uuid: 8419a4eb-1be3-48f2-82d0-3284815a2de9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'delete mlag peer {peer}',userPrompt,'None','None','None',[],[]]
+    set_peer:
+        description: ""
+        arguments:
+            order: 
+        uuid: d12c0189-3659-41ef-90ca-6a3d776775d1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer}',userPrompt,'None','None','None',[],[]]
+    set_peer_alternate_ip:
+        description: ""
+        arguments:
+            order: 
+        uuid: c4fe5069-51eb-40d9-9215-408154383cd7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} alternate ipaddress {ip}',userPrompt,'None','None','None',[],[]]
+    set_peer_alternate_ip_none:
+        description: ""
+        arguments:
+            order: 
+        uuid: dc20052e-7934-445c-a61f-56911277d22d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} alternate ipaddress none',userPrompt,'None','None','None',[],[]]
+    set_peer_alternate_ip_vr:
+        description: ""
+        arguments:
+            order: 
+        uuid: 2554033b-28e7-4acc-8f31-8a2134ae5150
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} alternate ipaddress {ip} vr {vr}',userPrompt,'None','None','None',[],[]]
+    set_peer_auth_none:
+        description: ""
+        arguments:
+            order: 
+        uuid: cf428def-4046-4837-aea3-52789a6181be
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} authentication none',userPrompt,'None','None','None',[],[]]
+    set_peer_auth_md5_key:
+        description: ""
+        arguments:
+            order: 
+        uuid: 2a38a015-79ad-4f94-b2ac-e577a5821c93
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} authentication md5 key',userPrompt,'None','None','None',[],[]]
+    set_peer_auth_md5_key_name:
+        description: ""
+        arguments:
+            order: 
+        uuid: 88183926-ddef-45dd-9d17-6e9ac74f48b2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} authentication md5 key {key}',userPrompt,'None','None','None',[],[]]
+    set_peer_auth_md5_key_encrypted:
+        description: ""
+        arguments:
+            order: 
+        uuid: eea9d78d-99cf-4ce8-90e2-e4d619d2df37
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} authentication md5 key encrypted {key}',userPrompt,'None','None','None',[],[]]
+    set_peer_interval:
+        description: ""
+        arguments:
+            order: 
+        uuid: 3c8d7a3c-4d90-4bf3-96f9-3221055bdbe7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} interval {interval}',userPrompt,'None','None','None',[],[]]
+    set_peer_ipaddress:
+        description: "Configures an IPv4 or IPv6 address for the specified MLAG peer"
+        arguments:
+            order: peer,ip
+        uuid: 14c2e6cf-1e10-4a24-b460-175714cbd854
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} ipaddress {ip}',userPrompt,'None','None','None',[],[]]
+    set_peer_ipaddress_vr:
+        description: "Configures an IPv4 or IPv6 address for the specified MLAG peer and virtual router"
+        arguments:
+            order: peer,ip,vr
+        uuid: f0a99314-5fd4-4de2-97a4-2bf2d12a1b64
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} ipaddress {ip} vr {vr}',userPrompt,'None','None','None',[],[]]
+    set_peer_lacp_mac:
+        description: ""
+        arguments:
+            order: 
+        uuid: e4d3e1e5-002e-42ca-877e-00c031076cc0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} lacp-mac {mac}',userPrompt,'None','None','None',[],[]]
+    set_peer_lacp_mac_auto:
+        description: ""
+        arguments:
+            order: 
+        uuid: 5467213f-ae96-4762-bd87-e01435a68c11
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} lacp-mac auto',userPrompt,'None','None','None',[],[]]
+    set_peer_new_name:
+        description: "Renames a specified MLAG peer"
+        arguments:
+            order: peer,name
+        uuid: 5ee749cf-6635-4b08-8009-904a5692bd98
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mlag peer {peer} name {name}',userPrompt,'None','None','None',[],[]]
+    show_peer:
+        uuid: 18c01586-d6ad-49c2-8dc5-d5c94e2e4343
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show mlag peer {peer}',userPrompt,'None','None','None',[],[]]
+    show_peer_all:
+        uuid: e9f85c68-c116-4539-a42e-440172315425
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show mlag peer',userPrompt,'None','None','None',[],[]]
+    show_ports:
+        uuid: 13a9eb43-00e9-4f9e-ba20-e43295a0d37e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show mlag ports {port}',userPrompt,'None','None','None',[],[]]
+    show_ports_all:
+        uuid: bf864b86-2ae1-43b4-b3b2-d976b017cbae
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show mlag ports',userPrompt,'None','None','None',[],[]]

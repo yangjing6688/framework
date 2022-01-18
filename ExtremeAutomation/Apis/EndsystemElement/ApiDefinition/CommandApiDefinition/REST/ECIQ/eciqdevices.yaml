@@ -1,0 +1,23 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,URI,Headers,IgnoreError,AddError]
+#             - [OS2,Platform,Version,Unit,URI,Headers,IgnoreError,AddError]
+
+eciqdevices:
+    get_client_list_on_device:
+        apis:
+            - [ECIQ,base,baseversion,baseunit,get,'xapi/v1/monitor/devices/{device_id}/clientList?ownerId={owner_id}','',[],[]]
+    get_device:
+        apis:
+            - [ECIQ,base,baseversion,baseunit,get,'xapi/v1/monitor/devices/{device_id}?ownerId={owner_id}','',[],[]]
+    get_device_list:
+        apis:
+            - [ECIQ,base,baseversion,baseunit,get,'xapi/v1/monitor/devices?ownerId={owner_id}','',[],[]]
+    get_network_policy_list:
+        apis:
+            - [ECIQ,base,baseversion,baseunit,get,'xapi/v1/configuration/networkpolicy/policies?ownerId={owner_id}','',[],[]]
+    remove_device:
+        apis:
+            - [ECIQ,base,baseversion,baseunit,delete,'xapi/v1/configuration/device?ownerId={owner_id}&ids={device_id}','',[],[]]

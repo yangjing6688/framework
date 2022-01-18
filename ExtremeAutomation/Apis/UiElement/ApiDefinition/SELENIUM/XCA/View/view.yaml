@@ -1,0 +1,97 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcaview:
+    open_page_in_left_view_menu:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_page_in_left_view_submenu:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_access_point_page_in_devices_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_switches_page_in_devices_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_aaa_page_in_onboard_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_portal_page_in_onboard_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_groups_page_in_onboard_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_rules_page_in_onboard_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_roles_page_in_policy_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_class_of_service_page_in_policy_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_vlans_page_in_policy_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_rates_page_in_policy_section:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    open_page_in_left_view_expanded_menu:
+        apis:
+            - [xca,'04.36.01.0097']
+    open_sites_page_in_expanded_menu:
+        apis:
+            - [xca,'04.36.01.0097']
+    open_networks_page_in_expanded_menu:
+        apis:
+            - [xca,'04.36.01.0097']
+    open_clients_page_in_expanded_menu:
+        apis:
+            - [xca,'04.36.01.0097']
+    open_vlan_groups_page_in_policy_section:
+        apis:
+            - [xca,'04.36.01.0097']
+    open_overview_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_sites_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_networks_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_clients_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_adoption_page_in_devices_section:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_system_page_in_admin_section:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_utilities_page_in_admin_section:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_license_page_in_admin_section:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_logs_page_in_admin_section:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_accounts_page_in_admin_section:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_applications_page_in_admin_section:
+        apis:
+            - [xca,'04.26.03.0007']
+    open_wlans_page_in_networks_section:
+        apis:
+            - [xca,'04.56.03.0004']
+    open_meshpoints_page_in_networks_section:
+        apis:
+            - [xca,'04.56.03.0004']

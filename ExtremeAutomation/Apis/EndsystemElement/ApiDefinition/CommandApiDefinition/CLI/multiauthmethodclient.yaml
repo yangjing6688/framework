@@ -1,0 +1,20 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+
+multiauthmethodclient:
+    run_multiuser_config:
+        apis:
+            - [LINUX,base,baseversion,baseunit,'/home/administrator/atgapps/bin/multiAuth -cli -adapter {adapater} -debug -pcapVersion jnetpcap -pwaServer {pwa_server_ip} -hostFile /home/administrator/atgapps/bin/multiauth_configs/{config_filename}',userPrompt,'None','None','None',[],[]]
+    run_multiuser_config_no_logoff:
+        apis:
+            - [LINUX,base,baseversion,baseunit,'/home/administrator/atgapps/bin/multiAuth -cli -adapter {adapater} -debug -pcapVersion jnetpcap -pwaServer {pwa_server_ip} -hostFile /home/administrator/atgapps/bin/multiauth_configs/{config_filename} -cliSkipLogoff',userPrompt,'None','None','None',[],[]]
+    switch_to_root:
+        apis:
+            - [LINUX,base,baseversion,baseunit,'sudo su',userPrompt,'None','[sudo] password for administrator:','{password}',[],[]]
+    change_to_atgapps_dir:
+        apis:
+            - [LINUX,base,baseversion,baseunit,'cd /home/administrator/atgapps/bin',userPrompt,'None','None','None',[],[]]

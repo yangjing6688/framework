@@ -1,0 +1,21 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  X450G2-48t-10G4 switch
+#
+#
+
+
+vendor: Extreme
+product_name: X450G2-48t-10G4
+
+files:
+   - name: capability
+     filename: [../../common/defaultcap.yaml, ../../common/Broadcom/helix4.yaml, switchcap.yaml]
+   - name: ports
+     filename: [../../common/defaultports.yaml, ports.yaml]

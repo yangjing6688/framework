@@ -1,0 +1,19 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimfilemanager:
+    fm_pref_tab_exist:
+        apis:
+            - [gim,'8.2.3']
+    fm_file_manager_availability:
+        apis:
+            - [gim,'8.2.3']
+    fm_contents_under_file_manager:
+        apis:
+            - [gim,'8.2.3']
+    fm_default_sample_files:
+        apis:
+            - [gim,'8.2.3']

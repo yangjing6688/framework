@@ -1,0 +1,18 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors in X435-24P-4S
+#
+
+sensors:
+  - <<: *MB_AMBIENT_TMPSN
+    hw_settings:
+      tos:            3700
+      thyst:          3300
+
+temp_sensor_interrupts:
+  <<: *TMPSN_INTERRUPT

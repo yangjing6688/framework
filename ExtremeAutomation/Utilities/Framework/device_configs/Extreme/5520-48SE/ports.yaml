@@ -1,0 +1,193 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for 5520-48SE
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+  - name: 1
+    <<: [*SFP_1, *1G_SFP_PORT]
+
+  - name: 2
+    <<: [*SFP_2, *1G_SFP_PORT]
+
+  - name: 3
+    <<: [*SFP_3, *1G_SFP_PORT]
+
+  - name: 4
+    <<: [*SFP_4, *1G_SFP_PORT]
+
+  - name: 5
+    <<: [*SFP_5, *1G_SFP_PORT]
+
+  - name: 6
+    <<: [*SFP_6, *1G_SFP_PORT]
+
+  - name: 7
+    <<: [*SFP_7, *1G_SFP_PORT]
+
+  - name: 8
+    <<: [*SFP_8, *1G_SFP_PORT]
+
+  - name: 9
+    <<: [*SFP_9, *1G_SFP_PORT]
+
+  - name: 10
+    <<: [*SFP_10, *1G_SFP_PORT]
+
+  - name: 11
+    <<: [*SFP_11, *1G_SFP_PORT]
+
+  - name: 12
+    <<: [*SFP_12, *1G_SFP_PORT]
+
+  - name: 13
+    <<: [*SFP_13, *1G_SFP_PORT]
+
+  - name: 14
+    <<: [*SFP_14, *1G_SFP_PORT]
+
+  - name: 15
+    <<: [*SFP_15, *1G_SFP_PORT]
+
+  - name: 16
+    <<: [*SFP_16, *1G_SFP_PORT]
+
+  - name: 17
+    <<: [*SFP_17, *1G_SFP_PORT]
+
+  - name: 18
+    <<: [*SFP_18, *1G_SFP_PORT]
+
+  - name: 19
+    <<: [*SFP_19, *1G_SFP_PORT]
+
+  - name: 20
+    <<: [*SFP_20, *1G_SFP_PORT]
+
+  - name: 21
+    <<: [*SFP_21, *1G_SFP_PORT]
+
+  - name: 22
+    <<: [*SFP_22, *1G_SFP_PORT]
+
+  - name: 23
+    <<: [*SFP_23, *1G_SFP_PORT]
+
+  - name: 24
+    <<: [*SFP_24, *1G_SFP_PORT]
+
+  - name: 25
+    <<: [*SFP_25, *1G_SFP_PORT]
+
+  - name: 26
+    <<: [*SFP_26, *1G_SFP_PORT]
+
+  - name: 27
+    <<: [*SFP_27, *1G_SFP_PORT]
+
+  - name: 28
+    <<: [*SFP_28, *1G_SFP_PORT]
+
+  - name: 29
+    <<: [*SFP_29, *1G_SFP_PORT]
+
+  - name: 30
+    <<: [*SFP_30, *1G_SFP_PORT]
+
+  - name: 31
+    <<: [*SFP_31, *1G_SFP_PORT]
+
+  - name: 32
+    <<: [*SFP_32, *1G_SFP_PORT]
+
+  - name: 33
+    <<: [*SFP_33, *1G_SFP_PORT]
+
+  - name: 34
+    <<: [*SFP_34, *1G_SFP_PORT]
+
+  - name: 35
+    <<: [*SFP_35, *1G_SFP_PORT]
+
+  - name: 36
+    <<: [*SFP_36, *1G_SFP_PORT]
+
+  - name: 37
+    <<: [*SFP_37, *1G_SFP_PORT]
+
+  - name: 38
+    <<: [*SFP_38, *1G_SFP_PORT]
+
+  - name: 39
+    <<: [*SFP_39, *1G_SFP_PORT]
+
+  - name: 40
+    <<: [*SFP_40, *1G_SFP_PORT]
+
+  - name: 41
+    <<: [*SFP_41, *1G_SFP_PORT]
+
+  - name: 42
+    <<: [*SFP_42, *1G_SFP_PORT]
+
+  - name: 43
+    <<: [*SFP_43, *1G_SFP_PORT]
+
+  - name: 44
+    <<: [*SFP_44, *1G_SFP_PORT]
+
+  - name: 45
+    <<: [*SFP_45, *1G_SFP_PORT]
+
+  - name: 46
+    <<: [*SFP_46, *1G_SFP_PORT]
+
+  - name: 47
+    <<: [*SFP_47, *1G_SFP_PORT]
+
+  - name: 48
+    <<: [*SFP_48, *1G_SFP_PORT]
+
+  - name: 49
+    <<: [*QSFP_PORT_1, *40G_PARTITION_PORT]
+
+  - name: 50
+    <<: *10G_PORT
+
+  - name: 51
+    <<: *10G_PORT
+
+  - name: 52
+    <<: *10G_PORT
+
+  - name: 53
+    <<: [*QSFP_PORT_2, *40G_PARTITION_PORT]
+
+  - name: 54
+    <<: *10G_PORT
+
+  - name: 55
+    <<: *10G_PORT
+
+  - name: 56
+    <<: *10G_PORT
+
+  - name: 57
+    <<: *25G_PARTITION_PORT
+
+  - name: 58
+    <<: *25G_PORT
+
+  - name: 59
+    <<: *25G_PORT
+
+  - name: 60
+    <<: *25G_PORT

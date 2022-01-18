@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines system info specific to X590-24x-1q-2c
+#
+
+system_info:
+  <<: *COMMON_SYSTEM_INFO

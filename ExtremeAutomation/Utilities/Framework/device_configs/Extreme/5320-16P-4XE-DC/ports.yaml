@@ -1,0 +1,81 @@
+# #################################################################
+#
+#  Copyright (c) 2021 Extreme Networks, Inc.
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for 5320-16P-4XE-DC
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+  - name: 1
+    <<: *1G_POE_PORT
+
+  - name: 2
+    <<: *1G_POE_PORT
+
+  - name: 3
+    <<: *1G_POE_PORT
+
+  - name: 4
+    <<: *1G_POE_PORT
+
+  - name: 5
+    <<: *1G_POE_PORT
+
+  - name: 6
+    <<: *1G_POE_PORT
+
+  - name: 7
+    <<: *1G_POE_PORT
+
+  - name: 8
+    <<: *1G_POE_PORT
+
+  - name: 9
+    <<: *1G_POE_PORT
+
+  - name: 10
+    <<: *1G_POE_PORT
+
+  - name: 11
+    <<: *1G_POE_PORT
+
+  - name: 12
+    <<: *1G_POE_PORT
+
+  - name: 13
+    <<: *1G_POE_PORT
+
+  - name: 14
+    <<: *1G_POE_PORT
+
+  - name: 15
+    <<: *1G_POE_PORT
+
+  - name: 16
+    <<: *1G_POE_PORT
+
+  - name: 17
+    <<: [*UPLINK_1, *10G_FPORT]
+    Lic10GOcto: true
+    Lic10GQuad: true
+
+  - name: 18
+    <<: [*UPLINK_2, *10G_FPORT]
+    Lic10GOcto: true
+    Lic10GQuad: true
+
+  - name: 19
+    <<: [*UPLINK_3, *10G_FPORT]
+    Lic10GOcto: true
+    Lic10GQuad: true
+
+  - name: 20
+    <<: [*UPLINK_4, *10G_FPORT]
+    Lic10GOcto: true
+    Lic10GQuad: true

@@ -1,0 +1,870 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+admin_group,"The administrative group associated with the link, expressed as the
+decimal equivalent of 32-bit number. in 4-byte hex format.
+DEFAULT
+	None",hex,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bw_priority0,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 0 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 0. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bw_priority1,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bw_priority2,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bw_priority3,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bw_priority4,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bw_priority5,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bw_priority6,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bw_priority7,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+connected_to_handle,"Scenario element this connector is connecting to
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+custom_from_node_index,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'custom' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+custom_link_multiplier,"number of links between two nodes
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'custom' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+custom_to_node_index,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'custom' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_device,"enables/disables device.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_ip,"Enable IPv4
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_ipv6,"Enable IPv4
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_mt_ipv6,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_wide_metric,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_link_network_group_handle,"Network Topology this link is pointing to
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_link_router_destination,"Index of the target node as defined in toNetworkTopology
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_link_router_source,"Index of the originating node as defined in fromNetworkTopology
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_metric,"The cost metric associated with the external network route.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_router_active,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_router_origin,"The origin of the routes advertised by the grid nodes. Choices are stub
+and external.
+DEFAULT
+	None",opt,"external,stub",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_up_down_bit,"If 1, the route will be distributed down. If 0, the route will be
+distributed up.
+Valid options are:
+0
+	
+0 up
+1
+	
+1 down
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+fat_tree_level_count,"Number of Levels
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'fat-tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+fat_tree_link_multiplier,"number of links between two nodes
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'fat-tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+fat_tree_node_count,"Number of Nodes Per Level
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'fat-tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_ip,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_ip_step,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_ipv6,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_ipv6_step,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_node_active,"Flag Active Simulated Interface Config for From-Node
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+from_node_link_metric,"Link Metric From-Node
+DEFAULT
+	
+0",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_col,"Define number of columns in a grid.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_include_emulated_device,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_node_step,"grid ipv4 Node route step
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_router_active,"If set, then the IPv6 pseudo node routes will get advertised
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_router_id,"IPv6 type network prefix address corresponding to the pseudo node route.
+DEFAULT
+	
+3000:0:1:1:0:0:0:0",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_router_ip_pfx_len,"IPv6 prefix length for the corresponding IPv6 network address (pseudo
+node routes)
+DEFAULT
+	
+64",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_router_metric,"Route metric corresponding to the IPv6 pseudo node routes
+DEFAULT
+	
+0",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_router_origin,"The origin of the routes advertised by the grid nodes. Choices are stub
+and external.
+DEFAULT
+	
+stub",opt,"external,stub",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_router_route_step,"The step for the route in the grid node route entry.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_router_up_down_bit,"This is the up down bit associated with the routes advertised by the
+grid nodes. If 1, the route will be distributed down. If 0, the route
+will be redistributed up.
+Valid options are:
+0
+	
+0 up
+1
+	
+1 down
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_stub_per_router,"Number of IPv6 network addresses (pseudo node routes)
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_node_step,"grid ipv4 Node route step
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_active,"If set, then the IPv4 pseudo node routes will get advertised
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_id,"IPv4 type network prefix address corresponding to the pseudo node route.
+DEFAULT
+	
+201.1.0.0",ipv4,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_ip_pfx_len,"IPv4 prefix length for the corresponding IPv4 network address (pseudo
+node routes).
+DEFAULT
+	
+16",range,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_metric,"Route metric corresponding to the IPv4 pseudo node routes
+DEFAULT
+	
+0",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_origin,"The origin of the routes advertised by the grid nodes. Choices are stub
+and external (or Choices are internal or external).
+DEFAULT
+	
+stub",opt,"external,stub",IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_route_step,"The step for the route in the grid node route entry.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_up_down_bit,"This is the up down bit associated with the routes advertised by the
+grid nodes. If 1, the route will be distributed down. If 0, the route
+will be redistributed up.
+Valid options are:
+0
+	
+0 up
+1
+	
+1 down
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_row,"Define number of rows in a grid.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_stub_per_router,"Number of IPv4 network addresses (pseudo node routes).
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"This option represents the handle the user *must* pass to the
+'emulation_isis_network_group_config' procedure. This option specifies
+on which ISIS router to configure the ISIS topology. The ISIS router
+handle(s) are returned by the procedure 'emulation_isis_config' when
+configuring ISIS routers on the Ixia interface.
+DEFAULT
+	None",any,,IxNetwork-NGPF[M],universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hub_spoke_enable_level_2,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'hub-and-spoke' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hub_spoke_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'hub-and-spoke' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hub_spoke_number_of_first_level,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'hub-and-spoke' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hub_spoke_number_of_second_level,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'hub-and-spoke' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_length,"The number of bits in the prefixes to be advertised.
+DEFAULT
+	
+24",range,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_network_address,"The IP address of the first stub network route to be advertised.
+DEFAULT
+	
+0.0.0.0",ipv4,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_prefix_number_of_addresses,"For IxTclProtocol it sets the number of routes in a L3 Route Range. This
+paramter will be ignored if the -stub_router is also given. For
+IxTclNetwork it sets the the number of router in a L3 Route Range and
+will be advertised for stub network.
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_mt_metric,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_length,"The number of bits in the prefixes to be advertised in a IPV6 external
+network.
+DEFAULT
+	
+64",range,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_network_address,"The IPv6 address of the first external network route to be advertised.
+DEFAULT
+	
+3000::0",ipv6,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_number_of_addresses,"For IxTclProtocol it sets the number of routes in a L3 Route Range. This
+paramter will be ignored if the -external_router is also given. For
+IxTclNetwork it sets the the number of router in a L3 Route Range and
+will be advertised for external network.
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linear_link_multiplier,"number of links between two nodes
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'linear' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+linear_nodes,"number of nodes
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'linear' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_type,"Link Type
+Valid options are:
+pttopt
+	
+broadcast
+	
+DEFAULT
+	None",opt,"broadcast,pttopt",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+max_bw,"Maximum bandwidth that can be used on this link expressed as octets per
+second.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+max_resv_bw,"Maximum bandwidth that may be reserved on this link. This may be greater
+than the actual max to allow a link to be oversubscribed. It is
+expressed as octets per second.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mesh_include_emulated_device,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'mesh' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mesh_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'mesh' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mesh_number_of_nodes,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'mesh' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+metric_level,"The metric associated with the interface that the TE data is advertised on.
+DEFAULT
+	
+0",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Mode of the procedure call. Valid choices are: create modify delete.
+Valid options are:
+create
+	
+modify
+	
+delete
+	
+DEFAULT
+	None",opt,"create,delete,modify",IxNetwork-NGPF[M],universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+multiplier,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+node_active,"Flag.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+protocol_name,"Not defined
+DEFAULT
+	None",alpha,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_algorithm,"It specifies Algorithm value corresponding to a pseudo node and it can
+be like SPF
+DEFAULT
+	
+0",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_configure_sid_index_label,"If enabled, then the nodal SID for SR enabled ISIS pseudo node will not
+be taken from the SRGB range, rather it will be the value of SID index label
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_d_bit,"D bit for SR enabled ISIS pseudo node
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_e_flag,"E flag for SR enabled ISIS pseudo node
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_enable_sr,"This will enable segment routing on an ISIS pseudo node (simulated router)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_ipv4_flag,"I flag for SR enabled ISIS pseudo node
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_ipv6_flag,"V flag for SR enabled ISIS pseudo node
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_l_flag,"L flag for SR enabled ISIS pseudo node
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_mask,"Mask for node prefix corresponding to SR enabled ISIS pseudo node
+DEFAULT
+	
+32",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_n_flag,"Node SID flag for SR enabled ISIS pseudo node
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_node_prefix,"It uniquely identifies the SR enabled ISIS pseudo node
+DEFAULT
+	
+1.1.1.1",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_p_flag,"PHP (penultimate hop popping) flag for SR enabled ISIS pseudo node
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_r_flag,"Readvertisement flag for SR enabled ISIS pseudo node
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_redistribution,"Possible choices are UP or DOWN for SR enabled ISIS pseudo node
+Valid options are:
+up
+	
+down
+	
+DEFAULT
+	
+up",opt,"down,up",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv4_configure_sid_index_label,"If set, then all the pseudo node routes (IPv4 type) will take SID/ index
+from SID index label field and not from the SRGB range being configured
+under ISIS pseudo node, otherwise SID/ indexes will be assigned to them
+from the configured SRGB range
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv4_e_flag,"E flag corresponding to IPv4 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv4_l_flag,"L flag corresponding to IPv4 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv4_n_flag,"N flag corresponding to IPv4 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv4_p_flag,"P flag corresponding to IPv4 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv4_r_flag,"R flag corresponding to IPv4 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv4_sid_index_label,"If pseudo node route IPv4 configure SID index label has been enabled,
+then the IPv4 prefixes corresponding to the pseudo node routes will be
+assigned with the SID/ index from the SID index label field depending on
+the configured V flag
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv4_v_flag,"V flag corresponding to IPv4 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv6_configure_sid_index_label,"If set, then all the pseudo node routes (IPv6 type) will take SID/ index
+from SID index label field and not from the SRGB range being configured
+under ISIS pseudo node, otherwise SID/ indexes will be assigned to them
+from the configured SRGB range.
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv6_e_flag,"E flag corresponding to IPv6 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv6_l_flag,"L flag corresponding to IPv6 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv6_n_flag,"N flag corresponding to IPv6 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv6_p_flag,"P flag corresponding to IPv6 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv6_r_flag,"R flag corresponding to IPv6 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv6_sid_index_label,"If pseudo node route IPv6 configure SID index label has been enabled,
+then the IPv6 prefixes pseudo node routes will be assigned with the SID/
+index from the SID index label field depending on the configured V flag.
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_route_ipv6_v_flag,"V flag corresponding to IPv6 pseudo node route
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_rtrcap_id,"Router capability identifier for SR enabled ISIS pseudo node
+DEFAULT
+	
+1.1.1.1",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_s_bit,"S bit for SR enabled ISIS pseudo node
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_sid_count,"Total count of SIDs in that SRGB range for SR enabled ISIS pseudo node
+DEFAULT
+	
+8000",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_sid_index_label,"This is the value which will be used to set the nodal SID of the SR
+enabled ISIS pseudo node if configure sid index label option has been
+enabled
+DEFAULT
+	
+0",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_srgb_range_count,"How many ranges the user wants to create in the SRGB range of SR enabled
+ISIS pseudo node. Max is 5
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_start_sid_label,"Start SID in one SRGB range for SR enabled ISIS pseudo node
+DEFAULT
+	
+16000",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+pseudo_node_v_flag,"Value flag for SR enabled ISIS pseudo node
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+return_detailed_handles,"This argument determines if individual interface, session or router
+handles are returned by the current command. This applies only to the
+command on which it is specified. Setting this to 0 means that only
+NGPF-specific protocol stack handles will be returned. This will
+significantly decrease the size of command results and speed up script
+execution. The default is 0, meaning only protocol stack handles will be
+returned.
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ring_include_emulated_device,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ring' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ring_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ring' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ring_number_of_nodes,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ring' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_id,"This is used for traffic engineering.
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_system_id,"This is typically 6-octet long hex characters.
+DEFAULT
+	None",hex8withspaces,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_te,"If true (1), enable traffic engineering.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv4_configure_sid_index_label,"If set, then all the prefixes in that prefix pool (IPv4 type) will take
+SID/ index from SID index label field and not from the SRGB range being
+configured under ISIS-L3 router, otherwise SID/ indexes will be assigned
+to the prefixes from the configured SRGB range
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv4_e_flag,"E flag for ISIS IPv4 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv4_l_flag,"L flag for ISIS IPv4 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv4_n_flag,"N flag for ISIS IPv4 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv4_p_flag,"P flag for ISIS IPv4 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv4_r_flag,"R flag for ISIS IPv4 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv4_sid_index_label,"If IPv4 configure SID index label has been enabled, then the IPv4
+prefixes in the prefix pool will be assigned with the SID/ index from
+the SID index label field depending on the configured V flag
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv4_v_flag,"V flag (Value flag) for ISIS IPv4 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv6_configure_sid_index_label,"If set, then all the prefixes in that prefix pool (IPv6 type) will take
+SID/ index from SID index label field and not from the SRGB range being
+configured under ISIS-L3 router, otherwise SID/ indexes will be assigned
+to the prefixes from the configured SRGB range
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv6_e_flag,"E flag for ISIS IPv6 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv6_l_flag,"L flag for ISIS IPv6 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv6_n_flag,"N flag for ISIS IPv6 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv6_p_flag,"P flag for ISIS IPv6 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv6_r_flag,"R flag for ISIS IPv6 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv6_sid_index_label,"If IPv6 configure SID index label has been enabled, then the IPv6
+prefixes in the prefix pool will be assigned with the SID/ index from
+the SID index label field depending on the configured V flag
+DEFAULT
+	
+1",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+routerange_ipv6_v_flag,"V flag (Value flag) for ISIS IPv6 route range (prefix pool)
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_adj_sid,"Adjacent SID for SR enabled ISIS pseudo interface
+DEFAULT
+	
+9001",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_b_flag,"B flag for SR enabled ISIS pseudo interface
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_enable_adj_sid,"Enables adjacent SID for SR enabled ISIS pseudo interface
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_f_flag,"F flag for SR enabled ISIS pseudo interface
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_l_flag,"L flag for SR enabled ISIS pseudo interface
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_override_f_flag,"Override F flag option for SR enabled ISIS pseudo interface
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_s_flag,"S flag for SR enabled ISIS pseudo interface
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_v_flag,"Value flag for SR enabled ISIS pseudo interface
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+si_weight,"Weight value of the adjacent link for SR enabled ISIS pseudo interface
+DEFAULT
+	
+0",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+sim_topo_active,"Active Simulated Topology Config
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+sim_topo_enable_host_name,"Active Simulated Topology Config
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+sim_topo_host_name,"Simulated Topology Host Name
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+sim_topo_ipv4_node_route_count,"Simulated Topology Ipv4 Node Route Count
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+sim_topo_ipv6_node_route_count,"Simulated Topology Ipv6 Node Route Count
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_metric,"The cost metric associated with the stub network route.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_router_active,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_router_origin,"The origin of the routes advertised by the grid nodes. Choices are stub
+and external.
+DEFAULT
+	None",opt,"external,stub",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_up_down_bit,"If 1, the route will be distributed down. If 0, the route will be
+distributed up.
+Valid options are:
+0
+	
+0 up
+1
+	
+1 down
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+subnet_ipv6_prefix_length,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+subnet_prefix_length,"Not defined
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_ip,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_ip_step,"Not defined
+DEFAULT
+	None",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_ipv6,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_ipv6_step,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_node_active,"Flag Active Simulated Interface Config for To-Node
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+to_node_link_metric,"Link Metric To-Node
+DEFAULT
+	
+0",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_depth,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_include_emulated_device,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_link_multiplier,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_max_children_per_node,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_number_of_nodes,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tree_use_tree_depth,"Not defined
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'tree' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+type,"The type of topology route to create.
+Valid options are:
+grid
+	
+mesh
+	
+custom
+	
+ring
+	
+hub-and-spoke
+	
+tree
+	
+ipv4-prefix
+	
+ipv6-prefix
+	
+fat-tree
+	
+linear
+	
+DEFAULT
+	None",opt,"custom,fattree,grid,hubandspoke,ipv4prefix,ipv6prefix,linear,mesh,ring,tree",IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

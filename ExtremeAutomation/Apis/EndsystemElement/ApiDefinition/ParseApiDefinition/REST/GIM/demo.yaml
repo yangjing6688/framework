@@ -1,0 +1,11 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit]
+#             - [OS2,Platform,Version,Unit]
+
+demo:
+    verify_guest_onboarding_template:
+        apis:
+            - [GIM,base,baseversion,baseunit]

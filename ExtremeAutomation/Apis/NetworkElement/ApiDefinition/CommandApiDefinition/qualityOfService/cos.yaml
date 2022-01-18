@@ -1,0 +1,482 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+cos:
+    create_qos_profile:
+        description: "Creates the given QOS profiles on the given device"
+        arguments:
+            order: 
+        uuid: 66687146-d2d8-4032-9ce3-e462bce8ff76
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create qosprofile {<api_utils.exos_qos_profile>name}',userPrompt,'None','None','None',[],[]]
+    delete_qos_profile:
+        description: "Removes a QOS profile from a given device"
+        arguments:
+            order: 
+        uuid: 3fd8faed-e141-4950-9052-0d39b43477ec
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'delete qosprofile {<api_utils.exos_qos_profile>name}',userPrompt,'None','None','None',[],[]]
+    create_port_group:
+        description: "Creates an port group of the given type"
+        arguments:
+            order: group,cos_type
+        uuid: 2b23f6de-6c28-4e8a-9d66-d10ea7062a2e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create ports group {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos port-config {cos_type} {group}',userPrompt,'None','None','None',[],[]]
+    delete_port_group:
+        description: "Deletes an port group of the given type"
+        arguments:
+            order: group,cos_type
+        uuid: 59ce8d59-ddf9-4693-a2f2-383238ca76d8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'delete ports group {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear cos port-config {cos_type} {group} entry',userPrompt,'None','None','None',[],[]]
+    set_port_group_port:
+        description: "Adds a port to an existing port group"
+        arguments:
+            order: group,port,cos_type
+        uuid: e2408845-64d2-4a97-88ea-40bfc874b99a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ports group {group} add {port}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos port-config {cos_type} {group} append ports {port}',userPrompt,'None','None','None',[],[]]
+    set_txq_settings:
+        description: "Configures a TXQ reference to a given COS value"
+        arguments:
+            order: cos_index,txq_index,qos_profile
+        uuid: 534ab29f-1519-4d51-8219-919c7a794f1f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure dot1p type {cos_index} qosprofile {qos_profile} ingress-meter ingmeter{txq_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} txq-reference {txq_index}',userPrompt,'None','None','None',[],[]]
+    set_txq_settings_cos_under_seven:
+        description: "Configures a TXQ reference to a given COS value. For COS values below 7"
+        arguments:
+            order: cos_index,txq_index,qos_profile
+        uuid: 26cf69ba-cd93-423c-b0a3-adafc1da5763
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure cos-index {cos_index} qosprofile {qos_profile} ingress-meter ingmeter{txq_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} txq-reference {txq_index}',userPrompt,'None','None','None',[],[]]
+    set_irl_settings:
+        description: "Configures an IRL reference to a given COS value"
+        arguments:
+            order: cos_index,irl_index,priority,qos_profile
+        uuid: 3a0dda6f-e090-4863-a844-40dc73f84732
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure cos-index {cos_index} qosprofile {qos_profile} ingress-meter ingmeter{irl_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} priority {priority} irl-reference {irl_index}',userPrompt,'None','None','None',[],[]]
+    set_irl_settings_cos_under_seven:
+        description: "Configures an IRL reference to a given COS value. For COS values below 7"
+        arguments:
+            order: cos_index,irl_index,qos_profile
+        uuid: ee82d3f5-dfe9-40ab-a217-6e1c6df5dbbd
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure dot1p type {cos_index} qosprofile {qos_profile} ingress-meter ingmeter{irl_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} irl-reference {irl_index}',userPrompt,'None','None','None',[],[]]
+    set_port_resource_irl:
+        description: "Creates and inbound rate limiter"
+        arguments:
+            order:
+        uuid: 40d8cbfa-559d-4d14-bab3-d3e693d98be0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure meter ingmeter{irl_index} committed-rate {rate} {unit} ports {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos port-resource irl {group} {irl_index} unit {unit} rate {rate}|| set cos reference irl {group} {irl_index} rate-limit {irl_index}',userPrompt,'None','None','None',[],[]]
+    set_orl_settings:
+        description: "Configures an ORL reference to a given COS value"
+        arguments:
+            order: 
+        uuid: d597935e-f0d1-4e50-8a57-bf681bedb113
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure cos-index {cos_index} qosprofile {qos_profile} ingress-meter ingmeter{orl_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} priority {priority} orl-reference {orl_index}',userPrompt,'None','None','None',[],[]]
+    set_orl_settings_cos_under_seven:
+        description: "Configures an ORL reference to a given COS value. For COS values below 7"
+        arguments:
+            order: 
+        uuid: 47b5a9d7-ecd3-45c9-b34d-1e13f39ede5f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure dot1p type {cos_index} qosprofile {qos_profile} ingress-meter ingmeter{orl_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} orl-reference {orl_index}',userPrompt,'None','None','None',[],[]]
+    set_dot1p_type:
+        description: "Configures a QOS profiles to a given dot1p type"
+        arguments:
+            order: 
+        uuid: 4fff49d4-25c8-44ac-99b0-25861d7e056c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure dot1p type {cos_index} qosprofile {qos_profile} ingress-meter ingmeter{cos_index}',userPrompt,'None','None','None',[],[]]
+    set_dot1p_type_only:
+        description: ""
+        arguments:
+            order: 
+        uuid: c32e7b5e-ef21-4cf1-bce9-8eef31d090aa
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure dot1p type {cos_index} qosprofile {qos_profile}',userPrompt,'None','None','None',[],[]]
+    set_dot1p_port_type:
+        description: "Applies a given QOS profiles to a port"
+        arguments:
+            order: 
+        uuid: 5eac757b-854e-49e8-8118-78200de11b1c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ports {port} qosprofile {qos_profile}',userPrompt,'None','None','None',[],[]]
+    set_qos_scheduler:
+        description: "Sets the QOS scheduler to a given mode"
+        arguments:
+            order: mode,group
+        uuid: 6f5e0812-c128-4952-a8a0-f86e5ae28f39
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure qosscheduler {mode} ports {group}',userPrompt,'None','None','None',[],[]]
+    set_txq_weights:
+        description: "Configures the weight for each TXQ on a given device"
+        arguments:
+            order: 
+        uuid: 81961638-5dc2-4530-b986-10032653612e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure qosprofile {txq} weight {weight} ports {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos port-config txq {group} arb-percentage {weights}',userPrompt,'None','None','None',[],[]]
+    set_tos_settings:
+        description: "Applies a TOS value to a given COS index"
+        arguments:
+            order: 
+        uuid: 9d20361c-ec50-46f6-bdc0-8c1d9b467fb2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure cos-index {cos_index} replace-tos {tos}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} tos-value {tos}',userPrompt,'None','None','None',[],[]]
+    set_tos_settings_cos_under_seven:
+        description: "Applies a TOS value to a given COS index. For COS values below 7"
+        arguments:
+            order: tos,cos_index,qos_profile
+        uuid: 762aa767-837e-48a3-b9e3-677d64accb3e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure diffserv replacement {qos_profile} code-point {tos}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} tos-value {tos}',userPrompt,'None','None','None',[],[]]
+    set_priority_settings:
+        description: "Configures a COS index with the given priority"
+        arguments:
+            order: 
+        uuid: 5b6beb6b-8a63-497d-8f32-75cd3b799a3d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure cos-index {cos_index} qosprofile {qos_profile}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} priority {priority}',userPrompt,'None','None','None',[],[]]
+    set_priority_settings_cos_under_seven:
+        description: "Configures a COS index with the given priority. For COS values below 7"
+        arguments:
+            order: 
+        uuid: e5139fe0-4335-413c-b3a1-b379e81b0b01
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure dot1p type {cos_index} qosprofile {qos_profile}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos settings {cos_index} priority {priority}',userPrompt,'None','None','None',[],[]]
+    set_diff_serve_replacement:
+        description: ""
+        arguments:
+            order: 
+        uuid: f335362a-746b-49f6-8944-943f068d9d16
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure diffserv replacement {qos_profile} code-point {tos}',userPrompt,'None','None','None',[],[]]
+    clear_index:
+        description: "Removes the given COS index from the device's configuration"
+        arguments:
+            order: 
+        uuid: 4f88f1b6-0f76-4b46-a667-7b90779bf59e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure cos-index {cos_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear cos settings {cos_index} all',userPrompt,'None','None','None',[],[]]
+    clear_irl:
+        description: "Removes the given IRL from the configuration"
+        arguments:
+            order: 
+        uuid: 5e036414-f9be-4117-ac5e-be78c1127afc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure meter ingmeter{irl_index} ports {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear cos irl {group} {irl_index}',userPrompt,'None','None','None',[],[]]
+    set_txq_shaping:
+        description: "Applies rate shaping to a given transmit queue"
+        arguments:
+            order: group,rate,unit,qos_profile,txq
+        uuid: 2edc366b-6292-45e5-8a28-e89348077eae
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure qosprofile {qos_profile} peak_rate {rate} {unit} ports {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set cos port-resource txq {group} {txq} rate {rate} unit {unit}',userPrompt,'None','None','None',[],[]]
+    clear_txq_shaping:
+        description: "Removes rate shaping from a TXQ. Note: on EXOS it removes rate shaping from all TXQs."
+        arguments:
+            order:
+        uuid: 72640ec5-c0dc-487b-87ef-f249f84cc05c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure qosprofile ports {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear cos port-resource txq {group} {txq}',userPrompt,'None','None','None',[],[]]
+    set_port_priority:
+        description: "Applies the given priority to the port(s)"
+        arguments:
+            order: 
+        uuid: aedcb0dc-f957-4b87-b815-65721c906e9a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ports {port} dot1p {pri}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set port priority {port} {pri}',userPrompt,'None','None','None',[],[]]
+    set_port_qos_profile:
+        description: "Applies the given qos profile to the port(s)"
+        arguments:
+            order: 
+        uuid: 61d087d3-4505-4a89-bd0b-ecc413d463ce
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure port {port} qosprofile {<api_utils.exos_qos_profile>qos_profile}',userPrompt,'None','None','None',[],[]]
+    enable_state:
+        description: "Enables COS on a given device"
+        arguments:
+            order: 
+        uuid: a4405432-6e50-48a2-ae3f-7188264bac9b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set cos state enable',userPrompt,'None','None','None',[],[]]
+    disable_state:
+        description: "Disables COS on a given device"
+        arguments:
+            order: 
+        uuid: 18a6c301-b0ad-4e01-b6bc-9c7c090a3b6d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set cos state disable',userPrompt,'None','None','None',[],[]]
+    set_txq_reference:
+        description: "Applies a TXQ to a given reference number"
+        arguments:
+            order: group,reference,queue
+        uuid: f72a808d-5200-4422-8364-3bf5d683b12b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set cos reference txq {group} {reference} queue {queue}',userPrompt,'None','None','None',[],[]]
+    clear_txq_settings:
+        description: "Removes the txq reference for a given COS index"
+        arguments:
+            order: 
+        uuid: f0586b7e-8d8c-4b21-a818-d9beace3192d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear cos settings {cos_index} txq-reference',userPrompt,'None','None','None',[],[]]
+    set_irl_reference:
+        description: "Applies an IRL to a given reference number"
+        arguments:
+            order: group,reference,number
+        uuid: 340f5bfb-6f5e-4969-af93-38327ff4b428
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set cos reference irl {group} {reference} rate-limit {number}',userPrompt,'None','None','None',[],[]]
+    clear_irl_settings:
+        description: "Removes the IRL reference for a given COS index"
+        arguments:
+            order: 
+        uuid: 43b138cd-a7ed-48f4-af24-fe092573d725
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear cos settings {cos_index} irl-reference',userPrompt,'None','None','None',[],[]]
+    set_orl_reference:
+        description: "Applies an ORL to a given reference number"
+        arguments:
+            order: group,reference,number
+        uuid: 89cc3486-532c-4aaa-a7bb-29f0f59b9d8a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set cos reference orl {group} {reference} rate-limit {number}',userPrompt,'None','None','None',[],[]]
+    set_port_resource_orl:
+        description: "Creates and outbound rate limiter"
+        arguments:
+            order: 
+        uuid: c612d698-6767-4b14-b06a-479d69987aa5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set cos port-resource orl {group} {orl_index} unit {unit} rate {rate}|| set cos reference orl {group} {orl_index} rate-limit {orl_index}',userPrompt,'None','None','None',[],[]]
+    clear_orl_settings:
+        description: "Removes the ORL reference for a given COS index"
+        arguments:
+            order: 
+        uuid: 9313c590-f148-4abe-87d0-fe5ffb2202b6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear cos settings {cos_index} orl-reference',userPrompt,'None','None','None',[],[]]
+    clear_tos_settings:
+        description: "Removes the TOS value for a given COS index"
+        arguments:
+            order: 
+        uuid: 557f1555-5501-4215-a868-ee04fd7841d9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear cos settings {cos_index} tos-value',userPrompt,'None','None','None',[],[]]
+    clear_flood_ctrl_settings:
+        description: "Removes the Flood Control reference for a given COS index"
+        arguments:
+            order: 
+        uuid: c4ffb22d-4229-44f7-ab5e-1402bced0123
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear cos settings {cos_index} flood-ctrl',userPrompt,'None','None','None',[],[]]
+    clear_all_config:
+        description: "Removes all COS configuration on a given device"
+        arguments:
+            order: 
+        uuid: 6eb8182a-3f4e-4297-bdcb-91cf976a3b10
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear cos all-entries',userPrompt,'None','(y/n)','y',[],[]]
+    show_qos_profile:
+        uuid: 8af5466a-74af-4c37-a0ed-8837a12ede2a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show qosprofile',userPrompt,'None','None','None',[],[]]
+    show_port_qos_profile:
+        uuid: 2d27c8a2-9489-42c0-874f-09be75f4790f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show port {port} information detail',userPrompt,'None','None','None',[],[]]
+    show_txq_port_group:
+        uuid: 23c637da-2dc2-4ca0-804f-0ac6cfa139fa
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ports group',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos port-config txq',userPrompt,'None','None','None',[],[]]
+    show_irl_port_group:
+        uuid: 2ca4b67d-e4bc-488c-abfd-e1297c797c7b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ports group',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos port-config irl',userPrompt,'None','None','None',[],[]]
+    show_txq_port_group_specific:
+        uuid: cbe6c744-9dc1-4426-8988-fea7ac6f8f8b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ports group {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos port-config txq {group}',userPrompt,'None','None','None',[],[]]
+    show_irl_port_group_specific:
+        uuid: e7689244-5e18-4dd2-b976-b1f1f5971fec
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ports group {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos port-config irl {group}',userPrompt,'None','None','None',[],[]]
+    show_txq_wfq_weights:
+        uuid: 6604b740-d30e-4fa5-b90e-3a3bcbda1fe2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show qosprofile ports {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos port-config txq {group}',userPrompt,'None','None','None',[],[]]
+    show_irl_wfq_weights:
+        uuid: 107298bb-d6ae-46c5-b305-1bed401515d0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show qosprofile ports {group}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos port-config irl {group}',userPrompt,'None','None','None',[],[]]
+    show_txq_port_resource_specific:
+        uuid: c1317888-e5c9-4782-99b3-8030f254ced6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show meter ingmeter{cos_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos port-resource txq {group} {cos_index}',userPrompt,'None','None','None',[],[]]
+    show_irl_port_resource_specific:
+        uuid: 0889d392-49f0-493a-ab67-400f65d5308b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show meter ingmeter{cos_index}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos port-resource irl {group} {cos_index}',userPrompt,'None','None','None',[],[]]
+    show_qos_scheduler:
+        uuid: 09e8faf0-586f-448b-93fa-66d33f4ef28e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show qosscheduler ports {group}',userPrompt,'None','None','None',[],[]]
+    show_settings:
+        uuid: 8b13448c-1ef0-4618-a60e-c211f1e18dfc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show cos-index',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show cos settings',userPrompt,'None','None','None',[],[]]
+    show_port_priority:
+        uuid: 97c2d9be-0104-4fee-9377-67980e562501
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show port {port} information detail',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show port priority {port}',userPrompt,'None','None','None',[],[]]
+    show_port_info_detail:
+        uuid: 4b41b6b8-9790-490a-b66d-2e1b742d5cf2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ports {port} information detail',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show port status {port}',userPrompt,'None','None','None',[],[]]
+    show_txq_port_resource:
+        uuid: b5dbeeb0-7ff4-409e-89f9-06442ed4fa1b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show cos port-resource txq {group}',userPrompt,'None','None','None',[],[]]
+    show_irl_port_resource:
+        uuid: a2e90dc9-f2f3-4619-a838-6db6e6725216
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show cos port-resource irl {group}',userPrompt,'None','None','None',[],[]]
+    show_orl_port_resource:
+        uuid: 87e83d8c-bf1b-4dd9-8937-57a759acd060
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show cos port-resource orl {group}',userPrompt,'None','None','None',[],[]]
+    show_txq_reference:
+        uuid: fa0aa14d-7015-4b3a-9416-82cd84226498
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show cos reference txq {group}',userPrompt,'None','None','None',[],[]]
+    show_irl_reference:
+        uuid: 68aed0bb-747f-4bf0-a8a3-710c0d7ba107
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show cos reference irl {group}',userPrompt,'None','None','None',[],[]]
+    show_orl_reference:
+        uuid: 24d8c23d-249a-42d6-8b3e-672f57764661
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show cos reference orl {group}',userPrompt,'None','None','None',[],[]]
+    show_state:
+        uuid: 0ccbb8d4-5ae5-4e01-84dc-8fbd9e868808
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show cos state',userPrompt,'None','None','None',[],[]]

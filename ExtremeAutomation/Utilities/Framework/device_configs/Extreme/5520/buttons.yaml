@@ -1,0 +1,31 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines push buttons common to 5520 series switches
+#
+
+led_mode_button: &LED_MODE_BUTTON
+  name:             led_mode_button
+  compatible:       mode_button
+  type:             LED_MODE
+  interrupt:        led_mode_irq
+  num_modes:        3
+  modes:
+    - sequence:     0
+      mode:         DEFAULT
+    - sequence:     1
+      mode:         SPEED
+      led:          speed_mode_led
+    - sequence:     2
+      mode:         STACK
+      led:          stack_mode_led
+
+bluetooth_pair_button: &BLUETOOTH_PAIR_BUTTON
+  name:             bt_pair_button
+  compatible:       push_button
+  type:             BT_PAIR
+  interrupt:        bt_pair_irq

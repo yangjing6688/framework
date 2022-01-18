@@ -1,0 +1,589 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+spanningtree:
+    enable_global:
+        description: "Globally enables Spanning Tree"
+        arguments:
+            order: 
+        uuid: 3b6f55e6-7a02-4ec3-8e6b-4791fe167449
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree stpmode ieee8021',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable stpd',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'protocol spanning-tree stp',routerConfigPrompt,'None','None','None',[],[]]
+    disable_global:
+        description: "Globally disables Spanning Tree"
+        arguments:
+            order: 
+        uuid: bcdfcb77-c269-4562-a0ec-597bbac5214c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree stpmode none',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable stpd',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'protocol spanning-tree stp||shutdown',routerConfigPrompt,'None','None','None',[],[]]
+    enable_mstp_global:
+        description: "Globally enables Multi Spanning Tree"
+        arguments:
+            order:
+        uuid: 42f1f766-feb0-45c6-b64d-cebe1d91dcff
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'protocol spanning-tree mstp',routerConfigPrompt,'None','None','None',[],[]]
+    disable_mstp_global:
+        description: "Globally disables Multi Spanning Tree"
+        arguments:
+            order:
+        uuid: b7afd649-658a-4a5c-81d8-235684d33470
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'protocol spanning-tree mstp||shutdown',routerConfigPrompt,'None','None','None',[],[]]
+    enable_rstp_global:
+        description: "Globally enables Rapid Spanning Tree"
+        arguments:
+            order:
+        uuid: 76376f63-5b96-4e54-8c9b-1d06241f78fe
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'protocol spanning-tree rstp',routerConfigPrompt,'None','None','None',[],[]]
+    disable_rstp_global:
+        description: "Globally disables Rapid Spanning Tree"
+        arguments:
+            order:
+        uuid: 7f13a4ce-84cd-414d-9f92-892cb2705088
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'protocol spanning-tree rstp||shutdown',routerConfigPrompt,'None','None','None',[],[]]
+    create_mst_instance:
+        description: "Creates a new MST instance with the provided SID"
+        arguments:
+            order: 
+        uuid: 60227c17-8db3-4021-a178-49179d250d27
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree msti sid {sid} create',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create stpd s{sid}',userPrompt,'None','None','None',[],[]]
+    delete_mst_instance:
+        description: "Deletes the MST instance with the provided SID"
+        arguments:
+            order: 
+        uuid: f899a4c0-e5a6-488b-8735-4634c023f36f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree msti sid {sid} delete',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete stpd s{sid}',userPrompt,'None','None','None',[],[]]
+    enable_port_admin:
+        description: "Enables STP Port Admin on the specified port(s)"
+        arguments:
+            order: 
+        uuid: fb42dbbb-4759-410a-9810-bca7e9bd89ad
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set span portadmin {port} enable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable stpd s{sid} ports {port}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface GigabitEthernet {port}||spanning-tree rstp',routerConfigPrompt,'None','None','None',[],[]]
+    disable_port_admin:
+        description: "Disables STP Port Admin on the specified port(s)"
+        arguments:
+            order: 
+        uuid: 4da238d6-8dda-4685-803c-44926e305ea6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set span portadmin {port} disable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable stpd s{sid} ports {port}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface GigabitEthernet {port}||no spanning-tree rstp {port}',routerConfigPrompt,'None','None','None',[],[]]
+    enable_auto_edge:
+        description: "Enables STP auto-edge on the specified port(s)"
+        arguments:
+            order: 
+        uuid: c7c9f88e-ef19-491f-a9fe-ca577375b7f4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree autoedge enable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} port auto-edge on {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||spanning-tree autoedge',routerConfigPrompt,'None','None','None',[],[]]
+    disable_auto_edge:
+        description: "Disables STP auto-edge on the specified port(s)"
+        arguments:
+            order: 
+        uuid: 096ef5df-1a36-4387-8082-7d441782c70b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree autoedge disable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} port auto-edge off {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||no spanning-tree autoedge',routerConfigPrompt,'None','None','None',[],[]]
+    set_stp_mode:
+        description: "Configures Spanning Tree to use the given mode"
+        arguments:
+            order: mode,sid,msti
+        uuid: 92b4464f-52bb-4af1-898b-d56fd39c4191
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree version {<api_utils.eos_stp_mode>mode}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} mode {<api_utils.exos_stp_mode>mode} {msti} {<api_utils.exos_instance>sid}',userPrompt,'None','None','None',['Error: Domain is already'],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree mstp version {<api_utils.voss_stp_mode>mode}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_stp_mode:
+        description: "Configures Spanning Tree to use the MSTP mode"
+        arguments:
+            order: 
+        uuid: 2f7f1071-e451-4727-8844-66e25ea247a5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear spantree version',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} mode mstp {msti} {<api_utils.exos_instance>sid}',userPrompt,'None','None','None',['Error: Domain is already'],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree rstp version mstp',routerConfigPrompt,'None','None','None',[],[]]
+    set_restricted_role:
+        description: "Configures the Restricted Role for the specified port"
+        arguments:
+            order: 
+        uuid: cae234b7-a797-43f4-8530-553aaa45d037
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree restrictedrole {port} {<api_utils.state_true_false>state}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} port restricted-role {<api_utils.state_enable_disable>state} {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||spanning-tree restricted-role',routerConfigPrompt,'None','None','None',[],[]]
+    set_restricted_tcn:
+        description: "Configures the Restricted TCN for the specified port"
+        arguments:
+            order: 
+        uuid: ececba25-0636-48d9-a542-eaa1c1721291
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree restrictedtcn {port} {<api_utils.state_true_false>state}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} port restricted-tcn {<api_utils.state_on_off>state} {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||spanning-tree restricted-tcn',routerConfigPrompt,'None','None','None',[],[]]
+    set_priority:
+        description: "Configures the spanning tree priority to the provided value"
+        arguments:
+            order: priority,port,sid
+        uuid: deda1330-9d1e-4073-9f84-c83b776f751a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree priority {priority} {sid}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} priority {priority}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree rstp priority {priority}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||spanning-tree priority {priority}',routerConfigPrompt,'None','None','None',[],[]]
+    set_priority_mode:
+        description: "Configures the Spanning Tree bridge priority mode"
+        arguments:
+            order: 
+        uuid: 7fd87379-ff3a-4ec0-bae3-644aa2afbd0f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree bridgeprioritymode {<api_utils.eos_prio_mode>mode}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} priority-mode {<api_utils.exos_prio_mode>mode}',userPrompt,'None','None','None',['Error'],[]]
+    set_tc_trap:
+        description: "Enables sending of STP Topology Change Traps"
+        arguments:
+            order: state,sid
+        uuid: e86d6ff5-508c-4873-a93c-b41392c95c61
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree tctrapsuppress {state}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} trap topology-change {<api_utils.state_on_off>state}',userPrompt,'None','None','None',[],[]]
+    clear_tc_trap:
+        description: "Disables sending of STP Topology Change Traps"
+        arguments:
+            order: 
+        uuid: 443f3f6c-eac4-4155-8a1f-5be96078a32d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear spantree tctrapsuppress',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} trap topology-change {<api_utils.state_on_off>state}',userPrompt,'None','None','None',[],[]]
+    set_msti_vlan_mapping:
+        description: "Maps the specified VLANs to the MSTIs"
+        arguments:
+            order: vlan,sid
+        uuid: 6017e09a-4a1a-40c1-9ddf-d115e9493d53
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree mstmap {vlan} sid {sid}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} add vlan {vlan} ports all',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'vlan create {vlan} type port-mstprstp s{sid}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_msti_vlan_mapping:
+        description: "Deletes the Mapping for the specified VLANs and MSTIs"
+        arguments:
+            order: vlan,sid
+        uuid: 4866041a-6d89-40db-b595-48c9c2590edb
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear spantree mstmap {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} delete vlan {vlan} ports all',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'vlan delete {vlan}',routerConfigPrompt,'None','None','None',[],[]]
+    set_mst_region_name:
+        description: "Configures the MST Region Name"
+        arguments:
+            order: 
+        uuid: b5a10760-b5ab-47c4-a493-431a4a594df0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree mstcfgid cfgname {region}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure mstp region {region}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree mstp region region-name {region}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'protocol spanning-tree mstp||region {region}',routerConfigPrompt,'None','None','None',[],[]]
+    set_mst_revision_level:
+        description: "Configures the MST Revision Level"
+        arguments:
+            order: 
+        uuid: 625db2cb-e475-4068-bfba-1f10033d7312
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree mstcfgid rev {revision}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure mstp revision {revision}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree mstp region region-version {revision}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'protocol spanning-tree mstp||revision {revision}',routerConfigPrompt,'None','None','None',[],[]]
+    set_hello_time:
+        description: "Configures the spanning tree hello timer to the provided value"
+        arguments:
+            order: 
+        uuid: 7238ca1e-0519-418e-8768-7c2fbcd5ccb1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree hello {hello}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stp s{sid} hellotime {hello}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree rstp hello-time {hello}',routerConfigPrompt,'None','None','None',[],[]]
+    set_fwd_delay:
+        description: "Configures the spanning tree forward delay timer to the provided value"
+        arguments:
+            order: 
+        uuid: 07dc6524-f57c-40df-a452-3b035f6a3a35
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree fwddelay {fwd_delay}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stp s{sid} forwarddelay {fwd_delay}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree rstp forward-time {fwd_delay}',routerConfigPrompt,'None','None','None',[],[]]
+    set_max_age:
+        description: "Configures the spanning tree BPDU max age to the provided value"
+        arguments:
+            order: 
+        uuid: c8504eba-6791-4455-8d32-43e80b6a518d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set spantree maxage {max_age}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure stp s{sid} maxage {max_age}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree rstp max-age {max_age',routerConfigPrompt,'None','None','None',[],[]]
+    enable_mst_instance:
+        description: "Enables a Multiple Spanning Tree instance"
+        arguments:
+            order: 
+        uuid: e39955cf-086f-4833-b817-99f2460a48d2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable stpd s{sid}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree mstp msti s{sid}',routerConfigPrompt,'None','None','None',[],[]]
+    disable_mst_instance:
+        description: "Disables a Multiple Spanning Tree instance"
+        arguments:
+            order: 
+        uuid: 85d46362-9f42-4ec1-872b-578ca0a7e904
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable stpd s{sid}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no spanning-tree mstp msti s{sid}',routerConfigPrompt,'None','None','None',[],[]]
+    enable_vlan_autobind:
+        description: "Enables vlan auto-bind for the specified VLAN and Instance"
+        arguments:
+            order: vlan,sid
+        uuid: 9e2a9a6e-dba2-4d5b-bff9-a37727cb3e5a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable stpd s{sid} auto-bind vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    disable_vlan_autobind:
+        description: "Disables vlan auto-bind for the specified VLAN and Instance"
+        arguments:
+            order: vlan,sid
+        uuid: 72fe19c2-c1b0-43b4-b59f-866468f5a089
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable stpd s{sid} auto-bind vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    set_mst_instance_tag:
+        description: "Configures the EXOS MST instance ID"
+        arguments:
+            order: tag,sid
+        uuid: ca2243c4-4118-4c63-92c3-c2dc906603ff
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure stp s{sid} tag {tag}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'spanning-tree mstp region config-id-sel {tag}',routerConfigPrompt,'None','None','None',[],[]]
+    set_port_link_type_point_to_point:
+        description: "Configures the Spanning Tree port link type to point-to-point"
+        arguments:
+            order: 
+        uuid: 11ab7305-fd4a-48f0-ad0c-510934db0493
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} ports link-type point-to-point {port}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface GigabitEthernet {port}||spanning-tree rstp edge-port false',routerConfigPrompt,'None','Warning:','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||spanning-tree link-type point-to-point',routerConfigPrompt,'None','Warning:','None',[],[]]
+    set_port_link_type_edge:
+        description: "Configures the Spanning Tree port link type to edge"
+        arguments:
+            order: 
+        uuid: 88bc889e-d8f7-4723-8476-203e246d7669
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} ports link-type edge {port}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface GigabitEthernet {port}||spanning-tree rstp edge-port true',routerConfigPrompt,'None','Warning:','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||spanning-tree edgeport',routerConfigPrompt,'None','Warning:','None',[],[]]
+    set_instance_msti:
+        description: "Configures the specified instance as an MSTI"
+        arguments:
+            order: 
+        uuid: eec6a957-d755-471b-803b-b4138bd7d448
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} mode mstp msti {sid}',userPrompt,'None','None','None',[],[]]
+    set_instance_cist:
+        description: "Configures the specified instance as the CIST"
+        arguments:
+            order: 
+        uuid: b3d6fbf3-b06c-4d4b-90f6-bd841e74d451
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure stpd s{sid} mode mstp cist',userPrompt,'None','None','None',[],[]]
+    create_mst_vlan_instance:
+        description: "Creates a new VLAN and an MST instance"
+        arguments:
+            order: 
+        uuid: 41a178a7-fd2f-4842-963f-c19a351727c3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'vlan create {vlan} type port-mstprstp s{sid}',routerConfigPrompt,'None','None','None',[],[]]
+    delete_mst_vlan_instance:
+        description: "Deletes the MST instance and associated VLAN"
+        arguments:
+            order: 
+        uuid: 934d9114-29cc-4f39-af75-33d5d1c5dc6f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'vlan delete {vlan}',routerConfigPrompt,'None','None','None',[],[]]
+    enable_mstp_on_port:
+        description: "Enables MSTP on a port"
+        arguments:
+            order: 
+        uuid: 297a76aa-f908-41a3-ab44-d12772fe91c6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'spanning-tree mstp force-port-state enable',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.5.1.3.1.13.{port}','i','1']
+    disable_mstp_on_port:
+        description: "Disables MSTP on a port"
+        arguments:
+            order: 
+        uuid: 19af32a6-2617-4a02-9f03-4fe8064bf8b5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no spanning-tree mstp force-port-state enable',intfPrompt,'GigabitEthernet {port}','(y/n)','y',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.5.1.3.1.13.{port}','i','0']
+    enable_bpduguard:
+        description: "Enables bpdu guard on a port"
+        arguments:
+            order: 
+        uuid: 21bc4f3f-57ec-488a-b6a4-d00266a74697
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface GigabitEthernet {port}||spanning-tree bpduguard enable',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||spanning-tree edgeport bpdu-guard',routerConfigPrompt,'None','Warning:','None',[],[]]
+    disable_bpduguard:
+        description: "Disables bpdu guard on a port"
+        arguments:
+            order: 
+        uuid: cc77f789-2c8d-4286-8fd5-7070f8c761fd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface GigabitEthernet {port}||spanning-tree bpduguard enable',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {port}||no spanning-tree edgeport bpdu-guard',routerConfigPrompt,'None','Warning:','None',[],[]]
+    set_boot_flag_rstp:
+        description: "Sets the Spanning Tree boot flag to RSTP"
+        arguments:
+            order: 
+        uuid: 6fb3cfae-7b6c-4d5b-86e0-b6c4363cdba0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'boot config flags spanning-tree-mode rstp',routerConfigPrompt,'None','Warning:','save configuration||reset -y',[],[]]
+    set_boot_flag_mstp:
+        description: "Sets the Spanning Tree boot flag to MSTP"
+        arguments:
+            order: 
+        uuid: 57c6dfb5-9d58-43be-8e43-fb92d6903488
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'boot config flags spanning-tree-mode mstp',routerConfigPrompt,'None','Warning:','save configuration||reset -y',[],[]]
+    set_bpduguard_timeout:
+        description: ""
+        arguments:
+            order: 
+        uuid: eb8e550b-5d1a-4534-bab6-ce3b68d857b3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface GigabitEthernet {port}||spanning-tree bpduguard timeout {timeout}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_bpduguard_timeout:
+        description: ""
+        arguments:
+            order: 
+        uuid: 4a4c61e4-ace5-43fd-ab08-88c0ea57092a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface GigabitEthernet {port}||spanning-tree bpduguard timeout 120',routerConfigPrompt,'None','None','None',[],[]]
+    show_info_detail:
+        uuid: c1bd6514-2f30-4b28-af6b-795c8bcdf237
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree debug',userPrompt,'None','None','None',['Invalid'],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd detail',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree rstp status',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show spanning-tree',userPrompt,'None','None','None',[],[]]
+    show_info_summary:
+        uuid: 636c4458-6a76-413b-b9d1-a08a2de9ed2a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree stats sid {sid}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree rstp config',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show spanning-tree',userPrompt,'None','None','None',[],[]]
+    show_instance_info:
+        uuid: e5c3591a-7330-4a93-8805-a16067e5057c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree stats sid {sid}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd s{sid}',userPrompt,'None','None','None',[],[]]
+    show_instance_info_detail:
+        uuid: 70c662b8-4659-4805-b66e-6c755bde121b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree debug sid {sid}',userPrompt,'None','None','None',['Invalid'],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd s{sid} detail',userPrompt,'None','None','None',[],[]]
+    show_port_info:
+        uuid: d84bd022-69d9-4eee-b18f-3b23b8a5d0a2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree stats port {port} sid {sid}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd s{sid} ports {port}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree rstp port config {port}',userPrompt,'None','None','None',[],[]]
+    show_port_info_detail:
+        uuid: bc473c5d-6e99-42b2-bf7d-c83b0d04e9f0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree debug port {port} sid {sid}',userPrompt,'None','None','None',['Invalid'],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd s{sid} ports {port} detail',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree rstp port config {port}||show spanning-tree rstp port status {port}',userPrompt,'None','None','None',[],[]]
+    show_version:
+        uuid: 538adba9-e73c-4fe7-994e-750762b8c5ee
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree version',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd s{sid} detail',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree config',userPrompt,'None','None','None',[],[]]
+    show_port_admin:
+        uuid: 9d55386e-ad6d-4a74-b207-d3bface7d346
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show span portadmin port {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd s{sid} ports {port} detail',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree rstp port role {port}',userPrompt,'None','None','None',[],[]]
+    show_autoedge:
+        uuid: 073792ca-203a-40eb-8d98-01d3e79b5492
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree autoedge',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd s{sid} ports {port} detail',userPrompt,'None','None','None',[],[]]
+    show_mst_digest:
+        uuid: 261d5955-a611-421d-85cf-7f6842a0a70a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show spantree mstcfg',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show stpd',userPrompt,'None','None','None',[],[]]
+    show_port_edge:
+        uuid: ecfe168e-155e-45ea-b3db-f9780afe7254
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree rstp port config {port}',userPrompt,'None','None','None',[],[]]
+    show_port_role:
+        uuid: 441cd158-f7b5-44c7-9e1b-48d36742e844
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree rstp port role {port}',userPrompt,'None','None','None',[],[]]
+    show_boot_flag:
+        uuid: 2ccba41f-a300-4d78-95ea-205ebae46b32
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show boot config flags',userPrompt,'None','None','None',[],[]]
+    show_bpduguard:
+        uuid: c76489fd-79cb-40c4-91a5-44ed96f62912
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree bpduguard {port}',userPrompt,'None','None','None',[],[]]
+    show_mstp_info_detail:
+        uuid: e1fc0d55-1412-4da7-a85c-f30a8bd7c63a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree mstp status',userPrompt,'None','None','None',[],[]]
+    show_mstp_info_summary:
+        uuid: 3a0e0848-5bd4-4dfc-9a21-8b4f5bd6ceb2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree mstp config',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show spanning-tree mst',userPrompt,'None','None','None',[],[]]
+    show_mstp_instance_info:
+        uuid: 23ef58df-efd7-426e-aa93-61a777a2ca29
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree mstp msti config s{sid}',userPrompt,'None','None','None',[],[]]
+    show_mstp_port_info:
+        uuid: 4af92ed0-14f1-4dfc-87f7-c856b79bdc82
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree mstp port config {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.45.5.5.1.3.1.13','i','']
+    show_mstp_port_info_detail:
+        uuid: 98236257-3284-4425-8f58-e743d339939c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree mstp port config {port}||show spanning-tree mstp port status {port}',userPrompt,'None','None','None',[],[]]
+    show_mstp_port_role:
+        uuid: 18c73d6a-7c48-47e3-b814-2049062a62d4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree mstp port role {port}',userPrompt,'None','None','None',[],[]]
+    show_mstp_port_admin:
+        uuid: 36d8cdc9-c6b3-4f8b-82de-e5398c54528c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree mstp port role {port}',userPrompt,'None','None','None',[],[]]
+    show_mstp_edge:
+        uuid: 3445779c-cbf5-44ee-9cd6-8b7e6aff2e01
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spanning-tree mstp port config {port}',userPrompt,'None','None','None',[],[]]
+    show_stp_port_role:
+        arguments:
+          order: port,stp_type
+        uuid: ce22c661-e033-461a-a7a5-2019d548ed04
+        apis:
+          CLI: 
+             - [VOSS,base,baseversion,baseunit,'show spanning-tree {stp_type} port role {port}',userPrompt,'None','None','None',[],[]]

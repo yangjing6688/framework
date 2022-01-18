@@ -1,0 +1,43 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+rsmlt:
+    verify_rsmlt_edge_support_enabled:
+        uuid: 0be334f8-acf9-4b7c-9c46-64ba91042eb7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_rsmlt_edge_support_disabled:
+        uuid: fdfabf7b-d8f0-4946-b874-91b3e464bb13
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_rsmlt_enabled_on_interface_vlan:
+        uuid: 5d4982ce-fa77-40ac-9e0f-a555294104e2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_rsmlt_disabled_on_interface_vlan:
+        uuid: 42b78c1c-0f98-4c84-9e5f-50bdac739114
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_rsmlt_holddown_timer_is_set:
+        uuid: d35dc37b-3d48-4199-b79d-180c9b016b1b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_rsmlt_holdup_timer_is_set:
+        uuid: f9a728c3-99c3-4198-84c7-4137d005bf6e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

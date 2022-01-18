@@ -1,0 +1,100 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+profiles:
+    profiles_select_sub_tab:
+        apis:
+            - [emc,'8.1.1']
+    profiles_set_default_profile:
+        apis:
+            - [emc,'8.1.1']
+    profiles_set_default_access_control_engine_profile:
+        apis:
+            - [emc,'8.1.1']
+    profiles_refresh:
+        apis:
+            - [emc,'8.1.1']
+    profiles_select_profile:
+        apis:
+            - [emc,'8.1.1']
+    profiles_toolbar_click_add:
+        apis:
+            - [emc,'8.1.1']
+    profiles_toolbar_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    profiles_toolbar_click_delete:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_profile_name:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_snmp_version:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_read:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_write:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_max_access:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_read_security:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_write_security:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_max_security:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_set_cli_credential:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_click_save:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_add_profile_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_set_read:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_set_write:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_set_max_access:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_set_read_security:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_set_write_security:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_set_max_security:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_set_cli_credential:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_click_save:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_edit_profile_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_confirm_delete_click_yes:
+        apis:
+            - [emc,'8.1.1']
+    profiles_dialog_confirm_delete_click_no:
+        apis:
+            - [emc,'8.1.1']
+    profiles_confirm_profile_exists:
+        apis:
+            - [emc,'8.1.1']

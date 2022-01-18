@@ -1,0 +1,20 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the PSUs specific to X435-8P-2T
+#
+
+power_info:
+  <<: *COMMON_POWER_INFO
+
+psus:
+  - *PSU_1
+  - *PSU_2
+
+
+psu_interrupts:
+  <<: *PSU_INTERRUPT

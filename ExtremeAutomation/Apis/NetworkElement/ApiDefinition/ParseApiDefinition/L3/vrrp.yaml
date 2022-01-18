@@ -1,0 +1,63 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+vrrp:
+    check_vrrp_globally_enabled:
+        uuid: 89f08e5a-8d66-4c91-bb16-0d3243b964ca
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_globally_disabled:
+        uuid: 273df9bb-bb94-45f0-9a06-cecd541406a2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_vlan_exists:
+        uuid: feaed929-33de-4e68-b97f-526f6d57fe84
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_group_exists:
+        uuid: 36f0bffd-600f-452b-a445-3f38d9c87b6e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_vlan_fabric_routing_is_set:
+        uuid: f63da35d-6619-45d4-acbf-7abbd138405d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_vlan_priority_is_set:
+        uuid: d686d6f8-6f3a-4bc8-9aa2-60f36a2136f8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_vlan_ip_address_is_set:
+        uuid: dd6b106f-2fd8-4aa1-9e0e-25b16452a98f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_vlan_is_enabled:
+        uuid: 4e719f12-7f47-474d-9e84-cbce262f2123
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_state_is_master:
+        uuid: dcc042aa-6a6a-4751-ac3e-8655ca2eb46c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vrrp_state_is_backup:
+        uuid: f80a47e5-dd90-4831-8ac0-346d46540b60
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

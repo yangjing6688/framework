@@ -1,0 +1,31 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines system info common to X695 series switches
+#
+
+common_system_info: &COMMON_SYSTEM_INFO
+  system_eeprom:      onie_eeprom
+  system_led:
+    device:           pca9555_1_cpub
+    register:         0x03
+    bitmask:          0x0c
+  system_led_settings:
+    OFF:              0x3
+    SOLID_GREEN:      0x2
+    SOLID_AMBER:      0x1
+    BLINK_AMBER:      0x1
+  system_fan_led:
+    device:           system_cpld
+    register:         0x61
+    bitmask:          0x03
+  system_fan_led_settings:
+     SOLID_GREEN:      0x3
+     BLINK_GREEN:      0x2
+     SOLID_AMBER:      0x1
+     BLINK_AMBER:      0x0
+     OFF:              0x1 #cpld does not support off, so use solid amber for off

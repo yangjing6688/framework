@@ -1,0 +1,65 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for V300-8P-2X switch
+#
+#
+
+1G_poe_port: &1G_POE_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100_1000
+   portMediaType: HAL_PORT_MED_UTP
+   GigHalfDuplex: false
+   Poe: true
+   PoePlus: true
+   Eee: true
+
+1G_port: &1G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100_1000
+   portMediaType: HAL_PORT_MED_UTP
+   GigHalfDuplex: false
+   Eee: true
+
+10G_port: &10G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000
+   portMediaType: HAL_PORT_MED_GBIC
+
+
+ports:
+   - name: 1
+     <<: *1G_POE_PORT
+
+   - name: 2
+     <<: *1G_POE_PORT
+
+   - name: 3
+     <<: *1G_POE_PORT
+
+   - name: 4
+     <<: *1G_POE_PORT
+
+   - name: 5
+     <<: *1G_POE_PORT
+
+   - name: 6
+     <<: *1G_POE_PORT
+
+   - name: 7
+     <<: *1G_POE_PORT
+
+   - name: 8
+     <<: *1G_POE_PORT
+
+   - name: 9
+     <<: *10G_PORT
+     VpexTrustedPort: true
+
+   - name: 10
+     <<: *10G_PORT
+     VpexTrustedPort: true

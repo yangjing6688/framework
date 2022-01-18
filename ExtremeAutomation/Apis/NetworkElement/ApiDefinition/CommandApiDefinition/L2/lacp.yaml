@@ -1,0 +1,198 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+lacp:
+    enable_global:
+        description: "Enables LACP at the Global level"
+        arguments:
+            order: 
+        uuid: a3aab87a-4811-4a23-b823-a24e6dd3edb0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'lacp enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_global:
+        description: "Disables LACP at the Global level"
+        arguments:
+            order: 
+        uuid: 7893b72a-32d1-4372-beac-c5599e185374
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no lacp enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_port:
+        description: "Disables LACP on the specified port"
+        arguments:
+            order:
+        uuid: 257a08f4-5e78-4a35-a853-35372913ec5c
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'interface ethernet {main_lag_port}||channel-group {key} mode passive',routerConfigPrompt,'None','None','None',[],[]]
+    enable_port:
+        description: "Enables LACP on the specified port"
+        arguments:
+            order:
+        uuid: 8ce4b9f2-e3f0-4fde-8d60-204af927bfa9
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'interface ethernet {main_lag_port}||channel-group {key} mode active',routerConfigPrompt,'None','None','None',[],[]]
+    create_lag:
+        description: "Specifies the LACP 'Group', otherwise known as the 'Master' or main_lag_port and adds the physical lag_port to the Group"
+        arguments:
+            order: main_lag_port,port,key
+        uuid: 6733e1f6-de56-41fd-ac2c-11de35c9a645
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface {main_lag_port}||lacp key {key} aggregation enable||lacp enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set lacp enable||set lacp aadminkey {main_lag_port} {key}||set port lacp port {port} aadminkey {key}||set port lacp port {port} enable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable sharing {main_lag_port} grouping {port} lacp',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {main_lag_port}||channel-group {key} mode on',routerConfigPrompt,'None','None','None',[],[]]
+    delete_lag:
+        description: "Removes the LACP Group and associated port(s)"
+        arguments:
+            order: main_lag_port,key,port
+        uuid: 1b7b971a-1b19-44a3-939a-cf482658c94b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface {main_lag_port}||no lacp aggregation enable',routerConfigPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear lacp aadminkey {main_lag_port}||set port lacp port {port} disable||clear port lacp port {port} aadminkey||set lacp disable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable sharing {main_lag_port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {main_lag_port}||no channel-group {key}',routerConfigPrompt,'None','None','None',[],[]]
+    set_port_priority:
+        description: "Sets the LACP priority on a port"
+        arguments:
+            order:
+        uuid: 52f86761-45c0-4eac-9760-5ae60331f9ad
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'interface ethernet {main_lag_port}||lacp port-priority {priority}',routerConfigPrompt,'None','None','None',[],[]]
+    set_system_priority:
+        description: "Sets the LACP system priority"
+        arguments:
+            order:
+        uuid: 375da013-e36e-427e-96f7-d3d1a93eae15
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'lacp system-priority {priority}',routerConfigPrompt,'None','None','None',[],[]]
+    set_lag_port:
+        description: "Add a 'physical' port to the lag group"
+        arguments:
+            order: main_lag_port,port,key
+        uuid: f8f70a5c-2f8b-4c22-9086-818a010990a2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface {main_lag_port}||lacp aggregation enable||lacp enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set port lacp port {port} aadminkey {key}||set port lacp port {port} enable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure sharing {main_lag_port} add ports {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {main_lag_port}||channel-group {key} mode on',routerConfigPrompt,'None','None','None',[],[]]
+    clear_lag_port:
+        description: "Remove a 'physical' port from the lag group"
+        arguments:
+            order: 
+        uuid: e96bb2e6-e508-437f-92d3-9b5ce6b1c3f0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface {main_lag_port}||no lacp aggregation enable||no lacp enable',routerConfigPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear port lacp port {port} aadminkey||set port lacp port {port} disable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unconfigure sharing {main_lag_port} delete ports {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface ethernet {main_lag_port}||no channel-group {key}',routerConfigPrompt,'None','None','None',[],[]]
+    set_mlt_actor_key:
+        description: ""
+        arguments:
+            order:
+        uuid: 6a69d5fb-8cc8-4c35-94ea-22822b0a86ed
+        apis:
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.2.840.10006.300.43.1.1.1.1.6.{mlt_id}','i','{actor_admin_key}']
+    set_mlt_actor_system_priority:
+        description: ""
+        arguments:
+            order:
+        uuid: de9d6279-e922-4ee0-8cd0-92811715126d
+        apis:
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.2.840.10006.300.43.1.1.1.1.3.{mlt_id}','i','{actor_system_priority}']
+    clear_counters:
+        description: "Clears the LACP counters on a specified port channel"
+        arguments:
+            order:
+        uuid: 6aa9f95c-0e55-4293-9a92-f434cade9f20
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'clear lacp {port_channel} counters',userPrompt,'None','None','None',[],[]]
+    clear_all_counters:
+        description: "Clears the LACP counters on all ports"
+        arguments:
+            order:
+        uuid: 5de1719c-872a-41d7-9013-8930edadad8d
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'clear lacp counters',userPrompt,'None','None','None',[],[]]
+    show_info:
+        uuid: 8fce70a1-95e7-48ef-ad00-c5980b9c5025
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show lacp',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show lacp',userPrompt,'None','None','None',[],[]]
+    show_lag_info:
+        uuid: 54ab7d26-c328-4646-a763-c0745b816128
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show lacp||show lacp interface gigabitethernet {main_lag_port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show lacp',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show interface port-channel {main_lag_port}',userPrompt,'None','None','None',[],[]]
+    show_port_all:
+        uuid: aac2b104-bf1d-441c-99ec-8767d1aa2699
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show lacp interface gigabitethernet {main_lag_port}',userPrompt,'None','None','None',[],[]]
+    show_mlt_port:
+        uuid: 13eb0ca6-2f5f-4abf-b877-3825fa9fa980
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show lacp interface mlt id {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.2.840.10006.300.43.1.1.1.1.2.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.3.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.4.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.5.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.6.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.7.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.8.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.9.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.10.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.11.{mlt_id}','i','']
+    show_mlt_id_logical_index:
+        uuid: 5267dee0-dbe1-4295-9356-b54d56fb36b3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.11.{mlt_id}','i','']
+    show_lag:
+        uuid: aa67c54a-05ba-4169-a0e0-2b30a5e136c4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show lacp {main_lag_port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show ports {main_lag_port} sharing detail',userPrompt,'None','None','None',[],[]]
+    show_counter:
+        uuid: 63358f3c-9b19-4554-96f2-5e6445c9e5d1
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show lacp counter {interface}',userPrompt,'None','None','None',[],[]]
+    show_sysid:
+        uuid: 97fa1e24-c39c-43ce-903f-6b1e363a968c
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show lacp sys-id',userPrompt,'None','None','None',[],[]]

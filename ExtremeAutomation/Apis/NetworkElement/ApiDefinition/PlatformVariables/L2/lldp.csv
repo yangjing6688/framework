@@ -1,0 +1,13 @@
+Feature,lldp,,,,
+Variable Name,OS,Platform,Version,Unit,Variables Value
+enh_tx_rec_tlv_message,EOS,base,baseversion,baseunit,0x00012344450000000000006400ffffffffffffffff
+enh_tx_con_tlv_message,EOS,base,baseversion,baseunit,0x002013456700000000000000640000000000000000
+link_aggr_tlv_message,EOS,base,baseversion,baseunit,0x0000000000
+link_aggr_tlv_subtype,EOS,base,baseversion,baseunit,0x07
+mac_phy_tlv_message,EOS,base,baseversion,baseunit,0x036C11001E
+enh_tx_rec_tlv_message,EXOS,base,baseversion,baseunit,0x000000000700000000000000000000000000000000
+enh_tx_con_tlv_message,EXOS,base,baseversion,baseunit,0x400000000700000000000000000000000000000000
+link_aggr_tlv_message,EXOS,base,baseversion,baseunit,0x0000000000
+link_aggr_tlv_subtype,EXOS,base,baseversion,baseunit,0x03
+mac_phy_tlv_message,EXOS,base,baseversion,baseunit,0x0100000024
+link_aggr_tlv_message,EXOS,X620G2,baseversion,baseunit,0x0100000000

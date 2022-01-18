@@ -1,0 +1,61 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+nd:
+    set_v6_neighbor:
+        description: "Creates a static Neighbor Discovery entry for the supplied IPv6 address/MAC"
+        arguments:
+            order: ipv6_addr,hw_addr,interface,port
+        uuid: ebb0dced-7ea7-47c8-b14b-40d357f3ec6a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure neighbor-discovery add {ipv6_addr} {hw_addr}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'ipv6 neighbor {ipv6_addr} {hw_addr} interface vlan.0.{interface}',routerConfigPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ipv6 neighbor {ipv6_addr} port {port} mac {hw_addr} vlan {interface}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_v6_neighbor:
+        description: "Deletes a Neighbor Discovery entry for the supplied IPv6 address"
+        arguments:
+            order: ipv6_addr,interface
+        uuid: 79d7c87e-effc-42e0-a1e0-70e0313bbbf7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure neighbor-discovery delete {ipv6_addr}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'no ipv6 neighbor {ipv6_addr}',routerConfigPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ipv6 neighbor {ipv6_addr} vlan {interface}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_v6_neighbor_port:
+        description: "Deletes a Neighbor Discovery port for the supplied IPv6 address"
+        arguments:
+            order: 
+        uuid: 5d2a9bd2-cb72-463d-aaa1-08dd326ed63d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ipv6 neighbor {ipv6_addr} port {port}',routerConfigPrompt,'None','None','None',[],[]]
+    show_table:
+        uuid: f054d52a-5be0-4259-9249-bf718dd595a0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show neighbor-discovery cache',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show ipv6 neighbors',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ipv6 neighbor',userPrompt,'None','None','None',[],[]]

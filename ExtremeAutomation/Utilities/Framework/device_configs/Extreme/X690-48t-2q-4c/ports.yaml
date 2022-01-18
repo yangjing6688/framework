@@ -1,0 +1,362 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for X690-48x-4q-2c switch
+#
+#
+
+10GBaseT_port: &10GBASET_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100_1000_10000
+   portMediaType: HAL_PORT_MED_UTP
+   Pfc: true
+   FullDuplexOnly: true
+   Eee: true
+
+10G_port: &10G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   FullDuplexOnly: true
+
+# 25G port
+25G_port: &25G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_25000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Ptp: true
+   Fec: true
+
+# 40G port with partition enabled
+40G_partition_port: &40G_PARTITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_40000
+   portMediaType: HAL_PORT_MED_GBIC
+   Partition: true
+   PartitionSize: 4
+   Pfc: true
+
+# 100G port with partition enabled
+100G_partition_port: &100G_PARTITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100000
+   portMediaType: HAL_PORT_MED_GBIC
+   Partition: true
+   PartitionSize: 4
+   Pfc: true
+   Fec: true
+
+ports:
+   - name: 1
+     <<: *10GBASET_PORT
+
+   - name: 2
+     <<: *10GBASET_PORT
+
+   - name: 3
+     <<: *10GBASET_PORT
+
+   - name: 4
+     <<: *10GBASET_PORT
+
+   - name: 5
+     <<: *10GBASET_PORT
+
+   - name: 6
+     <<: *10GBASET_PORT
+
+   - name: 7
+     <<: *10GBASET_PORT
+
+   - name: 8
+     <<: *10GBASET_PORT
+
+   - name: 9
+     <<: *10GBASET_PORT
+
+   - name: 10
+     <<: *10GBASET_PORT
+
+   - name: 11
+     <<: *10GBASET_PORT
+
+   - name: 12
+     <<: *10GBASET_PORT
+
+   - name: 13
+     <<: *10GBASET_PORT
+
+   - name: 14
+     <<: *10GBASET_PORT
+
+   - name: 15
+     <<: *10GBASET_PORT
+
+   - name: 16
+     <<: *10GBASET_PORT
+
+   - name: 17
+     <<: *10GBASET_PORT
+
+   - name: 18
+     <<: *10GBASET_PORT
+
+   - name: 19
+     <<: *10GBASET_PORT
+
+   - name: 20
+     <<: *10GBASET_PORT
+
+   - name: 21
+     <<: *10GBASET_PORT
+
+   - name: 22
+     <<: *10GBASET_PORT
+
+   - name: 23
+     <<: *10GBASET_PORT
+
+   - name: 24
+     <<: *10GBASET_PORT
+
+   - name: 25
+     <<: *10GBASET_PORT
+
+   - name: 26
+     <<: *10GBASET_PORT
+
+   - name: 27
+     <<: *10GBASET_PORT
+
+   - name: 28
+     <<: *10GBASET_PORT
+
+   - name: 29
+     <<: *10GBASET_PORT
+
+   - name: 30
+     <<: *10GBASET_PORT
+
+   - name: 31
+     <<: *10GBASET_PORT
+
+   - name: 32
+     <<: *10GBASET_PORT
+
+   - name: 33
+     <<: *10GBASET_PORT
+
+   - name: 34
+     <<: *10GBASET_PORT
+
+   - name: 35
+     <<: *10GBASET_PORT
+
+   - name: 36
+     <<: *10GBASET_PORT
+
+   - name: 37
+     <<: *10GBASET_PORT
+
+   - name: 38
+     <<: *10GBASET_PORT
+
+   - name: 39
+     <<: *10GBASET_PORT
+
+   - name: 40
+     <<: *10GBASET_PORT
+
+   - name: 41
+     <<: *10GBASET_PORT
+     PoePlusPlus: true
+
+   - name: 42
+     <<: *10GBASET_PORT
+     PoePlusPlus: true
+
+   - name: 43
+     <<: *10GBASET_PORT
+     PoePlusPlus: true
+
+   - name: 44
+     <<: *10GBASET_PORT
+     PoePlusPlus: true
+
+   - name: 45
+     <<: *10GBASET_PORT
+     PoePlusPlus: true
+
+   - name: 46
+     <<: *10GBASET_PORT
+     PoePlusPlus: true
+
+   - name: 47
+     <<: *10GBASET_PORT
+     PoePlusPlus: true
+
+   - name: 48
+     <<: *10GBASET_PORT
+     PoePlusPlus: true
+
+   - name: 49
+     <<: [*40G_PARTITION_PORT, *PORT_49]
+     partitionTemplate: "40, 0"
+
+   - name: 50
+     <<: *10G_PORT
+
+   - name: 51
+     <<: *10G_PORT
+
+   - name: 52
+     <<: *10G_PORT
+
+   - name: 53
+     <<: [*40G_PARTITION_PORT, *PORT_53]
+     partitionTemplate: "40, 0"
+
+   - name: 54
+     <<: *10G_PORT
+
+   - name: 55
+     <<: *10G_PORT
+
+   - name: 56
+     <<: *10G_PORT
+
+   - name: 57
+     <<: [*100G_PARTITION_PORT, *PORT_57]
+     partitionTemplate: "40, 100"
+
+   - name: 58
+     <<: *25G_PORT
+
+   - name: 59
+     <<: *25G_PORT
+
+   - name: 60
+     <<: *25G_PORT
+
+   - name: 61
+     <<: *100G_PARTITION_PORT
+     partitionTemplate: "100, 100"
+     devices:
+        - name:       port_61_eeprom
+          compatible: 24c02
+          bus:        port_cpld_0_vmux_ch0
+          addresses:  [0x50, 0x68]
+     module_eeprom:   port_61_eeprom
+     connector:       ZQSFP_PLUS
+     module_present:
+        device:       port_cpld_0
+        register:     0x03
+        bitmask:      0x08
+        active_low:   1
+     module_reset:
+        device:       port_cpld_0
+        register:     0x05
+        bitmask:      0x08
+        active_low:   1
+     module_init_ops:
+        - device:      port_cpld_0
+          register:    0x04
+          bitmask:     0x08
+          value:       0
+        - device:      port_cpld_0
+          register:    0x06
+          bitmask:     0x08
+          value:       0
+
+   - name: 62
+     <<: *25G_PORT
+
+   - name: 63
+     <<: *25G_PORT
+
+   - name: 64
+     <<: *25G_PORT
+
+   - name: 65
+     <<: *100G_PARTITION_PORT
+     partitionTemplate: "40, 100"
+     devices:
+        - name:       port_65_eeprom
+          compatible: 24c02
+          bus:        port_cpld_0_vmux_ch1
+          addresses:  [0x50, 0x68]
+     module_eeprom:   port_65_eeprom
+     connector:       ZQSFP_PLUS
+     module_present:
+        device:       port_cpld_0
+        register:     0x03
+        bitmask:      0x10
+        active_low:   1
+     module_reset:
+        device:       port_cpld_0
+        register:     0x05
+        bitmask:      0x10
+        active_low:   1
+     module_init_ops:
+        - device:      port_cpld_0
+          register:    0x04
+          bitmask:     0x10
+          value:       0
+        - device:      port_cpld_0
+          register:    0x06
+          bitmask:     0x10
+          value:       0
+
+   - name: 66
+     <<: *25G_PORT
+
+   - name: 67
+     <<: *25G_PORT
+
+   - name: 68
+     <<: *25G_PORT
+
+   - name: 69
+     <<: *100G_PARTITION_PORT
+     partitionTemplate: "100, 100"
+     devices:
+        - name:       port_69_eeprom
+          compatible: 24c02
+          bus:        port_cpld_0_vmux_ch2
+          addresses:  [0x50, 0x68]
+     module_eeprom:   port_69_eeprom
+     connector:       ZQSFP_PLUS
+     module_present:
+        device:       port_cpld_0
+        register:     0x03
+        bitmask:      0x20
+        active_low:   1
+     module_reset:
+        device:       port_cpld_0
+        register:     0x05
+        bitmask:      0x20
+        active_low:   1
+     module_init_ops:
+        - device:      port_cpld_0
+          register:    0x04
+          bitmask:     0x20
+          value:       0
+        - device:      port_cpld_0
+          register:    0x06
+          bitmask:     0x20
+          value:       0
+
+   - name: 70
+     <<: *25G_PORT
+
+   - name: 71
+     <<: *25G_PORT
+
+   - name: 72
+     <<: *25G_PORT

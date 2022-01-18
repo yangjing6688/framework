@@ -1,0 +1,185 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+mirroring:
+    create_both:
+        description: "Creates an ingress and egress port mirror"
+        arguments:
+            order: name,src_port,dst_port
+        uuid: 35ff8622-050d-45d8-bdcd-cb2d0f1d0b00
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set port mirroring create {src_port} {dst_port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create mirror {name} to port {dst_port}||configure mirror {name} add port {src_port} ingress-and-egress',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'mirror-by-port {name} in-port {src_port} out-port {dst_port} mode both',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'monitor session {name}|| source ethernet {src_port} destination ethernet {dst_port} direction both',routerConfigPrompt,'None','None','None',[],[]]
+    create_ingress:
+        description: "Creates an ingress-only defined port mirror"
+        arguments:
+            order: name,src_port,dst_port
+        uuid: 9c4fca35-e2b6-4795-9575-3dd9ff15beef
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set port mirroring create {src_port} {dst_port} rx',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create mirror {name} to port {dst_port}||configure mirror {name} add port {src_port} ingress',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'mirror-by-port {name} in-port {src_port} out-port {dst_port} mode rx',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'monitor session {name}|| source ethernet {src_port} destination ethernet {dst_port} direction rx',routerConfigPrompt,'None','None','None',[],[]]
+    create_egress:
+        description: "Creates an egress-only port mirror"
+        arguments:
+            order: name,src_port,dst_port
+        uuid: e599fd8a-8124-4614-9442-34b1ed04b425
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set port mirroring create {src_port} {dst_port} tx',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create mirror {name} to port {dst_port}||configure mirror {name} add port {src_port} egress',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'mirror-by-port {name} in-port {src_port} out-port {dst_port} mode tx',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'monitor session {name}|| source ethernet {src_port} destination ethernet {dst_port} direction tx',routerConfigPrompt,'None','None','None',[],[]]
+    delete_port_mirror:
+        description: "Deletes the specified port mirror"
+        arguments:
+            order: name,src_port,dst_port
+        uuid: 8318eb28-5773-4485-a296-4e58fd750979
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear port mirroring {src_port} {dst_port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete mirror {name}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no mirror-by-port {name}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no monitor session {name}',routerConfigPrompt,'None','None','None',[],[]]
+    enable_port:
+        description: "Enables the specified port mirror"
+        arguments:
+            order: name,src_port,dst_port
+        uuid: 11727cab-c503-416e-bb6c-bbdc34b8df48
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set port mirroring enable {src_port} {dst_port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable mirror {name}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'mirror-by-port {name} enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_port:
+        description: "Disables the specified port mirror"
+        arguments:
+            order: name,src_port,dst_port
+        uuid: 76c15bfb-dbac-4f97-88e2-303b7e1400e7
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set port mirroring disable {src_port} {dst_port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable mirror {name}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no mirror-by-port {name} enable',routerConfigPrompt,'None','None','None',[],[]]
+    create_remote_both:
+        description: "Creates an ingress and egress remote port mirror"
+        arguments:
+            order: 
+        uuid: 86f6074b-6927-4104-86bb-8c0f6a32ae7b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create mirror {name} to remote-ip {ip}',userPrompt,'None','None','None',[],[]]
+    create_portlist:
+        description: ""
+        arguments:
+            order: 
+        uuid: 67f7a017-2424-4570-9fb4-2072b7a3cae3
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create mirror {name} to port-list {port_list}',userPrompt,'None','None','None',[],[]]
+    set_source_port_both:
+        description: "Configures the specified port as the mirror source"
+        arguments:
+            order: 
+        uuid: 36706790-6717-4eba-bff7-ab50276d95fb
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mirror {name} add port {src_port} ingress-and-egress',userPrompt,'None','None','None',[],[]]
+    set_source_port_vlan:
+        description: "Configures the specified port as the mirror source"
+        arguments:
+            order: 
+        uuid: 4c7b5043-1eb9-46dc-aefe-f3546e24a662
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mirror {name} add port {src_port} vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    set_source_port_ingress:
+        description: "Configures the specified port as the mirror source for ingress only"
+        arguments:
+            order: 
+        uuid: 056f8301-40d8-4252-b9a9-843000e960f4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mirror {name} add port {src_port} ingress',userPrompt,'None','None','None',[],[]]
+    set_source_port_egress:
+        description: "Configures the specified port as the mirror source for egress only"
+        arguments:
+            order: 
+        uuid: 77e707e2-1dc1-4a94-afd7-dc289bdaafa1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mirror {name} add port {src_port} egress',userPrompt,'None','None','None',[],[]]
+    set_description:
+        description: "Assigns a name or description to the existing mirror"
+        arguments:
+            order:
+        uuid: a85983a3-446c-4086-86c1-56881347b937
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'monitor session {name}||description {description}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_source_port:
+        description: "Removes the specified port as the mirror source"
+        arguments:
+            order: 
+        uuid: 8dd4f447-ca67-4415-857f-35d5bb131055
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mirror {name} delete port {src_port}',userPrompt,'None','None','None',[],[]]
+    enable_remote_ping_check:
+        description: "Enables ping check for a remote mirror"
+        arguments:
+            order: name,src_ip,dst_ip
+        uuid: f2319f16-18ea-4819-bddc-60d9501568b6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mirror {name} ping-check on from {src_ip} to remote-ip {dst_ip}',userPrompt,'None','None','None',[],[]]
+    disable_remote_ping_check:
+        description: "Enables ping check for a remote mirror"
+        arguments:
+            order: name,src_ip,dst_ip
+        uuid: 04077770-3b9f-4abf-88e0-2b7a2124a5dd
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure mirror {name} ping-check off from {src_ip} to remote-ip {dst_ip}',userPrompt,'None','None','None',[],[]]
+    show_port_mirror:
+        uuid: 2eea68a2-d875-4922-ba4e-190f13a1fc14
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show port mirroring',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show mirror {name}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show mirror-by-port {name}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show monitor session {name}',userPrompt,'None','None','None',[],[]]
+    show_port_mirror_all:
+        uuid: 32dfd4e2-3f84-4991-be7b-cc91db8fbc3d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show port mirroring',userPrompt,'None','None','None',['No Port'],[]]
+                - [EXOS,base,baseversion,baseunit,'show mirror',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show mirror-by-port',userPrompt,'None','None','None',[],[]]

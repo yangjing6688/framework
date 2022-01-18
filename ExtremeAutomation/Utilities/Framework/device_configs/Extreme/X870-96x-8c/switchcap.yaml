@@ -1,0 +1,36 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for X870-96x-8c.
+#  This inherits capability from tomahawk YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *TOMAHAWK_CAPABILITY
+  hwHealth: 7
+  numExternalPort: 128
+  maxPortSpeedLicenses: 24
+
+  # Boolean type supported/not-supported capability parameters.
+  MplsCep: true
+  MplsCepXlate: true
+  MplsCepEgrFlt: true
+  VarCap: true
+  StackSupportCfg: true
+  StackSupportCtrl: true
+  StkUserPortInterchangeable: true
+  NativeStackable: true
+  V400StackMode: true
+  V400LRStackMode: true
+  Broadview: true
+  PortPartition: true
+  VmacL2ClassId: true

@@ -1,0 +1,422 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common buses and devices present on the
+#  mainboard of 5420 series switches
+#
+
+# ##################################################################
+# Common Buses
+# ##################################################################
+
+i2cbus_0: &I2CBUS_0
+  name:               i2cbus_0
+  bus_type:           I2C
+  device:             CPU
+  number:             0
+
+i2cbus_1: &I2CBUS_1
+  name:               i2cbus_1
+  bus_type:           I2C
+  device:             CPU
+  number:             1
+
+i2cbus_2: &I2CBUS_2
+  name:               i2cbus_2
+  bus_type:           I2C
+  device:             CPU
+  number:             2
+
+
+# ##################################################################
+# Common Devices
+# ##################################################################
+
+#pca9548d -- deselect on exit indicated by d suffix in the name
+pca9548_0: &PCA9548_0
+  name:               pca9548_0
+  compatible:         pca9548d
+  bus:                i2cbus_0
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_0_ch0
+    - number:         1
+      bus:            pca9548_0_ch1
+    - number:         2
+      bus:            pca9548_0_ch2
+    - number:         3
+      bus:            pca9548_0_ch3
+    - number:         4
+      bus:            pca9548_0_ch4
+    - number:         5
+      bus:            pca9548_0_ch5
+    - number:         6
+      bus:            pca9548_0_ch6
+    - number:         7
+      bus:            pca9548_0_ch7
+
+pca9548_1: &PCA9548_1
+  name:               pca9548_1
+  compatible:         pca9548
+  bus:                i2cbus_1
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_1_ch0
+    - number:         1
+      bus:            pca9548_1_ch1
+    - number:         2
+      bus:            pca9548_1_ch2
+    - number:         3
+      bus:            pca9548_1_ch3
+    - number:         4
+      bus:            pca9548_1_ch4
+    - number:         5
+      bus:            pca9548_1_ch5
+    - number:         6
+      bus:            pca9548_1_ch6
+    - number:         7
+      bus:            pca9548_1_ch7
+
+# IO expander for SFP ports
+uplink_pca9506: &UPLINK_PCA9506
+  name:               uplink_pca9506
+  compatible:         pca9506
+  bus:                i2cbus_2
+  address:            0x27
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+# IO expander for SFPDD ports
+stk_pca9506: &STK_PCA9506
+  name:               stk_pca9506
+  compatible:         pca9506
+  bus:                i2cbus_2
+  address:            0x26
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+
+mb_ambient_tmpsn: &MB_AMBIENT_TMPSN
+  name:               mb_ambient_tmpsn
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x4c
+
+mb_hotspot_tmpsn: &MB_HOTSPOT_TMPSN
+  name:               mb_hotspot_tmpsn
+  compatible:         tmp75
+  bus:                i2cbus_0
+  address:            0x4d
+
+system_eeprom: &SYSTEM_EEPROM
+  name:               system_eeprom
+  compatible:         24c128
+  bus:                i2cbus_0
+  address:            0x51
+  format:             extreme
+
+# NOTE: Do not set smb_cpld_int as a plat_dev interrupt pin because
+#       the interrupt handling will be performed by platdev_helper.
+system_gpio: &SYSTEM_GPIO
+  name:               system_gpio
+  compatible:         iproc_gpio
+  location:
+    base:             0
+  pins:
+    - name:             smb_cpld_int
+      index:            5
+      direction:        in
+    - name:             push_button_int
+      index:            6
+      direction:        in
+      edge:             falling
+    - name:             watchdog_kick
+      index:            8
+      direction:        out
+      init:             low
+    - name:             watchdog_enable
+      index:            9
+      direction:        out
+      init:             low
+
+system_cpld: &SYSTEM_CPLD
+  name:                 system_cpld
+  type:                 SYSTEM_CPLD
+  compatible:           extreme_i2c_cpld
+  regmap:               system_cpld_reg
+  revisions:
+    major:
+      register:         0x0c
+      bitmask:          0xf0
+    minor:
+      register:         0x0c
+      bitmask:          0x0f
+    build:
+      register:         0x0d
+      bitmask:          0xff
+  firmware:
+    image_file:         jav_mpld.xtr
+    image_version:
+      major:            1
+      minor:            0
+      build:            12
+    reconfig_by_master: true
+    upgrade_present:
+      register:         0xc3
+      bitmask:          0xe0
+      value:            0x3
+  devices:
+    - name:             system_cpld_reg
+      compatible:       i2c_regmap
+      bus:              i2cbus_2
+      address:          0x38
+      regmap_desc:
+        range:          [0x0, 0xc0]
+        num_reg_bits:   8
+        num_value_bits: 8
+
+system_uc: &SYSTEM_UC
+  name:                 system_uc
+  type:                 SYSTEM_UC
+  compatible:           extreme_i2c_cpld
+  regmap:               system_uc_reg
+  revisions:
+    major:
+      register:         0x0c
+      bitmask:          0xf0
+    minor:
+      register:         0x0c
+      bitmask:          0x0f
+    build:
+      register:         0x0d
+      bitmask:          0xff
+  firmware:
+    image_file:         jav_uc_app.xtr
+    image_version:
+      major:            1
+      minor:            0
+      build:            14
+    reconfig_by_master: false
+    upgrade_reconfig:
+      register:         0xc0
+      bitmask:          0x10
+      wait_time:        10000   # Wait time in ms to ensure operation complete
+      master:           true    # Master device for firmware upgrade reconfig
+    reconfig_unlock:
+      register:         0xc3
+      bitmask:          0xe0
+      value:            0x6
+    upgrade_present:
+      register:         0xc3
+      bitmask:          0xe0
+      value:            0x3
+  devices:
+    - name:             system_uc_reg
+      compatible:       i2c_regmap
+      bus:              i2cbus_2
+      address:          0x28
+      regmap_desc:
+        range:          [0x0, 0xdf]
+        num_reg_bits:   8
+        num_value_bits: 8
+
+# i2c devices for fiber models
+port_pca9548_0: &PORT_PCA9548_0
+  name:               port_pca9548_0
+  compatible:         pca9548
+  bus:                pca9548_1_ch6
+  address:            0x74
+  channel_map:
+    - number:         0
+      bus:            port_pca9548_0_ch0
+    - number:         1
+      bus:            port_pca9548_0_ch1
+    - number:         2
+      bus:            port_pca9548_0_ch2
+    - number:         3
+      bus:            port_pca9548_0_ch3
+    - number:         4
+      bus:            port_pca9548_0_ch4
+    - number:         5
+      bus:            port_pca9548_0_ch5
+    - number:         6
+      bus:            port_pca9548_0_ch6
+    - number:         7
+      bus:            port_pca9548_0_ch7
+
+sfp_pca9548_0: &SFP_PCA9548_0
+  name:               sfp_pca9548_0
+  compatible:         pca9548
+  bus:                port_pca9548_0_ch0
+  address:            0x75
+  channel_map:
+    - number:         0
+      bus:            sfp_pca9548_0_ch0
+    - number:         1
+      bus:            sfp_pca9548_0_ch1
+    - number:         2
+      bus:            sfp_pca9548_0_ch2
+    - number:         3
+      bus:            sfp_pca9548_0_ch3
+    - number:         4
+      bus:            sfp_pca9548_0_ch4
+    - number:         5
+      bus:            sfp_pca9548_0_ch5
+    - number:         6
+      bus:            sfp_pca9548_0_ch6
+    - number:         7
+      bus:            sfp_pca9548_0_ch7
+
+sfp_pca9506_0: &SFP_PCA9506_0
+  name:               sfp_pca9506_0
+  compatible:         pca9506
+  bus:                port_pca9548_0_ch0
+  address:            0x20
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+sfp_pca9506_1: &SFP_PCA9506_1
+  name:               sfp_pca9506_1
+  compatible:         pca9506
+  bus:                port_pca9548_0_ch0
+  address:            0x21
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+sfp_pca9548_1: &SFP_PCA9548_1
+  name:               sfp_pca9548_1
+  compatible:         pca9548
+  bus:                port_pca9548_0_ch1
+  address:            0x75
+  channel_map:
+    - number:         0
+      bus:            sfp_pca9548_1_ch0
+    - number:         1
+      bus:            sfp_pca9548_1_ch1
+    - number:         2
+      bus:            sfp_pca9548_1_ch2
+    - number:         3
+      bus:            sfp_pca9548_1_ch3
+    - number:         4
+      bus:            sfp_pca9548_1_ch4
+    - number:         5
+      bus:            sfp_pca9548_1_ch5
+    - number:         6
+      bus:            sfp_pca9548_1_ch6
+    - number:         7
+      bus:            sfp_pca9548_1_ch7
+
+sfp_pca9506_2: &SFP_PCA9506_2
+  name:               sfp_pca9506_2
+  compatible:         pca9506
+  bus:                port_pca9548_0_ch1
+  address:            0x20
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+sfp_pca9506_3: &SFP_PCA9506_3
+  name:               sfp_pca9506_3
+  compatible:         pca9506
+  bus:                port_pca9548_0_ch1
+  address:            0x21
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+sfp_pca9548_2: &SFP_PCA9548_2
+  name:               sfp_pca9548_2
+  compatible:         pca9548
+  bus:                port_pca9548_0_ch2
+  address:            0x75
+  channel_map:
+    - number:         0
+      bus:            sfp_pca9548_2_ch0
+    - number:         1
+      bus:            sfp_pca9548_2_ch1
+    - number:         2
+      bus:            sfp_pca9548_2_ch2
+    - number:         3
+      bus:            sfp_pca9548_2_ch3
+    - number:         4
+      bus:            sfp_pca9548_2_ch4
+    - number:         5
+      bus:            sfp_pca9548_2_ch5
+    - number:         6
+      bus:            sfp_pca9548_2_ch6
+    - number:         7
+      bus:            sfp_pca9548_2_ch7
+
+sfp_pca9506_4: &SFP_PCA9506_4
+  name:               sfp_pca9506_4
+  compatible:         pca9506
+  bus:                port_pca9548_0_ch2
+  address:            0x20
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+sfp_pca9506_5: &SFP_PCA9506_5
+  name:               sfp_pca9506_5
+  compatible:         pca9506
+  bus:                port_pca9548_0_ch2
+  address:            0x21
+  regmap_desc:
+    range:            [0x0, 0x24]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+# (SFP) Port CPLD
+port_cpld_0: &PORT_CPLD_0
+  name:                 port_cpld_0
+  type:                 PORT_CPLD
+  number:               0
+  compatible:           extreme_i2c_cpld
+  regmap:               port_cpld_0_reg
+  revisions:
+    major:
+      register:         0x0c
+      bitmask:          0xf0
+    minor:
+      register:         0x0c
+      bitmask:          0x0f
+    build:
+      register:         0x0d
+      bitmask:          0xff
+  firmware:
+    image_file:         jav_ppld.xtr
+    image_version:
+      major:            1
+      minor:            0
+      build:            2
+    reconfig_by_master: true
+    upgrade_present:
+      register:         0xc3
+      bitmask:          0xe0
+      value:            0x3
+  devices:
+    - name:             port_cpld_0_reg
+      compatible:       i2c_regmap
+      bus:              pca9548_1_ch6
+      address:          0x38
+      regmap_desc:
+        range:          [0x0, 0xdf]
+        num_reg_bits:   8
+        num_value_bits: 8

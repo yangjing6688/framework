@@ -1,0 +1,53 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+macauth:
+    verify_macauth_state:
+        uuid: de27b949-369d-412d-a96d-3591e339400d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macauth_port_state:
+        uuid: 4074deda-35b4-4838-b726-be8cfd6b5b09
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macauth_reauth_period:
+        uuid: 82b8eba7-3ff3-4bb2-9999-c00c22a17687
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macauth_port_reauth_period:
+        uuid: 3599cf82-210d-4cfe-9c88-5cb06a141b33
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macauth_port_reauth_state:
+        uuid: 7e43572e-b012-48dc-bf93-62a00c3c8af7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macauth_port_reauth_delay:
+        uuid: 4e69e3d0-a694-4f93-9190-54364ba3b722
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macauth_mac_list_members:
+        uuid: 179e994b-dace-4cd4-957f-7a1bcd25173d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_macauth_port_authentication:
+        uuid: f70a33ad-56c4-48ec-97ea-2e6ab58e936f
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]

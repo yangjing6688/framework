@@ -1,0 +1,171 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for X465-24XE
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+   - name: 1
+     <<: [*SFP_1, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 2
+     <<: [*SFP_2, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 3
+     <<: [*SFP_3, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 4
+     <<: [*SFP_4, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 5
+     <<: [*SFP_5, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 6
+     <<: [*SFP_6, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 7
+     <<: [*SFP_7, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 8
+     <<: [*SFP_8, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 9
+     <<: [*SFP_9, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 10
+     <<: [*SFP_10, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 11
+     <<: [*SFP_11, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 12
+     <<: [*SFP_12, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 13
+     <<: [*SFP_13, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 14
+     <<: [*SFP_14, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 15
+     <<: [*SFP_15, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 16
+     <<: [*SFP_16, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 17
+     <<: [*SFP_17, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 18
+     <<: [*SFP_18, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 19
+     <<: [*SFP_19, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 20
+     <<: [*SFP_20, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 21
+     <<: [*SFP_21, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 22
+     <<: [*SFP_22, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 23
+     <<: [*SFP_23, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 24
+     <<: [*SFP_24, *10G_PORT]
+     MacsecEpdm: true
+     MacsecOrHalfDuplex: false
+
+   - name: 25
+     <<: *40G_PARTITION_PORT
+
+   - name: 26
+     <<: *10G_PORT
+
+   - name: 27
+     <<: *10G_PORT
+
+   - name: 28
+     <<: *10G_PORT
+
+   - name: 29
+     <<: *40G_PARTITION_PORT
+
+   - name: 30
+     <<: *10G_PORT
+
+   - name: 31
+     <<: *10G_PORT
+
+   - name: 32
+     <<: *10G_PORT
+
+   - name: 33
+     <<: *10G_SB_PORT
+     sideBandPortPCIMap: "0000:08:00.0"
+
+   - name: 34
+     <<: *10G_SB_PORT
+     sideBandPortPCIMap: "0000:08:00.1"
+
+   - name: 121
+     <<: *STACKING_PORT_1
+
+   - name: 125
+     <<: *STACKING_PORT_2

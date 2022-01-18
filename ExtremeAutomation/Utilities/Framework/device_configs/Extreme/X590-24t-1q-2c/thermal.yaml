@@ -1,0 +1,14 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on X590-24t-1q-2c
+#
+
+sensors:
+  - *CPU_DEFAULT_TMPSN
+  - *MB_HOTSPOT_TMPSN
+  - *MB_AMBIENT_TMPSN

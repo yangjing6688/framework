@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines LEDs specific to X590-24x-1q-2c
+#
+
+led_types:
+
+leds:

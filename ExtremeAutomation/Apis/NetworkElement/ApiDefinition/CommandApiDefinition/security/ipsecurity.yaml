@@ -1,0 +1,70 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+ipsecurity:
+    set_trusted_port:
+        description: "Configures the given port as a trusted port"
+        arguments:
+            order: 
+        uuid: b9ac8cef-938a-42b2-9f7c-89f05e973036
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure trusted-port {port} trust-for dhcp-server',userPrompt,'None','None','None',[],[]]
+    enable_dhcp_snooping:
+        description: "Enables ip security dhcp snooping in various ways on the given vlan/port"
+        arguments:
+            order: vlan,ports,violation_action,snmp_trap,block,duration
+        uuid: 47d790b4-9278-4c6b-840b-cc492b777005
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable ip-security dhcp-snooping vlan {vlan} ports {ports} violation-action {violation_action} {<api_utils.exos_ipsec_trap>snmp_trap} {block} {<api_utils.exos_ipsec_duration>duration.snmp_trap.block}',userPrompt,'None','None','None',[],[]]
+    disable_dhcp_snooping:
+        description: "Disables ip security dhcp snooping on the given vlan/port"
+        arguments:
+            order: vlan,ports
+        uuid: 57f8930a-0e61-4148-a03c-10a9c233593c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable ip-security dhcp-snooping vlan {vlan} ports {ports}',userPrompt,'None','None','None',[],[]]
+    show_snooping_vlan:
+        uuid: 78dac202-30b3-4926-80fd-86573120adb6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ip-security dhcp-snooping vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_snooping_vlan_entries:
+        uuid: 222cc1ba-091a-4eb0-8f5b-6e7d7521ad38
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ip-security dhcp-snooping entries vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_snooping_vlan_violations:
+        uuid: 4e7517f1-29e4-4f7d-9803-de48ecc02914
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ip-security dhcp-snooping violations vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_trusted_ports:
+        uuid: c6308292-b9f3-4434-99fe-ed7d362d246d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show config | grep trusted',userPrompt,'None','None','None',[],[]]

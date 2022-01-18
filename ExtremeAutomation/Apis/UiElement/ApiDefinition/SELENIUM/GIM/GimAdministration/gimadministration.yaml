@@ -1,0 +1,82 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimadministration:
+    admin_add_nac_appliance:
+        apis:
+            - [gim,'8.2.3']
+    admin_add_radius:
+        apis:
+            - [gim,'8.2.3']
+    admin_pref_add_locale:
+        apis:
+            - [gim,'8.2.3']
+    admin_pref_del_locale:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_test_connection_nac_appliance_connection:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_email_notification:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_restore_default_nac_appliance_configuration:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_add_sms_gateway:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_add_sms_provider:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_secondary_nac_appliance_configuration:
+        apis:
+            - [gim,'8.2.3']
+    gim_administration_default_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    gim_ace_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_license_validation:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_notification_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_ace_tabs_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_ace_radius_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_account_settings_validation:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_change_sms_default_gateway:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_validating_sms_gateways:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_delete_sms_gateway:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_email_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_test_email_notification:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_change_visibility:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_edit_delete_sms_gateway:
+        apis:
+            - [gim,'8.2.3']
+    gim_admin_sms_gateway_should_not_exist:
+        apis:
+            - [gim,'8.2.3']

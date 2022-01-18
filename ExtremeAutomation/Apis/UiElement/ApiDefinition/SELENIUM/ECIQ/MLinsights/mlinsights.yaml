@@ -1,0 +1,10 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+eciqmlinsights:
+    ml_insights_comparative_analytics_popup_click_done_button:
+        apis:
+            - [eciq,'BaseAppVer']

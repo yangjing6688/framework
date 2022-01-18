@@ -1,0 +1,7 @@
+Recording
+=========
+
+.. automodule:: common.tools.remote.Recording
+   :members:
+   :undoc-members:
+   :show-inheritance:

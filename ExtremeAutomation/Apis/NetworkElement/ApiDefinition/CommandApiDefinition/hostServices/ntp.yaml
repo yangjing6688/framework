@@ -1,0 +1,297 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+ntp:
+    enable_client:
+        description: "Enables the NTP client on the device"
+        arguments:
+            order: 
+        uuid: c784a0f4-a409-49bd-83d9-4c11f8bcbeba
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set sntp client unicast',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable ntp',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ntp',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ntp peer {ip}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.1.1.0','i','1']
+    disable_client:
+        description: "Disables the NTP client on the device"
+        arguments:
+            order: 
+        uuid: 8b787f31-3f32-46e8-b6ec-071b9f070e62
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set sntp client disable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable ntp',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ntp',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no ntp peer {ip}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.1.1.0','i','2']
+    create_server:
+        description: "Creates an NTP server to update from using the supplied server IP"
+        arguments:
+            order: 
+        uuid: bffe6b2a-5f63-4e1e-b46e-29c6e2418d0a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set sntp server {server}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure ntp server add {server}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ntp server {server}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ntp server {server}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.2.1.8.{server}','i','4']
+    create_server_key:
+        description: "Configures an NTP server to update the key from using the supplied server IP"
+        arguments:
+            order: server,key
+        uuid: 09065f5d-a15f-4409-ba1d-7b22d7b644fe
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set sntp server {server} key {key}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure ntp server add {server} key {key}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ntp server {server} authentication-key {key}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ntp server {server} key {key}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.2.1.4.{server}','i','{key}']
+    create_server_precedence:
+        description: "Creates an NTP server to update from using the supplied server IP"
+        arguments:
+            order: server,precedence
+        uuid: 5108c32c-76ba-48c8-9c09-ee2711295567
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set sntp server {server} precedence {precedence}',userPrompt,'None','None','None',[],[]]
+    create_server_precedence_key:
+        description: "Configures an NTP server to update the key from using the supplied server IP"
+        arguments:
+            order: 
+        uuid: 6d14787c-7afc-4907-9567-568b4b76228f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set sntp server {server} key {key} precedence {precedence}',userPrompt,'None','None','None',[],[]]
+    delete_server:
+        description: "Removes the given NTP server from the device"
+        arguments:
+            order: 
+        uuid: 39122ed4-91c1-4a3d-b925-13bb8a5cb81b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear sntp server {server}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure ntp server delete {server}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ntp server {server}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no ntp server {server}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.2.1.8.{server}','i','6']
+    enable_client_vlan:
+        description: "Enables the NTP client on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 1c3cca62-fb25-4aa7-8623-e7b487b7089c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable ntp {vlan}',userPrompt,'None','None','None',[],[]]
+    disable_client_vlan:
+        description: "Disables the NTP client on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 07ac70d6-40b1-4f3e-abb9-0159a7eb83b9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable ntp {vlan}',userPrompt,'None','None','None',[],[]]
+    enable_server:
+        description: "Enables the server for participation in time updates"
+        arguments:
+            order: 
+        uuid: 493921dc-3a05-4340-a0b5-a767118a45c0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ntp server {server} enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.2.1.2.{server}','i','1']
+    disable_server:
+        description: "Disables the server for participation in time updates"
+        arguments:
+            order: 
+        uuid: e9558c48-66e2-4a27-bb5e-f6d8f78b768b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ntp server {server} enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.2.1.2.{server}','i','2']
+    enable_server_auth:
+        description: "Enables NTP server authentication"
+        arguments:
+            order: 
+        uuid: 5c286cbc-5c61-4651-b747-ab06a3dff560
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ntp server {server} auth-enable',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ntp authenticate',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.2.1.3.{server}','i','1']
+    disable_server_auth:
+        description: "Disables NTP server authentication"
+        arguments:
+            order: 
+        uuid: 30b347ad-6d8a-4724-9669-d6726c8945b3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ntp server {server} auth-enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.2.1.3.{server}','i','2']
+    set_global_interval:
+        description: "Time interval between successive NTP updates in minutes"
+        arguments:
+            order: 
+        uuid: e1e31ff7-1549-42f2-9cb0-6395e856e98f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ntp interval {interval}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.1.2.0','i','{interval}']
+    set_server_source_ip:
+        description: "Configures the source IP address for NTP packets"
+        arguments:
+            order: 
+        uuid: 592e5f6e-0d5a-422e-ad6e-4d98cadb8c44
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ntp server {server} source-ip {source_ip}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ntp source-ip {server}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.2.1.15.{server}','a','{source_ip}']
+    set_source_ip_mm:
+        description: "Sets the NTP source IP to use the local MM IP for NTP packets"
+        arguments:
+            order:
+        uuid: fa3c7bce-bf26-4d16-8044-bcb5772be6c0
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ntp source-ip mm-ip',routerConfigPrompt,'None','None','None',[],[]]
+    set_source_ip_chassis:
+        description: "Sets the NTP source IP to use the chassis IP for NTP packets"
+        arguments:
+            order:
+        uuid: 9ea639ea-782f-4e8a-bb8f-060bf4896694
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ntp source-ip chassis-ip',routerConfigPrompt,'None','None','None',[],[]]
+    set_auth:
+        description: "Creates the public Key used to generate MD5/SHA1 digest"
+        arguments:
+            order: 
+        uuid: e912bc13-d9f2-4bab-95c9-c662d9c0fd64
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ntp authentication-key {index} initialkey',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.3.1.3.{index}||1.3.6.1.4.1.2272.1.33.3.1.2.{index}','i||s','4||initialkey']
+    set_auth_key:
+        description: "Configures the Private Key used to generate MD5/SHA1 Digest"
+        arguments:
+            order: 
+        uuid: d3b91edb-83b0-4042-9502-6cf71d3d69d0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ntp authentication-key {index} {secret}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.3.1.2.{index}','s','{secret}']
+    set_auth_md5:
+        description: "Configures the Private Key used to use MD5 for the digest"
+        arguments:
+            order: 
+        uuid: 3f78af7e-6736-41e5-ab21-cdfce7790768
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ntp authentication-key {index} type md5',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'ntp authentication-key {index} md5 {md5_string}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.3.1.4.{index}','i','1']
+    set_auth_sha1:
+        description: "Configures the Private Key used to use SHA1 for the digest"
+        arguments:
+            order: 
+        uuid: d4ff46c2-5137-4053-9137-f4be9669b086
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ntp authentication-key {index} type sha1',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.3.1.4.{index}','i','2']
+    clear_auth_key:
+        description: "Deletes the public Key used to generate MD5/SHA1 digest"
+        arguments:
+            order: 
+        uuid: 0c8daefc-7345-4f9a-b77d-115e6eebac6b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ntp authentication-key {index}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no ntp authentication-key {index}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.33.3.1.3.{index}','i','6']
+    show_info:
+        uuid: 631a00eb-4564-415a-ab79-47363713be48
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show sntp',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show ntp',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ntp',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ntp status',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.33.','i','']
+    show_association:
+        uuid: ce8c3fe3-eebb-43cf-8745-de5f5bd5b14c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ntp association',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ntp association',userPrompt,'None','None','None',[],[]]
+    show_association_detail:
+        uuid: c7c5dde3-3aa1-4dca-9bca-fc6be13458ac
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show ntp association detail',userPrompt,'None','None','None',[],[]]
+    show_servers:
+        uuid: 6d62bc6f-e817-482f-a755-be026d8b43f8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show sntp',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show ntp server',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ntp server',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.33.2.','i','']
+    show_key:
+        uuid: 0cab21c8-f88d-4bba-aa60-45b1edfa9f8c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ntp key',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.33.3.','i','']
+    show_statistics:
+        uuid: a67a4bf0-9652-4b7d-b5ba-c2005fa802db
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ntp statistics',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.33.2.','i','']

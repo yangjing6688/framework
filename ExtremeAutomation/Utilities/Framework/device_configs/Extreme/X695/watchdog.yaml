@@ -1,0 +1,27 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines watchdogs common to X695 series switches
+#
+
+watchdog1: &WATCHDOG1
+  name:               watchdog0
+  compatible:         extreme_watchdog
+  frequency:          1
+  max_time:           120000 # maximum timeout in milliseconds
+  device:             system_cpld
+  enable:
+    register:         0x20
+    bitmask:          0x01
+  count:
+    register:         0x21
+    bitmask:          0xff
+    direction:        DOWN
+    min:              0x04  # Minimum reasonable count value
+  ping:
+    register:         0x21
+    bitmask:          0xff

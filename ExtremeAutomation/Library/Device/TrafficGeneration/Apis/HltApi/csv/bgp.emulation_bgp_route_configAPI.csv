@@ -1,0 +1,5025 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+handle,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Valid values are:BGP router handle - handle is returned by procedure emulation_bgp_config. A new route will be added when -mode is add.BGP route handle - Valid only for IxNetwork Tcl API (new api). Handle is returned by procedure emulation_bgp_route_config with 'bgp_routes' key. Valid only for mode remove. The object will be removed.BGP L2Site handle - Valid only for IxNetwork Tcl API (new api). Handle is returned by procedure emulation_bgp_route_config with 'bgp_routes' key. When mode is remove the L2Site will be removed. When mode is add a new label block will be added to the provided L2Site.BGP L3Site handle - Valid only for IxNetwork Tcl API (new api). Handle is returned by procedure emulation_bgp_route_config with 'bgp_routes' key. When mode is remove the L3Site will be removed. When mode is add a new vpn route range will be added to the provided L3Site.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF [M]
+ 
+
+DESCRIPTION
+ 
+
+Valid values are: BGP router handle - handle is returned by procedure emulation_bgp_config. A new route will be added when -mode is add. BGP route handle - Valid only for IxNetwork Tcl API (new api). Handle is returned by procedure emulation_bgp_route_config with 'bgp_routes' key. Valid only for mode remove. The object will be removed. BGP L2Site handle - Valid only for IxNetwork Tcl API (new api). Handle is returned by procedure emulation_bgp_route_config with 'bgp_routes' key. When mode is remove the L2Site will be removed. When mode is add a new label block will be added to the provided L2Site. BGP L3Site handle - Valid only for IxNetwork Tcl API (new api). Handle is returned by procedure emulation_bgp_route_config with 'bgp_routes' key. When mode is remove the L3Site will be removed. When mode is add a new vpn route range will be added to the provided L3Site.
+
+DEFAULT
+ None",ANY,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+route_handle,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The handle of the BGP route where to take action. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The handle of the BGP route where to take action.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",ANY,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l3_site_handle,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The handle of the L3 VPN Site where to take action. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri); and mode remove.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The handle of the L3 VPN Site where to take action.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'mode' | value= 'remove' |
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",ANY,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT [M]
+ 
+
+Same as IxNetwork.
+
+IxNetwork [M]
+ 
+
+DESCRIPTION
+ 
+
+Specifies either addition or removal of routes from emulated nodes BGP table.Valid for all route types.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF [M]
+ 
+
+DESCRIPTION
+ 
+
+Specifies either addition or removal of routes from emulated nodes BGP table.
+
+Valid options are:
+
+add
+ 
+
+Add a new unicast, vpn or ip BGP route. Can also add L3 Sites, L2 Sites, L2 Site LabelBlocks, AD VPLS. (legacy alias)
+
+create
+ 
+
+Add a new unicast, vpn or ip BGP route. Can also add L3 Sites, L2 Sites, L2 Site LabelBlocks, AD VPLS.
+
+enable
+ 
+
+Enables the given BGP route handle.
+
+disable
+ 
+
+Disables the given BGP route handle.
+
+modify
+ 
+
+Modify the given BGP route handle.
+
+remove
+ 
+
+Remove the given BGP route handle. (legacy alias)
+
+delete
+ 
+
+Remove the given BGP route handle.
+
+DEFAULT
+ None",opt,"add,create,modify,remove,delete,enable,disable","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+protocol_name,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This is the name of the protocol stack as it appears in the GUI.
+
+DEFAULT
+ None",STRING,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+protocol_route_name,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This is the name of the protocol stack as it appears in the GUI.
+
+DEFAULT
+ None",STRING,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+active,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Activates the item
+
+DEFAULT
+ None",BOOL,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_unicast_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv4 unicast. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv4 unicast. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast. Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_multicast_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv4 multicast. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv4 multicast. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast. Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_mpls_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv4 MPLS. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv4 MPLS. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast. Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_mpls_vpn_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv4 MPLS VPNs. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority. Requires parameter num_sites to be present in order to create VPN route ranges.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv4 MPLS VPNs. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast. Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority. Requires parameter num_sites to be present in order to create VPN route ranges.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_unicast_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv6 unicast. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv6 unicast. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast. Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_multicast_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv6 multicast. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv6 multicast. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast. Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_mpls_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv6 MPLS. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv6 MPLS. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast. Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_mpls_vpn_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv6 MPLS VPNs. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority. Requires parameter num_sites to be present in order to create VPN route ranges.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the emulation of routes for IPv6 MPLS VPNs. Learned routes filter is enabled at neighbor level for IxTclProcol, for IxTclNetwork the filters are set in emulation_bgp_config. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast. Only one of the three route categories can be emulated in a single emulation_bgp_route_config call, the selection is made based on priority. Requires parameter num_sites to be present in order to create VPN route ranges.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+max_route_ranges,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The number of route ranges, mpls route ranges, vpn routes to create under the BGP neighbor or the number of label blocks to create under the BGP neighbor when VPLS is enabled.Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The number of route ranges, mpls route ranges, vpn routes to create under the BGP neighbor or the number of label blocks to create under the BGP neighbor when VPLS is enabled.
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ip_version,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The IP version of the BGP route to be created. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+Valid options are:
+
+4
+ 
+
+IPv4
+
+6
+ 
+
+IPv6
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The IP version of the BGP route to be created.
+
+Valid options are:
+
+4
+ 
+
+Bgp version 4
+
+6
+ 
+
+Bgp version 6
+
+DEFAULT
+ 
+
+4
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"4,6","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Route prefix to be advertised / removed by emulated BGP node. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route prefix to be advertised / removed by emulated BGP node.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"IP,all","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+route_ip_addr_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+IP address increment step between the multiple route ranges created under the BGP neighbor, based on -max_route_ranges. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IP address increment step between the multiple route ranges created under the BGP neighbor, based on -max_route_ranges.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,IP,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_step_accross_vrfs,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If -target_count is greater than one, the step interval for the next incremented prefix. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri). Valid only for IxTclNetwork.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If -target_count is greater than one, the step interval for the next incremented prefix. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,IP,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+num_routes,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Number of routes to advertise, using the prefix as the starting prefix and incrementing based upon the -prefix_step and the -netmask arguments. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Number of routes to advertise, using the prefix as the starting prefix and incrementing based upon the -prefix_step and the -netmask arguments.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+num_sites,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Number of L2/L3 VPN sites (PEs) to be created on a BGP neighbor. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Number of L2/L3 VPN sites (PEs) to be created on a BGP neighbor.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_from,"Supported platforms  Details
+RANGE 0  128
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The first prefix length to generate based on the -prefix. -num_routes. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The first prefix length to generate based on the -prefix.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_to,"Supported platforms  Details
+RANGE 0  128
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The last prefix length to generate based on the -prefix. -num_routes. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The last prefix length to generate based on the -prefix. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If -num_routes is greater than one, the step interval for the next incremented prefix. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If -num_routes is greater than one, the step interval for the next incremented prefix. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_step_across_vrfs,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The step interval for the next increment prefix when crossing vrfs. Not supported reason: legacy item
+
+DEFAULT
+ Not supported
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+netmask,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Netmask of the advertised routes. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Netmask of the advertised routes.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_prefix_length,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+RANGE 1  128
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+IPv6 mask for the IPv6 routes advertised. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IPv6 mask for the IPv6 routes advertised.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+advertise_nexthop_as_v4,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Advertise Nexthop as V4
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+aggregator,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For the AGGREGATOR path attribute, specifies the last AS number that formed the aggregate route, and the IP address of the BGP speaker that formed the aggregate route. Format: :.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+aggregator_as,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For the AGGREGATOR path attribute, specifies the last AS number that formed the aggregate route. Has priority over the legacy -aggregator parameter.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMBER,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+aggregator_id,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For the AGGREGATOR path attribute, specifies the IP address of the BGP speaker that formed the aggregate route. Has priority over the legacy -aggregator parameter.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+aggregator_id_mode,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Aggregator ID Mode
+
+Valid options are:
+
+fixed
+ 
+
+Fixed mode
+
+increment
+ 
+
+Increment aggregator ID
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"fixed,increment",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+as_path_set_mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+For External routing only. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+Valid options are:
+
+no_include
+ 
+
+Don't include Local AS#
+
+include_as_seq
+ 
+
+Include Local AS# as AS-SEQ
+
+include_as_set
+ 
+
+Include Local AS# as AS-SET
+
+include_as_seq_conf
+ 
+
+Include Local AS# as AS-SEQ-Confederation
+
+include_as_set_conf
+ 
+
+Include Local AS# as AS-SET-Confederation
+
+prepend_as
+ 
+
+Prepend Local AS# to first segment
+
+DEFAULT
+ 
+
+include_as_seq
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For External routing only. Optional setup for the AS-Path.
+
+Valid options are:
+
+include_as_seq
+ 
+
+Include Local AS as AS-SEQ
+
+include_as_seq_conf
+ 
+
+Include Local AS as AS-SEQ-Confederation
+
+include_as_set
+ 
+
+Include Local AS as AS-SET
+
+include_as_set_conf
+ 
+
+Include Local AS as AS-SET-Confederation
+
+no_include
+ 
+
+Don't include Local AS
+
+prepend_as
+ 
+
+Prepend Local AS to first segment
+
+DEFAULT
+ 
+
+include_as_seq
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"include_as_seq,include_as_seq_conf,include_as_set,include_as_set_conf,no_include,prepend_as","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+flap_delay,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Flapping delay
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMBER,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+flap_down_time,"Supported platforms  Details
+RANGE 1  1000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+During flapping operation, the period expressed in seconds during which the route is withdrawn from its neighbors. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+During flapping operation, the period expressed in seconds during which the route is withdrawn from its neighbors.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMBER,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_aggregator,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable Aggregator ID
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_as_path,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This parameter indicates that as_path attributes are to be generated. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This parameter indicates that as_path attributes are to be generated.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+atomic_aggregate,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the ATOMIC_AGGREGATE path attribute, which is a discretionary attribute. If set to 1, informs other BGP speakers that the local system selected a less specific route without selecting a more specific route included in it. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the ATOMIC_AGGREGATE path attribute, which is a discretionary attribute. If set to 1, informs other BGP speakers that the local system selected a less specific route without selecting a more specific route included in it.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+cluster_list_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables or disables cluster list on BGP route range.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables or disables cluster list on BGP route range.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+communities_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables or disables communities. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables or disables communities.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_enable,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable Extended Community
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_route_flap,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+FLAG - Enables the flapping functions described by route_flap_up_time, route_flap_down_time, routesToFlapFrom, and routesToFlapTo. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+FLAG - Enables the flapping functions described by route_flap_up_time, route_flap_down_time, routesToFlapFrom, and routesToFlapTo.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",FLAG,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_local_pref,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This attribute inserts a local_pref attribute with the indicated value. (internal bgp only) Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This attribute inserts a local_pref attribute with the indicated value. (internal bgp only)
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_med,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable Multi Exit
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+A flag to enable the generation of a NEXT HOP attribute. Can be used as a flag of a choice of 0 or 1. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+A flag to enable the generation of a NEXT HOP attribute. Can be used as a flag of a choice of 0 or 1.
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+origin_route_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+A flag to define whether to enable the origin route or not. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+A flag to define whether to enable the origin route or not.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",FLAG,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+originator_id_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables or disables originator ID on BGP route range. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables or disables originator ID on BGP route range.
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+partial_route_flap_from_route_index,"Supported platforms  Details
+RANGE 0  1000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+When partial route flapping is enabled, gives the index of the route from which to start. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+When partial route flapping is enabled, gives the index of the route from which to start.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMBER,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+partial_route_flap_to_route_index,"Supported platforms  Details
+RANGE 0  1000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+When partial route flapping is enabled, gives the index of the route which to end the flap. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+When partial route flapping is enabled, gives the index of the route which to end the flap.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMBER,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies a mandatory path attribute that defines the IP address of the border router that should be used as the next hop to the destinations listed in the Network Layer Reachability field of the UPDATE message. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies a mandatory path attribute that defines the IP address of the border router that should be used as the next hop to the destinations listed in the Network Layer Reachability field of the UPDATE message.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop_ipv4,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies a mandatory path attribute that defines the IP address of the border router that should be used as the next hop to the destinations listed in the Network Layer Reachability field of the UPDATE message. Has priority over the legacy -next_hop parameter.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop_ipv6,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies a mandatory path attribute that defines the IP address of the border router that should be used as the next hop to the destinations listed in the Network Layer Reachability field of the UPDATE message. Has priority over the legacy -next_hop parameter.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_pref,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the LOCAL_PREF path attribute, which is a discretionary attribute used by a BGP speaker to inform other BGP speakers in its own AS of the originating speakers degree of preference for an advertised route. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the LOCAL_PREF path attribute, which is a discretionary attribute used by a BGP speaker to inform other BGP speakers in its own AS of the originating speakers degree of preference for an advertised route.
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+multi_exit_disc,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the multi-exit discriminator, which is an optional non-transitive path attribute. The value of this attribute may be used by a BGP speakers decision process to discriminate among multiple exit points to a neighboring AS. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the multi-exit discriminator, which is an optional non-transitive path attribute. The value of this attribute may be used by a BGP speakers decision process to discriminate among multiple exit points to a neighboring AS.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop_mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Indicates that the nextHopIpAddress may be incremented for each neighbor session generated for the range of neighbor addresses. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Indicates that the nextHopIpAddress may be incremented for each neighbor session generated for the range of neighbor addresses.
+
+Valid options are:
+
+fixed
+ 
+
+Fixed next hop mode
+
+increment
+ 
+
+Increment next hop mode
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"fixed,increment,incrementPerPrefix","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop_ip_version,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The type of IP address in nextHopIpAddress. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+Valid options are:
+
+4
+ 
+
+IPv4
+
+6
+ 
+
+IPv6
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The type of IP address in nextHopIpAddress.
+
+Valid options are:
+
+4
+ 
+
+Ipv4 next hop address
+
+6
+ 
+
+Ipv6 next hop address
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"4,6","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop_set_mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Indicates how to set the next hop IP address. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+Valid options are:
+
+same
+ 
+
+(default) Will set the value as the local IP address.
+
+manual
+ 
+
+The value is read from -next_hop_ip_address.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Indicates how to set the next hop IP address.
+
+Valid options are:
+
+same
+ 
+
+Will set the value as the local IP address
+
+manual
+ 
+
+The value is read from -next_hop_ip_address
+
+DEFAULT
+ 
+
+same
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"same,manual","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+origin,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Selects the value for the ORIGIN path attribute. Note that specifying a path attribute forces the advertised route to be a node route as opposed to a global route.
+
+Valid options are:igp, egp, incomplete
+
+Valid for route type:
+
+unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri),
+
+mpls (ipv4/6_mpls_nlri),
+
+vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Selects the value for the ORIGIN path attribute. Note that specifying a path attribute forces the advertised route to be a node route as opposed to a global route.
+
+Valid options are:
+
+igp
+ 
+
+Internal
+
+egp
+ 
+
+External
+
+incomplete
+ 
+
+Incomplete
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"igp,egp,incomplete","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+originator_id,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the ORIGINATOR_ID path attribute, which is an optional, non-transitive BGP attribute. It is created by a Route Reflector and carries the ROUTER_ID of the originator of the route in the local AS. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the ORIGINATOR_ID path attribute, which is an optional, non-transitive BGP attribute. It is created by a Route Reflector and carries the ROUTER_ID of the originator of the route in the local AS.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+packing_from,"Supported platforms  Details
+RANGE 0  65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The minimum number of routes to pack into an UPDATE message. Random numbers are chosen from the range -packing_from to -packing_to. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The minimum number of routes to pack into an UPDATE message. Random numbers are chosen from the range -packing_from to -packing_to.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUBER,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+packing_to,"Supported platforms  Details
+RANGE 0  65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The maximum number of routes to pack into an UPDATE message. Random numbers are chosen from the range -packing_from to -packing_to. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The maximum number of routes to pack into an UPDATE message. Random numbers are chosen from the range -packing_from to -packing_to.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMBER,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_partial_route_flap,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+FLAG - Enable partial flapping functions. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+FLAG - Enable partial flapping functions.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",FLAG,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+flap_up_time,"Supported platforms  Details
+RANGE 1  1000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+During flapping operation, the time between flap cycles, expressed in seconds. During this period, the route range will be up. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+During flapping operation, the time between flap cycles, expressed in seconds. During this period, the route range will be up.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_traditional_nlri,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If checked, use the traditional NLRI in the UPDATE message, instead of using the MP_REACH_NLRI Multi-protocol extension to advertise the routes. (Not applicable for MPLS and MPLS VPN Route Ranges.)Values: 0 1. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If checked, use the traditional NLRI in the UPDATE message, instead of using the MP_REACH_NLRI Multi-protocol extension to advertise the routes. (Not applicable for MPLS and MPLS VPN Route Ranges.)
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_generate_unique_routes,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+FLAG - When set to 1, each router generates a different IP address range. When set to 0, each router advertises the route range as is. When enabled, the first router advertises numRoutes routes starting at networkAddress, the next router advertises numRoutes routes starting at (networkAddress + numRoutes), and so on. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+FLAG - When set to 1, each router generates a different IP address range. When set to 0, each router advertises the route range as is. When enabled, the first router advertises numRoutes routes starting at networkAddress, the next router advertises numRoutes routes starting at (networkAddress + numRoutes), and so on.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",FLAG,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+end_of_rib,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Configures BGP End of RIB markerValid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Configures BGP End of RIB marker
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+communities,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the COMMUNITIES path attribute, which is an optional transitive attribute of variable length. All routes with this attribute belong to the communities listed in the attribute. This is a list of numbers. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the COMMUNITIES path attribute, which is an optional transitive attribute of variable length. All routes with this attribute belong to the communities listed in the attribute. This is a list of numbers.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+communities_as_number,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Communities AS #
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+communities_last_two_octets,"upported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Last Two Octets
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+communities_type,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Type
+
+Valid options are:
+
+noexport
+ 
+
+No export
+
+noadvertised
+ 
+
+No advertised
+
+noexport_subconfed
+ 
+
+No export subconfed
+
+manual
+ 
+
+Manual AS number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"no_export no_advertised,no_export_subconfed,manual",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the EXTENDED COMMUNITIES path attribute, which is a transitive optional BGP attribute. All routes with the EXTENDED COMMUNITIES attribute belong to the communities listed in the attribute.This is a list of numbers separated by comma char """""""","""""""" as follows:
+
+The first number is the value of the low-order type byte.
+
+Possible values:
+
+0 - (default)
+2 - Route target community
+3 - Route origin community
+4 - Link bandwidth community
+
+The second number is the value of the high-order type byte.
+Possible values:
+128 - IANA bit: This bit may be or'd with any other values.
+0 indicates that this is an IANA assignable type using First Come First Serve policy.
+1 indicates that this is an IANA assignable type using the IETF Consensus policy.
+64 - Transitive bit: This bit may be ordered with any other values.
+0 indicates that the community is transitive across ASes and
+1 indicates that it is non-transitive.
+0 - Two-octet AS specific (default): Value holds a two-octet global ASN followed by a four-bytes local admin value.
+1 - IPv4 address specific: Value holds a four-octet IP address followed by a two-bytes local administrator value.
+2 - Four-octet AS specific: Value holds a four-octet global ASN followed by a two-bytes local admin value.
+3 - Generic: Value holds six-octets.
+
+The third number is the value associated with the extended community. (default = {00 00 00 00 00 00})
+Example value: {2,128,03 22 00 00 00 00}. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the EXTENDED COMMUNITIES path attribute, which is a transitive optional BGP attribute. All routes with the EXTENDED COMMUNITIES attribute belong to the communities listed in the attribute. This is a list of numbers separated by comma char """""""","""""""" as follows: The first number is the value of the low-order type byte. Possible values: 0 - (default) 2 - Route target community 3 - Route origin community 4 - Link bandwidth community The second number is the value of the high-order type byte. Possible values: 128 - IANA bit: This bit may be or'd with any other values. 0 indicates that this is an IANA assignable type using First Come First Serve policy. 1 indicates that this is an IANA assignable type using the IETF Consensus policy. 64 - Transitive bit: This bit may be or'd with any other values. 0 indicates that the community is transitive across ASes and 1 indicates that it is non-transitive. 0 - Two-octet AS specific (default): Value holds a two-octet global ASN followed by a four-bytes local admin value. 1 - IPv4 address specific: Value holds a four-octet IP address followed by a two-bytes local administrator value. 2 - Four-octet AS specific: Value holds a four-octet global ASN followed by a two-bytes local admin value. 3 - Generic: Value holds six-octets. The third number is the value associated with the extended community. (default = {00 00 00 00 00 00}) Example value: {2,128,03 22 00 00 00 00}.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",STRING,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_as_two_bytes,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+AS 2-Bytes
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_as_four_bytes,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+AS 4-Bytes
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_assigned_two_bytes,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Assigned Number(2 Octets)
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_assigned_four_bytes,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Assigned Number(4 Octets)
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_ip,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IP
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_opaque_data,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Opaque Data
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_type,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Type
+
+Valid options are:
+
+administratoras2octet
+ 
+
+Admin AS number 2 octet
+
+administratorip
+ 
+
+Admin IP address
+
+administratoras4octet
+ 
+
+Admin AS number 4 octet
+
+opaque
+ 
+
+Opaque data
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"admin_as_two_octet,admin_ip,admin_as_four_octet,opaque",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ext_communities_subtype,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+SubType
+
+Valid options are:
+
+routetarget
+ 
+
+Route target
+
+origin
+ 
+
+Origin
+
+extendedbandwidth
+ 
+
+Extended bandwidth
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"route_target,origin,extended_bandwidth",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+as_path,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the AS_PATH path attribute, which is a mandatory attribute composed of a sequence of AS path segments.Format: :{as_set|as_seq|as_confed_set|as_confed_seq}:<x,x,x,x>Example:as_set:1,2,3,4as_set - specifies an unordered set of autonomous systems though which a route in the UPDATE message has traversed.as_seq - specifies an ordered set of autonomous systems through which a route in the UPDATE message has traversed.as_confed_set - specifies an unordered set of autonomous systems in the local confederation that the UPDATE message has traversed.as_confed_seq - specifies an ordered set of autonomous systems in the local confederation that the UPDATE message has traversed.DEFAULT = as_set:, where is the AS of the router which advertises this route. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the AS_PATH path attribute, which is a mandatory attribute composed of a sequence of AS path segments. Format: : {as_set|as_seq|as_confed_set|as_confed_seq}:<x,x,x,x>. Example: as_set:1,2,3,4 as_set - specifies an unordered set of autonomous systems though which a route in the UPDATE message has traversed. as_seq - specifies an ordered set of autonomous systems through which a route in the UPDATE message has traversed. as_confed_set - specifies an unordered set of autonomous systems in the local confederation that the UPDATE message has traversed. as_confed_seq - specifies an ordered set of autonomous systems in the local confederation that the UPDATE message has traversed. DEFAULT = as_set:, where is the AS of the router which advertises this route.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",path,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+as_path_segment_type,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the segment type for the AS_PATH attribute. This may be a list of values with equal length to the as_path parameter list.
+
+Valid options are:
+
+as_set
+ 
+
+AS-SET
+
+as_seq
+ 
+
+AS-SEQ
+
+as_confed_set
+ 
+
+AS-SET-CONFEDERATION
+
+as_confed_seq
+ 
+
+AS-SEQ-CONFEDERATION
+
+DEFAULT
+ 
+
+as_set
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"as_set as_seq,as_confed_set,as_confed_seq",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+as_path_segment_numbers,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+A list of lists of AS_PATH segment numbers. The outer list length needs to match as_path_segment_type list length.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",ANY,ANY,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+cluster_list,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the CLUSTER_LIST path attribute, which is an optional, non-transitive BGP attribute. It is a sequence of CLUSTER_ID values representing the reflection path through which the route has passed. Valid for route type: unicast/multicast (ipv4/6_unicast_nlri, ipv4/6_multicast_nlri), mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the CLUSTER_LIST path attribute, which is an optional, non-transitive BGP attribute. It is a sequence of CLUSTER_ID values representing the reflection path through which the route has passed.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",STRING,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpls,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft.This will enable the L2 Sites.Does not take priority over other flags that enable L3 sites. The priority of the flags is the following VPN (L3 Sites), VPLS (L2 Sites), MPLS, Unicast/Multicast.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+(deprecated) This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft. This will enable the L2 Sites. Does not take priority over other flags that enable L3 sites and AD VPLS. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast.
+
+DEFAULT
+ None",FLAG,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpls_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft. This will enable the L2 Sites. Does not take priority over other flags that enable L3 sites and AD VPLS. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_admin_value,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Starting value of the administrator field of the route distinguisher.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Starting value of the administrator field of the route distinguisher.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_admin_value_step,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Inner increment value to step the base route distinguisher administrator field. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri). Valid only for IxTclNetwork.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Inner increment value to step the base route distinguisher administrator field.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_admin_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base route distinguisher administrator field.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base route distinguisher administrator field. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_assign_value,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Starting value of the assigned number field of the route distinguisher.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Starting value of the assigned number field of the route distinguisher.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_assign_value_step,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Inner increment value to step the base route distinguisher assigned number field if -target_count is greater than 1. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri). Valid only for IxTclNetwork.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Inner increment value to step the base route distinguisher assigned number field if -target_count is greater than 1.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_assign_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base route distinguisher assigned number field.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base route distinguisher assigned number field. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+control_word_enable,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable Control Word
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+seq_delivery_enable,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable Sequenced Delivery
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mtu,"Supported platforms  Details
+RANGE 0  65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Maximum transmit unit. Has to be in concordance with the DUT settings. Valid for route type: VPLS (vpls flag enabled).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Maximum transmit unit. Has to be in concordance with the DUT settings.
+
+DEFAULT
+ 
+
+1500
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+site_id,"Supported platforms  Details
+RANGE 0  65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The current L2 site identifier. Valid for route type: vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The current L2 site identifier.
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+site_id_step,"Supported platforms  Details
+RANGE 0  65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment for the L2 site identifier.Valid for route type: vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment for the L2 site identifier.
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+target,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+AS number or IP address list based on the -target_type list.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+AS number or IP address list based on the -target_type list.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+target_inner_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base target field when -target_count is greater than 1. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base target field when -target_count is greater than 1.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+target_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base target field.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base target field.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+target_assign,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The assigned number subfield of the value field of the target. It is a number from a numbering space which is maintained by the enterprise administers for a given IP address or ASN space. It is the local part of the target.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The assigned number subfield of the value field of the target. It is a number from a numbering space which is maintained by the enterprise administers for a given IP address or ASN space. It is the local part of the target.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+target_assign_inner_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base target assigned number field when -target_count is greater than 1. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base target assigned number field when -target_count is greater than 1.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+target_assign_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base target assigned number field.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base target assigned number field.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_type,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Route distinguisher type. The meaning of the indexes is:0 - AS ; 1 - IP ; 2 - 4 byte AS.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route distinguisher type.
+
+Valid options are:
+
+0
+ 
+
+2 byte AS route distinguisher type
+
+1
+ 
+
+IP route distinguisher type
+
+2
+ 
+
+4 byte AS route distinguisher type
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",opt,"0,1,2","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+target_type,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+List of the target type.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+List of the target type.
+
+Valid options are:
+
+as
+ 
+
+AS target type
+
+ip
+ 
+
+IP target type
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",opt,"as,ip","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpn_name,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VPN Name
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",ALPHA,ALPHA,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+advertise_label_block,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Advertise Label Block
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+num_labels,"Supported platforms  Details
+RANGE 1  65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Specifies the number of labels to be created for the current label block. Valid for route type: vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Specifies the number of labels to be created for the current label block.
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+num_labels_type,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Type of the -num_labels parameter. Default value is single_value.Valid for route type: vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Type of the -num_labels parameter. Default value is single_value.
+
+Valid options are:
+
+list
+ 
+
+Specifies that the num_labels parameter is a list and shouldnt be multiplied
+
+single_value
+ 
+
+Specifies that the num_labels parameter is a single value and should be used a number of times equal to max_route_ranges
+
+DEFAULT
+ 
+
+single_value
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",opt,"list,single_value","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+label_block_offset,"Supported platforms  Details
+RANGE 0  65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The offset of the label block. Valid for route type: VPLS (vpls flag enabled).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The offset of the label block.
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+label_block_offset_type,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Type of the -label_block_offset parameter. Default value is single_value.Valid for route type: vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Type of the -label_block_offset parameter. Default value is single_value.
+
+Valid options are:
+
+list
+ 
+
+Specifies that the label_block_offset parameter is a list and shouldnt be multiplied
+
+single_value
+ 
+
+Specifies that the label_block_offset parameter is a single value and should be used a number of times equal to max_route_ranges
+
+DEFAULT
+ 
+
+single_value
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",opt,"list,single_value","IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+label_value,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Starting value for the label of the BGP route. Default is 16. Valid for route type: mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Starting value for the label of the BGP route. Default is 16.
+
+DEFAULT
+ 
+
+16
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,NUMERIC,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+label_value_type,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Type of the -label_value parameter. If this parameter is set to list """"""""-label_value_step"""""""" is ignored. Default value is single_value.Valid for route type: vpls (vpls)
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Type of the -label_value parameter. If this parameter is set to list """"""""-label_value_step"""""""" is ignored. Default value is single_value.
+
+Valid options are:
+
+list
+ 
+
+Specifies that the label_value parameter is a list and shouldnt be multiplied
+
+single_value
+ 
+
+Specifies that the label_value parameter is a single value and should be used a number of times equal to max_route_ranges
+
+DEFAULT
+ 
+
+single_value
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",opt,"list,single_value","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_start_mac_addr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Start address for the MAC range. Valid for route type: VPLS (vpls flag enabled).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Start address for the MAC range.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",MAC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_mac_incr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Indicates whether the initial mac address gets incremented across the range. Valid for route type: VPLS (vpls flag enabled).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Indicates whether the initial mac address gets incremented across the range. Not supported reason: legacy item
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_mac_count,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Number of mac addresses for this range. Valid for route type: VPLS (vpls flag enabled).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Number of mac addresses for this range.
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_enable_vlan,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enable or disable vlan on this mac range. Valid for route type: VPLS (vpls flag enabled).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable or disable vlan on this mac range.
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_unicast_nlri or ipv4/6_multicast_nlri or ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_vlan_priority,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+3-bit user priority field in the VLAN tag.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_vlan_tpid,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+16-bit Tag Protocol Identifier (TPID) or EtherType in the VLAN tag.
+
+Valid options are:
+
+0x8100
+ 
+
+Tunneling vlan protocol id is 0x8100
+
+0x88a8
+ 
+
+Tunneling vlan protocol id is 0x88a8
+
+0x9100
+ 
+
+Tunneling vlan protocol id is 0x9100
+
+0x9200
+ 
+
+Tunneling vlan protocol id is 0x9200
+
+0x9300
+ 
+
+Tunneling vlan protocol id is 0x9300
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",opt,"0x8100,0x88a8,0x9100,0x9200,0x9300",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_vlan_id,"Supported platforms  Details
+RANGE 0  65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Current vlan id. Valid for route type: VPLS (vpls flag enabled).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Current vlan id.
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_vlan_id_incr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This parameter represents the increment step for vlan id across the ranges.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This parameter represents the increment step for vlan id across the ranges.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+l2_vlan_incr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Indicates whether the vlan id gets incremented inside the same range.Valid for route type: VPLS (vpls flag enabled).
+
+Valid options are:
+
+0 or no_increment
+ 
+
+No Imcrement
+
+1 or parallel_increment
+ 
+
+Parallel Increment
+
+2 or inner_first
+ 
+
+Inner First
+
+3 or outer_first
+ 
+
+Outer First
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Indicates whether the vlan id gets incremented inside the same range.
+
+Valid options are:
+
+0
+ 
+
+No increment
+
+1
+ 
+
+Parallel increment
+
+2
+ 
+
+Inner first increment
+
+3
+ 
+
+Outer first increment
+
+no_increment
+ 
+
+No increment
+
+parallel_increment
+ 
+
+Parallel increment
+
+inner_first
+ 
+
+Inner first increment
+
+outer_first
+ 
+
+Outer first increment
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vpls_nlri' | value= '1' |",opt,"0,1,2,3,no_increment,parallel_increment,inner_first,outer_first","IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_rt_as_export_rt,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Import RT List Same As Export RT List
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+target_count,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Number of AS number or IP address list based on the -target_type list. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Number of AS number or IP address list based on the -target_type list.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_target_count,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Number of RTs in Import Route Target List
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+default_mdt_ip,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Defines the IP address of the default MDT for mVPN. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Defines the IP address of the default MDT for mVPN.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+default_mdt_ip_incr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Defines the IP address increment for each default MDT. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Defines the IP address increment for each default MDT.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_target,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+AS number or IP address list based on the -import_target_type list. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+AS number or IP address list based on the -import_target_type list.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_target_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base import target field. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base import target field. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_target_inner_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base import target field when -target_count is greater than 1. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base import target field when -target_count is greater than 1.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_target_assign,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The assigned number subfield of the value field of the import target. It is a number from a numbering space which is maintained by the enterprise administers for a given IP address or ASN space. It is the local part of the import target. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The assigned number subfield of the value field of the import target. It is a number from a numbering space which is maintained by the enterprise administers for a given IP address or ASN space. It is the local part of the import target.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_target_type,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+List of the import target type. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+List of the import target type.
+
+Valid options are:
+
+as
+ 
+
+Import target type is AS
+
+ip
+ 
+
+Import target type is IP
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"as,ip","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_target_assign_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base import target assigned number field. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base import target assigned number field. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_target_assign_inner_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base import target assigned number field when -target_count is greater than 1. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value to step the base import target assigned number field when -target_count is greater than 1.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_count,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The number of route distinguisher values in a VRF range. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri). Valid only for IxTclNetwork.
+
+DEFAULT
+ 
+
+1
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The number of route distinguisher values in a VRF range. Not supported reason: legacy item
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_count_per_vrf,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The number of times that the increment step is used per VRF.Valid for route type: vpn (ipv4/6_mpls_vpn_nlri). Valid only for IxTclNetwork.
+
+DEFAULT
+ 
+
+1
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The number of times that the increment step is used per VRF. Not supported reason: legacy item
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_admin_value_step_across_vrfs,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Outer increment value to step the base route distinguisher administrator field if -target_count is greater than 1. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri). Valid only for IxTclNetwork.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Outer increment value to step the base route distinguisher administrator field if -target_count is greater than 1. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",IP | NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rd_assign_value_step_across_vrfs,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Outer increment value to step the base route distinguisher assigned number field if -target_count is greater than 1. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri). Valid only for IxTclNetwork.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Outer increment value to step the base route distinguisher assigned number field if -target_count is greater than 1. Not supported reason: legacy item
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+label_value_end,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Ending value for the label of the BGP route. If this parameter is not provided it will be calculated as label_value + num_routes * label_step. Valid for route type: mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).Valid only for IxTclNetwork.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Ending value for the label of the BGP route. If this parameter is not provided it will be calculated as label_value + num_routes * label_step.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+label_incr_mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Method in which the MPLS label of an IPv4 MPLS-VPN route will be Valid for route type: mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri).
+
+Valid options are:
+
+fixed
+ 
+
+Fixed MPLS label for all RDs
+
+rd
+ 
+
+Increment label per RD
+
+prefix
+ 
+
+Increment label per prefix advertised
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Method in which the MPLS label of an IPv4 MPLS-VPN route will be incremented.
+
+Valid options are:
+
+fixed
+ 
+
+Fixed MPLS label for all RDs
+
+rd
+ 
+
+Increment label per RD. Not used in NGPF
+
+prefix
+ 
+
+Increment label per prefix advertised
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri' | value= '1' |",opt,"fixed,rd,prefix","IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+label_id,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The identifier for the label space. Valid for route type: vpn (ipv4/6_mpls_vpn_nlri). Valid only for IxTclNetwork.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The identifier for the label space.
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_vpn_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+label_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Increment value used to step the base label. Valid for route type: mpls (ipv4/6_mpls_nlri), vpn (ipv4/6_mpls_vpn_nlri), vpls (vpls).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Increment value used to step the base label.
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4/6_mpls_nlri or ipv4/6_mpls_vpn_nlri or vpls_nlri' | value= '1' |",NUMERIC,,"IxNetwork, IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ad_vpls_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This BGP/BGP+ router/peer supports BGP/BGP+ AD VPLS. Does not take priority over other flags that enable L3 sites. The priority of the flags is the following VPN (L3 Sites), AD VPLS (L2 VPN), VPLS (L2 Sites), MPLS, Unicast/Multicast.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+as_number_vpls_id,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VPLS ID AS Number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+as_number_vpls_rd,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route Distinguisher AS Number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+as_number_vpls_rt,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route Target AS Number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+assigned_number_vpls_id,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VPLS ID Assigned Number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+assigned_number_vpls_rd,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route Distinguisher Assigned Number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+assigned_number_vpls_rt,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route Target Assigned Number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_rd_as_rt,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Use RD As RT
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+import_vpls_id_as_rd,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Use VPLS ID As Route Distinguisher
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",BOOL,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ip_address_vpls_id,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VPLS ID IP Address
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ip_address_vpls_rd,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route Distinguisher IP Address
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ip_address_vpls_rt,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route Target IP Address
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+number_vsi_id,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VSI ID Number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",ANY,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+type_vpls_id,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VPLS ID Type
+
+Valid options are:
+
+as
+ 
+
+AS VPLS ID type
+
+ip
+ 
+
+IP VPLS ID type
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",opt,"as, ip",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+type_vpls_rd,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+RD Type
+
+Valid options are:
+
+as
+ 
+
+AS route distinguisher type
+
+ip
+ 
+
+IP route distinguisher type
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",opt,"as,ip",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+type_vpls_rt,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+RT Type
+
+Valid options are:
+
+as
+ 
+
+AS route target type
+
+ip
+ 
+
+IP route target type
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",opt,"as,ip",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+type_vsi_id,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VSI ID
+
+Valid options are:
+
+concat_pe_addr
+ 
+
+Concatenate PE address
+
+concat_num
+ 
+
+Concatenate number
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ad_vpls_nlri' | value= '1' |",opt,"concat_pe_addr,concat_num",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+no_write,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+DESCRIPTION
+ 
+
+If this option is present, the configuration is not written to the hardware. This option can be used to queue up multiple configurations before writing to the hardware. The option is valid only for IxTclProtocol API.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If this option is present, the configuration is not written to the hardware. This option can be used to queue up multiple configurations before writing to the hardware.
+
+DEFAULT
+ None",FLAG,,"IxNetwork, IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

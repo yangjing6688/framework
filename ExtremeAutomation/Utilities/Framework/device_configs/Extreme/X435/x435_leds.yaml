@@ -1,0 +1,15 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines X435 LED devices.
+#
+
+devices:
+  - *LED_CONTROLLER_GPIO
+
+leds:
+  - *SYSTEM_LED

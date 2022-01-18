@@ -1,0 +1,34 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+ewcvirtualnetworks:
+    virtual_networks_create_vns:
+        apis:
+            - [ewc,'10.41.12']
+    virtual_networks_vns_should_be_enabled:
+        apis:
+            - [ewc,'10.41.12']
+    virtual_networks_edit_wlan_service_in_vns:
+        apis:
+            - [ewc,'10.41.12']
+    virtual_networks_edit_non_authenticated_policy_role_in_vns:
+        apis:
+            - [ewc,'10.41.12']
+    virtual_networks_edit_authenticated_policy_role_in_vns:
+        apis:
+            - [ewc,'10.41.12']
+    virtual_networks_delete_vns:
+        apis:
+            - [ewc,'10.41.12']
+    virtual_networks_vns_should_exist:
+        apis:
+            - [ewc,'10.41.12']
+    virtual_networks_vns_should_not_exist:
+        apis:
+            - [ewc,'10.41.12']
+    virtual_networks_click_save_button:
+        apis:
+            - [ewc,'10.41.12']

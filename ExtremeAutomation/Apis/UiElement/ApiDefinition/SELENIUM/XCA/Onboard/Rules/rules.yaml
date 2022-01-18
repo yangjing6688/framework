@@ -1,0 +1,43 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcarules:
+    click_add_to_create_new_rule:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_rule_name_to_open_rule_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_rule_name_to_move_up:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_rule_name_to_move_down:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_rule_name_and_enabled:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_rule_conditions:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_rule_actions:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_rule_in_rules_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_rule_in_config_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_control_rule_exists:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_control_rule_does_not_exist:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_config_and_back_to_rules_page:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']

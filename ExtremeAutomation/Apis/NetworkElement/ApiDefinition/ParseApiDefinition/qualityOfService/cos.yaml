@@ -1,0 +1,74 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+cos:
+    check_cos_state:
+        uuid: 7687deff-695b-4b15-a5ff-641cfbc77f00
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_port_group_exists:
+        uuid: f1c3d1bc-f145-459b-80b5-89f0188d32c2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_cos_reference:
+        uuid: b328fe97-f180-485d-b1cc-b18ded0c6250
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_cos_port_resource:
+        uuid: 622f62bf-a317-4ab5-9c2f-77d7d881ba8e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_cos_settings:
+        uuid: bf248cbb-3e13-46ad-90a2-b387cbc65f3a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_port_group_ports:
+        uuid: f3675d06-73a3-4d12-9a45-64657c96d1f8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_txq_weights:
+        uuid: 69fd2eec-7c80-4b76-b20a-a261f7aefd26
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    verify_port_priority:
+        uuid: 9b752ca0-b667-4830-9164-84d5aa991aaf
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_qos_profile_exists:
+        uuid: 109a1376-2825-418a-87f9-90920b44df21
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_qos_scheduler_mode:
+        uuid: 6c13fab0-9160-4d47-a1bb-768474b4ef08
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_port_qos_profile:
+        uuid: 338c112b-a066-4aac-ae53-c7ddaf3512f0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

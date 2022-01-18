@@ -1,0 +1,149 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Query]
+#             - [OS2,Platform,Version,Unit,Query]
+
+accesscontrol:
+    show_accesscontrol_nacversion:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{NACVersion}}']
+    show_accesscontrol_addendsystemgroupinfos:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{addEndSystemGroupInfos{description dynamic name type}}}']
+    show_accesscontrol_allappliancegroups:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{allApplianceGroups{authorizationGroup communicationChannel dbEncryptedRadiusMonitorSharedSecret distributedCache distributedLoadBalanceMode internalLoadBalancingStr loadBalancingEnabled nacApplianceSettings nacConfiguration name policyDomain radiusMonitorSharedSecret radiusMonitoringEnabled}}}']
+    show_accesscontrol_alldevice_types_includediscoveredtypes:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{allDeviceTypes(includeDiscoveredTypes:true)}}']
+    show_accesscontrol_alldevice_types:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{allDeviceTypes(includeDiscoveredTypes:false)}}']
+    show_accesscontrol_allendsystemmacs:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{allEndSystemMacs}}']
+    show_accesscontrol_allendsystems:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{allEndSystems}}']
+    show_accesscontrol_allgroupinfos:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{allGroupInfos{description dynamic name type}}}']
+    show_accesscontrol_allgroupnames:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{allGroupNames}}']
+    show_accesscontrol_allgroups:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{allGroups{GetMode GetScopeType GetType createdBy creationTime description dynamic lastModifiedBy lastModifiedTime modeStr name outOfSynch revisionCounter scopeType source typeStr zone}}}']
+    show_accesscontrol_appliancegroup:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{applianceGroup{authorizationGroup communicationChannel dbEncryptedRadiusMonitorSharedSecret distributedCache distributedLoadBalanceMode internalLoadBalancingStr loadBalancingEnabled nacApplianceSettings nacConfiguration name policyDomain radiusMonitorSharedSecret radiusMonitoringEnabled}}}']
+    show_accesscontrol_canconnectstart:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{canConnectStart}}']
+    show_accesscontrol_canfusionstart:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{canFusionStart}}']
+    show_accesscontrol_checkforassesmentupdates:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{checkForAssessmentUpdates}}']
+    show_accesscontrol_endsystemandhrbymac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemAndHrByMac}}']
+    show_accesscontrol_endsystembyip:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemByIp{endSystemSwitchSupportsReauth errorCode errorMessage success}}}']
+    show_accesscontrol_endsystembymac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemByMac{endSystemSwitchSupportsReauth errorCode errorMessage success}}}']
+    show_accesscontrol_endsystemcategorygroup:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemCategoryGroup}}']
+    show_accesscontrol_endsystemcategorygroupnames:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemCategoryGroupNames}}']
+    show_accesscontrol_endhealthresultdetails:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemHealthResultDetails}}']
+    show_accesscontrol_endsystemingroups:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemInGroups{description dynamic name type}}}']
+    show_accesscontrol_endsysteminfoarrbymac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemInfoArrByMac}}']
+    show_accesscontrol_endsysteminfobymac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemInfoByMac{errorCode errorMessage success}}}']
+    show_accesscontrol_endsystemsbymac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{endSystemsByMac{errorCode errorMessage success}}}']
+    show_accesscontrol_enginestatus:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{engineStatus}}']
+    show_accesscontrol_extendedendsystemarrbymac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{extendedEndSystemArrByMac}}']
+    show_accesscontrol_extendedendsystembymac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{extendedEndSystemByMac}}']
+    show_accesscontrol_group:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{group{GetMode GetScopeType GetType createdBy creationTime description dynamic lastModifiedBy lastModifiedTime modeStr name outOfSynch revisionCounter scopeType source typeStr zone}}}']
+    show_accesscontrol_groupcategory:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{groupCategory}}']
+    show_accesscontrol_groupinfobyname:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{groupInfoByName{description dynamic name type}}}']
+    show_accesscontrol_groupnamesbytype:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{groupNamesByType}}']
+    show_accesscontrol_ldapconfigs:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{ldapConfigs{GetLdapAuthType OUObjectClass adminPassword adminUsername connectionURL hostObjectClass hostSearchAttribute hostSearchRoot includeDomNameForHost includeDomNameForUser ldapAuthTypeStr ldapPasswordAttribute name ouSearchRoot timeoutInSecs userObjecClass userSearchAttribute userSearchRoot}}}']
+    show_accesscontrol_localuser:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{localUser { errorCode errorMessage success tableTotalRecords}}}']
+    show_accesscontrol_locationcategorygroup:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{locationCategoryGroup}}']
+    show_accesscontrol_locationcategorygroupnames:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{locationCategoryGroupNames}}']
+    show_accesscontrol_nacconfiguration:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{nacConfiguration {aaaConfiguration name portalConfiguration}}}']
+    show_accesscontrol_radiusservers:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{radiusServers{ GetAuthAccessType accessRequestPassword accessRequestUsername acctPort authPort checkInterval disableAccessRequest disableServerStatus enable ipAddress keepDomainName numberOfAnswersUntilAlive radiusAccountingEnabled requireMessageAuthenticator responseWindow retries reviveInterval sharedSecret timeout}}}']
+    show_accesscontrol_registereddevicesbymacaddress:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{registeredDevicesByMacAddress}}']
+    show_accesscontrol_registereddevicesbyusername:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{registeredDevicesByUsername}}']
+    show_accesscontrol_registeredusersbymacaddress:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{registeredUsersByMacAddress}}']
+    show_accesscontrol_registeredusersbyusername:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{registeredUsersByUsername}}']
+    show_accesscontrol_registrationgroupnames:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{registrationGroupNames}}']
+    show_accesscontrol_registrationgroupnamesbymac:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{registrationGroupNamesByMac}}']
+    show_accesscontrol_timecategorygroup:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{timeCategoryGroup}}']
+    show_accesscontrol_timecategorygroupnames:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{timeCategoryGroupNames}}']
+    show_accesscontrol_usercategorygroup:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{userCategoryGroup}}']
+    show_accesscontrol_usercategorygroupnames:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{accessControl{userCategoryGroupNames}}']

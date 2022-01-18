@@ -1,0 +1,405 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+port:
+    validate_jumbo_frame_reception:
+        uuid: 5020d300-1d98-470b-add9-dfb1426e2fc0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    verify_port_enabled:
+        uuid: bb0723de-55d8-4e56-997c-f572647bcb8e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    verify_port_operational:
+        uuid: bcc89976-b3bf-4afc-b0d4-334e8ef86b66
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_port_alias:
+        uuid: baa018d1-5cc7-40e6-9f1d-2e311ac91964
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_port_pvid:
+        uuid: 8ad331f6-db32-4e09-89df-6b22bc795fac
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    verify_port_mtu:
+        uuid: 9e760398-7abd-471c-8614-47177c729fdb
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_port_mac_address:
+        uuid: dd592b13-58ff-467f-9be3-91815b75e983
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_port_high_speed:
+        uuid: dfaa49cf-8174-4e76-a81b-0e83e7be4d1f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_in_octets:
+        uuid: 3abdb5a4-917a-4f40-9649-3636dbbedfb2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_in_unicast_packets:
+        uuid: 6a5a78a2-766f-419a-b70a-c3edb4ea34f2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_in_discard_packets:
+        uuid: d0b271c4-423b-4069-a7e0-1ef8a41c5d85
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_in_error_packets:
+        uuid: 8720ebb8-de68-4c24-929f-d8acfdbd41c0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_in_unknown_protocol_packets:
+        uuid: 6d048b9b-2226-489c-9eb4-13b309a41d37
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_out_octets:
+        uuid: a00f8bd0-80cb-4676-a783-52e12c182d11
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_out_unicast_packets:
+        uuid: 9b8362c2-e728-47e5-9b19-e9cb93d78ef2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_out_discard_packets:
+        uuid: d4a1bfe5-070b-41b0-8e0a-1112a9baae93
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_out_error_packets:
+        uuid: 9d4786f8-4127-4aef-9cf5-914e0d4b006e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_in_multicast_packets:
+        uuid: 2f31e2f0-0e6d-4a73-95ef-63278de406a9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_in_broadcast_packets:
+        uuid: f7dcaa24-112f-414e-a597-1c322c38ef20
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_out_multicast_packets:
+        uuid: 1d2c666b-2329-46e7-8300-49e87720b3e4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_out_broadcast_packets:
+        uuid: 12969357-c8c9-46aa-a154-a4bc35647d3a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_64_bit_in_octets:
+        uuid: f7cde5b7-e207-4aba-8ae2-999d270686f1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_64_bit_in_unicast_packets:
+        uuid: 8a547b0f-4c6f-4696-ba80-c321ee638744
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_64_bit_in_multicast_packets:
+        uuid: 64b3d828-443e-4952-a68d-56f0836a2e60
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_64_bit_in_broadcast_packets:
+        uuid: 8abdf4a5-c557-4927-b321-fa43241c9c91
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_64_bit_out_octets:
+        uuid: 8fa42f6a-24b4-4306-9641-320a41f80461
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_64_bit_out_unicast_packets:
+        uuid: 8c8636aa-cabd-4977-a0a6-294fff4e99af
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_64_bit_out_multicast_packets:
+        uuid: 1195598a-d09c-4b00-b74a-434d951cdf65
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_port_64_bit_out_broadcast_packets:
+        uuid: f03ecf42-a85a-4812-84d5-fafc9267e8a7
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_port_rate_egress:
+        uuid: fac5e9f3-924a-4f59-b975-2cbb00bb823d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_port_rate_broadcast:
+        uuid: c5242b1b-b97e-4feb-b766-e6ebac81d4d4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_port_rate_multicast:
+        uuid: c0c2ec90-24cc-4a00-bbe3-d0bd897cf3ff
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_port_rate_unknown_destmac:
+        uuid: f5627081-1afb-4e4e-9130-795b2c24ef33
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_port_flex_uni_status:
+        uuid: 3fdbbc94-a5c6-41a2-a08c-1cee6bb35bcc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_port_advertised_speed_duplex:
+        uuid: 97bafbb2-b07c-4136-b470-de1446c8b8a2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    verify_port_disabled:
+        uuid: e630bfcf-080b-48dc-8c74-3a86e6a2be39
+        apis:
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit]
+    create_interface_dictionaries:
+        uuid: b2446b75-be79-4747-87eb-cf91b9a19453
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    create_dot1d_dictionaries:
+        uuid: d65f8cf1-af16-4fe5-ab4e-669f383bb7b6
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]

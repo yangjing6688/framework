@@ -1,0 +1,236 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+multiauth:
+    enable_session_refresh:
+        description: "Enables MultiAuth session refresh"
+        arguments:
+            order: 
+        uuid: f3eb09e3-5666-4313-ac3d-fbb864ea2476
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable netlogin session-refresh',userPrompt,'None','None','None',[],[]]
+    disable_session_refresh:
+        description: "Disables MultiAuth session refresh"
+        arguments:
+            order: 
+        uuid: bf5c7ddd-7ddb-4969-b73c-21f3a626cd4e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable netlogin session-refresh',userPrompt,'None','None','None',[],[]]
+    set_session_timeout:
+        description: "Configures the session timeout duration for all auth types"
+        arguments:
+            order: 
+        uuid: ad2d1a2b-1c05-46ca-9fb5-fe6ce27806b8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin session-timeout {timeout}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set multiauth session-timeout {timeout}',userPrompt,'None','None','None',[],[]]
+    set_session_type_timeout:
+        description: "Configures the session timeout duration for auth sessions of the given type"
+        arguments:
+            order: 
+        uuid: 3acfba85-52e1-4d2c-9959-88fdd081a2e6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin session-timeout {<api_utils.exos_ma_mode>mode} {timeout}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set multiauth session-timeout {<api_utils.eos_ma_mode>mode} {timeout}',userPrompt,'None','None','None',[],[]]
+    clear_session_type_timeout:
+        description: "Clears the session timeout duration for auth sessions of the given type to default"
+        arguments:
+            order: 
+        uuid: 25b27d24-41ba-408f-b670-d6a0a55918e5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure netlogin session-timeout {<api_utils.exos_ma_mode>mode}',userPrompt,'None','None','None',[],[]]
+    set_session_refresh:
+        description: "Configures the MultiAuth session refresh interval"
+        arguments:
+            order: 
+        uuid: f26cfaa0-c900-4839-9d43-3f6f9a10709d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin session-refresh {seconds}',userPrompt,'None','None','None',[],[]]
+    clear_session_refresh:
+        description: "Clears the MultiAuth session reauth interval to default"
+        arguments:
+            order: 
+        uuid: a16c13f3-5825-484b-9a84-9b823ea8fe1a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure netlogin session-refresh',userPrompt,'None','None','None',[],[]]
+    set_vlan:
+        description: "Enables the MultiAuth/Netlogin VLAN on the given device"
+        arguments:
+            order: 
+        uuid: 2b3308c0-27b9-48e0-9550-91d9af08dff1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin vlan {multiauth_vlan_name}',userPrompt,'None','None','None',[],[]]
+    clear_vlan:
+        description: "Disables the MultiAuth/Netlogin VLAN on the given device"
+        arguments:
+            order: 
+        uuid: 954d2698-9c1a-478e-888b-b4aea467b4a3
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure netlogin vlan',userPrompt,'None','None','None',[],[]]
+    set_idle_timeout:
+        description: "Configures the idle timeout duration for all auth types"
+        arguments:
+            order: 
+        uuid: 796e0685-e341-454b-9f48-4e69b3008fe7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin idle-timeout {timeout}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set multiauth idle-timeout {timeout}',userPrompt,'None','None','None',[],[]]
+    set_idle_type_timeout:
+        description: "Configures the idle timeout duration for the given type"
+        arguments:
+            order: 
+        uuid: 6af1773b-18c7-4bfa-ac39-fda93afa3608
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin idle-timeout {<api_utils.exos_ma_mode>mode} {timeout}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set multiauth idle-timeout {<api_utils.eos_ma_mode>mode} {timeout}',userPrompt,'None','None','None',[],[]]
+    clear_idle_type_timeout:
+        description: "Clears the idle timeout for the given type to default"
+        arguments:
+            order: 
+        uuid: 05becf3a-3ebb-4fec-a4be-cc1a44177e9d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure netlogin idle-timeout {<api_utils.exos_ma_mode>mode}',userPrompt,'None','None','None',[],[]]
+    set_port_mode:
+        description: "This Method will set MultiAuth port mode"
+        arguments:
+            order: 
+        uuid: 0cdfcb1c-ff0d-454e-904e-843d68779832
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin port {port} authentication mode {<api_utils.exos_ma_mode>mode}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set multiauth port mode {<api_utils.eos_ma_mode>mode} {port}',userPrompt,'None','None','None',[],[]]
+    set_port_numusers:
+        description: "This method will set the max number of allowed users"
+        arguments:
+            order: port,num_users
+        uuid: affaa376-34fb-4b1e-a6b9-83a4a41a77b1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin ports {port} allowed-users {num_users}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set multiauth port numusers {num_users} {port}',userPrompt,'None','None','None',[],[]]
+    clear_station_mac_port:
+        description: "Clears and initializes the network login sessions on a VLAN port and mac"
+        arguments:
+            order: 
+        uuid: 395038b8-7e83-43ae-9ef4-789be298fad1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear netlogin state mac-address {mac} port {port}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear multiauth station mac {mac} port {port}',userPrompt,'None','None','None',[],[]]
+    clear_station_port:
+        description: "Clears and initializes the network login sessions on a VLAN port"
+        arguments:
+            order: 
+        uuid: 4c0206d2-7df7-4c17-bf25-b630cb366e01
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear netlogin state port {port}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear multiauth station port {port}',userPrompt,'None','None','None',[],[]]
+    clear_station_mac:
+        description: "Clears and initializes the network login session for a particular mac address"
+        arguments:
+            order: 
+        uuid: 146f1262-e1c3-4df0-85b5-a2c31b423fde
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear netlogin state mac-address {mac}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear multiauth station mac {mac} port *.*.*',userPrompt,'None','None','None',[],[]]
+    clear_station_agent:
+        description: "Clears and initializes the network login session for a particular mac address"
+        arguments:
+            order: 
+        uuid: a98b62da-73b5-4a30-a12d-547a9a970f71
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear netlogin state agent {<api_utils.exos_ma_agent>agent}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear multiauth session {mac} *.*.* {<api_utils.eos_ma_agent>agent}',userPrompt,'None','None','None',[],[]]
+    set_mode:
+        description: "This Method will set MultiAuth mode"
+        arguments:
+            order: 
+        uuid: e059d40a-d336-440e-8fa0-37bbc37f7de8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set multiauth mode {mode}',userPrompt,'None','None','None',[],[]]
+    set_port_force_auth:
+        description: "This Method will set MultiAuth port mode to forced auth"
+        arguments:
+            order: 
+        uuid: 62f29872-ded8-4e28-9eef-50da69f83dea
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set multiauth port mode force-auth {port}',userPrompt,'None','None','None',[],[]]
+    show_session_timeout:
+        uuid: 8bcf7706-aa82-413c-855a-c857cf38c1d5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin timeout',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show multiauth session-timeout',userPrompt,'None','None','None',[],[]]
+    show_idle_timeout:
+        uuid: 45039e37-9b00-46ce-aa89-4200cbd456a9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin timeout',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show multiauth idle-timeout',userPrompt,'None','None','None',[],[]]
+    show_session:
+        uuid: a9b1d689-56ed-4730-827b-749683939450
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin session',userPrompt,'None','None','None',[],[]]
+    show_info:
+        uuid: 13a2b82c-e007-4ede-8c21-645b7862308b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show multiauth',userPrompt,'None','None','None',[],[]]
+    show_session_all:
+        uuid: 73dbfaa0-d576-4855-b148-05640ab7eafe
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin session all',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show multiauth session all',userPrompt,'None','None','None',[],[]]
+    show_session_mac:
+        uuid: 41e1c599-622f-4338-8a86-2de304ba5c52
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin session mac-address {station_address}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show multiauth session mac {station_address}',userPrompt,'None','None','None',[],[]]
+    show_session_port:
+        uuid: 884857ec-cf3f-4075-be87-115f081d5f5b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin session ports {port}',userPrompt,'None','None','None',[],[]]

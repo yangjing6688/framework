@@ -1,0 +1,5 @@
+Feature,policy,,,,
+Variable Name,OS,Platform,Version,Unit,Variables Value
+allowed_types,EOS,base,baseversion,baseunit,"[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]"
+allowed_types,EXOS,base,baseversion,baseunit,"[1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1]"
+allowed_types,EXOS,X620G2,baseversion,baseunit,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1]"

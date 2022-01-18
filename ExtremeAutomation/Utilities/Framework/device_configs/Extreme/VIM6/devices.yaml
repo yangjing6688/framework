@@ -1,0 +1,23 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+# This file defines the common buses and devices present on VIM6
+# plugin modules
+# All values starting with '_' will be prefixed with the parent device's name,
+# e.g. "vim_1".
+#
+
+# VIM I/O expander
+vim6_pca9506: &VIM6_PCA9506
+  name:             _pca9506
+  compatible:       pca9506
+  bus_alias:        _pca9506_bus
+  address:          0x27
+  regmap_desc:
+    range:          [0x0, 0x24]
+    num_reg_bits:   8
+    num_value_bits: 8

@@ -1,0 +1,64 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+events:
+    events_set_time_span:
+        apis:
+            - [emc,'8.1.1']
+    events_set_event_types:
+        apis:
+            - [emc,'8.1.1']
+    events_click_next_page:
+        apis:
+            - [emc,'8.1.1']
+    events_click_prev_page:
+        apis:
+            - [emc,'8.1.1']
+    events_click_first_page:
+        apis:
+            - [emc,'8.1.1']
+    events_click_last_page:
+        apis:
+            - [emc,'8.1.1']
+    events_click_reset:
+        apis:
+            - [emc,'8.1.1']
+    events_set_column_filter:
+        apis:
+            - [emc,'8.1.1']
+    events_enable_column_filter:
+        apis:
+            - [emc,'8.1.1']
+    events_disable_column_filter:
+        apis:
+            - [emc,'8.1.1']
+    events_clear_column_filter:
+        apis:
+            - [emc,'8.1.1']
+    events_set_table_filter:
+        apis:
+            - [emc,'8.1.1']
+    events_clear_table_filter:
+        apis:
+            - [emc,'8.1.1']
+    events_select_event:
+        apis:
+            - [emc,'8.1.1']
+    events_confirm_event_message_contains:
+        apis:
+            - [emc,'8.1.1']
+    events_confirm_event_exists:
+        apis:
+            - [emc,'8.1.1']
+    events_confirm_event_event:
+        apis:
+            - [emc,'8.1.1']
+    events_confirm_event_event_and_information:
+        apis:
+            - [emc,'8.1.1']
+    events_confirm_event_event_information_and_source:
+        apis:
+            - [emc,'8.1.1']

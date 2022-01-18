@@ -1,0 +1,47 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the buses and devices specific to X695-48Y-8C
+#
+
+buses:
+  - *I2CBUS_0
+  - *I2CBUS_1
+
+devices:
+  - *PCA9546_MB
+  - *ONIE_EEPROM
+  - *LED_CPLD_1
+  - *LED_CPLD_2
+  - *PORT_CPLD_1
+  - *PORT_CPLD_2
+  - *PORT_CPLD_3
+  - *PCA9698_QSFP
+  - *PCA9555_1_MB
+  - *PCA9539_MB
+  - *PCA9535_CPUB
+  - *PCA9546_CPUB
+  - *PCA9555_1_CPUB
+  - *PCA9555_2_CPUB
+#  - *PCA9554_CPUB_ID  # NOTE: see X695/devices.yaml
+  - *PCA9548_SFP_ROOT
+  - *PCA9548_SFP_1_8
+  - *PCA9548_SFP_9_16
+  - *PCA9548_SFP_17_24
+  - *PCA9548_SFP_25_32
+  - *PCA9548_SFP_33_40
+  - *PCA9548_SFP_41_48
+  - *PCA9548_SFP_49_62
+  - *PCA9548_BMC
+  - *SYSTEM_CPLD
+  - *PCA9555_2_MB
+  - *PCA9698_PSU_FAN
+  - *PCA9548_TMPSN
+  - *AMBIENT_0_CPUB_TMPSN
+  - *AMBIENT_2_MGMT_TMPSN
+  - *AMBIENT_4_MB_TMPSN
+  - *SYSTEM_CPLD_MB

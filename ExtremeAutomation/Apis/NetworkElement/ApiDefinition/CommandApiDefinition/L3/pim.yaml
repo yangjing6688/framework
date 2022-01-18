@@ -1,0 +1,238 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+pim:
+    enable:
+        description: "Enable PIM"
+        arguments:
+            order: 
+        uuid: 2ea0a641-0c71-44f1-b414-f118bda2b214
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable pim',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ip pim enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable:
+        description: "Disable PIM"
+        arguments:
+            order: 
+        uuid: 1d82492c-8d8b-42bc-abe6-7e5a4577c68c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable pim',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no ip pim enable',routerConfigPrompt,'None','None','None',[],[]]
+    enable_sparse:
+        description: "Enable PIM Sparse Mode"
+        arguments:
+            order: 
+        uuid: 9aa86d46-68cf-4c13-a466-a93068dbbeb6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure pim add {vlan} {exos_mode}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ip pim mode sparse',routerConfigPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'{ip_ver} pim {mode}',intfPrompt,'{interface}','None','None',[],[]]
+    disable_sparse:
+        description: "Disable PIM Sparse Mode"
+        arguments:
+            order: 
+        uuid: 0df06e63-809b-41ee-a689-9c4a00ae4998
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure pim delete {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'no {ip_ver} pim {mode}',intfPrompt,'{interface}','None','None',[],[]]
+    set_rp:
+        description: "Configures a given device to be a candidate Rendezvous Point"
+        arguments:
+            order: mcast_group_address,mask,ip,interface,acl
+        uuid: dde6ad18-c92d-4adf-ae33-bcc41017c9c2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure pim crp {interface} {acl}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ip pim rp-candidate group {mcast_group_address} {mask} rp {ip}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'ip pim rp-candidate {ip} group-list {acl}',routerConfigPrompt,'None','None','None',[],[]]
+    set_bsr_priority:
+        description: "Configures a candidate bootstrap router priority on an interface"
+        arguments:
+            order: priority,interface,ip
+        uuid: 1f90fadf-b3df-4e1e-930e-4fb774b9a74e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure pim cbsr {interface} {priority}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ip pim bsr-candidate preference {priority}',intfPrompt,'GigabitEthernet {interface}','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'ip pim bsr-candidate {ip} priority {priority}',routerConfigPrompt,'None','None','None',[],[]]
+    enable_interface:
+        description: "Enable PIM on a given interface type"
+        arguments:
+            order: 
+        uuid: 2f125372-eb07-4026-ac07-d8496c900dcb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim enable',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+    enable_interface_vlan:
+        description: "Enable PIM on a given vlan"
+        arguments:
+            order: 
+        uuid: a29ab14c-4118-4b89-8db4-050389320a90
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim enable',intfPrompt,'vlan {vlan}','None','None',[],[]]
+    enable_ssm:
+        description: "Enable PIM SSM"
+        arguments:
+            order: 
+        uuid: dbd29b01-730a-4f46-a94d-be979c9bd715
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim mode ssm||yes',routerConfigPrompt,'None','Do you wish to continue? (y/n) ?','{answer}',[],[]]
+    disable_interface:
+        description: "Disables PIM on a given interface type"
+        arguments:
+            order: 
+        uuid: e0c7f6f0-1156-4df5-99a3-b6485fe02ac3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip pim enable',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+    disable_interface_vlan:
+        description: "Disables PIM on a given vlan"
+        arguments:
+            order: 
+        uuid: f732d752-dd26-4ff5-8b4e-0572215066a0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip pim enable',intfPrompt,'vlan {vlan}','None','None',[],[]]
+    set_bsr_priority_vlan:
+        description: "Configures a candidate bootstrap router priority on a vlan"
+        arguments:
+            order: vlan,priority
+        uuid: 49b462e7-2600-49af-b40a-4ea6e2553b01
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim bsr-candidate preference {priority}',intfPrompt,'vlan {vlan}','None','None',[],[]]
+    set_rp_static:
+        description: "Sets the device to be a static RP which ignores the Boot Strap Router mechanism"
+        arguments:
+            order: 
+        uuid: a079226c-fb18-47e9-bead-fb4118ddcdf8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim static-rp',routerConfigPrompt,'None','Do you wish to enable Static RP? (y/n) ?','{answer}',[],[]]
+    set_interface_active:
+        description: "Set's the PIM interface to active"
+        arguments:
+            order: 
+        uuid: 522a379f-6419-453e-b276-7b22065b4040
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim active',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+    set_interface_passive:
+        description: "Set's the PIM interface to passive"
+        arguments:
+            order: 
+        uuid: d45d3028-1eda-492e-ada7-07139874005b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim passive',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+    set_vlan_active:
+        description: "Set's the PIM vlan to active"
+        arguments:
+            order: 
+        uuid: cb7046f0-a67b-4bd5-97a9-081a45a6c458
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim active',intfPrompt,'vlan {vlan}','None','None',[],[]]
+    set_vlan_passive:
+        description: "Set's the PIM vlan to passive"
+        arguments:
+            order: 
+        uuid: b2f50332-3266-4d74-b2dd-bbe57560c93a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip pim passive',intfPrompt,'vlan {vlan}','None','None',[],[]]
+    clear_rp:
+        description: "Clears the PIM RP"
+        arguments:
+            order: 
+        uuid: f70f48d0-844b-4692-b68a-1e334d3b369f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip pim rp-candidate group {ip} {mask}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_cache:
+        description: "Clears the PIM cache"
+        arguments:
+            order:
+        uuid: bda40a90-b5f8-4229-a94d-bfef85b44422
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear pim cache {mcast_group_address}',userPrompt,'None','None','None',[],[]]
+    show_info:
+        uuid: 7d7c7c2f-adbf-4f15-9f0f-9d0c94a68eb2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show pim',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip pim',userPrompt,'None','None','None',[],[]]
+    show_bsr:
+        uuid: 70d5b5ee-5137-428b-a309-594642ec432b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show pim detail',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip pim bsr',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show ip pim bsr',userPrompt,'None','None','None',[],[]]
+    show_rp:
+        uuid: 455651e9-8084-4043-9781-28474afd9a31
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show configuration pim',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip pim rp-candidate',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'show run pim',userPrompt,'None','None','None',[],[]]
+    show_vlan:
+        uuid: 2ef3a781-aac3-4dd7-b069-6850ac2b63c9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show pim vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip pim interface vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_cache:
+        uuid: 737e512b-ce7c-4a31-99ca-035fd6613083
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show pim cache',userPrompt,'None','None','None',[],[]]
+    show_cache_group:
+        uuid: 297b8551-9f31-47d9-a97e-07f523b89521
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show pim cache {dest_group}',userPrompt,'None','None','None',[],[]]
+    show_rp_set:
+        uuid: b8661a1d-e91f-4036-8dee-e69a2998cf5d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show pim rp-set',userPrompt,'None','None','None',[],[]]
+    show_rp_set_group:
+        uuid: c4d7c570-3988-4fba-8aaa-3fae8467f8b2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show pim rp-set {mcast_group_address}',userPrompt,'None','None','None',[],[]]
+    show_interface:
+        uuid: 9b49883a-3c46-4389-b8c8-dda5c0fffdb2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip pim interface GigabitEthernet {interface}',userPrompt,'None','None','None',[],[]]

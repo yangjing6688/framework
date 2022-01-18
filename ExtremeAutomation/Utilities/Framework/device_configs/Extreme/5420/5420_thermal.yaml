@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on 5420
+#
+
+sensors:
+  - *MB_HOTSPOT_TMPSN
+  - *MB_AMBIENT_TMPSN

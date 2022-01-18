@@ -1,0 +1,4 @@
+graft ExtremeAutomation
+prune ExtremeAutomation/Workspace
+prune ExtremeAutomation/Tests
+prune ExtremeAutomation/Library/Debug

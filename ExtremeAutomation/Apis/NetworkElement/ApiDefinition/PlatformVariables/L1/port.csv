@@ -1,0 +1,22 @@
+Feature,port,,,,
+Variable Name,OS,Platform,Version,Unit,Variables Value
+maximum_untagged_length,EOS,base,baseversion,baseunit,1518
+maximum_untagged_length_plus_1,EOS,base,baseversion,baseunit,1519
+minimum_tagged_length,EOS,base,baseversion,baseunit,64
+maximum_tagged_length,EOS,base,baseversion,baseunit,1522
+maximum_tagged_length_plus_1,EOS,base,baseversion,baseunit,1523
+max_s_tag_length,EOS,base,baseversion,baseunit,1522
+jumbo_max_length_untagged,EOS,base,baseversion,baseunit,10239
+jumbo_max_length_untagged_plus_1,EOS,base,baseversion,baseunit,10240
+jumbo_max_length_tagged,EOS,base,baseversion,baseunit,10243
+jumbo_max_length_tagged_plus_1,EOS,base,baseversion,baseunit,10244
+maximum_untagged_length,EXOS,base,baseversion,baseunit,1518
+maximum_untagged_length_plus_1,EXOS,base,baseversion,baseunit,1519
+minimum_tagged_length,EXOS,base,baseversion,baseunit,64
+maximum_tagged_length,EXOS,base,baseversion,baseunit,1522
+maximum_tagged_length_plus_1,EXOS,base,baseversion,baseunit,1523
+max_s_tag_length,EXOS,base,baseversion,baseunit,1518
+jumbo_max_length_untagged,EXOS,base,baseversion,baseunit,9220
+jumbo_max_length_untagged_plus_1,EXOS,base,baseversion,baseunit,9221
+jumbo_max_length_tagged,EXOS,base,baseversion,baseunit,9220
+jumbo_max_length_tagged_plus_1,EXOS,base,baseversion,baseunit,9221

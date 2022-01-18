@@ -1,0 +1,46 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimiotuserdevices:
+    dev_sel_ot_devices:
+        apis:
+            - [gim,'8.2.3']
+    dev_add_mac_devices:
+        apis:
+            - [gim,'8.2.3']
+    dev_select_device_type:
+        apis:
+            - [gim,'8.2.3']
+    dev_verify_device_added:
+        apis:
+            - [gim,'8.2.3']
+    dev_navigate_device_types:
+        apis:
+            - [gim,'8.2.3']
+    dev_verify_default_selected_device_types:
+        apis:
+            - [gim,'8.2.3']
+    dev_create_device_using_self_provisioner:
+        apis:
+            - [gim,'8.2.3']
+    dev_de_select_device_type:
+        apis:
+            - [gim,'8.2.3']
+    dev_verify_only_selected_device_type_in_drop_down:
+        apis:
+            - [gim,'8.2.3']
+    dev_create_dev_validate_acc_validity:
+        apis:
+            - [gim,'8.2.3']
+    dev_locale_register_devices:
+        apis:
+            - [gim,'8.2.3']
+    dev_locale_error_success_validation:
+        apis:
+            - [gim,'8.2.3']
+    dev_create_accessible_to_prov_options:
+        apis:
+            - [gim,'8.2.3']

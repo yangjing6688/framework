@@ -1,0 +1,36 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+handle,"Allows the user to optionally select the groups to which the specified
+action is to be applied. If this parameter is not specified, then the
+specified action is applied to all groups configured on the port
+specified by the -port_handle command. The handle is obtained from the
+keyed list returned in the call to emulation_vxlan_config proc. The port
+handle parameter must have been initialized and vxlan group emulation
+must have been configured prior to calling this function.
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+action,"Action to take on the specified handle. The parameters specified in the
+emulation_vxlan_config proc are used to control the bind/renew/release
+rates.
+Valid options are:
+start
+	
+Start the protocol for the specified handle.
+stop
+	
+Stop the protocol for the specified handle
+abort
+	
+Aborts the VXLAN sessions for a VXLAN emulation. The command returns
+when the operation is completed. This option is valid only using
+IxTclNetwork.
+abort_async
+	
+Aborts the VXLAN sessions for a VXLAN emulation. The command returns
+immediately and the operation is executed in the backgronud. This option
+is valid only using IxTclNetwork.
+restart_down
+	
+Restart the sessions that are down.
+DEFAULT
+	
+start",opt,"abort,abort_async,restart_down,start,stop",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

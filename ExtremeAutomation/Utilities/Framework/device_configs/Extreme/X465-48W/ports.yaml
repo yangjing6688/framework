@@ -1,0 +1,287 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for X465-48W
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+   - name: 1
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 2
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 3
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 4
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 5
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 6
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 7
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 8
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 9
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 10
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 11
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 12
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 13
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 14
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 15
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 16
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 17
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 18
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 19
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 20
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 21
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 22
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 23
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 24
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 25
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 26
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 27
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 28
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 29
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 30
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 31
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 32
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 33
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 34
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 35
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 36
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 37
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 38
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 39
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 40
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 41
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 42
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 43
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 44
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 45
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 46
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 47
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 48
+     <<: *1G_POE_PORT
+     PoePlusPlus: true
+     PoeBT: true
+
+   - name: 49
+     <<: *40G_PARTITION_PORT
+     autoneg1G : false
+
+   - name: 50
+     <<: *10G_PORT
+     autoneg1G : false
+
+   - name: 51
+     <<: *10G_PORT
+     autoneg1G : false
+
+   - name: 52
+     <<: *10G_PORT
+     autoneg1G : false
+
+   - name: 53
+     <<: *40G_PARTITION_PORT
+
+   - name: 54
+     <<: *10G_PORT
+
+   - name: 55
+     <<: *10G_PORT
+
+   - name: 56
+     <<: *10G_PORT
+
+   - name: 121
+     <<: *STACKING_PORT_1
+
+   - name: 125
+     <<: *STACKING_PORT_2

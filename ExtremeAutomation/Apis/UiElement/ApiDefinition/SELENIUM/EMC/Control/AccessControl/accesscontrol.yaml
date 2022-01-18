@@ -1,0 +1,25 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+accesscontrol:
+    access_control_click_tree_panel:
+        apis:
+            - [emc,'8.1.3||8.4.0']
+    access_control_expand_node:
+        apis:
+            - [emc,'8.1.3||8.4.0']
+    access_control_select_node:
+        apis:
+            - [emc,'8.1.3||8.4.0']
+    access_control_collapse_node:
+        apis:
+            - [emc,'8.1.3||8.4.0']
+    access_control_enforce_all:
+        apis:
+            - [emc,'8.1.3']
+    access_control_click_refresh_button:
+        apis:
+            - [emc,'8.2.3']

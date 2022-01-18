@@ -1,0 +1,3629 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AP &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xiqconfigure.html"><strong>CONFIGURE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmanage.html"><strong>MANAGE</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqa3.html"><strong>A3</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqcommon.html"><strong>COMMON FLOWS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqglobalsettings.html"><strong>GLOBAL SETTINGS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqmlinsights.html"><strong>MLINSIGHTS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonlib.html"><strong>COMMON LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="remotelib.html"><strong>REMOTE LIBRARIES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqsenetwork.html"><strong>XIQSE NETWORK</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqseadmin.html"><strong>XIQSE ADMIN</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="xiqsecommon.html"><strong>XIQSE COMMON</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>AP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/common.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="_images/extreme_logo.png"><img alt="alternate text" class="align-right" src="_images/extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-common.Ap">
+<span id="ap"></span><h1>AP<a class="headerlink" href="#module-common.Ap" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Ap.Ap">
+<em class="property">class </em><code class="sig-prename descclassname">common.Ap.</code><code class="sig-name descname">Ap</code><a class="headerlink" href="#common.Ap.Ap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Ap.Ap.access_ap_root_prompt">
+<code class="sig-name descname">access_ap_root_prompt</code><span class="sig-paren">(</span><em class="sig-param">ap_spawn</em>, <em class="sig-param">ap_mac</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Ap.Ap.access_ap_root_prompt" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will Get Wing AP Root Prompt</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Access</span> <span class="pre">AP</span> <span class="pre">Root</span> <span class="pre">Prompt</span>&#160;&#160;&#160; <span class="pre">${AP_SPAWN}</span>&#160;&#160; <span class="pre">${AP_MAC}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ap_spawn</strong> – AP Spawn to Open Console</p></li>
+<li><p><strong>ap_mac</strong> – AP Mac Address</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if Wing AP root Prompt Access Successful</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Ap.Ap.get_ap_last_root_password">
+<code class="sig-name descname">get_ap_last_root_password</code><span class="sig-paren">(</span><em class="sig-param">ap_spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Ap.Ap.get_ap_last_root_password" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will Get Wing AP Last used Root Password</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">AP</span> <span class="pre">Last</span> <span class="pre">Root</span> <span class="pre">Password</span>&#160;&#160;&#160; <span class="pre">${AP_SPAWN}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ap_spawn</strong> – AP Spawn to Open Console</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last used Password of Wing AP else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Ap.Ap.load_cloud_certificate_on_ap">
+<code class="sig-name descname">load_cloud_certificate_on_ap</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">mac</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Ap.Ap.load_cloud_certificate_on_ap" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Load Cloud Certificate on Access Point</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Load</span> <span class="pre">Cloud</span> <span class="pre">Certificate</span> <span class="pre">On</span> <span class="pre">AP</span>&#160;&#160;&#160; <span class="pre">${AP_SPAWN}</span>&#160;&#160; <span class="pre">${MAC_ADDRESS}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – AP Spawn to Open Console</p></li>
+<li><p><strong>mac</strong> – Wing AP Mac Address</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Ap.Ap.send_command_to_ap_root">
+<code class="sig-name descname">send_command_to_ap_root</code><span class="sig-paren">(</span><em class="sig-param">ap_spawn</em>, <em class="sig-param">ap_mac</em>, <em class="sig-param">command</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Ap.Ap.send_command_to_ap_root" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will uses to send CLI Command to Win g AP</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Command</span> <span class="pre">To</span> <span class="pre">AP</span> <span class="pre">Root</span>&#160;&#160;&#160; <span class="pre">${AP_SPAWN}</span>&#160;&#160; <span class="pre">${AP_MAC}</span>&#160;&#160; <span class="pre">${CLI_COMMAND}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ap_spawn</strong> – AP Spawn to Open Console</p></li>
+<li><p><strong>ap_mac</strong> – AP Mac Address</p></li>
+<li><p><strong>command</strong> – Wing AP CLI Command</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wing AP CLI command Output</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.AutoActions">
+<span id="autoactions"></span><h1>AutoActions<a class="headerlink" href="#module-common.AutoActions" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.AutoActions.AutoActions">
+<em class="property">class </em><code class="sig-prename descclassname">common.AutoActions.</code><code class="sig-name descname">AutoActions</code><a class="headerlink" href="#common.AutoActions.AutoActions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.center_element">
+<code class="sig-name descname">center_element</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.center_element" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.click">
+<code class="sig-name descname">click</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.click" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to Click the Mentioned Web Element</p></li>
+<li><p>If the Element is not visible into view it Scroll element into view and Scroll down into page to click Element</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – Web Element to Click on Web Page</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.click_and_hold_element">
+<code class="sig-name descname">click_and_hold_element</code><span class="sig-paren">(</span><em class="sig-param">source_el</em>, <em class="sig-param">offset_value=40</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.click_and_hold_element" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Click and hold the element</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_el</strong> – source element</p></li>
+<li><p><strong>offset_value</strong> – offset value</p></li>
+</ul>
+</dd>
+</dl>
+<p>:return:if Element Click and Hold successful else -1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.click_image">
+<code class="sig-name descname">click_image</code><span class="sig-paren">(</span><em class="sig-param">position</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.click_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.disable_check_box">
+<code class="sig-name descname">disable_check_box</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.disable_check_box" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Disable the check box</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – check box locator element</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.disable_radio_button">
+<code class="sig-name descname">disable_radio_button</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.disable_radio_button" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to Disable Radio Button.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – Radio Button locator element</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.double_click">
+<code class="sig-name descname">double_click</code><span class="sig-paren">(</span><em class="sig-param">source_el</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.double_click" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Double click the element</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>source_el</strong> – source element</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.drag_and_drop_element">
+<code class="sig-name descname">drag_and_drop_element</code><span class="sig-paren">(</span><em class="sig-param">source_el</em>, <em class="sig-param">target_el</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.drag_and_drop_element" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Drag and drop the element from Source Element to Target Element</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_el</strong> – source element</p></li>
+<li><p><strong>target_el</strong> – target element</p></li>
+</ul>
+</dd>
+</dl>
+<p>:return:1 if Element Drag and Drag successful else -1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.enable_check_box">
+<code class="sig-name descname">enable_check_box</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.enable_check_box" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Enable the check box</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – check box locator element</p>
+</dd>
+</dl>
+<p>:return:None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.enable_radio_button">
+<code class="sig-name descname">enable_radio_button</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.enable_radio_button" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to Enable Radio Button.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – Radio Button locator element</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.move_to_element">
+<code class="sig-name descname">move_to_element</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.move_to_element" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to Move the Mentioned Web Element using Mouse Actions</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – Web Element to Move the Mouse Cursor on Web Page</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.right_click">
+<code class="sig-name descname">right_click</code><span class="sig-paren">(</span><em class="sig-param">source_el</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.right_click" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Right click (context click) the element</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>source_el</strong> – source element</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.scroll_by">
+<code class="sig-name descname">scroll_by</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.scroll_by" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to Scroll the page by 250 pixels y-coordinate</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.scroll_down">
+<code class="sig-name descname">scroll_down</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.scroll_down" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to Scroll Down the page.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.scroll_up">
+<code class="sig-name descname">scroll_up</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.scroll_up" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to Scroll Up the page.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.select_drop_down_options">
+<code class="sig-name descname">select_drop_down_options</code><span class="sig-paren">(</span><em class="sig-param">options</em>, <em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.select_drop_down_options" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Select the item from the drop down options</p></li>
+<li><p>loop over the options and compare the text with item to be selected.</p></li>
+<li><p>if item text present in options select that item element</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>options</strong> – list of options</p></li>
+<li><p><strong>item</strong> – element to be select based on item string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if selected else None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.select_options">
+<code class="sig-name descname">select_options</code><span class="sig-paren">(</span><em class="sig-param">element</em>, <em class="sig-param">item</em>, <em class="sig-param">by='value'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.select_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select the available options from drop down
+:param element:
+:param by:
+:param item:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.select_radio_button">
+<code class="sig-name descname">select_radio_button</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.select_radio_button" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>select the radio button</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – radio button element</p>
+</dd>
+</dl>
+<p>:return:None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.select_table_range">
+<code class="sig-name descname">select_table_range</code><span class="sig-paren">(</span><em class="sig-param">start_row</em>, <em class="sig-param">end_row</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.select_table_range" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Selects a range in the table by clicking the first row, holding Shift, and clicking the last row.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_row</strong> – first row to select in the range</p></li>
+<li><p><strong>end_row</strong> – last row to select in the range</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if action was successful, else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.send_enter">
+<code class="sig-name descname">send_enter</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.send_enter" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to press enter Key on Web Page from mentioned Web Element</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – Web Element To enter Send Key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.send_keys">
+<code class="sig-name descname">send_keys</code><span class="sig-paren">(</span><em class="sig-param">element</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.send_keys" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to Send Clear the Text Area and Input the Mentioned Value on Text Field Web Element.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>element</strong> – Web Element To enter Text Field</p></li>
+<li><p><strong>value</strong> – Element Text Field Value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.AutoActions.AutoActions.send_page_down">
+<code class="sig-name descname">send_page_down</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.AutoActions.AutoActions.send_page_down" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Uses to press Page down Key on Web Page from mentioned Web Element</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>element</strong> – Web Element To enter Page Down Key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.Cli">
+<span id="cli"></span><h1>Cli<a class="headerlink" href="#module-common.Cli" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Cli.Cli">
+<em class="property">class </em><code class="sig-prename descclassname">common.Cli.</code><code class="sig-name descname">Cli</code><a class="headerlink" href="#common.Cli.Cli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Cli.Cli.capwap_ap_on_off">
+<code class="sig-name descname">capwap_ap_on_off</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">usr</em>, <em class="sig-param">passwd</em>, <em class="sig-param">mode</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.capwap_ap_on_off" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will enable/disable capwap mode</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Capwap</span> <span class="pre">AP</span> <span class="pre">On</span> <span class="pre">Off</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – IP Address of AP</p></li>
+<li><p><strong>usr</strong> – user name</p></li>
+<li><p><strong>passwd</strong> – Password</p></li>
+<li><p><strong>mode</strong> – Either on/off</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.clear_ssh_host_key">
+<code class="sig-name descname">clear_ssh_host_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.clear_ssh_host_key" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will clear the SSH key</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">ssh</span> <span class="pre">host</span> <span class="pre">key</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.close_netmiko_spawn">
+<code class="sig-name descname">close_netmiko_spawn</code><span class="sig-paren">(</span><em class="sig-param">spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.close_netmiko_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Closing netmiko spawn object</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">Netmiko</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${SPAWN}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spawn</strong> – netmiko spawn</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns -1 if there is any exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.close_paramiko_spawn">
+<code class="sig-name descname">close_paramiko_spawn</code><span class="sig-paren">(</span><em class="sig-param">spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.close_paramiko_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Closing paramiko spawn object</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">Paramiko</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${SPAWN}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spawn</strong> – paramiko spawn</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns -1 if there is any exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.close_pxssh_spawn">
+<code class="sig-name descname">close_pxssh_spawn</code><span class="sig-paren">(</span><em class="sig-param">pxssh_spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.close_pxssh_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Closes a pxssh spawn</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">Pxssh</span> <span class="pre">Spawn</span>&#160; <span class="pre">${PXSSH_SPAWN}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pxssh_spawn</strong> – pxssh spawn to close</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>-1 in case of error else 1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.close_spawn">
+<code class="sig-name descname">close_spawn</code><span class="sig-paren">(</span><em class="sig-param">spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.close_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Closes a device spawn</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">Spawn</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spawn</strong> – device spawn</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if device spawn closed successfully else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.download_firmware_on_exos">
+<code class="sig-name descname">download_firmware_on_exos</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">image_url</em>, <em class="sig-param">vr_name</em>, <em class="sig-param">time_out=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.download_firmware_on_exos" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method downloads the firmware on EXOS Switch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – spawn to exos switch</p></li>
+<li><p><strong>image_url</strong> – image location url to load exos switch with.</p></li>
+<li><p><strong>vr_name</strong> – vr_name on exos switch</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.exec_shell_command">
+<code class="sig-name descname">exec_shell_command</code><span class="sig-paren">(</span><em class="sig-param">exec_shell_command</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.exec_shell_command" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Executes a shell command</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Exec</span> <span class="pre">Shell</span> <span class="pre">Command</span>&#160; <span class="pre">${SHELL_COMMAND}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exec_shell_command</strong> – Any shell command</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>output of the command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.get_ap_version">
+<code class="sig-name descname">get_ap_version</code><span class="sig-paren">(</span><em class="sig-param">spawn=None</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.get_ap_version" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This method returns the AP HiveOs version</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">AP</span> <span class="pre">Version</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spawn</strong> – spawn to AP</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the version if success else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.get_mac_hostname">
+<code class="sig-name descname">get_mac_hostname</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">userid</em>, <em class="sig-param">passwd</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.get_mac_hostname" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will get the Host Name of Mac book</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">MAC</span> <span class="pre">Hostname</span>&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">{PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – IP Address of MAC book</p></li>
+<li><p><strong>userid</strong> – username of MAC book</p></li>
+<li><p><strong>passwd</strong> – Password of MAC book</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Host Name of mac book</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.get_platform">
+<code class="sig-name descname">get_platform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.get_platform" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets the Device Platform and assign it to self.dut_platform.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Platform</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>platform - DUT platform wing, identify, aerohive or linux</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.get_thput_value">
+<code class="sig-name descname">get_thput_value</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">cli_spawn</em>, <em class="sig-param">server_spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.get_thput_value" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the throughput value from and to air</p></li>
+<li><p>Keyword Usage:
+- <code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Thput</span> <span class="pre">Value</span>&#160;&#160; <span class="pre">${IP}</span>&#160;&#160;&#160; <span class="pre">${CLI_SPAWN}</span>&#160;&#160; <span class="pre">${SERVER_SPAWN}</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – IP address</p></li>
+<li><p><strong>cli_spawn</strong> – CLI Spawn</p></li>
+<li><p><strong>server_spawn</strong> – Server Spawn</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>server command output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.httping_from">
+<code class="sig-name descname">httping_from</code><span class="sig-paren">(</span><em class="sig-param">_spawn</em>, <em class="sig-param">destination</em>, <em class="sig-param">count=3</em>, <em class="sig-param">timeout=5</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.httping_from" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This method pings from the spawn to the destination.</p></li>
+<li><p>default count is 3</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Httping</span> <span class="pre">From</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${DESTINATION_IP}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Httping</span> <span class="pre">From</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${DESTINATION_IP}</span>&#160;&#160; <span class="pre">count=10</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Httping</span> <span class="pre">From</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${DESTINATION_IP}</span>&#160;&#160; <span class="pre">count=10</span>&#160;&#160; <span class="pre">timeout=10</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_spawn</strong> – spawn of DUT/host from where ping should start</p></li>
+<li><p><strong>destination</strong> – IP or host name</p></li>
+<li><p><strong>count</strong> – Number of ping requests. Default is 3</p></li>
+<li><p><strong>timeout</strong> – Timeout for the HTTP ping. Default is 5 seconds</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if 0 packet loss else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.mac_wifi_connection">
+<code class="sig-name descname">mac_wifi_connection</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">usr</em>, <em class="sig-param">passwd</em>, <em class="sig-param">ssid</em>, <em class="sig-param">ssid_pass='badpassword20*rd'</em>, <em class="sig-param">wifi_port='en1'</em>, <em class="sig-param">mode='pass'</em>, <em class="sig-param">ntimes=1</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.mac_wifi_connection" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will establish WiFi Connection in MAC PC/Laptop</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mac_wifi_connection</span>&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">{PASSWORD}</span>&#160; <span class="pre">${SSID}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mac_wifi_connection</span>&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">{PASSWORD}</span>&#160; <span class="pre">${SSID}</span>&#160; <span class="pre">ssid_pass=${SSID_PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – IP Address of MAC book</p></li>
+<li><p><strong>usr</strong> – username of MAC book</p></li>
+<li><p><strong>passwd</strong> – Password of MAC book</p></li>
+<li><p><strong>ssid</strong> – WiFI SSID</p></li>
+<li><p><strong>ssid_pass</strong> – ssid Password</p></li>
+<li><p><strong>wifi_port</strong> – WiFi interface</p></li>
+<li><p><strong>mode</strong> – WiFi Mode</p></li>
+<li><p><strong>ntimes</strong> – No.of times to try to establish the WiFi Connections</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.netmiko_close">
+<code class="sig-name descname">netmiko_close</code><span class="sig-paren">(</span><em class="sig-param">spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.netmiko_close" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Closes a netmiko spawn</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Netmiko</span> <span class="pre">Close</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spawn</strong> – netmiko spawn</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>-1 in case of error else 1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.netmiko_send_cfg_cmd">
+<code class="sig-name descname">netmiko_send_cfg_cmd</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">config_commands</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.netmiko_send_cfg_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Send the commands for configuring</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Netmiko</span> <span class="pre">Send</span> <span class="pre">Cfg</span> <span class="pre">Cmd</span>&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMANDS_LIST}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – netmiko spawn</p></li>
+<li><p><strong>config_commands</strong> – command to send</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>-1 in case of error else output of command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.netmiko_send_en_command">
+<code class="sig-name descname">netmiko_send_en_command</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">command</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.netmiko_send_en_command" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Sending command to spawn obj(specifically show commands of wings)</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Netmiko</span> <span class="pre">Send</span> <span class="pre">En</span> <span class="pre">Command</span>&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – netmiko spawn</p></li>
+<li><p><strong>command</strong> – command to send</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>-1 in case of error else output of command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.netmiko_send_timing_command">
+<code class="sig-name descname">netmiko_send_timing_command</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">cmd</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.netmiko_send_timing_command" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Sends command to spawn</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">netmiko</span> <span class="pre">send</span> <span class="pre">timing</span> <span class="pre">command</span>&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – netmiko spawn</p></li>
+<li><p><strong>cmd</strong> – command</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>output of command if successful else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.netmiko_ssh_spawn">
+<code class="sig-name descname">netmiko_ssh_spawn</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.netmiko_ssh_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Creating spawn object, This will work only for extreme wing</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">netmiko</span> <span class="pre">ssh</span> <span class="pre">spawn</span>&#160; <span class="pre">${SPAWN_DICTIONARY_PARAMETERS}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – host, username, password</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns spawn else the exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_aerohive_ap_spawn">
+<code class="sig-name descname">open_aerohive_ap_spawn</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">port</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">ssh</em>, <em class="sig-param">conn_str</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_aerohive_ap_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to access Aerohive AP Spawn Using IP, Port,user name and password and Connection String</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Aerohive</span> <span class="pre">AP</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${PORT}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Aerohive</span> <span class="pre">AP</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${IP}</span>&#160; <span class="pre">${PORT}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span>&#160;&#160; <span class="pre">ssh</span>&#160; <span class="pre">${CONNECTION_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – IP Address of Aerohive AP</p></li>
+<li><p><strong>port</strong> – Port Number of Aerohive AP</p></li>
+<li><p><strong>username</strong> – User Name of Aerohive AP</p></li>
+<li><p><strong>password</strong> – Password of Aerohive AP</p></li>
+<li><p><strong>ssh</strong> – to set ssh flag is true</p></li>
+<li><p><strong>conn_str</strong> – Connection String of Aerohive AP with IP and port string combination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Device Spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_aerohive_switch_spawn">
+<code class="sig-name descname">open_aerohive_switch_spawn</code><span class="sig-paren">(</span><em class="sig-param">conn_str</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_aerohive_switch_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to access Aerohive Switch Spawn Using Connection String, user name and password</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Aerohive</span> <span class="pre">Switch</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn_str</strong> – Connection String ie telnet &lt;ip&gt;  &lt;Port&gt;</p></li>
+<li><p><strong>username</strong> – User Name for spawn access</p></li>
+<li><p><strong>password</strong> – Password for spawn access</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Device Spawn to execute CLI commands</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_exos_switch_spawn">
+<code class="sig-name descname">open_exos_switch_spawn</code><span class="sig-paren">(</span><em class="sig-param">conn_str</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">ssh</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_exos_switch_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will Open EXOS Switch spawn object</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Exos</span> <span class="pre">Switch</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Exos</span> <span class="pre">Switch</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span>&#160; <span class="pre">{SSH_FLAG}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – IP/Host of EXOS Switch</p></li>
+<li><p><strong>username</strong> – username of EXOS Switch</p></li>
+<li><p><strong>password</strong> – Password of EXOS Switch</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>EXOS Switch Device Spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_fastpath_switch_spawn">
+<code class="sig-name descname">open_fastpath_switch_spawn</code><span class="sig-paren">(</span><em class="sig-param">conn_str</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_fastpath_switch_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to access Aerohive Fastpath Switch Spawn Using Connection String, user name and password</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Fastpath</span> <span class="pre">Switch</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn_str</strong> – Connection String ie telnet &lt;ip&gt;  &lt;Port&gt;</p></li>
+<li><p><strong>username</strong> – User Name for spawn access</p></li>
+<li><p><strong>password</strong> – Password for spawn access</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Device Spawn to execute CLI commands</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_paramiko_ssh_spawn">
+<code class="sig-name descname">open_paramiko_ssh_spawn</code><span class="sig-paren">(</span><em class="sig-param">host</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">port=22</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_paramiko_ssh_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Creating ssh spawn object</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Paramiko</span> <span class="pre">SSH</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${HOST}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – IP or host name of DUT</p></li>
+<li><p><strong>username</strong> – username to access Spawn</p></li>
+<li><p><strong>password</strong> – password to access Spawn</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns spawn else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_pxssh_spawn">
+<code class="sig-name descname">open_pxssh_spawn</code><span class="sig-paren">(</span><em class="sig-param">host</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">_port=22</em>, <em class="sig-param">prompt_reset=False</em>, <em class="sig-param">disable_strict_host_key_checking=False</em>, <em class="sig-param">sync_multiplier=5</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_pxssh_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Opens a pxssh spawn</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Openpxssh</span> <span class="pre">Spawn</span>&#160; <span class="pre">${HOST_NAME}</span>&#160; <span class="pre">${USER_NAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Openpxssh</span> <span class="pre">Spawn</span>&#160; <span class="pre">${HOST_NAME}</span>&#160; <span class="pre">${USER_NAME}</span>&#160; <span class="pre">${PASSWORD}</span>&#160;&#160; <span class="pre">disable_strict_host_key_checking=True</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – IP or host name</p></li>
+<li><p><strong>username</strong> – username of host</p></li>
+<li><p><strong>password</strong> – password of host</p></li>
+<li><p><strong>_port</strong> – port number</p></li>
+<li><p><strong>prompt_reset</strong> – prompt reset boolean</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>:param disable_strict_host_key_checking<span class="classifier">Either True/False .Based on these two flags it will Changes</span></dt><dd><p>strict_host_key_checking value of ssh_config on server.
+By default(False) server will check ssh key of the device on remote host.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sync_multiplier</strong> – sync_multiplier</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if 0 packet loss else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_spawn">
+<code class="sig-name descname">open_spawn</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">port</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">platform</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to access device/host Prompt Using IP Address,port number, username,password and Platform</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${IP}</span>&#160;&#160; <span class="pre">${PORT}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span>&#160;&#160; <span class="pre">${PLATFORM}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – Device IP address</p></li>
+<li><p><strong>port</strong> – port number for spawn access</p></li>
+<li><p><strong>username</strong> – User Name for spawn access</p></li>
+<li><p><strong>password</strong> – Password for spawn access</p></li>
+<li><p><strong>platform</strong> – Device/Host Platform ie Win,Linux,aerohive,wing etc</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Device Prompt</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_ssh_spawn">
+<code class="sig-name descname">open_ssh_spawn</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">port='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_ssh_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to access device/host ssh Using IP Address,username,password and port number</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">SSH</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${IP}</span>&#160;&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">SSH</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${IP}</span>&#160;&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span>&#160;&#160; <span class="pre">port=22</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – SSH spawn IP address</p></li>
+<li><p><strong>username</strong> – User Name for ssh access</p></li>
+<li><p><strong>password</strong> – Password for ssh access</p></li>
+<li><p><strong>port</strong> – port number for ssh access</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Device or Host SSH Spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_voss_spawn">
+<code class="sig-name descname">open_voss_spawn</code><span class="sig-paren">(</span><em class="sig-param">conn_str</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_voss_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will Open VOSS Switch spawn object</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Voss</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn_str</strong> – Connection String</p></li>
+<li><p><strong>username</strong> – username of VOSS Switch</p></li>
+<li><p><strong>password</strong> – Password of VOSS Switch</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Voss Switch Spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_windows_spawn">
+<code class="sig-name descname">open_windows_spawn</code><span class="sig-paren">(</span><em class="sig-param">conn_str</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_windows_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to access Windows Host Spawn Using Connection String, user name and password</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Windows</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn_str</strong> – Connection String of Windows Host with IP and port string combination</p></li>
+<li><p><strong>username</strong> – User Name of Windows host to access</p></li>
+<li><p><strong>password</strong> – Password of Windows host to access</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Windows host Spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_wing_ap_spawn">
+<code class="sig-name descname">open_wing_ap_spawn</code><span class="sig-paren">(</span><em class="sig-param">conn_str</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">ssh</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_wing_ap_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to access Wing AP Spawn Using Connection String,user name and password.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Wing</span> <span class="pre">AP</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Wing</span> <span class="pre">AP</span> <span class="pre">Spawn</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span>&#160; <span class="pre">ssh</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn_str</strong> – Connection String of Wing AP with IP and port string combination</p></li>
+<li><p><strong>username</strong> – User Name of Wing AP</p></li>
+<li><p><strong>password</strong> – Password of Wing AP</p></li>
+<li><p><strong>ssh</strong> – to set ssh flag is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wing Device Spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_wing_spawn">
+<code class="sig-name descname">open_wing_spawn</code><span class="sig-paren">(</span><em class="sig-param">host</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_wing_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Open Wing spawn object using PXSSH</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Wing</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${HOST}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – IP/Host of WING AP</p></li>
+<li><p><strong>username</strong> – username</p></li>
+<li><p><strong>password</strong> – Password</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wing Device Spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.open_xiqse_spawn">
+<code class="sig-name descname">open_xiqse_spawn</code><span class="sig-paren">(</span><em class="sig-param">conn_str</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.open_xiqse_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will Open XIQ SE spawn object</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">open</span> <span class="pre">xiqse</span> <span class="pre">spawn</span>&#160;&#160; <span class="pre">${CONNECTION_STRING}</span>&#160; <span class="pre">${USERNAME}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn_str</strong> – Connection String</p></li>
+<li><p><strong>username</strong> – username of xiqse</p></li>
+<li><p><strong>password</strong> – Password of xiqse</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>xiqse Spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.ping_from">
+<code class="sig-name descname">ping_from</code><span class="sig-paren">(</span><em class="sig-param">destination</em>, <em class="sig-param">count=3</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.ping_from" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This method pings from the script host to the destination.</p></li>
+<li><p>default count is 3</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ping</span> <span class="pre">From</span>&#160;&#160;&#160;&#160; <span class="pre">${DESTINATION_IP}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ping</span> <span class="pre">From</span>&#160;&#160;&#160;&#160; <span class="pre">${DESTINATION_IP}</span>&#160; <span class="pre">count=10</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destination</strong> – IP or host name</p></li>
+<li><p><strong>count</strong> – Number of ping requests. Default is 3</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if 0 packet loss else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.ping_from_spawn">
+<code class="sig-name descname">ping_from_spawn</code><span class="sig-paren">(</span><em class="sig-param">_spawn</em>, <em class="sig-param">destination</em>, <em class="sig-param">count=3</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.ping_from_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This method pings from the spawn to the destination.</p></li>
+<li><p>default count is 3</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ping</span> <span class="pre">From</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${DESTINATION_IP}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ping</span> <span class="pre">From</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${DESTINATION_IP}</span>&#160;&#160; <span class="pre">count=10</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_spawn</strong> – spawn of DUT/host from where ping should start</p></li>
+<li><p><strong>destination</strong> – IP or host name</p></li>
+<li><p><strong>count</strong> – Number of ping requests. Default is 3</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if 0 packet loss else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.reboot_switch">
+<code class="sig-name descname">reboot_switch</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">expected_output</em>, <em class="sig-param">option</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.reboot_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This Keyword will reboot the switch
+- Keyword Usage:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Reboot</span> <span class="pre">Switch</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${EXPECTED_OUTPUT}</span>&#160; <span class="pre">${OPTION}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – Switch Spawn</p></li>
+<li><p><strong>expected_output</strong> – Expected Output</p></li>
+<li><p><strong>option</strong> – Option</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if Switch Rebooted Successfully else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.send">
+<code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">line</em>, <em class="sig-param">expect_match='default'</em>, <em class="sig-param">time_out='default'</em>, <em class="sig-param">platform='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.send" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to send CLI command to AP1 of Topology used to configure or Monitor</p></li>
+<li><p>Default timeout is 90 seconds</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Command</span> <span class="pre">To</span> <span class="pre">AP1</span>&#160;&#160;&#160;&#160; <span class="pre">${COMMAND}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – Device Spawn to execute command</p></li>
+<li><p><strong>line</strong> – CLI command to be execute</p></li>
+<li><p><strong>expect_match</strong> – Expected Prompt Match</p></li>
+<li><p><strong>time_out</strong> – Timeout</p></li>
+<li><p><strong>platform</strong> – Device/Host Platform</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>CLI Command Output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.send_command_to_ap1">
+<code class="sig-name descname">send_command_to_ap1</code><span class="sig-paren">(</span><em class="sig-param">command</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.send_command_to_ap1" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword used to send CLI command to AP1 of Topology used to configure or Monitor</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Command</span> <span class="pre">To</span> <span class="pre">AP1</span>&#160;&#160;&#160;&#160; <span class="pre">${COMMAND}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> – CLI command to be execute on AP1</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>CLI Command Output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.send_commands">
+<code class="sig-name descname">send_commands</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">commands_list</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.send_commands" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Sends multiple commands separated by a “,”</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Commands</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND_LIST}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – spawn of DUT/host</p></li>
+<li><p><strong>commands_list</strong> – list of DUT/Lunux commands separated by comma</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>output of the command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.send_paramiko_cmd">
+<code class="sig-name descname">send_paramiko_cmd</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">cmd</em>, <em class="sig-param">timeout=10</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.send_paramiko_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Execute the commands on ssh spawn</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Paramiko</span> <span class="pre">Cmd</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Paramiko</span> <span class="pre">Cmd</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND}</span>&#160; <span class="pre">timeout=${TIMEOUT_VALUE}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – Paramiko spawn</p></li>
+<li><p><strong>cmd</strong> – command to send</p></li>
+<li><p><strong>timeout</strong> – command timeout</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>-1 in case of error else output of command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.send_pxssh">
+<code class="sig-name descname">send_pxssh</code><span class="sig-paren">(</span><em class="sig-param">pxssh_spawn</em>, <em class="sig-param">command</em>, <em class="sig-param">timeout=3</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.send_pxssh" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Sends a command to pxssh spawn</p></li>
+<li><p>Default Timeout value is 3 seconds</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Pxssh</span>&#160; <span class="pre">${PXSSH_SPAWN}</span>&#160; <span class="pre">${COMMAND}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Pxssh</span>&#160; <span class="pre">${PXSSH_SPAWN}</span>&#160; <span class="pre">${COMMAND}</span>&#160; <span class="pre">${TIMEOUT}=10</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pxssh_spawn</strong> – pxssh spawn</p></li>
+<li><p><strong>command</strong> – command to send</p></li>
+<li><p><strong>timeout</strong> – timeout to get the output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>-1 in case of error else pxssh spawn</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.send_wing_cmd">
+<code class="sig-name descname">send_wing_cmd</code><span class="sig-paren">(</span><em class="sig-param">pxssh_spawn</em>, <em class="sig-param">command</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.send_wing_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This method will send a command to the Wing spawn Object</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Wing</span> <span class="pre">Cmd</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pxssh_spawn</strong> – spawn</p></li>
+<li><p><strong>command</strong> – command to send</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the output if success else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.set_platform">
+<code class="sig-name descname">set_platform</code><span class="sig-paren">(</span><em class="sig-param">platform</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.set_platform" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Sets the self.dut_platform with platform</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">Platform</span>&#160; <span class="pre">${DEVICE_PLATFORM}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>platform</strong> – DUT platform wing, identify, aerohive or linux</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Cli.Cli.wait_for_cli_output">
+<code class="sig-name descname">wait_for_cli_output</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">cmd</em>, <em class="sig-param">expected_output</em>, <em class="sig-param">retry_duration=30</em>, <em class="sig-param">retry_count=10</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Cli.Cli.wait_for_cli_output" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will Helps to Wait till getting expected output based on retry duration</p></li>
+<li><p>Retry duration by default 30 seconds</p></li>
+<li><p>Retry Count by default 10</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Exos</span> <span class="pre">Switch</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND}</span>&#160; <span class="pre">${EXPECTED_OUTPUT}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Exos</span> <span class="pre">Switch</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND}</span>&#160; <span class="pre">${EXPECTED_OUTPUT}</span>&#160; <span class="pre">${RETRY_DURATION}=60</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Exos</span> <span class="pre">Switch</span> <span class="pre">Spawn</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160; <span class="pre">${COMMAND}</span>&#160; <span class="pre">${EXPECTED_OUTPUT}</span>&#160; <span class="pre">${RETRY_DURATION}=60</span>&#160; <span class="pre">${COUNT}=15</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – Device Spawn</p></li>
+<li><p><strong>cmd</strong> – Command to Execute</p></li>
+<li><p><strong>expected_output</strong> – Expected CLI Output</p></li>
+<li><p><strong>retry_duration</strong> – Retry Duration in seconds</p></li>
+<li><p><strong>retry_count</strong> – Retry Count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if Getting the expected output else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.CloudDriver">
+<span id="clouddriver"></span><h1>CloudDriver<a class="headerlink" href="#module-common.CloudDriver" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="common.CloudDriver.close_window">
+<code class="sig-prename descclassname">common.CloudDriver.</code><code class="sig-name descname">close_window</code><span class="sig-paren">(</span><em class="sig-param">win_index=0</em><span class="sig-paren">)</span><a class="headerlink" href="#common.CloudDriver.close_window" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will close Windows handles based on windows index value</p></li>
+<li><p>By default it will close windows handles index 0</p></li>
+<li><p>Keyword Usage:
+- <code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">Window</span></code>
+- <code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">Window</span>&#160; <span class="pre">win_index=${INDEX_VALUE}</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>win_index</strong> – windows index value</p>
+</dd>
+</dl>
+<p>:return:None</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="common.CloudDriver.load_browser">
+<code class="sig-prename descclassname">common.CloudDriver.</code><code class="sig-name descname">load_browser</code><span class="sig-paren">(</span><em class="sig-param">url='default'</em>, <em class="sig-param">program='default'</em>, <em class="sig-param">incognito_mode='False'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.CloudDriver.load_browser" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will Load the default Test URL on Browser Mentioned in the topology file and environment file</p></li>
+<li><p>Otherwise It Loads the Mentioned URL</p></li>
+<li><p>By default it will not open the URL in Incognito Window</p></li>
+<li><dl class="simple">
+<dt>Keyword Usage:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Load</span> <span class="pre">Browser</span>&#160; <span class="pre">url=${URL}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Load</span> <span class="pre">Browser</span>&#160; <span class="pre">url=${URL}</span>&#160;&#160; <span class="pre">program=${PROGRAM}</span>&#160;&#160; <span class="pre">incognito_mode=${INCOGNITO_MODE}</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – URL to Load on Browser</p></li>
+<li><p><strong>program</strong> – cloud url by default othewise adsp,xiqse etc</p></li>
+<li><p><strong>incognito_mode</strong> – Incognito Mode flag to open the browser</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cloud Driver</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="common.CloudDriver.open_window">
+<code class="sig-prename descclassname">common.CloudDriver.</code><code class="sig-name descname">open_window</code><span class="sig-paren">(</span><em class="sig-param">url='default'</em>, <em class="sig-param">program='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.CloudDriver.open_window" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will Load the default Test URL mentioned in topology file on new windows handles</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Keyword Usage:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Window</span>&#160; <span class="pre">url=${URL}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Window</span>&#160; <span class="pre">url=${URL}</span>&#160;&#160; <span class="pre">program=${PROGRAM}</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – URL to Load on Browser</p></li>
+<li><p><strong>program</strong> – cloud url by default othewise adsp,xiqse etc</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Windows Index</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="common.CloudDriver.refresh_page">
+<code class="sig-prename descclassname">common.CloudDriver.</code><code class="sig-name descname">refresh_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.CloudDriver.refresh_page" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="common.CloudDriver.switch_to_window">
+<code class="sig-prename descclassname">common.CloudDriver.</code><code class="sig-name descname">switch_to_window</code><span class="sig-paren">(</span><em class="sig-param">win_index=0</em><span class="sig-paren">)</span><a class="headerlink" href="#common.CloudDriver.switch_to_window" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will switch to Windows handles based on windows index value</p></li>
+<li><p>By default it will switch to windows handles index 0</p></li>
+<li><p>Keyword Usage:
+- <code class="docutils literal notranslate"><span class="pre">Switch</span> <span class="pre">To</span> <span class="pre">Window</span></code>
+- <code class="docutils literal notranslate"><span class="pre">Switch</span> <span class="pre">To</span> <span class="pre">Window</span>&#160; <span class="pre">win_index=${INDEX_VALUE}</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>win_index</strong> – windows index value</p>
+</dd>
+</dl>
+<p>:return:None</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.GmailHandler">
+<span id="gmailhandler"></span><h1>GmailHandler<a class="headerlink" href="#module-common.GmailHandler" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.GmailHandler.GmailHandler">
+<em class="property">class </em><code class="sig-prename descclassname">common.GmailHandler.</code><code class="sig-name descname">GmailHandler</code><a class="headerlink" href="#common.GmailHandler.GmailHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_cloud_cwp_no_pin_event_report">
+<code class="sig-name descname">get_cloud_cwp_no_pin_event_report</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_cloud_cwp_no_pin_event_report" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the CWP No pin Event report</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Cloud</span> <span class="pre">Cwp</span> <span class="pre">No</span> <span class="pre">Pin</span> <span class="pre">Event</span> <span class="pre">Report</span>&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id to open</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>event report from and to time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_cloud_cwp_pin_event_report">
+<code class="sig-name descname">get_cloud_cwp_pin_event_report</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_cloud_cwp_pin_event_report" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the CWP pin Event report csv and table data</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Cloud</span> <span class="pre">Cwp</span> <span class="pre">Pin</span> <span class="pre">Event</span> <span class="pre">Report</span>&#160;&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id to get event reports</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>event report table data and csv data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_cloud_pin_for_wi_fi_network">
+<code class="sig-name descname">get_cloud_pin_for_wi_fi_network</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_cloud_pin_for_wi_fi_network" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get WI-Fi Network access cloud PIN</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Cloud</span> <span class="pre">Pin</span> <span class="pre">For</span> <span class="pre">Wi</span> <span class="pre">Fi</span> <span class="pre">Network</span>&#160;&#160;&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id to open</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cloud pin</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_email_reports_url_link">
+<code class="sig-name descname">get_email_reports_url_link</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_email_reports_url_link" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the url link of email reports sent by XIQ</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Email</span> <span class="pre">Reports</span> <span class="pre">Url</span> <span class="pre">Link</span>&#160;&#160;&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – mail id to get the url link</p></li>
+<li><p><strong>password</strong> – mail id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>url link</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_email_subj">
+<code class="sig-name descname">get_email_subj</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_email_subj" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get email subject line</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Email</span> <span class="pre">Subj</span>&#160;&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>email subj line</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_login_credential">
+<code class="sig-name descname">get_login_credential</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_login_credential" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get User Credential sent to email</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Login</span> <span class="pre">Credential</span>&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id to open</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>access_key, login id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_login_credential_from_attachments">
+<code class="sig-name descname">get_login_credential_from_attachments</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_login_credential_from_attachments" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get bulk user credentials from attachments</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Login</span> <span class="pre">Credentials</span> <span class="pre">From</span> <span class="pre">Attachments</span>&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id to open</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>credentials dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_password_reset_link">
+<code class="sig-name descname">get_password_reset_link</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_password_reset_link" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the url link to set the new user password</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Password</span> <span class="pre">Reset</span> <span class="pre">Link</span>&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id to open</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>reset url link</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_sender_email_id">
+<code class="sig-name descname">get_sender_email_id</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">subj_line</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_sender_email_id" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the sender email id based on the subj line</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Sender</span> <span class="pre">Email</span> <span class="pre">Id</span>&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span>&#160; <span class="pre">${SUBJ_LINE}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – id of the email</p></li>
+<li><p><strong>password</strong> – password of the email</p></li>
+<li><p><strong>subj_line</strong> – subject string to get the email</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sender email id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_url_to_set_password_for_new_user">
+<code class="sig-name descname">get_url_to_set_password_for_new_user</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_url_to_set_password_for_new_user" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the url link to set the new user password</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Url</span> <span class="pre">To</span> <span class="pre">Set</span> <span class="pre">Password</span> <span class="pre">For</span> <span class="pre">New</span> <span class="pre">User</span>&#160; <span class="pre">${MAIL_ID}</span>&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id to open</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>url link</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.GmailHandler.GmailHandler.get_user_approval_url">
+<code class="sig-name descname">get_user_approval_url</code><span class="sig-paren">(</span><em class="sig-param">mail_id</em>, <em class="sig-param">password</em>, <em class="sig-param">mail_trash='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.GmailHandler.GmailHandler.get_user_approval_url" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the user approve url link</p></li>
+<li><p>It will read the latest two emails</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">User</span> <span class="pre">Approval</span> <span class="pre">Url</span>&#160; <span class="pre">${EMAIL_ID}</span>&#160;&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mail_id</strong> – email id to open</p></li>
+<li><p><strong>password</strong> – email id password</p></li>
+<li><p><strong>mail_trash</strong> – trash the mail if mail trash is true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>url link</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="gmailnotification">
+<h1>GmailNotification<a class="headerlink" href="#gmailnotification" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="module-common.IdentifiAP">
+<span id="identifiap"></span><h1>IdentifiAP<a class="headerlink" href="#module-common.IdentifiAP" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.IdentifiAP.IdentifiAP">
+<em class="property">class </em><code class="sig-prename descclassname">common.IdentifiAP.</code><code class="sig-name descname">IdentifiAP</code><a class="headerlink" href="#common.IdentifiAP.IdentifiAP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.IdentifiAP.IdentifiAP.factory_rest_identifi_ap">
+<code class="sig-name descname">factory_rest_identifi_ap</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">port</em><span class="sig-paren">)</span><a class="headerlink" href="#common.IdentifiAP.IdentifiAP.factory_rest_identifi_ap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.ImageAnalysis">
+<span id="imageanalysis"></span><h1>ImageAnalysis<a class="headerlink" href="#module-common.ImageAnalysis" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.ImageAnalysis.ImageAnalysis">
+<em class="property">class </em><code class="sig-prename descclassname">common.ImageAnalysis.</code><code class="sig-name descname">ImageAnalysis</code><a class="headerlink" href="#common.ImageAnalysis.ImageAnalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.ImageAnalysis.ImageAnalysis.find_image">
+<code class="sig-name descname">find_image</code><span class="sig-paren">(</span><em class="sig-param">input_image</em>, <em class="sig-param">test_type</em><span class="sig-paren">)</span><a class="headerlink" href="#common.ImageAnalysis.ImageAnalysis.find_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.ImageHandler">
+<span id="imagehandler"></span><h1>ImageHandler<a class="headerlink" href="#module-common.ImageHandler" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.ImageHandler.ImageHandler">
+<em class="property">class </em><code class="sig-prename descclassname">common.ImageHandler.</code><code class="sig-name descname">ImageHandler</code><a class="headerlink" href="#common.ImageHandler.ImageHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.ImageHandler.ImageHandler.click_image">
+<code class="sig-name descname">click_image</code><span class="sig-paren">(</span><em class="sig-param">target_icon</em><span class="sig-paren">)</span><a class="headerlink" href="#common.ImageHandler.ImageHandler.click_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.ImageHandler.ImageHandler.get_position">
+<code class="sig-name descname">get_position</code><span class="sig-paren">(</span><em class="sig-param">target_icon</em><span class="sig-paren">)</span><a class="headerlink" href="#common.ImageHandler.ImageHandler.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.LoadBrowser">
+<span id="loadbrowser"></span><h1>LoadBrowser<a class="headerlink" href="#module-common.LoadBrowser" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.LoadBrowser.LoadBrowser">
+<em class="property">class </em><code class="sig-prename descclassname">common.LoadBrowser.</code><code class="sig-name descname">LoadBrowser</code><a class="headerlink" href="#common.LoadBrowser.LoadBrowser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.LoadBrowser.LoadBrowser.load_browser">
+<code class="sig-name descname">load_browser</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">remote_host=None</em><span class="sig-paren">)</span><a class="headerlink" href="#common.LoadBrowser.LoadBrowser.load_browser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.LoadBrowser.LoadBrowser.quite_approve_browser">
+<code class="sig-name descname">quite_approve_browser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.LoadBrowser.LoadBrowser.quite_approve_browser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.Logging">
+<span id="logging"></span><h1>Logging<a class="headerlink" href="#module-common.Logging" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Logging.Logging">
+<em class="property">class </em><code class="sig-prename descclassname">common.Logging.</code><code class="sig-name descname">Logging</code><a class="headerlink" href="#common.Logging.Logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Logging.Logging.get_logger">
+<code class="sig-name descname">get_logger</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Logging.Logging.get_logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Logging.Logging.log">
+<code class="sig-name descname">log</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Logging.Logging.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Logging.Logging.set_log_level">
+<code class="sig-name descname">set_log_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Logging.Logging.set_log_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.Mu">
+<span id="mu"></span><h1>Mu<a class="headerlink" href="#module-common.Mu" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Mu.Mu">
+<em class="property">class </em><code class="sig-prename descclassname">common.Mu.</code><code class="sig-name descname">Mu</code><a class="headerlink" href="#common.Mu.Mu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Mu.Mu.associate_mu">
+<code class="sig-name descname">associate_mu</code><span class="sig-paren">(</span><em class="sig-param">mu_spawn</em>, <em class="sig-param">interface</em>, <em class="sig-param">ssid_name</em>, <em class="sig-param">ip_address='default'</em>, <em class="sig-param">retries=3</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.associate_mu" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu_spawn</strong> – </p></li>
+<li><p><strong>interface</strong> – </p></li>
+<li><p><strong>ssid_name</strong> – </p></li>
+<li><p><strong>ip_address</strong> – </p></li>
+<li><p><strong>retries</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.associate_mu_to_ethport">
+<code class="sig-name descname">associate_mu_to_ethport</code><span class="sig-paren">(</span><em class="sig-param">mu_spawn</em>, <em class="sig-param">wlan_port</em>, <em class="sig-param">eth_port</em>, <em class="sig-param">ip_address='default'</em>, <em class="sig-param">retries=3</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.associate_mu_to_ethport" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu_spawn</strong> – </p></li>
+<li><p><strong>interface</strong> – </p></li>
+<li><p><strong>ssid_name</strong> – </p></li>
+<li><p><strong>ip_address</strong> – </p></li>
+<li><p><strong>retries</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.connect_mu1_to_psk_network">
+<code class="sig-name descname">connect_mu1_to_psk_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em>, <em class="sig-param">psk</em>, <em class="sig-param">ip_address='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.connect_mu1_to_psk_network" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.connect_mu1_to_wep_network">
+<code class="sig-name descname">connect_mu1_to_wep_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em>, <em class="sig-param">key_type</em>, <em class="sig-param">key</em>, <em class="sig-param">key_index</em>, <em class="sig-param">ip_address='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.connect_mu1_to_wep_network" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.connect_mu5_to_open_network">
+<code class="sig-name descname">connect_mu5_to_open_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em>, <em class="sig-param">ip_address='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.connect_mu5_to_open_network" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.get_mu_test_ip">
+<code class="sig-name descname">get_mu_test_ip</code><span class="sig-paren">(</span><em class="sig-param">mu_spawn</em>, <em class="sig-param">interface</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.get_mu_test_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.get_testip_mu1">
+<code class="sig-name descname">get_testip_mu1</code><span class="sig-paren">(</span><em class="sig-param">wlan_port</em>, <em class="sig-param">eth_port</em>, <em class="sig-param">ip_address='default'</em>, <em class="sig-param">retries=3</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.get_testip_mu1" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu_spawn</strong> – </p></li>
+<li><p><strong>interface</strong> – </p></li>
+<li><p><strong>ssid_name</strong> – </p></li>
+<li><p><strong>ip_address</strong> – </p></li>
+<li><p><strong>retries</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.mu_interface_down">
+<code class="sig-name descname">mu_interface_down</code><span class="sig-paren">(</span><em class="sig-param">mu_spawn</em>, <em class="sig-param">interface</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.mu_interface_down" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu_spawn</strong> – </p></li>
+<li><p><strong>interface</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.mu_reboot">
+<code class="sig-name descname">mu_reboot</code><span class="sig-paren">(</span><em class="sig-param">mu_ip</em>, <em class="sig-param">mu_port</em>, <em class="sig-param">mu_username</em>, <em class="sig-param">mu_password</em>, <em class="sig-param">mu_platform</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.mu_reboot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.reload_mu">
+<code class="sig-name descname">reload_mu</code><span class="sig-paren">(</span><em class="sig-param">spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.reload_mu" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spawn</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Mu.Mu.start_wpa_supplicant">
+<code class="sig-name descname">start_wpa_supplicant</code><span class="sig-paren">(</span><em class="sig-param">mu_spawn</em>, <em class="sig-param">_interface</em>, <em class="sig-param">encryption_type</em>, <em class="sig-param">key_type='ascii'</em>, <em class="sig-param">ip_address='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Mu.Mu.start_wpa_supplicant" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu_spawn</strong> – </p></li>
+<li><p><strong>_interface</strong> – </p></li>
+<li><p><strong>encryption_type</strong> – </p></li>
+<li><p><strong>key_type</strong> – </p></li>
+<li><p><strong>ip_address</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.SNMPTraps">
+<span id="snmptraps"></span><h1>SNMPTraps<a class="headerlink" href="#module-common.SNMPTraps" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.SNMPTraps.SNMPTraps">
+<em class="property">class </em><code class="sig-prename descclassname">common.SNMPTraps.</code><code class="sig-name descname">SNMPTraps</code><a class="headerlink" href="#common.SNMPTraps.SNMPTraps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.SNMPTraps.SNMPTraps.start_snmp_traps">
+<code class="sig-name descname">start_snmp_traps</code><span class="sig-paren">(</span><em class="sig-param">spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.SNMPTraps.SNMPTraps.start_snmp_traps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.SNMPTraps.SNMPTraps.start_snmp_traps_with_custom_port">
+<code class="sig-name descname">start_snmp_traps_with_custom_port</code><span class="sig-paren">(</span><em class="sig-param">spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.SNMPTraps.SNMPTraps.start_snmp_traps_with_custom_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.SNMPTraps.SNMPTraps.validate_snmp_trap_messages">
+<code class="sig-name descname">validate_snmp_trap_messages</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">trap_string</em><span class="sig-paren">)</span><a class="headerlink" href="#common.SNMPTraps.SNMPTraps.validate_snmp_trap_messages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.Screen">
+<span id="screen"></span><h1>Screen<a class="headerlink" href="#module-common.Screen" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Screen.Screen">
+<em class="property">class </em><code class="sig-prename descclassname">common.Screen.</code><code class="sig-name descname">Screen</code><a class="headerlink" href="#common.Screen.Screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Screen.Screen.save_element_screen_shot">
+<code class="sig-name descname">save_element_screen_shot</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Screen.Screen.save_element_screen_shot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Screen.Screen.save_element_screen_shot64">
+<code class="sig-name descname">save_element_screen_shot64</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Screen.Screen.save_element_screen_shot64" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Screen.Screen.save_screen_shot">
+<code class="sig-name descname">save_screen_shot</code><span class="sig-paren">(</span><em class="sig-param">_driver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Screen.Screen.save_screen_shot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Screen.Screen.take_screen_shot">
+<code class="sig-name descname">take_screen_shot</code><span class="sig-paren">(</span><em class="sig-param">_driver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Screen.Screen.take_screen_shot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.ScreenDiff">
+<span id="screendiff"></span><h1>ScreenDiff<a class="headerlink" href="#module-common.ScreenDiff" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.ScreenDiff.ScreenDiff">
+<em class="property">class </em><code class="sig-prename descclassname">common.ScreenDiff.</code><code class="sig-name descname">ScreenDiff</code><a class="headerlink" href="#common.ScreenDiff.ScreenDiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.ScreenDiff.ScreenDiff.compare_images">
+<code class="sig-name descname">compare_images</code><span class="sig-paren">(</span><em class="sig-param">input_image1</em>, <em class="sig-param">input_image2</em>, <em class="sig-param">threshold='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.ScreenDiff.ScreenDiff.compare_images" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_image</strong> – </p></li>
+<li><p><strong>threshold</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.ScreenDiff.ScreenDiff.compare_screens">
+<code class="sig-name descname">compare_screens</code><span class="sig-paren">(</span><em class="sig-param">input_image</em>, <em class="sig-param">scale=False</em>, <em class="sig-param">threshold='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.ScreenDiff.ScreenDiff.compare_screens" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_image</strong> – Input image to compare</p></li>
+<li><p><strong>threshold</strong> – Threshold limit for comparison</p></li>
+<li><p><strong>scale</strong> – scales the images</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>appends the images and diff in robot result log file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.Syslog">
+<span id="syslog"></span><h1>Syslog<a class="headerlink" href="#module-common.Syslog" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Syslog.Syslog">
+<em class="property">class </em><code class="sig-prename descclassname">common.Syslog.</code><code class="sig-name descname">Syslog</code><a class="headerlink" href="#common.Syslog.Syslog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Syslog.Syslog.start_syslog">
+<code class="sig-name descname">start_syslog</code><span class="sig-paren">(</span><em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Syslog.Syslog.start_syslog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starting syslog on script host</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Syslog.Syslog.stop_syslog">
+<code class="sig-name descname">stop_syslog</code><span class="sig-paren">(</span><em class="sig-param">password</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Syslog.Syslog.stop_syslog" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop syslog on script host</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.TestFlow">
+<span id="testflow"></span><h1>TestFlow<a class="headerlink" href="#module-common.TestFlow" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.TestFlow.TestFlow">
+<em class="property">class </em><code class="sig-prename descclassname">common.TestFlow.</code><code class="sig-name descname">TestFlow</code><a class="headerlink" href="#common.TestFlow.TestFlow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.TestFlow.TestFlow.Run_Again_If_Keyword_Fails">
+<code class="sig-name descname">Run_Again_If_Keyword_Fails</code><span class="sig-paren">(</span><em class="sig-param">cmd</em>, <em class="sig-param">*pars</em><span class="sig-paren">)</span><a class="headerlink" href="#common.TestFlow.TestFlow.Run_Again_If_Keyword_Fails" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.TestFlow.TestFlow.depends_on">
+<code class="sig-name descname">depends_on</code><span class="sig-paren">(</span><em class="sig-param">*search_test_dependency</em><span class="sig-paren">)</span><a class="headerlink" href="#common.TestFlow.TestFlow.depends_on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.TestFlow.TestFlow.search_failed_test_case_dependency">
+<code class="sig-name descname">search_failed_test_case_dependency</code><span class="sig-paren">(</span><em class="sig-param">prev_test_status</em>, <em class="sig-param">list_failed_test</em>, <em class="sig-param">prev_testname</em>, <em class="sig-param">*search_test_dependency</em><span class="sig-paren">)</span><a class="headerlink" href="#common.TestFlow.TestFlow.search_failed_test_case_dependency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.Tshark">
+<span id="tshark"></span><h1>Tshark<a class="headerlink" href="#module-common.Tshark" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Tshark.Tshark">
+<em class="property">class </em><code class="sig-prename descclassname">common.Tshark.</code><code class="sig-name descname">Tshark</code><a class="headerlink" href="#common.Tshark.Tshark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Tshark.Tshark.tshark_capture">
+<code class="sig-name descname">tshark_capture</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">wlan_int</em>, <em class="sig-param">ch_num</em>, <em class="sig-param">bssid</em>, <em class="sig-param">count=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Tshark.Tshark.tshark_capture" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – </p></li>
+<li><p><strong>wlan_int</strong> – <dl class="field-list simple">
+<dt class="field-odd">param ch_num</dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">param bssid</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</p></li>
+<li><p><strong>count</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.Utils">
+<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-common.Utils" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Utils.Utils">
+<em class="property">class </em><code class="sig-prename descclassname">common.Utils.</code><code class="sig-name descname">Utils</code><a class="headerlink" href="#common.Utils.Utils" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Utils.Utils.check_match">
+<code class="sig-name descname">check_match</code><span class="sig-paren">(</span><em class="sig-param">target_string</em>, <em class="sig-param">match</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.check_match" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Check the match string in the target string</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Check</span> <span class="pre">Match</span>&#160; <span class="pre">${TARGET_STRING}</span>&#160;&#160; <span class="pre">${MATHC}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_string</strong> – target string</p></li>
+<li><p><strong>match</strong> – search string in the target string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if match string in target string else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.compare_date_time_strings">
+<code class="sig-name descname">compare_date_time_strings</code><span class="sig-paren">(</span><em class="sig-param">str1</em>, <em class="sig-param">str2</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.compare_date_time_strings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.convert_MAC_to_lower">
+<code class="sig-name descname">convert_MAC_to_lower</code><span class="sig-paren">(</span><em class="sig-param">mac</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.convert_MAC_to_lower" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.convert_MAC_to_upper">
+<code class="sig-name descname">convert_MAC_to_upper</code><span class="sig-paren">(</span><em class="sig-param">mac</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.convert_MAC_to_upper" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.convert_mac_to_random_case">
+<code class="sig-name descname">convert_mac_to_random_case</code><span class="sig-paren">(</span><em class="sig-param">mac</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.convert_mac_to_random_case" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.convert_ms_to_time">
+<code class="sig-name descname">convert_ms_to_time</code><span class="sig-paren">(</span><em class="sig-param">milliseconds</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.convert_ms_to_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.convert_time_to_24_hours_format">
+<code class="sig-name descname">convert_time_to_24_hours_format</code><span class="sig-paren">(</span><em class="sig-param">_time</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.convert_time_to_24_hours_format" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This method expects time format as HH:MM AM or HH:MM PM</p></li>
+<li><p>Converts it in to 24 Hour time format</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_time</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.convert_time_to_milliseconds">
+<code class="sig-name descname">convert_time_to_milliseconds</code><span class="sig-paren">(</span><em class="sig-param">time_str</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.convert_time_to_milliseconds" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword converts given time to milliseconds.</p></li>
+<li><p>Keyword Usage:</p></li>
+<li><p>`` Convert Time To Milliseconds 12:03:47``</p></li>
+<li><p>In above case it returns value as 43427000</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_str</strong> – time should be of format : %H:%M:%S</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>time in milliseconds</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.count_down_in_minutes">
+<code class="sig-name descname">count_down_in_minutes</code><span class="sig-paren">(</span><em class="sig-param">t</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.count_down_in_minutes" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Countdown in minutes</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> – time to count down</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.date_time_addition">
+<code class="sig-name descname">date_time_addition</code><span class="sig-paren">(</span><em class="sig-param">date_time=None</em>, <em class="sig-param">days=None</em>, <em class="sig-param">hours=None</em>, <em class="sig-param">minutes=None</em>, <em class="sig-param">seconds=None</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.date_time_addition" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to add days/hours/minutes/seconds to the date-time  which is passed as argument.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>`` Date Time Addition  date_time=2020-10-20 12:03:47    days=5     hours=13    minutes=4      seconds=2``</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date_time</strong> – date and time should be of format : %Y-%m-%d %H:%M:%S</p></li>
+<li><p><strong>days</strong> – Number of days to be added.</p></li>
+<li><p><strong>hours</strong> – Number of hours to be added.</p></li>
+<li><p><strong>minutes</strong> – Number of minutes to be added.</p></li>
+<li><p><strong>seconds</strong> – Number of seconds to be added.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the modified date and time of format : %Y-%m-%d %H:%M:%S</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.decode_to_ascii">
+<code class="sig-name descname">decode_to_ascii</code><span class="sig-paren">(</span><em class="sig-param">_str</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.decode_to_ascii" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>decode given string to ascci</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Decode</span> <span class="pre">To</span> <span class="pre">Ascii</span>&#160;&#160; <span class="pre">${STR}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_str</strong> – str to decode to ascci</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>decoded string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_config_value">
+<code class="sig-name descname">get_config_value</code><span class="sig-paren">(</span><em class="sig-param">conf_str</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_config_value" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the config value of a variable</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Config</span> <span class="pre">Value</span>&#160;&#160; <span class="pre">VARIABLE</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>conf_str</strong> – Variable name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value of the variable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_current_date_time">
+<code class="sig-name descname">get_current_date_time</code><span class="sig-paren">(</span><em class="sig-param">time_format='%Y-%m-%d %H:%M'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_current_date_time" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get current date with %Y-%m-%d %H:%M format</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_format</strong> – default time format</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>current date with %Y-%m-%d %H:%M format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_current_time">
+<code class="sig-name descname">get_current_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_current_time" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the Current Time</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Current</span> <span class="pre">Time</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>current time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_current_time_in_milliseconds">
+<code class="sig-name descname">get_current_time_in_milliseconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_current_time_in_milliseconds" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the current time in milliseconds.</p></li>
+<li><p>Keyword Usage:</p></li>
+<li><p>`` Get Current Time In Milliseconds``</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>time in milliseconds</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_device_date">
+<code class="sig-name descname">get_device_date</code><span class="sig-paren">(</span><em class="sig-param">output</em>, <em class="sig-param">separator='/'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_device_date" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets the device date from the CLI output of a DUT</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Date</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">${CLI_OUTPUT}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> – </p></li>
+<li><p><strong>separator</strong> – can be / or -</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns a date in mm/dd/yyyy or mm-dd-yyyy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_device_time">
+<code class="sig-name descname">get_device_time</code><span class="sig-paren">(</span><em class="sig-param">output</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_device_time" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Gets the device time from the CLI output of a DUT</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Device</span> <span class="pre">Time</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">${CLI_OUTPUT}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>device time in hh:mm format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_first_half_of_mac">
+<code class="sig-name descname">get_first_half_of_mac</code><span class="sig-paren">(</span><em class="sig-param">mac</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_first_half_of_mac" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the first half of a MAC</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mac</strong> – MAC</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns first half of MAC</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_first_half_of_network_policy">
+<code class="sig-name descname">get_first_half_of_network_policy</code><span class="sig-paren">(</span><em class="sig-param">network_policy</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_first_half_of_network_policy" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the first half of a Network Policy</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>network_policy</strong> – network_policy</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns first half of MAC</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_half_of">
+<code class="sig-name descname">get_half_of</code><span class="sig-paren">(</span><em class="sig-param">_time</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_half_of" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This method accepts time in minutes divides by 2 and returns the value</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_time</strong> – in minutes</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_last_6_digts_of_MAC">
+<code class="sig-name descname">get_last_6_digts_of_MAC</code><span class="sig-paren">(</span><em class="sig-param">mac</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_last_6_digts_of_MAC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_previous_time_delta">
+<code class="sig-name descname">get_previous_time_delta</code><span class="sig-paren">(</span><em class="sig-param">t1</em>, <em class="sig-param">hour=None</em>, <em class="sig-param">minutes=None</em>, <em class="sig-param">time_format='%Y-%m-%d %H:%M'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_previous_time_delta" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get last specified time delta</p></li>
+<li><p>Example:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>if  t1=’2020-05-19 03:57’  last_24_hour_time=’’2020-05-18 03:57’’</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t1</strong> – present time</p></li>
+<li><p><strong>hour</strong> – time in hour to get the previous time</p></li>
+<li><p><strong>minutes</strong> – time in Minutes to get the previous time</p></li>
+<li><p><strong>time_format</strong> – specify the time format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>time delta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_random_integer">
+<code class="sig-name descname">get_random_integer</code><span class="sig-paren">(</span><em class="sig-param">length='default'</em>, <em class="sig-param">lower_limit='default'</em>, <em class="sig-param">upper_limit='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_random_integer" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the random integer in specified upper and lower limit</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Random</span> <span class="pre">Integer</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>length</strong> – len of integer</p></li>
+<li><p><strong>lower_limit</strong> – lower limit to generate the integer</p></li>
+<li><p><strong>upper_limit</strong> – upper limit to generate the integer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generated random integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_random_ip">
+<code class="sig-name descname">get_random_ip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_random_ip" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Generate the random ip address</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Random</span> <span class="pre">Ip</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>generated random ip address</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_random_mac">
+<code class="sig-name descname">get_random_mac</code><span class="sig-paren">(</span><em class="sig-param">delimiter='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_random_mac" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the random mac</p></li>
+<li><p>By default it will generate mac in the format aa:bb:11:22:33:44</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Random</span> <span class="pre">Mac</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Random</span> <span class="pre">Mac</span>&#160;&#160; <span class="pre">delimiter=:</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>delimiter</strong> – specify the delimiter ex  “-“, “:”</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generated mac</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_random_string">
+<code class="sig-name descname">get_random_string</code><span class="sig-paren">(</span><em class="sig-param">length='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_random_string" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the random string of specified length, default length is 10 characters</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Random</span> <span class="pre">String</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Random</span> <span class="pre">String</span>&#160;&#160; <span class="pre">length=5</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>length</strong> – length of the character to generate</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generated random string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_second_half_of_MAC">
+<code class="sig-name descname">get_second_half_of_MAC</code><span class="sig-paren">(</span><em class="sig-param">mac</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_second_half_of_MAC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_second_half_of_network_policy">
+<code class="sig-name descname">get_second_half_of_network_policy</code><span class="sig-paren">(</span><em class="sig-param">net</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_second_half_of_network_policy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_time_difference_in_milliseconds">
+<code class="sig-name descname">get_time_difference_in_milliseconds</code><span class="sig-paren">(</span><em class="sig-param">time1</em>, <em class="sig-param">time2</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_time_difference_in_milliseconds" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the time difference in milliseconds.</p></li>
+<li><p>Keyword Usage:</p></li>
+<li><p>`` Get Time Difference In Milliseconds  1622696034870  24:03:47``</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time1</strong> – Timestamp in milliseconds</p></li>
+<li><p><strong>time2</strong> – Time in format : %H:%M:%S and should be greater than 24 hours</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>time in milliseconds</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_utc_hour_time_delta">
+<code class="sig-name descname">get_utc_hour_time_delta</code><span class="sig-paren">(</span><em class="sig-param">utc_time</em>, <em class="sig-param">hour=24</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_utc_hour_time_delta" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the utc time after the specified time delta in hour</p></li>
+<li><p>Example:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>if utc time is:         utc_time        = 2020-04-24 03:12:04.905116</p></li>
+<li><p>utc time after delta    utc_after_10min = 2020-04-25 03:12:04.905116</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>utc_time</strong> – </p></li>
+<li><p><strong>hour</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Time %Y-%m-%d %H:%M format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_utc_iso_time_format">
+<code class="sig-name descname">get_utc_iso_time_format</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_utc_iso_time_format" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword is used to get the time in ISO Format</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>ISO time now</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_utc_minute_time_delta">
+<code class="sig-name descname">get_utc_minute_time_delta</code><span class="sig-paren">(</span><em class="sig-param">utc_time</em>, <em class="sig-param">minutes=10</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_utc_minute_time_delta" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the utc time after the specified time delta in minutes</p></li>
+<li><p>Example:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>if utc time :           utc_time        = 2020-04-24 03:12:04.905116</p></li>
+<li><p>utc time after delta    utc_after_10min = 2020-04-24 03:23:09.519271</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>utc_time</strong> – </p></li>
+<li><p><strong>minutes</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Time %Y-%m-%d %H:%M format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_utc_time">
+<code class="sig-name descname">get_utc_time</code><span class="sig-paren">(</span><em class="sig-param">time_format=None</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_utc_time" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the utc time with specified time format, by default %Y-%m-%d %H:%M.%s</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_format</strong> – specify the time format</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>utc time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.get_utc_time_difference">
+<code class="sig-name descname">get_utc_time_difference</code><span class="sig-paren">(</span><em class="sig-param">t1</em>, <em class="sig-param">t2</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.get_utc_time_difference" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the time difference between t2 and t1</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Utc</span> <span class="pre">Time</span> <span class="pre">Difference</span>&#160;&#160; <span class="pre">${TIME1}</span>&#160; <span class="pre">${TIME2}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t1</strong> – datetime.datetime object</p></li>
+<li><p><strong>t2</strong> – datetime.datetime object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>time difference of t2 and t1 in minutes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.grep">
+<code class="sig-name descname">grep</code><span class="sig-paren">(</span><em class="sig-param">output_buffer</em>, <em class="sig-param">search_str</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.grep" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>greps the second variable in the first string</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Grep</span>&#160;&#160; <span class="pre">${OUTPUT}</span>&#160;&#160;&#160;&#160; <span class="pre">Version</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_buffer</strong> – Buffer in which we grep for search_str</p></li>
+<li><p><strong>search_str</strong> – search string which will be looked inside output_buffer for a match</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 1 if finds a match else 0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.has_number">
+<code class="sig-name descname">has_number</code><span class="sig-paren">(</span><em class="sig-param">input_string</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.has_number" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>check the input string has the digit on it</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Has</span> <span class="pre">Number</span>&#160; <span class="pre">${INPUT_STRING}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_string</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if digit in input string else False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.include_image">
+<code class="sig-name descname">include_image</code><span class="sig-paren">(</span><em class="sig-param">file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.include_image" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>includes the image in robot framework log.html file</p></li>
+<li><p>Note this is not a keyword to use inside the robot framework script. only used in libs</p></li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.log_to_report">
+<code class="sig-name descname">log_to_report</code><span class="sig-paren">(</span><em class="sig-param">file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.log_to_report" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>logs a video file in robot framework log.html file</p></li>
+<li><p>Note this is not a keyword to use inside the robot framework script. only used in libs</p></li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.look_and_feel">
+<code class="sig-name descname">look_and_feel</code><span class="sig-paren">(</span><em class="sig-param">first</em>, <em class="sig-param">second</em>, <em class="sig-param">third</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.look_and_feel" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>embeds 3 png files in to robot framework output log.html file side by side</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Look</span> <span class="pre">and</span> <span class="pre">Feel</span>&#160;&#160; <span class="pre">Screen1.png</span>&#160;&#160;&#160;&#160; <span class="pre">Screen2.png</span>&#160;&#160;&#160; <span class="pre">Screen3.png</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>first</strong> – screenshot or image 1</p></li>
+<li><p><strong>second</strong> – screenshot or image 2</p></li>
+<li><p><strong>third</strong> – screenshot or image 3</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns none</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.partial_ip">
+<code class="sig-name descname">partial_ip</code><span class="sig-paren">(</span><em class="sig-param">ip</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.partial_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.print_debug">
+<code class="sig-name descname">print_debug</code><span class="sig-paren">(</span><em class="sig-param">*words</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.print_debug" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>prints the given list of words in to console and robot framework log.html file</p></li>
+<li><p>Note this is not a keyword to use inside the robot framework script. only used in libs</p></li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.print_error">
+<code class="sig-name descname">print_error</code><span class="sig-paren">(</span><em class="sig-param">*words</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.print_error" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>prints the given list of words in to console and robot framework log.html file</p></li>
+<li><p>Note this is not a keyword to use inside the robot framework script. only used in libs</p></li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.print_info">
+<code class="sig-name descname">print_info</code><span class="sig-paren">(</span><em class="sig-param">*words</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.print_info" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>prints the given list of words in to console and robot framework log.html file</p></li>
+<li><p>Note this is not a keyword to use inside the robot framework script. only used in libs</p></li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.print_log">
+<code class="sig-name descname">print_log</code><span class="sig-paren">(</span><em class="sig-param">*words</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.print_log" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>prints the given list of words in to console and robot framework log.html file</p></li>
+<li><p>Note this is not a keyword to use inside the robot framework script. only used in libs</p></li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.print_warning">
+<code class="sig-name descname">print_warning</code><span class="sig-paren">(</span><em class="sig-param">*words</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.print_warning" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>prints the given list of words in to console and robot framework log.html file</p></li>
+<li><p>Note this is not a keyword to use inside the robot framework script. only used in libs</p></li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.round_time">
+<code class="sig-name descname">round_time</code><span class="sig-paren">(</span><em class="sig-param">upgrade_time</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.round_time" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This method expects time format as 24 Hours</p></li>
+<li><p>Converts it in to AM or PM</p></li>
+<li><p>This is specific to XIQ UI behavior</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>upgrade_time</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.special_char_check">
+<code class="sig-name descname">special_char_check</code><span class="sig-paren">(</span><em class="sig-param">_str</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.special_char_check" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>check the special character in the given string</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Special</span> <span class="pre">CHar</span> <span class="pre">Check</span>&#160;&#160; <span class="pre">${STR}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_str</strong> – str to check the special character</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>0 if special character exists else 1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.split_string_into_3_parts">
+<code class="sig-name descname">split_string_into_3_parts</code><span class="sig-paren">(</span><em class="sig-param">info</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.split_string_into_3_parts" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword splits a string in to 3 equal parts</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>info</strong> – input string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns 3 strings by dividing the input string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.switch_to_default">
+<code class="sig-name descname">switch_to_default</code><span class="sig-paren">(</span><em class="sig-param">driver</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.switch_to_default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.switch_to_iframe">
+<code class="sig-name descname">switch_to_iframe</code><span class="sig-paren">(</span><em class="sig-param">driver</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.switch_to_iframe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.switch_to_iframe_n">
+<code class="sig-name descname">switch_to_iframe_n</code><span class="sig-paren">(</span><em class="sig-param">driver</em>, <em class="sig-param">iframe_num</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.switch_to_iframe_n" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Utils.Utils.switch_to_iframe_with_attr">
+<code class="sig-name descname">switch_to_iframe_with_attr</code><span class="sig-paren">(</span><em class="sig-param">driver</em>, <em class="sig-param">attr</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Utils.Utils.switch_to_iframe_with_attr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.WebElementHandler">
+<span id="webelementhandler"></span><h1>WebElementHandler<a class="headerlink" href="#module-common.WebElementHandler" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.WebElementHandler.WebElementHandler">
+<em class="property">class </em><code class="sig-prename descclassname">common.WebElementHandler.</code><code class="sig-name descname">WebElementHandler</code><a class="headerlink" href="#common.WebElementHandler.WebElementHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.WebElementHandler.WebElementHandler.get_a_href">
+<code class="sig-name descname">get_a_href</code><span class="sig-paren">(</span><em class="sig-param">element</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WebElementHandler.WebElementHandler.get_a_href" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.WebElementHandler.WebElementHandler.get_displayed_element">
+<code class="sig-name descname">get_displayed_element</code><span class="sig-paren">(</span><em class="sig-param">elements</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WebElementHandler.WebElementHandler.get_displayed_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>From the list of elements get the displayed element on web page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>elements</strong> – (list)  list of elements</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(obj) displayed element</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.WebElementHandler.WebElementHandler.get_element">
+<code class="sig-name descname">get_element</code><span class="sig-paren">(</span><em class="sig-param">key_val</em>, <em class="sig-param">parent='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WebElementHandler.WebElementHandler.get_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the web element based on the locators provided in key_val dictionary
+:param key_val: (dict) containing the locator:value ex: ‘CSS_SELECTOR’: ‘.btn.btn-primary-2.btn-dim’
+:param parent: (str)
+:return:(obj) web elements obj</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.WebElementHandler.WebElementHandler.get_elements">
+<code class="sig-name descname">get_elements</code><span class="sig-paren">(</span><em class="sig-param">key_val</em>, <em class="sig-param">parent='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WebElementHandler.WebElementHandler.get_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the web elements
+:param key_val: (dict) containing the locator:value ex: ‘CSS_SELECTOR’: ‘.btn.btn-primary-2.btn-dim’
+:param parent: (str) driver object
+:return:(obj) web elements obj</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.WindowsMU">
+<span id="windowsmu"></span><h1>WindowsMU<a class="headerlink" href="#module-common.WindowsMU" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.WindowsMU.WindowsMU">
+<em class="property">class </em><code class="sig-prename descclassname">common.WindowsMU.</code><code class="sig-name descname">WindowsMU</code><a class="headerlink" href="#common.WindowsMU.WindowsMU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.WindowsMU.WindowsMU.connect_window_mu_to_wifi">
+<code class="sig-name descname">connect_window_mu_to_wifi</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">ssid</em>, <em class="sig-param">user_name=None</em>, <em class="sig-param">password=None</em>, <em class="sig-param">profile=None</em>, <em class="sig-param">default_spawn='ssh'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WindowsMU.WindowsMU.connect_window_mu_to_wifi" title="Permalink to this definition">¶</a></dt>
+<dd><p>connect a window platform MU to a wifi
+&#64;param ssid:string | SSID name
+&#64;param user_name:string | wifi user name
+&#64;param password:string | wifi user password
+&#64;todo: connect wifi with username/password or profile</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.WindowsMU.WindowsMU.disconnect_windown_mu_wifi">
+<code class="sig-name descname">disconnect_windown_mu_wifi</code><span class="sig-paren">(</span><em class="sig-param">spawn</em>, <em class="sig-param">default_spawn='ssh'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WindowsMU.WindowsMU.disconnect_windown_mu_wifi" title="Permalink to this definition">¶</a></dt>
+<dd><p>disconnect a window platform MU from wifi</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.WingAP">
+<span id="wingap"></span><h1>WingAP<a class="headerlink" href="#module-common.WingAP" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.WingAP.WingAP">
+<em class="property">class </em><code class="sig-prename descclassname">common.WingAP.</code><code class="sig-name descname">WingAP</code><a class="headerlink" href="#common.WingAP.WingAP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.WingAP.WingAP.associate_ap">
+<code class="sig-name descname">associate_ap</code><span class="sig-paren">(</span><em class="sig-param">ap_spawn</em>, <em class="sig-param">retries=2</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WingAP.WingAP.associate_ap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ap_spawn</strong> – </p></li>
+<li><p><strong>retries</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.WingAP.WingAP.factory_rest_wing_ap">
+<code class="sig-name descname">factory_rest_wing_ap</code><span class="sig-paren">(</span><em class="sig-param">ip</em>, <em class="sig-param">port</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WingAP.WingAP.factory_rest_wing_ap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.WingAP.WingAP.reload_wing_ap">
+<code class="sig-name descname">reload_wing_ap</code><span class="sig-paren">(</span><em class="sig-param">spawn</em><span class="sig-paren">)</span><a class="headerlink" href="#common.WingAP.WingAP.reload_wing_ap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-common.Xapi">
+<span id="xapi"></span><h1>Xapi<a class="headerlink" href="#module-common.Xapi" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.Xapi.Xapi">
+<em class="property">class </em><code class="sig-prename descclassname">common.Xapi.</code><code class="sig-name descname">Xapi</code><a class="headerlink" href="#common.Xapi.Xapi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.Xapi.Xapi.generate_access_token">
+<code class="sig-name descname">generate_access_token</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">path='login'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.generate_access_token" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword is used to get the access token</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> – username</p></li>
+<li><p><strong>password</strong> – password</p></li>
+<li><p><strong>path</strong> – API Endpoint path</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns access_token</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.get_json_val">
+<code class="sig-name descname">get_json_val</code><span class="sig-paren">(</span><em class="sig-param">json_data</em>, <em class="sig-param">json_key</em>, <em class="sig-param">key_type='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.get_json_val" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword is used to get the  key_str value from the api response json raw data</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_data</strong> – raw json data</p></li>
+<li><p><strong>json_key</strong> – json key</p></li>
+<li><p><strong>key_type</strong> – optional index of the array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.get_json_value">
+<code class="sig-name descname">get_json_value</code><span class="sig-paren">(</span><em class="sig-param">json_data</em>, <em class="sig-param">json_key</em>, <em class="sig-param">key_type='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.get_json_value" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword is used to get the  key_str value from the api response json raw data</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_data</strong> – raw json data</p></li>
+<li><p><strong>json_key</strong> – json key</p></li>
+<li><p><strong>key_type</strong> – index or</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.get_json_value_as_string">
+<code class="sig-name descname">get_json_value_as_string</code><span class="sig-paren">(</span><em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.get_json_value_as_string" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword is used to get the  key_str value from the api response json raw data</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> – raw json data from the API call to get the device ids</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>key_str value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.get_json_values">
+<code class="sig-name descname">get_json_values</code><span class="sig-paren">(</span><em class="sig-param">json_data</em>, <em class="sig-param">json_key</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.get_json_values" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword is used to get the  key_str value from the api response json raw data</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_data</strong> – raw json data</p></li>
+<li><p><strong>json_key</strong> – json key</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.get_json_values_for">
+<code class="sig-name descname">get_json_values_for</code><span class="sig-paren">(</span><em class="sig-param">required_key</em>, <em class="sig-param">json_data</em>, <em class="sig-param">key_val</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.get_json_values_for" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.rest_api_delete">
+<code class="sig-name descname">rest_api_delete</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">delete_data</em>, <em class="sig-param">access_token='default'</em>, <em class="sig-param">return_output='default'</em>, <em class="sig-param">result_code='default'</em>, <em class="sig-param">role='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.rest_api_delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.rest_api_get">
+<code class="sig-name descname">rest_api_get</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">access_token='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.rest_api_get" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword is used to get the access token</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>access_token</strong> – access token</p></li>
+<li><p><strong>path</strong> – API Endpoint path</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns access_token</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.rest_api_post">
+<code class="sig-name descname">rest_api_post</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">post_data</em>, <em class="sig-param">access_token='default'</em>, <em class="sig-param">return_output='default'</em>, <em class="sig-param">result_code='default'</em>, <em class="sig-param">role='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.rest_api_post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="common.Xapi.Xapi.rest_api_put">
+<code class="sig-name descname">rest_api_put</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">put_data='default'</em>, <em class="sig-param">access_token='default'</em>, <em class="sig-param">return_output='default'</em>, <em class="sig-param">result_code='default'</em>, <em class="sig-param">role='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.Xapi.Xapi.rest_api_put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramkumar Vellasamy
+      <span class="lastupdated">
+        Last updated on Jun 03, 2021, 6:58:48 PM.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

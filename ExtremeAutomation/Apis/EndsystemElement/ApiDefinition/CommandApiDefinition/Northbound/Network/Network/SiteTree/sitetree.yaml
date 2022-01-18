@@ -1,0 +1,11 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Query]
+#             - [OS2,Platform,Version,Unit,Query]
+
+sitetree:
+    placeholder:
+        apis:
+            - [EMC,base,baseversion,baseunit,'placeholder']

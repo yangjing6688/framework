@@ -1,0 +1,537 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+bgp:
+    enable_global:
+        description: "Enables the BGP protocol"
+        arguments:
+            order: 
+        uuid: 864baf6b-abcf-47ba-920d-856bb640e79c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'enable',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable bgp',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp {asnum} enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_global:
+        description: "Disables the BGP protocol"
+        arguments:
+            order: 
+        uuid: fe9d5af9-a437-4627-9fd1-df444da0f44e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no enable',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable bgp',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no router bgp enable',routerConfigPrompt,'None','None','None',[],[]]
+    create_as:
+        description: "Configures the BGP AS-number"
+        arguments:
+            order: 
+        uuid: 5cb85d69-e9d2-4cf9-a87f-ad9173289ac6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure bgp as-number {asnum}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp {asnum}',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/config','',[],[]]
+    delete_as:
+        description: "Unconfigures the BGP AS-number"
+        arguments:
+            order: 
+        uuid: 2844c681-6679-4646-a94e-570082c8b85e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no router bgp {asnum}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure bgp as-number 0',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp 0',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/config','',[],[]]
+    set_router_id:
+        description: "Configures the Router-ID on the DUT"
+        arguments:
+            order: rtrid,asnum
+        uuid: 0cd0af1c-15cd-4a39-bc11-154744a4f502
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'bgp router-id {rtrid}',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure bgp routerid {rtrid}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||router-id {rtrid}',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/config','',[],[]]
+    clear_router_id:
+        description: "Clears the Router-ID on the DUT"
+        arguments:
+            order: 
+        uuid: 45788698-c46e-40e7-804f-221a7536bf93
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no bgp router-id',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure bgp routerid 0.0.0.0',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||no router-id',routerConfigPrompt,'None','Are you sure you want to continue? (y/n) ?','{answer}',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/config','',[],[]]
+    create_neighbor:
+        description: "Creates a BGP neighbor entry. The asnum or remote-as is required at the time of neighbor creation"
+        arguments:
+            order: ip,remoteas,asnum
+        uuid: 157a36a7-b911-4e1b-a16b-04bb52abf727
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'neighbor {ip} remote-as {remoteas}',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create bgp neighbor {ip} remote-as-number {remoteas}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||neighbor {ip}||neighbor {ip} remote-as {remoteas}',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,post,'/rest/restconf/data/openconfig-bgp:bgp/neighbors','',[],[]]
+    create_neighbor_link_local:
+        description: "Creates a link-local BGP neighbor entry. The remote-as is required at the time of neighbor creation"
+        arguments:
+            order: ip,remoteas,asnum,vlan_eos,vlan_exos
+        uuid: 7123f5e3-13e7-435d-b9dd-eb43664b7af2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'neighbor {ip}%{vlan_eos} remote-as {remoteas}',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create bgp neighbor {ip}%{vlan_exos} remote-as-number {remoteas}',userPrompt,'None','None','None',[],[]]
+    delete_neighbor:
+        description: "Removes a BGP neighbor entry"
+        arguments:
+            order: ip,asnum,remoteas
+        uuid: be1c7911-d5ae-4de3-940f-639373cad108
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no neighbor {ip} remote-as {remoteas}',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete bgp neighbor {ip}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||no neighbor {ip}',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,delete,'/rest/restconf/data/openconfig-bgp:bgp/neighbors/neighbor={ip}','',[],[]]
+    delete_neighbor_link_local:
+        description: "Deletes a link-local BGP neighbor entry. The remote-as is required for EOS systems"
+        arguments:
+            order: ip,remoteas,asnum
+        uuid: b4e67dba-f36a-4a65-b973-3eb7e1f02739
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no neighbor {ip}%{vlan_eos} remote-as {remoteas}',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete bgp neighbor {ip}%{vlan_exos}',userPrompt,'None','None','None',[],[]]
+    enable_neighbor:
+        description: "Enables the BGP Neighbor"
+        arguments:
+            order: ip,asnum
+        uuid: 5af49855-d323-4e88-aafa-25023a8541b8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'neighbor {ip} enable',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable bgp neighbor {ip}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||neighbor {ip} enable',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/neighbors/neighbor={ip}/config','',[],[]]
+    enable_neighbor_link_local:
+        description: "Enables the link-local BGP Neighbor"
+        arguments:
+            order: ip,asnum,vlan_eos,vlan_exos
+        uuid: 37fc30fe-c52f-49f3-8b4a-aea3c076c403
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'neighbor {ip}%{vlan_eos} enable',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable bgp neighbor {ip}%{vlan_exos}',userPrompt,'None','None','None',[],[]]
+    disable_neighbor:
+        description: "Disables the BGP Neighbor"
+        arguments:
+            order: ip,asnum
+        uuid: 402dd380-b0c2-48c8-87af-77d1b99d617c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no neighbor {ip} enable',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable bgp neighbor {ip}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||no neighbor {ip} enable',routerConfigPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/neighbors/neighbor={ip}/config','',[],[]]
+    disable_neighbor_link_local:
+        description: "Disables the link-local BGP Neighbor"
+        arguments:
+            order: ip,asnum,vlan_eos,vlan_exos
+        uuid: 1fcb4eba-f5fd-4d60-aeb0-32781e3e5b3e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no neighbor {ip}%{vlan_eos} enable',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable bgp neighbor {ip}%{vlan_exos}',userPrompt,'None','None','None',[],[]]
+    set_redistribute:
+        description: "Configures BGP to redistribute routes from another protocol"
+        arguments:
+            order: protocol,asnum
+        uuid: fd5a6676-3d4c-491e-a842-3234fd0d3154
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'redistribute {protocol}',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable bgp export {protocol}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||redistribute {protocol}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_redistribute:
+        description: "Clears the BGP redistribution of routes from another protocol"
+        arguments:
+            order: protocol,asnum
+        uuid: 314c6f26-9895-43e9-be5e-17615b1f3175
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no redistribute {protocol}',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable bgp export {protocol}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||no redistribute {protocol}',routerConfigPrompt,'None','None','None',[],[]]
+    set_neighbor_password:
+        description: "Sets a password for the TCP session between the DUT and Neighbor"
+        arguments:
+            order: ip,password,asnum
+        uuid: e48b6513-3b98-4cef-b33a-b5d6ca8d9987
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'neighbor {ip} remote-as {asnum} password {password}',routerProtoPrompt,'bgp||{asnum}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'configure bgp neighbor {ip} password {password}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||neighbor password {ip} {password}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_neighbor:
+        description: "Clear the BGP peer relationship between the DUT and the Neighbor"
+        arguments:
+            order: 
+        uuid: dfb7288b-7a76-4b56-b23a-2961325450f6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear bgp neighbor {ip}',userPrompt,'None','None','None',[],[]]
+    clear_neighbor_all:
+        description: "Clears the BGP peer relationship for all neighbors"
+        arguments:
+            order: 
+        uuid: bb8bbcc1-6f96-48d1-981b-71a6477fc46e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear bgp neighbor all',userPrompt,'None','None','None',[],[]]
+    enable_neighbor_capability:
+        description: "Enables the Address-family for the BGP Neighbor"
+        arguments:
+            order: ip,capability,family
+        uuid: e813f686-694b-49ca-8f0e-9da4531f2500
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable bgp neighbor {ip} capability {family}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||neighbor {ip} {capability}',routerConfigPrompt,'None','None','None',[],[]]
+    disable_neighbor_capability:
+        description: "Disables the Address-family for the BGP Neighbor"
+        arguments:
+            order: ip,capability,family
+        uuid: 69328593-da48-4fe0-8c82-2c2d9f5d5576
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable bgp neighbor {ip} capability {family}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router bgp||no neighbor {ip} {capability}',routerConfigPrompt,'None','None','None',[],[]]
+    set_auto_peering:
+        description: "Configures the Auto-Peering feature"
+        arguments:
+            restData: asnum,rtrid
+            order:
+        uuid: 96ee215d-50e6-440e-a347-d9a7ccbfe4d7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create auto-peering bgp routerid {rtrid} AS-number {asnum}',userPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/config','',[],[]]
+    clear_auto_peering:
+        description: "Un-configures the Auto-Peering feature"
+        arguments:
+            order:
+        uuid: 0e63e4bf-7d6e-48e6-b339-327cced65e43
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'delete auto-peering',userPrompt,'None','Are you sure you want to delete auto-peering','y',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/config','',[],[]]
+    set_confederation_id:
+        description: "Configures confederation ID"
+        arguments:
+            restData: confed_id
+            order:
+        uuid: 56b7b4e4-d115-41a8-9b5a-1cf3ac47ad94
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/confederation','',[],[]]
+    clear_confederation_id:
+        description: "Clears confederation ID"
+        arguments:
+            restData: confed_id
+            order:
+        uuid: 051db196-8dfc-4840-be89-fa99f9ca61e5
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/confederation','',[],[]]
+    set_confederation_peer_member_as:
+        description: "Sets confederation peer member AS"
+        arguments:
+            restData: member_as
+            order:
+        uuid: 96eb8a17-1ace-4fcf-b58a-c75e410d4b92
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/confederation','',[],[]]
+    clear_confederation_peer_member_as:
+        description: "Clears confederation peer member AS"
+        arguments:
+            restData: member_as
+            order:
+        uuid: c3d4462c-2a2e-4547-bea4-fc58eddbbe42
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,put,'/rest/restconf/data/openconfig-bgp:bgp/global/confederation/config','',[],[]]
+    set_graceful_restart_time:
+        description: "Sets graceful restart time"
+        arguments:
+            restData: restart_time
+            order:
+        uuid: d690b5e2-3703-4a8c-80ea-27b38fc15e2f
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/graceful-restart','',[],[]]
+    clear_graceful_restart_time:
+        description: "Clears graceful restart time"
+        uuid: 9961287f-3900-4d9c-a6e4-09a51eb3c8c2
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/graceful-restart','',[],[]]
+    set_graceful_stale_route_time:
+        description: "Sets graceful stale route time"
+        arguments:
+            restData: stale_route_time
+            order:
+        uuid: 01b06852-3823-406d-b0a0-069c255fa592
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/graceful-restart','',[],[]]
+    clear_graceful_stale_route_time:
+        description: "Clears graceful stale route time"
+        uuid: c0977793-99ef-4c23-80e6-be1e01bcaae9
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/graceful-restart','',[],[]]
+    set_maximum_paths:
+        description: "Sets maximum paths"
+        arguments:
+            restData: paths
+            order:
+        uuid: 73d88e2b-4ab9-4c20-8666-b57e12edf42a
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/use-multiple-paths','',[],[]]
+    clear_maximum_paths:
+        description: "Clears maximum paths"
+        uuid: fe16fd98-d64b-4092-9ee8-874000a28cbb
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/use-multiple-paths','',[],[]]
+    set_neighbor_keep_alive_interval_and_hold_time:
+        description: "set_neighbor_keep_alive_interval_and_hold_time"
+        arguments:
+            restData: hold_time,keep_alive_time
+            order:
+        uuid: dc0b405a-d443-4301-9169-4f19b07ba9f8
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/neighbors/neighbor={neighbor_ip}/timers/config','',[],[]]
+    set_neighbor_transport_address:
+        description: "set_neighbor_transport_address"
+        arguments:
+            restData: local_address
+            order:
+        uuid: 4cb300fe-9d8c-44c9-a946-43e09ffffad8
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/neighbors/neighbor={neighbor_ip}/transport/config','',[],[]]
+    enable_graceful_restart:
+        description: "Enables graceful restart"
+        uuid: e2b047db-b25b-4b3b-904e-c23fe06eb7ab
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/graceful-restart','',[],[]]
+    disable_graceful_restart:
+        description: "Disables graceful restart"
+        uuid: 9a58f084-68ce-473a-9365-46d48f557c4e
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/graceful-restart','',[],[]]
+    enable_allow_multiple_as:
+        description: "Enables allow multiple AS"
+        uuid: 81c07919-1e9a-4b95-935e-5cd04020fc21
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/use-multiple-paths/ebgp/config','',[],[]]
+    disable_allow_multiple_as:
+        description: "Disables allow multiple AS"
+        uuid: d45a68c6-8ba2-4ea4-b35e-0d12d3f2e2ea
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/use-multiple-paths/ebgp/config','',[],[]]
+    enable_always_compare_med:
+        description: "Enables always compare med"
+        uuid: a6ffb1b3-0979-4a9f-8dae-e70f954b3e67
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/route-selection-options','',[],[]]
+    disable_always_compare_med:
+        description: "Disable always compare med"
+        uuid: 47a68d38-b0bd-435f-9e3a-86ff53391fad
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/route-selection-options','',[],[]]
+    enable_advertise_inactive_routes_ipv4_unicast:
+        description: "Enables advertise inactive routes v4 unicast"
+        uuid: c71e06f9-6800-4243-bdfe-1e442f6c830c
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis','',[],[]]
+    disable_advertise_inactive_routes_ipv4_unicast:
+        description: "Disables advertise inactive routes v4 unicast"
+        uuid: 7b9be6d0-cdef-4956-8351-da0b428d7d26
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis','',[],[]]
+    enable_advertise_inactive_routes_l3vpn_ipv4_unicast:
+        description: "Enables advertise inactive routes v4 l3vpn unicast"
+        uuid: 65319d27-fffd-4045-b6ef-ad6640fc98c1
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis','',[],[]]
+    disable_advertise_inactive_routes_l3vpn_ipv4_unicast:
+        description: "Disables advertise inactive routes v4 l3vpn unicast"
+        uuid: 60264893-2a4c-440f-a750-0341f8074f45
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis','',[],[]]
+    enable_advertise_inactive_routes_ipv6_unicast:
+        description: "Enables advertise inactive routes v6 unicast"
+        uuid: fd87f773-188a-4066-8e95-48c9bebcd16d
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis','',[],[]]
+    disable_advertise_inactive_routes_ipv6_unicast:
+        description: "Disables advertise inactive routes v6 unicast"
+        uuid: a3b1620a-94c4-43fc-8238-bd410c4325b0
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis','',[],[]]
+    show_all_routes:
+        uuid: 8b16d3d7-c625-41bc-8383-cac30cee3fa3
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show ip bgp',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show bgp routes all',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip bgp route',userPrompt,'None','None','None',[],[]]
+    show_always_compare_med:
+        description: "Shows always compare med"
+        uuid: 2f58dba2-5c72-45fa-9fc5-2df51dd47c50
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/global/route-selection-options/config','',[],[]]
+    show_advertise_inactive_routes_ipv6_unicast:
+        description: "show_advertise_inactive_routes_ipv6_unicast"
+        uuid: d1bd3e72-c0ed-4f03-ac30-500fa542fb04
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis/afi-safi=oc-bgp-types:IPV6_UNICAST/route-selection-options/config','',[],[]]
+    show_advertise_inactive_routes_l3vpn_ipv4_unicast:
+        description: "show_advertise_inactive_routes_l3vpn_ipv4_unicast"
+        uuid: 33c5d664-750c-41d7-a5f9-52c300235a8d
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis/afi-safi=oc-bgp-types:L3VPN_IPV4_UNICAST/route-selection-options/config','',[],[]]
+    show_advertise_inactive_routes_ipv4_unicast:
+        description: "show_advertise_inactive_routes_ipv4_unicast"
+        uuid: b0ce34d9-7537-42dd-a92d-e5926912ad27
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/global/afi-safis/afi-safi=oc-bgp-types:IPV4_UNICAST/route-selection-options/config','',[],[]]
+    show_use_multiple_paths:
+        description: "Shows use multiple paths"
+        uuid: eba4d97d-a690-4178-9b33-0f686e64944f
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/global/use-multiple-paths/ebgp/config','',[],[]]
+    show_neighbor_timers:
+        description: "show_neighbor_timers"
+        uuid: 35e97848-eec3-482b-b10b-df4dcb53234a
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/neighbors/neighbor={neighbor_ip}/timers/config','',[],[]]
+    show_confederation:
+        description: "Shows confederation"
+        uuid: e1ed7408-fce4-434a-8b5f-96a3bb7b6889
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/global/confederation/config','',[],[]]
+    show_graceful_restart:
+        description: "show_graceful_restart"
+        uuid: 1cb80208-c9c2-40c9-8578-ba2dbb8967bc
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/global/graceful-restart/config','',[],[]]
+    show_neighbors:
+        uuid: 1909e224-5174-4515-9adf-6576c2c4e2a6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show ip bgp neighbors',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show bgp neighbor',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip bgp neighbor',userPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/neighbors','',[],[]]
+    show_status:
+        uuid: 41a0b4f3-4260-40e2-8f9d-7b9cbad07fd4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show ip bgp',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show bgp',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip bgp conf',userPrompt,'None','None','None',[],[]]
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/openconfig-bgp:bgp/global/config','',[],[]]
+    show_route_ip:
+        uuid: 5819fa87-9a46-4fa3-8e05-bab1c8706b8a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip bgp route ip {ip}',userPrompt,'None','None','None',[],[]]
+    show_redistributed_routes:
+        uuid: 7625e7d8-4a49-4a50-8f8a-d4454cc10e9b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip bgp redistributed-routes',userPrompt,'None','None','None',[],[]]
+    show_networks:
+        uuid: ea4608a6-3755-48a5-b4a8-24d63a169206
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip bgp networks',userPrompt,'None','None','None',[],[]]
+    show_peer_group:
+        uuid: 1318cdee-ef72-43a3-9f59-565e2ee6c063
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip bgp peer-group',userPrompt,'None','None','None',[],[]]
+    show_stats:
+        uuid: 513d37b3-784d-4d0a-85be-0d2cedc0758a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip bgp stats',userPrompt,'None','None','None',[],[]]
+    show_summary:
+        uuid: 9dc5582d-e992-44a9-be29-489e98d79d5e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip bgp summary',userPrompt,'None','None','None',[],[]]

@@ -1,0 +1,94 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+filemanagement:
+    get_logfile_list:
+        uuid: 6cbf02cc-fb6e-44b1-9ac0-f5ab7d044aeb
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    move_core_files:
+        uuid: c5b32531-bb9f-412b-974e-7bd8067653a6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    get_version_filename:
+        uuid: 9960e8eb-68b5-49be-b355-e9ab3eda3473
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+                - [EOSSTACKS,base,baseversion,baseunit]
+                - [BOSS,base,baseversion,baseunit]
+                - [ICX,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    get_unused_imagename:
+        uuid: 2cff1652-e87c-4af9-93d8-0d0557e51ac3
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+    check_version_present:
+        uuid: 85bd6a25-94ed-47e1-8bad-a87cda472a5d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_config_file_exists:
+        uuid: 1758fa99-1c5f-4a41-b867-b994a3d9636f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_config_file_exists_per_slot:
+        uuid: da7181fc-9e88-4b6a-8fc6-4a2a8444d7f5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_default_boot_config_file:
+        uuid: 9bcda435-17f3-41b2-894c-683791a2f844
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_primary_boot_config_file:
+        uuid: da9626e0-c5e2-4b86-8315-5c08556ce2c5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_primary_backup_boot_config_file:
+        uuid: d28d2979-2161-4f37-925d-9985b8f24d21
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

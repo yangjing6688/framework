@@ -1,0 +1,22 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the fan FRUs specific to X690-48x-4q-2c
+#
+devices:
+  - *FAN_CONTROLLER_FPGA
+
+fan_info:
+  <<: *COMMON_FAN_INFO
+
+fan_frus:
+  - *FAN_FRU_1
+  - *FAN_FRU_2
+  - *FAN_FRU_3
+  - *FAN_FRU_4
+  - *FAN_FRU_5
+  - *FAN_FRU_6

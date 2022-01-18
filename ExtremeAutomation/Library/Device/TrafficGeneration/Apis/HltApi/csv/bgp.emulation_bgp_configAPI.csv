@@ -1,0 +1,3441 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This option defines the action to be taken on the BGP server.
+
+Valid options are:
+
+enable
+ 
+
+enable and/or create the BGP4 configuration. If -handle is specified, then it will be enabled, otherwise created.
+
+delete
+ 
+
+delete the BGP4 configuration, requires the use of -handle.
+
+disable
+ 
+
+disable the BGP4 configuration, requires the use of -handle.
+
+modify
+ 
+
+modify the BGP4 configuration, requires the use of -handle.
+
+reset
+ 
+
+deletes all BGP4 configurations from the -port_handle and then creates the provided BGP4 configuration.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF [M]
+ 
+
+DESCRIPTION
+ 
+
+This option defines the action to be taken on the BGP server.
+
+Valid options are:
+
+delete
+ 
+
+delete the BGP4 configuration, requires the use of -handle.
+
+disable
+ 
+
+disable the BGP4 configuration, requires the use of -handle.
+
+enable
+ 
+
+enable and/or create the BGP4 configuration. If -handle is specified, then it will be enabled, otherwise created.
+
+create
+ 
+
+create the BGP configuration
+
+modify
+ 
+
+modify the BGP4 configuration, requires the use of -handle.
+
+reset
+ 
+
+deletes all BGP4 configurations from the -port_handle and then creates the provided BGP4 configuration.
+
+DEFAULT
+ None",opt,"delete,disable,enable,create,modify,reset","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+active,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Activates the item
+
+DEFAULT
+ 
+
+1",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+md5_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If set to 1, enables MD5 authentication for emulated BGP node.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If set to 1, enables MD5 authentication for emulated BGP node.
+
+Valid options are:
+
+0
+ 
+
+1
+ 
+
+DEFAULT
+ None",bool,"0,1","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+md5_key,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The key used for md5 authentication.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The key used for md5 authentication.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'md5_enable' | value= '1' |",String,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+port_handle,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The port on which the BGP neighbor is to be created.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The port on which the BGP neighbor is to be created.
+
+DEFAULT
+ None",port,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+BGP handle used for -mode modify/disable/delete.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+BGP handle used for -mode modify/disable/delete. When -handle is provided with the /globals value the arguments that configure global protocol setting accept both multivalue handles and simple values. When -handle is provided with a a protocol stack handle or a protocol session handle, the arguments that configure global settings will only accept simple values. In this situation, these arguments will configure only the settings of the parent device group or the ports associated with the parent topology.
+
+DEFAULT
+ None",opt,"delete,disable,enable,create,modify,reset","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ip_version,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This option defines the IP version of the BGP4.
+
+Valid options are:
+
+4
+ 
+
+IPv4
+
+6
+ 
+
+IPv6
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This option defines the IP version of the BGP4 neighbor to be configured on the Ixia interface.
+
+Valid options are:
+
+4
+ 
+
+IPv4
+
+6
+ 
+
+IPv6
+
+DEFAULT
+ 
+
+4",opt,"4,6","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_ip_addr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The IPv4 address of the Ixia simulated BGP node to be emulated.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The IPv4 address of the Ixia simulated BGP node to be emulated.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ip_version' | value= '4' |",IPV4,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gateway_ip_addr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The gateway IPV4 or IPV6 address of the BGP4 neighbor interface. If this parameter is not provided it will be initialized to the remote_ip_addr value.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The gateway IPV4 or IPV6 address of the BGP4 neighbor interface. If this parameter is not provided it will be initialized to the remote_ip_addr value.
+
+DEFAULT
+ None",IP,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_ip_addr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The IPv4 address of the DUTs interface connected to the emulated BGP port.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The IPv4 address of the DUTs interface connected to the emulated BGP port.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ip_version' | value= '4' |",IPV4,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_ipv6_addr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The IPv6 address of the BGP node to be emulated by the test port.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The IPv6 address of the BGP node to be emulated by the test port.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ip_version' | value= '6' |",IPV6,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_ipv6_addr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The IPv6 address of the DUT interface connected to emulated BGP node.This parameter is mandatory when -mode is create, -ip_version is 6 and parameter -neighbor_type is external, or -neighbor_type is internal and ipv4_mpls_nlri, ipv6_mpls_nlri, ipv4_mpls_vpn_nlri, and ipv6_mpls_vpn_nlri are not enabled.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The IPv6 address of the DUT interface connected to emulated BGP node. This parameter is mandatory when -mode is create, -ip_version is 6 and parameter -neighbor_type is external, or -neighbor_type is internal and ipv4_mpls_nlri, ipv6_mpls_nlri, ipv4_mpls_vpn_nlri, and ipv6_mpls_vpn_nlri are not enabled.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ip_version' | value= '6' |",IPV6,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_addr_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Defines the mask and increment step for the next -local_ip_addr or """"""""-local_ipv6_addr"""""""".(DEFAULT = 0.1.0.0 | 0:0:0:0:1::0)
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Defines the mask and increment step for the next -local_ip_addr or """"""""-local_ipv6_addr"""""""".
+
+DEFAULT
+ None",IP,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_addr_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Defines the mask and increment step for the next -remote_ip_addr or """"""""-remote_ipv6_addr"""""""".(DEFAULT = 0.1.0.0 | 0:0:0:0:1::0)
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Defines the mask and increment step for the next -remote_ip_addr or """"""""-remote_ipv6_addr"""""""".
+
+DEFAULT
+ None",IP,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This option is used for IPv4 traffic, and enables the use of the BGP NEXT_HOP attributes. When enabled, the IP next hop must be configured (using the -next_hop_ip option).
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This option is used for IPv4 traffic, and enables the use of the BGP NEXT_HOP attributes. When enabled, the IP next hop must be configured (using the -next_hop_ip option).
+
+Valid options are:
+
+0
+ 
+
+1
+ 
+
+DEFAULT
+ 
+
+1",opt,"FLAG,0,1","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+next_hop_ip,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Defines the IP of the next hop. This option is used if the flag -next_hop_enable is set.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Defines the IP of the next hop. This option is used if the flag -next_hop_enable is set.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'next_hop_enable' | value= '1' |",IP,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_4_byte_as,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Allow 4 byte values for -local_as.
+
+DEFAULT
+ 
+
+0
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Allow 4 byte values for -local_as.
+
+DEFAULT
+ 
+
+0",bool,"0,1","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_as,"Supported platforms  Details
+RANGE 0 - 4294967295
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The AS number of the BGP node to be emulated by the test port.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The AS number of the BGP node to be emulated by the test port.
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_as4,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The 4 bytes AS number of the BGP node to be emulated by the test port.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'enable_4_byte_as' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_as_mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+For External BGP type only. This option controls the AS number (local_as) assigned to additional routers.
+
+Valid options are:
+
+fixed
+ 
+
+(default) the local_as remains fixed.
+
+increment
+ 
+
+increments the local_as.
+
+DEFAULT
+ 
+
+fixed
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For External BGP type only. This option controls the AS number (local_as) assigned to additional routers.
+
+Valid options are:
+
+fixed
+ 
+
+(default) the local_as remains fixed
+
+increment
+ 
+
+increments the local_as
+
+DEFAULT
+ 
+
+fixed",opt,"fixed,increment","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_as,"Supported platforms  Details
+RANGE 0 - 4294967295
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The remote AS.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The remote AS. Not supported reason: not supported in NGPF, deprecated in legacy
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_as_step,"Supported platforms  Details
+RANGE 0 - 4294967295
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If you configure more then 1 eBGP neighbor on the Ixia interface, and if you select the option local_as_mode to increment, the option local_as_step defines the step by which the AS number is incremented.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If you configure more then 1 eBGP neighbor on the Ixia interface, and if you select the option local_as_mode to increment, the option local_as_step defines the step by which the AS number is incremented.
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'local_as_mode' | value= 'increment' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+update_interval,"Supported platforms  Details
+RANGE 0 - 65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The time intervals at which UPDATE messages are sent to the DUT, expressed in the number of milliseconds between UPDATE messages.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The time intervals at which UPDATE messages are sent to the DUT, expressed in the number of milliseconds between UPDATE messages.
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+count,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Number of BGP nodes to create.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Number of BGP nodes to create.
+
+DEFAULT
+ 
+
+1",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_router_id,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+BGP4 router ID of the emulated node, must be in IPv4 format.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+BGP4 router ID of the emulated node, must be in IPv4 format.
+
+DEFAULT
+ None",IPV4,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_router_id_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+BGP4 router ID step of the emulated node, must be in IPv4 format.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+BGP4 router ID step of the emulated node, must be in IPv4 format.
+
+DEFAULT
+ 
+
+0.0.0.1",IPV4,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables vlan on the directly connected BGP router interface. Valid options are:
+
+Valid options are:
+
+0
+ 
+
+disable
+
+1
+ 
+
+enable.This option is valid only when -mode is create or -mode is modify and -handle is a BGP router handle.This option is available only when IxNetwork tcl API is used.
+
+DEFAULT
+ 
+
+0
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables vlan on the directly connected BGP router interface. Valid options are: 0 - disable, 1 - enable. This option is valid only when -mode is create or -mode is modify and -handle is a BGP router handle. This option is available only when IxNetwork tcl API is used.
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'mode' | value= 'create' |
+'mode' | value= 'modify' |",bool,"0,1","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id,"Supported platforms  Details
+RANGE 0 - 4095
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+VLAN ID for the emulated router node.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VLAN ID for the emulated router node.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vlan' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id_mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+For multiple neighbor configuration, configurest the VLAN ID mode. Valid options are:fixedincrement
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For multiple neighbor configuration, configurest the VLAN ID mode.
+
+Valid options are:
+
+fixed
+ 
+
+increment
+ 
+
+DEFAULT
+ 
+
+increment
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vlan' | value= '1' |",opt,"fixed,increment","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id_step,"Supported platforms  Details
+RANGE 0 - 4096
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Defines the step for every VLAN When -vlan_id_mode is set to increment.When vlan_id_step causes the vlan_id value to exceed it's maximum value the increment will be done modulo .Examples: vlan_id = 4094; vlan_id_step = 2 -> new vlan_id value = 0vlan_id = 4095; vlan_id_step = 11 -> new vlan_id value = 10
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Defines the step for every VLAN When -vlan_id_mode is set to increment. When vlan_id_step causes the vlan_id value to exceed it's maximum value the increment will be done modulo . Examples: vlan_id = 4094; vlan_id_step = 2 -> new vlan_id value = 0 vlan_id = 4095; vlan_id_step = 11 -> new vlan_id value = 10
+
+DEFAULT
+ 
+
+1
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vlan' | value= '1' |
+'vlan_id_mode' | value= 'increment' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_user_priority,"Supported platforms  Details
+RANGE 0 - 7
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The VLAN user priority assigned to emulated router node.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The VLAN user priority assigned to emulated router node.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'vlan' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpi,"Supported platforms  Details
+RANGE 0 - 255
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+VPI for emulated router node. RANGE 0-255
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VPI for emulated router node. RANGE 0-255
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vci,"Supported platforms  Details
+RANGE 0 - 65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+VCI for emulated router node. RANGE 0-65535
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+VCI for emulated router node. RANGE 0-65535
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpi_step,"Supported platforms  Details
+RANGE 0 - 255
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The step value used for incrementing the -vpi option. RANGE 0-255When vpi_step causes the vpi value to exceed it's maximum value the increment will be done modulo .Examples: vpi = 254; vpi_step = 2 -> new vpi value = 0vpi = 255; vpi_step = 11 -> new vpi value = 10
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The step value used for incrementing the -vpi option. RANGE 0-255 When vpi_step causes the vpi value to exceed it's maximum value the increment will be done modulo . Examples: vpi = 254; vpi_step = 2 -> new vpi value = 0 vpi = 255; vpi_step = 11 -> new vpi value = 10
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vci_step,"Supported platforms  Details
+RANGE 0 - 65535
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The step value used for incrementing the -vci option. RANGE 0-65535 When vci_step causes the vci value to exceed it's maximum value the increment will be done modulo .Examples: vci = 65534; vci_step = 2 -> new vci value = 0vci = 65535; vci_step = 11 -> new vci value = 10
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The step value used for incrementing the -vci option. RANGE 0-65535 When vci_step causes the vci value to exceed it's maximum value the increment will be done modulo . Examples: vci = 65534; vci_step = 2 -> new vci value = 0 vci = 65535; vci_step = 11 -> new vci value = 10
+
+DEFAULT
+ None",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+atm_encapsulation,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The encapsulation of the ATM protocol interface associated with the emulated router.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The encapsulation of the ATM protocol interface associated with the emulated router.
+
+Valid options are:
+
+VccMuxIPV4Routed
+ 
+
+VccMuxIPV6Routed
+ 
+
+VccMuxBridgedEthernetFCS
+ 
+
+VccMuxBridgedEthernetNoFCS
+ 
+
+LLCRoutedCLIP
+ 
+
+LLCBridgedEthernetFCS
+ 
+
+LLCBridgedEthernetNoFCS
+ 
+
+DEFAULT
+ None",opt,"VccMuxIPV4Routed,VccMuxIPV6Routed,VccMuxBridgedEthernetFCS,VccMuxBridgedEthernetNoFCS,LLCRoutedCLIP,LLCBridgedEthernetFCS,LLCBridgedEthernetNoFCS","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_handle,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This parameter is valid only for IxTclNetwork API and represents a list of interfaces previously created using interface_config or another emulation__config command that returns the interfacehandles (for example: BFD).
+
+Starting with IxNetwork 5.60 this parameter accepts handles returned by emulation_dhcp_group_config procedure in the following format: |,-, ... The DHCP ranges are separated from the Interface Index identifiers with the (|) character. The Interface Index identifiers are separated with comas (,). A range of Interface Index identifiers can be defined using the dash (-) character.
+
+Ranges along with the Interface Index identifiers are grouped together in TCL Lists. The lists can contain mixed items, protocol interface handles returned by interface_config and handles returned by emulation_dhcp_group_config along with the interface index.
+
+Example:count 10 (10 BGP neighbors). 3 DHCP range handles returned by ::::emulation_dhcp_group_config. Each DHCP range has 20 sessions (interfaces). If we pass -interface_handle in the following format: [list $dhcp_r1|1,5 $dhcp_r2|1-3 $dhcp_r3|1,3,5-9,13] The interfaces will be distributed to the routers in the following manner:
+
+BGP Neighbor 1: $dhcp_r1 -> interface 1
+BGP Neighbor 2: $dhcp_r1 -> interface 5
+BGP Neighbor 3: $dhcp_r2 -> interface 1
+BGP Neighbor 4: $dhcp_r2 -> interface 2
+BGP Neighbor 5: $dhcp_r2 -> interface 3
+BGP Neighbor 6: $dhcp_r3 -> interface 1
+BGP Neighbor 7: $dhcp_r3 -> interface 3
+BGP Neighbor 8: $dhcp_r3 -> interface 5
+BGP Neighbor 9: $dhcp_r3 -> interface 6
+BGP Neighbor 10: $dhcp_r3 -> interface 7
+BGP Neighbor 11: $dhcp_r3 -> interface 8
+BGP Neighbor 12: $dhcp_r3 -> interface 9
+BGP Neighbor 13 $dhcp_r3 -> interface 13
+
+Starting with IxNetwork 6.30SP1 this parameter accepts handles returned by interface_config procedure with -l23_config_type static_type setting in the following format: |,-, ... The IP ranges are separated from the Interface Index identifiers with the (|) character. The Interface Index identifiers are separated with comas (,). A range of Interface Index identifiers can be defined using the dash (-) character.
+
+Ranges along with the Interface Index identifiers are grouped together in TCL Lists. The lists can contain mixed items, protocol interface handles returned by interface_config with -l23_config_type protocol_interface and with -l23_config_type static_type.
+
+Example:count 10 (10 BGP neighbors). 3 IP range handles returned by ::::interface_config. Each IP range has 20 sessions (interfaces). If we pass -interface_handle in the following format: [list $ip_r1|1,5 $ip_r2|1-3 $ip_r3|1,3,5-9,13] The interfaces will be distributed to the routers in the following manner:
+
+
+BGP Neighbor 1: $ip_r1 -> interface 1
+BGP Neighbor 2: $ip_r1 -> interface 5
+BGP Neighbor 3: $ip_r2 -> interface 1
+BGP Neighbor 4: $ip_r2 -> interface 2
+BGP Neighbor 5: $ip_r2 -> interface 3
+BGP Neighbor 6: $ip_r3 -> interface 1
+BGP Neighbor 7: $ip_r3 -> interface 3
+BGP Neighbor 8: $ip_r3 -> interface 5
+BGP Neighbor 9: $ip_r3 -> interface 6
+BGP Neighbor 10: $ip_r3 -> interface 7
+BGP Neighbor 11: $ip_r3 -> interface 8
+BGP Neighbor 12: $ip_r3 -> interface 9
+BGP Neighbor 13 $ip_r3 -> interface 13
+
+Valid for mode create for IxTclNetwork only.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This parameter is valid only for IxTclNetwork API and represents a list of interfaces previously created using interface_config or another emulation__config command that returns the interface handles (for example: BFD). Starting with IxNetwork 5.60 this parameter accepts handles returned by emulation_dhcp_group_config procedure in the following format: |,-, ... The DHCP ranges are separated from the Interface Index identifiers with the (|) character. The Interface Index identifiers are separated with comas (,). A range of Interface Index identifiers can be defined using the dash (-) character. Ranges along with the Interface Index identifiers are grouped together in TCL Lists. The lists can contain mixed items, protocol interface handles returned by interface_config and handles returned by emulation_dhcp_group_config along with the interface index. Example: count 10 (10 BGP neighbors). 3 DHCP range handles returned by ::::emulation_dhcp_group_config. Each DHCP range has 20 sessions (interfaces). If we pass a -interface_handle in the following format: [list $dhcp_r1|1,5 $dhcp_r2|1-3 $dhcp_r3|1,3,5-9,13] The interfaces will be distributed to the routers in the following manner: BGP Neighbor 1: $dhcp_r1 -> interface 1 BGP Neighbor 2: $dhcp_r1 -> interface 5 BGP Neighbor 3: $dhcp_r2 -> interface 1 BGP Neighbor 4: $dhcp_r2 -> interface 2 BGP Neighbor 5: $dhcp_r2 -> interface 3 BGP Neighbor 6: $dhcp_r3 -> interface 1 BGP Neighbor 7: $dhcp_r3 -> interface 3 BGP Neighbor 8: $dhcp_r3 -> interface 5 BGP Neighbor 9: $dhcp_r3 -> interface 6 BGP Neighbor 10: $dhcp_r3 -> interface 7 BGP Neighbor 11: $dhcp_r3 -> interface 8 BGP Neighbor 12: $dhcp_r3 -> interface 9 BGP Neighbor 13 $dhcp_r3 -> interface 13 Starting with IxNetwork 6.30SP1 this parameter accepts handles returned by interface_config procedure with -l23_config_type static_type setting in the following format: |,-, ... The IP ranges are separated from the Interface Index identifiers with the (|) character. The Interface Index identifiers are separated with comas (,). A range of Interface Index identifiers can be defined using the dash (-) character. Ranges along with the Interface Index identifiers are grouped together in TCL Lists. The lists can contain mixed items, protocol interface handles returned by interface_config with -l23_config_type protocol_interface and with -l23_config_type static_type. Example: count 10 (10 BGP neighbors). 3 IP range handles returned by ::::interface_config. Each IP range has 20 sessions (interfaces). If we pass a -interface_handle in the following format: [list $ip_r1|1,5 $ip_r2|1-3 $ip_r3|1,3,5-9,13] The interfaces will be distributed to the routers in the following manner: BGP Neighbor 1: $ip_r1 -> interface 1 BGP Neighbor 2: $ip_r1 -> interface 5 BGP Neighbor 3: $ip_r2 -> interface 1 BGP Neighbor 4: $ip_r2 -> interface 2 BGP Neighbor 5: $ip_r2 -> interface 3 BGP Neighbor 6: $ip_r3 -> interface 1 BGP Neighbor 7: $ip_r3 -> interface 3 BGP Neighbor 8: $ip_r3 -> interface 5 BGP Neighbor 9: $ip_r3 -> interface 6 BGP Neighbor 10: $ip_r3 -> interface 7 BGP Neighbor 11: $ip_r3 -> interface 8 BGP Neighbor 12: $ip_r3 -> interface 9 BGP Neighbor 13 $ip_r3 -> interface 13 Valid for mode create for IxTclNetwork only.
+
+DEFAULT
+ None",string,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+retry_time,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+For External BGP neighbor. When retries are necessary, the delay in seconds between retries.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For External BGP neighbor. When retries are necessary, the delay in seconds between retries. Not supported reason: not supported in NGPF
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hold_time,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Configures the hold time for BGP sessions for this Neighbor. Keepalives are sent out every one-third of this interval. If the default value is 90, KeepAlive messages are sent every 30 seconds.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Configures the hold time for BGP sessions for this Neighbor. Keepalives are sent out every one-third of this interval. If the default value is 90, KeepAlive messages are sent every 30 seconds.
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_type,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Sets the BGP neighbor type.
+
+Valid options are:
+
+internal
+ 
+
+iBGP
+
+external
+ 
+
+eBGP
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Sets the BGP neighbor type.
+
+Valid options are:
+
+internal
+ 
+
+iBGP
+
+external
+ 
+
+eBGP
+
+DEFAULT
+ None",opt,"internal,external","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+graceful_restart_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Will enable graceful restart (HA) on the BGP4 neighbor.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Will enable graceful restart (HA) on the BGP4 neighbor.
+
+DEFAULT
+ 
+
+0",bool,"0,1","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+restart_time,"Supported platforms  Details
+RANGE 0 - 10000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If -graceful_restart_enable is set, sets the amount of time following a restart operation allowed to re-establish a BGP session, in seconds.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If -graceful_restart_enable is set, sets the amount of time following a restart operation allowed to re-establish a BGP session, in seconds.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'graceful_restart_enable' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stale_time,"Supported platforms  Details
+RANGE 0 - 10000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If -graceful_restart_enable is set, sets the amount of time after which an End-Of-RIB marker is sent in an Update message to the peer to allow time for routing convergence via IGP and BGP selection, in seconds. Stale routing information for that address family is then deleted by the receiving peer.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If -graceful_restart_enable is set, sets the amount of time after which an End-Of-RIB marker is sent in an Update message to the peer to allow time for routing convergence via IGP and BGP selection, in seconds. Stale routing information for that address family is then deleted by the receiving peer.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'graceful_restart_enable' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+tcp_window_size,"Supported platforms  Details
+RANGE 0 - 10000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+For External BGP neighbor only. The TCP window used for communications from the neighbor.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For External BGP neighbor only. The TCP window used for communications from the neighbor.
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+retries,"Supported platforms  Details
+RANGE 0 - 10000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+For External BGP neighbor. The number of times to attempt an OPEN connection with the DUT routers before giving up.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For External BGP neighbor. The number of times to attempt an OPEN connection with the DUT routers before giving up. Not supported reason: not supported in NGPF
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_router_id_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables the BGP4 local router id option.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables the BGP4 local router id option.
+
+DEFAULT
+ 
+
+0",bool,"0,1","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+netmask,"Supported platforms  Details
+RANGE 1 - 128
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Mask of the IP address for the interface configuration.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Mask of the IP address for the interface configuration.
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_address_start,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Initial MAC address of the interfaces created for the BGP4 neighbor.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Initial MAC address of the interfaces created for the BGP4 neighbor.
+
+DEFAULT
+ None",MAC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_address_step,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The incrementing step for thr MAC address of the dirrectly connected interfaces created for the BGP4 neighbor.This option is valid only when IxTclNetwork API is used.
+
+DEFAULT
+ 
+
+0000.0000.0001
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The incrementing step for thr MAC address of the dirrectly connected interfaces created for the BGP4 neighbor. This option is valid only when IxTclNetwork API is used.
+
+DEFAULT
+ 
+
+0000.0000.0001",MAC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_mdt_nlri,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If checked, this BGP/BGP+ router/peer supports IPv4 MDT address family messages.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If checked, this BGP/BGP+ router/peer supports IPv4 MDT address family messages.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_capability_mdt_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If checked, this BGP/BGP+ router/peer supports IPv4 MDT address family messages.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_unicast_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 Unicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 Unicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_capability_unicast_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 Unicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_filter_unicast_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 Unicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_multicast_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 Multicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 Multicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_capability_multicast_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 Multicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_filter_multicast_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 Multicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_mpls_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 MPLS is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 MPLS is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_capability_mpls_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 MPLS is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_filter_mpls_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 MPLS is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_mpls_vpn_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 MPLS VPN is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 MPLS VPN is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_capability_mpls_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 MPLS VPN is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_filter_mpls_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv4 MPLS VPN is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_unicast_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 Unicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 Unicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_capability_unicast_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 Unicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_filter_unicast_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 Unicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_multicast_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 Multicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 Multicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_capability_multicast_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 Multicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_filter_multicast_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 Multicast is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_mpls_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 MPLS is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 MPLS is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_capability_mpls_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 MPLS is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_filter_mpls_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 MPLS is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_mpls_vpn_nlri,"Supported platforms  Details
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 MPLS VPN is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 MPLS VPN is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_capability_mpls_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 MPLS VPN is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_filter_mpls_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If used, support for IPv6 MPLS VPN is advertised in the Capabilities Optional Parameter / Multiprotocol Extensions parameter in the OPEN message and in addition, for IxTclNetwork, also sets the filters for the respective learned routes.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+capability_route_refresh,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route Refresh
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+capability_route_constraint,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Route Constraint
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_loopback_ip_addr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Required when the -ipv4_mpls_vpn_nlri option is used.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Required when the -ipv4_mpls_vpn_nlri option is used.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4_mpls_vpn_nlri' | value= '' |",IP,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_loopback_ip_prefix_length,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Prefix length for local_loopback_ip_addr.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Prefix length for local_loopback_ip_addr.
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_loopback_ip_addr_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Required when the -ipv4_mpls_vpn_nlri option is used.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Required when the -ipv4_mpls_vpn_nlri option is used.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4_mpls_vpn_nlri' | value= '' |",IP,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_loopback_ip_addr,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Required when the -ipv4_mpls_vpn_nlri option is used.This parameter is mandatory when -mode is create, and parameter -neighbor_type is internal and and ipv4_mpls_nlri, ipv6_mpls_nlri, ipv4_mpls_vpn_nlri, and ipv6_mpls_vpn_nlri are enabled.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Required when the -ipv4_mpls_vpn_nlri option is used. This parameter is mandatory when -mode is create, and parameter -neighbor_type is internal and and ipv4_mpls_nlri, ipv6_mpls_nlri, ipv4_mpls_vpn_nlri, and ipv6_mpls_vpn_nlri are enabled.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4_mpls_vpn_nlri' | value= '' |",IP,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_loopback_ip_addr_step,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Required when the -ipv4_mpls_vpn_nlri option is used.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Required when the -ipv4_mpls_vpn_nlri option is used.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'ipv4_mpls_vpn_nlri' | value= '' |",IP,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ttl_value,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This attribute represents the limited number of iterations that a unit of data can experience before the data is discarded.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This attribute represents the limited number of iterations that a unit of data can experience before the data is discarded.
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+updates_per_iteration,"Supported platforms  Details
+RANGE 0 - 10000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+When the protocol server operates on older ports that do not possess a local processor, this tuning parameter controls how many UPDATE messages are sent at a time. When many routers are being simulated on such a port, changing this value may help to increase or decrease performance.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+When the protocol server operates on older ports that do not possess a local processor, this tuning parameter controls how many UPDATE messages are sent at a time. When many routers are being simulated on such a port, changing this value may help to increase or decrease performance.
+
+DEFAULT
+ None",NUMERIC,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bfd_registration,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enable or disable BFD registration.
+
+DEFAULT
+ 
+
+0
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable or disable BFD registration.
+
+DEFAULT
+ 
+
+0",bool,"0,1","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bfd_registration_mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Set BFD registration mode to single hop or multi hop.
+
+DEFAULT
+ 
+
+multi_hop
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Set BFD registration mode to single hop or multi hop.
+
+Valid options are:
+
+single_hop
+ 
+
+multi_hop
+ 
+
+DEFAULT
+ 
+
+multi_hop",opt,"single_hop,multi_hop","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+override_existence_check,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If this option is enabled, the interface existence check is skipped but the list of interfaces is still created and maintained in order to keep track of existing interfaces if required. Using this option will speed up the interfaces' creation.
+
+DEFAULT
+ 
+
+0
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If this option is enabled, the interface existence check is skipped but the list of interfaces is still created and maintained in order to keep track of existing interfaces if required. Using this option will speed up the interfaces' creation.
+
+DEFAULT
+ 
+
+0",bool,"0,1","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+override_tracking,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If this option is enabled, the list of interfaces won't be created and maintained anymore, thus, speeding up the interfaces' creation even more. Also, it will enable -override_existence_check in case it wasn't already enabled because checking for interface existence becomes impossible if the the list of interfaces doesn't exist anymore.
+
+DEFAULT
+ 
+
+0
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If this option is enabled, the list of interfaces won?t be created and maintained anymore, thus, speeding up the interfaces' creation even more. Also, it will enable -override_existence_check in case it wasn?t already enabled because checking for interface existence becomes impossible if the the list of interfaces doesn?t exist anymore.
+
+DEFAULT
+ 
+
+0",bool,"0,1","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+no_write,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If this option is present, the configuration is not written to the hardware. This option can be used to queue up multiple configurations before writing to the hardware.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If this option is present, the configuration is not written to the hardware. This option can be used to queue up multiple configurations before writing to the hardware.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpls,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft. This will enable the L2 Sites. If present, means VPLS capabilities are enabled.
+
+Valid options are:
+
+0
+ 
+
+disabled
+
+1
+ 
+
+enabled
+
+DEFAULT
+ 
+
+0
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+(deprecated) This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft. This will enable the L2 Sites. If present, means VPLS capabilities are enabled. Valid choices are: 0 - disabled 1 - enabled
+
+Valid options are:
+
+0
+ 
+
+1
+ 
+
+disabled
+ 
+
+vpn
+ 
+
+no_vpn
+ 
+
+DEFAULT
+ 
+
+0",opt,"0,1,disabled,vpn,no_vpn","IxNetwork,IxNetwork-NGPF",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpls_nlri,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft. This will enable the L2 Sites. If present, means VPLS capabilities are enabled.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft. This will enable the L2 Sites. If present, means VPLS capabilities are enabled.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpls_capability_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft. This will enable the L2 Sites. If present, means VPLS capabilities are enabled.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpls_filter_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+This BGP/BGP+ router/peer supports BGP/BGP+ VPLS per the Kompella draft. This will enable the L2 Sites. If present, means VPLS capabilities are enabled.
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+advertise_host_route,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Not supported
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Not supported
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+modify_outgoing_as_path,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Moved to emulation_bgp_route_config under AS Path configuration.
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Moved to emulation_bgp_route_config under AS Path configuration.
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+remote_confederation_member,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Moved to emulation_bgp_route_config under AS Path configuration.
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Moved to emulation_bgp_route_config under AS Path configuration.
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+reset,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Clears any BGP4 configuration on the targeted port before configuring further.
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Clears any BGP4 configuration on the targeted port before configuring further.
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+route_refresh,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Details needed.
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Details needed.
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+routes_per_msg,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Not supported
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Not supported
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+suppress_notify,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+If set to 1, suppresses, the notification message sent to the peer. if set to 0, does not suppress the notification message sent to the peer.
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+If set to 1, suppresses, the notification message sent to the peer. if set to 0, does not suppress the notification message sent to the peer.
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+timeout,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Not supported
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Not supported
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+update_msg_size,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Maximum size (bytes) of the UPDATE message transmitted by emulated router node.
+
+DEFAULT
+ Not supported
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Maximum size (bytes) of the UPDATE message transmitted by emulated router node.
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+vlan_cfi,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Canonical format indicator field in VLAN for emulated router node.
+
+DEFAULT
+ Not supported",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+act_as_restarted,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Act as restarted
+
+DEFAULT
+ 
+
+0
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'graceful_restart_enable' | value= '1' |",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+discard_ixia_generated_routes,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Discard Ixia Generated Routes
+
+DEFAULT
+ 
+
+0",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+flap_down_time,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Downtime in Seconds
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'enable_flap' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+local_router_id_type,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+BGP ID Same as Router ID
+
+Valid options are:
+
+same
+ 
+
+new
+ 
+
+DEFAULT
+ 
+
+new",opt,"same,new",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_flap,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Flap
+
+DEFAULT
+ 
+
+0",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+send_ixia_signature_with_routes,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Send Ixia Signature With Routes
+
+DEFAULT
+ 
+
+0",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+flap_up_time,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Uptime in Seconds
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'enable_flap' | value= '1' |",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_multicast_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IPv4 Multicast VPN
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_capability_multicast_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IPv4 Multicast VPN
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_filter_multicast_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IPv4 Multicast VPN
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_multicast_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IPv6 Multicast VPN
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_capability_multicast_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IPv6 Multicast VPN
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_filter_multicast_vpn_nlri,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+IPv6 Multicast VPN
+
+DEFAULT
+ None",FLAG,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+advertise_end_of_rib,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Advertise End-Of-RIB
+
+DEFAULT
+ 
+
+0",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+configure_keepalive_timer,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Configure Keepalive Timer
+
+DEFAULT
+ 
+
+0",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+keepalive_timer,"Supported platforms  Details
+RANGE 0 - 65535
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Keepalive Timer
+
+DEFAULT
+ 
+
+30",NUMERIC,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+staggered_start_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+Enables staggered start of neighbors.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enables staggered start of neighbors.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+staggered_start_time,"Supported platforms  Details
+RANGE 0 - 10000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+When the -staggered_start_enable flag is used, this is the duration of the start process in seconds.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+When the -staggered_start_enable flag is used, this is the duration of the start process in seconds.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'staggered_start_time' | value= '1' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+start_rate_enable,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable bgp globals start rate
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+start_rate_interval,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Time interval used to calculate the rate for triggering an action (rate = count/interval)
+
+DEFAULT
+ None",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+start_rate,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Number of times an action is triggered per time interval
+
+DEFAULT
+ None",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+start_rate_scale_mode,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Indicates whether the control is specified per port or per device group
+
+Valid options are:
+
+deviceGroup
+ 
+
+The values regarding start rate are mapped per device group
+
+port
+ 
+
+The values regarding start rate are mapped per port
+
+DEFAULT
+ None",port,"deviceGroup,port",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stop_rate_enable,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable bgp globals stop rate
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stop_rate_interval,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Time interval used to calculate the rate for triggering an action (rate = count/interval)
+
+DEFAULT
+ None",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stop_rate,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Number of times an action is triggered per time interval
+
+DEFAULT
+ None",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stop_rate_scale_mode,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Indicates whether the control is specified per port or per device group
+
+Valid options are:
+
+deviceGroup
+ 
+
+The values regarding stop rate are mapped per device group
+
+port
+ 
+
+The values regarding stop rate are mapped per port
+
+DEFAULT
+ None",port,"deviceGroup,port",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+active_connect_enable,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+For External BGP neighbor. If set, a HELLO message is actively sent when BGP testing starts. Otherwise, the port waits for the DUT to send its HELLO message.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+For External BGP neighbor. If set, a HELLO message is actively sent when BGP testing starts. Otherwise, the port waits for the DUT to send its HELLO message.
+
+DEFAULT
+ None",FLAG,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+disable_received_update_validation,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Disable Received Update Validation (Enabled for High Performance)
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_ad_vpls_prefix_length,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Enable AD VPLS Prefix Length in Bits
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ibgp_tester_as_four_bytes,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Tester 4 Byte AS# for iBGP
+
+DEFAULT
+ None",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ibgp_tester_as_two_bytes,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Tester AS# for iBGP
+
+DEFAULT
+ None",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+initiate_ebgp_active_connection,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Initiate eBGP Active Connection
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+initiate_ibgp_active_connection,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Initiate iBGP Active Connection
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mldp_p2mp_fec_type,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+MLDP P2MP FEC Type (Hex)
+
+DEFAULT
+ None",HEX,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+request_vpn_label_exchange_over_lsp,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Request VPN Label Exchange over LSP
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+trigger_vpls_pw_initiation,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+Trigger VPLS PW Initiation
+
+DEFAULT
+ None",bool,"0,1",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

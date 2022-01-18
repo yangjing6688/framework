@@ -1,0 +1,62 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+dns:
+    check_dns_ip_domain_name:
+        uuid: f7ac68c7-e006-4a01-adbd-5efa3df634b8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_dns_server_ip:
+        uuid: 081dd9e4-03d6-439f-bdd5-7e7bc14f055c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_dns_server_status:
+        uuid: 69723464-3919-4941-bef4-d8818bc25c13
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_dns_server_sent_requests:
+        uuid: 6fc94513-b6b8-4b2f-933d-f991522a0d1a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_dns_server_successful_requests:
+        uuid: 82e25a61-ff91-414b-8fd3-db13d158df0c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_host_name:
+        uuid: 6ebc97d0-9e84-4f7d-a52e-40c4d9cfebb6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_host_ip:
+        uuid: 6e0239e9-e964-46a0-bf24-b72128708b1d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]

@@ -1,0 +1,21 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  X670G2-48x-4q switch
+#
+#
+
+
+vendor: Extreme
+product_name: X670G2-48x-4q
+
+files:
+   - name: capability
+     filename: [../../common/defaultcap.yaml, ../../common/Broadcom/trident2.yaml, switchcap.yaml]
+   - name: ports
+     filename: [../../common/defaultports.yaml, ports.yaml]

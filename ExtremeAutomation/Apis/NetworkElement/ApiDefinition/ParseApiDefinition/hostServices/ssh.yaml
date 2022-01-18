@@ -1,0 +1,43 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+ssh:
+    verify_enabled:
+        uuid: c5476858-6568-43f3-beb8-8c5b33f70ea5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    verify_disabled:
+        uuid: b6bab31e-10e4-46ca-8074-0f310bd5e4f6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    verify_client_source_interface:
+        uuid: 08d236b9-b894-4893-be6f-01b9656b1225
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    verify_version:
+        uuid: e17f318f-16d3-4d4d-ad80-dd17cc47ba39
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_tcp_port:
+        uuid: 176d3397-f1cd-4b36-a3da-7fa703ba6523
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]

@@ -1,0 +1,10 @@
+Feature,vlan,,,,
+Variable Name,OS,Platform,Version,Unit,Variables Value
+mgmt_vlan_name,EXOS,base,baseversion,baseunit,mgmt
+default_vlan_name,EXOS,base,baseversion,baseunit,Default
+default_vlan,EXOS,base,baseversion,baseunit,1
+default_description,EXOS,base,baseversion,baseunit,None
+mgmt_vlan_name,EOS,base,baseversion,baseunit,99
+default_vlan_name,EOS,base,baseversion,baseunit,1
+default_vlan,EOS,base,baseversion,baseunit,1
+default_description,EOS,base,baseversion,baseunit,None

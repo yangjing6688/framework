@@ -1,0 +1,78 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines system info common to 5520 series switches
+#
+
+common_system_info: &COMMON_SYSTEM_INFO
+  system_eeprom:      system_eeprom
+  system_phy_reset:
+    device:           system_cpld_reg
+    register:         0x28
+    bitmask:          0x1C
+    active_low:       0
+
+# system_pre_reset is an optional set of operations that are
+# performed immediately before a CPU reset/reboot.
+#
+# Each named operation is performed in order.
+# Any of the operations may actually reset the CPU/Board.  If no
+# operation performs an actual reset, the kernel will eventually
+# reach its default action of resetting the CPU.
+#
+
+# On the 5520, the CPLD has implemented a selective reset.
+#
+# You select the various board devices to reset during the CPU reset
+# using registers CPURESET0 and CPURESET1, and then drive the CPU_RESET
+# using the RESET register.
+#
+# For compatability with older versions of CPLD, we reset the TPM and then take
+# it out of reset.  We will fall through to the Linux CPU reset which performs
+# the actual reset/reboot.
+#
+# Some newer versions of the CPLD will reset the CPU as soon as the TPM is
+# reset.
+#
+#  system_pre_reset:
+#  - name: cpureset0
+#    device:           system_cpld_reg
+#    register:         0x2a
+#    bitmask:          0x22
+#    active_low:       0
+#  - name: cpureset1
+#    device:           system_cpld_reg
+#    register:         0x2b
+#    bitmask:          0x1e
+#    active_low:       0
+#  - name: cpu_reset
+#    device:           system_cpld_reg
+#    register:         0x14
+#    bitmask:          0x02
+#    active_low:       0
+#  - name: tpm_reset
+#    device:           system_cpld_reg
+#    register:         0x28
+#    bitmask:          0x40
+#    active_low:       0
+#    delay_after:      250
+#  - name: tpm_active
+#    device:           system_cpld_reg
+#    register:         0x28
+#    bitmask:          0x40
+#    active_low:       1
+#
+
+# The current setting for the 5520 is to just reset the entire
+# board (CPU and all reset'able devices).
+
+  system_pre_reset:
+  - name: board_reset
+    device:           system_cpld_reg
+    register:         0x14
+    bitmask:          0x01
+    active_low:       0

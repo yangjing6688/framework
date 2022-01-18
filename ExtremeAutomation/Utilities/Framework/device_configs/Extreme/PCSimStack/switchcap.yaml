@@ -1,0 +1,176 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016-2017
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for PCSimStack.
+#  This inherits capability from default YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *DEFAULT_CAPABILITY
+  # To be overwritten dynamically
+  numExternalPort: 64
+  numMgmtPort: 1
+  numControlPort: 0
+  numIngMetersPerPort: 0
+  maxLAGroup: 6
+  maxPortPerLAGroup: 8
+  maxNumRules: 256
+  maxNumRules_mac: 64
+  maxNumRules_ipv4: 64
+  maxNumRules_ipv6: 64
+  maxNumRules_l2: 64
+  slice_profiles:
+    default:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_less_acl:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_no_ipv6_less_acl:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_no_l2_less_acl:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_no_mac_no_ipv6_less_acl:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_no_mac_no_ipv6_no_l2_less_acl:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_no_ipv6:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_no_mac_no_ipv6:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_no_l2:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_ipv4_no_mac_no_ipv6_no_l2:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+    more_mac_no_ipv6:
+      maxNumRules_mac: 64
+      maxNumRules_ipv6: 64
+      maxNumRules_ipv4: 64
+      maxNumRules_l2: 64
+  sliceDepth: 64
+  vfpSliceDepth: 64
+  maxNumMuxRules: 65535
+  maxNumVFPRules: 1024
+  maxNumMuxRulesL: 128
+  maxNumProfiles: 64
+  numVfpSlices: 0
+  numIfpPdSlices: 0
+  numIfpCosSlices: 0
+  meterPPSMaxRange: 0
+  maxRoutedVR: 16
+  maxLocalOnlyVR: 3
+  maxRtif: 512
+  maxRtifMetadata: 0
+  maxVirtualNetworks: 4096
+  maxVirtAccPorts: 512
+  maxVirtNetPorts: 512
+  maxLteps: 4
+  maxRteps: 2048
+  maxMacIpBindings: 288000
+  maxMcastGroup: 1024
+  minFibEntry: 32768
+  maxFibEntry: 32768
+  timeOut: 0
+  defaultLinkScanInterval: 0
+  MplsRxHwCounters: 0
+  MplsTxHwCounters: 0
+  MplsEchoKill: MPLS_CAP_ECHO_KILL_PORT_VLAN
+  MplsEgrLspLabelMax: 0x1FFF
+  NumVplsSupported: -1
+  NumVpwsSupported: -1
+  RsvpTeMaxPaths: 1000
+  RsvpTeMaxProfiles: 1000
+
+  VfpClassId: false
+  Mpls: true
+  Pstag: true
+  Avb: false
+  PortBasedLag: false
+  CustomLag: false
+  Crc32LagHash: false
+  PortIngMeter: false
+  QosWred: false
+  OvrlyGw: true
+  OvrlyVxlanL2Gw: true
+  OvrlyNvgreL2Gw: true
+  MacMask: false
+  PbrIpv6: false
+  HwSflow: false
+  Poe: true
+  PoePlus: true
+  LagL2Share: false
+  LagL3Share: false
+  LagL3L4Share: false
+  RouteShare: true 
+  VlanLearning: true
+  QosMaxBuffer: false
+  QosProfileCreate: false
+  QosScheduler: false
+  QosVlan: false
+  Meter: false
+  Mef: false
+  MirrorLoopback: false
+  Dot1pInnerTag: false
+  Dot1pExam: false
+  IPv6Hw: false
+  FrameLoss: false
+  SeparateFloodList: false
+  AclRuleCompression: false
+  DoubleWideAcl: false
+  VirtSlice: false
+  AclHasDropPrec: false
+  DosAttackCntrs: false
+  FlowControl: false
+  PriorityFlowControl: false
+  EthernetOAM: false
+  VlanStatsMon: false
+  DualHashHw: false
+  ForwardDropWithDisLearn: true
+  FlexibleInternalTables: false
+  FefiCapable: false
+  Dwdm: false
+  Vepa: false
+  VmanCepXlateFilter: false
+  L2VPNSharingSupportedForSpokePW: false
+  Stackable: true
+  InstallBootRom: false
+  PwMacMoveDetect: true
+  VpwsHwSupport: true
+  Fabric: true

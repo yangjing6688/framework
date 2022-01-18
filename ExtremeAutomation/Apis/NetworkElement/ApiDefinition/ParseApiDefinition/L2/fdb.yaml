@@ -1,0 +1,124 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+fdb:
+    check_fdb_entry_exists:
+        uuid: 95e802f8-2351-45ed-b5d1-c8d3117dfc29
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_fdb_entry_only_exists_once:
+        uuid: 6bc977a7-a831-411f-b6ee-66499aa2fa0d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_fdb_agetime:
+        uuid: 6fa42254-4c84-431a-9f1c-472a7d92868d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_fdb_stats_total_equal:
+        uuid: 16a59742-738f-434c-8469-f2d411609d68
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_static_equal:
+        uuid: 3e9d81fa-98c9-4a3d-bfa4-bb41142e470f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_perm_equal:
+        uuid: 10914c99-a456-446d-98a4-d952da5e0cc6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_dynamic_equal:
+        uuid: d927ad33-dd3a-4cd3-964b-4b82f7ede48f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_dropped_equal:
+        uuid: 93065dde-a1de-4376-bf5f-9903f4579492
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_locked_equal:
+        uuid: edb66de2-6ef0-4133-a386-f5f5e643fc84
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_locked_with_timeout_equal:
+        uuid: 69657be8-10f9-4884-9a63-87053f1851ef
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_total_port_equal:
+        uuid: 51309d6b-ec6d-405a-952d-c1ceed6823b4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_dynamic_port_equal:
+        uuid: c5dc50a0-d5ca-4621-8208-b931e16c813a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_static_port_equal:
+        uuid: daba0350-26b4-4240-b3b8-0289f5f1cccc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_dropped_port_equal:
+        uuid: 41352640-9ae7-4f63-aa33-6a3fb006d10d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_total_vlan_equal:
+        uuid: 3dee21fa-3f3d-4ee7-812d-b526331c5947
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_dynamic_vlan_equal:
+        uuid: 6a2f5394-7ca2-4b06-812f-d22bca158d68
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_static_vlan_equal:
+        uuid: cfce8c56-e8c7-415a-9913-5131a35b0954
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_stats_dropped_vlan_equal:
+        uuid: 1de3419e-c7da-425c-a260-3fb858d4d3ec
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fdb_entry_exists_twice:
+        uuid: cae001f2-77d3-4a3a-b45f-080e899ef460
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]

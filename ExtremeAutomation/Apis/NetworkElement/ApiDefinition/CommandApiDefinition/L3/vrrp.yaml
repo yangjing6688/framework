@@ -1,0 +1,167 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+vrrp:
+    enable_global:
+        description: "Globally Enables VRRP on the device"
+        arguments:
+            order: 
+        uuid: c223e23c-297b-49fe-9326-77ddc3aa2697
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable vrrp',userPrompt,'None','None','None',[],[]]
+    disable_global:
+        description: "Globally Disables VRRP on the device"
+        arguments:
+            order: 
+        uuid: a5e2343b-bd31-4eb9-ad6d-4859df19b1ed
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable vrrp',userPrompt,'None','None','None',[],[]]
+    enable_vlan:
+        description: "Enables a VRRP vlan and virtual router id"
+        arguments:
+            order: 
+        uuid: ebb63174-a777-4bf0-81ba-feaee1d47d0a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable vrrp vlan {vlan} vrid {vrid}',userPrompt,'None','None','None',[],[]]
+    disable_vlan:
+        description: "Disables a VRRP vlan and virtual router id"
+        arguments:
+            order: 
+        uuid: ef0bb4d4-408a-4fdd-a5f8-70749a0f4f6e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable vrrp vlan {vlan} vrid {vrid}',userPrompt,'None','None','None',[],[]]
+    enable_vlan_fabric_routing:
+        description: "Enables fabric routing for the specified VRRP vlan and vrid"
+        arguments:
+            order: 
+        uuid: 1aea17a3-64f3-4174-9c57-46944575a884
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vrrp vlan {vlan} vrid {vrid} fabric-routing on',userPrompt,'None','None','None',[],[]]
+    disable_vlan_fabric_routing:
+        description: "Disables fabric routing for the specified VRRP vlan and vrid"
+        arguments:
+            order: 
+        uuid: cd972247-68b0-4348-8f34-fa286fd19cc5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vrrp vlan {vlan} vrid {vrid} fabric-routing off',userPrompt,'None','None','None',[],[]]
+    create_vlan:
+        description: "Creates a VRRP vlan and assigns a virtual router id to the vlan"
+        arguments:
+            order: 
+        uuid: 95df1aca-795a-4b87-b1d4-a6bd1fafd49b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create vrrp vlan {vlan} vrid {vrid}',userPrompt,'None','None','None',[],[]]
+    clear_vlan:
+        description: "Deletes a VRRP vlan and virtual router id"
+        arguments:
+            order: 
+        uuid: 0d2169e2-7c17-4e23-ae3e-127676e1370e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'delete vrrp vlan {vlan} vrid {vrid}',userPrompt,'None','None','None',[],[]]
+    create_group:
+        description: "Creates a VRRP group"
+        arguments:
+            order: 
+        uuid: 5a97b9ae-459b-4920-ad52-0e0022067e98
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create vrrp group {name}',userPrompt,'None','None','None',[],[]]
+    clear_group:
+        description: "Deletes a VRRP group"
+        arguments:
+            order: 
+        uuid: 5aaeb0e1-bfbf-47fd-b007-34a5ba7abb4c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'delete vrrp group {name}',userPrompt,'None','None','None',[],[]]
+    set_vlan_priority:
+        description: "Sets the VRRP priority for a given VRRP vlan and vrid"
+        arguments:
+            order: vlan,vrid,priority
+        uuid: 6eba5c94-5f6a-4618-b15b-b1fd8780050d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vrrp vlan {vlan} vrid {vrid} priority {priority}',userPrompt,'None','None','None',[],[]]
+    set_vlan_ipaddress:
+        description: "Configures a virtual IP Address for the specified VRRP vlan and vrid"
+        arguments:
+            order: vlan,vrid,ip
+        uuid: 059235e6-51ad-4ccf-a7c8-6d9d704244ef
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure vrrp vlan {vlan} vrid {vrid} add {ip}',userPrompt,'None','None','None',[],[]]
+    show_all:
+        uuid: 2fbb4647-b867-4879-bf9f-2396a31f2f26
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp',userPrompt,'None','None','None',[],[]]
+    show_detail:
+        uuid: e0e5da77-7d20-4f32-bcb0-098d7d8738d1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp detail',userPrompt,'None','None','None',[],[]]
+    show_group:
+        uuid: 30b95afc-6bb0-4b95-a010-98512a2f240f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp group {name}',userPrompt,'None','None','None',[],[]]
+    show_group_all:
+        uuid: d6566d08-8827-4deb-9854-b0385e36eb25
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp group',userPrompt,'None','None','None',[],[]]
+    show_virtual_router:
+        uuid: e7fa2cb7-bf6a-4545-9f3e-7ff0213ef03b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp virtual-router {vr}',userPrompt,'None','None','None',[],[]]
+    show_virtual_router_all:
+        uuid: 6b1813fa-e46c-41a6-b598-3e95b2843322
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp virtual-router',userPrompt,'None','None','None',[],[]]
+    show_vr:
+        uuid: f4a84284-c695-4d6f-ac5e-6ec621e73fa9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp vr {vr}',userPrompt,'None','None','None',[],[]]
+    show_vr_all:
+        uuid: 8c5cfc15-1800-42e6-8b4d-ffd299d703f8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp vr',userPrompt,'None','None','None',[],[]]
+    show_vlan:
+        uuid: 4940f28d-6bef-432d-9160-a29a28c80b07
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show vrrp vlan {vlan}',userPrompt,'None','None','None',[],[]]

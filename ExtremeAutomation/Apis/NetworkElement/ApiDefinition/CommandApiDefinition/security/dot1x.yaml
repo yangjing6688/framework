@@ -1,0 +1,239 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+dot1x:
+    enable_global:
+        description: "Globally Enables Dot1x on the device"
+        arguments:
+            order: 
+        uuid: 7b0b9598-8ab6-4fb1-9a1a-2a70d2d7b84d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable netlogin dot1x',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x enable',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'dot1x enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_global:
+        description: "Globally Disables Dot1x on the device"
+        arguments:
+            order: 
+        uuid: f5a6aba6-a97a-49b6-897b-184fe1413559
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable netlogin dot1x',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x disable',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no dot1x enable',routerConfigPrompt,'None','None','None',[],[]]
+    enable_port:
+        uuid: 0b6ac4b0-e68f-41fb-83d0-61b5efad8298
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable netlogin ports {port} dot1x',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x auth-config {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no shutdown||dot1x authentication',intfPrompt,'ethernet {port}','None','None',[],[]]
+    disable_port:
+        uuid: 2fc45446-9678-4cef-a9d5-d85bcb6c6f50
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable netlogin ports {port} dot1x',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x auth-config {port} dot1x',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no dot1x authentication',intfPrompt,'ethernet {port}','None','None',[],[]]
+    enable_accounting:
+        description: "Globally Enables Dot1x Accounting on the device"
+        arguments:
+            order: 
+        uuid: b2670baa-5592-40ed-8e79-763d10c67409
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x radius-accounting on',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x accounting enable',userPrompt,'None','None','None',[],[]]
+    disable_accounting:
+        description: "Globally Disables Dot1x Accounting on the device"
+        arguments:
+            order: 
+        uuid: f01a6ac2-535a-4078-a1b8-9fae0ee50d1e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x radius-accounting off',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x accounting disable',userPrompt,'None','None','None',[],[]]
+    enable_port_reauth:
+        description: "Enables Dot1x re-auth on the given port(s)"
+        arguments:
+            order: 
+        uuid: b857f372-423f-4548-9498-9798911bdfe4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x ports {port} timers reauthentication on',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'dot1x reauthentication',intfPrompt,'ethernet {port}','None','None',[],[]]
+    disable_port_reauth:
+        description: "Disables Dot1x re-auth on a given port"
+        arguments:
+            order: 
+        uuid: e3b49964-7ea8-4560-9702-389527bbb438
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x ports {port} timers reauthentication off',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no dot1x reauthentication',intfPrompt,'ethernet {port}','None','None',[],[]]
+    set_global_idle_timeout:
+        description: "Sets the Dot1x Global idle timeout value in seconds"
+        arguments:
+            order: 
+        uuid: 62596a7e-b3ae-4286-b634-039363c01ea4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin idle-timeout dot1x {idle_timeout}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set multiauth idle-timeout dot1x {idle_timeout}',userPrompt,'None','None','None',[],[]]
+    set_global_session_timeout:
+        description: "Sets the Dot1x Global session-timeout value in seconds"
+        arguments:
+            order: 
+        uuid: 131894fa-f305-46af-a606-741c3a67f0ca
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin session-timeout dot1x {session_timeout}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set multiauth session-timeout dot1x {session_timeout}',userPrompt,'None','None','None',[],[]]
+    set_port_quietperiod:
+        description: "Sets the port Dot1x quiet period timer value in seconds"
+        arguments:
+            order: quiet_period,port
+        uuid: 21a6cf1d-694e-4f9f-a587-0cb643127371
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x ports {port} timers quiet-period {quiet_period}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x auth-config quietperiod {quiet_period} {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'dot1x quiet-period {quiet_period}',intfPrompt,'ethernet {port}','None','None',[],[]]
+    set_port_reauthperiod:
+        description: "Sets the port Dot1x timer for reauth period in seconds"
+        arguments:
+            order: reauth_period,port
+        uuid: f9c6bfc2-485e-4aa9-8ea0-ba3be2051102
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x ports {port} timers reauth-period {reauth_period}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x auth-config reauthperiod {reauth_period} {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'dot1x timeout re-authperiod {reauth_period}',intfPrompt,'ethernet {port}','None','None',[],[]]
+    set_port_servertimeout:
+        description: "Sets the port Dot1x timer for the Server timeout in seconds"
+        arguments:
+            order: server_timeout,port
+        uuid: 66d31349-846e-4db2-9ee6-d4a3e81620ee
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x ports {port} timers server-timeout {server_timeout}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x auth-config servertimeout {server_timeout} {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'dot1x timeout tx-period {server_timeout}',intfPrompt,'ethernet {port}','None','None',[],[]]
+    set_port_supp_resptimeout:
+        description: "Sets the port Dot1x timer value for supp_resp_timeout in seconds"
+        arguments:
+            order: supp_resp_timeout,port
+        uuid: 65a2913f-e3ba-4e5f-bf2e-9e865e801a57
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x ports {port} timers supp-resp-timeout {supp_resp_timeout}',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'set dot1x auth-config supptimeout {supp_resp_timeout} {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'dot1x timeout supp-timeout {supp_resp_timeout}',intfPrompt,'ethernet {port}','None','None',[],[]]
+    clear_global_idle_timeout:
+        description: "Sets the dot1x Idle Timeout value back to the default setting (Zero for EXOS)"
+        arguments:
+            order: 
+        uuid: 132be284-138d-4b85-b45c-fcf91b942d5e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure netlogin idle-timeout dot1x',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear multiauth idle-timeout dot1x',userPrompt,'None','None','None',[],[]]
+    clear_global_session_timeout:
+        description: "Sets the dot1x Session Timeout value back to the default setting (Zero for EXOS)"
+        arguments:
+            order: 
+        uuid: 9bd13fd4-6635-4a21-b02f-5bb000a753d6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure netlogin session-timeout dot1x',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear multiauth session-timeout dot1x',userPrompt,'None','None','None',[],[]]
+    clear_state_mac:
+        description: "Clears and initializes the network login session for a particular mac address"
+        arguments:
+            order: 
+        uuid: f8513f40-7415-4fdc-b818-8affb70ec652
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear netlogin state agent dot1x mac-address {dot1x_mac}',userPrompt,'None','None','None',[],[]]
+    clear_port_state:
+        description: "Clears and initializes the network login sessions on a VLAN port"
+        arguments:
+            order: 
+        uuid: 621a3d31-11ee-4625-a7e3-8d76719ed9e2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear netlogin state port {port} agent dot1x',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear dot1x auth-config {port}',userPrompt,'None','None','None',[],[]]
+    clear_port_state_mac:
+        description: "Clears and initializes the dot1x sessions on a VLAN port and mac"
+        arguments:
+            order: 
+        uuid: 3dc0b0f2-2c73-4ec8-aa66-ae6c6e2b7179
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear netlogin state agent dot1x mac-address {dot1x_mac} port {port}',userPrompt,'None','None','None',[],[]]
+    clear_port_reauthperiod:
+        description: "Clears the configured Dot1x re-auth period on a given port"
+        arguments:
+            order: 
+        uuid: 5d0e205f-703d-4c13-92da-28a54ae522a7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure netlogin dot1x ports {port} timers reauth-period 3600',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,baseunit,'clear dot1x auth-config reauthperiod {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no dot1x timeout re-authperiod',intfPrompt,'ethernet {port}','None','None',[],[]]
+    show_session:
+        uuid: 1040132a-7bc2-4890-855a-98cb60039d93
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin session agent dot1x',userPrompt,'None','None','None',[],[]]
+    show_session_by_port:
+        uuid: 70edc6d7-118e-4f77-bd17-e36a3d4a2f48
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show dot1x session-info interface ethernet {port}',userPrompt,'None','None','None',[],[]]
+    show_global_idle_timeout:
+        uuid: f86ce869-441d-45eb-a778-c54187689f03
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin timeout',userPrompt,'None','None','None',[],[]]
+    show_global_session_timeout:
+        uuid: 12a41323-1d7a-4e66-8716-c407283c8c9a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin timeout',userPrompt,'None','None','None',[],[]]
+    show_auth_cfg:
+        uuid: 32cba31a-69dc-494b-af45-5af8bdce12cc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show netlogin dot1x',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show dot1x',userPrompt,'None','None','None',[],[]]
+    show_auth_cfg_port:
+        uuid: 9d54fa2e-011d-462e-9b63-80dc32f7b9a7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show config netlogin',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show dot1x all',userPrompt,'None','None','None',[],[]]

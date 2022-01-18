@@ -1,0 +1,94 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+igmp:
+    check_igmp_state:
+        uuid: 20263594-1334-4023-972c-916f4b2faec0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_igmp_version:
+        uuid: 663a9f39-2657-4f61-80ab-ca3194b48789
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_igmp_vlan_state:
+        uuid: cd7819df-58a7-4d09-9696-72a654818ea8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    verify_igmp_group:
+        uuid: 912ccedb-5308-4464-a928-ef43350e20b6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_igmp_snooping_vlan_state:
+        uuid: 609681ab-1aa3-4349-b531-00f79d90b4c2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_igmp_snooping_proxy_state:
+        uuid: 0dcf5a61-01dc-4202-b2d4-5ad34e6a08ff
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_igmp_snooping_state:
+        uuid: f9ff5b3b-67f4-4afb-96e7-eee9df97a001
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_igmp_snooping_querier_state:
+        uuid: 5038d860-25b7-4a2e-9ddb-966974712b55
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_igmp_snooping_querier_address:
+        uuid: 5fc3ecc7-083c-49ce-a49c-bb66f042f392
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_igmp_snooping_querier_address_is_removed:
+        uuid: 48088d2a-2894-44cb-94b1-b9cdb452fca9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_igmp_snooping_dynamic_downgrade_state:
+        uuid: b76e8a88-afe2-48d8-a867-35c22c4e31f5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_igmp_snooping_compatibility_mode_state:
+        uuid: 9072efc6-f0f7-4aec-bc0e-de24320331e4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_igmp_snooping_explicit_host_tracking_state:
+        uuid: 70088d11-cdc6-4941-aebf-109abc18ce74
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

@@ -1,0 +1,303 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+spanningtree:
+    check_spanning_tree_enabled:
+        uuid: 25df9e14-f060-4879-ad63-b163cd9a36c6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_spanning_tree_version:
+        uuid: 750efbb8-36e6-4802-94c5-af63bf307cb5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_spanning_tree_bridge_priority:
+        uuid: 45e998d3-8295-4ddb-84d4-39f6de15f38e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_spanning_tree_loop_protect_enabled:
+        uuid: 3df95a59-44ee-4bfb-ad05-0373e8bf9388
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_spanning_tree_span_guard_enabled:
+        uuid: 21233156-9c9b-44d3-96b1-1f7bd821d0c5
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    store_spanning_tree_tc_counter:
+        uuid: 6088dfbe-0208-4b32-b340-dd04177b2ab3
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_spanning_tree_tc_incremented:
+        uuid: 1bd34750-46f2-4392-857e-56bd70fd504b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_spanning_tree_tc_same:
+        uuid: ab5cffa6-69b7-40ea-8acd-ab8b5a3aec50
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_spanning_tree_root:
+        uuid: e7d09311-feff-49bf-86c4-76246174fc4c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_spanning_tree_cist_root:
+        uuid: 2f981bfb-5c4e-41a2-9a1b-59ea989cc421
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_cist_regional_root:
+        uuid: ae7fe3b9-0b99-4a3c-9bd8-5052a4a9d0f4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_regional_name:
+        uuid: d4422c0c-6dc8-453a-b5a6-555c5857c979
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_revision_level:
+        uuid: 258660fb-f585-4db9-9eb4-3db6f0db9096
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_instance_regional_root:
+        uuid: d9c432f5-7997-4017-85ab-7fb0aa32a6c9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_instance_root_port:
+        uuid: bae9435b-5ee2-40f7-ae43-6a84c22223a7
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_stp_port_role:
+        uuid: 8e973011-9c3e-40f2-9fc1-558520f7d772
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_stp_port_restricted:
+        uuid: 44726127-2f09-43ab-8936-54c0f9edf6bf
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_stp_port_autoedge:
+        uuid: c17d208c-f7b3-4b68-8500-fc0d5689420c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_stp_portadmin:
+        uuid: f11cf121-554d-415f-98a8-655936454f10
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_stp_portadmin_oper:
+        uuid: 682dcc91-9bcb-4f6d-bef2-e1f7cba61a5a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_stp_port_state:
+        uuid: 433b358e-55ed-4ba4-9820-63b2dc8500fe
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_stp_bridge_hello_time:
+        uuid: d5df967b-e246-4fe0-8bd3-e5ecc30939ab
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_stp_bridge_fwd_delay:
+        uuid: 37318564-50d9-4c79-a014-9b527550ccc6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_stp_bridge_max_age:
+        uuid: 071223ab-2e8e-4a58-97a7-20af641a7961
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_stp_root_hello_time:
+        uuid: cfbd8ab1-82f9-4969-924c-ed11ebfdf88c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_stp_root_fwd_delay:
+        uuid: d6aa05da-20fd-4cfb-b62b-41e7ddba8ac6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_stp_root_max_age:
+        uuid: e28f3c7a-3bb9-4428-a4ca-ce61361c63a8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    return_spanning_tree_config_digest:
+        uuid: f072f8dc-0e50-4bd1-a918-913fea99f962
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_stp_ports_link_type_is_point_to_point:
+        uuid: fb57b922-894c-440d-9e84-8f0d18bfec32
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_stp_port_config_type:
+        uuid: 81b79989-deb6-4c94-817f-6886df8cd8c2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_stp_ports_link_type_is_edge:
+        uuid: 515c7996-3b3b-4378-bcdf-ca14bc8c85c5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_stp_boot_flag_is_rstp:
+        uuid: 4c0fe5c4-eb7b-4557-96a0-0d3ae6fb65c0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_stp_boot_flag_is_mstp:
+        uuid: e26bffc8-ec78-413d-8fa3-5321394a7c02
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_stp_bpduguard:
+        uuid: f4a16508-0fd8-4efe-8ef5-388fd0500399
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_stp_hello_time:
+        uuid: dfc23d77-18ff-434f-ba66-00d384364f3c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_stp_fwd_delay:
+        uuid: ca8d7ba8-9483-4443-ad8e-3f12c30c90e8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_stp_max_age:
+        uuid: a0536aae-6397-4e01-af2b-b53c2bc11c4f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_enabled_on_interface:
+        uuid: 4e8a1030-f89a-4f18-ab94-e05990688b38
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_bridge_address:
+        uuid: 139d9230-65cb-4067-a0fd-50f60260150d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_cist_root:
+        uuid: bf9cd38e-2478-463c-9d3b-2599e6b88b19
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_cist_regional_root:
+        uuid: 280cb68c-383c-41f2-abb6-53921c659700
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_cist_root_port:
+        uuid: c73e8c9e-63ba-4fe8-8391-50cb008d0a0d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_cist_root_cost:
+        uuid: 1ec75c9a-6f14-4a7e-a6b0-d16494d24dd5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_cist_regional_root_cost:
+        uuid: a88aeb8d-5e74-45a7-a872-083e6fde397d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_cist_max_age:
+        uuid: 771ce8a5-759c-4e45-a818-b15c906d56f1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_mstp_cist_forward_delay:
+        uuid: 5db39ba0-6911-428e-99f3-c0ee4590d8fe
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

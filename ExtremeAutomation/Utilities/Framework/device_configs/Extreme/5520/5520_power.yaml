@@ -1,0 +1,16 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the PSUs specific to 5520
+#
+
+power_info:
+  <<: *COMMON_POWER_INFO
+
+psus:
+  - *PSU_1
+  - *PSU_2

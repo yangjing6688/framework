@@ -1,0 +1,49 @@
+netelem1:
+  name:                     "x450G2"
+  ip:                       "10.52.15.22"
+  mgmt_vlan:                "VLAN_4000"
+  username:                 "admin"
+  password:                 "extremeROBOT"
+  connection_method:        "telnet"
+  os:                       "exos"
+  platform:                 "x450G2"
+  primary_test_target:      "True"
+  physical_device:          "True"
+  dynamic_deployment:       "False"
+  snmp_version:             "v1"
+  snmp_community_name:      "public"
+  snmp_user_name:           ""
+  snmp_auth_protocol:       ""
+  snmp_auth_password:       ""
+  snmp_privacy_protocol:    ""
+  snmp_privacy_password:    ""
+  vm_location:
+  base_cfg_location:
+  tgen:
+    port_a:
+      ifname: &netelem1_tgen_port_a_ifname "49"
+      intnet: "intnet1"
+    port_b:
+      ifname: &netelem1_tgen_port_b_ifname "47"
+      intnet: "intnet2"
+
+tgen1:
+  name: &tgen1_name "robot_ixia"
+  vendor:              "ixia"
+  chassis_type:        "ixia"
+  software:            "5.2.3"
+  ip:                  "10.52.15.11"
+  vm_ip:               "10.52.2.167"
+  username:            "robot-X450G2_1"
+  password:            "test123"
+  vm_port:             "5678"
+  physical_device:     "True"
+  dynamic_deployment:  "False"
+  vm_location:
+
+tgen_ports:
+  netelem1:
+    port_a: &tgen_ports_netelem1_port_a
+      tgen_name: *tgen1_name
+      ifname:    "1/4/13"
+      intnet:    "intnet1"

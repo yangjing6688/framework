@@ -1,0 +1,18 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+wlanservices:
+    check_wlan_service_exists:
+        uuid: 2935af51-672d-4196-8a44-8d001fae2f9c
+        apis:
+            CLI:
+                - [EXTRWIRELESS,base,baseversion,baseunit]

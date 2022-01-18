@@ -1,0 +1,98 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines LEDs common to 5320 series switches
+#
+
+led_controller_pca9551_1: &LED_CONTROLLER_PCA9551_1
+  name:             pca9551_1
+  compatible:       pca9551
+  bus:              i2cbus_0
+  address:          0x64
+  controls:
+    - name:         pca9551_1_led0
+      number:       0
+    - name:         pca9551_1_led1
+      number:       1
+    - name:         pca9551_1_led2
+      number:       2
+    - name:         pca9551_1_led3
+      number:       3
+    - name:         pca9551_1_led4
+      number:       4
+    - name:         pca9551_1_led5
+      number:       5
+    - name:         pca9551_1_led6
+      number:       6
+    - name:         pca9551_1_led7
+      number:       7
+
+led_controller_pca9551_2: &LED_CONTROLLER_PCA9551_2
+  name:             pca9551_2
+  compatible:       pca9551
+  bus:              i2cbus_0
+  address:          0x65
+  controls:
+    - name:         pca9551_2_led0
+      number:       0
+    - name:         pca9551_2_led1
+      number:       1
+    - name:         pca9551_2_led2
+      number:       2
+    - name:         pca9551_2_led3
+      number:       3
+    - name:         pca9551_2_led4
+      number:       4
+    - name:         pca9551_2_led5
+      number:       5
+    - name:         pca9551_2_led6
+      number:       6
+    - name:         pca9551_2_led7
+      number:       7
+
+system_led: &SYSTEM_LED
+  name:             system_led
+  type:             SYSTEM
+  compatible:       generic_led
+  controls:         [pca9551_1_led0, pca9551_1_led1]
+  colors:           [GREEN, AMBER]
+
+speed_mode_led: &SPEED_MODE_LED
+  name:             speed_mode_led
+  type:             SPEED_MODE
+  compatible:       generic_led
+  controls:         [pca9551_1_led2, pca9551_1_led3]
+  colors:           [GREEN, AMBER]
+
+stack_mode_led: &STACK_MODE_LED
+  name:             stack_mode_led
+  compatible:       generic_led
+  type:             STACK_MODE
+  controls:         [pca9551_1_led4, pca9551_1_led5]
+  colors:           [GREEN, AMBER]
+
+bluetooth_led: &BLUETOOTH_LED
+  name:             bluetooth_led
+  type:             BLUETOOTH
+  compatible:       generic_led
+  controls:         [pca9551_1_led6]
+  colors:           [GREEN]
+
+
+#type single system led
+fan_system_led: &FAN_SYSTEM_LED
+  name:             fan_system_led
+  type:             SYSTEM_FAN
+  compatible:       generic_led
+  controls:         [pca9551_2_led2, pca9551_2_led3]
+  colors:           [GREEN, AMBER]
+
+locator_led: &LOCATOR_LED
+  name:             locator_led
+  type:             LOCATOR
+  compatible:       generic_led
+  controls:         [pca9551_2_led4]

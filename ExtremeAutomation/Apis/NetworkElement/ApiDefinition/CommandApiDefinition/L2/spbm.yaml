@@ -1,0 +1,861 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+spbm:
+    set_ethertype:
+        description: "Configures the SPBM ethertype"
+        arguments:
+            order: 
+        uuid: c136f8ab-cc0c-4550-b157-14943892b971
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'spbm ethertype {ethertype}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.78.1.4.0','i','{ethertype}']
+    clear_ethertype:
+        description: "Configures the SPBM ethertype to the default value of 0x8100"
+        arguments:
+            order: 
+        uuid: a3ccaba0-b9f5-4a61-9069-77da2ffd4ce7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'spbm ethertype 0x8100',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.78.1.4.0','i','33024']
+    enable_global:
+        description: "Enables the PLSB global flag"
+        arguments:
+            order: 
+        uuid: 78fe268a-16fd-4bb1-8364-18e2d22d09c0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'spbm',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.78.1.2.0','i','1']
+    disable_global:
+        description: "Disables the PLSB global flag"
+        arguments:
+            order: 
+        uuid: 39d9011e-4241-496a-959d-34ffb37fd6af
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no spbm',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.78.1.2.0','i','2']
+    enable_ip_shortcut:
+        description: "Enables ISIS PLSB IP shortcut"
+        arguments:
+            order: 
+        uuid: 5a85377b-4858-4507-a4d8-60aa9bf085f8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} ip enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.7.{spbm_id}','i','1']
+    disable_ip_shortcut:
+        description: "Disables ISIS PLSB IP shortcut"
+        arguments:
+            order: 
+        uuid: a11b78c4-42a0-4a47-a525-952db7cb3108
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} ip enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.7.{spbm_id}','i','2']
+    enable_ipv6_shortcut:
+        description: "Enables ISIS PLSB IPv6 shortcut"
+        arguments:
+            order: 
+        uuid: c6574c76-301b-41f9-8c33-a098e8756360
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} ipv6 enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.14.{spbm_id}','i','1']
+    disable_ipv6_shortcut:
+        description: "Disables ISIS PLSB IPv6 shortcut"
+        arguments:
+            order: 
+        uuid: 90574270-cc2f-4bdd-b312-cbea48df779f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} ipv6 enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.14.{spbm_id}','i','2']
+    enable_lsdb_trap:
+        description: "Enables the ISIS PLSB LSDB update trap on the PLSB instance"
+        arguments:
+            order: 
+        uuid: 8ca085e9-24b2-4751-a584-e6a399327607
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} lsdb-trap enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.5.{spbm_id}','i','1']
+    disable_lsdb_trap:
+        description: "Disables the ISIS PLSB LSDB update trap on the PLSB instance"
+        arguments:
+            order: 
+        uuid: 01e46e45-6aaa-40e1-9fb1-d450ab581c9d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} lsdb-trap enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.5.{spbm_id}','i','2']
+    set_isis_instance_id:
+        description: "Configures a PLSB instance"
+        arguments:
+            order: 
+        uuid: ce70f188-0c68-4c9e-a499-cc09aad52c3f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.2.{spbm_id}','i','4']
+    clear_isis_instance_id:
+        description: "Removes a PLSB instance"
+        arguments:
+            order: 
+        uuid: 81819efc-1e95-4272-a8ad-a69cc382a529
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.2.{spbm_id}','i','6']
+    set_isis_nickname:
+        description: "Configures a PLSB instance nickname"
+        arguments:
+            order: spbm_id,nickname
+        uuid: 5825a7d7-957a-4ef1-9dfe-4f68e69e5f57
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} nick-name {nickname}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.3.{spbm_id}','s','{nickname}']
+    clear_isis_nickname:
+        description: "Sets the nickname which is an octet string consisting 3 octets to all zeros"
+        arguments:
+            order: 
+        uuid: 8389ed74-dbb8-4d6d-8e10-6ffdd4e0ad4d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} nick-name||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.3.{spbm_id}','s','{nickname}']
+    set_isis_bvid:
+        description: "Configures the PLSB ISIS vlans for the PLSB instance"
+        arguments:
+            order: spbm_id,pri_vlan,sec_vlan
+        uuid: 9033b7a0-92fb-4a58-b047-2c5c3bccec6c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} b-vid {pri_vlan},{sec_vlan} primary {pri_vlan}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.4.{spbm_id}||1.3.6.1.4.1.2272.1.63.4.1.8.{spbm_id}','s||i','{sec_vlan}||{pri_vlan}']
+    clear_isis_bvid:
+        description: "Configures the PLSB ISIS vlans for the PLSB instance"
+        arguments:
+            order: spbm_id,pri_vlan,sec_vlan
+        uuid: 64c86061-df56-4766-bf61-a9a130e2394f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} b-vid {pri_vlan},{sec_vlan}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.4.{spbm_id}','s','{pri_vlan}']
+    enable_isis_multicast:
+        description: "Sets ISIS PLSB Multicast to enable"
+        arguments:
+            order: 
+        uuid: 43378da1-621e-4a13-9373-b74a0cb3ee28
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} multicast enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.12.{spbm_id}','i','1']
+    disable_isis_multicast:
+        description: "Sets ISIS PLSB Multicast to disable"
+        arguments:
+            order: 
+        uuid: f8f6903f-34c3-4496-bcda-9c940f3ebf6a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} multicast enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.12.{spbm_id}','i','2']
+    set_isis_multicast_fwd_cache_timeout:
+        description: "Configures the multicast forward cache timeout"
+        arguments:
+            order: 
+        uuid: 03473550-1e69-4362-a42e-3310392d4c36
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} multicast fwd-cache-timeout {timeout}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.13.{spbm_id}','i','{timeout}']
+    clear_isis_multicast_fwd_cache_timeout:
+        description: "Configures the multicast forward cache timeout to the default value"
+        arguments:
+            order: 
+        uuid: de7738f1-f145-421e-97f6-3889870c4e08
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} multicast fwd-cache-timeout||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.13.{spbm_id}','i','210']
+    set_isis_smlt_virtual_bmac:
+        description: "Configures the ISIS PLSB SMLT virtual MAC for the PLSB instance"
+        arguments:
+            order: spbm_id,bmac
+        uuid: 0875014c-78b5-40ec-a015-4a6419985d1b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} smlt-virtual-bmac {bmac}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.10.{spbm_id}','s','{bmac}']
+    clear_isis_smlt_virtual_bmac:
+        description: "Removes the ISIS PLSB SMLT virtual MAC for the PLSB instance"
+        arguments:
+            order: 
+        uuid: 8e860b4d-187f-4b1a-8624-10cf14f75845
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} smlt-virtual-bmac||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.10.{spbm_id}','s','{bmac}']
+    set_isis_smlt_peer_system_id:
+        description: "Configures the ISIS PLSB SMLT Peer's system-id for the SPBM instance"
+        arguments:
+            order: spbm_id,peer_id
+        uuid: c2730f12-5a57-4b2c-a89c-918a93ff7b96
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spbm {spbm_id} smlt-peer-system-id {peer_id}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.11.{spbm_id}','s','{peer_id}']
+    clear_isis_smlt_peer_system_id:
+        description: "Removes the ISIS PLSB SMLT Peer's system-id for the SPBM instance"
+        arguments:
+            order: 
+        uuid: 0eb30dfe-5354-42dc-b17c-e8fa8edeff30
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spbm {spbm_id} smlt-peer-system-id||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.4.1.11.{spbm_id}','s','{peer_id}']
+    set_port_isis_instance_id:
+        description: "Creates an ISIS SPBM instance on a port"
+        arguments:
+            order: 
+        uuid: a0337bcb-f440-43ff-862a-4472a9992f3b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.3.{port}.{spbm_id}||1.3.6.1.4.1.2272.1.63.5.1.4.{port}.{spbm_id}','i||i','4||1']
+    clear_port_isis_instance_id:
+        description: "Removes an ISIS SPBM instance from a port"
+        arguments:
+            order: 
+        uuid: a0478d48-a84c-4783-b92a-f8292ccd0d15
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no isis spbm {spbm_id}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.3.{port}.{spbm_id}','i','6']
+    set_mlt_isis_instance_id:
+        description: "Creates an ISIS SPBM instance on an MLT"
+        arguments:
+            order: 
+        uuid: ce782566-ba3a-4dfb-b2e5-1c7664d58888
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.3.{mlt_id}.{spbm_id}||1.3.6.1.4.1.2272.1.63.5.1.4.{mlt_id}.{spbm_id}','i||i','4||1']
+    clear_mlt_isis_instance_id:
+        description: "Removes an ISIS SPBM instance on an MLT"
+        arguments:
+            order: 
+        uuid: 5eda73f9-ee72-41a8-8570-d35c7040a610
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no isis spbm {spbm_id}',intfPrompt,' mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.3.{mlt_id}.{spbm_id}','i','6']
+    set_port_isis_interface_type_broadcast:
+        description: "Configures an ISIS SPBM instance on a port to a broadcast interface type"
+        arguments:
+            order: 
+        uuid: c7d6f404-b060-4a5e-ba12-57c44106aad3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} interface-type broadcast',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{port}.{spbm_id}','i','1']
+    set_port_isis_interface_type_p2p:
+        description: "Configures an ISIS SPBM instance on a port to a point to point interface type"
+        arguments:
+            order: 
+        uuid: 2e8a85c0-0b45-434b-bd73-8cf9f34661cc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} interface-type pt-pt',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{port}.{spbm_id}','i','2']
+    clear_port_isis_interface_type:
+        description: "Configures an ISIS SPBM instance on a port to default - point to point interface type"
+        arguments:
+            order: 
+        uuid: 44c01d4f-a214-42b8-9e90-c9ec26bdf4a4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} interface-type pt-pt',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{port}.{spbm_id}','i','2']
+    set_mlt_isis_interface_type_broadcast:
+        description: "Configures an ISIS SPBM instance on an MLT to a broadcast interface type"
+        arguments:
+            order: 
+        uuid: 78613ac3-c70b-4ef7-a63f-9f0d232ff9f0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} interface-type broadcast',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{mlt_id}.{spbm_id}','i','1']
+    set_mlt_isis_interface_type_p2p:
+        description: "Configures an ISIS SPBM instance on an MLT to a point to point interface type"
+        arguments:
+            order: 
+        uuid: 491b2ef5-3da5-47fd-ba16-03c7b7a46e74
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} interface-type pt-pt',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{mlt_id}.{spbm_id}','i','2']
+    clear_mlt_isis_interface_type:
+        description: "Configures an ISIS SPBM instance on an MLT to interface type to the default value of point to point"
+        arguments:
+            order: 
+        uuid: 8db6ac4d-ccde-4888-8a0c-f87fb988d674
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} interface-type pt-pt',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{mlt_id}.{spbm_id}','i','2']
+    set_port_isis_l1_metric:
+        description: "Configures an ISIS SPBM instance on a port to a desired L1 metric value"
+        arguments:
+            order: port,spbm_id,metric
+        uuid: 192c93b3-a9c6-437a-ad7c-a394db290ecf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} l1-metric {metric}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.7.{port}.{spbm_id}','i','{metric}']
+    clear_port_isis_l1_metric:
+        description: "Configures an ISIS SPBM instance on a port to the default L1 metric value of 10"
+        arguments:
+            order: 
+        uuid: 118919a5-184c-48f3-b968-01263df60f94
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} l1-metric 10',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.7.{port}.{spbm_id}','i','10']
+    set_mlt_isis_l1_metric:
+        description: "Configures an ISIS SPBM instance on an MLT to the desired L1 metric value"
+        arguments:
+            order: mlt_id,spbm_id,metric
+        uuid: 4fe99065-df6e-47e4-b341-e3149e3a90d5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} l1-metric {metric}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.7.{mlt_id}.{spbm_id}','i','{metric}']
+    clear_mlt_isis_l1_metric:
+        description: "Configures an ISIS SPBM instance on an MLT to the default metric value of 10"
+        arguments:
+            order: 
+        uuid: db58c4ab-d6d5-488c-a445-f3bdd4ac9994
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis spbm {spbm_id} l1-metric 10',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.7.{mlt_id}.{spbm_id}','i','10']
+    set_logical_interface_isis_instance_id:
+        description: "Creates an ISIS SPBM instance on a logical interface"
+        arguments:
+            order: 
+        uuid: 102d76c8-b7ef-46d2-8676-02e680dd5b3e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis spbm {spbm_id}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.3.{isis_id}.{spbm_id}||1.3.6.1.4.1.2272.1.63.5.1.4.{isis_id}.{spbm_id}','i||i','4||1']
+    clear_logical_interface_isis_instance_id:
+        description: "Removes an ISIS SPBM instance from a logical interface"
+        arguments:
+            order: 
+        uuid: fc371754-1f33-49e2-ba2a-1b8e99285a86
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||no isis spbm {spbm_id}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.3.{isis_id}.{spbm_id}','i','6']
+    set_logical_interface_isis_interface_type_broadcast:
+        description: "Configures an ISIS SPBM instance on a logical interface to a broadcast interface type"
+        arguments:
+            order: 
+        uuid: 7499a7ff-6e7a-4fd2-8016-c316b08543e6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis spbm {spbm_id} interface-type broadcast||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{isis_id}.{spbm_id}','i','1']
+    set_logical_interface_isis_interface_type_p2p:
+        description: "Configures an ISIS SPBM instance on a logical interface to a point to point interface type"
+        arguments:
+            order: 
+        uuid: 2e674775-61f4-4e42-a16e-2abd9233bbc9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis spbm {spbm_id} interface-type pt-pt||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{isis_id}.{spbm_id}','i','2']
+    clear_logical_interface_isis_interface_type:
+        description: "Configures an ISIS SPBM instance on a logical interface to default - point to point interface type"
+        arguments:
+            order: 
+        uuid: e69ab934-b0f6-4d59-b73a-8f0618030cdb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis spbm {spbm_id} interface-type pt-pt||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.5.{isis_id}.{spbm_id}','i','2']
+    set_logical_interface_isis_l1_metric:
+        description: "Configures an ISIS SPBM instance on a logical interface to a desired L1 metric value"
+        arguments:
+            order: isis_id,spbm_id,metric
+        uuid: cf049f1e-8540-4415-9bc9-655b87514d9a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis spbm {spbm_id} l1-metric {metric}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.7.{isis_id}.{spbm_id}','i','{metric}']
+    clear_logical_interface_isis_l1_metric:
+        description: "Configures an ISIS SPBM instance on a logical interface to the default L1 metric value of 1000"
+        arguments:
+            order: 
+        uuid: efb270e6-bc64-48c7-a852-70bb9ad3941e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis spbm {spbm_id} l1-metric 1000||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.5.1.7.{isis_id}.{spbm_id}','i','1000']
+    set_virtual_ist_peer_ip:
+        description: "Configures a virtual-ist peer ip address on a vlan"
+        arguments:
+            order: 
+        uuid: be8d1e54-361c-42a8-a27a-4785671cdd5d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'virtual-ist peer-ip {ip} vlan {vlan}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_virtual_ist_peer_ip:
+        description: "Removes a virtual-ist peer ip address"
+        arguments:
+            order: 
+        uuid: d2d8ead0-8751-4d2b-9eba-b46ef94de674
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no virtual-ist peer-ip',routerConfigPrompt,'None','None','None',[],[]]
+    show_virtual_ist:
+        uuid: 85f347a1-7907-402c-800c-31d34824ff74
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show virtual-ist',userPrompt,'None','None','None',[],[]]
+    show_virtual_ist_stat:
+        uuid: ddd852a4-e745-49c6-97fb-89dc8c3580e2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show virtual-ist stat',userPrompt,'None','None','None',[],[]]
+    show_info:
+        uuid: 20304340-d70a-41d6-9b92-b3605cca7ce1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show spbm',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.78.1.2.0||1.3.6.1.4.1.2272.1.78.1.4.0','i','']
+    show_isis_info:
+        uuid: f38a8fa5-adea-49fc-9e5a-d9d6888ba7a8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.4','i','']
+    show_isis_interface:
+        uuid: cda4da94-7df5-480e-b115-0e20fec130d0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis interface',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.2.1||1.3.6.1.4.1.2272.1.63.5.1','i','']
+    show_isis_isid_all:
+        uuid: 6aaff610-ed87-4cb8-86db-48f2415a152b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid all',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_all_id:
+        uuid: 84ba13a6-f186-4072-9051-68d54d3868f4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid all id {isid}',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_all_nickname:
+        uuid: ca4cd2d9-8234-4d14-8561-52040825bbb9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid all nick-name {nickname}',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_all_vlan:
+        uuid: 4a199aa8-de33-436a-bfe3-934e12312a5e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid all vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_config:
+        uuid: 546c48b6-3aa9-4d21-b202-d7e68e45d879
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid config',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_config_id:
+        uuid: a813f307-4ee7-47f0-8224-0e88062d5a75
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid config id {isid}',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_config_nickname:
+        uuid: aa02b940-4107-41c1-83fb-a6408b6f7b0b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid config nick_name {nickname}',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_config_vlan:
+        uuid: f98ff251-fb5e-4bf5-8855-0b8612e4b49a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid config vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_discover:
+        uuid: 7ba509bd-1c56-4426-a02e-08a62e309e58
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid discover',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_discover_id:
+        uuid: 3d46862a-521f-4823-9ff2-2dd5f6013538
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid discover id {isid}',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_discover_nickname:
+        uuid: f03943bc-66c5-4d1e-b8a8-dfb039e4afee
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid discover nick_name {nickname}',userPrompt,'None','None','None',[],[]]
+    show_isis_isid_discover_vlan:
+        uuid: 9fb77ae6-311e-46ef-840f-f9a1f44a332c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm i-sid discover vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_fib:
+        uuid: 688d8188-b637-42a7-9bee-cbcb0f3355d7
+        apis:
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.27','i','']
+    show_isis_ip_multicast_route:
+        uuid: b1e56535-cb34-4439-8906-6a8c787c669d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.24','i','']
+    show_isis_ip_multicast_route_all:
+        uuid: 25a8be76-e467-4adc-b670-85e569849602
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route all',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.24','i','']
+    show_isis_ip_multicast_route_detail:
+        uuid: d47d1372-a1bd-41c7-8469-2d7b39b2c40e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route detail',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.24','i','']
+    show_isis_ip_multicast_route_group:
+        uuid: e255b177-0af9-423c-97ce-7cf7bbbb7657
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route group {ip}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_group_detail:
+        uuid: 09df1e63-0560-4fd1-b2eb-6580a1027d62
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route group {ip} detail',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_group_source:
+        uuid: 97285fd3-343c-4298-919d-3c9a38cfa5bd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route group {ip} source {sip}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_group_source_detail:
+        uuid: 2f1f1cee-b388-4787-a1b9-859ab2a97d62
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route group {ip} source {sip} detail',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_group_source_beb:
+        uuid: 28c0a5e2-8a50-4b15-ab3a-7285412eed48
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route group {ip} source {sip} source-beb {name}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vlan:
+        uuid: ed61f828-c8e0-4ab9-b3b6-96353a285041
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vlan_detail:
+        uuid: 9a1cfa34-00d0-43cf-8dfd-001b48f391e9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vlan {vlan} detail',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vlan_group:
+        uuid: 6e571d88-0455-4f55-9f2e-8ba41ecbbdca
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vlan {vlan} group {ip}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vlan_group_detail:
+        uuid: 75e5d20c-3889-47ce-b796-e6299cebd287
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vlan {vlan} group {ip} detail',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vlan_group_source:
+        uuid: d7401950-0ee9-4729-aa87-2a5eccd91a60
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vlan {vlan} group {ip} source {sip}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vlan_group_source_detail:
+        uuid: 6a9efcb3-93f6-4f6a-911b-4c4d0a1bdb10
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vlan {vlan} group {ip} source {sip} detail',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vlan_group_source_beb:
+        uuid: 36bb3f43-08d5-4962-8f59-2b3d40e8b348
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vlan {vlan} group {ip} source {sip} source-beb {name}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vrf:
+        uuid: 500c4a72-076b-47d9-b016-e68d5649aef6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vrf {vrf_name}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vrf_detail:
+        uuid: c79a9a5c-bb12-4d1a-8250-8594604fcb7a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vrf {vrf} detail',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vrf_group:
+        uuid: 2ea4ba67-33e5-4ffa-bfd3-ccf0e2d37353
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vrf {vrf} group {ip}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vsn_isid:
+        uuid: 45dee8c1-2d37-4080-bd8c-222f660260ac
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vsn-isid {isid}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vsn_isid_etail:
+        uuid: fc40c6f8-b252-495a-98bb-204740ea3965
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vsn-isid {isid} detail',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_multicast_route_vsn_isid_group:
+        uuid: 021e1b78-cda4-4711-af84-f9e83a17c3c7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-multicast-route vsn-isid {isid} group {ip}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_unicast_fib:
+        uuid: 74b7ecbf-7afc-4886-9020-21d6dd2717bf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-unicast-fib',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.21','i','']
+    show_isis_ipv6_unicast_fib:
+        uuid: 86c0e7c0-4cb7-4b8f-9bca-8f38b18a79dc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ipv6-unicast-fib',userPrompt,'None','None','None',[],[]]
+    show_isis_ipv6_unicast_fib_id:
+        uuid: 974e07ad-f503-4eaa-afe9-d465c40bb535
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ipv6-unicast-fib id {isid}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_unicast_fib_id:
+        uuid: 2aacd9a0-b2ef-47f1-b2b3-0be284497eee
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-unicast-fib id {isid}',userPrompt,'None','None','None',[],[]]
+    show_isis_ip_unicast_fib_spbm_nh_as_mac:
+        uuid: 6abe888e-0778-4441-92ad-8b73a3f565e4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm ip-unicast-fib spbm-nh-as-mac',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.21','i','']
+    show_isis_multicast:
+        uuid: 700ffaea-223f-4e77-947e-15cb876d70e5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm multicast',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.63.4.1.12.0||1.3.6.1.4.1.2272.1.63.4.1.13.0','i','']
+    show_isis_multicast_fib:
+        uuid: f380acb6-ea96-4678-962b-534b49184b25
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm multicast-fib',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.14.1','i','']
+    show_isis_multicast_fib_detail:
+        uuid: 94a0acb9-7f92-4a90-bb02-2bec71405305
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm multicast-fib detail',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.27','i','']
+    show_isis_multicast_fib_isid:
+        uuid: 8f7e88a9-8577-4d18-b334-befd18aec1ef
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm multicast-fib i-sid {isid}',userPrompt,'None','None','None',[],[]]
+    show_isis_multicast_fib_nickname:
+        uuid: 01897b97-ee9f-44f6-b8a1-bc97966343eb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm multicast-fib nick-name {nickname}',userPrompt,'None','None','None',[],[]]
+    show_isis_multicast_fib_summary:
+        uuid: 58279390-2ac9-43c0-b937-369e4924ff90
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm multicast-fib summary',userPrompt,'None','None','None',[],[]]
+    show_isis_multicast_fib_vlan:
+        uuid: dc0b4750-adc6-42a6-a353-4acbc4e52f66
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm multicast-fib vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_isis_nickname:
+        uuid: c5bae896-780c-4af7-bccb-d92d4eca20c2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm nick-name {nickname}',userPrompt,'None','None','None',[],[]]
+    show_isis_nickname_smlt_virtual_bmac:
+        uuid: 484ce639-0c92-438a-8b32-e54d2688911e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm nick-name smlt-virtual-bmac {bmac}',userPrompt,'None','None','None',[],[]]
+    show_isis_nickname_sysid:
+        uuid: efcaaa77-8512-4d3b-9ed2-2fc46f736d38
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm nick-name sysid {sysid}',userPrompt,'None','None','None',[],[]]
+    show_isis_unicast_fib:
+        uuid: d81f45ec-39a7-47fb-a6a5-f75eeadf0e8b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm unicast-fib',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.13','i','']
+    show_isis_unicast_fib_bmac:
+        uuid: 6905d0f9-1a1c-4d1c-bdac-c36e78b53744
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm unicast-fib b-mac {bmac}',userPrompt,'None','None','None',[],[]]
+    show_isis_unicast_fib_summary:
+        uuid: aebace63-c304-4635-9050-e2200854284e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm unicast-fib summary',userPrompt,'None','None','None',[],[]]
+    show_isis_unicast_fib_vlan:
+        uuid: 9afe47bf-98e0-409e-80a5-66e25e7d50f4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm unicast-fib vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_isis_unicast_tree:
+        uuid: f199dac4-9c45-4f7b-8ccd-798b2d0b576f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm unicast-tree {bvlan}',userPrompt,'None','None','None',[],[]]
+    show_isis_unicast_tree_destination:
+        uuid: 1b724108-2b98-4356-a79b-bf1af8befb8a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spbm unicast-tree {bvlan} destination {sysid}',userPrompt,'None','None','None',[],[]]
+    show_isid:
+        uuid: 8227f5c7-3bc4-48d9-b7cc-fa40f3cf4b79
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid {isid}',userPrompt,'None','None','None',[],[]]
+    show_isid_all:
+        uuid: 7881482f-6e66-44b6-85e3-da76313cb7f2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid',userPrompt,'None','None','None',[],[]]
+    show_isid_elan:
+        uuid: a7f6dbcb-c532-4317-965d-7bf6b78383f7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid elan',userPrompt,'None','None','None',[],[]]
+    show_isid_elan_transparent:
+        uuid: 9e150c48-0151-4e77-b17c-988475c44bf4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid elan-transparent',userPrompt,'None','None','None',[],[]]
+    show_isid_mac_address_entry:
+        uuid: be027d23-b56f-48a3-8f69-455f18b892d9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid mac-address-entry {isid}',userPrompt,'None','None','None',[],[]]
+    show_isid_mac_address_entry_all:
+        uuid: 6f2ea73f-b0cd-48b5-bad9-bc4cf20d9244
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid mac-address-entry',userPrompt,'None','None','None',[],[]]
+    show_isid_mac_address_entry_mac:
+        uuid: 81993a78-2287-40a1-81ec-675a3338cff3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid mac-address-entry mac {mac}',userPrompt,'None','None','None',[],[]]
+    show_isid_mac_address_entry_port:
+        uuid: ef151f57-2e54-4593-a9b3-96706e8d3a42
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid mac-address-entry port {port}',userPrompt,'None','None','None',[],[]]
+    show_isid_mac_address_entry_remote:
+        uuid: dc0bfd0a-155a-4a07-b3d0-fc59676c4210
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid mac-address-entry remote',userPrompt,'None','None','None',[],[]]

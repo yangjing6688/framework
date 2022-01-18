@@ -1,0 +1,133 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+webapp:
+    open_page:
+        apis:
+            - [xmc,'BaseAppVer']
+    close_page:
+        apis:
+            - [xmc,'BaseAppVer']
+    launch_xmc:
+        apis:
+            - [xmc,'BaseAppVer']
+    login_to_xmc:
+        apis:
+            - [xmc,'BaseAppVer']
+    wait_for_page_to_load:
+        apis:
+            - [xmc,'BaseAppVer']
+    switch_tab:
+        apis:
+            - [xmc,'BaseAppVer']
+    select_page:
+        apis:
+            - [xmc,'BaseAppVer']
+    click_on_button:
+        apis:
+            - [xmc,'BaseAppVer']
+    click_link_text:
+        apis:
+            - [xmc,'BaseAppVer']
+    click_nth_link_text:
+        apis:
+            - [xmc,'BaseAppVer']
+    wait_for:
+        apis:
+            - [xmc,'BaseAppVer']
+    wait_for_loading:
+        apis:
+            - [xmc,'BaseAppVer']
+    element_exists:
+        apis:
+            - [xmc,'BaseAppVer']
+    accept_dialog_box:
+        apis:
+            - [xmc,'BaseAppVer']
+    reject_dialog_box:
+        apis:
+            - [xmc,'BaseAppVer']
+    invoke_popup_menu:
+        apis:
+            - [xmc,'BaseAppVer']
+    select_tree_node_item:
+        apis:
+            - [xmc,'BaseAppVer']
+    double_click:
+        apis:
+            - [xmc,'BaseAppVer']
+    invoke_dropdown:
+        apis:
+            - [xmc,'BaseAppVer']
+    select_boundlist_item:
+        apis:
+            - [xmc,'BaseAppVer']
+    select_boundlist_item_by_index:
+        apis:
+            - [xmc,'BaseAppVer']
+    wait_for_message_box:
+        apis:
+            - [xmc,'BaseAppVer']
+    wait_for_dialog_window:
+        apis:
+            - [xmc,'BaseAppVer']
+    move_mouse_out_of:
+        apis:
+            - [xmc,'BaseAppVer']
+    move_mouse_over_img:
+        apis:
+            - [xmc,'BaseAppVer']
+    move_mouse_over_element:
+        apis:
+            - [xmc,'BaseAppVer']
+    close_tab:
+        apis:
+            - [xmc,'BaseAppVer']
+    close_dialog_box:
+        apis:
+            - [xmc,'BaseAppVer']
+    drag_and_drop_element:
+        apis:
+            - [xmc,'BaseAppVer']
+    click_stale_element:
+        apis:
+            - [xmc,'BaseAppVer']
+    find_a_row_from_grid:
+        apis:
+            - [xmc,'BaseAppVer']
+    get_a_row_from_grid:
+        apis:
+            - [xmc,'BaseAppVer']
+    select_a_row_on_the_grid:
+        apis:
+            - [xmc,'BaseAppVer']
+    get_a_column_from_grid:
+        apis:
+            - [xmc,'BaseAppVer']
+    get_a_cell_value_from_grid:
+        apis:
+            - [xmc,'BaseAppVer']
+    get_row_count_from_grid:
+        apis:
+            - [xmc,'BaseAppVer']
+    click_on_a_cell_on_the_grid:
+        apis:
+            - [xmc,'BaseAppVer']
+    filter_grid_column_values:
+        apis:
+            - [xmc,'BaseAppVer']
+    get_list_item:
+        apis:
+            - [xmc,'BaseAppVer']
+    select_x_collapsed_panel:
+        apis:
+            - [xmc,'BaseAppVer']
+    browser_full_screen:
+        apis:
+            - [xmc,'BaseAppVer']
+    browser_zoom_out:
+        apis:
+            - [xmc,'BaseAppVer']

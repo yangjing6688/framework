@@ -1,0 +1,63 @@
+**FRAMEWORK INSTALLATION GUIDE**
+================================
+	
+        .. note:: This Page Contains Robot Framework Installation Guide
+
+
+1. Install Python 2.7.16 ( Link: https://www.python.org/ftp/python/2.7.10/python-2.7.10.amd64.msi )
+
+
+
+2. Add C:-->Python27, C:-->Python27->Scripts directory paths to “System -> Path” in Environment Variables. 
+
+
+	
+        .. note:: If you already have Python 3.X installed, move the above two paths to top.
+
+	
+3. Download and keep “ChromeDriver” in C:-->Python27 folder (https://chromedriver.chromium.org/downloads)
+
+ 
+
+        .. note:: ChromeDriver version should match with your Chrome Browser version
+
+	
+4. Install PyCharm Community edition (https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC )
+
+
+
+5. Login to https://github.extremenetworks.com using corporate username (no need of @domain) & password
+
+			
+        * Navigate to https://github.extremenetworks.com/Engineering/automation_cloud
+
+	* Click “Clone or Download”  -> Download Zip. Extract to “C:”, like following (rename automation_cloud-master)
+	
+
+6. Create a System Environment Variable, PYTHONPATH with the value: “C:-->automation_cloud-->automation”
+
+
+7. Open PyCharm, Opening the folder C:-->automation_cloud
+
+			
+        * Let the PyCharm complete indexing (5 mins)
+
+	* Install suggested plugins (IntelliBot etc)
+
+	
+8.  Open PyCharm terminal, install following:
+
+			
+        * pip install robotframework
+
+	* pip install selenium
+
+	* pip install sauceclient
+
+	* pip install Image
+
+	
+9.  Navigate to C:-->automation_cloud-->automation-->scripts-->cloud, run test script using following command:
+
+	
+       robot login_basic.robot – should get executed successfully.

@@ -1,0 +1,46 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+policycos:
+    policy_cos_select_cos_node:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_edit_irl_index:
+        apis:
+            - [emc,'8.1.1']
+    policy_click_tree_panel:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_create:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_create_rate_limit:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_set_irl_index:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_delete_cos:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_delete_rate_limit:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_edit_txq_index:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_edit_tos:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_enable_tos:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_edit_tos_hex_value:
+        apis:
+            - [emc,'8.1.1']
+    policy_cos_set_orl_index:
+        apis:
+            - [emc,'8.1.1']

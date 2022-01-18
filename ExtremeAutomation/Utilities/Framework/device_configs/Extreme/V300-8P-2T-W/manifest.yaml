@@ -1,0 +1,21 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  V300-8P-2T-W switch
+#
+#
+
+
+vendor: Extreme
+product_name: V300-8P-2T-W
+
+files:
+   - name: capability
+     filename: [../../common/defaultcap.yaml, switchcap.yaml]
+   - name: ports
+     filename: [../../common/defaultports.yaml, ports.yaml]

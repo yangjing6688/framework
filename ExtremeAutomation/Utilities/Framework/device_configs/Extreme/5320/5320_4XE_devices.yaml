@@ -1,0 +1,27 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the buses and devices common to 5320 4XE models
+#
+
+buses:
+  - *I2CBUS_0
+  - *I2CBUS_3
+
+devices:
+  - *SYSTEM_GPIO
+  - *UPLINK_PCA9506_0
+  - *UPLINK_PCA9506_1
+  - *SYSTEM_EEPROM
+  - *SYSTEM_UC
+  - *MB_AMBIENT_TMPSN_FS
+  - *MB_AMBIENT_TMPSN_SD
+  - *MB_HOTSPOT_TMPSN_FS
+  - *MB_HOTSPOT_TMPSN_SD
+  - *MB_PSU_TMPSN_FS
+  - *MB_PSU_TMPSN_SD
+  - *PCA9546_0

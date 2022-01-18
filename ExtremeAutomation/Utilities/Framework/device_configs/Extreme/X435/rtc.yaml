@@ -1,0 +1,14 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common RTC in X435-8P series switches
+#
+
+
+# RTCMCP7940X
+rtc_mcp_7940x: &RTC_MCP_7940X
+  device:               rtc_mcp_7940x

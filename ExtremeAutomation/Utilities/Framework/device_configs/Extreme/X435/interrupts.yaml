@@ -1,0 +1,31 @@
+##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines interrupt controllers common to X435 series switches
+#
+# 'mask', 'status' and 'ack' are base registers
+# The registers in 'irqs' are the offset to the base registers.
+#
+
+intr_controller_system_gpio_0: &INTR_CONTROLLER_SYSTEM_GPIO_0
+  name:             intrctl_board_0
+  compatible:       gpio_intr_controller
+  parent_irq:       GPIO
+  irqs:
+    - name:         board_int
+      device:       system_gpio_0
+      pin:          board_int
+      waiters:      multiple
+
+intr_controller_system_gpio_1: &INTR_CONTROLLER_SYSTEM_GPIO_1
+  name:             intrctl_board_1
+  compatible:       gpio_intr_controller
+  parent_irq:       GPIO
+  irqs:
+    - name:         mode_button_int
+      device:       system_gpio_1
+      pin:          mode_button_int

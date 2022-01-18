@@ -1,0 +1,70 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common temperature sensors in 5320 (TINKERBELL) series switches
+#  Values are for 5320-24P-8XE
+#
+
+mb_hotspot_tmpsn_fs: &MB_HOTSPOT_TMPSN_FS
+  device:             mb_hotspot_tmpsn_fs
+  location:
+    board:            MAINBOARD
+    zone:             HOTSPOT
+  hw_settings:
+    tos:              6406
+    thyst:            5906
+
+mb_hotspot_tmpsn_sd: &MB_HOTSPOT_TMPSN_SD
+  device:             mb_hotspot_tmpsn_sd
+  number:             1
+  temp_valid:         0
+  location:
+    board:            MAINBOARD
+    zone:             HOTSPOT
+  hw_settings:
+    tos:              6931
+    thyst:            6431
+
+mb_ambient_tmpsn_fs: &MB_AMBIENT_TMPSN_FS
+  device:             mb_ambient_tmpsn_fs
+  location:
+    board:            MAINBOARD
+    zone:             DEFAULT
+  hw_settings:
+    tos:              5950
+    thyst:            5450
+
+mb_ambient_tmpsn_sd: &MB_AMBIENT_TMPSN_SD
+  device:             mb_ambient_tmpsn_sd
+  number:             1
+  temp_valid:         0
+  location:
+    board:            MAINBOARD
+    zone:             DEFAULT
+  hw_settings:
+    tos:              6500
+    thyst:            6000
+
+mb_psu_tmpsn_fs: &MB_PSU_TMPSN_FS
+  device:             mb_psu_tmpsn_fs
+  location:
+    board:            MAINBOARD
+    zone:             FIXED_PSU
+  hw_settings:
+    tos:              6512
+    thyst:            6012
+
+mb_psu_tmpsn_sd: &MB_PSU_TMPSN_SD
+  device:             mb_psu_tmpsn_sd
+  number:             1
+  temp_valid:         0
+  location:
+    board:            MAINBOARD
+    zone:             FIXED_PSU
+  hw_settings:
+    tos:              7012
+    thyst:            6512

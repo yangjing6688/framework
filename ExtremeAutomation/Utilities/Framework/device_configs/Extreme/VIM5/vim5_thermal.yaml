@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines VIM5 thermal sensor instances.
+#
+
+# All VIM5 thermal sensor devices
+devices:
+  - *VIM5_TEMP_SENSOR

@@ -1,0 +1,14 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on X690-48t-4q-2c
+#
+
+sensors:
+  - *CPU_DEFAULT_TMPSN
+  - *MB_HOTSPOT_TMPSN
+  - *MB_AMBIENT_TMPSN

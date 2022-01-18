@@ -1,0 +1,19 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common temperature sensors in X435 series switches
+#
+
+tmpsn_interrupt: &TMPSN_INTERRUPT
+  interrupt: board_int
+
+# TMP75AIDR
+mb_ambient_tmpsn: &MB_AMBIENT_TMPSN
+  device:             mb_ambient_tmpsn
+  location:
+    board:            MAINBOARD
+    zone:             DEFAULT

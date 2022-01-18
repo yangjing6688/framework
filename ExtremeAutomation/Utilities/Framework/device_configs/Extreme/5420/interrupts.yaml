@@ -1,0 +1,56 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines interrupt controllers common to 5420 series switches
+#
+# 'mask', 'status' and 'ack' are base registers
+# The registers in 'irqs' are the offset to the base registers.
+#
+
+intr_controller_gpio: &INTR_CONTROLLER_GPIO
+  name:             intrctl_gpio
+  compatible:       gpio_intr_controller
+  parent_irq:       GPIO
+  irqs:
+    - name:         push_button_int
+      device:       system_gpio
+      pin:          push_button_int
+
+intr_controller_cpld: &INTR_CONTROLLER_CPLD
+  name:             intrctl_cpld
+  compatible:       fpga_intr_controller
+  device:           system_cpld_reg
+  parent_irq:       smb_cpld_int
+  mask:
+    register:       0x20
+    active_low:     1
+  status:
+    register:       0x18
+  ack:
+    register:       0x18
+  num_regs:         4
+  irqs:
+    - name:         led_mode_irq
+      trigger:      EDGE
+      register:     2
+      bitmask:      0x40
+    - name:         bt_pair_irq
+      trigger:      EDGE
+      register:     2
+      bitmask:      0x80
+    - name:         psu_irq
+      trigger:      LEVEL
+      register:     1
+      bitmask:      0x03
+    - name:         fantray_irq
+      trigger:      LEVEL
+      register:     2
+      bitmask:      0x03
+    - name:         port_irq
+      trigger:      LEVEL
+      register:     3
+      bitmask:      0xff

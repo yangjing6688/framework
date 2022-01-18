@@ -1,0 +1,118 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2017
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for V400-48x-25GE16 switch
+#
+#
+
+10G_port: &10G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000
+   portMediaType: HAL_PORT_MED_GBIC
+
+25G_port: &25G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_25000
+   portMediaType: HAL_PORT_MED_GBIC
+
+
+ports:
+   - name: 1
+     <<: *10G_PORT
+
+   - name: 2
+     <<: *10G_PORT
+
+   - name: 3
+     <<: *10G_PORT
+
+   - name: 4
+     <<: *10G_PORT
+
+   - name: 5
+     <<: *10G_PORT
+
+   - name: 6
+     <<: *10G_PORT
+
+   - name: 7
+     <<: *10G_PORT
+
+   - name: 8
+     <<: *10G_PORT
+
+   - name: 9
+     <<: *10G_PORT
+
+   - name: 10
+     <<: *10G_PORT
+
+   - name: 11
+     <<: *10G_PORT
+
+   - name: 12
+     <<: *10G_PORT
+
+   - name: 13
+     <<: *10G_PORT
+
+   - name: 14
+     <<: *10G_PORT
+
+   - name: 15
+     <<: *10G_PORT
+
+   - name: 16
+     <<: *10G_PORT
+
+   - name: 17
+     <<: *10G_PORT
+
+   - name: 18
+     <<: *10G_PORT
+
+   - name: 19
+     <<: *10G_PORT
+
+   - name: 20
+     <<: *10G_PORT
+
+   - name: 21
+     <<: *10G_PORT
+
+   - name: 22
+     <<: *10G_PORT
+
+   - name: 23
+     <<: *10G_PORT
+
+   - name: 24
+     <<: *10G_PORT
+
+   - name: 25
+     <<: *25G_PORT
+
+   - name: 26
+     <<: *25G_PORT
+
+   - name: 27
+     <<: *25G_PORT
+
+   - name: 28
+     <<: *25G_PORT
+
+   - name: 29
+     <<: *25G_PORT
+
+   - name: 30
+     <<: *25G_PORT
+
+   - name: 31
+     <<: *25G_PORT
+
+   - name: 32
+     <<: *25G_PORT

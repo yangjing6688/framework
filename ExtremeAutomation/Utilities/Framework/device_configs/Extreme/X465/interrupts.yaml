@@ -1,0 +1,47 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines interrupt controllers common to X465 series switches
+#
+# 'mask', 'status' and 'ack' are base registers
+# The registers in 'irqs' are the offset to the base registers.
+#
+
+intr_controller_fpga: &INTR_CONTROLLER_FPGA
+  name:             intrctl_fpga
+  compatible:       fpga_intr_controller
+  device:           fpga_reg
+  parent_irq:       SMBALERT
+  mask:
+    register:       0x20
+    active_low:     1
+  status:
+    register:       0x1c
+  ack:
+    register:       0x1c
+  num_regs:         4
+  irqs:
+    - name:         led_mode_irq
+      trigger:      EDGE
+      register:     0
+      bitmask:      0x01
+    - name:         bt_pair_irq
+      trigger:      EDGE
+      register:     0
+      bitmask:      0x02
+    - name:         psu_irq
+      trigger:      LEVEL
+      register:     1
+      bitmask:      0x03
+    - name:         fantray_irq
+      trigger:      LEVEL
+      register:     2
+      bitmask:      0x07
+    - name:         port_irq
+      trigger:      LEVEL
+      register:     3
+      bitmask:      0xff

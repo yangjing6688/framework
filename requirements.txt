@@ -1,0 +1,31 @@
+# ------------------   From Wireless  ----------------------
+#Pillow==7.0.0
+Flask==1.1.1
+image==1.5.28
+netmiko==3.0.0
+paramiko==2.7.1
+pexpect==4.8.0
+robotframework==3.1.2
+sauceclient==1.0.0
+selenium==3.141.0
+sauceclient==1.0.0
+# ----------------- From Wireless End ---------------------
+urllib3==1.23
+#selenium==3.14.0
+#netmiko==2.3.0
+pyvmomi==6.7.1
+#flask==1.0.2
+flask-cors==3.0.7
+pycryptodome==3.10.1
+pyyaml==3.13
+mock==2.0.0
+requests==2.19.1
+pysnmp==4.4.6
+pyserial==3.4
+xmlrunner==1.7.7
+oyaml==0.7
+textfsm==0.4.1
+PyMySQL==1.0.2
+wheel==0.36.2
+PyAutoGUI==0.9.42; platform_system == "Windows"
+https://github.com/jacexh/pyautoit/archive/master.zip; platform_system == "Windows"

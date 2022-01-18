@@ -1,0 +1,7 @@
+WinMuConnect
+============
+
+.. automodule:: common.tools.remote.WinMuConnect
+   :members:
+   :undoc-members:
+   :show-inheritance:

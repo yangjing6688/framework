@@ -1,0 +1,14 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit]
+#             - [OS2,Platform,Version,Unit]
+
+netsightutilities:
+    verify_rest_read_all:
+        apis:
+            - [EMC,base,baseversion,baseunit]
+    verify_rest_read:
+        apis:
+            - [EMC,base,baseversion,baseunit]

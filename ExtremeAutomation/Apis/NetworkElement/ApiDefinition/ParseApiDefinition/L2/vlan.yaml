@@ -1,0 +1,236 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+vlan:
+    check_vlan_exists:
+        uuid: 4b1c5a55-a6fb-4179-8ed3-de098c18bc80
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EOS,base,'7.1.0.0',baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [BOSS,base,baseversion,baseunit]
+                - [EOSSTACKS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_untagged_ports:
+        uuid: d05f3060-023a-4ddc-94da-0896d80255ec
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_static_untagged_ports:
+        uuid: 7a62b32a-5a7a-4dd1-b18b-0947df6b9d32
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_untagged_operational_ports:
+        uuid: a02c27a0-a3d9-44fc-8a83-ca4e703e8de9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_tagged_ports:
+        uuid: b20143b9-1199-4d88-9eb8-f04534cfa9d8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [EOSSTACKS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_tagged_operational_ports:
+        uuid: e491488a-635b-4092-a512-081c270e0ca9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_forbidden_ports:
+        uuid: 319da971-bc8a-4c46-b948-994c2f38272a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_vlan_state:
+        uuid: 9c0668ec-42d4-4ad4-9ca8-e04a3b08501a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_description:
+        uuid: c54acc9a-f942-4523-991e-e45bd662eef2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_name:
+        uuid: 9ce8528a-081f-4e60-a372-b21b084d3d4f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [BOSS,base,baseversion,baseunit]
+                - [EOSSTACKS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_port_pvid:
+        uuid: dab11946-7636-4d67-9a0e-62c09afd92f7
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [EOSSTACKS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit]
+    get_vlan_tag:
+        uuid: ca613982-1040-42f3-aa45-72d389ddce47
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_on_port_tagged_egress:
+        uuid: 1f43b58b-c88f-4bac-8ccb-eb72c237a354
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_vlan_on_port_untagged_egress:
+        uuid: e441e53a-956d-4c9c-a7dc-0e7267e87069
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_vman_exists:
+        uuid: 10f42943-4928-4999-8fb2-cc84eff5aa59
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_name_id:
+        uuid: ee66a17f-caa3-4197-bc30-562eb6312de1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [EOSSTACKS,base,baseversion,baseunit]
+                - [ALPHA,base,baseversion,baseunit]
+    check_static_tagged_ports:
+        uuid: 3aa21e94-2329-4bdc-b5b5-2b0167714aad
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vman_tagged_ports:
+        uuid: 8a0486c7-083d-430f-a250-e6bc295e2b9d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vman_untagged_ports:
+        uuid: 673d16d5-7bca-4276-ac70-fb06b35fafb0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_nsi:
+        uuid: e05edae6-69c1-49de-96ab-bd9b7728b99d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_isid:
+        uuid: 55e1f7b6-0678-4d87-866c-309faa28bc82
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    get_vlan_ipv4:
+        uuid: 771e9cb2-b08f-4c60-bada-e64e7658a433
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_fabric_attach_assignments_port:
+        uuid: 8a505933-de42-42fc-a471-ae3891147cb6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_fabric_attach_assignments_vlan:
+        uuid: 12c7b2b9-0b23-4674-a943-1f89f5fba613
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_fabric_attach_assignments_vlan_name:
+        uuid: 1cdf3d06-60b4-4ab4-9d72-7c144ef80d04
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_fabric_attach_assignments_type:
+        uuid: 5965b5ad-4e61-4356-9d06-0105c6acc53e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_fabric_attach_assignments_isid:
+        uuid: 76ce64fd-b10c-4cbe-94cb-2d34dc16324f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_vlan_fabric_attach_assignments_status:
+        uuid: abc7d75d-c4b3-4e47-aa25-4da2c9172f72
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_port_encapsulation_dot1q_is_set:
+        uuid: 8a9d9538-8d1f-41db-940e-8e5b776ebe35
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_port_is_member_of_vlan:
+        uuid: d7fed034-1464-4304-9edb-ab83eb243933
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_port_is_member_of_default_vlan:
+        uuid: 736a8420-eb71-42bb-a418-7ee7d39a39e7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]

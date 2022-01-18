@@ -1,0 +1,4 @@
+Feature,radius,,,,
+Variable Name,OS,Platform,Version,Unit,Variables Value
+radius_max_index,EOS,base,baseversion,baseunit,2147483647
+radius_max_index,EXOS,base,baseversion,baseunit,2147483641

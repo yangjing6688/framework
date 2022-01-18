@@ -1,0 +1,33 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for X440G2-24t-10G4.
+#  This inherits capability from hurricane2 YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *HURRICANE2_CAPABILITY
+  hwHealth: 2
+  numExternalPort: 28
+
+
+  # Boolean type supported/not-supported capability parameters.
+  ComboPort: true
+  StackSupportCfg: true
+  StackSupportCtrl: true
+  AltStkOnly: true
+  AltStkPortCapable: true
+  StackingAutoDiscovery: true
+  InstallFirmWare: true
+  MacsecWithExtAdapter: true
+  FanMinSpeedOverride: true
+  InstallLrmMacsecAdapterFirmware: true

@@ -1,0 +1,256 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines fan FRUs common to X695 series switches
+#
+#target speed only
+fan_conroller_adt7470: &FAN_CONTROLLER_ADT7470
+  name:             fanctl_adt7470
+  bus:              pca9548_bmc_ch2
+  compatible:       adt7470
+  address:          0x2C
+  fan_controls:
+    - name:         adt7140_fan1
+      number:       1
+      freq:         22500
+
+#presence
+fan_controller_cpld: &FAN_CONTROLLER_CPLD
+  name:             fanctl_cpld
+  bus:              platform
+  compatible:       cpld_fan_controller
+  device:           system_cpld
+  speed_settings:
+    type:             LINEAR
+    range:            [0x00, 0xff]
+  speed_multiplier:    160
+  fan_status_check:   zero_speed
+  min_rpm_abs:        500
+  fan_controls:
+    - name:         fanctl_fan_0_0
+      speed_input:
+        register:   0x41
+        bitmask:    0xff
+    - name:         fanctl_fan_0_1
+      speed_input:
+        register:   0x42
+        bitmask:    0xff
+    - name:         fanctl_fan_1_0
+      speed_input:
+        register:   0x43
+        bitmask:    0xff
+    - name:         fanctl_fan_1_1
+      speed_input:
+        register:   0x44
+        bitmask:    0xff
+    - name:         fanctl_fan_2_0
+      speed_input:
+        register:   0x45
+        bitmask:    0xff
+    - name:         fanctl_fan_2_1
+      speed_input:
+        register:   0x46
+        bitmask:    0xff
+    - name:         fanctl_fan_3_0
+      speed_input:
+        register:   0x47
+        bitmask:    0xff
+    - name:         fanctl_fan_3_1
+      speed_input:
+        register:   0x48
+        bitmask:    0xff
+    - name:         fanctl_fan_4_0
+      speed_input:
+        register:   0x49
+        bitmask:    0xff
+    - name:         fanctl_fan_4_1
+      speed_input:
+        register:   0x4A
+        bitmask:    0xff
+    - name:         fanctl_fan_5_0
+      speed_input:
+        register:   0x4B
+        bitmask:    0xff
+    - name:         fanctl_fan_5_1
+      speed_input:
+        register:   0x4C
+        bitmask:    0xff
+
+#presence
+fan_controller_fpga: &FAN_CONTROLLER_FPGA
+  name:             fanctl_fpga
+  bus:              platform
+  compatible:       cpld_fan_controller
+  device:           pca9698_psu_fan
+  direction_values:
+    B2F:            0x1
+    F2B:            0x0
+  fan_module_controls:
+    - name:         fanctl_module_0
+      presence:
+        register:   0x02
+        bitmask:    0x01
+        active_low:    1
+      direction:
+        register:   0x03
+        bitmask:    0x01
+    - name:         fanctl_module_1
+      presence:
+        register:   0x02
+        bitmask:    0x02
+        active_low:    1
+      direction:
+        register:   0x03
+        bitmask:    0x02
+    - name:         fanctl_module_2
+      presence:
+        register:   0x02
+        bitmask:    0x04
+        active_low:    1
+      direction:
+        register:   0x03
+        bitmask:    0x04
+    - name:         fanctl_module_3
+      presence:
+        register:   0x02
+        bitmask:    0x08
+        active_low:    1
+      direction:
+        register:   0x03
+        bitmask:    0x08
+    - name:        fanctl_module_4
+      presence:
+        register:   0x02
+        bitmask:    0x10
+        active_low:    1
+      direction:
+        register:   0x03
+        bitmask:    0x10
+    - name:         fanctl_module_5
+      presence:
+        register:   0x02
+        bitmask:    0x20
+        active_low:    1
+      direction:
+        register:   0x03
+        bitmask:    0x20
+
+
+
+common_fan_info: &COMMON_FAN_INFO
+  number_fan_frus:    6
+  fans_per_fru:       2
+  polling_period:     2000
+  fan_led_settings:
+    OFF:              0x1  #per fru led hw supports only solid red xor green
+    SOLID_GREEN:      0x0  #exos uses green, off and blinking amber, TBD - use solid amber instead
+    SOLID_AMBER:      0x1  #off is useless as the led is removed together with fru
+    BLINK_AMBER:      0x1
+  fan_all_controls:
+    target_speed:      adt7140_fan1
+
+fan_fru_1: &FAN_FRU_1
+  number:             1
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  fan_led:
+    device:           pca9698_psu_fan
+    register:         0x0c
+    bitmask:          0x01
+  presence:           fanctl_module_0
+  direction:          fanctl_module_0
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_0_0
+    - number:         2
+      speed_input:    fanctl_fan_0_1
+
+fan_fru_2: &FAN_FRU_2
+  number:             2
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  fan_led:
+    device:           pca9698_psu_fan
+    register:         0x0c
+    bitmask:          0x02
+  presence:           fanctl_module_1
+  direction:          fanctl_module_1
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_1_0
+    - number:         2
+      speed_input:    fanctl_fan_1_1
+
+fan_fru_3: &FAN_FRU_3
+  number:             3
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  fan_led:
+    device:           pca9698_psu_fan
+    register:         0x0c
+    bitmask:          0x04
+  presence:           fanctl_module_2
+  direction:          fanctl_module_2
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_2_0
+    - number:         2
+      speed_input:    fanctl_fan_2_1
+
+fan_fru_4: &FAN_FRU_4
+  number:             4
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  fan_led:
+    device:           pca9698_psu_fan
+    register:         0x0c
+    bitmask:          0x08
+  presence:           fanctl_module_3
+  direction:          fanctl_module_3
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_3_0
+    - number:         2
+      speed_input:    fanctl_fan_3_1
+
+fan_fru_5: &FAN_FRU_5
+  number:             5
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  fan_led:
+    device:           pca9698_psu_fan
+    register:         0x0c
+    bitmask:          0x10
+  presence:           fanctl_module_4
+  direction:          fanctl_module_4
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_4_0
+    - number:         2
+      speed_input:    fanctl_fan_4_1
+
+fan_fru_6: &FAN_FRU_6
+  number:             6
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  fan_led:
+    device:           pca9698_psu_fan
+    register:         0x0c
+    bitmask:          0x20
+  presence:           fanctl_module_5
+  direction:          fanctl_module_5
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_5_0
+    - number:         2
+      speed_input:    fanctl_fan_5_1

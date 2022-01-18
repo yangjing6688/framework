@@ -1,0 +1,15 @@
+
+.. image:: extreme_logo.png
+   :width: 250px
+   :height: 150px
+   :scale: 100 %
+   :alt: alternate text
+   :align: right
+
+A3Inventory
+-----------
+
+.. automodule:: xiq.flows.a3.A3Inventory
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,2 @@
+def DeviceHostnameWebElements():
+    return None

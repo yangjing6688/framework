@@ -1,0 +1,98 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines PSUs common to X725 series switches
+#
+
+common_power_info: &COMMON_POWER_INFO
+  number_psus:        2
+  polling_period:     2000
+  psu_led_control:    SW
+  psu_led_settings:
+    OFF:              0x0
+    SOLID_GREEN:      0x1
+    BLINK_AMBER:      0x2
+
+psu_1: &PSU_1
+  number:             1
+  devices:
+    - name:           psu1_eeprom
+      compatible:     24c02
+      bus:            pca9545_0_ch0
+      address:        0x51
+      format:         extreme
+    - name:           psu1_uC
+      compatible:     i2c_regmap
+      bus:            pca9545_0_ch0
+      address:        0x59
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 16
+      cpld_revision:
+        register:     0x00
+        bitmask:      0xff
+  psu_type:           MODULAR
+  psu_eeprom:         psu1_eeprom
+  psu_controller:     psu1_uC
+  psu_led:
+    device:           system_cpld
+    register:         0x07
+    bitmask:          0x0c
+  psu_present:
+    device:           power_cpld
+    register:         0x03
+    bitmask:          0x04
+    active_low:       1
+  psu_input_ok:
+    device:           power_cpld
+    register:         0x03
+    bitmask:          0x01
+  psu_output_ok:
+    device:           power_cpld
+    register:         0x03
+    bitmask:          0x02
+
+psu_2: &PSU_2
+  number:             2
+  devices:
+    - name:           psu2_eeprom
+      compatible:     24c02
+      bus:            pca9545_0_ch1
+      address:        0x51
+      format:         extreme
+    - name:           psu2_uC
+      compatible:     i2c_regmap
+      bus:            pca9545_0_ch1
+      address:        0x59
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 16
+      cpld_revision:
+        register:     0x00
+        bitmask:      0xff
+  psu_type:           MODULAR
+  psu_eeprom:         psu2_eeprom
+  psu_controller:     psu2_uC
+  psu_led:
+    device:           system_cpld
+    register:         0x07
+    bitmask:          0x30
+  psu_present:
+    device:           power_cpld
+    register:         0x04
+    bitmask:          0x04
+    active_low:       1
+  psu_input_ok:
+    device:           power_cpld
+    register:         0x04
+    bitmask:          0x01
+  psu_output_ok:
+    device:           power_cpld
+    register:         0x04
+    bitmask:          0x02

@@ -1,0 +1,151 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+tunnel:
+    create_interface:
+        description: "Creates a tunnel"
+        arguments:
+            order: 
+        uuid: 5e4d2dce-a324-4288-85fa-b3986c94a5ec
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'shutdown',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'create tunnel {<str_utils.exos_tunnel_interface>tunnel}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'interface tunnel {tunnel}',routerConfigPrompt,'None','None','None',[],[]]
+    delete_interface:
+        description: "Deletes a tunnel"
+        arguments:
+            order: 
+        uuid: e8a1c3ea-06bf-4bc3-809f-477f1da53742
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no interface tunnel tun.0.{tunnel}',routerConfigPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'delete tunnel {<str_utils.exos_tunnel_interface>tunnel}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'no interface tunnel {tunnel}',routerConfigPrompt,'None','None','None',[],[]]
+    enable_interface:
+        description: "Enables a tunnel"
+        arguments:
+            order: 
+        uuid: 3fcc3372-4257-4c27-ba06-9bd2f92bb76e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no shutdown',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable tunnel {<str_utils.exos_tunnel_interface>tunnel}',userPrompt,'None','None','None',[],[]]
+    disable_interface:
+        description: "Disables a tunnel"
+        arguments:
+            order: 
+        uuid: 75d9f71a-0d75-4b0b-b23c-644e421c6280
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'shutdown',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable tunnel {<str_utils.exos_tunnel_interface>tunnel}',userPrompt,'None','None','None',[],[]]
+    set_mode_gre:
+        description: "Configures a tunnel with mode GRE"
+        arguments:
+            order: 
+        uuid: 7189ce0d-7a04-4abb-84c9-7d1f6a6f21b4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'tunnel mode gre',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'mode gre ip',intfPrompt,'None','None','None',[],[]]
+    set_mode_vxlan:
+        description: "Configures a tunnel with mode VXLAN"
+        arguments:
+            order: 
+        uuid: b0e26563-c285-4f8b-b979-a8fefbd19217
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'tunnel mode vxlan',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+    set_mode_vxlan_l2tb_port:
+        description: "Binds a VxLAN tunnel to a port"
+        arguments:
+            order: tunnel,port
+        uuid: b097d007-1522-42d1-9dc3-2539e52177fe
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'tunnel mode vxlan l2 {port}',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+    set_mode_gre_l2_port:
+        description: "Binds a GRE tunnel to a port"
+        arguments:
+            order: tunnel,port
+        uuid: 944976e1-5c22-4144-8891-1364fe6b4d37
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'tunnel mode gre l2 {port}',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+    set_source_ip:
+        description: "Configures the tunnel source with the given IP"
+        arguments:
+            order: tunnel,ip_address
+        uuid: ed130690-92dc-4748-8729-259d5b8c2858
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'tunnel source {ip_address}',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'source {ip_address}',intfPrompt,'None','None','None',[],[]]
+    set_dest_ip:
+        description: "Configures the tunnel destination with the given IP"
+        arguments:
+            order: tunnel,ip_address
+        uuid: 9eba98f9-cb29-45b6-aace-101b08753f60
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'tunnel destination {ip_address}',intfPrompt,'tun.0.{tunnel}','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'destination {ip_address}',intfPrompt,'None','None','None',[],[]]
+    clear_source_ip:
+        description: "Removes the source IP"
+        arguments:
+            order: tunnel,ip_address
+        uuid: 2feabea2-ad4d-4d86-89e8-d3bc5c44d8e6
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'no source',intfPrompt,'None','None','None',[],[]]
+    clear_dest_ip:
+        description: "Removes the destination IP"
+        arguments:
+            order: tunnel,ip_address
+        uuid: fc21d27d-a6e4-49f3-9887-3e6c2330fd7c
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'no destination',intfPrompt,'None','None','None',[],[]]
+    clear_mode_gre:
+        description: "Removes tunnel mode GRE"
+        arguments:
+            order: tunnel,ip_address
+        uuid: 5efab2db-71ff-4999-bee6-0ee3c80407ea
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'no tunnel mode gre ip',intfPrompt,'None','None','None',[],[]]
+    show_tunnel:
+        uuid: bb5a6d27-f8bd-4338-afa2-e97330929747
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show tunnel {tunnel}',userPrompt,'None','None','None',[],[]]
+    show_all:
+        uuid: 51405cc7-f7f3-4911-8061-66bf00c1f0a4
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show tunnel',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show tunnel',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show tunnel brief',userPrompt,'None','None','None',[],[]]

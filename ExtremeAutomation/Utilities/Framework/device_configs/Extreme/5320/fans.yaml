@@ -1,0 +1,85 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines fan FRUs common to 5320 (TINKERBELL) series switches
+#
+
+#HW mappings
+#pwm1 --> system fan0 -- NA on beta
+#pwm2 --> system fan1
+#pwm3 --> fixed psu2 fan
+#pwm4 --> fixed psu1 fan
+fan_conroller_max31790: &FAN_CONTROLLER_MAX31790
+  name:             fanctl_max31790
+  bus:              i2cbus_0
+  compatible:       max31790
+  address:          0x29
+  fan_controls:
+    - name:         max31790_fan1
+      number:       1
+    - name:         max31790_fan2
+      number:       2
+    - name:         max31790_fan3
+      number:       3
+    - name:         max31790_fan4
+      number:       4
+
+common_fan_info: &COMMON_FAN_1_INFO
+  number_fan_frus:  1
+  fans_per_fru:     1
+  polling_period:   2000
+
+common_fan_info: &COMMON_FAN_2_INFO
+  number_fan_frus:  2
+  fans_per_fru:     1
+  polling_period:   2000
+
+common_fan_info: &COMMON_FAN_3_INFO
+  number_fan_frus:  3
+  fans_per_fru:     1
+  polling_period:   2000
+
+common_fan_info: &COMMON_FAN_4_INFO
+  number_fan_frus:  4
+  fans_per_fru:     1
+  polling_period:   2000
+
+fan_fru_1: &FAN_FRU_1
+  number:           1
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         FIXED
+  fans:
+    - number:       1
+      control:      max31790_fan1
+
+fan_fru_2: &FAN_FRU_2
+  number:           2
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         FIXED
+  fans:
+    - number:       1
+      control:      max31790_fan2
+
+fan_fru_3: &FAN_FRU_3
+  number:           3
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         FIXED
+  fans:
+    - number:       1
+      control:      max31790_fan3
+
+fan_fru_4: &FAN_FRU_4
+  number:           4
+  compatible:       generic_fan
+  bus:              platform
+  fru_type:         FIXED
+  fans:
+    - number:       1
+      control:      max31790_fan4

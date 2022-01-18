@@ -1,0 +1,65 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+logging:
+    clear_log:
+        description: "Clears the logging buffer/file"
+        arguments:
+            order: 
+        uuid: e98e0e13-4086-463d-8b5c-736ca7d20db5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'clear log static',userPrompt,'None','None','None',[],[]]
+    clear_log_auditlog:
+        description: "Clears the auditlog buffer/file"
+        arguments:
+            order:
+        uuid: a09f2853-a6c2-484b-a3e2-8dc45402c9e1
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'clear logging auditlog',userPrompt,'None','None','None',[],[]]
+    clear_log_raslog:
+        description: "Clears the raslog buffer/file"
+        arguments:
+            order:
+        uuid: c79f61db-d7e3-4a79-b661-2d989ac2e7a7
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'clear logging raslog',userPrompt,'None','None','None',[],[]]
+    show_log:
+        uuid: 1f9fa5cb-7b28-4235-89ac-e210f06a48be
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show log',userPrompt,'None','None','None',[],[]]
+    show_log_auditlog:
+        uuid: c72b3bc4-baa5-41a4-bd6e-ed5a2c8dc68b
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show logging auditlog',userPrompt,'None','None','None',[],[]]
+    show_log_raslog:
+        uuid: 5930a524-0499-4226-b71b-b2a2b511b579
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show logging raslog',userPrompt,'None','None','None',[],[]]

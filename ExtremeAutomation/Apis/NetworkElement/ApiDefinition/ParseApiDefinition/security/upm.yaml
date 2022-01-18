@@ -1,0 +1,23 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+upm:
+    check_upm_authenticate_profile_ports:
+        uuid: 88b37771-5286-49b2-98aa-6f99fda1dd4f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_upm_unauthenticated_profile_ports:
+        uuid: 86e9e8b4-ac68-48f2-bb58-f140f24b2672
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

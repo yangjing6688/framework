@@ -1,0 +1,177 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+autopeering:
+    set_anycast_mac:
+        description: 'Sets anycast mac'
+        arguments:
+            restData: anycast_mac
+            order:
+        uuid: 4af1ae71-e355-44bf-ae70-5b7974e8d553
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering','',[],[]]
+    set_anycast_mac_and_id:
+        description: 'Sets anycast mac and id'
+        arguments:
+            restData: anycast_mac,peer_id
+            order:
+        uuid: fd2d3030-21d6-4cde-a6a1-87a07d611a89
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering','',[],[]]
+    set_anycast_mac_and_route_target:
+        description: 'Sets anycast mac and route target'
+        arguments:
+            restData: anycast_mac,route_target
+            order:
+        uuid: 4d82dfb5-2eec-49be-85ed-f5023e205dba
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering','',[],[]]
+    clear_anycast_mac:
+        description: 'Clears anycast mac'
+        arguments:
+            restData:
+            order:
+        uuid: f93f2334-9837-403c-b430-6b6614471b27
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering','',[],[]]
+    clear_anycast_mac_and_id:
+        description: 'Clears anycast mac and id'
+        arguments:
+            restData:
+            order:
+        uuid: df548fd1-942e-4011-9fce-eac6382654d8
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering','',[],[]]
+    clear_anycast_mac_and_route_target:
+        description: 'Clears anycast mac and route target'
+        arguments:
+            restData:
+            order:
+        uuid: c1d0d8a9-8eb9-4913-a799-572d90d08481
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering','',[],[]]
+    set_host_address_host_vrf_static_route_network_static_route_next_hop:
+        description: 'Configures host'
+        arguments:
+            restData: host_address,host_vrf,network,next_hop
+            order:
+        uuid: 2209e17a-1707-406e-b7e3-4b35a6acc658
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering/hosts','',[],[]]
+    clear_all_hosts:
+        description: 'Clears all hosts'
+        arguments:
+            restData:
+            order:
+        uuid: 06e36f2f-118f-418d-ba17-adc1a150a276
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,put,'/rest/restconf/data/extreme-auto-peering:auto-peering/hosts','',[],[]]
+    clear_host:
+        description: 'Clears a single host'
+        arguments:
+            restData:
+            order:
+        uuid: 85e80664-5887-47fb-b71d-d2703fdcbaac
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,delete,'/rest/restconf/data/extreme-auto-peering:auto-peering/hosts/host={host_address},{host_vrf}','',[],[]]
+    clear_static_route_from_host:
+        description: 'Clears a single static routes from host'
+        arguments:
+            restData:
+            order:
+        uuid: cbde0ae4-fcb2-4306-94ae-f7b157b8df52
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,delete,'/rest/restconf/data/extreme-auto-peering:auto-peering/hosts/host={host_address},{host_vrf}/static-routes/static-route={static_route_ip}{mask_value}','',[],[]]
+    set_service_nsi_nsi_type_vrf_address_ip_address_prefix_length:
+        description: 'Configures Service'
+        arguments:
+            restData: nsi,nsi_type,vrf,address_ip,address_prefix_length
+            order:
+        uuid: 1ece80d0-9ad9-48eb-bfbe-bcc7e5e0eec7
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering/services','',[],[]]
+    set_host_static_route:
+        description: 'Sets static route for host'
+        arguments:
+            restData: network_address,nexthop_address
+            order:
+        uuid: b0f66efb-b3d6-4cd7-a8cc-25063a41ae5d
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,patch,'/rest/restconf/data/extreme-auto-peering:auto-peering/hosts/host={host_address},{host_vrf}','',[],[]]
+    clear_all_services:
+        description: 'Clears all services'
+        arguments:
+            restData:
+            order:
+        uuid: 6f5bec88-4e64-4789-ab87-d4b3daf0995e
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,put,'/rest/restconf/data/extreme-auto-peering:auto-peering/services','',[],[]]
+    clear_service:
+        description: 'Clears a single services'
+        arguments:
+            restData:
+            order:
+        uuid: 6b0c6771-00bd-444e-97f1-ad4ce89c0903
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,delete,'/rest/restconf/data/extreme-auto-peering:auto-peering/services/service={nsi}','',[],[]]
+    show_global:
+        uuid: 7c58670b-7e83-491d-96b7-2b69c71698f1
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/extreme-auto-peering:auto-peering','',[],[]]
+    show_hosts:
+        uuid: 734435e2-5104-4c92-9624-925568ed9c29
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/extreme-auto-peering:auto-peering/hosts','',[],[]]
+    show_host_static_routes:
+        uuid: f8783b62-707c-456b-86ff-14acd7207d9a
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/extreme-auto-peering:auto-peering/hosts/host={host_address},{host_vrf}/static-routes/','',[],[]]
+    show_service:
+        uuid: dc4d67f4-60eb-45b6-8e10-fc9424d819d9
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/extreme-auto-peering:auto-peering/services/service={nsi}','',[],[]]
+    show_all_services:
+        uuid: c21763c2-d456-4202-8c00-3c2a662efcfc
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit,get,'/rest/restconf/data/extreme-auto-peering:auto-peering/services/','',[],[]]

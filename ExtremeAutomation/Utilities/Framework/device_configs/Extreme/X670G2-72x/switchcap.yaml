@@ -1,0 +1,37 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for X670G2-72x.
+#  This inherits capability from trident2 YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *TRIDENT2_CAPABILITY
+  hwHealth: 6
+  numExternalPort: 72
+  numDefLicensePort: 72
+
+  # Boolean type supported/not-supported capability parameters.
+  MplsCep: true
+  MplsCepXlate: true
+  MplsCepEgrFlt: true
+  PortCapLicen: true
+  StackSupportCfg: true
+  StackSupportCtrl: true
+  AltStkOnly: true
+  AltStkPortCapable: true
+  ControlBridge: true
+  ControlBridgeRing: true
+  VpexOnStacking: true
+  MacsecWithExtAdapter: true
+  VmacL2ClassId: true
+  InstallLrmMacsecAdapterFirmware: true

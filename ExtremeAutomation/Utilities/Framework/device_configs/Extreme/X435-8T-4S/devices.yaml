@@ -1,0 +1,22 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the buses and devices specific to X435-8T-4S
+#
+
+buses:
+  - *I2CBUS
+
+devices:
+  - *PCA9548_0
+  - *PCA9555_0
+  - *PCA9555_1
+  - *MB_AMBIENT_TMPSN
+  - *SYSTEM_EEPROM
+  - *RTC_MCP_7940X
+  - *SYSTEM_GPIO_0
+  - *SYSTEM_GPIO_1

@@ -1,0 +1,80 @@
+from ExtremeAutomation.Unittests.Utilities.RobotUnitTest import RobotUnitTest
+from ExtremeAutomation.Keywords.NetworkElementKeywords.L1.NetworkElementPortSettingsKeywords import \
+    NetworkElementPortSettingsKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.L2.NetworkElementVlanKeywords import NetworkElementVlanKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.L2.NetworkElementGvrpKeywords import NetworkElementGvrpKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.HostServices.NetworkElementHostServiceKeywords import \
+    NetworkElementHostServiceKeywords
+from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
+
+
+class GvrpKeywordRegression(RobotUnitTest):
+    @classmethod
+    def setUpClass(cls):
+        cls.constants = NetworkElementConstants
+        cls.vlan = NetworkElementVlanKeywords()
+        cls.gvrp = NetworkElementGvrpKeywords()
+        cls.host = NetworkElementHostServiceKeywords()
+        cls.port = NetworkElementPortSettingsKeywords()
+        cls.vlan_a = "1"
+
+        cls.keyword_connect_devices()
+        # EOS Device Setup.
+        cls.vlan.add_port_to_untagged_egress(cls.netelem1, cls.vlan_a, cls.eos_netelem_port)
+        cls.vlan.configure_port_pvid(cls.netelem1, cls.eos_netelem_port, cls.vlan_a)
+        cls.port.configure_port_enable(cls.netelem1, cls.eos_netelem_port)
+        # EXOS Device Setup.
+        cls.vlan.add_port_to_untagged_egress(cls.netelem2, cls.vlan_a, cls.exos_netelem_port)
+        cls.vlan.configure_port_pvid(cls.netelem2, cls.exos_netelem_port, cls.vlan_a)
+        cls.port.configure_port_enable(cls.netelem2, cls.exos_netelem_port)
+
+    @classmethod
+    def tearDownClass(cls):
+        # EOS Cleanup.
+        cls.vlan.remove_port_from_vlan_egress(cls.netelem1, cls.vlan_a, cls.eos_netelem_port)
+        cls.port.configure_port_disable(cls.netelem1, cls.eos_netelem_port)
+        # EXOS Cleanup.
+        cls.vlan.remove_port_from_vlan_egress(cls.netelem2, cls.vlan_a, cls.exos_netelem_port)
+        cls.port.configure_port_disable(cls.netelem2, cls.exos_netelem_port)
+
+        cls.keyword_disconnect_devices()
+
+    # ### EOS Device Cases ###
+    # Test Case 1
+    def test_eos_gvrp_state(self):
+        self.gvrp.enable_gvrp(self.netelem1)
+        self.gvrp.gvrp_should_be_enabled(self.netelem1)
+        self.gvrp.disable_gvrp(self.netelem1)
+        self.gvrp.gvrp_should_be_disabled(self.netelem1)
+
+    # Test Case 2
+    def test_eos_gvrp_port_state(self):
+        self.gvrp.enable_gvrp(self.netelem1)
+        self.gvrp.enable_gvrp_on_port(self.netelem1, self.eos_netelem_port)
+        self.gvrp.gvrp_should_be_enabled_on_port(self.netelem1, self.eos_netelem_port)
+        self.gvrp.disable_gvrp_on_port(self.netelem1, self.eos_netelem_port)
+        self.gvrp.gvrp_should_be_disabled_on_port(self.netelem1, self.eos_netelem_port)
+        self.gvrp.disable_gvrp(self.netelem1)
+        self.gvrp.gvrp_should_be_disabled(self.netelem1)
+
+    # ### EXOS Device Cases ###
+    # Test Case 1
+    def test_exos_gvrp_state(self):
+        self.gvrp.enable_gvrp(self.netelem2)
+        self.gvrp.gvrp_should_be_enabled(self.netelem2)
+        self.gvrp.disable_gvrp(self.netelem2)
+        self.gvrp.gvrp_should_be_disabled(self.netelem2)
+
+    # Test Case 2
+    def test_exos_gvrp_port_state(self):
+        self.gvrp.enable_gvrp(self.netelem2)
+        self.gvrp.enable_gvrp_on_port(self.netelem2, self.exos_netelem_port)
+        self.gvrp.gvrp_should_be_enabled_on_port(self.netelem2, self.exos_netelem_port)
+        self.gvrp.disable_gvrp_on_port(self.netelem2, self.exos_netelem_port)
+        self.gvrp.gvrp_should_be_disabled_on_port(self.netelem2, self.exos_netelem_port)
+        self.gvrp.disable_gvrp(self.netelem2)
+        self.gvrp.gvrp_should_be_disabled(self.netelem2)
+
+
+if __name__ == '__main__':
+    RobotUnitTest.main()

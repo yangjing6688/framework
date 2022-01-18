@@ -1,0 +1,96 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the buses and devices specific to X590-24x-1q-2c
+#
+
+buses:
+  - *SMBUS_0
+
+devices:
+  - *CPU_CPLD
+  - *ONIE_EEPROM
+  - *POWER_CPLD
+  - *CPU_DEFAULT_TMPSN
+  - *PCA9548_0
+  - *MB_HOTSPOT_TMPSN
+  - *MB_AMBIENT_TMPSN
+  - *PCA9545_0
+  - *PCA9548_1
+  - *SYSTEM_CPLD
+  - *PORT_CPLD_0
+  - *PORT_CPLD_0_MUX
+  - *PCA9548_2
+
+  - name:               pca9548_3
+    compatible:         pca9548
+    parent:             pca9548_1_ch0
+    bus:                pca9548_1_ch0
+    address:            0x73
+    channel_map:
+      - number:         0
+        bus:            pca9548_3_ch0
+      - number:         1
+        bus:            pca9548_3_ch1
+      - number:         2
+        bus:            pca9548_3_ch2
+      - number:         3
+        bus:            pca9548_3_ch3
+      - number:         4
+        bus:            pca9548_3_ch4
+      - number:         5
+        bus:            pca9548_3_ch5
+      - number:         6
+        bus:            pca9548_3_ch6
+      - number:         7
+        bus:            pca9548_3_ch7
+
+  - name:               pca9548_4
+    compatible:         pca9548
+    parent:             pca9548_1_ch1
+    bus:                pca9548_1_ch1
+    address:            0x73
+    channel_map:
+      - number:         0
+        bus:            pca9548_4_ch0
+      - number:         1
+        bus:            pca9548_4_ch1
+      - number:         2
+        bus:            pca9548_4_ch2
+      - number:         3
+        bus:            pca9548_4_ch3
+      - number:         4
+        bus:            pca9548_4_ch4
+      - number:         5
+        bus:            pca9548_4_ch5
+      - number:         6
+        bus:            pca9548_4_ch6
+      - number:         7
+        bus:            pca9548_4_ch7
+
+  - name:               pca9548_5
+    compatible:         pca9548
+    parent:             pca9548_1_ch2
+    bus:                pca9548_1_ch2
+    address:            0x73
+    channel_map:
+      - number:         0
+        bus:            pca9548_5_ch0
+      - number:         1
+        bus:            pca9548_5_ch1
+      - number:         2
+        bus:            pca9548_5_ch2
+      - number:         3
+        bus:            pca9548_5_ch3
+      - number:         4
+        bus:            pca9548_5_ch4
+      - number:         5
+        bus:            pca9548_5_ch5
+      - number:         6
+        bus:            pca9548_5_ch6
+      - number:         7
+        bus:            pca9548_5_ch7

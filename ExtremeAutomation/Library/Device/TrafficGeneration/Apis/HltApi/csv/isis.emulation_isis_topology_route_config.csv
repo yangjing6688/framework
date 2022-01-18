@@ -1,0 +1,769 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+dce_bcast_root_pri,"Broadcast root priority. This is valid for -type dce_network_range.
+DEFAULT
+	
+65535",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_bcast_root_pri_step,"Broadcast root priority step. This is valid for -type dce_network_range.
+DEFAULT
+	
+0",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_connection_column,"This is valid for -type dce_outside_link.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_connection_row,"This is valid for -type dce_outside_link.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_device_id,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_device_id_step,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_device_pri,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_ftag,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_ftag_enable,"This is valid for -type dce_network_range.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_include_groups,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_inter_grp_ucast_step,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	None",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_intra_grp_ucast_step,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	None",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_linked_router_id,"This is valid for -type dce_outside_link.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_local_entry_point_column,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_local_entry_point_row,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_local_link_metric,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_local_num_columns,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_local_num_rows,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_mcast_addr_count,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_mcast_addr_node_step,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group.
+DEFAULT
+	None",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_mcast_addr_step,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	None",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_mcast_start_addr,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	None",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_num_mcast_destination_trees,"This is valid for -type dce_network_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_src_grp_mapping,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	
+fully_meshed",opt,"fully_meshed,manual_mapping,one_to_one","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_system_id,"This is valid for -type dce_network_range.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_system_id_step,"This is valid for -type dce_network_range.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_ucast_addr_node_step,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group.
+DEFAULT
+	None",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_ucast_sources_per_mcast_addr,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_ucast_src_addr,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	None",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dce_vlan_id,"This is valid for -type dce_node_mac_group, dce_node_ipv4_group,
+dce_node_ipv6_group, dce_mcast_mac_range, dce_mcast_ipv4_group_range,
+dce_mcast_ipv6_group_range.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+elem_handle,"This option specifies on which topology element to configure the route
+options. The user must pass in this option if the -mode is modify or
+delete. The value must be provided with an extra set of braces.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_connect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+external_count,"For IxTclProtocol it sets the number of routes in a L3 Route Range.The
+-external_route_count parameter will be ignored if they are both
+given.For IxTclNetwork it sets the number of L3 Route Ranges that are
+createdand will be advertised for external network.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ip_pfx_len,"The number of bits in the prefixes to be advertised.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ip_start,"The IP address of the first external network route to be advertised.
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ip_step,"The IPv4 incrementing step for the external network route to be advertised.
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ipv6_pfx_len,"The number of bits in the prefixes to be advertised in a IPV6 external
+network.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ipv6_start,"The IPv6 address of the first external network route to be advertised.
+DEFAULT
+	None",ipv6,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ipv6_step,"The IPv6 incrementing step for the external network route to be advertised.
+DEFAULT
+	None",ipv6,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_metric,"The cost metric associated with the external network route.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_metric_type,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+external_route_count,"For IxTclProtocol it sets the number of routes in a L3 Route Range.This
+paramter will be ignored if the -external_router is also given.For
+IxTclNetwork it sets the the number of router in a L3 Route Rangeand
+will be advertised for external network.
+DEFAULT
+	
+1",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_up_down_bit,"If 1, the route will be distributed down. If 0, the route will be
+distributed up.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_col,"Define number of columns in a grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_connect,"The session router is connected to a router in the grid at a particular
+row column location. This option specifies the row column location.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_connect_session,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+grid_disconnect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+grid_interface_metric,"The metric for the interface connected to the grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ip_pfx_len,"The number of bits in the network mask of IP address used in a grid.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ip_step,"The step between assigned networks in a grid.
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_pfx_len,"The number of bits in the network mask of IPV6 address used in a grid.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_start,"The IPV6 address of the first router in a grid.
+DEFAULT
+	None",ipv6,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ipv6_step,"The step between assigned networks in a grid.
+DEFAULT
+	None",ipv6,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_link_type,"Type of links connecting routers in a grid. Choices are: broadcast ptop.
+DEFAULT
+	None",opt,"broadcast,ptop","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_admin_group,"Define the administrator group ID of the outside link. A list of values
+can be provided for multiple outside links. This paramater is supported
+with IxTclNetwork only.
+DEFAULT
+	None",range,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_connection_col,"Define the connection column of the outside link. A list of values can
+be provided for multiple outside links. This paramater is supported with
+IxTclNetwork only.
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_connection_row,"Define the connection row of the outside link. A list of values can
+beprovided for multiple outside links. This paramater is supported with
+IxTclNetwork only.
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_ip_and_prefix,"Define the combination of IP and prefix of the outside link. A list of
+comma separated values can be provided for multiple outside links. The
+comma separated values contains the multiple IP Address supported per
+link. This paramater is supported with IxTclNetwork only.
+DEFAULT
+	None",any,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_linked_rid,"Define the linked router ID of the outside link. A list of values can be
+provided for multiple outside links. This paramater is supported with
+IxTclNetwork only.
+DEFAULT
+	None",any,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_max_bw,"Define the maximum bandwidth of the outside link. A list of values can
+be provided for multiple outside links. This paramater is supported with
+IxTclNetwork only.
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_max_resv_bw,"Define the maximum reservable bandwidht of the outside link. A list of
+values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_metric,"Define the metric of the outside link. A list of values can be provided
+for multiple outside links. This paramater is supported with
+IxTclNetwork only.
+DEFAULT
+	None",range,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_unresv_bw_priority0,"Define the unreserved priority 0 bandwidth of the outside link. A list
+of values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",decimal,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_unresv_bw_priority1,"Define the unreserved priority 1 bandwidth of the outside link. A list
+of values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",decimal,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_unresv_bw_priority2,"Define the unreserved priority 2 bandwidth of the outside link. A list
+of values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",decimal,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_unresv_bw_priority3,"Define the unreserved priority 3 bandwidth of the outside link. A list
+of values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",decimal,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_unresv_bw_priority4,"Define the unreserved priority 4 bandwidth of the outside link. A list
+of values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",decimal,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_unresv_bw_priority5,"Define the unreserved priority 5 bandwidth of the outside link. A list
+of values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",decimal,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_unresv_bw_priority6,"Define the unreserved priority 6 bandwidth of the outside link. A list
+of values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",decimal,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_ol_unresv_bw_priority7,"Define the unreserved priority 7 bandwidth of the outside link. A list
+of values can be provided for multiple outside links. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",decimal,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_outside_link,"If true (1), enable outside link on the network range. This paramater is
+supported with IxTclNetwork only.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_count,"The number of grid node route entries.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_id,"The IP address of the routes to be advertised per router in a grid.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_id_step,"The increment to be applied to the network part of grid_router_id
+between per node uses.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_ip_pfx_len,"The number of bits in the prefixes to be advertised by the grid nodes.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_ip_version,"The IP version of of grid node route entry.
+DEFAULT
+	
+6",opt,"4,6","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_metric,"The cost metric associated with the route advertised by the grid nodes.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_origin,"The origin of the routes advertised by the grid nodes. Choices are stub
+and external.
+DEFAULT
+	None",opt,"external,stub","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_route_step,"The step for the route in the grid node route entry.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_up_down_bit,"This is the up down bit associated with the routes advertised by the
+grid nodes. If 1, the route will be distributed down. If 0, the route
+will be redistributed up.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_row,"Define number of rows in a grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_start_system_id,"This is the router ID of the first router in the grid (at row = 0,
+column = 0). It is specified as a string of 12 hex characters. Range:
+000000000000-FFFFFFFFFFF. Routers are assigned individual router IDs by
+adding the value of the grid_system_id_step each element in the grid, in
+a row first manner.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_start_te_ip,"If grid_te is true, then this is the TE router ID of the first router in
+the grid (at row=0, column=0), in IPv4 format. Routers are assigned
+individual TE router IDs by adding the value of the grid_te_ip_step
+value to each element in the grid, in a row first manner.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_stub_per_router,"Define number of stub numbers per router in a grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_system_id_step,"The value used to increment grid_start_system_id by as each router is
+assigned a unique system ID.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te,"If true (1), enable traffic engineering on the router grid.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_admin,"The administrative group associated with the node in a grid, expressed
+as the decimal equivalent of 32-bit number.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_ip_step,"The value used to increment teRouterId by as each router is assigned a
+unique TE router ID.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_max_bw,"The maximum bandwidth to be advertised for all nodes in an ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_max_resv_bw,"The maximum reservable bandwidth to be advertised for all nodes in an
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_metric,"The metric associated with the interface that the TE data is advertised on.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_admin,"The override administrative group associated with the node in a grid,
+expressed as the decimal equivalent of 32-bit number.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_enable,"Enable override the TE parameters.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_max_bw,"The override maximum bandwidth to be advertised for all nodes in an ISIS
+grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_max_resv_bw,"The override maximum reservable bandwidth to be advertised for all nodes
+in an ISIS grid.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_metric,"The override metric associated with the interface that the TE data is
+advertised on.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_unresv_bw_priority0,"The override unreserved bandwidth for priority0 to be advertised for
+nodes in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_unresv_bw_priority1,"The override unreserved bandwidth for priority1 to be advertised for
+nodes in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_unresv_bw_priority2,"The override unreserved bandwidth for priority2 to be advertised for
+nodes in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_unresv_bw_priority3,"The override unreserved bandwidth for priority3 to be advertised for
+nodes in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_unresv_bw_priority4,"The override unreserved bandwidth for priority4 to be advertised for
+nodes in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_unresv_bw_priority5,"The override unreserved bandwidth for priority5 to be advertised for
+nodes in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_unresv_bw_priority6,"The override unreserved bandwidth for priority6 to be advertised for
+nodes in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_override_unresv_bw_priority7,"The override unreserved bandwidth for priority7 to be advertised for
+nodes in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_admin,"The path administrative group associated with the node in a grid,
+expressed as the decimal equivalent of 32-bit number.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_bidir,"The path bidirectional flag for the ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_col_step,"The path column step for the ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_count,"The number of te paths. The rest of the grid_te_path_... parameters need
+to provide a list of values with tehe length equal to the value of
+grid_te_path_count.
+DEFAULT
+	
+0",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_end_col,"The path end column for the ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_end_row,"The path end row for the ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_max_bw,"The path maximum bandwidth to be advertised for all nodes in an ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_max_resv_bw,"The path maximum reservable bandwidth to be advertised for all nodes in
+an ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_metric,"The path metric associated with the interface that the TE data is
+advertised on.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_row_step,"The path row step for the ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_start_col,"The path start column for the ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_start_row,"The path start row for the ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_unresv_bw_priority0,"The path unreserved bandwidth for priority0 to be advertised for nodes
+in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_unresv_bw_priority1,"The path unreserved bandwidth for priority1 to be advertised for nodes
+in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_unresv_bw_priority2,"The path unreserved bandwidth for priority2 to be advertised for nodes
+in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_unresv_bw_priority3,"The path unreserved bandwidth for priority3 to be advertised for nodes
+in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_unresv_bw_priority4,"The path unreserved bandwidth for priority4 to be advertised for nodes
+in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_unresv_bw_priority5,"The path unreserved bandwidth for priority5 to be advertised for nodes
+in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_unresv_bw_priority6,"The path unreserved bandwidth for priority6 to be advertised for nodes
+in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_path_unresv_bw_priority7,"The path unreserved bandwidth for priority7 to be advertised for nodes
+in a ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_unresv_bw_priority0,"The unreserved bandwidth for priority0 to be advertised for nodes in a
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_unresv_bw_priority1,"The unreserved bandwidth for priority1 to be advertised for nodes in a
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_unresv_bw_priority2,"The unreserved bandwidth for priority2 to be advertised for nodes in a
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_unresv_bw_priority3,"The unreserved bandwidth for priority3 to be advertised for nodes in a
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_unresv_bw_priority4,"The unreserved bandwidth for priority4 to be advertised for nodes in a
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_unresv_bw_priority5,"The unreserved bandwidth for priority5 to be advertised for nodes in a
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_unresv_bw_priority6,"The unreserved bandwidth for priority6 to be advertised for nodes in a
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te_unresv_bw_priority7,"The unreserved bandwidth for priority7 to be advertised for nodes in a
+ISIS grid.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_user_wide_metric,"Enables the use of wide metrics for interface metric. Its value can be
+set to 0 only if the -grid_te parameter is set to 0.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"This option represents the handle the user *must* pass to the
+'emulation_isis_topology_route_config' procedure. This option specifies
+on which ISIS router to configure the ISIS topology. The ISIS router
+handle(s) are returned by the procedure 'emulation_isis_config' when
+configuring ISIS routers on the Ixia interface.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ip_version,"and 4_6. Note that the IP version of topology element cannot be changed
+after it is created.
+DEFAULT
+	None",opt,"4,4_6,6","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_enable,"If true (1), enable the link.
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+link_external,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+link_ip_addr,"IP address of the link between the session router and the topology
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_ip_prefix_length,"IP prefix length of the link between the session router and the topology
+router (router behind the session router).
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_ipv6_addr,"IPV6 address of the link between the session router and the topology
+router (router behind the session router).
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_ipv6_prefix_length,"IPV6 prefix length of the link between the session router and the
+topology router (router behind the session router).
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_multi_topology,"Enable multi-topology (MT) support. (always set to 1)
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_narrow_metric,"This value is used for link metric if the wide metric is set to false in
+the router.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te,"If true (1), enable the traffic engineering on the link.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_admin_group,"The administrative group associated with the link, expressed as the
+decimal equivalent of 32-bit number. in 4-byte hex format.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_max_bw,"Maximum bandwidth that can be used on this link expressed as octets per
+second.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_max_resv_bw,"Maximum bandwidth that may be reserved on this link. This may be greater
+than the actual max to allow a link to be oversubscribed. It is
+expressed as octets per second.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_metric,"The metric associated with the interface that the TE data is advertised on.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_remote_ip_addr,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+link_te_remote_ipv6_addr,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+link_te_unresv_bw_priority0,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 0 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 0. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority1,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority2,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 2 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 2. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority3,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 3 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 3. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority4,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 4 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 4. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority5,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 5 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 5. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority6,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 6 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 6. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority7,"If '-line_te' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 7 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 7. The value must be less than the linke_te_max_resv_bw option.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_up_down_bit,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+link_wide_metric,"This value is used for link metric if the wide metric is set to true in
+the router.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Not defined
+DEFAULT
+	None",opt,"create,delete,modify","IxNetwork[M] , IxOS/IxNetwork-FT[M]",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+no_write,"If this option is present, the configuration is not written to the
+hardware. This option can be used to queue up multiple configurations
+before writing to the hardware.
+DEFAULT
+	None",flag,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_area_id,"The list of area addresses to use. An address is a hex string of up to 4
+bytes. This option cannot be modified with modify mode.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_attached_bit,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+router_connect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+router_disconnect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+router_host_name,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+router_id,"This is used for traffic engineering.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_overload_bit,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+router_pseudonode_num,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+router_routing_level,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+router_system_id,"This is typically 6-octet long hex characters.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_te,"If true (1), enable traffic engineering.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_connect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+stub_count,"For IxTclProtocol it sets the number of routes in a L3 Route Range.The
+-stub_route_count parameter will be ignored if they are both given.For
+IxTclNetwork it sets the number of L3 Route Ranges that are createdand
+will be advertised for stub network.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_ip_pfx_len,"The number of bits in the prefixes to be advertised.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_ip_start,"The IP address of the first stub network route to be advertised.
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_ip_step,"The IPv4 incrementing step for the stub network route to be advertised.
+DEFAULT
+	None
+IxNetwork, IxOS/IxNetwork-FT, IxOS/IxNetwork-FT
+	
+DESCRIPTION
+	
+Not defined
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_ipv6_pfx_len,"The number of bits in the prefixes to be advertised in a IPV6 stub network.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_ipv6_start,"The IPV6 address of the first stub network route to be advertised.
+DEFAULT
+	None",ipv6,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_ipv6_step,"The IPv6 incrementing step for the stub network route to be advertised.
+DEFAULT
+	None",ipv6,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_metric,"The cost metric associated with the stub network route.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_route_count,"For IxTclProtocol it sets the number of routes in a L3 Route Range.This
+paramter will be ignored if the -stub_router is also given.For
+IxTclNetwork it sets the the number of router in a L3 Route Rangeand
+will be advertised for stub network.
+DEFAULT
+	
+1",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stub_up_down_bit,"If 1, the route will be distributed down. If 0, the route will be
+distributed up.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+type,"router - Individual ISIS router.grid - A rectangular grid of ISIS
+routers.stub - A stub network with a number of reachable network
+prefixes.external - An external network with a number of reachable
+network prefixes.dce_network_range - A rectangular grid of DCE ISIS
+devices.dce_mcast_mac_range - A multicast MAC range for a DCE ISIS
+device.dce_mcast_ipv4_group_range - A multicast IPv4 range for a DCE
+ISIS device.dce_mcast_ipv6_group_range - A multicast IPv6 range for a
+DCE ISIS device.dce_node_mac_group - A MAC group for a DCE ISIS
+grid.dce_node_ipv4_group - A IPv4 group for a DCE ISIS
+grid.dce_node_ipv6_group - A IPv6 group for a DCE ISIS
+grid.dce_outside_link - A Outside Link for a DCE ISIS grid.
+DEFAULT
+	None",opt,"dce_mcast_ipv4_group_range,dce_mcast_ipv6_group_range,dce_mcast_mac_range,dce_network_range,dce_node_ipv4_group,dce_node_ipv6_group,dce_node_mac_group,dce_outside_link","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

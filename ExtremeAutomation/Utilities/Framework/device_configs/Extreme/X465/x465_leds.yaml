@@ -1,0 +1,23 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines X465 LED devices.
+#
+
+devices:
+  - *LED_CONTROLLER_PCA9551_1
+  - *LED_CONTROLLER_PCA9551_2
+
+leds:
+  - *SYSTEM_LED
+  - *STACK_MODE_LED
+  - *SPEED_MODE_LED
+  - *BLUETOOTH_LED
+  - *FANTRAY1_LED
+  - *FANTRAY2_LED
+  - *FANTRAY3_LED
+  - *LOCATOR_LED

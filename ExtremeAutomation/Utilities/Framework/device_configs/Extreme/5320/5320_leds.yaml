@@ -1,0 +1,21 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines 5320 LED devices.
+#
+
+devices:
+  - *LED_CONTROLLER_PCA9551_1
+  - *LED_CONTROLLER_PCA9551_2
+
+leds:
+  - *SYSTEM_LED
+  - *STACK_MODE_LED
+  - *SPEED_MODE_LED
+  - *BLUETOOTH_LED
+  - *FAN_SYSTEM_LED
+  - *LOCATOR_LED

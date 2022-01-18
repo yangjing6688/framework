@@ -1,0 +1,14 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Query]
+#             - [OS2,Platform,Version,Unit,Query]
+
+datadriven:
+    verify_northbound_query:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{query_string}']
+    verify_northbound_query_with_regex:
+        apis:
+            - [EMC,base,baseversion,baseunit,'{query_string}']

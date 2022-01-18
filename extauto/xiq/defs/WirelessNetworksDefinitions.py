@@ -1,0 +1,303 @@
+class WirelessNetworksDefinitions:
+
+    wireless_nw_tab_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tab-wireless-networks"]',
+            'wait_for': 1
+        }
+
+    wireless_nw_grid_rows = \
+        {
+            'CSS_SELECTOR': '.dgrid-row',
+            'wait_for': 10
+        }
+
+    wireless_row_cells = \
+        {
+            'CSS_SELECTOR': '.dgrid-cell',
+            'wait_for': 15
+        }
+
+    wireless_nw_add_button = \
+        {
+         'XPATH': '//div[@data-automation-tag="automation-wireless-networks-grid"]//span[@data-tip="Add"]',
+         'wait_for': 5
+         }
+
+    guest_access_nw_menu_item = \
+        {
+         'XPATH': '//div[@data-automation-tag="automation-wireless-networks-grid"]'
+                  '//li/a[contains(text(), "Guest Access Network (simplified)")]',
+         'wait_for': 2
+         }
+
+    all_other_nw_menu_item = \
+        {
+            'XPATH': '//li[@type="createadvancedssid"]/a[contains(text(), "All Other Networks (standard)")]',
+            'wait_for': 5
+        }
+
+    wireless_ssid_name_input_field = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-ssid-details-ssid-name"]',
+            'wait_for': 5
+        }
+
+    wireless_broadcast_ssid_name_input_field = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-ssid-details-ssid-broadcast-name"]',
+            'wait_for': 1
+        }
+
+    wireless_ssid_auth_tab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ssidTab"]//a[contains(text(), "SSID AUTHENTICATION")]',
+            'wait_for': 1
+        }
+    wireless_select_enterprise_ssid_auth = \
+        {
+            'CLASS_NAME': 'ui-select-card-title',
+            'wait_for': 1
+        }
+
+    wireless_select_ppsk_ssid_auth = \
+        {
+            'CLASS_NAME': 'ui-select-card-title',
+            'index': 2,
+            'wait_for': 1
+        }
+
+    wireless_select_personal_ssid_auth = \
+        {
+            'CLASS_NAME': 'ui-select-card-title',
+            'index': 1,
+            'wait_for': 1
+        }
+
+    wireless_select_wep_ssid_auth = \
+        {
+            'CLASS_NAME': 'ui-select-card-title',
+            'index': 3,
+            'wait_for': 1
+        }
+
+    wireless_select_open_ssid_auth = \
+        {
+            'CLASS_NAME': 'ui-select-card-title',
+            'index': 4,
+            'wait_for': 1
+        }
+
+    wireless_wifi0_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="bandng"]',
+            'wait_for': 1
+        }
+
+    wireless_wifi1_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="bandna"]',
+            'wait_for': 1
+        }
+
+    key_management_drop_down = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-ssid-details-access-security-key-mgmt-chzn-arrow-down"]',
+            'wait_for': 5,
+            'index': 0
+        }
+
+    key_management_options = \
+        {
+            'XPATH': '//ul[contains(@class, "qa-chzn-results-keymanagement")]//li',
+            'wait_for': 5
+        }
+
+    encryption_method_drop_down = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-ssid-details-access-security-encr-method-chzn-arrow-down"]',
+            'wait_for': 5,
+        }
+
+    encryption_key_method_options = \
+        {
+            'XPATH': '//ul[contains(@class, "qa-chzn-results-encryptionmethod")]//li',
+            'wait_for': 5
+        }
+
+    auth_with_extiq_auth_service_slider_button = \
+        {
+            'XPATH': '//div//input[@data-dojo-attach-point="enableIdm"]',
+            'wait_for': 5
+        }
+
+    wireless_network_save_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="wirelessDetailsContentArea"]'
+                     '//button[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 5,
+        }
+
+    open_template_cloud_cwp_radio_button = \
+        {
+            'NAME': 'cwpCategory',
+            'wait_for': 1
+        }
+
+    policy_enable_captive_web_portal_button = \
+        {
+            'NAME': 'enableCwp',
+            'wait_for': 1
+        }
+
+    max_num_of_clients_per_ppsk_check_box = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="enableMaxClientsPerPpsk"]',
+            'wait_for': 5
+        }
+
+    max_num_of_clients_per_ppsk_input_field = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="maxClientsPerPpsk"]',
+            'wait_for': 5
+        }
+
+    ppsk_classification_use_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="enablePpskGroup"]',
+            'wait_for': 5
+        }
+
+    pcg_use_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="enablePCG"]',
+            'wait_for': 5
+        }
+
+    ap_based_radio_button = \
+        {
+            'XPATH': '//*[@id="apBasedPCG"]',
+            'wait_for': 5
+        }
+
+    key_based_radio_button = \
+        {
+            'XPATH': '//*[@id="keyBasedPCG"]',
+            'wait_for': 5
+        }
+
+    personal_wpa2_key_type_drop_down_section = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="keyType"]',
+            'wait_for': 1
+        }
+
+    personal_wpa2_key_type_drop_down = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-ssid-details-access-security-key-type-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    personal_wpa2_key_value_input_field_section = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="wpa2KeyValueArea"]',
+            'wait_for': 5
+        }
+
+    personal_wpa2_key_value_input_field = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="wpa2KeyValueArea"]//input[@data-validid="keyVal.norEl"]',
+            'wait_for': 5
+        }
+
+    personal_wpa2_key_type_options = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-ssid-details-access-security-key-type-chzn-results-ctn"]'
+                     '//li',
+            'wait_for': 5
+        }
+
+    sae_group_drop_down = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="open-access"]//div[@data-automation-tag="chzn-container-ctn"]/a',
+            'wait_for': 5,
+            'index': 3
+        }
+
+    transition_mode_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="saeTransitionMode"]',
+            'wait_for': 1
+        }
+
+    personal_wpa3_key_value_input_field = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="wpa3KeyValueArea"]//input[@data-validid="wpa3KeyValue.norEl"]',
+            'wait_for': 5
+        }
+
+    anti_logging_threshold = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="antiLoggingThreshold"]',
+            'wait_for': 5
+        }
+
+    wireless_ssid_list = \
+        {
+            'XPATH': '//div[contains(@class,"dgrid-row")]/table/tr/td[2]',
+            'wait_for': 10
+        }
+
+    wireless_chkbox = \
+        {
+            'XPATH': '//div[contains(@class,"dgrid-row")]/table/tr[1]/td[1]/input',
+            'wait_for': 5
+        }
+
+    wireless_delete_button = \
+        {
+            'XPATH': '//div[contains(@data-automation-tag,"networks-grid")]//span[2]',
+            'wait_for': 5
+        }
+
+    wireless_nw_select_button = \
+        {
+         'XPATH': '//div[@data-automation-tag="automation-wireless-networks-grid"]//span[@data-tip="Select"]',
+         'wait_for': 5
+         }
+
+    wireless_nw_select_ssid_rows = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-reusable-grid"]//table[@class="dojoxGridRowTable"]',
+            'wait_for': 5
+        }
+
+    wireless_select_ssid_row_check_box = \
+        {
+            'CSS_SELECTOR': '.dojoxGridRowSelector',
+            'wait_for': 5
+        }
+
+    wireless_ssid_select_option_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-dialog-link"]',
+            'wait_for': 5
+        }
+
+    wireless_ssid_select_cancel_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="containerNode"]//button[@data-dojo-attach-point="cancelButton"]',
+            'wait_for': 5
+        }
+
+    wireless_wifi2_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="bandx"]',
+            'wait_for': 1
+        }
+
+    wireless_wifi2_checkbox_dialog_yes_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="msgWrap"]//button[@data-dojo-attach-point="yesBtn"]',
+            'wait_for': 1
+        }

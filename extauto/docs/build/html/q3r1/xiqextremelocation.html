@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ExtremeLocation &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="COMMON LIBRARIES" href="commonlib.html" />
+    <link rel="prev" title="MLINSIGHTS" href="xiqmlinsights.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Current Available Active Branches</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="q3r1.html">Q3R1</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="xiqconfigure.html"><strong>CONFIGURE</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="xiqmanage.html"><strong>MANAGE</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="xiqa3.html"><strong>A3</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="xiqcommon.html"><strong>COMMON FLOWS</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="xiqglobalsettings.html"><strong>GLOBAL SETTINGS</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="xiqmlinsights.html"><strong>MLINSIGHTS</strong></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><strong>ExtremeLocation</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">ExtremeLocation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commonlib.html"><strong>COMMON LIBRARIES</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="remotelib.html"><strong>REMOTE LIBRARIES</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="xiqsenetwork.html"><strong>XIQSE NETWORK</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="xiqseadmin.html"><strong>XIQSE ADMIN</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="xiqsecommon.html"><strong>XIQSE COMMON</strong></a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q2r2.html">Q2R2</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="q3r1.html">Q3R1</a> &raquo;</li>
+        
+      <li><strong>ExtremeLocation</strong></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/xiqextremelocation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="extremelocation">
+<h1><strong>ExtremeLocation</strong><a class="headerlink" href="#extremelocation" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page Contains Python Library Definitions For XIQ Location Essentials Menu</p>
+</div>
+<a class="reference internal image-reference" href="_images/extreme_logo.png"><img alt="alternate text" class="align-right" src="_images/extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="id1">
+<h2>ExtremeLocation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-xiq.flows.extreme_location.ExtremeLocation"></span><dl class="class">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation">
+<em class="property">class </em><code class="sig-prename descclassname">xiq.flows.extreme_location.ExtremeLocation.</code><code class="sig-name descname">ExtremeLocation</code><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiq.elements.extreme_location.ExtremeLocationWebElements.ExtremeLocationWebElements</span></code></p>
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.async_subscribe_extreme_location_essentials">
+<code class="sig-name descname">async_subscribe_extreme_location_essentials</code><span class="sig-paren">(</span><em class="sig-param">presence='enable'</em>, <em class="sig-param">ibeacon='enable'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.async_subscribe_extreme_location_essentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Subscribe extreme location essentials and enable or disable the presence and ibeaocn option on subscription window
+- Flow: Extreme Location–&gt; Subscribe–&gt;Presence=enable or disable –&gt; Apply</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.check_xloc_data_points_after_resetviq">
+<code class="sig-name descname">check_xloc_data_points_after_resetviq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.check_xloc_data_points_after_resetviq" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will check XLOC data points “Online Sensor” and “Live Devices” after reset viq
+-This keyword can be used only after performing reset viq
+- Keyword Usage:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>`` Check Xloc Data Points After Resetviq ``</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if data points of XLOC are resetted to zero which confirms pass of reset viq feature wrt XLOC</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.create_ble_asset_in_xloc">
+<code class="sig-name descname">create_ble_asset_in_xloc</code><span class="sig-paren">(</span><em class="sig-param">ble_asset_name</em>, <em class="sig-param">xloc_site_name</em>, <em class="sig-param">as_category_name</em>, <em class="sig-param">ibeacon_name</em>, <em class="sig-param">confined_category='default'</em>, <em class="sig-param">prohibited_category='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.create_ble_asset_in_xloc" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>create_ble_asset_in_xloc</p></li>
+<li><p>Flow : Extreme Location–&gt; More Insights–&gt;Asset Management–&gt;Assets</p></li>
+<li><p>Keyword Usage:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">BLE</span> <span class="pre">Asset</span> <span class="pre">In</span> <span class="pre">XLOC</span>&#160;&#160;&#160; <span class="pre">${BLE_ASSET_NAME}</span>&#160;&#160; <span class="pre">${XLOC_SITE_NAME}</span>&#160;&#160; <span class="pre">${AS_CATEGORY_NAME}</span>&#160;&#160;&#160; <span class="pre">${IBEACON_NAME}</span>&#160;&#160; <span class="pre">${CONFINED_CATEGORY_NAME}</span>&#160;&#160; <span class="pre">${PROHIBITED_CATEGORY_NAME}</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ble_asset_name</strong> – Name of the BLE Asset</p></li>
+<li><p><strong>xloc_site_name</strong> – Site name for which asset needs to be created</p></li>
+<li><p><strong>as_category_name</strong> – Name of the Asset Category</p></li>
+<li><p><strong>ble_asset</strong> – BLE Asset</p></li>
+<li><p><strong>ibeacon_name</strong> – name of ibeacon for ble asset</p></li>
+<li><p><strong>confined_category</strong> – name of confined category</p></li>
+<li><p><strong>prohibited_category</strong> – name of prohibited category</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if successfully created ble asset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.create_none_asset_in_xloc">
+<code class="sig-name descname">create_none_asset_in_xloc</code><span class="sig-paren">(</span><em class="sig-param">none_asset_name</em>, <em class="sig-param">xloc_site_name</em>, <em class="sig-param">as_category_name</em>, <em class="sig-param">confined_category='default'</em>, <em class="sig-param">prohibited_category='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.create_none_asset_in_xloc" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>create_none_asset_in_xloc</p></li>
+<li><p>Flow : Extreme Location–&gt; More Insights–&gt;Asset Management–&gt;Assets</p></li>
+<li><p>Keyword Usage:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">None</span> <span class="pre">Asset</span> <span class="pre">In</span> <span class="pre">XLOC</span>&#160;&#160;&#160; <span class="pre">${NONE_ASSET_NAME}</span>&#160;&#160; <span class="pre">${XLOC_SITE_NAME}</span>&#160;&#160; <span class="pre">${AS_CATEGORY_NAME}</span>&#160;&#160;&#160; <span class="pre">${CONFINED_CATEGORY_NAME}</span>&#160;&#160; <span class="pre">${PROHIBITED_CATEGORY_NAME}</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>none_asset_name</strong> – Name of the None Asset</p></li>
+<li><p><strong>xloc_site_name</strong> – Site name for which asset needs to be created</p></li>
+<li><p><strong>as_category_name</strong> – Name of the Asset Category</p></li>
+<li><p><strong>confined_category</strong> – name of confined category</p></li>
+<li><p><strong>prohibited_category</strong> – name of prohibited category</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if successfully created none asset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.create_wifi_asset_in_xloc">
+<code class="sig-name descname">create_wifi_asset_in_xloc</code><span class="sig-paren">(</span><em class="sig-param">wifi_asset_name</em>, <em class="sig-param">xloc_site_name</em>, <em class="sig-param">as_category_name</em>, <em class="sig-param">client_mac</em>, <em class="sig-param">confined_category='default'</em>, <em class="sig-param">prohibited_category='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.create_wifi_asset_in_xloc" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>create_wifi_asset_in_xloc</p></li>
+<li><p>Flow : Extreme Location–&gt; More Insights–&gt;Asset Management–&gt;Assets</p></li>
+<li><p>Keyword Usage:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">WIFI</span> <span class="pre">Asset</span> <span class="pre">In</span> <span class="pre">XLOC</span>&#160;&#160;&#160; <span class="pre">${WIFI_ASSET_NAME}</span>&#160;&#160; <span class="pre">${XLOC_SITE_NAME}</span>&#160;&#160; <span class="pre">${AS_CATEGORY_NAME}</span>&#160;&#160;&#160; <span class="pre">${CLIENT_MAC}</span>&#160;&#160; <span class="pre">${CONFINED_CATEGORY_NAME}</span>&#160;&#160; <span class="pre">${PROHIBITED_CATEGORY_NAME}</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wifi_asset_name</strong> – Name of the WIFI Asset</p></li>
+<li><p><strong>xloc_site_name</strong> – Site name for which asset needs to be created</p></li>
+<li><p><strong>as_category_name</strong> – Name of the Asset Category</p></li>
+<li><p><strong>client_mac</strong> – Mac Address of the Wireless Device for wifi asset</p></li>
+<li><p><strong>confined_category</strong> – name of confined category</p></li>
+<li><p><strong>prohibited_category</strong> – name of prohibited category</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if successfully created wifi asset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.create_xloc_third_party_ibeacon">
+<code class="sig-name descname">create_xloc_third_party_ibeacon</code><span class="sig-paren">(</span><em class="sig-param">ibeacon_name</em>, <em class="sig-param">xloc_site_name</em>, <em class="sig-param">as_category_name</em>, <em class="sig-param">ibeacon_mac_address</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.create_xloc_third_party_ibeacon" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will create third party ibeacon on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt;Beacons-&gt;Onboard Third Party Ibeacon
+- Keyword Usage:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">XLOC</span> <span class="pre">Third</span> <span class="pre">Party</span> <span class="pre">Ibeacon</span>&#160;&#160; <span class="pre">${IBEACON_NAME}</span>&#160;&#160; <span class="pre">${XLOC_SITE_NAME}</span>&#160;&#160; <span class="pre">${AS_CATEGORY_NAME}</span>&#160;&#160; <span class="pre">${IBEACON_MAC_ADDRESS}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ibeacon_name</strong> – name of the third party ibeacon</p></li>
+<li><p><strong>xloc_site_name</strong> – name of xloc site</p></li>
+<li><p><strong>as_category_name</strong> – name of asset category which is mapped to xloc_site_name</p></li>
+<li><p><strong>ibeacon_mac_address</strong> – mac address of ibeacon</p></li>
+<li><p><strong>ibeacon_rssi</strong> – rssi value of ibeacon</p></li>
+<li><p><strong>ibeacon_adv_interval</strong> – advertisement interval of ibeacon</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>successfully creates asset category with the following details or else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.delete_asset_in_xloc">
+<code class="sig-name descname">delete_asset_in_xloc</code><span class="sig-paren">(</span><em class="sig-param">asset_name</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.delete_asset_in_xloc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.edit_wifi_asset_in_xloc">
+<code class="sig-name descname">edit_wifi_asset_in_xloc</code><span class="sig-paren">(</span><em class="sig-param">asset_name</em>, <em class="sig-param">client_mac_new='default'</em>, <em class="sig-param">confined_category='default'</em>, <em class="sig-param">prohibited_category='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.edit_wifi_asset_in_xloc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.get_client_information_in_extreme_location_devices_page">
+<code class="sig-name descname">get_client_information_in_extreme_location_devices_page</code><span class="sig-paren">(</span><em class="sig-param">client_mac=None</em>, <em class="sig-param">site_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.get_client_information_in_extreme_location_devices_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>get client information in extreme location devices page</p></li>
+<li><ul>
+<li><p>Flow: Extreme Location–&gt; More Insights–&gt; Devices–&gt;Wireless Devices</p></li>
+</ul>
+</li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Client</span> <span class="pre">Information</span> <span class="pre">In</span> <span class="pre">Extreme</span> <span class="pre">Location</span> <span class="pre">Devices</span> <span class="pre">Page</span>&#160;&#160;&#160; <span class="pre">${CLIENT_MAC}</span>&#160;&#160; <span class="pre">${SITE_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client_mac</strong> – client mac address</p></li>
+<li><p><strong>site_name</strong> – Device Assigned Site Name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>client details dictionary if MAC entry found on Wireless Devices grid else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_access_points_menu">
+<code class="sig-name descname">go_to_extreme_location_access_points_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_access_points_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Access Points Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt;Access Points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_asset_management_alarm_menu">
+<code class="sig-name descname">go_to_extreme_location_asset_management_alarm_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_asset_management_alarm_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Asset Management Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Asset Management–&gt;Alarm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_asset_management_assets_menu">
+<code class="sig-name descname">go_to_extreme_location_asset_management_assets_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_asset_management_assets_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Asset Management Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Asset Management–&gt;Assets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_asset_management_menu">
+<code class="sig-name descname">go_to_extreme_location_asset_management_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_asset_management_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Asset Management Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Asset Management</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_beacons_menu">
+<code class="sig-name descname">go_to_extreme_location_beacons_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_beacons_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Beacons Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt;Beacons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_category_menu">
+<code class="sig-name descname">go_to_extreme_location_category_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_category_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Category Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt;Category</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_devices_bss_devices_menu">
+<code class="sig-name descname">go_to_extreme_location_devices_bss_devices_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_devices_bss_devices_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to BSS Devices Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Devices–&gt;BSS Devices</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_devices_wireless_devices_menu">
+<code class="sig-name descname">go_to_extreme_location_devices_wireless_devices_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_devices_wireless_devices_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Wireless Devices Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Devices–&gt;Wireless Devices</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_settings_alarms_menu">
+<code class="sig-name descname">go_to_extreme_location_settings_alarms_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_settings_alarms_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Alarm Settings Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Settings–&gt;Alarms</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_settings_device_classification_menu">
+<code class="sig-name descname">go_to_extreme_location_settings_device_classification_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_settings_device_classification_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to device classification Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Settings–&gt;Device Classification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_settings_third_party_config_menu">
+<code class="sig-name descname">go_to_extreme_location_settings_third_party_config_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_settings_third_party_config_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Third Party Configuration Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Settings–&gt;Third Party Configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_settings_thresholds_menu">
+<code class="sig-name descname">go_to_extreme_location_settings_thresholds_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_settings_thresholds_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Thresholds Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt; Settings–&gt;Thresholds</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_sites_menu">
+<code class="sig-name descname">go_to_extreme_location_sites_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_sites_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Sites Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights–&gt;Sites</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_xloc_application">
+<code class="sig-name descname">go_to_extreme_location_xloc_application</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.go_to_extreme_location_xloc_application" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Navigate to Wireless Devices Menu on Extreme Location Page
+- Flow: Extreme Location–&gt; More Insights</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.subscribe_extreme_location_essentials">
+<code class="sig-name descname">subscribe_extreme_location_essentials</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.subscribe_extreme_location_essentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>-This keyword Will Subscribe extreme location essentials
+- Flow: Extreme Location–&gt; Subscribe–&gt;Apply</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.validate_client_entry_in_extreme_location_sites_page">
+<code class="sig-name descname">validate_client_entry_in_extreme_location_sites_page</code><span class="sig-paren">(</span><em class="sig-param">site_name=None</em>, <em class="sig-param">floor_name=None</em>, <em class="sig-param">client_mac=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.extreme_location.ExtremeLocation.ExtremeLocation.validate_client_entry_in_extreme_location_sites_page" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>validate_client_entry_in_extreme_location_sites_page</p></li>
+<li><p>Flow : Extreme Location–&gt; More Insights–&gt;Sites</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Validate</span> <span class="pre">Client</span> <span class="pre">Entry</span> <span class="pre">In</span> <span class="pre">Extreme</span> <span class="pre">Location</span> <span class="pre">Sites</span> <span class="pre">Page</span>&#160;&#160;&#160; <span class="pre">${SITE_NAME}</span>&#160;&#160; <span class="pre">${CLIENT_MAC}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site_name</strong> – Site_name to View the Wireless Device</p></li>
+<li><p><strong>floor_name</strong> – Floor name to View the Wireless Device</p></li>
+<li><p><strong>client_mac</strong> – Mac Address of the Wireless Device</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mac entry of Client if its founds on site Floor plan search text field</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="commonlib.html" class="btn btn-neutral float-right" title="COMMON LIBRARIES" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="xiqmlinsights.html" class="btn btn-neutral float-left" title="MLINSIGHTS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Extreme Networks
+      <span class="lastupdated">
+        Last updated on Jul 28, 2021, 1:09:49 PM.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

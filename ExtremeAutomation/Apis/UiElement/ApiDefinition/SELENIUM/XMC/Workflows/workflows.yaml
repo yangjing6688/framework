@@ -1,0 +1,121 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+workflows:
+    expand_workflow_tree_panel_size:
+        apis:
+            - [xmc,'8.2.5']
+    expand_workflow_activity_panel_size:
+        apis:
+            - [xmc,'8.2.5']
+    collapse_all_user_workflow_items:
+        apis:
+            - [xmc,'8.2.5']
+    select_workflows_tab:
+        apis:
+            - [xmc,'8.2.5']
+    refresh_workflows:
+        apis:
+            - [xmc,'8.2.5']
+    select_a_system_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    select_a_user_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    invoke_context_menu_for_user_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    invoke_context_menu_for_system_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    select_humburger_menu_item:
+        apis:
+            - [xmc,'8.2.5']
+    create_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    create_workgroup:
+        apis:
+            - [xmc,'8.2.5']
+    rename_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    rename_workgroup:
+        apis:
+            - [xmc,'8.2.5']
+    save_workflow_as:
+        apis:
+            - [xmc,'8.2.5']
+    import_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    toggle_mini_map:
+        apis:
+            - [xmc,'8.2.5']
+    add_activity:
+        apis:
+            - [xmc,'8.2.5']
+    delete_activity:
+        apis:
+            - [xmc,'8.2.5']
+    save_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    run_workflow:
+        apis:
+            - [xmc,'8.2.5']
+    select_a_device:
+        apis:
+            - [xmc,'8.2.5']
+    collapse_workflows_tree_panel:
+        apis:
+            - [xmc,'8.2.5']
+    collapse_workflow_Details_panel:
+        apis:
+            - [xmc,'8.2.5']
+    expand_workflows_tree_panel:
+        apis:
+            - [xmc,'8.2.5']
+    expand_workflow_details_panel:
+        apis:
+            - [xmc,'8.2.5']
+    verify_system_workflow_version:
+        apis:
+            - [xmc,'8.2.5']
+    verify_workflow_control_tooltips:
+        apis:
+            - [xmc,'8.2.5']
+    verify_user_workflows_item_exists:
+        apis:
+            - [xmc,'8.2.5']
+    verify_system_workflows_item_exists:
+        apis:
+            - [xmc,'8.2.5']
+    verify_system_workflows_are_read_only:
+        apis:
+            - [xmc,'8.2.5']
+    verify_workflow_mini_map_exists:
+        apis:
+            - [xmc,'8.2.5']
+    verify_workflow_diagram_zoom_in:
+        apis:
+            - [xmc,'8.2.5']
+    verify_workflow_diagram_zoom_out:
+        apis:
+            - [xmc,'8.2.5']
+    verify_workflow_changes_exist:
+        apis:
+            - [xmc,'8.2.5']
+    verify_workflow_validation_message:
+        apis:
+            - [xmc,'8.2.5']
+    verify_workflow_tree_panel_exists:
+        apis:
+            - [xmc,'8.2.5']
+    verify_workflow_details_panel_exists:
+        apis:
+            - [xmc,'8.2.5']

@@ -1,0 +1,76 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+resetdevice:
+    reset_now:
+        uuid: 2d811556-db6d-4a05-876b-546a65abf61a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'reset system',userPrompt,'None','Do you want to continue (y/n)','{reboot_answer}',[],[]]
+                - [EXOS,base,baseversion,baseunit,'reboot',userPrompt,'None','Do you want to save configuration changes||Are you sure you want to reboot the','{reboot_exos}||{reboot_answer}',[],[]]
+                - [VOSS,base,baseversion,baseunit,'boot',userPrompt,'None','Are you sure you want to re-boot the switch (y/n) ?','{reboot_answer}',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'reset',userPrompt,'None','Are you sure you want to reload the stack? (y/n)','{reboot_answer}',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'reload',userPrompt,'None','The system has unsaved changes||Are you sure you would like to reset the system?','{reboot_exos}||{reboot_answer}',[],[]]
+                - [BOSS,base,baseversion,baseunit,'write memory||boot',userPrompt,'None','Reboot the unit(s) (y/n) ?','{reboot_answer}',[],[]]
+                - [SLX,base,baseversion,baseunit,'reload',userPrompt,'None','Are you sure you want to reload the switch?','{reboot_answer}',[],[]]
+    reset_system:
+        uuid: 5f0f8465-9d88-4cdb-9cae-3f9dd55b940c
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'reload system',userPrompt,'None','Are you sure you want to reboot the chassis [y/n]?','{reboot_answer}',[],[]]
+    reset_system_to_config:
+        uuid: 89c13d08-20a6-44cd-9a60-d97567a64939
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'configure {config}',userPrompt,'None','Are you sure you want to continue (y/n) [n]?','{reboot_answer}',[],[]]
+                - [EXOS,base,baseversion,baseunit,'use configuration {config}||reboot',userPrompt,'None','Do you want to save configuration changes||Are you sure you want to reboot the','{reboot_exos}||{reboot_answer}',[],[]]
+                - [VOSS,base,baseversion,baseunit,'boot config {config}',userPrompt,'None','Are you sure you want to re-boot the switch (y/n) ?','{reboot_answer}',[],[]]
+                - [EOSSTACKS,base,baseversion,baseunit,'configure {config}',userPrompt,'None','Are you sure you want to continue (y/n) [n]?','{reboot_answer}',[],[]]
+    reset_factory_default:
+        uuid: bd80cb95-1f4d-4789-bc9a-c8022e99bc5c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure switch all',userPrompt,'None','Restore all factory defaults and reboot? (y/N)','{reboot_answer}',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'clear config',userPrompt,'None','Are you sure you want to clear the configuration? (y/n)','{reboot_answer}',[],[]]
+    bypass_initial_setup:
+        uuid: 464e9b90-2b34-4244-94a6-600b803abfe2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'quit',userPrompt,'None','None','None',[],[]]
+    login_after_reset:
+        uuid: 660a18b1-9695-424f-b293-98b150d8d718
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'{username}||{password}',userPrompt,'None','None','None',[],[]]
+    run_failover:
+        uuid: 7ff99091-fcf9-4f22-9308-de3030f378a3
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'run failover',userPrompt,'None','Are you sure you want to failover?','{failover_answer}',[],[]]
+    run_failover_warm:
+        uuid: ce4485f8-7f77-4cdb-8a30-44d59ff429d9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'run failover warm',userPrompt,'None','Are you sure you want to failover?','{failover_answer}',[],[]]

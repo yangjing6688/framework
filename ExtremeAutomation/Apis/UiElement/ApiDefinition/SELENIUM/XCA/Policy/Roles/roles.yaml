@@ -1,0 +1,52 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcaroles:
+    click_add_to_create_new_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_policy_role_name_to_open_role_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_role_name:
+        apis:
+            - [xca,'04.26.03.0007']
+    create_mac_rule_on_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_mac_rule_on_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    create_network_rule_on_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_network_rule_on_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    create_application_rule_on_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_application_rule_on_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_roles_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_policy_role_exists:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_policy_role_does_not_exist:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_network_rule_exists_on_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_network_rule_does_not_exist_on_policy_role:
+        apis:
+            - [xca,'04.26.03.0007']

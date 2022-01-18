@@ -1,0 +1,21 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for
+#  X620-16t switch
+#
+#
+
+
+vendor: Extreme
+product_name: X620-16t
+
+files:
+   - name: capability
+     filename: [../../common/defaultcap.yaml, ../../common/Broadcom/ranger2.yaml, switchcap.yaml]
+   - name: ports
+     filename: [../../common/defaultports.yaml, ports.yaml]

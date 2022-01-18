@@ -1,0 +1,49 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimprovisioners:
+    prv_associate_ot_with_provisioner:
+        apis:
+            - [gim,'8.2.3']
+    prv_should_exist:
+        apis:
+            - [gim,'8.2.3']
+    prv_verify_provisioner_signed:
+        apis:
+            - [gim,'8.2.3']
+    xmc_enforce_all:
+        apis:
+            - [gim,'8.2.3']
+    prv_should_not_exist:
+        apis:
+            - [gim,'8.2.3']
+    prv_multiple_ot_association:
+        apis:
+            - [gim,'8.2.3']
+    prv_label_validation_login:
+        apis:
+            - [gim,'8.2.3']
+    prv_error_invalid_login:
+        apis:
+            - [gim,'8.2.3']
+    prv_logout:
+        apis:
+            - [gim,'8.2.3']
+    prv_label_page_validation_after_login:
+        apis:
+            - [gim,'8.2.3']
+    prv_label_guest_users_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    prv_logout_validation:
+        apis:
+            - [gim,'8.2.3']
+    prv_label_devices_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    prv_label_sponsors_page_validation:
+        apis:
+            - [gim,'8.2.3']

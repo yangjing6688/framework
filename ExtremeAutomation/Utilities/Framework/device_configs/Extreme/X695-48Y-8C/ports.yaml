@@ -1,0 +1,243 @@
+ #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for X695-48Y-8C switch
+#
+#
+
+# 1/10/25G port
+25G_port: &25G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000_25000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Ptp: true
+   Fec: true
+   MacsecWithExtAdapter: true
+   autoneg1G: false
+
+# 40/100G port
+100G_port: &100G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_40000_100000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Fec: true
+
+# 100G port with partition enabled
+100G_partition_port: &100G_PARTITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100000
+   portMediaType: HAL_PORT_MED_GBIC
+   Partition: true
+   PartitionSize: 4
+   Pfc: true
+   Fec: true
+
+# MAC to CPU ports for virtualization applications
+10G_side_band_port: &10G_SB_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10000
+   portMediaType: HAL_PORT_MED_UTP
+   SideBandPort: true
+
+ports:
+   - name: 1
+     <<: [*PORT_1, *25G_PORT]
+
+   - name: 2
+     <<: [*PORT_2, *25G_PORT]
+
+   - name: 3
+     <<: [*PORT_3, *25G_PORT]
+
+   - name: 4
+     <<: [*PORT_4, *25G_PORT]
+
+   - name: 5
+     <<: [*PORT_5, *25G_PORT]
+
+   - name: 6
+     <<: [*PORT_6, *25G_PORT]
+
+   - name: 7
+     <<: [*PORT_7, *25G_PORT]
+
+   - name: 8
+     <<: [*PORT_8, *25G_PORT]
+
+   - name: 9
+     <<: [*PORT_9, *25G_PORT]
+
+   - name: 10
+     <<: [*PORT_10, *25G_PORT]
+
+   - name: 11
+     <<: [*PORT_11, *25G_PORT]
+
+   - name: 12
+     <<: [*PORT_12, *25G_PORT]
+
+   - name: 13
+     <<: [*PORT_13, *25G_PORT]
+
+   - name: 14
+     <<: [*PORT_14, *25G_PORT]
+
+   - name: 15
+     <<: [*PORT_15, *25G_PORT]
+
+   - name: 16
+     <<: [*PORT_16, *25G_PORT]
+
+   - name: 17
+     <<: [*PORT_17, *25G_PORT]
+
+   - name: 18
+     <<: [*PORT_18, *25G_PORT]
+
+   - name: 19
+     <<: [*PORT_19, *25G_PORT]
+
+   - name: 20
+     <<: [*PORT_20, *25G_PORT]
+
+   - name: 21
+     <<: [*PORT_21, *25G_PORT]
+
+   - name: 22
+     <<: [*PORT_22, *25G_PORT]
+
+   - name: 23
+     <<: [*PORT_23, *25G_PORT]
+
+   - name: 24
+     <<: [*PORT_24, *25G_PORT]
+
+   - name: 25
+     <<: [*PORT_25, *25G_PORT]
+
+   - name: 26
+     <<: [*PORT_26, *25G_PORT]
+
+   - name: 27
+     <<: [*PORT_27, *25G_PORT]
+
+   - name: 28
+     <<: [*PORT_28, *25G_PORT]
+
+   - name: 29
+     <<: [*PORT_29, *25G_PORT]
+
+   - name: 30
+     <<: [*PORT_30, *25G_PORT]
+
+   - name: 31
+     <<: [*PORT_31, *25G_PORT]
+
+   - name: 32
+     <<: [*PORT_32, *25G_PORT]
+
+   - name: 33
+     <<: [*PORT_33, *25G_PORT]
+
+   - name: 34
+     <<: [*PORT_34, *25G_PORT]
+
+   - name: 35
+     <<: [*PORT_35, *25G_PORT]
+
+   - name: 36
+     <<: [*PORT_36, *25G_PORT]
+
+   - name: 37
+     <<: [*PORT_37, *25G_PORT]
+
+   - name: 38
+     <<: [*PORT_38, *25G_PORT]
+
+   - name: 39
+     <<: [*PORT_39, *25G_PORT]
+
+   - name: 40
+     <<: [*PORT_40, *25G_PORT]
+
+   - name: 41
+     <<: [*PORT_41, *25G_PORT]
+
+   - name: 42
+     <<: [*PORT_42, *25G_PORT]
+
+   - name: 43
+     <<: [*PORT_43, *25G_PORT]
+
+   - name: 44
+     <<: [*PORT_44, *25G_PORT]
+
+   - name: 45
+     <<: [*PORT_45, *25G_PORT]
+
+   - name: 46
+     <<: [*PORT_46, *25G_PORT]
+
+   - name: 47
+     <<: [*PORT_47, *25G_PORT]
+
+   - name: 48
+     <<: [*PORT_48, *25G_PORT]
+
+   - name: 49
+     <<: [*PORT_49, *100G_PORT]
+
+   - name: 50
+     <<: [*PORT_50, *100G_PORT]
+
+   - name: 51
+     <<: [*PORT_51, *100G_PARTITION_PORT]
+
+   - name: 52
+     <<: *25G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 53
+     <<: *25G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 54
+     <<: *25G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 55
+     <<: [*PORT_55, *100G_PORT]
+
+   - name: 56
+     <<: [*PORT_56, *100G_PARTITION_PORT]
+
+   - name: 57
+     <<: *25G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 58
+     <<: *25G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 59
+     <<: *25G_PORT
+     MacsecWithExtAdapter: false
+
+   - name: 60
+     <<: [*PORT_60, *100G_PORT]
+
+   - name: 61
+     <<: [*PORT_61, *100G_PORT]
+
+   - name: 62
+     <<: [*PORT_62, *100G_PORT]
+
+   - name: 63
+     <<: *10G_SB_PORT
+     sideBandPortPCIMap: "0000:04:00.0"

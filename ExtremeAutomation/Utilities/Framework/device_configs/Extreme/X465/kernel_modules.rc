@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the kernel modules specific to X465
+#
+
+stage=platform:file=max31790.ko:install=linux_hwmon:run=insmod:
+stage=platform_post:file=cpu_error.ko:install=platform:run=insmod:

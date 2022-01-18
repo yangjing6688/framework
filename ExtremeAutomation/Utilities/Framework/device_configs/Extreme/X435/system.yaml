@@ -1,0 +1,11 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines system info common to X435 series switches
+
+common_system_info: &COMMON_SYSTEM_INFO
+  system_eeprom:      system_eeprom

@@ -1,0 +1,64 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+ewccos:
+    cos_create_cos_profile:
+        apis:
+            - [ewc,'10.41.12']
+    cos_edit_cos_profile_priority_override_from_wlan:
+        apis:
+            - [ewc,'10.41.12']
+    cos_edit_cos_profile_priority:
+        apis:
+            - [ewc,'10.41.12']
+    cos_edit_cos_profile_tos:
+        apis:
+            - [ewc,'10.41.12']
+    cos_edit_cos_profile_irl:
+        apis:
+            - [ewc,'10.41.12']
+    cos_edit_cos_profile_orl:
+        apis:
+            - [ewc,'10.41.12']
+    cos_edit_cos_profile_txq:
+        apis:
+            - [ewc,'10.41.12']
+    cos_delete_cos_profile:
+        apis:
+            - [ewc,'10.41.12']
+    cos_create_cos_irl:
+        apis:
+            - [ewc,'10.41.12']
+    cos_edit_cos_irl:
+        apis:
+            - [ewc,'10.41.12']
+    cos_create_cos_orl:
+        apis:
+            - [ewc,'10.41.12']
+    cos_edit_cos_orl:
+        apis:
+            - [ewc,'10.41.12']
+    cos_profile_priority_override_should_be_enabled:
+        apis:
+            - [ewc,'10.41.12']
+    cos_verify_cos_profile_priority:
+        apis:
+            - [ewc,'10.41.12']
+    cos_verify_cos_profile_tos:
+        apis:
+            - [ewc,'10.41.12']
+    cos_verify_cos_profile_irl:
+        apis:
+            - [ewc,'10.41.12']
+    cos_verify_cos_profile_orl:
+        apis:
+            - [ewc,'10.41.12']
+    cos_verify_cos_profile_txq:
+        apis:
+            - [ewc,'10.41.12']
+    cos_click_save_button:
+        apis:
+            - [ewc,'10.41.12']

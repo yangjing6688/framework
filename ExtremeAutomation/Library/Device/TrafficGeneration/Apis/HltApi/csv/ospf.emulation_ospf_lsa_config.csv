@@ -1,0 +1,1226 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+adv_router_id,"The router ID of the router that is originating the LSA.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The router ID of the router that is originating the LSA.
+DEFAULT
+	
+198.18.1.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+area_id,"The area ID of the User LSA Group.This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The area ID of the User LSA Group. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+attached_router_id,"A list of router IDs in the area, in IP address format separated by spaces.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+A list of router IDs in the area, in IP address format separated by spaces.
+DEFAULT
+	
+14.0.0.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+auto_ls_age,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+auto_ls_checksum,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+auto_ls_seq,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+auto_update,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+external_metric_ebit,"The value of the external metric's E-bit.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The value of the external metric's E-bit.
+Valid options are:
+1
+	
+0
+	
+DEFAULT
+	
+0",opt,"0,1","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_metric_fbit,"The value of the external metric's F-bit. If true, then the
+forwardingAddress field is to be included in the LSA.
+DEFAULT
+	
+1
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The value of the external metric's F-bit. If true, then the
+forwardingAddress field is to be included in the LSA.
+Valid options are:
+1
+	
+0
+	
+DEFAULT
+	
+1",opt,"0,1","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_metric_tbit,"The value of the external metric's T-bit. If true, then the
+externalRouteTag field will be included in the LSA.
+DEFAULT
+	
+1
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The value of the external metric's T-bit. If true, then the
+externalRouteTag field will be included in the LSA.
+Valid options are:
+1
+	
+0
+	
+DEFAULT
+	
+1",opt,"0,1","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_number_of_prefix,"The number of External IP LSAs to generate.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The number of External IP LSAs to generate.
+DEFAULT
+	
+16",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_forward_addr,"If the external_metric_fbit is true, data traffic for the advertised
+destination will be forwarded to this fully qualified IPv6 address.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If the external_metric_fbit is true, data traffic for the advertised
+destination will be forwarded to this fully qualified IPv6 address.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_length,"The number of high-order bits of prefixAddress that are significant.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The number of high-order bits of prefixAddress that are significant.
+DEFAULT
+	
+16",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_metric,"The cost of the route for all TOS levels.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The cost of the route for all TOS levels.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_start,"This option is valid for OSPFv3 external route type. The prefix address
+to be advertised in the LSA. Although only prefixLength bits of the IPv6
+address are meaningful, a full IPv6 address should be specified.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option is valid for OSPFv3 external route type. The prefix address
+to be advertised in the LSA. Although only prefixLength bits of the IPv6
+address are meaningful, a full IPv6 address should be specified.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_step,"If external_number_of_prefix is greater than 1,this is the value that
+will be added to the most significant external_prefix_length bits of
+external_prefix_start between generated LSAs. This is also the value to
+increment the link_state_id.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If external_number_of_prefix is greater than 1,this is the value that
+will be added to the most significant external_prefix_length bits of
+external_prefix_start between generated LSAs. This is also the value to
+increment the link_state_id.
+DEFAULT
+	
+0.0.0.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_type,"The type of external metric. A value of 1 implies type 2 metric. A value
+of 0 implies type 1.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The type of external metric. A value of 1 implies type 2 metric. A value
+of 0 implies type 1.
+Valid options are:
+1
+	
+2
+	
+DEFAULT
+	
+1",opt,"1,2","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_route_tag,"If the external_metric_tbit is true, an additional value to be used for
+external routes between AS boundary routers. This field is not used
+within OSPF.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If the external_metric_tbit is true, an additional value to be used for
+external routes between AS boundary routers. This field is not used
+within OSPF.
+DEFAULT
+	
+17.0.0.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"This option represents the handle the user *must* pass to the
+'emulation_ospf_lsa_config' procedure. This option specifies on which
+OSPF router to configure the OSPF User LSA. The OSPF router handle(s)
+are returned by the procedure 'emulation_ospf_config' when configuring
+OSPF routers on the Ixia interface.
+DEFAULT
+	None
+IxNetwork-NGPF[M]
+	
+DESCRIPTION
+	
+This option represents the handle the user *must* pass to the
+'emulation_ospf_lsa_config' procedure. This option specifies on which
+OSPF router to configure the OSPF User LSA. The OSPF router handle(s)
+are returned by the procedure 'emulation_ospf_config' when configuring
+OSPF routers on the Ixia interface.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_state_id,"The router ID of the originating router. This field uniquely identified
+the LSA in the link-state database.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The router ID of the originating router. This field uniquely identified
+the LSA in the link-state database.
+DEFAULT
+	
+199.18.1.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_state_id_step,"If summary_number_of_prefix is greater than 1, the value to increment
+the link_state_id by for each LSA. The value is expressed in IPv4 format.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If summary_number_of_prefix is greater than 1, the value to increment
+the link_state_id by for each LSA. The value is expressed in IPv4 format.
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ls_age,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+ls_checksum,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+ls_seq,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+ls_type_function_code,"Not defined
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Not defined
+DEFAULT
+	
+0",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ls_type_s_bits,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+ls_type_u_bit,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+lsa_group_mode,"The two modes are append or create. Append means appending the new LSA
+to the last LSA group created. Create means creating a new LSA group for
+the newly added LSA. This option is valid only for -mode create. This
+option is valid only for IxTclNetwork API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The two modes are append or create. Append means appending the new LSA
+to the last LSA group created. Create means creating a new LSA group for
+the newly added LSA. This option is valid only for -mode create. This
+option is valid only for IxTclNetwork API.
+Valid options are:
+append
+	
+create
+	
+DEFAULT
+	
+append",opt,"ANY,append,create",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+lsa_handle,"This option specifies on which OSPF User LSA to configure. This option
+*must* be passed if the -mode option is modify or delete. The OSPF LSA
+handle(s) are returned by the procedure 'emulation_ospf_lsa_config' when
+creating OSPF user LSA(s) on the Ixia interface.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option specifies on which OSPF User LSA to configure. This option
+*must* be passed if the -mode option is modify or delete. The OSPF LSA
+handle(s) are returned by the procedure 'emulation_ospf_lsa_config' when
+creating OSPF user LSA(s) on the Ixia interface.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Mode of the procedure call. Valid options are:createmodifydelete
+DEFAULT
+	None
+IxNetwork-NGPF[M]
+	
+DESCRIPTION
+	
+Mode of the procedure call. Valid options are: create modify delete
+Valid options are:
+create
+	
+modify
+	
+delete
+	
+reset
+	
+DEFAULT
+	
+create",opt,"create,delete,modify,reset","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+net_attached_router,"The option specifies the mode in configuring router IDs in the area.
+Note that delete and reset does not work. Valid options
+are:createdeletereset
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The option specifies the mode in configuring router IDs in the area.
+Note that delete and reset does not work. Valid options are: create
+delete reset
+Valid options are:
+create
+	
+delete
+	
+reset
+	
+DEFAULT
+	
+create",opt,"create,delete,reset","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+net_prefix_length,"The length in bits of the IP address mask for the network.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The length in bits of the IP address mask for the network.
+DEFAULT
+	
+16",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+no_write,"If this option is present, the protocol configuration will not be
+written to the server.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If this option is present, the protocol configuration will not be
+written to the server.
+DEFAULT
+	None",flag,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_number_of_prefix,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+nssa_prefix_forward_addr,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+nssa_prefix_length,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+nssa_prefix_metric,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+nssa_prefix_start,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+nssa_prefix_step,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+nssa_prefix_type,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+opaque_enable_link_id,"This will enable usage of link id. TLV Type 2. If checked, this will be
+the 4-octet IP address which identifies the other end of the link. For
+Point to Point, the Neighbor's Router ID. For Multi-access, the
+interface of the DR.This option is valid only when -type is opaque and
+-opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable usage of link id. TLV Type 2. If checked, this will be
+the 4-octet IP address which identifies the other end of the link. For
+Point to Point, the Neighbor's Router ID. For Multi-access, the
+interface of the DR. This option is valid only when type is opaque and
+opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_enable_link_local_ip_addr,"This will enable the usage of local IP address. TLV Type 3. The IP
+address of the local interface for this link. Each address is a 4-octet
+value. The total length is N times 4 octets, where N is the number of
+addresses. This option is valid only when -type is opaque and
+-opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable the usage of local IP address. TLV Type 3. The IP
+address of the local interface for this link. Each address is a 4-octet
+value. The total length is N times 4 octets, where N is the number of
+addresses. This option is valid only when type is opaque and
+opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_enable_link_max_bw,"This will enable the usage of max bandwidth. TLV Type 6. Units are in
+bytes per second. The maximum bandwidth that can be used on this link in
+this direction (from originator to the neighbor). Four octets in length,
+expressed in IEEE floating point format. This option is valid only when
+-type is opaque and -opaque_tlv_type is link. This option is valid only
+for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable the usage of max bandwidth. TLV Type 6. Units are in
+bytes per second. The maximum bandwidth that can be used on this link in
+this direction (from originator to the neighbor). Four octets in length,
+expressed in IEEE floating point format. This option is valid only when
+type is opaque and opaque_tlv_type is link. This option is valid only
+for IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_enable_link_max_resv_bw,"This will enable the usage of max reservable bandwidth. TLV Type 7.
+Units in bytes per second. The maximum bandwidth that can be reserved on
+this link in this direction (from originator to the neighbor). Four
+octets in length, expressed in IEEE floating point format. This may be
+greater than the maximum bandwidth. This option is valid only when -type
+is opaque and -opaque_tlv_type is link. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable the usage of max reservable bandwidth. TLV Type 7.
+Units in bytes per second. The maximum bandwidth that can be reserved on
+this link in this direction (from originator to the neighbor). Four
+octets in length, expressed in IEEE floating point format. This may be
+greater than the maximum bandwidth. This option is valid only when type
+is opaque and opaque_tlv_type is link. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_enable_link_metric,"This will enable the usage of link metric. TLV Type 5. The Traffic
+Engineering Metric. This option is valid only when -type is opaque and
+-opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable the usage of link metric. TLV Type 5. The Traffic
+Engineering Metric. This option is valid only when type is opaque and
+opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_enable_link_remote_ip_addr,"This will enable the usage of the remote IP address. TLV Type 4. The IP
+address of the neighbor's interface for this link. The total length is N
+times four octets, where N is the number of addresses. This option is
+valid only when -type is opaque and -opaque_tlv_type is link. This
+option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable the usage of the remote IP address. TLV Type 4. The IP
+address of the neighbor's interface for this link. The total length is N
+times four octets, where N is the number of addresses. This option is
+valid only when type is opaque and opaque_tlv_type is link. This option
+is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_enable_link_resource_class,"This will enable the usage of link resource class. TLV Type 9. A bit
+mask value, four octets in length, which specifies administrative group
+membership for this link. This option is valid only when -type is opaque
+and -opaque_tlv_type is link. This option is valid only for IxTclNetwork
+API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable the usage of link resource class. TLV Type 9. A bit
+mask value, four octets in length, which specifies administrative group
+membership for this link. This option is valid only when type is opaque
+and opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_enable_link_type,"This will enable the usage of link type. TLV Type 1. Defines the type of
+link and is one octet in length. This option is valid only when -type is
+opaque and -opaque_tlv_type is link. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable the usage of link type. TLV Type 1. Defines the type of
+link and is one octet in length. This option is valid only when type is
+opaque and opaque_tlv_type is link. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_enable_link_unresv_bw,"This will enable the usage of the unreserved bandwidth. TLV Type 8. The
+amount of bandwidth not yet reserved at each of the eight priority
+levels. This value will be less than or equal to the maximum reservable
+bandwidth. 32 octets in length, expressed in IEEE floating point format.
+If checked, unreserved bandwidth may be assigned to each of the 8
+priority levels (0 through 7). This option is valid only when -type is
+opaque and -opaque_tlv_type is link. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This will enable the usage of the unreserved bandwidth. TLV Type 8. The
+amount of bandwidth not yet reserved at each of the eight priority
+levels. This value will be less than or equal to the maximum reservable
+bandwidth. 32 octets in length, expressed in IEEE floating point format.
+If checked, unreserved bandwidth may be assigned to each of the 8
+priority levels (0 through 7). This option is valid only when type is
+opaque and opaque_tlv_type is link. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_id,"TLV Type 2. If checked, this will be the 4-octet IP address which
+identifies the other end of the link. For Point to Point, the Neighbor's
+Router ID. For Multiaccess, the interface of the DR. This option is
+valid only when -type is opaque and -opaque_tlv_type is link. This
+option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLV Type 2. If checked, this will be the 4-octet IP address which
+identifies the other end of the link. For Point to Point, the Neighbor's
+Router ID. For Multiaccess, the interface of the DR. This option is
+valid only when type is opaque and opaque_tlv_type is link. This option
+is valid only for IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_local_ip_addr,"TLV Type 3. The IP address of the local interface for this link. Each
+address is a 4-octet value. The total length is N times 4 octets, where
+N is the number of addresses. This option is valid only when -type is
+opaque and -opaque_tlv_type is link. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLV Type 3. The IP address of the local interface for this link. Each
+address is a 4-octet value. The total length is N times 4 octets, where
+N is the number of addresses. This option is valid only when type is
+opaque and opaque_tlv_type is link. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_max_bw,"TLV Type 6. Units are in bytes per second. The maximum bandwidth that
+can be used on this link in this direction (from originator to the
+neighbor). Four octets in length, expressed in IEEE floating point
+format. This option is valid only when -type is opaque and
+-opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLV Type 6. Units are in bytes per second. The maximum bandwidth that
+can be used on this link in this direction (from originator to the
+neighbor). Four octets in length, expressed in IEEE floating point
+format. This option is valid only when type is opaque and
+opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",any,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_max_resv_bw,"TLV Type 7. Units in bytes per second. The maximum bandwidth that can be
+reserved on this link in this direction (from originator to the
+neighbor). Four octets in length, expressed in IEEE floating point
+format. This may be greater than the maximum bandwidth. This option is
+valid only when -type is opaque and -opaque_tlv_type is link. This
+option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLV Type 7. Units in bytes per second. The maximum bandwidth that can be
+reserved on this link in this direction (from originator to the
+neighbor). Four octets in length, expressed in IEEE floating point
+format. This may be greater than the maximum bandwidth. This option is
+valid only when type is opaque and opaque_tlv_type is link. This option
+is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",any,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_metric,"TLV Type 5. The Traffic Engineering Metric. Four octets in length. This
+option is valid only when -type is opaque and -opaque_tlv_type is link.
+This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLV Type 5. The Traffic Engineering Metric. Four octets in length. This
+option is valid only when type is opaque and opaque_tlv_type is link.
+This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",numeric,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_other_subtlvs,"Allows the user to create custom Sub-TLVs - for Traffic Engineering. To
+be provided with a list of parameters in the following format:::, where
+type is from 0 to 65535, length is a value from 0 to 65535 and value is
+a hex number preceeded by 0x with the length specified by parameter.When
+both -opaque_link_subtlvs and -opaque_link_other_subtlvs are provided
+then -opaque_link_subtlvs has a greater priority. This option is valid
+only when -type is opaque and -opaque_tlv_type is link. This option is
+valid only for IxTclNetwork API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Allows the user to create custom Sub-TLVs - for Traffic Engineering. To
+be provided with a list of parameters in the following format: ::, where
+type is from 0 to 65535, length is a value from 0 to 65535 and value is
+a hex number preceeded by 0x with the length specified by parameter.
+When both -opaque_link_subtlvs and -opaque_link_other_subtlvs are
+provided then -opaque_link_subtlvs has a greater priority. This option
+is valid only when type is opaque and opaque_tlv_type is link. This
+option is valid only for IxTclNetwork API.
+DEFAULT
+	None",any,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_remote_ip_addr,"TLV Type 4. The IP address of the neighbor's interface for this link.
+The total length is N times four octets, where N is the number of
+addresses. This option is valid only when -type is opaque and
+-opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLV Type 4. The IP address of the neighbor's interface for this link.
+The total length is N times four octets, where N is the number of
+addresses. This option is valid only when type is opaque and
+opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_resource_class,"TLV Type 9. A bit mask value, four octets in length, which specifies
+administrative group membership for this link. This option is valid only
+when -type is opaque and -opaque_tlv_type is link. This option is valid
+only for IxTclNetwork API.
+DEFAULT
+	
+0x00000000
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLV Type 9. A bit mask value, four octets in length, which specifies
+administrative group membership for this link. This option is valid only
+when type is opaque and opaque_tlv_type is link. This option is valid
+only for IxTclNetwork API.
+DEFAULT
+	
+0x00000000",hexhex,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_subtlvs,"Allows the user to create custom type 10 Sub-TLVs with length 4 - for
+Traffic Engineering. When both -opaque_link_subtlvs and
+-opaque_link_other_subtlvs are provided then -opaque_link_subtlvs has a
+greater priority. This option is valid only when -type is opaque and
+-opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Allows the user to create custom type 10 Sub-TLVs with length 4 - for
+Traffic Engineering. When both -opaque_link_subtlvs and
+-opaque_link_other_subtlvs are provided then -opaque_link_subtlvs has a
+greater priority. This option is valid only when type is opaque and
+opaque_tlv_type is link. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_type,"TLV Type 1. Defines the type of link and is one octet in length. This
+option is valid only when -type is opaque and -opaque_tlv_type is link.
+This option is valid only for IxTclNetwork API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLV Type 1. Defines the type of link and is one octet in length. This
+option is valid only when type is opaque and opaque_tlv_type is link.
+This option is valid only for IxTclNetwork API.
+Valid options are:
+ptop
+	
+multiaccess
+	
+DEFAULT
+	
+ptop",opt,"DEAULT,multiaccess,ptop",IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_link_unresv_bw_priority,"Unreserved Bandwidth in bytes per second per priority level. This option
+is valid only when -type is opaque and -opaque_tlv_type is link. This
+option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Unreserved Bandwidth in bytes per second per priority level. This option
+is valid only when type is opaque and opaque_tlv_type is link. This
+option is valid only for IxTclNetwork API.
+DEFAULT
+	
+0",any,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_router_addr,"TLVs are Type/Length/Value field combinations that make up part of the
+LSA payload and enable OSPF Traffic Engineering (OSPF-TE). If
+-opaque_tlv_type is router, the field is for the four-octet IP address
+of the advertising router. This option is valid only when -type is
+opaque and -opaque_tlv_type is router. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLVs are Type/Length/Value field combinations that make up part of the
+LSA payload and enable OSPF Traffic Engineering (OSPF-TE). If
+opaque_tlv_type is router, the field is for the four-octet IP address of
+the advertising router. This option is valid only when type is opaque
+and opaque_tlv_type is router. This option is valid only for
+IxTclNetwork API.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_tlv_type,"TLVs are Type/Length/Value field combinations that make up part of the
+LSA payload and enable OSPF Traffic Engineering (OSPF-TE). If
+-opaque_tlv_type is router, the field is for the four-octet IP address
+of the advertising router. Otherwise, if opaque_tlv_type is link, all
+the other TLVs from 1-9 can be enabled and used. This option is valid
+only when -type is opaque. This option is valid only for IxTclNetwork API.
+DEFAULT
+	
+router
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+TLVs are Type/Length/Value field combinations that make up part of the
+LSA payload and enable OSPF Traffic Engineering (OSPF-TE). If
+opaque_tlv_type is router, the field is for the four-octet IP address of
+the advertising router. Otherwise, if opaque_tlv_type is link, all the
+other TLVs from 1-9 can be enabled and used. This option is valid only
+when type is opaque. This option is valid only for IxTclNetwork API.
+Valid options are:
+link
+	
+router
+	
+DEFAULT
+	
+router",opt,"link,router",IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+options,"The optional capabilities supported by the OSPFv2 router. For OSPFv3,
+use OSPFv3 specific options. Multiple options may be combined using a
+logical 'or'.
+Valid options are:
+ospfOptionBitTypeOfService
+	
+0x01
+ospfOptionBitExternalRouting
+	
+0x02
+ospfOptionBitMulticast
+	
+0x04
+ospfOptionBitNSSACapability
+	
+0x08
+ospfOptionBitExternalAttributes
+	
+0x10
+ospfOptionBitDemandCircuit
+	
+0x20
+ospfOptionBitLSANoForward
+	
+0x40
+ospfOptionBitUnused
+	
+0x80
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The optional capabilities supported by the OSPFv2 router. For OSPFv3,
+use OSPFv3 specific options. Multiple options may be combined using a
+logical 'or'. Valid choices are: ospfOptionBitTypeOfService - 0x01
+ospfOptionBitExternalRouting - 0x02 ospfOptionBitMulticast - 0x04
+ospfOptionBitNSSACapability - 0x08 ospfOptionBitExternalAttributes -
+0x10 ospfOptionBitDemandCircuit - 0x20 ospfOptionBitLSANoForward - 0x40
+ospfOptionBitUnused - 0x80
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+prefix_options,"An 8-bit quantity with options related to the prefixAddress. Multiple
+bits may be combined using a logical or. If both options and
+prefix_options are provided, the options value takes priority.
+Valid options are:
+ospfV3PrefixOptionPBit
+	
+0x08--The propagate bit, which is set on
+x
+	
+0x08--The propagate bit, which is set on
+ospfV3PrefixOptionMCBit
+	
+0x04--The multicast capability bit, which
+ospfV3PrefixOptionLABit
+	
+0x02--The local address capability bit,
+ospfV3PrefixOptionNUBit
+	
+0x01--The no unicast bit, which should be
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+An 8-bit quantity with options related to the prefixAddress. Multiple
+bits may be combined using a logical or. If both options and
+prefix_options are provided, the options value takes priority. Valid
+choices are: ospfV3PrefixOptionPBit - 0x08--The propagate bit, which is
+set on NSSA area prefixes that should be re-advertised at the NSSA area
+border. ospfV3PrefixOptionMCBit - 0x04--The multicast capability bit,
+which should be set if the prefix should be included in IPv6 multicast
+routing calculations. ospfV3PrefixOptionLABit - 0x02--The local address
+capability bit, which should be set if the prefix is actually an IPv6
+interface address of the advertising router. ospfV3PrefixOptionNUBit -
+0x01--The no unicast bit, which should be set if the prefix should be
+excluded from IPv6 unicast calculations.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_abr,"Set router to be an area boundary router (ABR). Correspond to E
+(external) bit in router LSA.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Set router to be an area boundary router (ABR). Correspond to E
+(external) bit in router LSA.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_asbr,"Set router to be an AS boundary router (ASBR). Correspond to B (border)
+bit in router LSA.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Set router to be an AS boundary router (ASBR). Correspond to B (border)
+bit in router LSA.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_link_data,"The meaning of this option depends on the router_link_type option.
+Valid options are:
+ptop
+	
+The interface's MIB-II.
+transit
+	
+The router interface's IP address.
+stub
+	
+The network's IP address mask.
+virtual
+	
+The router interface's IP address.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The meaning of this option depends on the router_link_type option. Valid
+choices are: ptop - The interfaces MIB-II. transit - The router
+interfaces IP address. stub - The networks IP address mask. virtual -
+The router interfaces IP address.
+DEFAULT
+	
+13.0.0.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_link_id,"Identifies the object that this router link connects to, depending on
+Valid options are:
+ptop
+	
+The neighboring router's router ID.
+transit
+	
+The IP address of the Designated Router.
+stub
+	
+The IP network/subnet number.
+virtual
+	
+The neighboring router's router ID.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Identifies the object that this router link connects to, depending on
+the router_link_type option. Valid choices are: ptop - The neighboring
+routers router ID. transit - The IP address of the Designated Router.
+stub - The IP network/subnet number. virtual - The neighboring routers
+router ID.
+DEFAULT
+	
+12.0.0.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_link_idx,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+router_link_metric,"The cost of using the router link, applied to all TOS values.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The cost of using the router link, applied to all TOS values.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_link_mode,"This option specifies the mode for configuring router links in a router
+LSA. Note that the modify and delete mode do not work. Valid options
+are:createmodifydelete
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option specifies the mode for configuring router links in a router
+LSA. Note that the modify and delete mode do not work. Valid options
+are: create modify delete
+Valid options are:
+create
+	
+modify
+	
+delete
+	
+DEFAULT
+	
+create",opt,"create,delete,modify","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_link_type,"Not defined
+Valid options are:
+ptop
+	
+A point-to-point connection to another router.
+transit
+	
+(default) A connection to a transit network.
+stub
+	
+A connection a stub network.
+virtual
+	
+A virtual link.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The type of the router link. Valid choices are: ptop - A point-to-point
+connection to another router. transit - (default) A connection to a
+transit network. stub - A connection a stub network. virtual - A virtual
+link.
+Valid options are:
+ptop
+	
+transit
+	
+stub
+	
+virtual
+	
+DEFAULT
+	
+ptop",opt,"ptop,stub,transit,virtual","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_virtual_link_endpt,"Set router to be an endpoint of an active virtual link. Correspond to V
+(virtual link endpoint) bit in router LSA.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Set router to be an endpoint of an active virtual link. Correspond to V
+(virtual link endpoint) bit in router LSA.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_wildcard,"Indicates that the router is a wild-card multicast receiver and will
+receive multicast datagrams regardless of destination.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Indicates that the router is a wild-card multicast receiver and will
+receive multicast datagrams regardless of destination.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+session_type,"Not defined
+Valid options are:
+ospfv2
+	
+ospfv3
+	
+DEFAULT
+	
+ospfv2",opt,"ospfv2,ospfv3",IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_number_of_prefix,"The number of Summary IP LSAs to generate.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The number of Summary IP LSAs to generate.
+DEFAULT
+	
+16",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix_length,"The number of high-order bits of prefixAddress that are significant.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The number of high-order bits of prefixAddress that are significant.
+DEFAULT
+	
+16",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix_metric,"The cost of the route for all TOS levels.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The cost of the route for all TOS levels.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix_start,"This option is valid for OSPFv3 summary_pool route type. The prefix
+address to be advertised in the LSA. Although only prefixLength bits of
+the IPv6 address are meaningful, a full IPv6 address should be specified.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option is valid for OSPFv3 summary_pool route type. The prefix
+address to be advertised in the LSA. Although only prefixLength bits of
+the IPv6 address are meaningful, a full IPv6 address should be specified.
+DEFAULT
+	
+15.0.0.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix_step,"If summary_number_of_prefix is greater than 1, this is the value that
+will be added to the most significant summary_prefix_length bits of
+summary_prefix_start between generated LSAs. This is also the value to
+increment the link_state_id, if link_state_id_step is not present.This
+parameter can be provided as an IPv4/IPv6 address, depending on the
+prefix type, but the corresponding number of the IP address provided
+should not be greater than 4,294,967,295.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If summary_number_of_prefix is greater than 1, this is the value that
+will be added to the most significant summary_prefix_length bits of
+summary_prefix_start between generated LSAs. This is also the value to
+increment the link_state_id, if link_state_id_step is not present. This
+parameter can be provided as an IPv4/IPv6 address, depending on the
+prefix type, but the corresponding number of the IP address provided
+should not be greater than 4,294,967,295.
+DEFAULT
+	
+0.0.0.1",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_admin_group,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_instance_id,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_link_id,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_link_type,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_local_ip,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_bw,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_bw,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_priority0,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_priority1,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_priority2,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_priority3,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_priority4,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_priority5,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_priority6,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_max_resv_priority7,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_metric,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_remote_ip,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_router_address,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+te_tlv_type,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+type,"This option specified the type of the LSA. The user *must* pass this
+option when creating a LSA. The choices are: router - ospfv2, ospfv3
+network - ospfv2, ospfv3 summary_pool - ospfv2, ospfv3 asbr_summary -
+ospfv2, ospfv3 ext_pool - ospfv2, ospfv3 opaque_type_9 - ospfv2
+opaque_type_10 - ospfv2 opaque_type_11 - ospfv2
+DEFAULT
+	
+router",opt,"asbr_summary,ext_pool,network,opaque_type_10,opaque_type_11,opaque_type_9,router,summary_pool",IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

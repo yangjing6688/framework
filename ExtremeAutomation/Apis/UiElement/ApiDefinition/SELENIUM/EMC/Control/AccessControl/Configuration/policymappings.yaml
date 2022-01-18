@@ -1,0 +1,64 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+policymappings:
+    policy_mappings_dialog_add_policy_mapping:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_delete_policy_mapping:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_navigate_to_edit_policy_mapping:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_click_switch_to_basic:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_click_switch_to_advanced:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_custom_fields:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_filter:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_location:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_login_lat_group_and_port:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_management_access:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_name:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_policy_role:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_port_profile:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_radius_attribute_lists:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_virtual_router:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_vlan_egress:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_click_save:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_select_mapping:
+        apis:
+            - [emc,'8.1.3']
+    policy_mappings_dialog_edit_mapping_set_vlan_name:
+        apis:
+            - [emc,'8.1.3||8.4.0']

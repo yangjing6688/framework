@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines watchdogs specific to X590-24x-1q-2c
+#
+
+watchdogs:
+  - *WATCHDOG1

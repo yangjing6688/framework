@@ -1,0 +1,279 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018, 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for X725-48y-8c switch (Quanta TD3X7 eval box only)
+#
+#
+
+# 10G port - NOTE: For Quanta TD3X7 eval box, all 4 ports in same Falcon core must be same speed, so hard code 1-24 10G, 25-48 25G for unit-testing.
+10G_port: &10G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Ptp: true
+   Fec: true
+
+# 10/25G port - NOTE: Future Trident3 X5 HW, intended for Tartan GA, doesn't have the above restriction. For example, port 1 can be 10G, port 2 can be 25G...
+25G_port: &25G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_1000_10000_25000
+   portMediaType: HAL_PORT_MED_GBIC
+   Pfc: true
+   Ptp: true
+   Fec: true
+
+# 100G port with partition enabled
+100G_partition_port: &100G_PARTITION_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_100000
+   portMediaType: HAL_PORT_MED_GBIC
+   Partition: true
+   PartitionSize: 4
+   Pfc: true
+   Fec: true
+
+ports:
+   - name: 1
+     <<: [*PORT_1, *10G_PORT]
+
+   - name: 2
+     <<: [*PORT_2, *10G_PORT]
+
+   - name: 3
+     <<: [*PORT_3, *10G_PORT]
+
+   - name: 4
+     <<: [*PORT_4, *10G_PORT]
+
+   - name: 5
+     <<: [*PORT_5, *10G_PORT]
+
+   - name: 6
+     <<: [*PORT_6, *10G_PORT]
+
+   - name: 7
+     <<: [*PORT_7, *10G_PORT]
+
+   - name: 8
+     <<: [*PORT_8, *10G_PORT]
+
+   - name: 9
+     <<: [*PORT_9, *10G_PORT]
+
+   - name: 10
+     <<: [*PORT_10, *10G_PORT]
+
+   - name: 11
+     <<: [*PORT_11, *10G_PORT]
+
+   - name: 12
+     <<: [*PORT_12, *10G_PORT]
+
+   - name: 13
+     <<: [*PORT_13, *10G_PORT]
+
+   - name: 14
+     <<: [*PORT_14, *10G_PORT]
+
+   - name: 15
+     <<: [*PORT_15, *10G_PORT]
+
+   - name: 16
+     <<: [*PORT_16, *10G_PORT]
+
+   - name: 17
+     <<: [*PORT_17, *10G_PORT]
+
+   - name: 18
+     <<: [*PORT_18, *10G_PORT]
+
+   - name: 19
+     <<: [*PORT_19, *10G_PORT]
+
+   - name: 20
+     <<: [*PORT_20, *10G_PORT]
+
+   - name: 21
+     <<: [*PORT_21, *10G_PORT]
+
+   - name: 22
+     <<: [*PORT_22, *10G_PORT]
+
+   - name: 23
+     <<: [*PORT_23, *10G_PORT]
+
+   - name: 24
+     <<: [*PORT_24, *10G_PORT]
+
+   - name: 25
+     <<: [*PORT_25, *25G_PORT]
+
+   - name: 26
+     <<: [*PORT_26, *25G_PORT]
+
+   - name: 27
+     <<: [*PORT_27, *25G_PORT]
+
+   - name: 28
+     <<: [*PORT_28, *25G_PORT]
+
+   - name: 29
+     <<: [*PORT_29, *25G_PORT]
+
+   - name: 30
+     <<: [*PORT_30, *25G_PORT]
+
+   - name: 31
+     <<: [*PORT_31, *25G_PORT]
+
+   - name: 32
+     <<: [*PORT_32, *25G_PORT]
+
+   - name: 33
+     <<: [*PORT_33, *25G_PORT]
+
+   - name: 34
+     <<: [*PORT_34, *25G_PORT]
+
+   - name: 35
+     <<: [*PORT_35, *25G_PORT]
+
+   - name: 36
+     <<: [*PORT_36, *25G_PORT]
+
+   - name: 37
+     <<: [*PORT_37, *25G_PORT]
+
+   - name: 38
+     <<: [*PORT_38, *25G_PORT]
+
+   - name: 39
+     <<: [*PORT_39, *25G_PORT]
+
+   - name: 40
+     <<: [*PORT_40, *25G_PORT]
+
+   - name: 41
+     <<: [*PORT_41, *25G_PORT]
+
+   - name: 42
+     <<: [*PORT_42, *25G_PORT]
+
+   - name: 43
+     <<: [*PORT_43, *25G_PORT]
+
+   - name: 44
+     <<: [*PORT_44, *25G_PORT]
+
+   - name: 45
+     <<: [*PORT_45, *25G_PORT]
+
+   - name: 46
+     <<: [*PORT_46, *25G_PORT]
+
+   - name: 47
+     <<: [*PORT_47, *25G_PORT]
+
+   - name: 48
+     <<: [*PORT_48, *25G_PORT]
+
+   - name: 49
+     <<: [*PORT_49, *100G_PARTITION_PORT]
+
+   - name: 50
+     <<: *25G_PORT
+
+   - name: 51
+     <<: *25G_PORT
+
+   - name: 52
+     <<: *25G_PORT
+
+   - name: 53
+     <<: [*PORT_53, *100G_PARTITION_PORT]
+
+   - name: 54
+     <<: *25G_PORT
+
+   - name: 55
+     <<: *25G_PORT
+
+   - name: 56
+     <<: *25G_PORT
+
+   - name: 57
+     <<: [*PORT_57, *100G_PARTITION_PORT]
+
+   - name: 58
+     <<: *25G_PORT
+
+   - name: 59
+     <<: *25G_PORT
+
+   - name: 60
+     <<: *25G_PORT
+
+   - name: 61
+     <<: [*PORT_61, *100G_PARTITION_PORT]
+
+   - name: 62
+     <<: *25G_PORT
+
+   - name: 63
+     <<: *25G_PORT
+
+   - name: 64
+     <<: *25G_PORT
+
+   - name: 65
+     <<: [*PORT_65, *100G_PARTITION_PORT]
+
+   - name: 66
+     <<: *25G_PORT
+
+   - name: 67
+     <<: *25G_PORT
+
+   - name: 68
+     <<: *25G_PORT
+
+   - name: 69
+     <<: [*PORT_69, *100G_PARTITION_PORT]
+
+   - name: 70
+     <<: *25G_PORT
+
+   - name: 71
+     <<: *25G_PORT
+
+   - name: 72
+     <<: *25G_PORT
+
+   - name: 73
+     <<: [*PORT_73, *100G_PARTITION_PORT]
+
+   - name: 74
+     <<: *25G_PORT
+
+   - name: 75
+     <<: *25G_PORT
+
+   - name: 76
+     <<: *25G_PORT
+
+   - name: 77
+     <<: [*PORT_77, *100G_PARTITION_PORT]
+
+   - name: 78
+     <<: *25G_PORT
+
+   - name: 79
+     <<: *25G_PORT
+
+   - name: 80
+     <<: *25G_PORT

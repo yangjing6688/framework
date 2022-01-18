@@ -1,0 +1,31 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+tunnel:
+    check_tunnel_exists:
+        uuid: 1f77ab3a-a79f-431f-b7c7-d30b7db75406
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_tunnel_mode:
+        uuid: aba2a004-f96e-4db1-ba40-b5020013d97e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_tunnel_l2tb_port:
+        uuid: ce9fd5b2-8f4f-481f-b091-e4c6c13654af
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]

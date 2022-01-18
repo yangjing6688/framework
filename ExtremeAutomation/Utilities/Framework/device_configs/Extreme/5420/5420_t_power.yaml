@@ -1,0 +1,16 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the PSUs specific to 5420-F- non poe boards (T and S)
+#
+
+power_info:
+  <<: *COMMON_POWER_INFO
+
+psus:
+  - *PSU_T_1
+  - *PSU_F_2

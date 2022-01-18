@@ -1,0 +1,323 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+create_ig,"If enabled creates behind the VXLAN device group a chained device group
+with IPv4 and Ethernet stacks emulating the connected VMs. If not
+enabled only the VXLAN device group will be created. Valid options: 0 -
+Disabled 1 - Enabled This option is valid only when -mode is create and
+-handle is an port handle. This option is available only when IxNetwork
+tcl API is used.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'mode' | value= 'create' |",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_resolve_gateway,"Autoresolve gateway MAC addresses. This option is available only if
+-mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_static_info,"Enable Unicast Info.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gateway,"The IP address of the Gateway for the Interface Interface. This option
+is available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+100.1.0.1",ip,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gateway_step,"This parameter is not valid on mode modify when IxTclProtocol is used.
+What step will be use for incrementing the -gateway option. This option
+is available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"Specifies the port and group upon which emulation is configured. If the
+-mode is 'modify', -handle specifies the group upon which emulation is
+configured, otherwise it specifies the session upon which emulation is
+configured. Valid for IxTclNetwork' (IxTclHal is not supported) .
+DEFAULT
+	None",any,,IxNetwork-NGPF[M],universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_enable_resolve_gateway,"Autoresolve gateway MAC addresses. Argument configures the IPv4 stack of
+the chained device group/VMs. This option is available only if -mode is
+create. Valid for IxTclNetwork.
+DEFAULT
+	
+1",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_gateway,"The IP address of the Gateway. Argument configures the IPv4 stack of the
+chained device group/VMs. This option is available only if -mode is
+create. Valid for IxTclNetwork.
+DEFAULT
+	
+102.1.0.1",ip,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_gateway_step,"What step will be use for incrementing the -ig_gateway option. Argument
+configures the IPv4 stack of the chained device group/VMs. This option
+is available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+0.0.0.0",ip,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_intf_ip_addr,"List of IP addresses that configure each of the traffic generation tool
+interfaces. If -sessions_per_vxlan is > 1, this IP address will
+increment by value specified in -ig_intf_ip_addr_step. Argument
+configures the IPv4 stack of the chained device group/VMs. This option
+is available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+102.1.0.2",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_intf_ip_addr_step,"This value will be used for incrementing the IP address if -count is >
+1. Argument configures the IPv4 stack of the chained device group/VMs.
+This option is available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+0.0.0.0",ipv4,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_intf_ip_prefix_length,"Defines the mask of the IP address used for the Ixia (-intf_ip_addr) and
+the DUT interface. The range of the value is 1-32. Argument configures
+the IPv4 stack of the chained device group/VMs. This option is available
+only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+24",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_mac_address_init,"The MAC address for the interface to be created. Argument configures the
+Ethernet stack of the chained device group/VMs. This option is available
+only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	None",mac,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_mac_address_step,"The incrementing step for the MAC address of the interface to be
+created. Argument configures the Ethernet stack of the chained device
+group/VMs. This option is available only if -mode is create. Valid for
+IxTclNetwork.
+DEFAULT
+	
+0000.0000.0001",mac,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_mac_mtu,"The maximum transmission unit for the interfaces created with this
+range. The default value is 1500. Argument configures the Ethernet stack
+of the chained device group/VMs. This option is available only if -mode
+is create. Valid for IxTclNetwork.
+DEFAULT
+	
+1500",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_manual_gateway_mac,"The manual gateway MAC addresses. This option has no effect unless
+enable_resolve_gateway is set to 0. Argument configures the IPv4 stack
+of the chained device group/VMs. This option is available only if -mode
+is create. Valid for IxTclNetwork.
+DEFAULT
+	None",mac,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_manual_gateway_mac_step,"The step of the manual gateway MAC addresses. This option has no effect
+unless enable_resolve_gateway is set to 0. Argument configures the IPv4
+stack of the chained device group/VMs. This option is available only if
+-mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+0000.0000.0000",mac,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_vlan_id,"The first VLAN ID to be used for the outer VLAN tag. Argument configures
+the Ethernet stack of the chained device group/VMs. This option is
+available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+4094",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_vlan_id_step,"The value to be added to the outer VLAN ID for each new assignment.
+Argument configures the Ethernet stack of the chained device group/VMs.
+This option is available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ig_vlan_user_priority,"The 802.1Q priority for the outer VLAN. Argument configures the Ethernet
+stack of the chained device group/VMs. This option is available only if
+-mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+0",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+igmp_mode,"Indicates the IGMP version used by VXLAN interfaces. This option
+configures a global protocol parameter and is available only with
+/globals handle.
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+inner_frame_minimum_size,"Pad inner frame with 0 in order to have inner frame of minimum specified
+size.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ip_addr,"The IP address of the simulated VTEP. If -ip_num_sessions is > 1, this
+IP address will increment by value specified in -intf_ip_addr_step. This
+option is available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+100.1.0.2",ipv4,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ip_addr_step,"This value will be used for incrementing the IP address of simulated
+VTEP if -count is > 1. This option is available only if -mode is create.
+Valid for IxTclNetwork.
+DEFAULT
+	
+0.0.0.0",ipv4,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ip_prefix_length,"Defines the mask of the IP address used for the Ixia (-intf_ip_addr) and
+the DUT interface. The range of the value is 1-32. This option is
+available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+24",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ip_num_sessions,"Indicates the number of IP address clients emulated. Valid for IxTclNetwork.
+DEFAULT
+	None",range,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ip_to_vxlan_multiplier,"Configures the custom multiplier between stack elements (IPv4 and VXLAN
+stacks)
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv4_multicast,"IPv4 Multicast Address.
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_address_init,"The MAC address for the interface to be created. This option is
+available only if -mode is create
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'mode' | value= 'create' |",mac,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_address_step,"The incrementing step for the MAC address of the interface to be
+created. This option is available only if -mode is create. Valid only
+when using IxNetwork Tcl API.
+DEFAULT
+	
+0000.0000.0001
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'mode' | value= 'create' |",mac,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_mtu,"The maximum transmission unit for the interfaces created with this
+range. The default value is 1500. This option is available only if -mode
+is create. Valid for IxTclNetwork.
+DEFAULT
+	
+1500",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+manual_gateway_mac,"The manual gateway MAC addresses. This option has no effect unless
+enable_resolve_gateway is set to 0. This option is available only if
+-mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+0010.0000.0001",mac,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+manual_gateway_mac_step,"The step of the manual gateway MAC addresses. This option has no effect
+unless enable_resolve_gateway is set to 0. This option is available only
+if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+0000.0000.0000",mac,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Action to take on the port specified the handle argument.
+Valid options are:
+create
+	
+Adds a new VXLAN configuration on the port.
+modify
+	
+Modifies an existing VXLAN configuration (specified by -handle).
+delete
+	
+Remove an existing VXLAN configuration (specified by -handle).
+DEFAULT
+	
+create",opt,"create,delete,modify",IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+outer_ip_dest_mode,"Indicates what is the outer destination IP in the generated fpga
+traffic. This option configures a global protocol parameter and is
+available only with /globals handle.
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+protocol_name,"This is the name of the protocol stack as it appears in the GUI.
+DEFAULT
+	None",alpha,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_info_active,"Activates the Unicast Info for each Remote VM. Valid options are: 0/1.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_vm_static_ipv4,"Remote VM Ipv4.
+DEFAULT
+	
+0.0.0.0",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_vm_static_mac,"Remote VM MAC.
+DEFAULT
+	
+00:00:00:00:00:00",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+remote_vtep_ipv4,"Remote VTEP Ipv4.
+DEFAULT
+	
+0.0.0.0",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+sessions_per_vxlan,"Indicates the multiplier per VXLAN entity for behind VM clients
+emulated. The default value is 1. Valid for IxTclNetwork.
+DEFAULT
+	
+1",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+start_rate,"Number of times an action is triggered per time interval. This option
+configures a global protocol parameter and is available only with
+/globals handle.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+start_rate_enabled,"Number of times an action is triggered per time interval This option
+configures a global protocol parameter and is available only with
+/globals handle.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+start_rate_interval,"Time interval used to calculate the rate for triggering an action. This
+option configures a global protocol parameter and is available only with
+/globals handle.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+start_rate_scale_mode,"Indicates whether the control is specified per port or per device group.
+This option configures a global protocol parameter and is available only
+with /globals handle.
+Valid options are:
+device_group
+	
+The values regarding stop rate are mapped per device group
+port
+	
+The values regarding stop rate are mapped per port
+DEFAULT
+	None",opt,"device_group,port",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+static_info_count,"Unicast Info Count.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stop_rate,"Number of times an action is triggered per time interval. This option
+configures a global protocol parameter and is available only with
+/globals handle.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stop_rate_enabled,"Number of times an action is triggered per time interval. This option
+configures a global protocol parameter and is available only with
+/globals handle.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stop_rate_interval,"Time interval used to calculate the rate for triggering an action. This
+option configures a global protocol parameter and is available only with
+/globals handle.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+stop_rate_scale_mode,"Indicates whether the control is specified per port or per device group.
+This option configures a global protocol parameter and is available only
+with /globals handle.
+Valid options are:
+device_group
+	
+The values regarding stop rate are mapped per device group
+port
+	
+The values regarding stop rate are mapped per port
+DEFAULT
+	None",opt,"device_group,port",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+suppress_arp,"Suppress Arp for each Remote VM defined. Valid options are: 0/1.
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+udp_dest,"UDP Destination Port. This option configures a global protocol parameter
+and is available only with /globals handle.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id,"The first VLAN ID to be used for the outer VLAN tag. This option is
+available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+4094",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id_step,"The value to be added to the outer VLAN ID for each new assignment. This
+option is available only if -mode is create. Valid for IxTclNetwork.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_user_priority,"The 802.1Q priority for the outer VLAN. This option is available only if
+-mode is create. Valid for IxTclNetwork.
+DEFAULT
+	
+0",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vni,"VXLAN Network Identifier.
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

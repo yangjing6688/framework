@@ -1,0 +1,187 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+cfm:
+    check_cfm_cmac_level:
+        uuid: f81466fb-0558-49e3-abc1-dfe09919937c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_cmac_state:
+        uuid: 423c2dea-f6d0-444d-b63f-a44b397706ee
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_cmac_mepid:
+        uuid: 04cf7e31-8215-4cd7-9f7d-174624295d91
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_cmac_mac:
+        uuid: cce8fa16-02b9-4a03-8393-5db6a2773031
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_spbm_level:
+        uuid: 0214eba8-69eb-4577-ab4c-0cfec90131f1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_spbm_state:
+        uuid: 78bb5c7b-033c-41c7-8093-dffb4b728f48
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_spbm_state_enable:
+        uuid: 4e130ef7-e195-4027-b90c-8dac2e73c912
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_spbm_mepid:
+        uuid: 13238761-7670-4106-819a-8baee1348bcd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_spbm_mac:
+        uuid: d57dec13-9526-4c71-87b9-b50e3469b6b1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_association_domain_name:
+        uuid: f9ecf00a-ba16-4fd2-8c7f-c85637c2c6f9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_association_name:
+        uuid: f59c83bc-d344-474f-a4dc-588749593da6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_association_domain_index:
+        uuid: 1590fa30-6f6d-4662-a939-7c451750aba0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_association_index:
+        uuid: fa9878ce-6936-4575-b04b-b08a040f9909
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_domain:
+        uuid: 4ddbe482-091f-413c-b7f9-6b90bf297e37
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_domain_name:
+        uuid: 0304ed96-dc0e-435a-97c9-421703fe7e04
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_domain_index:
+        uuid: 35ffd33d-d854-4923-aa88-a8233a261130
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_domain_level:
+        uuid: e0f0cc7e-3110-41a5-8e31-70176c10bcb2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_domain_type:
+        uuid: fa982f46-9127-4967-a73e-f1979753df54
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_endpoint_domain_name:
+        uuid: 73d07970-79f3-43cc-aac3-3541257145b3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_endpoint_association_name:
+        uuid: 0fd637ba-e291-4312-bad8-cd8682f8527b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_endpoint_mepid:
+        uuid: 1caad3c1-bbb8-4594-90ac-c0e2962afd4d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_maintenance_endpoint_state:
+        uuid: 05ae1fdd-46b9-4576-8470-1b436bb6954a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_cfm_state:
+        uuid: 93b44b68-e6ba-4aa4-b183-2bfaba50c06b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_cfm_domain:
+        uuid: 772fa040-2930-40d6-8671-773afec4bfed
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_cfm_group:
+        uuid: 6185a551-fd42-4c36-9db6-8e8aa46ae942
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_cfm_segment:
+        uuid: fad7f3d5-8913-4560-be02-0ae7714e2ee8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

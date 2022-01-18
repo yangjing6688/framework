@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>A3Inventory &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Current Available Active Branches</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q3r1.html">Q3R1</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="q2r2.html">Q2R2</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>A3Inventory</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/a3.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="extreme_logo.png"><img alt="alternate text" class="align-right" src="extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="section" id="module-xiq.flows.a3.A3Inventory">
+<span id="a3inventory"></span><h1>A3Inventory<a class="headerlink" href="#module-xiq.flows.a3.A3Inventory" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">xiq.flows.a3.A3Inventory.</span></span><span class="sig-name descname"><span class="pre">A3Inventory</span></span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xiq.elements.A3InventoryWebElements.A3InventoryWebElements</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.enable_ssh_access_on_a3_node">
+<span class="sig-name descname"><span class="pre">enable_ssh_access_on_a3_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssh_pass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.enable_ssh_access_on_a3_node" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Will enable SSH Access for A3 Version 3.2 Nodes</p></li>
+<li><p>Keyword Usage</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Enable</span> <span class="pre">Ssh</span> <span class="pre">Access</span> <span class="pre">On</span> <span class="pre">A3</span> <span class="pre">Node</span>&#160;&#160; <span class="pre">${A3_ADDR}</span>&#160;&#160;&#160; <span class="pre">${ACCOUNT}</span>&#160;&#160;&#160;&#160; <span class="pre">${PASSWORD}</span>&#160;&#160;&#160; <span class="pre">${SSH_PWD}</span>&#160;&#160;&#160;&#160; <span class="pre">${DURATION}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a3_addr</strong> – A3 Node IP Address</p></li>
+<li><p><strong>account</strong> – A3 Login username</p></li>
+<li><p><strong>password</strong> – A3 Login Password</p></li>
+<li><p><strong>ssh_pass</strong> – A3 Node SSH Password</p></li>
+<li><p><strong>duration</strong> – Duration in Days to enable SSH access</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if ssh enabled successfully on A3 Node else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.format_row">
+<span class="sig-name descname"><span class="pre">format_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.format_row" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will give formatted row data</p></li>
+<li><p>Flow  A3–&gt;Inventory</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Format</span> <span class="pre">Row</span>&#160; <span class="pre">${ROW}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Row</strong> – A3 Inventory Grid Row</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return Formatted Row Information</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.get_a3_node_row">
+<span class="sig-name descname"><span class="pre">get_a3_node_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_host_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.get_a3_node_row" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the A3 Node row object from the A3 Inventory grid</p></li>
+<li><p>Flow  A3–&gt;Inventory</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">A3</span> <span class="pre">Node</span> <span class="pre">Row</span>&#160; <span class="pre">${A3_HOST_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a3_host_name</strong> – A3 Node  Host Name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the row object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.get_a3_node_status">
+<span class="sig-name descname"><span class="pre">get_a3_node_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_server_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a3_node_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.get_a3_node_status" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the A3 Node status by searching host name</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">A3</span> <span class="pre">Node</span> <span class="pre">Status</span>&#160;&#160;&#160; <span class="pre">${A3_HOST_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a3_server_name</strong> – A3 Server Host Name</p></li>
+<li><p><strong>a3_node_name</strong> – A3 Node Host Name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>‘green’ if the A3 Node is online else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.get_a3_server_row">
+<span class="sig-name descname"><span class="pre">get_a3_server_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_host_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.get_a3_server_row" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Get the A3 server row object from the A3 Inventory grid</p></li>
+<li><p>Flow  A3–&gt;Inventory</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">A3</span> <span class="pre">Server</span> <span class="pre">Row</span>&#160; <span class="pre">${A3_HOST_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a3_host_name</strong> – A3 server Host Name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the row object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.get_a3_server_status">
+<span class="sig-name descname"><span class="pre">get_a3_server_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_host_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.get_a3_server_status" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword returns the A3 virtual server status by searching host name</p></li>
+<li><p>Flow  A3–&gt;Inventory</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">A3</span> <span class="pre">Server</span> <span class="pre">Status</span>&#160;&#160;&#160; <span class="pre">${A3_HOST_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a3_host_name</strong> – A3 Server host Name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>‘green’ if the A3 Server is online else return -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.link_a3_nodes_to_xiq">
+<span class="sig-name descname"><span class="pre">link_a3_nodes_to_xiq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spawn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://cloud.aerohive.com'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.link_a3_nodes_to_xiq" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword Executes Curl Command to Link A3 Node to XIQ</p></li>
+<li><p>It assumes that already opened SSH spawn of A3 Node.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Link</span> <span class="pre">A3</span> <span class="pre">Nodes</span> <span class="pre">To</span> <span class="pre">Xiq</span>&#160;&#160; <span class="pre">${SPAWN}</span>&#160;&#160;&#160; <span class="pre">${USERNAME}</span>&#160;&#160;&#160;&#160; <span class="pre">${PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – A3 Node ssh Spawn</p></li>
+<li><p><strong>username</strong> – XIQ User Name</p></li>
+<li><p><strong>password</strong> – XIQ Password</p></li>
+<li><p><strong>url</strong> – XIQ server URL</p></li>
+<li><p><strong>timeout</strong> – Spawn command timeout in seconds</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>output of the Executed Curl Command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.search_a3_device">
+<span class="sig-name descname"><span class="pre">search_a3_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_host_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.search_a3_device" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Searches for A3 server Host using its Host Name</p></li>
+<li><p>It Assumes that its already Navigated to A3–&gt;inventory Grid</p></li>
+<li><p>Flow  A3–&gt;inventory Grid</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Search</span> <span class="pre">A3</span> <span class="pre">Device</span>&#160; <span class="pre">${A3_HOST_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a3_host_name</strong> – A3 server Host Name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return 1 if A3 host found on A3 Inventory Grid else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.unlink_a3_nodes_from_xiq">
+<span class="sig-name descname"><span class="pre">unlink_a3_nodes_from_xiq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spawn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.unlink_a3_nodes_from_xiq" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword executes Curl command to UnLink A3 Node to XIQ</p></li>
+<li><p>It assumes that already opened SSH spawn of A3 Node.</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>Unlink A3 Nodes From Xiq    ${SPAWN} ``</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spawn</strong> – A3 Node ssh Spawn</p></li>
+<li><p><strong>timeout</strong> – Spawn command timeout in seconds</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>output of the Executed Curl Command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.validate_a3_page_after_unlink">
+<span class="sig-name descname"><span class="pre">validate_a3_page_after_unlink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_host_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.validate_a3_page_after_unlink" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This Keyword will validate the A3 page text after Unlinking A3 from XIQ</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Validate</span> <span class="pre">A3</span> <span class="pre">Page</span> <span class="pre">After</span> <span class="pre">Unlink</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">${A3_HOST_NAME}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>1 if unlinking of A3 to xiq is success</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.verify_a3_node_login_on_xiq">
+<span class="sig-name descname"><span class="pre">verify_a3_node_login_on_xiq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_server_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a3_node_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a3_login_username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a3_login_password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.verify_a3_node_login_on_xiq" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will verify A3 Node Access from XIQ UI using Go To A3 Button and check A3 login via XIQ</p></li>
+<li><p>Assume that navigated to the A3 –&gt; Inventory</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Verify</span> <span class="pre">A3</span> <span class="pre">Node</span> <span class="pre">Login</span> <span class="pre">On</span> <span class="pre">XIQ</span>&#160;&#160; <span class="pre">${A3_SERVER_NAME}</span>&#160; <span class="pre">${A3_IP_ADDR}</span>&#160;&#160; <span class="pre">${A3_USERNAME}</span>&#160; <span class="pre">${A3_PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a3_server_name</strong> – A3 Server Name</p></li>
+<li><p><strong>a3_node_name</strong> – A3 Node Name</p></li>
+<li><p><strong>a3_login_username</strong> – A3 login name to Access A3 UI</p></li>
+<li><p><strong>a3_login_password</strong> – A3 login password Access A3 UI</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A3 UI Page Title if able to login successfully</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="xiq.flows.a3.A3Inventory.A3Inventory.verify_a3_server_login_on_xiq">
+<span class="sig-name descname"><span class="pre">verify_a3_server_login_on_xiq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a3_host_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a3_login_username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a3_login_password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#xiq.flows.a3.A3Inventory.A3Inventory.verify_a3_server_login_on_xiq" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>This keyword will verify A3 Server Access from XIQ UI using Go To A3 Button and Check A3 Login via XIQ</p></li>
+<li><p>Assume that navigated to the A3 –&gt; Inventory</p></li>
+<li><p>Keyword Usage:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Verify</span> <span class="pre">A3</span> <span class="pre">Server</span> <span class="pre">Login</span> <span class="pre">On</span> <span class="pre">XIQ</span>&#160;&#160; <span class="pre">${A3_IP_ADDR}</span>&#160;&#160; <span class="pre">${A3_USERNAME}</span>&#160; <span class="pre">${A3_PASSWORD}</span></code></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a3_host_name</strong> – A3 Server host name</p></li>
+<li><p><strong>a3_login_username</strong> – A3 Login Name to Access A3 UI</p></li>
+<li><p><strong>a3_login_password</strong> – A3 Login Password Access A3 UI</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A3 UI Page Title if Able to Login Successfully</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Extreme Networks.
+      <span class="lastupdated">
+        Last updated on Sep 13, 2021, 5:35:12 PM.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

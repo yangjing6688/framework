@@ -1,0 +1,16 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the PSUs specific to X690-48t-4q-2c
+#
+
+power_info:
+  <<: *COMMON_POWER_INFO
+
+psus:
+  - *PSU_1
+  - *PSU_2

@@ -1,0 +1,35 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common temperature sensors in 5520-12MW-36W
+#
+
+mb_hotspot_tmpsn: &MB_HOTSPOT_TMPSN
+  device:             mb_hotspot_tmpsn
+  location:
+    board:            MAINBOARD
+    zone:             HOTSPOT
+  hw_settings:
+    tos:              6650
+    thyst:            6150
+
+mb_ambient_tmpsn: &MB_AMBIENT_TMPSN
+  device:             mb_ambient_tmpsn
+  location:
+    board:            MAINBOARD
+    zone:             DEFAULT
+  hw_settings:
+    tos:              6300
+    thyst:            5800
+
+mb_tps_tmpsn: &MB_TPS_TMPSN
+  device:             mb_tps_tmpsn
+  location:
+    board:            MAINBOARD
+    zone:             TPS
+  hw_settings:
+    tos:              8000

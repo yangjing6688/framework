@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the watchdogs common to 5520 series switches
+#
+
+watchdogs:
+  - *WATCHDOG1

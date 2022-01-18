@@ -1,0 +1,79 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+lldp:
+    determine_lldp_port_transmit_state:
+        uuid: 94685987-678f-463b-a771-8d52333f0624
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    determine_lldp_port_receive_state:
+        uuid: 43833b1c-e2fa-4da2-9ae5-be14bb40dd13
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_tlv_status:
+        uuid: 0c5d386f-98be-4212-8633-92aa8375c921
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_lldp_tx_interval:
+        uuid: e131e76c-dc21-481c-ba84-d71009958842
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_lldp_remote_port:
+        uuid: cff72dde-e82a-4891-a189-47801a19eeee
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_lldp_sys_name:
+        uuid: 6920c08b-9bfd-4970-8190-9aabe14a3e73
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit]
+    check_lldp_neighbor_sysname:
+        uuid: da68acd8-9eab-43ea-8682-a9f8f50a7d22
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_lldp_tx_hold_multiplier:
+        uuid: f2919456-ac67-4ba3-a165-ad233ad79969
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]

@@ -1,0 +1,21 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on X465i-48W
+#
+
+devices:
+  - *CPU_CORE_TMPSN
+  - *CPU_DEFAULT_TMPSN
+  - <<: *MB_HOTSPOT_TMPSN
+    hw_settings:
+      tos:            9013
+      thyst:          8513
+  - <<: *MB_AMBIENT_TMPSN
+    hw_settings:
+      tos:            7212
+      thyst:          6712

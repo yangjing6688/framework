@@ -1,0 +1,17 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  Versatile Insertion Module (VIM) common to 5520 24-port switches
+#
+bus_aliases:
+    *VIM_1_BUS_ALIASES
+
+vims:
+    - <<: *VIM_1
+      port_mapping:
+          <<: *VIM_PORT_MAPPING
+          port_base: 33

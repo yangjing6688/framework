@@ -1,0 +1,33 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+ipsecurity:
+    check_trusted_port_global:
+        uuid: 220d8ca7-b5a8-467b-96c3-69d3fc61deca
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_snooping_vlan:
+        uuid: 37f4fa8e-5c14-49fb-8a48-dc4b0de62572
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_snooping_vlan_entries:
+        uuid: 2599dcf6-e977-4131-8a63-b509f8d7f7d9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_dhcp_snooping_vlan_violations:
+        uuid: b9c95c87-6d04-4d47-851d-d0bc1dd3e24b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

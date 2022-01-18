@@ -1,0 +1,1527 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+area_id,"The OSPF area ID associated with the interface.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The OSPF area ID associated with the interface.
+DEFAULT
+	
+0.0.0.0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'area_id_type' | value= 'ip' |",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+area_id_as_number,"OSPF Area ID for a non-connected interface, displayed in Integer format
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'area_id_type' | value= 'number' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+area_id_as_number_step,"OSPF Area ID step for a non-connected interface, displayed in Integer format
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'area_id_type' | value= 'number' |",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+area_id_step,"The OSPF area ID step associated with the -area_id option on the ISPF
+interface.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The OSPF area ID step associated with the -area_id option on the ISPF
+interface.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'area_id_type' | value= 'ip' |",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+area_id_type,"Area ID Type
+Valid options are:
+number
+	
+ip
+	
+area_id_as_number
+	
+area_id_as_ip
+	
+DEFAULT
+	
+ip",opt,"area_id_as_ip,area_id_as_number,ip,number",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+area_type,"The 'area_type' advertised in the Router LSA interface list.
+Valid options are:
+external-capable
+	
+(default) A transit network.
+ppp
+	
+A point-to-point network.
+stub
+	
+A stub network.
+DEFAULT
+	None",opt,"externalcapable,ppp,stub","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+atm_encapsulation,"This parameter is not valid on mode modify when IxTclProtocol is used.
+The encapsulation of the ATM protocol interface associated with the
+emulated router.
+DEFAULT
+	None",opt,"LLCBridgedEthernetFCS,LLCBridgedEthernetNoFCS,LLCRoutedCLIP,VccMuxBridgedEthernetFCS,VccMuxBridgedEthernetNoFCS,VccMuxIPV4Routed,VccMuxIPV6Routed",IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+attempt_enabled,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+attempt_interval,"Time interval used to calculate the rate for triggering an action(rate =
+count/interval).
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+attempt_rate,"Number of times an action is triggered per second.
+DEFAULT
+	None",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+attempt_scale_mode,"Indicates whether the control is specified per port or per device group.
+This setting is global for all the ospf protocols configured in the
+ixncfg and can be configured just when handle is /globals (when the user
+wants to configure just the global settings)
+Valid options are:
+port
+	
+device_group
+	
+DEFAULT
+	
+port",opt,"device_group,port",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+authentication_mode,"This option defines the authentification mode used for OSPF.
+Valid options are:
+null
+	
+(default) No authentication
+simple
+	
+Clear text authentication (see also -password)
+md5
+	
+MD5 based authentication (see also -md5_key and -md5_key_id)
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option defines the authentification mode used for OSPF.
+Valid options are:
+null
+	
+(default) No authentication
+simple
+	
+Clear text authentication (see also -password)
+md5
+	
+MD5 based authentication (see also -md5_key and -md5_key_id)
+DEFAULT
+	None",opt,"md5,null,simple","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bfd_registration,"Enable or disable BFD registration.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Enable or disable BFD registration.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+count,"Defines the number of OSPF routers to configure on the -port_handle.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Defines the number of OSPF routers to configure on the -port_handle.
+DEFAULT
+	
+1",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dead_interval,"The time after which the DUT router is considered dead if it does not
+send HELLO messages.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The time after which the DUT router is considered dead if it does not
+send HELLO messages.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+demand_circuit,"Enables the Demand Circuit bit. Pertains to handling of demand circuits
+(DCs) by the router. CHOICES 0 1
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Enables the Demand Circuit bit. Pertains to handling of demand circuits
+(DCs) by the router. CHOICES 0 1
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+disable_auto_generate_link_lsa,"Support graceful restart helper mode when restart reason is unknown and
+unplanned.
+DEFAULT
+	None",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+disconnect_enabled,"Not defined
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+disconnect_interval,"Time interval used to calculate the rate for triggering an action(rate =
+count/interval).
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+disconnect_rate,"Number of times an action is triggered per second.
+DEFAULT
+	None",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+disconnect_scale_mode,"Indicates whether the control is specified per port or per device group.
+This setting is global for all the ospf protocols configured in the
+ixncfg and can be configured just when handle is /globals (when the user
+wants to configure just the global settings)
+Valid options are:
+port
+	
+device_group
+	
+DEFAULT
+	
+port",opt,"device_group,port",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+do_not_generate_router_lsa,"Generate/not generate router lsa
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_dr_bdr,"If 1, enables the OSPF Designated Router/Backup Designated Router
+DR/BDR) feature for all router interfaces on this port.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If 1, enables the OSPF Designated Router/Backup Designated Router
+DR/BDR) feature for all router interfaces on this port.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_fast_hello,"Enable/disable fast hello
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_ignore_db_desc_mtu,"Ignore DB-Desc MTU
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_support_rfc_5838,"Enables the support for rfc 5838 in OSPFv3 router. This enables OSPFv3
+router to advertise ipv4 and ipv6 unicast an multicast routes CHOICES 0 1
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_attribute,"Option bit 4
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_capabilities,"Option bit 1
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+flood_lsupdates_per_interval,"Flood link state updates per interval.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+get_next_session_mode,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+grace_period,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+graceful_restart_enable,"Will enable graceful restart (HA) on the OSPF neighbor.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Will enable graceful restart (HA) on the OSPF neighbor.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+graceful_restart_helper_mode_enable,"This parameter -graceful_restart_helper_mode_enable will allow Ixia
+toact as a helping neighbor to a restarting router.If the attribute is
+set to 1, the router will act as restarting router's neighbors, which
+must cooperate in order for the restart to be graceful.This
+attribute/argument is valid when session_type is ospfV3.0 - disable
+(default)1 - enable
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter -graceful_restart_helper_mode_enable will allow Ixia to
+act as a helping neighbor to a restarting router.If the attribute is set
+to 1, the router will act as restarting router's neighbors, which must
+cooperate in order for the restart to be graceful.This
+attribute/argument is valid when session_type is ospfV3. Valid choices
+are: 0 - disable (default) 1 - enable
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+graceful_restart_restarting_mode_enable,"The new attribute -graceful_restart_restarting_mode_enable will allow 0
+- disable (default)1 - enable-grace_periodThis parameter denotes the
+time period (represent in seconds), between the restart/reload and the
+reestablishment of adjacencies, specified by the restarting router. Its
+value is specified in seconds and ranges from 1 to 1800.This attribute
+is valid/relevant when the router is in restarting mode, meaning
+graceful_restart_enable is set to 1.This attribute/argument is valid
+when session_type is ospfV3.-restart_reasonThis paramter allows user to
+select the reason for the router restart as one of the following
+options.This attribute is valid/relevant when the router is in
+restarting mode, i.e. graceful_restart_enable is set to 1.This
+attribute/argument is valid when session_type is ospfV3.unknown - The
+restart resaon is unknownsoftware_restart - (default) The restart resaon
+is software restartsoftware_reload_upgrade - The restart resaon is
+software reload or software
+upgrade.switch_to_redundant_control_processor - The restart resaon is
+swithing to redundant control processor.-number_of_restartsThe number of
+times the Ixia emulated OSPF router will move to Restarting and Up
+states before stopping the cycle. It ranges from 0 to the max value of a
+short type integer.This attribute is valid/relevant when the router is
+in restarting mode, i.e. graceful_restart_enable is set to 1. This
+attribute/argument is valid when session_type is
+ospfV3.-restart_start_timeThe router (Ixia) restarts after this timer
+gets fired, from the time the router reaches the full state.Its value is
+specified in seconds and ranges from 1 to the max value of a short type
+integer.This attribute is valid/relevant when the router is in
+restarting mode, i.e. graceful_restart_enable is set to 1.This
+attribute/argument is valid when session_type is ospfV3 and Valid if
+'number_of_restarts' value is greater than 0.-restart_down_timeThe time
+period the router will be down (to upgrade/reload software etc.) before
+sending any Hello packet or trying to re-establish the adjacencies. Its
+value is specified in seconds and ranges from 1 sec to the max value of
+a short type integer.It is user's responsibility to set the value less
+than the value of 'grace_period' for a successful graceful restart. This
+attribute is valid/relevant when the router is in restarting mode, i.e.
+graceful_restart_enable is set to 1.This attribute/argument is valid
+when session_type is ospfV3.-restart_up_timeAfter the session becomes
+full (gracefully or ungracefully), Ixia will wait for this configured
+interval before trying to repeat the Restart cycle. Its value is
+specified in seconds and ranges from 1 sec to the max value of a short
+type integer.This attribute is valid/relevant when the router is in
+restarting mode, i.e. graceful_restart_enable is set to 1. This
+attribute/argument is valid when session_type is ospfV3 and valid if
+'number_of_restarts' value is greater than 1.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+gre_checksum,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+gre_local_ip,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+gre_remote_ip,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+gre_tunnel,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+handle,"OSPF session handle for using the modes delete, modify, enable, and disable.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+OSPF session handle for using the modes delete, modify, enable, and
+disable. When -handle is provided with the /globals value the arguments
+that configure global protocol setting accept both multivalue handles
+and simple values. When -handle is provided with a a protocol stack
+handle or a protocol session handle, the arguments that configure global
+settings will only accept simple values. In this situation, these
+arguments will configure only the settings of the parent device group or
+the ports associated with the parent topology.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hello_interval,"The time between HELLO messages sent over the interface. RANGE 1-65535
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The time between HELLO messages sent over the interface. RANGE 1-65535
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hello_multiplier,"Hello multiplier value
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+host_route,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+ignore_db_desc_mtu,"This option is only available for OSPFv3 interfaces that are directly
+connected to the DUT. If the parameter ignore_db_desc_mtu is 0 the MTU
+will be verified during the exchange. If the parameter value is 1, the
+Valid options are:
+0
+	
+(default) verify MTU during the exchange.
+1
+	
+ignore MTU size during exchange.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+instance_id,"Defines the instance ID of the OSPFv3 process. It allows multiple
+instances of the OSPFv3 protocol to be run simultaneously over the same
+link. RANGE 0-255
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Defines the instance ID of the OSPFv3 process. It allows multiple
+instances of the OSPFv3 protocol to be run simultaneously over the same
+link. RANGE 0-255
+DEFAULT
+	
+0",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+instance_id_step,"Step at which the -instance_id will be incremented. RANGE 0-255
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Step at which the -instance_id will be incremented. RANGE 0-255
+DEFAULT
+	
+0",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+int_msg_exchange,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+inter_flood_lsupdate_burst_gap,"Inter flood LSUpdate burst gap (ms)
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_cost,"The metric associated with the OSPF interface. RANGE 1-65535
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The metric associated with the OSPF interface. RANGE 1-65535
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_handle,"A handle or list of the handles that are returned from the
+interface_config call. These provide a direct link to an already
+existing interface and supercede the use of the intf_ip_addr
+value.Starting with IxNetwork 5.60 this parameter accepts handles
+returned by emulation_dhcp_group_config procedure in the following
+format: |,-, ... The DHCP ranges are separated from the Interface Index
+identifiers with the (|) character. The Interface Index identifiers are
+separated with comas (,). A range of Interface Index identifiers can be
+defined using the dash (-) character.Ranges along with the Interface
+Index identifiers are grouped together in TCL Lists. The lists can
+contain mixed items, protocol interface handles returned by
+interface_config and handles returned by emulation_dhcp_group_config
+along with the interface index. Example:count 10 (10 OSPF routers). 3
+DHCP range handles returned by ::::emulation_dhcp_group_config. Each
+DHCP range has 20 sessions (interfaces). If we pass -interface_handle in
+the following format: [list $dhcp_r1|1,5 $dhcp_r2|1-3
+$dhcp_r3|1,3,5-9,13] The interfaces will be distributed to the routers
+in the following manner:OSPF Router 1: $dhcp_r1 -> interface 1OSPF
+Router 2: $dhcp_r1 -> interface 5OSPF Router 3: $dhcp_r2 -> interface
+1OSPF Router 4: $dhcp_r2 -> interface 2OSPF Router 5: $dhcp_r2 ->
+interface 3OSPF Router 6: $dhcp_r3 -> interface 1OSPF Router 7: $dhcp_r3
+-> interface 3OSPF Router 8: $dhcp_r3 -> interface 5OSPF Router 9:
+$dhcp_r3 -> interface 6OSPF Router 10: $dhcp_r3 -> interface 7OSPF
+Router 11: $dhcp_r3 -> interface 8OSPF Router 12: $dhcp_r3 -> interface
+9OSPF Router 13 $dhcp_r3 -> interface 13Valid for mode create for
+IxTclNetwork only.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+A handle or list of the handles that are returned from the
+interface_config call. These provide a direct link to an already
+existing interface and supercede the use of the intf_ip_addr value.
+Starting with IxNetwork 5.60 this parameter accepts handles returned by
+emulation_dhcp_group_config procedure and pppox_config procedure in the
+following format: |,-, ... The DHCP ranges are separated from the
+Interface Index identifiers with the (|) character. The Interface Index
+identifiers are separated with comas (,). A range of Interface Index
+identifiers can be defined using the dash (-) character. Ranges along
+with the Interface Index identifiers are grouped together in TCL Lists.
+The lists can contain mixed items, protocol interface handles returned
+by interface_config and handles returned by emulation_dhcp_group_config
+along with the interface index. Example: count 10 (10 OSPF routers). 3
+DHCP range handles returned by ::ixia::emulation_dhcp_group_config. Each
+DHCP range has 20 sessions (interfaces). If we pass 'interface_handle in
+the following format: [list $dhcp_r1|1,5 $dhcp_r2|1-3
+$dhcp_r3|1,3,5-9,13] The interfaces will be distributed to the routers
+in the following manner: OSPF Router 1: $dhcp_r1 -> interface 1 OSPF
+Router 2: $dhcp_r1 -> interface 5 OSPF Router 3: $dhcp_r2 -> interface 1
+OSPF Router 4: $dhcp_r2 -> interface 2 OSPF Router 5: $dhcp_r2 ->
+interface 3 OSPF Router 6: $dhcp_r3 -> interface 1 OSPF Router 7:
+$dhcp_r3 -> interface 3 OSPF Router 8: $dhcp_r3 -> interface 5 OSPF
+Router 9: $dhcp_r3 -> interface 6 OSPF Router 10: $dhcp_r3 -> interface
+7 OSPF Router 11: $dhcp_r3 -> interface 8 OSPF Router 12: $dhcp_r3 ->
+interface 9 OSPF Router 13 $dhcp_r3 -> interface 13 Valid for mode
+create for IxTclNetwork only.
+DEFAULT
+	None",any,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ip_addr,"The IP address of the Ixia Simulated OSPF router. This parameter is not
+valid on mode modify when IxTclProtocol is used. IP
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The IP address of the Ixia Simulated OSPF router. This parameter is not
+valid on mode modify when IxTclProtocol is used. IP
+DEFAULT
+	None",ip,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ip_addr_step,"What step will be use for incrementing the -intf_ip_addr option.This
+parameter is not valid on mode modify when IxTclProtocol is used.
+(DEFAULT = 0.0.1.0 | 0:0:0:1::0)
+DEFAULT
+	
+0.0.1.0 | 0:0:0:1::0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+What step will be use for incrementing the -intf_ip_addr option. This
+parameter is not valid on mode modify when IxTclProtocol is used.
+DEFAULT
+	
+0.0.1.0",ip,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ipv6_addr,"IPv6 addresses of the layer
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ipv6_addr_step,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ipv6_prefix_length,"Defines the mask of the IP address used for the Ixia (-intf_ipv6_addr)
+and the DUT interface. This parameter is not valid on mode modify when
+IxTclProtocol is used. RANGE 1-128
+DEFAULT
+	
+64",range,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_prefix_length,"Defines the mask of the IP address used for the Ixia (-intf_ip_addr) and
+the DUT interface. This parameter is not valid on mode modify when
+IxTclProtocol is used. RANGE 1-128(DEFAULT = 24 | 64)
+DEFAULT
+	
+24 | 64
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Defines the mask of the IP address used for the Ixia (-intf_ip_addr) and
+the DUT interface. This parameter is not valid on mode modify when
+IxTclProtocol is used. RANGE 1-128
+DEFAULT
+	
+24",range,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_gateway_ip,"gateways of the layer
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ipv6_gateway_ip_step,"Not defined
+DEFAULT
+	None",ipv6,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_metric,"Link Metric
+DEFAULT
+	
+0",range,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+loopback_ip_addr,"Defines the IP address of the loopback interface for MPLS VPN
+testing.This parameter is not valid on mode modify when IxTclProtocol is
+used.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Defines the IP address of the loopback interface for MPLS VPN testing.
+This parameter is not valid on mode modify when IxTclProtocol is used.
+DEFAULT
+	
+0.0.0.0",ip,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+loopback_ip_addr_step,"Defines the IP address step of the loopback interface for MPLS VPN.This
+parameter is not valid on mode modify when IxTclProtocol is used.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Defines the IP address step of the loopback interface for MPLS VPN. This
+parameter is not valid on mode modify when IxTclProtocol is used.
+DEFAULT
+	
+0.0.0.0",ip,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+lsa_discard_mode,"Enables/Disables the LSA discard mode on the OSPF router. CHOICES 0 1
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Enables/Disables the LSA discard mode on the OSPF router. CHOICES 0 1
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+lsa_refresh_time,"LSA refresh time (s)
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+lsa_retransmit_delay,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+lsa_retransmit_time,"LSA retransmit time (s)
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_address_init,"This option defines the MAC address that will be configured on the Ixia
+interface. This parameter is not valid on mode modify when IxTclProtocol
+is used.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option defines the MAC address that will be configured on the Ixia
+interface. This parameter is not valid on mode modify when IxTclProtocol
+is used.
+DEFAULT
+	None",mac,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_address_step,"This option defines the incrementing step for the MAC address that will
+be configured on the Ixia interface. This option is valid only when
+IxTclNetwork API is used.
+DEFAULT
+	
+0000.0000.0001
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option defines the incrementing step for the MAC address that will
+be configured on the Ixia interface. This option is valid only when
+IxTclNetwork API is used.
+DEFAULT
+	
+0000.0000.0001",mac,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+max_ls_updates_per_burst,"Max flood LSUpdates per burst
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+max_lsas_per_pkt,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+max_mtu,"Max mtu value
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+md5_key,"Active only when 'MD5' is selected in the Authentication field. Enter a
+character string (maximum 16 characters) to be used as a 'secret' MD5 Key.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Active only when 'MD5' is selected in the Authentication field. Enter a
+character string (maximum 16 characters) to be used as a 'secret' MD5 Key.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'authentication_mode' | value= 'md5' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+md5_key_id,"Active only when 'MD5' is selected in the Authentication field. Enter a
+value to be used as a Key ID. This identifier is associated with the MD5
+Key entered previously.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Active only when 'MD5' is selected in the Authentication field. Enter a
+value to be used as a Key ID. This identifier is associated with the MD5
+Key entered previously.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'authentication_mode' | value= 'md5' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"enable - Enables the OSPF router on the Ixia interface.disable -
+Disables the OSPF router.delete - Deletes the OSPF router on the Ixia
+interface.create - Creates the OSPF router on the Ixia interface.modify
+- Modifies the OSPF router on the Ixia interface.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Not defined
+Valid options are:
+create
+	
+Creates the OSPF router on the Ixia interface.
+delete
+	
+Deletes the OSPF router on the Ixia interface.
+modify
+	
+Modifies the OSPF router on the Ixia interface.
+enable
+	
+Enables the OSPF router on the Ixia interface.
+disable
+	
+Disables the OSPF router.
+DEFAULT
+	
+create",opt,"create,delete,disable,enable,modify","IxNetwork[M] , IxOS/IxNetwork-FT[M]",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mtu,"The advertised MTU value in database entries sent to other routers
+create on the Ixia interface. RANGE 68-9216.OSPFv2 Only. For OSPFv3 this
+option is ignored.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The advertised MTU value in database entries sent to other routers
+create on the Ixia interface. RANGE 68-9216. OSPFv2 Only. For OSPFv3
+this option is ignored.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+multicast_capability,"Option bit 2
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_dr_eligibility,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+neighbor_intf_ip_addr,"The IP address of the DUT OSPF Interface. This parameter is not valid on
+mode modify when IxTclProtocol is used. (DEFAULT = 0.0.0.0 | 0:0:0:0::0)
+DEFAULT
+	
+0.0.0.0 | 0:0:0:0::0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The IP address of the DUT OSPF Interface. This parameter is not valid on
+mode modify when IxTclProtocol is used.
+DEFAULT
+	
+0.0.0.0",ip,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_intf_ip_addr_step,"This parameter is not valid on mode modify when IxTclProtocol is used.
+What step will be use for incrementing the -neighbor_intf_ip_addr
+option.(DEFAULT = 0.0.0.0 | 0:0:0:0::0)
+DEFAULT
+	
+0.0.0.0 | 0:0:0:0::0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is not valid on mode modify when IxTclProtocol is used.
+What step will be use for incrementing the -neighbor_intf_ip_addr option.
+DEFAULT
+	
+0.0.0.0",ip,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_router_id,"Available only for use when the Point-Multipoint network type is
+selected. The DUT IP Interface address can be provided.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Available only for use when the Point-Multipoint network type is
+selected. The DUT IP Interface address can be provided.
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_router_id_step,"Available only for use when the Point-Multipoint network type is
+selected. The DUT IP Interface address step can be provided.
+DEFAULT
+	
+0.0.1.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Available only for use when the Point-Multipoint network type is
+selected. The DUT IP Interface address step can be provided.
+DEFAULT
+	
+0.0.1.0",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+network_type,"broadcast - (default) Indicates that the network is a broadcast network,
+as in an Ethernet connection.ptop - Indicates that the network is point
+to point.ptomp - Indicates that the network is point to multi-point
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Indicates the type of network for the interface.
+Valid options are:
+broadcast
+	
+(default) Indicates that the network is a broadcast network, as in an
+Ethernet connection.
+ptomp
+	
+Indicates that the network is point to multi-point
+ptop
+	
+Indicates that the network is point to point.
+DEFAULT
+	None",opt,"broadcast,ptomp,ptop","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+no_write,"If this option is present, the protocol configuration will not be
+written to the server.
+DEFAULT
+	None",flag,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_capability,"Option bit 3
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+number_of_restarts,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+oob_resync_breakout,"Enable out-of-band resynchronization breakout
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+opaque_lsa_forwarded,"Option bit 6
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+option_bits,"The bit sum of the different OSPF option bits. This switch is for users
+to customize options since area_type will determine a default value for
+those bits. The Demand circuit option can be modified with the
+-demand_circuit option. In HEX.If (option_bits & 0x8) then area_id must
+not be 0. (option_bits & 0x2) is not allowed - can't have external
+routing and NSSA capability at the same time.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The bit sum of the different OSPF option bits. This switch is for users
+to customize options since area_type will determine a default value for
+those bits. The Demand circuit option can be modified with the
+-demand_circuit option. In HEX. If (option_bits & 0x8) then area_id must
+not be 0. (option_bits & 0x2) is not allowed - can't have external
+routing and NSSA capability at the same time.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+ospfv3_lsa_flood_rate_control,"Inter Flood LSUpdate burst gap (ms)
+DEFAULT
+	
+1",any,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+override_existence_check,"If this option is enabled, the interface existence check is skipped but
+the list of interfaces is still created and maintained in order to keep
+track of existing interfaces if required. Using this option will speed
+up the interfaces' creation.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If this option is enabled, the interface existence check is skipped but
+the list of interfaces is still created and maintained in order to keep
+track of existing interfaces if required. Using this option will speed
+up the interfaces' creation.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+override_tracking,"If this option is enabled, the list of interfaces won't be created and
+maintained anymore, thus, speeding up the interfaces' creation even
+more. Also, it will enable -override_existence_check in case it wasn't
+already enabled because checking for interface existence becomes
+impossible if the the list of interfaces doesn't exist anymore.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If this option is enabled, the list of interfaces won't be created and
+maintained anymore, thus, speeding up the interfaces' creation even
+more. Also, it will enable -override_existence_check in case it wasn't
+already enabled because checking for interface existence becomes
+impossible if the the list of interfaces doesn't exist anymore.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+password,"Password to be used in the OSPF authentication mode is enabled and set
+to 'simple'.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Password to be used in the OSPF authentication mode is enabled and set
+to 'simple'.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'authentication_mode' | value= 'simple' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+poll_interval,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+port_handle,"Ixia interface upon which to act.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Ixia interface upon which to act.
+DEFAULT
+	None",any,,"IxNetwork[M] , IxOS/IxNetwork-FT[M]",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+protocol_name,"Name of the ospf protocol as it should appear in the IxNetwork GUI
+DEFAULT
+	None",alpha,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+rate_control_interval,"Flood link state updates per interval.
+DEFAULT
+	None",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+reset,"If this option is selected, this will clear any OSPF router on the
+targeted interface.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If this option is selected, this will clear any OSPF router on the
+targeted interface.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+restart_down_time,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+restart_reason,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+restart_start_time,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+restart_up_time,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+return_detailed_handles,"This argument determines if individual interface, session or router
+handles are returned by the current command. This applies only to the
+command on which it is specified. Setting this to 0 means that only
+NGPF-specific protocol stack handles will be returned. This will
+significantly decrease the size of command results and speed up script
+execution. The default is 0, meaning only protocol stack handles will be
+returned.
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_abr,"If true (1), set router to be an area boundary router (ABR). Correspond
+to E (external) bit in router LSA. This option is valid only when -type
+is router or grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_active,"Enable/disable the ospf router
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_asbr,"If true (1), set router to be an AS boundary router (ASBR). Correspond
+to B (Border) bit in router LSA. This option is valid only when -type is
+router or grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_bit,"Option bit 4
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_id,"The Router ID for this emulated OSPF Router, in IPv4 format. IP
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The Router ID for this emulated OSPF Router, in IPv4 format. IP
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_id_step,"The Router ID step for this emulated OSPF Router, in IPv4 format. IP
+DEFAULT
+	
+0.0.1.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The Router ID step for this emulated OSPF Router, in IPv4 format. IP
+DEFAULT
+	
+0.0.1.0",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_interface_active,"Enable/disable router interface
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_priority,"The priority of the interface, for use in election of the designated or
+backup master. RANGE 0-255
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The priority of the interface, for use in election of the designated or
+backup master. RANGE 0-255
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+session_type,"The OSPF version to be emulated. CHOICES: ospfv2 ospfv3.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The OSPF version to be emulated. CHOICES: ospfv2 ospfv3.
+Valid options are:
+ospfv2
+	
+ospfv3
+	
+DEFAULT
+	
+ospfv2",opt,"ospfv2,ospfv3","IxNetwork[M] , IxOS/IxNetwork-FT[M]",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+strict_lsa_checking,"If enabled, the helping router continues to help the restarting router
+even if there is a topology change detected. Relevant with
+'graceful_restart_helper_mode_enable'. This attribute is associated with
+the four Graceful Restart reasons. This attribute/argument is valid when
+session_type is ospfV3.
+DEFAULT
+	
+1
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If enabled, the helping router continues to help the restarting router
+even if there is a topology change detected. Relevant with
+'graceful_restart_helper_mode_enable'. This attribute is associated with
+the four Graceful Restart reasons. This attribute/argument is valid when
+session_type is ospfV3.
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'graceful_restart_helper_mode_enable' | value= '1' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+support_reason_sw_reload_or_upgrade,"This is one of the reasons supported by this helping router when the
+neighboring router gracefully restarts.Helping router will support only
+those restart reasons which are enabled by the user. User can select
+more than one reason at a time. Relevant with
+'graceful_restart_helper_mode_enable'.This attribute/argument is valid
+when session_type is ospfV3.
+DEFAULT
+	
+1
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This is one of the reasons supported by this helping router when the
+neighboring router gracefully restarts. Helping router will support only
+those restart reasons which are enabled by the user. User can select
+more than one reason at a time. Relevant with
+'graceful_restart_helper_mode_enable'. This attribute/argument is valid
+when session_type is ospfV3.
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'graceful_restart_helper_mode_enable' | value= '1' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+support_reason_sw_restart,"This is one of the reasons supported by this helping router when the
+neighboring router gracefully restarts. Helping router will support only
+those restart reasons which are enabled by the user. User can select
+more than one reason at a time. Relevant with
+'graceful_restart_helper_mode_enable'.This attribute/argument is valid
+when session_type is ospfV3.
+DEFAULT
+	
+1
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This is one of the reasons supported by this helping router when the
+neighboring router gracefully restarts. Helping router will support only
+those restart reasons which are enabled by the user. User can select
+more than one reason at a time. Relevant with
+'graceful_restart_helper_mode_enable'.This attribute/argument is valid
+when session_type is ospfV3.
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'graceful_restart_helper_mode_enable' | value= '1' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+support_reason_switch_to_redundant_processor_control,"This is one of the reasons supported by this helping router when the
+neighboring router gracefully restarts.Helping router will support only
+those restart reasons which are enabled by the user. User can select
+more than one reason at a time. Relevant with
+'graceful_restart_helper_mode_enable'.This attribute/argument is valid
+when session_type is ospfV3.
+DEFAULT
+	
+1
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This is one of the reasons supported by this helping router when the
+neighboring router gracefully restarts. Helping router will support only
+those restart reasons which are enabled by the user. User can select
+more than one reason at a time. Relevant with
+'graceful_restart_helper_mode_enable'. This attribute/argument is valid
+when session_type is ospfV3.
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'graceful_restart_helper_mode_enable' | value= '1' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+support_reason_unknown,"This is one of the reasons supported by this helping router when the
+neighboring router gracefully restarts.Helping router will support only
+those restart reasons which are enabled by the user. User can select
+more than one reason at a time. Relevant with
+'graceful_restart_helper_mode_enable'.This attribute/argument is valid
+when session_type is ospfV3.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This is one of the reasons supported by this helping router when the
+neighboring router gracefully restarts. Helping router will support only
+those restart reasons which are enabled by the user. User can select
+more than one reason at a time. Relevant with
+'graceful_restart_helper_mode_enable'. This attribute/argument is valid
+when session_type is ospfV3.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'graceful_restart_helper_mode_enable' | value= '1' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_admin_group,"Assignment of traffic engineering administrative group numbers to the
+interface.Valid only with IxTclNetwork API.
+DEFAULT
+	
+00.00.00.00
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Assignment of traffic engineering administrative group numbers to the
+interface. Valid only with IxTclNetwork API.
+DEFAULT
+	None",any,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_enable,"If set to 1, this will enable Traffic Engineering on the OSPF router.
+The user can then configure the TE parameters by using '-te_metric',
+'-te_max_bw', '-te_max_resv_bw', '-te_unresv_bw_priority0-7'.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If set to 1, this will enable Traffic Engineering on the OSPF router.
+The user can then configure the TE parameters by using '-te_metric',
+'-te_max_bw', '-te_max_resv_bw', '-te_unresv_bw_priority0-7'.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_max_bw,"If 'te_enable' is 1, then this indicates the maximum bandwidth that can
+be used on the link between this interface and its neighbors in the
+outbound direction.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this indicates the maximum bandwidth that can
+be used on the link between this interface and its neighbors in the
+outbound direction.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_max_resv_bw,"If 'te_enable' is 1, then this indicates the maximum bandwidth, in bytes
+per second, that can be reserved on the link between this interface and
+its neighbors in the outbound direction.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this indicates the maximum bandwidth, in
+bytes per second, that can be reserved on the link between this
+interface and its neighbors in the outbound direction.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_metric,"If set to 1, then this indicates the traffic engineering metric
+associated with the interface. RANGE 1-2147483647
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If set to 1, then this indicates the traffic engineering metric
+associated with the interface. RANGE 1-2147483647
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_router_id,"This parameter is ignored.
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_unresv_bw_priority0,"If 'te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 0 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 0. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 0 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 0. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_unresv_bw_priority1,"If 'te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 1 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 1. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_unresv_bw_priority2,"If 'te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 2 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 2. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 2 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 2. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_unresv_bw_priority3,"If 'te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 3 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 3. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 3 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 3. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_unresv_bw_priority4,"If 'te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 4 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 4. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 4 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 4. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_unresv_bw_priority5,"If 'te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 5 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 5. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 5 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 5. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_unresv_bw_priority6,"If 'te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 6 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 6. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 6 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 6. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+te_unresv_bw_priority7,"If 'te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 7 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 7. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If '-te_enable' is 1, then this value indicates the amount of bandwidth,
+in bytes per second, not yet reserved at the 7 priority level. This
+value corresponds to the bandwidth that can be reserved with a setup
+priority of 7. The value must be less than the maxReservableBandwidth
+option.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'te_enable' | value= '1' |",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+transmit_delay,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+type_of_service_routing,"Option bit 0
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+unused,"Option bit 7
+DEFAULT
+	None",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+v6,"Option bit 0
+DEFAULT
+	
+0",bool_opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+validate_received_mtu,"Enabling this option means that the MTU will be verified during the DB
+exchange. This is only available for OSPFv2 interfaces that are directly
+connected to the DUT.
+DEFAULT
+	
+1
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Enabling this option means that the MTU will be verified during the DB
+exchange. This is only available for OSPFv2 interfaces that are directly
+connected to the DUT.
+DEFAULT
+	
+1",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vci,"This parameter is not valid on mode modify when IxTclProtocol is used.
+VCI for emulated router node. RANGE 0-65535
+DEFAULT
+	None",range,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vci_step,"This parameter is not valid on mode modify when IxTclProtocol is used.
+The step value used for incrementing the -vci option.When vci_step
+causes the vci value to exceed it's maximum value the increment will be
+done modulo .Examples: vci = 65534; vci_step = 2 -> new vci value = 0vci
+= 65535; vci_step = 11 -> new vci value = 10
+DEFAULT
+	None",any,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan,"Enables vlan on the directly connected OSPF router interface. Valid
+options are: 0 - disable, 1 - enable.This option is valid only when
+-mode is create or -mode is modify and -handle is a OSPF router
+handle.This option is available only when IxNetwork tcl API is used.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Enables vlan on the directly connected OSPF router interface. Valid
+options are: 0 - disable, 1 - enable. This option is valid only when
+-mode is create or -mode is modify and -handle is a OSPF router handle.
+This option is available only when IxNetwork tcl API is used.
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_cfi,,,,Supported platforms 	Details,unsupported,unsupported,"unimplemented",,
+vlan_id,"If VLAN is enable on the Ixia interface, this option will configure the
+VLAN number. This parameter is not valid on mode modify when
+IxTclProtocol is used. RANGE 0-4095
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If VLAN is enable on the Ixia interface, this option will configure the
+VLAN number. This parameter is not valid on mode modify when
+IxTclProtocol is used. RANGE 0-4095
+DEFAULT
+	None",range,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id_mode,"If the user configures more than one interface on the Ixia with VLAN, he
+can choose to automatically increment the VLAN tag or leave it idle for
+each interface. CHOICES fixed increment. This parameter is not valid on
+mode modify when IxTclProtocol is used.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If the user configures more than one interface on the Ixia with VLAN, he
+can choose to automatically increment the VLAN tag or leave it idle for
+each interface. CHOICES fixed increment. This parameter is not valid on
+mode modify when IxTclProtocol is used.
+Valid options are:
+fixed
+	
+increment
+	
+DEFAULT
+	
+increment",opt,",fixed,increment",IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id_step,"This parameter is not valid on mode modify when IxTclProtocol is used.
+If the -vlan_id_mode is increment, this will be the step value by which
+the VLAN tags are incremented. RANGE 0-4095When vlan_id_step causes the
+vlan_id value to exceed it's maximum value the increment will be done
+modulo .Examples: vlan_id = 4094; vlan_id_step = 2 -> new vlan_id value
+= 0vlan_id = 4095; vlan_id_step = 11 -> new vlan_id value = 10
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is not valid on mode modify when IxTclProtocol is used.
+If the -vlan_id_mode is increment, this will be the step value by which
+the VLAN tags are incremented. RANGE 0-4095 When vlan_id_step causes the
+vlan_id value to exceed it's maximum value the increment will be done
+modulo . Examples: vlan_id = 4094; vlan_id_step = 2 -> new vlan_id value
+= 0 vlan_id = 4095; vlan_id_step = 11 -> new vlan_id value = 10
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'vlan_id_mode' | value= 'increment' |",range,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_user_priority,"This parameter is not valid on mode modify when IxTclProtocol is used.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is not valid on mode modify when IxTclProtocol is used.
+DEFAULT
+	
+0",range,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpi,"This parameter is not valid on mode modify when IxTclProtocol is used.
+VPI for emulated router node. RANGE 0-255
+DEFAULT
+	None",range,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpi_step,"This parameter is not valid on mode modify when IxTclProtocol is used.
+The step value used for incrementing the -vpi option.When vpi_step
+causes the vpi value to exceed it's maximum value the increment will be
+done modulo .Examples: vpi = 254; vpi_step = 2 -> new vpi value = 0vpi =
+255; vpi_step = 11 -> new vpi value = 10
+DEFAULT
+	None",any,,IxOS/IxNetwork-FT,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

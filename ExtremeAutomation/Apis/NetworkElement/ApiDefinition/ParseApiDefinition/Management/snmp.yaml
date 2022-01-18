@@ -1,0 +1,93 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+snmp:
+    verify_snmp_enabled:
+        uuid: b17a27de-4a52-4800-89ae-02535d56eb70
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_snmp_enable_authentication_trap:
+        uuid: 9d589de9-4c5c-4e68-9a00-cdadca0894b3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_enable_same_snmp_and_ip_sender_flag:
+        uuid: 4fc5642e-ec40-4381-8fce-77813fb231ed
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_enable_same_snmp_trap_sender_ip:
+        uuid: f97b76ef-023e-4718-810b-0a36263c1d76
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_v1_trap_server:
+        uuid: 247e1351-79af-472b-808c-0d90628199b5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_v2c_trap_server:
+        uuid: db0baf38-fc34-43ee-8a79-d2c089fd486c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_v2c_inform_server:
+        uuid: b475761c-12ab-4fd0-8ea7-6dd27a8e9a31
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_v3_trap_server:
+        uuid: e5ca4424-6e9b-4f23-8fb8-e914d867c8d8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_v3_inform_server:
+        uuid: 7596471c-b522-4e57-bf2b-8066470e1bb5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_community:
+        uuid: 19459fc2-2b54-43cf-a0a0-90df0db1b7e1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_notify_filter:
+        uuid: e8527125-325c-41cf-8c7d-dabe00fc47a2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_user:
+        uuid: 32bd2d3e-ce3a-4672-9087-003e6edaec25
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_user_engine_id:
+        uuid: b4442731-20ae-4558-b539-91323255a28b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_group:
+        uuid: 7be94b60-59b0-4149-8de0-a8009c5f926b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_access:
+        uuid: 03fdbc96-7666-48d4-813f-4b0138814979
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_snmp_view:
+        uuid: 0014a178-b547-4e8d-9e32-c92b9eadeff2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines LEDs specific to Xtreme-Whitebox
+#
+
+led_types:
+
+leds:

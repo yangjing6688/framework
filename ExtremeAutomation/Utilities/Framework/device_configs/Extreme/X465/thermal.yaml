@@ -1,0 +1,40 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common temperature sensors in X465 series
+#  switches
+#
+
+cpu_default_tmpsn: &CPU_DEFAULT_TMPSN
+  name:               cpu_default_tmpsn
+  compatible:         lm75b
+  bus:                i2cbus
+  address:            0x4f
+  location:
+    board:            MAINBOARD
+    zone:             CPU
+  hw_settings:        # Set to maximum to avoid interrupt
+    tos:              12500
+    thyst:            12400
+
+mb_hotspot_tmpsn: &MB_HOTSPOT_TMPSN
+  name:               mb_hotspot_tmpsn
+  compatible:         lm75b
+  bus:                pca9548_0_ch3
+  address:            0x4b
+  location:
+    board:            MAINBOARD
+    zone:             HOTSPOT
+
+mb_ambient_tmpsn: &MB_AMBIENT_TMPSN
+  name:               mb_ambient_tmpsn
+  compatible:         lm75b
+  bus:                pca9548_0_ch3
+  address:            0x4a
+  location:
+    board:            MAINBOARD
+    zone:             DEFAULT

@@ -1,0 +1,94 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+upm:
+    set_auth:
+        description: "Configures an authenticated UPM event on specified profile and ports"
+        arguments:
+            order: 
+        uuid: c6cbce2b-2f91-4a4a-931a-6042c77eb9fe
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure upm event user-authenticate profile {auth_profile} ports {ports}',userPrompt,'None','None','None',[],[]]
+    set_unauth:
+        description: "Configures an unauthenticated UPM event on specified profile and ports"
+        arguments:
+            order: 
+        uuid: e7482fb1-174d-420b-a7b5-3a36763cf8e9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure upm event user-unauthenticated profile {auth_profile} ports {ports}',userPrompt,'None','None','None',[],[]]
+    set_profile:
+        description: "Creates a upm profile with desired name and command lines"
+        arguments:
+            order: profile,lines
+        uuid: bd69c272-33e8-431b-9be4-16d635825744
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'create upm profile {profile}||{[<api_utils.exos_upm_profile>lines]}',userPrompt,'None','None','None',[],[]]
+    clear_auth:
+        description: "UnConfigures an authenticated UPM event on specified profile and ports"
+        arguments:
+            order: 
+        uuid: 95f379bd-be9f-4ae1-83ac-c23737a2b94c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure upm event user-authenticate profile {auth_profile} ports {ports}',userPrompt,'None','None','None',[],[]]
+    clear_unauth:
+        description: "all"
+        arguments:
+            order: UnConfigures all unauthenticated UPM events on specified profile
+        uuid: 939cd1ba-fbc5-40f5-90dd-c6044e80764f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure upm event user-unauthenticated profile {auth_profile} ports {ports}',userPrompt,'None','None','None',[],[]]
+    clear_auth_all_ports:
+        uuid: c3c20c34-ed79-4c78-83cf-5b65455c5ec1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure upm event user-authenticate profile {auth_profile}',userPrompt,'None','None','None',[],[]]
+    clear_unauth_all_ports:
+        uuid: 002a0aa5-e20f-451e-8554-5e49c875255f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'unconfigure upm event user-unauthenticated profile {auth_profile}',userPrompt,'None','None','None',[],[]]
+    clear_profile:
+        description: "Deletes a specified upm profile"
+        arguments:
+            order: 
+        uuid: 0d164f68-612b-4ecc-be4e-983749106921
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'delete upm profile {profile}',userPrompt,'None','None','None',[],[]]
+    show_event_authenticate:
+        uuid: 4470ffb8-a43f-46ef-adf3-c92df8012cc6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show upm event user-authenticate',userPrompt,'None','None','None',[],[]]
+    show_event_unauthenticated:
+        uuid: 32c36576-7b50-4278-9f26-588024d10204
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show upm event user-unauthenticated',userPrompt,'None','None','None',[],[]]

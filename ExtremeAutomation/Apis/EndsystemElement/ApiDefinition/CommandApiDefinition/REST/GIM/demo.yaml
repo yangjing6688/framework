@@ -1,0 +1,11 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,URI,Headers,IgnoreError,AddError]
+#             - [OS2,Platform,Version,Unit,URI,Headers,IgnoreError,AddError]
+
+demo:
+    get_guest_user_data:
+        apis:
+            - [GIM,base,baseversion,baseunit,get,'GIM/rest/guestUsers/guestUserDetails/{user}','api-version=v1.0,Accept=application/json,Content-Type=application/json',[],[]]

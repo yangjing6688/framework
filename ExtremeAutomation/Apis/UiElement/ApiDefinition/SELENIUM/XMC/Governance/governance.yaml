@@ -1,0 +1,37 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+governance:
+    add_regime:
+        apis:
+            - [xmc,'8.2.5']
+    select_regime:
+        apis:
+            - [xmc,'8.2.5']
+    run_regime:
+        apis:
+            - [xmc,'8.2.5']
+    edit_regime:
+        apis:
+            - [xmc,'8.2.5']
+    delete_regime:
+        apis:
+            - [xmc,'8.2.5']
+    select_and_move_single_device:
+        apis:
+            - [xmc,'8.2.5']
+    enter_regime_details:
+        apis:
+            - [xmc,'8.2.5']
+    verify_regime_exists:
+        apis:
+            - [xmc,'8.2.5']
+    verify_system_regime_is_non_editable:
+        apis:
+            - [xmc,'8.2.5']
+    verify_system_regime_is_non_removable:
+        apis:
+            - [xmc,'8.2.5']

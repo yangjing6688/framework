@@ -1,0 +1,74 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+gvrp:
+    enable_global:
+        description: "Enable GVRP on a given device"
+        arguments:
+            order: 
+        uuid: 437c86c5-9308-4907-9309-0d6ff78d3aa3
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set gvrp enable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable mvrp',userPrompt,'None','None','None',[],[]]
+    disable_global:
+        description: "Disable GVRP on a given device"
+        arguments:
+            order: 
+        uuid: 95e010f0-7318-4337-a1bf-e683fe046832
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set gvrp disable',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable mvrp',userPrompt,'None','None','None',[],[]]
+    enable_port:
+        description: "Enables GVRP on a given port"
+        arguments:
+            order: 
+        uuid: 35afdcac-f547-4240-a938-78a57d4cc55c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set gvrp enable {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable mvrp ports {port}',userPrompt,'None','None','None',[],[]]
+    disable_port:
+        description: "Disables GVRP on a given port"
+        arguments:
+            order: 
+        uuid: d0e8f204-ea0e-4e76-94e2-9180ad6c9850
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set gvrp disable {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable mvrp ports {port}',userPrompt,'None','None','None',[],[]]
+    show_state:
+        uuid: 8f8e7f0f-2543-4b4a-b6fa-4bbdffd9df83
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show gvrp',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show mvrp',userPrompt,'None','None','None',[],[]]
+    show_state_port:
+        uuid: b115f617-3eaf-4b74-b74a-5b29e4b8d7bf
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show gvrp {port}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show mvrp',userPrompt,'None','None','None',[],[]]

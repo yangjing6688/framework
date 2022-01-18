@@ -1,0 +1,1018 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+isis:
+    enable_global:
+        description: "Globally enables IS-IS"
+        arguments:
+            order: 
+        uuid: 5e8b2b77-f570-4a1c-b139-c933c7547bd6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable isis',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router isis enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.1.1.8.0','i','1']
+    disable_global:
+        description: "Globally disables IS-IS"
+        arguments:
+            order: 
+        uuid: 695b2829-e1be-4156-878a-46a23c9ee9b9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable isis',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no router isis enable',routerConfigPrompt,'None','(y/n) ?','y',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.1.1.8.0','i','2']
+    set_system_id:
+        description: "Creates the IS-IS System-Id"
+        arguments:
+            order: 
+        uuid: e822f7ac-4816-4653-9a92-8e9407962160
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||system-id {sys_id}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.1.1.3.0','s','{sys_id}']
+    clear_system_id:
+        description: "Removes the IS-IS System-Id"
+        arguments:
+            order: 
+        uuid: 7ea7fdb1-bfe2-42da-8034-04396957f7ba
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no system-id',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.1.1.3.0','s','0x100000000000']
+    set_manual_area:
+        description: "Configures the IS-IS Manual-area"
+        arguments:
+            order: 
+        uuid: f3d86c30-2ecd-4ce4-afca-1b3c59cb5757
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||manual-area {manual_area}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.1.2.1.2.{manual_area}','i','4']
+    clear_manual_area:
+        description: "Removes the IS-IS Manual-area"
+        arguments:
+            order: 
+        uuid: 9d3f74cd-aa7c-40a6-84dc-5090ab1821f3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no manual-area {manual_area}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.1.2.1.2.{manual_area}','i','6']
+    set_sys_name:
+        description: "Configures the IS-IS hostname"
+        arguments:
+            order: 
+        uuid: 16686ac8-176a-40e9-9844-fade015600e5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||sys-name {name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.1.10.0','s','{name}']
+    clear_sys_name:
+        description: "Removes the IS-IS hostname"
+        arguments:
+            order: 
+        uuid: 6ecbe2df-faf8-4ea0-b952-99405a04f618
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no sys-name',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.1.10.0','s','']
+    set_ipv4_source_address:
+        description: "Configures the IS-IS PLSB IP v4 address. Defines an existing router interface for management (ping/traceroute)"
+        arguments:
+            order: 
+        uuid: 7e1e2500-a337-4c22-8923-6d86af2baa7d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||ip-source-address {ip}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.1.13.0','s','{ip}']
+    clear_ipv4_source_address:
+        description: "Removes the IS-IS PLSB IP v4 address. Define an existing router interface for management (ping/traceroute)"
+        arguments:
+            order: 
+        uuid: f519f5e3-fea8-4b48-a10c-2b3c9d0a56b5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no ip-source-address||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.1.13.0','s','0.0.0.0']
+    set_ipv6_source_address:
+        description: "Configures the IS-IS IP v6 address. Defines an existing router interface for management (ping/traceroute)"
+        arguments:
+            order: 
+        uuid: 20b845c4-0d34-4048-9c90-f919c9ffd485
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||ipv6-source-address {ipv6_addr}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.1.15.0','s','{ipv6_addr}']
+    clear_ipv6_source_address:
+        description: "Removes the IS-IS IPv6 address. Define an existing router interface for management (ping/traceroute)"
+        arguments:
+            order: 
+        uuid: c95faa61-10c5-4f0b-a7fa-4e15cafab5c3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no ipv6-source-address||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.1.15.0','s','::']
+    set_ipv4_tunnel_source_address:
+        description: "Configures the IS-IS IP tunnel source address"
+        arguments:
+            order: 
+        uuid: 496e1ece-fba0-4acf-8850-fdba99593a44
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||ip-tunnel-source-address {ip}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.1.17.0','a','{ip}']
+    clear_ipv4_tunnel_source_address:
+        description: "Removes the IS-IS IP tunnel source address"
+        arguments:
+            order: 
+        uuid: 76e25363-c4ea-4d8a-9bab-e8b73138b869
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no ip-tunnel-source-address||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.1.17.0','a','0.0.0.0']
+    set_inband_mgmt_ip:
+        description: ""
+        arguments:
+            order: 
+        uuid: b198e339-a35f-460e-bb1d-e33b67b27722
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||inband-mgmt-ip {ip}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_inband_mgmt_ip:
+        description: ""
+        arguments:
+            order: 
+        uuid: a3ba0f4b-ca67-4422-89f9-2c20e76f61dc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no inband-mgmt-ip',routerConfigPrompt,'None','None','None',[],[]]
+    set_metric_narrow:
+        description: ""
+        arguments:
+            order: 
+        uuid: 1c5d648c-872d-43e8-b429-933c306cc815
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||metric narrow',routerConfigPrompt,'None','None','None',[],[]]
+    clear_metric_narrow:
+        description: ""
+        arguments:
+            order: 
+        uuid: 1791f449-aaad-4d21-8db0-88214147709e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no metric',routerConfigPrompt,'None','None','None',[],[]]
+    set_metric_wide:
+        description: ""
+        arguments:
+            order: 
+        uuid: 76da7bee-e0bf-484d-b26d-8c5a88263b5e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||metric wide',routerConfigPrompt,'None','None','None',[],[]]
+    clear_metric_wide:
+        description: ""
+        arguments:
+            order: 
+        uuid: c0fcf7c7-632a-4ad7-9a3f-22113bd9da38
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no metric',routerConfigPrompt,'None','None','None',[],[]]
+    set_overload:
+        description: ""
+        arguments:
+            order: 
+        uuid: dd0b7750-44a2-4fb7-bc26-89442f3b03d4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||overload',routerConfigPrompt,'None','None','None',[],[]]
+    clear_overload:
+        description: ""
+        arguments:
+            order: 
+        uuid: ad2a98c5-e61e-424c-8673-42af44212485
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no overload',routerConfigPrompt,'None','None','None',[],[]]
+    set_redistribute_bgp:
+        description: ""
+        arguments:
+            order: 
+        uuid: d64e0783-f82d-47aa-8b9c-fb1228323d6b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute bgp||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.{oid_index}','i','4']
+    clear_redistribute_bgp:
+        description: ""
+        arguments:
+            order: 
+        uuid: 19e03588-ec5e-4322-b59a-93a73c1deea9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute bgp||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.{oid_index}','i','6']
+    enable_redistribute_bgp:
+        description: ""
+        arguments:
+            order: 
+        uuid: d0a806dc-dec4-4261-8665-bec6ad3d2f24
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute bgp enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.{oid_index}','i','1']
+    disable_redistribute_bgp:
+        description: ""
+        arguments:
+            order: 
+        uuid: e8d423aa-74c0-430c-9326-87be7dc41b18
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute bgp enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.{oid_index}','i','2']
+    set_redistribute_direct:
+        description: "Configures IS-IS to redistribute directly attached routes"
+        arguments:
+            order: 
+        uuid: 20aefb6c-0894-4e13-a3a3-ff1541343dad
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute direct||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.0.3.0.1','i','4']
+    clear_redistribute_direct:
+        description: "Un-configures IS-IS redistribute directly attached routes"
+        arguments:
+            order: 
+        uuid: f37c174b-1650-4ae7-b20d-0af748785751
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute direct||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.0.3.0.1','i','6']
+    enable_redistribute_direct:
+        description: "Enables IS-IS to redistribute directly attached routes"
+        arguments:
+            order: 
+        uuid: 09f6db17-41c7-4533-8a9f-2ac452f6173c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute direct enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.0.3.0.1','i','1']
+    disable_redistribute_direct:
+        description: "Disables IS-IS from redistributing directly attached routes"
+        arguments:
+            order: 
+        uuid: 0ea31ada-4642-41ba-89cf-64b70d432b2b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute direct enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.0.3.0.1','i','2']
+    enable_redistribute_direct_ipv6:
+        description: "Enables IS-IS redistribute direct for attached IPv6 routes"
+        arguments:
+            order: 
+        uuid: 495d343f-d8a9-492c-a1f4-d746dbd25fda
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||ipv6 redistribute direct enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.0.12.0.1','i','1']
+    disable_redistribute_direct_ipv6:
+        description: "Disables IS-IS redistribute direct for attached IPv6 routes"
+        arguments:
+            order: 
+        uuid: 9b128fb6-ff78-4a70-b70c-6df61e6f4a95
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no ipv6 redistribute direct enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.0.12.0.1','i','2']
+    set_redistribute_direct_apply:
+        description: "Applies IS-IS redistribute direct configuration or changes"
+        arguments:
+            order: 
+        uuid: c5c6d7b8-c182-484f-a328-246031a1284f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis apply redistribute direct',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.0.3.0.1||1.3.6.1.4.1.2272.1.8.100.15.0','i||i','1||1']
+    set_redistribute_direct_route_map_policy:
+        description: "Specify the route policy to achieve the final granularity in filtering to determine whether or not a specific route should be advertised to the given protocol"
+        arguments:
+            order: 
+        uuid: 3bd8cad2-55a6-4775-9d84-1a1dd0c5bc53
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute direct route-map {policy_name}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.11.0.3.0.1','s','{policy_name}']
+    clear_redistribute_direct_route_map_policy:
+        description: "Removes the route policy for IS-IS redistribute direct"
+        arguments:
+            order: 
+        uuid: cffea40d-754d-4b00-b803-3265f345afb0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute direct route-map ||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.11.0.3.0.1','s','']
+    set_redistribute_ospf:
+        description: ""
+        arguments:
+            order: 
+        uuid: 6a9af17b-8fe4-49e4-8e13-3c9c4c915dca
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute ospf||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.{oid_index}','i','4']
+    clear_redistribute_ospf:
+        description: ""
+        arguments:
+            order: 
+        uuid: 448c323c-e460-444d-afd9-c9797714c37f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute ospf||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.{oid_index}','i','6']
+    enable_redistribute_ospf:
+        description: ""
+        arguments:
+            order: 
+        uuid: edb590f7-7bae-43c8-91ac-1e81d05bac91
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute ospf enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.{oid_index}','i','1']
+    disable_redistribute_ospf:
+        description: ""
+        arguments:
+            order:
+        uuid: 8d67a62b-5750-46aa-965f-70971738de7b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute ospf enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.{oid_index}','i','2']
+    set_redistribute_rip:
+        description: ""
+        arguments:
+            order: 
+        uuid: 571889fe-477c-46a4-980f-fc68c9c07945
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute rip||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.{oid_index}','i','4']
+    clear_redistribute_rip:
+        description: ""
+        arguments:
+            order: 
+        uuid: e67af810-a0cc-499e-ae8e-782c9a553547
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute rip||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.{oid_index}','i','6']
+    enable_redistribute_rip:
+        description: ""
+        arguments:
+            order: 
+        uuid: 16611f69-56cf-4fa8-b09f-ea599503cb57
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute rip enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.{oid_index}','i','1']
+    disable_redistribute_rip:
+        description: ""
+        arguments:
+            order: 
+        uuid: adf56f6a-4266-44a5-a38d-5e05300a41db
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute rip enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.{oid_index}','i','2']
+    set_redistribute_static:
+        description: ""
+        arguments:
+            order: 
+        uuid: 63cdc549-5245-46f9-b5cd-3c50cd399d44
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute static||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.{oid_index}','i','4']
+    clear_redistribute_static:
+        description: ""
+        arguments:
+            order: 
+        uuid: e03c7d05-b7e0-4149-b875-ea08c9156d03
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute static||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.15.{oid_index}','i','6']
+    enable_redistribute_static:
+        description: ""
+        arguments:
+            order: 
+        uuid: e74e23c1-2c91-47b4-8e83-ecfb889f8ada
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||redistribute static enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.{oid_index}','i','1']
+    disable_redistribute_static:
+        description: ""
+        arguments:
+            order: 
+        uuid: 3513c128-ad24-41f4-a6df-12338b62dc6d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no redistribute static enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.22.1.5.{oid_index}','i','2']
+    set_redistribute_apply:
+        description: ""
+        arguments:
+            order: 
+        uuid: 6306c6cd-5828-4f83-87fc-f8e2196a8dcb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis apply redistribute||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.100.15.{oid_index}','i','1']
+    set_spf_delay:
+        description: ""
+        arguments:
+            order: 
+        uuid: 710ce659-c09c-4f29-9dc9-7ecba7e6c078
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||spf-delay {delay}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_spf_delay:
+        description: ""
+        arguments:
+            order: 
+        uuid: 75a848f5-f768-402c-9d72-fb28adec3f5f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'router isis||no spf-delay',routerConfigPrompt,'None','None','None',[],[]]
+    set_circuit_on_port:
+        description: "Creates an ISIS circuit on a port"
+        arguments:
+            order: 
+        uuid: 6fb5a6ce-d257-4aa6-9b6b-218064622469
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.2.{isis_circuit}||1.3.6.1.3.37.1.3.2.1.3.{isis_circuit}||1.3.6.1.3.37.1.3.2.1.4.{isis_circuit}','i||i||i','{port}||2||4']
+    enable_circuit_on_port:
+        description: "Enables an ISIS circuit on a port"
+        arguments:
+            order: 
+        uuid: 81736c7f-0658-423c-ac8a-804632dfeeb4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis enable',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.3.{port}','i','1']
+    disable_circuit_on_port:
+        description: "Disables an ISIS circuit on a port"
+        arguments:
+            order: 
+        uuid: 63620079-ea8b-44d6-8a30-d50c1b3771fc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no isis enable',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.3.{port}','i','2']
+    clear_circuit_on_port:
+        description: "Removes an ISIS circuit from a port"
+        arguments:
+            order: 
+        uuid: a507ebbd-9d73-4db5-bce9-966c29e42954
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no isis',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.4.{port}','i','6']
+    set_circuit_on_mlt:
+        description: "Creates an ISIS circuit on an MLT"
+        arguments:
+            order: 
+        uuid: 73f4e284-3f73-4faf-b3de-72bf65186267
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.2.{isis_circuit}||1.3.6.1.3.37.1.3.2.1.3.{isis_circuit}||1.3.6.1.3.37.1.3.2.1.4.{isis_circuit}','i||i||i','{mlt_id}||2||4']
+    enable_circuit_on_mlt:
+        description: "Enables an ISIS circuit on an MLT"
+        arguments:
+            order: 
+        uuid: fe1f3a9a-2ba5-4653-bb89-d961ba397eac
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis enable',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.3.{mlt_id}','i','1']
+    disable_circuit_on_mlt:
+        description: "Disables an ISIS circuit on an MLT"
+        arguments:
+            order: 
+        uuid: a7cd4661-5a80-476b-a5f2-ca98f8a66eb4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no isis enable',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.3.{mlt_id}','i','2']
+    clear_circuit_on_mlt:
+        description: "Removes an ISIS circuit from an MLT"
+        arguments:
+            order: 
+        uuid: ff807daf-f443-4d1c-9d8b-e30f200d4b36
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no isis',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.4.{mlt_id}','i','6']
+    set_auth_on_port:
+        description: "Configures ISIS authentication for IIH to be sent/received on the port circuit"
+        arguments:
+            order: port,auth_type,key_id,auth_key
+        uuid: 041f1993-d357-4926-9d14-efb8acbe5c68
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis hello-auth type {auth_type} key {auth_key} key-id {key_id}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.2.1.3.{port}||1.3.6.1.4.1.2272.1.63.2.1.4.{port}||1.3.6.1.4.1.2272.1.63.2.1.5.{port}','i||i||s','{auth_type}||{key_id}||{auth_key}']
+    set_auth_on_mlt:
+        description: "Configures the authentication type for IIH to be sent/received on the circuit/interface"
+        arguments:
+            order: mlt_id,auth_type,key_id,auth_key
+        uuid: a2e60ffb-9f97-4bf0-9864-37f5e333c6bf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis hello-auth type {auth_type} key {auth_key} key-id {key_id}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.2.1.3.{mlt_id}||1.3.6.1.4.1.2272.1.63.2.1.4.{mlt_id}||1.3.6.1.4.1.2272.1.63.2.1.5.{mlt_id}','i||i||s','{auth_type}||{key_id}||{auth_key}']
+    clear_auth_on_port:
+        description: "Removes authentication on the port circuit"
+        arguments:
+            order: 
+        uuid: 1e95c189-151e-439d-a953-fc1d7f81bf8c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no isis hello-auth',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.2.1.3.{port}','i','0']
+    clear_auth_on_mlt:
+        description: "Removes authentication on the MLT circuit"
+        arguments:
+            order: 
+        uuid: 6e813614-15bc-4ce9-b5cd-f898942a1d00
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no isis hello-auth',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.2.1.3.{mlt_id}','i','0']
+    set_l1_dr_priority_on_port:
+        description: "Configures the priority for the becoming LAN Designated Intermediate System at level 1"
+        arguments:
+            order: 
+        uuid: 8e30408c-7b97-4c58-9de1-5203240f5c14
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis l1-dr-priority {priority}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.4.{port}','u','{priority}']
+    set_l1_dr_priority_on_mlt:
+        description: "Configures the priority for the becoming LAN Designated Intermediate System at level 1"
+        arguments:
+            order: 
+        uuid: 33aca53f-ca4b-473e-a0a4-e3524c9e6652
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis l1-dr-priority {priority}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.4.{mlt_id}','u','{priority}']
+    set_l1_hello_interval_on_port:
+        description: "Configures the period between Hellos on L1L2 point to point circuits"
+        arguments:
+            order: port,interval
+        uuid: b9cd3f50-d847-4f00-b3bf-226aeaa3e1a7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis l1-hello-interval {interval}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.9.{port}','u','{interval}']
+    set_l1_hello_interval_on_mlt:
+        description: "Configures the period between Hellos on L1L2 point to point circuits"
+        arguments:
+            order: mlt_id,interval
+        uuid: 915d4fb3-893c-48ca-ad79-cdb3b4f55fb8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis l1-hello-interval {interval}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.9.{mlt_id}','u','{interval}']
+    set_l1_hello_multiplier_on_port:
+        description: "Configures the multiplier of the corresponding HelloTimer that determines the holding time"
+        arguments:
+            order: port,multiplier
+        uuid: 7cf5fb00-5403-484c-9c55-a8b210f08794
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis l1-hello-multiplier {multiplier}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.8.{port}','u','{multiplier}']
+    set_l1_hello_multiplier_on_mlt:
+        description: "Verifies the multiplier of the corresponding HelloTimer that determines the holding time"
+        arguments:
+            order: mlt_id,multiplier
+        uuid: 04e62c21-8b5e-49ef-8bd9-d17504b9d267
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'isis l1-hello-multiplier {multiplier}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.8.{mlt_id}','u','{multiplier}']
+    set_logical_interface_port:
+        description: "Creates an ISIS logical-interface on a port"
+        arguments:
+            order: isis_id,primary_vlan,secondary_vlan,port
+        uuid: ebb09810-b864-434e-a1b2-71182d98a5e7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id} vid {primary_vlan},{secondary_vlan} primary-vid {primary_vlan} port {port}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.26.1.5.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.6.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.7.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.9.{isis_id}','i||s||i||i','{port}||{primary_vlan}||{primary_vlan}||4']
+    set_logical_interface_port_name:
+        description: "Creates an ISIS logical-interface on a port and adds a name"
+        arguments:
+            order: isis_id,primary_vlan,secondary_vlan,port,name
+        uuid: ecbfd0cf-38c3-40f8-bd28-2f8ba6b5d046
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id} vid {primary_vlan},{secondary_vlan} primary-vid {primary_vlan} port {port} name {name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.26.1.5.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.6.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.7.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.8.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.9.{isis_id}','i||s||i||s||i','{port}||{primary_vlan}||{primary_vlan}||{name}||4']
+    set_logical_interface_mlt:
+        description: "Creates an ISIS logical-interface on a mlt"
+        arguments:
+            order: isis_id,primary_vlan,secondary_vlan,mlt_id
+        uuid: b6950cc9-9864-4cbf-b6eb-41b42073a2b7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id} vid {primary_vlan},{secondary_vlan} primary-vid {primary_vlan} mlt {mlt_id}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.26.1.5.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.6.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.7.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.9.{isis_id}','i||s||i||i','{mlt_id}||{primary_vlan}||{primary_vlan}||4']
+    set_logical_interface_mlt_name:
+        description: "Creates an ISIS logical-interface on a mlt and adds a name"
+        arguments:
+            order: isis_id,primary_vlan,secondary_vlan,mlt_id,name
+        uuid: 65b86f45-faaf-42b0-b402-4270611fec81
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id} vid {primary_vlan},{secondary_vlan} primary-vid {primary_vlan} mlt {mlt_id} name {name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.26.1.5.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.6.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.7.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.8.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.9.{isis_id}','i||s||i||s||i','{mlt_id}||{primary_vlan}||{primary_vlan}||{name}||4']
+    set_logical_interface_ipv4:
+        description: "Creates an ISIS logical-interface for a destination IPv4 address"
+        arguments:
+            order: isis_id,ip
+        uuid: b516f64c-ea7a-4bc9-b06b-b7e48ea7d233
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id} dest-ip {ip}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.26.1.4.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.9.{isis_id}','a||i','{ip}||4']
+    set_logical_interface_ipv4_name:
+        description: "Creates an ISIS logical-interface for a destination IPv4 address and adds a name"
+        arguments:
+            order: isis_id,ip,name
+        uuid: 4787609a-74d8-473a-91a9-c23ed2f93f16
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id} dest-ip {ip} name {name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.26.1.4.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.8.{isis_id}||1.3.6.1.4.1.2272.1.63.26.1.9.{isis_id}','a||s||i','{ip}||{name}||4']
+    clear_logical_interface:
+        description: "Removes an ISIS logical-interface"
+        arguments:
+            order: 
+        uuid: 147e596b-0eae-4a4b-8aba-8c30f685ede9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no logical-intf isis {isis_id}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.26.1.9.{isis_id}','i','6']
+    set_circuit_on_logical_interface:
+        description: "Creates an ISIS circuit on a logical interface"
+        arguments:
+            order: 
+        uuid: d59abe65-4e7d-4fdf-9dc7-60aeba11b38f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.2.{isis_id}||1.3.6.1.3.37.1.3.2.1.3.{isis_id}||1.3.6.1.3.37.1.3.2.1.4.{isis_id}','i||i||i','{isis_id}||2||4']
+    enable_circuit_on_logical_interface:
+        description: "Enables an ISIS circuit on a logical interface"
+        arguments:
+            order: 
+        uuid: fdf2b144-ed15-4231-8bb6-e936d4051830
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.3.{isis_id}','i','1']
+    disable_circuit_on_logical_interface:
+        description: "Disables an ISIS circuit on a logical interface"
+        arguments:
+            order: 
+        uuid: 2f340493-ed7f-4743-bd1b-014006864256
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||no isis enable||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.3.{isis_id}','i','2']
+    clear_circuit_on_logical_interface:
+        description: "Removes an ISIS circuit from a logical interface"
+        arguments:
+            order: 
+        uuid: 5f0e7037-a1c3-46ca-8bfc-fd0ec2841299
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||no isis||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.3.2.1.4.{isis_id}','i','6']
+    set_auth_on_logical_interface:
+        description: "Configures ISIS authentication for IIH to be sent/received on the logical interface circuit"
+        arguments:
+            order: isis_id,auth_type,key_id,auth_key
+        uuid: 6dbef1fc-ea72-4854-9594-52ccc0109429
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis hello-auth type {auth_type} key {auth_key} key-id {key_id}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.2.1.3.{isis_id}||1.3.6.1.4.1.2272.1.63.2.1.4.{isis_id}||1.3.6.1.4.1.2272.1.63.2.1.5.{isis_id}','i||i||s','{auth_type}||{key_id}||{auth_key}']
+    clear_auth_on_logical_interface:
+        description: "Removes authentication on the logical interface circuit"
+        arguments:
+            order: 
+        uuid: 69035712-e13e-4b00-af19-c0e77699aee9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||no isis hello-auth||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.63.2.1.3.{isis_id}','i','0']
+    set_l1_dr_priority_on_logical_interface:
+        description: "Configures the priority for the becoming LAN Designated Intermediate System at level 1"
+        arguments:
+            order: 
+        uuid: 4938f0c5-c7ba-47f4-8891-31d58293f376
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis l1-dr-priority {priority}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.4.{isis_id}','u','{priority}']
+    set_l1_hello_interval_on_logical_interface:
+        description: "Configures the period between Hellos on L1L2 point to point circuits"
+        arguments:
+            order: isis_id,interval
+        uuid: b9be7b04-0cbb-4d58-a6e5-36d3dd3ac3e1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis l1-hello-interval {interval}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.9.{isis_id}','u','{interval}']
+    set_l1_hello_multiplier_on_logical_interface:
+        description: "Configures the multiplier of the corresponding HelloTimer that determines the holding time"
+        arguments:
+            order: isis_id,multiplier
+        uuid: 28ca259c-6215-4fbc-9311-f3863b53e501
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'logical-intf isis {isis_id}||isis l1-hello-multiplier {multiplier}||exit',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.3.37.1.4.1.1.8.{isis_id}','u','{multiplier}']
+    show_circuit:
+        uuid: fa0140f5-6c5c-496f-af68-3630be0f284e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.3.37.1.3.1.{isis_circuit}','i','']
+    show_circuit_interfaces:
+        uuid: ec8e2aef-a43d-46f8-b78c-819f227e30f0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis int-ckt-level',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.3.2.1.2','i','']
+    show_info:
+        uuid: 1826c2f3-c01c-4da5-8c56-c21538da2331
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.1||1.3.6.1.4.1.2272.1.63.1','i','']
+    show_interface:
+        uuid: c777e704-4043-4a2c-9b9d-4afb8d796f73
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis interface',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.3.2.1||1.3.6.1.4.1.2272.1.63.2.1','i','']
+    show_interface_l1:
+        uuid: 3270ac3e-7cd1-4ecc-948a-0342954e2d7f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis interface l1',userPrompt,'None','None','None',[],[]]
+    show_interface_l2:
+        uuid: cdd357c7-9811-4a73-8e48-4626efc720de
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis interface l2',userPrompt,'None','None','None',[],[]]
+    show_interface_l12:
+        uuid: 70c576f5-4160-4f6e-868e-d481e14504ce
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis interface l12',userPrompt,'None','None','None',[],[]]
+    show_area:
+        uuid: 9f7194d9-1204-43b3-80f8-34c7e1d7960a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis area',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.1.3.1.1','i','']
+    show_lsdb:
+        uuid: f0ef2ee5-4617-4d8d-b767-2fbaf1a576b1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis lsdb',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.9','i','']
+    show_manual_area:
+        uuid: 587dbeea-5f2c-448f-b305-31d4429f7afd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis manual-area',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.1.2.1.2','i','']
+    show_net:
+        uuid: 15e262ad-c217-41cb-ac39-469e95afb303
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis net',userPrompt,'None','None','None',[],[]]
+    show_spb_mcast_summary:
+        uuid: fa374b1a-c8b9-4a51-ad46-01a5332dfe28
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis spb-mcast-summary',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.14||1.3.6.1.4.1.2272.1.63.24','i','']
+    show_statistics:
+        uuid: ad804fc6-b117-45c2-afd6-2bf8eed49c9a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis statistics',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.5','i','']
+    show_sys_id:
+        uuid: a7366f3d-a071-4250-9bad-75e339c290a8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis system-id',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.3.37.1.1.1.3.0','i','']
+    show_adjacencies:
+        uuid: 6a1f17f2-f7bf-47c1-b0a8-91f887bc7448
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis adjacencies',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.10||1.3.6.1.3.37.1.6','i','']
+    show_interface_auth:
+        uuid: cd9d0273-3446-46b2-ae13-24fef1351b00
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis int-auth',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.2','i','']
+    show_interface_timers:
+        uuid: 571b9c9e-0ef6-479f-bd01-92f201db29ab
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis int-timers',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.4.1','i','']
+    show_lsdb_ip_unicast:
+        uuid: 1015aaee-1c15-4f93-8227-cb2a46b70620
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis lsdb ip-unicast',userPrompt,'None','None','None',[],[]]
+    show_system_stats:
+        uuid: f50ea600-252c-4654-aa21-403f27015b68
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis statistics',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.5.1','i','']
+    show_logical_interface:
+        uuid: d5433420-d9b3-4d4b-884f-3029de321fa5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis logical-interface',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.26','i','']
+    show_logical_interface_name:
+        uuid: 66e013fd-54e2-4b0c-b13f-62e93c7b50ff
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis logical-interface name',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.63.26.1.8','i','']
+    show_interface_stats:
+        uuid: 6aa9eeb8-a02d-45ab-8da8-1c0f63568b02
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis int-counters',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.5.2','i','']
+    show_interface_l1_packet_stats:
+        uuid: f9500aff-4ba2-4d02-899a-c40aa15b9250
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis int-l1-cntl-pkts',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.5.3','i','']
+    show_interface_l2_packet_stats:
+        uuid: 42dd923e-ebff-4ca2-9325-9ffd25aff56c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show isis int-l2-cntl-pkts',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.3.37.1.5.3','i','']
+    show_ip_redistribute:
+        uuid: 403df57b-93f9-4239-bf4f-5acacada817e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip isis redistribute',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.8.100.22','i','']
+    show_ipv6_redistribute:
+        uuid: ec788ef5-15d9-4ddb-ab3e-ea02bc9c0b71
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ipv6 isis redistribute',userPrompt,'None','None','None',[],[]]

@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines system info common to X725 series switches
+#
+
+common_system_info: &COMMON_SYSTEM_INFO
+  system_eeprom:      onie_eeprom

@@ -1,0 +1,64 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+eciqonboard:
+    bypass_onboarding_routine:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_add_new_policy_name:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_add_serial_number:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_assign_location_check_device_checkbox:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_assign_location_popup_click_assign_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_assign_location_popup_click_cancel_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_click_assign_location_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_click_device_type_real_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_click_device_type_simulated_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_click_done_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_click_finish_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_click_get_started_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_click_next_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_click_skip_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_select_create_new_network_policy:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_select_device_type:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_select_network_policy:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_select_use_an_existing_network_policy:
+        apis:
+            - [eciq,'BaseAppVer']
+    onboard_dialog_uncheck_network_policy_type:
+        apis:
+            - [eciq,'BaseAppVer']

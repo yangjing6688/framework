@@ -1,0 +1,1208 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+area_id,"The OSPF area ID associated with the interface. This parameter is valid
+for -type router, grid, network. This parameter is valid with
+IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0.0.0.0",ip,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+bfd_registration,"Enable or disable BFD registration.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+count,"Number of route ranges to be configured. This parameter is valid for
+-type summary, ext_routes. This option is available with IxTclNetwork.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Number of route ranges to be configured. This parameter is valid for
+-type summary, ext_routes. This option is available with IxTclNetwork.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'summary' |
+'type' | value= 'ext_routes' |",any,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+dead_interval,"The number of seconds before declaring a silent router down. This
+parameter is valid for -type router, grid, network. This parameter is
+valid with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+40",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+elem_handle,"This option specifies on which topology element to configure the route
+options. The user must pass in this option if the 'type' is modify or
+delete.This parameter is valid with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option specifies on which topology element to configure the route
+options. The user must pass in this option if the 'type' is modify or
+delete. This parameter is valid with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_advertise,"Enables the advertisement of a range of OSPF routers expressed as a
+matrix of n x m routers (grid). This parameter is valid for -type
+router, grid. This parameter is valid with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Enables the advertisement of a range of OSPF routers expressed as a
+matrix of n x m routers (grid). This parameter is valid for -type
+router, grid. This parameter is valid with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enable_advertise_loopback,"Used for Traffic Engineering. If checked, a stub interface will be added
+to each router with IP = Router ID with a 32-bit mask. (x.x.x.x/32).
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Used for Traffic Engineering. If checked, a stub interface will be added
+to each router with IP = Router ID with a 32-bit mask. (x.x.x.x/32).
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+entry_point_address,"The entry point address of the OSPFv3 network range grid.This parameter
+is valid for -type grid. This parameter is valid with IxTclNetwork.
+DEFAULT
+	None",ip,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+entry_point_prefix_length,"The prefix length of the entry point address of the OSPFv3 network range
+grid.This parameter is valid for -type grid. This parameter is valid
+with IxTclNetwork.
+DEFAULT
+	None",range,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_address_family,"The external route's address family, choices are unicast or multicast
+DEFAULT
+	
+unicast",opt,"multicast,unicast","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_connect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_ip_type,"The external route's ip type choices are ipv4 or ipv6
+DEFAULT
+	
+ipv6",opt,"ipv4,ipv6","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_number_of_prefix,"The number of prefixes to be advertised. This option is valid only when
+-type is ext_routes, otherwise it is ignored.This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The number of prefixes to be advertised. This option is valid only when
+-type is ext_routes, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+24
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ext_routes' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_forward_addr,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_length,"The number of bits in the prefixes to be advertised. For example, a
+value of 24 is equivalent to a network mask of 255.255.255.0.This option
+is valid only when -type is ext_routes, otherwise it is ignored.This
+option is available with IxTclNetwork and IxTclProtocol API.(DEFAULT =
+24 | 64)
+DEFAULT
+	
+24 | 64
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The number of bits in the prefixes to be advertised. For example, a
+value of 24 is equivalent to a network mask of 255.255.255.0. This
+option is valid only when -type is ext_routes, otherwise it is ignored.
+This option is available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+24
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ext_routes' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_metric,"The cost metric associated with the route.This option is valid only when
+-type is ext_routes, otherwise it is ignored.This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The cost metric associated with the route. This option is valid only
+when -type is ext_routes, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ext_routes' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_start,"The IP address of the routes to be advertised.This option is valid only
+when -type is ext_routes, otherwise it is ignored.This option is
+available with IxTclNetwork and IxTclProtocol API.(DEFAULT = 0.0.0.0 | 0::0)
+DEFAULT
+	
+0.0.0.0 | 0::0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The IP address of the routes to be advertised. This option is valid only
+when -type is ext_routes, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ext_routes' |",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_step,"The increment used between generated addresses for ext_routes prefixes.
+For usage with IxNetwork this is the step between route range objects.
+This option is valid only when -type is ext_routes, otherwise it is
+ignored.This option is available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+1 | IP
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The increment used between generated addresses for ext_routes prefixes.
+For usage with IxNetwork this is the step between route range objects.
+This option is valid only when -type is ext_routes, otherwise it is
+ignored. This option is available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ext_routes' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+external_prefix_type,"This option is valid only when -type is ext_routes, otherwise it is
+ignored.This option is available with IxTclNetwork and IxTclProtocol
+API.1 - (default) Outside the area.2 - Outside the area, but with
+metrics which are larger than any internal metric.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This option is valid only when -type is ext_routes, otherwise it is
+ignored. This option is available with IxTclNetwork and IxTclProtocol
+API. Valid choices are: 1 - (default) Outside the area. 2 - Outside the
+area, but with metrics which are larger than any internal metric.
+Valid options are:
+1
+	
+2
+	
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'ext_routes' |",opt,"1,2","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_col,"Defines number of columns in a grid.This option is valid only when -type
+is grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Defines number of columns in a grid. This option is valid only when
+-type is grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+2
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_connect,"Connects a router in the grid, as specified by the row and column, to
+the session router of specified OSPF session. The format for entering
+the row and column is 'grid_connect
+DEFAULT
+	None",numeric,,IxTclNetwork and IxTclProtocol API.(DEFAULT = 1 1),universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_connect_session,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_disconnect,,,,Supported platforms 	Details,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_link_type,"This is the Link Type advertised in the Router LSA interface list.
+Choose one of: broadcast ptop_numbered ptop_unnumberedThis option is
+valid only when -type is grid, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+ptop_numbered
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This is the Link Type advertised in the Router LSA interface list.
+Choose one of: broadcast ptop_numbered ptop_unnumbered This option is
+valid only when -type is grid, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+Valid options are:
+broadcast
+	
+Not supported in ixiangpf
+ptop_numbered
+	
+Point to point grid
+ptop_unnumbered
+	
+Not supported in ixiangpf
+DEFAULT
+	
+ptop_numbered
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",opt,"broadcast,ptop_numbered,ptop_unnumbered","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_prefix_length,"The length of the mask associated with the grid_prefix_start.This option
+is valid only when -type is grid, otherwise it is ignored. This option
+is available with IxTclNetwork and IxTclProtocol API.(DEFAULT = 24 | 64)
+DEFAULT
+	
+64
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The length of the mask associated with the grid_prefix_start. This
+option is valid only when -type is grid, otherwise it is ignored. This
+option is available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+24
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_prefix_start,"The IP subnet address associated with the first router.This option is
+valid only when -type is grid, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.(DEFAULT = 0.0.0.0 | 0::0)
+DEFAULT
+	
+0.0.0.0 | 0::0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The IP subnet address associated with the first router. This option is
+valid only when -type is grid, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_prefix_step,"This is the value used to increment the subnet address by between
+successively generated routers. This option is valid only when -type is
+grid, otherwise it is ignored.This option is available with IxTclNetwork
+and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.1 | 0::1
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This is the value used to increment the subnet address by between
+successively generated routers. This option is valid only when -type is
+grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_id,"The first router ID of the grid.This option is valid only when -type is
+grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The first router ID of the grid. This option is valid only when -type is
+grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_router_id_step,"The increment step for the router ID in a grid.This option is valid only
+when -type is grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The increment step for the router ID in a grid. This option is valid
+only when -type is grid, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_row,"Defines number of rows in a grid.This option is valid only when -type is
+grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+Defines number of rows in a grid. This option is valid only when -type
+is grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+2",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_start_gmpls_link_id,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_start_te_ip,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_stub_per_router,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+grid_te,"If true (1), enable traffic engineering on the router grid. OSPFv2 only.
+This can overwrite the settings on the session router.This option is
+valid only when -type is grid, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If true (1), enable traffic engineering on the router grid. OSPFv2 only.
+This can overwrite the settings on the session router. This option is
+valid only when -type is grid, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"This option represents the handle the user *must* pass to the
+'emulation_ospf_topology_route_config' procedure. This option specifies
+on which OSPF router to configure the OSPF route range. The OSPF router
+handle(s) are returned by the procedure 'emulation_ospf_config' when
+configuring OSPF routers on the Ixia interface.
+DEFAULT
+	None
+IxNetwork-NGPF[M]
+	
+DESCRIPTION
+	
+This option represents the handle the user *must* pass to the
+'emulation_ospf_topology_route_config' procedure. This option specifies
+on which OSPF router to configure the OSPF route range. The OSPF router
+handle(s) are returned by the procedure 'emulation_ospf_config' when
+configuring OSPF routers on the Ixia interface.
+DEFAULT
+	None",any,,"IxNetwork[M] , IxOS/IxNetwork-FT[M]",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+hello_interval,"The number of seconds between Hello packets sent from an Ixia router.
+The Ixia state machine sends Hello packets at this interval for all of
+the defined interfaces. This parameter is valid for -type router, grid,
+network. This parameter is valid with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+10",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_ip_address,"For OSPFv2 only. IP address of the unconnected interface between the
+router/grid to the session router. This option is valid only when -type
+is router or grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+For OSPFv2 only. IP address of the unconnected interface between the
+router/grid to the session router. This option is valid only when -type
+is router or grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_ip_mask,"For OSPFv2 only. IP mask of the un-connected interface between the
+router/grid to the session router. This option is for router and grid
+route only. This option is available with IxTclNetwork and IxTclProtocol
+API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+For OSPFv2 only. IP mask of the un-connected interface between the
+router/grid to the session router. This option is for router and grid
+route only. This option is available with IxTclNetwork and IxTclProtocol
+API.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_ip_options,"For OSPFv2 only. Options related to the interface. Multiple options may
+be combined using a logical or. This option is for router and grid route
+only.
+Valid options are:
+ospfOptionBitTypeOfService
+	
+0x01
+ospfOptionBitExternalRouting
+	
+0x02
+ospfOptionBitMulticast
+	
+0x04
+ospfOptionBitNSSACapability
+	
+0x08
+ospfOptionBitExternalAttributes
+	
+0x10
+ospfOptionBitDemandCircuit
+	
+0x20
+ospfOptionBitLSANoForward
+	
+0x40
+ospfOptionBitUnused
+	
+0x80
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_metric,"This parameter is valid for OSPFv2 -type router, grid, network and
+OSPFv3 -type grid. This parameter is valid with IxTclProtocol and
+IxTclNetwork.
+DEFAULT
+	
+10
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for OSPFv2 -type router, grid, network and
+OSPFv3 -type grid. This parameter is valid with IxTclProtocol and
+IxTclNetwork.
+DEFAULT
+	
+10
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |
+'type' | value= 'network' |",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_mode,"Available only for use when the Point-Point link type is selected
+(-link_type ppp). When this option is provided as
+ospf_and_protocol_interface (default), an unconnected protocol interface
+will be created, having the IP address provided by -neighbor_router_id
+option and the gateway will be the OSPF router's connected interface.
+This parameter is valid for OSPFv2. This parameter is valid for -type
+router, grid; -enable_advertise 0; -link_type ppp. This parameter is
+valid with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+ospf_and_protocol_interface",opt,"ospf_and_protocol_interface,ospf_interface","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_mode2,"When this option is provided as ospf_and_protocol_interface (default),
+an unconnected protocol interface will be created, having the IP address
+provided by the -interface_ip_address option andthe gateway will be the
+ospf router's connected interface.This parameter is valid only for
+IxTclNetwork.
+DEFAULT
+	
+ospf_and_protocol_interface",opt,"ospf_and_protocol_interface,ospf_interface",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_enable,"Not supported
+DEFAULT
+	Not supported",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_intf_addr,"Not supported
+DEFAULT
+	Not supported",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_metric,"Not supported
+DEFAULT
+	Not supported",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te,"This parameter enables Traffic Engineering on the link to the virtual
+ospf network Range topology.This field is applicable only when the -type
+is grid.This option is available with IxTclNetwork.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter enables Traffic Engineering on the link to the virtual
+ospf network Range topology. This field is applicable only when the
+-type is grid. This option is available with IxTclNetwork.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'grid' |",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_admin_group,"Not supported
+DEFAULT
+	Not supported",numeric,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_instance,"Not supported
+DEFAULT
+	Not supported",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_link_id,"Not supported
+DEFAULT
+	Not supported",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_local_ip_addr,"Not supported
+DEFAULT
+	Not supported",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_max_bw,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_max_resv_bw,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_metric,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+10
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+10
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_remote_ip_addr,"Not supported
+DEFAULT
+	Not supported",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_type,"Not supported
+DEFAULT
+	Not supported",opt,"multiaccess,ptop","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority0,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority1,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority2,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority3,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority4,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority5,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority6,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_te_unresv_bw_priority7,"This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+This parameter is valid for -type router, grid. This parameter is valid
+with IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_type,"The link type advertised in the Router LSA interface list. This option
+is for router and grid route only.
+Valid options are:
+external-capable
+	
+(default) A transit network.
+ppp
+	
+A point-to-point network.
+stub
+	
+A stub network.
+DEFAULT
+	None",opt,"externalcapable,ppp,stub","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"Mode of the procedure call. Valid options
+are:createmodifydeleteenabledisable
+DEFAULT
+	None
+IxNetwork-NGPF[M]
+	
+DESCRIPTION
+	
+Mode of the procedure call. Valid options are: create modify delete
+enable disable
+Valid options are:
+create
+	
+modify
+	
+delete
+	
+enable
+	
+disable
+	
+DEFAULT
+	None",opt,"create,delete,disable,enable,modify","IxNetwork[M] , IxOS/IxNetwork-FT[M]",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_router_id,"Available only for use when the Point-Point link type is selected. The
+DUT IP Interface address can be provided. This parameter is valid for
+OSPFv2. This parameter is valid for -type router, grid;
+-enable_advertise 0; -link_type ppp. This parameter is valid with
+IxTclProtocol and IxTclNetwork.
+DEFAULT
+	None",ipv4,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_router_prefix_length,"Available only for use when the Point-Point link type is selected. The
+prefix length of the DUT IP Interface address can be provided. This
+parameter is valid for OSPFv2. This parameter is valid for -type router,
+grid; -enable_advertise 0; -link_type ppp. This parameter is valid with
+IxTclProtocol and IxTclNetwork.
+DEFAULT
+	
+32",range,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+net_dr,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+net_ip,"IP address of the network (transit link) behind the session router.This
+option is valid only when -type is network, otherwise it is ignored.This
+option is available with IxTclNetwork and IxTclProtocol API.(DEFAULT =
+0.0.0.0 | 0::0)
+DEFAULT
+	
+0.0.0.0 | 0::0",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+net_prefix_length,"IP mask of the network (transit link).This option is valid only when
+-type is network, otherwise it is ignored.This option is available with
+IxTclNetwork and IxTclProtocol API.(DEFAULT = 24 | 64)
+DEFAULT
+	
+24 | 64",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+net_prefix_options,"For OSPFv3 only. An 8-bit quantity with options related to the IP
+address of the network (transit link).Multiple bits may be combined
+using a logical 'or'. This option is valid only when -type is network,
+otherwise it is ignored.This option is available with IxTclNetwork and
+IxTclProtocol API.
+Valid options are:
+ospfV3PrefixOptionPBit
+	
+0x08--The propagate bit, which is set on
+ospfV3PrefixOptionMCBit
+	
+0x04--The multicast capability bit, which
+ospfV3PrefixOptionLABit
+	
+0x02--The local address capability bit,
+ospfV3PrefixOptionNUBit
+	
+0x01--The no unicast bit, which should be
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+no_write,"If this option is present, the protocol configuration will not be
+written to the server.
+DEFAULT
+	None",flag,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_connect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_number_of_prefix,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_prefix_forward_add,,,,Supported platforms 	Details,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_prefix_forward_addr,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_prefix_length,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_prefix_metric,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_prefix_start,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_prefix_step,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+nssa_prefix_type,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_abr,"If true (1), set router to be an area boundary router (ABR). Correspond
+to E (external) bit in router LSA.This option is valid only when -type
+is router or grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If true (1), set router to be an area boundary router (ABR). Correspond
+to E (external) bit in router LSA. This option is valid only when -type
+is router or grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_asbr,"If true (1), set router to be an AS boundary router (ASBR). Correspond
+to B (Border) bit in router LSA.This option is valid only when -type is
+router or grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+If true (1), set router to be an AS boundary router (ASBR). Correspond
+to B (Border) bit in router LSA. This option is valid only when -type is
+router or grid, otherwise it is ignored. This option is available with
+IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_connect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_disconnect,"Not supported
+DEFAULT
+	Not supported",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_id,"The ID associated with the router.This option is valid only when -type
+is router or grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The ID associated with the router. This option is valid only when -type
+is router or grid, otherwise it is ignored. This option is available
+with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'router' |
+'type' | value= 'grid' |",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_te,"If true (1), enable traffic engineering. OSPFv2 only.This option is
+valid only when -type is router or grid, otherwise it is ignored. This
+option is available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_virtual_link_endpt,"This option is supported for OSPFV3 only. Indicates that the router is
+an endpoint of one or more fully adjacent virtual links. This option is
+valid only when -type is grid, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_wcr,"Indicates that the router is a wild-card multicast receiver and will
+receive multicast datagrams regardless of destination.
+DEFAULT
+	None",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_address_family,"The summary route's address family, choices are unicast or multicast
+DEFAULT
+	
+unicast",opt,"multicast,unicast","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_connect,,,,Supported platforms 	Details,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_ip_type,"The summary route's ip type choices are ipv4 or ipv6
+DEFAULT
+	
+ipv6",opt,"ipv4,ipv6","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_number_of_prefix,"The number of prefixes to be advertised. This option is valid only when
+-type is summary_routes, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The number of prefixes to be advertised. This option is valid only when
+-type is summary_routes, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+24
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'summary_routes' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix_length,"The number of bits in the prefixes to be advertised. For example, a
+value of 24 is equivalent to a network mask of 255.255.255.0.This option
+is valid only when -type is summary_routes, otherwise it is ignored.
+This option is available with IxTclNetwork and IxTclProtocol
+API.(DEFAULT = 24 | 64)
+DEFAULT
+	
+24 | 64
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The number of bits in the prefixes to be advertised. For example, a
+value of 24 is equivalent to a network mask of 255.255.255.0. This
+option is valid only when -type is summary_routes, otherwise it is
+ignored. This option is available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+24
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'summary_routes' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix_metric,"The cost metric associated with the route.This option is valid only when
+-type is summary_routes, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The cost metric associated with the route. This option is valid only
+when -type is summary_routes, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	None
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'summary_routes' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix_start,"The IP address of the routes to be advertised.This option is valid only
+when -type is summary_routes, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.(DEFAULT = 0.0.0.0 | 0::0)
+DEFAULT
+	
+0.0.0.0 | 0::0
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The IP address of the routes to be advertised. This option is valid only
+when -type is summary_routes, otherwise it is ignored. This option is
+available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+0.0.0.0
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'summary_routes' |",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_prefix_step,"For usage with IxNetwork this is the step between route range
+objects.For usage with IxTclProtocol and IxTclNetwork this is the
+increment used to generate multiple summary addresses for OSPFv3 only.
+This option is valid only when -type is summary_routes, otherwise it is
+ignored. This option is available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+1 | IP
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+For usage with IxNetwork this is the step between route range objects.
+For usage with IxTclProtocol and IxTclNetwork this is the increment used
+to generate multiple summary addresses for OSPFv3 only. This option is
+valid only when -type is summary_routes, otherwise it is ignored. This
+option is available with IxTclNetwork and IxTclProtocol API.
+DEFAULT
+	
+1
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'summary_routes' |",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+summary_route_type,"The type of summary route to be created.This option is valid only when
+-type is summary_routes, otherwise it is ignored. This option is
+available with IxTclNetwork.
+DEFAULT
+	
+another_area
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The type of summary route to be created. This option is valid only when
+-type is summary_routes, otherwise it is ignored. This option is
+available with IxTclNetwork.
+Valid options are:
+another_area
+	
+same_area
+	
+DEFAULT
+	
+another_area
+DEPENDENCIES
+	
+Valid in combination with parameter(s)
+'type' | value= 'summary_routes' |",opt,"another_area,same_area",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+type,"The type of topology route to create. router - Individual OSPF
+router.grid - A rectangular grid of routers.network - A subnet behind
+the selected session router.summary_routes - (default) A pool of summary
+route addresses.ext_routes - (default) A pool of external route addresses.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The type of topology route to create. This option is available with
+IxTclNetwork and IxTclProtocol API.
+Valid options are:
+router
+	
+Individual OSPF router. This value is not supported in NGPF
+grid
+	
+A rectangular grid of routers
+network
+	
+A subnet behind the selected session router. This value is not supported
+in NGPF
+summary_routes
+	
+A pool of summary route addresses
+ext_routes
+	
+A pool of external route addresses
+DEFAULT
+	None",opt,"ext_routes,grid,network,router,summary_routes","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

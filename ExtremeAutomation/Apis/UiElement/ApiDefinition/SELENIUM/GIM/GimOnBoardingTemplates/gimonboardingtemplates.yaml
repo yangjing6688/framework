@@ -1,0 +1,160 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimonboardingtemplates:
+    ot_signed_in_user_should_exist:
+        apis:
+            - [gim,'8.2.3']
+    ot_signed_user_footer:
+        apis:
+            - [gim,'8.2.3']
+    ot_add:
+        apis:
+            - [gim,'8.2.3']
+    ot_should_exist:
+        apis:
+            - [gim,'8.2.3']
+    ot_verify_admin_signed:
+        apis:
+            - [gim,'8.2.3']
+    ot_common_tab:
+        apis:
+            - [gim,'8.2.3']
+    ot_guest_users:
+        apis:
+            - [gim,'8.2.3']
+    ot_notification:
+        apis:
+            - [gim,'8.2.3']
+    ot_summary_common:
+        apis:
+            - [gim,'8.2.3']
+    ot_summary_guest_users:
+        apis:
+            - [gim,'8.2.3']
+    ot_summary_sponsor:
+        apis:
+            - [gim,'8.2.3']
+    ot_summary_iot_user_devices:
+        apis:
+            - [gim,'8.2.3']
+    ot_summary_mobile_app:
+        apis:
+            - [gim,'8.2.3']
+    ot_summary_device_family:
+        apis:
+            - [gim,'8.2.3']
+    ot_summary_notification:
+        apis:
+            - [gim,'8.2.3']
+    ot_summary_advanced:
+        apis:
+            - [gim,'8.2.3']
+    ot_select_ot_edit:
+        apis:
+            - [gim,'8.2.3']
+    ot_cancel:
+        apis:
+            - [gim,'8.2.3']
+    ot_save:
+        apis:
+            - [gim,'8.2.3']
+    ot_select_ot_copy:
+        apis:
+            - [gim,'8.2.3']
+    ot_select_ot_delete:
+        apis:
+            - [gim,'8.2.3']
+    ot_click_nav_bar:
+        apis:
+            - [gim,'8.2.3']
+    ot_default_validation:
+        apis:
+            - [gim,'8.2.3']
+    ot_edit_common:
+        apis:
+            - [gim,'8.2.3']
+    ot_edit_guest_users:
+        apis:
+            - [gim,'8.2.3']
+    ot_edit_devices:
+        apis:
+            - [gim,'8.2.3']
+    ot_add_sponsor:
+        apis:
+            - [gim,'8.2.3']
+    ot_select_otname_row_table:
+        apis:
+            - [gim,'8.2.3']
+    ot_expected_exist_table:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_notification:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_username:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_random_un:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_first_lastname:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_finitial_lastname:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_password:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_acc_prv_gen_acc_act:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_acc_prv_gen_acc_exp:
+        apis:
+            - [gim,'8.2.3']
+    ot_should_not_exist:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_edit_username_field:
+        apis:
+            - [gim,'8.2.3']
+    ot_delete_error_text:
+        apis:
+            - [gim,'8.2.3']
+    ot_multiple_row_selection:
+        apis:
+            - [gim,'8.2.3']
+    ot_table_should_empty:
+        apis:
+            - [gim,'8.2.3']
+    ot_gu_pwd_complexity_config:
+        apis:
+            - [gim,'8.2.3']
+    ot_validation_advanced_tab:
+        apis:
+            - [gim,'8.2.3']
+    ot_temp_acc_validity:
+        apis:
+            - [gim,'8.2.3']
+    ot_accessible_to_prov_gu:
+        apis:
+            - [gim,'8.2.3']
+    ot_accessible_to_prov_de:
+        apis:
+            - [gim,'8.2.3']
+    ot_add_ldap_group:
+        apis:
+            - [gim,'8.2.3']
+    ot_sponsor_auto_approve_deny:
+        apis:
+            - [gim,'8.2.3']
+    ot_resend_details:
+        apis:
+            - [gim,'8.2.3']
+    ot_access_groups:
+        apis:
+            - [gim,'8.2.3']

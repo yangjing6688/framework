@@ -1,0 +1,327 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+atm_encapsulation,"The encapsulation of the ATM protocol interface associated with the
+emulated router.
+DEFAULT
+	None",opt,"LLCBridgedEthernetFCS,LLCBridgedEthernetNoFCS,LLCRoutedCLIP,VccMuxBridgedEthernetFCS,VccMuxBridgedEthernetNoFCS,VccMuxIPV4Routed,VccMuxIPV6Routed","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+authentication_mode,"For RIPv2 only. Valid options are: null, text, md5.
+DEFAULT
+	None",opt,"md5,null,text","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+count,"Define number of sessions to create on the interface.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+expiration_interval,"Not supported
+DEFAULT
+	Not supported",range,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+garbage_interval,"Not supported
+DEFAULT
+	Not supported",range,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+gre_checksum_enable,"This parameter enables/disables the checksum on a GRE interface.Notes:
+ignored when -mode = modify.Dependencies: This option is valid only when
+-mode is create or -mode is modify and -handle is a RIPng router
+interface and -session_type is ripng.0 - disable (Default)1 - enable.
+Only available for IxNetwork RIPng.
+DEFAULT
+	None",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_count,"The number of GRE tunnels to be created per directly connected
+interface. Only available for IxNetwork RIPngNotes: intf_count *
+gre_count cannot be greater than 100.Dependencies: This option is valid
+only when -mode is create and/or -gre_ipv6_addr are present and
+-session_type is ripng.
+DEFAULT
+	None",numeric,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_dst_ip_addr,"The first GRE tunnel destination IPv4/6 address that will be configured.
+Only available for IxNetwork RIPng.Notes: ignored when -mode
+modify.Dependencies: This option is valid only when -mode is create or
+-mode is modify and -handle is a RIPng router interface and
+-session_type is ripng.
+DEFAULT
+	None",ip,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_dst_ip_addr_cstep,"The destination IPv4/6 address incrementing step of the GRE tunnels that
+will be configured when passing from a connected interface to another.
+Only available for IxNetwork RIPng.Notes: If gre_dst_ip_addr_cstep is
+not present, the incrementing is based on gre_dst_ip_addr_step.ignored
+when -mode is modifyExample: Please see example under
+gre_ipv6_addr_cstep.Dependencies: This option is valid only when -mode
+is create and -session_type is ripng.
+DEFAULT
+	None",ip,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_dst_ip_addr_step,"The destination IPv4/6 address incrementing step of the GRE tunnels that
+will be configured. Only available for IxNetwork RIPng.(DEFAULT =
+0.0.0.0 | 0:0:0:1::0).Notes: ignored when -mode is modifyDependencies:
+This option is valid only when -mode is create and -session_type is ripng.
+DEFAULT
+	None",ip,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_ipv6_addr,"The first GRE IPv6 address that will be configured. Only available for
+IxNetwork RIPngNotes: ignored when -mode modify.Dependencies: This
+option is valid only when -mode is create or -mode is modify and -handle
+is a RIPng router interface and -session_type is ripng.
+DEFAULT
+	None",ipv6,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_ipv6_addr_cstep,"The IPv6 address incrementing step of the GRE interfaces that will be
+configured when passing from a connected interface to another. Only
+available for IxNetwork RIPng.Notes: If gre_ipv6_addr_cstep is not
+present, the incrementing is based on gre_ipv6_addr_step.ignored when
+-mode is modifyExample: The GRE tunnels have the connected interfaces as
+sourceintf_count 2gre_count 3gre_ipv6_addr 10::1gre_ipv6_addr_step
+::1gre_ipv6_addr_cstep 0:1::0The following list of GRE IP addresses will
+be generated:Connected1, GRE1 - 10::1; Connected1, GRE2 - 10::2;
+Connected1, GRE3 - 10::3Connected2, GRE7 - 10:1::1; Connected2, GRE8 -
+10:1::2; Connected2, GRE9 - 10:1::3Dependencies: This option is valid
+only when -mode is create and -session_type is ripng.
+DEFAULT
+	None",ipv6,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_ipv6_addr_step,"The IPv6 address incrementing step of the GRE interfaces that will be
+configured. Only available for IxNetwork RIPngNotes: ignored when -mode
+is modify.Dependencies: This option is valid only when -mode is create
+and -session_type is ripng.
+DEFAULT
+	None",ipv6,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_ipv6_prefix_length,"The IPv6 address prefix of the GRE interfaces that will be configured.
+Only available for IxNetwork RIPng.Notes: ignored when -mode is
+modify.Dependencies: This option is valid only when -mode is create or
+-mode is modify and -handle is a RIPng router interface and
+-session_type is ripng.
+DEFAULT
+	None",range,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_key_enable,"This parameter enables/disables the in/out keys on a GRE
+interface.Notes: ignored when -mode modify.Dependencies: This option is
+valid only when -mode is create or -mode is modify and -handle is a
+RIPng router interface and -session_type is ripng.0 - disable (DEFAULT)1
+- enable. Only available for IxNetwork RIPng.
+DEFAULT
+	None",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_key_in,"This parameter represents the GRE tunnel in key. The range of values is
+between 0 and 4,294,967,295. Only available for IxNetwork RIPng.Notes:
+ignored when -mode modify.Dependencies: This option is valid only when
+-mode is create and -gre_enable_key is 1 or -mode is modify and -handle
+is a RIPng router interface, -gre_enable_key is 1 and -session_type is
+ripng.
+DEFAULT
+	None",range,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_key_in_step,"This parameter represents the GRE tunnel in key step. The range of
+values is between 0 and 4,294,967,295. Only available for IxNetwork
+RIPng.Notes: ignored when -mode is modify.Dependencies: This option is
+valid only when -mode is create and -session_type is ripng.
+DEFAULT
+	None",range,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_key_out,"This parameter represents the GRE tunnel out key. The range of values is
+between 0 and 4,294,967,295. Only available for IxNetwork RIPng.Notes:
+ignored when -mode modify.Dependencies: This option is valid only when
+-mode is create and -gre_enable_key is 1 or -mode is modify and -handle
+is a RIPng router interface, -gre_enable_key is 1 and -session_type is
+ripng.
+DEFAULT
+	None",any,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_key_out_step,"This parameter represents the GRE tunnel out key step. The range of
+values is between 0 and 4,294,967,295. Only available for IxNetwork
+RIPng.Notes: ignored when -mode modify.Dependencies: This option is
+valid only when -mode is create and -session_type is ripng.
+DEFAULT
+	None",range,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+gre_seq_enable,"This parameter enables/disables the sequencing on a GRE interface.Notes:
+ignored when -mode modify.Dependencies: This option is valid only when
+-mode is create or -mode is modify and -handle is a RIPng router
+interface and -session_type is ripng.0 - disable (DEFAULT)1 - enable.
+Only available for IxNetwork RIPng.
+DEFAULT
+	None",bool_opt,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"RIP session handle used for mode other than create.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_handle,"Handle of an existing interface.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+interface_metric,"The value of the metric associated with the interface. This value is
+added to the metric in the routing table before transmitting updates
+through this interface. For RIPng only.The values can be one of the
+following 0+, 0-16.If interface_metric is 0, the interface metric is
+disabled.If interface_metric is 0+ or 1-16, the interface metric is enabled.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_count,"The number of directly connected protocol interfaces to be created per
+RIPng router. The number of RIPng router interfaces per router will be
+equal to * . Available only for RIPngNotes: intf_count * gre_count
+cannot be greater than 100.Dependencies: This option is valid only when
+-mode is create and -session_type is ripng.
+DEFAULT
+	None",numeric,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ip_addr,"Interface IP address of RIP session router.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_ip_addr_step,"The IP address step between each session for multiple sessions.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+intf_prefix_length,"Prefix length on the interface.(DEFAULT = 24 for RIPv1 and
+RIPv2)(DEFAULT = 64 for RIPng)
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_address_init,"The MAC address for the interface to be created.
+DEFAULT
+	None",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mac_address_step,"The incrementing step for the MAC address of the interface to be
+created. Valid only when IxNetwork Tcl API is used.
+DEFAULT
+	
+0000.0000.0001",mac,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+md5_key,"Not supported
+DEFAULT
+	Not supported",alphanumalphanum,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+md5_key_id,"Not supported
+DEFAULT
+	Not supported",range,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+mode,"This option defines the action to be taken. Valid choices are:
+Valid options are:
+create
+	
+creates a RIP router with the parameters given by user.
+delete
+	
+given a list of router handles deletes these routers.
+modify
+	
+given a list of router handles modifies the routers to match the other
+configuration parameters given by the user. Protocol interface
+parameters will be ignored when using RIPng and IxNetwork.
+disable
+	
+- given a list of router handles disables them.
+enable
+	
+given a list of router handles enables them.
+DEFAULT
+	None",opt,"create,delete,disable,enable,modify",IxNetwork[M],universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_intf_ip_addr,"Neighbor's (SUT) interface IP for sending unicast packets.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+neighbor_intf_ip_addr_step,"Define neighbor's interface IP for multiple sessions across multiple
+sub-interfaces.
+DEFAULT
+	None",ip,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+no_write,"If this option is present, the configuration is not written to the
+hardware. This option can be used to queue up multiple configurations
+before writing to the hardware.
+DEFAULT
+	None",flag,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+num_routes_per_period,"The number of routes to transmit every time period in milliseconds. A
+value of 0 disables this feature and transmits all routes immediately
+for all updates. RANGE 0-999999.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+override_existence_check,"If this option is enabled, the interface existence check is skipped but
+the list of interfaces is still created and maintained in order to keep
+track of existing interfaces, if required. Using this option will speed
+up the creation of interfaces.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+override_tracking,"If this option is enabled, the list of interfaces will no longer be
+created and maintained, thus speeding up the creation of interfaces even
+more. Also, it will enable -override_existence_check in case it was not
+already enabled because checking for interface existence becomes
+impossible if the the list of interfaces no longer exists.
+DEFAULT
+	
+0",bool_opt,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+password,"For RIPv2 only. The password is used in simple text authentication mode.
+DEFAULT
+	None",alphanumalphanum,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+port_handle,"The port on which the session is to be created.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+receive_type,"Configure which version of RIP incoming packets is received. The choices
+for receive type are v1, v2, v1_v2 for RIPv1 and RIPv2, and ignore and
+store for RIPng.
+DEFAULT
+	None",opt,"ignore,store,v1,v1_v2,v2","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+reset,"Clear all existent routers on the specified port. Valid only in create mode.
+DEFAULT
+	None",flag,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_id,"Router ID of RIP session router, use intf_ip_address if not specified by
+user.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+router_id_step,"Used to define router ID for multiple sessions.(DEFAULT 1)
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+send_type,"Configure version & destination address of outgoing RIP packets. The
+choices for send type are: multicast broadcast_v1 broadcast_v2.
+Multicast is for RIPv2 only. Broadcast address can be used for both v1 & v2.
+DEFAULT
+	None",opt,"broadcast_v1,broadcast_v2,multicast","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+session_type,"The version of RIP to be used: ripv1 ripv2 ripng.
+DEFAULT
+	None",opt,"ripng,ripv1,ripv2","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+time_period,"The time period to use for throttling updates, in milliseconds. A value
+of 0 disables this feature and transmits all routes immediately for all
+updates. RANGE 0-999999.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+triggered_interval,"Not supported
+DEFAULT
+	Not supported",range,,"IxNetwork, IxOS/IxNetwork-FT",unsupported,unsupported,"unimplemented",,
+update_interval,"The time, in seconds, between transmitted update messages. RANGE 1-1000.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+update_interval_offset,"The maximum update-interval variance in seconds; that is, the maximum of
+a random time interval used to add or substract from the time at which
+updates are sent. RANGE 0-15.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+update_mode,"Select learned routes to be included in outgoing RIP update
+Valid options are:
+no_horizon
+	
+Include all routes learned from all neighbors.
+split_horizon
+	
+Do not include routes from the neighbor to which
+poison_reverse
+	
+Include all routes learned from the neighbor
+discard
+	
+Discard all routes learned from all neighbors.
+DEFAULT
+	None",opt,"discard,no_horizon,poison_reverse,split_horizon","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vci,"VCI for emulated router node. RANGE 0-65535.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vci_step,"Step value to apply to VCI field. RANGE 0-256.When vci_step causes the
+vci value to exceed it's maximum value the increment will be done modulo
+.Examples: vci = 65534; vci_step = 2 -> new vci value = 0vci = 65535;
+vci_step = 11 -> new vci value = 10
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan,"Enables vlan on the directly connected RIP router interface. Valid
+options are: 0 - disable, 1 - enable.This option is valid only when
+-mode is create or -mode is modify and -handle is a RIPv1 or RIPv2
+router handle.This option is available only when IxNetwork tcl API is used.
+DEFAULT
+	
+0",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id,"VLAN ID for emulated router node. RANGE 0-4095.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id_mode,"For multiple neighbor configuration, configures the VLAN ID mode to
+fixed or increment.
+DEFAULT
+	None",opt,"fixed,increment","IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_id_step,"When vlan_id_mode is set to increment, this defines the step for every
+VLAN. RANGE 0-4096When vlan_id_step causes the vlan_id value to exceed
+it's maximum value the increment will be done modulo .Examples: vlan_id
+= 4094; vlan_id_step = 2 -> new vlan_id value = 0vlan_id = 4095;
+vlan_id_step = 11 -> new vlan_id value = 10
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vlan_user_priority,"VLAN user priority assigned to emulated router node. RANGE 0-7.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpi,"VPI for emulated router node. RANGE 0-255.
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+vpi_step,"Step value to apply to VPI field. RANGE 0-256.When vpi_step causes the
+vpi value to exceed it's maximum value the increment will be done modulo
+.Examples: vpi = 254; vpi_step = 2 -> new vpi value = 0vpi = 255;
+vpi_step = 11 -> new vpi value = 10
+DEFAULT
+	None",range,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

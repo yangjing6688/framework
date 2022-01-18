@@ -1,0 +1,14 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on X695-48Y-8C
+#
+
+sensors:
+  - *CPU_DEFAULT_TMPSN
+  - *MB_HOTSPOT_TMPSN
+  - *MB_AMBIENT_TMPSN

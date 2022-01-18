@@ -1,0 +1,30 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+mode,"Not defined
+Valid options are:
+stats
+	
+Gather IS-IS statistics.
+clear_stats
+	
+Clear IS-IS statistics.
+learned_info
+	
+Get Learned Info
+DEFAULT
+	None",opt,"clear_stats,learned_info,stats",IxNetwork-NGPF[M],ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+port_handle,"The port from which to extract ISISdata. One of the two parameters is
+required: port_handle/handle.
+DEFAULT
+	None",any,,IxNetwork-NGPF,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"ISIS session handle where the ISIS control action is applied. The
+session handle is an emulated IS-IS router object reference.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+ISIS session handle where the ISIS control action is applied. The
+session handle is an emulated IS-IS router object reference.
+DEFAULT
+	None",any,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

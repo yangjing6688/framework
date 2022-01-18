@@ -1,0 +1,68 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+hostservices:
+    enable_sys_force_topology_ip_flag:
+        description: "Enables the flag that configures the CLIP ID as the topology IP"
+        arguments:
+            order: 
+        uuid: 44ae2093-7a32-4200-9f6b-c76d9048a8a8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'sys force-topology-ip-flag',routerConfigPrompt,'None','None','None',[],[]]
+    disable_sys_force_topology_ip_flag:
+        description: "Disables the flag that configures the CLIP ID as the topology IP"
+        arguments:
+            order: 
+        uuid: 0ed942d2-10cd-489d-804e-4e0ff39a37e7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no sys force-topology-ip-flag',routerConfigPrompt,'None','None','None',[],[]]
+    set_sys_clipid_topology_ip:
+        description: "Configures the circuitless IP (CLIP) ID as the topology IP"
+        arguments:
+            order: 
+        uuid: 7dafa48c-20c4-4179-9a54-b6f6cc54e735
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'sys clipId-topology-ip {clip_id}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_sys_clipid_topology_ip:
+        description: "Clears the circuitless IP (CLIP) ID as the topology IP"
+        arguments:
+            order: 
+        uuid: ee66147e-6a71-43b9-b73a-4cd7defa0dc7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no sys clipId-topology-ip',routerConfigPrompt,'None','None','None',[],[]]
+    show_sys_setting:
+        uuid: f60ea537-ad29-4c8a-96bf-bfaa679d2433
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show sys setting',userPrompt,'None','None','None',[],[]]
+    show_autotopology_nmm_table:
+        uuid: 99b9efa8-9d29-4288-80d3-d56a2cf16193
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show autotopology nmm-table',userPrompt,'None','None','None',[],[]]

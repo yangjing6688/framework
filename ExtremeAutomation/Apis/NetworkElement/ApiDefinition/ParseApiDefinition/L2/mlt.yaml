@@ -1,0 +1,104 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+mlt:
+    check_mlt_exists:
+        uuid: b5ca3ae4-e77f-4d35-814e-9bce00ac9019
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_admin_type_split:
+        uuid: bd3a64dc-4acf-464f-a2b7-34d9cc7aab11
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_admin_type_normal:
+        uuid: 61537b1a-5292-45b6-bda9-dd9e27238fa0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_running_type_split:
+        uuid: a77128fb-7dcc-4b1e-8e71-84668f158fff
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_running_type_normal:
+        uuid: d979e328-409a-40d7-8576-4b3414abf0af
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_flex_uni_status:
+        uuid: 9b4f90a8-8f4f-4830-a976-0e7c55c91157
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_lacp_admin_status:
+        uuid: 4dddbfd7-8b6f-43cc-b666-d2d23da1aa8b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_lacp_oper_status:
+        uuid: 6276c21e-9898-44e6-95af-9fb78c5397d9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_lacp_actor_admin_key:
+        uuid: c1346e45-c916-4aa6-ab61-1e6f4e8744b3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_lacp_actor_oper_key:
+        uuid: 8e0ec4a8-2424-4a95-aeac-92e2b25f3999
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_lacp_actor_system_priority:
+        uuid: 30417882-48da-4269-8f49-5762041aae9d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_port:
+        uuid: 0ab36e44-637f-44d9-bf82-8249e73a2948
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_mlt_trunking:
+        uuid: a0166061-7384-447c-bbd0-1c370641f022
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]

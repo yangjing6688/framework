@@ -1,0 +1,54 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+hostinformation:
+    check_prompt:
+        uuid: 7522ffd6-48cc-4aca-8594-e84e623363ce
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_host_location:
+        uuid: fa190e1c-4f47-43e4-9c7e-90c8759f9553
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_host_contact:
+        uuid: ce271fec-a234-43e4-8711-8130813f90ca
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_host_name:
+        uuid: 17a8fe56-bd05-4ffe-96f0-86e4bc124251
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_host_system_id:
+        uuid: 38f0533a-c020-4fcb-862f-179ab313ee25
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [EOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]

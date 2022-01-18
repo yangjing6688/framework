@@ -1,0 +1,129 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+loginconfig:
+    verify_login_exists:
+        uuid: 0e4d2136-3725-4668-a366-d5073a21d3cb
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    verify_admin_login_exists:
+        uuid: 1b758a50-a125-4ac5-b3a8-69d4807b52af
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    verify_admin_login_does_not_exist:
+        uuid: d91959ef-0bdc-494b-8af5-8a5d02f9f6ef
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    verify_login_user_authentication_method:
+        uuid: d7f55d4f-6177-4244-a686-fd3a1c60e42e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_cli_timeout:
+        uuid: 70d3e5b8-cdd2-4ca6-aa20-d76fa4b7808d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_max_telnet_sessions:
+        uuid: b5c4a154-413d-49bc-83d0-bf6aa369da42
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_max_rlogin_sessions:
+        uuid: 7851e3ec-b3fb-4ca1-9030-5fb620a465cb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_read_only_account:
+        uuid: 0a237be5-098a-4665-879f-85ba84fc0d36
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_read_write_account:
+        uuid: 4bc5ec5d-411b-47ac-b270-d7082443c026
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_l1_read_write_account:
+        uuid: 8a18e783-ccf9-4097-acef-59794adcdcd7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_l2_read_write_account:
+        uuid: b97b6ff2-f621-480e-bdfd-625e4fd28028
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_l3_read_write_account:
+        uuid: 932e50f9-9a10-4448-9e8b-8f97dc4c3f1c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_total_failed_login_attempts:
+        uuid: e0006475-8a4c-463a-b239-007d0acf3fe2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_failed_login_attempts_since_success:
+        uuid: f52dc5d6-06f8-4518-9a07-f464fc9e38f7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_successful_login_attempts:
+        uuid: 3839d44c-e97d-498c-a3bb-786e98e7938d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_password_max_age:
+        uuid: 81af4b83-16f6-4b39-9964-9f0811067cd7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_password_min_age:
+        uuid: 82ef6e43-ce59-48bc-9cef-72e9aef0fbce
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_password_min_diff_char:
+        uuid: e13acd67-8c4a-4ca5-b3e6-f45171ec5152
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_password_min_length:
+        uuid: f913494a-3fbd-4cce-a351-2bac3f4bc9a0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

@@ -1,0 +1,209 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+mlt:
+    create_id:
+        description: "Creates the MLT instance and enables it"
+        arguments:
+            order: 
+        uuid: 61c7cf26-44c8-47eb-b0b1-344baf998f46
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'mlt {mlt_id}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.7.{mlt_id}','i','4']
+    delete_id:
+        description: "Removes the MLT instance"
+        arguments:
+            order: 
+        uuid: 10cf289a-a38f-40ab-985a-e1edab663ebd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no mlt {mlt_id}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.7.{mlt_id}','i','6']
+    enable_flex_uni:
+        description: "Enables flex-uni on the MLT instanceEnables flex-uni on the MLT instance"
+        arguments:
+            order: 
+        uuid: 97c17a90-02d4-4b74-af4e-80bc48f5fa95
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'flex-uni enable',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.49.{mlt_id}','i','1']
+    disable_flex_uni:
+        description: "Disables flex-uni on the MLT instance"
+        arguments:
+            order: 
+        uuid: a9841ef0-3767-404f-84b5-a4125aa299a2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no flex-uni enable',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.49.{mlt_id}','i','2']
+    enable_lacp:
+        description: "Enables LACP on the MLT instance"
+        arguments:
+            order: 
+        uuid: 1e1368d4-55d7-4507-a051-2b8a7752f43b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'lacp enable',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.18.{mlt_id}','i','1']
+    disable_lacp:
+        description: "Disables LACP on the MLT instance"
+        arguments:
+            order: 
+        uuid: 68d147b8-0e4e-4ca6-9fb1-51cc995252ef
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no lacp enable',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.18.{mlt_id}','i','2']
+    set_port_member:
+        description: "Adds a port to the MLT"
+        arguments:
+            order: 
+        uuid: 5932c3c8-ee1e-497e-84a9-0d359a20fb79
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'mlt {mlt_id} member {port}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.3.{mlt_id}','s','{port}']
+    clear_port_member:
+        description: "Removes a port from the MLT"
+        arguments:
+            order: 
+        uuid: 7e1bb41b-e957-4855-b711-a7165922d877
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no mlt {mlt_id} member {port}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.3.{mlt_id}','s','{port}']
+    set_type_split_mlt:
+        description: "Configures the MLT instance to a split MLT"
+        arguments:
+            order: 
+        uuid: 1b4685fe-bb79-40d1-9e07-52a4309e564c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'smlt',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.12.{mlt_id}','i','3']
+    set_type_normal_mlt:
+        description: "Configures the MLT instance to a normal MLT"
+        arguments:
+            order: 
+        uuid: 42dad7ab-c2b1-47eb-968a-4770a759368e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no smlt',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.12.{mlt_id}','i','1']
+    set_encapsulation_dot1q:
+        description: "Enables trunking on the MLT instance"
+        arguments:
+            order: 
+        uuid: 4ce20ab9-ec4a-4726-8051-5afdb7c4d86c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'mlt {mlt_id} encapsulation dot1q',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.4.{mlt_id}','i','2']
+    clear_encapsulation_dot1q:
+        description: "Disables trunking on the MLT instance"
+        arguments:
+            order: 
+        uuid: 29d08a66-c90a-4bbb-8e85-0393f2e372d9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no mlt {mlt_id} encapsulation dot1q',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.17.10.1.4.{mlt_id}','i','1']
+    show_logical_index:
+        uuid: f9e61724-4bd5-41ba-8b2d-55c509385e19
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.11.{mlt_id}','i','']
+    show_id:
+        uuid: 807b2755-0104-46a2-870b-4da5acd5c071
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',['Error'],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.1.{mlt_id}','i','']
+    show_admin_type:
+        uuid: bb540ad3-2e42-42af-8aeb-3ec6dd029160
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.12.{mlt_id}','i','']
+    show_running_type:
+        uuid: 5e58916a-129a-4991-b96c-740c57282f27
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.14.{mlt_id}','i','']
+    show_flex_uni_status:
+        uuid: 2ea5876e-eb29-440c-94ff-a0987f93c6b1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.49.{mlt_id}','i','']
+    show_lacp_admin_status:
+        uuid: ace34c52-0b00-4837-813a-6d628aad74ec
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.18.{mlt_id}','i','']
+    show_lacp_oper_status:
+        uuid: b88d9f44-5711-4553-a26c-42a96642a18a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.22.{mlt_id}','i','']
+    show_ports:
+        uuid: d7f2ad07-8835-4d66-8a93-2d9ea6eaeb31
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.3.{mlt_id}','i','']
+    show_encapsulation:
+        uuid: d2230dff-7053-440b-998d-7fcf101d6134
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.17.10.1.4.{mlt_id}','i','']

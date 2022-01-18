@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines LEDs specific to X690-48x-4q-2c
+#
+
+led_types:
+
+leds:

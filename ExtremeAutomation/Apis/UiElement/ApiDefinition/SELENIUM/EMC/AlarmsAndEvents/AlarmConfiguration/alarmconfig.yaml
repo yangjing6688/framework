@@ -1,0 +1,925 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+alarmconfig:
+    alarmconfig_select_alarm_definition:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_set_table_filter:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_clear_table_filter:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_next_page:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_prev_page:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_first_page:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_last_page:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_refresh:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_reset:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_copy:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_click_delete:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_set_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_set_severity:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_set_enabled:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_select_tab:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_select_row:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_severity_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_severity_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_severity_select_severities:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_severity_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_severity_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_category_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_category_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_category_select_categories:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_category_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_category_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_type_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_type_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_type_select_types:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_type_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_type_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_event_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_event_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_event_select_events:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_event_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_event_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_select_hostips:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_click_edit_list:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_select_row:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_select_host_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_select_ip_mask:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_set_host_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_set_ip_address:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_hostip_editlist_set_mask:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_log_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_log_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_log_select_logs:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_log_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_log_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_select_match_any_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_select_match_all_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_select_phrases:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_click_edit_list:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_editlist_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_editlist_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_editlist_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_editlist_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_editlist_select_row:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_editlist_select_contains:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_editlist_select_does_not_contain:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_custom_information_editlist_set_phrase:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_flow_set_match:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_flow_set_invert:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_flow_set_from_network:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_flow_set_to_network:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_flow_set_from_port:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_flow_set_ttl:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_flow_set_alarm_source:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_flow_set_alarm_interval:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_severity_set_event_alarm_severity:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_severity_select_traps_only:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_severity_select_events_only:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_severity_select_traps_and_events:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_status_select_contact_lost:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_status_select_contact_established:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_status_select_both:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_threshold_type:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_collector:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_target_type:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_application:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_application_any:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_location:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_location_any:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_statistic:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_statistic_type:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_statistic_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_cross_when_value:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_engines:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_threshold_set_rearm_when_value:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_traps_click_select_traps:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_traps_set_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_traps_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_traps_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_criteria_select_groups:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_click_test:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_select_enable_alarm_action_limit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_set_max_count:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_set_reset_interval:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_set_destination:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_select_override_content:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_set_subject:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_set_body:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_click_edit_email_lists:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_select_row:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_click_close:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_set_list_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_set_addresses:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_email_editlist_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_syslog_set_syslog_server:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_syslog_select_override_content:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_syslog_set_tag:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_syslog_set_message:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_syslog_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_syslog_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_trap_set_trap_server:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_trap_set_snmp_credential:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_trap_select_override_content:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_trap_set_trap_oid:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_trap_set_trap_message:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_trap_set_trap_message_oid:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_trap_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_trap_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_custom_set_program:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_custom_set_working_directory:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_custom_select_override_content:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_custom_set_custom_arguments:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_custom_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_actions_custom_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_other_options_select_no_current_alarm:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_other_options_select_cleared_by_alarms:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_other_options_set_cleared_by_alarms:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_add_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_set_severity:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_set_enabled:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_select_tab:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_select_row:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_severity_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_severity_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_severity_select_severities:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_severity_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_severity_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_category_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_category_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_category_select_categories:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_category_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_category_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_type_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_type_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_type_select_types:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_type_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_type_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_event_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_event_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_event_select_events:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_event_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_event_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_select_hostips:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_click_edit_list:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_select_row:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_select_host_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_select_ip_mask:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_set_host_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_set_ip_address:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_hostip_editlist_set_mask:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_log_select_match_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_log_select_exclude_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_log_select_logs:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_log_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_log_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_select_match_any_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_select_match_all_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_select_phrases:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_click_edit_list:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_editlist_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_editlist_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_editlist_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_editlist_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_editlist_select_row:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_editlist_select_contains:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_editlist_select_does_not_contain:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_custom_information_editlist_set_phrase:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_flow_set_match:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_flow_set_invert:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_flow_set_from_network:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_flow_set_to_network:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_flow_set_from_port:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_flow_set_ttl:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_flow_set_alarm_source:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_flow_set_alarm_interval:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_severity_set_event_alarm_severity:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_severity_select_traps_only:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_severity_select_events_only:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_severity_select_traps_and_events:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_status_select_contact_lost:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_status_select_contact_established:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_status_select_both:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_threshold_type:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_collector:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_target_type:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_application:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_application_any:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_location:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_location_any:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_statistic:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_statistic_type:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_statistic_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_cross_when_value:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_engines:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_threshold_set_rearm_when_value:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_traps_click_select_traps:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_traps_set_selected:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_traps_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_traps_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_criteria_select_groups:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_click_test:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_select_enable_alarm_action_limit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_set_max_count:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_set_reset_interval:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_set_destination:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_select_override_content:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_set_subject:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_set_body:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_click_edit_email_lists:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_select_row:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_click_add:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_click_remove:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_click_close:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_set_list_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_set_addresses:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_email_editlist_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_syslog_set_syslog_server:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_syslog_select_override_content:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_syslog_set_tag:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_syslog_set_message:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_syslog_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_syslog_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_trap_set_trap_server:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_trap_set_snmp_credential:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_trap_select_override_content:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_trap_set_trap_oid:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_trap_set_trap_message:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_trap_set_trap_message_oid:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_trap_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_trap_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_custom_set_program:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_custom_set_working_directory:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_custom_select_override_content:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_custom_set_custom_arguments:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_custom_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_actions_custom_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_other_options_select_no_current_alarm:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_other_options_select_cleared_by_alarms:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_other_options_set_cleared_by_alarms:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_edit_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_copy_set_name:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_copy_click_save:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_copy_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_confirm_delete_click_yes:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_dialog_confirm_delete_click_no:
+        apis:
+            - [emc,'8.1.1']
+    alarmconfig_confirm_alarm_definition_exists:
+        apis:
+            - [emc,'8.1.1']

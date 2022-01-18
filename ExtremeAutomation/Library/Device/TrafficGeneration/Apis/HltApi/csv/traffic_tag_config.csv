@@ -1,0 +1,7 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+handle,For create: protocol stack handle needed to configure traffic tag. For modify/delete: tag handle that must be modified/deleted,opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,Which mode is being performed.,opt,"create, modify,delete",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+enabled,Enables/disables tags,opt,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+name,specifies the name of the tag the entity will be part of,string,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+id,the tag ids that this entity will use/publish,numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+delete: Delete the specified tag.,,,,,"IxTclNetwork:7.40.929.15,IxTclHal:6.80",,"unimplemented",,

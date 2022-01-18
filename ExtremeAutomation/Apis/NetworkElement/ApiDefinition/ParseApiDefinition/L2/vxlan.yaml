@@ -1,0 +1,18 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+vxlan:
+    check_logical_switch_exists:
+        uuid: a6b666f7-8d1d-4880-bb9a-8c751380327f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]

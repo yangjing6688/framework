@@ -1,0 +1,293 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+port_handle,"Depending on the traffic_generator value, this option has different meanings. If traffic_generator ixnetwork_540 is used this parameter is used ixos/ixnetwork_540 - The port for which to configure traffic. Mandatory for -mode create/reset when -traffic_generator is set to ixos. For traffic_generator ixnetwork_540 this is mandatory on mode create only if parameter -emulation_src_handle is missing.ixnetwork/ixnetwork_540 - The port_handle parameter is not necessary anymore. When using IxNetwork, traffic configurations will be done using previously created handles (IP interfaces, PPP ranges, L2TP ranges, Protocol Route Ranges etc.) as sources (parameter -emulation_src_handle) and destinations (-emulation_dst_handle).",port,,"IxNetwork, IxOS/IxNetwork-FT",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-port_handle 1/2
+mode,"Supported with IxTclHal and IxTclNetwork (addAtmFilter choice is not valid with IxTclNetwork). When mode is create ATM specific configurations and general configurations will be set.The user can set the same pattern_atm for more pairs vpi/vci pairs (see parameters -vpi and -vci).If the user wants to set different pattern_atm for some pairs, he has to call this procedure using -mode addAtmFilter.When using -mode addAtmFilter, only ATM specific configurations will be set and all the other configurations will be ignored. These ATM specific configurations will be appended to the previous ones.This procedure must be called only once with -mode create, otherwise it will overwrite the previous configurations.",opt,"create, addAtmFilter","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+gfp_bad_fcs_error,"Supported with IxTclHal. If true, then GFP bad FCS errors are used in the filter. This condition is OR'd or AND'd with the other GFP errors based on the setting of the gfp_error_condition option.",opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-gfp_bad_fcs_error 1
+gfp_eHec_error,"Supported with IxTclHal. If true, then GFP extension header HEC errors are used in the filter. This condition is OR'd or AND'd with the other GFP errors based on the setting of the gfp_error_condition option.",opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-gfp_eHec_error 1
+gfp_payload_crc,"Supported with IxTclHal. If true, then GFP payload CRC errors are used in the filter. This condition is OR'd or AND'd with the other GFP errors based on the setting of the gfp_error_condition option.",opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-gfp_payload_crc 1
+gfp_tHec_error,"Supported with IxTclHal. If true, then GFP type header HEC errors are used in the filter. This condition is OR'd or AND'd with the other GFP errors based on the setting of the gfp_error_condition option.",opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-gfp_tHec_error 1
+DA1,"Supported with IxTclHal and IxTclNetwork. Only frames that contain this destination MAC address are filtered, captured or counted.",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-DA1 00:33:44:55:66:77
+DA2,"Supported with IxTclHal and IxTclNetwork. Only frames that contain this destination MAC address are filtered, captured or counted.",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-DA2 00:33:44:55:66:77
+DA_mask1,"Supported with IxTclHal and IxTclNetwork. A bit mask that allows the user to specify which bits of the DA1 should be used when filtering. If the mask bit is set high, the pattern bit will be used in the filter.",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-DA_mask1 FF:FF:FF:00:00:00
+DA_mask2,"Supported with IxTclHal and IxTclNetwork. A bit mask that allows the user to specify which bits of the DA2 should be used when filtering. If the mask bit is set high, the pattern bit will be used in the filter.",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-DA_mask2 FF:FF:FF:00:00:00
+gfp_error_condition,"Supported with IxTclHal. Indicates whether the enabled error conditions associated with enableGfptHecError, enableGfpeHecError, enableGfpPayloadCrcError and enableGfpBadFcsError must all be present (AND'd) or only one must be present (OR).
+Valid options are:
+0:(logic OR) - (default) Only one of the enabled error conditions must be present.
+1:(logic AND) - All of the enabled error conditions must be present.",opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-gfp_error_condition 1
+match_type1,"Supported with IxTclHal and IxTclNetwork. Match type for pattern1 set in class member pattern1.
+Valid options are:
+IpEthernetII: an Ethernet II packet.
+Ip8023Snap: an 802.3 SNAP packet.
+Vlan: a VLAN tagged packet.
+User: (default) a value as specified by pattern1, pattern Mask1 and patternOffset1.
+IpPpp: a PPP format packet
+IpCiscoHdlc: a Cisco HDLC format packet.
+IpSAEthernetII: match the IP Source Address for an Ethernet II packet located at offset 26. pattern will become the source IP address and pattern_mask will become the netmask for the IP address
+IpDAEthernetII: match the IP Destination Address for an Ethernet II packet located at offset 30. pattern will become the destination IP address and pattern_mask will become the netmask for the IP address
+IpSADAEthernetII: match the IP Source and Destination Address for an Ethernet II packet located at offset 26. pattern represents the IP addresses of the source and destination (in this order) and pattern_mask represents the masks of the source and destination IP addresses
+IpSA8023Snap: match the IP Source Address for an 802.3 Snap packet located at offset 34.(same as IpSAEthernetII)
+IpDA8023Snap: match the IP Destination Address for an 802.3 Snap packet located at offset 38. (same as IpDAEthernetII)
+IpSADA8023Snap: match the IP Source and Destination Address for an 802.3 Snap packet located at offset 34. (same as IpSADAEthernetII)
+IpSAPos: match the IP Source Address for an POS packet located at offset 16.(same as IpSAEthernetII)
+IpDAPos: match the IP Destination Address for an POS packet located at offset 20. (same as IpDAEthernetII)
+IpSADAPos: match the IP Source and Destination Addresses for an POS packet located at offset 16. (same as IpSADAEthernetII)
+TcpSourcePortIPEthernetII: match the TCP Source Port for an Ethernet II packet located at offset 34. (pattern represents the source port and the default mask value 00 will always overrides pattern_mask).
+TcpDestPortIPEthernetII: match the TCP Destination Port for an Ethernet II packet located at offset 36. (pattern represents the dest port and the default mask value 00 will always overrides pattern_mask).
+UdpSourcePortIPEthernetII: match the UDP Source Port for an Ethernet II packet located at offset 34.(pattern represents the source port)
+UdpDestPortIPEthernetII: match the UDP Destination Port for an Ethernet II packet located at offset 36. (pattern represents the dest port)
+TcpSourcePortIP8023Snap: match the TCP Source Port for an 802.3 Snap packet located at offset 42. (pattern represents the source port)
+TcpDestPortIP8023Snap: match the TCP Destination Port for an 802.3 Snap packet located at offset 44. (pattern represents the dest port)
+UdpSourcePortIP8023Snap: match the UDP Source Port for an 802.3 Snap packet located at offset 42. (pattern represents the source port)
+UdpDestPortIP8023Snap: match the UDP Destination Port for an 802.3 Snap packet located at offset 44 (pattern represents the dest port)
+TcpSourcePortIPPos: match the TCP Source Port for a POS
+TcpDestPortIPPos: match the TCP Destination Port for a POS packet located at offset 26. (pattern represents the dest port)
+UdpSourcePortIPPos: match the UDP Source Port for a POS packet located at offset 24. (pattern represents the source port)
+UdpDestPortIPPos: match the UDP Source Port for a POS packet located at offset 26. (pattern represents the dest port)
+SrpModeReserved000: match an SRP packet whose mode is reserved 000.
+SrpModeReserved001: match an SRP packet whose mode is reserved 001.
+SrpModeReserved010: match an SRP packet whose mode is reserved 010.
+SrpModeAtmCell011: match an SRP packet whose mode is ATM cell.
+SrpControlMessagePassToHost100: match an SRP packet whose mode is control message 1.
+SrpControlMessageBufferForHost101: match an SRP packet whose mode is control message 2.
+SrpUsageMessage110: match an SRP packet which is an SRP usage message.
+SrpPacketData111: match an SRP packet which is a data packet.
+SrpAllControlMessages10x: match SRP control messages 1 and 2.
+SrpUsageMessageOrPacketData11x: match SRP usage message or data packet.
+SrpControlUsageOrPacketData1xx: match SRP usage message, control message 1 or 2, or data packet.
+SrpInnerRing: match an SRP packet whose ringIdentifier is set to inner.
+SrpOuterRing: match an SRP packet whose ringIdentifier is set to outer.
+SrpPriority0-7: match an SRP packet whose priority is set to 0-7.
+SrpParityOdd: match an SRP packet with odd parity.
+SrpParityEven: match an SRP packet with even parity.
+SrpDiscoveryFrame: match an SRP discovery packet.
+SrpIpsFrame: match an SRP IPS packet.
+RprRingId0: Match any RPR packet which specifies Ringlet 0. Originally transmitted on Ringlet 0 by the Source)
+RprRingId1: Match any RPR packet which specifies Ringlet 1. (Originally transmitted on Ringlet 1 by the Source)
+RprFairnessEligibility0: Match any RPR packet which specifies Fairness Eligibility 0. (0 = Not eligible for Fairness algorithm)
+RprFairnessEligibility1: Match any RPR packet which specifies Fairness Eligibility 1. (0 = Not eligible for Fairness algorithm)
+RprIdlePacket: Match any RPR Idle packet (Type = 00).
+RprControlPacket: Match any RPR Control packet. (Type = 01)
+RprFairnessPacket: Match any RPR Fairness packet. (Type = 10)
+RprDataPacket: Match any RPR Data packet. (Type = 11)
+RprServiceClassC: Match any RPR packet which specifies service Class C.
+RprServiceClassB: Match any RPR packet which specifies service Class B.
+RprServiceClassA1: Match any RPR packet which specifies service Class A1.
+RprServiceClassA0: Match any RPR packet which specifies service Class A0.
+RprWrapEligibility0: Match any RPR packet which specifies Wrap Eligibility 0. (0 = Steerable only)
+RprWrapEligibility1: Match any RPR packet which specifies Wrap Eligibility 1. (1 = Wrap Eligible)
+RprParityBit0: Match any RPR packet which specifies Parity Bit 0.
+RprParityBit1: Match any RPR packet which specifies Parity Bit 1.
+IpV6SAEthernetII: Match the IPv6 Source Address for an Ethernet II packet. (pattern represents the IPv6 source address)
+IpV6DAEthernetII: Match the IPv6 Destination Address for an Ethernet II packet. (pattern represents the IPv6 destination address)
+IpV6SA8023Snap: Match the IPv6 Source Address for an 802.3 packet. (pattern represents the IPv6 source address)
+IpV6DA8023Snap: Match the IPv6 Destination Address for an 802.3 packet. (pattern represents the IPv6 destination address)
+IpV6SAPos: Match the IPv6 Source Address for a POS packet. (pattern represents the IPv6 source address)
+IpV6DAPos: Match the IPv6 Destination Address for a POS packet. (pattern represents the IPv6 destination address)
+Ipv6TcpSourcePortEthernetII: Match the IPv6 TCP source port number for an Ethernet II packet. (pattern represents the source port)
+Ipv6TcpDestPortEthernetII: Match the IPv6 TCP destination port number for an Ethernet II packet. (pattern represents the destination port)
+Ipv6UdpSourcePortEthernetII: Match the IPv6 UDP source port number for an Ethernet II packet. (pattern represents the source port)
+Ipv6UdpDestPortEthernetII: Match the IPv6 UDP destination port number for an Ethernet II packet. (pattern represents the destination port)
+Ipv6TcpSourcePort8023Snap: Match the IPv6 TCP source port number for an 802.3 SNAP packet. (pattern represents the source port)
+Ipv6TcpDestPort8023Snap: Match the IPv6 TCP destination port number for an 802.3 Snap packet. (pattern represents the destination port)
+Ipv6UdpSourcePort8023Snap: Match the IPv6 UDP source port number for an 802.3 Snap packet. (pattern represents the source port)
+Ipv6UdpDestPort8023Snap: Match the IPv6 UDP destination port number for an 802.3 Snap packet. (pattern represents the destination port)
+Ipv6TcpSourcePortPos: Match the IPv6 TCP source port number for an pos packet. (pattern represents the source port)
+Ipv6TcpDestPortPos: Match the IPv6 TCP destination port number for an pos packet. (pattern represents the destination port)
+Ipv6UdpSourcePortPos: Match the IPv6 UDP source port number for an pos packet. (pattern represents the source port)
+Ipv6UdpDestPortPos: Match the IPv6 UDP destination port number for an pos packet. (pattern represents the destination port)
+Ipv6IpTcpSourcePortEthernetII: Match the TCP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an Ethernet II packet. (pattern represents the source port)
+Ipv6IpTcpDestPortEthernetII: Match the TCP destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an Ethernet II packet. (pattern represents the destination port)
+Ipv6IpUdpSourcePortEthernetII: Match the UDP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an Ethernet II packet. (pattern represents the source port)
+Ipv6IpUdpDestPortEthernetII: Match the UPD destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an Ethernet II packet. (pattern represents the destination port)
+Ipv6IpTcpSourcePort8023Snap: Match the TCP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an 802.3 Snap packet. (pattern represents the source port)
+Ipv6IpTcpDestPort8023Snap: Match the TCP destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an 802.3 Snap packet. (pattern represents the destination port)
+Ipv6IpUdpSourcePort8023Snap: Match the UDP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an 802.3 Snap packet. (pattern represents the source port)
+Ipv6IpUdpDestPort8023Snap: Match the UPD destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an 802.3 Snap packet. (pattern represents the destination port)
+Ipv6IpTcpSourcePortPos: Match the TCP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in a POS packet. (pattern represents the source port)
+Ipv6IpTcpDestPortPos: Match the TCP destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in a POS packet. (pattern represents the destination port)
+Ipv6IpUdpSourcePortPos: Match the UDP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in a POS packet. (pattern represents the source port)
+Ipv6IpUdpDestPortPos: Match the UPD destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in a POS packet. (pattern represents the destination port)
+IpOverIpv6IpSAEthernetII: Match the IPv4 source address in an IPv4 frame encapsulated in an IPv6 frame in an Ethernet II packet. (pattern represents the source IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpDAEthernetII: Match the IPv4 destination address in an IPv4 frame encapsulated in an IPv6 frame in an Ethernet II packet. (pattern represents the destination IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpSA8023Snap: Match the IPv4 source address in an IPv4 frame encapsulated in an IPv6 frame in an 802.3 Snap packet. (pattern represents the source IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpDA8023Snap: Match the IPv4 destination address in an IPv4 frame encapsulated in an IPv6 frame in an 802.3 Snap packet. (pattern represents the destination IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpSAPos: Match the IPv4 source address in an IPv4 frame encapsulated in an IPv6 frame in POS packet. (pattern represents the source IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpDAPos: Match the IPv4 destination address in an IPv4 frame encapsulated in an IPv6 frame in POS packet. (pattern represents the destination IP address and pattern_mask will become the netmask for the IP address)
+Ipv6OverIpIpv6SAEthernetII: Match the IPv6 source address in an IPv6 frame encapsulated in an IPv4 frame in an Ethernet II packet. (pattern represents the IPv6 source address)
+Ipv6OverIpIpv6DAEthernetII: Match the IPv6 destination address in an IPv6 frame encapsulated in anIPv4 frame in an Ethernet II packet. (pattern represents the IPv6 destination address)
+Ipv6OverIpIpv6SA8023Snap: Match the IPv6 source address in an IPv6 frame encapsulated in an IPv4 frame in an 802.3 Snap packet. (pattern represents the IPv6 source address)
+Ipv6OverIpIpv6DA8023Snap: Match the IPv6 destination address in an IPv6 frame encapsulated in an IPv4 frame in an 802.3 Snap packet. (pattern represents the IPv6 destination address)
+Ipv6OverIpIpv6SAPos: Match the IPv6 source address in an IPv6 frame encapsulated in an IPv4 frame in POS packet. (pattern represents the IPv6 source address)
+Ipv6OverIpIpv6DAPos: Match the IPv6 destination address in an IPv6 frame encapsulated in an IPv4 frame in POS packet. (pattern represents the IPv6 destination address)
+Ipv6Ppp: Match an IPv6 PPP packet.
+Ipv6CiscoHdlc: Match an IPv6 packet encapsulated with Cisco HDLC.
+GfpDataFcsNullExtEthernet: Match a user data GFP frame which includes an FCS and whose payload uses a null extension and indicates frame-mapped ethernet data.
+GfpDataNoFcsNullExtEthernet: Match a user data GFP frame which does not includes an FCS and whose payload uses a null extension and indicates frame-mapped Ethernet data.
+GfpDataFcsLinearExtEthernet: Match a user data GFP frame which includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped Ethernet data.
+GfpDataNoFcsLinearExtEthernet: Match a user data GFP frame which does not includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped Ethernet data.
+GfpMgmtFcsNullExtEthernet: Match a management GFP frame which includes an FCS and whose payload uses a null extension and indicates frame-mapped Ethernet data.
+GfpMgmtNoFcsNullExtEthernet: Match a management GFP frame which does not includes an FCS and whose payload uses a null extension and indicates frame-mapped Ethernet data.
+GfpMgmtFcsLinearExtEthernet: Match a management GFP frame which includes an FCS and whose payload uses a linear frame extenzion and indicates frame-mapped Ethernet data.
+GfpMgmtNoFcsLinearExtEthernet: Match a management GFP frame which does not includes an FCS and whose payload uses a linear frame extension and indicates framemapped ethernet data.
+GfpDataFcsNullExtPpp: Match a user data GFP frame which includes an FCS and whose payload uses a null extension and indicates frame-mapped PPP data.
+GfpDataNoFcsNullExtPpp: Match a user data GFP frame which does not includes an FCS and whose payload uses a null extension and indicates frame-mapped PPP data.
+GfpDataFcsLinearExtPpp: Match a user data GFP frame which includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped PPP data.
+GfpDataNoFcsLinearExtPpp: Match a user data GFP frame which does not includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped PPP data.
+GfpMgmtFcsNullExtPpp: Match a management GFP frame which includes an FCS and whose payload uses a null extension and indicates frame-mapped PPP data.
+GfpMgmtNoFcsNullExtPpp: Match a management GFP frame which does not includes an FCS and whose payload uses a null extension and indicates frame-mapped PPP data.
+GfpMgmtFcsLinearExtPpp: Match a management GFP frame which includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped PPP data.
+GfpMgmtNoFcsLinearExtPpp: Match a management GFP frame which does not includes an FCS and whose payload uses a linear frame extension and indicates framemapped PPP data.",opt,"IpEthernetII, Ip8023Snap, Vlan, User, IpPpp, IpCiscoHdlc, IpSAEthernetII, IpDAEthernetII, IpSADAEthernetII, IpSA8023Snap, IpDA8023Snap, IpSADA8023Snap, IpSAPos, IpDAPos, IpSADAPos, TcpSourcePortIPEthernetII, TcpDestPortIPEthernetII, UdpSourcePortIPEthernetII, UdpDestPortIPEthernetII, TcpSourcePortIP8023Snap, TcpDestPortIP8023Snap, UdpSourcePortIP8023Snap, UdpDestPortIP8023Snap, TcpSourcePortIPPos, TcpDestPortIPPos, UdpSourcePortIPPos, UdpDestPortIPPos, SrpModeReserved000, SrpModeReserved001, SrpModeReserved010, SrpModeAtmCell011, SrpControlMessagePassToHost100, SrpControlMessageBufferForHost101, SrpUsageMessage110, SrpPacketData111, SrpAllControlMessages10x, SrpUsageMessageOrPacketData11x, SrpControlUsageOrPacketData1xx, SrpInnerRing, SrpOuterRing, SrpPriority0-7, SrpParityOdd, SrpParityEven, SrpDiscoveryFrame, SrpIpsFrame, RprRingId0, RprRingId1, RprFairnessEligibility0, RprFairnessEligibility1, RprIdlePacket, RprControlPacket, RprFairnessPacket, RprDataPacket, RprServiceClassC, RprServiceClassB, RprServiceClassA1, RprServiceClassA0, RprWrapEligibility0, RprWrapEligibility1, RprParityBit0, RprParityBit1, IpV6SAEthernetII, IpV6DAEthernetII, IpV6SA8023Snap, IpV6DA8023Snap, IpV6SAPos, IpV6DAPos, Ipv6TcpSourcePortEthernetII, Ipv6TcpDestPortEthernetII, Ipv6UdpSourcePortEthernetII, Ipv6UdpDestPortEthernetII, Ipv6TcpSourcePort8023Snap, Ipv6TcpDestPort8023Snap, Ipv6UdpSourcePort8023Snap, Ipv6UdpDestPort8023Snap, Ipv6TcpSourcePortPos, Ipv6TcpDestPortPos, Ipv6UdpSourcePortPos, Ipv6UdpDestPortPos, Ipv6IpTcpSourcePortEthernetII, Ipv6IpTcpDestPortEthernetII, Ipv6IpUdpSourcePortEthernetII, Ipv6IpUdpDestPortEthernetII, Ipv6IpTcpSourcePort8023Snap, Ipv6IpTcpDestPort8023Snap, Ipv6IpUdpSourcePort8023Snap, Ipv6IpUdpDestPort8023Snap, Ipv6IpTcpSourcePortPos, Ipv6IpTcpDestPortPos, Ipv6IpUdpSourcePortPos, Ipv6IpUdpDestPortPos, IpOverIpv6IpSAEthernetII, IpOverIpv6IpDAEthernetII, IpOverIpv6IpSA8023Snap, IpOverIpv6IpDA8023Snap, IpOverIpv6IpSAPos, IpOverIpv6IpDAPos, Ipv6OverIpIpv6SAEthernetII, Ipv6OverIpIpv6DAEthernetII, Ipv6OverIpIpv6SA8023Snap, Ipv6OverIpIpv6DA8023Snap, Ipv6OverIpIpv6SAPos, Ipv6OverIpIpv6DAPos, Ipv6Ppp, Ipv6CiscoHdlc, GfpDataFcsNullExtEthernet, GfpDataNoFcsNullExtEthernet, GfpDataFcsLinearExtEthernet, GfpDataNoFcsLinearExtEthernet, GfpMgmtFcsNullExtEthernet, GfpMgmtNoFcsNullExtEthernet, GfpMgmtFcsLinearExtEthernet, GfpMgmtNoFcsLinearExtEthernet, GfpDataFcsNullExtPpp, GfpDataNoFcsNullExtPpp, GfpDataFcsLinearExtPpp, GfpDataNoFcsLinearExtPpp, GfpMgmtFcsNullExtPpp, GfpMgmtNoFcsNullExtPpp, GfpMgmtFcsLinearExtPpp, GfpMgmtNoFcsLinearExtPpp","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+match_type2,"Supported with IxTclHal and IxTclNetwork. Match type for pattern2 set in class member pattern2.
+Valid options are:
+IpEthernetII: an Ethernet II packet.
+Ip8023Snap: an 802.3 SNAP packet.
+Vlan: a VLAN tagged packet.
+User: (default) a value as specified by pattern1, pattern Mask1 and patternOffset1.
+IpPpp: a PPP format packet
+IpCiscoHdlc: a Cisco HDLC format packet.
+IpSAEthernetII: match the IP Source Address for an Ethernet II packet located at offset 26. pattern will become the source IP address and pattern_mask will become the netmask for the IP address
+IpDAEthernetII: match the IP Destination Address for an Ethernet II packet located at offset 30. pattern will become the destination IP address and pattern_mask will become the netmask for the IP address
+IpSADAEthernetII: match the IP Source and Destination Address for an Ethernet II packet located at offset 26. pattern represents the IP addresses of the source and destination (in this order) and pattern_mask represents the masks of the source and destination IP addresses
+IpSA8023Snap: match the IP Source Address for an 802.3 Snap packet located at offset 34.(same as IpSAEthernetII)
+IpDA8023Snap: match the IP Destination Address for an 802.3 Snap packet located at offset 38. (same as IpDAEthernetII)
+IpSADA8023Snap: match the IP Source and Destination Address for an 802.3 Snap packet located at offset 34. (same as IpSADAEthernetII)
+IpSAPos: match the IP Source Address for an POS packet located at offset 16.(same as IpSAEthernetII)
+IpDAPos: match the IP Destination Address for an POS packet located at offset 20. (same as IpDAEthernetII)
+IpSADAPos: match the IP Source and Destination Addresses for an POS packet located at offset 16. (same as IpSADAEthernetII)
+TcpSourcePortIPEthernetII: match the TCP Source Port for an Ethernet II packet located at offset 34. (pattern represents the source port and the default mask value 00 will always overrides pattern_mask).
+TcpDestPortIPEthernetII: match the TCP Destination Port for an Ethernet II packet located at offset 36. (pattern represents the dest port and the default mask value 00 will always overrides pattern_mask).
+UdpSourcePortIPEthernetII: match the UDP Source Port for an Ethernet II packet located at offset 34.(pattern represents the source port)
+UdpDestPortIPEthernetII: match the UDP Destination Port for an Ethernet II packet located at offset 36. (pattern represents the dest port)
+TcpSourcePortIP8023Snap: match the TCP Source Port for an 802.3 Snap packet located at offset 42. (pattern represents the source port)
+TcpDestPortIP8023Snap: match the TCP Destination Port for an 802.3 Snap packet located at offset 44. (pattern represents the dest port)
+UdpSourcePortIP8023Snap: match the UDP Source Port for an 802.3 Snap packet located at offset 42. (pattern represents the source port)
+UdpDestPortIP8023Snap: match the UDP Destination Port for an 802.3 Snap packet located at offset 44 (pattern represents the dest port)
+TcpSourcePortIPPos: match the TCP Source Port for a POS
+TcpDestPortIPPos: match the TCP Destination Port for a POS packet located at offset 26. (pattern represents the dest port)
+UdpSourcePortIPPos: match the UDP Source Port for a POS packet located at offset 24. (pattern represents the source port)
+UdpDestPortIPPos: match the UDP Source Port for a POS packet located at offset 26. (pattern represents the dest port)
+SrpModeReserved000: match an SRP packet whose mode is reserved 000.
+SrpModeReserved001: match an SRP packet whose mode is reserved 001.
+SrpModeReserved010: match an SRP packet whose mode is reserved 010.
+SrpModeAtmCell011: match an SRP packet whose mode is ATM cell.
+SrpControlMessagePassToHost100: match an SRP packet whose mode is control message 1.
+SrpControlMessageBufferForHost101: match an SRP packet whose mode is control message 2.
+SrpUsageMessage110: match an SRP packet which is an SRP usage message.
+SrpPacketData111: match an SRP packet which is a data packet.
+SrpAllControlMessages10x: match SRP control messages 1 and 2.
+SrpUsageMessageOrPacketData11x: match SRP usage message or data packet.
+SrpControlUsageOrPacketData1xx: match SRP usage message, control message 1 or 2, or data packet.
+SrpInnerRing: match an SRP packet whose ringIdentifier is set to inner.
+SrpOuterRing: match an SRP packet whose ringIdentifier is set to outer.
+SrpPriority0-7: match an SRP packet whose priority is set to 0-7.
+SrpParityOdd: match an SRP packet with odd parity.
+SrpParityEven: match an SRP packet with even parity.
+SrpDiscoveryFrame: match an SRP discovery packet.
+SrpIpsFrame: match an SRP IPS packet.
+RprRingId0: Match any RPR packet which specifies Ringlet 0. Originally transmitted on Ringlet 0 by the Source)
+RprRingId1: Match any RPR packet which specifies Ringlet 1. (Originally transmitted on Ringlet 1 by the Source)
+RprFairnessEligibility0: Match any RPR packet which specifies Fairness Eligibility 0. (0 = Not eligible for Fairness algorithm)
+RprFairnessEligibility1: Match any RPR packet which specifies Fairness Eligibility 1. (0 = Not eligible for Fairness algorithm)
+RprIdlePacket: Match any RPR Idle packet (Type = 00).
+RprControlPacket: Match any RPR Control packet. (Type = 01)
+RprFairnessPacket: Match any RPR Fairness packet. (Type = 10)
+RprDataPacket: Match any RPR Data packet. (Type = 11)
+RprServiceClassC: Match any RPR packet which specifies service Class C.
+RprServiceClassB: Match any RPR packet which specifies service Class B.
+RprServiceClassA1: Match any RPR packet which specifies service Class A1.
+RprServiceClassA0: Match any RPR packet which specifies service Class A0.
+RprWrapEligibility0: Match any RPR packet which specifies Wrap Eligibility 0. (0 = Steerable only)
+RprWrapEligibility1: Match any RPR packet which specifies Wrap Eligibility 1. (1 = Wrap Eligible)
+RprParityBit0: Match any RPR packet which specifies Parity Bit 0.
+RprParityBit1: Match any RPR packet which specifies Parity Bit 1.
+IpV6SAEthernetII: Match the IPv6 Source Address for an Ethernet II packet. (pattern represents the IPv6 source address)
+IpV6DAEthernetII: Match the IPv6 Destination Address for an Ethernet II packet. (pattern represents the IPv6 destination address)
+IpV6SA8023Snap: Match the IPv6 Source Address for an 802.3 packet. (pattern represents the IPv6 source address)
+IpV6DA8023Snap: Match the IPv6 Destination Address for an 802.3 packet. (pattern represents the IPv6 destination address)
+IpV6SAPos: Match the IPv6 Source Address for a POS packet. (pattern represents the IPv6 source address)
+IpV6DAPos: Match the IPv6 Destination Address for a POS packet. (pattern represents the IPv6 destination address)
+Ipv6TcpSourcePortEthernetII: Match the IPv6 TCP source port number for an Ethernet II packet. (pattern represents the source port)
+Ipv6TcpDestPortEthernetII: Match the IPv6 TCP destination port number for an Ethernet II packet. (pattern represents the destination port)
+Ipv6UdpSourcePortEthernetII: Match the IPv6 UDP source port number for an Ethernet II packet. (pattern represents the source port)
+Ipv6UdpDestPortEthernetII: Match the IPv6 UDP destination port number for an Ethernet II packet. (pattern represents the destination port)
+Ipv6TcpSourcePort8023Snap: Match the IPv6 TCP source port number for an 802.3 SNAP packet. (pattern represents the source port)
+Ipv6TcpDestPort8023Snap: Match the IPv6 TCP destination port number for an 802.3 Snap packet. (pattern represents the destination port)
+Ipv6UdpSourcePort8023Snap: Match the IPv6 UDP source port number for an 802.3 Snap packet. (pattern represents the source port)
+Ipv6UdpDestPort8023Snap: Match the IPv6 UDP destination port number for an 802.3 Snap packet. (pattern represents the destination port)
+Ipv6TcpSourcePortPos: Match the IPv6 TCP source port number for an pos packet. (pattern represents the source port)
+Ipv6TcpDestPortPos: Match the IPv6 TCP destination port number for an pos packet. (pattern represents the destination port)
+Ipv6UdpSourcePortPos: Match the IPv6 UDP source port number for an pos packet. (pattern represents the source port)
+Ipv6UdpDestPortPos: Match the IPv6 UDP destination port number for an pos packet. (pattern represents the destination port)
+Ipv6IpTcpSourcePortEthernetII: Match the TCP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an Ethernet II packet. (pattern represents the source port)
+Ipv6IpTcpDestPortEthernetII: Match the TCP destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an Ethernet II packet. (pattern represents the destination port)
+Ipv6IpUdpSourcePortEthernetII: Match the UDP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an Ethernet II packet. (pattern represents the source port)
+Ipv6IpUdpDestPortEthernetII: Match the UPD destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an Ethernet II packet. (pattern represents the destination port)
+Ipv6IpTcpSourcePort8023Snap: Match the TCP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an 802.3 Snap packet. (pattern represents the source port)
+Ipv6IpTcpDestPort8023Snap: Match the TCP destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an 802.3 Snap packet. (pattern represents the destination port)
+Ipv6IpUdpSourcePort8023Snap: Match the UDP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an 802.3 Snap packet. (pattern represents the source port)
+Ipv6IpUdpDestPort8023Snap: Match the UPD destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in an 802.3 Snap packet. (pattern represents the destination port)
+Ipv6IpTcpSourcePortPos: Match the TCP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in a POS packet. (pattern represents the source port)
+Ipv6IpTcpDestPortPos: Match the TCP destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in a POS packet. (pattern represents the destination port)
+Ipv6IpUdpSourcePortPos: Match the UDP source port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in a POS packet. (pattern represents the source port)
+Ipv6IpUdpDestPortPos: Match the UPD destination port number for an IPv4 over IPv6 or IPv6 over IPv4 frame in a POS packet. (pattern represents the destination port)
+IpOverIpv6IpSAEthernetII: Match the IPv4 source address in an IPv4 frame encapsulated in an IPv6 frame in an Ethernet II packet. (pattern represents the source IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpDAEthernetII: Match the IPv4 destination address in an IPv4 frame encapsulated in an IPv6 frame in an Ethernet II packet. (pattern represents the destination IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpSA8023Snap: Match the IPv4 source address in an IPv4 frame encapsulated in an IPv6 frame in an 802.3 Snap packet. (pattern represents the source IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpDA8023Snap: Match the IPv4 destination address in an IPv4 frame encapsulated in an IPv6 frame in an 802.3 Snap packet. (pattern represents the destination IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpSAPos: Match the IPv4 source address in an IPv4 frame encapsulated in an IPv6 frame in POS packet. (pattern represents the source IP address and pattern_mask will become the netmask for the IP address)
+IpOverIpv6IpDAPos: Match the IPv4 destination address in an IPv4 frame encapsulated in an IPv6 frame in POS packet. (pattern represents the destination IP address and pattern_mask will become the netmask for the IP address)
+Ipv6OverIpIpv6SAEthernetII: Match the IPv6 source address in an IPv6 frame encapsulated in an IPv4 frame in an Ethernet II packet. (pattern represents the IPv6 source address)
+Ipv6OverIpIpv6DAEthernetII: Match the IPv6 destination address in an IPv6 frame encapsulated in anIPv4 frame in an Ethernet II packet. (pattern represents the IPv6 destination address)
+Ipv6OverIpIpv6SA8023Snap: Match the IPv6 source address in an IPv6 frame encapsulated in an IPv4 frame in an 802.3 Snap packet. (pattern represents the IPv6 source address)
+Ipv6OverIpIpv6DA8023Snap: Match the IPv6 destination address in an IPv6 frame encapsulated in an IPv4 frame in an 802.3 Snap packet. (pattern represents the IPv6 destination address)
+Ipv6OverIpIpv6SAPos: Match the IPv6 source address in an IPv6 frame encapsulated in an IPv4 frame in POS packet. (pattern represents the IPv6 source address)
+Ipv6OverIpIpv6DAPos: Match the IPv6 destination address in an IPv6 frame encapsulated in an IPv4 frame in POS packet. (pattern represents the IPv6 destination address)
+Ipv6Ppp: Match an IPv6 PPP packet.
+Ipv6CiscoHdlc: Match an IPv6 packet encapsulated with Cisco HDLC.
+GfpDataFcsNullExtEthernet: Match a user data GFP frame which includes an FCS and whose payload uses a null extension and indicates frame-mapped ethernet data.
+GfpDataNoFcsNullExtEthernet: Match a user data GFP frame which does not includes an FCS and whose payload uses a null extension and indicates frame-mapped Ethernet data.
+GfpDataFcsLinearExtEthernet: Match a user data GFP frame which includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped Ethernet data.
+GfpDataNoFcsLinearExtEthernet: Match a user data GFP frame which does not includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped Ethernet data.
+GfpMgmtFcsNullExtEthernet: Match a management GFP frame which includes an FCS and whose payload uses a null extension and indicates frame-mapped Ethernet data.
+GfpMgmtNoFcsNullExtEthernet: Match a management GFP frame which does not includes an FCS and whose payload uses a null extension and indicates frame-mapped Ethernet data.
+GfpMgmtFcsLinearExtEthernet: Match a management GFP frame which includes an FCS and whose payload uses a linear frame extenzion and indicates frame-mapped Ethernet data.
+GfpMgmtNoFcsLinearExtEthernet: Match a management GFP frame which does not includes an FCS and whose payload uses a linear frame extension and indicates framemapped ethernet data.
+GfpDataFcsNullExtPpp: Match a user data GFP frame which includes an FCS and whose payload uses a null extension and indicates frame-mapped PPP data.
+GfpDataNoFcsNullExtPpp: Match a user data GFP frame which does not includes an FCS and whose payload uses a null extension and indicates frame-mapped PPP data.
+GfpDataFcsLinearExtPpp: Match a user data GFP frame which includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped PPP data.
+GfpDataNoFcsLinearExtPpp: Match a user data GFP frame which does not includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped PPP data.
+GfpMgmtFcsNullExtPpp: Match a management GFP frame which includes an FCS and whose payload uses a null extension and indicates frame-mapped PPP data.
+GfpMgmtNoFcsNullExtPpp: Match a management GFP frame which does not includes an FCS and whose payload uses a null extension and indicates frame-mapped PPP data.
+GfpMgmtFcsLinearExtPpp: Match a management GFP frame which includes an FCS and whose payload uses a linear frame extension and indicates frame-mapped PPP data.
+GfpMgmtNoFcsLinearExtPpp: Match a management GFP frame which does not includes an FCS and whose payload uses a linear frame extension and indicates framemapped PPP data.",opt,"IpEthernetII, Ip8023Snap, Vlan, User, IpPpp, IpCiscoHdlc, IpSAEthernetII, IpDAEthernetII, IpSADAEthernetII, IpSA8023Snap, IpDA8023Snap, IpSADA8023Snap, IpSAPos, IpDAPos, IpSADAPos, TcpSourcePortIPEthernetII, TcpDestPortIPEthernetII, UdpSourcePortIPEthernetII, UdpDestPortIPEthernetII, TcpSourcePortIP8023Snap, TcpDestPortIP8023Snap, UdpSourcePortIP8023Snap, UdpDestPortIP8023Snap, TcpSourcePortIPPos, TcpDestPortIPPos, UdpSourcePortIPPos, UdpDestPortIPPos, SrpModeReserved000, SrpModeReserved001, SrpModeReserved010, SrpModeAtmCell011, SrpControlMessagePassToHost100, SrpControlMessageBufferForHost101, SrpUsageMessage110, SrpPacketData111, SrpAllControlMessages10x, SrpUsageMessageOrPacketData11x, SrpControlUsageOrPacketData1xx, SrpInnerRing, SrpOuterRing, SrpPriority0-7, SrpParityOdd, SrpParityEven, SrpDiscoveryFrame, SrpIpsFrame, RprRingId0, RprRingId1, RprFairnessEligibility0, RprFairnessEligibility1, RprIdlePacket, RprControlPacket, RprFairnessPacket, RprDataPacket, RprServiceClassC, RprServiceClassB, RprServiceClassA1, RprServiceClassA0, RprWrapEligibility0, RprWrapEligibility1, RprParityBit0, RprParityBit1, IpV6SAEthernetII, IpV6DAEthernetII, IpV6SA8023Snap, IpV6DA8023Snap, IpV6SAPos, IpV6DAPos, Ipv6TcpSourcePortEthernetII, Ipv6TcpDestPortEthernetII, Ipv6UdpSourcePortEthernetII, Ipv6UdpDestPortEthernetII, Ipv6TcpSourcePort8023Snap, Ipv6TcpDestPort8023Snap, Ipv6UdpSourcePort8023Snap, Ipv6UdpDestPort8023Snap, Ipv6TcpSourcePortPos, Ipv6TcpDestPortPos, Ipv6UdpSourcePortPos, Ipv6UdpDestPortPos, Ipv6IpTcpSourcePortEthernetII, Ipv6IpTcpDestPortEthernetII, Ipv6IpUdpSourcePortEthernetII, Ipv6IpUdpDestPortEthernetII, Ipv6IpTcpSourcePort8023Snap, Ipv6IpTcpDestPort8023Snap, Ipv6IpUdpSourcePort8023Snap, Ipv6IpUdpDestPort8023Snap, Ipv6IpTcpSourcePortPos, Ipv6IpTcpDestPortPos, Ipv6IpUdpSourcePortPos, Ipv6IpUdpDestPortPos, IpOverIpv6IpSAEthernetII, IpOverIpv6IpDAEthernetII, IpOverIpv6IpSA8023Snap, IpOverIpv6IpDA8023Snap, IpOverIpv6IpSAPos, IpOverIpv6IpDAPos, Ipv6OverIpIpv6SAEthernetII, Ipv6OverIpIpv6DAEthernetII, Ipv6OverIpIpv6SA8023Snap, Ipv6OverIpIpv6DA8023Snap, Ipv6OverIpIpv6SAPos, Ipv6OverIpIpv6DAPos, Ipv6Ppp, Ipv6CiscoHdlc, GfpDataFcsNullExtEthernet, GfpDataNoFcsNullExtEthernet, GfpDataFcsLinearExtEthernet, GfpDataNoFcsLinearExtEthernet, GfpMgmtFcsNullExtEthernet, GfpMgmtNoFcsNullExtEthernet, GfpMgmtFcsLinearExtEthernet, GfpMgmtNoFcsLinearExtEthernet, GfpDataFcsNullExtPpp, GfpDataNoFcsNullExtPpp, GfpDataFcsLinearExtPpp, GfpDataNoFcsLinearExtPpp, GfpMgmtFcsNullExtPpp, GfpMgmtNoFcsNullExtPpp, GfpMgmtFcsLinearExtPpp, GfpMgmtNoFcsLinearExtPpp","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+pattern1,"Supported with IxTclHal and IxTclNetwork. Only frames that contain this pattern at offset pattern_offset1 are filtered, captured or counted. Must be provided as a HEX list less then 16 bytes (Example: {00 11 ff})",hex,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern1 {00 11 FF}
+pattern2,"Supported with IxTclHal and IxTclNetwork. Only frames that contain this pattern at offset pattern_offset2 are filtered, captured or counted. Must be provided as a HEX list less then 16 bytes (Example: {00 22 ff aa dd ee aa dd aa dd ee ff ee 33 55 66})",hex,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern2 {00 22 ff aa dd ee aa dd aa dd ee ff ee 33 55 66}
+pattern_atm,"Supported with IxTclHal. Only frames that contain this pattern at offset pattern_offset_atm are filtered, captured or counted. Must be provided as a HEX list less then 40 bytes (Example: {00 22 ff aa dd ee aa dd aa dd ee ff ee 33 55 66}). This can be used only for cards that support ATM feature. This parameter refers to the vpi/vci specified with -vpi -vci parameters.",hex,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern_atm {00 11 22 33}
+pattern_mask1,"Supported with IxTclHal and IxTclNetwork. A bit mask that allows the user to specify which bits of pattern1 should be used when filtering. If the mask bit is set low, the pattern bit will be used in the filter. Must be provided as a HEX list less then 16 bytes (Example: {00 00 ff})",hex,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern_mask1 {00 00 FF}
+pattern_mask2,"Supported with IxTclHal and IxTclNetwork. A bit mask that allows the user to specify which bits of pattern2 should be used when filtering. If the mask bit is set high, the pattern bit will be used in the filter. Must be provided as a HEX list less then 16 bytes (Example: {00 ff ff})",hex,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern_mask2 {00 FF FF}
+pattern_mask_atm,"Supported with IxTclHal. A bit mask that allows the user to specify which bits of pattern_atm should be used when filtering. If the mask bit is set high, the pattern bit will be ignored. Must be provided as a HEX list less then 40 bytes (Example: {00 00 ff})",hex,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern_mask_atm {00 00 FF}
+pattern_offset1,"Supported with IxTclHal and IxTclNetwork. Offset of pattern1 in the frame to be filtered, captured or counted.",num,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern_offset1 22
+pattern_offset2,"Supported with IxTclHal and IxTclNetwork. Offset of pattern2 in the frame to be filtered, captured or counted.",num,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern_offset2 33
+pattern_offset_atm,"Supported with IxTclHal. Offset of pattern_atm in the frame to be filtered, captured or counted.",num,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-pattern_offset_atm 33
+pattern_offset_type1,"Supported with IxTclHal and IxTclNetwork. For ports that support the portFeaturePatternOffsetFlexible feature, this option specifies the place that pattern_offset1 is relative
+Valid options are:
+startOfFrame: (default) Offset from the start of the frame.
+startOfIp: Offset from the start of the IP header
+startOfProtocol: Offset from the start of the protocol within the IP header.
+startOfSonet: Offset from the start of the SONET frame. This choice is not supported with IxTclNetwork",num,"startOfFrame, startOfIp, startOfProtocol, startOfSonet","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+pattern_offset_type2,"Supported with IxTclHal and IxTclNetwork. For ports that support the portFeaturePatternOffsetFlexible feature, this option specifies the place that pattern_offset2 is relative
+Valid options are:
+startOfFrame: (default) Offset from the start of the frame.
+startOfIp: Offset from the start of the IP header
+startOfProtocol: Offset from the start of the protocol within the IP header.
+startOfSonet: Offset from the start of the SONET frame. This choice is not supported with IxTclNetwork",num,"startOfFrame, startOfIp, startOfProtocol, startOfSonet","IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,#NAME?
+SA1,"Supported with IxTclHal and IxTclNetwork. Only frames that contain this destination MAC address are filtered, captured or counted.",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-SA1 00:33:44:55:66:77
+SA2,"Supported with IxTclHal and IxTclNetwork. Only frames that contain this destination MAC address are filtered, captured or counted.",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-SA2 00:33:44:55:66:77
+SA_mask1,"Supported with IxTclHal and IxTclNetwork. A bit mask that allows the user to specify which bits of the SA1 should be used when filtering. If the mask bit is set high, the pattern bit will be used in the filter.",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-SA_mask1 FF:FF:FF:00:00:00
+SA_mask2,"Supported with IxTclHal and IxTclNetwork. A bit mask that allows the user to specify which bits of the SA2 should be used when filtering. If the mask bit is set high, the pattern bit will be used in the filter.",mac,,"IxNetwork, IxOS/IxNetwork-FT",ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-SA_mask2 FF:FF:FF:00:00:00
+vpi,Supported with IxTclHal. The vpi with which the pattern_atm will be associated.,opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-vpi 44
+vpi_count,Supported with IxTclHal. Number of vpi's for which the pattern_atm will apply.,opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-vpi_count 44
+vpi_step,Supported with IxTclHal. Step to increment the vpi.,opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-vpi_step 2
+vci,Supported with IxTclHal. The vci with which the pattern_atm will be associated.,opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-vci 44
+vci_count,Supported with IxTclHal. Number of vci's for which the pattern_atm will apply.,opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-vci_count 44
+vci_step,Supported with IxTclHal. Step to increment the VPI.,opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-vci_step 2
+no_write,Supported with IxTclHal. Step to increment the VPI.,opt,,IxOS/IxNetwork-FT,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,-no_write 1

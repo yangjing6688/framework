@@ -1,0 +1,15 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+
+common:
+    get_dir:
+        apis:
+            - [LINUX,base,baseversion,baseunit,'ls',userPrompt,'None','None','None',[],[]]
+            - [WINDOWS,base,baseversion,baseunit,'dir',userPrompt,'None','None','None',[],[]]
+    remove_file:
+        apis:
+            - [WINDOWS,base,baseversion,baseunit,'del {file_name}',userPrompt,'None','None','None',[],[]]

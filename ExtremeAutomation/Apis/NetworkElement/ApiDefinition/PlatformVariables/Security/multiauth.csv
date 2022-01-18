@@ -1,0 +1,10 @@
+Feature,multiauth,,,,
+Variable Name,OS,Platform,Version,Unit,Variables Value
+agent_type_dot1x,EOS,base,baseversion,baseunit,dot1x
+agent_type_mac,EOS,base,baseversion,baseunit,mac
+agent_type_web,EOS,base,baseversion,baseunit,pwa
+agent_type_dot1x,EXOS,base,baseversion,baseunit,dot1x
+agent_type_mac,EXOS,base,baseversion,baseunit,mac
+agent_type_web,EXOS,base,baseversion,baseunit,web-based
+default_idle_timeout,EXOS,base,baseversion,baseunit,300
+default_session_timeout,EXOS,base,baseversion,baseunit,0

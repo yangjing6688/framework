@@ -1,0 +1,206 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines common ports present on X435 series switches
+#
+
+# ##################################################################
+# Common Ports
+# ##################################################################
+
+common_port_info: &COMMON_PORT_INFO
+   interrupt: board_int
+
+1G_port: &1G_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100_1000
+   portMediaType: HAL_PORT_MED_UTP
+   FullDuplexOnly: false
+   GigHalfDuplex: false
+   Eee: true
+
+1G_poe_port: &1G_POE_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100_1000
+   portMediaType: HAL_PORT_MED_UTP
+   Poe: true
+   PoePlusPlus: false
+   GigHalfDuplex: false
+   FullDuplexOnly: false
+   Eee: true
+
+1G_sfp_port: &1G_SFP_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100_1000_2500
+   portMediaType: HAL_PORT_MED_MGBIC
+   GigHalfDuplex: false
+   FullDuplexOnly: false
+
+
+sfp_1_devices: &SFP_1_DEVICES
+  devices:
+    - name:           sfp_1_eeprom
+      compatible:     24c02
+      bus:            pca9548_0_ch0
+      address:        0x50
+  module_eeprom:      sfp_1_eeprom
+
+sfp_1_control: &SFP_1_CONTROL
+  module_tx_fault:
+    device:           pca9555_0
+    register:         0x00
+    bitmask:          0x01
+  module_tx_disable:
+    device:           pca9555_0
+    register:         0x02
+    bitmask:          0x02
+  module_present:
+    device:           pca9555_0
+    register:         0x00
+    bitmask:          0x04
+    active_low:       1
+  module_rx_los:
+    device:           pca9555_0
+    register:         0x00
+    bitmask:          0x08
+  module_init_ops:
+    - device:         pca9555_0
+      register:       0x06
+      bitmask:        0x0F
+      value:          0x0D
+    - device:         pca9555_0
+      register:       0x02
+      bitmask:        0x02
+      value:          1
+
+sfp_2_devices: &SFP_2_DEVICES
+  devices:
+    - name:           sfp_2_eeprom
+      compatible:     24c02
+      bus:            pca9548_0_ch1
+      address:        0x50
+  module_eeprom:      sfp_2_eeprom
+
+sfp_2_control: &SFP_2_CONTROL
+  module_tx_fault:
+    device:           pca9555_0
+    register:         0x00
+    bitmask:          0x10
+  module_tx_disable:
+    device:           pca9555_0
+    register:         0x02
+    bitmask:          0x20
+  module_present:
+    device:           pca9555_0
+    register:         0x00
+    bitmask:          0x40
+    active_low:       1
+  module_rx_los:
+    device:           pca9555_0
+    register:         0x00
+    bitmask:          0x80
+  module_init_ops:
+    - device:         pca9555_0
+      register:       0x06
+      bitmask:        0xF0
+      value:          0x0D
+    - device:         pca9555_0
+      register:       0x02
+      bitmask:        0x20
+      value:          1
+
+sfp_3_devices: &SFP_3_DEVICES
+  devices:
+    - name:           sfp_3_eeprom
+      compatible:     24c02
+      bus:            pca9548_0_ch2
+      address:        0x50
+  module_eeprom:      sfp_3_eeprom
+
+sfp_3_control: &SFP_3_CONTROL
+  module_tx_fault:
+    device:           pca9555_0
+    register:         0x01
+    bitmask:          0x01
+  module_tx_disable:
+    device:           pca9555_0
+    register:         0x03
+    bitmask:          0x02
+  module_present:
+    device:           pca9555_0
+    register:         0x01
+    bitmask:          0x04
+    active_low:       1
+  module_rx_los:
+    device:           pca9555_0
+    register:         0x01
+    bitmask:          0x08
+  module_init_ops:
+    - device:         pca9555_0
+      register:       0x07
+      bitmask:        0x0F
+      value:          0x0D
+    - device:         pca9555_0
+      register:       0x03
+      bitmask:        0x02
+      value:          1
+
+sfp_4_devices: &SFP_4_DEVICES
+  devices:
+    - name:           sfp_4_eeprom
+      compatible:     24c02
+      bus:            pca9548_0_ch3
+      address:        0x50
+  module_eeprom:      sfp_4_eeprom
+
+sfp_4_control: &SFP_4_CONTROL
+  module_tx_fault:
+    device:           pca9555_0
+    register:         0x01
+    bitmask:          0x10
+  module_tx_disable:
+    device:           pca9555_0
+    register:         0x03
+    bitmask:          0x20
+  module_present:
+    device:           pca9555_0
+    register:         0x01
+    bitmask:          0x40
+    active_low:       1
+  module_rx_los:
+    device:           pca9555_0
+    register:         0x01
+    bitmask:          0x80
+  module_init_ops:
+    - device:         pca9555_0
+      register:       0x07
+      bitmask:        0xF0
+      value:          0x0D
+    - device:         pca9555_0
+      register:       0x03
+      bitmask:        0x20
+      value:          1
+
+sfp_1: &SFP_1
+  connector:        SFP
+  <<: *SFP_1_DEVICES
+  <<: *SFP_1_CONTROL
+
+sfp_2: &SFP_2
+  connector:        SFP
+  <<: *SFP_2_DEVICES
+  <<: *SFP_2_CONTROL
+
+sfp_3: &SFP_3
+  connector:        SFP
+  <<: *SFP_3_DEVICES
+  <<: *SFP_3_CONTROL
+
+sfp_4: &SFP_4
+  connector:        SFP
+  <<: *SFP_4_DEVICES
+  <<: *SFP_4_CONTROL

@@ -1,0 +1,20 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines system info common to X465 copper series switches
+
+common_system_info: &COMMON_SYSTEM_INFO
+  system_eeprom:      onie_eeprom
+  system_phy_reset:
+    device:           fpga_reg
+    register:         0x28
+    bitmask:          0x38
+    active_low:       0
+  system_phy_super_isolate_enable:
+    device:           fpga_reg
+    register:         0x64
+    bitmask:          0x01

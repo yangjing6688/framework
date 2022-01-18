@@ -1,0 +1,1 @@
+STDLIBS = frozenset(('BuiltIn'))

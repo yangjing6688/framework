@@ -1,0 +1,35 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the buses and devices specific to X465-24 fiber models
+#
+
+buses:
+  - *I2CBUS
+
+devices:
+  - *CPU_CPLD
+  - *IOE_TCA9539
+  - *FPGA
+  - *ONIE_EEPROM
+  - *PCA9548_0
+  - *PCA9548_1
+  - *SP_PCA9506
+  - *PORT_PCA9548_0
+  - *PORT_PCA9548_1
+  - *SFP_PCA9548_0
+  - *SFP_PCA9545_0
+  - *SFP_PCA9506_0
+  - *SFP_PCA9506_1
+  - *SFP_PCA9506_2
+  - *PORT_CPLD_0
+  - *SFP_PCA9548_1
+  - *SFP_PCA9545_1
+  - *SFP_PCA9506_3
+  - *SFP_PCA9506_4
+  - *SFP_PCA9506_5
+  - *PORT_CPLD_1

@@ -1,0 +1,123 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for X465-24MU
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+   - name: 1
+     <<: *5G_POE_PORT
+
+   - name: 2
+     <<: *5G_POE_PORT
+
+   - name: 3
+     <<: *5G_POE_PORT
+
+   - name: 4
+     <<: *5G_POE_PORT
+
+   - name: 5
+     <<: *5G_POE_PORT
+
+   - name: 6
+     <<: *5G_POE_PORT
+
+   - name: 7
+     <<: *5G_POE_PORT
+
+   - name: 8
+     <<: *5G_POE_PORT
+
+   - name: 9
+     <<: *5G_POE_PORT
+
+   - name: 10
+     <<: *5G_POE_PORT
+
+   - name: 11
+     <<: *5G_POE_PORT
+
+   - name: 12
+     <<: *5G_POE_PORT
+
+   - name: 13
+     <<: *5G_POE_PORT
+
+   - name: 14
+     <<: *5G_POE_PORT
+
+   - name: 15
+     <<: *5G_POE_PORT
+
+   - name: 16
+     <<: *5G_POE_PORT
+
+   - name: 17
+     <<: *5G_POE_PORT
+
+   - name: 18
+     <<: *5G_POE_PORT
+
+   - name: 19
+     <<: *5G_POE_PORT
+
+   - name: 20
+     <<: *5G_POE_PORT
+
+   - name: 21
+     <<: *5G_POE_PORT
+
+   - name: 22
+     <<: *5G_POE_PORT
+
+   - name: 23
+     <<: *5G_POE_PORT
+
+   - name: 24
+     <<: *5G_POE_PORT
+
+   - name: 25
+     <<: *40G_PARTITION_PORT
+
+   - name: 26
+     <<: *10G_PORT
+
+   - name: 27
+     <<: *10G_PORT
+
+   - name: 28
+     <<: *10G_PORT
+
+   - name: 29
+     <<: *40G_PARTITION_PORT
+
+   - name: 30
+     <<: *10G_PORT
+
+   - name: 31
+     <<: *10G_PORT
+
+   - name: 32
+     <<: *10G_PORT
+
+   - name: 33
+     <<: *10G_SB_PORT
+     sideBandPortPCIMap: "0000:08:00.0"
+
+   - name: 34
+     <<: *10G_SB_PORT
+     sideBandPortPCIMap: "0000:08:00.1"
+
+   - name: 121
+     <<: *STACKING_PORT_1
+
+   - name: 125
+     <<: *STACKING_PORT_2

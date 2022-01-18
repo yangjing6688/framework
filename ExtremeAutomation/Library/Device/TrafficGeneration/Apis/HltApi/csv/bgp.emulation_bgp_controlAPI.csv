@@ -1,0 +1,249 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+mode,"Supported platforms  Details
+
+IxOS/IxNetwork-FT [M]
+ 
+
+Same as IxNetwork.
+
+IxNetwork [M]
+ 
+
+DESCRIPTION
+ 
+
+What is being done to the protocol. Valid choices are:
+
+Valid options are:
+
+stop
+ 
+
+stop the protocol
+
+start
+ 
+
+start the protocol
+
+restart
+ 
+
+restart the protocol
+
+link_flap
+ 
+
+turns on and sets the link flapping
+
+statistic
+ 
+
+enables the retrieval of statistics for a future call of ::<namespace>::emulation_bgp_infowith parameter -mode set to stats(valid only for IxProtocol)
+
+DEFAULT
+ None
+
+IxNetwork-NGPF [M]
+ 
+
+DESCRIPTION
+ 
+
+What is being done to the protocol..
+
+Valid options are:
+
+link_flap
+ 
+
+turns on and sets the link flapping
+
+restart
+ 
+
+restart the protocol
+
+abort
+ 
+
+aborts the protcol
+
+restart_down
+ 
+
+restart the down sessions
+
+start
+ 
+
+start the protocol
+
+stop
+ 
+
+stop the protocol
+
+statistic
+ 
+
+enables the retrieval of statistics for a future call of ::<namespace>::emulation_bgp_info with parameter -mode set to stats(valid only for IxProtocol)
+
+break_tcp_session
+ 
+
+breaks the tcp session using tcp_session_notification_code and tcp_session_notification_sub_code values
+
+resume_tcp_session
+ 
+
+resumes the tcp session using tcp_session_notification_code and tcp_session_notification_sub_code values
+
+resume_keep_alive
+ 
+
+resumes the keep alive
+
+stop_keep_alive
+ 
+
+stops the keep alive
+
+DEFAULT
+ None",opt,"link_flap,restart,abort restart_down,start,stop,statistic,break_tcp_session,resume_tcp_session,resume_keep_alive,stop_keep_alive","IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The BGP session handle.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The BGP session handle.
+
+DEFAULT
+ None",STRING,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+notification_code,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The notification code for break_tcp_session and resume_tcp_session.
+
+DEFAULT
+ 
+
+0",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+notification_sub_code,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The notification sub code for break_tcp_session and resume_tcp_session.
+
+DEFAULT
+ 
+
+0",NUMERIC,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+link_flap_up_time,"Supported platforms  Details
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+When mode is link_flap, the amount of time in seconds that the link is connected.
+
+DEFAULT
+ Not supported
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'mode' | value= 'link_flap' |",not supported,,not supported,unsupported,unsupported,"unimplemented",,
+link_flap_down_time,"Supported platforms  Details
+RANGE 0 - 10000000
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+When mode is link_flap, the amount of time in seconds that the link is disconnected.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+When mode is link_flap, the amount of time in seconds that the link is disconnected.
+
+DEFAULT
+ None
+
+DEPENDENCIES
+ 
+
+Valid in combination with parameter(s)
+'mode' | value= 'link_flap' |",NUMERIC,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+port_handle,"Supported platforms  Details
+
+IxOS/IxNetwork-FT
+ 
+
+Same as IxNetwork.
+
+IxNetwork
+ 
+
+DESCRIPTION
+ 
+
+The port on which the BGP neighbor is to be created.
+
+DEFAULT
+ None
+
+IxNetwork-NGPF
+ 
+
+DESCRIPTION
+ 
+
+The port on which the BGP neighbor is to be created.
+
+DEFAULT
+ None",port,,"IxNetwork,IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

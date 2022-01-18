@@ -1,0 +1,13 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the interrupt devices common to X435 series switches
+#
+
+devices:
+  - *INTR_CONTROLLER_SYSTEM_GPIO_0
+  - *INTR_CONTROLLER_SYSTEM_GPIO_1

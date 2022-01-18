@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the interrupt devices common to 5320 series switches
+#
+
+devices:
+  - *INTR_CONTROLLER_CPLD

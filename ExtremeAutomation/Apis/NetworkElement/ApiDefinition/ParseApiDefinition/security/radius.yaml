@@ -1,0 +1,244 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+radius:
+    check_radius_state:
+        uuid: 5635ec26-de8f-4a18-a801-7e1b2102aed6
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_accounting_state:
+        uuid: 603034d2-5ce5-440a-bfad-9b44e8f7be64
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_exists:
+        uuid: 5db2b939-fce2-4748-97c7-886f3d719287
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_radius_server_status:
+        uuid: a5cd08bd-f744-4a5b-9f79-033605e5e847
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    get_radius_server_port:
+        uuid: cafd390e-4b29-4bd9-a118-27d52c25807d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_radius_accounting_server_exists:
+        uuid: b8ed7bfc-f43e-4bec-981f-f4a320ae3f79
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_if_radius_algorithm_type_is_standard:
+        uuid: 9140d10e-a9ff-4d67-919d-59a93e2bd07d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_if_radius_algorithm_type_is_round_robin:
+        uuid: 08bbb15c-bd53-4a36-a816-ea7cfd278a8f
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_if_radius_algorithm_type_is_sticky_round_robin:
+        uuid: 5636bdb3-9495-47bf-8b96-c39da76ea260
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_radius_server_timeout:
+        uuid: 5e24f49a-38a3-4cca-b2df-f4ed057c836e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_if_radius_timeout_is_set_to_default_setting:
+        uuid: c9620018-fe85-4b4e-a0f8-ff0989f548f0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_radius_server_retries:
+        uuid: 9cb9391f-ac15-40f1-8224-14d51d3d842a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_if_radius_retries_is_set_to_default_setting:
+        uuid: 6bc4a82a-909e-4e30-b94f-f19c2268ee4d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_radius_mgmt_authentication_state:
+        uuid: ec754d57-8364-4092-9892-d81b5b99a6e9
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_radius_netlogin_authentication_state:
+        uuid: 0bdac441-57d4-4efc-964a-4d68d251cf1b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_radius_max_servers:
+        uuid: c2f3e829-b448-490b-8a7c-538446b8d7e7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_access_priority:
+        uuid: 8b2ec6a0-81c4-4462-bf03-28f42e8f7b39
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_acct_attr:
+        uuid: 0f62b287-c60c-45d6-9cb1-790f8d7b6365
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_include_cli_cmds:
+        uuid: db327062-e52c-410b-aca7-c2d51a4fc989
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_mcast_addr_attr:
+        uuid: 005ecd6e-5ba5-46c9-ad62-e360d9b0cd9c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_auth_info_attr:
+        uuid: b8b618c0-d3ff-4364-bc79-26955677d759
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_cmd_access_attr:
+        uuid: 268c5ec5-01ec-4724-97b3-629a86d1e762
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_cli_cmd_attr:
+        uuid: d43427c0-50ba-47c2-93a3-2b6fdcd87b4e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_cli_profile:
+        uuid: f342bfb2-d76b-4d83-8fae-7d5a1cf660de
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_src_ip_flag:
+        uuid: 44066bd9-544a-4621-b693-13e0947c0803
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_cli_cmd_count:
+        uuid: 25936dda-e4ed-4977-a79d-f367d7d2a8b4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_host_priority:
+        uuid: a578051c-c5c9-4ccf-bcf4-29fab05d3982
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_host_timeout:
+        uuid: f21d5782-0c38-4029-87d2-c0432df05108
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_host_status:
+        uuid: 21f7ffe2-3e42-42d7-ab92-01c5cc959963
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_host_max_retries:
+        uuid: eb79c13d-dfff-4e8a-93fc-c7607ddb4d46
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_host_auth_port:
+        uuid: 36658062-f6f3-4df4-b62e-32cd6b495df4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_host_acct_status:
+        uuid: 4dfa9a4f-fab8-4e9c-87d4-dbdbcb6f9856
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_host_acct_port:
+        uuid: a3693736-79e4-4afe-b59c-fd5f10cebfab
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_radius_server_host_source_ip:
+        uuid: 75224a76-8654-47c1-a2d0-98d416ede40e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]

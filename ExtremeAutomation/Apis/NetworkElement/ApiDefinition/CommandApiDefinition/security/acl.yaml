@@ -1,0 +1,299 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+acl:
+    create_ipv4:
+        description: "Creates an IPv4 ACL of the given type on a device"
+        arguments:
+            order: name,acl_id,acl_type,voss_acl_type
+        uuid: 46cc1e09-b77a-48f3-b471-b0460b965a05
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ip access-list {acl_type} {name}|| exit',routerConfigPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'filter acl {acl_id} type {voss_acl_type} name {name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.11.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.13.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.3.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.4.{acl_id}','i||i||s||i','4||3||{name}||{voss_acl_type}']
+    create_ipv6:
+        description: "Creates an IPv6 ACL of the given type on a device"
+        arguments:
+            order: name,acl_id,acl_type,voss_acl_type
+        uuid: 8d98c3b6-3c38-41de-bbb9-7665d4fac2b0
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'ipv6 access-list {acl_type} {name}|| exit',routerConfigPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'filter acl {acl_id} type {voss_acl_type} name {name} pktType ipv6',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.11.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.13.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.3.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.4.{acl_id}','i||i||s||i','4||2||{name}||{voss_acl_type}']
+    delete_list:
+        description: "Removes an ACL on a given device"
+        arguments:
+            order: name,acl_id,acl_type,ip_ver
+        uuid: 3d235e88-a2c4-4f09-961c-98f0600ef260
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'no {ip_ver} access-list {acl_type} {name}',routerConfigPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no filter acl {acl_id}',routerConfigPrompt,'None','Do you wish to delete this ACL? (y/n) ?','y',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.11.{acl_id}','i','6']
+    set_standard_rule:
+        description: "Adds a rule entry of the given types to an existing ACL"
+        arguments:
+            order:
+        uuid: fda50222-0089-4331-b760-a0be89989052
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'{ip_ver} access-list {acl_type} {name}|| {rule_type} {rule_info}|| exit',routerConfigPrompt,'None','None','None',[],[]]
+    create_ace_index:
+        description: "Creates an access control entry (ACE) index ID under a designated ACL"
+        arguments:
+            order: ace_name,acl_id,ace_index
+        uuid: 91b19841-d175-4715-ad5e-762434c6dd5d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl ace {acl_id} {ace_index} name {ace_name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.19.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.3.{acl_id}','i||s','4||{ace_name}']
+    delete_ace_index:
+        description: "Removes an access control entry (ACE) index ID under a designated ACL"
+        arguments:
+            order: acl_id,ace_index
+        uuid: ca55a68a-e092-4462-aaf9-42ce02793795
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no filter acl ace {acl_id} {ace_index}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.19.{acl_id}','i','6']
+    enable_list:
+        description: "Enables the state of the ACL (and all ACEs in the ACL)"
+        arguments:
+            order: 
+        uuid: 57cd5339-9aa3-4b16-aa0d-a71ca66ace9b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl {acl_id} enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.8.{acl_id}','i','1']
+    disable_list:
+        description: "Disables the state of the ACL (and all ACEs in the ACL)"
+        arguments:
+            order: 
+        uuid: 71c6c544-fa88-4dfa-be7b-4e87198e029b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no filter acl {acl_id} enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.8.{acl_id}','i','2']
+    enable_ace:
+        description: "Enables the ACE. An ACE can only be modified if it is disabled"
+        arguments:
+            order: acl_id,ace_index
+        uuid: 40e17139-f478-436f-bd1f-e7b7e251d857
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl ace {acl_id} {ace_index} enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.10.{acl_id}.{ace_index}','i','1']
+    disable_ace:
+        description: "Disables the ACE. An ACE can only be modified if it is disabled"
+        arguments:
+            order: acl_id,ace_index
+        uuid: 40e579c3-0a1b-4785-bb42-0f0a7930cf04
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no filter acl ace {acl_id} {ace_index} enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.10.{acl_id}.{ace_index}','i','2']
+    set_name:
+        description: "Changes the ACL name of an existing ACL"
+        arguments:
+            order: name,acl_id
+        uuid: aa86a026-8284-4fd1-97ce-9be9826d4c30
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl {acl_id} name {name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.3.{acl_id}','s','{name}']
+    set_default_action:
+        description: "Changes the default action the ACL should take when none of the Aces in the Acl match"
+        arguments:
+            order: 
+        uuid: 54ea9fc0-1ca1-476f-94a2-dfa4525a4bf7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl set {acl_id} default-action {action}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.6.{acl_id}','i','{action}']
+    set_port:
+        description: "Adds ports to the designated ACL"
+        arguments:
+            order: 
+        uuid: 0a1fae24-2a56-4607-ab8e-108277703e4f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl port {acl_id} {port}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.10.{acl_id}','s','{port}']
+    clear_port:
+        description: "Removes ports on the designated ACL"
+        arguments:
+            order: 
+        uuid: ecc0cb15-cdbb-4731-84fd-f54bef2a7c4b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no filter acl port {acl_id} {port}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.10.{acl_id}','s','{port}']
+    set_vlan:
+        description: "Adds VLANS to the designated ACL"
+        arguments:
+            order: 
+        uuid: 6c9f011e-c993-455b-a448-1fd505c3f1b0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl vlan {acl_id} {vlan}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.9.{acl_id}','s','{vlan}']
+    clear_vlan:
+        description: "Removes vlans on the designated ACL"
+        arguments:
+            order: 
+        uuid: cf9d5686-2128-4a94-8eb8-d45aebd55127
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no filter acl vlan {acl_id} {vlan}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.9.{acl_id}','s','{vlan}']
+    set_ace_action:
+        description: "Operational mode associated with the Ace that takes effect on the packets matching this Ace"
+        arguments:
+            order: acl_id,ace_index,ace_action
+        uuid: 57b9120e-fe78-4259-803c-c5596a9e132e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl ace action {acl_id} {ace_index} {ace_action}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.4.{acl_id}.{ace_index}','i','{ace_action}']
+    set_ace_name:
+        description: "Configures the name to be associated with the Ace"
+        arguments:
+            order: acl_id,ace_index,ace_name
+        uuid: 60841625-fe68-45df-807c-962bac8724ac
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl ace {acl_id} {ace_index} name {ace_name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.3.{acl_id}.{ace_index}','s','{ace_name}']
+    set_ace_ethernet_ethertype:
+        description: "Configures the EtherType value from the ethernet header for the ACE under the ACL"
+        arguments:
+            order: acl_id,ace_index,ace_ethertype
+        uuid: ce925b7f-3e77-40cf-91de-6d09c99de6cd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'filter acl ace ethernet {acl_id} {ace_index} ether-type eq {ace_ethertype}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.4.4.1.3.{acl_id}.{ace_index}||1.3.6.1.4.1.2272.1.202.1.1.2.4.4.1.6.{acl_id}.{ace_index}||1.3.6.1.4.1.2272.1.202.1.1.2.4.4.1.5.{acl_id}.{ace_index}','s||i||i','{ace_ethertype}||4||1']
+    clear_ace_ethernet_ethertype:
+        description: "Removes the EtherType value from the ethernet header for the ACE under the ACL"
+        arguments:
+            order: acl_id,ace_index
+        uuid: 3505b71e-e11c-4f18-9560-077cbd35dac8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no filter acl ace ethernet {acl_id} {ace_index} ether-type',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.202.1.1.2.4.4.1.6.{acl_id}.{ace_index}','i','6']
+    show_all_ipv4:
+        uuid: 3bf3b522-5128-49dc-b9e0-1f8c898a6997
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show access-lists ipv4',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show filter acl',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1','i','']
+    show_all_ipv6:
+        uuid: 3a10087e-a30e-4768-9451-07ae5f5c4a5d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show access-lists ipv6',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show filter acl',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1','i','']
+    show_ports:
+        uuid: 8ffd0e0a-27f8-4aae-aff8-988189718390
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show filter acl {acl_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.10.{acl_id}','i','']
+    show_vlans:
+        uuid: 1b7c9dbf-948a-4482-9476-ab6e0b7620ae
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show filter acl {acl_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.9.{acl_id}','i','']
+    show_all_aces:
+        uuid: cc442231-d3ef-4813-8135-9b3528e5243e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show filter acl ace',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1','i','']
+    show_id:
+        uuid: 86174dbc-da63-4687-8a6c-065231c22f52
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show filter acl {acl_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.3.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.4.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.5.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.6.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.8.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.9.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.10.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.12.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.13.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.14.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.16.{acl_id}||1.3.6.1.4.1.2272.1.202.1.1.2.3.1.1.17.{acl_id}','i','']
+    show_ace_index_oper_state:
+        uuid: ed267470-b73c-4648-88f9-d9579132f515
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show filter acl action {acl_id} {ace_index}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.11.{acl_id}.{ace_index}','i','']
+    show_ace_index_name:
+        uuid: 85617c4f-fd3c-4c2a-a0ec-9b7e8ff97a57
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show filter acl action {acl_id} {ace_index}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.3.{acl_id}.{ace_index}','i','']
+    show_ace_index_action:
+        uuid: afa282b5-06e2-4ef0-977e-855ae59cf46a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show filter acl action {acl_id} {ace_index}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.202.1.1.2.4.1.1.4.{acl_id}.{ace_index}','i','']
+    show_ace_index_ethernet_ethertype:
+        uuid: 9d06dd23-427d-4539-9ca9-589a7b72382f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show filter acl ethernet {acl_id} {ace_index}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.202.1.1.2.4.4.1.3.{acl_id}.{ace_index}','i','']

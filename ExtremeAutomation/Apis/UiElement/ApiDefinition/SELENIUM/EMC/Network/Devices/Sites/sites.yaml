@@ -1,0 +1,289 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+sites:
+    sites_create_site:
+        apis:
+            - [emc,'8.1.1||8.1.3']
+    sites_delete_site:
+        apis:
+            - [emc,'8.1.1']
+    sites_select_sub_tab:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_addresses_click_add:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_addresses_click_delete:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_addresses_select_address:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_addresses_set_enabled:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_profiles_click_add:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_profiles_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_profiles_click_delete:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_profiles_select_profile:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_profiles_set_accept:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_profiles_set_reject:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_automatically_add_devices:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_add_trap_receiver:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_add_syslog_receiver:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_enable_collection:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_add_to_archive:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_add_to_map:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_map:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_add_device_to_policy_domain:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_policy_domain:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_add_device_to_access_control_engine_group:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_access_control_engine_group:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_actions_set_enable_authentication_using_port_template:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_select_vlan:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_click_add:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_click_delete:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_row_click_update:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_row_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_row_set_name:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_row_set_vid:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_vlan_row_set_always_write_to_devices:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_select_port_configuration:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_click_edit:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_click_update:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_pvid:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_policy:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_authentication:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_tagged:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_untagged:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_node_alias:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_span_guard:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_loop_protect:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_mvrp:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_auto_negotiation:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_row_set_collection:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ports_show_columns:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_configure_device:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_use_discovered_ip:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_gateway_address:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_management_interface:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_domain_name:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_dns_server:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_ntp_server:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_admin_profile:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_poll_group:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_poll_type:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_lacp_enabled:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_lacp_type:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_lldp_enabled:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_lldp_type:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_mstp_enabled:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_mstp_type:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_mvrp_enabled:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_mvrp_type:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_poe_enabled:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_poe_type:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_vxlan_enabled:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_vxlan_type:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_click_configure_devices:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_click_discover:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_click_save:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_click_scheduler:
+        apis:
+            - [emc,'8.1.1']
+    sites_dialog_address_set_type:
+        apis:
+            - [emc,'8.1.1']
+    sites_dialog_address_set_subnet:
+        apis:
+            - [emc,'8.1.1']
+    sites_dialog_address_set_seed_address:
+        apis:
+            - [emc,'8.1.1']
+    sites_dialog_address_set_start_address:
+        apis:
+            - [emc,'8.1.1']
+    sites_dialog_address_set_end_address:
+        apis:
+            - [emc,'8.1.1']
+    sites_dialog_address_click_ok:
+        apis:
+            - [emc,'8.1.1']
+    sites_dialog_address_click_cancel:
+        apis:
+            - [emc,'8.1.1']
+    sites_confirm_site_exists:
+        apis:
+            - [emc,'8.1.1']
+    sites_configure_ztp_set_subnet_address:
+        apis:
+            - [emc,'8.1.2']
+    sites_configure_ztp_set_ending_ip_address:
+        apis:
+            - [emc,'8.1.2']
+    sites_configure_ztp_set_starting_ip_address:
+        apis:
+            - [emc,'8.1.1||8.1.2']
+    sites_configure_devices_select_device:
+        apis:
+            - [emc,'8.1.3']
+    sites_wait_for_site_add:
+        apis:
+            - [emc,'8.1.3']
+    sites_wait_for_site_remove:
+        apis:
+            - [emc,'8.1.3']
+    sites_rename_site:
+        apis:
+            - [emc,'8.2.0']
+    sites_validate_all_site_summary_parameters:
+        apis:
+            - [emc,'8.2.0']
+    sites_confirm_sites_menu_exists:
+        apis:
+            - [emc,'8.2.0']

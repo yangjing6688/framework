@@ -1,0 +1,121 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains port related information for 5520-24X
+#
+
+port_info:
+  <<: *COMMON_PORT_INFO
+
+ports:
+  - name: 1
+    <<: [*SFP_1, *10G_PORT]
+
+  - name: 2
+    <<: [*SFP_2, *10G_PORT]
+
+  - name: 3
+    <<: [*SFP_3, *10G_PORT]
+
+  - name: 4
+    <<: [*SFP_4, *10G_PORT]
+
+  - name: 5
+    <<: [*SFP_5, *10G_PORT]
+
+  - name: 6
+    <<: [*SFP_6, *10G_PORT]
+
+  - name: 7
+    <<: [*SFP_7, *10G_PORT]
+
+  - name: 8
+    <<: [*SFP_8, *10G_PORT]
+
+  - name: 9
+    <<: [*SFP_9, *10G_PORT]
+
+  - name: 10
+    <<: [*SFP_10, *10G_PORT]
+
+  - name: 11
+    <<: [*SFP_11, *10G_PORT]
+
+  - name: 12
+    <<: [*SFP_12, *10G_PORT]
+
+  - name: 13
+    <<: [*SFP_13, *10G_PORT]
+
+  - name: 14
+    <<: [*SFP_14, *10G_PORT]
+
+  - name: 15
+    <<: [*SFP_15, *10G_PORT]
+
+  - name: 16
+    <<: [*SFP_16, *10G_PORT]
+
+  - name: 17
+    <<: [*SFP_17, *10G_PORT]
+
+  - name: 18
+    <<: [*SFP_18, *10G_PORT]
+
+  - name: 19
+    <<: [*SFP_19, *10G_PORT]
+
+  - name: 20
+    <<: [*SFP_20, *10G_PORT]
+
+  - name: 21
+    <<: [*SFP_21, *10G_PORT]
+
+  - name: 22
+    <<: [*SFP_22, *10G_PORT]
+
+  - name: 23
+    <<: [*SFP_23, *10G_PORT]
+
+  - name: 24
+    <<: [*SFP_24, *10G_PORT]
+
+  - name: 25
+    <<: [*QSFP_PORT_1, *40G_PARTITION_PORT]
+
+  - name: 26
+    <<: *10G_PORT
+
+  - name: 27
+    <<: *10G_PORT
+
+  - name: 28
+    <<: *10G_PORT
+
+  - name: 29
+    <<: [*QSFP_PORT_2, *40G_PARTITION_PORT]
+
+  - name: 30
+    <<: *10G_PORT
+
+  - name: 31
+    <<: *10G_PORT
+
+  - name: 32
+    <<: *10G_PORT
+
+  - name: 33
+    <<: *25G_PARTITION_PORT
+
+  - name: 34
+    <<: *25G_PORT
+
+  - name: 35
+    <<: *25G_PORT
+
+  - name: 36
+    <<: *25G_PORT

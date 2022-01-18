@@ -1,0 +1,35 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for Xtreme-Whitebox
+#  This inherits capability from maverick YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+capability: &CAPABILITY
+  <<: *MAVERICK_CAPABILITY
+  hwHealth: 7
+  numExternalPort: 72
+  numPartitionTemplates: 2
+
+  # Boolean type supported/not-supported capability parameters.
+  Avb: false
+  MplsCep: true
+  MplsCepXlate: true
+  MplsCepEgrFlt: true
+  VarCap: true
+  StackSupportCfg: true
+  StackSupportCtrl: true
+  Stackable: true
+  StkUserPortInterchangeable: true
+  NativeStackable: true
+  V400StackMode: true
+  V400LRStackMode: true
+  PortPartition: true

@@ -1,0 +1,99 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+
+autopeering:
+    check_autopeering_anycast_mac:
+        uuid: af5c0270-6cc7-448b-bf82-ab5256a74b3f
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_id:
+        uuid: 62f642b3-3365-4306-bd35-08b2eb94fb89
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_route_target:
+        uuid: 4381b2f6-2b0c-4263-9262-9e192de0ebc0
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_host_exists:
+        uuid: efaebe93-04af-458a-bc0c-261ef799f179
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_host_does_not_exist:
+        uuid: 39ac43d7-77c9-4ce4-a345-88b84417387d
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_hosts_vrf:
+        uuid: 2db185a3-51e8-492d-b03c-71f626c1007f
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_hosts_vrf_does_not_exist:
+        uuid: 9c63310c-0d36-4e56-9ddd-e709e2106403
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_hosts_static_route_network_address_exists:
+        uuid: 39b3275d-54c7-4640-9114-8f49624fc0f7
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_hosts_static_route_nexthop_address_exists:
+        uuid: e9c3f444-da8a-4401-bca9-eb7540a8a2a9
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_service_nsi_value:
+        uuid: a7e46025-c946-46c7-a65a-17e4408e7c4d
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_service_nsi_type:
+        uuid: 510e714b-5d15-4c32-95f7-c668da67dfb8
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_service_nsi_vrf:
+        uuid: 7f100169-9f02-4074-befe-4c4c908af425
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_service_address_ip:
+        uuid: 7798e385-4338-4dff-9a8e-9c630c68b82f
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_service_address_prefix_length:
+        uuid: ac47cfe7-3418-4da9-91da-95f1855a3964
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_hosts_static_route_network_address_does_not_exist:
+        uuid: 42dda5c4-dc80-4581-a789-f6e8ad2dec66
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_service_exists:
+        uuid: 786fdd39-4e20-4f7a-8906-d4b826064492
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]
+    check_autopeering_service_does_not_exist:
+        uuid: 810c740c-9e92-46b0-b475-5263ba00e500
+        apis:
+            REST:
+                - [EXOS,base,baseversion,baseunit]

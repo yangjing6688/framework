@@ -1,0 +1,50 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,URI,Headers,IgnoreError,AddError]
+#             - [OS2,Platform,Version,Unit,URI,Headers,IgnoreError,AddError]
+
+cloudconnectfsm:
+    add_connect_entry_for_serial:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/connect','',[],[]]
+    remove_connect_entry_for_serial:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/connect','',[],[]]
+    add_upgrade_entry_for_serial:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/upgrade','',[],[]]
+    remove_upgrade_entry_for_serial:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/upgrade','',[],[]]
+    add_config_entry_for_serial:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/config','',[],[]]
+    remove_config_entry_for_serial:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/config','',[],[]]
+    add_stats_reply_for_serial:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/stats','',[],[]]
+    allow_connect_state_timeout:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/allow_timeout','',[],[]]
+    allow_upgrade_state_timeout:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/allow_timeout','',[],[]]
+    allow_config_state_timeout:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/allow_timeout','',[],[]]
+    clear_fsm_states_by_serial:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,post,'robot_config/clear_fsm_states','',[],[]]
+    check_device_states:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,get,'robot_config/device_states','',[],[]]
+    show_mgmt_ip:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,get,'robot_config/get_mgmt_ip','',[],[]]
+    show_device_version:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit,get,'robot_config/get_device_assets','',[],[]]

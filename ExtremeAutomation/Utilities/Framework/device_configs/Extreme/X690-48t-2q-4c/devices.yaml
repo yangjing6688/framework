@@ -1,0 +1,39 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the buses and devices specific to X690-48t-4q-2c
+#
+
+buses:
+  - *SMBUS_0
+
+devices:
+  - *CPU_CPLD
+  - *ONIE_EEPROM
+  - *POWER_CPLD
+  - *CPU_DEFAULT_TMPSN
+  - *PCA9548_0
+  - *MB_HOTSPOT_TMPSN
+  - *MB_AMBIENT_TMPSN
+  - *PCA9545_0
+  - *PCA9548_1
+  - *SYSTEM_CPLD
+  - *PORT_CPLD_0
+  - *PORT_CPLD_0_MUX
+  - *PCA9548_2
+
+  - name:             port_cpld_0_vmux
+    compatible:       seawolf_pcpld_vmux
+    bus:              pca9548_1_ch7
+    address:          0x5f
+    channel_map:
+      - number:       0
+        bus:          port_cpld_0_vmux_ch0
+      - number:       1
+        bus:          port_cpld_0_vmux_ch1
+      - number:       2
+        bus:          port_cpld_0_vmux_ch2

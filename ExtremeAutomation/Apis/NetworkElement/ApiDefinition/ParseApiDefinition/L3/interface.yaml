@@ -1,0 +1,146 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+interface:
+    check_interface_exists:
+        uuid: 5104e701-01f5-4c0e-b7a1-436e70dd27aa
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit]
+    check_loopback_exists:
+        uuid: c2924535-e1ee-408b-b5d9-a24b04ce440b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_ip_address_exists:
+        uuid: 2a8595d9-094e-41c8-b034-952cb812653c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            REST:
+                - [SNAPROUTE,base,baseversion,baseunit]
+    check_ipv6_address_exists:
+        uuid: 58e3f56a-8a79-428b-bbeb-ff2da6be735d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_ipv6_linklocal_exists:
+        uuid: 0483acbe-d3f3-45e3-b7aa-2a86ac85898a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_mac_address:
+        uuid: bf6e8513-e307-425f-8354-87b3e78ef7c2
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_interface_enabled:
+        uuid: 630fc5f5-318f-44eb-a239-c9bb3ee44e2a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_interface_vlan_spb_multicast_enabled:
+        uuid: cff833ac-a11e-4fa0-a7a8-c3ed2869917b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_loopback_ipv4_address:
+        uuid: bd74af1a-a65b-469d-986e-52780d53996b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_loopback_id:
+        uuid: dfb89b4d-0c18-45c6-92ce-38c5e00e5467
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+    check_loopback_ipv6_address:
+        uuid: be332e82-56d3-48f1-b16d-ad5b8d097440
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_brouter_port_vlan:
+        uuid: 35783c01-f78b-46b9-bc63-42361101b635
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_brouter_port_ipv4:
+        uuid: 25919bdd-dfcd-4d7f-b054-4b3a104610b3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_chassis_force_topology_ip_flag:
+        uuid: 5db81584-d37d-4029-98c5-67001f85a0ae
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_port_interface_name:
+        uuid: 76b1dca3-f3d5-4678-81d8-9886f004c99a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_loopback_ipv6_address_exists:
+        uuid: 5b8ec870-fb66-4690-a9de-26d831fe7f7f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [SLX,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_ipv6_interface_vlan_is_enabled:
+        uuid: 262d08e1-4fa0-4dfb-a1b7-bf77edb8a78a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    check_interface_vlan_vrf_spb_multicast_enabled:
+        uuid: 14b1e4e4-a451-4d8c-9f36-49254c150970
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

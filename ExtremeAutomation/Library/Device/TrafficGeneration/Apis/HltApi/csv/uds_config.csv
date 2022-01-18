@@ -1,0 +1,245 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+port_handle,"Port handle or list of port handles on which to configure the user
+defined statistic counters.
+DEFAULT
+	None",any,,IxNetwork[M],universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds1,"Not defined
+Valid options are:
+0
+	
+disable
+1
+	
+enable
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds1_SA,"Not defined
+Valid options are:
+any
+	
+(default) count all packets
+SA1
+	
+count packets having the MAC source address configured with
+x
+	
+count packets having the MAC source address configured with
+notSA1
+	
+count packets that don't have the MAC source address configured with
+SA2
+	
+count packets having the MAC source address configured with
+notSA2
+	
+count packets that don't have the MAC source address configured with
+DEFAULT
+	None",opt,"SA1,SA2,any,notSA1,notSA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds1_DA,"Not defined
+Valid options are:
+any
+	
+(default) count all packets
+DA1
+	
+count packets having the MAC destination address configured with
+x
+	
+count packets having the MAC destination address configured with
+notDA1
+	
+count packets that don't have the MAC destination address configured with
+DA2
+	
+count packets having the MAC destination address configured with
+notDA2
+	
+count packets that don't have the MAC destination address configured with
+DEFAULT
+	None",opt,"DA1,DA2,any,notDA1,notDA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds1_error,"Not defined
+Valid options are:
+errAnyFrame
+	
+(default) count all packets
+errBadCRC
+	
+count frames with bad CRC
+errBadFrame
+	
+count corrupted frames
+errGoodFrame
+	
+count frames with no errors
+DEFAULT
+	None",opt,errAnyFrame,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds1_framesize,"Not defined
+Valid options are:
+any
+	
+(default) count all packets
+custom
+	
+count frames having framesize in the range configured with
+uds1_framesize_from and
+x
+	
+count frames having framesize in the range configured with
+uds1_framesize_from and
+jumbo
+	
+count frames having framesize in the range 1518-9000
+oversized
+	
+count frames having framesize in the range 512-1024
+undersized
+	
+count frames having framesize in the range 48-64
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds1_framesize_from,"Configure the starting frame size when uds1_framesize is custom
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds1_framesize_to,"Configure the ending frame size when uds1_framesize is custom
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds1_pattern,"Increment UDS1 counter based on the pattern configured with
+uds_filter_pallette_config
+Valid options are:
+any
+	
+(default) count all packets
+pattern1
+	
+count packets matching pattern1
+notPattern1
+	
+count packets not matching pattern1
+pattern2
+	
+count packets matching pattern2
+notPattern2
+	
+count packets not matching pattern2
+DEFAULT
+	None",opt,"any,notPattern1,pattern1",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds2,"Same as -uds1. Applies to UDS2
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds2_SA,"Same as -uds1_SA. Applies to UDS2
+DEFAULT
+	None",opt,"SA1,SA2,any,notSA1,notSA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds2_DA,"Same as -uds1_DA. Applies to UDS2
+DEFAULT
+	None",opt,"DA1,DA2,any,notDA1,notDA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds2_error,"Same as -uds1_error. Applies to UDS2
+DEFAULT
+	None",opt,errAnyFrame,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds2_framesize,"Same as -uds1_framesize. Applies to UDS2
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds2_framesize_from,"Same as -uds1_framesize_from. Applies to UDS2
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds2_framesize_to,"Same as -uds1_framesize_to. Applies to UDS2
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds2_pattern,"Same as -uds1_pattern. Applies to UDS2
+DEFAULT
+	None",opt,"any,notPattern1,pattern1",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds3,"Same as -uds1. Applies to UDS3
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds3_SA,"Same as -uds1_SA. Applies to UDS3
+DEFAULT
+	None",opt,"SA1,SA2,any,notSA1,notSA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds3_DA,"Same as -uds1_DA. Applies to UDS3
+DEFAULT
+	None",opt,"DA1,DA2,any,notDA1,notDA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds3_error,"Same as -uds1_error. Applies to UDS3
+DEFAULT
+	None",opt,errAnyFrame,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds3_framesize,"Same as -uds1_framesize. Applies to UDS3
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds3_framesize_from,"Same as -uds1_framesize_from. Applies to UDS3
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds3_framesize_to,"Same as -uds1_framesize_to. Applies to UDS3
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds3_pattern,"Same as -uds1_pattern. Applies to UDS3
+DEFAULT
+	None",opt,"any,notPattern1,pattern1",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds4,"Same as -uds1. Applies to UDS4
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds4_SA,"Same as -uds1_SA. Applies to UDS4
+DEFAULT
+	None",opt,"SA1,SA2,any,notSA1,notSA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds4_DA,"Same as -uds1_DA. Applies to UDS4
+DEFAULT
+	None",opt,"DA1,DA2,any,notDA1,notDA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds4_error,"Same as -uds1_error. Applies to UDS4
+DEFAULT
+	None",opt,errAnyFrame,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds4_framesize,"Same as -uds1_framesize. Applies to UDS4
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds4_framesize_from,"Same as -uds1_framesize_from. Applies to UDS4
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds4_framesize_to,"Same as -uds1_framesize_to. Applies to UDS4
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds4_pattern,"Same as -uds1_pattern. Applies to UDS4
+DEFAULT
+	None",opt,"any,notPattern1,pattern1",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds5,"Same as -uds1. Applies to UDS5
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds5_SA,"Same as -uds1_SA. Applies to UDS5
+DEFAULT
+	None",opt,"SA1,SA2,any,notSA1,notSA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds5_DA,"Same as -uds1_DA. Applies to UDS5
+DEFAULT
+	None",opt,"DA1,DA2,any,notDA1,notDA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds5_error,"Same as -uds1_error. Applies to UDS5
+DEFAULT
+	None",opt,errAnyFrame,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds5_framesize,"Same as -uds1_framesize. Applies to UDS5
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds5_framesize_from,"Same as -uds1_framesize_from. Applies to UDS5
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds5_framesize_to,"Same as -uds1_framesize_to. Applies to UDS5
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds5_pattern,"Same as -uds1_pattern. Applies to UDS5
+DEFAULT
+	None",opt,"any,notPattern1,pattern1",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds6,"Same as -uds1. Applies to UDS6
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds6_SA,"Same as -uds1_SA. Applies to UDS6
+DEFAULT
+	None",opt,"SA1,SA2,any,notSA1,notSA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds6_DA,"Same as -uds1_DA. Applies to UDS6
+DEFAULT
+	None",opt,"DA1,DA2,any,notDA1,notDA2",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds6_error,"Same as -uds1_error. Applies to UDS6
+DEFAULT
+	None",opt,errAnyFrame,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds6_framesize,"Same as -uds1_framesize. Applies to UDS6
+DEFAULT
+	None",bool_opt,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds6_framesize_from,"Same as -uds1_framesize_from. Applies to UDS6
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds6_framesize_to,"Same as -uds1_framesize_to. Applies to UDS6
+DEFAULT
+	None",numeric,,IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+uds6_pattern,"Same as -uds1_pattern. Applies to UDS6
+DEFAULT
+	None",opt,"any,notPattern1,pattern1",IxNetwork,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

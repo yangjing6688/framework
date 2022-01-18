@@ -1,0 +1,26 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines watchdog types common to X465 series switches
+#
+
+watchdog1: &WATCHDOG1
+  name:               watchdog0
+  compatible:         extreme_watchdog
+  max_time:           120000  # maximum timeout in milliseconds
+  device:             fpga_reg
+  enable:
+    register:         0x38
+    bitmask:          0x01
+  count:
+    register:         0x38
+    bitmask:          0xfc
+    direction:        DOWN
+    min:              0x20  # Minimum reasonable count value
+  ping:
+    register:         0x38
+    bitmask:          0xfc

@@ -1,0 +1,85 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common buses and devices present on VIM5
+#  plugin modules
+#
+#  All values starting with '_' will be prefixed with the parent device's name,
+#  e.g. "vim_1".
+#
+
+# VIM CPLD
+vim5_cpld: &VIM5_CPLD
+  name:                 _cpld
+  type:                 VIM_CPLD
+  compatible:           extreme_i2c_cpld
+  regmap:               _cpld_reg
+  revisions:
+    major:
+      register:         0x0c
+      bitmask:          0xf0
+    minor:
+      register:         0x0c
+      bitmask:          0x0f
+    build:
+      register:         0x0d
+      bitmask:          0xff
+  firmware:
+    image_file:         sd_vim_pld.xtr
+    image_version:
+      major:            1
+      minor:            1
+      build:            13
+    reconfig_by_master: true
+    upgrade_present:
+      register:         0xc3
+      bitmask:          0xe0
+      value:            0x3
+  devices:
+    - name:             _cpld_reg
+      compatible:       i2c_regmap
+      bus_alias:        _cpld_bus
+      address:          0x3a
+      regmap_desc:
+        range:          [0x0, 0xdf]
+        num_reg_bits:   8
+        num_value_bits: 8
+
+# VIM I/O expander
+vim5_pca9506: &VIM5_PCA9506
+  name:             _pca9506
+  compatible:       pca9506
+  bus_alias:        _pca9506_bus
+  address:          0x22
+  regmap_desc:
+    range:          [0x0, 0x24]
+    num_reg_bits:   8
+    num_value_bits: 8
+
+# VIM mux
+vim5_pca9548: &VIM5_PCA9548
+  name:             _pca9548
+  compatible:       pca9548
+  bus_alias:        _pca9548_bus
+  address:          0x75
+  channel_map:
+    - number:       0
+      bus:          _pca9548_ch0
+    - number:       1
+      bus:          _pca9548_ch1
+    - number:       2
+      bus:          _pca9548_ch2
+    - number:       3
+      bus:          _pca9548_ch3
+    - number:       4
+      bus:          _pca9548_ch4
+    - number:       5
+      bus:          _pca9548_ch5
+    - number:       6
+      bus:          _pca9548_ch6
+    - number:       7
+      bus:          _pca9548_ch7

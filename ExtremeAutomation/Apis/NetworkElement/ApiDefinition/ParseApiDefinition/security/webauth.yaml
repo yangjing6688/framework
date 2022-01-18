@@ -1,0 +1,185 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+webauth:
+    check_webauth_enabled:
+        uuid: a1ee7b4c-5fbc-4616-80ad-7055c9e092be
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_enabled_on_port:
+        uuid: a3559df2-ae51-43ac-af33-5a9133ef6598
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+    check_webauth_base_url_exists:
+        uuid: d139cab7-423b-436a-816f-3e0f5f2f1a71
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    verify_webauth_port_state:
+        uuid: 7c1af3ce-19d9-4913-b161-4c9fc61e5e39
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_base_url_default:
+        uuid: 210fe15f-6ca6-4691-9502-15c5431fa0b5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_lease_time:
+        uuid: 87528b97-d5a4-4948-9579-6222a7d9a574
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_redirect_enabled:
+        uuid: b22859eb-4d6b-4c57-a89b-6a738715f283
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_session_timeout:
+        uuid: 33e83828-c9ba-4bbe-a930-02fe62c8aacf
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_idle_timeout:
+        uuid: 3f9f095d-7ea1-46f5-ad09-9ee01da28a36
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_session_timeout_default:
+        uuid: 769b770d-b64a-4c70-9a40-a1d1edfb0b36
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_idle_timeout_default:
+        uuid: ebdd683c-1073-4800-9bfb-548cbd3a738e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_user_authenticated:
+        uuid: c0c4e1c2-7b4e-416a-922b-78046c0aeb1f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_user_unauthenticated:
+        uuid: 88e89243-091e-4c7c-87c3-d0e77fce4c6e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_user_authenticated_radius:
+        uuid: a18874e3-335b-4921-9f62-450373d6593d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_user_login_name:
+        uuid: 55411ca9-eb45-465d-ad0d-38f0c04bcf22
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_user_ip:
+        uuid: fa9b7892-7dc5-4bf1-90e2-9da3aaeb8005
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_user_authenticated_auth_type:
+        uuid: a1474c86-fdea-4756-8d87-32207461c87f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_database_order_radius:
+        uuid: 2663f199-9751-4fe1-920b-f53e90fce41b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_database_order_radius_local:
+        uuid: f6393626-ea6c-42c0-a922-1d761cd0c879
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_database_order_local:
+        uuid: 8ed9cc3f-8282-4657-9b2e-99a97c74cb8c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_database_order_local_radius:
+        uuid: d1e41582-2178-4b6c-94f7-9f5483497b2a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_protocol_order:
+        uuid: b6bb306a-f2bf-48ee-8e02-b0fa481f9909
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_redirect_page_enabled:
+        uuid: 5266edb2-1ecb-4b48-b589-2930597fec33
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_redirect_page_disabled:
+        uuid: 91068f10-28d6-4bed-b9a5-4ff329258e07
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_redirect_page:
+        uuid: 553abfde-ea30-428f-878b-e8031a6178a8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_reauthenticate_on_refresh_enabled:
+        uuid: 8e5f96c4-8232-4f5e-96b5-d1de8f0f7383
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_reauthenticate_on_refresh_disabled:
+        uuid: d775c098-cca0-429d-8381-8f3437296be5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_redirect_page_default:
+        uuid: a52fc4d4-54a0-419b-9183-90895a9e51ca
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_session_refresh_interval:
+        uuid: b5cfec03-b14b-4437-b983-920cb1638bde
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_session_refresh_enabled:
+        uuid: 67411f7d-ff98-4293-86df-f4607aa6346c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_session_refresh_disabled:
+        uuid: 738640a6-f48f-4449-a495-b684d2c04621
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_allowed_refresh_failures:
+        uuid: bc640d93-e0f5-4265-bff6-1d0395bf1149
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_session_refresh_default:
+        uuid: a3a78563-2182-4d14-88dd-ea8f9698a043
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_webauth_allowed_refresh_failures_default:
+        uuid: f33b476d-cbeb-4a47-a497-26bb784c022b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

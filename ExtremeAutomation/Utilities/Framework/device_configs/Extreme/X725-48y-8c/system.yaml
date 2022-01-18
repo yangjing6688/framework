@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the system info specific to X725-48y-8c
+#
+
+system_info:
+  <<: *COMMON_SYSTEM_INFO

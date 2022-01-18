@@ -1,0 +1,37 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for X440G2-48p-10G4.
+#  This inherits capability from hurricane2 YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *HURRICANE2_CAPABILITY
+  hwHealth: 2
+  numExternalPort: 52
+  poeMinBudget: 37
+  poeMaxBudget: 800
+  poeDfltBudget: 800
+  poeLoss: 10
+
+  # Boolean type supported/not-supported capability parameters.
+  Poe: true
+  PoePlus: true
+  ComboPort: true
+  StackSupportCfg: true
+  StackSupportCtrl: true
+  AltStkOnly: true
+  AltStkPortCapable: true
+  StackingAutoDiscovery: true
+  InstallFirmWare: true
+  MacsecWithExtAdapter: true
+  InstallLrmMacsecAdapterFirmware: true

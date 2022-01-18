@@ -1,0 +1,411 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+fabricattach:
+    enable_global:
+        description: "Enables the Fabric Attach service"
+        arguments:
+            order: 
+        uuid: 2fadd54c-c514-4dd7-adc4-e14f861ecfe7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.1.0','i','1']
+    disable_global:
+        description: "Disables the Fabric Attach service"
+        arguments:
+            order: 
+        uuid: d44d2d2d-b35f-4bb6-87ea-69e45259f1f4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.1.0','i','2']
+    enable_port:
+        description: "Adds a port in the Fabric Attach table as enabled. i.e. FA TLVs will be included in LLDPDUs generated on the port"
+        arguments:
+            order: 
+        uuid: 014943bb-3d2c-4642-8369-8f4eda5db253
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa enable',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.2.{port}||1.3.6.1.4.1.45.5.46.1.6.1.3.{port}','i||i','1||4']
+    disable_port:
+        description: "Adds a port in the Fabric Attach table as disabled i.e. FA TLVs will not be included in LLDPDUs generated on the port"
+        arguments:
+            order: 
+        uuid: 84ca75ea-abca-40b9-859e-a2e0334e760a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa enable',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.2.{port}||1.3.6.1.4.1.45.5.46.1.6.1.3.{port}','i||i','2||4']
+    delete_port:
+        description: "Removes the port instance in the Fabric Attach interface table"
+        arguments:
+            order: 
+        uuid: fb9747d5-cc8a-4aec-bc0f-292609bf07ae
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.3.{port}','i','6']
+    enable_mlt:
+        description: "Adds an MLT in the Fabric Attach table as enabled. i.e. FA TLVs will be included in LLDPDUs generated on the MLT"
+        arguments:
+            order: 
+        uuid: b56fce5c-2794-43b5-9402-ba257afa7fc2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa enable',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.2.{mlt_id}||1.3.6.1.4.1.45.5.46.1.6.1.3.{mlt_id}','i||i','1||4']
+    disable_mlt:
+        description: "Adds an MLT in the Fabric Attach table as disabled. i.e. FA TLVs will be included in LLDPDUs generated on the MLT"
+        arguments:
+            order: 
+        uuid: e1ff075d-a674-4319-8cad-c2027b1b42d6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa enable',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.2.{mlt_id}||1.3.6.1.4.1.45.5.46.1.6.1.3.{mlt_id}','i||i','2||4']
+    delete_mlt:
+        description: "Removes MLT instance on the Fabric Attach interface table"
+        arguments:
+            order: 
+        uuid: 1b87c519-cb3d-42f8-90fa-4702f613bac4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.3.{mlt_id}','i','6']
+    enable_port_auth:
+        description: "Enables Fabric Attach authentication for a port"
+        arguments:
+            order: 
+        uuid: ee77b7d6-1c80-4a45-8918-1d9f97420fbf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa message-authentication',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.4.{port}','i','1']
+    disable_port_auth:
+        description: "Disables Fabric Attach authentication for a port"
+        arguments:
+            order: 
+        uuid: b29e33ba-e609-46fc-a013-dbf0530d5cdd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa message-authentication',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.4.{port}','i','2']
+    enable_mlt_auth:
+        description: "Enables a Multi-Link Trunk for Fabric Attach authentication"
+        arguments:
+            order: 
+        uuid: d9cf0399-b7d8-4b9c-89eb-aacfd59f7111
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa message-authentication',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.4.{mlt_id}','i','1']
+    disable_mlt_auth:
+        description: "Disables Fabric Attach authentication for a Multi-Link Trunk"
+        arguments:
+            order: 
+        uuid: d3cb51c9-090b-4f79-b107-8c7cbc7de45d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa message-authentication',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.4.{mlt_id}','i','2']
+    set_assignment_timeout:
+        description: "Configures the Fabric Attach assignment timeout"
+        arguments:
+            order: 
+        uuid: 6e7549b9-7fbf-44fd-963f-ca316c7e6ab2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa assignment-timeout {timeout}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.22.0','i','{timeout}']
+    set_discovery_timeout:
+        description: "Configures the Fabric Attach discovery timeout"
+        arguments:
+            order: 
+        uuid: 4970b994-e328-4c88-8282-81b0af6b3219
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa discovery-timeout {timeout}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.26.0','i','{timeout}']
+    set_port_auth_key:
+        description: "Provides access to the Fabric Attach message authentication key for the associated port"
+        arguments:
+            order: port,auth_key
+        uuid: 967ecb22-20cc-4bc9-ab7a-f570616cfcb4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa authentication-key {auth_key}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.5.{port}','s','{auth_key}']
+    set_mlt_auth_key:
+        description: "Provides access to the Fabric Attach message authentication key for the associated Multi-Link Trunk"
+        arguments:
+            order: mlt_id,auth_key
+        uuid: 982e301b-0505-4832-8f3d-d09432fe3b9a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa authentication-key {auth_key}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.5.{mlt_id}','s','{auth_key}']
+    set_port_mgmt_isid:
+        description: "Configures the Fabric Attach management i-sid for the associated port"
+        arguments:
+            order: port,i_sid
+        uuid: 5d41fe78-26f5-417d-97f8-0218d063f5b0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa management i-sid {i_sid}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.6.{port}','i','{i_sid}']
+    set_mlt_mgmt_isid:
+        description: "Configures the Fabric Attach management i-sid for the associated Multi-Link Trunk"
+        arguments:
+            order: mlt_id,i_sid
+        uuid: 86cc40a1-774c-4175-8019-98c3051fe105
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa management i-sid {i_sid}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.6.{mlt_id}','i','{i_sid}']
+    set_port_mgmt_isid_and_cvid:
+        description: "Configures the Fabric Attach management i-sid for the associated port"
+        arguments:
+            order: port,i_sid,c_vid
+        uuid: 5609738c-9095-4e98-b168-6ef46b060ba0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa management i-sid {i_sid} c-vid {c_vid}',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.6.{port}||1.3.6.1.4.1.45.5.46.1.6.1.7.{port}','i||i','{i_sid}||{c_vid}']
+    set_mlt_mgmt_isid_and_cvid:
+        description: "Configures the Fabric Attach management i-sid for the associated Multi-Link Trunk"
+        arguments:
+            order: mlt_id,i_sid,c_vid
+        uuid: 6ccb9ec6-f2d7-4d11-8031-54cf3a5130bc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa management i-sid {i_sid} c-vid {c_vid}',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.6.{mlt_id}||1.3.6.1.4.1.45.5.46.1.6.1.7.{mlt_id}','i||i','{i_sid}||{c_vid}']
+    clear_port_mgmt_isid:
+        description: "Removes the Fabric Attach management i-sid for the associated port"
+        arguments:
+            order: 
+        uuid: a3fd6b4e-cf1b-498f-8cc5-08d1c8491a80
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa management i-sid',intfPrompt,'GigabitEthernet {port}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.6.{port}','i','0']
+    clear_mlt_mgmt_isid:
+        description: "Removes the Fabric Attach management i-sid for the associated Multi-Link Trunk"
+        arguments:
+            order: 
+        uuid: 980e1662-394f-4fea-b058-02fdfc152dae
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa management i-sid',intfPrompt,'mlt {mlt_id}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.6.1.6.{mlt_id}','i','0']
+    set_zero_touch_client_isid:
+        description: "Creates the auto-attach mapping of the Fabric Attach I-SID component to the Zero Touch Client standard name"
+        arguments:
+            order: name,i_sid
+        uuid: fbb9689a-0c10-4f0d-b6ab-57179f88581c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'fa zero-touch-client standard {name} i-sid {i_sid}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.29.1.4.{name}||1.3.6.1.4.1.45.5.46.1.29.1.5.{name}','i||i','{i_sid}||4']
+    clear_zero_touch_client:
+        description: "Removes the auto-attach mapping of the Fabric Attach I-SID component to the Zero Touch Client standard name"
+        arguments:
+            order: 
+        uuid: d666bda8-c763-4b2d-8e9e-c077b37cbba8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no fa zero-touch-client standard {name}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.45.5.46.1.29.1.5.{name}','i','6']
+    show_agent:
+        uuid: 4567a871-654b-4bef-9539-7e221e1e7537
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa agent',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+    show_service_state:
+        uuid: a51e7285-3506-49dd-a482-045cd766d3a4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.46.1.1.0','i','']
+    show_element_type:
+        uuid: 67ea1813-fdc0-45a3-8496-2ff556f71576
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.46.1.2.0','i','']
+    show_provision_mode:
+        uuid: 3075c202-b569-42d7-aada-e89093b62c81
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.46.1.13.0','i','']
+    show_global_timeouts:
+        uuid: 3e9b00a0-978e-4d30-94f4-3b2c0a402d71
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.46.1.22.0||1.3.6.1.4.1.45.5.46.1.26.0','i','']
+    show_port:
+        uuid: 73db387e-a995-4b8d-bf52-ea999d1608fb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa interface port {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.46.1.6.1.2.{port}||1.3.6.1.4.1.45.5.46.1.6.1.4.{port}||1.3.6.1.4.1.45.5.46.1.6.1.5.{port}||1.3.6.1.4.1.45.5.46.1.6.1.6.{port}||1.3.6.1.4.1.45.5.46.1.6.1.7.{port}','i','']
+    show_mlt:
+        uuid: 38d80307-ef51-4c67-afa2-33f7b80a7389
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa interface mlt {mlt_id}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.46.1.6.1.2.{mlt_id}||1.3.6.1.4.1.45.5.46.1.6.1.4.{mlt_id}||1.3.6.1.4.1.45.5.46.1.6.1.5.{mlt_id}||1.3.6.1.4.1.45.5.46.1.6.1.6.{mlt_id}||1.3.6.1.4.1.45.5.46.1.6.1.7.{mlt_id}','i','']
+    show_elements_port:
+        uuid: d5cace34-fbdb-4b18-a6a9-3a4de157a722
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa elements {port}',userPrompt,'None','None','None',['Invalid'],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.46.1.11.1.2.{port}||1.3.6.1.4.1.45.5.46.1.11.1.3.{port}||1.3.6.1.4.1.45.5.46.1.11.1.4.{port}||1.3.6.1.4.1.45.5.46.1.11.1.5.{port}||1.3.6.1.4.1.45.5.46.1.11.1.6.{port}||1.3.6.1.4.1.45.5.46.1.11.1.8.{port}||1.3.6.1.4.1.45.5.46.1.11.1.9.{port}||1.3.6.1.4.1.45.5.46.1.11.1.10.{port}','i','']
+    show_assignment_port:
+        uuid: 27d91f59-0ab0-4510-9dcc-7eeff2580340
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa assignment {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.45.5.46.1.5.1.4.{port}||1.3.6.1.4.1.45.5.46.1.5.1.6.{port}','i','']
+    show_stats_global:
+        uuid: fb8262da-696a-49d5-a3ec-e9e502880476
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa statistics summary',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show fabric attach statistics',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.45.5.46.1.24','i','']
+    show_stats_port:
+        uuid: cfb8d976-77a3-429b-8da6-e22c44e79b50
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa statistics {port}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.45.5.46.1.23.1.2.{port}||1.3.6.1.4.1.45.5.46.1.23.1.3.{port}||1.3.6.1.4.1.45.5.46.1.23.1.4.{port}||1.3.6.1.4.1.45.5.46.1.23.1.5.{port}||1.3.6.1.4.1.45.5.46.1.23.1.6.{port}||1.3.6.1.4.1.45.5.46.1.23.1.7.{port}||1.3.6.1.4.1.45.5.46.1.23.1.8.{port}||1.3.6.1.4.1.45.5.46.1.23.1.9.{port}||1.3.6.1.4.1.45.5.46.1.23.1.10.{port}||1.3.6.1.4.1.45.5.46.1.23.1.11.{port}','i','']
+    show_zero_touch_client:
+        uuid: 07576a33-7963-499a-b59b-f648c20e13f5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show fa zero-touch-client',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.4.1.45.5.46.1.29','i','']
+    show_isid:
+        uuid: 430c3207-54ff-4e1b-a60e-0d1f766d17d0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show i-sid {isid}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.87.5.1.3.{port}||1.3.6.1.4.1.2272.1.87.5.1.4.{port}||1.3.6.1.4.1.2272.1.87.5.1.5.{port}||1.3.6.1.4.1.2272.1.87.5.1.6.{port}||1.3.6.1.4.1.2272.1.87.5.1.7.{port}','i','']
+    show_client_proxy_status:
+        uuid: 9e5cd2d7-d2be-4d89-aa1a-97531ab5e191
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+    show_standalone_proxy_status:
+        uuid: dd69da30-844f-4869-996c-24d1942c1bb2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+    show_agent_timeout:
+        uuid: 424a0a0b-e26b-439c-8535-e8d1f969bd01
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+    show_extended_logging_status:
+        uuid: d374d76e-30c3-4a14-afd5-8e042cff9e06
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+    show_primary_server_id:
+        uuid: 35bd30b6-9e4d-4627-9412-dc07baba7377
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+    show_server_description:
+        uuid: 70c5140c-03c8-4c37-b5cf-efb11a734224
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+    show_neighbors:
+        uuid: d4058dbc-aa04-476b-8250-dbd7ed3fa277
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach neighbors',userPrompt,'None','None','None',[],[]]
+    show_elements:
+        uuid: df6dd63e-7c54-48fc-b83e-6a74983e546b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach elements',userPrompt,'None','None','None',[],[]]
+    show_auto_provision_setting:
+        uuid: 2b427864-874f-45ee-84ef-3ce1fa7df180
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]
+    show_zero_touch_status:
+        uuid: e34ddcc6-77d1-4c7a-a5a6-6c68f0a4e313
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show fabric attach agent',userPrompt,'None','None','None',[],[]]

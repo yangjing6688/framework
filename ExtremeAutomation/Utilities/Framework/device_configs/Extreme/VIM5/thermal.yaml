@@ -1,0 +1,22 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common temperature sensors on VIM5 plugin modules
+#
+#  All values starting with '_' will be prefixed with the parent device's name,
+#  e.g. "vim_1".
+#
+
+# VIM temperature sensor
+vim5_temp_sensor: &VIM5_TEMP_SENSOR
+  name:             _tmpsn
+  compatible:       lm75b
+  bus_alias:        _tmpsn_bus
+  address:          0x4a
+  location:
+    board:          _BOARD
+    zone:           NONE

@@ -1,0 +1,101 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+dutlearning:
+    show_system_info:
+        uuid: 2bc7a245-b0ec-4659-9315-8db8aec9e95c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show mac type other',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show switch',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show sys-info||show software detail||show boot config choice',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show system||show system monitor',userPrompt,'None','None','None',[],[]]
+    show_stacking_info:
+        uuid: 007b3667-0da2-4c9f-b3c4-32f8ab3c1e9b
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show bonding',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show stacking',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show slot',userPrompt,'None','None','None',[],[]]
+    show_stack_info:
+        uuid: d24724dc-3b71-49af-916a-926edf7cf8ff
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show system hardware',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show slot',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show slot',userPrompt,'None','None','None',[],[]]
+    show_chassis_info:
+        uuid: 4a297236-fcd2-441a-8491-be0d69a87558
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show system hardware',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'unknown',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show sys-info',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show chassis',userPrompt,'None','None','None',[],[]]
+    show_unit_info:
+        uuid: 7e8d8470-e156-42ef-aff1-d8a42cbf9c8c
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show system hardware',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show temperature || show version || show memory process aaa',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show sys-info',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show hardware profile',userPrompt,'None','None','None',[],[]]
+    show_port_info:
+        uuid: d906bb8c-043e-4625-98d6-cbe8d10c4c4a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show port status *.{slot_number}.* || show mac port-string *.{slot_number}.* type self',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show port configuration no-refresh || show switch',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show interfaces gigabitEthernet l1-config||show interfaces gigabitEthernet interface',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show interface||show interface status',userPrompt,'None','None','None',[],[]]
+    show_license_info:
+        uuid: a3fc6b30-bcfd-4472-96b0-be93acca95da
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show license',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show licenses',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show licenses',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show license',userPrompt,'None','None','None',[],[]]
+    getnext_system_location_dot_zero:
+        uuid: 29a2dba5-0dad-4767-b8a6-d9ec5dd54d71
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.6.0.','i','']
+                - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.6.0.','i','']
+                - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.6.0.','i','']
+    walk_system:
+        uuid: 8b7981d9-5023-4c43-ba12-62ea9d8a2c50
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.1.','i','']
+                - [EOS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.1.','i','']
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.1.','i','']
+    bulkwalk_system:
+        uuid: c8c68862-0b6f-47b1-8075-69f54c8c1593
+        apis:
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,bulkwalk,'1.3.6.1.2.1.1.','i','']
+                - [EOS,base,baseversion,baseunit,bulkwalk,'1.3.6.1.2.1.1.','i','']
+                - [VOSS,base,baseversion,baseunit,bulkwalk,'1.3.6.1.2.1.1.','i','']

@@ -1,0 +1,46 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcadevicegroups:
+    click_add_to_create_new_group:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_device_group:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_device_group_edit_config:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_device_group_name_and_country:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_device_group_devices:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_device_group_advanced_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_config_and_back_to_groups_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_existing_device_group:
+        apis:
+            - [xca,'04.26.03.0007']
+    clone_device_group:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_device_group_exists:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_device_group_edit_profile_button:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    config_device_group_networks:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']
+    config_device_group_roles:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']

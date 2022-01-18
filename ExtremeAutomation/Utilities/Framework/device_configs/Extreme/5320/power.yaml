@@ -1,0 +1,29 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines PSUs common to 5320 series switches
+#
+#
+
+common_power_info: &COMMON_POWER_INFO
+  number_psus:        1
+  polling_period:     2000
+  psu_led_control:    HW
+
+#no eeprom or pmbus aka SIMPLE
+psu_1: &PSU_1
+  number:             1
+  psu_type:           SIMPLE
+  fru_type:           FIXED
+  psu_input_ok:
+    device:           system_cpld_reg
+    register:         0x30
+    bitmask:          0x02
+  psu_output_ok:
+    device:           system_cpld_reg
+    register:         0x30
+    bitmask:          0x02

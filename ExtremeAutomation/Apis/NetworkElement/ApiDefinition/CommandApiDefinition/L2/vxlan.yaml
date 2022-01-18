@@ -1,0 +1,87 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+vxlan:
+    create_logical_switch:
+        description: "Creates a logical-switch with the given name"
+        arguments:
+            order: 
+        uuid: 49ef7ff1-d0e9-413e-94e5-b70d34b9fb39
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set tunnel logical-switch create name {name}',userPrompt,'None','None','None',[],[]]
+    delete_logical_switch:
+        description: "Removes a logical-switch with the given name"
+        arguments:
+            order: 
+        uuid: 54da38b2-c9e7-4491-9394-2b20965d3a25
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear tunnel logical-switch name {name}',userPrompt,'None','None','None',[],[]]
+    create_logical_switch_to_vni_map:
+        description: "Maps a logical-switch to the given VNI"
+        arguments:
+            order: 
+        uuid: 9314a29d-4bc0-467a-a64e-be6a87d2314d
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set tunnel map logical-switch {name} keyword {vni}',userPrompt,'None','None','None',[],[]]
+    create_logical_switch_to_vlan_map:
+        description: "Maps a logical-switch to the given VLAN"
+        arguments:
+            order: 
+        uuid: cccd83dc-7199-466c-9d60-b2dfcc80bc2e
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set tunnel map logical-switch {name} vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    create_logical_switch_vni_vlan_map:
+        description: "Maps a logical-switch to the given VNI and VLAN"
+        arguments:
+            order: 
+        uuid: 68836667-af69-476d-b61c-9b89159eb618
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set tunnel map logical-switch {name} keyword {vni} vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    set_remote_vtep:
+        description: "Sets a remote endpoint for the logical-switch"
+        arguments:
+            order: name,ip_address
+        uuid: 103d42de-427b-4ab8-9ceb-efba0c3080df
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set tunnel remote-vtep logical-switch {name} ip-address {ip_address}',userPrompt,'None','None','None',[],[]]
+    clear_remote_vtep:
+        description: "Clears the configured remote endpoint for the logical-switch"
+        arguments:
+            order: 
+        uuid: c3a92a89-a07e-4647-8249-c73cf068ea7a
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'clear tunnel remote-vtep logical-switch {name}',userPrompt,'None','None','None',[],[]]
+    show_logical_switch:
+        uuid: 72f20dde-4018-43bc-96da-b490c6f11605
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show tunnel logical-switch',userPrompt,'None','None','None',[],[]]

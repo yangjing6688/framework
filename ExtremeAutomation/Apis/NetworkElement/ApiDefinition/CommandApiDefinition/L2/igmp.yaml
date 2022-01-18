@@ -1,0 +1,329 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+igmp:
+    set_version:
+        description: "Sets the IGMP version on a given VLAN"
+        arguments:
+            order: 
+        uuid: 0aadf5bd-92a0-4eb4-808e-41d4b8cac082
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set igmp enable {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable igmp vlan {vlan_name} {igmp_ver}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||ip igmp version {igmp_ver}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping version {igmp_ver}',routerConfigPrompt,'None','None','None',[],[]]
+    set_version_interface:
+        description: "Sets the IGMP version for a given interface"
+        arguments:
+            order:
+        uuid: 8aea0bc5-c952-4e2e-816c-e427b8517071
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'ip igmp snooping version {igmp_ver}',intfPrompt,'interface ethernet {port}','None','None',[],[]]
+    enable_vlan:
+        description: "Enables IGMP on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 641501ff-2725-4c7b-bd1b-d2712089faef
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set igmp enable {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'enable igmp vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_vlan:
+        description: "Disables IGMP on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 8cf98d6c-2531-4707-8e13-610bbbe5b015
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'set igmp disable {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'disable igmp vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||no ip igmp snooping enable',routerConfigPrompt,'None','None','None',[],[]]
+    enable_snooping:
+        description: "Globally enables IGMP snooping"
+        arguments:
+            order: 
+        uuid: ad3dcd6a-80e3-4722-987c-c0cfe19a9cf0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable igmp snooping',userPrompt,'None','None','None',[],[]]
+    disable_snooping:
+        description: "Globally disables IGMP snooping"
+        arguments:
+            order: 
+        uuid: 33b24c3b-bf5b-4bc3-ae3b-b40feeb4dd32
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable igmp snooping',userPrompt,'None','None','None',[],[]]
+    enable_snooping_vlan:
+        description: "Enables IGMP snooping on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 60d3ecc1-10ff-48e2-ae92-69fa5da82b0c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable igmp snooping vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||ip igmp snooping',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping enable',routerConfigPrompt,'None','None','None',[],[]]
+    disable_snooping_vlan:
+        description: "Disables IGMP snooping on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 1631f48a-be31-4588-974f-c24c337c12f5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable igmp snooping vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||no ip igmp snooping',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||no ip igmp snooping enable',routerConfigPrompt,'None','None','None',[],[]]
+    enable_snooping_proxy:
+        description: "Enables IGMP snooping proxy on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 0196a404-68d8-4b0f-83f1-433fc6432474
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable igmp snooping with-proxy',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||ip igmp proxy',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping mrouter interface ethernet {port}',routerConfigPrompt,'None','None','None',[],[]]
+    disable_snooping_proxy:
+        description: "Disables IGMP snooping proxy on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 76d57f2c-571e-45b2-b5c0-0a207ba0d9dc
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable igmp snooping with-proxy',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||no ip igmp proxy',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||no ip igmp snooping mrouter interface ethernet {port}',routerConfigPrompt,'None','None','None',[],[]]
+    set_snooping_querier:
+        description: "Enables the IGMP snooping querier on the specified VLAN"
+        arguments:
+            order: 
+        uuid: e1aa66d9-a6f6-4b0a-8a7e-0fac3b8ce11a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||ip igmp snoop-querier',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping querier enable',routerConfigPrompt,'None','None','None',[],[]]
+    clear_snooping_querier:
+        description: "Disables the IGMP snooping querier on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 3d678401-0b11-4825-b3c8-ed3f8a17ea08
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||no ip igmp snoop-querier',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||no ip igmp snooping querier enable',routerConfigPrompt,'None','None','None',[],[]]
+    set_snooping_querier_address:
+        description: "Sets the IGMP snooping querier IP Address on a given VLAN"
+        arguments:
+            order: vlan,ip
+        uuid: da64ed04-80dd-4d0c-bf3a-7800e85e490f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||ip igmp snoop-querier-addr {ip}',routerConfigPrompt,'None','None','None',[],[]]
+    clear_snooping_querier_address:
+        description: "Removes the IGMP snooping querier IP Address on a given VLAN"
+        arguments:
+            order: 
+        uuid: eb8d99c4-0eff-4747-8e35-ef20436b8dc0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||no ip igmp snoop-querier-addr',routerConfigPrompt,'None','None','None',[],[]]
+    enable_snooping_compatibility_mode_vlan:
+        description: "Enables IGMP snooping Compatibility Mode on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 9e528319-5811-48ba-8ef8-7c28815237da
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||ip igmp compatibility-mode',routerConfigPrompt,'None','None','None',[],[]]
+    disable_snooping_compatibility_mode_vlan:
+        description: "Disables IGMP snooping Compatibility Mode on the specified VLAN"
+        arguments:
+            order: 
+        uuid: cbe934fa-704e-4d48-a21a-3f0d8b15d30e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||no ip igmp compatibility-mode',routerConfigPrompt,'None','None','None',[],[]]
+    enable_snooping_dynamic_downgrade_vlan:
+        description: "Enables IGMP snooping Dynamic Downgrade on the specified VLAN"
+        arguments:
+            order: 
+        uuid: eda8b88f-e4a8-469e-b265-106c467192f8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||ip igmp dynamic-downgrade-version',routerConfigPrompt,'None','None','None',[],[]]
+    disable_snooping_dynamic_downgrade_vlan:
+        description: "Disables IGMP snooping Dynamic Downgrade on the specified VLAN"
+        arguments:
+            order: 
+        uuid: a1a8ff37-78c9-403d-8037-aab70629a7da
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||no ip igmp dynamic-downgrade-version',routerConfigPrompt,'None','None','None',[],[]]
+    enable_snooping_explicit_host_tracking_vlan:
+        description: "Enables IGMP snooping Explicit Host Tracking on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 54ce7d01-39b1-42e6-b7e0-b5d4b39e93b1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}||ip igmp igmpv3-explicit-host-tracking',routerConfigPrompt,'None','None','None',[],[]]
+    disable_snooping_explicit_host_tracking_vlan:
+        description: "Disables IGMP snooping Explicit Host Tracking on the specified VLAN"
+        arguments:
+            order: 
+        uuid: 9b6b1d1e-ce7a-4d65-a79e-0bf5d2e7d566
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'interface vlan {vlan}no ip igmp igmpv3-explicit-host-tracking',routerConfigPrompt,'None','None','None',[],[]]
+    enable_snooping_fast_leave:
+        description: "Enables IGMP snooping fast leave on the specified VLAN"
+        arguments:
+            order:
+        uuid: d2c72ecd-47e2-4f58-86cf-08f36f55b45b
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping fast-leave',routerConfigPrompt,'None','None','None',[],[]]
+    disable_snooping_fast_leave:
+        description: "Disables IGMP snooping fast leave on the specified VLAN"
+        arguments:
+            order:
+        uuid: c6f3a98b-4179-4ea1-b7d7-468b79315034
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||no ip igmp snooping fast-leave',routerConfigPrompt,'None','None','None',[],[]]
+    set_snooping_last_member_query_interval:
+        description: "Sets the IGMP snooping last member query interval value for the specified VLAN"
+        arguments:
+            order:
+        uuid: 6949f5e5-5f42-4a72-acdf-c24982b417c1
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping last-member-query-interval {interval}',routerConfigPrompt,'None','None','None',[],[]]
+    set_snooping_last_member_query_count:
+        description: "Sets the IGMP snooping last member query count value for the specified VLAN"
+        arguments:
+            order:
+        uuid: 1b1f42c4-3cd1-41c8-9be5-5e2adb9b6f29
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping last-member-query-count {value}',routerConfigPrompt,'None','None','None',[],[]]
+    set_snooping_query_interval:
+        description: "Sets the IGMP snooping query interval value for the specified VLAN"
+        arguments:
+            order:
+        uuid: 4e09522e-fdf2-4a99-93a9-58ad6ff39773
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping query-interval {interval}',routerConfigPrompt,'None','None','None',[],[]]
+    set_snooping_query_max_response_time:
+        description: "Sets the IGMP snooping query max response time for the specified VLAN"
+        arguments:
+            order:
+        uuid: cd2a3cb1-3e0a-4fd3-adc2-6d23e9e5d52b
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'vlan {vlan}||ip igmp snooping query-max-response-time {time}',routerConfigPrompt,'None','None','None',[],[]]
+    show_version:
+        uuid: b4ec33ba-8bd1-4b3c-91c8-9d60afeb97ba
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show igmp config {vlan}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show igmp',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip igmp interface vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ip igmp snooping vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_state:
+        uuid: 7b779ef2-9d5c-4543-ac6d-dfb5b7740cd9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show igmp config',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show igmp',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip igmp interface vlan',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ip igmp snooping',userPrompt,'None','None','None',[],[]]
+    show_vlan:
+        uuid: cba4b245-18c5-44fe-ab3c-28a8cdd281bf
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show igmp vlan {vlan_name}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip igmp interface vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ip igmp snooping vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_group:
+        uuid: 7f377619-0c96-4bad-b335-662383a5e945
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show igmp group',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip igmp group',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ip igmp groups',userPrompt,'None','None','None',[],[]]
+    show_groups_vlan:
+        uuid: 59372db3-f62c-4e4b-a66c-903de6c80db1
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show ip igmp groups vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_port:
+        uuid: ab9fddf2-0215-4878-8f5f-583539cb3a72
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip igmp interface gigabitethernet {port}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ip igmp groups interface ethernet {port}',userPrompt,'None','None','None',[],[]]
+    show_snooping:
+        uuid: df44a792-0235-41f4-986e-fac40d8dfc66
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip igmp snooping',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ip igmp snooping',userPrompt,'None','None','None',[],[]]
+    show_snooping_querier_address:
+        uuid: 0f0d4e7a-7780-47d3-9759-e967b5747a02
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip igmp interface vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_sender:
+        uuid: 7ecd4539-b6c9-49c1-9a6f-ca8e1c02bee2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip igmp sender',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show ip igmp snooping mrouter',userPrompt,'None','None','None',[],[]]
+    show_snoop_trace:
+        uuid: 964a8781-a06b-45dd-9a78-8658ec2aa204
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip igmp snoop-trace',userPrompt,'None','None','None',[],[]]
+    show_router_alert:
+        uuid: 9196a77e-31f8-4a09-836e-31265609e84f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show ip igmp router-alert',userPrompt,'None','None','None',[],[]]
+    show_statistics_vlan:
+        uuid: b6bef82c-589e-4c85-8f11-fd7aae803b0c
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show ip igmp statistics vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    show_statistics_port:
+        uuid: e9a9217a-3e61-4fce-8cd7-2a189a477d52
+        apis:
+            CLI:
+                - [SLX,base,baseversion,baseunit,'show ip igmp statistics interface ethernet {port}',userPrompt,'None','None','None',[],[]]

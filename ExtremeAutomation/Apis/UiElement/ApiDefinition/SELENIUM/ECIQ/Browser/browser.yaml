@@ -1,0 +1,25 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+eciqbrowser:
+    login:
+        apis:
+            - [eciq,'BaseAppVer']
+    open_web_page:
+        apis:
+            - [eciq,'BaseAppVer']
+    close_web_page:
+        apis:
+            - [eciq,'BaseAppVer']
+    click_do_not_show_again_checkbox:
+        apis:
+            - [eciq,'BaseAppVer']
+    click_close_button:
+        apis:
+            - [eciq,'BaseAppVer']
+    bypass_certificate_popup:
+        apis:
+            - [eciq,'BaseAppVer']

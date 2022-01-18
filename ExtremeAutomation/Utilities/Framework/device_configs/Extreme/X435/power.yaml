@@ -1,0 +1,19 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines PSUs common to X435 series switches
+#
+
+common_power_info: &COMMON_POWER_INFO
+  number_psus:        1
+  polling_period:     2000
+  psu_led_control:    HW
+
+psu_1: &PSU_1
+  number:             1
+  fru_type:           FIXED
+  psu_type:           DUMB

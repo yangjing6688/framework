@@ -1,0 +1,44 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the fan FRUs specific to X725-48y-8c
+#
+
+fan_info:
+  <<: *COMMON_FAN_INFO
+
+fan_frus:
+  - <<: *FAN_FRU_1
+    fan_led:
+      device:            system_cpld
+      register:          0x09
+      bitmask:           0x0c
+  - <<: *FAN_FRU_2
+    fan_led:
+      device:            system_cpld
+      register:          0x09
+      bitmask:           0x03
+  - <<: *FAN_FRU_3
+    fan_led:
+      device:            system_cpld
+      register:          0x08
+      bitmask:           0xc0
+  - <<: *FAN_FRU_4
+    fan_led:
+      device:            system_cpld
+      register:          0x08
+      bitmask:           0x30
+  - <<: *FAN_FRU_5
+    fan_led:
+      device:            system_cpld
+      register:          0x08
+      bitmask:           0x0c
+  - <<: *FAN_FRU_6
+    fan_led:
+      device:            system_cpld
+      register:          0x08
+      bitmask:           0x03

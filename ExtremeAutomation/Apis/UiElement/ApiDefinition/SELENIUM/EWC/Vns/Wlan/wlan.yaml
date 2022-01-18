@@ -1,0 +1,91 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+ewcwlan:
+    wlan_create_wlan:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_delete_wlan:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_save_wlan_settings:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_sub_tab:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_edit_wlan_name:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_edit_ssid:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_default_topology:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_default_cos:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_default_traffic:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_check_application_visibility:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_uncheck_application_visibility:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_enable_wlan:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_disable_wlan:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_privacy_mode:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_authentication_mode:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_enable_mac_authentication:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_disable_mac_authentication:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_enable_radius_accounting:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_disable_radius_accounting:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_radius_server:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_radius_accounting_server:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_select_wep_key_input_method:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_edit_wep_key_string:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_click_radius_tlvs_button:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_check_ssid_vsa:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_uncheck_ssid_vsa:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_check_ap_name_vsa:
+        apis:
+            - [ewc,'10.41.12']
+    wlan_radius_message_options_popup_click_ok:
+        apis:
+            - [ewc,'10.41.12']

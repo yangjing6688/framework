@@ -1,0 +1,55 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+captiveportals:
+    captive_portals_admin_click_save_button_on_administration_page:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_select_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_verify_existence_of_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_click_add_login_config_button:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_click_delete_login_config_button:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_click_edit_login_config_button:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_delete_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_select_authentication_for_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_add_new_user_for_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_select_user_for_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_select_role_for_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_click_add_button_save_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_click_save_button_save_login_config:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_fill_mandatory_user_info_on_edit_user_window:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_fill_optional_user_info_on_edit_user_window:
+        apis:
+            - [emc,'8.1.3']
+    captive_portals_admin_click_ok_button_on_edit_user_window:
+        apis:
+            - [emc,'8.1.3']

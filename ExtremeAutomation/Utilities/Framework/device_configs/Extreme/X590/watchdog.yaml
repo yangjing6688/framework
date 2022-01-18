@@ -1,0 +1,26 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines watchdogs common to X590 series switches
+#
+
+watchdog1: &WATCHDOG1
+  name:               watchdog0
+  compatible:         extreme_watchdog
+  max_time:           49000  # maximum timeout in milliseconds
+  device:             power_cpld
+  enable:
+    register:         0x07
+    bitmask:          0x02
+  count:
+    register:         0x07
+    bitmask:          0xfc
+    direction:        DOWN
+    min:              0x20  # Minimum reasonable count value
+  ping:
+    register:         0x07
+    bitmask:          0xfc

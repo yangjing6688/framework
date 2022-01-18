@@ -1,0 +1,163 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+filemanagement:
+    copy_file_from_server:
+        uuid: 41ef4888-d04f-439b-ab59-d5eeb9589bcd
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'copy tftp://{server}/{filename} slot{slot}/{new_filename}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'tftp get {server} vr {vr} {filename} {new_filename}',userPrompt,'None','(y/N)','{answer}',[],[]]
+                - [VOSS,base,baseversion,baseunit,'copy {server}:{filename} {new_filename}',userPrompt,'None','(y/n)','{answer}',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'copy {filename} {new_filename}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'copy tftp://@{server}/{filename} flash://{new_filename}',userPrompt,'None','do you want to overwrite it? [y/n]','{answer}',[],[]]
+    copy_file:
+        uuid: d8c0926c-e385-48a9-bce8-6f01b5e3a2a9
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'copy slot{slot_a}/{filename} slot{slot_b}/{new_filename}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'cp {filename} {new_filename}',userPrompt,'None','(y/N)','{answer}',[],[]]
+                - [VOSS,base,baseversion,baseunit,'copy /intflash/{filename} /intflash/{new_filename}',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'copy {filename} {new_filename}',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'copy flash://{filename} flash://{new_filename}',userPrompt,'None','None','None',[],[]]
+    set_system_config:
+        uuid: 6d59a8fd-ed51-4dec-8f4d-b9cf16610e10
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'configure {config}',userPrompt,'None','Are you sure you want to continue (y/n) [n]?','{reboot_answer}',[],[]]
+                - [EXOS,base,baseversion,baseunit,'use configuration {config}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'boot config choice primary config-file {config}',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'copy flash://{filename} startup-config',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.4.1.1916.1.1.1.6.0||1.3.6.1.4.1.1916.1.1.1.49.0','i||s','3||{config}']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.8.0||1.3.6.1.4.1.2272.1.1.34.0','i||s','15||{config}']
+    upload_core_file:
+        uuid: 1508165a-6f09-4f0c-8fd4-04000634f9d7
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'copy slot{slot}/cores/{file_name} tftp://{server_ip}/{remote_file}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'upload debug {server_ip} vr {vr}',userPrompt,'None','Do you want to run show tech-support logto file first? (y/N)','{yes_no}',[],[]]
+    upload_file:
+        uuid: 094ebcea-37ec-400f-a107-46981bff8ea1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'copy {local_file} tftp://{server_ip}/{remote_file}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'upload {local_file} {server_ip} vr {vr} {remote_file} chron',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'copy flash://{local_file} tftp://@{server_ip}/{remote_file}',userPrompt,'None','None','None',[],[]]
+    generate_support_file:
+        uuid: 9eda0ea2-639e-4499-af1d-d7642c9598eb
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'show support outfile slot{slot}/{filename}.log',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'show tech-support all logto file',userPrompt,'None','None','None',[],[]]
+    delete_file_on_slot:
+        uuid: e9b4d9b3-22fe-4674-b0da-0fee0b344593
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'del slot{slot}/{file_name}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'rm {file_name}',userPrompt,'None','(y/n)','{answer}',[],[]]
+    delete_file:
+        uuid: 0a78ddba-71a3-42c3-868e-11164c7f7add
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'rm {file_name}',userPrompt,'None','(y/N)','{answer}',[],[]]
+                - [VOSS,base,baseversion,baseunit,'del {file_name}',userPrompt,'None','Are you sure (y/n) ?','{answer}',[],[]]
+                - [SLX,base,baseversion,baseunit,'delete flash://{file_name}',userPrompt,'None','Do you want to continue:[y/n]','{answer}',[],[]]
+    save_current_config:
+        uuid: 02c67e7a-a247-43ab-b12f-f539a8c5bd64
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'save',userPrompt,'None','(y/N)','{save_config}',[],[]]
+                - [VOSS,base,baseversion,baseunit,'save config',routerConfigPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'copy running-config startup-config',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.4.1.1916.1.1.1.3.0','i','3']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.8.0','i','13']
+    save_config_to_primary:
+        uuid: 32c70c1b-1653-46ee-b81b-2e4196af5865
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'save configuration primary',userPrompt,'None','(y/N)','{answer}',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.4.1.1916.1.1.1.3.0','i','1']
+    save_config_to_secondary:
+        uuid: 7de714fa-385e-4285-b0fd-5f5580a78586
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'save configuration secondary',userPrompt,'None','(y/N)','{answer}',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.4.1.1916.1.1.1.3.0','i','2']
+    save_config_to_file:
+        uuid: 3d8e0f5e-997b-4038-8062-b9366bb4e9e4
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'save configuration {config}',userPrompt,'None','overwrite it? (y/N)||save configuration to||default database? (y/N)','{overwrite_answer}||{standard_answer}||{replace_default_answer}',[],[]]
+                - [VOSS,base,baseversion,baseunit,'save config file {config}',routerConfigPrompt,'None','(y/n)','{answer}',[],[]]
+                - [SLX,base,baseversion,baseunit,'copy running-config {config}',userPrompt,'None','do you want to overwrite it? [y/n]','{answer}',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.4.1.1916.1.1.1.3.0||1.3.6.1.4.1.1916.1.1.1.48.0','i||s','4||{config}']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.8.0||1.3.6.1.4.1.2272.1.1.34.0','i||s','13||{config}']
+    set_system_to_primary_config:
+        uuid: 0ef03d4d-a041-4230-88fe-85fed45c6bf3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'boot config choice primary config-file {config}',routerConfigPrompt,'None','None','None',[],[]]
+    set_system_to_backup_config:
+        uuid: 7d52a3ff-1183-4201-b0dc-777c123ce03f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'boot config choice primary backup-config-file {config}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.1.8.0||1.3.6.1.4.1.2272.1.1.34.0','i||s','16||{config}']
+    show_logging_files:
+        uuid: e2ce6548-0a30-4225-9137-743bb2742c05
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'dir slot{slot}/logs/',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'ls internal-memory',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'show logging raslog',userPrompt,'None','None','None',[],[]]
+    show_config_files:
+        uuid: c891f497-15b8-430c-b7dd-a277279e5798
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'dir',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'ls',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ls',userPrompt,'None','None','None',[],[]]
+                - [ALPHA,base,baseversion,baseunit,'dir',userPrompt,'None','None','None',[],[]]
+                - [SLX,base,baseversion,baseunit,'dir',userPrompt,'None','None','None',[],[]]
+    show_config_files_per_slot:
+        uuid: c5c51f3b-2e17-4c39-9c1d-31ac19f06ef8
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'dir slot{slot}',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'ls',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'ls',userPrompt,'None','None','None',[],[]]
+    show_default_boot_config_file:
+        uuid: e7e549e2-f594-4a6f-80c1-c09ca93f5e42
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show boot config choice',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,get,'1.3.6.1.4.1.2272.1.1.32.0','i','']

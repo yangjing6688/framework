@@ -1,0 +1,26 @@
+Q3R1
+====
+.. image:: extreme_logo.png
+   :width: 300px
+   :height: 200px
+   :scale: 100 %
+   :alt: alternate text
+   :align: right
+
+.. toctree::
+   :maxdepth: 20
+   :caption: Q3R1 Contents:
+
+   xiqconfigure.rst
+   xiqmanage.rst
+   xiqa3.rst
+   xiqcommon.rst
+   xiqglobalsettings.rst
+   xiqmlinsights.rst
+   xiqcopilot.rst
+   xiqextremelocation.rst
+   commonlib
+   remotelib
+   xiqsenetwork.rst
+   xiqseadmin.rst
+   xiqsecommon.rst

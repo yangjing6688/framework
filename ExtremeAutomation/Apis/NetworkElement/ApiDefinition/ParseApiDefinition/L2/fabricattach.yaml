@@ -1,0 +1,501 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+fabricattach:
+    check_fa_service_state:
+        uuid: 28cc77d0-5d2c-40a2-bc1f-c0839d98727e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_element_type:
+        uuid: 0835fbdd-3569-4dff-9191-8184d295f7a0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_provision_mode:
+        uuid: 16fc6be1-00d5-4e06-8384-87c0bf0c0638
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_agent_timeout:
+        uuid: c0c0b568-d7f0-44e3-8156-c2777c052fff
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_assignment_timeout:
+        uuid: b0377b76-067f-41de-8ce8-36b0752f757b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_discovery_timeout:
+        uuid: ef426bc0-2e6a-4500-8e70-023c785ad38f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_exists:
+        uuid: 3f660b5d-f486-4698-8888-0455e2050935
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_mlt_exists:
+        uuid: 2eb38f14-a3b7-4878-9f13-146cfde7e96d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_server_status:
+        uuid: 338a9309-f24a-4525-a3b2-d314939c9454
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_authentication_status:
+        uuid: b90a303b-9cd4-46dd-addd-94c3c6b87e19
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_mlt_server_status:
+        uuid: 6df27fee-4fea-4080-b7b5-8cf4c80decb7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_mlt_authentication_status:
+        uuid: c1215963-99f0-42cb-b787-57cf4039e7aa
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_management_isid_on_port:
+        uuid: cebe1b63-287e-4c75-bbbe-1cf9f43453a3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_management_isid_on_mlt:
+        uuid: cd93636e-1a79-44bc-84c7-dfc7f1a9310a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_management_isid_and_cvid_on_port:
+        uuid: 72d74ea2-e7c6-4ab4-8cee-7bbe4f763321
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_management_isid_and_cvid_on_mlt:
+        uuid: 848205f8-8b05-4b00-908d-c6520a1105cf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_disc_element_type:
+        uuid: 22076a42-6e52-46bc-a07b-3fc0ee0e4a18
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_disc_element_vlan:
+        uuid: d29c04d8-9d90-48a4-8b70-8578c1f136cf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_disc_element_system_id:
+        uuid: f51cdc0f-7c01-414a-ac0f-9ace6c677ef5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_disc_element_state:
+        uuid: da053b45-a293-437b-be0b-e9fcd47cb919
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_disc_element_assign_auth:
+        uuid: 79076fdb-7026-48ae-b544-7447f50a9000
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_disc_element_auth:
+        uuid: d335e129-480a-491b-a9e9-cbfe54006ac7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_disc_element_assigned_oper_auth:
+        uuid: a12ef71b-dbc0-48d9-b587-18a079986e57
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_disc_element_oper_auth:
+        uuid: 7419d8cd-5aaf-433f-9b60-a14e68d3a59f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_assign_isid_to_vlan:
+        uuid: 46f4b284-07ea-4de0-b8d8-3c316a39adaa
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_assign_isid_to_vlan_state:
+        uuid: d726589d-cdb4-4e25-b06f-2b027687eb6d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_assign_isid_to_vlan_origin:
+        uuid: 931074ac-b33f-4759-b562-4a3b9f6f7284
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_disc_elem_received:
+        uuid: 5c5c87f3-3662-4309-b328-d93c28fc666a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_asgn_received:
+        uuid: 3e9afcdd-091f-4230-8d4c-b50b0985006d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_asgn_accepted:
+        uuid: 09c5a4c5-9169-4462-a142-62c097bace99
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_asgn_rejected:
+        uuid: ca76f34f-a198-4f42-a22e-9327efba7a8a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_asgn_expired:
+        uuid: a4e3ee49-7f4e-4350-83a1-b2e11fa76f22
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_disc_auth_failed:
+        uuid: b0dc7b8a-b062-40c3-8e1d-f5bf5dee29cf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_disc_elem_expired:
+        uuid: 5284b310-1306-4f6a-8c07-ef3ee15384f9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_disc_elem_deleted:
+        uuid: 9aa2f16e-140f-4ee8-b1b6-f12b74881807
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_asgn_deleted:
+        uuid: c14a34bb-8b16-4070-80f0-4130426435d2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_global_stats_asgn_auth_failed:
+        uuid: 9bfa2497-03bd-4a4e-a823-271d5583faea
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_disc_elem_received:
+        uuid: 852f10ea-fd60-4e6f-92b4-a869671c4672
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_asgn_received:
+        uuid: 9e754b9e-7fc7-4c36-b5e5-bf199c8f6b4d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_asgn_accepted:
+        uuid: 98c106e4-f76e-41d6-960f-df7ac792a6a8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_asgn_rejected:
+        uuid: e5d0febb-f1a2-417f-8a1d-be6bf818c7e7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_asgn_expired:
+        uuid: da30704d-3d72-4633-b20f-b4c946562a91
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_disc_auth_failed:
+        uuid: eaf552d7-df98-4f9a-bf1a-f6102275e6d4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_disc_elem_expired:
+        uuid: 903579d8-0743-456f-8c8a-3fa516821367
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_disc_elem_deleted:
+        uuid: 642266f9-3c90-4968-a368-e26137e4d2a7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_asgn_deleted:
+        uuid: 54e03527-f3d1-41f0-921d-ea9286092e29
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_port_stats_asgn_auth_failed:
+        uuid: 08e2e52c-3154-40d3-aa88-dd2fdf4979dc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_zero_touch_client_auto_attach_isid:
+        uuid: 7861664a-bc27-417c-8a7b-95fdaba6027e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_zero_touch_client_auto_attach_vlan:
+        uuid: 641b2d0a-b98b-40f5-b1f6-413b30f73366
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_zero_touch_client_auto_attach_name:
+        uuid: 8912744c-8303-46fc-8a77-551c32cb9420
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_isid_port_plat_vlan:
+        uuid: fdbb5b6d-f832-43e8-a4cb-6d1ae74dc338
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_isid_port_cvid:
+        uuid: 0f24aa94-a3cf-4903-8f64-d123ebb026ef
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_isid_port_isid_type:
+        uuid: f6e527ac-c6db-443c-a65c-70a06335c652
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_isid_port_origin:
+        uuid: 54885f85-58f4-4edd-b9fc-8521b49d8cec
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_isid_mlt_plat_vlan:
+        uuid: ac8ec67c-4627-4c36-acbd-f8931a62207c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_isid_mlt_cvid:
+        uuid: 24011bf5-2973-4388-ae88-305671f879d2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_isid_mlt_isid_type:
+        uuid: 2b9f8ee4-7271-43d3-bdad-1d570e9f9bd3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_isid_mlt_origin:
+        uuid: f6a8777d-39e5-4c09-8c44-e567dbf3e791
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_fa_neighbors:
+        uuid: 1ce7373b-a365-4193-8e2a-c1f5e0d857ed
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_zero_touch_status:
+        uuid: 23103564-f6c5-49d2-b68e-6dda71c9200c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_auto_provision_setting:
+        uuid: bea98f13-9f27-410b-9bbd-7c0de318057e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_client_proxy_status:
+        uuid: 4953b3d4-08c1-4830-bab4-9f9918c542e2
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_standalone_proxy_status:
+        uuid: b5264d29-5386-428f-a496-99d9d67c507a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_extended_logging_status:
+        uuid: bf43e8c5-a22d-4e1f-9fe7-7d869d727940
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_primary_server_id:
+        uuid: 32bf186e-13f0-458d-822f-89a8777b7372
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_server_description:
+        uuid: d6047524-f7af-489c-9d02-1c214d7bec42
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_elements_system_id:
+        uuid: 6da72e4e-e810-4501-9cf7-512be00903ec
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_elements_port:
+        uuid: c8336f78-d9ff-4f74-a96c-f096812416db
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_elements_type:
+        uuid: 12a09126-a442-4883-9322-e353df1e8ca8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_elements_mgmt_vlan:
+        uuid: f37343ee-2ac9-4360-9d0d-f103bb14bb97
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_elements_tag:
+        uuid: 884e2cca-ad88-4820-a763-5129395d5488
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_elements_auto_provision:
+        uuid: b94fd37f-232a-4aba-8838-a5e4b4074f06
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_fa_port_stats_elem_deleted:
+        uuid: c78cacce-094d-4ca3-97c8-ab65c45f23ee
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

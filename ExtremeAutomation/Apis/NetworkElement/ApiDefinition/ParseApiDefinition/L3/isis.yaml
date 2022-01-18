@@ -1,0 +1,930 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+isis:
+    verify_isis_globally_enabled:
+        uuid: cfa1fef7-6c73-4037-b19e-acabcb77f9c8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_globally_disabled:
+        uuid: 7d4baddd-fa6f-41dd-a258-90a8583d3725
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_manual_area:
+        uuid: 0541adf5-7694-4269-80a8-fd1924378ce5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_sys_name:
+        uuid: e80fe80c-14f0-4121-a776-7acaff7e46b3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_ip_source_address:
+        uuid: 2d2255ce-0caf-4b7e-8ed8-dbcf2de80dae
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_inband_mgmt_ip:
+        uuid: 1f3a17f6-30a7-4bfd-817d-a840b4ab9ba7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_metric_narrow:
+        uuid: 30a06dcb-154a-4702-97f6-a4834ecd561d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_metric_wide:
+        uuid: f7ad100c-6b7a-4a89-8ad3-1a3b76cfdf29
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_overload:
+        uuid: 4c3f4afd-98f7-449a-9e17-0e3d7224fac1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_bgp:
+        uuid: ca32d833-c1c4-4a08-b553-1f0156cde714
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_direct:
+        uuid: 0d4a24fb-5952-478f-9b2a-9fe83c53c1b5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_direct_enabled:
+        uuid: 2f7d4dfe-9a25-478c-9488-e129de484758
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_direct_route_map_policy:
+        uuid: 59fd2031-4ad0-44b7-99cc-99b23aa0af03
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_direct_route_map_policy_clear:
+        uuid: 20c0215b-f284-4e17-8346-10fec9b50746
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_direct_ipv6_enabled:
+        uuid: cca10977-db71-4cbe-b2d2-1b6453555acf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_direct_disabled:
+        uuid: 4dcb25c0-c31d-409d-a1ed-992996dc5626
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_direct_ipv6_disabled:
+        uuid: 84868c16-0787-43b2-b318-43e40bc88421
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_ospf:
+        uuid: 4958e536-ece3-4b7b-8983-1db5dbca1870
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_rip:
+        uuid: a15bbfd3-4ebb-4b6a-a463-5e48c7323750
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_redistribute_static:
+        uuid: a8ab31af-00e7-4c1a-808f-1ad1ebb0c2d8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_spf_delay:
+        uuid: 0b9b5390-7713-4ead-9381-56878a039670
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_sys_id:
+        uuid: 7efadf9f-1c9f-423a-bdb9-620c02d0b180
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_on_port:
+        uuid: 4f2bf945-0f4d-4b4e-9638-7f1421dfc142
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_enable_isis_circuit_on_port:
+        uuid: a27eee2f-5f98-4773-b062-0d3fdff198bd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_on_logical_interface:
+        uuid: 0790f5c3-0b16-4085-ae11-6d55172f26e9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_enable_isis_circuit_on_logical_interface:
+        uuid: bdc0fa98-86d0-4b1f-adf0-6841fcd7e504
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_on_mlt:
+        uuid: 724c093f-94fd-4e20-bd1a-fad3e6afba2b
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_enable_isis_circuit_on_mlt:
+        uuid: bbd842de-3aa0-4895-9b8c-f08e5fe7d784
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_auth_type_on_port:
+        uuid: c9e5cca6-7769-4afb-8a31-c76276a23a92
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_auth_type_on_mlt:
+        uuid: d48e2db4-4b05-43fd-a469-2f9a656b1807
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_auth_type_on_logical_interface:
+        uuid: 40e7faa1-7926-4288-8b6a-f17ecec7133d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_auth_key_id_on_port:
+        uuid: 8d29b0f7-59e4-4a58-8000-30ad7e45b4f9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_auth_key_id_on_mlt:
+        uuid: 5eafb19b-20d2-4abc-b972-8453aeb75662
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_circuit_auth_key_id_on_logical_interface:
+        uuid: fb6d4031-2415-4b0e-9d93-6564ac99db41
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_level_on_port:
+        uuid: 9f8a012f-3cb3-4f7b-b138-4f0a7f9720ac
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_level_on_mlt:
+        uuid: 4dc86d87-0a22-4339-aa15-d3489a5afd60
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_level_on_logical_interface:
+        uuid: 6011f3d6-01fa-4eb5-a303-cc6dc4a973ea
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_state_on_port:
+        uuid: 626c1a2a-6e51-4651-8e96-87040086b753
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_state_on_mlt:
+        uuid: 3a72e92a-b03b-4e8e-975c-8283e65f5bda
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_state_on_logical_interface:
+        uuid: 3ed86f2b-9f13-4ab1-b5f3-bd6c3dad6d75
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_status_on_port:
+        uuid: 1dd913f6-bb35-4883-b7a1-574de4446926
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_status_on_mlt:
+        uuid: 537e398f-cf99-4b4b-b2ca-9c684cbc0406
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_status_on_logical_interface:
+        uuid: 7c02e40b-cfd4-44c8-9891-a586b96a0cf5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_uptime_on_port:
+        uuid: 9a4b0f59-b383-41ce-b400-505307de42c9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_uptime_on_mlt:
+        uuid: a6e6d200-ba48-428f-bb82-88609c5f3173
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_uptime_on_logical_interface:
+        uuid: ad9d7697-5769-4c5d-96cb-c7e64db07328
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_priority_on_port:
+        uuid: df6ae4f4-e68f-427a-947f-56d593f78dd9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_priority_on_mlt:
+        uuid: 13429373-9111-48bd-8f8a-ff49fe97a184
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_priority_on_logical_interface:
+        uuid: d2a4dd5e-1c0e-4355-b6a0-9197d3e7e68d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_holdtime_on_port:
+        uuid: 9bb64111-de58-48b9-86b2-4de4d03963bf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_holdtime_on_mlt:
+        uuid: 333bba93-3ed3-4a54-b180-070de628e364
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_holdtime_on_logical_interface:
+        uuid: 3d05e742-deae-44f0-889c-66fe4dbff5d5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_sysid_on_port:
+        uuid: 5423ca13-6629-490a-9578-d8994b2e062e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_sysid_on_mlt:
+        uuid: 98d894ab-f8c3-4535-9877-58f41f155ee6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_sysid_on_logical_interface:
+        uuid: 6b55e0ba-4bb0-412a-8051-922af6bb4868
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_hostname_on_port:
+        uuid: db5a0c02-6b51-4f56-8292-62bb469dd1f9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_hostname_on_mlt:
+        uuid: f3d1c106-b22d-4d0f-ae3e-6bc8fc1d5ee7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_adjacency_hostname_on_logical_interface:
+        uuid: 52412c65-ae37-4564-90a1-06bff4444e1d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_hello_interval_on_port:
+        uuid: f6399630-e11f-4284-8f4d-024a2c1d877d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_hello_interval_on_mlt:
+        uuid: a12d5a27-27c1-42a5-8f53-9fe72158072a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_hello_interval_on_logical_interface:
+        uuid: 89e48722-6189-44cc-b3c2-dce9c8a4c52a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_hello_multiplier_on_port:
+        uuid: 9f6081e0-50e8-42a1-8561-d3f958d6efde
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_hello_multiplier_on_mlt:
+        uuid: b77a5d80-ba28-4ab7-95ea-4affc032b9ea
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_hello_multiplier_on_logical_interface:
+        uuid: 85ca3c37-d1cb-43cb-aab0-a2fae8b32deb
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_dr_hello_interval_on_port:
+        uuid: 588d1cdb-db4d-4050-b623-7194c2d28300
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_dr_hello_interval_on_mlt:
+        uuid: 26c92589-8ff3-48aa-a6a3-767379c994d8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_dr_hello_interval_on_logical_interface:
+        uuid: 9237c68b-4b23-41a8-b30f-57108a1f109d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_lsdb_ip_and_hostname:
+        uuid: 6a03e6a5-0f97-4a32-a374-7e5c614955ba
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_corrupted_lsps:
+        uuid: 3f4d1383-d9d6-47b2-9eed-747f0354348e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_authentication_key_fails:
+        uuid: 6b7e9831-e972-44a7-aedd-0c6c53ca97a0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_manual_addresses_dropped_from_area:
+        uuid: d6a5c3cb-7e23-43c2-8fc2-85fc1d100dd2
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_maximum_sequence_number_exceeded_attempts:
+        uuid: 374e34a1-974a-4937-a5de-b91bc1810d28
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_sequence_number_skips:
+        uuid: af4e218e-535c-4da1-9de2-0a4bb5749b66
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_own_lsp_purges:
+        uuid: a525fef1-afd9-4d83-87ac-0091652055c3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_id_length_mismatches:
+        uuid: b352480c-3743-44cb-82b0-419e199341c9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_partition_changes:
+        uuid: db170461-1ecc-49cc-a7ac-23335c2ca3ee
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_lsp_database_overloads:
+        uuid: 81dcaab0-780c-491d-921c-505241c4d183
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_port_authentication_fails:
+        uuid: b92fd12a-c699-4a8e-ae1e-a2a86d19544f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_port_adjacency_changes:
+        uuid: 7d45b54e-60f2-4215-8e69-88abdcd06abc
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_port_initialization_fails:
+        uuid: 664c786c-94bb-4390-a0aa-a8a7d3f76e76
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_port_rejected_adjancencies:
+        uuid: 600d1ee7-db08-4c97-b368-11326944f6e3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_port_id_field_length_mismatches:
+        uuid: 0b642017-dd7c-47e4-b189-efb29cd0f0d3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_port_max_area_address_mismatches:
+        uuid: 93bf5688-1bfa-4405-8692-86897d33f16d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_port_designated_is_changes:
+        uuid: 72368e10-114e-4b95-a8cd-1d08ab87ddd7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_port_is_is_hellos_transmitted:
+        uuid: dc595da8-4f76-4392-bf80-c20e58239ed8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_port_is_is_hellos_received:
+        uuid: 1af71244-9f41-4274-9d54-ff346c130068
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_port_is_is_lsps_transmitted:
+        uuid: 653ae60c-3a79-4aaa-b74a-1f40e8bb5dde
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_port_is_is_lsps_received:
+        uuid: 5f780c5d-d9c3-42cb-9e75-69cb8917b145
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_port_is_is_csnps_transmitted:
+        uuid: 243193c0-88c9-48ef-9213-2119fa18e52f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_port_is_is_csnps_received:
+        uuid: f3c3c6e2-ab39-4777-9cc6-8d6b6e1b6fa4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_port_is_is_psnps_transmitted:
+        uuid: 38041acd-d61e-45fc-890c-ce8a7d6ad7dd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_port_is_is_psnps_received:
+        uuid: b2688156-ce02-49bf-9254-cdb6f959a0b9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_mlt_authentication_fails:
+        uuid: 66d845f3-e7c2-400a-bab5-98b78c2e9cd7
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_mlt_adjacency_changes:
+        uuid: 0e34de44-237e-4d17-ae1e-b73921e4f0cd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_mlt_initialization_fails:
+        uuid: ab4e705b-1c10-4780-81ee-fa18aa6694de
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_mlt_rejected_adjancencies:
+        uuid: c0775388-1e8b-4365-b78f-f33bf2864145
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_mlt_id_field_length_mismatches:
+        uuid: eebde6f5-f28e-4d99-9bd4-1f6676cc8568
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_mlt_max_area_address_mismatches:
+        uuid: e57dbc5c-be14-40db-b6ca-db4080a82640
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_mlt_designated_is_changes:
+        uuid: 7ba04e58-c3a1-45ed-bfcf-aaea32384c1a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_mlt_is_is_hellos_transmitted:
+        uuid: 5ead23d2-4878-4afc-b7e1-830b42fce8c0
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_mlt_is_is_hellos_received:
+        uuid: 5e70cf1e-6512-4cfd-91de-8878474294ba
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_mlt_is_is_lsps_transmitted:
+        uuid: feb494e1-9c46-4060-be93-2f01f9b1ff04
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_mlt_is_is_lsps_received:
+        uuid: ace55214-ca81-4dc8-a81f-b7035ca9551c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_mlt_is_is_csnps_transmitted:
+        uuid: db754e4e-0c36-49de-892b-aceadf932800
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_mlt_is_is_csnps_received:
+        uuid: f0991b32-d731-414a-b38a-0efcc1e6bcd8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_mlt_is_is_psnps_transmitted:
+        uuid: d61d0f98-2e5d-4477-afac-b1ac5305d96e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_mlt_is_is_psnps_received:
+        uuid: 83635026-46a1-43b9-8e28-00c3fc01201a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_logical_interface_authentication_fails:
+        uuid: 8972630c-ce37-48d6-b658-b4aa2b52e1c3
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_logical_interface_adjacency_changes:
+        uuid: 95078dba-3de4-47e6-a755-b2671ee2f87a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_logical_interface_initialization_fails:
+        uuid: d5e78a4d-8279-4808-88ea-e4e31ed6160a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_logical_interface_rejected_adjancencies:
+        uuid: 81cf473c-5d07-4c07-99a1-197e851fc70f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_logical_interface_id_field_length_mismatches:
+        uuid: db6d88bb-10ce-49bb-ac16-81b76767c2a5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_logical_interface_max_area_address_mismatches:
+        uuid: d043608e-f7f4-46ff-a126-c0c5f4a90954
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_logical_interface_designated_is_changes:
+        uuid: 2d590264-7d8f-4363-9cac-e57ca3b652c4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_logical_interface_is_is_hellos_transmitted:
+        uuid: 9b0e0294-081b-4286-a38c-82b6c9dcd33d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_logical_interface_is_is_hellos_received:
+        uuid: 6c0ce281-66d9-4cc0-aee3-6811e5a24ea1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_logical_interface_is_is_lsps_transmitted:
+        uuid: 1db1d58a-123f-4d8d-b761-cef774541357
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_logical_interface_is_is_lsps_received:
+        uuid: 7a2261f9-3ad6-43e9-be48-305cb318a507
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_logical_interface_is_is_csnps_transmitted:
+        uuid: 3d1ceb77-f4f5-49ff-8bc3-3164f49ec11e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_logical_interface_is_is_csnps_received:
+        uuid: 75aee7eb-e00d-45ad-9f26-c4261ce627c8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_logical_interface_is_is_psnps_transmitted:
+        uuid: ba8cfe52-c1be-479d-bed6-f4e440969ddd
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_l1_logical_interface_is_is_psnps_received:
+        uuid: 982943ca-dc63-4a8d-b57d-8853b7d45ec8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_logical_interface_port:
+        uuid: 6c0f145f-9077-4256-b838-c1b22b8c8630
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_logical_interface_port_name:
+        uuid: cf6ab9cb-b6c2-4ba8-a989-17796ea48c80
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_logical_interface_mlt:
+        uuid: 4dfd3fbe-e33a-4371-99d1-8e99c538690a
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_logical_interface_mlt_name:
+        uuid: 3d8fa8f4-2bc2-436c-8952-b8d9cd8b8801
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_logical_interface_name:
+        uuid: cc82fbc1-ada9-47c5-bf83-f021be746e38
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_isis_logical_interface_ipv4:
+        uuid: ee22c0a2-09f2-45c3-9c3e-db50629717bf
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_ipv4_source_address:
+        uuid: 5e0b9272-61e6-4edd-b1ef-7038d3e83c32
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_ipv6_source_address:
+        uuid: fa469f35-117f-4a42-9f10-531a8f0c199f
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    check_isis_ipv4_tunnel_source_address:
+        uuid: d471259f-4670-4ec6-8314-ceea78ec4012
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]

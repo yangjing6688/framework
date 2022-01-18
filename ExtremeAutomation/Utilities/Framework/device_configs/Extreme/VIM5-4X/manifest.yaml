@@ -1,0 +1,20 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains list of yaml files applicable for VIM5-4X
+#
+
+vendor: Extreme
+product_name: VIM5-4X
+
+files:
+    - name: devices
+      filename: [../VIM5/devices.yaml, ../VIM5/vim5_devices.yaml]
+    - name: thermal
+      filename: [../VIM5/thermal.yaml, ../VIM5/vim5_thermal.yaml]
+    - name: ports
+      filename: [../VIM5/ports.yaml, ports.yaml]

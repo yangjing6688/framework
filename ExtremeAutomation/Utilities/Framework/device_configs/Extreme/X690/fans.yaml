@@ -1,0 +1,327 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines fan FRUs common to X690 series switches
+#
+
+fan_controller_fpga: &FAN_CONTROLLER_FPGA
+  name:               fanctl_cpld
+  bus:                platform
+  compatible:         cpld_fan_controller
+  device:             power_cpld
+  speed_settings:
+    type:             LINEAR
+    range:            [0x00, 0xff]
+  speed_multiplier:   150
+  direction_values:
+    F2B:              0x0
+    B2F:              0x1
+  fan_status_check:   zero_speed
+  fan_all_controls:
+    - name:           fanctl_fan_all
+      target_speed:
+        register:     0x23
+        bitmask:      0xff
+      min_speed:
+        register:     0x22
+        bitmask:      0xff
+  fan_module_controls:
+    - name:           fanctl_module_0
+      presence:
+        register:     0x10
+        bitmask:      0x02
+      direction:
+        register:     0x10
+        bitmask:      0x01
+    - name:           fanctl_module_1
+      presence:
+        register:     0x11
+        bitmask:      0x02
+      direction:
+        register:     0x11
+        bitmask:      0x01
+    - name:           fanctl_module_2
+      presence:
+        register:     0x12
+        bitmask:      0x02
+      direction:
+        register:     0x12
+        bitmask:      0x01
+    - name:           fanctl_module_3
+      presence:
+        register:     0x13
+        bitmask:      0x02
+      direction:
+        register:     0x13
+        bitmask:      0x01
+    - name:           fanctl_module_4
+      presence:
+        register:     0x14
+        bitmask:      0x02
+      direction:
+        register:     0x14
+        bitmask:      0x01
+    - name:           fanctl_module_5
+      presence:
+        register:     0x15
+        bitmask:      0x02
+      direction:
+        register:     0x15
+        bitmask:      0x01
+  fan_controls:
+    - name:           fanctl_fan_0_0
+      speed_input:
+        register:     0x16
+        bitmask:      0xff
+      fault_status:
+        register:     0x10
+        bitmask:      0x04
+    - name:           fanctl_fan_0_1
+      speed_input:
+        register:     0x17
+        bitmask:      0xff
+      fault_status:
+        register:     0x10
+        bitmask:      0x08
+    - name:           fanctl_fan_1_0
+      speed_input:
+        register:     0x18
+        bitmask:      0xff
+      fault_status:
+        register:     0x11
+        bitmask:      0x04
+    - name:           fanctl_fan_1_1
+      speed_input:
+        register:     0x19
+        bitmask:      0xff
+      fault_status:
+        register:     0x11
+        bitmask:      0x08
+    - name:           fanctl_fan_2_0
+      speed_input:
+        register:     0x1a
+        bitmask:      0xff
+      fault_status:
+        register:     0x12
+        bitmask:      0x04
+    - name:           fanctl_fan_2_1
+      speed_input:
+        register:     0x1b
+        bitmask:      0xff
+      fault_status:
+        register:     0x12
+        bitmask:      0x08
+    - name:           fanctl_fan_3_0
+      speed_input:
+        register:     0x1c
+        bitmask:      0xff
+      fault_status:
+        register:     0x13
+        bitmask:      0x04
+    - name:           fanctl_fan_3_1
+      speed_input:
+        register:     0x1d
+        bitmask:      0xff
+      fault_status:
+        register:     0x13
+        bitmask:      0x08
+    - name:           fanctl_fan_4_0
+      speed_input:
+        register:     0x1e
+        bitmask:      0xff
+      fault_status:
+        register:     0x14
+        bitmask:      0x04
+    - name:           fanctl_fan_4_1
+      speed_input:
+        register:     0x1f
+        bitmask:      0xff
+      fault_status:
+        register:     0x14
+        bitmask:      0x08
+    - name:           fanctl_fan_5_0
+      speed_input:
+        register:     0x20
+        bitmask:      0xff
+      fault_status:
+        register:     0x15
+        bitmask:      0x04
+    - name:           fanctl_fan_5_1
+      speed_input:
+        register:     0x21
+        bitmask:      0xff
+      fault_status:
+        register:     0x15
+        bitmask:      0x08
+
+common_fan_info: &COMMON_FAN_INFO
+  number_fan_frus:    6
+  fans_per_fru:       2
+  polling_period:     2000
+  fan_led_settings:
+    OFF:              0x0
+    SOLID_GREEN:      0x1
+    BLINK_AMBER:      0x2
+  fan_all_controls:
+    target_speed:     fanctl_fan_all
+    min_rpm:          fanctl_fan_all
+
+fan_fru_1: &FAN_FRU_1
+  number:             1
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  devices:
+    - name:           fan_fru_1_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch5
+      address:        0x57
+      format:         extreme
+  eeprom:             fan_fru_1_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x08
+    bitmask:          0x03
+  presence:           fanctl_module_0
+  direction:          fanctl_module_0
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_0_0
+      fault_status:   fanctl_fan_0_0
+    - number:         2
+      speed_input:    fanctl_fan_0_1
+      fault_status:   fanctl_fan_0_1
+
+fan_fru_2: &FAN_FRU_2
+  number:             2
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  devices:
+    - name:           fan_fru_2_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch4
+      address:        0x57
+      format:         extreme
+  eeprom:             fan_fru_2_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x08
+    bitmask:          0x0c
+  presence:           fanctl_module_1
+  direction:          fanctl_module_1
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_1_0
+      fault_status:   fanctl_fan_1_0
+    - number:         2
+      speed_input:    fanctl_fan_1_1
+      fault_status:   fanctl_fan_1_1
+
+fan_fru_3: &FAN_FRU_3
+  number:             3
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  devices:
+    - name:           fan_fru_3_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch3
+      address:        0x57
+      format:         extreme
+  eeprom:             fan_fru_3_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x08
+    bitmask:          0x30
+  presence:           fanctl_module_2
+  direction:          fanctl_module_2
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_2_0
+      fault_status:   fanctl_fan_2_0
+    - number:         2
+      speed_input:    fanctl_fan_2_1
+      fault_status:   fanctl_fan_2_1
+
+fan_fru_4: &FAN_FRU_4
+  number:             4
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  devices:
+    - name:           fan_fru_4_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch2
+      address:        0x57
+      format:         extreme
+  eeprom:             fan_fru_4_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x08
+    bitmask:          0xc0
+  presence:           fanctl_module_3
+  direction:          fanctl_module_3
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_3_0
+      fault_status:   fanctl_fan_3_0
+    - number:         2
+      speed_input:    fanctl_fan_3_1
+      fault_status:   fanctl_fan_3_1
+
+fan_fru_5: &FAN_FRU_5
+  number:             5
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  devices:
+    - name:           fan_fru_5_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch1
+      address:        0x57
+      format:         extreme
+  eeprom:             fan_fru_5_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x09
+    bitmask:          0x03
+  presence:           fanctl_module_4
+  direction:          fanctl_module_4
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_4_0
+      fault_status:   fanctl_fan_4_0
+    - number:         2
+      speed_input:    fanctl_fan_4_1
+      fault_status:   fanctl_fan_4_1
+
+fan_fru_6: &FAN_FRU_6
+  number:             6
+  compatible:         generic_fan
+  bus:                platform
+  fru_type:           MODULAR
+  devices:
+    - name:           fan_fru_6_eeprom
+      compatible:     24c02
+      bus:            pca9548_2_ch0
+      address:        0x57
+      format:         extreme
+  eeprom:             fan_fru_6_eeprom
+  fan_led:
+    device:           system_cpld
+    register:         0x09
+    bitmask:          0x0c
+  presence:           fanctl_module_5
+  direction:          fanctl_module_5
+  fans:
+    - number:         1
+      speed_input:    fanctl_fan_5_0
+      fault_status:   fanctl_fan_5_0
+    - number:         2
+      speed_input:    fanctl_fan_5_1
+      fault_status:   fanctl_fan_5_1

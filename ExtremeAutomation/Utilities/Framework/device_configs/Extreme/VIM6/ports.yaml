@@ -1,0 +1,187 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common port devices on VIM6 plugin modules
+#
+#  All values starting with '_' will be prefixed with the parent device's name,+#  e.g. "vim_1".
+#
+vim6_port_1_devices: &VIM6_PORT_1_DEVICES
+  devices:
+    - name:         _p1_eeprom
+      compatible:   24c02
+      bus_alias:    _pca9548_1_ch2
+      address:      0x50
+  module_eeprom:    _p1_eeprom
+
+vim6_port_2_devices: &VIM6_PORT_2_DEVICES
+  devices:
+    - name:         _p2_eeprom
+      compatible:   24c02
+      bus_alias:    _pca9548_1_ch3
+      address:      0x50
+  module_eeprom:    _p2_eeprom
+
+vim6_port_3_devices: &VIM6_PORT_3_DEVICES
+  devices:
+    - name:         _p3_eeprom
+      compatible:   24c02
+      bus_alias:    _pca9548_1_ch4
+      address:      0x50
+  module_eeprom:    _p3_eeprom
+
+vim6_port_4_devices: &VIM6_PORT_4_DEVICES
+  devices:
+    - name:         _p4_eeprom
+      compatible:   24c02
+      bus_alias:    _pca9548_1_ch5
+      address:      0x50
+  module_eeprom:    _p4_eeprom
+
+vim6_sfp_1_control: &VIM6_SFP_1_CONTROL
+  module_present:
+    device:         _pca9506
+    register:       0x00
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         _pca9506
+    register:       0x00
+    bitmask:        0x02
+  module_tx_fault:
+    device:         _pca9506
+    register:       0x00
+    bitmask:        0x04
+  module_tx_disable:
+    device:         _pca9506
+    register:       0x08
+    bitmask:        0x08
+  module_init_ops:
+    - device:       _pca9506
+      register:     0x18
+      bitmask:      0x0f
+      value:        0x07
+    - device:       _pca9506
+      register:     0x08
+      bitmask:      0x08
+      value:        0
+    - device:       _pca9506
+      register:     0x20
+      bitmask:      0x01
+      value:        0
+
+vim6_sfp_2_control: &VIM6_SFP_2_CONTROL
+  module_present:
+    device:         _pca9506
+    register:       0x01
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         _pca9506
+    register:       0x01
+    bitmask:        0x02
+  module_tx_fault:
+    device:         _pca9506
+    register:       0x01
+    bitmask:        0x04
+  module_tx_disable:
+    device:         _pca9506
+    register:       0x09
+    bitmask:        0x08
+  module_init_ops:
+    - device:       _pca9506
+      register:     0x19
+      bitmask:      0x0f
+      value:        0x07
+    - device:       _pca9506
+      register:     0x09
+      bitmask:      0x08
+      value:        0
+    - device:       _pca9506
+      register:     0x21
+      bitmask:      0x01
+      value:        0
+
+vim6_sfp_3_control: &VIM6_SFP_3_CONTROL
+  module_present:
+    device:         _pca9506
+    register:       0x02
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         _pca9506
+    register:       0x02
+    bitmask:        0x02
+  module_tx_fault:
+    device:         _pca9506
+    register:       0x02
+    bitmask:        0x04
+  module_tx_disable:
+    device:         _pca9506
+    register:       0x0a
+    bitmask:        0x08
+  module_init_ops:
+    - device:       _pca9506
+      register:     0x1a
+      bitmask:      0x0f
+      value:        0x07
+    - device:       _pca9506
+      register:     0x0a
+      bitmask:      0x08
+      value:        0
+    - device:       _pca9506
+      register:     0x22
+      bitmask:      0x01
+      value:        0
+
+vim6_sfp_4_control: &VIM6_SFP_4_CONTROL
+  module_present:
+    device:         _pca9506
+    register:       0x03
+    bitmask:        0x01
+    active_low:     1
+  module_rx_los:
+    device:         _pca9506
+    register:       0x03
+    bitmask:        0x02
+  module_tx_fault:
+    device:         _pca9506
+    register:       0x03
+    bitmask:        0x04
+  module_tx_disable:
+    device:         _pca9506
+    register:       0x0b
+    bitmask:        0x08
+  module_init_ops:
+    - device:       _pca9506
+      register:     0x1b
+      bitmask:      0x0f
+      value:        0x07
+    - device:       _pca9506
+      register:     0x0b
+      bitmask:      0x08
+      value:        0
+    - device:       _pca9506
+      register:     0x23
+      bitmask:      0x01
+      value:        0
+
+vim6_port_1_sfp: &VIM6_PORT_1_SFP
+  connector:        SFP_PLUS
+  <<: *VIM6_PORT_1_DEVICES
+  <<: *VIM6_SFP_1_CONTROL
+vim6_port_2_sfp: &VIM6_PORT_2_SFP
+  connector:        SFP_PLUS
+  <<: *VIM6_PORT_2_DEVICES
+  <<: *VIM6_SFP_2_CONTROL
+vim6_port_3_sfp: &VIM6_PORT_3_SFP
+  connector:        SFP_PLUS
+  <<: *VIM6_PORT_3_DEVICES
+  <<: *VIM6_SFP_3_CONTROL
+vim6_port_4_sfp: &VIM6_PORT_4_SFP
+  connector:        SFP_PLUS
+  <<: *VIM6_PORT_4_DEVICES
+  <<: *VIM6_SFP_4_CONTROL

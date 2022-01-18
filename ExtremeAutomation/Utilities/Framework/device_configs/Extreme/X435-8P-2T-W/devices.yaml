@@ -1,0 +1,22 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the buses and devices specific to X435-8P-2T
+#
+
+buses:
+  - *I2CBUS_0
+  - *I2CBUS_1
+
+devices:
+  - *PCA9548_0
+  - *PCA9555_0
+  - *MB_AMBIENT_TMPSN
+  - *SYSTEM_EEPROM
+  - *RTC_MCP_7940X
+  - *SYSTEM_GPIO_0
+  - *SYSTEM_GPIO_1

@@ -1,0 +1,83 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for __UNSUPPORTED__ switch
+#
+#
+
+ports:
+   - name: 1
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 2
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 3
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 4
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 5
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 6
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 7
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 8
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 9
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 10
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 11
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 12
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 13
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 14
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 15
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 16
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 17
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 18
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 19
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 20
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 21
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 22
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 23
+     <<: *DEFAULT_PORT_CAPABILITY
+
+   - name: 24
+     <<: *DEFAULT_PORT_CAPABILITY

@@ -1,0 +1,22 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimbrowser:
+    browser_login:
+        apis:
+            - [gim,'8.2.3']
+    browser_open_web_page:
+        apis:
+            - [gim,'8.2.3']
+    browser_only_url:
+        apis:
+            - [gim,'8.2.3']
+    browser_logout:
+        apis:
+            - [gim,'8.2.3']
+    browser_close_web_page:
+        apis:
+            - [gim,'8.2.3']

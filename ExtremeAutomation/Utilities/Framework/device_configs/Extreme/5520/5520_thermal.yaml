@@ -1,0 +1,14 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on 5520
+#
+
+sensors:
+  - *MB_HOTSPOT_TMPSN
+  - *MB_AMBIENT_TMPSN
+  - *MB_TPS_TMPSN

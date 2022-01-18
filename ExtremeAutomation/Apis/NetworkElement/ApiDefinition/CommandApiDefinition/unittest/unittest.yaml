@@ -1,0 +1,38 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+unittest:
+    function:
+        uuid: ba47070e-d7dc-46ce-8cda-9664032f3761
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit,'command',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,baseversion,unit1,'command',userPrompt,'None','None','None',[],[]]
+                - [EOS,base,'1.1',baseunit,'command',userPrompt,'None','None','None',[],[]]
+                - [EOS,platform1,baseversion,baseunit,'command',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,baseunit,'command',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,baseversion,unit1,'command',userPrompt,'None','None','None',[],[]]
+                - [EXOS,base,'1.1',baseunit,'command',userPrompt,'None','None','None',[],[]]
+                - [EXOS,platform1,baseversion,baseunit,'command',userPrompt,'None','None','None',[],[]]

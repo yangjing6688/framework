@@ -1,0 +1,37 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+ewcadministration:
+    administration_rename_hostname:
+        apis:
+            - [ewc,'10.41.12']
+    administration_hostname_should_exist:
+        apis:
+            - [ewc,'10.41.12']
+    administration_hostname_should_not_exist:
+        apis:
+            - [ewc,'10.41.12']
+    administration_rename_domain_name:
+        apis:
+            - [ewc,'10.41.12']
+    administration_domain_name_should_exist:
+        apis:
+            - [ewc,'10.41.12']
+    administration_domain_name_should_not_exist:
+        apis:
+            - [ewc,'10.41.12']
+    administration_add_primary_dns_server_on_host:
+        apis:
+            - [ewc,'10.41.12']
+    administration_delete_primary_dns_server_on_host:
+        apis:
+            - [ewc,'10.41.12']
+    administration_validate_primary_dns_server_ip_on_host:
+        apis:
+            - [ewc,'10.41.12']
+    administration_click_save_button:
+        apis:
+            - [ewc,'10.41.12']

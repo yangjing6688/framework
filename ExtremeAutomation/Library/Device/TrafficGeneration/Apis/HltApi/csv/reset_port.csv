@@ -1,0 +1,7 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+mode,"List ofAction to be taken on the port_handle selected.
+Valid options are:
+set_factory_defaults: resets the port to factory default.
+remove_protocol: removes the protocol config on the port specified by the protocol argument",opt,"set_factory_defaults,remove_protocol","IxNetwork [M] , IxOS/IxNetwork-FT [M], IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,""""
+port_handle,List of port_handles on which to act,port_string,,"IxNetwork [M] , IxOS/IxNetwork-FT [M], IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,""-port_handle 1/1/1""
+protocol,,opt,"bfd, bgp, cfm, eigrp, igmp, isis, lacp, ldp, efm, mld, mplstp, ospfv2, ospfv3, pim, rip, ripng, rsvp, static, stp, all","IxNetwork [M] , IxOS/IxNetwork-FT [M], IxNetwork-NGPF",universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

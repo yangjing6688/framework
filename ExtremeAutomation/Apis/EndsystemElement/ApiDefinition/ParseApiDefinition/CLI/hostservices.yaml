@@ -1,0 +1,12 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit]
+#             - [OS2,Platform,Version,Unit]
+
+hostservices:
+    check_ping_result_on_endsys:
+        apis:
+            - [LINUX,base,baseversion,baseunit]
+            - [WINDOWS,base,baseversion,baseunit]

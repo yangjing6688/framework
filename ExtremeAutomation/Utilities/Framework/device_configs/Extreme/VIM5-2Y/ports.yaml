@@ -1,0 +1,16 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for VIM5-2Y
+#
+#
+ports:
+    - local_name: 1
+      <<: *VIM5_PORT_1_SFP
+
+    - local_name: 2
+      <<: *VIM5_PORT_2_SFP

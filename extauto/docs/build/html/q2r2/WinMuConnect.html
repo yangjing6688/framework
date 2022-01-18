@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>WinMuConnect &mdash; ExtAuto Framework Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ExtAuto Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter02.html"><strong>ExtAuto Documentation</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="remotelib.html"><strong>REMOTE LIBRARIES</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ExtAuto Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>WinMuConnect</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/WinMuConnect.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-common.tools.remote.WinMuConnect">
+<span id="winmuconnect"></span><h1>WinMuConnect<a class="headerlink" href="#module-common.tools.remote.WinMuConnect" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect">
+<em class="property">class </em><code class="sig-prename descclassname">common.tools.remote.WinMuConnect.</code><code class="sig-name descname">WinMuConnect</code><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.add_wlan_profile">
+<code class="sig-name descname">add_wlan_profile</code><span class="sig-paren">(</span><em class="sig-param">profile_xml</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.add_wlan_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding wlan profile
+:param profile_xml: Name of the profile xml file to add
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_enterprise_network">
+<code class="sig-name descname">connect_enterprise_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_enterprise_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assuming that profile is already created for enterprise network with stored user name and password
+:param ssid:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_open_network">
+<code class="sig-name descname">connect_open_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_open_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect open ssid
+:param ssid:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa2_ppsk_network">
+<code class="sig-name descname">connect_wpa2_ppsk_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em>, <em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa2_ppsk_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect the wpa2 ppsk network
+:param ssid: name of the ssid to connect
+:param key: password for connection
+:return: status of connection</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa2_psk_network">
+<code class="sig-name descname">connect_wpa2_psk_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em>, <em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa2_psk_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect the wpa2 psk network
+:param ssid: name of the ssid to connect
+:param key: password for connection
+:return: status of connection</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa3_psk_network">
+<code class="sig-name descname">connect_wpa3_psk_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em>, <em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connect_wpa3_psk_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect the wpa3 psk network
+:param ssid: name of the ssid to connect
+:param key: password for connection
+:return: status of connection</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.connectivity_check">
+<code class="sig-name descname">connectivity_check</code><span class="sig-paren">(</span><em class="sig-param">destination='https://www.facebook.com/'</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.connectivity_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connectivity check using curl
+:param destination:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.delete_wlan_profile">
+<code class="sig-name descname">delete_wlan_profile</code><span class="sig-paren">(</span><em class="sig-param">profile</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.delete_wlan_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete network profile
+:param profile:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.disconnect_wifi">
+<code class="sig-name descname">disconnect_wifi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.disconnect_wifi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect to the wlan network
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.execute_commands">
+<em class="property">static </em><code class="sig-name descname">execute_commands</code><span class="sig-paren">(</span><em class="sig-param">cmd</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.execute_commands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute command on windows command line using subprocess module
+:param cmd: command to execute
+:return: cmd_out of the command</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.get_network_profile">
+<code class="sig-name descname">get_network_profile</code><span class="sig-paren">(</span><em class="sig-param">profile</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.get_network_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get wlan network profile
+:return: 1 if profile exists else none</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.get_wi_fi_interface_ip_address">
+<code class="sig-name descname">get_wi_fi_interface_ip_address</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.get_wi_fi_interface_ip_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get IP Address Assigned to the Wi-Fi Interface
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.ping_check">
+<code class="sig-name descname">ping_check</code><span class="sig-paren">(</span><em class="sig-param">destination</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.ping_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ping the destination address
+:param destination: destination address ex www.google.com
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.refresh_wi_fi_interface">
+<code class="sig-name descname">refresh_wi_fi_interface</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.refresh_wi_fi_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable and disable wi-fi intercae
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="common.tools.remote.WinMuConnect.WinMuConnect.search_network">
+<code class="sig-name descname">search_network</code><span class="sig-paren">(</span><em class="sig-param">ssid</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.WinMuConnect.search_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the network in available networks
+:param ssid:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="common.tools.remote.WinMuConnect.update_wlan_profile">
+<code class="sig-prename descclassname">common.tools.remote.WinMuConnect.</code><code class="sig-name descname">update_wlan_profile</code><span class="sig-paren">(</span><em class="sig-param">profile</em>, <em class="sig-param">ssid=None</em>, <em class="sig-param">key=None</em><span class="sig-paren">)</span><a class="headerlink" href="#common.tools.remote.WinMuConnect.update_wlan_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the profile xml file dynamically based on ssid, auth type and key
+:param profile: name of the profile file ie xml file
+:param ssid: name of the ssid to update in profile file
+:param key: key to be update
+:return:</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramkumar Vellasamy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

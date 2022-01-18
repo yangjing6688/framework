@@ -1,0 +1,37 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines all buses and devices for 5520-24X
+#
+
+buses:
+  - *I2CBUS_0
+  - *I2CBUS_1
+  - *I2CBUS_2
+
+devices:
+  - *SYSTEM_GPIO
+  - *PCA9548_0
+  - *PCA9548_1
+  - *QSFP_PCA9506
+  - *SYSTEM_EEPROM
+  - *SYSTEM_CPLD
+  - *SYSTEM_UC
+  - *MB_AMBIENT_TMPSN
+  - *MB_HOTSPOT_TMPSN
+  - *MB_TPS_TMPSN
+  - *PORT_PCA9548_0
+  - *SFP_PCA9548_0
+  - *SFP_PCA9506_0
+  - *SFP_PCA9506_1
+  - *SFP_PCA9548_1
+  - *SFP_PCA9506_2
+  - *SFP_PCA9506_3
+  - *SFP_PCA9548_2
+  - *SFP_PCA9506_4
+  - *SFP_PCA9506_5
+  - *PORT_CPLD_0

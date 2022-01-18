@@ -1,0 +1,1034 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common buses and devices present on the
+#  mainboard of X725 series switches
+#
+
+# ##################################################################
+# Common Buses
+# ##################################################################
+
+i2cbus_0: &I2CBUS_0
+  name:               i2cbus_0
+  bus_type:           I2C
+  device:             CPU
+  number:             0
+
+i2cbus_1: &I2CBUS_1
+  name:               i2cbus_1
+  bus_type:           I2C
+  device:             CPU
+  number:             1
+
+# Busses of PCA9546 on MB
+pca9546_mb_ch0: &PCA9546_MB_CH0
+  name:               pca9546_mb_ch0
+  bus_type:           I2C
+  device:             pca9546_mb
+
+pca9546_mb_ch1: &PCA9546_MB_CH1
+  name:               pca9546_mb_ch1
+  bus_type:           I2C
+  device:             pca9546_mb
+
+pca9546_mb_ch2: &PCA9546_MB_CH2
+  name:               pca9546_mb_ch2
+  bus_type:           I2C
+  device:             pca9546_mb
+
+pca9546_mb_ch3: &PCA9546_MB_CH3
+  name:               pca9546_mb_ch3
+  bus_type:           I2C
+  device:             pca9546_mb
+
+# Busses of PCA9546 on CPU/B
+pca9546_cpub_ch0: &PCA9546_CPUB_CH0
+  name:               pca9546_cpub_ch0
+  bus_type:           I2C
+  device:             pca9546_cpub
+
+pca9546_cpub_ch1: &PCA9546_CPUB_CH1
+  name:               pca9546_cpub_ch1
+  bus_type:           I2C
+  device:             pca9546_cpub
+
+pca9546_cpub_ch2: &PCA9546_CPUB_CH2
+  name:               pca9546_cpub_ch2
+  bus_type:           I2C
+  device:             pca9546_cpub
+
+pca9546_cpub_ch3: &PCA9546_CPUB_CH3
+  name:               pca9546_cpub_ch3
+  bus_type:           I2C
+  device:             pca9546_cpub
+
+# Busses of the root PCA9548 for all SFP28 PCA9548#1-7
+pca9548_sfp_root_ch0: &PCA9548_SFP_ROOT_CH0
+  name:               pca9548_sfp_root_ch0
+  bus_type:           I2C
+  device:             pca9548_sfp_root
+
+pca9548_sfp_root_ch1: &PCA9548_SFP_ROOT_CH1
+  name:               pca9548_sfp_root_ch1
+  bus_type:           I2C
+  device:             pca9548_sfp_root
+
+pca9548_sfp_root_ch2: &PCA9548_SFP_ROOT_CH2
+  name:               pca9548_sfp_root_ch2
+  bus_type:           I2C
+  device:             pca9548_sfp_root
+
+pca9548_sfp_root_ch3: &PCA9548_SFP_ROOT_CH3
+  name:               pca9548_sfp_root_ch3
+  bus_type:           I2C
+  device:             pca9548_sfp_root
+
+pca9548_sfp_root_ch4: &PCA9548_SFP_ROOT_CH4
+  name:               pca9548_sfp_root_ch4
+  bus_type:           I2C
+  device:             pca9548_sfp_root
+
+pca9548_sfp_root_ch5: &PCA9548_SFP_ROOT_CH5
+  name:               pca9548_sfp_root_ch5
+  bus_type:           I2C
+  device:             pca9548_sfp_root
+
+pca9548_sfp_root_ch6: &PCA9548_SFP_ROOT_CH6
+  name:               pca9548_sfp_root_ch6
+  bus_type:           I2C
+  device:             pca9548_sfp_root
+
+pca9548_sfp_root_ch7: &PCA9548_SFP_ROOT_CH7
+  name:               pca9548_sfp_root_ch7
+  bus_type:           I2C
+  device:             pca9548_sfp_root
+
+# Busses of PCA9548#1 for SFP28 port 1-8
+pca9548_sfp_1_8_ch0: &PCA9548_SFP_1_8_CH0
+  name:               pca9548_sfp_1_8_ch0
+  bus_type:           I2C
+  device:             pca9548_sfp_1_8
+
+pca9548_sfp_1_8_ch1: &PCA9548_SFP_1_8_CH1
+  name:               pca9548_sfp_1_8_ch1
+  bus_type:           I2C
+  device:             pca9548_sfp_1_8
+
+pca9548_sfp_1_8_ch2: &PCA9548_SFP_1_8_CH2
+  name:               pca9548_sfp_1_8_ch2
+  bus_type:           I2C
+  device:             pca9548_sfp_1_8
+
+pca9548_sfp_1_8_ch3: &PCA9548_SFP_1_8_CH3
+  name:               pca9548_sfp_1_8_ch3
+  bus_type:           I2C
+  device:             pca9548_sfp_1_8
+
+pca9548_sfp_1_8_ch4: &PCA9548_SFP_1_8_CH4
+  name:               pca9548_sfp_1_8_ch4
+  bus_type:           I2C
+  device:             pca9548_sfp_1_8
+
+pca9548_sfp_1_8_ch5: &PCA9548_SFP_1_8_CH5
+  name:               pca9548_sfp_1_8_ch5
+  bus_type:           I2C
+  device:             pca9548_sfp_1_8
+
+pca9548_sfp_1_8_ch6: &PCA9548_SFP_1_8_CH6
+  name:               pca9548_sfp_1_8_ch6
+  bus_type:           I2C
+  device:             pca9548_sfp_1_8
+
+pca9548_sfp_1_8_ch7: &PCA9548_SFP_1_8_CH7
+  name:               pca9548_sfp_1_8_ch7
+  bus_type:           I2C
+  device:             pca9548_sfp_1_8
+
+# Busses of PCA9548#2 for SFP28 port 9-16
+pca9548_sfp_9_16_ch0: &PCA9548_SFP_9_16_CH0
+  name:               pca9548_sfp_9_16_ch0
+  bus_type:           I2C
+  device:             pca9548_sfp_9_16
+
+pca9548_sfp_9_16_ch1: &PCA9548_SFP_9_16_CH1
+  name:               pca9548_sfp_9_16_ch1
+  bus_type:           I2C
+  device:             pca9548_sfp_9_16
+
+pca9548_sfp_9_16_ch2: &PCA9548_SFP_9_16_CH2
+  name:               pca9548_sfp_9_16_ch2
+  bus_type:           I2C
+  device:             pca9548_sfp_9_16
+
+pca9548_sfp_9_16_ch3: &PCA9548_SFP_9_16_CH3
+  name:               pca9548_sfp_9_16_ch3
+  bus_type:           I2C
+  device:             pca9548_sfp_9_16
+
+pca9548_sfp_9_16_ch4: &PCA9548_SFP_9_16_CH4
+  name:               pca9548_sfp_9_16_ch4
+  bus_type:           I2C
+  device:             pca9548_sfp_9_16
+
+pca9548_sfp_9_16_ch5: &PCA9548_SFP_9_16_CH5
+  name:               pca9548_sfp_9_16_ch5
+  bus_type:           I2C
+  device:             pca9548_sfp_9_16
+
+pca9548_sfp_9_16_ch6: &PCA9548_SFP_9_16_CH6
+  name:               pca9548_sfp_9_16_ch6
+  bus_type:           I2C
+  device:             pca9548_sfp_9_16
+
+pca9548_sfp_9_16_ch7: &PCA9548_SFP_9_16_CH7
+  name:               pca9548_sfp_9_16_ch7
+  bus_type:           I2C
+  device:             pca9548_sfp_9_16
+
+# Busses of PCA9548#3 for SFP28 port 17-24
+pca9548_sfp_17_24_ch0: &PCA9548_SFP_17_24_CH0
+  name:               pca9548_sfp_17_24_ch0
+  bus_type:           I2C
+  device:             pca9548_sfp_17_24
+
+pca9548_sfp_17_24_ch1: &PCA9548_SFP_17_24_CH1
+  name:               pca9548_sfp_17_24_ch1
+  bus_type:           I2C
+  device:             pca9548_sfp_17_24
+
+pca9548_sfp_17_24_ch2: &PCA9548_SFP_17_24_CH2
+  name:               pca9548_sfp_17_24_ch2
+  bus_type:           I2C
+  device:             pca9548_sfp_17_24
+
+pca9548_sfp_17_24_ch3: &PCA9548_SFP_17_24_CH3
+  name:               pca9548_sfp_17_24_ch3
+  bus_type:           I2C
+  device:             pca9548_sfp_17_24
+
+pca9548_sfp_17_24_ch4: &PCA9548_SFP_17_24_CH4
+  name:               pca9548_sfp_17_24_ch4
+  bus_type:           I2C
+  device:             pca9548_sfp_17_24
+
+pca9548_sfp_17_24_ch5: &PCA9548_SFP_17_24_CH5
+  name:               pca9548_sfp_17_24_ch5
+  bus_type:           I2C
+  device:             pca9548_sfp_17_24
+
+pca9548_sfp_17_24_ch6: &PCA9548_SFP_17_24_CH6
+  name:               pca9548_sfp_17_24_ch6
+  bus_type:           I2C
+  device:             pca9548_sfp_17_24
+
+pca9548_sfp_17_24_ch7: &PCA9548_SFP_17_24_CH7
+  name:               pca9548_sfp_17_24_ch7
+  bus_type:           I2C
+  device:             pca9548_sfp_17_24
+
+# Busses of PCA9548#4 for SFP28 port 25-32
+pca9548_sfp_25_32_ch0: &PCA9548_SFP_25_32_CH0
+  name:               pca9548_sfp_25_32_ch0
+  bus_type:           I2C
+  device:             pca9548_sfp_25_32
+
+pca9548_sfp_25_32_ch1: &PCA9548_SFP_25_32_CH1
+  name:               pca9548_sfp_25_32_ch1
+  bus_type:           I2C
+  device:             pca9548_sfp_25_32
+
+pca9548_sfp_25_32_ch2: &PCA9548_SFP_25_32_CH2
+  name:               pca9548_sfp_25_32_ch2
+  bus_type:           I2C
+  device:             pca9548_sfp_25_32
+
+pca9548_sfp_25_32_ch3: &PCA9548_SFP_25_32_CH3
+  name:               pca9548_sfp_25_32_ch3
+  bus_type:           I2C
+  device:             pca9548_sfp_25_32
+
+pca9548_sfp_25_32_ch4: &PCA9548_SFP_25_32_CH4
+  name:               pca9548_sfp_25_32_ch4
+  bus_type:           I2C
+  device:             pca9548_sfp_25_32
+
+pca9548_sfp_25_32_ch5: &PCA9548_SFP_25_32_CH5
+  name:               pca9548_sfp_25_32_ch5
+  bus_type:           I2C
+  device:             pca9548_sfp_25_32
+
+pca9548_sfp_25_32_ch6: &PCA9548_SFP_25_32_CH6
+  name:               pca9548_sfp_25_32_ch6
+  bus_type:           I2C
+  device:             pca9548_sfp_25_32
+
+pca9548_sfp_25_32_ch7: &PCA9548_SFP_25_32_CH7
+  name:               pca9548_sfp_25_32_ch7
+  bus_type:           I2C
+  device:             pca9548_sfp_25_32
+
+# Busses of PCA9548#5 for SFP28 port 33-40
+pca9548_sfp_33_40_ch0: &PCA9548_SFP_33_40_CH0
+  name:               pca9548_sfp_33_40_ch0
+  bus_type:           I2C
+  device:             pca9548_sfp_33_40
+
+pca9548_sfp_33_40_ch1: &PCA9548_SFP_33_40_CH1
+  name:               pca9548_sfp_33_40_ch1
+  bus_type:           I2C
+  device:             pca9548_sfp_33_40
+
+pca9548_sfp_33_40_ch2: &PCA9548_SFP_33_40_CH2
+  name:               pca9548_sfp_33_40_ch2
+  bus_type:           I2C
+  device:             pca9548_sfp_33_40
+
+pca9548_sfp_33_40_ch3: &PCA9548_SFP_33_40_CH3
+  name:               pca9548_sfp_33_40_ch3
+  bus_type:           I2C
+  device:             pca9548_sfp_33_40
+
+pca9548_sfp_33_40_ch4: &PCA9548_SFP_33_40_CH4
+  name:               pca9548_sfp_33_40_ch4
+  bus_type:           I2C
+  device:             pca9548_sfp_33_40
+
+pca9548_sfp_33_40_ch5: &PCA9548_SFP_33_40_CH5
+  name:               pca9548_sfp_33_40_ch5
+  bus_type:           I2C
+  device:             pca9548_sfp_33_40
+
+pca9548_sfp_33_40_ch6: &PCA9548_SFP_33_40_CH6
+  name:               pca9548_sfp_33_40_ch6
+  bus_type:           I2C
+  device:             pca9548_sfp_33_40
+
+pca9548_sfp_33_40_ch7: &PCA9548_SFP_33_40_CH7
+  name:               pca9548_sfp_33_40_ch7
+  bus_type:           I2C
+  device:             pca9548_sfp_33_40
+
+# Busses of PCA9548#6 for SFP28 port 41-48
+pca9548_sfp_41_48_ch0: &PCA9548_SFP_41_48_CH0
+  name:               pca9548_sfp_41_48_ch0
+  bus_type:           I2C
+  device:             pca9548_sfp_41_48
+
+pca9548_sfp_41_48_ch1: &PCA9548_SFP_41_48_CH1
+  name:               pca9548_sfp_41_48_ch1
+  bus_type:           I2C
+  device:             pca9548_sfp_41_48
+
+pca9548_sfp_41_48_ch2: &PCA9548_SFP_41_48_CH2
+  name:               pca9548_sfp_41_48_ch2
+  bus_type:           I2C
+  device:             pca9548_sfp_41_48
+
+pca9548_sfp_41_48_ch3: &PCA9548_SFP_41_48_CH3
+  name:               pca9548_sfp_41_48_ch3
+  bus_type:           I2C
+  device:             pca9548_sfp_41_48
+
+pca9548_sfp_41_48_ch4: &PCA9548_SFP_41_48_CH4
+  name:               pca9548_sfp_41_48_ch4
+  bus_type:           I2C
+  device:             pca9548_sfp_41_48
+
+pca9548_sfp_41_48_ch5: &PCA9548_SFP_41_48_CH5
+  name:               pca9548_sfp_41_48_ch5
+  bus_type:           I2C
+  device:             pca9548_sfp_41_48
+
+pca9548_sfp_41_48_ch6: &PCA9548_SFP_41_48_CH6
+  name:               pca9548_sfp_41_48_ch6
+  bus_type:           I2C
+  device:             pca9548_sfp_41_48
+
+pca9548_sfp_41_48_ch7: &PCA9548_SFP_41_48_CH7
+  name:               pca9548_sfp_41_48_ch7
+  bus_type:           I2C
+  device:             pca9548_sfp_41_48
+
+# Busses of PCA9548#7 for SFP28 port 49-56
+pca9548_sfp_49_56_ch0: &PCA9548_SFP_49_56_CH0
+  name:               pca9548_sfp_49_56_ch0
+  bus_type:           I2C
+  device:             pca9548_sfp_49_56
+
+pca9548_sfp_49_56_ch1: &PCA9548_SFP_49_56_CH1
+  name:               pca9548_sfp_49_56_ch1
+  bus_type:           I2C
+  device:             pca9548_sfp_49_56
+
+pca9548_sfp_49_56_ch2: &PCA9548_SFP_49_56_CH2
+  name:               pca9548_sfp_49_56_ch2
+  bus_type:           I2C
+  device:             pca9548_sfp_49_56
+
+pca9548_sfp_49_56_ch3: &PCA9548_SFP_49_56_CH3
+  name:               pca9548_sfp_49_56_ch3
+  bus_type:           I2C
+  device:             pca9548_sfp_49_56
+
+pca9548_sfp_49_56_ch4: &PCA9548_SFP_49_56_CH4
+  name:               pca9548_sfp_49_56_ch4
+  bus_type:           I2C
+  device:             pca9548_sfp_49_56
+
+pca9548_sfp_49_56_ch5: &PCA9548_SFP_49_56_CH5
+  name:               pca9548_sfp_49_56_ch5
+  bus_type:           I2C
+  device:             pca9548_sfp_49_56
+
+pca9548_sfp_49_56_ch6: &PCA9548_SFP_49_56_CH6
+  name:               pca9548_sfp_49_56_ch6
+  bus_type:           I2C
+  device:             pca9548_sfp_49_56
+
+pca9548_sfp_49_56_ch7: &PCA9548_SFP_49_56_CH7
+  name:               pca9548_sfp_49_56_ch7
+  bus_type:           I2C
+  device:             pca9548_sfp_49_56
+
+# Busses of the PCA9548 on CPU board that replaces BMC
+pca9548_bmc_ch0: &PCA9548_BMC_CH0
+  name:               pca9548_bmc_ch0
+  bus_type:           I2C
+  device:             pca9548_bmc
+
+pca9548_bmc_ch1: &PCA9548_BMC_CH1
+  name:               pca9548_bmc_ch1
+  bus_type:           I2C
+  device:             pca9548_bmc
+
+pca9548_bmc_ch2: &PCA9548_BMC_CH2
+  name:               pca9548_bmc_ch2
+  bus_type:           I2C
+  device:             pca9548_bmc
+
+pca9548_bmc_ch3: &PCA9548_BMC_CH3
+  name:               pca9548_bmc_ch3
+  bus_type:           I2C
+  device:             pca9548_bmc
+
+pca9548_bmc_ch4: &PCA9548_BMC_CH4
+  name:               pca9548_bmc_ch4
+  bus_type:           I2C
+  device:             pca9548_bmc
+
+pca9548_bmc_ch5: &PCA9548_BMC_CH5
+  name:               pca9548_bmc_ch5
+  bus_type:           I2C
+  device:             pca9548_bmc
+
+pca9548_bmc_ch6: &PCA9548_BMC_CH6
+  name:               pca9548_bmc_ch6
+  bus_type:           I2C
+  device:             pca9548_bmc
+
+pca9548_bmc_ch7: &PCA9548_BMC_CH7
+  name:               pca9548_bmc_ch7
+  bus_type:           I2C
+  device:             pca9548_bmc
+
+# Busses of PCA9548 for temperature sensors
+pca9548_tmpsn_ch0: &PCA9548_TMPSN_CH0
+  name:               pca9548_tmpsn_ch0
+  bus_type:           I2C
+  device:             pca9548_tmpsn
+
+pca9548_tmpsn_ch1: &PCA9548_TMPSN_CH1
+  name:               pca9548_tmpsn_ch1
+  bus_type:           I2C
+  device:             pca9548_tmpsn
+
+pca9548_tmpsn_ch2: &PCA9548_TMPSN_CH2
+  name:               pca9548_tmpsn_ch2
+  bus_type:           I2C
+  device:             pca9548_tmpsn
+
+pca9548_tmpsn_ch3: &PCA9548_TMPSN_CH3
+  name:               pca9548_tmpsn_ch3
+  bus_type:           I2C
+  device:             pca9548_tmpsn
+
+pca9548_tmpsn_ch4: &PCA9548_TMPSN_CH4
+  name:               pca9548_tmpsn_ch4
+  bus_type:           I2C
+  device:             pca9548_tmpsn
+
+pca9548_tmpsn_ch5: &PCA9548_TMPSN_CH5
+  name:               pca9548_tmpsn_ch5
+  bus_type:           I2C
+  device:             pca9548_tmpsn
+
+pca9548_tmpsn_ch6: &PCA9548_TMPSN_CH6
+  name:               pca9548_tmpsn_ch6
+  bus_type:           I2C
+  device:             pca9548_tmpsn
+
+pca9548_tmpsn_ch7: &PCA9548_TMPSN_CH7
+  name:               pca9548_tmpsn_ch7
+  bus_type:           I2C
+  device:             pca9548_tmpsn
+
+
+# ##################################################################
+# Common Devices on i2cbus_0
+# ##################################################################
+
+# PCA9546 on MB
+pca9546_mb: &PCA9546_MB
+  name:               pca9546_mb
+  compatible:         pca9546
+  bus:                i2cbus_0
+  address:            0x72
+  channel_map:
+    - number:         0
+      bus:            pca9546_mb_ch0
+    - number:         1
+      bus:            pca9546_mb_ch1
+    - number:         2
+      bus:            pca9546_mb_ch2
+    - number:         3
+      bus:            pca9546_mb_ch3
+
+# ONIE eeprom
+onie_eeprom: &ONIE_EEPROM
+  name:               onie_eeprom
+  compatible:         24c02
+  bus:                pca9546_mb_ch2
+  address:            0x54
+  format:             onie
+
+# CPLD#5 for port 1-26 LED functions
+led_cpld_1: &LED_CPLD_1
+  name:               led_cpld_1
+  compatible:         i2c_regmap
+  bus:                pca9546_mb_ch0
+  address:            0x39
+  regmap_desc:
+    range:            [0x0, 0x2c]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+# CPLD#2 for port 1-26 LED functions
+led_cpld_2: &LED_CPLD_2
+  name:               led_cpld_2
+  compatible:         i2c_regmap
+  bus:                pca9546_mb_ch0
+  address:            0x3a
+  regmap_desc:
+    range:            [0x0, 0x39]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+# CPLD#1 for port 1-16 SFP28 control
+port_cpld_1: &PORT_CPLD_1
+  name:               port_cpld_1
+  compatible:         i2c_regmap
+  bus:                pca9546_mb_ch0
+  address:            0x38
+  regmap_desc:
+    range:            [0x1, 0x4]
+    num_reg_bits:     8
+    num_value_bits:   16
+
+# CPLD#2 for port 17-32 SFP28 control
+port_cpld_2: &PORT_CPLD_2
+  name:               port_cpld_2
+  compatible:         i2c_regmap
+  bus:                pca9546_mb_ch1
+  address:            0x38
+  regmap_desc:
+    range:            [0x1, 0x4]
+    num_reg_bits:     8
+    num_value_bits:   16
+
+# CPLD#3 for port 33-48 SFP28 control
+port_cpld_2: &PORT_CPLD_3
+  name:               port_cpld_3
+  compatible:         i2c_regmap
+  bus:                pca9546_mb_ch2
+  address:            0x38
+  regmap_desc:
+    range:            [0x1, 0x4]
+    num_reg_bits:     8
+    num_value_bits:   16
+
+# PCA9698 I/O expander on MB for port 49-56 QSFP28 control
+pca9698_qsfp: &PCA9698_QSFP
+  name:               pca9698_qsfp
+  compatible:         pca9698
+  bus:                pca9546_mb_ch3
+  address:            0x21
+  regmap_desc:
+    range:            [0x0, 0x2a]
+    num_reg_bits:     8
+    num_value_bits:   8
+  init_ops:
+    - register:       0x18          # IOC0
+      value:          0x66
+      count:          4             # IOC0-IOC3
+
+# PCA9555#1 I/O expander on MB
+pca9555_1_mb: &PCA9555_1_MB
+  name:               pca9555_1_mb
+  compatible:         pca9555
+  bus:                pca9546_mb_ch3
+  address:            0x23
+  regmap_desc:
+    range:            [0x0, 0x7]
+    num_reg_bits:     8
+    num_value_bits:   8
+  init_ops:
+    - register:       0x2           # port 0 output reg
+      value:          0xff
+    - register:       0x3           # port 1 output reg
+      value:          0xff
+    - register:       0x6           # port 0 configuration reg
+      value:          0x17
+    - register:       0x7           # port 1 configruation reg
+      value:          0xfd
+
+# PCA9535 on CPU/B
+pca9535_cpub: &PCA9535_CPUB
+  name:               pca9535_cpub
+  compatible:         pca9535
+  bus:                i2cbus_0
+  address:            0x27
+  regmap_desc:
+    range:            [0x0, 0x7]
+    num_reg_bits:     8
+    num_value_bits:   8
+  init_ops:
+    - register:       0x2           # port 0 output reg
+      value:          0xff
+    - register:       0x3           # port 1 output reg
+      value:          0xff
+    - register:       0x6           # port 0 configuration reg
+      value:          0x9e
+    - register:       0x7           # port 1 configruation reg
+      value:          0x10
+
+# PCA9546 on CPU/B
+pca9546_cpub: &PCA9546_CPUB
+  name:               pca9546_cpub
+  compatible:         pca9546
+  bus:                i2cbus_0
+  address:            0x71
+  channel_map:
+    - number:         0
+      bus:            pca9546_cpub_ch0
+    - number:         1
+      bus:            pca9546_cpub_ch1
+    - number:         2
+      bus:            pca9546_cpub_ch2
+    - number:         3
+      bus:            pca9546_cpub_ch3
+
+# PCA9555#1 I/O expander on CPU/B
+pca9555_1_cpub: &PCA9555_1_CPUB
+  name:               pca9555_1_cpub
+  compatible:         pca9555
+  bus:                pca9546_cpub_ch0
+  address:            0x20
+  regmap_desc:
+    range:            [0x0, 0x7]
+    num_reg_bits:     8
+    num_value_bits:   8
+  init_ops:
+    - register:       0x6           # port 0 configuration reg
+      value:          0x00
+    - register:       0x7           # port 1 configruation reg
+      value:          0x00
+
+# PCA9555#2 I/O expander on CPU/B
+pca9555_2_cpub: &PCA9555_2_CPUB
+  name:               pca9555_2_cpub
+  compatible:         pca9555
+  bus:                pca9546_cpub_ch3
+  address:            0x22
+  regmap_desc:
+    range:            [0x0, 0x7]
+    num_reg_bits:     8
+    num_value_bits:   8
+  init_ops:
+    - register:       0x3           # port 1 output reg
+      value:          0x7f
+    - register:       0x6           # port 0 configuration reg
+      value:          0x1f
+    - register:       0x7           # port 1 configruation reg
+      value:          0x7f
+
+# PCA9554 I/O expander on CPU/B for CPU Board ID
+# FIXME: it has the same address as pca9698_qsfp. Since EXOS does not deselect
+# the MUX channel, both can be visible on the i2c bus at the same time.
+# This has caused the erronous accesses to pca96968_qsfp. Comment out this
+# device to avoid openning the MUX pca9546_cpub channel 2, which would
+# otherwise have exposed this device on the i2c bus and caused conflicting
+# i2c addresses.
+#pca9554_cpub_id: &PCA9554_CPUB_ID
+#  name:               pca9554_cpub_id
+#  compatible:         pca9554
+#  bus:                pca9546_cpub_ch2
+#  address:            0x21
+#  regmap_desc:
+#    range:            [0x0, 0x3]
+#    num_reg_bits:     8
+#    num_value_bits:   8
+#  init_ops:
+#    - register:       0x3           # port configuration reg
+#      value:          0x3f
+
+# Root PCA9548 on MB for all SFP28 PCA9548#1-7
+pca9548_sfp_root: &PCA9548_SFP_ROOT
+  name:               pca9548_sfp_root
+  compatible:         pca9548
+  bus:                i2cbus_0
+  address:            0x77
+  channel_map:
+    - number:         0
+      bus:            pca9548_sfp_root_ch0
+    - number:         1
+      bus:            pca9548_sfp_root_ch1
+    - number:         2
+      bus:            pca9548_sfp_root_ch2
+    - number:         3
+      bus:            pca9548_sfp_root_ch3
+    - number:         4
+      bus:            pca9548_sfp_root_ch4
+    - number:         5
+      bus:            pca9548_sfp_root_ch5
+    - number:         6
+      bus:            pca9548_sfp_root_ch6
+    - number:         7
+      bus:            pca9548_sfp_root_ch7
+
+# PCA9548#1 for SFP28 port 1-8
+pca9548_sfp_1_8: &PCA9548_SFP_1_8
+  name:               pca9548_sfp_1_8
+  compatible:         pca9548
+  bus:                pca9548_sfp_root_ch0
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_sfp_1_8_ch0
+    - number:         1
+      bus:            pca9548_sfp_1_8_ch1
+    - number:         2
+      bus:            pca9548_sfp_1_8_ch2
+    - number:         3
+      bus:            pca9548_sfp_1_8_ch3
+    - number:         4
+      bus:            pca9548_sfp_1_8_ch4
+    - number:         5
+      bus:            pca9548_sfp_1_8_ch5
+    - number:         6
+      bus:            pca9548_sfp_1_8_ch6
+    - number:         7
+      bus:            pca9548_sfp_1_8_ch7
+
+# PCA9548#2 for SFP28 port 9-16
+pca9548_sfp_9_16: &PCA9548_SFP_9_16
+  name:               pca9548_sfp_9_16
+  compatible:         pca9548
+  bus:                pca9548_sfp_root_ch1
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_sfp_9_16_ch0
+    - number:         1
+      bus:            pca9548_sfp_9_16_ch1
+    - number:         2
+      bus:            pca9548_sfp_9_16_ch2
+    - number:         3
+      bus:            pca9548_sfp_9_16_ch3
+    - number:         4
+      bus:            pca9548_sfp_9_16_ch4
+    - number:         5
+      bus:            pca9548_sfp_9_16_ch5
+    - number:         6
+      bus:            pca9548_sfp_9_16_ch6
+    - number:         7
+      bus:            pca9548_sfp_9_16_ch7
+
+# PCA9548#3 for SFP28 port 17-24
+pca9548_sfp_17_24: &PCA9548_SFP_17_24
+  name:               pca9548_sfp_17_24
+  compatible:         pca9548
+  bus:                pca9548_sfp_root_ch2
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_sfp_17_24_ch0
+    - number:         1
+      bus:            pca9548_sfp_17_24_ch1
+    - number:         2
+      bus:            pca9548_sfp_17_24_ch2
+    - number:         3
+      bus:            pca9548_sfp_17_24_ch3
+    - number:         4
+      bus:            pca9548_sfp_17_24_ch4
+    - number:         5
+      bus:            pca9548_sfp_17_24_ch5
+    - number:         6
+      bus:            pca9548_sfp_17_24_ch6
+    - number:         7
+      bus:            pca9548_sfp_17_24_ch7
+
+# PCA9548#4 for SFP28 port 25-32
+pca9548_sfp_25_32: &PCA9548_SFP_25_32
+  name:               pca9548_sfp_25_32
+  compatible:         pca9548
+  bus:                pca9548_sfp_root_ch3
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_sfp_25_32_ch0
+    - number:         1
+      bus:            pca9548_sfp_25_32_ch1
+    - number:         2
+      bus:            pca9548_sfp_25_32_ch2
+    - number:         3
+      bus:            pca9548_sfp_25_32_ch3
+    - number:         4
+      bus:            pca9548_sfp_25_32_ch4
+    - number:         5
+      bus:            pca9548_sfp_25_32_ch5
+    - number:         6
+      bus:            pca9548_sfp_25_32_ch6
+    - number:         7
+      bus:            pca9548_sfp_25_32_ch7
+
+# PCA9548#5 for SFP28 port 33-40
+pca9548_sfp_33_40: &PCA9548_SFP_33_40
+  name:               pca9548_sfp_33_40
+  compatible:         pca9548
+  bus:                pca9548_sfp_root_ch4
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_sfp_33_40_ch0
+    - number:         1
+      bus:            pca9548_sfp_33_40_ch1
+    - number:         2
+      bus:            pca9548_sfp_33_40_ch2
+    - number:         3
+      bus:            pca9548_sfp_33_40_ch3
+    - number:         4
+      bus:            pca9548_sfp_33_40_ch4
+    - number:         5
+      bus:            pca9548_sfp_33_40_ch5
+    - number:         6
+      bus:            pca9548_sfp_33_40_ch6
+    - number:         7
+      bus:            pca9548_sfp_33_40_ch7
+
+# PCA9548#6 for SFP28 port 41-48
+pca9548_sfp_1_8: &PCA9548_SFP_41_48
+  name:               pca9548_sfp_41_48
+  compatible:         pca9548
+  bus:                pca9548_sfp_root_ch5
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_sfp_41_48_ch0
+    - number:         1
+      bus:            pca9548_sfp_41_48_ch1
+    - number:         2
+      bus:            pca9548_sfp_41_48_ch2
+    - number:         3
+      bus:            pca9548_sfp_41_48_ch3
+    - number:         4
+      bus:            pca9548_sfp_41_48_ch4
+    - number:         5
+      bus:            pca9548_sfp_41_48_ch5
+    - number:         6
+      bus:            pca9548_sfp_41_48_ch6
+    - number:         7
+      bus:            pca9548_sfp_41_48_ch7
+
+# PCA9548#7 for SFP28 port 49-56
+pca9548_sfp_1_8: &PCA9548_SFP_49_56
+  name:               pca9548_sfp_49_56
+  compatible:         pca9548
+  bus:                pca9548_sfp_root_ch6
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_sfp_49_56_ch0
+    - number:         1
+      bus:            pca9548_sfp_49_56_ch1
+    - number:         2
+      bus:            pca9548_sfp_49_56_ch2
+    - number:         3
+      bus:            pca9548_sfp_49_56_ch3
+    - number:         4
+      bus:            pca9548_sfp_49_56_ch4
+    - number:         5
+      bus:            pca9548_sfp_49_56_ch5
+    - number:         6
+      bus:            pca9548_sfp_49_56_ch6
+    - number:         7
+      bus:            pca9548_sfp_49_56_ch7
+
+
+# ##################################################################
+# Common Devices on i2cbus_1
+# ##################################################################
+
+# PCA9548 on CPU board that replaces BMC
+pca9548_bmc: &PCA9548_BMC
+  name:               pca9548_bmc
+  compatible:         pca9548
+  bus:                i2cbus_1
+  address:            0x73
+  channel_map:
+    - number:         0
+      bus:            pca9548_bmc_ch0
+    - number:         1
+      bus:            pca9548_bmc_ch1
+    - number:         2
+      bus:            pca9548_bmc_ch2
+    - number:         3
+      bus:            pca9548_bmc_ch3
+    - number:         4
+      bus:            pca9548_bmc_ch4
+    - number:         5
+      bus:            pca9548_bmc_ch5
+    - number:         6
+      bus:            pca9548_bmc_ch6
+    - number:         7
+      bus:            pca9548_bmc_ch7
+
+# CPLD#5 for system controls on MB
+system_cpld: &SYSTEM_CPLD
+  name:               system_cpld
+  compatible:         i2c_regmap
+  bus:                pca9548_bmc_ch7
+  address:            0x40
+  regmap_desc:
+    range:            [0x0, 0x22]
+    num_reg_bits:     8
+    num_value_bits:   8
+
+# PCA9555#4 I/O expander on MB
+pca9555_4: &PCA9555_4
+  name:               pca9555_4
+  compatible:         pca9555
+  bus:                pca9548_bmc_ch6
+  address:            0x20
+  regmap_desc:
+    range:            [0x0, 0x7]
+    num_reg_bits:     8
+    num_value_bits:   8
+  init_ops:
+    - register:       0x2           # port 0 output reg
+      value:          0xff
+    - register:       0x3           # port 1 output reg
+      value:          0x37
+    - register:       0x6           # port 0 configuration reg
+      value:          0x3e
+    - register:       0x7           # port 1 configruation reg
+      value:          0x32
+
+# pca9698 I/O expander on MB for PSU and fan control
+pca9698_psu_fan: &PCA9698_PSU_FAN
+  name:               pca9698_psu_fan
+  compatible:         pca9698
+  bus:                pca9548_bmc_ch7
+  address:            0x26
+  regmap_desc:
+    range:            [0x0, 0x2a]
+    num_reg_bits:     8
+    num_value_bits:   8
+  init_ops:
+    - register:       0x18          # IOC0
+      value:          0xff
+    - register:       0x19          # IOC1
+      value:          0x00
+    - register:       0x1a          # IOC2
+      value:          0xff
+    - register:       0x1b          # IOC3
+      value:          0xff
+    - register:       0x1c          # IOC4
+      value:          0xc0
+
+# PCA9548 mux on MB for temperature sensors
+pca9548_tmpsn: &PCA9548_TMPSN
+  name:               pca9548_tmpsn
+  compatible:         pca9548
+  bus:                pca9548_bmc_ch7
+  address:            0x77
+  channel_map:
+    - number:         0
+      bus:            pca9548_tmpsn_ch0
+    - number:         1
+      bus:            pca9548_tmpsn_ch1
+    - number:         2
+      bus:            pca9548_tmpsn_ch2
+    - number:         3
+      bus:            pca9548_tmpsn_ch3
+    - number:         4
+      bus:            pca9548_tmpsn_ch4
+    - number:         5
+      bus:            pca9548_tmpsn_ch5
+    - number:         6
+      bus:            pca9548_tmpsn_ch6
+    - number:         7
+      bus:            pca9548_tmpsn_ch7
+
+# Temp_Abmient_0 on CPU/B (near CPU)
+ambient_0_cpub_tmpsn: &AMBIENT_0_CPUB_TMPSN
+  name:               ambient_0_cpub_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_bmc_ch4
+  address:            0x48
+
+# Temp_Abmient_1 on CPU/B (near press-fit connector)
+ambient_1_cpub_tmpsn: &AMBIENT_1_CPUB_TMPSN
+  name:               ambient_1_cpub_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_bmc_ch4
+  address:            0x49
+
+# Temp_Abmient_2 on MGMT
+ambient_2_mgmt_tmpsn: &AMBIENT_2_MGMT_TMPSN
+  name:               ambient_2_mgmt_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_tmpsn_ch0
+  address:            0x4c
+
+# Temp_Abmient_3 on MB
+ambient_3_mb_tmpsn: &AMBIENT_3_MB_TMPSN
+  name:               ambient_3_mb_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_tmpsn_ch1
+  address:            0x4b
+
+# Temp_Abmient_4 on MB
+ambient_4_mb_tmpsn: &AMBIENT_4_MB_TMPSN
+  name:               ambient_4_mb_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_tmpsn_ch2
+  address:            0x4c
+
+# Temp_Abmient_5 on MB
+ambient_5_mb_tmpsn: &AMBIENT_5_MB_TMPSN
+  name:               ambient_5_mb_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_tmpsn_ch3
+  address:            0x4d
+
+# Temp_Abmient_6 on MB
+ambient_6_mb_tmpsn: &AMBIENT_6_MB_TMPSN
+  name:               ambient_6_mb_tmpsn
+  compatible:         tmp75
+  bus:                pca9548_tmpsn_ch4
+  address:            0x4e

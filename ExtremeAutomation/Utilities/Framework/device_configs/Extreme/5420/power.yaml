@@ -1,0 +1,193 @@
+###################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2020, 2021
+#  All rights reserved
+#
+###################################################################
+#
+#  This file defines PSUs common to 5420 series switches
+#
+#
+
+common_power_info: &COMMON_POWER_INFO
+  number_psus:        2
+  polling_period:     2000
+  psu_led_control:    HW
+
+
+#used on M models CRPS no 1
+psu_m_1: &PSU_M_1
+  number:             1
+  check_input_ok:     1
+  devices:
+    - name:           psu1_eeprom
+      compatible:     24c02
+      bus:            pca9548_0_ch0
+      address:        0x50
+      format:         extreme
+    - name:           psu1_uC
+      compatible:     i2c_regmap
+      bus:            pca9548_0_ch0
+      address:        0x58
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 16
+  fru_type:           MODULAR
+  psu_eeprom:         psu1_eeprom
+  psu_controller:     psu1_uC
+  psu_present:
+    device:           system_cpld_reg
+    register:         0x50
+    bitmask:          0x80
+  psu_input_ok:
+    device:           system_cpld_reg
+    register:         0x50
+    bitmask:          0x40
+  psu_output_ok:
+    device:           system_cpld_reg
+    register:         0x50
+    bitmask:          0x02
+  mux_reset:
+    device:           system_cpld_reg
+    register:         0x29
+    bitmask:          0x40
+
+#used on M models CRPS no 2
+psu_m_2: &PSU_M_2
+  number:             2
+  check_input_ok:     1
+  devices:
+    - name:           psu2_eeprom
+      compatible:     24c02
+      bus:            pca9548_0_ch1
+      address:        0x50
+      format:         extreme
+    - name:           psu2_uC
+      compatible:     i2c_regmap
+      bus:            pca9548_0_ch1
+      address:        0x58
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 16
+  fru_type:           MODULAR
+  psu_eeprom:         psu2_eeprom
+  psu_controller:     psu2_uC
+  psu_present:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x80
+  psu_input_ok:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x40
+  psu_output_ok:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x02
+  mux_reset:
+    device:           system_cpld_reg
+    register:         0x29
+    bitmask:          0x40
+
+#used on F models - CRPS psu slot 2
+psu_f_2: &PSU_F_2
+  number:             2
+  check_input_ok:     1
+  devices:
+    - name:           psu2_eeprom
+      compatible:     24c02
+      bus:            pca9548_0_ch0
+      address:        0x50
+      format:         extreme
+    - name:           psu2_uC
+      compatible:     i2c_regmap
+      bus:            pca9548_0_ch0
+      address:        0x58
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 16
+  fru_type:           MODULAR
+  psu_eeprom:         psu2_eeprom
+  psu_controller:     psu2_uC
+  psu_present:
+    device:           system_cpld_reg
+    register:         0x50
+    bitmask:          0x80
+  psu_input_ok:
+    device:           system_cpld_reg
+    register:         0x50
+    bitmask:          0x40
+  psu_output_ok:
+    device:           system_cpld_reg
+    register:         0x50
+    bitmask:          0x02
+  mux_reset:
+    device:           system_cpld_reg
+    register:         0x29
+    bitmask:          0x40
+
+#used on Poe F models - open frame
+psu_f_1: &PSU_F_1
+  number:             1
+  check_input_ok:     1
+  compatible:         extreme_psu_pmbus
+  psu_type:           PMBUS_EEPROM
+  devices:
+    - name:           psu1_eeprom
+      compatible:     i2c_regmap
+      bus:            pca9548_0_ch1
+      address:        0x58
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 128
+    - name:           psu1_uC
+      compatible:     i2c_regmap
+      bus:            pca9548_0_ch1
+      address:        0x58
+      regmap_desc:
+        range:        [0x0, 0xff]
+        num_reg_bits: 8
+        num_value_bits: 16
+  fru_type:           FIXED
+  psu_pmbus:          psu1_eeprom
+  psu_controller:     psu1_uC
+  psu_present:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x80
+  psu_input_ok:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x40
+  psu_output_ok:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x02
+  mux_reset:
+    device:           system_cpld_reg
+    register:         0x29
+    bitmask:          0x40
+
+#used on F non PoE models - open frame
+#here ac_ok is not supported so make it the same as output_ok
+#no eeprom or pmbus aka SIMPLE
+psu_t_1: &PSU_T_1
+  number:             1
+  psu_type:           SIMPLE
+  fru_type:           FIXED
+  psu_present:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x80
+  psu_input_ok:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x02
+  psu_output_ok:
+    device:           system_cpld_reg
+    register:         0x51
+    bitmask:          0x02

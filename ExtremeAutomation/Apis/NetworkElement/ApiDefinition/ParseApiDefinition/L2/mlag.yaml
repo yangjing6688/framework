@@ -1,0 +1,53 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+mlag:
+    verify_mlag_peer_exists:
+        uuid: b64a0386-5815-4589-bb69-f7e52004699e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_mlag_peer_name:
+        uuid: 707c324f-f2c8-42f0-899c-4cf1d5b35074
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_mlag_port_peer_id:
+        uuid: 3c2c7221-8551-4d06-92aa-b5b0d13cfdad
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_mlag_port_reload_delay_is_set:
+        uuid: cabcc027-e68a-4adf-82cf-7a7f2a51e72c
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_mlag_peer_auth_md5_key:
+        uuid: 331788ed-e217-4983-9ecd-ae4507d0fbd7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_mlag_peer_auth_is_set:
+        uuid: 81cf5f59-24a4-4d8c-9bfd-b3362b727890
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_mlag_peer_ipaddress:
+        uuid: fc9dcf1f-cf9d-4042-aa87-ad3cc3be862e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_port_is_in_mlag:
+        uuid: 561fad89-2abc-420d-a5d2-18377baafa97
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

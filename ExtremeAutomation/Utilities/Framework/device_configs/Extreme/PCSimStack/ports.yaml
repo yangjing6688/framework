@@ -1,0 +1,270 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016-2017
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains ports related information for PCSimStack switch
+#
+#
+
+
+100M_port: &100M_PORT
+   <<: *DEFAULT_PORT_CAPABILITY
+   portType: HAL_PIF_10_100
+   portMediaType: HAL_PORT_MED_UTP
+   Poe: true
+
+ports:
+   - name: 1
+     <<: *100M_PORT
+
+   - name: 2
+     <<: *100M_PORT
+
+   - name: 3
+     <<: *100M_PORT
+
+   - name: 4
+     <<: *100M_PORT
+
+   - name: 5
+     <<: *100M_PORT
+     macId: 1
+
+   - name: 6
+     <<: *100M_PORT
+     macId: 1
+
+   - name: 7
+     <<: *100M_PORT
+     macId: 1
+
+   - name: 8
+     <<: *100M_PORT
+     macId: 1
+
+   - name: 9
+     <<: *100M_PORT
+     macId: 2
+
+   - name: 10
+     <<: *100M_PORT
+     macId: 2
+
+   - name: 11
+     <<: *100M_PORT
+     macId: 2
+
+   - name: 12
+     <<: *100M_PORT
+     macId: 2
+
+   - name: 13
+     <<: *100M_PORT
+     macId: 3
+
+   - name: 14
+     <<: *100M_PORT
+     macId: 3
+
+   - name: 15
+     <<: *100M_PORT
+     macId: 3
+
+   - name: 16
+     <<: *100M_PORT
+     macId: 3
+
+   - name: 17
+     <<: *100M_PORT
+     macId: 4
+
+   - name: 18
+     <<: *100M_PORT
+     macId: 4
+
+   - name: 19
+     <<: *100M_PORT
+     macId: 4
+
+   - name: 20
+     <<: *100M_PORT
+     macId: 4
+
+   - name: 21
+     <<: *100M_PORT
+     macId: 5
+
+   - name: 22
+     <<: *100M_PORT
+     macId: 5
+
+   - name: 23
+     <<: *100M_PORT
+     macId: 5
+
+   - name: 24
+     <<: *100M_PORT
+     macId: 5
+
+   - name: 25
+     <<: *100M_PORT
+     macId: 6
+
+   - name: 26
+     <<: *100M_PORT
+     macId: 6
+
+   - name: 27
+     <<: *100M_PORT
+     macId: 6
+
+   - name: 28
+     <<: *100M_PORT
+     macId: 6
+
+   - name: 29
+     <<: *100M_PORT
+     macId: 7
+
+   - name: 30
+     <<: *100M_PORT
+     macId: 7
+
+   - name: 31
+     <<: *100M_PORT
+     macId: 7
+
+   - name: 32
+     <<: *100M_PORT
+     macId: 7
+
+   - name: 33
+     <<: *100M_PORT
+     macId: 8
+
+   - name: 34
+     <<: *100M_PORT
+     macId: 8
+
+   - name: 35
+     <<: *100M_PORT
+     macId: 8
+
+   - name: 36
+     <<: *100M_PORT
+     macId: 8
+
+   - name: 37
+     <<: *100M_PORT
+     macId: 9
+
+   - name: 38
+     <<: *100M_PORT
+     macId: 9
+
+   - name: 39
+     <<: *100M_PORT
+     macId: 9
+
+   - name: 40
+     <<: *100M_PORT
+     macId: 9
+
+   - name: 41
+     <<: *100M_PORT
+     macId: 10
+
+   - name: 42
+     <<: *100M_PORT
+     macId: 10
+
+   - name: 43
+     <<: *100M_PORT
+     macId: 10
+
+   - name: 44
+     <<: *100M_PORT
+     macId: 10
+
+   - name: 45
+     <<: *100M_PORT
+     macId: 11
+
+   - name: 46
+     <<: *100M_PORT
+     macId: 11
+
+   - name: 47
+     <<: *100M_PORT
+     macId: 11
+
+   - name: 48
+     <<: *100M_PORT
+     macId: 11
+
+   - name: 49
+     <<: *100M_PORT
+     macId: 12
+
+   - name: 50
+     <<: *100M_PORT
+     macId: 12
+
+   - name: 51
+     <<: *100M_PORT
+     macId: 12
+
+   - name: 52
+     <<: *100M_PORT
+     macId: 12
+
+   - name: 53
+     <<: *100M_PORT
+     macId: 13
+
+   - name: 54
+     <<: *100M_PORT
+     macId: 13
+
+   - name: 55
+     <<: *100M_PORT
+     macId: 13
+
+   - name: 56
+     <<: *100M_PORT
+     macId: 13
+
+   - name: 57
+     <<: *100M_PORT
+     macId: 14
+
+   - name: 58
+     <<: *100M_PORT
+     macId: 14
+
+   - name: 59
+     <<: *100M_PORT
+     macId: 14
+
+   - name: 60
+     <<: *100M_PORT
+     macId: 14
+
+   - name: 61
+     <<: *100M_PORT
+     macId: 15
+
+   - name: 62
+     <<: *100M_PORT
+     macId: 15
+
+   - name: 63
+     <<: *100M_PORT
+     macId: 15
+
+   - name: 64
+     <<: *100M_PORT
+     macId: 15

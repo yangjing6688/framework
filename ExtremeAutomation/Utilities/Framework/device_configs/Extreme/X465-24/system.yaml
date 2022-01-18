@@ -1,0 +1,12 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the system info specific to X465-24
+#
+
+system_info:
+  <<: *COMMON_SYSTEM_INFO

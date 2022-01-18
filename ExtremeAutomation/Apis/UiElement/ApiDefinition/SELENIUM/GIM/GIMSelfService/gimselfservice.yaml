@@ -1,0 +1,70 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimselfservice:
+    self_service_add:
+        apis:
+            - [gim,'8.2.3']
+    self_service_duplicate_handling:
+        apis:
+            - [gim,'8.2.3']
+    self_service_delete:
+        apis:
+            - [gim,'8.2.3']
+    self_service_edit:
+        apis:
+            - [gim,'8.2.3']
+    self_service_provisioners_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    self_service_should_exist:
+        apis:
+            - [gim,'8.2.3']
+    self_service_should_not_exist:
+        apis:
+            - [gim,'8.2.3']
+    self_provisioning_service_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    self_provisioning_service_should_exist:
+        apis:
+            - [gim,'8.2.3']
+    self_provisioning_service_should_not_exist:
+        apis:
+            - [gim,'8.2.3']
+    self_service_gu_registration_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    self_service_device_registration_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    self_service_gu_reg_sponsor_appr_page_validation:
+        apis:
+            - [gim,'8.2.3']
+    self_service_gu_registration:
+        apis:
+            - [gim,'8.2.3']
+    self_service_gu_registration_sponsor_approval:
+        apis:
+            - [gim,'8.2.3']
+    self_provisioning_service_edit:
+        apis:
+            - [gim,'8.2.3']
+    self_service_edit_authenticator:
+        apis:
+            - [gim,'8.2.3']
+    self_service_locale_header_footer_val:
+        apis:
+            - [gim,'8.2.3']
+    self_service_locale_body_val:
+        apis:
+            - [gim,'8.2.3']
+    self_service_device_reg_page_val_locale:
+        apis:
+            - [gim,'8.2.3']
+    self_service_dev_reg_page_select_locale:
+        apis:
+            - [gim,'8.2.3']

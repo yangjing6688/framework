@@ -1,0 +1,252 @@
+# ### Documentation - Set and Show API formats. ###
+# feature_name:
+#     api_set_method_name:
+#         description: Information about the keyword function.
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         arguments:
+#             order: arg2,arg3,arg1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+#     api_show_method_name:
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#                 - [OS2,Platform,Version,Unit,Command,Prompt,PromptArgs,ConfirmationPhrases,ConfirmationArgs,IgnoreError,AddError]
+#             REST:
+#                 - [OS1,Platform,Version,Unit,Request Type,URI,Headers,Ignore Error String,Add Error String]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit,SNMP Command Type,OID,SNMP Data Type,Value]
+
+ospf:
+    enable_global:
+        description: "Globally enable the OSPF protocol"
+        arguments:
+            order: 
+        uuid: aad90010-4be0-4857-b591-ff4a17af18be
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'enable ospf',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router ospf enable',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.14.1.2.0','i','1']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.14.1.2.0','i','1']
+    disable_global:
+        description: "Globally disables the OSPF protocol"
+        arguments:
+            order: 
+        uuid: f38e1877-724f-4c29-a5c7-1a2dfc41aa2b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'disable ospf',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'no router ospf',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.14.1.2.0','i','2']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.14.1.2.0','i','2']
+    set_router_id:
+        description: "Configures the OSPF Router ID"
+        arguments:
+            order: 
+        uuid: 6548157c-4534-476f-89fb-ae4539384372
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf routerid {router_id}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router ospf||router-id {router_id}',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.14.1.1.0','a','{router_id}']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.14.1.1.0','a','{router_id}']
+    clear_router_id:
+        description: "Unconfigures the OSPF Router ID"
+        arguments:
+            order: 
+        uuid: 43074a74-1bf6-4d37-af45-3339a6a9228f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf routerid automatic',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'router ospf||no router-id',routerConfigPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,set,'1.3.6.1.2.1.14.1.1.0','a','0.0.0.0']
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.2.1.14.1.1.0','a','0.0.0.0']
+    set_metric_table_100G:
+        description: "Assigns the given cost value to the 100G field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: d65e2476-bf53-49a7-ae91-d492a7bdd2e1
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 100G {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_100M:
+        description: "Assigns the given cost value to the 100M field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: 7d219512-6c32-4b3d-a3a8-fcd70d354a57
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 100M {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_10G:
+        description: "Assigns the given cost value to the 10G field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: 66bfeeeb-5c41-4209-9a40-cef2695ac762
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 10G {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_10M:
+        description: "Assigns the given cost value to the 10M field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: c247c47f-1bd7-4d41-bb4a-b568130b07ce
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 10M {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_1G:
+        description: "Assigns the given cost value to the 1G field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: d3ef5e25-1c48-4e15-8cdc-fd1c894c514b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 1G {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_2dot5G:
+        uuid: a201e959-4f32-422f-8b89-950556527194
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 2.5G {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_25G:
+        description: "Assigns the given cost value to the 25G field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: 0c46e7a3-6018-49c5-bee2-d8197400aca8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 25G {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_40G:
+        description: "Assigns the given cost value to the 40G field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: 008f679a-851b-4c9b-93cb-5c63daf1c7b0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 40G {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_50G:
+        description: "Assigns the given cost value to the 50G field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: 9d28b706-bba7-4c62-8269-d8676a6e18cd
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 50G {cost}',userPrompt,'None','None','None',[],[]]
+    set_metric_table_5G:
+        description: "Assigns the given cost value to the 5G field in the ospf metric-table"
+        arguments:
+            order: 
+        uuid: 07edcb0d-d8db-4067-bb7d-e607b2ab80b5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf metric-table 5G {cost}',userPrompt,'None','None','None',[],[]]
+    set_vlan_auth_md5:
+        description: "Assigns md5 authentication to the given vlan, using the supplied key and key-id"
+        arguments:
+            order: vlan,key_id,key
+        uuid: 9b280edc-6252-47e9-ad38-da7bb7b83a4a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf vlan {vlan} authentication md5 {key_id} {key}',userPrompt,'None','None','None',[],[]]
+    set_vlan_auth_none:
+        description: "Assigns authentication none to the given vlan"
+        arguments:
+            order: 
+        uuid: 439fdd96-8672-45df-be44-5326a03d5739
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf vlan {vlan} authentication none',userPrompt,'None','None','None',[],[]]
+    set_add_vlan:
+        description: "Adds the provided vlan to ospf"
+        arguments:
+            order: vlan,area
+        uuid: fc1dd197-214f-4192-bafd-06b3278c0067
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf add vlan {vlan} area {area}',userPrompt,'None','None','None',[],[]]
+    set_del_vlan:
+        description: "Deletes the provided vlan from ospf"
+        arguments:
+            order: 
+        uuid: 1303aa7a-4736-41ea-bd9a-7d447edfc640
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'configure ospf delete vlan {vlan}',userPrompt,'None','None','None',[],[]]
+    enable_interface:
+        description: "Enables the OSPF protocol on an interface"
+        arguments:
+            order: 
+        uuid: efe8461c-4ad1-4918-9900-d97c63061910
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip ospf enable',intfPrompt,'GigabitEthernet {interface}','(y/n)','y',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.1.1.1.6.{interface}','i','1']
+    disable_interface:
+        description: "Disables the OSPF protocol on an interface"
+        arguments:
+            order: 
+        uuid: 37fb3e9a-06f3-42e2-99a3-0e5759a2fa50
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip ospf',intfPrompt,'GigabitEthernet {interface}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.1.1.1.6.{interface}','i','2']
+    enable_vlan:
+        description: "Enables the OSPF protocol on a VLAN"
+        arguments:
+            order: 
+        uuid: c067043c-05db-4e0c-9958-1e75285b0ae1
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'ip ospf enable',intfPrompt,'vlan {vlan}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.1.1.1.6.{vlan}','i','1']
+    disable_vlan:
+        description: "Disables the OSPF protocol on a VLAN"
+        arguments:
+            order: 
+        uuid: 4856dfed-abcb-49a8-97f2-e8b9cc659943
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'no ip ospf enable',intfPrompt,'vlan {vlan}','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,set,'1.3.6.1.4.1.2272.1.8.1.1.1.6.{vlan}','i','2']
+    show_info:
+        uuid: 7cb9490c-58e2-4982-a677-dffd12962348
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ospf',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip ospf',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.14.1','i','']
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.14.1||1.3.6.1.4.1.2272.1.8.1.3||1.3.6.1.4.1.2272.1.8.1.4','i','']
+    show_neighbor:
+        uuid: 713eab98-b780-42f0-af6b-ddc205be6cec
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ospf neighbor',userPrompt,'None','None','None',[],[]]
+    show_vlan_interface:
+        uuid: 35b16b05-2cb2-42d9-bcff-849392b7a49b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit,'show ospf interface vlan {vlan}',userPrompt,'None','None','None',[],[]]
+                - [VOSS,base,baseversion,baseunit,'show ip ospf interface vlan {vlan}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.14.7||1.3.6.1.4.1.2272.1.8.1.1.1.6','i','']
+    show_interface:
+        uuid: 533ab02d-5999-4a75-bf9a-1211d4db7905
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show interfaces GigabitEthernet ospf {interface}',userPrompt,'None','None','None',[],[]]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit,walk,'1.3.6.1.2.1.14.7||1.3.6.1.4.1.2272.1.8.1.1.1.6','i','']

@@ -1,0 +1,118 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+gimguestusers:
+    gu_create_guest_user:
+        apis:
+            - [gim,'8.2.3']
+    gu_guest_user_should_exist:
+        apis:
+            - [gim,'8.2.3']
+    gu_click_nav_bar:
+        apis:
+            - [gim,'8.2.3']
+    gu_table_start_end_time:
+        apis:
+            - [gim,'8.2.3']
+    gu_table_sms:
+        apis:
+            - [gim,'8.2.3']
+    gu_table_meeting_id:
+        apis:
+            - [gim,'8.2.3']
+    gu_table_sponsor_name:
+        apis:
+            - [gim,'8.2.3']
+    gu_table_sponsor_email:
+        apis:
+            - [gim,'8.2.3']
+    gu_table_sponsor_response:
+        apis:
+            - [gim,'8.2.3']
+    gu_duration_val_add_gu:
+        apis:
+            - [gim,'8.2.3']
+    gu_account_on_val_add_gu:
+        apis:
+            - [gim,'8.2.3']
+    gu_add:
+        apis:
+            - [gim,'8.2.3']
+    gu_edit:
+        apis:
+            - [gim,'8.2.3']
+    gu_delete:
+        apis:
+            - [gim,'8.2.3']
+    gu_ext_exp:
+        apis:
+            - [gim,'8.2.3']
+    gu_resend_pwd:
+        apis:
+            - [gim,'8.2.3']
+    gu_print:
+        apis:
+            - [gim,'8.2.3']
+    gu_load:
+        apis:
+            - [gim,'8.2.3']
+    gu_show_filters:
+        apis:
+            - [gim,'8.2.3']
+    gu_add_success_msg:
+        apis:
+            - [gim,'8.2.3']
+    gu_user_name_should_not_exist:
+        apis:
+            - [gim,'8.2.3']
+    gu_validation_username_field:
+        apis:
+            - [gim,'8.2.3']
+    gu_create_gu_username_field:
+        apis:
+            - [gim,'8.2.3']
+    gu_expired_gu:
+        apis:
+            - [gim,'8.2.3']
+    gu_create_gu_validate_un_pwd:
+        apis:
+            - [gim,'8.2.3']
+    gu_create_gu_validate_un_pwd_sponsor:
+        apis:
+            - [gim,'8.2.3']
+    gu_create_gu_validate_acc_validity:
+        apis:
+            - [gim,'8.2.3']
+    gu_table_complete_validation:
+        apis:
+            - [gim,'8.2.3']
+    gu_summary_validation:
+        apis:
+            - [gim,'8.2.3']
+    gu_notification_email_sms_un_pwd:
+        apis:
+            - [gim,'8.2.3']
+    gu_notification_create_gu:
+        apis:
+            - [gim,'8.2.3']
+    gu_notification_ss_gu:
+        apis:
+            - [gim,'8.2.3']
+    gu_create_accessible_to_prov_options:
+        apis:
+            - [gim,'8.2.3']
+    gu_admin_gu_filters:
+        apis:
+            - [gim,'8.2.3']
+    gu_enable_or_disable_delete_expiry:
+        apis:
+            - [gim,'8.2.3']
+    gu_sponsor_approval_from_provisioner_login:
+        apis:
+            - [gim,'8.2.3']
+    gu_resend_details:
+        apis:
+            - [gim,'8.2.3']

@@ -1,0 +1,10 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcaaccesspoints:
+    verify_access_point_is_associated_with_site:
+        apis:
+            - [xca,'04.26.03.0007']

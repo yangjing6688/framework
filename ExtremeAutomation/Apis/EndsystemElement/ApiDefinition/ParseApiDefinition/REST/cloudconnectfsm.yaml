@@ -1,0 +1,17 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit]
+#             - [OS2,Platform,Version,Unit]
+
+cloudconnectfsm:
+    check_device_states:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit]
+    store_mgmt_ip:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit]
+    check_device_version:
+        apis:
+            - [CCSERVER,base,baseversion,baseunit]

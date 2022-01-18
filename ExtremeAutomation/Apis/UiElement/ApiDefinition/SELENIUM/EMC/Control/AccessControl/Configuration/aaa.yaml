@@ -1,0 +1,187 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+aaa:
+    aaa_confirm_radius_server_exists:
+        apis:
+            - [emc,'8.1.3']
+    aaa_confirm_ldap_configuration_exists:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_click_add_radius_server_button:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_click_edit_radius_server_button:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_click_delete_radius_server_button:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_delete_radius_server:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_dialog_set_ip_and_response_window:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_dialog_set_authentication_via_emc:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_dialog_set_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_dialog_change_server_shared_secret:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_dialog_open_advanced_config:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_advanced_config_dialog_username_setting:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_advanced_config_dialog_health_check_use_access_request:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_advanced_config_dialog_health_check_other_settings:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_advanced_config_dialog_save_advanced_setting:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_advanced_config_dialog_cancel_advanced_setting:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_dialog_save_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_radius_server_dialog_cancel_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_default_check_auth_request_for:
+        apis:
+            - [emc,'8.1.3']
+    aaa_default_select_auth_methods:
+        apis:
+            - [emc,'8.1.3']
+    aaa_default_select_primary_radius_server:
+        apis:
+            - [emc,'8.1.3']
+    aaa_default_select_backup_radius_server:
+        apis:
+            - [emc,'8.1.3']
+    aaa_default_select_ldap_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_default_select_local_password_repository:
+        apis:
+            - [emc,'8.1.3']
+    aaa_default_save_default_aaa_settings:
+        apis:
+            - [emc,'8.1.3']
+    aaa_default_cancel_default_aaa_settings:
+        apis:
+            - [emc,'8.1.3']
+    aaa_click_add_aaa_configuration_button:
+        apis:
+            - [emc,'8.1.3']
+    aaa_click_edit_aaa_configuration_button:
+        apis:
+            - [emc,'8.1.3']
+    aaa_click_delete_aaa_configuration_button:
+        apis:
+            - [emc,'8.1.3']
+    aaa_select_aaa_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_add_aaa_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_delete_aaa_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_click_add_authentication_rule:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_click_edit_authentication_rule:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_click_delete_authentication_rule:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_select_authentication_rule:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_delete_authentication_rule:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_authentication_rule_open_edit_dialog:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_authentication_type:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_click_user_mac_host_pattern_or_group_button:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_set_pattern_or_group:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_location:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_authentication_method:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_check_password_for_all_authentications:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_set_password:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_set_ldap_authentication_type:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_set_supported_radius_type:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_ldap_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_ldap_policy_mapping:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_primary_radius_server:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_backup_radius_server:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_tertiary_radius_server:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_quaternary_radius_server:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_inject_authentication_attributes:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_select_inject_accounting_attributes:
+        apis:
+            - [emc,'8.1.3']
+    aaa_advanced_rule_dialog_save_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_dialog_add_ldap_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_dialog_delete_ldap_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_dialog_select_ldap_configuration:
+        apis:
+            - [emc,'8.1.3']
+    aaa_dialog_test_ldap_configuration:
+        apis:
+            - [emc,'8.1.3']

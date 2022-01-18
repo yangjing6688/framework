@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PROCEDURE TO SETUP VIRTUAL ENVIRONMENT MANAGER &mdash; Extreme Cloud IQ Automation Automation Framework documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Extreme Cloud IQ Automation
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Automation Framework
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter02.html"><strong>EXTREME CLOUD IQ PACKAGES</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Extreme Cloud IQ Automation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><strong>PROCEDURE TO SETUP VIRTUAL ENVIRONMENT MANAGER</strong></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/virtualenvcreation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="procedure-to-setup-virtual-environment-manager">
+<h1><strong>PROCEDURE TO SETUP VIRTUAL ENVIRONMENT MANAGER</strong><a class="headerlink" href="#procedure-to-setup-virtual-environment-manager" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/extreme_logo.png"><img alt="alternate text" class="align-right" src="_images/extreme_logo.png" style="width: 250.0px; height: 150.0px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This Page Contains Procedure to Configure Virtual Environment Manager</p>
+</div>
+<p><strong>Steps:</strong></p>
+<blockquote>
+<div><ul>
+<li><p>VirtualEnv separates different python environments in different projects.</p></li>
+<li><p>Each environment has its own dependencies and packages.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>$ pip install virtualenv
+Installing setuptools, pip …done.</p></li>
+<li><p>$ cd automation_cloud-master</p></li>
+<li><p>$ virtualenv  venv  –python=python3.8       #This will create a virtual image for python3 inside the automation framework folder</p></li>
+<li><p>$ python –version</p></li>
+</ul>
+<p>Or</p>
+<ul class="simple">
+<li><p>$ virtualenv  -p  /usr/bin/python2.7 p2y6_env</p></li>
+<li><p>$ ls</p></li>
+<li><p>$automation_cloud-master &gt; venv      automation    readme.md   CODEOWNERS</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p><strong>We don’t add the project structure inside the venv folder. Why?</strong></p></li>
+<li><p><strong>Before install all packages and dependencies Activate the virtual environment:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>$source venv/bin/activate</p></li>
+<li><p>&gt; venv/Scriptsactivate.bat    #in windows</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p><strong>Install all packages and dependencies:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(venv)         #we are in the virtual environment</p></li>
+<li><p>(venv)$pip install robotframework</p></li>
+<li><p>(venv)$pip install selenium</p></li>
+<li><p>…</p></li>
+<li><p>…</p></li>
+<li><p>(venv)$which python   # it will show the current path of python we are using and project in the virtual image</p></li>
+<li><dl class="simple">
+<dt>(venv)$ pip list</dt><dd><p>pip (6.x.x)
+Setuptools
+Robotframework
+Selenium
+venv
+……</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>Export the current packages / requirements to use another virtual image without re-installing the packages</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(venv)$ pip freeze &gt; requirement.txt   #Save the current project dependencies</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Get out the Virtual Environment</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>$deactivate          #not in virtual env</p></li>
+<li><p>$which python        #it will point the python in global environment</p></li>
+<li><p>$pip list            #it will show all packages in global site packages not in virtual env</p></li>
+<li><p>$pip list –local    # it will show the available packages in the virtual image</p></li>
+<li><p>Check the project in Github</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt><strong>For instance, create a new virtual environment and imports the current requirements above without installing the packages</strong></dt><dd><ul class="simple">
+<li><p>$ virtualenv  -p  /usr/bin/python2.7 p2y6_env</p></li>
+<li><p>$ virtualenv -p /usr/bin/python2.7</p></li>
+<li><p>P2y6_env  $ source venv/bin/activate</p></li>
+<li><p>P2y6_env/Scriptsactivate.bat    #in windows</p></li>
+<li><p>p2y6_env$pip install -r  requirement.txt</p></li>
+<li><p>To use the virtual image in Pycharm:</p></li>
+<li><p>Each automation pulls the project with the virtual env without installing the required packages</p></li>
+</ul>
+</dd>
+</dl>
+<img alt="_images/venv.png" src="_images/venv.png" />
+<p>Or</p>
+<p><strong>Select an interpreter Browse to the virtual image folder</strong></p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramkumar Vellasamy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

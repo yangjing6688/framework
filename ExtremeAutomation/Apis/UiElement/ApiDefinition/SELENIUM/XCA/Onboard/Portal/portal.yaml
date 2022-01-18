@@ -1,0 +1,46 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcaportal:
+    click_add_to_create_new_portal:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_portal_name_to_open_portal_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    set_portal_name:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_guest_portal:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_authenticated_portal:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_portal_configurations_tab:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_network_settings_tab:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_administration_tab:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_portal_network_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    delete_existing_portal:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_portal_config_and_back_to_portal_page:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_portal_exists:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_portal_does_not_exist:
+        apis:
+            - [xca,'04.26.03.0007']

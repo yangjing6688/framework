@@ -1,0 +1,103 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+xcanetworks:
+    click_add_to_create_new_network:
+        apis:
+            - [xca,'04.26.03.0007']
+    click_network_name_to_open_network_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_network_name_ssid_and_status:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_network_auth_type:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_network_auth_type_privacy_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_whether_enable_captive_portal:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_captive_portal_type:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_whether_use_fqdn_for_connection:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_whether_use_https_connection:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_ecp_url:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_identity_and_shared_secret:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_send_successful_login:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_mac_based_authentication:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_mba_timeout_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_auth_method:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_default_aaa:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_auth_method_radius:
+        apis:
+            - [xca,'04.26.03.0007']
+    add_new_radius_server:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_new_radius_server_advanced_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_new_radius_server:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_auth_method_local_and_dhcp:
+        apis:
+            - [xca,'04.26.03.0007']
+    add_new_dhcp_config:
+        apis:
+            - [xca,'04.26.03.0007']
+    edit_dhcp_schema_definition:
+        apis:
+            - [xca,'04.26.03.0007']
+    test_new_dhcp_config:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_new_dhcp_config:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_network_default_unauth_role:
+        apis:
+            - [xca,'04.26.03.0007']
+    select_network_default_auth_role_and_vlan:
+        apis:
+            - [xca,'04.26.03.0007']
+    config_network_advanced_settings:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_network_exists:
+        apis:
+            - [xca,'04.26.03.0007']
+    verify_network_does_not_exist:
+        apis:
+            - [xca,'04.26.03.0007']
+    save_settings_and_back_to_networks_page:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097||04.56.03.0004']
+    delete_network:
+        apis:
+            - [xca,'04.26.03.0007||04.36.01.0097']

@@ -1,0 +1,68 @@
+Arguments,Description,Parameter,Constants,Supported,Type,Ixia Version,Spirent Version,Return Values,Example
+port_handle,"The port from which to extract OSPF data. One of the two parameters is
+required: port_handle/handle.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The port from which to extract OSPF data. One of the two parameters is
+required: port_handle/handle.
+DEFAULT
+	None",any,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+handle,"The routers from which to extract OSPF data. One of the two parameters
+is required: port_handle/handle.
+DEFAULT
+	None
+IxNetwork-NGPF
+	
+DESCRIPTION
+	
+The routers from which to extract OSPF data. One of the two parameters
+is required: port_handle/handle.
+DEFAULT
+	None",any,,IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+mode,"aggregate_stats - retrieve stats aggregated per port/handlelearned_info
+- retrieve learned information by the OSPF protocolclear_stats - clear stats
+DEFAULT
+	None
+IxNetwork-NGPF[M]
+	
+DESCRIPTION
+	
+The action that should be taken.
+Valid options are:
+aggregate_stats
+	
+retrieve stats aggregated per port/handle
+learned_info
+	
+retrieve learned information by the OSPF protocol
+clear_stats
+	
+clear stats
+session
+	
+retrieves non-aggregated stats per handle
+DEFAULT
+	None",opt,"CYCLIC,REF,aggregate_stats,clear_stats,learned_info,session",IxNetwork,universal,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+execution_timeout,"This is the timeout for the function. The setting is in seconds. Setting
+this setting to 60 it will mean that the command must complete in under
+60 seconds. If the command will last more than 60 seconds the command
+will be terminated by force. This flag can be used to prevent dead locks
+occuring in IxNetwork.
+DEFAULT
+	
+1800",numeric,,IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,
+session_type,"The Type of OSPF Router - OSPFv2 or OSPFv3.
+Valid options are:
+ospfv2
+	
+OSPF v2
+ospfv3
+	
+OSPF v3
+DEFAULT
+	
+ospfv2",opt,"ospfv2,ospfv3",IxNetwork-NGPF,ixia_only,"IxTclNetwork:7.40.929.15,IxTclHal:6.80","unimplemented",,

@@ -1,0 +1,20 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [OS1,Platform,Version,Unit,URI,Headers,IgnoreError,AddError]
+#             - [OS2,Platform,Version,Unit,URI,Headers,IgnoreError,AddError]
+
+netsightutilities:
+    install_netsight:
+        apis:
+            - [EMC,base,baseversion,baseunit,post,'robot/v1/install_netsight','',[],[]]
+    restart_netsight_and_redeploy_war_file:
+        apis:
+            - [EMC,base,baseversion,baseunit,post,'robot/v1/restart_netsight_and_redeploy_war_file','',[],[]]
+    netsight_script_copy:
+        apis:
+            - [EMC,base,baseversion,baseunit,post,'robot/v1/netsight_script_copy','',[],[]]
+    netsight_log_copy:
+        apis:
+            - [EMC,base,baseversion,baseunit,post,'robot/v1/netsight_log_copy','',[],[]]

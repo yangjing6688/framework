@@ -1,0 +1,103 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+vrf:
+    verify_vrf_iproute:
+        uuid: e78205b7-69f7-4492-97ce-34ef58822b10
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_trap_enabled:
+        uuid: 22d3196f-a3a9-438b-a590-689c0a3c3f72
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_max_routes:
+        uuid: 815ae0c6-8d96-4320-9ea6-e8aa98510971
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_mvpn_enabled:
+        uuid: ea7997a2-612b-4ef8-9026-cc53c2e35dd6
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_mvpn_disabled:
+        uuid: bd92f35e-e904-4f19-901c-7c5def8ba4f4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_mvpn_fwd_cache_timeout:
+        uuid: 0e7645a5-d263-439d-bc40-5eb4b910950c
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_ipv6_max_routes:
+        uuid: e10ac844-bb29-4b81-b679-2c42eb13ec06
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_max_routes_trap_enabled:
+        uuid: 8da8f8e2-9b0a-49aa-8662-2ee12aef6f2d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_ipv6_max_routes_trap_enabled:
+        uuid: e0abbad1-e6a5-41c5-9359-145a75cf8926
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_name:
+        uuid: 5cff72bb-034a-47a7-9be4-53f79acb742d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_vrfid:
+        uuid: 398526ce-751a-4f14-87eb-56be3fe89e3e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_name_and_vrfid:
+        uuid: 329b23cc-7c72-40dd-aa16-10b5bfc74a9d
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_vrf_is_assigned_to_interface_vlan:
+        uuid: 819ff129-981d-4bf8-b37e-86b0da33bb74
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_router_vrf_ipvpn_is_set:
+        uuid: 5a65cc3c-8d3b-4900-8378-902bf6923281
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_router_vrf_isid_is_set:
+        uuid: c740e1f2-4d7d-42dd-a7b4-202913e034e5
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_router_vrf_ipvpn_is_enabled:
+        uuid: 20969f97-47af-4bef-ae90-35d80db353f9
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_router_vrf_isis_redistribute_direct:
+        uuid: a01dff28-5a01-4f16-ba4b-8fa6e4e1e6e8
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+    verify_router_vrf_isis_redistribute_direct_enabled:
+        uuid: fd524274-6510-400b-9ca9-c393fe666fba
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

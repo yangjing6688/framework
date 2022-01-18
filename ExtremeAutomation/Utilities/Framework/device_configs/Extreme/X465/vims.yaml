@@ -1,0 +1,44 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2018
+#  All rights reserved
+#
+# ##################################################################
+#
+#  Defines Versatile Insertion Module (VIM) common to X465 series switches
+#
+
+# Alias of busses of VIM_1 child devices
+vim_1_bus_aliases: &VIM_1_BUS_ALIASES
+    - alias:        vim_1_cpld_bus
+      real:         pca9548_1_ch3
+    - alias:        vim_1_tmpsn_bus
+      real:         pca9548_0_ch4
+    - alias:        vim_1_pca9506_bus
+      real:         pca9548_1_ch3
+    - alias:        vim_1_pca9548_bus
+      real:         pca9548_1_ch3
+
+# VIM in slot 1
+vim_1: &VIM_1
+  slot:             1
+  compatible:       extreme_vim
+  devices:
+    - name:         vim_1_eeprom
+      compatible:   24c02
+      bus:          pca9548_0_ch4
+      address:      0x55
+      format:       onie
+  vim_present:
+    device:         fpga_reg
+    register:       0x60
+    bitmask:        0x80
+  eeprom:           vim_1_eeprom
+
+#
+# A FLAT port mapping means
+# - One SFP VIM port take 1 port number
+# - One QSFP VIM port takes 4 port numbers
+#
+vim_port_mapping: &VIM_PORT_MAPPING
+  type:             FLAT

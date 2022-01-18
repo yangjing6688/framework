@@ -1,0 +1,16 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the common temperature sensors on Intel CPU
+#
+
+cpu_core_tmpsn: &CPU_CORE_TMPSN
+  name:             cpu_core_tmpsn
+  compatible:       Intel,coretemp
+  location:
+    board:          MAINBOARD
+    zone:           CPU_CORE

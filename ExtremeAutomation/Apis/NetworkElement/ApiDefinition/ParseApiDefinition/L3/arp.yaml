@@ -1,0 +1,30 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+arp:
+    verify_arp_entry_exists:
+        uuid: 53de6584-9f5f-4762-b6a3-68035a44d1a1
+        apis:
+            CLI:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EOS,base,baseversion,baseunit]
+                - [EXOS,base,baseversion,baseunit]
+                - [LINUX,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_arp_vrf_entry_exists:
+        uuid: 06c68f36-1cd4-4580-90bb-8610dfb2fcf4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]

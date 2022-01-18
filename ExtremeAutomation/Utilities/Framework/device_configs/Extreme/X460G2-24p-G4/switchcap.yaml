@@ -1,0 +1,46 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2016
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for X460G2-24p-G4.
+#  This inherits capability from apollo2 YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+
+capability: &CAPABILITY
+  <<: *APOLLO2_CAPABILITY
+  hwHealth: 5
+  numExternalPort: 34
+  poeMinBudget: 37
+  poeMaxBudget: 800
+  poeDfltBudget: 800
+  poeLoss: 10
+
+  # Boolean type supported/not-supported capability parameters.
+  Poe: true
+  PoePlus: true
+  MplsCep: true
+  MplsCepXlate: true
+  MplsCepEgrFlt: true
+  ComboPort: true
+  VarCap: true
+  StackSupportCfg: true
+  StackSupportCtrl: true
+  Stackable: true
+  AltStkPortCapable: true
+  StkUserPortInterchangeable: true
+  NativeStackable: true
+  V160StackMode: true
+  DedicatedStackPorts: true
+  StackingAutoDiscovery: true
+  MacsecWithExtAdapter: true
+  VmacL2ClassId: true
+  VmacL2DstClassId: true
+  InstallLrmMacsecAdapterFirmware: true

@@ -1,0 +1,19 @@
+# Documentation - Set and Show API formats.
+# feature_name:
+#     api_method_name:
+#         apis:
+#             - [Application,Version.1||Version.2]
+
+home:
+    open_operation_panel:
+        apis:
+            - [xmc,'8.2.5']
+    close_operation_panel:
+        apis:
+            - [xmc,'8.2.5']
+    wait_for_operation:
+        apis:
+            - [xmc,'8.2.5']
+    verify_operation_status:
+        apis:
+            - [xmc,'8.2.5']

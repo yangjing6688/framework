@@ -1,0 +1,17 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines watchdogs for all X695 platforms.
+#
+
+# NOTE WELL! The X695 supposedly provides an I2C bus watchdog function
+#            through the system_cpld.  However, information from
+#            from the SLX and VOSS groups indicates that the watchdog
+#            is not yet usable.  So, disable it here.
+
+# watchdogs:
+#   - *WATCHDOG1

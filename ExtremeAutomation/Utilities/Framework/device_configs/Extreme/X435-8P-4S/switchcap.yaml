@@ -1,0 +1,40 @@
+# #################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2019
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file contains the values for capability variables
+#  for X435-24P-4S
+#  This inherits capability from wolfhound2 YAML. If a capability value
+#  is different from inherited value for this switch, it can be modified
+#  using this file.
+#
+#
+
+capability: &CAPABILITY
+  <<: *WOLFHOUND2_CAPABILITY
+  hwHealth: 2
+  numExternalPort: 12
+  poeMinBudget: 37
+  poeMaxBudget: 124
+  poeDfltBudget: 124
+  poeLoss: 10
+
+  # Boolean type supported/not-supported capability parameters.
+  Avb: true
+  Poe: true
+  PoePlus: true
+  PoePlusPlus: false
+  VlanStatsMon: false
+  FastPoe: true
+  PerpetualPoe: true
+  NonCpldPoe: true
+  L3Lite: true
+  OobMgmt: false
+  InstallInactive: false
+  OpDiagsReportFile: true
+  SWRebootOnOvertemp: true
+  EgressAcls: false
+  VmanCepPortCvid: false

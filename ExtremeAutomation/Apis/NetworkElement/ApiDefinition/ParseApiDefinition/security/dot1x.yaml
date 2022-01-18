@@ -1,0 +1,113 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+dot1x:
+    verify_dot1x_state:
+        uuid: e9475843-983e-47dd-a4be-316a6ce0722f
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_if_dot1x_is_enabled:
+        uuid: d940ba60-05d3-464b-b8bf-598287b18142
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_accounting_state:
+        uuid: 196180b7-6bc6-4945-b794-a1d6682af8ab
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_if_dot1x_accounting_is_enabled:
+        uuid: 872f9bf1-e1eb-45b9-a569-c2f0d24867d0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_is_enabled_on_port:
+        uuid: e8b467be-a59c-484d-824a-85aaeac831b6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_quiet_period:
+        uuid: b479b149-2bf8-4947-bda3-8920733c951d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_port_reauth_period:
+        uuid: 8c828179-3659-4fa0-8d90-33f51bf9ffd8
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_reauth_period:
+        uuid: b590c013-ec67-44d2-ab53-f9c016bc82f6
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_port_reauth_state:
+        uuid: 04602647-807c-4592-b3f5-56187d7cd181
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_supp_response_timeout:
+        uuid: a3b54f8d-4ae9-4014-8dad-d503cdb9e960
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_server_timeout:
+        uuid: b9a8540f-922c-45ec-ab48-9a36a0162145
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_idle_timeout:
+        uuid: c287154b-e050-4cc5-84b8-485e7a005e9b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_global_dot1x_idle_timeout:
+        uuid: 166b8282-c01c-4839-8df1-c6b5d0998a94
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_dot1x_session_timeout:
+        uuid: 7ec9e4fa-a7c0-4571-aa4d-9c2430f2b2ed
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_global_dot1x_session_timeout:
+        uuid: 0eb4d41a-8821-43c8-a6d8-1947c6983671
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_if_dot1x_user_is_authenticated:
+        uuid: a8b117d8-419b-420c-a7c5-9c7cbfb34f83
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_if_dot1x_user_is_unauthenticated:
+        uuid: 782aea48-5895-4a8a-98ee-b8b62a6e8d1d
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_if_dot1x_user_is_authenticated_by_radius:
+        uuid: fb6b75df-a689-40c1-9d0c-8edff57e546a
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_if_dot1x_user_login_name_is_correct:
+        uuid: c6b9caef-5885-4612-bf61-c7e46eea328b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    check_if_dot1x_user_ip_is_correct:
+        uuid: 9e02c50e-e306-4a7a-a0b5-ae8c00574979
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]

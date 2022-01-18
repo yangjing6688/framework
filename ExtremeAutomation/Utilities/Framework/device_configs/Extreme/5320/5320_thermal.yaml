@@ -1,0 +1,17 @@
+# ##################################################################
+#
+#  Copyright (c) Extreme Networks Inc. 2021
+#  All rights reserved
+#
+# ##################################################################
+#
+#  This file defines the temperature sensors present on 5320
+#
+
+sensors:
+  - *MB_HOTSPOT_TMPSN_FS
+  - *MB_HOTSPOT_TMPSN_SD
+  - *MB_AMBIENT_TMPSN_FS
+  - *MB_AMBIENT_TMPSN_SD
+  - *MB_PSU_TMPSN_FS
+  - *MB_PSU_TMPSN_SD

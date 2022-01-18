@@ -1,0 +1,149 @@
+# Documentation - Parse API formats.
+# feature_name:
+#     api_method_name:
+#         uuid: uuid from https://www.uuidgenerator.net/version1
+#         apis:
+#             CLI:
+#                 - [OS1,Platform,Version,Unit]
+#                 - [OS2,Platform,Version,Unit]
+#             SNMP:
+#                 - [OS1,Platform,Version,Unit]
+#             REST:
+#                 - [OS1,Platform,Version,Unit]
+ospf:
+    verify_ospf_globally_enabled:
+        uuid: 65afe9f4-7961-4441-aa2a-b69412d9eb9b
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_ospf_globally_disabled:
+        uuid: 85e74309-c18a-4d33-90ea-18bbb807ff93
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_ospf_router_id:
+        uuid: 7cd8eece-e7a9-4781-a7c8-fd66241d2744
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_ospf_router_id_is_removed:
+        uuid: 7707f6f3-26d9-4a08-ad60-9a338bb2c315
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+    verify_ospf_neighbor_exists:
+        uuid: 122b3f62-dcb5-4381-8305-a17ab19f0b28
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_neighbor_adjacency_full:
+        uuid: 3e834757-776f-46aa-9570-d956ccc586ab
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_interface_authentication:
+        uuid: d80dfd34-beb4-40d7-85f1-a5ab5bd6cb67
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_interface_authentication_none:
+        uuid: 0752ffaa-2075-4aa6-a593-ccac0ea7f780
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_100G:
+        uuid: 53ad25f9-fb41-4f6c-8ec6-bb0a542eeb73
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_100M:
+        uuid: 27d3cc2d-1d26-431d-8fd3-7ea82112a460
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_10G:
+        uuid: 871b4cfa-c66e-4569-9059-726cd4e90768
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_10M:
+        uuid: a856e3a5-1695-4fe0-ac75-09f59b351435
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_1G:
+        uuid: 4734909f-663c-4dcb-a8cb-6234cacbfe58
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_2_5G:
+        uuid: 017f8797-7bb7-4f64-a70c-c57391d0ecb5
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_25G:
+        uuid: 89c272f2-a793-484f-84f9-e7d1957d4cd0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_40G:
+        uuid: 10d8c094-4660-4fd5-9a25-d5196f1f90d7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_50G:
+        uuid: c31abd61-bc02-4adb-9206-3c0ff2fa8cf0
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_metric_table_5G:
+        uuid: 992a84b4-6d3e-465f-85cf-21514ff5c31e
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+    verify_ospf_enabled_on_vlan:
+        uuid: 373d4fea-056d-481a-b138-0326751803b7
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_ospf_disabled_on_vlan:
+        uuid: 0f4e99dc-2cf8-4f9d-aa17-7b91a7455096
+        apis:
+            CLI:
+                - [EXOS,base,baseversion,baseunit]
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_ospf_enabled_on_interface:
+        uuid: 9be9b07d-df1f-4447-9220-85ca893e5ae4
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
+    verify_ospf_disabled_on_interface:
+        uuid: 62be88a5-1926-4656-9658-72225b1d736e
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
+            SNMP:
+                - [VOSS,base,baseversion,baseunit]
