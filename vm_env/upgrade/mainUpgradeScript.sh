@@ -19,4 +19,6 @@ bash ./packages_upgrade_v011.sh
 bash ./packages_upgrade_v012.sh
 bash ./packages_upgrade_v013.sh
 bash ./packages_upgrade_v014.sh
+bash ./packages_upgrade_v015.sh
+bash ./packages_upgrade_v016.sh
 bash ./virtual_env_requirements.sh
