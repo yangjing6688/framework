@@ -5,7 +5,7 @@ if [ $line == "15.0.0" ]
 then
    cd /automation/tests
    git clone git@github.com:extremenetworks/extreme_automation_framework.git
-   export PYTHONPATH=$PYTHONPATH:/automation/tests/extreme_automation_framework
+   export PYTHONPATH=$PYTHONPATH:/automation/extreme_automation_framework/extauto:/automation/extreme_automation_framework
 
    echo "Please add the new extreme_automation_framework to pycharm projects by attaching it to the main project."
    

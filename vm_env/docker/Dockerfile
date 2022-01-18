@@ -51,7 +51,7 @@ RUN pip install -r /software/all-requirements.txt
 
 RUN mkdir automation
 RUN chmod 777 automation
-ENV PYTHONPATH "/automation/econ-automation-framework:/automation/econ-automation-tests:/automation/extauto:/automation/cw_automation:/automation/extreme_automation_tests"
+ENV PYTHONPATH "/automation/extreme_automation_framework/extauto:/automation/extreme_automation_framework:/automation/extreme_automation_tests"
 
 # Install ssh
 RUN mkdir /var/run/sshd
