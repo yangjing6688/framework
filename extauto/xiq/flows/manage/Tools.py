@@ -28,7 +28,7 @@ class Tools:
         self.cli = Cli()
         self.builtin = BuiltIn()
         self.web = WebElementHandler()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def get_neighbor_info(self, serial, mac):
         self.navigator.navigate_to_tools_page()

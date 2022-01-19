@@ -13,7 +13,7 @@ class A3Inventory(A3InventoryWebElements):
     def __init__(self):
         super().__init__()
         self.utils = Utils()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.auto_actions = AutoActions()

@@ -14,7 +14,7 @@ import extauto.common.CloudDriver
 
 class AutoActions:
     def __init__(self):
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.retries = 5
         self.utils = Utils()
         self.screen = Screen()

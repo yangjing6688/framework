@@ -20,7 +20,7 @@ class Communications(CommunicationsWebElements):
         self.screen = Screen()
         self.navigate = Navigator()
         self.builtin = BuiltIn()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def validate_communications_page(self):
         """

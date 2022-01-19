@@ -11,7 +11,7 @@ class Summary(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()

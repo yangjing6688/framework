@@ -18,7 +18,7 @@ class WebElementHandler:
         self.utils = Utils()
         self.delay = BuiltIn().get_variable_value('${ELEMENT_DELAY}')
         self.desc = None
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.image_handler = ImageHandler()
         self.locator = {"CSS_SELECTOR": By.CSS_SELECTOR,
                          "XPATH": By.XPATH,

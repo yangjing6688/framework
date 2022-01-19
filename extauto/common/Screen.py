@@ -14,7 +14,7 @@ except:
 class Screen:
     def __init__(self):
         self.utils = Utils()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def add_screen_shot_to_allure(self, file_name, driver):
         try:

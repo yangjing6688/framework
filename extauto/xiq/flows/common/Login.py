@@ -23,7 +23,7 @@ class Login:
         self.record = False
         self.t1 = None
         self.utils = Utils()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
         self.nav_web_elements = NavigatorWebElements()
@@ -47,9 +47,9 @@ class Login:
             self.window_index = 0
         else:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-            self.window_index = common.CloudDriver.open_window(url)
+            self.window_index = extauto.common.CloudDriver.open_window(url)
         self.utils.print_info(f"Window Handle Index is {self.window_index}")
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
         self.nav_web_elements = NavigatorWebElements()
@@ -590,7 +590,7 @@ class Login:
         :param:  win_index - Index of the window to close
         :return: Return List containing the Child Window Indexes
         """
-        window_index_list = common.CloudDriver.get_child_window_list(win_index)
+        window_index_list = extauto.common.CloudDriver.get_child_window_list(win_index)
         return window_index_list
 
     def logo_check_on_login_screen(self):

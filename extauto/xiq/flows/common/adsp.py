@@ -11,7 +11,7 @@ from extauto.xiq.elements.AdspWebElements import AdspWebElements
 class Adsp(AdspWebElements):
     def __init__(self):
         super().__init__()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.utils = Utils()

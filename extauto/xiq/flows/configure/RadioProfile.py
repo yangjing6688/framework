@@ -20,7 +20,7 @@ class RadioProfile (RadioProfileWebElements):
         self.navigator = Navigator()
         self.radprof_web_elements = RadioProfileWebElements()
         self.web = WebElementHandler()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def add_radio_profile(self, radio_profile_name):
         """

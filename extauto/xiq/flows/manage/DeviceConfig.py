@@ -21,7 +21,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions = AutoActions()
         self.device_common = DeviceCommon()
         self.web = WebElementHandler()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
 
 

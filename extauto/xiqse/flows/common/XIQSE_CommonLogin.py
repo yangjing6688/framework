@@ -47,13 +47,13 @@ class XIQSE_CommonLogin():
                 self.window_index = window_index
             else:
                 self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-                self.window_index = common.CloudDriver.open_window(url, program="xiqse")
+                self.window_index = extauto.common.CloudDriver.open_window(url, program="xiqse")
         except Exception as e:
             self.utils.print_info("Error: ", e)
             self.window_index = -1
 
         self.utils.print_info(f"Window Handle Index is {self.window_index}")
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = CommonLoginWebElements()
         self.acct_web_elements = CommonAccountWebElements()
         self.error_web_elements = CommonErrorWebElements()
@@ -410,7 +410,7 @@ class XIQSE_CommonLogin():
         :param:  win_index - Index of the parent window
         :return: Return List containing the Child Window Indexes
         """
-        window_index_list = common.CloudDriver.get_child_window_list(win_index)
+        window_index_list = extauto.common.CloudDriver.get_child_window_list(win_index)
 
         for window_index in window_index_list:
             self.xiqse_init_child_window(window_index)

@@ -23,7 +23,7 @@ class Wips(WipsWebElements):
         super().__init__()
         self.utils = Utils()
         self.auto_actions = AutoActions()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.cobj_web_elements = CommonObjectsWebElements()

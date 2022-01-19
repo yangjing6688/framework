@@ -21,7 +21,7 @@ class DeviceTemplate(object):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = NavigatorWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.network_policy = NetworkPolicy()

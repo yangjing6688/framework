@@ -24,7 +24,7 @@ class LicenseManagement(LicenseManagementWebElements):
         self.lic_mgt_web_elements = LicenseManagementWebElements()
         self.login_web_elements = LoginWebElements()
         self.nav_web_elements = NavigatorWebElements()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def open_license_management_page(self):
         """

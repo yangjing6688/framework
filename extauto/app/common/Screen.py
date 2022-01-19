@@ -6,7 +6,7 @@ from robot.libraries.BuiltIn import BuiltIn
 
 class Screen:
     def __init__(self):
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def save_screen_shot(self, _driver=None):
         output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")

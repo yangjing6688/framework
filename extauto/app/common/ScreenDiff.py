@@ -11,7 +11,7 @@ class ScreenDiff:
     def __init__(self):
         self.utils = Utils()
         self.screen = Screen()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def compare_screens(self, input_image, threshold='default'):
         """
