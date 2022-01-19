@@ -4,12 +4,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from extauto.common.Utils import *
 from extauto.common.Screen import *
-import extauto.app.common.CloudDriver
+import extauto.common.CloudDriver
 
 
 class AutoActions:
     def __init__(self):
-        self.driver = app.common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.retries = 3
         self.utils = Utils()
         self.screen = Screen()

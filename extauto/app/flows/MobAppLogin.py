@@ -1,5 +1,5 @@
 from appium.webdriver.common.touch_action import TouchAction
-import extauto.app.common.CloudDriver
+import extauto.common.CloudDriver
 from app.elements.MobAppLoginWebElements import *
 from app.elements.NewDeviceOnboardWebElements import *
 from app.common.AutoActions import *
@@ -17,8 +17,8 @@ class MobAppLogin:
         :return: returns driver object
         """
         global driver
-        app.common.CloudDriver.load_browser(url)
-        self.driver = app.common.CloudDriver.cloud_driver
+        extauto.common.CloudDriver.load_browser(url)
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.mob_login_web_elements = MobAppLoginWebElements()
         self.scan_web_elements = NewDeviceOnboardWebElements()
         self.auto_actions = AutoActions()
