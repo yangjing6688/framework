@@ -344,7 +344,7 @@ class XIQSE_CommonLogin():
         :param win_index: Index of the window to switch to
         :return: None
         """
-        common.CloudDriver.switch_to_window(win_index)
+        extauto.common.CloudDriver.switch_to_window(win_index)
 
     def xiqse_close_window(self, win_index):
         """
@@ -353,7 +353,7 @@ class XIQSE_CommonLogin():
         :param win_index: Index of the window to close
         :return: None
         """
-        common.CloudDriver.close_window(win_index)
+        extauto.common.CloudDriver.close_window(win_index)
 
     def xiqse_refresh_page(self):
         """
@@ -361,7 +361,7 @@ class XIQSE_CommonLogin():
 
         :return: None
         """
-        common.CloudDriver.refresh_page()
+        extauto.common.CloudDriver.refresh_page()
 
     def xiqse_logout_user_child_window(self, win_index=0):
         """

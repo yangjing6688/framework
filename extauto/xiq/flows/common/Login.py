@@ -41,7 +41,7 @@ class Login:
         self.utils = Utils()
         if extauto.common.CloudDriver.cloud_driver == -1:
             self.utils.print_info("Creating new cloud driver")
-            if common.CloudDriver.load_browser(url, incognito_mode=incognito_mode) == -2:
+            if extauto.common.CloudDriver.load_browser(url, incognito_mode=incognito_mode) == -2:
                 assert False, "Selenium host/node  is not responding. Possible issues can be:" \
                               "Browser & webdriver versions mismatch or selenium standalone server stopped."
             self.window_index = 0
@@ -545,7 +545,7 @@ class Login:
         :param:  win_index - Index of the window to switch to
         :return: None
         """
-        common.CloudDriver.switch_to_window(win_index)
+        extauto.common.CloudDriver.switch_to_window(win_index)
 
     def close_window(self, win_index):
         """
@@ -554,7 +554,7 @@ class Login:
         :param:  win_index - Index of the window to close
         :return: None
         """
-        common.CloudDriver.close_window(win_index)
+        extauto.common.CloudDriver.close_window(win_index)
 
     def xiq_quit_browser(self, _driver=None):
         """
