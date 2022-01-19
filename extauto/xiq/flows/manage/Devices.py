@@ -9,17 +9,17 @@ from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Cli import Cli
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.common.Navigator import Navigator
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from xiq.flows.common.Login import Login
-from xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
+from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
+from extauto.xiq.flows.common.Login import Login
+from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 
-from xiq.elements.DevicesWebElements import DevicesWebElements
-from xiq.elements.DialogWebElements import DialogWebElements
-from xiq.elements.DeviceActions import DeviceActions
-from xiq.elements.DeviceUpdate import DeviceUpdate
-from xiq.elements.SwitchWebElements import SwitchWebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
+from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 
 
@@ -4934,7 +4934,7 @@ class Devices:
     def wait_until_device_removed(self, device_serial=None, device_name=None, device_mac=None, retry_duration=10,
                                   retry_count=30):
         """
-        - This keyword is used to wait for the device to be removed from XIQ.
+        - This keyword is used to wait for the device to be removed from extauto.xiq.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists
         - Flow:
          - Navigate to Manage --> Devices

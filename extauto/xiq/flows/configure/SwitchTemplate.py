@@ -5,17 +5,17 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.common.Navigator import Navigator
-from xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 
 from selenium.webdriver.common.keys import Keys
-from xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
-from xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
-from xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
-from xiq.elements.SwTemplateLegacyPortTypeWebElements import SwTemplateLegacyPortTypeWebElements
+from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
+from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
+from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
+from extauto.xiq.elements.SwTemplateLegacyPortTypeWebElements import SwTemplateLegacyPortTypeWebElements
 
-from xiq.elements.Device360WebElements import Device360WebElements
-from xiq.elements.AlarmsWebElements import AlarmsWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
+from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
 
 class SwitchTemplate(object):
 

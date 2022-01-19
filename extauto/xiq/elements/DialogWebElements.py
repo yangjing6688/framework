@@ -1,4 +1,4 @@
-from xiq.defs.DialogWebElementsDefinitions import *
+from extauto.xiq.defs.DialogWebElementsDefinitions import *
 from extauto.common.WebElementHandler import *
 
 

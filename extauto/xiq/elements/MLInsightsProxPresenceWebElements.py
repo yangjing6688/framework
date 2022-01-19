@@ -1,5 +1,5 @@
 from extauto.common.WebElementHandler import *
-from xiq.defs.MLInsightsProxPresenceDefinitions import *
+from extauto.xiq.defs.MLInsightsProxPresenceDefinitions import *
 
 
 class MLInsightsProxPresenceWebElements(MLInsightsProxPresenceDefinitions):

@@ -1,5 +1,5 @@
 from extauto.common.WebElementHandler import *
-from xiq.defs.PpskClassificationWebElementDefinition import *
+from extauto.xiq.defs.PpskClassificationWebElementDefinition import *
 
 
 class PpskClassificationWebElements(PpskClassificationWebElementDefinition):

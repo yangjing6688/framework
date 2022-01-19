@@ -3,8 +3,8 @@ from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.MLInsightsClients360WebElements import MLInsightsClients360WebElements
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.MLInsightsClients360WebElements import MLInsightsClients360WebElements
 
 
 class MLInsightClient360(MLInsightsClients360WebElements):

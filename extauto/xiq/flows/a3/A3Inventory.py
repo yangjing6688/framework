@@ -5,8 +5,8 @@ import common.CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import *
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.A3InventoryWebElements import A3InventoryWebElements
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.A3InventoryWebElements import A3InventoryWebElements
 
 
 class A3Inventory(A3InventoryWebElements):

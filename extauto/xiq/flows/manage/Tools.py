@@ -6,13 +6,13 @@ from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from extauto.common.WebElementHandler import *
 
-from xiq.elements.ToolsElements import ToolsElements
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
-from xiq.elements.DialogWebElements import DialogWebElements
-from xiq.elements.Device360WebElements import Device360WebElements
+from extauto.xiq.elements.ToolsElements import ToolsElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
-from xiq.flows.manage.Devices import Devices
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.common.Navigator import Navigator
 
 
 class Tools:

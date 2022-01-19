@@ -1,5 +1,5 @@
 from extauto.common.WebElementHandler import *
-from xiq.defs.FilterManageClientDefinitions import *
+from extauto.xiq.defs.FilterManageClientDefinitions import *
 
 
 class FilterManageClientWebElements(FilterManageClientDefinitions):

@@ -3,8 +3,8 @@ from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.CredDistrGrupWebElemnts import CredDistrGrupWebElemnts
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.CredDistrGrupWebElemnts import CredDistrGrupWebElemnts
+from extauto.xiq.flows.common.Navigator import Navigator
 
 
 class CredDistrGrup(CredDistrGrupWebElemnts):

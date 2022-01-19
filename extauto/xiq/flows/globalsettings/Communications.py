@@ -4,9 +4,9 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
-from xiq.elements.CommunicationsWebElements import CommunicationsWebElements
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.CommunicationsWebElements import CommunicationsWebElements
 import common.CloudDriver
 
 

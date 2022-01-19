@@ -4,8 +4,8 @@ from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.Cli import Cli
 from extauto.common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
 
 
 class ExtremeGuest(object):

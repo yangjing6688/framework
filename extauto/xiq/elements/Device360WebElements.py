@@ -1,4 +1,4 @@
-from xiq.defs.Device360WebElementDefs import *
+from extauto.xiq.defs.Device360WebElementDefs import *
 from extauto.common.WebElementHandler import *
 
 

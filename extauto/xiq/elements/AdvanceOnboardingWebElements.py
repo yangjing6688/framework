@@ -1,5 +1,5 @@
 from extauto.common.WebElementHandler import *
-from xiq.defs.AdvanceOnboardingDefinitions import *
+from extauto.xiq.defs.AdvanceOnboardingDefinitions import *
 
 
 class AdvanceOnboardingWebElements(AdvanceOnboardingDefinitions):

@@ -5,12 +5,12 @@ import subprocess
 from extauto.common.Cli import Cli
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from xiq.flows.manage.Location import *
-from xiq.flows.manage.Devices import Devices
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.manage.Location import *
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.common.Navigator import Navigator
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.Device360WebElements import Device360WebElements
-from xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 
 
 class Device360Stack(Device360WebElements):

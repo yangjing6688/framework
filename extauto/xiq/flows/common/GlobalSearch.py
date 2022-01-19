@@ -4,10 +4,10 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 
-from xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.manage.Devices import Devices
 
-from xiq.elements.DevicesWebElements import DevicesWebElements
-from xiq.elements.GlobalSearchWebElements import GlobalSearchWebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.GlobalSearchWebElements import GlobalSearchWebElements
 
 
 class GlobalSearch:

@@ -1,4 +1,4 @@
-from xiq.defs.CopilotDefs import *
+from extauto.xiq.defs.CopilotDefs import *
 from extauto.common.WebElementHandler import *
 
 

@@ -1,5 +1,5 @@
 from extauto.common.WebElementHandler import *
-from xiq.defs.PasswordResetWebElementsDefinition import *
+from extauto.xiq.defs.PasswordResetWebElementsDefinition import *
 
 
 class PasswordResetWebElements(PasswordResetWebElementsDefinition):

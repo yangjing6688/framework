@@ -1,4 +1,4 @@
-from xiq.defs.ToolsUtilitiesDefs import *
+from extauto.xiq.defs.ToolsUtilitiesDefs import *
 from extauto.common.WebElementHandler import *
 
 

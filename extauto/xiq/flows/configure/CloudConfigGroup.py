@@ -6,15 +6,15 @@ from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.manage.Tools import Tools
-from xiq.flows.common.Navigator import Navigator
-from xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.manage.Tools import Tools
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.manage.Devices import Devices
 
-from xiq.elements.DeviceUpdate import DeviceUpdate
-from xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
-from xiq.elements.DevicesWebElements import DevicesWebElements
-from xiq.elements.CloudConfigGroupWebElements import CloudConfigGroupWebElements
-from xiq.elements.ClassificationRuleWebElements  import ClassificationRuleWebElements
+from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
+from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.CloudConfigGroupWebElements import CloudConfigGroupWebElements
+from extauto.xiq.elements.ClassificationRuleWebElements  import ClassificationRuleWebElements
 
 
 class CloudConfigGroup(object):

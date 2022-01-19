@@ -1,4 +1,4 @@
-from xiq.defs.NetworkPolicyWebElementDefinition import *
+from extauto.xiq.defs.NetworkPolicyWebElementDefinition import *
 from extauto.common.WebElementHandler import *
 
 

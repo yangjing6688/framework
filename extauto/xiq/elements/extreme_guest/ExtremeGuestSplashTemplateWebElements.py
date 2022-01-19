@@ -1,4 +1,4 @@
-from xiq.defs.extreme_guest.ExtremeGuestSplashTemplateWebElementsDefs import ExtremeGuestSplashTemplateWebElementsDefs
+from extauto.xiq.defs.extreme_guest.ExtremeGuestSplashTemplateWebElementsDefs import ExtremeGuestSplashTemplateWebElementsDefs
 from extauto.common.WebElementHandler import *
 
 

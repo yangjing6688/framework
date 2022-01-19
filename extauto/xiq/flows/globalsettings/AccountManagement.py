@@ -2,11 +2,11 @@ from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.common.Navigator import Navigator
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.AccntMgmtWebElements import AccntMgmtWebElements
-from xiq.elements.DialogWebElements import DialogWebElements
-from xiq.elements.ToolsElements import ToolsElements
+from extauto.xiq.elements.AccntMgmtWebElements import AccntMgmtWebElements
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.elements.ToolsElements import ToolsElements
 
 
 class AccountManagement(AccntMgmtWebElements):

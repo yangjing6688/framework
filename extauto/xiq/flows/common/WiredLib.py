@@ -1,6 +1,6 @@
 from extauto.common.Utils import Utils
-from xiq.flows.manage.Location import *
-from xiq.flows.manage.Device360 import Device360
+from extauto.xiq.flows.manage.Location import *
+from extauto.xiq.flows.manage.Device360 import Device360
 from extauto.common.Cli import Cli
 from robot.libraries.String import String
 

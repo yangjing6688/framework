@@ -3,7 +3,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.RSWebElements import RSWebElements
+from extauto.xiq.elements.RSWebElements import RSWebElements
 
 
 class RadiusServer(RSWebElements):

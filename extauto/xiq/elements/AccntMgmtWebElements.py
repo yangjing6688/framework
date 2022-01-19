@@ -1,4 +1,4 @@
-from xiq.defs.AccntMgmtWebElementsDefs import *
+from extauto.xiq.defs.AccntMgmtWebElementsDefs import *
 from extauto.common.WebElementHandler import *
 
 

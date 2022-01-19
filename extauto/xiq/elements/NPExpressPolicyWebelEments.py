@@ -1,4 +1,4 @@
-from xiq.defs.NPExpressPolicySetupDefinitions import *
+from extauto.xiq.defs.NPExpressPolicySetupDefinitions import *
 from extauto.common.WebElementHandler import *
 
 

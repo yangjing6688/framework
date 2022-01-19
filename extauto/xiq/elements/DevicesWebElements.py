@@ -1,5 +1,5 @@
 import time
-from xiq.defs.DevicesWebElementsDefinitions import *
+from extauto.xiq.defs.DevicesWebElementsDefinitions import *
 from extauto.common.WebElementHandler import *
 
 

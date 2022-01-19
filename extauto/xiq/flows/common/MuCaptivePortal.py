@@ -1,7 +1,7 @@
 __author__ = "ExtremeNetworks"
 __version__ = "1.0.1"
 
-from xiq.elements.MuCPWebElements import MuCPWebElement
+from extauto.xiq.elements.MuCPWebElements import MuCPWebElement
 from extauto.common.AutoActions import AutoActions
 from time import sleep
 

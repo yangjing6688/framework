@@ -4,11 +4,11 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.common.Navigator import Navigator
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
-from xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
-from xiq.elements.WirelessWebElements import WirelessWebElements
+from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
+from extauto.xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
+from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 
 
 class CommonObjects(object):

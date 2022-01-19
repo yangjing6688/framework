@@ -1,4 +1,4 @@
-from xiq.defs.AdditionalSettingsEebElememtsDefs import *
+from extauto.xiq.defs.AdditionalSettingsEebElememtsDefs import *
 from extauto.common.WebElementHandler import *
 
 class AdditionalSettingsWebElements(AdditionalSettingsEebElememtsDefs):

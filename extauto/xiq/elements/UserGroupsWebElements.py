@@ -1,4 +1,4 @@
-from xiq.defs.UserGroupsWebElementsDefinitions import *
+from extauto.xiq.defs.UserGroupsWebElementsDefinitions import *
 from extauto.common.WebElementHandler import WebElementHandler
 
 

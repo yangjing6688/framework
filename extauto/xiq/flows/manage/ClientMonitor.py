@@ -2,8 +2,8 @@ from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
-from xiq.elements.ClientMonitorWebElements import ClientMonitorWebElements
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.ClientMonitorWebElements import ClientMonitorWebElements
+from extauto.xiq.flows.common.Navigator import Navigator
 
 
 class ClientMonitor(ClientMonitorWebElements):

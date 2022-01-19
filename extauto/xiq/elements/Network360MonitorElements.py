@@ -1,5 +1,5 @@
 from extauto.common.WebElementHandler import *
-from xiq.defs.Network360MonitorDefinitions import *
+from extauto.xiq.defs.Network360MonitorDefinitions import *
 
 
 class Network360MonitorElements(Network360MonitorDefinitions):

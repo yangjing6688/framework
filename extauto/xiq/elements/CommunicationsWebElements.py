@@ -1,4 +1,4 @@
-from xiq.defs.CommunicationsWebElementDefs import *
+from extauto.xiq.defs.CommunicationsWebElementDefs import *
 from extauto.common.WebElementHandler import *
 
 

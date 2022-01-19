@@ -1,4 +1,4 @@
-from xiq.defs.A3InventoryWebElementsDefs import *
+from extauto.xiq.defs.A3InventoryWebElementsDefs import *
 from extauto.common.WebElementHandler import *
 
 

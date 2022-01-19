@@ -1,5 +1,5 @@
 from extauto.common.WebElementHandler import *
-from xiq.defs.GlobalSearchWebElementsDefinitions import *
+from extauto.xiq.defs.GlobalSearchWebElementsDefinitions import *
 
 
 class GlobalSearchWebElements(GlobalSearchWebElementsDefinitions):

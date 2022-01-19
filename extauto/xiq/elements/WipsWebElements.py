@@ -1,4 +1,4 @@
-from xiq.defs.WipsWebElementsDefinitions import WipsWebElementDefinitions
+from extauto.xiq.defs.WipsWebElementsDefinitions import WipsWebElementDefinitions
 from extauto.common.WebElementHandler import *
 
 

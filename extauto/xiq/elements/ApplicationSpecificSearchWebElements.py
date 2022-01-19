@@ -1,4 +1,4 @@
-from xiq.defs.ApplicationSpecificSearchWebElementsDefinition import *
+from extauto.xiq.defs.ApplicationSpecificSearchWebElementsDefinition import *
 from extauto.common.WebElementHandler import *
 
 class  ApplicationSpecificSearchWebElements(ApplicationSpecificSearchWebElementsDefinition):

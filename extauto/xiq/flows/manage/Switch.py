@@ -5,13 +5,13 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 
-from xiq.flows.manage.Devices import Devices
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.common.Navigator import Navigator
 
-from xiq.elements.SwitchWebElements import SwitchWebElements
-from xiq.elements.DevicesWebElements import DevicesWebElements
-from xiq.elements.DialogWebElements import DialogWebElements
-from xiq.elements.LoginWebElements import LoginWebElements
+from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.elements.LoginWebElements import LoginWebElements
 
 
 class Switch(SwitchWebElements):

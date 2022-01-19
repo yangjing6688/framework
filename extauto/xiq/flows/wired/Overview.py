@@ -3,11 +3,11 @@ import re
 from time import sleep
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
-from xiq.flows.manage.Devices import Devices
-from xiq.flows.common.Navigator import Navigator
-from xiq.flows.manage.Device360 import Device360
-from xiq.elements.Device360WebElements import Device360WebElements
-from xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.manage.Device360 import Device360
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.common.Cli import Cli
 from extauto.common.Screen import Screen
 

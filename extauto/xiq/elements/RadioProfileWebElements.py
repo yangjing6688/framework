@@ -1,4 +1,4 @@
-from xiq.defs.RadioProfileWebElementsDefinitions import *
+from extauto.xiq.defs.RadioProfileWebElementsDefinitions import *
 from extauto.common.WebElementHandler import *
 
 

@@ -1,4 +1,4 @@
-from xiq.defs.DeviceCommonDefs import DeviceCommonDefs
+from extauto.xiq.defs.DeviceCommonDefs import DeviceCommonDefs
 from extauto.common.WebElementHandler import WebElementHandler
 
 

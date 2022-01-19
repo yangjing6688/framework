@@ -1,4 +1,4 @@
-from xiq.defs.SwitchWebElementsDefinitions import *
+from extauto.xiq.defs.SwitchWebElementsDefinitions import *
 from extauto.common.AutoActions import *
 from extauto.common.WebElementHandler import *
 

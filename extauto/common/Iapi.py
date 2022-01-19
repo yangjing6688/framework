@@ -12,7 +12,7 @@ import re
 from extauto.common.Utils import Utils
 from robot.libraries.BuiltIn import BuiltIn
 from switchAPI import Switchapi
-from xiq.defs.SwitchRestConfDefinitions import SwitchRestConfDefinitions
+from extauto.xiq.defs.SwitchRestConfDefinitions import SwitchRestConfDefinitions
 
 class Iapi:
     def __init__(self):

@@ -1,4 +1,4 @@
-from xiq.defs.AlarmsWebElementsDefs import *
+from extauto.xiq.defs.AlarmsWebElementsDefs import *
 from extauto.common.WebElementHandler import *
 
 

@@ -1,7 +1,7 @@
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
-from xiq.elements.PasswdSettingsWebElements import PasswdSettingsWebElements
+from extauto.xiq.elements.PasswdSettingsWebElements import PasswdSettingsWebElements
 
 
 class PasswdSettings(PasswdSettingsWebElements):

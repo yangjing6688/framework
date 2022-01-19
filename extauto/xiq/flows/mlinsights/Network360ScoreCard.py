@@ -2,12 +2,12 @@ from time import sleep
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from xiq.flows.manage.Devices import Devices
-from xiq.flows.manage.Client import Client
-from xiq.elements.DeviceActions import DeviceActions
-from xiq.elements.MLInsightsScoreCardWebElements import MLInsightsScoreCardWebElements
-from xiq.elements.MLInsightsWebElements import MLInsightsWebElements
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.manage.Client import Client
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.elements.MLInsightsScoreCardWebElements import MLInsightsScoreCardWebElements
+from extauto.xiq.elements.MLInsightsWebElements import MLInsightsWebElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
 class Network360ScoreCard:

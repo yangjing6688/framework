@@ -3,9 +3,9 @@ from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.extreme_guest.ExtremeGuestUsersWebElemets import ExtremeGuestUsersWebElements
-from xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.extreme_guest.ExtremeGuestUsersWebElemets import ExtremeGuestUsersWebElements
+from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
 
 
 class ExtremeGuestUsers(object):

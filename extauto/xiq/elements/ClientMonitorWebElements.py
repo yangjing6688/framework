@@ -1,4 +1,4 @@
-from xiq.defs.ClientMonitorWebElementsDefs import *
+from extauto.xiq.defs.ClientMonitorWebElementsDefs import *
 from extauto.common.WebElementHandler import *
 
 

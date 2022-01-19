@@ -1,4 +1,4 @@
-from xiq.defs.RSWebElementsDefinitions import *
+from extauto.xiq.defs.RSWebElementsDefinitions import *
 from extauto.common.WebElementHandler import WebElementHandler
 
 

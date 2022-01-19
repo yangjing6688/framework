@@ -2,9 +2,9 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
-from xiq.flows.configure.GuestPasswdSetting import GuestPasswdSetting
+from extauto.xiq.flows.configure.GuestPasswdSetting import GuestPasswdSetting
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.GuestAccessNetworkWebElements import GuestAccessNetworkWebElements
+from extauto.xiq.elements.GuestAccessNetworkWebElements import GuestAccessNetworkWebElements
 
 
 class GuestAccessNetwork(GuestAccessNetworkWebElements):

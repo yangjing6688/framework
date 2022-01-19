@@ -6,9 +6,9 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.GlobalSettingWebElements import GlobalSettingWebElements
-from xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.GlobalSettingWebElements import GlobalSettingWebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 
 
 class GlobalSetting(GlobalSettingWebElements):

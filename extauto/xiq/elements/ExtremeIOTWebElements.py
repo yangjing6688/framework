@@ -1,5 +1,5 @@
 from extauto.common.WebElementHandler import *
-from xiq.defs.ExtremeIOTWebElementsDefs import ExtremeIOTWebElementsDefs
+from extauto.xiq.defs.ExtremeIOTWebElementsDefs import ExtremeIOTWebElementsDefs
 
 
 class ExtremeIOTWebElements(ExtremeIOTWebElementsDefs):

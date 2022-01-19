@@ -1,4 +1,4 @@
-from xiq.defs.GuestPasswdSettingDefs import *
+from extauto.xiq.defs.GuestPasswdSettingDefs import *
 from extauto.common.WebElementHandler import WebElementHandler
 
 

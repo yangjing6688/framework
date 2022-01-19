@@ -7,7 +7,7 @@ import paramiko
 import subprocess
 from platform import system
 from netmiko import ConnectHandler
-from xiq.configs.device_commands import *
+from extauto.xiq.configs.device_commands import *
 
 from extauto.common.Utils import Utils
 

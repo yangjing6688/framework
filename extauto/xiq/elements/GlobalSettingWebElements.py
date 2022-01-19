@@ -1,4 +1,4 @@
-from xiq.defs.GlobalSettingWebElementDefinitions import *
+from extauto.xiq.defs.GlobalSettingWebElementDefinitions import *
 from extauto.common.WebElementHandler import *
 
 

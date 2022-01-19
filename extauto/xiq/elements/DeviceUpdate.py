@@ -1,5 +1,5 @@
 import re
-from xiq.defs.DeviceUpdateDefs import *
+from extauto.xiq.defs.DeviceUpdateDefs import *
 from extauto.common.WebElementHandler import *
 
 

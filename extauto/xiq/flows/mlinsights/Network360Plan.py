@@ -3,10 +3,10 @@ from time import sleep
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from xiq.flows.manage.Client import Client
-from xiq.flows.manage.Devices import Devices
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.Network360PlanElements import Network360PlanElements
+from extauto.xiq.flows.manage.Client import Client
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.Network360PlanElements import Network360PlanElements
 
 
 class Network360Plan:

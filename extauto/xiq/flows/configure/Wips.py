@@ -7,14 +7,14 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
 
 import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.configure.NetworkPolicy import NetworkPolicy
-from xiq.flows.configure.CommonObjects import CommonObjects
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.configure.CommonObjects import CommonObjects
+from extauto.xiq.flows.common.Navigator import Navigator
 
-from xiq.elements.WipsWebElements import WipsWebElements
-from xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
-from xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
-from xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
+from extauto.xiq.elements.WipsWebElements import WipsWebElements
+from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
+from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
+from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 
 
 class Wips(WipsWebElements):

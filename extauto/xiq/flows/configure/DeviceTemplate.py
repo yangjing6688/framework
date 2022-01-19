@@ -8,11 +8,11 @@ from extauto.common.Screen import Screen
 
 import xiq.flows.common.ToolTipCapture as tool_tip
 
-from xiq.flows.configure.NetworkPolicy import NetworkPolicy
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.common.Navigator import Navigator
 
-from xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
 class DeviceTemplate(object):

@@ -12,9 +12,9 @@ from extauto.common.AutoActions import AutoActions
 
 import xiq.flows.common.ToolTipCapture
 
-from xiq.elements.LoginWebElements import LoginWebElements
-from xiq.elements.PasswordResetWebElements import PasswordResetWebElements
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.LoginWebElements import LoginWebElements
+from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
 class Login:

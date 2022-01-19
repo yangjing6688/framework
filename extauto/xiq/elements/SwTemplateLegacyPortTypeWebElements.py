@@ -1,4 +1,4 @@
-from xiq.defs.SwTemplateLegacyPortTypeWebElementsDefinitions import *
+from extauto.xiq.defs.SwTemplateLegacyPortTypeWebElementsDefinitions import *
 from extauto.common.WebElementHandler import *
 
 class SwTemplateLegacyPortTypeWebElements(SwTemplateLegacyPortTypeWebElementDefinitions):

@@ -1,4 +1,4 @@
-from xiq.defs.CredDistrGrupWebElemntsDefs import *
+from extauto.xiq.defs.CredDistrGrupWebElemntsDefs import *
 from extauto.common.WebElementHandler import *
 
 

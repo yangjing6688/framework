@@ -1,4 +1,4 @@
-from xiq.defs.WirelessNetworksDefinitions import *
+from extauto.xiq.defs.WirelessNetworksDefinitions import *
 from extauto.common.WebElementHandler import *
 
 

@@ -2,7 +2,7 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-from xiq.elements.DeviceCommonElements import DeviceCommonElements
+from extauto.xiq.elements.DeviceCommonElements import DeviceCommonElements
 
 
 class DeviceCommon(DeviceCommonElements):

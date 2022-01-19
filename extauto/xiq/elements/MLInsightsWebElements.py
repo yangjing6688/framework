@@ -1,4 +1,4 @@
-from xiq.defs.MLInsightsDefinitions import *
+from extauto.xiq.defs.MLInsightsDefinitions import *
 from extauto.common.WebElementHandler import *
 
 

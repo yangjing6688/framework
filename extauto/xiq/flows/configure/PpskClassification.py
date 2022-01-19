@@ -3,8 +3,8 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.PpskClassificationWebElements import PpskClassificationWebElements
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.PpskClassificationWebElements import PpskClassificationWebElements
 
 
 class PpskClassification(object):
