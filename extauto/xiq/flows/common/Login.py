@@ -121,7 +121,7 @@ class Login:
             self._init(url, incognito_mode)
 
         # start the thread to capture the tool tip text
-        self.t1 = threading.Thread(target=xiq.flows.common.ToolTipCapture.tool_tip_capture, daemon=True)
+        self.t1 = threading.Thread(target=extauto.xiq.flows.common.ToolTipCapture.tool_tip_capture, daemon=True)
         self.t1.start()
 
         browser = BuiltIn().get_variable_value("${BROWSER}")
@@ -641,7 +641,7 @@ class Login:
             self._init(url, incognito_mode)
 
         # start the thread to capture the tool tip text
-        self.t1 = threading.Thread(target=xiq.flows.common.ToolTipCapture.tool_tip_capture, daemon=True)
+        self.t1 = threading.Thread(target=extauto.xiq.flows.common.ToolTipCapture.tool_tip_capture, daemon=True)
         self.t1.start()
 
         browser = BuiltIn().get_variable_value("${BROWSER}")
