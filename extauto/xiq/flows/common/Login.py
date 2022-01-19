@@ -39,7 +39,7 @@ class Login:
         """
         global driver
         self.utils = Utils()
-        if common.CloudDriver.cloud_driver == -1:
+        if extauto.common.CloudDriver.cloud_driver == -1:
             self.utils.print_info("Creating new cloud driver")
             if common.CloudDriver.load_browser(url, incognito_mode=incognito_mode) == -2:
                 assert False, "Selenium host/node  is not responding. Possible issues can be:" \
@@ -241,7 +241,7 @@ class Login:
 
             self.driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
-            common.CloudDriver.cloud_driver = -1
+            extauto.common.CloudDriver.cloud_driver = -1
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
@@ -574,7 +574,7 @@ class Login:
             self.utils.print_info("Closing Browser")
             self.driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
-            common.CloudDriver.cloud_driver = -1
+            extauto.common.CloudDriver.cloud_driver = -1
             return 1
 
         except Exception as e:

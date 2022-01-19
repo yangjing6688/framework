@@ -38,9 +38,9 @@ class XIQSE_CommonLogin():
         global driver
         self.utils = Utils()
         try:
-            if common.CloudDriver.cloud_driver == -1:
+            if extauto.common.CloudDriver.cloud_driver == -1:
                 self.utils.print_info("Creating new cloud driver")
-                common.CloudDriver.load_browser(url, program="xiqse", incognito_mode=incognito_mode)
+                extauto.common.CloudDriver.load_browser(url, program="xiqse", incognito_mode=incognito_mode)
                 self.window_index = 0
             elif window_index != 0:
                 self.utils.print_info(f"Initializing window with index: {window_index}")
@@ -307,7 +307,7 @@ class XIQSE_CommonLogin():
             self.utils.print_info("Closing Browser")
             self.driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
-            common.CloudDriver.cloud_driver = -1
+            extauto.common.CloudDriver.cloud_driver = -1
             return 1
         except Exception as e:
             self.utils.print_info("Error: ", e)
