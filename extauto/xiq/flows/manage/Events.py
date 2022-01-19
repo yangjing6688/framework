@@ -1,7 +1,7 @@
 from time import sleep
 import datetime
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 from xiq.elements.EventsWebElements import *
 from xiq.flows.manage.Devices import *
 from xiq.flows.common.Navigator import Navigator

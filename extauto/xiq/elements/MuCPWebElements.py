@@ -3,8 +3,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from xiq.defs.MuCPWebElemenetsDefinitions import *
 from time import sleep
-from common.WebElementHandler import *
-from common.Screen import *
+from extauto.common.WebElementHandler import *
+from extauto.common.Screen import *
 
 
 class MuCPWebElement(MuCPWebElementDefinitions):

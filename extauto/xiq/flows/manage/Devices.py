@@ -5,10 +5,10 @@ from datetime import datetime
 from selenium.common.exceptions import StaleElementReferenceException
 from robot.libraries.BuiltIn import BuiltIn
 from robot.libraries.String import String
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from common.Cli import Cli
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Cli import Cli
 from xiq.flows.common.Navigator import Navigator
 import xiq.flows.common.ToolTipCapture as tool_tip
 from xiq.flows.common.DeviceCommon import DeviceCommon
@@ -20,7 +20,7 @@ from xiq.elements.DialogWebElements import DialogWebElements
 from xiq.elements.DeviceActions import DeviceActions
 from xiq.elements.DeviceUpdate import DeviceUpdate
 from xiq.elements.SwitchWebElements import SwitchWebElements
-from common.Cli import Cli
+from extauto.common.Cli import Cli
 
 
 class Devices:

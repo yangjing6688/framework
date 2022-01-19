@@ -1,13 +1,13 @@
 from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 
 from xiq.flows.common.Navigator import Navigator
 import xiq.flows.common.ToolTipCapture as tool_tip
 from xiq.elements.RadioProfileWebElements import RadioProfileWebElements
 
-from common.WebElementHandler import WebElementHandler
+from extauto.common.WebElementHandler import WebElementHandler
 import common.CloudDriver
 
 class RadioProfile (RadioProfileWebElements):

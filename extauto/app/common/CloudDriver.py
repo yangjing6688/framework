@@ -8,7 +8,7 @@ from appium import webdriver as webdriver
 from selenium.webdriver.chrome.options import Options
 from robot.libraries.BuiltIn import BuiltIn
 
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 
 desired_cap = {
     "deviceName": "Google_Pixel_2_XL_real_us",

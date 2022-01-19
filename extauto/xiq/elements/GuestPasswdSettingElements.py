@@ -1,5 +1,5 @@
 from xiq.defs.GuestPasswdSettingDefs import *
-from common.WebElementHandler import WebElementHandler
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class GuestPasswdSettingElements(GuestPasswdSettingDefs):

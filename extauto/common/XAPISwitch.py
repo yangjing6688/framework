@@ -2,8 +2,8 @@ import json
 import requests
 
 
-from common.Utils import Utils
-from common.Xapi import Xapi
+from extauto.common.Utils import Utils
+from extauto.common.Xapi import Xapi
 from robot.libraries.BuiltIn import BuiltIn
 
 

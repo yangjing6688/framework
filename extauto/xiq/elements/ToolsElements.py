@@ -1,5 +1,5 @@
 from xiq.defs.ToolsUtilitiesDefs import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class ToolsElements(ToolsUtilitiesDefs):

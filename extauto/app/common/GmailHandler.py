@@ -1,4 +1,4 @@
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 from bs4 import BeautifulSoup
 import csv
 import imaplib

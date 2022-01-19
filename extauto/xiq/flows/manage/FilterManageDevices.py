@@ -8,7 +8,7 @@ from xiq.flows.configure.WirelessNetworks import *
 from xiq.flows.configure.UserGroups import *
 from xiq.flows.configure.ExpressNetworkPolicies import *
 import xiq.flows.common.ToolTipCapture as tool_tip
-from common.Screen import Screen
+from extauto.common.Screen import Screen
 
 
 class FilterManageDevices():

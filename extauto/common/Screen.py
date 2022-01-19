@@ -2,7 +2,7 @@ import time
 from PIL import Image
 
 import common.CloudDriver
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 from robot.libraries.BuiltIn import BuiltIn
 try:
     import allure

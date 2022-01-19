@@ -1,5 +1,5 @@
 from xiq.defs.A3InventoryWebElementsDefs import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class A3InventoryWebElements(A3InventoryWebElementsDefs):

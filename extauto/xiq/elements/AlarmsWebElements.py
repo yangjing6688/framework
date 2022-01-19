@@ -1,5 +1,5 @@
 from xiq.defs.AlarmsWebElementsDefs import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class AlarmsWebElements(AlarmsWebElementsDefs):

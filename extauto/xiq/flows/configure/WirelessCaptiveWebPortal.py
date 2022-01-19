@@ -2,10 +2,10 @@ import os
 import re
 from robot.libraries.BuiltIn import BuiltIn
 from time import sleep
-from common.AutoActions import AutoActions
-from common.Screen import Screen
-from common.Utils import Utils
-from common.Cli import Cli
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.Cli import Cli
 import xiq.flows.common.ToolTipCapture as tool_tip
 from xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
 

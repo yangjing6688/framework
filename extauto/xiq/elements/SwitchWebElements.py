@@ -1,6 +1,6 @@
 from xiq.defs.SwitchWebElementsDefinitions import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from extauto.common.AutoActions import *
+from extauto.common.WebElementHandler import *
 
 
 class SwitchWebElements(SwitchWebElementsDefinitions):

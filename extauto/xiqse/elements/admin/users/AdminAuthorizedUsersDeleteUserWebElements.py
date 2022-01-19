@@ -4,7 +4,7 @@
 # form or fashion without the written consent of Extreme Networks Inc.
 # ----------------------------------------------------------------------
 #
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 from xiqse.defs.admin.users.AdminAuthorizedUsersDeleteUserWebElementsDefinitions import *
 
 

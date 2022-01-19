@@ -1,6 +1,6 @@
 from time import sleep
-from common.Utils import Utils
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
 from xiq.elements.ApplicationSpecificSearchWebElements import ApplicationSpecificSearchWebElements
 from xiq.elements.ApSpecificSearchWebElements import ApSpecificSearchWebElements
 

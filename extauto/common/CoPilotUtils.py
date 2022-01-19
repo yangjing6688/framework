@@ -1,7 +1,7 @@
 import re
 
-from common.Cli import Cli
-from common.Utils import Utils
+from extauto.common.Cli import Cli
+from extauto.common.Utils import Utils
 
 
 class CoPilotUtils(Cli):

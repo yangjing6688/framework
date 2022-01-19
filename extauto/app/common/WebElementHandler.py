@@ -1,6 +1,6 @@
 import os
-import app.common.CloudDriver
-from common.Utils import Utils
+import extauto.app.common.CloudDriver
+from extauto.common.Utils import Utils
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec

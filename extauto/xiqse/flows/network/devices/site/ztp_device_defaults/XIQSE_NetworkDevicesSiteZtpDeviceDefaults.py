@@ -4,9 +4,9 @@
 # form or fashion without the written consent of Extreme Networks Inc.
 # ----------------------------------------------------------------------
 #
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 from xiqse.elements.common.CommonViewWebElements import CommonViewWebElements
 from xiqse.elements.network.devices.site.ztp_device_defaults.NetworkDevicesSiteZtpDeviceDefaultsWebElements import NetworkDevicesSiteZtpDeviceDefaultsWebElements
 from xiqse.flows.common.XIQSE_CommonField import XIQSE_CommonField

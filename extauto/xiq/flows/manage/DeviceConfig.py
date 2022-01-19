@@ -1,14 +1,14 @@
 from time import sleep
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
 import xiq.flows.common.ToolTipCapture as tool_tip
 from xiq.flows.common.Navigator import Navigator
 from xiq.elements.DeviceConfigElements import DeviceConfigElements
 from xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from xiq.flows.common.DeviceCommon import DeviceCommon
 
-from common.WebElementHandler import WebElementHandler
+from extauto.common.WebElementHandler import WebElementHandler
 import common.CloudDriver
 
 

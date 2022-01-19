@@ -7,8 +7,8 @@ from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import ElementNotInteractableException
-from common.Utils import Utils
-from common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
 import common.CloudDriver
 
 

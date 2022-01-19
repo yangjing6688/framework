@@ -1,5 +1,5 @@
 from xiq.defs.NavigatorWebElementDefinitions import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class NavigatorWebElements(NavigatorWebElementDefinitions):

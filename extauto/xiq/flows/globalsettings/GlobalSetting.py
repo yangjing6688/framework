@@ -1,9 +1,9 @@
 import re
 import datetime
 from time import sleep
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
 import xiq.flows.common.ToolTipCapture as tool_tip
 from xiq.flows.common.Navigator import Navigator

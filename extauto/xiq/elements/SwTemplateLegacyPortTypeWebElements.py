@@ -1,5 +1,5 @@
 from xiq.defs.SwTemplateLegacyPortTypeWebElementsDefinitions import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 class SwTemplateLegacyPortTypeWebElements(SwTemplateLegacyPortTypeWebElementDefinitions):
     def __init__(self):

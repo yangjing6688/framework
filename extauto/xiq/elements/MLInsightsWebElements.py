@@ -1,5 +1,5 @@
 from xiq.defs.MLInsightsDefinitions import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class MLInsightsWebElements(MLInsightsDefinitions):

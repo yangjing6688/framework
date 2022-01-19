@@ -1,8 +1,8 @@
 from xiqse.elements.network.devices.devices.NetworkDevicesDevicesUpgradeFirmwareWebElements import NetworkDevicesDevicesUpgradeFirmwareWebElements
-from common.Cli import *
-from common.Screen import Screen
-from common.AutoActions import AutoActions
-from common.WebElementHandler import *
+from extauto.common.Cli import *
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import *
 
 
 class XIQSE_NetworkDevicesDevicesUpgradeFirmware(NetworkDevicesDevicesUpgradeFirmwareWebElements):

@@ -1,5 +1,5 @@
 from xiq.defs.extreme_location.ExtremeLocationWebElementsDefs import ExtremeLocationWebElementsDefs
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):

@@ -1,12 +1,12 @@
 from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 from xiqse.elements.control.access_control.ControlAccessControlAddRemoveWebElements import ControlAccessControlAddRemoveWebElements
 from xiqse.elements.control.access_control.ControlAccessControlCommonWebElements import ControlAccessControlCommonWebElements
 from xiqse.elements.control.access_control.ControlAccessControlPanelWebElements import ControlAccessControlPanelWebElements
-from common.AutoActions import *
-from common.WebElementHandler import *
+from extauto.common.AutoActions import *
+from extauto.common.WebElementHandler import *
 
 class XIQSE_AccessControlAddRemove(ControlAccessControlAddRemoveWebElements):
 

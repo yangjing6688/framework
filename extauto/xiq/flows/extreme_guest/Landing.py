@@ -1,7 +1,7 @@
 import common.CloudDriver
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
 from xiq.flows.common.Navigator import Navigator
 from xiq.elements.extreme_guest.ExtremeGuestLandingWebElements import ExtremeGuestLandingWebElements
 from xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest

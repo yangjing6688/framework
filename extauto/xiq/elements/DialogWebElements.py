@@ -1,5 +1,5 @@
 from xiq.defs.DialogWebElementsDefinitions import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class DialogWebElements(DialogWebElementsDefinitions):

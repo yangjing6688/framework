@@ -1,5 +1,5 @@
 from xiq.defs.AccntMgmtWebElementsDefs import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class AccntMgmtWebElements(AccntMgmtWebElementsDefs):

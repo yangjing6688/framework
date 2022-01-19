@@ -1,7 +1,7 @@
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 from xiq.flows.manage.Location import *
 from xiq.flows.manage.Device360 import Device360
-from common.Cli import Cli
+from extauto.common.Cli import Cli
 from robot.libraries.String import String
 
 class WiredLib():

@@ -1,8 +1,8 @@
 from time import sleep
 import common.CloudDriver
-from common.AutoActions import AutoActions
-from common.GmailHandler import GmailHandler
-from common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.common.GmailHandler import GmailHandler
+from extauto.common.Utils import Utils
 import xiq.flows.common.ToolTipCapture as tool_tip
 from xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 

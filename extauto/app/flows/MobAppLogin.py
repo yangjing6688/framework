@@ -1,5 +1,5 @@
 from appium.webdriver.common.touch_action import TouchAction
-import app.common.CloudDriver
+import extauto.app.common.CloudDriver
 from app.elements.MobAppLoginWebElements import *
 from app.elements.NewDeviceOnboardWebElements import *
 from app.common.AutoActions import *

@@ -1,4 +1,4 @@
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 from xiqse.defs.network.common.configure_device.NetworkCommonConfigureDeviceImportSiteConfigWebElementsDefinitions import *
 
 

@@ -1,9 +1,9 @@
 import re
 from time import sleep
 import common.CloudDriver
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
 from xiq.flows.common.Navigator import Navigator
 from xiq.elements.AdspWebElements import AdspWebElements
 

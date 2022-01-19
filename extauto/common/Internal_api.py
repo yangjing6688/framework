@@ -1,8 +1,8 @@
 import json
 import pycurl
 from io import StringIO
-from common.Utils import Utils
-from common.Cli import Cli
+from extauto.common.Utils import Utils
+from extauto.common.Cli import Cli
 from robot.libraries.BuiltIn import BuiltIn
 from io import BytesIO
 import base64

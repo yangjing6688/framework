@@ -1,8 +1,8 @@
 from time import sleep
 
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 
 from xiq.flows.manage.Devices import Devices
 

@@ -1,5 +1,5 @@
 from xiq.defs.UserGroupsWebElementsDefinitions import *
-from common.WebElementHandler import WebElementHandler
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class UserGroupsWebElements(UserGroupsWebElementsDefinitions):

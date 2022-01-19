@@ -7,8 +7,8 @@ import requests
 from io import BytesIO
 from io import StringIO
 
-from common.Utils import Utils
-from common.Cli import Cli
+from extauto.common.Utils import Utils
+from extauto.common.Cli import Cli
 
 from robot.libraries.BuiltIn import BuiltIn
 

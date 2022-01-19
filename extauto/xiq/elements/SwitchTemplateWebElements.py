@@ -1,5 +1,5 @@
 from xiq.defs.SwitchTemplateWebElementsDefinitions import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):

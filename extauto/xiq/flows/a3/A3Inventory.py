@@ -2,9 +2,9 @@ import json
 import requests
 from time import sleep
 import common.CloudDriver
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import *
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import *
 from xiq.flows.common.Navigator import Navigator
 from xiq.elements.A3InventoryWebElements import A3InventoryWebElements
 

@@ -2,7 +2,7 @@ import re
 import random
 import string
 from datetime import datetime, timedelta
-from common.Logging import Logging
+from extauto.common.Logging import Logging
 from robot.libraries.BuiltIn import BuiltIn
 from selenium.common.exceptions import NoSuchElementException
 from robot.libraries.String import String

@@ -1,5 +1,5 @@
 from xiq.defs.ApplicationSpecificSearchWebElementsDefinition import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 class  ApplicationSpecificSearchWebElements(ApplicationSpecificSearchWebElementsDefinition):
     def __init__(self):

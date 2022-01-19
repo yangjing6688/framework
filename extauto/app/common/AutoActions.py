@@ -2,9 +2,9 @@ from time import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from common.Utils import *
-from common.Screen import *
-import app.common.CloudDriver
+from extauto.common.Utils import *
+from extauto.common.Screen import *
+import extauto.app.common.CloudDriver
 
 
 class AutoActions:

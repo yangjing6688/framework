@@ -1,5 +1,5 @@
 from xiq.defs.PasswdSettingsWebElementsDefinitions import *
-from common.WebElementHandler import WebElementHandler
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class PasswdSettingsWebElements(PasswdSettingsWebElementsDefinitions):

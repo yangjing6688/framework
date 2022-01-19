@@ -2,9 +2,9 @@ from time import sleep
 from selenium.webdriver.common.keys import Keys
 
 import common.CloudDriver
-from common.AutoActions import AutoActions
-from common.Utils import Utils
-from common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
 
 import xiq.flows.common.ToolTipCapture as tool_tip
 

@@ -1,7 +1,7 @@
 from time import sleep
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
 import xiq.flows.common.ToolTipCapture as tool_tip
 from xiq.elements.RSWebElements import RSWebElements
 

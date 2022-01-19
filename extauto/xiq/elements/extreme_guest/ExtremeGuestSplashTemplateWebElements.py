@@ -1,5 +1,5 @@
 from xiq.defs.extreme_guest.ExtremeGuestSplashTemplateWebElementsDefs import ExtremeGuestSplashTemplateWebElementsDefs
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class ExtremeGuestSplashTemplateWebElements(ExtremeGuestSplashTemplateWebElementsDefs):

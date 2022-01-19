@@ -3,8 +3,8 @@ from string import Template
 
 import common.CloudDriver
 from string import Template
-from common.Utils import Utils
-from common.ImageHandler import ImageHandler
+from extauto.common.Utils import Utils
+from extauto.common.ImageHandler import ImageHandler
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec

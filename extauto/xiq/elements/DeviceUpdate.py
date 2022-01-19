@@ -1,6 +1,6 @@
 import re
 from xiq.defs.DeviceUpdateDefs import *
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class DeviceUpdate(DeviceUpdateDefs):

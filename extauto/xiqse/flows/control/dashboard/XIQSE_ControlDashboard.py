@@ -2,8 +2,8 @@ from xiqse.elements.control.ControlWebElements import ControlWebElements
 from xiqse.elements.control.access_control.ControlAccessControlCommonWebElements import ControlAccessControlCommonWebElements
 from xiqse.elements.control.dashboard.ControlDashboardWebElements import ControlDashboardWebElements
 
-from common.AutoActions import *
-from common.WebElementHandler import *
+from extauto.common.AutoActions import *
+from extauto.common.WebElementHandler import *
 
 class XIQSE_ControlDashboard(ControlDashboardWebElements):
 

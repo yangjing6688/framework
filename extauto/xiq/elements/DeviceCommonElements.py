@@ -1,5 +1,5 @@
 from xiq.defs.DeviceCommonDefs import DeviceCommonDefs
-from common.WebElementHandler import WebElementHandler
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DeviceCommonElements(DeviceCommonDefs):

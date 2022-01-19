@@ -1,5 +1,5 @@
 from xiq.defs.extreme_guest.ExtremeGuestDashboardWebElementsDefs import ExtremeGuestDashboardWebElementsDefs
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 
 
 class ExtremeGuestDashboardWebElements(ExtremeGuestDashboardWebElementsDefs):

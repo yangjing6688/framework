@@ -1,9 +1,9 @@
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
 
 from xiq.flows.manage.Devices import Devices
 from xiq.flows.common.Navigator import Navigator

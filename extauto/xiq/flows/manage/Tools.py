@@ -1,10 +1,10 @@
 from time import sleep
 
 import common.CloudDriver
-from common.Cli import *
-from common.Screen import Screen
-from common.AutoActions import AutoActions
-from common.WebElementHandler import *
+from extauto.common.Cli import *
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import *
 
 from xiq.elements.ToolsElements import ToolsElements
 from xiq.elements.NavigatorWebElements import NavigatorWebElements

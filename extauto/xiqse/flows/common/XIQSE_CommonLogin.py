@@ -9,9 +9,9 @@ from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
 import common.CloudDriver
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
 
 from xiqse.elements.common.CommonAccountWebElements import CommonAccountWebElements
 from xiqse.elements.common.CommonErrorWebElements import CommonErrorWebElements

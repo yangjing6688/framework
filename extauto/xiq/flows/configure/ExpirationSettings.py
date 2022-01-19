@@ -1,4 +1,4 @@
-from common.AutoActions import *
+from extauto.common.AutoActions import *
 from xiq.elements.ExpSettingsWebElements import ExpSettingsWebElements
 
 

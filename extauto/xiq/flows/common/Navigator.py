@@ -1,8 +1,8 @@
 from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.WebElementHandler import *
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.WebElementHandler import *
+from extauto.common.AutoActions import AutoActions
 from xiq.elements.NavigatorWebElements import NavigatorWebElements
 from xiq.flows.common.DeviceCommon import DeviceCommon
 
