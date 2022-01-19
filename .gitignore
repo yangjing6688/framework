@@ -24,3 +24,14 @@ venv
 *.libspecs
 /.pytest_cache/
 /PytestPlugins
+
+*.png
+*.xml
+*.pyc
+.idea
+.idea/deployment.xml
+.idea/workspace.xml
+.idea/modules.xml
+.idea/xauto.iml
+.idea/extauto.iml
+
