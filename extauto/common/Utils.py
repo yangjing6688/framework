@@ -5,14 +5,12 @@ from datetime import datetime, timedelta
 from extauto.common.Logging import Logging
 from robot.libraries.BuiltIn import BuiltIn
 from selenium.common.exceptions import NoSuchElementException
-from robot.libraries.String import String
 import time
 
 
 class Utils:
     def __init__(self):
         self.logger = Logging().get_logger()
-        self.string = String()
 
     def get_config_value(self, conf_str):
         """
@@ -875,7 +873,37 @@ class Utils:
         :return:
         '''
 
-        row = self.string.get_regexp_matches(str, pattern, 1)
-        row = list(map(int, row))
+        row = self.get_regexp_matches(str, pattern, 1)
         date = datetime(row[0], row[1], row[2], row[3], row[4], row[5])
         return date
+    
+    def get_regexp_matches(self, string, pattern, *groups):
+        """Returns a list of all non-overlapping matches in the given string.
+
+        ``string`` is the string to find matches from and ``pattern`` is the
+        regular expression. See `BuiltIn.Should Match Regexp` for more
+        information about Python regular expression syntax in general and how
+        to use it in Robot Framework test data in particular.
+
+        If no groups are used, the returned list contains full matches. If one
+        group is used, the list contains only contents of that group. If
+        multiple groups are used, the list contains tuples that contain
+        individual group contents. All groups can be given as indexes (starting
+        from 1) and named groups also as names.
+
+        Examples:
+        | ${no match} =    | Get Regexp Matches | the string | xxx     |
+        | ${matches} =     | Get Regexp Matches | the string | t..     |
+        | ${one group} =   | Get Regexp Matches | the string | t(..)   | 1 |
+        | ${named group} = | Get Regexp Matches | the string | t(?P<name>..) | name |
+        | ${two groups} =  | Get Regexp Matches | the string | t(.)(.) | 1 | 2 |
+        =>
+        | ${no match} = []
+        | ${matches} = ['the', 'tri']
+        | ${one group} = ['he', 'ri']
+        | ${named group} = ['he', 'ri']
+        | ${two groups} = [('h', 'e'), ('r', 'i')]
+        """
+        regexp = re.compile(pattern)
+        groups = [self._parse_group(g) for g in groups]
+        return [m.group(*groups) for m in regexp.finditer(string)]
