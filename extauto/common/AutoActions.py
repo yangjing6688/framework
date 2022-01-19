@@ -9,7 +9,7 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import ElementNotInteractableException
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-import common.CloudDriver
+import extauto.common.CloudDriver
 
 
 class AutoActions:

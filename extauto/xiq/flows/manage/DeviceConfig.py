@@ -9,7 +9,7 @@ from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElemen
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
 from extauto.common.WebElementHandler import WebElementHandler
-import common.CloudDriver
+import extauto.common.CloudDriver
 
 
 class DeviceConfig(DeviceConfigElements):

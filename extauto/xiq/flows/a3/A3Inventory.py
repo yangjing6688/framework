@@ -1,7 +1,7 @@
 import json
 import requests
 from time import sleep
-import common.CloudDriver
+import extauto.common.CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import *

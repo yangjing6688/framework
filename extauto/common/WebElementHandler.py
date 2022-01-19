@@ -1,7 +1,7 @@
 import os
 from string import Template
 
-import common.CloudDriver
+import extauto.common.CloudDriver
 from string import Template
 from extauto.common.Utils import Utils
 from extauto.common.ImageHandler import ImageHandler

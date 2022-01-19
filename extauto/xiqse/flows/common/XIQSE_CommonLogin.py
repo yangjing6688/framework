@@ -8,7 +8,7 @@ import re
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-import common.CloudDriver
+import extauto.common.CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions

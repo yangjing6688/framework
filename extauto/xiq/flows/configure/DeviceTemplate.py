@@ -1,7 +1,7 @@
 from time import sleep
 from selenium.webdriver.common.keys import Keys
 
-import common.CloudDriver
+import extauto.common.CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
