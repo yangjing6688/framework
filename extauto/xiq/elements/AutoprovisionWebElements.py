@@ -1,5 +1,5 @@
-from xiq.defs.APPElementDefs import *
-from common.WebElementHandler import *
+from extauto.xiq.defs.APPElementDefs import *
+from extauto.common.WebElementHandler import *
 
 
 class AutoprovisionWebElements(APPElementDefs):

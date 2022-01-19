@@ -4,23 +4,22 @@ from time import sleep
 from datetime import datetime
 from selenium.common.exceptions import StaleElementReferenceException
 from robot.libraries.BuiltIn import BuiltIn
-from robot.libraries.String import String
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from common.Cli import Cli
-from xiq.flows.common.Navigator import Navigator
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from xiq.flows.common.Login import Login
-from xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Cli import Cli
+from extauto.xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
+from extauto.xiq.flows.common.Login import Login
+from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 
-from xiq.elements.DevicesWebElements import DevicesWebElements
-from xiq.elements.DialogWebElements import DialogWebElements
-from xiq.elements.DeviceActions import DeviceActions
-from xiq.elements.DeviceUpdate import DeviceUpdate
-from xiq.elements.SwitchWebElements import SwitchWebElements
-from common.Cli import Cli
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
+from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
+from extauto.common.Cli import Cli
 
 
 class Devices:
@@ -40,7 +39,6 @@ class Devices:
         self.screen = Screen()
         self.robot_built_in = BuiltIn()
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
-        self.string = String()
         self.login = Login()
         self.cli = Cli()
 
@@ -4934,7 +4932,7 @@ class Devices:
     def wait_until_device_removed(self, device_serial=None, device_name=None, device_mac=None, retry_duration=10,
                                   retry_count=30):
         """
-        - This keyword is used to wait for the device to be removed from XIQ.
+        - This keyword is used to wait for the device to be removed from extauto.xiq.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists
         - Flow:
          - Navigate to Manage --> Devices
@@ -7644,7 +7642,7 @@ class Devices:
         self.utils.print_info(output_cmd3)
         self.utils.print_info(output_cmd4)
         pattern = vhm_id + "\\s+\\|\\s+(\\d+)"
-        max_devices = self.string.get_regexp_matches(output_cmd4, pattern, 1)
+        max_devices = self.utils.get_regexp_matches(output_cmd4, pattern, 1)
         self.utils.print_info(max_devices)
         self.cli.close_spawn(spawn)
         return max_devices[0]
@@ -7685,8 +7683,8 @@ class Devices:
 
         pattern1 = "\\d+\\s+\\|\\s+(\\d+)\\s+\\|\\s+\\w+"
         pattern2 = "\\d+\\s+\\|\\s+\\d+\\s+\\|\\s+(\\w+)"
-        update_time = self.string.get_regexp_matches(output_cmd3, pattern1, 1)
-        update_unit = self.string.get_regexp_matches(output_cmd3, pattern2, 1)
+        update_time = self.u.get_regexp_matches(output_cmd3, pattern1, 1)
+        update_unit = self.utils.get_regexp_matches(output_cmd3, pattern2, 1)
         self.utils.print_info(update_time[0])
         self.utils.print_info(update_unit[0])
         self.cli.close_spawn(spawn)
@@ -8453,7 +8451,7 @@ class Devices:
             self.utils.print_info(output_cmd2)
             self.utils.print_info(output_cmd3)
             pattern1 = "\\((\\d+)\\s+row"
-            rows = self.string.get_regexp_matches(output_cmd3, pattern1, 1)
+            rows = self.utils.get_regexp_matches(output_cmd3, pattern1, 1)
             self.utils.print_info(rows)
             self.cli.close_spawn(spawn)
             if int(rows[0]) == 1:

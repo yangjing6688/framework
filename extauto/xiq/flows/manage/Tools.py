@@ -1,18 +1,18 @@
 from time import sleep
 
-import common.CloudDriver
-from common.Cli import *
-from common.Screen import Screen
-from common.AutoActions import AutoActions
-from common.WebElementHandler import *
+import extauto.common.CloudDriver
+from extauto.common.Cli import *
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import *
 
-from xiq.elements.ToolsElements import ToolsElements
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
-from xiq.elements.DialogWebElements import DialogWebElements
-from xiq.elements.Device360WebElements import Device360WebElements
+from extauto.xiq.elements.ToolsElements import ToolsElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
-from xiq.flows.manage.Devices import Devices
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.common.Navigator import Navigator
 
 
 class Tools:
@@ -28,7 +28,7 @@ class Tools:
         self.cli = Cli()
         self.builtin = BuiltIn()
         self.web = WebElementHandler()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def get_neighbor_info(self, serial, mac):
         self.navigator.navigate_to_tools_page()

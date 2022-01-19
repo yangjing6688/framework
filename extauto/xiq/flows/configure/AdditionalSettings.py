@@ -1,12 +1,12 @@
 from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 
-from xiq.flows.common.Navigator import Navigator
-from xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 
-from xiq.elements.AdditionalSettingsWebElements import AdditionalSettingsWebElements
+from extauto.xiq.elements.AdditionalSettingsWebElements import AdditionalSettingsWebElements
 
 
 class AdditionalSettings(AdditionalSettingsWebElements):

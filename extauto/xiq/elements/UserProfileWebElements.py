@@ -1,5 +1,5 @@
-from xiq.defs.UserProfileWebElementsDef import *
-from common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.UserProfileWebElementsDef import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class UserProfileWebElements(UserProfileWebElementsDef):

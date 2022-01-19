@@ -1,8 +1,8 @@
 import time
 from PIL import Image
 
-import common.CloudDriver
-from common.Utils import Utils
+import extauto.common.CloudDriver
+from extauto.common.Utils import Utils
 from robot.libraries.BuiltIn import BuiltIn
 try:
     import allure
@@ -14,7 +14,7 @@ except:
 class Screen:
     def __init__(self):
         self.utils = Utils()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def add_screen_shot_to_allure(self, file_name, driver):
         try:

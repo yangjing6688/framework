@@ -1,9 +1,9 @@
 from time import sleep
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.MLInsightsWebElements import MLInsightsWebElements
-from xiq.elements.DialogWebElements import *
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.MLInsightsWebElements import MLInsightsWebElements
+from extauto.xiq.elements.DialogWebElements import *
 
 
 class MLInsights:

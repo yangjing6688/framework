@@ -1,14 +1,14 @@
 from time import sleep
 
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
 
-from xiq.flows.common.Navigator import Navigator
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 
-from xiq.elements.RouterTemplateWebElements import *
+from extauto.xiq.elements.RouterTemplateWebElements import *
 
 
 class RouterTemplate(RouterTemplateWebElements):

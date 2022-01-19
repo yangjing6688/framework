@@ -1,6 +1,6 @@
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 from xiqse.elements.network.devices.tree_panel.NetworkDevicesTreePanelCreateSiteWebElements import NetworkDevicesTreePanelCreateSiteWebElements
 
 class XIQSE_NetworkDevicesTreePanelCreateSite(NetworkDevicesTreePanelCreateSiteWebElements):

@@ -1,13 +1,13 @@
 import cv2
 import time
-import common.CloudDriver
+import extauto.common.CloudDriver
 from selenium.webdriver.common.action_chains import ActionChains
 
 
 class ImageHandler:
     def __init__(self):
         self.method = cv2.TM_SQDIFF_NORMED
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         # 'cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR',
         # 'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED'
 

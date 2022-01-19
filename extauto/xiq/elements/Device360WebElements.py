@@ -1,5 +1,5 @@
-from xiq.defs.Device360WebElementDefs import *
-from common.WebElementHandler import *
+from extauto.xiq.defs.Device360WebElementDefs import *
+from extauto.common.WebElementHandler import *
 
 
 class Device360WebElements(Device360WebElementDefs):

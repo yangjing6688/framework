@@ -1,5 +1,5 @@
-from xiq.defs.ClassificationRuleWebElementDefinition import *
-from common.WebElementHandler import *
+from extauto.xiq.defs.ClassificationRuleWebElementDefinition import *
+from extauto.common.WebElementHandler import *
 
 
 class ClassificationRuleWebElements(ClassificationRuleWebElementDefinition):

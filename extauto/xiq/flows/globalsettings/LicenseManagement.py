@@ -1,16 +1,16 @@
 import re
 from time import sleep
 
-import common.CloudDriver
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.flows.common.Login import Login
-from xiq.elements.LicenseManagementWebElements import LicenseManagementWebElements
-from xiq.elements.LoginWebElements import LoginWebElements
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
-from common.CloudDriver import *
+import extauto.common.CloudDriver
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.common.Login import Login
+from extauto.xiq.elements.LicenseManagementWebElements import LicenseManagementWebElements
+from extauto.xiq.elements.LoginWebElements import LoginWebElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.common.CloudDriver import *
 
 
 class LicenseManagement(LicenseManagementWebElements):
@@ -24,7 +24,7 @@ class LicenseManagement(LicenseManagementWebElements):
         self.lic_mgt_web_elements = LicenseManagementWebElements()
         self.login_web_elements = LoginWebElements()
         self.nav_web_elements = NavigatorWebElements()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def open_license_management_page(self):
         """

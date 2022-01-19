@@ -1,5 +1,5 @@
-from common.WebElementHandler import *
-from xiq.defs.MLInsightsClient360Definitions import *
+from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.MLInsightsClient360Definitions import *
 
 
 class MLInsightsClients360WebElements(MLInsightsClient360Definitions):

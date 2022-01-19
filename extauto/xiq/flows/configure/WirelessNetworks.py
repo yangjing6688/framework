@@ -1,13 +1,13 @@
 from time import sleep
-from common.AutoActions import AutoActions
-from common.Screen import Screen
-from common.Utils import Utils
-from xiq.flows.configure.WirelessCaptiveWebPortal import WirelessCaptiveWebPortal
-from xiq.flows.configure.GuestAccessNetwork import GuestAccessNetwork
-from xiq.flows.configure.UserGroups import UserGroups
-from xiq.flows.configure.RadiusServer import RadiusServer
-from xiq.elements.WirelessWebElements import WirelessWebElements
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.xiq.flows.configure.WirelessCaptiveWebPortal import WirelessCaptiveWebPortal
+from extauto.xiq.flows.configure.GuestAccessNetwork import GuestAccessNetwork
+from extauto.xiq.flows.configure.UserGroups import UserGroups
+from extauto.xiq.flows.configure.RadiusServer import RadiusServer
+from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
 class WirelessNetworks:

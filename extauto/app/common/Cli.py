@@ -8,9 +8,9 @@ import subprocess
 from platform import system
 from netmiko import ConnectHandler
 from pexpect.pxssh import ExceptionPxssh
-from xiq.configs.device_commands import *
+from extauto.xiq.configs.device_commands import *
 
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 
 if "Window" not in system():
     from pexpect import pxssh

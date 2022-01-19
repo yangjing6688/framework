@@ -1,7 +1,7 @@
 import cv2
 import os
-from common.Utils import Utils
-from common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
 
 class ImageAnalysis:
     def __init__(self):

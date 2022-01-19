@@ -1,6 +1,6 @@
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 from xiqse.flows.common.XIQSE_CommonTable import XIQSE_CommonTable
 from xiqse.elements.network.devices.devices.NetworkDevicesDevicesInventorySettingsWebElements import NetworkDevicesDevicesInventorySettingsWebElements
 

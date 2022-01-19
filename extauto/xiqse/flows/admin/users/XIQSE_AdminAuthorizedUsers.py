@@ -5,9 +5,9 @@
 # ----------------------------------------------------------------------
 #
 from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 from xiqse.elements.admin.users.AdminAuthorizedUsersWebElements import AdminAuthorizedUsersWebElements
 from xiqse.flows.admin.users.XIQSE_AdminAuthorizedUsersDeleteUser import XIQSE_AdminAuthorizedUsersDeleteUser
 from xiqse.flows.common.XIQSE_CommonNavigator import XIQSE_CommonNavigator

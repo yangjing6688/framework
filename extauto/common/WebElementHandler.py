@@ -1,10 +1,10 @@
 import os
 from string import Template
 
-import common.CloudDriver
+import extauto.common.CloudDriver
 from string import Template
-from common.Utils import Utils
-from common.ImageHandler import ImageHandler
+from extauto.common.Utils import Utils
+from extauto.common.ImageHandler import ImageHandler
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -18,7 +18,7 @@ class WebElementHandler:
         self.utils = Utils()
         self.delay = BuiltIn().get_variable_value('${ELEMENT_DELAY}')
         self.desc = None
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.image_handler = ImageHandler()
         self.locator = {"CSS_SELECTOR": By.CSS_SELECTOR,
                          "XPATH": By.XPATH,

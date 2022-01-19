@@ -2,14 +2,14 @@ from time import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from common.Utils import *
-from common.Screen import *
-import app.common.CloudDriver
+from extauto.common.Utils import *
+from extauto.common.Screen import *
+import extauto.common.CloudDriver
 
 
 class AutoActions:
     def __init__(self):
-        self.driver = app.common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.retries = 3
         self.utils = Utils()
         self.screen = Screen()

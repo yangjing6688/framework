@@ -1,15 +1,13 @@
-from common.Utils import Utils
-from xiq.flows.manage.Location import *
-from xiq.flows.manage.Device360 import Device360
-from common.Cli import Cli
-from robot.libraries.String import String
+from extauto.common.Utils import Utils
+from extauto.xiq.flows.manage.Location import *
+from extauto.xiq.flows.manage.Device360 import Device360
+from extauto.common.Cli import Cli
 
 class WiredLib():
     def __init__(self):
         super().__init__()
         self.utils = Utils()
         self.cli = Cli()
-        self.string = String()
         self.device360 = Device360()
 
     def configure_port_duplex_cli(self, range_ports_start, range_ports_end, sw_spawn, operate,speed=100):
@@ -51,11 +49,11 @@ class WiredLib():
         '''
         for cnt in range(int(range_ports_start), int(range_ports_end) + 1):
             result = self.cli.send(sw_spawn, "sh ports {} configuration no-refresh".format(cnt))
-            operate_state = self.string.get_regexp_matches(result,
+            operate_state = self.utils.get_regexp_matches(result,
                         "\\d+\\s+[\\w-]+\\s\\w\\s+(\\w+)\\s+", 1)
-            operate_duplex_config = self.string.get_regexp_matches(result,
+            operate_duplex_config = self.utils.get_regexp_matches(result,
                         "\\d+\\s+[\\w-]+\\s+\\w\\s+\\w+\\s+\\w+\\s+\\w+\\s+(\\d+||\\s+)\\s+(\\w+)",2)
-            operate_duplex_actual = self.string.get_regexp_matches(result,
+            operate_duplex_actual = self.utils.get_regexp_matches(result,
                         "\\d+\\s+[\\w-]+\\s+\\w\\s+\\w+\\s+\\w+\\s+\\w+\\s+(\\d+||\\s+)\\s+(\\w+)\\s(\\w+||\\s+)",3)
             cnt_str = str(cnt)
             operate_state_str = str(operate_state[0])
@@ -97,7 +95,7 @@ class WiredLib():
         """
         if device_make.lower() == "exos":
             result = self.cli.send(sw_spawn, "show vlan description ")
-            vlan_list = self.string.get_regexp_matches(result, "\\w+\\s+(\\d+)\\s+", 1)
+            vlan_list = self.utils.get_regexp_matches(result, "\\w+\\s+(\\d+)\\s+", 1)
             self.utils.print_info("",vlan_list)
             if vlan in vlan_list:
                 self.utils.print_info("Vlan {} found in CLI".format(vlan))
@@ -107,7 +105,7 @@ class WiredLib():
                 return -1
         elif device_make.lower() == "voss":
             result = self.cli.send(sw_spawn, "show vlan name")
-            vlan_list = self.string.get_regexp_matches(result, "(\\d+)\\s+\\d+\\s+[\\w\\-]+", 1)
+            vlan_list = self.utils.get_regexp_matches(result, "(\\d+)\\s+\\d+\\s+[\\w\\-]+", 1)
             if vlan in vlan_list:
                 self.utils.print_info("Vlan {} found in CLI".format(vlan))
                 return 1

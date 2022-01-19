@@ -1,4 +1,4 @@
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 from xiqse.defs.network.firmware.NetworkFirmwareWebElementsDefinitions import *
 import re
 

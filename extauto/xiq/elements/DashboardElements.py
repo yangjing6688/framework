@@ -1,5 +1,5 @@
-from common.WebElementHandler import WebElementHandler
-from xiq.defs.DashboardDefinitions import DashboardDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.DashboardDefinitions import DashboardDefinitions
 
 
 class DashboardElements:

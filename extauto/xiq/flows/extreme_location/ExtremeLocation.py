@@ -1,11 +1,11 @@
 import re
 from time import sleep
-import common.CloudDriver
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.extreme_location.ExtremeLocationWebElements import ExtremeLocationWebElements
+import extauto.common.CloudDriver
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.extreme_location.ExtremeLocationWebElements import ExtremeLocationWebElements
 from selenium.common.exceptions import *
 
 
@@ -13,7 +13,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()

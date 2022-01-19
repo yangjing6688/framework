@@ -1,18 +1,18 @@
 import re
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from xiq.flows.manage.Devices import Devices
-from xiq.elements.DevicesWebElements import DevicesWebElements
-from xiq.elements.DialogWebElements import DialogWebElements
-from xiq.elements.DeviceActions import DeviceActions
-from xiq.elements.DeviceUpdate import DeviceUpdate
-from xiq.elements.SwitchWebElements import SwitchWebElements
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
+from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 
 
 class DevicesActions:

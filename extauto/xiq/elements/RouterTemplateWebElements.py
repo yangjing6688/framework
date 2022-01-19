@@ -1,5 +1,5 @@
-from xiq.defs.RouterTemplateWebElementsDefinitions import *
-from common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.RouterTemplateWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class RouterTemplateWebElements(RouterTemplateWebElementsDefinitions):

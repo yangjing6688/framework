@@ -1,16 +1,16 @@
 import re
 from time import sleep
 
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
 
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.common.Navigator import Navigator
-from xiq.flows.configure.NetworkPolicy import NetworkPolicy
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 
-from xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
-from xiq.elements.ClassificationRuleWebElements  import ClassificationRuleWebElements
+from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
+from extauto.xiq.elements.ClassificationRuleWebElements  import ClassificationRuleWebElements
 
 
 class ClassificationRule(object):

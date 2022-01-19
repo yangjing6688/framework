@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from robot.libraries.BuiltIn import BuiltIn
 from urllib3.exceptions import MaxRetryError
 
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 
 
 cloud_driver = -1

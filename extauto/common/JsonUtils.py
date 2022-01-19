@@ -1,5 +1,5 @@
 import json
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 
 
 class JsonUtils:

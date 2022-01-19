@@ -1,15 +1,15 @@
 from time import sleep
-import common.CloudDriver
-from common.AutoActions import AutoActions
-from common.GmailHandler import GmailHandler
-from common.Utils import Utils
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.PasswordResetWebElements import PasswordResetWebElements
+import extauto.common.CloudDriver
+from extauto.common.AutoActions import AutoActions
+from extauto.common.GmailHandler import GmailHandler
+from extauto.common.Utils import Utils
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 
 
 class PasswordReset:
     def __init__(self):
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.pw_web_elements = PasswordResetWebElements()
         self.auto_actions = AutoActions()
         self.gm_handler = GmailHandler()

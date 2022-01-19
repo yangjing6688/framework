@@ -7,14 +7,14 @@ from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import ElementNotInteractableException
-from common.Utils import Utils
-from common.Screen import Screen
-import common.CloudDriver
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+import extauto.common.CloudDriver
 
 
 class AutoActions:
     def __init__(self):
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.retries = 5
         self.utils = Utils()
         self.screen = Screen()

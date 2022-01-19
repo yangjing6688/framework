@@ -1,6 +1,6 @@
-from xiq.elements.extreme_guest.MuSocialWebElements import MuSocialWebElements
-from common.AutoActions import AutoActions
-from common.Cli import Cli
+from extauto.xiq.elements.extreme_guest.MuSocialWebElements import MuSocialWebElements
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Cli import Cli
 from time import sleep
 
 

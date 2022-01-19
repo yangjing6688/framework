@@ -1,5 +1,5 @@
-from xiq.defs.GuestAccessNetworkWebElementsDefinitions import *
-from common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.GuestAccessNetworkWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class GuestAccessNetworkWebElements(GuestAccessNetworkWebElementsDefinitions):

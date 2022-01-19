@@ -1,5 +1,5 @@
-from xiq.defs.RSWebElementsDefinitions import *
-from common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.RSWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class RSWebElements(RSWebElementsDefinitions):

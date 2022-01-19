@@ -1,5 +1,5 @@
-from common.WebElementHandler import *
-from xiq.defs.MLInsightsScoreCardDefinitions import *
+from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.MLInsightsScoreCardDefinitions import *
 
 
 class MLInsightsScoreCardWebElements(MLInsightsScoreCardDefinitions):

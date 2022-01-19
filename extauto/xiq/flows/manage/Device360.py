@@ -1,19 +1,19 @@
 import re
 from time import sleep
-from common.AutoActions import AutoActions
-from common.Utils import Utils
-from common.Screen import Screen
-from xiq.flows.manage.Location import *
-from xiq.flows.manage.Devices import Devices
-from xiq.flows.common.Navigator import Navigator
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.xiq.flows.manage.Location import *
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.common.Navigator import Navigator
 from selenium.webdriver.common.keys import Keys
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.Device360WebElements import Device360WebElements
-from xiq.elements.DevicesWebElements import DevicesWebElements
-from xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 
-from xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
-from xiq.elements.WirelessWebElements import WirelessWebElements
+from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
+from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 
 class Device360(Device360WebElements):
     def __init__(self):
@@ -4522,7 +4522,7 @@ class Device360(Device360WebElements):
 
     def test_device_cli(self, device_serial, command, max_time=180, interval_time=20, delay=30):
         '''
-        This function is used for testing WEB CLI from XIQ. A command or a list of commands can be send from XIQ to exos
+        This function is used for testing WEB CLI from extauto.xiq. A command or a list of commands can be send from XIQ to exos
         device
 
         test device cli  ${SW2_SERIAL}  ping 127.0.0.1,show iq,show vlan

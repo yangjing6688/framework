@@ -1,4 +1,4 @@
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 from xiqse.defs.network.devices.site.ztp_device_defaults.NetworkDevicesSiteZtpDeviceDefaultsWebElementsDefinitions import *
 
 

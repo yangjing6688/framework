@@ -1,5 +1,5 @@
-from common.WebElementHandler import *
-from xiq.defs.AdvOnboardDefs import *
+from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.AdvOnboardDefs import *
 
 
 class AdvOnboardWebElements(AdvOnboardDefs):

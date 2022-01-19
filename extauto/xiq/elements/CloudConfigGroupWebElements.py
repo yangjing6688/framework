@@ -1,5 +1,5 @@
-from xiq.defs.CloudConfigGroupWebElementDefinition import *
-from common.WebElementHandler import *
+from extauto.xiq.defs.CloudConfigGroupWebElementDefinition import *
+from extauto.common.WebElementHandler import *
 
 
 class CloudConfigGroupWebElements(CloudConfigGroupWebElementDefinition):

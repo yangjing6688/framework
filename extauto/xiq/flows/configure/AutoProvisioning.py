@@ -1,6 +1,6 @@
-from xiq.flows.manage.Devices import *
-from xiq.flows.common.Navigator import *
-from xiq.elements.AutoprovisionWebElements import *
+from extauto.xiq.flows.manage.Devices import *
+from extauto.xiq.flows.common.Navigator import *
+from extauto.xiq.elements.AutoprovisionWebElements import *
 
 
 class AutoProvisioning:

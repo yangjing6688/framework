@@ -1,6 +1,6 @@
 from xiqse.defs.control.access_control.ControlAccessControlCommonWebElementsDefinitions import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from extauto.common.AutoActions import *
+from extauto.common.WebElementHandler import *
 
 class ControlAccessControlCommonWebElements(ControlAccessControlCommonWebElementsDefinitions):
     def __init__(self):

@@ -1,4 +1,4 @@
-from common.WebElementHandler import *
+from extauto.common.WebElementHandler import *
 from xiqse.flows.common.XIQSE_CommonTable import XIQSE_CommonTable
 from xiqse.defs.network.devices.devices.NetworkDevicesDevicesRestartDeviceWebElementsDefinitions import *
 import re

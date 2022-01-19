@@ -1,5 +1,5 @@
-from xiq.defs.GlobalSettingWebElementDefinitions import *
-from common.WebElementHandler import *
+from extauto.xiq.defs.GlobalSettingWebElementDefinitions import *
+from extauto.common.WebElementHandler import *
 
 
 class GlobalSettingWebElements(GlobalSettingWebElementDefinitions):

@@ -1,5 +1,5 @@
-from common.WebElementHandler import *
-from xiq.defs.MLInsightscmpAnalyticsDefinitions import *
+from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.MLInsightscmpAnalyticsDefinitions import *
 
 
 class MLInsightscmpAnalyticsWebElements(MLInsightscmpAnalyticsDefinitions):

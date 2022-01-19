@@ -1,4 +1,4 @@
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 from robot.libraries.BuiltIn import BuiltIn
 
 list_failed_test = []

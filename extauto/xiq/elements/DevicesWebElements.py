@@ -1,6 +1,6 @@
 import time
-from xiq.defs.DevicesWebElementsDefinitions import *
-from common.WebElementHandler import *
+from extauto.xiq.defs.DevicesWebElementsDefinitions import *
+from extauto.common.WebElementHandler import *
 
 
 class DevicesWebElements(DevicesWebElementsDefinitions):

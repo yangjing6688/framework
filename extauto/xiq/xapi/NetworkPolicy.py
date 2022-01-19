@@ -3,8 +3,8 @@ import requests
 
 from robot.libraries.BuiltIn import BuiltIn
 
-from common.Cli import Cli
-from common.Utils import Utils
+from extauto.common.Cli import Cli
+from extauto.common.Utils import Utils
 
 class NetworkPolicy:
     def __init__(self):

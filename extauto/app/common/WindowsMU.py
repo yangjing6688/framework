@@ -1,5 +1,5 @@
-from common.Utils import Utils
-from common.Cli import Cli
+from extauto.common.Utils import Utils
+from extauto.common.Cli import Cli
 
 
 class WindowsMU:

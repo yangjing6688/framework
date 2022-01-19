@@ -1,9 +1,9 @@
 import time
 import shlex
 import subprocess
-import common.CloudDriver
-from common.Utils import Utils
-from common.Screen import Screen
+import extauto.common.CloudDriver
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
 
 
@@ -11,7 +11,7 @@ class ScreenDiff:
     def __init__(self):
         self.utils = Utils()
         self.screen = Screen()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def compare_screens(self, input_image, scale=False, threshold='default'):
         """

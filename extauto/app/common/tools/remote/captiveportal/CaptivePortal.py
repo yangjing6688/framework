@@ -1,7 +1,7 @@
 __author__ = "ExtremeNetworks"
 __version__ = "1.0.1"
 
-from common.tools.remote.captiveportal.CPWebElements import CPWebElements
+from extauto.common.tools.remote.captiveportal.CPWebElements import CPWebElements
 
 
 class CaptivePortal(CPWebElements):

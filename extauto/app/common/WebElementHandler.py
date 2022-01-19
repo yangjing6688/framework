@@ -1,6 +1,6 @@
 import os
-import app.common.CloudDriver
-from common.Utils import Utils
+import extauto.common.CloudDriver
+from extauto.common.Utils import Utils
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -14,7 +14,7 @@ class WebElementHandler:
         self.utils = Utils()
         self.delay = 10
         self.desc = None
-        self.driver = app.common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.locator = {"CSS_SELECTOR": By.CSS_SELECTOR,
                          "XPATH": By.XPATH,
                          "TAG_NAME": By.TAG_NAME,

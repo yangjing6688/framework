@@ -1,5 +1,5 @@
-from xiq.defs.DeviceCliAccessDefs import DeviceCliAccessDefs
-from common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.DeviceCliAccessDefs import DeviceCliAccessDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DeviceCliAccessElements(DeviceCliAccessDefs):

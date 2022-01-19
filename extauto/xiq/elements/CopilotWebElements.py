@@ -1,5 +1,5 @@
-from xiq.defs.CopilotDefs import *
-from common.WebElementHandler import *
+from extauto.xiq.defs.CopilotDefs import *
+from extauto.common.WebElementHandler import *
 
 
 class CopilotWebElements(CopilotDefs):

@@ -1,17 +1,17 @@
-import common.CloudDriver
+import extauto.common.CloudDriver
 from time import sleep
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.CopilotWebElements import CopilotWebElements
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.CopilotWebElements import CopilotWebElements
 import re
 
 
 class Copilot(CopilotWebElements):
     def __init__(self):
         super().__init__()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.utils = Utils()

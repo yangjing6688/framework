@@ -1,7 +1,7 @@
-from xiq.flows.manage.Client import *
-from xiq.flows.manage.Devices import *
-from xiq.flows.common.Navigator import *
-from xiq.elements.Network360MonitorElements import *
+from extauto.xiq.flows.manage.Client import *
+from extauto.xiq.flows.manage.Devices import *
+from extauto.xiq.flows.common.Navigator import *
+from extauto.xiq.elements.Network360MonitorElements import *
 
 
 class Network360Monitor:

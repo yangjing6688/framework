@@ -1,11 +1,11 @@
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.UserProfileWebElements import UserProfileWebElements
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.elements.UserProfileWebElements import UserProfileWebElements
 
 
 class UserProfile(UserProfileWebElements):

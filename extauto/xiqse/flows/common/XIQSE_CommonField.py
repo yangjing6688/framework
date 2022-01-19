@@ -4,7 +4,7 @@
 # form or fashion without the written consent of Extreme Networks Inc.
 # ----------------------------------------------------------------------
 #
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 
 
 class XIQSE_CommonField:

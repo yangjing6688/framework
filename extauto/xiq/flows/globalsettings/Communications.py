@@ -1,13 +1,13 @@
 import re
 from time import sleep
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
-from xiq.elements.CommunicationsWebElements import CommunicationsWebElements
-import common.CloudDriver
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.CommunicationsWebElements import CommunicationsWebElements
+import extauto.common.CloudDriver
 
 
 class Communications(CommunicationsWebElements):
@@ -20,7 +20,7 @@ class Communications(CommunicationsWebElements):
         self.screen = Screen()
         self.navigate = Navigator()
         self.builtin = BuiltIn()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def validate_communications_page(self):
         """

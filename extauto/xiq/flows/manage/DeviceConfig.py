@@ -1,15 +1,15 @@
 from time import sleep
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.DeviceConfigElements import DeviceConfigElements
-from xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
-from xiq.flows.common.DeviceCommon import DeviceCommon
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.DeviceConfigElements import DeviceConfigElements
+from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
+from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
-from common.WebElementHandler import WebElementHandler
-import common.CloudDriver
+from extauto.common.WebElementHandler import WebElementHandler
+import extauto.common.CloudDriver
 
 
 class DeviceConfig(DeviceConfigElements):
@@ -21,7 +21,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions = AutoActions()
         self.device_common = DeviceCommon()
         self.web = WebElementHandler()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
 
 

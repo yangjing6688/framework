@@ -1,13 +1,13 @@
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
-from common.Screen import Screen
-from common.Utils import Utils
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.flows.configure.PasswdSettings import PasswdSettings
-from xiq.flows.configure.ExpirationSettings import ExpirationSettings
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.elements.UserGroupsWebElements import UserGroupsWebElements
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.configure.PasswdSettings import PasswdSettings
+from extauto.xiq.flows.configure.ExpirationSettings import ExpirationSettings
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 
 
 class UserGroups(UserGroupsWebElements):

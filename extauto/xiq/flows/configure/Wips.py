@@ -1,20 +1,20 @@
 from time import sleep
 import re
 
-from common.Screen import Screen
-import common.CloudDriver
-from common.AutoActions import AutoActions
-from common.Utils import Utils
+from extauto.common.Screen import Screen
+import extauto.common.CloudDriver
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
 
-import xiq.flows.common.ToolTipCapture as tool_tip
-from xiq.flows.configure.NetworkPolicy import NetworkPolicy
-from xiq.flows.configure.CommonObjects import CommonObjects
-from xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.configure.CommonObjects import CommonObjects
+from extauto.xiq.flows.common.Navigator import Navigator
 
-from xiq.elements.WipsWebElements import WipsWebElements
-from xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
-from xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
-from xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
+from extauto.xiq.elements.WipsWebElements import WipsWebElements
+from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
+from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
+from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 
 
 class Wips(WipsWebElements):
@@ -23,7 +23,7 @@ class Wips(WipsWebElements):
         super().__init__()
         self.utils = Utils()
         self.auto_actions = AutoActions()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.cobj_web_elements = CommonObjectsWebElements()

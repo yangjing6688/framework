@@ -8,8 +8,8 @@ from io import BytesIO
 from io import StringIO
 from robot.libraries.BuiltIn import BuiltIn
 
-from common.Utils import Utils
-from common.JsonUtils import JsonUtils
+from extauto.common.Utils import Utils
+from extauto.common.JsonUtils import JsonUtils
 
 
 class RestRequest:

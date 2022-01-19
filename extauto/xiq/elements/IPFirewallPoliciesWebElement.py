@@ -1,5 +1,5 @@
-from common.WebElementHandler import *
-from xiq.defs.IPFirewallPoliciesDefinitions import *
+from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.IPFirewallPoliciesDefinitions import *
 
 
 class GlobalSearchWebElements(IPFirewallPoliciesDefinitions):

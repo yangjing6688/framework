@@ -1,5 +1,5 @@
-from common.WebElementHandler import *
-from xiq.defs.MLInsightsMonitorDefinitions import *
+from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.MLInsightsMonitorDefinitions import *
 
 
 class MLInsighstMonitorWebElements(MLInsightsMonitorDefinitions):

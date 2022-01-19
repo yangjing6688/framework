@@ -1,6 +1,6 @@
 import imaplib
 import email
-from common.Utils import Utils
+from extauto.common.Utils import Utils
 import re
 
 

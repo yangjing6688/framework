@@ -1,19 +1,19 @@
 import json
 import requests
 from time import sleep
-import common.CloudDriver
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import *
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.A3InventoryWebElements import A3InventoryWebElements
+import extauto.common.CloudDriver
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import *
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.A3InventoryWebElements import A3InventoryWebElements
 
 
 class A3Inventory(A3InventoryWebElements):
     def __init__(self):
         super().__init__()
         self.utils = Utils()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.auto_actions = AutoActions()

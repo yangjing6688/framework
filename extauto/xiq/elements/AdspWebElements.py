@@ -1,5 +1,5 @@
-from xiq.defs.AdspWebElementsDefinitions import AdspWebElementsDefinitions
-from common.WebElementHandler import *
+from extauto.xiq.defs.AdspWebElementsDefinitions import AdspWebElementsDefinitions
+from extauto.common.WebElementHandler import *
 
 
 class AdspWebElements(AdspWebElementsDefinitions):

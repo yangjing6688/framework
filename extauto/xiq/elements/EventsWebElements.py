@@ -1,5 +1,5 @@
-from common.WebElementHandler import *
-from xiq.defs.EventsWebElementsDefs import *
+from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.EventsWebElementsDefs import *
 
 
 class EventsWebElements(EventsWebElementsDefs):

@@ -1,18 +1,18 @@
 from time import sleep
 from selenium.webdriver.common.keys import Keys
 
-import common.CloudDriver
-from common.AutoActions import AutoActions
-from common.Utils import Utils
-from common.Screen import Screen
+import extauto.common.CloudDriver
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
 
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 
-from xiq.flows.configure.NetworkPolicy import NetworkPolicy
-from xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.common.Navigator import Navigator
 
-from xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
 class DeviceTemplate(object):
@@ -21,7 +21,7 @@ class DeviceTemplate(object):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = NavigatorWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.network_policy = NetworkPolicy()

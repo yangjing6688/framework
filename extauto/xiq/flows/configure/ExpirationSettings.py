@@ -1,5 +1,5 @@
-from common.AutoActions import *
-from xiq.elements.ExpSettingsWebElements import ExpSettingsWebElements
+from extauto.common.AutoActions import *
+from extauto.xiq.elements.ExpSettingsWebElements import ExpSettingsWebElements
 
 
 class ExpirationSettings(ExpSettingsWebElements):

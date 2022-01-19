@@ -1,15 +1,15 @@
 from time import sleep
 
-from common.Screen import Screen
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.flows.manage.Client import *
-from xiq.flows.manage.Devices import *
-from xiq.elements.DevicesWebElements import DevicesWebElements
-from xiq.elements.DeviceActions import *
-from xiq.elements.NavigatorWebElements import NavigatorWebElements
-from xiq.elements.MLInsightsPlanWebElements import *
-from xiq.elements.Device360WebElements import *
+from extauto.common.Screen import Screen
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.manage.Client import *
+from extauto.xiq.flows.manage.Devices import *
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.elements.DeviceActions import *
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.MLInsightsPlanWebElements import *
+from extauto.xiq.elements.Device360WebElements import *
 
 
 class Location:

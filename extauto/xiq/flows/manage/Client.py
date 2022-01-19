@@ -1,10 +1,10 @@
 import re
 from time import sleep
-from common.AutoActions import AutoActions
-from common.Utils import Utils
-from common.Screen import Screen
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.ClientWebElements import ClientWebElements
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.ClientWebElements import ClientWebElements
 
 
 class Client:
