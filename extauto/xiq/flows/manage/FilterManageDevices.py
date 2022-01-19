@@ -7,7 +7,7 @@ from extauto.xiq.flows.configure.NetworkPolicy import *
 from extauto.xiq.flows.configure.WirelessNetworks import *
 from extauto.xiq.flows.configure.UserGroups import *
 from extauto.xiq.flows.configure.ExpressNetworkPolicies import *
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.common.Screen import Screen
 
 

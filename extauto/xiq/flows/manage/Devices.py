@@ -10,7 +10,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Cli import Cli
 from extauto.xiq.flows.common.Navigator import Navigator
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.flows.common.Login import Login
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements

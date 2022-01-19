@@ -3,7 +3,7 @@ import extauto.common.CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.GmailHandler import GmailHandler
 from extauto.common.Utils import Utils
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 
 

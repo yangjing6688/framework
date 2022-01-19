@@ -6,7 +6,7 @@ import extauto.common.CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
 
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 from extauto.xiq.flows.common.Navigator import Navigator

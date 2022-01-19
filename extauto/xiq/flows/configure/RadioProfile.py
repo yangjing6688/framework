@@ -4,7 +4,7 @@ from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 
 from extauto.xiq.flows.common.Navigator import Navigator
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.RadioProfileWebElements import RadioProfileWebElements
 
 from extauto.common.WebElementHandler import WebElementHandler

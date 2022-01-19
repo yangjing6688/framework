@@ -6,7 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.flows.configure.PasswdSettings import PasswdSettings
 from extauto.xiq.flows.configure.ExpirationSettings import ExpirationSettings
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 
 

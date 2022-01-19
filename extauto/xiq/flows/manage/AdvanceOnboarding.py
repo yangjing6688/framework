@@ -4,7 +4,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.manage.Location import Location
 from extauto.xiq.flows.manage.Devices import Devices
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.AdvanceOnboardingWebElements import AdvanceOnboardingWebElements

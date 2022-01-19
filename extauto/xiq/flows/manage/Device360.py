@@ -7,7 +7,7 @@ from extauto.xiq.flows.manage.Location import *
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
 from selenium.webdriver.common.keys import Keys
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements

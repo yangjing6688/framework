@@ -10,7 +10,7 @@ from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 
-import xiq.flows.common.ToolTipCapture
+import extauto.xiq.flows.common.ToolTipCapture
 
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements

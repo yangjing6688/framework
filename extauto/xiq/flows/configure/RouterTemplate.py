@@ -5,7 +5,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 
 from extauto.xiq.flows.common.Navigator import Navigator
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 
 from extauto.xiq.elements.RouterTemplateWebElements import *

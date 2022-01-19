@@ -5,7 +5,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
-import xiq.flows.common.ToolTipCapture as tool_tip
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
