@@ -4,7 +4,6 @@ from time import sleep
 from datetime import datetime
 from selenium.common.exceptions import StaleElementReferenceException
 from robot.libraries.BuiltIn import BuiltIn
-from robot.libraries.String import String
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -40,7 +39,6 @@ class Devices:
         self.screen = Screen()
         self.robot_built_in = BuiltIn()
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
-        self.string = String()
         self.login = Login()
         self.cli = Cli()
 
@@ -7644,7 +7642,7 @@ class Devices:
         self.utils.print_info(output_cmd3)
         self.utils.print_info(output_cmd4)
         pattern = vhm_id + "\\s+\\|\\s+(\\d+)"
-        max_devices = self.string.get_regexp_matches(output_cmd4, pattern, 1)
+        max_devices = self.utils.get_regexp_matches(output_cmd4, pattern, 1)
         self.utils.print_info(max_devices)
         self.cli.close_spawn(spawn)
         return max_devices[0]
@@ -7685,8 +7683,8 @@ class Devices:
 
         pattern1 = "\\d+\\s+\\|\\s+(\\d+)\\s+\\|\\s+\\w+"
         pattern2 = "\\d+\\s+\\|\\s+\\d+\\s+\\|\\s+(\\w+)"
-        update_time = self.string.get_regexp_matches(output_cmd3, pattern1, 1)
-        update_unit = self.string.get_regexp_matches(output_cmd3, pattern2, 1)
+        update_time = self.u.get_regexp_matches(output_cmd3, pattern1, 1)
+        update_unit = self.utils.get_regexp_matches(output_cmd3, pattern2, 1)
         self.utils.print_info(update_time[0])
         self.utils.print_info(update_unit[0])
         self.cli.close_spawn(spawn)
@@ -8453,7 +8451,7 @@ class Devices:
             self.utils.print_info(output_cmd2)
             self.utils.print_info(output_cmd3)
             pattern1 = "\\((\\d+)\\s+row"
-            rows = self.string.get_regexp_matches(output_cmd3, pattern1, 1)
+            rows = self.utils.get_regexp_matches(output_cmd3, pattern1, 1)
             self.utils.print_info(rows)
             self.cli.close_spawn(spawn)
             if int(rows[0]) == 1:
