@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from time import sleep
-from  common.Screen import Screen
+from extauto.common.Screen import Screen
 
 
 class LoadBrowser:
