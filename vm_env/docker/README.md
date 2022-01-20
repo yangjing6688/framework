@@ -38,12 +38,9 @@ To get started please follow these instructions:
 
 1. Issue the following git clone commands in the automation/git directory to clone all of the repositories:
 
-        git clone git@github.extremenetworks.com:Engineering/extauto.git
-        git clone git@github.com:extremenetworks/econ-automation-framework.git
+        git clone git@github.com:extremenetworks/extreme_automation_framework.git
         git clone git@github.com:extremenetworks/extreme_automation_tests.git
-        git clone git@github.extremenetworks.com:Engineering/cw_automation.git
-        
-   
+           
    Note: If you are unable to clone the repositories or do not have access to the repositories please send an e-mail to helptools@extremenetworks.com
 
 1. Create a directory in `automation` called `home`. Within that new directory create another directory called `.ssh` and copy your ssh keys that you already use for GIT into that directory.
