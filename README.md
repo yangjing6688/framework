@@ -13,7 +13,7 @@ This repository is home to the AutoIQ Frameworks for UI and Switch Testing.
         - User-Interfaces (XIQ and XIQSE).
         - Traffic Generators
 
-Please refer to the extreme-automation-test repository for [directions](https://github.com/extremenetworks/extreme-automation-tests) on how to setup and use this framework
+Please refer to the extreme_automation_tests repository for [directions](https://github.com/extremenetworks/extreme_automation_tests) on how to setup and use this framework
 
 
 
