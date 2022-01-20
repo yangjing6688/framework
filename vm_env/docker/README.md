@@ -40,6 +40,7 @@ To get started please follow these instructions:
 
         git clone git@github.com:extremenetworks/extreme_automation_framework.git
         git clone git@github.com:extremenetworks/extreme_automation_tests.git
+        git clone git@github.extremenetworks.com:Engineering/cw_automation.git
            
    Note: If you are unable to clone the repositories or do not have access to the repositories please send an e-mail to helptools@extremenetworks.com
 
@@ -75,29 +76,29 @@ To get started please follow these instructions:
 
     Linux:
     
-        cd $AUTO_DIR/git/econ-automation-framework/vm_env/docker/files
+        cd $AUTO_DIR/git/extreme_automation_framework/vm_env/docker/files
         wget -O pycharm-community.tar.gz https://download.jetbrains.com/python/pycharm-community-2021.2.tar.gz?_gl=1*bkldgd*_ga*MjA3NDkxOTI1NS4xNjI4MTAzNjY1*_ga_V0XZL7QHEB*MTYyODEwMzY2NC4xLjEuMTYyODEwMzY4Mi4w
 
     Windows:
     
         ** Use your browser to go to: https://www.jetbrains.com/pycharm/download/#section=linux
-        ** Copy the file using a your browser to: C:\automation\git\econ-automation-framework\vm_env\docker\files\pycharm-community.tar.gz
+        ** Copy the file using a your browser to: C:\automation\git\extreme_automation_framework\vm_env\docker\files\pycharm-community.tar.gz
         ** Note -- The file name must be "pycharm-community.tar.gz" you may need to rename the downloaded file
 
      Note: the link above may change from time to time and may not work for you.  You can get a working link by going to the jetbrains.com website mentioned above and finding the direct link.
         
-1. Change the directory to `automation/git/econ-automation-framework/vm_env/docker`
+1. Change the directory to `automation/git/extreme_automation_framework/vm_env/docker`
     Linux:
 
-        cd $AUTO_DIR/git/econ-automation-framework/vm_env/docker
+        cd $AUTO_DIR/git/extreme_automation_framework/vm_env/docker
 
     Windows:
-        cd C:\automation\git\econ-automation-framework\vm_env\docker
+        cd C:\automation\git\extreme_automation_framework\vm_env\docker
 
 1. Note: If you want to download a pre-built Docker image instead of building your own,
          you can run the following and skip the 'docker build' step below:
 
-        a. Log in to your account, go to "Settings->Developer settings->Personal access tokens" and create a token with "read:packages" and "write:packages" permissions
+        a. Log in to your GitHub.com account, go to "Settings->Developer settings->Personal access tokens" and create a token with "read:packages" and "write:packages" permissions
         b. Copy the Token to your clipboard
         c. Click "Enable SSO"
         d. Export the PAT to your ENV, "export CR_PAT=<access token from step above>"
@@ -139,7 +140,7 @@ To get started please follow these instructions:
         
 1. Start the docker images with the docker compose file:
 
-        cd $AUTO_DIR/git/econ-automation-framework/vm_env/docker
+        cd $AUTO_DIR/git/extreme_automation_framework/vm_env/docker
         docker-compose up
 
 ## Accessing the environment:
@@ -152,6 +153,8 @@ URLs:
 - noVNC - Chrome: [http://localhost:7901/](http://localhost:7901/) Password: secret
 - noVNC - Firefox: [http://localhost:7902/](http://localhost:7902/) Password: secret
 - noVNC - Edge: [http://localhost:7903/](http://localhost:7903/) Password: secret (Note: edge is currently disabled)
+
+Note: You can access the images via a browswer and noVNC as listed above or you can also access them using a VNC client like TightVNC or MobaXterm.  The ability to copy and paste into the image is better outside of the browser.  When using the browser you will need to use the clipboard that is available in the tools widget on the left hand side of your screen.
 
 ## PROD Build
 You will need to complete the following steps to be able to push the docker image to github.com. 
@@ -167,7 +170,7 @@ To build the container in PROD mode issue the following command in the main dire
 You can download the latest PROD images by issue the following command:
 
     echo $GIT_PAT | docker login ghcr.io -u <your github ID> --password-stdin
-    docker pull ghcr.io/extremenetworks/econ-automation-framework/econ_automation:latest
+    docker pull ghcr.io/extremenetworks/extreme_automation_framework/econ_automation:latest
 
 ## Setup the pycharm IDE:
 
@@ -187,9 +190,8 @@ When asked to create a Virtual Environment click `Cancel`:
 
 Next you will load each of the four repositories into your project: Start with `econ-automation-tests`.  The remaining repositories `econ-automation-framework`, `extauto` and `cw_automation` will be attached to the same project.
 
-1. From the PyCharm UI, navigate to File-->Open... Navigate to `econ-automation-tests` directory... Click `OK`
-1. From the PyCharm UI, navigate to File-->Open... Navigate to `econ-automation-framework` directory... Click `OK`... Select 'Attach'... Click `OK`
-1. From the PyCharm UI, navigate to File-->Open... Navigate to `extauto` directory... Click `OK`... Select 'Attach'... Click `OK`
+1. From the PyCharm UI, navigate to File-->Open... Navigate to `extreme_automation_tests` directory... Click `OK`
+1. From the PyCharm UI, navigate to File-->Open... Navigate to `extreme_automation_framework` directory... Click `OK`... Select 'Attach'... Click `OK`
 1. From the PyCharm UI, navigate to File-->Open... Navigate to `cw_automation` directory... Click `OK`... Select 'Attach'... Click `OK`
 
     ![example project](img/Pycharm_open_test_project.png)
