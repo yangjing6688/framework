@@ -170,7 +170,7 @@ To build the container in PROD mode issue the following command in the main dire
 You can download the latest PROD images by issue the following command:
 
     echo $GIT_PAT | docker login ghcr.io -u <your github ID> --password-stdin
-    docker pull ghcr.io/extremenetworks/extreme_automation_framework/econ_automation:latest
+    docker pull ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env:latest
 
 ## Setup the pycharm IDE:
 
