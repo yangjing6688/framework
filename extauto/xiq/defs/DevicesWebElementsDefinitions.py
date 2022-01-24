@@ -1528,3 +1528,15 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[@data-dojo-attach-point="gridContainer"]//div[@class="ui-grid-bottom-left fn-left"]/a',
             'wait_for': 5
         }
+
+    simulated_device_dropdown_table = \
+        {
+            'CSS_SELECTOR': '.honeycomb-ui-form-selectMenu',
+            'wait_for': 5
+        }
+
+    simulated_device_dropdown_table_rows = \
+        {
+            'CSS_SELECTOR': '.dijitMenuItem',
+            'wait_for': 5
+        }
