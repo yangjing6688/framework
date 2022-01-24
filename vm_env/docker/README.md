@@ -103,7 +103,7 @@ To get started please follow these instructions:
         c. Click "Enable SSO"
         d. Export the PAT to your ENV, "export CR_PAT=<access token from step above>"
         e. Perform a 'docker login' to the registry, "echo $CR_PAT | docker login ghcr.io -u <your github ID> --password-stdin"
-        f. docker pull ghcr.io/extremenetworks/econ-automation-framework/automation-dev-env:latest
+        f. docker pull ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env:latest
 
 1. Issue the build command:
 
