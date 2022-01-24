@@ -908,15 +908,15 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
         return ret_val
 
-    def xiqse_set_status_polling_group_2_interval_value(self, value="5"):
+    def xiqse_set_status_polling_group_2_interval_value(self, value):
         """
-         - This keyword sets the Timeout value for the Web Server HTTP Session Timeout option.
-         - It is assumed the view is already navigated to the Web Server option on the Administration> Options tab.
+         - This keyword sets the value of the Status Polling Group 2 Interval option.
+         - It is assumed the view is already navigated to the Status Polling option on the Administration> Options tab.
          - Keyword Usage
           - ``XIQSE Set Status Polling Group 2 Interval Value  5``
           - ``XIQSE Set Status Polling Group 2 Interval Value  2``
 
-        :param value: Value to enter in the Gropu 2 Interval option field
+        :param value: Value to enter in the Group 2 Interval option field
         :return: 1 if value was set, else -1
         """
         ret_val = -1
@@ -932,12 +932,12 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
         return ret_val
 
-    def xiqse_set_status_polling_group_2_interval_value_and_save(self, value="5"):
+    def xiqse_set_status_polling_group_2_interval_value_and_save(self, value):
         """
          - This keyword sets the value of the Status Polling Group 2 Interval option and saves the changes
          - Keyword Usage
-          - ``XIQSE Set Status Polling Group 2 Interval Value  5``
-          - ``XIQSE Set Status Polling Group 2 Interval Value  2``
+          - ``XIQSE Set Status Polling Group 2 Interval Value and Save  5``
+          - ``XIQSE Set Status Polling Group 2 Interval Value and Save  2``
 
         :param value: Value to enter in the Group 2 Interval option field
         :return: 1 if action was successful, else -1
@@ -952,7 +952,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
                 # Save Changes
                 save_result = self.xiqse_save_options()
 
-                if value_set == -1 or units_set == -1 or save_result == -1:
+                if value_set == -1 or save_result == -1:
                     self.utils.print_info("Action was not successful")
                     ret_val = -1
                 else:
