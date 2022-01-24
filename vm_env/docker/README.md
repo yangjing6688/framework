@@ -158,9 +158,9 @@ Note: You can access the images via a browswer and noVNC as listed above or you 
 
 ## PROD Build
 You will need to complete the following steps to be able to push the docker image to github.com. 
-        a. Log in to your account, go to "Settings->Developer settings->Personal access tokens" and create a token with "read:packages" permissions.
-        b. Export the PAT to your ENV, "export GIT_PAT=<access token from step above>"
-        c. Perform a 'docker login' to the registry, "echo $GIT_PAT | docker login ghcr.io -u <your github ID> --password-stdin"
+        1. Log in to your account, go to "Settings->Developer settings->Personal access tokens" and create a token with "write:packages" and "delete:packages" permissions.
+        1. Export the PAT to your ENV, "export GIT_PAT=<access token from step above>"
+        1. Perform a 'docker login' to the registry, "echo $GIT_PAT | docker login ghcr.io -u <your github ID> --password-stdin"
 
 To build the container in PROD mode issue the following command in the main directory (with the Dockerfile):
 
