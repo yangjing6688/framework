@@ -89,3 +89,57 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
         :return: Site Engine - General: Device Tree Name Format dropdown field on the Administration> Options page
         """
         return self.weh.get_element(self.device_tree_name_format_dropdown)
+
+    def get_inventory_manager_option(self):
+        """
+        :return: Inventory Manager option in the tree on the Administration> Options page
+        """
+        return self.weh.get_element(self.inventory_manager_option)
+
+    def get_scp_login_information_anonymous_checkbox(self):
+        """
+        :return: Anonymous check button on the Administration> Options> Inventory Manager> File Transfer> SCP Server Properties option
+        """
+        return self.weh.get_element(self.scp_login_information_anonymous_checkbox)
+
+    def get_scp_login_information_username(self):
+        """
+        :return: The 'Username" value in the Administration> Options> Inventory Manager> File Transfer> SCP Server Properties> Username field
+        """
+        return self.weh.get_element(self.scp_login_information_username)
+
+    def get_scp_login_information_password(self):
+        """
+        :return: The'Password" value in the Administration> Options> Inventory Manager> File Transfer> SCP Server Properties> Password field
+        """
+        return self.weh.get_element(self.scp_login_information_password)
+
+    def get_sftp_login_information_anonymous_checkbox(self):
+        """
+        :return: Anonymous check button on the Administration> Options> Inventory Manager> File Transfer> SFTP Server Properties option
+        """
+        return self.weh.get_element(self.sftp_login_information_anonymous_checkbox)
+
+    def get_sftp_login_information_username(self):
+        """
+        :return: The 'Username" value in the Administration> Options> Inventory Manager> File Transfer> SFTP Server Properties> Username field
+        """
+        return self.weh.get_element(self.sftp_login_information_username)
+
+    def get_sftp_login_information_password(self):
+        """
+        :return: The'Password" value in the Administration> Options> Inventory Manager> File Transfer> SFTP Server Properties> Password field
+        """
+        return self.weh.get_element(self.sftp_login_information_password)
+
+    def get_status_polling_option(self):
+        """
+        :return: Status Polling option in the tree on the Administration> Options page
+        """
+        return self.weh.get_element(self.status_polling_option)
+
+    def get_status_polling_group_2_interval_value(self):
+        """
+        :return: Web Server HTTP Session Timeout value on the Administration> Options page
+        """
+        return self.weh.get_element(self.status_polling_group_2_interval_value)

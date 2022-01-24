@@ -686,3 +686,304 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
             self.screen.save_screen_shot()
 
         return ret_val
+
+    def xiqse_restore_default_inventory_manager_options_and_save(self):
+        """
+         - This keyword restores the default values of the Inventory Manager options and saves the changes
+         - Keyword Usage
+          - ``XIQSE Restore Default Inventory Manager Options and Save``
+
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+        if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
+            if self.xiqse_select_inventory_manager_option():
+                ret_val = self.xiqse_restore_default_options_and_save()
+            else:
+                self.utils.print_info("Unable to find the Inventory Manager option in the tree")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to navigate to Administration> Options tab")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_select_inventory_manager_option(self):
+        """
+        - This keyword selects the Inventory Manager option in the Administration> Options tree.
+        - Keyword Usage
+        - ``XIQSE Select Inventory Manager Option``
+
+        :return: 1 if selection was made, else -1
+        """
+        ret_val = -1
+        sleep(2)
+        tree_option = self.get_inventory_manager_option()
+        if tree_option:
+            self.utils.print_info("Selecting the Inventory Manager option in the tree")
+            self.auto_actions.click(tree_option)
+            ret_val = 1
+        else:
+            self.utils.print_info("Unable to find the Inventory Manager option in the tree")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_scp_login_information_anonymous(self, value):
+        """
+        - This keyword sets the 'Anonymous' checkbox in the Inventory Manager> File Transfer> SCP Server Properties section
+        - It is assumed the view is already navigated to the Inventory Manager panel.
+        - Keyword Usage
+        - ``XIQSE Set SCP Login Information Anonymous  true``
+        - ``XIQSE Set SCP Login Information Anonymous  false``
+
+        :param value:  Indicates whether to enable or disable the checkbox; default is "true"
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+
+        if self.xiqse_select_inventory_manager_option():
+            the_button = self.get_scp_login_information_anonymous_checkbox()
+            if the_button:
+                if value == "true":
+                    self.utils.print_info("Enabling 'Anonymous' checkbox")
+                    self.auto_actions.enable_check_box(the_button)
+                else:
+                    self.utils.print_info("Disabling 'Anonymous' checkbox")
+                    self.auto_actions.disable_check_box(the_button)
+                ret_val = 1
+            else:
+                self.utils.print_info("Unable to find the 'Anonymous' checkbox")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to navigate to Administration> Options tab")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_scp_login_information_username(self, the_val):
+        """
+        - This keyword enters the Username value in the Inventory Manager> File Transfer> SCP Server Properties section
+        - It is assumed the view is already navigated to the Inventory Manager panel.
+        - Keyword Usage
+        - ``XIQSE Set SCP Login Information Username  ${username}``
+
+        :param the_val: A valid XIQSE username
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+
+        username_field = self.get_scp_login_information_username()
+        if username_field:
+            self.utils.print_info(f"Entering Username value '{the_val}'")
+            self.auto_actions.send_keys(username_field, the_val)
+            ret_val = 1
+        else:
+            self.utils.print_info("Could not find the Username field in the SCP Server Properties dialog")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_scp_login_information_password(self, the_val):
+        """
+        - This keyword enters the Password value in the Inventory Manager> File Transfer> SCP Server Properties section
+        - It is assumed the view is already navigated to the Inventory Manager panel.
+        - Keyword Usage
+        - ``XIQSE Set SCP Login Information Password  ${password}``
+
+        :param the_val: The password for the specified user
+        :return: 1 if action was successful, else -1
+        """
+
+        ret_val = -1
+
+        password_field = self.get_scp_login_information_password()
+        if password_field:
+            self.utils.print_info(f"Entering Password value '{the_val}'")
+            self.auto_actions.send_keys(password_field, the_val)
+            ret_val = 1
+        else:
+            self.utils.print_info("Could not find the Password field in the SCP Server Properties dialog")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_sftp_login_information_anonymous(self, value):
+        """
+        - This keyword sets the 'Anonymous' checkbox in the Inventory Manager> File Transfer> SFTP Server Properties section
+        - It is assumed the view is already navigated to the Inventory Manager panel.
+        - Keyword Usage
+        - ``XIQSE Set SFTP Login Information Anonymous  true``
+        - ``XIQSE Set SFTP Login Information Anonymous  false``
+
+        :param value:  Indicates whether to enable or disable the checkbox; default is "true"
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+
+        if self.xiqse_select_inventory_manager_option():
+            the_button = self.get_sftp_login_information_anonymous_checkbox()
+            if the_button:
+                if value == "true":
+                    self.utils.print_info("Enabling 'Anonymous' checkbox")
+                    self.auto_actions.enable_check_box(the_button)
+                else:
+                    self.utils.print_info("Disabling 'Anonymous' checkbox")
+                    self.auto_actions.disable_check_box(the_button)
+                ret_val = 1
+            else:
+                self.utils.print_info("Unable to find the 'Anonymous' checkbox")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to navigate to Administration> Options tab")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_sftp_login_information_username(self, the_val):
+        """
+        - This keyword enters the Username value in the Inventory Manager> File Transfer> SFTP Server Properties section
+        - It is assumed the view is already navigated to the Inventory Manager panel.
+        - Keyword Usage
+        - ``XIQSE Set SFTP Login Information Username  ${username}``
+
+        :param the_val: A valid XIQSE username
+        :return: 1 if action was successful, else -1
+        """
+
+        ret_val = -1
+
+        username_field = self.get_sftp_login_information_username()
+        if username_field:
+            self.utils.print_info(f"Entering Username value '{the_val}'")
+            self.auto_actions.send_keys(username_field, the_val)
+            ret_val = 1
+        else:
+            self.utils.print_info("Could not find the Username field in the SFTP Server Properties dialog")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_sftp_login_information_password(self, the_val):
+        """
+        - This keyword enters the Password value in the Inventory Manager> File Transfer> SFTP Server Properties section
+        - It is assumed the view is already navigated to the Inventory Manager panel.
+        - Keyword Usage
+        - ``XIQSE Set SFTP Login Information Password  ${password}``
+
+        :param the_val: The password for the specified user
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = 1
+
+        password_field = self.get_sftp_login_information_password()
+        if password_field:
+            self.utils.print_info(f"Entering Password value '{the_val}'")
+            self.auto_actions.send_keys(password_field, the_val)
+            ret_val = 1
+        else:
+            self.utils.print_info("Could not find the Password field in the SFTP Server Properties dialog")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_select_status_polling_option(self):
+        """
+        - This keyword selects the Status Polling option in the Administration> Options tree.
+        - Keyword Usage
+        - ``XIQSE Select Status Polling Option``
+
+        :return: 1 if selection was made, else -1
+        """
+        ret_val = -1
+        sleep(2)
+        tree_option = self.get_status_polling_option()
+        if tree_option:
+            self.utils.print_info("Selecting the Status Polling option in the tree")
+            self.auto_actions.click(tree_option)
+            ret_val = 1
+        else:
+            self.utils.print_info("Unable to find the Status Polling option in the tree")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_status_polling_group_2_interval_value(self, value="5"):
+        """
+         - This keyword sets the Timeout value for the Web Server HTTP Session Timeout option.
+         - It is assumed the view is already navigated to the Web Server option on the Administration> Options tab.
+         - Keyword Usage
+          - ``XIQSE Set Status Polling Group 2 Interval Value  5``
+          - ``XIQSE Set Status Polling Group 2 Interval Value  2``
+
+        :param value: Value to enter in the Gropu 2 Interval option field
+        :return: 1 if value was set, else -1
+        """
+        ret_val = -1
+        set_option = self.get_status_polling_group_2_interval_value()
+        if set_option:
+            self.utils.print_info(f"Setting the Interval value to {value}")
+            self.auto_actions.send_keys(set_option, value)
+            ret_val = 1
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to find the Group 2 Interval value field")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_status_polling_group_2_interval_value_and_save(self, value="5"):
+        """
+         - This keyword sets the value of the Status Polling Group 2 Interval option and saves the changes
+         - Keyword Usage
+          - ``XIQSE Set Status Polling Group 2 Interval Value  5``
+          - ``XIQSE Set Status Polling Group 2 Interval Value  2``
+
+        :param value: Value to enter in the Group 2 Interval option field
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+        if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
+            if self.xiqse_select_status_polling_option():
+                # Set Session Timeout value
+                value_set = self.xiqse_set_status_polling_group_2_interval_value(value)
+                sleep(2)
+
+                # Save Changes
+                save_result = self.xiqse_save_options()
+
+                if value_set == -1 or units_set == -1 or save_result == -1:
+                    self.utils.print_info("Action was not successful")
+                    ret_val = -1
+                else:
+                    self.utils.print_info("Action was successful")
+                    ret_val = 1
+            else:
+                self.utils.print_info("Unable to find the Status Polling option in the tree")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to navigate to Administration> Options tab")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_restore_default_status_polling_options_and_save(self):
+        """
+         - This keyword restores the default values of the Status Polling options and saves the changes
+         - Keyword Usage
+          - ``XIQSE Restore Default Status Polling Options and Save``
+
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+        if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
+            if self.xiqse_select_status_polling_option():
+                ret_val = self.xiqse_restore_default_options_and_save()
+            else:
+                self.utils.print_info("Unable to find the Status Polling option in the tree")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to navigate to Administration> Options tab")
+            self.screen.save_screen_shot()
+
+        return ret_val
