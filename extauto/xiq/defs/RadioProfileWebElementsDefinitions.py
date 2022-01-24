@@ -296,3 +296,38 @@ class RadioProfileWebElementsDefinitions:
             'wait_for': 5
         }
 
+    radio_profile_page_size_100_link = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottom"]//a[@data-size="100"]',
+            'wait_for': 5
+        }
+
+    radio_profile_table_header = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table/tr/th',
+            'wait_for': 5
+        }
+
+    radio_profile_table_cells = \
+        {
+            'XPATH': '//div[@class="dgrid-scroller"]//table/tr/td',
+            'wait_for': 5
+        }
+
+    radio_profile_delete_button = \
+        {
+            'XPATH': '//span[@automation-tag="radio-mgmt-remove-btn"]',
+            'wait_for': 5
+        }
+
+    radio_profile_dialog_yes_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="yesBtn"]',
+            'wait_for': 5
+        }
+
+    radio_profile_dialog_no_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="noBtn"]',
+            'wait_for': 5
+        }

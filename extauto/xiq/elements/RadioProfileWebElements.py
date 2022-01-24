@@ -167,3 +167,21 @@ class RadioProfileWebElements(RadioProfileWebElementsDefinitions):
 
     def get_channel_width_exclusions_unii_8(self):
         return self.weh.get_element(self.channel_width_exclusions_unii_8)
+
+    def get_radio_profile_page_size_100_link(self):
+        return self.weh.get_element(self.radio_profile_page_size_100_link)
+
+    def get_radio_profile_table_header(self):
+        return self.weh.get_elements(self.radio_profile_table_header)
+
+    def get_radio_profile_table_cells(self):
+        return self.weh.get_elements(self.radio_profile_table_cells)
+
+    def get_radio_profile_delete_button(self):
+        return self.weh.get_element(self.radio_profile_delete_button)
+
+    def get_radio_profile_no_button(self):
+        return self.weh.get_element(self.radio_profile_dialog_no_button)
+
+    def get_radio_profile_dialog_yes_button(self):
+        return self.weh.get_element(self.radio_profile_dialog_yes_button)
