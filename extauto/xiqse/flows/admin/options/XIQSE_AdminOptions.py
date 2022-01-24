@@ -908,7 +908,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
         return ret_val
 
-    def xiqse_set_status_polling_group_2_interval_value(self, value):
+    def xiqse_set_status_polling_group_2_interval_value(self, value="5"):
         """
          - This keyword sets the value of the Status Polling Group 2 Interval option.
          - It is assumed the view is already navigated to the Status Polling option on the Administration> Options tab.
@@ -932,7 +932,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
         return ret_val
 
-    def xiqse_set_status_polling_group_2_interval_value_and_save(self, value):
+    def xiqse_set_status_polling_group_2_interval_value_and_save(self, value="5"):
         """
          - This keyword sets the value of the Status Polling Group 2 Interval option and saves the changes
          - Keyword Usage
