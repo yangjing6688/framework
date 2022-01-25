@@ -367,3 +367,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_navigate_to_device_management_settings_menu(self):
         return self.weh.get_element(self.navigate_to_device_management_settings_menu)
+
+    def get_common_object_network_management_options(self):
+        return self.weh.get_element(self.common_object_network_management_options)

@@ -918,4 +918,10 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-sider-list-deviceMng"]',
             'wait_for': 5
         }
+
+    common_object_network_management_options = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-ManagementOptions"]',
+            'wait_for': 5
+        }
     
