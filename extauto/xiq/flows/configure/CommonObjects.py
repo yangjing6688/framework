@@ -1861,3 +1861,31 @@ class CommonObjects(object):
         else:
             self.utils.print_info("Unable Select IP firewall policy Under New User Profile")
             return -1
+
+    def delete_management_options(self, management_options_name):
+        """
+        - Flow: Configure --> Common Objects --> Network -->Management Options-->Delete Management Option Name
+        - Delete specified Management Options Name from the Management Options Grid
+        - Keyword Usage:
+         - ``Delete Management Options  ${NAME}``
+        :param management_options_name: Management Options Name
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to Management Options in Common Object")
+        self.navigator.navigate_to_common_objects_management_options()
+        sleep(3)
+
+        self.utils.print_info("Select and Delete Management Options row")
+        self._select_delete_common_object(management_options_name)
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        sleep(5)
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        if "Management options were deleted successfully" in tool_tp_text[-1]:
+            return 1
+        else:
+            self.utils.print_info("Unable to Delete Management options")
+            return -1
