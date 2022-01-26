@@ -6,22 +6,22 @@ To get started please follow these instructions:
 
 1. Install docker on the host machine
    
+   Linux:
+
+    [Docker Install Linux Directions](https://docs.docker.com/engine/install/)
+
    Windows:
 
     [Docker Install Windows Directions](https://docs.docker.com/docker-for-windows/install/)
 
-   Linux:
-
-    [Docker Install Linux Directions](https://docs.docker.com/engine/install/)
-    
-1. Install docker-compose
+1. Linux only: Install docker-compose
 
     [Docker Compose Directions](https://docs.docker.com/compose/install/)
 
 1. Create a directory in the root of the host file system called `automation` and a subdirectory called `git`
    
-   NOTE: The directory you work from cannot be an NFS mounted directory.  It must be a directory on your hard drive
-   NOTE: The path from which the `automation` directory is created will be stored in a local environmental variable and used in future steps
+   NOTE: The directory you work from cannot be an NFS mounted directory.  It must be a directory on your hard drive.
+   NOTE: For Linux, the path from which the `automation` directory is created will be stored in a local environmental variable and used in future steps.
 
     Linux:
 
@@ -42,10 +42,12 @@ To get started please follow these instructions:
         git clone git@github.com:extremenetworks/extreme_automation_tests.git
         git clone git@github.extremenetworks.com:Engineering/cw_automation.git
            
-   Note: If you are unable to clone the repositories or do not have access to the repositories please send an e-mail to helptools@extremenetworks.com
+   Note: If you are unable to clone the repositories or do not have access to the repositories please send an e-mail to helptools@extremenetworks.com. You can test access by attempting to view the repositories using a browser: https://github.com/extremenetworks/extreme_automation_tests, https://github.com/extremenetworks/extreme_automation_framework, https://github.extremenetworks.com/Engineering/cw_automation 
 
 1. Create a directory in `automation` called `home`. Within that new directory create another directory called `.ssh` and copy your ssh keys that you already use for GIT into that directory.
 
+    NOTE: The commands below include commands to copy ed25519 keys AND rsa keys.  Two of the commands should be expected to fail because you likely won't have both types of keys.  If you have other types of ssh keys you will need to copy them manually.
+  
     Linux:
 
         cd $AUTO_DIR
@@ -58,11 +60,11 @@ To get started please follow these instructions:
         cp ~/.ssh/id_rsa home/.ssh/
         cp ~/.ssh/id_rsa.pub home/.ssh/
 
-    NOTE: The commands above include commands to copy ed25519 keys AND rsa keys.  Two of the commands should be expected to fail because you likely won't have both types of keys.  If you have other types of ssh keys you will need to copy them manually.
-  
+    
     Windows:
 
         md C:\automation\home\.ssh
+        md C:\automation\home
         cd C:\automation\home\.ssh
         cp C:\Users\$env:UserName\.ssh\id_rsa .
         cp C:\Users\$env:UserName\.ssh\id_rsa.pub .
@@ -73,11 +75,16 @@ To get started please follow these instructions:
     Note: You will use the `automation/git` and `automation/home` directories as volumes for your docker image. id_rsa 
         
 1. Download the pre-built docker image:
-        a. Log in to your GitHub.com account, go to "Settings->Developer settings->Personal access tokens" and create a token with "read:packages" and "write:packages" permissions
+
+        docker pull ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env:latest
+        
+    Note: If you have not logged into the GitHub container registry for Docker you must complete the following steps before your "docker pull" command will work:
+  
+        a. Log in to your GitHub.com account, go to "Settings->Developer settings->Personal access tokens" and create a token with "read:packages" permissions
         b. Copy the Token to your clipboard
         c. Click "Enable SSO"
-        d. Export the PAT to your ENV, "export CR_PAT=<access token from step above>"
-        e. Perform a 'docker login' to the registry, "echo $CR_PAT | docker login ghcr.io -u \<your github ID\> --password-stdin"
+        d. Export the PAT to your ENV, "export CR_PAT=<paste access token from clipboard>"
+        e. Perform a 'docker login' to the registry, "echo $CR_PAT | docker login ghcr.io -u <your github.com user ID> --password-stdin"
         f. docker pull ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env:latest
 
 1. Once the docker downloaded you can check for it by issuing the following command:
@@ -101,35 +108,42 @@ To get started please follow these instructions:
    
         cd C:\automation\git\extreme_automation_framework\vm_env\docker
    
-1. Edit the 'docker-compose.yaml' file. The directories in the "volumes:' section need to be modified to point to the directories that you have been working with.  The following commands can be used to generate the "volumes" lines for the yaml files.  The docker-compose.yaml file is already configured for Windows and doesn't not require any changes (assuming the directories used match these instructions).
+1. **Linux only**: Edit the 'docker-compose.yaml' file. You'll need to change the directories in the "volumes:' section to point to the directories that you have been working with.  The following commands can be used to generate the "volumes" lines for the yaml files.  The docker-compose.yaml file is already configured for Windows and doesn't not require any changes (assuming the directories used match these instructions).
 
-    Linux:
+    Linux Only:
 
         echo $AUTO_DIR/git:/automation/git
         echo $AUTO_DIR/home:/home/administrator
 
-    For example:
+    Example volumes lines:
 
         volumes:
           - /docker_automation_env/automation/git:/automation/git
           - /docker_automation_env/automation/home:/home/administrator
 
-    Where the directory before the ':' is the full path of the directories you've been working with.  Keep everyting after the ':' the same.
+    Note: The directory before the ':' is the full path of the directories you've been working with.  Keep everyting after the ':' the same.
 
-1. Linux Only: Create a local user with id 1202 change ownership of all the files and directories to that user then log in as the new user   
+1. **Linux Only**: Create a local user with id 1202 change ownership of all the files and directories to that user then log in as the new user.  This steps allows you to modify the repository files from within the container.
 
         sudo adduser -c "Local Automation User for automation docker containers" -u 1202 -M -s "/bin/bash" seluser
         cd $AUTO_DIR
         sudo chown -R seluser:seluser *
         
-        
 1. Start the docker images with the docker compose file:
 
+    Linux:
+    
         cd $AUTO_DIR/git/extreme_automation_framework/vm_env/docker
         docker-compose up
 
+    Windows:
+    
+        cd c:\automation\git\extreme_automation_framework\vm_env\docker
+        docker-compose up
+    
+
 ## Accessing the environment:
-Once the docker images are running, access them via a browser using the following URLs.
+Once the docker images are running, you can access them via a browser or a VNS Viewer.
 
 Accessing the containers from a browser:
 
@@ -152,7 +166,7 @@ Access the containers from a VNC Viewer:
 
 ### Creating a New Pycharm Project
 
-You can start up pycharm in the docker developer image by right clicking on the desktop and selecting: Applications->Programming->pycharm.
+You can start up pycharm in the docker developer image clicking the panel menu (lower left of screen) and selecting Programming->pycharm.
 
 ![example project](img/Pycharm_menu.png)
 
