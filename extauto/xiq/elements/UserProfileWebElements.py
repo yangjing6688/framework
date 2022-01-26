@@ -38,3 +38,16 @@ class UserProfileWebElements(UserProfileWebElementsDef):
 
     def get_user_profile_row_cells(self):
         return self.weh.get_element(self.user_profile_row_cells)
+
+    def get_user_profile_delete(self):
+        return self.weh.get_element(self.user_profile_delete)
+
+    def get_user_profile_confirm_delete_no(self):
+        return self.weh.get_element(self.user_profile_confirm_delete_no)
+
+    def get_user_profile_confirm_delete_yes(self):
+        return self.weh.get_element(self.user_profile_confirm_delete_yes)
+
+    def get_all_profile_row_cells(self, row):
+        cells = self.weh.get_elements(self.user_profile_row_cells, row)
+        return cells
