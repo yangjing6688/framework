@@ -1035,3 +1035,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_number_of_rows(self):
         return self.weh.get_elements(self.number_of_rows)
+
+    def get_simulated_device_dropdown_table(self):
+        return self.weh.get_element(self.simulated_device_dropdown_table)
+
+    def get_simulated_device_dropdown_table_rows(self, table):
+        return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)

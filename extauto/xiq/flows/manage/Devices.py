@@ -892,7 +892,12 @@ class Devices:
 
             self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
 
-            options = self.devices_web_elements.get_simulated_device_dropdown_options()
+            # options = self.devices_web_elements.get_simulated_device_dropdown_options()
+            # get table
+            table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
+            # get all rows in table (of APs)
+            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
+
             for option in options:
                 if device_model in option.text:
                     self.utils.print_info("Simulated device option: ", option.text)
