@@ -162,3 +162,4 @@ class AdminOptionsWebElementsDefinitions:
             'XPATH': '//input[@name="spoGroup2Interval"]',
             'wait_for': 10
         }
+

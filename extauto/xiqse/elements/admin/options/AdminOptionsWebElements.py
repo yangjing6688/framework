@@ -143,3 +143,4 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
         :return: Web Server HTTP Session Timeout value on the Administration> Options page
         """
         return self.weh.get_element(self.status_polling_group_2_interval_value)
+

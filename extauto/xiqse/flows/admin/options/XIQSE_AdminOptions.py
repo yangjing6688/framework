@@ -987,3 +987,4 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
             self.screen.save_screen_shot()
 
         return ret_val
+
