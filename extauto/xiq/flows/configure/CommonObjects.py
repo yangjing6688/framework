@@ -9,6 +9,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
+from extauto.xiq.elements.NetworkManagementOptionsElements import NetworkManagementOptionsElements
 from extauto.xiq.elements.UserProfileWebElements import UserProfileWebElements
 
 
@@ -22,7 +23,9 @@ class CommonObjects(object):
         self.cobj_web_elements = CommonObjectsWebElements()
         self.cwp_web_elements = WirelessCWPWebElements()
         self.wireless_web_elements = WirelessWebElements()
+        self.network_management_options_elements = NetworkManagementOptionsElements()
         self.user_profile_web_elements = UserProfileWebElements()
+
 
     def navigate_to_basic_ip_object_hostname(self):
         """
@@ -1892,6 +1895,52 @@ class CommonObjects(object):
             self.utils.print_info("Unable to Delete Management options")
             return -1
 
+    def add_network_management_options(self,  option_name="management_option_1", enable_legacy_http_redirect="True"):
+        """
+        - Adds new network management option(s)
+        -Flow: Configure --> Common Objects --> Network -->Management Options
+           - Keyword Usage:
+            - ``Add Network Management Options``
+        :param option_name : name of the management option
+        :param enable_legacy_http_redirect: determines if enable legacy http redirect should be clicked or not
+        :return: 1
+        """
+        self.navigator.navigate_to_common_objects_management_options()
+        sleep(5)
+
+        self.utils.print_info("Clicking on the Add Management Options Button")
+        add_button = self.network_management_options_elements.get_add_network_management_options_entry()
+        if add_button:
+            self.auto_actions.click(add_button)
+            sleep(5)
+            self.utils.print_info("Set Name for new Add Management Options Entry")
+            name_txt_field = self.network_management_options_elements.get_new_management_option_name()
+            if name_txt_field:
+                self.auto_actions.send_keys(name_txt_field, option_name)
+                if enable_legacy_http_redirect.lower() == "true":
+                    self.utils.print_info("Enabling legacy http redirect")
+                    enable_legacy_http_redirect_checkbox = self.network_management_options_elements.\
+                        get_legacy_http_redirect()
+                    if enable_legacy_http_redirect_checkbox:
+                        self.auto_actions.click(enable_legacy_http_redirect_checkbox)
+                    else:
+                        self.utils.print_info("Unable to enable legacy http redirect")
+                        return -1
+                self.utils.print_info("Saving configuration")
+                save_button = self.network_management_options_elements.get_save_button()
+                if save_button:
+                    self.auto_actions.click(save_button)
+                    return 1
+                else:
+                    self.utils.print_info("Unable save configuration")
+                    return -1
+            else:
+                self.utils.print_info("Unable to set  Name field for new Add Management Options Entry")
+                return -1
+        else:
+            self.utils.print_info("Unable to click on the Add Management Options Button")
+        return 1
+
     def delete_user_profile(self, profile="user004"):
         """
         - It deletes user profile
@@ -1947,3 +1996,4 @@ class CommonObjects(object):
             self.utils.print_info("Unable to gather user profiles")
             return -1
         return -1
+
