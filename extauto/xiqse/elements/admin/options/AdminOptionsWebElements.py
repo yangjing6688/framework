@@ -104,13 +104,13 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
 
     def get_scp_login_information_username(self):
         """
-        :return: The 'Username" value in the Administration> Options> Inventory Manager> File Transfer> SCP Server Properties> Username field
+        :return: The 'Username" field in the Administration> Options> Inventory Manager> File Transfer> SCP Server Properties> Username field
         """
         return self.weh.get_element(self.scp_login_information_username)
 
     def get_scp_login_information_password(self):
         """
-        :return: The'Password" value in the Administration> Options> Inventory Manager> File Transfer> SCP Server Properties> Password field
+        :return: The'Password" field in the Administration> Options> Inventory Manager> File Transfer> SCP Server Properties> Password field
         """
         return self.weh.get_element(self.scp_login_information_password)
 
@@ -122,13 +122,13 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
 
     def get_sftp_login_information_username(self):
         """
-        :return: The 'Username" value in the Administration> Options> Inventory Manager> File Transfer> SFTP Server Properties> Username field
+        :return: The 'Username" field in the Administration> Options> Inventory Manager> File Transfer> SFTP Server Properties> Username field
         """
         return self.weh.get_element(self.sftp_login_information_username)
 
     def get_sftp_login_information_password(self):
         """
-        :return: The'Password" value in the Administration> Options> Inventory Manager> File Transfer> SFTP Server Properties> Password field
+        :return: The'Password" field in the Administration> Options> Inventory Manager> File Transfer> SFTP Server Properties> Password field
         """
         return self.weh.get_element(self.sftp_login_information_password)
 
@@ -140,7 +140,7 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
 
     def get_status_polling_group_2_interval_value(self):
         """
-        :return: Web Server HTTP Session Timeout value on the Administration> Options page
+        :return: Status Polling Group 2 Interval field on the Administration> Options page
         """
         return self.weh.get_element(self.status_polling_group_2_interval_value)
 
