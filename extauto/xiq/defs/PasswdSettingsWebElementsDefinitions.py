@@ -25,7 +25,7 @@ class PasswdSettingsWebElementsDefinitions:
 
     psk_generation_method_drop_down = \
         {
-            'XPATH': "//*[@data-automation-tag='password-generate-chzn-container-ctn']",
+            'XPATH': "//*[@data-automation-tag='automation-password-generate-chzn-container-ctn']",
             'wait_for': 5
         }
 
