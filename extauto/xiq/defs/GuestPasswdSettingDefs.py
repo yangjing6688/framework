@@ -19,14 +19,14 @@ class GuestPasswdSettingDefs:
 
     enforce_use_of_drop_down = \
         {
-            'XPATH': "//*[@data-automation-tag='chzn-container-ctn']",
+            'XPATH': "//*[@data-automation-tag='automation-chzn-container-ctn']",
             'wait_for': 5,
             'index': 1
         }
 
     generate_password_length_drop_down = \
         {
-            'XPATH': "//*[@data-automation-tag='chzn-container-ctn']",
+            'XPATH': "//*[@data-automation-tag='automation-chzn-container-ctn']",
             'wait_for': 5,
             'index': 3
         }
