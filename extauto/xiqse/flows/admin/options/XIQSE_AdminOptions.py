@@ -745,7 +745,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         if self.xiqse_select_inventory_manager_option():
             the_button = self.get_scp_login_information_anonymous_checkbox()
             if the_button:
-                if value == "true":
+                if value.lower() == "true":
                     self.utils.print_info("Enabling 'Anonymous' checkbox")
                     self.auto_actions.enable_check_box(the_button)
                 else:
@@ -824,7 +824,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         if self.xiqse_select_inventory_manager_option():
             the_button = self.get_sftp_login_information_anonymous_checkbox()
             if the_button:
-                if value == "true":
+                if value.lower() == "true":
                     self.utils.print_info("Enabling 'Anonymous' checkbox")
                     self.auto_actions.enable_check_box(the_button)
                 else:
