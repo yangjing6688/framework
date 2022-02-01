@@ -1065,17 +1065,29 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         count = 1
         while count <= retry_count:
             self.utils.print_info(f"Device Upgraded Check - Loop: ", count)
-            self.xiqse_table.xiqse_refresh_table()
 
-            is_upgraded = self.xiqse_get_device_column_value(device_ip, "Firmware")
-            self.utils.print_info(f"Is Upgraded: '{is_upgraded}'")
-            if is_upgraded and is_upgraded == upgrade_version:
-                self.utils.print_info("Device is upgraded")
-                return 1
-            else:
-                self.utils.print_info(
-                    f"Device is not showing upgraded version. Waiting for {retry_duration} seconds...")
-                sleep(retry_duration)
+            stale_retry = 1
+            while stale_retry <= 10:
+                try:
+                    self.xiqse_table.xiqse_refresh_table()
+
+                    is_upgraded = self.xiqse_get_device_column_value(device_ip, "Firmware")
+                    self.utils.print_info(f"Is Upgraded: '{is_upgraded}'")
+                    if is_upgraded and is_upgraded == upgrade_version:
+                        self.utils.print_info("Device is upgraded")
+                        return 1
+                    else:
+                        self.utils.print_info(
+                            f"Device is not showing upgraded version. Waiting for {retry_duration} seconds...")
+                        sleep(retry_duration)
+
+                    # Break out of the Stale Element Exception loop
+                    break
+                except StaleElementReferenceException:
+                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                    stale_retry = stale_retry + 1
+
+            # Increment retry counter
             count += 1
 
         if ret_val == -1:

@@ -10,6 +10,7 @@ from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElemen
 from extauto.xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.xiq.elements.NetworkManagementOptionsElements import NetworkManagementOptionsElements
+from extauto.xiq.elements.UserProfileWebElements import UserProfileWebElements
 
 
 class CommonObjects(object):
@@ -23,6 +24,8 @@ class CommonObjects(object):
         self.cwp_web_elements = WirelessCWPWebElements()
         self.wireless_web_elements = WirelessWebElements()
         self.network_management_options_elements = NetworkManagementOptionsElements()
+        self.user_profile_web_elements = UserProfileWebElements()
+
 
     def navigate_to_basic_ip_object_hostname(self):
         """
@@ -1937,3 +1940,60 @@ class CommonObjects(object):
         else:
             self.utils.print_info("Unable to click on the Add Management Options Button")
         return 1
+
+    def delete_user_profile(self, profile="user004"):
+        """
+        - It deletes user profile
+        -Flow: Configure --> Common Objects --> User Profile
+           - Keyword Usage:
+            - ``Delete User Profile       profile=${PROFILE}``
+
+        :param profile : profile name
+        :return: 1
+        """
+        self.navigator.navigate_to_common_object_user_profile()
+        sleep(5)
+
+        self.utils.print_info("Gathering all the user profiles in the profile table")
+        profile_rows = self.user_profile_web_elements.get_user_profile_grid_rows()
+        profile_was_located = False
+        if profile_rows:
+            self.utils.print_info("Checking profile list to see if " + profile + " is in the list")
+            for row in profile_rows:
+                self.utils.print_info(row.text)
+                if profile.lower().strip() == row.text.lower().strip():
+                    self.utils.print_info("Profile " + profile + " found")
+                    profile_was_located = True
+                    self.utils.print_info("Selecting the row")
+                    row_elements = self.user_profile_web_elements.get_all_profile_row_cells(row)
+                    check_box = row_elements[0]
+                    if check_box:
+                        self.auto_actions.click(check_box)
+                        self.utils.print_info("Clicking on the delete button")
+                        delete_button = self.user_profile_web_elements.get_user_profile_delete()
+                        if delete_button:
+                            self.auto_actions.click(delete_button)
+                            sleep(5)
+                            self.utils.print_info("Clicking yes on the confirm delete popup")
+                            confirm_yes = self.user_profile_web_elements.get_user_profile_confirm_delete_yes()
+                            if confirm_yes:
+                                self.auto_actions.click(confirm_yes)
+                                return 1
+                            else:
+                                self.utils.print_info("Unable to click yes on the confirm delete popup")
+                                return -1
+                        else:
+                            self.utils.print_info("Unable to click the delete button")
+                            return -1
+                    else:
+                        self.utils.print_info("Unable to select the row")
+                        return -1
+
+            if not profile_was_located:
+                self.utils.print_info("Profile " + profile + "was NOT found")
+                return -1
+        else:
+            self.utils.print_info("Unable to gather user profiles")
+            return -1
+        return -1
+

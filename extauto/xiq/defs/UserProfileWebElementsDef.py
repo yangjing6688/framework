@@ -1,7 +1,9 @@
 class UserProfileWebElementsDef:
+    # had to update this to use index 1
     user_profile_add = \
         {
             'XPATH': '//span[@class="table-action-icons table-add"]',
+            'index': 1,
             'wait_for': 5
         }
 
@@ -51,4 +53,23 @@ class UserProfileWebElementsDef:
         {
             'CSS_SELECTOR': '.dgrid-cell',
             'wait_for': 15
+        }
+
+    user_profile_delete = \
+        {
+            'XPATH': '//span[@class="table-action-icons table-remove"]',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    user_profile_confirm_delete_no = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="noBtn"]',
+            'wait_for': 5
+        }
+
+    user_profile_confirm_delete_yes = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="yesBtn"]',
+            'wait_for': 5
         }

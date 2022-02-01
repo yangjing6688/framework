@@ -6,9 +6,16 @@ class CheckExecution():
     def __init__(self, request, config):
         self.request = request
         self.tb  = PytestConfigHelper(config)
+        try:
+            self.my_model = self.tb.dut1_model
+        except:
+            try:
+                self.my_model = self.tb.dut1_platform
+            except:
+                self.my_model = "5520"
 
     def requiredPlatform(self):
-        devCap = DeviceCapability(self.tb.dut1_model)
+        devCap = DeviceCapability(self.my_model)
         models = devCap.loadModels()
         reqList = []
         if self.request.node.get_closest_marker('required_platform').args[0]:
@@ -19,13 +26,13 @@ class CheckExecution():
                 if myPlat in models:
                     modelGroup = models[myPlat]
                 print(f"I found platform {myPlat}")
-                if self.tb.dut1_topology == myPlat or str(self.tb.dut1_model) in modelGroup:
+                if self.tb.dut1_topology == myPlat or str(self.my_model) in modelGroup:
                     returnList = [True, myPlat]
                     return returnList
             return [None, reqList]
 
     def skipPlatform(self):
-        devCap = DeviceCapability(self.tb.dut1_model)
+        devCap = DeviceCapability(self.my_model)
         models = devCap.loadModels()
         if self.request.node.get_closest_marker('skip_platform').args[0]:
             for plat in self.request.node.get_closest_marker('skip_platform').args:
@@ -34,12 +41,12 @@ class CheckExecution():
                 if myPlat in models:
                     print(f"P{myPlat}myPlat {models[myPlat]}")
                     modelGroup = models[myPlat]
-                if self.tb.dut1_topology == myPlat or str(self.tb.dut1_model) in modelGroup:
+                if self.tb.dut1_topology == myPlat or str(self.my_model) in modelGroup:
                     return myPlat
             return None
 
     def requiredCapability(self):
-        devCap = DeviceCapability(self.tb.dut1_model)
+        devCap = DeviceCapability(self.my_model)
         capability = devCap.getModelInfo()
         capList = []
         capValueList = []
