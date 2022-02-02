@@ -4,7 +4,7 @@
 version: "3"
 services:
   automation-dev-env:
-    image: ghcr.io/extremenetworks/econ-automation-framework/automation-dev-env:latest
+    image: ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env:latest
     container_name: automation-dev-env
     environment:
       - RESOLUTION=1920x1080
