@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y \
       iputils-ping \
       telnet \
       openssh-server \
-      git
+      git \
+      python3-tk
 
 # Install apps directory
 RUN useradd apps \
@@ -62,6 +63,7 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 # Install browser support
 RUN mkdir tempFiles
 
+RUN apt-get purge -y google-chrome-stable
 #============================================
 # Google Chrome
 #============================================
@@ -72,14 +74,14 @@ RUN mkdir tempFiles
 #       latest (equivalent to google-chrome-stable)
 #       google-chrome-beta  (pull latest beta)
 #============================================
-ARG CHROME_VERSION="google-chrome-stable"
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-  && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-  && apt-get update -qqy \
-  && apt-get -qqy install \
-    ${CHROME_VERSION:-google-chrome-stable} \
-  && rm /etc/apt/sources.list.d/google-chrome.list \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+# ARG CHROME_VERSION="google-chrome-stable"
+# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+#   && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+#   && apt-get update -qqy \
+#   && apt-get -qqy install \
+#     ${CHROME_VERSION:-google-chrome-stable} \
+#   && rm /etc/apt/sources.list.d/google-chrome.list \
+#   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #============================================
 # Chrome webdriver
@@ -87,30 +89,40 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 # can specify versions by CHROME_DRIVER_VERSION
 # Latest released version will be used by default
 #============================================
-ARG CHROME_DRIVER_VERSION
-RUN if [ -z "$CHROME_DRIVER_VERSION" ]; \
-  then CHROME_MAJOR_VERSION=$(google-chrome --version | sed -E "s/.* ([0-9]+)(\.[0-9]+){3}.*/\1/") \
-    && CHROME_DRIVER_VERSION=$(wget --no-verbose -O - "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION}"); \
-  fi \
-  && echo "Using chromedriver version: "$CHROME_DRIVER_VERSION \
-  && wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
-  && rm -rf /opt/selenium/chromedriver \
-  && unzip /tmp/chromedriver_linux64.zip -d /opt/selenium \
-  && rm /tmp/chromedriver_linux64.zip \
-  && mv /opt/selenium/chromedriver /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
-  && chmod 777 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
-  && sudo ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
+# ARG CHROME_DRIVER_VERSION=""
+# RUN if [ -z "$CHROME_DRIVER_VERSION" ]; \
+#   then CHROME_MAJOR_VERSION=$(google-chrome --version | sed -E "s/.* ([0-9]+)(\.[0-9]+){3}.*/\1/") \
+#     && CHROME_DRIVER_VERSION=$(wget --no-verbose -O - "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION}"); \
+#   fi \
+#   && echo "Using chromedriver version: "$CHROME_DRIVER_VERSION \
+#   && wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
+#   && rm -rf /opt/selenium/chromedriver \
+#   && unzip /tmp/chromedriver_linux64.zip -d /opt/selenium \
+#   && rm /tmp/chromedriver_linux64.zip \
+#   && mv /opt/selenium/chromedriver /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
+#   && chmod 777 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
+#   && sudo ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
+
+# COPY chrome/Linux_x64_885292_chrome-linux.zip /tmp/Linux_x64_885292_chrome-linux.zip
+# RUN cd /tmp && unzip Linux_x64_885292_chrome-linux.zip && mkdir -p /opt/google/chrome && cp -rf /tmp/chrome-linux/* /opt/google/chrome
+
+# COPY /chrome/chromedriver_linux64.zip /tmp/chromedriver_linux64.zip
+# RUN rm -rf /opt/selenium/chromedriver \
+#     && unzip /tmp/chromedriver_linux64.zip -d /opt/selenium \
+#     && rm /tmp/chromedriver_linux64.zip \
+#     && mv /opt/selenium/chromedriver /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
+#     && chmod 777 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
+#     && sudo ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
+
 
 # SSH fix for VOSS devices
 RUN echo "KexAlgorithms diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1,curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256" >>/etc/ssh/ssh_config.d/weak.conf
 
-# stand alone selenumn server
-COPY files/selenium-server-standalone-3.141.59.jar /tempFiles/selenium-server-standalone-3.141.59.jar
 COPY /files/pycharm.desktop /usr/share/applications
 RUN rm -rf /software
 
 # Update chrome to be able to run as root
-RUN sed -i 's/exec -a "$0" "$HERE\/chrome" "$@"/exec -a "$0" "$HERE\/chrome" "$@" --no-sandbox/g' /opt/google/chrome/google-chrome
+# RUN sed -i 's/exec -a "$0" "$HERE\/chrome" "$@"/exec -a "$0" "$HERE\/chrome" "$@" --no-sandbox/g' /opt/google/chrome/google-chrome
 
 
 
