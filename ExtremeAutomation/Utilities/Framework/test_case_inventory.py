@@ -20,8 +20,7 @@ class RobotTestData():
     def print_suite(self,suite):
         goodCaseName = re.compile(r"(test_[0-9a-zA-Z\[\]\-_\.]+)")
         qTestMarker  = re.compile(r"([a-zA-Z]+_TC_[0-9]+)")
-        testbed_name_re = re.compile(r"testbed_([0-9]+)_node")
-        tag_case_re = re.compile(r"[A-Z]+") # checks if tag contains uppercase chars
+        testbed_name_re = re.compile(r"testbed_([0-9]+)_node|testbed_not_required")
         reserved_tags_re = re.compile(r"production|regression|nightly|sanity|p[1-4]")
         relative_path = os.path.relpath(suite.source,  os.getcwd())
         output_dict = {
@@ -74,8 +73,7 @@ class RobotTestData():
                 qTestCheck = qTestMarker.search(tag)
                 if qTestCheck:
                     qTestOK = True
-                tag_case_result = tag_case_re.search(tag)
-                if tag_case_result:
+                if not tag.islower():
                     uppercase_check = False
                 reserved_tags_result = reserved_tags_re.search(tag)
                 if reserved_tags_result:
