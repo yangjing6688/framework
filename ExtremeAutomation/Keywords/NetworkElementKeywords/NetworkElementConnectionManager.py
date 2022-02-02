@@ -91,7 +91,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         Searches the testbed environment file for network elements and connects to each.
         """
-        netelem_dict = self.__build_dict_of_netelems(**kwargs)
+        netelem_dict = self.build_dict_of_netelems(**kwargs)
         for netelem_name in netelem_dict:
             if not netelem_dict[netelem_name]["skip_connect"]:
                 netelem_ip = netelem_dict[netelem_name]["netelem_ip"]
@@ -119,7 +119,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         Searches the testbed environment file for network elements and connects to each.
         """
-        netelem_dict = self.__build_dict_of_netelems(**kwargs)
+        netelem_dict = self.build_dict_of_netelems(**kwargs)
 
         if device_name in netelem_dict:
             netelem_ip = netelem_dict[device_name]["netelem_ip"]
@@ -148,7 +148,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         Searches the testbed environment file for network elements and connects to each.
         """
-        netelem_dict = self.__build_dict_of_netelems(**kwargs)
+        netelem_dict = self.build_dict_of_netelems(**kwargs)
         for netelem_name in netelem_dict:
             if netelem_dict[netelem_name]["netelem_id"] == netelem_id:
                 netelem_ip = netelem_dict[netelem_name]["netelem_ip"]
@@ -322,7 +322,9 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         if learned_system is not None:
             RobotUtils.update_variables(net_elem_name, learned_system)
 
-    def __build_dict_of_netelems(self, **kwargs):
+
+
+    def build_dict_of_netelems(self, **kwargs):
         try:
             variables = RobotUtils.get_variables(no_decoration=True)
         except Exception as e:
