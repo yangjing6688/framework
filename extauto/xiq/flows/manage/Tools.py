@@ -182,7 +182,7 @@ class Tools:
 
             self.utils.print_info("clicking on enable SSH button")
             self.auto_actions.click(self.tools_elements.get_enable_ssh_button())
-            self.utils.print_info("sleep for 30seconds to enable SSH")
+            self.utils.print_info("sleep for 45 seconds to enable SSH")
             sleep(45)
 
             if "SSH Active" in self.ui_tools_ssh_status_check():
