@@ -52,6 +52,12 @@ class Tools:
                 if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                         in error:
                     return -1
+                elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
+                        in error:
+                    return -1
+                else:
+                    return -2
+
             sleep(10)
 
             self.auto_actions.click(self.tools_elements.get_neighbor_info_button())
@@ -89,6 +95,11 @@ class Tools:
                     if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                             in error:
                         return -1
+                    elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
+                            in error:
+                        return -1
+                    else:
+                        return -2
                 sleep(10)
 
         self.utils.print_info("Clicking Diagnostics button")
