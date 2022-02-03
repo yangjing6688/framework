@@ -112,3 +112,33 @@ class MuSocialWebElementsDefs:
             'XPATH': '//button[text()="Send anyway"]',
             'wait_for': 5
         }
+
+    user_registration_social_wifi_username_field = \
+        {
+            'XPATH': '//input[@name="f_user"]',
+            'wait_for': 5
+        }
+
+    user_registration_social_wifi_passcode_field = \
+        {
+            'XPATH': '//input[@name="f_pass"]',
+            'wait_for': 5
+        }
+
+    user_registration_social_wifi_signin_button = \
+        {
+            'XPATH': '//a[text()="Sign In"]',
+            'wait_for': 5
+        }
+
+    user_registration_social_wifi_login_error_page = \
+        {
+            'XPATH': '//button[text()="Send anyway"]',
+            'wait_for': 5
+        }
+
+    default_template_page_company_logo = \
+        {
+            'XPATH': '//img[contains(@src, "media")]',
+            'wait_for': 5
+        }

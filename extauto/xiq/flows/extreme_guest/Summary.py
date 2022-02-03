@@ -1,17 +1,17 @@
-import extauto.common.CloudDriver
-from extauto.common.Screen import Screen
-from extauto.common.Utils import Utils
-from extauto.common.AutoActions import AutoActions
-from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.elements.extreme_guest.ExtremeGuestSummaryWebElements import ExtremeGuestSummaryWebElements
-from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+import common.CloudDriver
+from common.Screen import Screen
+from common.Utils import Utils
+from common.AutoActions import AutoActions
+from xiq.flows.common.Navigator import Navigator
+from xiq.elements.extreme_guest.ExtremeGuestSummaryWebElements import ExtremeGuestSummaryWebElements
+from xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
 
 
 class Summary(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        self.driver = common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
@@ -237,5 +237,93 @@ class Summary(object):
         if linkedin_data := self.summary_web_elem.get_extreme_guest_summary_linkedin_widget():
             if linkedin_data.text:
                 self.utils.print_info(f"Today's linkedin widget data: {linkedin_data.text}")
+
+        return 1
+
+    def check_summary_page_total_users_widget_data(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
+        - Keyword Usage:
+            ''check summary page total users widget data''
+
+        :return: 1 if all widgets are displayed
+        """
+        if self.summary_web_elem.get_extreme_guest_summary_total_users_widget().is_displayed():
+            self.utils.print_info("total_users widget is displayed")
+        else:
+            self.utils.print_info("total_users widget is not displayed")
+            return -1
+
+        self.utils.print_info("Checking total_users widget data")
+        if total_users_data := self.summary_web_elem.get_extreme_guest_summary_total_users_widget():
+            if total_users_data.text:
+                self.utils.print_info(f"Today's total_users widget data: {total_users_data.text}")
+
+        return 1
+
+    def check_summary_page_online_users_widget_data(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
+        - Keyword Usage:
+            ''check summary page online users widget data''
+
+        :return: 1 if all widgets are displayed
+        """
+        if self.summary_web_elem.get_extreme_guest_summary_online_users_widget().is_displayed():
+            self.utils.print_info("online_users widget is displayed")
+        else:
+            self.utils.print_info("online_users widget is not displayed")
+            return -1
+
+        self.utils.print_info("Checking online_users widget data")
+        if online_users_data := self.summary_web_elem.get_extreme_guest_summary_online_users_widget():
+            if online_users_data.text:
+                self.utils.print_info(f"Today's online_users widget data: {online_users_data.text}")
+
+        return 1
+
+    def check_summary_page_total_clients_widget_data(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
+        - Keyword Usage:
+            ''check summary page total clients widget data''
+
+        :return: 1 if all widgets are displayed
+        """
+        if self.summary_web_elem.get_extreme_guest_summary_total_clients_widget().is_displayed():
+            self.utils.print_info("total_clients widget is displayed")
+        else:
+            self.utils.print_info("total_clients widget is not displayed")
+            return -1
+
+        self.utils.print_info("Checking total_clients widget data")
+        if total_clients_data := self.summary_web_elem.get_extreme_guest_summary_total_clients_widget():
+            if total_clients_data.text:
+                self.utils.print_info(f"Today's total_clients widget data: {total_clients_data.text}")
+
+        return 1
+    
+    def check_summary_page_online_clients_widget_data(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
+        - Keyword Usage:
+            ''check summary page total clients widget data''
+
+        :return: 1 if all widgets are displayed
+        """
+        if self.summary_web_elem.get_extreme_guest_summary_online_clients_widget().is_displayed():
+            self.utils.print_info("online_clients widget is displayed")
+        else:
+            self.utils.print_info("online_clients widget is not displayed")
+            return -1
+
+        self.utils.print_info("Checking online_clients widget data")
+        if online_clients_data := self.summary_web_elem.get_extreme_guest_summary_online_clients_widget():
+            if online_clients_data.text:
+                self.utils.print_info(f"Today's online_clients widget data: {online_clients_data.text}")
 
         return 1

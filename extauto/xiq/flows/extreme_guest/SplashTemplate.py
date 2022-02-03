@@ -1,19 +1,19 @@
 from time import sleep
-import extauto.common.CloudDriver
-from extauto.common.Screen import Screen
-from extauto.common.Utils import Utils
-from extauto.common.AutoActions import AutoActions
-from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.elements.extreme_guest.ExtremeGuestSplashTemplateWebElements import ExtremeGuestSplashTemplateWebElements
-from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
-from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+import common.CloudDriver
+from common.Screen import Screen
+from common.Utils import Utils
+from common.AutoActions import AutoActions
+from xiq.flows.common.Navigator import Navigator
+from xiq.elements.extreme_guest.ExtremeGuestSplashTemplateWebElements import ExtremeGuestSplashTemplateWebElements
+from xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
+from xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
 
 
 class SplashTemplate(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        self.driver = common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
@@ -439,6 +439,50 @@ class SplashTemplate(object):
             network_name)
         sleep(2)
 
+        self.utils.print_info("Clicking Add Button")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_add_button())
+        sleep(2)
+
+        self.utils.print_info("Clicking Apply Button")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_button())
+        sleep(3)
+
+        self.utils.print_info("Clicking OK Button")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_ok_button())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        return 1
+
+    def remove_network_from_user_template(self, template_name=None):
+        """
+        - This keyword will Apply the Network and Location To User Template
+        - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
+                Splash Template--> System Template--> Clone
+        - Keyword Usage:
+            ''Remove Network From User Template	${TEMPLATE_NAME}''
+
+        :param template_name: Name of the user template to be selected
+        :param network_name: Name of the network to be selected
+        :param location : Location Tree in comma format  e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
+        :return: 1 if success
+        """
+        self.go_to_configure_splash_user_template_tab()
+        self.utils.print_info("Clicking on the Apply network the user template icon")
+        web_element_fn = "self.splash_web_elem.get_extreme_guest_user_" + template_name + "_apply_icon()"
+        self.auto_actions.click(eval(web_element_fn))
+        sleep(2)
+
+        if self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_delete_button().is_displayed():
+            self.utils.print_info("Clicking Delete Button")
+            self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_delete_button())
+            sleep(2)
+        else:
+            self.utils.print_info("No policy/location mapping for the template")
+            sleep(2)
+
         self.utils.print_info("Clicking Apply Button")
         self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_button())
         sleep(2)
@@ -465,6 +509,9 @@ class SplashTemplate(object):
         :return: 1 if location is selected, else -1'
         """
         ret_val = -1
+        self.utils.print_info("Clicking Location Drop Down Button in Apply Template")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_location_dropdown())
+        sleep(2)
         if sel_loc:
             try:
                 location_list = sel_loc.split(',')

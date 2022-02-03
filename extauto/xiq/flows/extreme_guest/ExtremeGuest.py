@@ -1,18 +1,18 @@
 from time import sleep
-import extauto.common.CloudDriver
-from extauto.common.Screen import Screen
-from extauto.common.Utils import Utils
-from extauto.common.Cli import Cli
-from extauto.common.AutoActions import AutoActions
-from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
+import common.CloudDriver
+from common.Screen import Screen
+from common.Utils import Utils
+from common.Cli import Cli
+from common.AutoActions import AutoActions
+from xiq.flows.common.Navigator import Navigator
+from xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
 
 
 class ExtremeGuest(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        self.driver = common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.cli = Cli()
@@ -128,7 +128,7 @@ class ExtremeGuest(object):
 
         :return: 1 if navigation success
         """
-        self.go_to_extreme_guest_page()
+        #self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Monitor Page")
         self.auto_actions.click(self.guest_web_elem.get_extreme_guest_monitor_page())
         sleep(2)
@@ -178,7 +178,7 @@ class ExtremeGuest(object):
 
         :return: 1 if success
         """
-        self.go_to_extreme_guest_page()
+        #self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Configure Page")
         self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_page())
         sleep(2)
@@ -231,7 +231,7 @@ class ExtremeGuest(object):
         :return:
         """
         self.utils.print_info("Getting open ssid rows")
-        self.utils.print_info(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows())
+        #self.utils.print_info(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows())
         rows = self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows()
         if rows:
             for row in rows:
@@ -294,15 +294,18 @@ class ExtremeGuest(object):
         :param ssid_name: Open SSID name to be searched
         :return: 1 if success
         """
-        self.go_to_extreme_guest_subscribe_page()
-        sleep(5)
-
-        if self._search_extreme_guest_subscription_page_open_ssid(ssid_name):
-            self.utils.print_info("SSID is available in the list")
-            return 1
+        if self.go_to_extreme_guest_subscribe_page():
+            sleep(5)
+            if self._search_extreme_guest_subscription_page_open_ssid(ssid_name):
+                self.utils.print_info("SSID is available in the list")
+                return 1
+            else:
+                self.utils.print_info("SSID is not available in the list")
+        else:
+            self.utils.print_info("SSID list is not available for selection ")
 
         self.screen.save_screen_shot()
-        sleep(2)
+        return 0
 
     def send_wg_cmd_to_ap(self, ssid_name, *cli_objs):
         """

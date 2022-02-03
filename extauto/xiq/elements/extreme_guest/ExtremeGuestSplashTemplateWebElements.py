@@ -1,5 +1,5 @@
-from extauto.xiq.defs.extreme_guest.ExtremeGuestSplashTemplateWebElementsDefs import ExtremeGuestSplashTemplateWebElementsDefs
-from extauto.common.WebElementHandler import *
+from xiq.defs.extreme_guest.ExtremeGuestSplashTemplateWebElementsDefs import ExtremeGuestSplashTemplateWebElementsDefs
+from common.WebElementHandler import *
 
 
 class ExtremeGuestSplashTemplateWebElements(ExtremeGuestSplashTemplateWebElementsDefs):
@@ -116,6 +116,12 @@ class ExtremeGuestSplashTemplateWebElements(ExtremeGuestSplashTemplateWebElement
 
     def get_extreme_guest_user_test_template_apply_location_dropdown_item(self):
         return self.weh.get_element(self.extreme_guest_user_test_template_apply_location_dropdown_item)
+
+    def get_extreme_guest_user_test_template_apply_network_add_button(self):
+        return self.weh.get_element(self.extreme_guest_user_test_template_apply_network_add_button)
+
+    def get_extreme_guest_user_test_template_apply_network_delete_button(self):
+        return self.weh.get_element(self.extreme_guest_user_test_template_apply_network_delete_button)
 
     def get_extreme_guest_user_test_template_apply_network_apply_button(self):
         return self.weh.get_element(self.extreme_guest_user_test_template_apply_network_apply_button)

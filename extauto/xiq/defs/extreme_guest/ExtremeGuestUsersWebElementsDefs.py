@@ -19,14 +19,14 @@ class ExtremeGuestUsersWebElementsDefs:
 
     create_bulk_users_access_group_drop_down_button = \
         {
-            'XPATH': '//div[contains(@data-automation-tag, "eguest-users-bulkvoucher-usergroup-db")]'
-                     '//div[contains(@class, "x-form-arrow-trigger")]',
+            'XPATH': '//div[contains(@data-automation-tag, "eguest-users-bulkvoucher-usergroup-db")]//div[contains('
+                     '@class, "x-form-arrow-trigger")]',
             'wait_for': 5
         }
 
     create_bulk_users_access_group_drop_down_options = \
         {
-            'XPATH': '//ul[contains(@id, "combo-1249-picker-listEl")]//li',
+            'XPATH': '//li[@class="x-boundlist-item"]',
             'wait_for': 5
         }
 
@@ -124,6 +124,12 @@ class ExtremeGuestUsersWebElementsDefs:
             'wait_for': 5
         }
 
+    extreme_guest_users_grid_row_cells_user_name_list = \
+        {
+            'XPATH': '//span[@class="eguest-user-name"]',
+            'wait_for': 5
+        }
+
     extreme_guest_users_delete_button = \
         {
             'XPATH': '//div[@data-automation-tag="eguest-users-delete-user-btn"]',
@@ -139,5 +145,17 @@ class ExtremeGuestUsersWebElementsDefs:
     extreme_guest_users_delete_status_ok_button = \
         {
             'XPATH': '//span[text()="OK"]',
+            'wait_for': 5
+        }
+
+    extreme_guest_users_print_user_cells = \
+        {
+            'XPATH': '//td[1]',
+            'wait_for': 5
+        }
+
+    extreme_guest_users_print_password_cells = \
+        {
+            'XPATH': '//td[2]',
             'wait_for': 5
         }

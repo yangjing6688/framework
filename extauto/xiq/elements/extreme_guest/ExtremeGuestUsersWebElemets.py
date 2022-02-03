@@ -1,5 +1,5 @@
-from extauto.xiq.defs.extreme_guest.ExtremeGuestUsersWebElementsDefs import ExtremeGuestUsersWebElementsDefs
-from extauto.common.WebElementHandler import *
+from xiq.defs.extreme_guest.ExtremeGuestUsersWebElementsDefs import ExtremeGuestUsersWebElementsDefs
+from common.WebElementHandler import *
 
 
 class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
@@ -69,6 +69,9 @@ class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
             if field in cell.get_attribute("class"):
                 return cell
 
+    def get_extreme_guest_users_grid_row_cells_user_name_list(self):
+        return self.weh.get_elements(self.extreme_guest_users_grid_row_cells_user_name_list)
+
     def get_extreme_guest_users_delete_button(self):
         return self.weh.get_element(self.extreme_guest_users_delete_button)
 
@@ -77,3 +80,9 @@ class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
 
     def get_extreme_guest_users_delete_status_ok_button(self):
         return self.weh.get_element(self.extreme_guest_users_delete_status_ok_button)
+
+    def get_extreme_guest_users_print_user_cells(self):
+        return self.weh.get_elements(self.extreme_guest_users_print_user_cells)
+
+    def get_extreme_guest_users_print_password_cells(self):
+        return self.weh.get_elements(self.extreme_guest_users_print_password_cells)
