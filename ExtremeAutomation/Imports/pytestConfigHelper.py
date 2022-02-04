@@ -77,10 +77,11 @@ class PytestConfigHelper():
         except:
             pass
 
-        # DUT 1
-        self.dut1 = DotDict(config['netelem1'])
-        self.dut1_name = config['netelem1']['name']
+
         try:
+            # DUT 1
+            self.dut1 = DotDict(config['netelem1'])
+            self.dut1_name = config['netelem1']['name']
             self.node_count += 1
             self.dut1_os = config['netelem1']['os']
             self.dut1_platform = config['netelem1']['platform']
@@ -118,9 +119,10 @@ class PytestConfigHelper():
         except:
             pass
 
-        # dut1 topology
-        self.dut1_topology = 'standalone'
+
         try:
+            # dut1 topology
+            self.dut1_topology = 'standalone'
             if 'stack' in config['netelem1']:
                 self.dut1_topology = 'stack'
                 try:

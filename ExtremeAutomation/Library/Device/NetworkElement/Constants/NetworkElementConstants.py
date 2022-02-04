@@ -21,6 +21,7 @@ class NetworkElementConstants(Constants):
     OS_MLX = 'MLX'  # brocade
     OS_VDX = 'VDX'  # brocade
     OS_ICX = 'ICX'  # brocade
+    OS_HIVE = 'HIVE'  # AP
 
     # Unit Constants
     UNIT_BASE = "baseunit"
@@ -32,6 +33,7 @@ class NetworkElementConstants(Constants):
     PLATFORM_BASE = "base"
     PLATFORM_EOS_BASE = "base"
     PLATFORM_BOSS_BASE = "base"
+    PLATFORM_HIVE_BASE = "base"
     PLATFORM_ECOS_BASE = "base"
     PLATFORM_EOS_TOR = "TOR"
     PLATFORM_EOS_S = "S"

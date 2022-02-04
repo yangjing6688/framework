@@ -109,6 +109,12 @@ class NetworkElementUtils(object):
             login_prompt = "Username:"
             pass_prompt = "Password:"
             main_prompt = "#"
+        elif formatted_dev_os == NetworkElementConstants.OS_HIVE:
+            device_os = NetworkElementConstants.OS_HIVE
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_HIVE_BASE
+            login_prompt = "Username:"
+            pass_prompt = "Password:"
+            main_prompt = "#"
         else:
             logger = Logger()
 
