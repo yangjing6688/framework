@@ -1,9 +1,18 @@
-from common.Utils import Utils
+from extauto.common.Utils import Utils
+from extauto.common.Logging import Logging
 import traceback
+import abc
+import os
+import pytest
+
+class FailureException(AssertionError):
+    ROBOT_CONTINUE_ON_FAILURE = True
+    pass
 
 class CommonValidation():
     
     def __init__(self):
+        self.logger = Logging().get_logger()
         self.utils = Utils()
     
     def validate(self, value, expectedValue, **kwargs):
@@ -19,7 +28,7 @@ class CommonValidation():
         """
         default_fail_msg = "The keyword had a result of fail"
         fail_msg = self.get_kwarg(kwargs, "fail_msg", default_fail_msg)
-        pass_msg = self.get_kwarg(kwargs, "pass_msg", "")
+        pass_msg = self.get_kwarg(kwargs, "pass_msg")
         
         # If the keyword is supported check for the existence of two kwargs.
         # ignore_cli_feedback, which ignores any errors or output from the keyword when
@@ -39,11 +48,20 @@ class CommonValidation():
         
         # First check if there was a cli error.
         if not test_result and ignore_cli:
+            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.logger.warning("kwarg - ignore_cli is Enabled return True")
+            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             test_result = True
         
         if expect_error and not test_result:
+            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.logger.warning("kwarg - expect_error is Enabled return True")
+            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             test_result = True
         elif expect_error and test_result:
+            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.logger.warning("kwarg - expect_error is Enabled return False")
+            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             test_result = False
             
         # print the output
@@ -51,14 +69,47 @@ class CommonValidation():
             self.utils.print_info(pass_msg)
         else:
             # Print the error message
-            self.utils.print_info(fail_msg)
-            
-            # if we have the default fail msg, let's print the calling stack trace so users can find the failing keyword.
-            if fail_msg == default_fail_msg:
-                for line in traceback.format_stack():
-                    self.utils.print_info(line.strip())
-        
+            full_error_msg = fail_msg + " Expected Value: " + str(expectedValue) + " Value: " + str(value)
+            pytest.fail(full_error_msg, pytrace=False)
+
         return test_result
+
+
+    def get_kwarg_bool(self, kwargs, key, def_val):
+        """Returns a normalized boolean from the kwarg."""
+        return self.string_to_boolean(kwargs.get(key, def_val))
+
+    def get_kwarg(self, kwargs, key, default=""):
+        value = ''
+        if key in kwargs:
+            value = kwargs[key]
+        else:
+            value = default
+        return value
+
+
+    def string_to_boolean(self, boolean_string, default=True):
+        """
+        Converts boolean strings to a python boolean.
+        Example "True" and "true" would be converted to True.
+        The default option is used to set the boolean value when the passed string
+        does not contain "True", "true", "False", or "false".
+
+        """
+        if str(type(boolean_string)) == "<type 'unicode'>":
+            boolean_string = boolean_string.encode('utf8')
+
+        if isinstance(boolean_string, str):
+            if boolean_string.lower() == "true":
+                boolean = True
+            elif boolean_string.lower() == "false":
+                boolean = False
+            else:
+                boolean = default
+        elif isinstance(boolean_string, bool):
+            boolean = boolean_string
+        else:
+            boolean = default
+
+        return boolean
                 
-            
-    
