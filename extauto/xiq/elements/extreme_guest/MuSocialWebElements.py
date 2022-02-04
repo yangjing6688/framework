@@ -1,9 +1,9 @@
-from xiq.defs.extreme_guest.MuSocialWebElementsDefs import MuSocialWebElementsDefs
+from extauto.xiq.defs.extreme_guest.MuSocialWebElementsDefs import MuSocialWebElementsDefs
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from common.WebElementHandler import *
-from common.Screen import *
+from extauto.common.WebElementHandler import *
+from extauto.common.Screen import *
 from time import sleep
 
 

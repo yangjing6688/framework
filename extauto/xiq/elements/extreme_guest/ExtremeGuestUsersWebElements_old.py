@@ -1,5 +1,5 @@
-from xiq.defs.extreme_guest.ExtremeGuestUsersWebElementsDefs_old import ExtremeGuestUsersWebElementsDefs
-from common.WebElementHandler import *
+from extauto.xiq.defs.extreme_guest.ExtremeGuestUsersWebElementsDefs_old import ExtremeGuestUsersWebElementsDefs
+from extauto.common.WebElementHandler import *
 
 
 class ExtremeGuestWebElements(ExtremeGuestUsersWebElementsDefs):

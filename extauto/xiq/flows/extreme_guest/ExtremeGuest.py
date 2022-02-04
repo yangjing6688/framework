@@ -1,18 +1,18 @@
 from time import sleep
-import common.CloudDriver
-from common.Screen import Screen
-from common.Utils import Utils
-from common.Cli import Cli
-from common.AutoActions import AutoActions
-from xiq.flows.common.Navigator import Navigator
-from xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
+import extauto.common.CloudDriver
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.Cli import Cli
+from extauto.common.AutoActions import AutoActions
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
 
 
 class ExtremeGuest(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = common.CloudDriver.cloud_driver
+        self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.cli = Cli()
@@ -128,7 +128,7 @@ class ExtremeGuest(object):
 
         :return: 1 if navigation success
         """
-        #self.go_to_extreme_guest_page()
+        # self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Monitor Page")
         self.auto_actions.click(self.guest_web_elem.get_extreme_guest_monitor_page())
         sleep(2)
@@ -178,7 +178,7 @@ class ExtremeGuest(object):
 
         :return: 1 if success
         """
-        #self.go_to_extreme_guest_page()
+        # self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Configure Page")
         self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_page())
         sleep(2)
@@ -219,10 +219,8 @@ class ExtremeGuest(object):
         self.go_to_extreme_guest_subscribe_page()
         if self.guest_web_elem.get_extreme_guest_subscription_page_help_information().is_displayed():
             self.utils.print_info("Help information is displayed")
-        else:
-            return 0
-
-        return 1
+            return 1
+        return 0
 
     def _get_extreme_guest_subscription_page_open_ssid_row(self, search_string):
         """
@@ -231,7 +229,7 @@ class ExtremeGuest(object):
         :return:
         """
         self.utils.print_info("Getting open ssid rows")
-        #self.utils.print_info(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows())
+        # self.utils.print_info(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows())
         rows = self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows()
         if rows:
             for row in rows:
@@ -260,10 +258,12 @@ class ExtremeGuest(object):
         :return:
         """
         row = self._get_extreme_guest_subscription_page_open_ssid_row(search_string)
-        self.auto_actions.click(
-            self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_row_cells(row, 'dgrid-selector'))
-        sleep(2)
-        return 1
+        if row:
+            self.auto_actions.click(
+                self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_row_cells(row, 'dgrid-selector'))
+            sleep(2)
+            return 1
+        return 0
 
     def apply_selected_open_ssid(self, search_string):
         """
@@ -276,13 +276,12 @@ class ExtremeGuest(object):
         :return: 1 if success
         """
         self.utils.print_info(f"Selecting {search_string} object grid row")
-        self._select_extreme_guest_subscription_page_open_ssid_row(search_string)
-
-        self.utils.print_info("Click Extreme Guest Subscribe Apply button")
-        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button())
-        sleep(3)
-
-        return 1
+        if self._select_extreme_guest_subscription_page_open_ssid_row(search_string):
+            self.utils.print_info("Click Extreme Guest Subscribe Apply button")
+            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button())
+            sleep(3)
+            return 1
+        return 0
 
     def check_created_ssid_table(self, ssid_name=None):
         """
@@ -340,4 +339,3 @@ class ExtremeGuest(object):
             output = self.cli.send(_spawn, "save config")
             self.cli.close_spawn(_spawn)
             return output
-
