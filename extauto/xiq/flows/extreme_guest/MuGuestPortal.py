@@ -145,11 +145,14 @@ class MuGuestPortal(MuSocialWebElements):
         """
 
         username = list(credentials.keys())[0]
+        sleep(2)
         self.utils.print_info("Entering voucher Username")
         self.auto_actions.send_keys(self.get_user_registration_social_wifi_username_field(), username)
+        sleep(2)
 
         self.utils.print_info("Enter voucher Passcode")
         self.auto_actions.send_keys(self.get_user_registration_social_wifi_passcode_field(), credentials.get(username))
+        sleep(2)
 
         self.utils.print_info("Click Sign In button")
         self.auto_actions.click(self.get_user_registration_social_wifi_signin_button())
