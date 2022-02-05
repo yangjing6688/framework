@@ -264,6 +264,4 @@ class ExtremeGuestUsers(object):
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
         sleep(2)
 
-
-
         return credentials
