@@ -117,12 +117,12 @@ class Onboarding(object):
         self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_button())
         sleep(2)
 
-        if self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_exists_button().is_displayed():
-            self.utils.print_info("The Policy {} already exists. Exiting...".format(policy_name))
-            self.utils.print_info("Clicking OK Button")
-            self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button())
-            sleep(2)
-            return 0
+        # if self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_exists_button().is_displayed():
+        #     self.utils.print_info("The Policy {} already exists. Exiting...".format(policy_name))
+        #     self.utils.print_info("Clicking OK Button")
+        #     self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button())
+        #     sleep(2)
+        #     return 0
 
         self.utils.print_info("Clicking OK Button")
         self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button())
@@ -277,12 +277,12 @@ class Onboarding(object):
         self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_button())
         sleep(2)
 
-        if self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_exists_button().is_displayed():
-            self.utils.print_info("The rule {} already exists. Exiting...".format(rule_name))
-            self.utils.print_info("Clicking OK Button")
-            self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_ok_button())
-            sleep(2)
-            return 0
+        # if self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_exists_button().is_displayed():
+        #     self.utils.print_info("The rule {} already exists. Exiting...".format(rule_name))
+        #     self.utils.print_info("Clicking OK Button")
+        #     self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_ok_button())
+        #     sleep(2)
+        #     return 0
 
         self.utils.print_info("Clicking OK Button")
         self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_ok_button())
