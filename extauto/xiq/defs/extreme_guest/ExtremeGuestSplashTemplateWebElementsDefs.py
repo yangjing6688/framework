@@ -245,7 +245,7 @@ class ExtremeGuestSplashTemplateWebElementsDefs:
 
     extreme_guest_user_test_template_apply_network_apply_ok_button = \
         {
-            'XPATH': '(//span[text()="OK"])[1]',
+            'XPATH': '//div[text()="Successfully applied the template"]/ancestor::div//span[text()="OK"]',
             'wait_for': 5
         }
 
