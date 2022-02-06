@@ -52,6 +52,12 @@ class Tools:
                 if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                         in error:
                     return -1
+                elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
+                        in error:
+                    return -1
+                else:
+                    return -2
+
             sleep(10)
 
             self.auto_actions.click(self.tools_elements.get_neighbor_info_button())
@@ -89,6 +95,11 @@ class Tools:
                     if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                             in error:
                         return -1
+                    elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
+                            in error:
+                        return -1
+                    else:
+                        return -2
                 sleep(10)
 
         self.utils.print_info("Clicking Diagnostics button")
@@ -171,8 +182,8 @@ class Tools:
 
             self.utils.print_info("clicking on enable SSH button")
             self.auto_actions.click(self.tools_elements.get_enable_ssh_button())
-            self.utils.print_info("sleep for 30seconds to enable SSH")
-            sleep(30)
+            self.utils.print_info("sleep for 45 seconds to enable SSH")
+            sleep(45)
 
             if "SSH Active" in self.ui_tools_ssh_status_check():
                 self.utils.print_info("getting ip and port number")
