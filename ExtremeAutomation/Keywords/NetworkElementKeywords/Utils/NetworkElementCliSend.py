@@ -13,7 +13,6 @@ class NetworkElementCliSend(NetworkElementKeywordBaseClass):
     # +-------------------+
     # | CLI Send Keywords |
     # +-------------------+
-    # EJL TODO
     def send_commands(self, device_name, commands_list, **kwargs):
         """
         Sends multiple commands separated by a ","
