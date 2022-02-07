@@ -13,6 +13,27 @@ class NetworkElementCliSend(NetworkElementKeywordBaseClass):
     # +-------------------+
     # | CLI Send Keywords |
     # +-------------------+
+    # EJL TODO
+    def send_commands(self, device_name, commands_list, **kwargs):
+        """
+        Sends multiple commands separated by a ","
+
+       Keyword Arguments:
+            device_name - The name of the device the keyword should be run against.
+            command - The command that should be sent to the device.
+        :return: output of the command
+        """
+        command_list = commands_list.split(",")
+        output_end = []
+        dev, _, _ = self._init_keyword(device_name, **kwargs)
+        for command in command_list:
+            cmd_obj = self.__send_command(dev, command, **kwargs)
+            kw_result = self._determine_result(dev, cmd_obj, **kwargs)
+            cleaned_kw_result = self._keyword_cleanup([kw_result])
+            output_end.append(cleaned_kw_result)
+        return output_end
+
+
     def send_cmd(self, device_name, command, **kwargs):
         """
         Keyword Arguments:
