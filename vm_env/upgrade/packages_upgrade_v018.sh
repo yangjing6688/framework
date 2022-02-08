@@ -1,11 +1,13 @@
 #!/bin/bash
 
 line=$(head -n 1 /automation/version.txt)
-if [ $line == "12.0.0" ]
+if [ $line == "17.0.0" ]
 then
-   echo "Install the VPN software for ubuntu if this VM is not run in the VPN."
+   cd /automation/tests/extreme_automation_tests
+   pip install -r requirements.txt
+   
    echo "Update the VM Version"
-   sed -i 's/12.0.0/13.0.0/g' /automation/version.txt
+   sed -i 's/17.0.0/18.0.0/g' /automation/version.txt
    more /automation/version.txt 
    echo "Completed VM version update"
 else

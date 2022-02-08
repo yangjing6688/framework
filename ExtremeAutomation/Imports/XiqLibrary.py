@@ -220,11 +220,11 @@ class XiqLibrary():
     def __init__(self):
         pass
         
-    def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default", incognito_mode="False"):
+    def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default", incognito_mode="False", **kwargs):
         res = -1
         try:
             self.login = Login()
-            res = self.login.login_user(username, password, capture_version=False, url=url, incognito_mode=incognito_mode)
+            res = self.login.login_user(username, password, capture_version=False, url=url, incognito_mode=incognito_mode, **kwargs)
                     
             self.Ap = Ap()
             self.Cli = Cli()
