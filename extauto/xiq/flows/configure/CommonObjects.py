@@ -144,7 +144,7 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name doesn't exist in the list")
+            self.utils.print_info(f"SSID Name {ssid_name} doesn't exist in the list")
             return 1
 
         self.utils.print_info(f"Select and delete SSID {ssid_name}")
@@ -887,7 +887,7 @@ class CommonObjects(object):
         sleep(5)
 
         if self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name already exists in the list")
+            self.utils.print_info(f"SSID Name {ssid_name} already exists in the list")
             return 1
 
         self.screen.save_screen_shot()
@@ -945,7 +945,7 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name does't exists in the list to clone")
+            self.utils.print_info(f"SSID Name {ssid_name} doesn't exist in the list to clone")
             return -1
 
         self._select_common_object_row(ssid_name)
