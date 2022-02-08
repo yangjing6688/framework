@@ -331,6 +331,11 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 raise e
 
         netelems = NetworkElementUtils.get_device_names_from_variables(variables, "netelem")
+        # We consider AP as an netelem
+        ap = NetworkElementUtils.get_device_names_from_variables(variables, "ap")
+
+        # Add the results together
+        netelems.extend(ap)
         netelem_dict = {}
         for netelem in netelems:
             netelem_id = netelem
