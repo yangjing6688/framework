@@ -67,7 +67,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         return self.get_dislayed_element(elements)
 
     def get_common_object_confirm_delete_button(self):
-        return self.weh.get_element(self.common_object_confirm_delete_button)
+        # return self.weh.get_element(self.common_object_confirm_delete_button)
+        elements = self.weh.get_elements(self.common_object_confirm_delete_button)
+        return self.get_dislayed_element(elements)
 
     def get_cwp_self_reg_employee_approval_button(self):
         return self.weh.get_element(self.cwp_self_reg_employee_approval_button)
