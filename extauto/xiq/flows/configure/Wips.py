@@ -389,29 +389,16 @@ class Wips(WipsWebElements):
         else:
             return -1
 
-    def configure_wips_policy_on_common_objects(self, **wips_configuration_settings):
+    def configure_wips_policy_on_common_objects(self, wips_policy_name):
         """
          - Configure WIPS Policy On Common Objects.
          - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
          - Keyword Usage
-          - ``Configure WIPS Policy On Common Objects   &{WIPS_CONFIG_SETTINGS}``
+          - ``Configure WIPS Policy On Common Objects   {WIPS_POLICY_NAME}``
 
-        :param  wips_configuration_settings : (dict) include name, description, rougue_ap_detection, detect_ap_wired,
-        :param  detect_ap_mac_oui_basis, detect_client_form_adhoc, rougue_client_reporting, mitigation_mode
+        :param  wips_policy_name : WIPS Policy Name
         :return: 1 if WIPS POlicy Created on Common Objects else -1
         """
-
-        wips_policy_name = wips_configuration_settings.get('name')
-        wips_policy_description = wips_configuration_settings.get('description')
-        wireless_threat_detection = wips_configuration_settings.get('wireless_threat_detection', 'None')
-        rougue_ap_detection = wips_configuration_settings.get('rougue_ap_detection', 'Enable')
-        detect_rougue_ap_wired = wips_configuration_settings.get('detect_ap_wired', 'Enable')
-        detect_ap_mac_oui_basis = wips_configuration_settings.get('detect_ap_mac_oui_basis', 'Enable')
-        detect_client_form_adhoc = wips_configuration_settings.get('detect_client_form_adhoc', 'Enable')
-        rougue_client_reporting = wips_configuration_settings.get('rougue_client_reporting', 'Disable')
-        mitigation_mode = wips_configuration_settings.get('mitigation_mode', 'manual')
-        ssid_config = wips_configuration_settings.get('ssid_config')
-        detect_ap_ssid_basis = ssid_config.get('detect_ap_ssid_basis', 'Disable')
 
         self.utils.print_info("Navigate to Common Objects---> Security--->WIPS Policies")
         self.navigator.navigate_to_security_wips_policies()
@@ -429,116 +416,16 @@ class Wips(WipsWebElements):
         sleep(3)
 
         self.utils.print_info("Enter WIPS Policy Description")
-        self.auto_actions.send_keys(self.get_wips_common_object_policy_description_textfield(), wips_policy_description)
+        self.auto_actions.send_keys(self.get_wips_common_object_policy_description_textfield(), wips_policy_name)
+        self.screen.save_screen_shot()
         sleep(3)
 
-        if not wireless_threat_detection == 'None':
-            if wireless_threat_detection.upper() == "ENABLE":
-                self.utils.print_info("Enable Wireless Threat Detection")
-                if not self.get_wips_common_object_policy_wireless_threat_detection_button().is_selected():
-                    self.auto_actions.click(self.get_wips_common_object_policy_wireless_threat_detection_button())
-                    sleep(5)
-            else:
-                self.utils.print_info("Disable Wireless Threat Detection")
-                if self.get_wips_common_object_policy_wireless_threat_detection_button().is_selected():
-                    self.auto_actions.click(self.get_wips_common_object_policy_wireless_threat_detection_button())
-                    sleep(5)
-
-        if rougue_ap_detection.upper() == "ENABLE":
-            self.utils.print_info("Enable Rogue Access Point Detection")
-            if not self.get_wips_common_object_policy_rogue_ap_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_rogue_ap_detection_button())
-                sleep(5)
-        else:
-            self.utils.print_info("Disable Rogue Access Point Detection")
-            if self.get_wips_common_object_policy_rogue_ap_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_rogue_ap_detection_button())
-                sleep(5)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        if detect_rougue_ap_wired.upper() == "ENABLE":
-            self.utils.print_info("Enable Determine if detected rogue APs are connected to your wired network")
-            if not self.get_wips_common_object_policy_enable_same_network_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_enable_same_network_checkbox())
-                sleep(5)
-        else:
-            self.utils.print_info("Disable Determine if detected rogue APs are connected to your wired network")
-            if self.get_wips_common_object_policy_enable_same_network_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_enable_same_network_checkbox())
-                sleep(5)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        if detect_ap_mac_oui_basis.upper() == "ENABLE":
-            self.utils.print_info("Enable Detect rogue access points based on their MAC OUI")
-            if not self.get_wips_common_object_policy_rogue_ap_mac_oui_detection_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_rogue_ap_mac_oui_detection_checkbox())
-                sleep(5)
-        else:
-            self.utils.print_info("Disable Detect rogue access points based on their MAC OUI")
-            if self.get_wips_common_object_policy_rogue_ap_mac_oui_detection_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_rogue_ap_mac_oui_detection_checkbox())
-                sleep(5)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        if detect_ap_ssid_basis.upper() == "ENABLE":
-            self.utils.print_info("Enable Detect rogue access points based on hosted SSIDs and encryption type")
-            if not self.get_wips_common_object_policy_enable_rogue_ssid_detection_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_enable_rogue_ssid_detection_checkbox())
-                sleep(5)
-
-                self.configure_allowed_ssid_on_wips_policy(**ssid_config)
-
-        else:
-            self.utils.print_info("Disable Detect rogue access points based on hosted SSIDs and encryption type")
-            if self.get_wips_common_object_policy_enable_rogue_ssid_detection_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_enable_rogue_ssid_detection_checkbox())
-                sleep(5)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        if detect_client_form_adhoc.upper() == "ENABLE":
-            self.utils.print_info("Enable Detect if clients have formed an ad hoc network to identify rogue clients")
-            if not self.get_wips_common_object_policy_enable_adhoc_network_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_enable_adhoc_network_detection_button())
-                sleep(5)
-        else:
-            self.utils.print_info("Disable Detect if clients have formed an ad hoc network to identify rogue clients")
-            if self.get_wips_common_object_policy_enable_adhoc_network_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_enable_adhoc_network_detection_button())
-                sleep(5)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        if rougue_client_reporting.upper() == "ENABLE":
-            self.utils.print_info("Enable rogue client reporting Checkbox")
-            if not self.get_wips_common_object_policy_enable_rogue_client_reporting_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_enable_rogue_client_reporting_checkbox())
-                sleep(5)
-        else:
-            self.utils.print_info("Disable rogue client reporting Checkbox")
-            if self.get_wips_common_object_policy_enable_rogue_client_reporting_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_enable_rogue_client_reporting_checkbox())
-                sleep(5)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        if mitigation_mode.upper() == "MANUAL":
-            self.utils.print_info("Enable Mitigation Mode as Manual")
-            self.auto_actions.click(self.get_wips_common_object_mitigation_mode_manual_radio_button())
+        self.utils.print_info("Enable Wireless Threat Detection")
+        if not self.get_wips_common_object_policy_wireless_threat_detection_button().is_selected():
+            self.auto_actions.click(self.get_wips_common_object_policy_wireless_threat_detection_button())
             sleep(5)
         else:
-            self.utils.print_info("Enable Mitigation Mode as Automatic")
-            self.auto_actions.click(self.get_wips_common_object_mitigation_mode_automatic_radio_button())
-            sleep(5)
+            self.utils.print_info("Wireless Threat Detection Already Enabled in WIPS Policy by Default")
 
         self.utils.print_info("Click on Save button")
         self.auto_actions.click(self.get_wips_common_object_save_button())
