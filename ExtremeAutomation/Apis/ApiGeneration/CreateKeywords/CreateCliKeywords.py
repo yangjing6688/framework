@@ -32,7 +32,7 @@ Example:
 class CreateCliKeywords(object):
     def __init__(self):
         self.logger = Logger()
-        self.keyword_import_path = os.path.join(PathUtils.get_project_root(), "ExtremeAutomation", "imports")
+        self.keyword_import_path = os.path.join(PathUtils.get_project_root(), "ExtremeAutomation", "Imports")
         self.keyword_path = os.path.join(PathUtils.get_project_root(), "ExtremeAutomation", "Keywords",
                                          "NetworkElementKeywords", "GeneratedKeywords")
         self.keyword_path_static = os.path.join(PathUtils.get_project_root(), "ExtremeAutomation", "Keywords",
