@@ -931,3 +931,8 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    unbind_device_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-unbinddevice"]',
+            'wait_for': 5
+        }
