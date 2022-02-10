@@ -2067,3 +2067,29 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to navigate to Locked Users Page")
             self.screen.save_screen_shot()
             return -2
+
+    def navigate_to_unbind_device_tab(self):
+        """"
+        - This Keyword Navigate to Unbind Device Page
+        - Flow: Configure --> Users --> User Management --> Unbind Device
+        - Keyword Usage:
+          - 'Navigate to Unbind Device page'
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_configure_tab()
+        self.navigate_to_configure_user_sub_tab()
+        sleep(5)
+
+        if self.get_configure_users_user_management_side_menu():
+            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            sleep(5)
+
+        self.utils.print_info("Click on Unbind Device sub menu")
+        unbind_device_ele = self.weh.get_element(self.unbind_device_tab)
+        if unbind_device_ele.is_displayed():
+            self.auto_actions.click(unbind_device_ele)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Unbind Device Page")
+            self.screen.save_screen_shot()
+            return -2
