@@ -936,3 +936,9 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-sider-list-unbinddevice"]',
             'wait_for': 5
         }
+
+    client_monitor_diagnosis_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-clientmonitor-Diagnosis"]',
+            'wait_for': 5
+        }
