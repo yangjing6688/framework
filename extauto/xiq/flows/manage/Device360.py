@@ -4520,7 +4520,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
         return -1
 
-    def test_device_cli(self, device_serial, command, max_time=180, interval_time=20, delay=30):
+    def test_device_cli(self, command,device_serial=None, device_mac=None, max_time=180, interval_time=20, delay=30):
         '''
         This function is used for testing WEB CLI from extauto.xiq. A command or a list of commands can be send from XIQ to exos
         device
@@ -4537,18 +4537,29 @@ class Device360(Device360WebElements):
         '''
         self.utils.print_info("Starting web Cli for command: ",command)
         command_list = command.split(",")
-        rows = self.dev360.get_device_rows()
+        # rows = self.dev360.get_device_rows()
+        # self.utils.print_info("Printing all Device Rows: ",rows)
         flag_device_selected = False
-        if rows:
-            for t in rows:
-                if device_serial in t.text:
-                    check_box = self.dev360.get_row_check_box(t)
-                    self.auto_actions.click(check_box)
-                    self.utils.print_info("Device is selected")
-                    flag_device_selected = True
-                    break
-                else:
-                    pass
+        if device_mac:
+            self.utils.print_info("Deleting device: ", device_mac)
+            search_result = self.dev.search_device(device_mac=device_mac)
+
+            if search_result != -1:
+                if self.dev.select_device(device_mac=device_mac):
+                    sleep(2)
+                    self.utils.print_info("Selected the device with MAC ",device_mac)
+                    flag_device_selected=True
+
+        elif device_serial:
+            self.utils.print_info("Finding device with serial ", device_mac)
+            search_result = self.dev.search_device(device_serial=device_serial)
+
+            if search_result != -1:
+                if self.dev.select_device(device_serial=device_serial):
+                    sleep(2)
+                    self.utils.print_info("Selected the device with serial ",device_serial)
+                    flag_device_selected=True
+
         else:
             self.screen.save_screen_shot()
             self.utils.print_info("Rows not found")
@@ -4686,6 +4697,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("close button not found")
         self.screen.save_screen_shot()
+        
         return -1
 
     def get_supplemental_cli(self,name_s_cli,cli_commands=""):
