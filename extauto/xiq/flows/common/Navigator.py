@@ -2041,3 +2041,29 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         return 1
+
+    def navigate_to_locked_users_tab(self):
+        """"
+        - This Keyword Navigate to Locked Users Page
+        - Flow: Configure --> Users --> User Management --> Locked Users
+        - Keyword Usage:
+          - 'Navigate to Locked Users page'
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_configure_tab()
+        self.navigate_to_configure_user_sub_tab()
+        sleep(5)
+
+        if self.get_configure_users_user_management_side_menu():
+            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            sleep(5)
+
+        self.utils.print_info("Click on Locked Users sub menu")
+        locked_users_ele = self.weh.get_element(self.locked_users_tab)
+        if locked_users_ele.is_displayed():
+            self.auto_actions.click(locked_users_ele)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Locked Users Page")
+            self.screen.save_screen_shot()
+            return -2
