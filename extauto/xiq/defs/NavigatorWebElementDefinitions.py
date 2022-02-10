@@ -924,4 +924,10 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-sider-list-ManagementOptions"]',
             'wait_for': 5
         }
-    
+
+    locked_users_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-lockedusers"]',
+            'wait_for': 5
+        }
+
