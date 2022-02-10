@@ -2093,3 +2093,24 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to navigate to Unbind Device Page")
             self.screen.save_screen_shot()
             return -2
+
+    def navigate_to_client_monitor_and_diagnosis_tab(self):
+        """"
+        - This Keyword Navigate to Client Monitor and Diagnosis Page
+        - Flow: ML Insights --> Client Monitor & Diagnosis
+        - Keyword Usage:
+          - 'Navigate to Client Monitor & Diagnosis page'
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_ml_insight_tab()
+        sleep(5)
+
+        self.utils.print_info("Click on Client Monitor & Diagnosis Page")
+        client_monitor_diagnosis_ele = self.weh.get_element(self.client_monitor_diagnosis_tab)
+        if client_monitor_diagnosis_ele.is_displayed():
+            self.auto_actions.click(client_monitor_diagnosis_ele)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Client Monitor & Diagnosis Page")
+            self.screen.save_screen_shot()
+            return -2
