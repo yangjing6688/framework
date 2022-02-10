@@ -217,20 +217,20 @@ class Navigator(NavigatorWebElements):
             self.screen.save_screen_shot()
             return -1
 
-    def navigate_to_clients_tab(self):
+    def navigate_to_client360_tab(self):
         """
-         - This keyword Navigates to Clients Tab on Manage Menu
+         - This keyword Navigates to Client 360 Tab on Manage Menu
          - Keyword Usage
-          - ``Navigate To Clients Tab``
+          - ``Navigate To Client 360 Tab``
 
-        :return: 1 if Navigation Successful to Clients On Monitor Menu else return -1
+        :return: 1 if Navigation Successful to Clients On Manage Menu else return -1
         """
-        self.utils.print_info("Selecting Clients Tab...")
+        self.utils.print_info("Selecting Client 360 Tab...")
         if self.auto_actions.click(self.get_clients_sub_tab()) == 1:
             sleep(2)
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Clients tab")
+            self.utils.print_info("Unable to navigate to Client 360 tab")
             self.screen.save_screen_shot()
             return -1
 
