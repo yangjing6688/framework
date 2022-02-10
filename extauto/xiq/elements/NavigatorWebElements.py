@@ -376,4 +376,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_unbind_device_tab(self):
         return self.weh.get_element(self.unbind_device_tab)
-    
+
+    def get_client_monitor_diagnosis_tab(self):
+        return self.weh.get_element(self.client_monitor_diagnosis_tab)
