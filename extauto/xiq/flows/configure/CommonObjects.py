@@ -91,13 +91,14 @@ class CommonObjects(object):
         This is common for all objects
         :return:
         """
-        self.utils.print_info("Click on delete button")
+        self.utils.print_info("Clicking on delete button")
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
         sleep(2)
 
-        if self.cobj_web_elements.get_common_object_confirm_delete_button():
-            self.utils.print_info("Click on confirm Yes button")
-            self.auto_actions.click(self.cobj_web_elements.get_common_object_confirm_delete_button())
+        confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
+        if confirm_delete_btn:
+            self.utils.print_info("Clicking on confirm Yes button")
+            self.auto_actions.click(confirm_delete_btn)
             sleep(3)
 
     def _select_delete_common_object(self, object_name):
@@ -143,10 +144,10 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name does't exists in the list")
+            self.utils.print_info(f"SSID Name {ssid_name} doesn't exist in the list")
             return 1
 
-        self.utils.print_info("Select and delete ssid")
+        self.utils.print_info(f"Select and delete SSID {ssid_name}")
         tool_tp_text = self._select_delete_common_object(ssid_name)
 
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
@@ -155,6 +156,7 @@ class CommonObjects(object):
                 self.utils.print_info(f"{value}")
                 return -1
             elif "Deleted SSID successfully" in value:
+                self.utils.print_info(f"Successfully deleted SSID {ssid_name}")
                 return 1
         return -1
 
@@ -182,7 +184,7 @@ class CommonObjects(object):
                 self._select_common_object_row(ssid)
                 select_ssid_flag = True
             else:
-                self.utils.print_info(f"SSID {ssid} does't exists in the list")
+                self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
 
         if not select_ssid_flag:
             return 1
@@ -195,6 +197,7 @@ class CommonObjects(object):
                 self.utils.print_info(f"{value}")
                 return -1
             elif "Deleted SSID successfully" in value:
+                self.utils.print_info(f"Successfully deleted SSIDs")
                 return 1
         return -1
 
@@ -884,7 +887,7 @@ class CommonObjects(object):
         sleep(5)
 
         if self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name already exists in the list")
+            self.utils.print_info(f"SSID Name {ssid_name} already exists in the list")
             return 1
 
         self.screen.save_screen_shot()
@@ -942,7 +945,7 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name does't exists in the list to clone")
+            self.utils.print_info(f"SSID Name {ssid_name} doesn't exist in the list to clone")
             return -1
 
         self._select_common_object_row(ssid_name)
