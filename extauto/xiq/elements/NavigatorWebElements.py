@@ -370,3 +370,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_common_object_network_management_options(self):
         return self.weh.get_element(self.common_object_network_management_options)
+
+    def get_locked_users_tab(self):
+        return self.weh.get_element(self.locked_users_tab)
