@@ -69,6 +69,10 @@ class NetworkElementConstants(Constants):
     PROMPT_SLBV_SERVER = "slbVServerPrompt"
     PROMPT_SLB_SERVER_FARM = "slbServerFarmPrompt"
     PROMPT_SLB_SERVER_FARM_REAL = "slbServerFarmRealPrompt"
+    PROMPT_EXOS_BACKUP = "exosBackupPrompt"
+    PROMPT_EXOS_PACMAN = "exosPacmanPrompt"
+    PROMPT_EXOS_BCMSHELL = "exosBcmshellPrompt"
+    PROMPT_EXOS_SHELL = "exosShellPrompt"
 
     PROMPT_EXTR_WIRELESS_BASE_ROLE = "ewBaseRolePrompt"
     PROMPT_EXTR_WIRELESS_ROLE = "ewRolePrompt"
