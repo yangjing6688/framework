@@ -775,14 +775,14 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_network360plan(self):
         """
-        - This Keyword Navigate to network360plan on ML Insights Menu
-        - Flow: ML Insights --> Network360Plan
+        - This Keyword Navigate to network360plan on Manage Menu
+        - Flow: Manage --> Network360Plan
         - Keyword Usage:
          - ``Navigate To Network360Plan``
 
         :return: 1 if Navigation Successful
         """
-        self.navigate_to_ml_insight_tab()
+        self.navigate_to_manage_tab()
         self.utils.print_info("Click on Network 360 tab..")
         self.auto_actions.click(self.get_ml_insight_network360plan())
         sleep(5)
