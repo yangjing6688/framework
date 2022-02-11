@@ -9,6 +9,10 @@ class PromptObj(object):
         self.probe_timing = kwargs.get("probe_timing", False)
         self.role_name = kwargs.get("role_name", PromptConstants.DEFAULT_VALUE)
         self.acl_filter_name = kwargs.get("aclfilter_name", PromptConstants.DEFAULT_VALUE)
+        self.bcmshell = kwargs.get("bcm_shell", PromptConstants.DEFAULT_VALUE)
+        self.shell = kwargs.get("shell", PromptConstants.DEFAULT_VALUE)
+        self.backup = kwargs.get("backup", "> ")
+        self.pacman = kwargs.get("pacman", "~>")
 
 
 class PromptConstants(object):
