@@ -83,3 +83,27 @@ class NetworkDevicesSiteWebElements(NetworkDevicesSiteWebElementsDefinitions):
         :return: Cancel button on the Network> Devices> Site> Discover page
         """
         return self.weh.get_element(self.cancel_button)
+
+    def get_site_unsaved_changes_dialog(self):
+        """
+        :return: 'Site - Unsaved Changes' dialog in the Network> Devices > Site page
+        """
+        return self.weh.get_element(self.site_unsaved_changes_dialog)
+
+    def get_site_unsaved_changes_yes_button(self):
+        """
+        :return: Yes button in the 'Site - Unsaved Changes' dialog in the Network> Devices > Site page
+        """
+        return self.weh.get_element(self.site_unsaved_changes_yes_button)
+
+    def get_site_unsaved_changes_no_button(self):
+        """
+        :return: No button in the 'Site - Unsaved Changes' dialog in the Network> Devices > Site page
+        """
+        return self.weh.get_element(self.site_unsaved_changes_no_button)
+
+    def get_site_unsaved_changes_cancel_button(self):
+        """
+        :return: Cancel button in the 'Site - Unsaved Changes' dialog in the Network> Devices > Site page
+        """
+        return self.weh.get_element(self.site_unsaved_changes_cancel_button)
