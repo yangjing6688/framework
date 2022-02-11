@@ -217,7 +217,7 @@ class Navigator(NavigatorWebElements):
             self.screen.save_screen_shot()
             return -1
 
-    def navigate_to_client360_tab(self):
+    def navigate_to_clients_tab(self):
         """
          - This keyword Navigates to Client 360 Tab on Manage Menu
          - Keyword Usage
