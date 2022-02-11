@@ -1895,8 +1895,12 @@ class Device360(Device360WebElements):
         :return: 1 if the specified ports are selected, else -1
         """
         ret_val = -1
+
+        self.utils.print_info(f"Checking if port {port_num} is selected")
         port_list = self.get_device360_port_diagnostics_selected_ports()
         if port_list:
+            port_count = len(port_list)
+            self.utils.print_info(f"There are {port_count} selected ports to check")
             for port in port_list:
                 data_jack_index = port.get_attribute("data-jack-index")
                 self.utils.print_debug(f"Looking at port index {str(data_jack_index)}")
@@ -1906,6 +1910,11 @@ class Device360(Device360WebElements):
                     break
         else:
             self.utils.print_info("No ports are selected")
+
+        if ret_val == -1:
+            self.utils.print_info(f"Port {port_num} is not selected")
+            self.screen.save_screen_shot()
+
         return ret_val
 
     def confirm_device360_port_diagnostics_port_deselected(self, port_num):
@@ -1918,8 +1927,12 @@ class Device360(Device360WebElements):
         :return: 1 if the specified ports are selected, else -1
         """
         ret_val = -1
+
+        self.utils.print_info(f"Checking if port {port_num} is deselected")
         port_list = self.get_device360_port_diagnostics_deselected_ports()
         if port_list:
+            port_count = len(port_list)
+            self.utils.print_info(f"There are {port_count} deselected ports to check")
             for port in port_list:
                 data_jack_index = port.get_attribute("data-jack-index")
                 self.utils.print_debug(f"Looking at port index {str(data_jack_index)}")
@@ -1928,8 +1941,12 @@ class Device360(Device360WebElements):
                     ret_val = 1
                     break
         else:
-            self.utils.print_info(f"Since all ports are deselected, {port_num} is inherently deselected")
-            ret_val = 1
+            self.utils.print_info("No ports are deselected")
+
+        if ret_val == -1:
+            self.utils.print_info(f"Port {port_num} is not deselected")
+            self.screen.save_screen_shot()
+
         return ret_val
 
     def get_device360_overview_information(self, device_mac='', device_name=''):
