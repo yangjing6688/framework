@@ -393,3 +393,101 @@ class XIQSE_NetworkDevicesSite(NetworkDevicesSiteWebElements):
         :return: 1 if action was successful, else -1
         """
         return self.xiqse_site_click_cancel()
+
+    def xiqse_site_unsaved_changes_dialog(self, the_answer="No"):
+        """
+         - This keyword clicks the Yes, No, or Cancel button in the 'Site - Unsaved Changes' dialog.
+         - This panel is displayed when moving away from a site that has unsaved changes.
+         - Keyword Usage
+          - ``XIQSE Site Unsaved Changes Dialog    No``
+
+        :param the_answer:  Specifies how to answer the question in the dialog - Yes, No, or Cancel
+        :return: 1 if action was successful, 2 if dialog was not displayed, else -1
+        """
+        ret_val = -1
+
+        save_dlg = self.get_site_unsaved_changes_dialog()
+        if save_dlg:
+            self.utils.print_info(f"'Site - Unsaved Changes' dialog was displayed; answer with '{the_answer}'")
+            if the_answer.upper() == "NO":
+                ret_val = self.xiqse_site_unsaved_changes_dialog_click_no()
+            elif the_answer.upper() == "YES":
+                ret_val = self.xiqse_site_unsaved_changes_dialog_click_yes()
+            elif the_answer.upper() == "CANCEL":
+                ret_val = self.xiqse_site_unsaved_changes_dialog_click_cancel()
+            else:
+                self.utils.print_info(f"Unknown 'Site - Unsaved Changes' answer '{the_answer}'")
+        else:
+            self.utils.print_info("'Site - Unsaved Changes' dialog was not displayed")
+            ret_val = 2
+
+        return ret_val
+
+    def xiqse_site_unsaved_changes_dialog_click_yes(self):
+        """
+         - This keyword clicks 'Yes' in the 'Site - Unsaved Changes' dialog panel.
+         - This panel is displayed when moving away from a site that has unsaved changes.
+         - It is assumed the 'Site - Unsaved Changes' dialog panel is already open.
+         - Keyword Usage
+          - ``XIQSE Site Unsaved Changes Dialog Click Yes``
+
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = 1
+
+        the_btn = self.get_site_unsaved_changes_yes_button()
+        if the_btn:
+            self.utils.print_info("Clicking 'Yes'")
+            self.auto_actions.click(the_btn)
+        else:
+            self.utils.print_info("Could not find 'Yes' button in the 'Site - Unsaved Changes' dialog")
+            self.screen.save_screen_shot()
+            ret_val = -1
+
+        return ret_val
+
+    def xiqse_site_unsaved_changes_dialog_click_no(self):
+        """
+         - This keyword clicks 'No' in the 'Site - Unsaved Changes' dialog panel.
+         - This panel is displayed when moving away from a site that has unsaved changes.
+         - It is assumed the 'Site - Unsaved Changes' dialog panel is already open.
+         - Keyword Usage
+          - ``XIQSE Site Unsaved Changes Dialog Click No``
+
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = 1
+
+        the_btn = self.get_site_unsaved_changes_no_button()
+        if the_btn:
+            self.utils.print_info("Clicking 'No'")
+            self.auto_actions.click(the_btn)
+        else:
+            self.utils.print_info("Could not find 'No' button in the 'Site - Unsaved Changes' dialog")
+            self.screen.save_screen_shot()
+            ret_val = -1
+
+        return ret_val
+
+    def xiqse_site_unsaved_changes_dialog_click_cancel(self):
+        """
+         - This keyword clicks 'Cancel' in the 'Site - Unsaved Changes' dialog panel.
+         - This panel is displayed when moving away from a site that has unsaved changes.
+         - It is assumed the 'Site - Unsaved Changes' dialog panel is already open.
+         - Keyword Usage
+          - ``XIQSE Site Unsaved Changes Dialog Click Cancel``
+
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = 1
+
+        the_btn = self.get_site_unsaved_changes_cancel_button()
+        if the_btn:
+            self.utils.print_info("Clicking 'Cancel'")
+            self.auto_actions.click(the_btn)
+        else:
+            self.utils.print_info("Could not find 'Cancel' button in the 'Site - Unsaved Changes' dialog")
+            self.screen.save_screen_shot()
+            ret_val = -1
+
+        return ret_val
