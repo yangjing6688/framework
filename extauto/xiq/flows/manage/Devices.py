@@ -203,6 +203,137 @@ class Devices:
             if status in self.get_ap_status(ap_mac):
                 return 1
 
+    def get_os_change(self, device_serial=None, device_name=None, device_mac=None):
+        self.voss = False
+        self.exos = False
+        if device_mac:
+            search_result = self.search_exos_device(device_mac)
+            if search_result != -1:
+                if self.select_device(device_mac):
+                    self.utils.print_info("Click ACTION button")
+                    self.auto_actions.click(self.devices_web_elements.get_action_button())
+                    self.utils.print_info("Click change os Button")
+                    if self.voss:
+                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                        self.utils.print_info("Check for error message")
+                        device_error_message = self.devices_web_elements.get_os_change_error_message()
+                        self.utils.print_info("Error message: ", device_error_message.text)
+                        self.utils.print_info("Click confirmation Yes Button")
+                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        sleep(2)
+                        self.screen.save_screen_shot()
+
+                    if self.exos:
+                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                        self.utils.print_info("Check for error message")
+                        device_error_message = self.devices_web_elements.get_os_change_error_message()
+                        self.utils.print_info("Error message: ", device_error_message.text)
+                        self.utils.print_info("Click confirmation Yes Button")
+                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        sleep(2)
+                        self.screen.save_screen_shot()
+
+            else:
+                self.utils.print_info(f"Device with MAC is not EXOS or VOSS device")
+                return 1
+        if device_serial:
+            search_result = self.search_exos_device(device_serial)
+            if search_result != -1:
+                if self.select_device(device_serial):
+                    self.utils.print_info("Click ACTION button")
+                    self.auto_actions.click(self.devices_web_elements.get_action_button())
+                    self.utils.print_info("Click change os Button")
+                    if self.voss:
+                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                        self.utils.print_info("Check for error message")
+                        device_error_message = self.devices_web_elements.get_os_change_error_message()
+                        self.utils.print_info("Error message: ", device_error_message.text)
+                        self.utils.print_info("Click confirmation Yes Button")
+                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        sleep(2)
+                        self.screen.save_screen_shot()
+                    if self.exos:
+                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                        self.utils.print_info("Check for error message")
+                        device_error_message = self.devices_web_elements.get_os_change_error_message()
+                        self.utils.print_info("Error message: ", device_error_message.text)
+                        self.utils.print_info("Click confirmation Yes Button")
+                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        sleep(2)
+                        self.screen.save_screen_shot()
+            else:
+                self.utils.print_info(f"Device with serial is not EXOS or VOSS device")
+                return 1
+        if device_name:
+            search_result = self.search_exos_device(device_name)
+            if search_result != -1:
+                if self.select_device(device_name):
+                    self.utils.print_info("Click ACTION button")
+                    self.auto_actions.click(self.devices_web_elements.get_action_button())
+                    self.utils.print_info("Click change os Button")
+                    if self.voss:
+                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                        self.utils.print_info("Check for error message")
+                        device_error_message = self.devices_web_elements.get_os_change_error_message()
+                        self.utils.print_info("Error message: ", device_error_message.text)
+                        self.utils.print_info("Click confirmation Yes Button")
+                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        sleep(2)
+                        self.screen.save_screen_shot()
+                    if self.exos:
+                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                        self.utils.print_info("Check for error message")
+                        device_error_message = self.devices_web_elements.get_os_change_error_message()
+                        self.utils.print_info("Error message: ", device_error_message.text)
+                        self.utils.print_info("Click confirmation Yes Button")
+                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        sleep(2)
+                        self.screen.save_screen_shot()
+            else:
+                self.utils.print_info(f"Device with device name is not EXOS or VOSS device")
+                return 1
+
+    def search_exos_device(self, EXOS_VOSS_device):
+        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
+        sleep(2)
+        self.screen.save_screen_shot()
+        sleep(2)
+        device_tag = False
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            self.utils.print_debug(f"Searching {len(rows)} rows")
+            for row in rows:
+                if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
+                    self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
+                    self.voss = True
+                    device_tag = True
+                    return 1
+                if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
+                    self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
+                    device_tag = True
+                    self.exos = True
+                    return 1
+        else:
+            self.utils.print_info("No rows present")
+
+        if device_tag == False:
+            self.utils.print_info("Device is not EXOS or VOSS ")
+            return -1
+        self.utils.print_info(f"Did not find device row {EXOS_VOSS_device}")
+        return -1
+
     def get_ap_row_with_search_option(self, ap_serial='default', ap_name='default', ap_mac='default'):
         """
         - Get the AP row object from the Devices grid
@@ -2243,6 +2374,9 @@ class Devices:
                     sleep(2)
                     self.screen.save_screen_shot()
 
+                    # Wait until the device is removed from the view
+                    self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
+
                     # Confirm device was deleted successfully
                     if self.search_device_serial(device_serial) == 1:
                         self.utils.print_info("Unable to delete the device")
@@ -2269,6 +2403,9 @@ class Devices:
                     sleep(2)
                     self.screen.save_screen_shot()
 
+                    # Wait until the device is removed from the view
+                    self.wait_until_device_removed(device_name=device_name, retry_duration=10, retry_count=6)
+
                     # Confirm device was deleted successfully
                     if self.search_device_name(device_name) == 1:
                         self.utils.print_info("Unable to delete the device")
@@ -2294,6 +2431,9 @@ class Devices:
                     self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
                     sleep(2)
                     self.screen.save_screen_shot()
+
+                    # Wait until the device is removed from the view
+                    self.wait_until_device_removed(device_mac=device_mac, retry_duration=10, retry_count=6)
 
                     # Confirm device was deleted successfully
                     if self.search_device_mac(device_mac) == 1:

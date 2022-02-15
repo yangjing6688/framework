@@ -59,9 +59,8 @@ class Switch(SwitchWebElements):
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), switch_serial)
         sleep(5)
 
-        if "VOSS" in device_os or "VOSS" in switch_make:
+        if "VOSS" in device_os.upper() or "VOSS" in switch_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
-
             try:
                 self.auto_actions.click(self.get_switch_make_drop_down())
                 sleep(2)
@@ -71,7 +70,7 @@ class Switch(SwitchWebElements):
                 self.utils.print_debug("Exception: ", e)
                 self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
 
-        if "EXOS" in device_os or "EXOS" in switch_make:
+        if "EXOS" in device_os.upper() or "EXOS" in switch_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
             try:
                 self.auto_actions.click(self.get_switch_make_drop_down())
