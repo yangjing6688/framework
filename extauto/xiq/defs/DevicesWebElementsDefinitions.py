@@ -151,6 +151,31 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    device_action_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-actions_normal-btn"]',
+            'wait_for': 2
+        }
+
+    device_os_change_exos = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-change-os-to-voss"]',
+            'wait_for': 2
+        }
+
+    device_os_change_voss = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-change-os-to-voss"]',
+            'wait_for': 2
+        }
+
+    device_os_change_error_message = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
     device_select_check_box = \
         {
             'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
