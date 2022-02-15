@@ -97,6 +97,30 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.device_delete_button)
 
+    def get_action_button(self):
+        """
+        :return: device action button
+        """
+        return self.weh.get_element(self.device_action_button)
+
+    def get_os_change_exos(self):
+        """
+        :return: change os button
+        """
+        return self.weh.get_element(self.device_os_change_exos)
+
+    def get_os_change_voss(self):
+        """
+        :return: change os button
+        """
+        return self.weh.get_element(self.device_os_change_voss)
+
+    def get_os_change_error_message(self):
+        """
+        :return error message
+        """
+        return self.weh.get_element(self.device_os_change_error_message)
+
     def get_device_delete_confirm_ok_button(self):
         """
         :return: device delete button triggers confirmation dialog
