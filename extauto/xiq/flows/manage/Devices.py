@@ -2374,6 +2374,9 @@ class Devices:
                     sleep(2)
                     self.screen.save_screen_shot()
 
+                    # Wait until the device is removed from the view
+                    self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
+
                     # Confirm device was deleted successfully
                     if self.search_device_serial(device_serial) == 1:
                         self.utils.print_info("Unable to delete the device")
@@ -2400,6 +2403,9 @@ class Devices:
                     sleep(2)
                     self.screen.save_screen_shot()
 
+                    # Wait until the device is removed from the view
+                    self.wait_until_device_removed(device_name=device_name, retry_duration=10, retry_count=6)
+
                     # Confirm device was deleted successfully
                     if self.search_device_name(device_name) == 1:
                         self.utils.print_info("Unable to delete the device")
@@ -2425,6 +2431,9 @@ class Devices:
                     self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
                     sleep(2)
                     self.screen.save_screen_shot()
+
+                    # Wait until the device is removed from the view
+                    self.wait_until_device_removed(device_mac=device_mac, retry_duration=10, retry_count=6)
 
                     # Confirm device was deleted successfully
                     if self.search_device_mac(device_mac) == 1:
