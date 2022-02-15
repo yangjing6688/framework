@@ -9,7 +9,7 @@ import extauto.common.CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
-from extauto.common.CommonValidation import CommonValidation
+#from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture
 
@@ -21,7 +21,7 @@ from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 class Login:
 
     def __init__(self):
-        self.common_validation = CommonValidation()
+        # self.common_validation = CommonValidation()
         self.record = False
         self.t1 = None
         self.utils = Utils()
@@ -155,13 +155,13 @@ class Login:
         if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
             # self.utils.print_info("Wrong Credentials. Try Again")
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            self.common_validation.validate(-1,1, **kwargs)
+            # self.common_validation.validate(-1,1, **kwargs)
             return -1
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid) == -1:
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            self.common_validation.validate(-1, 1, **kwargs)
+            # self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         self.utils.print_info("Check for Warning Messages..")
@@ -201,7 +201,7 @@ class Login:
         if capture_version:
             self._capture_xiq_version()
         kwargs['pass_msg'] = "User has been logged in"
-        self.common_validation.validate(1, 1, **kwargs)
+        #self.common_validation.validate(1, 1, **kwargs)
         return 1
 
     def logout_user(self):

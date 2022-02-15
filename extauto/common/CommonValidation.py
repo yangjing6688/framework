@@ -4,6 +4,14 @@ import traceback
 import abc
 import os
 import pytest
+"""  A JIRA AIQ-1403 was raised to track the following problem
+    [ ERROR ] Unexpected error: ModuleNotFoundError: No module named 'robot.utils'
+    We trace the issue back to when the CommonValidation.py was added to the system.
+    When this file was added the __int__.py in root of the extreme_automation_framework
+    was used and this caused all the robot libraries to be unloaded.
+    If we comment out the 'import pytest' the issue is no longer seen.
+    Since we do not know the intent of the pytest import we just disabled the validation in Login.py
+"""
 
 class FailureException(AssertionError):
     ROBOT_CONTINUE_ON_FAILURE = True
