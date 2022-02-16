@@ -148,10 +148,13 @@ class XIQSE_Backup(AdminBackupRestoreWebElements):
         return ret_val
 
     def xiqse_perform_backup(self, name):
-        """ - This keyword initiates the backup with the specified name and waits for the action to complete.
-            - It is assumed the Backup/Restore tab is already opened. - Keyword Usage
-            - ``XIQSE Perform Backup ${BACKUP_NAME}``
-        :param name: Value to use for the backup file name
+        """
+         - This keyword initiates the backup with the specified name and waits for the action to complete.
+         - It is assumed the Backup/Restore tab is already opened.
+         - Keyword Usage
+          - ``XIQSE Perform Backup ${BACKUP_NAME}``
+
+        :param name:  Value to use for the backup file name
         :return: 1 if action was successful, else -1
         """
 
