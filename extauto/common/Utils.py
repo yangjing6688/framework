@@ -5,12 +5,15 @@ from datetime import datetime, timedelta
 from extauto.common.Logging import Logging
 from robot.libraries.BuiltIn import BuiltIn
 from selenium.common.exceptions import NoSuchElementException
+from ConfigFileHelper import ConfigFileHelper
 import time
 
 
 class Utils:
     def __init__(self):
         self.logger = Logging().get_logger()
+        self.cfgHelp = ConfigFileHelper()
+        self.cfgHelp.checkConfigRefresh()
 
     def get_config_value(self, conf_str):
         """

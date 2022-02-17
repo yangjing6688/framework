@@ -6,7 +6,7 @@ import importlib
 
 
 # pytest only
-if "pytest" in sys.modules:
+if "pytest" in sys.modules and "PYTEST_RUN_CONFIG" in os.environ:
     c=0
     nPath = None
     for p in sys.path:
