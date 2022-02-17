@@ -154,7 +154,7 @@ class XIQSE_Backup(AdminBackupRestoreWebElements):
          - Keyword Usage
           - ``XIQSE Perform Backup ${BACKUP_NAME}``
 
-        :param name:  Value to use for the backup file name
+        :param name:  Value to use for the backup file name 
         :return: 1 if action was successful, else -1
         """
 
