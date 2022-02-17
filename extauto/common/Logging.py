@@ -1,6 +1,6 @@
 import logging
 from robot.libraries.BuiltIn import BuiltIn
-from ConfigFileHelper import ConfigFileHelper
+from extauto.common.ConfigFileHelper import ConfigFileHelper
 
 
 class Logging:
