@@ -298,3 +298,11 @@ class NetworkDevicesSiteZtpDeviceDefaultsWebElementsDefinitions:
             'XPATH': '//input[@name="vxlan"]',
             'wait_for': 10
         }
+
+    # Global IP to Site Mapping section
+    global_ip_to_site_mapping_grid = \
+        {
+            'DEC': 'Global IP to Site Mapping table within the Site > ZTP+ Device Defaults view',
+            'XPATH': '//div[contains(@id,"SiteGlobalIpRangeGrid") and @role="grid"]',
+            'wait_for': 10
+        }
