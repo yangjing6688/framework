@@ -320,7 +320,7 @@ class DevicesWebElementsDefinitions:
 
     manage_device_actions_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-actions_normal-btn"]',
             'wait_for': 5
         }
 
