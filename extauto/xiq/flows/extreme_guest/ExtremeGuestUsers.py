@@ -184,6 +184,8 @@ class ExtremeGuestUsers(object):
         if type(search_string) is dict:
             search_string = list(search_string.keys())[0]
         self._select_extreme_guest_users_page_user_row(search_string)
+        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_ok_button())
+        sleep(2)
         self.utils.print_info("Deleting the User")
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_button())
         sleep(2)
@@ -200,11 +202,14 @@ class ExtremeGuestUsers(object):
         :return:
         """
         self.utils.print_info("Getting user rows")
-        self.utils.print_info(self.user_web_elem.get_extreme_guest_users_grid_rows())
+        #self.utils.print_info(self.user_web_elem.get_extreme_guest_users_grid_rows().text)
         rows = self.user_web_elem.get_extreme_guest_users_grid_rows()
         if rows:
-            for row in rows:
-                if cell := self.user_web_elem.get_extreme_guest_users_grid_row_cells(row):
+            for row in self.user_web_elem.get_extreme_guest_users_grid_rows():
+                self.utils.print_info("row calling: " + row.text)
+                cell = self.user_web_elem.get_extreme_guest_users_grid_row_cells(row)
+                self.utils.print_info("cell calling: " + cell.text)
+                if cell:
                     if search_string in cell.text:
                         return row
 
@@ -214,10 +219,10 @@ class ExtremeGuestUsers(object):
         :param search_string:
         :return:
         """
-        row = self._get_extreme_guest_users_page_user_row(search_string)
-        self.utils.print_info("Selecting user row")
+        #row = self._get_extreme_guest_users_page_user_row(search_string)
+        self.utils.print_info("Selecting user")
         self.auto_actions.click(
-            self.user_web_elem.get_extreme_guest_users_grid_row_cells(row, 'x-grid-checkcolumn'))
+            self.user_web_elem.get_extreme_guest_users_grid_row_cells(search_string))
         sleep(2)
         return 1
 

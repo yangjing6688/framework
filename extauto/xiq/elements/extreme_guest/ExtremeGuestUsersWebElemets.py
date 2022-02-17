@@ -1,10 +1,12 @@
 from extauto.xiq.defs.extreme_guest.ExtremeGuestUsersWebElementsDefs import ExtremeGuestUsersWebElementsDefs
 from extauto.common.WebElementHandler import *
+from extauto.common.Utils import Utils
 
 
 class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
     def __init__(self):
         self.weh = WebElementHandler()
+        self.utils = Utils()
 
     def get_extreme_guest_users_tab(self):
         return self.weh.get_element(self.extreme_guest_users_tab)
@@ -63,10 +65,10 @@ class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
     def get_extreme_guest_users_grid_rows(self):
         return self.weh.get_elements(self.extreme_guest_users_grid_rows)
 
-    def get_extreme_guest_users_grid_row_cells(self, row, field='eguest-user-name'):
-        cells = self.weh.get_elements(self.extreme_guest_users_grid_row_cells, row)
+    def get_extreme_guest_users_grid_row_cells(self, search_string):
+        cells = self.weh.get_elements(self.extreme_guest_users_grid_row_cells)
         for cell in cells:
-            if field in cell.get_attribute("class"):
+            if search_string in cell.text:
                 return cell
 
     def get_extreme_guest_users_grid_row_cells_user_name_list(self):

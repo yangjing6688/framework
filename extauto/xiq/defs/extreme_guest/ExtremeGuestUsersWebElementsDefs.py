@@ -114,13 +114,13 @@ class ExtremeGuestUsersWebElementsDefs:
 
     extreme_guest_users_grid_rows = \
         {
-            'XPATH': '//tr[@class="  x-grid-row"]',
+            'XPATH': '//table[contains(@class,"x-grid-item")]/tbody',
             'wait_for': 10
         }
 
     extreme_guest_users_grid_row_cells = \
         {
-            'XPATH': '//span[@class="eguest-user-name" or @class="x-grid-checkcolumn"]',
+            'XPATH': '//td[contains(@class,"x-grid-cell-gridcolumn")]',
             'wait_for': 5
         }
 
