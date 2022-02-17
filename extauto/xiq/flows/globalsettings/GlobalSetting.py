@@ -450,42 +450,37 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(10)
         return 1
 
-    def enable_ssh_availability(self):
+    def get_ssh_availability_option(self, option):
         """
         - Enabling SSH availability in Global Settings Page
         - Flow : User account icon-->Global Settings--> SSH availability
-        - Keyword Usage:
-         - `` Enable SSH Availability ``
+        - Keyword Usage
+         - ``Get SSH Availability Option     ${OPTION}``
         :return: 1 after successfully enabling SSH
         """
-        self.utils.print_info("Clicking on Account icon")
-        sleep(5)
 
-        self.auto_actions.click(self.get_account_icon())
-        self.utils.print_info("Click on Global Settings")
-        sleep(5)
-
-        self.auto_actions.click(self.get_global_settings())
-        self.utils.print_info("Clicking on SSH availability")
+        self.navigate.navigate_to_viq_management_page()
         sleep(2)
 
-        self.auto_actions.click(self.get_ssh_availability())
-        self.utils.print_info("Getting SSH Availability status")
-        sleep(2)
-
-        self.utils.print_info("printing ssh enable tag values : ")
-        value = self.get_enable_ssh()
-        self.utils.print_info(value)
-        self.utils.print_info(value.get_attribute("type"))
-
-        ans = value.get_attribute("checked")
-        if ans == "true":
-            self.utils.print_info("SSH enable box is already checked")
-        else:
-            self.utils.print_info("SSH is not enabled. Enabling...")
-            self.auto_actions.click(self.get_enable_ssh())
-
-        self.screen.save_screen_shot()
+        self.utils.print_info("Setting SSH availability to {}".format(option))
+        if option.lower() == "enable":
+            if not self.get_ssh_availability_option_status().is_selected():
+                self.utils.print_info("Enabling..")
+                self.auto_actions.click(self.get_ssh_availability_option_status())
+                sleep(1)
+                self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("Option already enabled...")
+                self.screen.save_screen_shot()
+        if option.lower() == "disable":
+            if not self.get_ssh_availability_option_status().is_selected():
+                self.utils.print_info("Option already disabled")
+                self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("Disabling...")
+                self.auto_actions.click(self.get_ssh_availability_option_status())
+                sleep(1)
+                self.screen.save_screen_shot()
         return 1
 
     def get_api_access_token_details(self, search_string):
