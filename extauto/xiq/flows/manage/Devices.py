@@ -203,137 +203,6 @@ class Devices:
             if status in self.get_ap_status(ap_mac):
                 return 1
 
-    def get_os_change(self, device_serial=None, device_name=None, device_mac=None):
-        self.voss = False
-        self.exos = False
-        if device_mac:
-            search_result = self.search_exos_device(device_mac)
-            if search_result != -1:
-                if self.select_device(device_mac):
-                    self.utils.print_info("Click ACTION button")
-                    self.auto_actions.click(self.devices_web_elements.get_action_button())
-                    self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                        sleep(2)
-                        self.screen.save_screen_shot()
-
-                    if self.exos:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                        sleep(2)
-                        self.screen.save_screen_shot()
-
-            else:
-                self.utils.print_info(f"Device with MAC is not EXOS or VOSS device")
-                return 1
-        if device_serial:
-            search_result = self.search_exos_device(device_serial)
-            if search_result != -1:
-                if self.select_device(device_serial):
-                    self.utils.print_info("Click ACTION button")
-                    self.auto_actions.click(self.devices_web_elements.get_action_button())
-                    self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                        sleep(2)
-                        self.screen.save_screen_shot()
-                    if self.exos:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                        sleep(2)
-                        self.screen.save_screen_shot()
-            else:
-                self.utils.print_info(f"Device with serial is not EXOS or VOSS device")
-                return 1
-        if device_name:
-            search_result = self.search_exos_device(device_name)
-            if search_result != -1:
-                if self.select_device(device_name):
-                    self.utils.print_info("Click ACTION button")
-                    self.auto_actions.click(self.devices_web_elements.get_action_button())
-                    self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                        sleep(2)
-                        self.screen.save_screen_shot()
-                    if self.exos:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                        sleep(2)
-                        self.screen.save_screen_shot()
-            else:
-                self.utils.print_info(f"Device with device name is not EXOS or VOSS device")
-                return 1
-
-    def search_exos_device(self, EXOS_VOSS_device):
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(2)
-        self.screen.save_screen_shot()
-        sleep(2)
-        device_tag = False
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            self.utils.print_debug(f"Searching {len(rows)} rows")
-            for row in rows:
-                if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
-                    self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
-                    self.voss = True
-                    device_tag = True
-                    return 1
-                if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
-                    self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
-                    device_tag = True
-                    self.exos = True
-                    return 1
-        else:
-            self.utils.print_info("No rows present")
-
-        if device_tag == False:
-            self.utils.print_info("Device is not EXOS or VOSS ")
-            return -1
-        self.utils.print_info(f"Did not find device row {EXOS_VOSS_device}")
-        return -1
-
     def get_ap_row_with_search_option(self, ap_serial='default', ap_name='default', ap_mac='default'):
         """
         - Get the AP row object from the Devices grid
@@ -1023,12 +892,7 @@ class Devices:
 
             self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
 
-            # options = self.devices_web_elements.get_simulated_device_dropdown_options()
-            # get table
-            table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
-            # get all rows in table (of APs)
-            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
-
+            options = self.devices_web_elements.get_simulated_device_dropdown_options()
             for option in options:
                 if device_model in option.text:
                     self.utils.print_info("Simulated device option: ", option.text)
@@ -1998,7 +1862,7 @@ class Devices:
         self.utils.print_info("Serials: ", serials)
 
         for serial in serials:
-            if self.search_device_serial(serial):
+            if self.search_device_serial(serial) == 1:
                 self.utils.print_info(f"Successfully Onboarded {device_make} Device(s) with {serials}")
                 return 1
             else:
@@ -2135,7 +1999,7 @@ class Devices:
             self.utils.print_info("Serials: ", serials)
 
             for serial in serials:
-                if self.search_device_serial(serial):
+                if self.search_device_serial(serial) == 1:
                     self.utils.print_info("Successfully Onboarded EXOS Device(s): ", serials)
                     return 1
                 else:
@@ -2270,7 +2134,7 @@ class Devices:
         self.utils.print_info("Serials: ", serials)
 
         for serial in serials:
-            if self.search_device_serial(serial):
+            if self.search_device_serial(serial) == 1:
                 self.utils.print_info("Successfully Onboarded Device(s): ", serials)
                 return 1
             else:
@@ -2339,7 +2203,7 @@ class Devices:
 
         ret_val = 1
         for serial in serials:
-            if self.search_device_serial(serial):
+            if self.search_device_serial(serial) == 1:
                 self.utils.print_info(f"Successfully Onboarded XIQ Site Engine {serial}")
             else:
                 self.utils.print_info(f"ERROR: XIQ Site Engine {serial} was not onboarded")
@@ -2374,9 +2238,6 @@ class Devices:
                     sleep(2)
                     self.screen.save_screen_shot()
 
-                    # Wait until the device is removed from the view
-                    self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
-
                     # Confirm device was deleted successfully
                     if self.search_device_serial(device_serial) == 1:
                         self.utils.print_info("Unable to delete the device")
@@ -2403,9 +2264,6 @@ class Devices:
                     sleep(2)
                     self.screen.save_screen_shot()
 
-                    # Wait until the device is removed from the view
-                    self.wait_until_device_removed(device_name=device_name, retry_duration=10, retry_count=6)
-
                     # Confirm device was deleted successfully
                     if self.search_device_name(device_name) == 1:
                         self.utils.print_info("Unable to delete the device")
@@ -2431,9 +2289,6 @@ class Devices:
                     self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
                     sleep(2)
                     self.screen.save_screen_shot()
-
-                    # Wait until the device is removed from the view
-                    self.wait_until_device_removed(device_mac=device_mac, retry_duration=10, retry_count=6)
 
                     # Confirm device was deleted successfully
                     if self.search_device_mac(device_mac) == 1:
@@ -2484,7 +2339,7 @@ class Devices:
         self.refresh_devices_page()
         for device_ in device_list:
             search_result = self.search_device(device_serial=device_)
-            if search_result:
+            if search_result == -1:
                 self.utils.print_info(f"Device {device_} was not deleted")
                 ret_val = -1
             else:
@@ -2512,7 +2367,7 @@ class Devices:
             self.utils.print_info(f"Deleting device with serial {device_serial}")
             search_result = self.search_device(device_serial=device_serial)
 
-            if search_result:
+            if search_result == 1:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Clicking delete button")
                     self.auto_actions.click(self.devices_web_elements.get_delete_button())
@@ -2533,7 +2388,7 @@ class Devices:
             self.utils.print_info(f"Deleting device with name {device_name}")
             search_result = self.search_device(device_name=device_name)
 
-            if search_result:
+            if search_result == 1:
                 if self.select_device(device_name=device_name):
                     self.utils.print_info("Clicking delete button")
                     self.auto_actions.click(self.devices_web_elements.get_delete_button())
@@ -2551,7 +2406,7 @@ class Devices:
             self.utils.print_info(f"Deleting device with MAC address {device_mac}")
             search_result = self.search_device(device_mac=device_mac)
 
-            if search_result:
+            if search_result == 1:
                 if self.select_device(device_mac=device_mac):
                     self.utils.print_info("Clicking delete button")
                     self.auto_actions.click(self.devices_web_elements.get_delete_button())
@@ -2570,7 +2425,7 @@ class Devices:
         # Unknown device search parameter
         else:
             self.utils.print_info(
-                f"Unknown device search parameter sent;  please use either Serial Number or MAC Address")
+                f"Unknown device search parameter sent; please use Serial Number, Name, or MAC Address")
             ret_val = -1
 
         if ret_val == -1:
@@ -5026,7 +4881,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Serial Number: loop {count}")
-                if self.search_device_serial(device_serial):
+                if self.search_device_serial(device_serial) == 1:
                     self.utils.print_info(f"Device with serial {device_serial} has been added")
                     return 1
                 else:
@@ -5040,7 +4895,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Name: loop {count}")
-                if self.search_device_name(device_name):
+                if self.search_device_name(device_name) == 1:
                     self.utils.print_info(f"Device with name {device_name} has been added")
                     return 1
                 else:
@@ -5048,7 +4903,6 @@ class Devices:
                         f"Device with name {device_name} is not yet present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
                     self.refresh_devices_page()
-                    return 1
                 count += 1
 
         # Search by MAC address
@@ -5056,7 +4910,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by MAC Address: loop {count}")
-                if self.search_device_mac(device_mac):
+                if self.search_device_mac(device_mac) == 1:
                     self.utils.print_info(f"Device with MAC {device_mac} has been added")
                     return 1
                 else:
