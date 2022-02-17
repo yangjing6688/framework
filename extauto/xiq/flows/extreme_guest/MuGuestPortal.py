@@ -36,7 +36,7 @@ class MuGuestPortal(MuSocialWebElements):
         self.auto_actions.click(self.get_social_wifi_all_facebook_login_button())
         sleep(5)
 
-        if self.get_social_wifi_all_facebook_login_error_page().is_displayed():
+        if self.get_social_wifi_all_facebook_login_error_page():
             self.utils.print_info("Click Facebook error after login in button")
             self.auto_actions.click(self.get_social_wifi_all_facebook_login_error_page())
             sleep(3)
@@ -78,7 +78,7 @@ class MuGuestPortal(MuSocialWebElements):
         self.auto_actions.click(self.get_social_wifi_all_linkedin_allow_button())
         sleep(5)
 
-        if self.get_social_wifi_all_linkedin_login_error_page().is_displayed():
+        if self.get_social_wifi_all_linkedin_login_error_page():
             self.utils.print_info("Click Linkedin error after login in button")
             self.auto_actions.click(self.get_social_wifi_all_linkedin_login_error_page())
             sleep(3)
@@ -120,7 +120,7 @@ class MuGuestPortal(MuSocialWebElements):
         self.auto_actions.click(self.get_social_wifi_all_google_next_button())
         sleep(5)
 
-        if self.get_social_wifi_all_google_login_error_page().is_displayed():
+        if self.get_social_wifi_all_google_login_error_page():
             self.utils.print_info("Click Google error after login in button")
             self.auto_actions.click(self.get_social_wifi_all_facebook_login_error_page())
             sleep(3)
@@ -158,7 +158,7 @@ class MuGuestPortal(MuSocialWebElements):
         self.auto_actions.click(self.get_user_registration_social_wifi_signin_button())
         sleep(5)
 
-        if self.get_user_registration_social_wifi_login_error_page().is_displayed():
+        if self.get_user_registration_social_wifi_login_error_page():
             self.utils.print_info("Click error after login in button")
             self.auto_actions.click(self.get_user_registration_social_wifi_login_error_page())
             sleep(3)
