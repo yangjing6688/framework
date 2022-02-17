@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from extauto.common.Logging import Logging
 from robot.libraries.BuiltIn import BuiltIn
 from selenium.common.exceptions import NoSuchElementException
-from ConfigFileHelper import ConfigFileHelper
+from extauto.common.ConfigFileHelper import ConfigFileHelper
 import time
 
 
