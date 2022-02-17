@@ -180,6 +180,7 @@ class DeviceCommon(DeviceCommonElements):
                         sleep(5)
                         return 1
         self.utils.print_info(f"Device not found in the grid with:{search_strg}")
+        self.screen.save_screen_shot()
         return -1
 
     def goto_device360_with_client(self, device_serial=None):
