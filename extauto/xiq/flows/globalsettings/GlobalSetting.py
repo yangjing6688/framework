@@ -450,37 +450,30 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(10)
         return 1
 
-    def get_ssh_availability_option(self, option):
+    def enable_ssh_availability(self):
         """
         - Enabling SSH availability in Global Settings Page
         - Flow : User account icon-->Global Settings--> SSH availability
         - Keyword Usage
-         - ``Get SSH Availability Option     ${OPTION}``
+         - ``Enable SSH Availability``
         :return: 1 after successfully enabling SSH
         """
 
         self.navigate.navigate_to_viq_management_page()
         sleep(2)
 
-        self.utils.print_info("Setting SSH availability to {}".format(option))
-        if option.lower() == "enable":
-            if not self.get_ssh_availability_option_status().is_selected():
-                self.utils.print_info("Enabling..")
-                self.auto_actions.click(self.get_ssh_availability_option_status())
-                sleep(1)
-                self.screen.save_screen_shot()
-            else:
-                self.utils.print_info("Option already enabled...")
-                self.screen.save_screen_shot()
-        if option.lower() == "disable":
-            if not self.get_ssh_availability_option_status().is_selected():
-                self.utils.print_info("Option already disabled")
-                self.screen.save_screen_shot()
-            else:
-                self.utils.print_info("Disabling...")
-                self.auto_actions.click(self.get_ssh_availability_option_status())
-                sleep(1)
-                self.screen.save_screen_shot()
+        self.utils.print_info("Now checking for SSH availability")
+
+        if not self.get_ssh_availability_option_status().is_selected():
+            self.utils.print_info("Enabling SSH Availability..")
+            self.auto_actions.click(self.get_ssh_availability_option_status())
+            sleep(1)
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("SSH Availability Button already enabled...")
+            sleep(2)
+            self.screen.save_screen_shot()
+
         return 1
 
     def get_api_access_token_details(self, search_string):
