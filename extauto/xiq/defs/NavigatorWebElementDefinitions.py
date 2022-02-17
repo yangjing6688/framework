@@ -924,4 +924,21 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-sider-list-ManagementOptions"]',
             'wait_for': 5
         }
-    
+
+    locked_users_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-lockedusers"]',
+            'wait_for': 5
+        }
+
+    unbind_device_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-unbinddevice"]',
+            'wait_for': 5
+        }
+
+    client_monitor_diagnosis_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-clientmonitor-Diagnosis"]',
+            'wait_for': 5
+        }

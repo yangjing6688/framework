@@ -219,18 +219,18 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_clients_tab(self):
         """
-         - This keyword Navigates to Clients Tab on Manage Menu
+         - This keyword Navigates to Client 360 Tab on Manage Menu
          - Keyword Usage
-          - ``Navigate To Clients Tab``
+          - ``Navigate To Client 360 Tab``
 
-        :return: 1 if Navigation Successful to Clients On Monitor Menu else return -1
+        :return: 1 if Navigation Successful to Clients On Manage Menu else return -1
         """
-        self.utils.print_info("Selecting Clients Tab...")
+        self.utils.print_info("Selecting Client 360 Tab...")
         if self.auto_actions.click(self.get_clients_sub_tab()) == 1:
             sleep(2)
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Clients tab")
+            self.utils.print_info("Unable to navigate to Client 360 tab")
             self.screen.save_screen_shot()
             return -1
 
@@ -775,14 +775,14 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_network360plan(self):
         """
-        - This Keyword Navigate to network360plan on ML Insights Menu
-        - Flow: ML Insights --> Network360Plan
+        - This Keyword Navigate to network360plan on Manage Menu
+        - Flow: Manage --> Network360Plan
         - Keyword Usage:
          - ``Navigate To Network360Plan``
 
         :return: 1 if Navigation Successful
         """
-        self.navigate_to_ml_insight_tab()
+        self.navigate_to_manage_tab()
         self.utils.print_info("Click on Network 360 tab..")
         self.auto_actions.click(self.get_ml_insight_network360plan())
         sleep(5)
@@ -2041,3 +2041,76 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         return 1
+
+    def navigate_to_locked_users_tab(self):
+        """"
+        - This Keyword Navigate to Locked Users Page
+        - Flow: Configure --> Users --> User Management --> Locked Users
+        - Keyword Usage:
+          - 'Navigate to Locked Users page'
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_configure_tab()
+        self.navigate_to_configure_user_sub_tab()
+        sleep(5)
+
+        if self.get_configure_users_user_management_side_menu():
+            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            sleep(5)
+
+        self.utils.print_info("Click on Locked Users sub menu")
+        locked_users_ele = self.weh.get_element(self.locked_users_tab)
+        if locked_users_ele.is_displayed():
+            self.auto_actions.click(locked_users_ele)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Locked Users Page")
+            self.screen.save_screen_shot()
+            return -2
+
+    def navigate_to_unbind_device_tab(self):
+        """"
+        - This Keyword Navigate to Unbind Device Page
+        - Flow: Configure --> Users --> User Management --> Unbind Device
+        - Keyword Usage:
+          - 'Navigate to Unbind Device page'
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_configure_tab()
+        self.navigate_to_configure_user_sub_tab()
+        sleep(5)
+
+        if self.get_configure_users_user_management_side_menu():
+            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            sleep(5)
+
+        self.utils.print_info("Click on Unbind Device sub menu")
+        unbind_device_ele = self.weh.get_element(self.unbind_device_tab)
+        if unbind_device_ele.is_displayed():
+            self.auto_actions.click(unbind_device_ele)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Unbind Device Page")
+            self.screen.save_screen_shot()
+            return -2
+
+    def navigate_to_client_monitor_and_diagnosis_tab(self):
+        """"
+        - This Keyword Navigate to Client Monitor and Diagnosis Page
+        - Flow: ML Insights --> Client Monitor & Diagnosis
+        - Keyword Usage:
+          - 'Navigate to Client Monitor & Diagnosis page'
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_ml_insight_tab()
+        sleep(5)
+
+        self.utils.print_info("Click on Client Monitor & Diagnosis Page")
+        client_monitor_diagnosis_ele = self.weh.get_element(self.client_monitor_diagnosis_tab)
+        if client_monitor_diagnosis_ele.is_displayed():
+            self.auto_actions.click(client_monitor_diagnosis_ele)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Client Monitor & Diagnosis Page")
+            self.screen.save_screen_shot()
+            return -2
