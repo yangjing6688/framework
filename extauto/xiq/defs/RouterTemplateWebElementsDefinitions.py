@@ -316,7 +316,7 @@ class RouterTemplateWebElementsDefinitions:
 
     port_new_vlan_select_new_button = \
         {
-            'XPATH': '//div[@id="ah/util/form/objects/_IpListPopup_23"]//a[@class="item-new"]',
+            'XPATH': '//div[contains(@id,"ah/util/form/objects")]//a[@class="item-new"]',
             'wait_for': 5
         }
 
