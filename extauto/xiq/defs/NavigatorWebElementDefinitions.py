@@ -509,7 +509,7 @@ class NavigatorWebElementDefinitions:
 
     onboard_nav = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-onboard"]',
+            'XPATH': '//*[@data-automation-tag="automation-ah-drawer-trigger"]',
             'wait_for': 2
         }
 
