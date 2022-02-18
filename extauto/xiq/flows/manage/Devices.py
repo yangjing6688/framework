@@ -1998,7 +1998,7 @@ class Devices:
         self.utils.print_info("Serials: ", serials)
 
         for serial in serials:
-            if self.search_device_serial(serial):
+            if self.search_device_serial(serial) == 1:
                 self.utils.print_info(f"Successfully Onboarded {device_make} Device(s) with {serials}")
                 return 1
             else:
@@ -2135,7 +2135,7 @@ class Devices:
             self.utils.print_info("Serials: ", serials)
 
             for serial in serials:
-                if self.search_device_serial(serial):
+                if self.search_device_serial(serial) == 1:
                     self.utils.print_info("Successfully Onboarded EXOS Device(s): ", serials)
                     return 1
                 else:
@@ -2270,7 +2270,7 @@ class Devices:
         self.utils.print_info("Serials: ", serials)
 
         for serial in serials:
-            if self.search_device_serial(serial):
+            if self.search_device_serial(serial) == 1:
                 self.utils.print_info("Successfully Onboarded Device(s): ", serials)
                 return 1
             else:
@@ -2339,7 +2339,7 @@ class Devices:
 
         ret_val = 1
         for serial in serials:
-            if self.search_device_serial(serial):
+            if self.search_device_serial(serial) == 1:
                 self.utils.print_info(f"Successfully Onboarded XIQ Site Engine {serial}")
             else:
                 self.utils.print_info(f"ERROR: XIQ Site Engine {serial} was not onboarded")
@@ -2484,7 +2484,7 @@ class Devices:
         self.refresh_devices_page()
         for device_ in device_list:
             search_result = self.search_device(device_serial=device_)
-            if search_result:
+            if search_result == 1:
                 self.utils.print_info(f"Device {device_} was not deleted")
                 ret_val = -1
             else:
@@ -2512,7 +2512,7 @@ class Devices:
             self.utils.print_info(f"Deleting device with serial {device_serial}")
             search_result = self.search_device(device_serial=device_serial)
 
-            if search_result:
+            if search_result == 1:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Clicking delete button")
                     self.auto_actions.click(self.devices_web_elements.get_delete_button())
@@ -2533,7 +2533,7 @@ class Devices:
             self.utils.print_info(f"Deleting device with name {device_name}")
             search_result = self.search_device(device_name=device_name)
 
-            if search_result:
+            if search_result == 1:
                 if self.select_device(device_name=device_name):
                     self.utils.print_info("Clicking delete button")
                     self.auto_actions.click(self.devices_web_elements.get_delete_button())
@@ -2551,7 +2551,7 @@ class Devices:
             self.utils.print_info(f"Deleting device with MAC address {device_mac}")
             search_result = self.search_device(device_mac=device_mac)
 
-            if search_result:
+            if search_result == 1:
                 if self.select_device(device_mac=device_mac):
                     self.utils.print_info("Clicking delete button")
                     self.auto_actions.click(self.devices_web_elements.get_delete_button())
@@ -2570,7 +2570,7 @@ class Devices:
         # Unknown device search parameter
         else:
             self.utils.print_info(
-                f"Unknown device search parameter sent;  please use either Serial Number or MAC Address")
+                f"Unknown device search parameter sent; please use Serial Number, Name, or MAC Address")
             ret_val = -1
 
         if ret_val == -1:
@@ -5026,7 +5026,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Serial Number: loop {count}")
-                if self.search_device_serial(device_serial):
+                if self.search_device_serial(device_serial) == 1:
                     self.utils.print_info(f"Device with serial {device_serial} has been added")
                     return 1
                 else:
@@ -5040,7 +5040,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Name: loop {count}")
-                if self.search_device_name(device_name):
+                if self.search_device_name(device_name) == 1:
                     self.utils.print_info(f"Device with name {device_name} has been added")
                     return 1
                 else:
@@ -5048,7 +5048,6 @@ class Devices:
                         f"Device with name {device_name} is not yet present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
                     self.refresh_devices_page()
-                    return 1
                 count += 1
 
         # Search by MAC address
@@ -5056,7 +5055,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by MAC Address: loop {count}")
-                if self.search_device_mac(device_mac):
+                if self.search_device_mac(device_mac) == 1:
                     self.utils.print_info(f"Device with MAC {device_mac} has been added")
                     return 1
                 else:
