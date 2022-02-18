@@ -193,7 +193,7 @@ class RouterTemplateWebElementsDefinitions:
 
     network_allocation_add_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="networkAllocationContentArea"]//span[@data-tip="Add"]',
+            'XPATH': '//div[@class="subnet-main-ctn"]//*[@data-dojo-attach-point="actionLeft"]//span[@class="table-action-icons table-add"]',
             'wait_for': 5
         }
 
@@ -271,8 +271,7 @@ class RouterTemplateWebElementsDefinitions:
 
     port_new_vlan_select = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
-            'index': 4,
+            'XPATH': '//div[@class="dgrid-row dgrid-row-odd ui-state-default"]//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
             'wait_for': 5
         }
 
@@ -304,8 +303,7 @@ class RouterTemplateWebElementsDefinitions:
 
     port_subnetwork_select = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
-            'index': 5,
+            'XPATH': '//div[@id="ah/util/form/objects/SubnetObject_11"]//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
             'wait_for': 5
         }
 
@@ -318,14 +316,13 @@ class RouterTemplateWebElementsDefinitions:
 
     port_new_vlan_select_new_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="ipList"]//a[@data-type="vlan-profile"]',
+            'XPATH': '//div[@id="ah/util/form/objects/_IpListPopup_23"]//a[@class="item-new"]',
             'wait_for': 5
         }
 
     port_subnetwork_space_select_new_btn = \
         {
             'XPATH': '//div[@data-dojo-attach-point="ipList"]//*[@class="ui-ip-list-item"]//a[@data-type="subnetwork"]',
-            'index': 2,
             'wait_for': 5
         }
 

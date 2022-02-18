@@ -136,7 +136,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         self.utils.print_info("Click Network Allocation Tab")
         self.auto_actions.click(self.get_network_allocation_tab())
-        sleep(2)
+        sleep(15)
 
         self.utils.print_info("Click Add Network Allocation")
         self.auto_actions.click(self.get_router_allocation_add_button())
