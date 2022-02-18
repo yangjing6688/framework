@@ -319,13 +319,14 @@ class RouterTemplateWebElementsDefinitions:
     port_new_vlan_select_new_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="ipList"]//a[@data-type="vlan-profile"]',
+            'index': 2,
             'wait_for': 5
         }
 
     port_subnetwork_space_select_new_btn = \
         {
-            'XPATH': '//*[@id="ah/util/form/objects/_IpListPopup_19"]'
-                     '//*[@class="ui-ip-list-item"]//a[@data-type="subnetwork"]',
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//*[@class="ui-ip-list-item"]//a[@data-type="subnetwork"]',
+            'index': 2,
             'wait_for': 5
         }
 

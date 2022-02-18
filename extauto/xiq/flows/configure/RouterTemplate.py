@@ -429,8 +429,8 @@ class RouterTemplate(RouterTemplateWebElements):
         ip_address_space = basic_config['local_ip_address_space']
         gateway_option = basic_config['gateway_options']
 
-        self.auto_actions.click(self.get_save_subnetwork_button())
-        sleep(5)
+        #self.auto_actions.click(self.get_save_subnetwork_button())
+        #sleep(5)
 
         self.utils.print_info(f"Enter Network Description For Allocation: {network_description}")
         self.auto_actions.scroll_up()
