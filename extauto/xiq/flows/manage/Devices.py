@@ -2484,7 +2484,7 @@ class Devices:
         self.refresh_devices_page()
         for device_ in device_list:
             search_result = self.search_device(device_serial=device_)
-            if search_result == -1:
+            if search_result == 1:
                 self.utils.print_info(f"Device {device_} was not deleted")
                 ret_val = -1
             else:
