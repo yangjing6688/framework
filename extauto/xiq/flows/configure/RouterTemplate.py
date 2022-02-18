@@ -384,7 +384,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         self.utils.print_info("Click Sub Network Select button")
         self.auto_actions.click(self.get_router_allocation_subnetwork_select_button())
-        sleep(5)
+        sleep(10)
 
         self.screen.save_screen_shot()
         sleep(2)
