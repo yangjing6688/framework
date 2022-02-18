@@ -272,7 +272,7 @@ class RouterTemplateWebElementsDefinitions:
     port_new_vlan_select = \
         {
             'XPATH': '//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
-            'index': 3,
+            'index': 4,
             'wait_for': 5
         }
 
@@ -305,7 +305,7 @@ class RouterTemplateWebElementsDefinitions:
     port_subnetwork_select = \
         {
             'XPATH': '//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
-            'index': 4,
+            'index': 5,
             'wait_for': 5
         }
 
@@ -319,7 +319,6 @@ class RouterTemplateWebElementsDefinitions:
     port_new_vlan_select_new_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="ipList"]//a[@data-type="vlan-profile"]',
-            'index': 2,
             'wait_for': 5
         }
 

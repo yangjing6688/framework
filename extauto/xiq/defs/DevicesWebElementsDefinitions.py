@@ -488,8 +488,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_to_router = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
-            'index': 2,
+            'XPATH': '//ul[@style="width: 252px; display: block;"]//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
             'wait_for': 5
         }
 
