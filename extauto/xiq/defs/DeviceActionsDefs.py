@@ -1,7 +1,7 @@
 class DeviceActionsDefs:
     device_actions_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-actions_normal-btn"]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 2
         }
 
