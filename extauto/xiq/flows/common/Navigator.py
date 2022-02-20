@@ -1086,7 +1086,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Clicking on Essentials Icon")
         self.auto_actions.click(self.get_essentials_menu())
         sleep(2)
-        
+
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
         self.auto_actions.click(self.get_air_defence_menu())
         sleep(5)
