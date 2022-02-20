@@ -503,7 +503,7 @@ class NavigatorWebElementDefinitions:
 
     air_defence_nav = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-airdefense"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-airdefense-essentials"]',
             'wait_for': 2
         }
 
@@ -527,19 +527,25 @@ class NavigatorWebElementDefinitions:
 
     extreme_IOT_essentials = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-defender"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-iot-essentials"]',
             'wait_for': 5
         }
 
     extreme_guest = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-guestEssentials"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-guest-essentials"]',
+            'wait_for': 5
+        }
+
+    essentials_menu = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-essentials"]',
             'wait_for': 5
         }
 
     extreme_location = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-locationEssentials"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-location-essentials"]',
             'wait_for': 5
         }
 

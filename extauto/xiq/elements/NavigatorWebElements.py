@@ -307,6 +307,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_extreme_location_menu(self):
         return self.weh.get_element(self.extreme_location)
+
+    def get_essentials_menu(self):
+        return self.weh.get_element(self.essentials_menu)
       
     def get_ccg_option(self):
         return self.weh.get_element(self.common_objects_ccgs)
