@@ -609,7 +609,7 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Reset VIQ Confirm Button")
-        self.auto_actions.click(self.get_viq_backup_confirm_button())
+        self.auto_actions.click(self.get_reset_viq_confirm_button())
         sleep(2)
         
         """
