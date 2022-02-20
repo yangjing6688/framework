@@ -114,7 +114,7 @@ class DeviceTemplateWebElementDefinitions:
 
     device_ap_template_add_button = \
         {
-            'XPATH': '//*[@id="ah/util/layout/Menu_6"]/span',
+            'XPATH': '//*[@data-automation-tag="automation-wireless-device-templates-menu-button"]',
             'wait_for': 5
         }
 
