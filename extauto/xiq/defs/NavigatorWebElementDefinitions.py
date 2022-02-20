@@ -437,7 +437,7 @@ class NavigatorWebElementDefinitions:
 
     device_actions_button = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-actions_normal-btn"]',
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 10
         }
 
