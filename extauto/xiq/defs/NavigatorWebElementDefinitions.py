@@ -407,7 +407,7 @@ class NavigatorWebElementDefinitions:
 
     device_actions_advanced_cli_access = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-device-actions-ap-cli-access']//a",
+            'XPATH': "//a[@data-automation-tag='automation-manage-device-actions-ap-cli-access']",
             'wait_for': 5
         }
 
