@@ -345,13 +345,13 @@ class DevicesWebElementsDefinitions:
 
     manage_device_actions_button = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-device-actions-actions_normal-btn']",
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 5
         }
 
     actions_assign_network_policy = \
         {
-            'XPATH': "//*[contains(@data-automation-tag, 'automation-manage-device-actions') and contains(@data-automation-tag, '-assign-policy')]",
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions") and contains(@data-automation-tag, "-assign-policy")]',
             'wait_for': 5
         }
 
@@ -375,7 +375,7 @@ class DevicesWebElementsDefinitions:
 
     actions_network_policy_assign_button = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='continueBtn']",
+            'XPATH': '//*[@data-dojo-attach-point="continueBtn"]',
             'wait_for': 5,
         }
 

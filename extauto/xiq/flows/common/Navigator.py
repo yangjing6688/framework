@@ -1083,6 +1083,10 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Extreme AirDefence Menu
         """
+        self.utils.print_info("Clicking on Essentials Icon")
+        self.auto_actions.click(self.get_essentials_menu())
+        sleep(2)
+
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
         self.auto_actions.click(self.get_air_defence_menu())
         sleep(5)
@@ -1152,9 +1156,14 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Extreme IOT Essentials Menu
         """
+        self.utils.print_info("Clicking on Essentials Icon")
+        self.auto_actions.click(self.get_essentials_menu())
+        sleep(2)
+
         self.utils.print_info("Clicking Extreme IOT Essentials...")
         self.auto_actions.click(self.get_extreme_iot_essentials_menu())
         sleep(2)
+
         return 1
 
     def navigate_to_extreme_iot_clients_page(self):
@@ -1305,9 +1314,14 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Extreme Guest Menu
         """
+        self.utils.print_info("Clicking on Essentials Icon")
+        self.auto_actions.click(self.get_essentials_menu())
+        sleep(2)
+
         self.utils.print_info("Clicking Extreme Guest  Menu...")
         self.auto_actions.click(self.get_extreme_guest_menu())
         sleep(2)
+
         return 1
 
     def navigate_to_extreme_location_menu(self):
@@ -1318,8 +1332,14 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Extreme Location Menu
         """
+        self.utils.print_info("Clicking on Essentials Icon")
+        self.auto_actions.click(self.get_essentials_menu())
+        sleep(2)
+
         self.utils.print_info("Clicking on Extreme location")
         self.auto_actions.click(self.get_extreme_location_menu())
+        sleep(2)
+
         return 1
 
     def navigate_to_extreme_location_dashboard_menu(self):
