@@ -304,7 +304,7 @@ class RouterTemplateWebElementsDefinitions:
     port_subnetwork_select = \
         {
             'XPATH': '//div[contains(@class,"dgrid-row-odd")]//div[contains(@id,"ah/util/form/objects/SubnetObj")]//span[@data-dojo-attach-point="ipMark"]',
-            'wait_for': 10
+            'wait_for': 5
         }
 
     port_subnetwork_edit = \

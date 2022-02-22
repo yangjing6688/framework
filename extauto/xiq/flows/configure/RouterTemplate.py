@@ -140,7 +140,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         self.utils.print_info("Click Add Network Allocation")
         self.auto_actions.click(self.get_router_allocation_add_button())
-        sleep(2)
+        sleep(7)
 
         self.utils.print_info("Configure Network Vlan Object")
         self.configure_network_allocation_vlan(**network_vlan_settings)
@@ -337,7 +337,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         self.utils.print_info("Click VLAN Object Select button")
         self.auto_actions.click(self.get_router_allocation_vlan_select_button())
-        sleep(5)
+        sleep(6)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -384,7 +384,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         self.utils.print_info("Click Sub Network Select button")
         self.auto_actions.click(self.get_router_allocation_subnetwork_select_button())
-        sleep(2)
+        sleep(7)
 
         self.screen.save_screen_shot()
         sleep(2)
