@@ -136,11 +136,11 @@ class RouterTemplate(RouterTemplateWebElements):
 
         self.utils.print_info("Click Network Allocation Tab")
         self.auto_actions.click(self.get_network_allocation_tab())
-        sleep(2)
+        sleep(8)
 
         self.utils.print_info("Click Add Network Allocation")
         self.auto_actions.click(self.get_router_allocation_add_button())
-        sleep(7)
+        sleep(5)
 
         self.utils.print_info("Configure Network Vlan Object")
         self.configure_network_allocation_vlan(**network_vlan_settings)
