@@ -1247,6 +1247,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    devices_page_horizontal_end = \
+        {
+            'XPATH': "//*[@data-automation-tag='device-list-grid-header-mgtVlan']",
+            'wait_for': 1
+        }
+
     devices_grid_column_headers = \
         {
             'XPATH': '//*[@role="columnheader"]',

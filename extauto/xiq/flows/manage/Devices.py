@@ -3,6 +3,7 @@ import os
 from time import sleep
 from datetime import datetime
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -7266,14 +7267,37 @@ class Devices:
         :return 1 if we get a tool-tip message eX: "Network Policy - This column is not sortable" else it returns -1
         """
         column_headers = self.devices_web_elements.get_devices_grid_column_headers()
-        for column_header in column_headers:
-            if column_name in column_header.text:
-                self.auto_actions.move_to_element(column_header)
-                sleep(5)
-                self.screen.save_screen_shot()
-                self.utils.print_info("Column Tooltip: ", self.devices_web_elements.get_ui_tool_tip_inner().text)
+        horizontal_scroll = False
+        try:
+            for column_header in column_headers:
+                if column_name in column_header.text:
+                    self.auto_actions.move_to_element(column_header)
+                    sleep(5)
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("Column Tooltip: ", self.devices_web_elements.get_ui_tool_tip_inner().text)
 
-                return self.devices_web_elements.get_ui_tool_tip_inner().text
+                    return self.devices_web_elements.get_ui_tool_tip_inner().text
+        except AttributeError:
+            return -1
+        except:
+            self.utils.print_info("Element not fond")
+            horizontal_scroll = True
+
+        if horizontal_scroll:
+            horizontal_end_element = self.devices_web_elements.get_devices_page_horizontal_end()
+            self.auto_actions.scroll_by_horizontal(horizontal_end_element)
+            self.utils.print_info("Searching element by scrolling horizontal bar")
+            try:
+                for column_header in column_headers:
+                    if column_name in column_header.text:
+                        self.auto_actions.move_to_element(column_header)
+                        sleep(5)
+                        self.screen.save_screen_shot()
+                        self.utils.print_info("Column Tooltip: ",self.devices_web_elements.get_ui_tool_tip_inner().text)
+
+                        return self.devices_web_elements.get_ui_tool_tip_inner().text
+            except AttributeError:
+                return -1
 
         return -1
 
