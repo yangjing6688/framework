@@ -323,6 +323,7 @@ class RouterTemplateWebElementsDefinitions:
     port_subnetwork_space_select_new_btn = \
         {
             'XPATH': '//div[@data-dojo-attach-point="ipList"]//*[@class="ui-ip-list-item"]//a[@data-type="subnetwork"]',
+            'index': 1,
             'wait_for': 5
         }
 
