@@ -2240,3 +2240,26 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.screen.save_screen_shot()
 
         return ret_val
+
+    def xiqse_confirm_table_empty(self):
+        """
+        - This keyword confirms there are no devices in the Devices table.
+        - Note this needs to be done in batches as not all rows are visible at once.
+         - Keyword Usage
+          - ``XIQSE Confirm Table Empty``
+
+        :return: returns 1 if action was successful, else -1
+        """
+        ret_val = 1
+
+        visible_rows = self.get_table_rows()
+        if visible_rows:
+            self.xiqse_select_all_visible_devices()
+            ret_val = self.xiqse_delete_selected_devices()
+            sleep(2)
+            self.xiqse_table.xiqse_refresh_table()
+            visible_rows = self.get_table_rows()
+        else:
+            self.utils.print_info("Successfully deleted all devices in table")
+
+        return ret_val
