@@ -9,9 +9,9 @@ from pathlib import Path
 class RobotTestData():
 
     def __init__(self, path):
-        from robot.api import TestData
+        from robot.api import TestSuite
         self.path = path
-        self.testsObj = TestData(source=path)
+        self.testsObj = TestSuite.from_file_system(path)
         self.tags = {}
         self.qTestTags = []
         self.qTestTagCount = 0
