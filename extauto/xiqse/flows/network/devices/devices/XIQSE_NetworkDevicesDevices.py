@@ -2240,3 +2240,22 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.screen.save_screen_shot()
 
         return ret_val
+
+    def xiqse_confirm_table_empty(self):
+        """
+        - This keyword confirms there are no devices in the Devices table.
+         - Keyword Usage
+          - ``XIQSE Confirm Table Empty``
+        :return: returns 1 if table is empty, else -1
+        """
+        ret_val = 1
+
+        rows = self.get_table_rows()
+        if rows:
+            self.utils.print_info("Table is not empty")
+            return -1
+        else:
+            self.utils.print_info("Table is empty")
+            return 1
+
+        return ret_val
