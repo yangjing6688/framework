@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from robot.libraries.BuiltIn import BuiltIn
 from urllib3.exceptions import MaxRetryError
 
-from extauto.common.Utils import Utils
+from common.Utils import Utils
 
 
 cloud_driver = -1
@@ -46,6 +46,9 @@ def load_browser(url="default", program="default", incognito_mode="False"):
     element_locator = "name"
     element_identify = "name"
     element_identify_value_name = "username"
+    element_identify = "id"
+    element_identify_value_id = "username"
+    element_identify_value_id = "password"
 
     if program == 'adsp':
         element_identify_value_name = "j_username"
