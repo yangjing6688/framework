@@ -296,7 +296,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         """
          - This keyword clears the row matching the specified IP address.
          - Keyword Usage
-          - ``XIQSE Discovered Clear By IP    ${DEVICE_IP}``
+          - ``XIQSE Discovered Clear Row By IP    ${DEVICE_IP}``
 
         :param ip: IP Address of the row to clear
         :return:   1 if action was successful, else -1
