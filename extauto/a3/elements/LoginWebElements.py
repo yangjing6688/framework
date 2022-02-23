@@ -1,6 +1,6 @@
-from a3.defs.LoginWebElementsDefinitions import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from extauto.a3.defs.LoginWebElementsDefinitions import *
+from extauto.common.AutoActions import *
+from extauto.common.WebElementHandler import *
 from selenium.common.exceptions import NoSuchElementException
 
 
