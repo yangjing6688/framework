@@ -84,7 +84,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.screen.save_screen_shot()
         return ret_val
 
-    def xiqse_add_device(self, ip_addr, profile="public_v1_Profile", nickname="", status_only="False"):
+    def xiqse_add_device(self, ip_addr, profile="public_v1_Profile", nickname="", status_only="False", add_actions="True"):
         """
          - This keyword adds a device using the Add Device toolbar button on the Network> Devices> Devices tab.
          - It is assumed the user is already on the Network> Devices> Devices tab.
@@ -93,14 +93,16 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
           - ``XIQSE Add Device  ${IP}  ${PROFILE}  ${NICKNAME}``
           - ``XIQSE Add Device  ${IP}  ${PROFILE}``
           - ``XIQSE Add Device  ${IP}  ${PROFILE}  status_only=True``
-          - ``XIQSE Add Device  ${IP}}``
-          - ``XIQSE Add Device  ${IP}}  nickname=TestDevice``
-          - ``XIQSE Add Device  ${IP}}  status_only=True``
+          - ``XIQSE Add Device  ${IP}``
+          - ``XIQSE Add Device  ${IP}  nickname=TestDevice``
+          - ``XIQSE Add Device  ${IP}  status_only=True``
+          - ``XIQSE Add Device  ${IP}  add_actions=False``
 
         :param ip_addr:     IP address of the device to add - required
         :param profile:     profile to use for the device
         :param nickname:    nickname to use for the device
         :param status_only: indicates if the device should be created with Poll Status Only selected (True/False)
+        :param add_actions: indicates if the Run Site's Add Actions option should be enabled (True/False)
         :return: 1 if action was successful, else -1
         """
         ret_val = 1
@@ -124,6 +126,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             # Set "Poll Status Only" option
             if ret_val != -1:
                 ret_val = self.add_device_dlg.xiqse_add_device_dialog_set_poll_status_only(status_only)
+
+            # Set "Run Site's Add Action" option
+            if ret_val != -1:
+                ret_val = self.add_device_dlg.xiqse_add_device_dialog_set_run_site_add_actions(add_actions)
 
             # Click OK
             if ret_val != -1:
