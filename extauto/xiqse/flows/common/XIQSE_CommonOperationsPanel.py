@@ -336,6 +336,9 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
                             self.utils.print_debug("Did not find matching message in cell")
                     else:
                         self.utils.print_info("Could not get data for the cell")
+                if ret_val == 1:
+                    # break out of the nested For Loop
+                    break
         else:
             self.utils.print_info(f"Could not find data row for operation {op_type}")
 
