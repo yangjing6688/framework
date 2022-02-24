@@ -183,8 +183,7 @@ class ExtremeGuestUsers(object):
 
         if type(search_string) is dict:
             search_string = list(search_string.keys())[0]
-        self._select_extreme_guest_users_page_user_row(search_string)
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_ok_button())
+        self.auto_actions.click(self._get_extreme_guest_users_page_user_row(search_string))
         sleep(2)
         self.utils.print_info("Deleting the User")
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_button())
@@ -202,16 +201,12 @@ class ExtremeGuestUsers(object):
         :return:
         """
         self.utils.print_info("Getting user rows")
-        #self.utils.print_info(self.user_web_elem.get_extreme_guest_users_grid_rows().text)
         rows = self.user_web_elem.get_extreme_guest_users_grid_rows()
         if rows:
             for row in self.user_web_elem.get_extreme_guest_users_grid_rows():
                 self.utils.print_info("row calling: " + row.text)
-                cell = self.user_web_elem.get_extreme_guest_users_grid_row_cells(row)
-                self.utils.print_info("cell calling: " + cell.text)
-                if cell:
-                    if search_string in cell.text:
-                        return row
+                if search_string in row.text:
+                    return row
 
     def _select_extreme_guest_users_page_user_row(self, search_string):
         """
@@ -219,7 +214,6 @@ class ExtremeGuestUsers(object):
         :param search_string:
         :return:
         """
-        #row = self._get_extreme_guest_users_page_user_row(search_string)
         self.utils.print_info("Selecting user")
         self.auto_actions.click(
             self.user_web_elem.get_extreme_guest_users_grid_row_cells(search_string))
@@ -254,12 +248,6 @@ class ExtremeGuestUsers(object):
                 passwords.append(password.text)
 
         credentials = dict(zip(users, passwords))
-
-        # self.utils.print_info(users)
-        #
-        # self.utils.print_info(str(passwords))
-        #
-        # self.utils.print_info(str(credentials))
 
         self.utils.print_info("Switch to back to Extreme Guest Window")
         self.driver.switch_to.window(self.driver.window_handles[1])

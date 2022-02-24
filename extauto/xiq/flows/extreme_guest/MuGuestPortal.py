@@ -74,9 +74,10 @@ class MuGuestPortal(MuSocialWebElements):
         self.auto_actions.click(self.get_social_wifi_all_linkedin_signin_button())
         sleep(5)
 
-        self.utils.print_info("Click Linkedin Allow button")
-        self.auto_actions.click(self.get_social_wifi_all_linkedin_allow_button())
-        sleep(5)
+        if self.get_social_wifi_all_linkedin_allow_button():
+            self.utils.print_info("Click Linkedin Allow button")
+            self.auto_actions.click(self.get_social_wifi_all_linkedin_allow_button())
+            sleep(5)
 
         if self.get_social_wifi_all_linkedin_login_error_page():
             self.utils.print_info("Click Linkedin error after login in button")

@@ -114,7 +114,7 @@ class ExtremeGuestUsersWebElementsDefs:
 
     extreme_guest_users_grid_rows = \
         {
-            'XPATH': '//table[contains(@class,"x-grid-item")]/tbody',
+            'XPATH': '//div[contains(@data-automation-tag,"eguest-users-grid")]//td/..',
             'wait_for': 10
         }
 
