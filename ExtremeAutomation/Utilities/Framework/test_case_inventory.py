@@ -29,10 +29,10 @@ class RobotTestData():
 
         print(f'Suite: {suite.name}')
 
-
-        print(f"Directory source - {suite.source}")
-        if suite.source not in self.tags:
-            self.tags[suite.source] = []
+        if suite.directory:
+            print(f"Directory source - {suite.source}")
+            if suite.source not in self.tags:
+                self.tags[suite.source] = []
         if suite.setting_table.force_tags:
             if isinstance(suite.setting_table.force_tags.value, list):
                 for t in suite.setting_table.force_tags.value:
