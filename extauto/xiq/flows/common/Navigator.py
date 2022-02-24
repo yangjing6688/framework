@@ -1894,7 +1894,6 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_global_settings_page()
         sleep(2)
         self.utils.print_info("Selecting Audit Logs...")
-
         if self.auto_actions.click(self.get_global_settings_audit_logs_slider()) == 1:
             sleep(2)
             return 1

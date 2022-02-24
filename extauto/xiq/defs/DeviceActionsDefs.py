@@ -117,15 +117,13 @@ class DeviceActionsDefs:
 
     multiple_device_reset_button = \
         {
-            'XPATH': '//*[@class="ui-menu ui-menu-medium ui-menu-rt"]//a[contains(text(), "Reset Device to Default")]',
-            'index': 3,
+            'XPATH': '//*[@data-automation-tag="automation-manage-resetDevicetoDefaultMany"]',
             'wait_for': 5
         }
 
     single_device_reset_button = \
         {
-            'XPATH': '//*[@class="ui-menu ui-menu-medium ui-menu-rt"]//a[contains(text(), "Reset Device to Default")]',
-            'index': 0,
+            'XPATH': '//*[@data-automation-tag="automation-manage-resetDevicetoDefault"]',
             'wait_for': 5
         }
 

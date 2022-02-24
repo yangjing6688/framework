@@ -153,6 +153,16 @@ class AutoActions:
         """
         self.driver.execute_script("javascript:window.scrollBy(0,250)")
 
+    def scroll_by_horizontal(self,element):
+        """
+        - This Keyword Uses to Scroll the page ro end in x-coordinate
+
+        :return: None
+        """
+        self.utils.print_info("Scrolling horizontal bar to end")
+        coordinates = element.location_once_scrolled_into_view  # returns dict of X, Y coordinates
+        self.driver.execute_script('window.scrollTo({}, {});'.format(coordinates['x'], coordinates['y']))
+
     def scroll_down(self):
         """
         - This Keyword Uses to Scroll Down the page.
