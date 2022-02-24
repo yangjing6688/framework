@@ -2296,12 +2296,12 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_get_syslog_status(self, device_ip, status):
+    def xiqse_get_syslog_status(self, device_ip):
         """
         - This keyword is used to get the syslog status for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Trap Status    ${DEVICE_IP}  ${SYSLOG_STATUS}``
+         - ``XIQSE Get Trap Status    ${DEVICE_IP}``
 
         :param device_ip: device IP to look for
         :param syslog_status: expected value of the trap status
