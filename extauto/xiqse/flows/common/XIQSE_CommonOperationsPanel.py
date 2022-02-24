@@ -325,8 +325,6 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
                     cell_text = cell.get_attribute("data-qtip")
                     self.utils.print_info(f"Found message in cell:  {cell_text}")
                     if cell_text:
-                        self.utils.print_debug(f"The message:  {the_message.lower()}")
-                        self.utils.print_debug(f"The Cell Text:  {cell_text.lower()}")
                         if the_message in cell_text:
                             self.utils.print_info(f"Found matching message in cell:  {cell_text}")
                             ret_val = 1
