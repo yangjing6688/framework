@@ -1,12 +1,9 @@
 import os
 from ExtremeAutomation.Utilities.EconClient.econ_request_api import econAPI
-from pprint import pprint
 import sys
 import re
 import json
 from pathlib import Path
-import ast
-import astpretty
 from robot.api.parsing import ModelVisitor
 
 qTestMarker  = re.compile(r"(([a-zA-Z\-_]+)?TC\-[0-9]+)")
