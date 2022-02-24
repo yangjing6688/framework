@@ -897,10 +897,6 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_add_ssid_button())
         sleep(2)
 
-        self.utils.print_info("Click on standard network add button")
-        self.auto_actions.click(self.wireless_web_elements.get_standard_nw_menu())
-        sleep(2)
-
         self.utils.print_info("Enter the Wireless Networks SSID Name:{}".format(ssid_name))
         self.auto_actions.send_keys(self.wireless_web_elements.get_wireless_ssid_field(), ssid_name)
         sleep(2)
