@@ -134,6 +134,35 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
 
         return ret_val
 
+    def xiqse_add_device_dialog_set_run_site_add_actions(self, the_value="true"):
+        """
+         - This keyword sets the value of the Run Site's Add Action checkbox in the Add Device dialog.
+         - It is assumed the dialog is already opened.
+         - Keyword Usage
+          - ``XIQSE Add Device Dialog Set Run Site Add Actions``
+          - ``XIQSE Add Device Dialog Set Run Site Add Actions  true``
+          - ``XIQSE Add Device Dialog Set Run Site Add Actions  false``
+
+        :param the_value:  true/false to indicate if the checkbox should be selected or not
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = 1
+
+        add_actions_cb = self.get_run_site_add_actions_checkbox()
+        if add_actions_cb:
+            if the_value.lower() == "true":
+                self.utils.print_info("Selecting Run Site's Add Actions check box")
+                self.auto_actions.enable_check_box(add_actions_cb)
+            else:
+                self.utils.print_info("Deselecting Run Site's Add Actions check box")
+                self.auto_actions.disable_check_box(add_actions_cb)
+        else:
+            self.utils.print_info("Could not find Run Site's Add Actions checkbox in Add Device dialog")
+            self.screen.save_screen_shot()
+            ret_val = -1
+
+        return ret_val
+
     def xiqse_add_device_dialog_click_ok(self):
         """
          - This keyword clicks OK in the Add Device dialog.
