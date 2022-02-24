@@ -147,7 +147,7 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
           - ``XIQSE Add Device Dialog Set Run Site Add Actions  false``
 
         :param the_value:  true/false to indicate if the checkbox should be selected or not
-        :return: 1 if action was successful or if the field does not exist
+        :return: 1 if action was successful or if the option is not supported, else -1
         """
         ret_val = 1
 
