@@ -583,7 +583,7 @@ class RadioProfile (RadioProfileWebElements):
             return -1
 
         return radio_profile_info
-    
+
 
     def verify_uni_group_exclusded_channels(self, channels, group_channel, mode='excluded', radio_modes='5GHz',
                                             channel_width='20MHZ'):
@@ -594,6 +594,8 @@ class RadioProfile (RadioProfileWebElements):
             :param  channels: list of channels in Uni group
             :param  group_channel: either uni-1, uni-2, uni-3, uni-4, uni-5, uni-6, uni-7, uni-8
             :param  mode: excluded or included
+            :param  radio_modes: either 5GHz or 6GHz
+            :param  channel_width: either 20, 40, 80 MHz
         """
 
         self.utils.print_info("Group Channel Not able to click " + str(group_channel))
