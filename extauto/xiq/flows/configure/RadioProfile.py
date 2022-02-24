@@ -584,8 +584,8 @@ class RadioProfile (RadioProfileWebElements):
 
         return radio_profile_info
 
-
-    def verify_uni_group_exclusded_channels(self, channels, group_channel='default', mode='excluded'):
+    def verify_uni_group_exclusded_channels(self, channels, group_channel, mode='excluded', radio_modes='5GHz',
+                                            channel_width='20MHZ'):
         """
             - This keyword verifies a excluded channels group of Uni for the 80 Mhz, 40 Mhz and 20 MHz
             - Keyword Usage:
@@ -597,23 +597,19 @@ class RadioProfile (RadioProfileWebElements):
 
         self.utils.print_info("Group Channel Not able to click " + str(group_channel))
         try:
-            if group_channel == 'uni-1':
-                self.get_channel_width_exclusions_uni_1().click()
-            elif group_channel == 'uni-2':
-                self.get_channel_width_exclusions_uni_2().click()
-            elif group_channel == 'uni-3':
-                self.get_channel_width_exclusions_uni_3().click()
+            if radio_modes.lower() in ['5ghz'] and channel_width.lower() in ['20mhz']:
+                self.get_radio_profile_Mega_20_Hert().click()
 
-            elif group_channel == 'uni-2-extended':
-                self.get_channel_width_exclusions_unii_2_extended().click()
-            elif group_channel == 'uni-5':
-                self.get_channel_width_exclusions_unii_5().click()
-            elif group_channel == 'uni-6':
-                self.get_channel_width_exclusions_unii_6().click()
-            elif group_channel == 'uni-7':
-                self.get_channel_width_exclusions_unii_7().click()
-            elif group_channel == 'uni-8':
-                self.get_channel_width_exclusions_unii_8().click()
+            elif radio_modes.lower() in ['5ghz'] and channel_width.lower() in ['40mhz']:
+                self.get_radio_profile_Mega_40_Hert().click()
+
+            elif radio_modes.lower() in ['5ghz'] and channel_width.lower() in ['80mhz']:
+                self.get_radio_profile_Mega_80_Hert().click()
+
+            if group_channel.lower() == 'uni-1':
+                self.get_channel_width_exclusions_uni_1().click()
+            if group_channel.lower() == 'uni-3':
+                self.get_channel_width_exclusions_uni_3().click()
 
         except:
             self.utils.print_info("Not able to click " + str(group_channel))
