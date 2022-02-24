@@ -583,6 +583,7 @@ class RadioProfile (RadioProfileWebElements):
             return -1
 
         return radio_profile_info
+    
 
     def verify_uni_group_exclusded_channels(self, channels, group_channel, mode='excluded', radio_modes='5GHz',
                                             channel_width='20MHZ'):
@@ -597,19 +598,28 @@ class RadioProfile (RadioProfileWebElements):
 
         self.utils.print_info("Group Channel Not able to click " + str(group_channel))
         try:
-            if radio_modes.lower() in ['5ghz'] and channel_width.lower() in ['20mhz']:
+            if radio_modes.lower() in ['5ghz', '6ghz'] and channel_width.lower() in ['20mhz']:
                 self.get_radio_profile_Mega_20_Hert().click()
 
-            elif radio_modes.lower() in ['5ghz'] and channel_width.lower() in ['40mhz']:
+            elif radio_modes.lower() in ['5ghz', '6ghz'] and channel_width.lower() in ['40mhz']:
                 self.get_radio_profile_Mega_40_Hert().click()
 
-            elif radio_modes.lower() in ['5ghz'] and channel_width.lower() in ['80mhz']:
+            elif radio_modes.lower() in ['5ghz', '6ghz'] and channel_width.lower() in ['80mhz']:
                 self.get_radio_profile_Mega_80_Hert().click()
 
             if group_channel.lower() == 'uni-1':
                 self.get_channel_width_exclusions_uni_1().click()
-            if group_channel.lower() == 'uni-3':
+            elif group_channel.lower() == 'uni-3':
                 self.get_channel_width_exclusions_uni_3().click()
+            elif group_channel.lower() == 'uni-5':
+                self.get_channel_width_exclusions_unii_5().click()
+            elif group_channel.lower() == 'uni-6':
+                self.get_channel_width_exclusions_unii_6().click()
+            elif group_channel.lower() == 'uni-7':
+                self.get_channel_width_exclusions_unii_7().click()
+            elif group_channel.lower() == 'uni-8':
+                self.get_channel_width_exclusions_unii_8().click()
+
 
         except:
             self.utils.print_info("Not able to click " + str(group_channel))
