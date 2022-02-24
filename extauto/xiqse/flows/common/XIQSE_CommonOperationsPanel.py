@@ -303,7 +303,6 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
     def xiqse_confirm_operations_panel_message_for_type(self, op_type, the_message):
         """
          - This keyword confirms the message from the 'Operations' panel type entry contains the expected text.
-         - This message string match is not case-sensitive.
          - Keyword Usage
           - ``XIQSE Confirm Operations Panel Message For Type    ${OP_TYPE}    ${THE_MESSAGE}``
 
@@ -328,7 +327,7 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
                     if cell_text:
                         self.utils.print_debug(f"The message:  {the_message.lower()}")
                         self.utils.print_debug(f"The Cell Text:  {cell_text.lower()}")
-                        if the_message.lower() == cell_text.lower():
+                        if the_message in cell_text:
                             self.utils.print_info(f"Found matching message in cell:  {cell_text}")
                             ret_val = 1
                             break
