@@ -3,6 +3,7 @@ from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from xiqse.elements.common.CommonViewWebElements import CommonViewWebElements
 from xiqse.elements.network.devices.devices.NetworkDevicesDevicesAddDeviceWebElements import NetworkDevicesDevicesAddDeviceWebElements
+from robot.libraries.BuiltIn import BuiltIn
 
 
 class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElements):
@@ -12,6 +13,7 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.view_el = CommonViewWebElements()
+        self.builtin = BuiltIn()
 
     def xiqse_add_device_dialog_set_ip(self, the_value):
         """
@@ -138,28 +140,35 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
         """
          - This keyword sets the value of the Run Site's Add Action checkbox in the Add Device dialog.
          - It is assumed the dialog is already opened.
+         - This feature is supported in XIQ Site Engine versions 21.11.x or later.
          - Keyword Usage
           - ``XIQSE Add Device Dialog Set Run Site Add Actions``
           - ``XIQSE Add Device Dialog Set Run Site Add Actions  true``
           - ``XIQSE Add Device Dialog Set Run Site Add Actions  false``
 
         :param the_value:  true/false to indicate if the checkbox should be selected or not
-        :return: 1 if action was successful, else -1
+        :return: 1 if action was successful or if the field does not exist
         """
         ret_val = 1
 
-        add_actions_cb = self.get_run_site_add_actions_checkbox()
-        if add_actions_cb:
-            if the_value.lower() == "true":
-                self.utils.print_info("Selecting Run Site's Add Actions check box")
-                self.auto_actions.enable_check_box(add_actions_cb)
-            else:
-                self.utils.print_info("Deselecting Run Site's Add Actions check box")
-                self.auto_actions.disable_check_box(add_actions_cb)
+        xiqse_version = self.builtin.get_variable_value("${XIQSE_OS_VERSION}")
+        self.utils.print_debug(f"The Version of XIQ Site Engine: {xiqse_version}")
+
+        if ("21.4" in xiqse_version) or ("21.9" in xiqse_version):
+            self.utils.print_info(f"XIQ Site Engine version {xiqse_version} does not support the 'Run Site's Add Actions' option.")
         else:
-            self.utils.print_info("Could not find Run Site's Add Actions checkbox in Add Device dialog")
-            self.screen.save_screen_shot()
-            ret_val = -1
+            add_actions_cb = self.get_run_site_add_actions_checkbox()
+            if add_actions_cb:
+                if the_value.lower() == "true":
+                    self.utils.print_info("Selecting Run Site's Add Actions check box")
+                    self.auto_actions.enable_check_box(add_actions_cb)
+                else:
+                    self.utils.print_info("Deselecting Run Site's Add Actions check box")
+                    self.auto_actions.disable_check_box(add_actions_cb)
+            else:
+                self.utils.print_info("Could not find Run Site's Add Actions checkbox in Add Device dialog.")
+                self.screen.save_screen_shot()
+                ret_val = -1
 
         return ret_val
 
