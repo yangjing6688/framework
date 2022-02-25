@@ -438,7 +438,7 @@ class RadioProfile (RadioProfileWebElements):
                 if enabled_text.find("enabled") == -1 :
                     self.utils.print_info(" channel is not by default: ", channel)
                     return -1
-            elif mode == 'disable':
+            elif mode == 'disabled':
                 if enabled_text.find("disabled") == -1 :
                     self.utils.print_info(" channel is by default: ", channel)
                     return -1
@@ -585,7 +585,7 @@ class RadioProfile (RadioProfileWebElements):
         return radio_profile_info
 
 
-    def verify_uni_group_exclusded_channels(self, channels, group_channel, mode='excluded', radio_modes='5GHz',
+    def verify_uni_group_channels(self, channels, group_channel, mode='excluded', radio_modes='5GHz',
                                             channel_width='20MHZ'):
         """
             - This keyword verifies a excluded channels group of Uni for the 80 Mhz, 40 Mhz and 20 MHz
@@ -593,7 +593,7 @@ class RadioProfile (RadioProfileWebElements):
                 - ``verify_uni_group_exclusded_channels  [5,12,5,6]  group_channel=uni-1   mode=excluded  ''
             :param  channels: list of channels in Uni group
             :param  group_channel: either uni-1, uni-2, uni-3, uni-4, uni-5, uni-6, uni-7, uni-8
-            :param  mode: excluded or included
+            :param  mode: excluded or included, disabled, enabled
             :param  radio_modes: either 5GHz or 6GHz
             :param  channel_width: either 20, 40, 80 MHz
         """
