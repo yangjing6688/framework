@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from robot.api.parsing import ModelVisitor
 
-qTestMarker  = re.compile(r"(([A-Z\-_]+)?TC[\-_][0-9]+)", flags=re.IGNORECASE)
+qTestMarker  = re.compile(r"(([A-Z]+[\-_])?TC[\-_][0-9]+)", flags=re.IGNORECASE)
 
 class RobotTestData(ModelVisitor):
 
