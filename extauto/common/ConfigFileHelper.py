@@ -92,7 +92,7 @@ class ConfigFileHelper:
         AP_MODEL or AP is passed in on the command line
         """
         self.variables = BuiltIn().get_variables(no_decoration=True)
-        #BuiltIn().log_to_console(f"modify yaml settings INIT:\n{BuiltIn().get_variables()}")
+        BuiltIn().log_to_console(f"modify yaml settings INIT:\n{BuiltIn().get_variables()}")
         BuiltIn().set_global_variable("${REFRESH_CONFIG}", "TRUE")
         search_model = None
         apkey = 'ap1'
@@ -220,7 +220,7 @@ class ConfigFileHelper:
         self.variables = BuiltIn().get_variables(no_decoration=True)
         # Load the RDC default file.  Filter on -v RDC: variable input.  Make default old vars in any case
         self.loadRdcAio()
-        #BuiltIn().log_to_console(f"modify yaml settings AFTER:\n{BuiltIn().get_variables()}")
+        BuiltIn().log_to_console(f"modify yaml settings AFTER:\n{BuiltIn().get_variables()}")
 
     def build_dict_of_elems(self, **kwargs):
         try:
