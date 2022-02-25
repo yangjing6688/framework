@@ -2301,7 +2301,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the syslog status for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Trap Status    ${DEVICE_IP}``
+         - ``XIQSE Get Syslog Status    ${DEVICE_IP}``
 
         :param device_ip: device IP to look for
         :param syslog_status: expected value of the trap status
