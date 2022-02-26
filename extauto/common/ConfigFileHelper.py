@@ -29,8 +29,6 @@ if ROBOT:
                                 ('ap1' in self.variables and 'name' in self.variables['ap1'])):
                 self.set_ap1_default()
                 return 1
-            else:
-                BuiltIn().log_to_console(f"CONFIGREFRESH ALREADY CALLED:\n{BuiltIn().get_variables(no_decoration=True)}")
             return 0
 
         def loadRdcAio(self):
