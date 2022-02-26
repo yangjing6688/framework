@@ -174,7 +174,7 @@ if ROBOT:
             #
             #  Default netelem updates
             #
-            netelemRe = re.compile("n0telem[0-9]+")
+            netelemRe = re.compile("netelem[0-9]+")
             multiSerRe = re.compile(",")
             for key in self.variables:
                 if isinstance(self.variables[key], dict) and netelemRe.match(key):
