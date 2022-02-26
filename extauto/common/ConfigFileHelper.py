@@ -19,7 +19,7 @@ yamlRe = re.compile(r".*([a-z0-9_\-\.]+yaml$)")
 
 if ROBOT:
     class ConfigFileHelper:
-        ROBOT_LIBRARY_SCOPE = 'TEST SUITE'
+
         def __init__(self):
             self.variables = BuiltIn().get_variables(no_decoration=True)
             #BuiltIn().log_to_console(f"{self.variables}\n\n\n\n")
