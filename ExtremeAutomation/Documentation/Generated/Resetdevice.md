@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Resetdevice
-This feature is located in this file: `resetdevice.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `resetdevice.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: reset_now
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementResetdeviceGenKeywords.resetdevice_reset_now(device_name )
+		self.defaultLibrary.apiLowLevelApis.resetdevice.resetdevice_reset_now(device_name )
 
 	Robot API Call: 
 
@@ -122,7 +122,7 @@ UUID: 2d811556-db6d-4a05-876b-546a65abf61a
 # API Function: reset_system
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementResetdeviceGenKeywords.resetdevice_reset_system(device_name )
+		self.defaultLibrary.apiLowLevelApis.resetdevice.resetdevice_reset_system(device_name )
 
 	Robot API Call: 
 
@@ -150,7 +150,7 @@ UUID: 5f0f8465-9d88-4cdb-9cae-3f9dd55b940c
 # API Function: reset_system_to_config
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementResetdeviceGenKeywords.resetdevice_reset_system_to_config(device_name )
+		self.defaultLibrary.apiLowLevelApis.resetdevice.resetdevice_reset_system_to_config(device_name )
 
 	Robot API Call: 
 
@@ -223,7 +223,7 @@ UUID: 89c13d08-20a6-44cd-9a60-d97567a64939
 # API Function: reset_factory_default
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementResetdeviceGenKeywords.resetdevice_reset_factory_default(device_name )
+		self.defaultLibrary.apiLowLevelApis.resetdevice.resetdevice_reset_factory_default(device_name )
 
 	Robot API Call: 
 
@@ -266,7 +266,7 @@ UUID: bd80cb95-1f4d-4789-bc9a-c8022e99bc5c
 # API Function: bypass_initial_setup
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementResetdeviceGenKeywords.resetdevice_bypass_initial_setup(device_name )
+		self.defaultLibrary.apiLowLevelApis.resetdevice.resetdevice_bypass_initial_setup(device_name )
 
 	Robot API Call: 
 
@@ -294,7 +294,7 @@ UUID: 464e9b90-2b34-4244-94a6-600b803abfe2
 # API Function: login_after_reset
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementResetdeviceGenKeywords.resetdevice_login_after_reset(device_name )
+		self.defaultLibrary.apiLowLevelApis.resetdevice.resetdevice_login_after_reset(device_name )
 
 	Robot API Call: 
 
@@ -322,7 +322,7 @@ UUID: 660a18b1-9695-424f-b293-98b150d8d718
 # API Function: run_failover
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementResetdeviceGenKeywords.resetdevice_run_failover(device_name )
+		self.defaultLibrary.apiLowLevelApis.resetdevice.resetdevice_run_failover(device_name )
 
 	Robot API Call: 
 
@@ -350,7 +350,7 @@ UUID: 7ff99091-fcf9-4f22-9308-de3030f378a3
 # API Function: run_failover_warm
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementResetdeviceGenKeywords.resetdevice_run_failover_warm(device_name )
+		self.defaultLibrary.apiLowLevelApis.resetdevice.resetdevice_run_failover_warm(device_name )
 
 	Robot API Call: 
 

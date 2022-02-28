@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Hostservices
-This feature is located in this file: `hostservices.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `hostservices.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: enable_sys_force_topology_ip_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostservicesGenKeywords.hostservices_enable_sys_force_topology_ip_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostservices.hostservices_enable_sys_force_topology_ip_flag(device_name )
 
 	Robot API Call: 
 
@@ -32,7 +32,7 @@ UUID: 44ae2093-7a32-4200-9f6b-c76d9048a8a8
 # API Function: disable_sys_force_topology_ip_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostservicesGenKeywords.hostservices_disable_sys_force_topology_ip_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostservices.hostservices_disable_sys_force_topology_ip_flag(device_name )
 
 	Robot API Call: 
 
@@ -60,7 +60,7 @@ UUID: 0ed942d2-10cd-489d-804e-4e0ff39a37e7
 # API Function: set_sys_clipid_topology_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostservicesGenKeywords.hostservices_set_sys_clipid_topology_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostservices.hostservices_set_sys_clipid_topology_ip(device_name )
 
 	Robot API Call: 
 
@@ -88,7 +88,7 @@ UUID: 7dafa48c-20c4-4179-9a54-b6f6cc54e735
 # API Function: clear_sys_clipid_topology_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostservicesGenKeywords.hostservices_clear_sys_clipid_topology_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostservices.hostservices_clear_sys_clipid_topology_ip(device_name )
 
 	Robot API Call: 
 
@@ -116,7 +116,7 @@ UUID: ee66147e-6a71-43b9-b73a-4cd7defa0dc7
 # API Function: show_sys_setting
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostservicesGenKeywords.hostservices_show_sys_setting(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostservices.hostservices_show_sys_setting(device_name )
 
 	Robot API Call: 
 
@@ -144,7 +144,7 @@ UUID: f60ea537-ad29-4c8a-96bf-bfaa679d2433
 # API Function: show_autotopology_nmm_table
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostservicesGenKeywords.hostservices_show_autotopology_nmm_table(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostservices.hostservices_show_autotopology_nmm_table(device_name )
 
 	Robot API Call: 
 

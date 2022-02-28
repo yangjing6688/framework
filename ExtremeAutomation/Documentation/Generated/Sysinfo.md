@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Sysinfo
-This feature is located in this file: `sysinfo.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `sysinfo.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: show_hardware_summary
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSysinfoGenKeywords.sysinfo_show_hardware_summary(device_name )
+		self.defaultLibrary.apiLowLevelApis.sysinfo.sysinfo_show_hardware_summary(device_name )
 
 	Robot API Call: 
 
@@ -47,7 +47,7 @@ UUID: 531d77b2-554f-4fbb-b5cd-e5519a1e1951
 # API Function: show_core_files
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSysinfoGenKeywords.sysinfo_show_core_files(device_name )
+		self.defaultLibrary.apiLowLevelApis.sysinfo.sysinfo_show_core_files(device_name )
 
 	Robot API Call: 
 
@@ -90,7 +90,7 @@ UUID: 3c5089f2-d362-4999-9b75-6602db32b8e1
 # API Function: show_system_cpu_usage
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSysinfoGenKeywords.sysinfo_show_system_cpu_usage(device_name )
+		self.defaultLibrary.apiLowLevelApis.sysinfo.sysinfo_show_system_cpu_usage(device_name )
 
 	Robot API Call: 
 
@@ -133,7 +133,7 @@ UUID: 1896061d-31fa-4171-9668-f344caf212d7
 # API Function: show_system_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSysinfoGenKeywords.sysinfo_show_system_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.sysinfo.sysinfo_show_system_info(device_name )
 
 	Robot API Call: 
 
@@ -176,7 +176,7 @@ UUID: 9992c6bd-2b22-4727-ad19-cfbd352a6ca1
 # API Function: show_system_slot_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSysinfoGenKeywords.sysinfo_show_system_slot_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.sysinfo.sysinfo_show_system_slot_info(device_name )
 
 	Robot API Call: 
 
@@ -204,7 +204,7 @@ UUID: 603a68dd-444a-40cd-b052-10bd801852b3
 # API Function: show_slot_files
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSysinfoGenKeywords.sysinfo_show_slot_files(device_name )
+		self.defaultLibrary.apiLowLevelApis.sysinfo.sysinfo_show_slot_files(device_name )
 
 	Robot API Call: 
 

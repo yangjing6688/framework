@@ -112,10 +112,10 @@ class ParseCsvs(object):
                     # Write Header for Doc
                     mappingfilename = self.keyword_document_generated
                     header_text =   "# Keyword Library Documentation for " + \
-                                    feature.capitalize() + "\nThis feature is located in this file: `" + yaml_file_parsed + "` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition)" +\
+                                    feature.capitalize() + "\nThis feature is located in this file: `" + yaml_file_parsed + "` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition)" +\
                                     ". If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: " + \
-                                    "/econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory " + \
-                                    "(/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`"
+                                    "/extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory " + \
+                                    "(/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`"
                     
                     self.__create_index_file(mappingfilename, header_text, feature.capitalize())
                     self.__create_mapping_file_methods_commands(mappingfilename, header_text, feature.capitalize())
@@ -172,7 +172,7 @@ class ParseCsvs(object):
                             commaAfterDevice = ""
                             if argument_order != "":
                                 commaAfterDevice = ","
-                            interface_method_information[feature][api_method]['pytest_command'] =   "\n\n\t\tself.defaultLibrary.apiLowLevelApis.NetworkElement" + feature.capitalize() + "GenKeywords." + feature + "_" + api_method + "(device_name" + commaAfterDevice + " " + "".join(argument_order).replace(",",", ") + ")\n"
+                            interface_method_information[feature][api_method]['pytest_command'] =   "\n\n\t\tself.defaultLibrary.apiLowLevelApis."+ feature + "." + feature + "_" + api_method + "(device_name" + commaAfterDevice + " " + "".join(argument_order).replace(",",", ") + ")\n"
                                                                                                     
                             interface_method_information[feature][api_method]['robot_command'] =    "\n\n\t\t" + feature + "_" + api_method + "  device_name  " + "".join(argument_order).replace(",","  ") + "\n"
                                                                                                     
@@ -223,16 +223,16 @@ class ParseCsvs(object):
                         for function in command_header:
                             command_data = command_header[function]
                             function_header =   "# API Function: " + function + "\n\tPytest API Call: " + command_data['pytest_command'] + "\n\tRobot API Call: " + command_data['robot_command'] + "\nUUID: " + str(command_data['uuid'])
-                            self.__add_to_mapping_file_methods_commands(self.keyword_document_generated, function_header, feature)
+                            self.__add_to_mapping_file_methods_commands(self.keyword_document_generated, function_header, feature.capitalize())
                             for command_group in command_data['command_info']:
                                 file_str = ("## " + str(command_group)) 
-                                self.__add_to_mapping_file_methods_commands(self.keyword_document_generated, file_str, feature)
+                                self.__add_to_mapping_file_methods_commands(self.keyword_document_generated, file_str, feature.capitalize())
                                 command_agent_data = command_data['command_info'][command_group]
                                 for command in command_agent_data:
-                                    self.__add_to_mapping_file_methods_commands(self.keyword_document_generated, command, feature)
-                        self.logger.log_info("Created documentation for " + feature + ".md")            
+                                    self.__add_to_mapping_file_methods_commands(self.keyword_document_generated, command, feature.capitalize())
+                        self.logger.log_info("Created documentation for " + feature.capitalize() + ".md")
             except AttributeError as error:
-                self.logger.log_info("YAML API file for feature '" + feature + "' is empty!")
+                self.logger.log_info("YAML API file for feature '" + feature.capitalize() + "' is empty!")
                 raise error
 
     def __parse_csv(self):
