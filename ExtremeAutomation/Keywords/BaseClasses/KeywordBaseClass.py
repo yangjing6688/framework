@@ -65,6 +65,18 @@ class KeywordBaseClass(object):
 
         return device
 
+    def log_keyword_result(self, keyword_failed):
+        # Log the results
+        if not keyword_failed:
+            keyword_value = 'Passed'
+        else:
+            keyword_value = "Failed"
+        endOfLine = "\n\n"
+        start = "****************************************************  "
+        msg = "Keyword Results: {0} -> {1}".format(KeywordBaseClass.get_keyword_name(), keyword_value)
+        end = "  ****************************************************"
+        self.logger.log_info(endOfLine + start + msg + end + endOfLine)
+
     # +--------------------+
     # | Abstract Functions |
     # +--------------------+
@@ -97,25 +109,12 @@ class KeywordBaseClass(object):
         """Looks through the current stack trace and tries to find the currently running keyword name."""
         keyword = inspect.currentframe().f_back
 
-        while keyword.f_code.co_name.lower() == "_init_keyword" or keyword.f_code.co_name.lower() == "_keyword_cleanup":
+        while keyword.f_code.co_name.lower() == "_init_keyword" or keyword.f_code.co_name.lower() == "_keyword_cleanup" or keyword.f_code.co_name.lower() == "log_keyword_result":
             keyword = keyword.f_back
         if len(re.findall("^execute_.*keyword$", keyword.f_code.co_name.lower())) == 1:
             keyword = keyword.f_back
 
         return keyword.f_code.co_name.replace("_", " ").title()
-    
-    @staticmethod
-    def log_keyword_result(self, keyword_failed):
-        # Log the results
-        if not keyword_failed:
-            keyword_value = 'Passed'
-        else:
-            keyword_value = "Failed"
-        endOfLine = "\n\n"
-        start = "****************************************************  "
-        msg = "Keyword Results: {0} {1}".format(KeywordBaseClass.get_keyword_name(), keyword_value)
-        end = "  ****************************************************"
-        self.logger.log_info(endOfLine + start + msg + end + endOfLine)
 
     @staticmethod
     def add_agent_kwarg(device, kwarg_key, kwargs):

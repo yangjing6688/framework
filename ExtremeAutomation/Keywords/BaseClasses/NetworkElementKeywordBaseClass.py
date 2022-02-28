@@ -73,6 +73,8 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                     cmd_obj = dev.send_command_object(cmd_obj)
                     self._parse_microservice_input(cmd_obj=cmd_obj,dev_obj=dev)
                 kw_results.append(self._determine_result(dev, cmd_obj, **kwargs))
+
+                self._init_keyword(device_name, api_const, None, **kwargs)
             else:
                 kw_results.append(KeywordResult(device_name, False, "", "Device \"" + device_name +"\" does not exist!", None))
                 break
@@ -257,7 +259,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                 kw_result = KeywordResult(dev.name, test_result, pass_string, fail_string, cmd_obj)
             else:
                 kw_result = KeywordResult(dev.name, True, "Returning parse values.", fail_string, cmd_obj)
-            
+
         return kw_result
 
     def _keyword_cleanup(self, kw_results, ret_vals=None):
@@ -285,8 +287,8 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                     fail_excep = FailureException(err_msg) if self.continue_on_failure \
                         else BreakFailureException(err_msg)
                     raise fail_excep
-                
-        KeywordBaseClass.log_keyword_result(keyword_failed)
+
+        super(NetworkElementKeywordBaseClass, self).log_keyword_result(keyword_failed)
 
         return kw_results
 
