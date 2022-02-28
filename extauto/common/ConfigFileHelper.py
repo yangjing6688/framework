@@ -3,16 +3,19 @@ import sys
 import os
 from pathlib import Path
 from ExtremeAutomation.Imports import pytestConfigHelper
-try:
-    from robot.libraries.BuiltIn import BuiltIn
-    from robot.libraries.BuiltIn import _Misc
-    import robot.api.logger as logger
-    from robot.api.deco import keyword
-    ROBOT = True
-except Exception:
-    ROBOT = False
+
 if "PYTEST_RUN_CONFIG" in os.environ:
     ROBOT = False
+else:
+    try:
+        from robot.libraries.BuiltIn import BuiltIn
+        from robot.libraries.BuiltIn import _Misc
+        import robot.api.logger as logger
+        from robot.api.deco import keyword
+        ROBOT = True
+    except Exception:
+        ROBOT = False
+
 
 
 yamlRe = re.compile(r".*([a-z0-9_\-\.]+yaml$)")
