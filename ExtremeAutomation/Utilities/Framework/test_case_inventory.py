@@ -4,17 +4,13 @@ import sys
 import re
 import json
 from pathlib import Path
-try:
-    from robot.api.parsing import ModelVisitor
-except:
-    pass
+from robot.api.parsing import ModelVisitor
 
 qTestMarker  = re.compile(r"(([A-Z]+[\-_])?TC[\-_][0-9]+)", flags=re.IGNORECASE)
 
-class RobotTestData():
+class RobotTestData(ModelVisitor):
 
     def __init__(self, node):
-        self.modelVisitor = ModelVisitor()
         self.suite_file = ''
         self.suite_name = ''
         self.test_names = []
