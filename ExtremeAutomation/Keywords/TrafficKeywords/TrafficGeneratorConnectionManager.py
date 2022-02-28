@@ -85,7 +85,7 @@ class TrafficGeneratorConnectionManager(TrafficKeywordBaseClass):
 
         Searches the testbed environment file for traffic generators and connects to each.
         """
-        tgen_dict = self.__build_dict_of_tgens(**kwargs)
+        tgen_dict = self.build_dict_of_tgens(**kwargs)
 
         if device_name in tgen_dict:
             tgen_vendor = tgen_dict[device_name]["tgen_vendor"]
@@ -114,7 +114,7 @@ class TrafficGeneratorConnectionManager(TrafficKeywordBaseClass):
 
         Searches the testbed environment file for traffic generators and connects to each.
         """
-        tgen_dict = self.__build_dict_of_tgens(**kwargs)
+        tgen_dict = self.build_dict_of_tgens(**kwargs)
         for tgen_name in tgen_dict:
             if tgen_dict[tgen_name]["tgen_id"] == tgen_id:
                 tgen_vendor = tgen_dict[tgen_name]["tgen_vendor"]
@@ -143,7 +143,7 @@ class TrafficGeneratorConnectionManager(TrafficKeywordBaseClass):
 
         Connects to all traffic generators present in the variables of a robot test case.
         """
-        tgen_dict = self.__build_dict_of_tgens(**kwargs)
+        tgen_dict = self.build_dict_of_tgens(**kwargs)
 
         for device_name in tgen_dict:
             if not tgen_dict[device_name]["skip_connect"]:
@@ -317,7 +317,7 @@ class TrafficGeneratorConnectionManager(TrafficKeywordBaseClass):
         else:
             self.logger.log_debug("Connection to traffic generator " + tgen_name + " was successful.")
 
-    def __build_dict_of_tgens(self, **kwargs):
+    def build_dict_of_tgens(self, **kwargs):
         try:
             variables = RobotUtils.get_variables(no_decoration=True)
         except Exception as e:

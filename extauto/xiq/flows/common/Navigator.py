@@ -2045,4 +2045,20 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click(self.get_nav_configure_users_management_private_client_group())
         sleep(2)
 
+    def navigate_to_common_objects_management_options(self):
+        """
+        - This Keyword Navigate to Management Options on Common Objects
+        - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->MANAGEMENT OPTIONS
+        - Keyword Usage:
+         - ``Navigate To Common Objects Management Options``
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_configure_common_objects()
+        sleep(3)
+        self.utils.print_info("Click on common object Network tab")
+        self.navigate_to_common_object_network_tab()
+        self.utils.print_info("Click on Management Options tab...")
+        self.auto_actions.click(self.get_common_object_network_management_options())
+        sleep(5)
+
         return 1

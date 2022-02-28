@@ -4,7 +4,7 @@
 version: "3"
 services:
   automation-dev-env:
-    image: ghcr.io/extremenetworks/econ-automation-framework/automation-dev-env:latest
+    image: ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env:latest
     container_name: automation-dev-env
     environment:
       - RESOLUTION=1920x1080
@@ -24,16 +24,16 @@ services:
       - "2200:22"
     depends_on:
        - chrome
-      # - edge
        - firefox
     networks:
       - grid
 
   chrome:
-    image: selenium/node-chrome:4.0.0-beta-4-20210608
+    image: selenium/node-chrome:4.1.2-20220131
     container_name: selenium-hub-chrome
-    volumes:
-      - /dev/shm:/dev/shm
+    shm_size: 2gb
+#    volumes:
+#      - /dev/shm:/dev/shm
     depends_on:
       - selenium-hub
     environment:
@@ -47,10 +47,11 @@ services:
       - grid
 
   firefox:
-    image: selenium/node-firefox:4.0.0-beta-4-20210608
+    image: selenium/node-firefox:4.1.2-20220131
     container_name: selenium-hub-firefox
-    volumes:
-      - /dev/shm:/dev/shm
+    shm_size: 2gb
+#    volumes:
+#      - /dev/shm:/dev/shm
     depends_on:
       - selenium-hub
     environment:
@@ -62,62 +63,9 @@ services:
       - "7902:7900"
     networks:
       - grid
-      
-#  edge:
-#    image: selenium/node-edge:4.0.0-beta-4-20210608
-#    container_name: selenium-hub-edge
-#    volumes:
-#      - /dev/shm:/dev/shm
-#    depends_on:
-#      - selenium-hub
-#    environment:
-#      - SE_EVENT_BUS_HOST=selenium-hub
-#      - SE_EVENT_BUS_PUBLISH_PORT=4442
-#      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-#    ports:
-#      - "6901:5900"
-#      - "7903:7900"
-#    networks:
-#      - grid
-
-#  chrome_video:
-#    image: selenium/video:ffmpeg-4.3.1-20210618
-#    volumes:
-#      - C:/automation/videos:/videos
-#    depends_on:
-#      - chrome
-#    environment:
-#      - DISPLAY_CONTAINER_NAME=chrome
-#      - FILE_NAME=chrome_video.mp4
-#    networks:
-#      - grid
-
-#  edge_video:
-#    image: selenium/video:ffmpeg-4.3.1-20210618
-#    volumes:
-#      - C:/automation/videos:/videos
-#    depends_on:
-#      - edge
-#    environment:
-#      - DISPLAY_CONTAINER_NAME=edge
-#      - FILE_NAME=edge_video.mp4
-#    networks:
-#      - grid
-
-#  firefox_video:
-#    image: selenium/video:ffmpeg-4.3.1-20210618
-#    volumes:
-#      - C:/automation/videos:/videos
-#    depends_on:
-#      - firefox
-#    environment:
-#      - DISPLAY_CONTAINER_NAME=firefox
-#      - FILE_NAME=firefox_video.mp4
-#    networks:
-#      - grid
 
   selenium-hub:
-    image: selenium/hub:4.0.0-beta-4-20210608
+    image: selenium/hub:4.1.2-20220131
     container_name: selenium-hub
     ports:
       - "4442:4442"

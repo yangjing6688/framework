@@ -2259,3 +2259,169 @@ class Copilot(CopilotWebElements):
                     self.utils.print_info("Unable to get Adverse Traffic Patterns Widget Summary")
                     self.utils.print_info(e)
                     return -1
+
+    def mute_anomaly_for_location_in_adverse_traffic_patterns_widget(self, location_name):
+        """
+        - This Keyword will mute an anomaly at building level in Adverse Traffic Patterns Widget
+        - Flow: CoPilot--> ADVERSE TRAFFIC PATTERNS ---> Get Location Name in Rows and Click Mute Button
+        - Keyword Usage:
+         - ``Mute Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
+
+
+        :param location_name: Location name to Mute in Adverse Traffic Patterns widget
+        :return: 1 if able to click anomaly Mute button for the Location Name or already clicked else -1
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(self.driver)
+        self.navigator.navigate_to_copilot_menu()
+        sleep(5)
+        self.utils.print_info("Scrolling down...")
+        self.auto_actions.scroll_down()
+        sleep(5)
+        self.utils.print_info("Getting Location Name rows in Adverse Traffic Patterns Widget")
+        sleep(15)
+
+        self.utils.switch_to_iframe(self.driver)
+        sleep(5)
+
+        for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
+            if location_name in row.text:
+                if 'Unmute' in row.text:
+                    self.utils.print_info("Location entry " + location_name + " already muted")
+                    return 1
+                self.utils.print_info(f"Selecting More button from the Location in Adverse Traffic Patterns Widget: "
+                                      f"{location_name}")
+                more_options_button = self.get_adverse_traffic_patterns_widget_location_more_button(row)
+                self.auto_actions.click(more_options_button)
+                if more_options_button:
+                    self.utils.print_info("Clicking Mute button in the Adverse Traffic Patterns Widget")
+                    # get the button panel
+                    button_panel = self.get_adverse_traffic_patterns_widget_location_mute_and_dismiss_div()
+                    if button_panel:
+                        mute_button = self.get_adverse_traffic_patterns_widget_location_mute_button(button_panel)
+                        if mute_button:
+                            self.auto_actions.click(mute_button)
+                            sleep(10)
+                            self.screen.save_screen_shot()
+                            return 1
+                        else:
+                            self.utils.print_info("Unable to click Mute button in the Adverse Traffic Patterns Widget")
+                            return -1
+                    else:
+                        self.utils.print_info("Unable to click Mute button in the Adverse Traffic Patterns Widget")
+                        return -1
+                else:
+                    self.utils.print_info("Unable to select more button in the Adverse Traffic Patterns Widget")
+                    return -1
+        # if code made it here then location was not found
+        self.utils.print_info(f"Unable to location : {location_name} " f"in Adverse Traffic Patterns Widget")
+        return -1
+
+    def unmute_anomaly_for_location_in_adverse_traffic_patterns_widget(self, location_name):
+        """
+        - This Keyword will unmute an anomaly at building level in Adverse Traffic Patterns Widget
+        - Flow: CoPilot--> ADVERSE TRAFFIC PATTERNS ---> Get Location Name in Rows and Click Unmute Button
+        - Keyword Usage:
+         - ``Unmute Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
+
+
+        :param location_name: Location name to Unmute in Adverse Traffic Patterns widget
+        :return: 1 if able to click anomaly Mute button for the Location Name or already clicked else -1
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(self.driver)
+        self.navigator.navigate_to_copilot_menu()
+        sleep(5)
+        self.utils.print_info("Scrolling down...")
+        self.auto_actions.scroll_down()
+        sleep(5)
+        self.utils.print_info("Getting Location Name rows in Adverse Traffic Patterns Widget")
+        sleep(15)
+
+        self.utils.switch_to_iframe(self.driver)
+        sleep(5)
+
+        for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
+            if location_name in row.text:
+                if 'Unmute' not in row.text:
+                    self.utils.print_info("Location entry " + location_name + " already unmuted")
+                    return 1
+                self.utils.print_info(f"Selecting Unmute button for the entry in the Adverse Traffic Patterns Widget: "
+                                      f"{location_name}")
+                unmute_button = self.get_adverse_traffic_patterns_widget_location_unmute_button(row)
+                if unmute_button:
+                    self.auto_actions.click(unmute_button)
+                    sleep(10)
+                    self.screen.save_screen_shot()
+                    return 1
+                else:
+                    self.utils.print_info("Unable to select unmute button in the Adverse Traffic Patterns Widget")
+                    return -1
+        # if code made it here then location was not found
+        self.utils.print_info(f"Unable to location : {location_name} " f"in Adverse Traffic Patterns Widget")
+        return -1
+
+    def dismiss_anomaly_for_location_in_adverse_traffic_patterns_widget(self, location_name):
+        """
+        - This Keyword will dismiss an anomaly entry in the Adverse Traffic Patterns Widget
+        - Flow: CoPilot--> ADVERSE TRAFFIC PATTERNS ---> Get Location Name in Rows and Click Dismiss Button
+        - Keyword Usage:
+         - ``Dismiss Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
+
+
+        :param location_name: Location name to Dismiss in Adverse Traffic Patterns widget
+        :return: 1 if able to click anomaly Dismiss button for the Location Name or already clicked else -1
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(self.driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.print_info("Getting Location Name rows in Adverse Traffic Patterns Widget")
+        sleep(15)
+
+        self.utils.switch_to_iframe(self.driver)
+        sleep(5)
+
+        for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
+            if location_name in row.text:
+                self.utils.print_info(f"Selecting More Button from the Location in Adverse Traffic Patterns Widget: "
+                                      f"{location_name}")
+                more_options_button = self.get_adverse_traffic_patterns_widget_location_more_button(row)
+                self.auto_actions.click(more_options_button)
+                if more_options_button:
+                    self.utils.print_info("Clicking Dismiss button in the Adverse Traffic Patterns Widget")
+                    # get the button panel
+                    button_panel = self.get_adverse_traffic_patterns_widget_location_mute_and_dismiss_div()
+                    if button_panel:
+                        dismiss_button = self.get_adverse_traffic_patterns_widget_location_dismiss_button(button_panel)
+                        if dismiss_button:
+                            self.auto_actions.click(dismiss_button)
+                            self.utils.print_info("Clicking the OK button in the Adverse Traffic Patterns Widget Popup")
+                            confirm_dialog = self.get_adverse_traffic_patterns_widget_location_dismiss_confirm_dialog()
+                            sleep(5)
+                            if confirm_dialog:
+                                ok_button = self.get_adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_okay(
+                                    confirm_dialog)
+                                if ok_button:
+                                    self.auto_actions.click(ok_button)
+                                    return 1
+                                else:
+                                    self.utils.print_info("Unable to click the OK button")
+                                    return -1
+                            else:
+                                self.utils.print_info("Unable to locate Confirmation dialog")
+                                return -1
+                        else:
+                            self.utils.print_info("Unable to click Mute button in the Adverse Traffic Patterns Widget")
+                            return -1
+                    else:
+                        self.utils.print_info("Unable to click Mute button in the Adverse Traffic Patterns Widget")
+                        return -1
+                else:
+                    self.utils.print_info("Unable to select more button in the Adverse Traffic Patterns Widget")
+                    return -1
+        # if code made it here then location was not found
+        self.utils.print_info(f"Unable to location : {location_name} " f"in Adverse Traffic Patterns Widget")
+        return -1

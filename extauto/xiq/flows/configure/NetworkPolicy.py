@@ -187,7 +187,7 @@ class NetworkPolicy(object):
             return -2
 
         if not self._search_network_policy_in_list_view(policy):
-            self.utils.print_info(f"Network policy {policy} does't exists in the network policies list")
+            self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
             return 1
 
         self.utils.print_info("Select Network policy row")
@@ -216,7 +216,7 @@ class NetworkPolicy(object):
                 select_flag = True
                 sleep(1)
             else:
-                self.utils.print_info(f"Network policy does't {policy} exists in the network policies list")
+                self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
 
         if select_flag:
             return self._perform_np_delete()

@@ -37,7 +37,7 @@ class Iapi:
         access_token = -1
         csrf_token = -1
 
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        base_url = BuiltIn().get_variable_value("${IAPI_BASE_URL}")
         self.utils.print_info("Base URL: ", base_url)
 
         data_urlencode_raw =  "--data-urlencode 'client_id=browser' " \
@@ -84,7 +84,7 @@ class Iapi:
         access_token = -1
         csrf_token = -1
 
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        base_url = BuiltIn().get_variable_value("${IAPI_BASE_URL}")
         self.utils.print_info("Base URL: ", base_url)
 
         data_urlencode_raw =  "--data-urlencode 'client_id=browser' " \

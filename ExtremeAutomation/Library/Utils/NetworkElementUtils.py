@@ -1,9 +1,11 @@
 import re
+from ExtremeAutomation.Library.Utils.RobotUtils import RobotUtils
 from ExtremeAutomation.Library.Logger.Logger import Logger
 from ExtremeAutomation.Library.Device.Common.Agents.AgentConstants import AgentConstants
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import \
     NetworkElementConstants
 
+p1 = '^\$\{'
 
 class NetworkElementUtils(object):
     @staticmethod
@@ -109,6 +111,18 @@ class NetworkElementUtils(object):
             login_prompt = "Username:"
             pass_prompt = "Password:"
             main_prompt = "#"
+        elif formatted_dev_os == NetworkElementConstants.OS_HIVE:
+            device_os = NetworkElementConstants.OS_HIVE
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_HIVE_BASE
+            login_prompt = "Username:"
+            pass_prompt = "Password:"
+            main_prompt = "#"
+        elif formatted_dev_os == NetworkElementConstants.OS_WING:
+            device_os = NetworkElementConstants.OS_WING
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_WING_BASE
+            login_prompt = "Username:"
+            pass_prompt = "Password:"
+            main_prompt = "#"
         else:
             logger = Logger()
 
@@ -161,6 +175,13 @@ class NetworkElementUtils(object):
             connection_method = AgentConstants.TYPE_JSON_RPC
             port = port if port is not None else "80"
         elif connection_method.lower() == AgentConstants.TYPE_CONSOLE:
+            connection_method = AgentConstants.TYPE_CONSOLE
+            port = port
+        elif connection_method.lower() == AgentConstants.TYPE_SLOT_1:
+            connection_method = AgentConstants.TYPE_SLOT_1
+            port = port
+        elif connection_method.lower() == AgentConstants.TYPE_SLOT_2:
+            connection_method = AgentConstants.TYPE_SLOT_2
             port = port
         # If an unknown connection method is received default to telnet.
         else:
@@ -214,3 +235,90 @@ class NetworkElementUtils(object):
             snmp_info = None
 
         return snmp_info
+
+    @staticmethod
+    def get_console_ip_port(dev, netelem, console_interface, ip_port=None):
+        """
+        Set the dev.hostname ip and port number from the console equivalent.
+            netelem_console_ip returned for ip
+            netelem_console_port returned for port
+            OR
+            netelem_slot2_console_ip for ip
+            netelem_slot2_console_port for port
+        Ex:
+        """
+        try:
+            variables = RobotUtils.get_variables(no_decoration=True)
+        except Exception as e:
+            raise e
+        for key in variables:
+            # we need to avoid Robot formated keys
+            if re.match(p1, key):
+                continue
+            if isinstance(variables[key], dict):
+                try:
+                    if variables[key]['name'] == netelem:
+                        if dev:
+                            dev.last_connection_method = dev.connection_method
+                        if console_interface == "console":
+                            if dev:
+                                if dev.primary_connection == "console" or dev.primary_connection == "slot1":
+                                    dev.main_prompt = "# "
+                                else:
+                                    dev.main_prompt = "> "
+                                dev.connection_method = "console"
+                                dev.hostname = variables[key]['console_ip']
+                                dev.port = variables[key]['console_port']
+                                return dev.hostname, dev.port
+                            else:
+                                return variables[key]['console_ip'], variables[key]['console_port']
+                        elif console_interface == "slot1":
+                            if dev:
+                                if dev.primary_connection == "console" or dev.primary_connection == "slot1":
+                                    dev.main_prompt = "# "
+                                else:
+                                    dev.main_prompt = "> "
+                                dev.hostname = variables[key]["stack"]["slot1"]["console_ip"]
+                                dev.port = variables[key]["stack"]["slot1"]["console_port"]
+                                dev.connection_method = "slot1"
+                                return dev.hostname, dev.port
+                            else:
+                                ip = variables[key]["stack"]["slot1"]["console_ip"]
+                                port = variables[key]["stack"]["slot1"]["console_port"]
+                                return ip, port
+                        elif console_interface == "slot2":
+                            if dev:
+                                if dev.primary_connection == "console" or dev.primary_connection == "slot1":
+                                    dev.main_prompt = "> "
+                                else:
+                                    dev.main_prompt = "# "
+                                dev.hostname = variables[key]["stack"]["slot2"]["console_ip"]
+                                dev.port = variables[key]["stack"]["slot2"]["console_port"]
+                                dev.connection_method = "slot2"
+                                return dev.hostname, dev.port
+                            else:
+                                ip = variables[key]["stack"]["slot2"]["console_ip"]
+                                port = variables[key]["stack"]["slot2"]["console_port"]
+                                return ip, port
+                        elif ip_port:
+                            if dev:
+                                dev.hostname = variables[key]['ip']
+                                if 'port' in variables[key]:
+                                    dev.port = variables[key]['port']
+                                    return dev.hostname, dev.port
+                                else:
+                                    dev.port = 0
+                                    return dev.hostname, 0
+                            else:
+                                if 'port' in variables[key]:
+                                    return variables[key]['ip'], variables[key]['port']
+                                else:
+                                    return variables[key]['ip'], 0
+                        else:
+                            # There are multiple matches, so keep looping
+                            continue
+                except KeyError:
+                    pass
+        return None, None
+
+        raise ValueError("No device's with the name " + search_name + " found.")

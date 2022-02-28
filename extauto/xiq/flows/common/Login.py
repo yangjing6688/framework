@@ -9,6 +9,8 @@ import extauto.common.CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
+# Code removed for AIQ-1403
+#from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture
 
@@ -16,10 +18,13 @@ from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
-
 class Login:
 
     def __init__(self):
+        # Code removed for AIQ-1403
+        # When the validation code was added it caused un unexpected error when running certain
+        # robot test cases, skipping the valadiation code for now.
+        # self.common_validation = CommonValidation()
         self.record = False
         self.t1 = None
         self.utils = Utils()
@@ -94,7 +99,7 @@ class Login:
 
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                   salesforce_password=False, saleforce_shared_cuid=False):
+                   salesforce_password=False, saleforce_shared_cuid=False, **kwargs):
         """
         - Login to Xiq account with username and password
         - By default url will load from the topology file
@@ -151,11 +156,17 @@ class Login:
         credential_warnings = self.login_web_elements.get_credentials_error_message()
         self.utils.print_info("Wrong Credential Message: ", credential_warnings)
         if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
-            self.utils.print_info("Wrong Credentials. Try Again")
+            # self.utils.print_info("Wrong Credentials. Try Again")
+            # Code removed for AIQ-1403
+            kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+            # self.common_validation.validate(-1,1, **kwargs)
             return -1
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid) == -1:
+            kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+            # Code removed for AIQ-1403
+            # self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         self.utils.print_info("Check for Warning Messages..")
@@ -194,6 +205,9 @@ class Login:
 
         if capture_version:
             self._capture_xiq_version()
+        kwargs['pass_msg'] = "User has been logged in"
+        # Code removed for AIQ-1403
+        #self.common_validation.validate(1, 1, **kwargs)
         return 1
 
     def logout_user(self):

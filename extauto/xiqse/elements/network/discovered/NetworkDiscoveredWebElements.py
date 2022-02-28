@@ -85,9 +85,27 @@ class NetworkDiscoveredWebElements(NetworkDiscoveredWebElementsDefinitions):
         """
         return self.weh.get_element(self.configure_devices_button)
 
+    def get_clear_menu(self):
+        """
+        :return: Clear menu item
+        """
+        return self.weh.get_element(self.clear_menu)
+
+    def get_load_configuration_menu(self):
+        """
+        :return: Load Configuration... menu item
+        """
+        return self.weh.get_element(self.load_configuration_menu)
+
+    def get_add_devices_menu(self):
+        """
+        :return: Add Devices... menu item
+        """
+        return self.weh.get_element(self.add_devices_menu)
+
     def get_configure_devices_menu(self):
         """
-        :return: Configure Devices menu item
+        :return: Configure Devices... menu item
         """
         return self.weh.get_element(self.configure_devices_menu)
 

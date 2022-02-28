@@ -249,3 +249,10 @@ class NetworkDevicesSiteZtpDeviceDefaultsWebElements(NetworkDevicesSiteZtpDevice
         :return: VXLAN field element
         """
         return self.weh.get_element(self.device_protocols_vxlan_checkbox)
+
+    # Global IP to Site Mapping section
+    def get_global_ip_to_site_mapping_table(self):
+        """
+        :return: Global IP to Site Mapping grid
+        """
+        return self.weh.get_element(self.global_ip_to_site_mapping_grid)

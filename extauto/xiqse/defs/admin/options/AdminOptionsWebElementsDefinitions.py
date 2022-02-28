@@ -99,3 +99,67 @@ class AdminOptionsWebElementsDefinitions:
             'XPATH': '//div[contains(@class, "timeIntervalUnitsField")]//input',
             'wait_for': 10
         }
+
+    inventory_manager_option = \
+        {
+            'DESC': 'Inventory Manager',
+            'XPATH': '//td[contains(@class, "x-grid-cell-treecolumn")]//span[text()="Inventory Manager"]',
+            'wait_for': 10
+        }
+
+    scp_login_information_anonymous_checkbox = \
+        {
+            'DESC': 'SCP Login Information Anonymous Checkbox',
+            'XPATH': '//input[@name="invsrvroScpUseAnonymous"]',
+            'wait_for': 10
+        }
+
+    scp_login_information_username = \
+        {
+            'DESC': 'SCP Login Information Username field',
+            'XPATH': '//input[@name="invsrvroScpUsername"]',
+            'wait_for': 10
+        }
+
+    scp_login_information_password = \
+        {
+            'DESC': 'SCP Login Information Password field',
+            'XPATH': '//input[@name="invsrvroScpPassword"]',
+            'wait_for': 10
+        }
+
+    sftp_login_information_anonymous_checkbox = \
+        {
+            'DESC': 'SFTP Login Information Anonymous Checkbox',
+            'XPATH': '//input[@name="invsrvroSftpUseAnonymous"]',
+            'wait_for': 10
+        }
+
+    sftp_login_information_username = \
+        {
+            'DESC': 'SFTP Login Information Username field',
+            'XPATH': '//input[@name="invsrvroSftpUsername"]',
+            'wait_for': 10
+        }
+
+    sftp_login_information_password = \
+        {
+            'DESC': 'SFTP Login Information Password field',
+            'XPATH': '//input[@name="invsrvroSftpPassword"]',
+            'wait_for': 10
+        }
+
+    status_polling_option = \
+        {
+            'DESC': 'Status Polling',
+            'XPATH': '//td[contains(@class, "x-grid-cell-treecolumn")]//span[text()="Status Polling"]',
+            'wait_for': 10
+        }
+
+    status_polling_group_2_interval_value = \
+        {
+            'DESC': 'Status Polling Group 2 Interval Value',
+            'XPATH': '//input[@name="spoGroup2Interval"]',
+            'wait_for': 10
+        }
+

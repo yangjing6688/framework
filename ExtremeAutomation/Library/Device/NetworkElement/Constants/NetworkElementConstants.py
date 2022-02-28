@@ -21,6 +21,8 @@ class NetworkElementConstants(Constants):
     OS_MLX = 'MLX'  # brocade
     OS_VDX = 'VDX'  # brocade
     OS_ICX = 'ICX'  # brocade
+    OS_HIVE = 'HIVE'  # AP
+    OS_WING = 'WING'  # AP
 
     # Unit Constants
     UNIT_BASE = "baseunit"
@@ -32,6 +34,8 @@ class NetworkElementConstants(Constants):
     PLATFORM_BASE = "base"
     PLATFORM_EOS_BASE = "base"
     PLATFORM_BOSS_BASE = "base"
+    PLATFORM_HIVE_BASE = "base"
+    PLATFORM_WING_BASE = "base"
     PLATFORM_ECOS_BASE = "base"
     PLATFORM_EOS_TOR = "TOR"
     PLATFORM_EOS_S = "S"
@@ -65,6 +69,10 @@ class NetworkElementConstants(Constants):
     PROMPT_SLBV_SERVER = "slbVServerPrompt"
     PROMPT_SLB_SERVER_FARM = "slbServerFarmPrompt"
     PROMPT_SLB_SERVER_FARM_REAL = "slbServerFarmRealPrompt"
+    PROMPT_EXOS_BACKUP = "exosBackupPrompt"
+    PROMPT_EXOS_PACMAN = "exosPacmanPrompt"
+    PROMPT_EXOS_BCMSHELL = "exosBcmshellPrompt"
+    PROMPT_EXOS_SHELL = "exosShellPrompt"
 
     PROMPT_EXTR_WIRELESS_BASE_ROLE = "ewBaseRolePrompt"
     PROMPT_EXTR_WIRELESS_ROLE = "ewRolePrompt"

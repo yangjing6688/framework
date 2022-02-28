@@ -381,23 +381,30 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
         """
         ret_val = -1
 
-        rows_label = self.get_xiq_device_message_details_displaying_rows_label()
-        if rows_label:
-            rows_text = rows_label.text
-            self.utils.print_debug(f"Got Rows label text {rows_text}")
-            text_list = rows_text.split(' ')
-            # The number of total devices should be the second element in the list,
-            # since this label is in the format "Displaying # rows"
-            row_count = text_list[1]
-            if row_count:
-                self.utils.print_info(f"Returning row count {row_count}")
-                ret_val = row_count
-            else:
-                self.utils.print_info("Unable to parse text from 'Displaying # rows' label to determine total row count")
-                self.screen.save_screen_shot()
-        else:
-            self.utils.print_info("Unable to find 'Displaying # Rows' label for the XIQ Device Message Details table")
-            self.screen.save_screen_shot()
+        stale_retry = 1
+        while stale_retry <= 10:
+            try:
+                rows_label = self.get_xiq_device_message_details_displaying_rows_label()
+                if rows_label:
+                    rows_text = rows_label.text
+                    self.utils.print_debug(f"Got Rows label text {rows_text}")
+                    text_list = rows_text.split(' ')
+                    # The number of total devices should be the second element in the list,
+                    # since this label is in the format "Displaying # rows"
+                    row_count = text_list[1]
+                    if row_count:
+                        self.utils.print_info(f"Returning row count {row_count}")
+                        ret_val = row_count
+                    else:
+                        self.utils.print_info("Unable to parse text from 'Displaying # rows' label to determine total row count")
+                        self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info("Unable to find 'Displaying # Rows' label for the XIQ Device Message Details table")
+                    self.screen.save_screen_shot()
+                break
+            except StaleElementReferenceException:
+                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                stale_retry = stale_retry + 1
 
         return ret_val
 

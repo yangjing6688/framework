@@ -175,7 +175,8 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
                             quantity_val = self.get_licenses_quantity_column_value_for_row(table_row)
                             if quantity_val:
                                 self.utils.print_debug(f"Quantity value is {quantity_val.text}")
-                                license_count += int(quantity_val.text)
+                                # Remove any commas before converting to int
+                                license_count += int((quantity_val.text).replace(',', ''))
                             else:
                                 self.utils.print_info("Unable to obtain 'Quantity' column value")
                                 self.screen.save_screen_shot()

@@ -169,19 +169,20 @@ class DeviceTemplate(object):
                 self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0())
                 sleep(5)
 
-        if sensor_status_wifi0.upper() == "ENABLE":
-            self.utils.print_info("Enable Sensor Checkbox on WiFi0 Interface")
-            if not self.device_template_web_elements.get_sensor_checkbox_wifi0().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi0())
-                sleep(5)
-        else:
-            self.utils.print_info("Disable Sensor Checkbox on WiFi0 Interface")
-            if self.device_template_web_elements.get_sensor_checkbox_wifi0().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi0())
-                sleep(5)
+        if self.device_template_web_elements.get_sensor_checkbox_wifi0().is_displayed():
+            if sensor_status_wifi0.upper() == "ENABLE":
+                self.utils.print_info("Enable Sensor Checkbox on WiFi0 Interface")
+                if not self.device_template_web_elements.get_sensor_checkbox_wifi0().is_selected():
+                    self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi0())
+                    sleep(5)
+            else:
+                self.utils.print_info("Disable Sensor Checkbox on WiFi0 Interface")
+                if self.device_template_web_elements.get_sensor_checkbox_wifi0().is_selected():
+                    self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi0())
+                    sleep(5)
 
-        self.screen.save_screen_shot()
-        sleep(2)
+            self.screen.save_screen_shot()
+            sleep(2)
 
         if self.device_template_web_elements.get_wifi0_sdr_checkbox():
             self.utils.print_info("Disable SDR Checkbox")
@@ -240,19 +241,20 @@ class DeviceTemplate(object):
                 self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1())
                 sleep(5)
 
-        if sensor_status_wifi1.upper() == "ENABLE":
-            self.utils.print_info("Enable Sensor Checkbox on WiFi1 Interface")
-            if not self.device_template_web_elements.get_sensor_checkbox_wifi1().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi1())
-                sleep(5)
-        else:
-            self.utils.print_info("Disable Sensor Checkbox on WiFi1 Interface")
-            if self.device_template_web_elements.get_sensor_checkbox_wifi1().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi1())
-                sleep(5)
+        if self.device_template_web_elements.get_sensor_checkbox_wifi1().is_displayed():
+            if sensor_status_wifi1.upper() == "ENABLE":
+                self.utils.print_info("Enable Sensor Checkbox on WiFi1 Interface")
+                if not self.device_template_web_elements.get_sensor_checkbox_wifi1().is_selected():
+                    self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi1())
+                    sleep(5)
+            else:
+                self.utils.print_info("Disable Sensor Checkbox on WiFi1 Interface")
+                if self.device_template_web_elements.get_sensor_checkbox_wifi1().is_selected():
+                    self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi1())
+                    sleep(5)
 
-        self.screen.save_screen_shot()
-        sleep(2)
+            self.screen.save_screen_shot()
+            sleep(2)
         self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
         sleep(5)
         return 1

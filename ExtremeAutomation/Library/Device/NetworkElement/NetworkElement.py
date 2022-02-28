@@ -20,9 +20,10 @@ from ExtremeAutomation.Library.Device.Common.CommandObjects.CliCommandObject imp
 
 import inspect
 import logging
+import sys
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logging.basicConfig(format='[%(asctime)s] %(levelname)s: [%(filename)s %(name)s %(funcName)s (Line#%(lineno)d)]: %(message)s')
 
 class NetworkElement(ManagedDeviceObject):
@@ -38,7 +39,11 @@ class NetworkElement(ManagedDeviceObject):
         self.main_prompt = ""
         self.model = ""
         self.running_version = ""
+        self.connection_method = ""
+        self.last_connection_method = ""
+        self.primary_connection = "console"
         self.current_agent = None
+        self.session_key = None
         self.wait_for_prompt = True
         self.max_connection_retries = 3
         self.eol = None
@@ -56,68 +61,198 @@ class NetworkElement(ManagedDeviceObject):
                            self.agent_constants.TYPE_SERIAL: SerialAgent,
                            self.agent_constants.TYPE_XMC_REST: XmcAgent,
                            self.agent_constants.TYPE_JSON_RPC: JsonRpcAgent,
-                           self.agent_constants.TYPE_CONSOLE: ConsoleAgent}
-        self.agent_sessions = {}
+                           self.agent_constants.TYPE_CONSOLE: ConsoleAgent,
+                           self.agent_constants.TYPE_SLOT_1: ConsoleAgent,
+                           self.agent_constants.TYPE_SLOT_2: ConsoleAgent}
+        self.agent_track = {}
 
 ######################################################################################
-    def get_named_agent(self):
-        logger.info("[+]Current Agent: %s", self.agent_dict[self.connection_method])
+    def track_named_agent(self, session_key, connection_method, hostname, port):
+        logger.debug("[+]Current Agent Name: %s SessionKey: %s", self.agent_dict[connection_method], session_key)
+        if connection_method in self.agent_track and session_key in self.agent_track[connection_method]:
+            # already tracked/used.  Not need to add
+            pass
+        elif connection_method not in self.agent_track and (connection_method == 'console' or \
+                connection_method == 'slot1'):
+            self.add_tracked_named_agents(session_key, 'slot1', hostname, port)
+            self.add_tracked_named_agents(session_key, 'console', hostname, port)
+        elif connection_method in self.agent_track and (connection_method == 'console' or \
+            connection_method == 'slot1' or connection_method == 'slot2') and \
+                (hostname in self.agent_track and port in self.agent_track):
+            logger.debug("[+]%s, %s only allows a single connection.  Reuse existing", connection_method, session_key)
+            pass
+        else:
+            retVal = self.add_tracked_named_agents(session_key, connection_method, hostname, port)
+            self.session_key = session_key
+            # not in dict.  Add new session info
 
-    def set_named_agent(self, name, agent_type, port):
-
-        """ Switch to new connection """
-
-        # If name not in agent_sessions,  create it, otherwise set the agent
+# #################################################################################
+    def add_tracked_named_agents(self, session_key, connection_method, hostname, port):
 
         device = self
-        if name not in self.agent_sessions:
+        if connection_method not in device.agent_track:
+            device.agent_track[connection_method] = {}
+            device.agent_track[connection_method][session_key] = {}
+            device.agent_track[connection_method][session_key]['hostname'] = hostname
+            device.agent_track[connection_method][session_key]['port'] = port
+            device.agent_track[connection_method][session_key]['agent'] = self.current_agent
+            return None
+        elif session_key not in device.agent_track[connection_method]:
+            device.agent_track[connection_method][session_key] = {}
+            device.agent_track[connection_method][session_key]['hostname'] = hostname
+            device.agent_track[connection_method][session_key]['port'] = port
+            device.agent_track[connection_method][session_key]['agent'] = self.current_agent
+            return None
+        elif connection_method in device.agent_track and session_key in device.agent_track[connection_method]:
+            logger.debug("[+] %s session_key %s exists            ", connection_method, session_key)
+            # return the agent object
+            return device.agent_track[connection_method][session_key]['agent']
+
+    # #################################################################################
+    def check_tracked_named_agents(self, session_key, connection_method, hostname, port):
+        device = self
+
+        if connection_method in device.agent_track and session_key in device.agent_track[connection_method]:
+            device.session_key = session_key
+            device.connection_method = connection_method
+            device.hostname = hostname
+            device.port = port
+            return True
+        elif connection_method in self.agent_track and (connection_method == 'console' or \
+            connection_method == 'slot1') and \
+                (hostname in self.agent_track and port in self.agent_track):
+            if 'console' in self.agent_track and 'slot1' not in self.agent_track and connection_method == 'slot1':
+                self.add_tracked_named_agents(session_key, 'slot1', hostname, port)
+                self.agent_track['slot1'][session_key]['agent'] = self.agent_track['console']['default']['agent']
+            elif 'slot1' in self.agent_track and 'console' not in self.agent_track and connection_method == 'console':
+                self.add_tracked_named_agents(session_key, 'console', hostname, port)
+                self.agent_track['console'][session_key]['agent'] = self.agent_track['slot1']['default']['agent']
+            device.session_key = session_key
+            device.connection_method = connection_method
+            device.hostname = hostname
+            device.port = port
+            return True
+        elif connection_method in self.agent_track and connection_method == 'slot2':
+            device.session_key = session_key
+            device.connection_method = connection_method
+            device.hostname = hostname
+            device.port = port
+            return True
+        else:
+            return None
+
+    # #################################################################################
+    def remove_tracked_named_agent(self, session_key, connection_method, hostname, port):
+
+        device = self
+        try:
+            device.agent_track[connection_method].pop(session_key, None)
+            logger.debug("POP session_key %s", session_key)
+        except:
+            pass
+        if len(device.agent_track[connection_method]) == 0:
+            try:
+                device.agent_track.pop(connection_method, None)
+                logger.debug("POP connect meth %s", connection_method)
+            except:
+                logger.debug("POP error connect meth %s", connection_method)
+                pass
+        else:
+            logger.debug("LEAVE connect meth %s", connection_method)
+
+    def set_and_connect_named_agent(self, session_key, agent_type, hostname, port=None):
+
+        """ Switch to new connection  """
+
+        if port:
+            self.port = port  # sets the device.port
+        # If session_key not in agent_track,  create it, otherwise set the agent
+        new_agent = None
+        device = self
+        if agent_type in device.agent_track and session_key in device.agent_track[agent_type]:
+            self.current_agent = device.agent_track[agent_type][session_key]['agent']
+            self.current_agent.login()
+        else:
             if agent_type == self.agent_constants.TYPE_TELNET:
+                try:
+                    if self.port == 0:
+                        self.port = self.agent_constants.TELNET_PORT
+                except:
+                    self.port = self.agent_constants.TELNET_PORT
                 new_agent = TelnetAgent(device)
-                self.agent_sessions[name] = new_agent
-                self.current_agent = self.agent_sessions[name]
+                self.current_agent = new_agent
                 self.current_agent.login()
             elif agent_type == self.agent_constants.TYPE_REST:
-                 new_agent = RestAgent(device)
-                 self.agent_sessions[name] = new_agent
-                 self.current_agent = self.agent_sessions[name]
-                 self.current_agent.login()
+                try:
+                    if self.port == 0:
+                        self.port = self.agent_constants.REST_PORT
+                except:
+                    self.port = self.agent_constants.REST_PORT
+                new_agent = RestAgent(device)
+                self.current_agent = new_agent
+                self.current_agent.login()
             elif agent_type == self.agent_constants.TYPE_SNMP:
-                 new_agent = SnmpAgent(device)
-                 self.agent_sessions[name] = new_agent
-                 self.current_agent = self.agent_sessions[name]
-                 self.current_agent.login()
+                try:
+                    if self.port == 0:
+                        self.port = self.agent_constants.REST_PORT
+                except:
+                    self.port = self.agent_constants.REST_PORT
+                new_agent = SnmpAgent(device)
+                self.current_agent = new_agent
+                self.current_agent.login()
             elif agent_type == self.agent_constants.TYPE_SSH:
+                try:
+                    if self.port == 0:
+                        self.port = self.agent_constants.SSH_PORT
+                except:
+                    self.port = self.agent_constants.SSH_PORT
                 new_agent = SshAgent(device)
-                self.agent_sessions[name] = new_agent
-                self.current_agent = self.agent_sessions[name]
+                self.current_agent = new_agent
                 self.current_agent.login()
             elif agent_type == self.agent_constants.TYPE_SERIAL:
                 new_agent = SerialAgent(device)
-                self.agent_sessions[name] = new_agent
-                self.current_agent = self.agent_sessions[name]
+                self.current_agent = new_agent
                 self.current_agent.login()
             elif agent_type == self.agent_constants.TYPE_XMC_REST:
+                try:
+                    if self.port == 0:
+                        self.port = self.agent_constants.XMC_REST_PORT
+                except:
+                    self.port = self.agent_constants.XMC_REST_PORT
                 new_agent = XmcAgent(device)
-                self.agent_sessions[name] = new_agent
-                self.current_agent = self.agent_sessions[name]
+                self.current_agent = new_agent
                 self.current_agent.login()
             elif agent_type == self.agent_constants.TYPE_JSON_RPC:
                 new_agent = JsonRpcAgent(device)
-                self.agent_sessions[name] = new_agent
-                self.current_agent = self.agent_sessions[name]
+                self.current_agent = new_agent
                 self.current_agent.login()
-            elif agent_type == self.agent_constants.TYPE_CONSOLE:
-                new_agent = ConsoleAgent(device)
-                self.agent_sessions[name] = new_agent
-                self.current_agent = self.agent_sessions[name]
-                self.current_agent.login()
-        else:
-            self.current_agent = self.agent_sessions[name]  # get the connect based on the name
+            elif agent_type == self.agent_constants.TYPE_CONSOLE or agent_type == self.agent_constants.TYPE_SLOT_1:
+                if not port:
+                    port = self.port
+                if self.check_tracked_named_agents(session_key, agent_type, hostname, port):
+                    self.current_agent = device.agent_track[agent_type][session_key]['agent']
+                    self.current_agent.login()
+                else:
+                    new_agent = ConsoleAgent(device)
+                    self.current_agent = new_agent
+                    self.current_agent.login()
+            elif agent_type == self.agent_constants.TYPE_SLOT_2:
+                if not port:
+                    port = self.port
+                if self.check_tracked_named_agents(session_key, agent_type, hostname, port):
+                    self.current_agent = device.agent_track[agent_type][session_key]['agent']
+                    self.current_agent.login()
+                else:
+                    new_agent = ConsoleAgent(device)
+                    self.current_agent = new_agent
+                    self.current_agent.login()
+            self.track_named_agent(session_key, agent_type, hostname, self.port)
 
-        logger.info("[+] NetworkElement:: self.current_agent            : %s", self.current_agent)
-        logger.info("[+] NetworkElement:: new agent                      : %s", new_agent)
-        logger.info("[+] NetworkElement:: session                       : %s", name)
-        logger.info("[+] NetworkElement:: self.agent_sessions[name] : %s", self.agent_sessions[name])
+
+        logger.debug("[+] NetworkElement:: self.current_agent      : %s", self.current_agent)
+        logger.debug("[+] NetworkElement:: new agent               : %s", new_agent)
+        logger.debug("[+] NetworkElement:: session key             : %s", session_key)
+        logger.debug("[+] NetworkElement:: device.agent_track[agent_type][session_key] : %s", device.__dict__['agent_track'])
 
 ######################################################################################
 
@@ -191,7 +326,9 @@ class NetworkElement(ManagedDeviceObject):
         Disconnects from the current agent, if a current agent has been set.
         """
         if self.current_agent is not None:
+            self.logger.log_debug("Netelem Agent disconnect...")
             self.current_agent.disconnect()
+            self.remove_tracked_named_agent(self.session_key, self.connection_method, self.hostname, self.port)
 
     def login(self):
         """
@@ -204,11 +341,11 @@ class NetworkElement(ManagedDeviceObject):
             try:
                 logged_in = self.current_agent.login()
                 if not logged_in:
-                    self.logger.log_debug("Connection failed, retry attempt " + str(retries))
+                    self.logger.log_debug("Attempt Connection failed, retry attempt " + str(retries))
             except (EOFError, socket.error):
                 logged_in = False
                 self.current_agent.connected = False
-                self.logger.log_debug("Connection failed, retry attempt " + str(retries))
+                self.logger.log_debug("Error Connection failed, retry attempt " + str(retries))
 
         return logged_in
 

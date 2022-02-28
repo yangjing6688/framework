@@ -1,81 +1,84 @@
 import os
 from ExtremeAutomation.Utilities.EconClient.econ_request_api import econAPI
-from pprint import pprint
 import sys
 import re
 import json
 from pathlib import Path
+from robot.api.parsing import ModelVisitor
 
-class RobotTestData():
+qTestMarker  = re.compile(r"(([A-Z]+[\-_])?TC[\-_][0-9]+)", flags=re.IGNORECASE)
 
-    def __init__(self, path):
-        from robot.api import TestData
-        self.path = path
-        self.testsObj = TestData(source=path)
+class RobotTestData(ModelVisitor):
+
+    def __init__(self, node):
+        self.suite_file = ''
+        self.suite_name = ''
+        self.test_names = []
         self.tags = {}
         self.qTestTags = []
         self.qTestTagCount = 0
         self.tcCount = 0
 
-    def print_suite(self,suite):
+    def visit_File(self, node):
+        self.suite_file = node.source
+        self.tags[self.suite_file] = []
+        sname_raw = os.path.basename(node.source).split('.')[0]
+        self.suite_name = sname_raw.replace("_", " ")
+        self.suite_name = self.suite_name.title()
+        #print(f"File '{node.source}' Title '{self.suite_name}' has following tests:")
+
+        # Call `generic_visit` to visit also child nodes.
+        self.generic_visit(node)
+
+    def visit_TestCaseName(self, node):
+        #print(f"- {node.name} (on line {node.lineno})")
+        if node.name not in self.test_names:
+            self.test_names.append(node.name)
+    def visit_ForceTags(self, node):
+        #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
+        for nTag in node.get_values('ARGUMENT'):
+            self.addTag(nTag)
+    def visit_DefaultTags(self, node):
+        #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
+        for nTag in node.get_values('ARGUMENT'):
+            self.addTag(nTag)
+    def visit_Tags(self, node):
+        #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
+        for nTag in node.get_values('ARGUMENT'):
+            self.addTag(nTag)
+
+    def print_suite(self):
         goodCaseName = re.compile(r"(test_[0-9a-zA-Z\[\]\-_\.]+)")
-        qTestMarker  = re.compile(r"([a-zA-Z]+_TC_[0-9]+)")
-        testbed_name_re = re.compile(r"testbed_([0-9]+)_node")
-        tag_case_re = re.compile(r"[A-Z]+") # checks if tag contains uppercase chars
+        testbed_name_re = re.compile(r"testbed_([0-9]+)_node|testbed_not_required")
         reserved_tags_re = re.compile(r"production|regression|nightly|sanity|p[1-4]")
-        relative_path = os.path.relpath(suite.source,  os.getcwd())
+        relative_path = os.path.relpath(self.suite_file,  os.getcwd())
         output_dict = {
             relative_path: {}
         }
 
-        print(f'Suite: {suite.name}')
+        print(f'Suite: {self.suite_name}')
 
-        if suite.directory:
-            print(f"Directory source - {suite.source}")
-            if suite.source not in self.tags:
-                self.tags[suite.source] = []
-        if suite.setting_table.force_tags:
-            if isinstance(suite.setting_table.force_tags.value, list):
-                for t in suite.setting_table.force_tags.value:
-                    if t not in self.tags:
-                        self.tags[suite.source].extend(suite.setting_table.force_tags.value)
-                        self.tags[suite.source] = self.uTags(self.tags[suite.source])
-        if suite.setting_table.default_tags:
-            if isinstance(suite.setting_table.default_tags.value, list):
-                for t in suite.setting_table.default_tags.value:
-                    if t not in self.tags:
-                        self.tags[suite.source].extend(t)
-                        self.tags[suite.source] = self.uTags(self.tags[suite.source])
-            else:
-                if suite.setting_table.default_tags.value not in self.tags:
-                    self.tags[suite.source].extend(suite.setting_table.default_tags.value)
-                    self.tags[suite.source] = self.uTags(self.tags[suite.source])
-        for test in suite.testcase_table:
+        for test in self.test_names:
             self.tcCount += 1
-            print(f"{self.tcCount} Test Case - {test.name}")
-            if test.tags:
-                if test.tags.value not in self.tags[suite.source]:
-                    self.tags[suite.source].extend(test.tags.value)
-                    self.tags[suite.source] = self.uTags(self.tags[suite.source])
+            print(f"{self.tcCount} Test Case - {test}")
 
             # Set results
-            resn = goodCaseName.search(test.name)
+            resn = goodCaseName.search(test)
             nameOK = True if resn else False
-            dev_exists = True if 'development' in self.tags[suite.source] else False
+            dev_exists = True if 'development' in self.tags[self.suite_file] else False
 
             qTestOK = False
             uppercase_check = True    # True = all tags lowercase, False = atleast one tag with uppercase letters
             reserved_tags_check = False  # True = atleast one reserved tag found, False = no reserved tags used
             testbed_tag_exists = False
-            for tag in self.tags[suite.source]:
+            for tag in self.tags[self.suite_file]:
                 res2 = testbed_name_re.search(tag)
                 if res2:
                     testbed_tag_exists = True
                 qTestCheck = qTestMarker.search(tag)
                 if qTestCheck:
                     qTestOK = True
-                tag_case_result = tag_case_re.search(tag)
-                if tag_case_result:
+                if not tag.islower():
                     uppercase_check = False
                 reserved_tags_result = reserved_tags_re.search(tag)
                 if reserved_tags_result:
@@ -88,19 +91,14 @@ class RobotTestData():
                 "valid_test_name": nameOK,
                 "contains_testbed_tag": testbed_tag_exists,
                 "contains_reserved_tag": reserved_tags_check,
-                "marker_list": self.tags[suite.source],
-                "testcase_name": test.name
+                "marker_list": self.tags[self.suite_file],
+                "testcase_name": test
 
             }
 
             # Keyed on relative path of testcase file, then function name
-            output_dict[relative_path].setdefault(test.name, testcase_info)
+            output_dict[relative_path].setdefault(test, testcase_info)
 
-        print(f"   Tags - {self.tags[suite.source]}")
-
-
-        for child in suite.children:
-            self.print_suite(child)
 
         return output_dict
 
@@ -117,6 +115,17 @@ class RobotTestData():
             if x not in unique_list:
                 unique_list.append(x)
         return unique_list
+
+    def addTag(self, inTag):
+        # filter qTest tags
+        if qTestMarker.search(inTag):
+            if inTag not in self.qTestTags:
+                self.qTestTags.append(inTag)
+                self.qTestTagCount += 1
+        # check if exists in unique_list or not
+        if inTag not in self.tags[self.suite_file]:
+            self.tags[self.suite_file].append(inTag)
+        return 1
 
 class PytestItems():
     def __init__(self, session):

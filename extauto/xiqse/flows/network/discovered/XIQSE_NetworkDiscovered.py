@@ -6,7 +6,7 @@ from xiqse.flows.common.XIQSE_CommonTable import XIQSE_CommonTable
 from xiqse.flows.network.discovered.XIQSE_NetworkDiscoveredAddDevices import XIQSE_NetworkDiscoveredAddDevices
 from xiqse.elements.network.discovered.NetworkDiscoveredWebElements import NetworkDiscoveredWebElements
 from xiqse.elements.common.CommonViewWebElements import CommonViewWebElements
-
+from selenium.common.exceptions import StaleElementReferenceException
 
 class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
     def __init__(self):
@@ -210,12 +210,19 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         :return:   returns the row object if found, else None
         """
         self.utils.print_info(f'Getting row for IP address {ip}')
-        rows = self.get_table_rows()
-        if rows:
-            for row in rows:
-                if ip in row.text:
-                    self.utils.print_info(f"Found row for IP address {ip}: {self.xiqse_table.format_table_row(row.text)}")
-                    return row
+        stale_retry = 1
+        while stale_retry <= 10:
+            try:
+                rows = self.get_table_rows()
+                if rows:
+                    for row in rows:
+                        if ip in row.text:
+                            self.utils.print_info(f"Found row for IP address {ip}: {self.xiqse_table.format_table_row(row.text)}")
+                            return row
+                break
+            except StaleElementReferenceException:
+                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                stale_retry = stale_retry + 1
 
         self.utils.print_info(f"Unable to find row for IP address {ip}")
         self.screen.save_screen_shot()
@@ -296,7 +303,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         """
          - This keyword clears the row matching the specified IP address.
          - Keyword Usage
-          - ``XIQSE Discovered Clear By IP    ${DEVICE_IP}``
+          - ``XIQSE Discovered Clear Row By IP    ${DEVICE_IP}``
 
         :param ip: IP Address of the row to clear
         :return:   1 if action was successful, else -1
@@ -621,13 +628,14 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
             self.utils.print_info(f"Device {device_ip} has been added")
             return 1
 
-        self.utils.print_info(f"Device does not exist. Please check.")
+        self.utils.print_info("Device does not exist. Please check.")
         self.screen.save_screen_shot()
         return -1
 
     def xiqse_discovered_configure_devices_toolbar(self):
         """
          - This keyword clicks the Configure Devices... button on the Discovered table toolbar.
+         - It is assumed the Network> Discovered tab is already selected.
          - Keyword Usage
           - ``XIQSE Discovered Configure Devices Toolbar``
         :return: 1 if action was successful, else -1
@@ -645,9 +653,11 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_open_configure_devices_by_serial_number(self, serial_number):
         """
-         - This keyword selects Configure Devices from the Discovered Toolbar for the row matching the specified Serial Number.
+         - This keyword opens the 'Configure Devices...' view for the specified Serial Number.
+         - The device row is selected and then the 'Configure Devices...' button on the toolbar is clicked.
+         - It is assumed the Network> Discovered tab is already selected.
          - Keyword Usage
-          - ``XIQSE Discovered Open Configure Devices By Serial Number  Serial Number``
+          - ``XIQSE Discovered Open Configure Devices By Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number: Serial Number of the Device
         :return:   1 if action was successful, else -1
@@ -657,11 +667,11 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         if self.xiqse_discovered_select_row_by_serial_number(serial_number) == 1:
             configure_btn = self.get_configure_devices_button()
             if configure_btn:
-                self.utils.print_info(f"Clicking Configure Devices... button on the toolbar.")
+                self.utils.print_info("Clicking Configure Devices... button on the toolbar.")
                 self.auto_actions.click(configure_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Unable to find Configure Devices... button on the toolbar.")
+                self.utils.print_info("Unable to find Configure Devices... button on the toolbar.")
 
         if ret_val == -1:
             self.utils.print_info(f"Unable to select row with Serial Number {serial_number}")
@@ -670,20 +680,39 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_open_configure_devices_menu_by_serial_number(self, serial_number):
         """
-         - This keyword clicks the Configure Devices menu item based on the device Serial Number
+         - This keyword opens the 'Configure Devices...' view for the specified Serial Number.
+         - The device row is selected and then the 'Configure Devices...' menu option is clicked.
          - This assumes that the OneView > Network > Discovered view is selected.
          - Keyword Usage
-          - ''XIQSE Discovered Open Configure Devices Menu Serial Number  Serial Number``
+          - ''XIQSE Discovered Open Configure Devices Menu Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number: Serial Number for the Device
         :return: return 1 if action was successful, else -1
         """
+        ret_val = -1
+        self.utils.print_info(f"Finding row with Serial Number {serial_number}")
+        row = self.xiqse_discovered_get_row_by_serial_number(serial_number)
+        if row:
+            self.auto_actions.right_click(row)
+            self.screen.save_screen_shot()
+            configure_menu = self.get_configure_devices_menu()
+            if configure_menu:
+                self.utils.print_info("Selecting Configure Devices... from the menu.")
+                self.auto_actions.click(configure_menu)
+                ret_val = 1
+            else:
+                self.utils.print_info("Unable to find Configure Devices... menu option.")
+        else:
+            self.utils.print_info(f"Unable to select row with Serial Number {serial_number}")
+            self.screen.save_screen_shot()
+
+        return ret_val
 
     def xiqse_discovered_find_row_with_serial_number(self, serial_number):
         """
         - Searches for row matching the specified Serial Number
         - Keyword Usage
-         - ``XIQSE Discovered Find Row With Serial Number  Serial Number``
+         - ``XIQSE Discovered Find Row With Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number: Serial Number to search for
         :return:   return 1 if row with specified IP address is found, else -1
@@ -698,7 +727,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         """
         - This keyword returns the row containing the specified Serial Number
         - Keyword Usage
-         - ``XIQSE Discovered Get Row By Serial Number  Serial Number``
+         - ``XIQSE Discovered Get Row By Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number: Serial Number of the device to obtain the row for
         :return:   returns the row object if found, else None
@@ -719,7 +748,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         """
          - This keyword selects the row containing the specified Serial Number in the Network> Discovered table.
          - Keyword Usage
-          - ``XIQSE Discovered Select Row By Serial Number  Serial Number``
+          - ``XIQSE Discovered Select Row By Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number:  Serial Number to select in the table
         :return:    1 if action was successful, else -1

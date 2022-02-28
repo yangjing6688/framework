@@ -77,10 +77,11 @@ class PytestConfigHelper():
         except:
             pass
 
-        # DUT 1
-        self.dut1 = DotDict(config['netelem1'])
-        self.dut1_name = config['netelem1']['name']
+
         try:
+            # DUT 1
+            self.dut1 = DotDict(config['netelem1'])
+            self.dut1_name = config['netelem1']['name']
             self.node_count += 1
             self.dut1_os = config['netelem1']['os']
             self.dut1_platform = config['netelem1']['platform']
@@ -118,9 +119,10 @@ class PytestConfigHelper():
         except:
             pass
 
-        # dut1 topology
-        self.dut1_topology = 'standalone'
+
         try:
+            # dut1 topology
+            self.dut1_topology = 'standalone'
             if 'stack' in config['netelem1']:
                 self.dut1_topology = 'stack'
                 try:
@@ -507,13 +509,15 @@ class PytestConfigHelper():
 
 def merge_map2(original, to_add, roboIze=True):
     """ Merges a new map of configuration recursively with an older one """
+    p1 = '^\$\{'
     for k, v in to_add.items():
         if isinstance(v, dict) and k in original and isinstance(original[k],
                                                                 dict):
             merge_map2(original[k], v)
         else:
-            original[k] = v
-            if roboIze:
+            if roboIze != 'Native':
+                original[k] = v
+            if (roboIze or roboIze == 'Native') and not re.match(p1, k):
                 roboK = '${' + k + '}'
                 original[roboK] = v
 
@@ -530,11 +534,13 @@ def load_yaml2(config, yaml_file, encoding, roboIze=True):
         
 def roboIzeAllConfiguration(config):
     # For all variables
+    p1 = '^\$\{'
     forLoopDict = config.copy()
     for key, value in forLoopDict.items():
-        robotKey = '${' + key + '}'
-        config[robotKey] = value
-        
+        if not re.match(p1, key):
+            # robotize keys that have not already be done.
+            robotKey = '${' + key + '}'
+            config[robotKey] = value
     
 
 
