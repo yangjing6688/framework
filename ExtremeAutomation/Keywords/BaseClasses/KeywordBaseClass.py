@@ -103,6 +103,19 @@ class KeywordBaseClass(object):
             keyword = keyword.f_back
 
         return keyword.f_code.co_name.replace("_", " ").title()
+    
+    @staticmethod
+    def log_keyword_result(self, keyword_failed):
+        # Log the results
+        if not keyword_failed:
+            keyword_value = 'Passed'
+        else:
+            keyword_value = "Failed"
+        endOfLine = "\n\n"
+        start = "****************************************************  "
+        msg = "Keyword Results: {0} {1}".format(KeywordBaseClass.get_keyword_name(), keyword_value)
+        end = "  ****************************************************"
+        self.logger.log_info(endOfLine + start + msg + end + endOfLine)
 
     @staticmethod
     def add_agent_kwarg(device, kwarg_key, kwargs):

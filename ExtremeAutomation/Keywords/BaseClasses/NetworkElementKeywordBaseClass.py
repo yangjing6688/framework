@@ -257,6 +257,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                 kw_result = KeywordResult(dev.name, test_result, pass_string, fail_string, cmd_obj)
             else:
                 kw_result = KeywordResult(dev.name, True, "Returning parse values.", fail_string, cmd_obj)
+            
         return kw_result
 
     def _keyword_cleanup(self, kw_results, ret_vals=None):
@@ -284,6 +285,8 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                     fail_excep = FailureException(err_msg) if self.continue_on_failure \
                         else BreakFailureException(err_msg)
                     raise fail_excep
+                
+        KeywordBaseClass.log_keyword_result(keyword_failed)
 
         return kw_results
 
