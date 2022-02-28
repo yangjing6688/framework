@@ -4,7 +4,8 @@ import os
 from pathlib import Path
 from ExtremeAutomation.Imports import pytestConfigHelper
 
-if "PYTEST_RUN_CONFIG" in os.environ:
+ROBOT = False
+if 1 or "PYTEST_RUN_CONFIG" in os.environ:
     ROBOT = False
 else:
     try:
