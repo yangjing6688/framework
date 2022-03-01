@@ -9,10 +9,12 @@ from extauto.xiq.flows.configure.UserGroups import *
 from extauto.xiq.flows.configure.ExpressNetworkPolicies import *
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.common.Screen import Screen
+import extauto.common.CloudDriver
 
 
 class FilterManageDevices():
     def __init__(self):
+        global driver
         self.utils          = Utils()
         self.navigator      = Navigator()
         self.auto_actions   = AutoActions()
@@ -25,481 +27,556 @@ class FilterManageDevices():
         self.client_element = FilterManageClientWebElements()
         self.netExpress     = ExpressNetworkPolicies()
         self.screen = Screen()
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def filter_device_by_network_policy(self):
 
-        """ Verification of the filtering of the devices by the network policy
+        """ filtering of the devices by a network policy
+
             prequist: Require at least two onboard APs with each policy
-            Usage of test case:
-            Test1:  Filter Device By Policy
-                    filter device by policy
+            Usage:
+                    filter device by network policy
+            :return:  return 1 for successful otherwise -1 with an error
         """
-        sn_list, policy_list = self.check_available_devices()
-        self.expand_and_collapse_filters(self.filter_element.get_network_policy_filter_link())
-        if sn_list == -1: return -1, policy_list
 
-        self.utils.print_info(" ----- Filter the policy  " + str(policy_list[0]) + " ----- ")
-        status, error = self.filter_policy(str(policy_list[0]))
-        if status == -1:
-            return -1, error
-        self.select_filter_by(self.filter_element.get_policy_filter(policy_list[0]), filter_name='policy' + str(policy_list[0]))
+        self.clear_all_filters()
+        self.clear_column_filter()
+        self._select_filter_by(self.filter_element.real_device_filter_chkbox)
+        self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
+        self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+        sn_list, policy_list = self._get_column_values_from_device_page()
+        self.utils.print_info("Available device list with the policies " + str(policy_list) + ' ' + str(sn_list))
+        self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+        self._expand_and_collapse_filters(self.filter_element.get_network_policy_filter_link(),
+                                          self.filter_element.get_all_policy_filter())
 
-        saved_filter_name = self.save_filter()
-        self.utils.print_info(" Saved the filter name " + str(saved_filter_name))
-        self.tools.wait_til_elements_avail(self.filter_element.network_policy_filter_link, 60, False)
+        if sn_list == -1 or len(sn_list) < 2 or policy_list == -1 or len(policy_list) < 2:
+            return -1, "Device requires to have a policy"
+        self.clear_all_filters()
+        for policy in policy_list:
+            self.utils.print_info(" ----- Filter the policy  " + str(policy) + " ----- ")
+            self.auto_actions.scroll_up()
+            self._select_filter_by(self.filter_element.get_policy_filter(policy), filter_name='policy')
+            actual_sn_list, actual_policy_list = self._get_column_values_from_device_page()
+            if not actual_sn_list or not actual_policy_list or len(actual_sn_list) == 0 or len(actual_sn_list) == 0:
+                return -1, "Filter does not match with the filter " + policy
 
-        self.utils.print_info(" Apply the saved filter ")
-        self.select_filter_by(self.filter_element.get_saved_filter_chkbox(saved_filter_name), filter_name='filter name:' + saved_filter_name, reset=True)
-        self.select_filter_by(self.filter_element.get_policy_filter(str(policy_list[0])), filter_name='policy' + str(policy_list[0]), reset=True)
-        self.select_filter_by(self.filter_element.get_saved_filter_chkbox(saved_filter_name), filter_name='filter name : ' + saved_filter_name)
-        status, error = self.filter_policy(str(policy_list[0]))
-        if status == -1:
-            return -1, error
+            if policy != actual_policy_list[0]:
+                return -1, "Filter does not match with the filter " + policy
+            self._select_filter_by(self.filter_element.get_policy_filter(policy), filter_name='policy', reset=True)
 
-        return str(1), None
-
-    def filter_policy(self, policy):
-        self.select_filter_by(self.filter_element.get_policy_filter(policy), filter_name='policy')
-        actual_sn_list, actual_policy_list = self.get_column_values_from_device_page()
-        self.utils.print_info(" **** The result after the filter *** " + str(actual_sn_list) + " "  + str(actual_policy_list))
-        if not actual_sn_list or not actual_policy_list or len(actual_sn_list) == 0 or len(actual_sn_list) == 0:
-            return -1, "The device list is empty with the filter " + policy
-
-        if policy != actual_policy_list[0]:
-            return -1, "The device list does not match with the filter " + policy
-        self.select_filter_by(self.filter_element.get_policy_filter(policy), filter_name='policy', reset=True)
-
-        return str(1), None
+        return 1, None
 
     def filter_by_device_type(self, filter='default'):
 
-        """ Verification of the filtering of the devices by the device type
+        """ Filtering of the devices by a device type
             prequist: Require at least one real device and one simulated device
-            Usage of test case:
-            Test1: Filter Device By Device Type
-                   filter by device type  real device
-                   filter by device type  simulated device
+            :param:   filter: filter type
+            :return:  return 1 for successful otherwise -1 with an error
+
+            Usage:
+                filter by device type   real
+                filter by device type   simulate
         """
+
         self.utils.print_info(" -----  Filter the " + filter + " ---- ")
-        total_sim_devices, total_real_devices = self.check_available_devices('device type')
         self.clear_all_filters()
-        self.expand_and_collapse_filters(self.filter_element.get_device_type_filter_link(), filter_type='device type')
+        self._expand_and_collapse_filters(self.filter_element.get_device_type_filter_link(), filter_type='device type')
 
-        if filter in ["real device"]:
-            self.select_filter_by(self.filter_element.real_device_filter_chkbox, filter_name='real device')
-            sim_lst, real_lst = self.get_column_values_from_device_page("device type")
-            self.utils.print_info(" **** The result after the filter *** " + 'sim device: ' + str(len(sim_lst)) + " real device: "  + str(len(real_lst)))
-            if not real_lst and not sim_lst  : return -1, "The device list is empty after the filter"
-            if len(sim_lst) != 0 and len(real_lst) != len(total_real_devices): return -1, " The result does not match with the real device filter"
-            self.select_filter_by(self.filter_element.real_device_filter_chkbox, filter_name='real device', reset=True)
+        if filter in ["real"]:
+            self._select_filter_by(self.filter_element.real_device_filter_chkbox, filter_name='real device')
+            sim_lst, real_lst = self._get_column_values_from_device_page("device type")
+            if not real_lst and not sim_lst:
+                return -1, "The device list is empty with the real device filter "
+            if len(sim_lst) != 0 or len(real_lst) == 0:
+                return -1, " The device list does not match with the real device filter "
+            self._select_filter_by(self.filter_element.real_device_filter_chkbox, filter_name='real device', reset=True)
 
-        if filter in ["simulated device"]:
-            self.select_filter_by(self.filter_element.simulated_device_filter_chkbox, filter_name='simulated device')
-            sim_lst, real_lst = self.get_column_values_from_device_page("device type")
-            self.utils.print_info(" **** The result after the filter *** " + 'sim device: ' + str(len(sim_lst)) + " real device: "  + str(len(real_lst)))
-            if not real_lst and not sim_lst: return -1, "The device list is empty after the filter "
-            if len(sim_lst) != len(total_sim_devices) and len(real_lst) != 0:
-                return -1, " The result does not match with the simulated device filter"
-            self.select_filter_by(self.filter_element.simulated_device_filter_chkbox, filter_name='simulated device', reset=True)
+        if filter in ["simulate"]:
+            self._select_filter_by(self.filter_element.simulated_device_filter_chkbox, filter_name='simulated device')
+            sim_lst, real_lst = self._get_column_values_from_device_page("device type")
+            if not real_lst and not sim_lst:
+                return -1, "The device list is empty with the simulated device filter "
+            if len(sim_lst) == 0 or len(real_lst) != 0:
+                return -1, " The device list does not match with the simulated device filter"
 
-        return str(1), None
+        return 1, None
 
     def filter_device_by_connection_state(self, ap_sn):
 
-        """ Verification of the devices by connection state
-            prequist: Require one device in connected state and one device in disconnected state
+        """ Filtering of the devices by a connection state
+            prequist: Require one device connected and one device is disconnected
+            :param:   ap_n: ap serial no
+            :return:  return 1 for successful otherwise -1 with an error
+
+            Usage :
+                 filter_device_by_connection_state    ${AP1_SERIAL}
         """
 
         self.clear_all_filters()
-        sn_list, policy_list = self.get_column_values_from_device_page()
-        self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
+        self.clear_column_filter()
+        sn_list, policy_list = self._get_column_values_from_device_page()
+        self._expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(),
+                                          self.filter_element.get_state_connected_filter_chkbox(),
+                                          filter_type='device state')
         if not sn_list or len(sn_list) == 0: return -1, "The device list is empty"
-        status =  self.device.get_ap_status(ap_sn)
-
+        status = self.device.get_ap_status(ap_sn)
         if status == 'green':
-            self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
-            sn_list, policy_list =  self.get_column_values_from_device_page()
-            if ap_sn not in sn_list: return -1, " The device list does not match with the connected filter"
-            self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected', reset=True)
-            self.select_filter_by(self.filter_element.device_state_disconnected_filter_chkbox, filter_name='disconnected')
-            sn_list, policy_list = self.get_column_values_from_device_page()
-            if ap_sn in sn_list: return -1, " The device list does not match with the disconnected filter: " + str(ap_sn) + ' in ' + str(sn_list)
-        else:
-            self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
-            sn_list, policy_list = self.get_column_values_from_device_page()
-            if ap_sn in sn_list: return -1, " The device list does not match with the connected filter"
-            self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected', reset=True)
-            self.select_filter_by(self.filter_element.device_state_disconnected_filter_chkbox, filter_name='disconnected')
-            sn_list, policy_list = self.get_column_values_from_device_page()
-            if ap_sn not in sn_list: return -1, " The device list does not match with the disconnected filter: " + + str(ap_sn) + ' not in ' + str(sn_list)
+            self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
+            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            sn_list, policy_list = self._get_column_values_from_device_page()
 
-        return str(1), None
+            self.utils.print_info(" The avaialble sn list " + str(sn_list))
+            if ap_sn not in sn_list: return -1, " The device list does not match with the connected filter"
+            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected',
+                                   reset=True)
+            self._select_filter_by(self.filter_element.device_state_disconnected_filter_chkbox,
+                                   filter_name='disconnected')
+
+            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            sn_list, policy_list = self._get_column_values_from_device_page()
+
+            if not sn_list or ap_sn in sn_list:
+                return -1, " The device list does not match with the disconnected filter: "
+        else:
+            return -1, "The AP device needs to be connected " + str(ap_sn)
+
+        return 1, None
 
     def filter_device_by_production_type(self):
 
         """ Verification of the filtering of the device models
             prequist: Require at least two or more APs with the different hardware models
-            Usage of test case:
+            :return :  return 1 for successful otherwise -1 with an error
 
-            Test1: Filter By Device Production Type
+            Usage of test case:
                    filter device production type
         """
+
         self.clear_all_filters()
         self.expand_default_filters()
-        self.expand_and_collapse_filters(self.filter_element.get_device_type_filter_link())
-        models = self.get_column_values_from_device_page('product type')
-        self.utils.print_info(" Check available hardware models ")
-        if not models or len(models) <= 1:  return -1, "Require at least two different hardware models"
-
+        self._expand_and_collapse_filters(self.filter_element.get_device_type_filter_link(),
+                                          self.filter_element.get_all_device_types_filter_chkbox())
+        models = self._get_column_values_from_device_page('product type')
+        if not models or len(models) <= 1:
+            return -1, "Require at least two different hardware models"
         models = list(dict.fromkeys(models))
-        self.expand_and_collapse_filters(self.filter_element.get_device_prod_type_filter_link())
+
+        try:
+            models.remove("ATOM")
+        except:
+            self.utils.print_info(" There is no simulate device")
+
+        self._expand_and_collapse_filters(self.filter_element.get_device_prod_type_filter_link(),
+                                          self.filter_element.get_all_device_types_filter_chkbox())
         self.utils.print_info(" List of models :" + str(models))
-        cnt = 1
         for model in models:
-            if cnt > 2: break
             self.utils.print_info(" ----- Filter For The Hardware Model " + model + " ----- ")
-            status, error = self.filter_hardware_model(model)
-            if status == -1:   return -1, error
-            cnt = cnt + 1
+            model = model[:2] + "_" + model[2:]
+            self._select_filter_by(self.filter_element.get_device_prod_type_model_filter_checkbox(model),
+                                   filter_name='model ' + str(model))
+            actual_models = list(dict.fromkeys(self._get_column_values_from_device_page('product type')))
 
-        return str(1), None
+            if not actual_models:
+                return -1, "The device list is empty with the filter model " + str(model)
+            actual_model = actual_models[0]
+            actual_model = actual_model[:2] + "_" + actual_model[2:]
+            if actual_model != model:
+                return -1, "The model does not match with the filter model "
+            self._select_filter_by(self.filter_element.get_device_prod_type_model_filter_checkbox(model),
+                                   filter_name='model ' + str(model), reset=True)
 
-    def filter_hardware_model(self, model):
-        self.select_filter_by(self.filter_element.get_device_prod_type_model_filter_checkbox(model), filter_name='model ' + str(model))
-        actual_models = list(dict.fromkeys(self.get_column_values_from_device_page('product type')))
-        self.utils.print_info(" Validate the filter " + str(model))
-        self.utils.print_info(" actual model list " + str(actual_models))
-        if not actual_models: return -1, "The device list is empty with the filter model " + str(model)
-        self.utils.print_info(" actual model " + str(actual_models[0]) + ' expected model ' + str(model))
-        if actual_models[0] != model: return -1, "The model does not match with the filter model " + str(model) + " and actual model is " + str(actual_models)
-        self.select_filter_by(self.filter_element.get_device_prod_type_model_filter_checkbox(model), filter_name='model ' + str(model), reset=True)
-
-        return str(1), None
+        return 1, None
 
     def filter_device_by_function(self, filter):
 
-        """ Verification of the filtering of the devices by function
+        """ Filtering of the devices by the device function
             prequist: Require at least one AP and one Fasthpath / Hive OS switch
-            Ussage of test case:
-            Test1: Filter By Device Function
-                   filter device by function  ap model
-                   filter device by function  sw model
+            :param :  filter: filter type
+            :return:  return 1 for successful otherwise -1 with an error
+
+            Ussage:
+                   filter device by function  ap
+                   filter device by function  sw
         """
+
         self.utils.print_info(" ----- Filter the " + filter + " ----- ")
-        ap_lst, sw_lst = self.check_available_devices()
-        if ap_lst == -1: return -1, sw_lst
-        if filter in ['ap model']:
-            self.select_filter_by(self.filter_element.device_function_access_point_filter_chkbox, filter_name='access point')
-            aps, sws = self.get_column_values_from_device_page("device function")
-            self.utils.print_info(" Validate the filter ")
-            if not aps and len(aps) ==0: return -1, " The device list is empty after the filter"
+        ap_lst, sw_lst = self._check_available_devices("device function")
+        if ap_lst == -1 or sw_lst == -1:
+            return -1, "Require at lease one AP and one Aerohive switch"
+
+        if filter in ['ap']:
+            self._select_filter_by(self.filter_element.device_function_access_point_filter_chkbox,
+                                   filter_name='access point')
+            aps, sws = self._get_column_values_from_device_page("device function")
+            if not aps and len(aps) == 0:
+                return -1, " The device list is empty with the AP filter"
             aps = list(dict.fromkeys(aps))
-            if aps != ap_lst and  len(sws) != 0: return -1, "The device list does not match with the filter"
-            self.select_filter_by(self.filter_element.device_function_access_point_filter_chkbox, filter_name='access point', reset=True)
+            if aps != ap_lst and len(sws) != 0:
+                return -1, "The device list does not match with the ap filter"
 
         if filter in ['switch']:
-            self.select_filter_by(self.filter_element.device_function_switch_filter_chkbox, filter_name='switch')
-            aps, sws = self.get_column_values_from_device_page("device function")
-            self.utils.print_info(" Validate the filter ")
-            if not sws and len(sws) == 0 : return -1, " The device list is empty after the filter"
+            self._select_filter_by(self.filter_element.device_function_switch_filter_chkbox, filter_name='switch')
+            aps, sws = self._get_column_values_from_device_page("device function")
+            if not sws and len(sws) == 0: return -1, " The device list is empty with the switch filter"
             sws = list(dict.fromkeys(sws))
-            if sws != sw_lst and len(aps) != 0: return -1, "The device list does not match with the filter"
-            self.select_filter_by(self.filter_element.device_function_switch_filter_chkbox, filter_name='switch',reset=True)
+            if sws != sw_lst and len(aps) != 0: return -1, "The device list does not match with the switch filter"
 
-        return str(1), None
+        return 1, None
 
-    def filter_device_both_unmanaged_and_managed_state(self):
+    def filter_device_by_unmanaged_and_managed_state(self):
 
-        """ Verification of the devices by the device mangement state
+        """ Filtering of the devices by the unmanaged_and_managed_state
             prequist: Require at least one or more onboard devices
-            Usage of test case:
-                Test1: Filter By Device Management State
-                       filter device by management state
+            :return:  return 1 for successful otherwise -1 with an error
+
+            Usage:
+                       filter_device_by_unmanaged_and_managed_state
         """
-        sn_list, host_list = self.check_available_devices(real_device=True)
-        if sn_list == -1: return -1, host_list
+
+        sn_list, host_list = self._check_available_devices(filter='management state', real_device=True)
+        if sn_list == -1:
+            return -1, host_list
 
         self.utils.print_info(" ----- Filter The Unmanaged Device -----")
-        self.expand_and_collapse_filters(self.filter_element.get_device_data_management_state_filter_link(), filter_type='management state')
-        self.action_change_managed_state(sn_list[0], "unmanaged")
-        self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected', reset=True)
-        self.select_filter_by(self.filter_element.device_data_management_unmanaged_chkbox, filter_name='unmanaged')
+        self._expand_and_collapse_filters(self.filter_element.get_device_data_management_state_filter_link(),
+                                          filter_type='management state')
+        self._action_change_managed_state(sn_list[0], "unmanaged")
+        self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected',
+                               reset=True)
+        self._select_filter_by(self.filter_element.device_data_management_unmanaged_chkbox, filter_name='unmanaged')
         self.tools.wait_til_ap_change_status(sn_list[0], host_list[0], 180, "red")
-        actual_sn_list, actual_host_list = self.get_column_values_from_device_page("management state")
+        actual_sn_list, actual_host_list = self._get_column_values_from_device_page("management state")
 
-        self.utils.print_info(" Validate the filter ")
-        if not actual_sn_list and len(actual_sn_list) == 0 : return -1, "The device list is empty with the unmanaged filter"
-        if actual_sn_list[0] != sn_list[0]: return -1, "Device does not match and the actual sn is " + actual_sn_list[0] + ' expected sn is ' + sn_list[0]
+        if not actual_sn_list and len(actual_sn_list) == 0:
+            return -1, "The device list is empty with the unmanaged filter"
+        if actual_sn_list[0] != sn_list[0]:
+            return -1, "The device list does not match with the unmanaged state"
 
         self.utils.print_info(" ----- Filter The Managed Device -----")
-        self.action_change_managed_state(sn_list[0], "managed")
-        self.select_filter_by(self.filter_element.device_data_management_unmanaged_chkbox, filter_name='unmanaged',reset=True)
-        self.select_filter_by(self.filter_element.device_data_management_managed_chkbox, filter_name='managed')
+        self._action_change_managed_state(sn_list[0], "managed")
+        self._select_filter_by(self.filter_element.device_data_management_unmanaged_chkbox, filter_name='unmanaged',
+                               reset=True)
+        self._select_filter_by(self.filter_element.device_data_management_managed_chkbox, filter_name='managed')
         self.tools.wait_til_ap_change_status(sn_list[0], host_list[0], 300, "green")
+        actual_sn_list, actual_host_list = self._get_column_values_from_device_page("management state")
 
-        self.utils.print_info(" Validate the filter ")
-        actual_sn_list, actual_host_list = self.get_column_values_from_device_page("management state")
-        if not actual_sn_list and len(actual_sn_list) == 0 : return -1, "The device list is empty with the managed filter"
-        if actual_sn_list[0] != sn_list[0]: return -1, "Device does not match and the actual sn is " + actual_sn_list[0] + ' expected sn is ' + sn_list[0]
+        if not actual_sn_list and len(actual_sn_list) == 0:
+            return -1, "The device list is empty with the managed filter"
+        if actual_sn_list[0] != sn_list[0]:
+            return -1, "The device list is empty with the managed filter"
 
-        return str(1), None
+        return 1, None
 
     def filter_all_devices_by_software_version(self):
 
-        """ verification of the devices by software version
+        """ Filtering of the devices by the software version
             prequist: Require at least two or more onboard different hardware devices
-            usage of test case:
-                Test1: Filter By Device Software Version
-                       filter device by software version
+            :return:  return 1 for successful otherwise -1 with an error
+
+            Usage:
+                filter_all_devices_by_software_version
         """
-        soft_lst = self.check_available_devices('firmware version')
-        if soft_lst == -1: return -1, error
-        self.utils.print_info(" Bwfoew Available hardware models " + str(soft_lst))
-        real_modeL_lst =  self.parse_string(soft_lst)
-        self.utils.print_info(" Available hardware models" + str(real_modeL_lst))
-        self.expand_and_collapse_filters(self.filter_element.get_device_soft_version_link())
+
+        soft_lst = self._check_available_devices('firmware version')
+        if soft_lst == -1:
+            return -1, "Device list is empty"
+        self.utils.print_info(" soft_lst " + str(soft_lst))
+        real_modeL_lst = self._parse_string(soft_lst)
+        self._expand_and_collapse_filters(self.filter_element.get_device_soft_version_link())
 
         for model in real_modeL_lst:
             self.utils.print_info(" ----- filter the versions ----- " + model)
             model_element = self.filter_element.get_device_soft_version_chkbox(model)
-            self.select_filter_by(model_element, filter_name='firmware version')
-            soft_lst = self.get_column_values_from_device_page("firmware version")
-            self.utils.print_info(" Validate the filter " + str(soft_lst))
-            if not soft_lst or len(soft_lst) == 0 : return -1, "The device list is empty by the filter " + model
+            self._select_filter_by(model_element, filter_name='firmware version')
+            soft_lst = self._get_column_values_from_device_page("firmware version")
+
+            if not soft_lst or len(soft_lst) == 0:
+                return -1, "The device list is empty with the filter " + model
             actual_model_lst = list(dict.fromkeys(soft_lst))
-            actual_model_lst = self.parse_string(actual_model_lst)
+            actual_model_lst = self._parse_string(actual_model_lst)
             for actual_model in actual_model_lst:
                 if actual_model != model:
                     return -1, "The device does not match with the version " + str(actual_model) + ' ' + str(model)
-            self.select_filter_by(model_element, filter_name='firmware version', reset=True)
+            self._select_filter_by(model_element, filter_name='firmware version', reset=True)
 
-        return str(1), None
-
-    def filter_device_with_audit_match_and_mismatch(self):
-
-        """ Verification of the filtering of the devices by audit status
-            prequist: Require at least two or more onboard devices with a different policy
-            usage of test case :
-                 Test1: Filter By Device audit status
-                        filter device by audit status
-        """
-        sn_list, policy_list = self.check_available_devices(real_device=True)
-        if sn_list == -1: return -1, policy_list
-        sn_list, policy_list = self.get_devices_with_network_policy(sn_list, policy_list)
-        self.utils.print_info(" The available sn list : " + str(sn_list) + ' ' + str(policy_list))
-
-        self.utils.print_info(" ------  Filter the audit match device " + str(policy_list[0]) + " ------")
-        policy = ''.join([str(elem) for elem in policy_list[0]])
-        self.net_policy.get_all_ssids_in_policy(policy, new_ssid=True, special_char=True)
-        self.net_policy.deploy_network_policy(policy, sn_list[0], "delta")
-        self.clear_all_filters()
-        self.expand_and_collapse_filters(self.filter_element.get_audit_state_filter_link())
-        self.select_filter_by(self.filter_element.device_audit_config_match_filter_chkbox, filter_name='match device')
-        sns, policies = self.get_column_values_from_device_page()
-        self.utils.print_info(" The sn list after the match filter : " + str(sn_list) + ' ' + str(policy_list))
-        if not sns and len(sns) == 0: return -1, "Device list is empty after the filter"
-        if sn_list[0] != sns[0]:
-            return -1, "The device list does not match with the audit match filter " + sn_list[0] + ' ' + sns[0]
-        self.select_filter_by(self.filter_element.device_audit_config_match_filter_chkbox, filter_name='match device', reset=True)
-
-        self.utils.print_info(" ------ Filter the audit mismatch device " + str(policy_list[0]) + " ------")
-        self.select_filter_by(self.filter_element.device_audit_config_mismatch_filter_chkbox, filter_name='mistmatch')
-        sns, policies = self.get_column_values_from_device_page()
-        self.utils.print_info(" The sn list after the mismatch filter : " + str(sn_list) + ' ' + str(policy_list))
-        if not sns: return -1, "Device list is empty after the filter"
-        if sn_list[0] == sns[0]:
-            return -1, "The device list does not match with the audit mismatch filter " + sn_list[0] + ' ' + sns[0]
-
-        return str(1), None
+        return 1, None
 
     def filter_device_by_ssid(self):
 
-        """ Verification of the filtering of the devices by ssid
+        """ Filtering of the devices by ssid
             prequist: Require at least two onboard devices with with two different wireless networks
-            usage of test case:
-                Test1: Filter Device By ssid
-                       filter device by ssid
-                Jira: APC-39526 - The SSID list in the SSID filter does not update accordingly
+            :return: return 1 for successful otherwise -1 with an error
+
+            Usage:
+                 filter device by ssid
         """
-        sn_list, policy_list = self.check_available_devices(real_device=True, ap_type=True)
-        if sn_list == -1: return -1, policy_list
-        policy_ssid, ssid_name  = self.net_policy.get_all_ssids_in_policy(policy_list[0], new_ssid=False, special_char=True)
-        self.utils.print_info(" ssid list  " + str(policy_ssid))
         self.clear_all_filters()
-        self.expand_and_collapse_filters(self.filter_element.get_device_ssid_filter_link())
+        self.clear_column_filter()
+        self._select_filter_by(self.filter_element.real_device_filter_chkbox)
+        self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
+        self._select_filter_by(self.filter_element.device_function_access_point_filter_chkbox,
+                               filter_name='access point')
+        self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+        sn_list, policy_list = self._get_column_values_from_device_page()
+        self.utils.print_info(str(policy_list) + ' ' + str(sn_list))
+        if policy_list == -1:
+            return -1, "No devices has assigned any policy"
 
-        cnt = 0
-        for policy in policy_list:
-            for ssid in policy_ssid[policy]:
-                 cnt = cnt + 1
-                 if cnt > 3: break
-                 self.utils.print_info(" ------ Filter the ssid ------ " + str(ssid) + ' in the policy ' + str(policy))
-                 ssid_element = self.filter_element.get_device_ssid_filter_checkbox(str(ssid))
-                 self.select_filter_by(ssid_element, filter_name='ssid')
-                 self.utils.print_info(" Validate the filter ")
-                 sn_list, policy_list = self.get_column_values_from_device_page()
-                 if not policy_list or len(policy_list) == 0: return -1, "The device list is empty with the ssid filter " + str(ssid)
-                 policy_list = list(dict.fromkeys(policy_list))
-                 if policy_list[0] != policy: return -1, " Policy does not match " + str(policy_list[0] + ' ' + str(policy))
-                 self.select_filter_by(ssid_element, filter_name='ssid', reset=True)
+        policy_ssid, ssid_name = self.net_policy.get_all_ssids_in_policy(policy_list[0], new_ssid=True,
+                                                                             special_char=True)
+        if policy_ssid == None:
+            return -1, "Device has no ssid"
 
-        return str(1), None
+        self.clear_all_filters()
+        self._expand_and_collapse_filters(self.filter_element.get_device_ssid_filter_link())
+        for ssid in policy_ssid[policy_list[0]]:
+            self.utils.print_info(
+                " ------ Filter the ssid ------ " + str(ssid) + ' in the policy ' + str(policy_list[0]))
+            ssid_element = self.filter_element.get_device_ssid_filter_checkbox(str(ssid))
+            self._select_filter_by(ssid_element, filter_name='ssid')
+            act_sn_list, act_policy_list = self._get_column_values_from_device_page()
+            if not act_policy_list or len(act_policy_list) == 0: return -1, "SSID does not match"
 
-    def filter_device_by_user_profiles(self, filter='default'):
+            act_policy_list = list(dict.fromkeys(act_policy_list))
+            if policy_list[0] not in act_policy_list: return -1, "SSID does not match"
+            self._select_filter_by(ssid_element, filter_name='ssid', reset=True)
 
-        """ Verification of the filtering of the devices by user profiles
+        return 1, ssid_name
+
+    def filter_device_with_audit_match_and_mismatch(self, policy=None, serial=None):
+
+        """ Filtering of the devices by audit status
+            prequist: Require at least one or more onboard devices with a different policy
+            :param    policy: policy name
+            :param    serial: ap serial nu,,ber
+            :return   return 1 if succesful and ssid name
+
+            usage:
+                 filter_device_with_audit_match_and_mismatch  policy=ppsk  serial=033449555
+        """
+
+        self.clear_all_filters()
+        self.clear_column_filter()
+        ssid_list, ssid_name = self.net_policy.get_all_ssids_in_policy(policy, new_ssid=True, special_char=False)
+        self.utils.print_info(" Policy name contains this list of ssids " + str(policy) + ' ' + str(ssid_list))
+        self.navigator.navigate_to_devices()
+        sleep(5)
+
+        self.utils.print_info(f"Select ap row with serial {serial}")
+        if not self.device.select_device(serial):
+            self.utils.print_info(f"ap {serial} is not present in the grid")
+            return -1, "ap is not present in the grid"
+        sleep(2)
+        self.device._assign_network_policy(policy)
+
+        self.utils.print_info(" ------  Filter the audit match device " + policy + " ------")
+        self._select_filter_by(self.filter_element.device_audit_config_match_filter_chkbox, filter_name='match device')
+        sns, policies = self._get_column_values_from_device_page()
+        self.utils.print_info(" list of policies with the audit match filter : " + str(sns) + ' ' + str(policies))
+
+        if not policy or policy not in policies or serial not in sns:
+            return -1, "The audit does not match"
+        self._select_filter_by(self.filter_element.device_audit_config_match_filter_chkbox, filter_name='match device',
+                               reset=True)
+
+        self.utils.print_info(" ------  Filter the audit mismatch device " + policy + " ------")
+        self._select_filter_by(self.filter_element.device_audit_config_mismatch_filter_chkbox, filter_name='mistmatch')
+        self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected',
+                               reset=True)
+        self._select_filter_by(self.filter_element.real_device_filter_chkbox, filter_name='real device', reset=True)
+        self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+        sns, policies = self._get_column_values_from_device_page()
+        self.utils.print_info(
+            " list of policies with the the audit mismatch filter : " + str(sns) + ' ' + str(policies))
+
+        if policy in policies or serial in sns:
+            return -1, ssid_name
+
+        return 1, ssid_name
+
+    def filter_device_by_user_profiles(self, filter='default', serial=None, **policies):
+
+        """ Filtering of the devices by user profiles
             prequist: Require at least one onboard devices with a network policy
-            usage of test case:
-                Test1: Filter By Device user profile
+            :param: serial: ap serial
+            :param: policies: list of policies
+            :return: return 1 if succesful and ssid name
+
+            usage :
                        filter device by user profiles  guest
                        filter device by user profiles  profile
         """
         self.utils.print_info(" ----- Filter the " + filter + " -----")
-        sn_list, policy_list = self.check_available_devices(real_device=True, ap_type=True)
-        if sn_list == -1: return -1, policy_list
+        policy1 = policies.get('policy1')
+        policy2 = policies.get('policy2')
+        self.utils.print_info("Policy1 " + policy1 + " policy2 " + policy2)
 
-        if filter in ['guest profile']:
-            #self.net_policy.delete_all_ssid_in_policy(policy_list[0])
-            self.utils.print_info(" Create a new guest wireless network" )
-            self.net_policy.get_all_ssids_in_policy(policy_list[0], new_ssid=True, special_char=False)
+        if filter in ['guest']:
+            self.net_policy.delete_all_ssid_in_policy(policy1)
+            self.utils.print_info(" Create a new guest wireless network")
+            ssid_list, ssid_name = self.net_policy.get_all_ssids_in_policy(policy1, new_ssid=True,
+                                                                           special_char=False)
             self.clear_all_filters()
             self.expand_default_filters()
-            self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected', reset=True)
-            self.select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox, filter_name='guest profile')
-            actual_sns, actual_policies = self.get_column_values_from_device_page()
+            self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected',
+                                   reset=True)
+            self._select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox,
+                                   filter_name='guest profile')
 
-            self.utils.print_info(" Validate the filter ")
-            if not actual_sns and not actual_policies: return -1, " The device list is empty with filter the guess profile"
-            if sn_list[0] not in actual_sns: return -1, "The device " + str(sn_list[0] + " does not match in the device list " + str(actual_sns))
-            self.select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox, filter_name='guest profile', reset=True)
+            actual_sns, actual_policies = self._get_column_values_from_device_page()
+            if not actual_sns and not actual_policies: return -1, ssid_name
+            if serial not in actual_sns: return -1, ssid_name
 
-        if  filter in ['default profile']:
-            policy_name, ssid_name = self.utils.get_random_string(), self.utils.get_random_string()
-            cwp_name = self.utils.get_random_string()
-            self.netExpress.create_open_auth_express_network_policy(policy_name, ssid_name, cwp_name)
-            self.net_policy.deploy_network_policy(policy_name, sn_list[0], "delta")
+            return 1, ssid_name
+
+        if filter in ['default']:
+            ssid_name, cwp_name = self.utils.get_random_string(), self.utils.get_random_string()
+            self.netExpress.create_open_auth_express_network_policy(policy2, ssid_name, cwp_name)
+            self.navigator.navigate_to_devices()
+            sleep(5)
+
+            self.utils.print_info(f"Select ap row with serial {serial}")
+            if not self.device.select_device(serial):
+                self.utils.print_info(f"ap {serial} is not present in the grid")
+                return -1, "ap is not present in the grid"
+            sleep(2)
+            self.device._assign_network_policy(policy2)
             self.clear_all_filters()
             self.expand_default_filters()
-            self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected', reset=True)
-            self.select_filter_by(self.filter_element.device_default_profile_filter_chkbox, filter_name='default profile')
-            actual_sns, actual_policies = self.get_column_values_from_device_page()
+            self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected',
+                                   reset=True)
+            self._select_filter_by(self.filter_element.device_default_profile_filter_chkbox,
+                                   filter_name='default profile')
+            actual_sns, actual_policies = self._get_column_values_from_device_page()
+            if not actual_sns and not actual_policies:
+                return -1, "Default profile filter does not match"
+            if serial not in actual_sns:
+                return -1, "Default profile filter does not match"
 
-            self.utils.print_info(" Validate the filter ")
-            if not actual_sns: return -1, " The device list is empty with the default profile filter"
-            if sn_list[0] not in actual_sns: return -1, "The device " + str(sn_list[0] + " does not match in the device list " + str(actual_sns))
-            self.select_filter_by(self.filter_element.device_default_profile_filter_chkbox, filter_name='default profile', reset=True)
+            if not self.device.select_device(serial):
+                self.utils.print_info(f"Switch {serial} is not present in the grid")
+                return -1, "ap is not present in the grid"
+            sleep(2)
 
-        return str(1), None
+            self.utils.print_info("Policy1 " + policy1 + " policy2 " + policy2)
+            self.device._assign_network_policy(policy1)
+
+            return 1, ssid_name
 
     def filter_client_by_device_function(self, filter):
 
-        """ Verification of the filtering of the clients based on the device function
+        """ Filtering of the clients based on the device function
             prequist: AP and switch need to be onboarded and need one client to switch and one client connect to AP
-                Usage of test case:
-                    Test1: Filter Client By Device Function
-                        client.filter client by device function  client ap
-                        client.filter client by device function  client switch
+                Usage:
+                        filter_client_by_device_function  ap
+                        filter_client_by_device_function  switch
+
             Jira: APC - 3741
         """
-        self.utils.print_info(" ----- Filter the " + filter + " -----")
-        if filter in ['client ap', 'client switch', 'client wireless connection type', 'client wired connection type']:
+
+        if filter in ['ap', 'switch', 'wireless_connection', 'wired_connection']:
             self.clear_all_filters('client filter')
-        elif filter in ['client 360 ap', 'client 360 switch', 'client 360 wireless connection type', 'client 360 wired connection type']:
+        elif filter in ['360_ap', '360_switch', '360_wireless_connection', '360_wired_connection']:
             self.clear_all_filters('ml_insight filter')
 
-        ap_conn, sw_conn = self.get_column_values_from_device_page("client connection")
-        self.utils.print_info(" Check available client connections before start a filter ")
-        if not ap_conn or not sw_conn or len(sw_conn) == 0 or len(ap_conn) == 0:
-            return -1, "Require at least one onboard switch and one onboard AP with a wireless connection "
+        if filter in ['ap', 'wireless_connection', '360_ap', '360_wireless_connection']:
+            if filter in ['ap', '360_ap']:
+                self._expand_and_collapse_filters(self.client_element.get_filter_client_device_function_link(),
+                                                  'client')
+                self._select_filter_by(self.client_element.filter_client_device_function_ap_chkbox, filter_name=filter)
 
-        if filter in ['client ap', 'client wireless connection type', 'client 360 ap', 'client 360 wireless connection type']:
-            if filter in ['client ap', 'client 360 ap']:
-                self.expand_and_collapse_filters(self.client_element.get_filter_client_device_function_link(), 'client')
-                self.select_filter_by(self.client_element.filter_client_device_function_ap_chkbox, filter_name = filter)
-            elif filter in ['client wireless connection type', 'client 360 wireless connection type']:
-                self.expand_and_collapse_filters(self.client_element.get_filter_client_connection_link(), 'client')
-                self.select_filter_by(self.client_element.filter_client_device_wireless_connection_chkbox,filter_name = filter)
-            aps, sws = self.get_column_values_from_device_page("client connection")
+            elif filter in ['wireless_connection', '360_wireless_connection']:
+                self._expand_and_collapse_filters(self.client_element.get_filter_client_connection_link(), 'client')
+                self._select_filter_by(self.client_element.filter_client_device_wireless_connection_chkbox,
+                                       filter_name=filter)
+
+            aps, sws = self._get_column_values_from_device_page("client connection")
+            self.utils.print_info(" aps and sws  " + str(aps) + ' ' + str(sws))
             self.utils.print_info(" Validate the filter ")
-            if not aps or len(aps) == 0 :
-                return -1, "The client list is empty with the " + filter +  " filter"
-            if len(aps) != len(ap_conn) and len(sws) !=0 :
+            if len(aps) == 0 or not aps or len(sws) != 0:
                 return -1, "The wireless connections do not match with the " + filter + " filter "
+            self._select_filter_by(self.client_element.filter_client_device_function_ap_chkbox, filter_name=filter,
+                                   reset=True)
 
-        if filter in ['client switch', 'client wired connection type', 'client 360 switch', 'client 360 wired connection type']:
-            if filter in ['client switch', 'client 360 switch']:
-                self.expand_and_collapse_filters(self.client_element.get_filter_client_device_function_link(), 'client')
-                self.select_filter_by(self.client_element.filter_client_device_function_sw_chkbox, filter_name = filter)
-            elif filter in ['client wired connection type', 'client 360 wired connection type']:
-                self.expand_and_collapse_filters(self.client_element.get_filter_client_connection_link(), 'client')
-                self.select_filter_by(self.client_element.filter_client_device_wired_connection_chkbox, filter_name='wired')
-            aps, sws = self.get_column_values_from_device_page("client connection")
-            if not sws or len(sws) == 0:
-                return -1, "The client list is empty with the " + filter + " filter"
-            if len(sws) != len(sw_conn) and len(aps) != 0:
+        if filter in ['switch', '360_switch', 'wired_connection', '360_wired_connection']:
+            if filter in ['switch', '360_switch']:
+                self._expand_and_collapse_filters(self.client_element.get_filter_client_device_function_link(),
+                                                  'client')
+                self._select_filter_by(self.client_element.filter_client_device_function_sw_chkbox, filter_name=filter)
+
+            elif filter in ['wired_connection', '360_wired_connection']:
+                self._expand_and_collapse_filters(self.client_element.get_filter_client_connection_link(), 'client')
+                self._select_filter_by(self.client_element.filter_client_device_wired_connection_chkbox,
+                                       filter_name='wired')
+
+            aps, sws = self._get_column_values_from_device_page("client connection")
+            if not sws or len(sws) == 0 or len(aps) != 0:
                 return -1, "The wired connections do not match with the " + filter + " filter "
-            self.select_filter_by(self.client_element.filter_client_device_function_sw_chkbox, filter_name = filter, reset=True)
 
-        self.expand_and_collapse_filters(self.client_element.get_filter_client_device_function_link(), 'client', True)
-
-        return str(1), None
+        return 1, None
 
     def filter_client_by_os_type(self, filter):
 
-        """ Verification of the clients based on the os type
+        """ Filtering of the clients based on the OS type
             prequist: One or two clients should be connected via Wifi either Windows, Mac OS
-            Usage of test case:
-                Test1: Filter Client By OS Type
+            Usage:
                        filter client by os type
         """
 
-        self.utils.print_info(" ----- Filter the " + filter  + "-----" )
-        if filter in ['client os type']:
+        self.utils.print_info(" ----- Filter the " + filter + "-----")
+        if filter in ['os']:
             self.clear_all_filters('client filter')
-        elif filter in ['client 360 os type']:
+        elif filter in ['360_os']:
             self.clear_all_filters('ml_insight filter')
 
-        os_types_list = self.get_column_values_from_device_page("client os type")
+        os_types_list = self._get_column_values_from_device_page("client os type")
         os_types_list = [x.lower() for x in os_types_list if x]
         self.utils.print_info("Available client OS types: " + str(os_types_list))
-        self.utils.print_info(" Check available client connections ")
-        if not os_types_list or len(os_types_list) == 0: return -1, "Require at least one Mac or Window client connects to a wireless"
+        if not os_types_list or len(os_types_list) == 0:
+            return -1, "Require at least one Mac or Window client connects to a wireless"
 
-        self.expand_and_collapse_filters(self.client_element.get_filter_client_os_type_link(), 'client')
+        self._expand_and_collapse_filters(self.client_element.get_filter_client_os_type_link(), 'client')
         if 'mac' in str(os_types_list).lower():
-            self.select_filter_by(self.client_element.filter_client_mac_os_type_chkbox, filter_name='mac os')
-            os_types_list = self.get_column_values_from_device_page("client os type")
+            self._select_filter_by(self.client_element.filter_client_mac_os_type_chkbox, filter_name='mac os')
+            os_types_list = self._get_column_values_from_device_page("client os type")
             self.utils.print_info(" Validate the filter ")
             os_types_list = [x.lower() for x in os_types_list if x]
-            if 'mac' not in str(os_types_list).lower():  return -1,  "Mac filter does not match " + str(os_types_list)
-            self.select_filter_by(self.client_element.filter_client_mac_os_type_chkbox, filter_name='mac os', reset=True)
+            if 'mac' not in str(os_types_list).lower():
+                return -1, "Mac filter does not match " + str(os_types_list)
+            self._select_filter_by(self.client_element.filter_client_mac_os_type_chkbox, filter_name='mac os',
+                                   reset=True)
 
         if 'window' in str(os_types_list).lower():
-            self.select_filter_by(self.client_element.filter_client_windows_os_type_chkbox, filter_name='windows')
-            os_types_list = self.get_column_values_from_device_page("client os type")
+            self._select_filter_by(self.client_element.filter_client_windows_os_type_chkbox, filter_name='windows')
+            os_types_list = self._get_column_values_from_device_page("client os type")
             os_types_list = [x.lower() for x in os_types_list if x]
-            if 'window' not in str(os_types_list).lower(): return -1, "Windows filter does not match " + str(os_types_list)
-            self.select_filter_by(self.client_element.filter_client_windows_os_type_chkbox, filter_name='windows', reset=True)
-        self.expand_and_collapse_filters(self.client_element.get_filter_client_os_type_link(), 'client', collapse=True)
+            if 'window' not in str(os_types_list).lower():
+                return -1, "Windows filter does not match " + str(os_types_list)
+            self._select_filter_by(self.client_element.filter_client_windows_os_type_chkbox, filter_name='windows',
+                                   reset=True)
+        self._expand_and_collapse_filters(self.client_element.get_filter_client_os_type_link(), 'client', collapse=True)
 
-        return str(1), None
+        return 1, None
 
     def filter_client_by_ssid(self, filter):
 
-        """ Verification of the Clients based on the SSID
+        """ Filtering of the clients based on the SSID
             prequist: 1 Ap should be onboarded with wireless network
-            Usage of test case:
-              Test1: Filter Client By Client SSID
-                     filter client by ssid
+            Usage:
+                     filter client by ssid  ssid
+                     filter client by ssid  360_ssid
+
         """
-        self.utils.print_info("----- filter the " + filter + " ------ " )
-        if filter in ['client ssid']:
+        self.utils.print_info("----- filter the " + filter + " ------ ")
+        if filter in ['ssid']:
             self.clear_all_filters('client filter')
-        elif filter in ['client 360 ssid']:
+        elif filter in ['360_ssid']:
             self.clear_all_filters('ml_insight filter')
 
-        self.expand_and_collapse_filters(self.client_element.get_client_ssid_filter_link(), 'client')
-        ssids = self.get_column_values_from_device_page("client ssid")
+        self._expand_and_collapse_filters(self.client_element.get_client_ssid_filter_link(), 'client')
+        ssids = self._get_column_values_from_device_page("client ssid")
         ssids = [x for x in ssids if x]
         self.utils.print_info(" Available SSIDs " + str(ssids))
         if not ssids or len(ssids) <= 0:
@@ -508,67 +585,44 @@ class FilterManageDevices():
 
         for ssid in ssids:
             ssid_element = self.client_element.get_client_ssid_filter_checkbox(str(ssid))
-            self.select_filter_by(ssid_element, filter_name='ssid')
-            actual_ssids = self.get_column_values_from_device_page("client ssid")
+            self._select_filter_by(ssid_element, filter_name='ssid')
+            actual_ssids = self._get_column_values_from_device_page("client ssid")
             if not actual_ssids: return -1, "The SSID list is empty with the filter " + str(ssid)
             for actual_ssid in actual_ssids:
-                if str(actual_ssid) != str(ssid) : return -1 , "The SSID does not match " + str(actual_ssid) + ' ' + str(ssid)
-            self.select_filter_by(ssid_element, filter_name='ssid', reset=True)
+                if str(actual_ssid) != str(ssid): return -1, "The SSID does not match " + str(actual_ssid) + ' ' + str(
+                    ssid)
+            self._select_filter_by(ssid_element, filter_name='ssid', reset=True)
 
-        self.expand_and_collapse_filters(self.client_element.get_client_ssid_filter_link(), 'client', collapse=True)
+        self._expand_and_collapse_filters(self.client_element.get_client_ssid_filter_link(), 'client', collapse=True)
 
-        return str(1), None
+        return 1, None
 
     def filter_client_by_user_profiles(self, ssid_name, filter='default'):
-        """ Verification of the filtering of the Clients based on the SSID
-            prequist: 1 Ap should be onboarded with wireless network
-            Usage of test case:
-              Test1: Filter Client By User Profiles
-                filter client by user profiles  ${ssid_name}   client guess profile
-                filter client by user profiles  ${ssid_name}   client default profile
+        """ Filtering of the Clients based on the user_profiles
+            Usage :
+                filter client by user profiles  ${ssid_name}   guess profile
+                filter client by user profiles  ${ssid_name}   default profile
         """
 
-        if filter in ['client guest profile']:
+        if filter in ['guest profile']:
             sleep(60)
             self.utils.print_info(" ------ Filter the " + filter + "-----")
             self.clear_all_filters('client filter')
-            self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), 'client')
-            self.select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox, filter_name='guest profile')
-            ssid_list = self.get_column_values_from_device_page("client ssid")
+            self._expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), 'client')
+            self._select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox,
+                                   filter_name='guest profile')
+            ssid_list = self._get_column_values_from_device_page("client ssid")
             if not ssid_list or len(ssid_list) == 0:
                 return -1, " There is no wireless connection with the guess profile filter"
             if ssid_name not in ssid_list:
-                return -1, " The client ssid does not match with the guest profile filter " + str(ssid_name) + ' ' + str(ssid_list)
-            self.select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox, filter_name='guess profile', reset=True)
+                return -1, " The client ssid does not match with the guest profile filter " + str(
+                    ssid_name) + ' ' + str(ssid_list)
+            self._select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox,
+                                   filter_name='guess profile', reset=True)
 
-        # if filter in ['client default profile']:
-        #     self.utils.print_info("Create a standard access network for the device " + sns[1])
-        #     username = self.utils.get_random_string()
-        #     policy_name, ssid_name = self.netExpress.add_express_net_policy()
-        #     self.usergroup.create_simple_user_in_usergroup('GA-ppsk-user-device', username, 'aerohive')
-        #     self.auto_actions.scroll_up()
-        #     self.net_policy.deploy_network_policy_with_delta_update(policy_name, sns[1])
-        #     self.utils.print_info("Make a WIFFI connection to the ssid name is " + ssid_name2)
-        #     self.cli.mac_wifi_connection(mac_station, mac_login, mac_password, ssid_name2, ssid_pass="aerohive")
-        #
-        #     self.utils.print_info(" ----- Filter the client for the default profile ------")
-        #     self.clear_all_filters('client filter')
-        #     self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), 'client')
-        #     self.select_filter_by(self.filter_element.device_default_profile_filter_chkbox, filter_name='default profile')
-        #     ssids = self.get_column_values_from_page("client ssid")
-        #     if not ssids: assert True == False, " There is no wireless connection with the standard profile filter"
-        #     ssids = list(set(ssids))
-        #     assert ssid_name2 == ssids[0], "The ssid " + ssid_name2 + " does not match in the actual ssid list " + str(ssids[0])
-        #     self.select_filter_by(self.filter_element.device_default_profile_filter_chkbox, filter_name='default profile', reset=True)
-        #     self.select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox, filter_name='guest profile')
-        #     ssids = self.get_column_values_from_page("client ssid")
-        #     if ssids:
-        #         assert ssid_name2 != ssids[0], "The standard network should not appear with the guess profile filter"
-        #     self.select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox, filter_name='guess profile', reset=True)
+            self._expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), 'client', True)
 
-            self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), 'client', True)
-
-        return str(1), None
+        return 1, None
 
     def set_device_type_filter(self, filter='All', select='true'):
         """ Sets the device type filter to the specified value
