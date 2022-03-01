@@ -48,7 +48,7 @@ class RobotTestData(ModelVisitor):
         for statement in node.body:
             # to get tags at test case level
                if statement.type == "TAGS":
-                    self.tests[node.name]['tags'] = statement.values
+                    self.tests[node.name]['tags'] = list(statement.values)
                     for tag in statement.values:
                         self.addTag(tag)
                     print(statement.values)
@@ -65,6 +65,8 @@ class RobotTestData(ModelVisitor):
         for test_name in self.tests:
             self.tcCount += 1
             print(f"{self.tcCount} Test Case - {test_name}")
+
+            self.tests[test_name]['tags'].extend(self.global_tags)
 
             # Set results
             resn = goodCaseName.search(test_name)
