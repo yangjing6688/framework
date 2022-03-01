@@ -624,6 +624,90 @@ class FilterManageDevices():
 
         return 1, None
 
+    def location_action_type(self, location='default', type='search'):
+        """ This keyword search a location in the filter list
+            :param : location: name of location, building, floor
+            :param : type: either select, unselect, search
+            :param : negative: True: location matches
+
+            Usage of test case:
+                      Test1: Filter a location
+                        location action type     location=auto_location_01    type=select location
+                        location action type     location=auto_location_01    type=search location
+                        location action type     location=auto_location_01    type=unselect location
+                        location action type     location=auto_location_01    type=select save filter
+        """
+
+        self.utils.print_info(" Search a location " + location)
+        self._expand_and_collapse_filters(self.filter_element.get_locations_link(), self.filter_element.get_all_policy_filter())
+        self.auto_actions.scroll_up()
+        sleep(5)
+        if type == 'search location':
+            self.auto_actions.send_keys(self.filter_element.get_location_search_input(), location)
+            if self.web.get_element(self.filter_element.get_locations_filter(location)) != None:
+                self.auto_actions.click(self.web.get_element(self.filter_element.get_locations_filter(location)))
+            else:
+                return 1, None
+        elif type in ['select location', 'click']:
+            if not self.auto_actions.click(self.web.get_element(self.filter_element.get_locations_filter(location))):
+                self.auto_actions.click(self.web.get_element(self.filter_element.get_locations_filter(location)))
+        elif type in ['unselect location']:
+            if self.web.get_element(self.filter_element.get_locations_filter(location)).is_selected():
+                #self.auto_actions.click(self.web.get_element(self.filter_element.get_locations_filter(location)))
+                self.driver.execute_script("arguments[0].click();", self.web.get_element(self.filter_element.get_locations_filter(location)))
+            self.auto_actions.click(self.filter_element.get_apply_filter_button())
+
+            if self.web.get_element(self.filter_element.get_locations_filter(location)).is_selected():
+                return -1, "Can not unselect the location"
+            else:
+                return 1, None
+
+        elif type in ['select save filter']:
+            locator_save_filter = self.filter_element.get_locations_filter(location)
+            self.auto_actions.click(self.web.get_element(locator_save_filter))
+            self.driver.execute_script("arguments[0].click();", self.web.get_element(locator_save_filter))
+            if not self.web.get_element(locator_save_filter).is_selected():
+                return -1, "Can not select a save filter"
+            else:
+                return 1, None
+
+        self.auto_actions.click(self.filter_element.get_apply_filter_button())
+        if not self.web.get_element(self.filter_element.get_locations_filter(location)).is_selected():
+            return -1, "Can not select the location"
+        else:
+            return 1, None
+
+
+    def verify_device_location(self, *devices, negative=False):
+        """ This keyword verifies the devices associating the location
+            :param : *devices: list of devices associating the location
+            :param : negative: True: a device should not exist
+
+            Usage of test case:
+                verify_device_location   ${sn1}  ${sn2}
+
+        """
+
+        self.utils.print_info(" Validate a device associating with the location " + str(devices))
+        self.clear_column_filter()
+        self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+        sn_list, policy_list = self._get_column_values_from_device_page()
+        self.utils.print_info(" sn list " + str(sn_list) + ' ' + str(policy_list))
+
+        for device in devices:
+            self.utils.print_info(" Validate the device location " + device)
+            if not negative:
+                if sn_list is None or not sn_list:
+                    return -1, "device does not match"
+                else:
+                    if device not in sn_list: return -1, "device does not match"
+            else:
+                if sn_list is None or not sn_list: return str(1), None
+                if device in sn_list: return -1, "device does not match"
+
+        self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+        return 1, None
+
     def set_device_type_filter(self, filter='All', select='true'):
         """ Sets the device type filter to the specified value
             Usage of test case:
@@ -965,6 +1049,7 @@ class FilterManageDevices():
         """ Clearing all applied and saved filters
             :param navigator: navigator to a filtered page
         """
+
         self.utils.print_info("Start --> Clear all filters ")
         if navigator == 'device filter':
             self.navigator.navigate_to_devices()
@@ -975,74 +1060,85 @@ class FilterManageDevices():
             self.navigator.navigate_to_clients()
             if not self.client_element.get_filter_client_device_function_link().is_displayed():
                 self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            if self.client_element.get_page_size_100_link():
+                self.auto_actions.click(self.client_element.get_page_size_100_link())
         elif navigator == 'ml_insight filter':
             self.navigator.navigate_to_client360()
             if not self.client_element.get_filter_client_device_function_link().is_displayed():
                 self.auto_actions.click(self.filter_element.get_filter_toggle_link())
-        elif navigator == 'application':
+            if self.client_element.get_page_size_100_link():
+                self.auto_actions.click(self.client_element.get_page_size_100_link())
+        elif navigator == 'application filter':
             self.navigator.navigate_manage_application()
-            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            if not self.client_element.get_filter_client_device_function_link().is_displayed():
+                self.auto_actions.click(self.filter_element.get_filter_toggle_link())
 
         all_filters = self.filter_element.get_my_saved_filter_list()
         if all_filters:
             self.utils.print_info("Start clearing my filter ")
+            sleep(5)
             for index in range(1, len(all_filters) + 1):
                 self.auto_actions.click(self.filter_element.get_list_del_index_filter())
                 self.tools.wait_til_elements_avail(self.filter_element.dialog_yes_filter_btn, 60, False)
                 self.tools.click_til_element_avail(self.filter_element.get_del_yes_btn())
+                sleep(2)
 
         all_applied_filters = self.filter_element.get_applied_filter_list()
         if all_applied_filters:
             self.utils.print_info("start clearing the applied filters ")
             self.auto_actions.click(self.filter_element.get_applied_clear_filter_link())
             sleep(3)
-        self.utils.print_info("Exit --> Clear all filters ")
 
         return 1
 
-    def expand_and_collapse_filters(self, element, filter_type='policy', collapse=False):
+    def _expand_and_collapse_filters(self, element, inner_element='default', filter_type='policy', collapse=False):
         """ expand and collapse the filter links
             :param element : link of filter
             :param filter_type: page contains the filters
             :param collapse: collapse the filter toggle when it is true
         """
+
+        sleep(5)
         self.utils.print_info(" Start -- > Expand / collapse filters " + filter_type)
         if filter_type == 'device type':
             self.tools.wait_til_elements_avail(self.filter_element.device_type_filter_link, 30, False)
         if filter_type == 'client':
             self.tools.wait_til_elements_avail(self.client_element.filter_client_device_function_link, 30, False)
-        if filter_type == 'user_profile':
-            self.tools.wait_til_elements_avail(self.filter_element.get_user_profiles_filter_link, 30, False)
-        sleep(5)
-        self.auto_actions.click(element)
+
+        if inner_element != 'default':
+            if inner_element == None:
+                self.auto_actions.click(element)
+
         if collapse:
             self.auto_actions.click(self.filter_element.get_filter_toggle_link())
-        self.utils.print_info(" Exit --> Expand / collapse filters " + filter_type)
 
         return 1
 
-    def select_filter_by(self, *locators, filter_name = 'default', reset=False):
-        """ expand and collapse the filter links
+    def _select_filter_by(self, *locators, filter_name='default', reset=False):
+        """ Select and unselect the filter checkboxes
             :param locators : list of checkboxs
             :param reset : clear the checkbox when it is true
         """
-        self.utils.print_info(" Start select filter ")
-        for locator in locators:
-            element = self.web.get_element(locator)
-            self.utils.print_info(" Locator " + str(locator))
-            if not element: assert True == False, "Not able to find a filter selection and the test aborts " + str(locator)
-            if not reset:
-                if not element.is_selected():
-                    self.utils.print_info(" In Click filter ")
-                    self.utils.print_info(" Select filter  " + filter_name)
-                    self.auto_actions.click(element)
-            else:
-                if element.is_selected():
-                    self.utils.print_info(" Unselect filter   " + filter_name)
-                    self.auto_actions.click(element)
 
-        self.utils.print_info(" Exit --> The select / unselect filter")
-        return True
+        sleep(5)
+        try:
+            for locator in locators:
+                element = self.web.get_element(locator)
+                if not element: return False, "Not able to find a filter selection and the test aborts " + str(locator)
+                if not reset:
+                    if not element.is_selected():
+                        self.utils.print_info(" Select filter  " + filter_name)
+                        self.utils.print_info(" element.text   " + element.text)
+                        self.auto_actions.click(element)
+                else:
+                    if element.is_selected():
+                        self.utils.print_info(" Unselect filter   " + filter_name)
+                        self.auto_actions.click(element)
+            self.auto_actions.click(self.filter_element.get_apply_filter_button())
+        except:
+            return False, None
+
+        return True, None
 
     def save_filter(self):
 
@@ -1058,11 +1154,52 @@ class FilterManageDevices():
         self.utils.print_info(" Enter the filter saved name  " + filter_name + ' and click on Save')
         self.auto_actions.send_keys(self.filter_element.get_enter_filter_name_txt(), filter_name)
         self.auto_actions.click(self.filter_element.get_dialog_save_btn())
-        self.utils.print_info("Exit --> Save filter ")
 
         return filter_name
 
-    def get_column_values_from_device_page(self, filter='default'):
+    def clear_applied_filters(self, single_del=False):
+
+        self.utils.print_info("Start --> Clear applied filters ")
+        if not single_del:
+            count = self.filter_element.get_applied_filter_list()
+            if count == None or not count: return 1, "No filters to clear"
+            else : count = len(count)
+        else:
+            count = 1
+
+        try:
+            for i in range(count):
+                 self.auto_actions.click(self.filter_element.get_applied_filter_del_x_button())
+        except:
+                return -1, "Not able to click"
+        return 1, None
+
+    def clear_location_search(self):
+        self.utils.print_info("Clear Location Filter ")
+
+        try:
+            self.auto_actions.click(self.filter_element.get_location_clear_icon())
+        except:
+            return -1, "Not able to clear the location search"
+
+        return 1, None
+
+    def clear_my_filters(self):
+        self.utils.print_info("Start clearing my filter ")
+        try:
+            all_filters = self.filter_element.get_my_saved_filter_list()
+
+            for index in range(1, len(all_filters) + 1):
+                self.auto_actions.click(self.filter_element.get_list_del_index_filter())
+                self.tools.wait_til_elements_avail(self.filter_element.dialog_yes_filter_btn, 60, False)
+                self.tools.click_til_element_avail(self.filter_element.get_del_yes_btn())
+                sleep(2)
+        except:
+            return -1, "Not able to clear my filters"
+
+        return 1
+
+    def _get_column_values_from_device_page(self, filter='default'):
 
         """ verify if the polices are assigned to all devices
             :param  grid : a list of column values on the device page
@@ -1070,59 +1207,73 @@ class FilterManageDevices():
         """
         self.utils.print_info("Start --> Get the values from page ")
         list1, list2, elements = [], [], []
-        sleep(20)
+        sleep(10)
         if filter in ["default"]:
-            return self.get_elements_text(self.filter_element.get_device_serial_list()),\
-                   self.get_elements_text(self.filter_element.get_device_policy_list())
+            return self._get_elements_text(self.filter_element.get_device_serial_list()), \
+                   self._get_elements_text(self.filter_element.get_device_policy_list())
+
+
         elif filter in ['management state']:
-            return self.get_elements_text(self.filter_element.get_device_serial_list()),\
-                   self.get_elements_text((self.filter_element.get_all_device_hosts()))
+            return self._get_elements_text(self.filter_element.get_device_serial_list()), \
+                   self._get_elements_text((self.filter_element.get_all_device_hosts()))
         elif filter in ['product type']:
-            return self.get_elements_text(self.filter_element.get_device_prod_type_model_list())
+            return self._get_elements_text(self.filter_element.get_device_prod_type_model_list())
         elif filter in ['firmware version']:
-            return  self.get_elements_text(self.filter_element.get_device_soft_version_list())
-        elif filter in ['all connection states'] : return self.filter_element.get_connection_state_list()
+            return self._get_elements_text(self.filter_element.get_device_soft_version_list())
+        elif filter in ['all connection states']:
+            return self.filter_element.get_connection_state_list()
 
         elif filter in ['device type', 'device function']:
-            if filter == 'device type':  elements = self.filter_element.get_all_device_hosts()
-            elif filter == 'device function' :  elements = self.filter_element.get_device_prod_type_model_list()
+            if filter == 'device type':
+                elements = self.filter_element.get_all_device_hosts()
+            elif filter == 'device function':
+                elements = self.filter_element.get_device_prod_type_model_list()
 
-            if not elements:
+            if elements == None or not elements:
                 return False, False
 
-            sleep(5)
             for element in elements:
                 if filter == 'device type':
-                    if element.text[:3] == "SIM" :  list1.append(element)
-                    else:                           list2.append(element)
+                    if element.text[:3] == "SIM":
+                        list1.append(element)
+                    else:
+                        list2.append(element)
                 elif filter == 'device function':
-                    if element.text[:2] == "SR" :   list2.append(element.text)
-                    elif element.text[:1] == "A":   list1.append(element.text)
+                    if element.text[:2] == "SR":
+                        list2.append(element.text)
+                    elif element.text[:1] == "A":
+                        list1.append(element.text)
 
-        elif filter in ['client device function', 'client connection', 'client os type', 'client ssid']:
-            sleep(5)
-            if self.client_element.get_page_size_100_link().is_displayed():
-                self.auto_actions.click(self.client_element.get_page_size_100_link())
-            if filter == 'client device function': elements = self.client_element.get_filter_client_device_list()
-            elif filter == 'client connection' :   elements = self.client_element.get_filter_client_connection_list()
-            elif filter == 'client os type'    :   return  self.get_elements_text(self.client_element.get_filter_client_os_type_list())
-            elif filter == 'client ssid'       :   return  self.get_elements_text(self.client_element.get_filter_client_ssid_list())
+        elif filter in ['client device function', 'client connection', 'client os type', 'client ssid',
+                        'application connection']:
+            if filter == 'client device function':
+                elements = self.client_element.get_filter_client_device_list()
+            elif filter == 'client connection':
+                elements = self.client_element.get_filter_client_connection_list()
+            elif filter == 'client os type':
+                return self._get_elements_text(self.client_element.get_filter_client_os_type_list())
+            elif filter == 'client ssid':
+                return self._get_elements_text(self.client_element.get_filter_client_ssid_list())
+            elif filter == 'application connection':
+                return self.client_element.get_application_connect_table_list()
 
             if not elements:
                 return False, False
 
             for element in elements:
                 if filter == 'client device function':
-                    if element.text[:5] == 'AH-Sw': list1.append(element.text)
-                    else                          : list2.append(element.text)
+                    if element.text[:5] == 'AH-Sw':
+                        list1.append(element.text)
+                    else:
+                        list2.append(element.text)
                 elif filter == 'client connection':
-                    if element.text[:8] == 'WIRELESS': list1.append(element.text)
-                    else                             : list2.append(element.text)
-
-        self.utils.print_info("Exit --> Get the values from page ")
+                    if "WIRELESS" in element.text == 'WIRELESS':
+                        list1.append(element.text)
+                    else:
+                        list2.append(element.text)
         return list1, list2
 
-    def get_elements_text(self, elements):
+    def _get_elements_text(self, elements):
         """ get_elements_text
             :param: list of elements
             :return list of texts
@@ -1131,14 +1282,13 @@ class FilterManageDevices():
         if elements:
             sleep(5)
             for element in elements:
-                ls1.append (element.text)
-                if element.text != '':
-                    self.utils.print_info("Start --> Get element text " + element.text)
+                ls1.append(element.text)
+                self.utils.print_info("Get the text " + element.text)
             return ls1
-        self.utils.print_info("Exit --> Get element text " )
+
         return False
 
-    def action_change_managed_state(self, ap, state="managed"):
+    def _action_change_managed_state(self, ap, state="managed"):
         """ change a managed state of ap
             :param: ap: ap's serial number
             :param: state is either managed or unmanaged
@@ -1148,7 +1298,7 @@ class FilterManageDevices():
         self.device.select_ap(ap)
         self.utils.print_info(" Click on the action button  ")
         self.auto_actions.click(self.device_actions.get_device_actions_button())
-        self.auto_actions.move_to_element(self.device_actions.get_device_actions_change_management_status())
+        self.auto_actions.click(self.device_actions.get_device_actions_change_management_status())
         self.tools.wait_til_elements_avail(self.filter_element.action_managed_device_link, 30, False)
         self.utils.print_info(" Change the managed state to  " + state)
         if state == "managed":
@@ -1161,59 +1311,203 @@ class FilterManageDevices():
 
         return 1
 
-    def get_devices_with_network_policy(self, sns, policies ):
+    def _get_devices_with_network_policy(self, sns, policies):
         sn_list, policies_list = [], []
         self.utils.print_info(" Start --> Get devices with network policies ")
-        for i in range(0, len(policies)) :
-            if policies[i] != '' and policies[i] not in policies_list  :
+        for i in range(0, len(policies)):
+            if policies[i] != '' and policies[i] not in policies_list:
                 sn_list.append(sns[i])
                 policies_list.append(policies[i])
-        self.utils.print_info(" Exit --> Get devices with network policies " )
-        return  sn_list, policies_list
+        self.utils.print_info(" Exit --> Get devices with network policies ")
+        return sn_list, policies_list
 
-    def parse_string(self, models):
+    def clear_column_filter(self):
+        """ this function resets the column filter
+        """
+
+        self.utils.print_info("Start --> Reset to the default filters ")
+        try:
+            self.auto_actions.click(self.filter_element.get_col_filter_pkr_link())
+            self.auto_actions.click(self.filter_element.get_clear_filter_button())
+        except:
+            return -1, "Not able to clear"
+
+        return 1
+
+    def _parse_string(self, models):
 
         self.utils.print_info("Start --> Parse string " + str(models))
         real_modeL_lst = []
         for model in models:
-            real_modeL_lst.append(model[0:int(model.index('(')) - 1])
-        self.utils.print_info(" Exit --> Parse string: " + str(real_modeL_lst))
+            rc = int(model.find("("))
+            if rc != -1:
+                real_modeL_lst.append(model[0:int(model.index('(')) - 1])
+            else:
+                real_modeL_lst.append(model)
+
         return real_modeL_lst
 
     def expand_default_filters(self):
         self.utils.print_info(" Start --> Expand the default filters ")
-        self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
-        self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
-        self.expand_and_collapse_filters(self.filter_element.get_device_function_filter_link(), filter_type='device function')
-        self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), filter_type='device user profile')
-        self.expand_and_collapse_filters(self.filter_element.get_device_type_filter_link(), filter_type='device type')
+        self.auto_actions.scroll_down()
+        self._expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(),
+                                          self.filter_element.get_state_connected_filter_chkbox(),
+                                          filter_type='device state')
+        self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
+        self._expand_and_collapse_filters(self.filter_element.get_device_function_filter_link(),
+                                          self.filter_element.get_device_function_access_point_chkbox(),
+                                          filter_type='device function')
+        self._expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(),
+                                          self.filter_element.get_user_profile_default_guest_filter_chkbox(),
+                                          filter_type='device user profile')
+        self._expand_and_collapse_filters(self.filter_element.get_device_type_filter_link(),
+                                          self.filter_element.get_real_device_filter_chkbox(),
+                                          filter_type='device type')
 
         self.utils.print_info(" Exit --> Expand the default filters ")
 
         return 1
 
-    def check_available_devices(self, filter='default', real_device= False, ap_type = False):
+    def verify_save_filter(self, filter="saved filter", expected_count=1):
+        self.utils.print_info("Verify the saved filter " + str(expected_count))
+
+        if filter == "saved filter":
+            count = self.filter_element.get_save_filter_list()
+            if int(expected_count) == 0:
+                if not count: return str(1), None
+                else:  return -1, "Save filter does not match"
+            else:
+                if len(count) == int(expected_count):  return str(1), None
+                else:  return -1, "Save filter does not match"
+        else:
+            element = self.filter_element.get_save_filter_scroll_bar()
+            if int(expected_count) == 0:
+                if element.is_displayed(): return -1, "Scroll bar appears"
+                else: return str(1), None
+            else:
+                if not element.is_displayed(): return -1, "Scroll bar does not appear"
+                else: return str(1), None
+
+    def verify_applied_filter_list(self, expected_count=0, is_more_btn=False, negative=False):
+        self.utils.print_info("Verify the applied filter list ")
+
+        if is_more_btn:
+           try:
+                self.utils.print_info("Click the more link ")
+                self.auto_actions.click(self.filter_element.get_applied_filter_more_link())
+           except:
+                return -1, "Not able to Click on the More button"
+
+        sleep(5)
+        count = self.filter_element.get_applied_filter_list()
+
+        if not expected_count:
+           if count: return -1, "Applied filter list does not matches"
+        else:
+           if len(count) != expected_count: return -1, "Applied filter list does not match"
+
+        return str(1), None
+
+    def verify_applied_name_filter(self, *filters, is_more_btn=False, negative=False):
+        self.utils.print_info("verify name applied filter " + str(negative))
+
+        sleep(5)
+        if is_more_btn:
+            self.utils.print_info("Click on the more link ")
+            self.auto_actions.click(self.filter_element.get_applied_filter_more_link())
+        elements = self.filter_element.get_applied_filter_list()
+
+        filter_list = []
+        if elements:
+            for element in elements:
+                filter_list.append(element.text)
+        self.utils.print_info("applied filter list " + str(filter_list))
+
+        if not negative:
+            if elements is None or not elements: return -1, "Applied filter list is empty"
+            for filter in filters:
+                if filter not in filter_list:  return -1, "Filter list does not match"
+        else:
+            if elements is None or not elements: return str(1), None
+            for filter in filters:
+                if filter in filter_list:  return -1, "Filter list does not match"
+
+        return 1, None
+
+    def Enable_all_filter_list(self, filter):
+        self.utils.print_info("Enable_all_filter_list " + str(filter))
+        if filter == "device type":
+            self._expand_and_collapse_filters(self.filter_element.get_device_type_filter_link(), self.filter_element.get_all_device_types_filter_chkbox())
+            self._select_filter_by(self.filter_element.all_device_types_filter_chkbox, filter_name='All Product Type')
+        else:
+            pass
+
+        return
+
+    def expand_all_filters(self):
+        """ Expand all filter chekboxe
+
+        """
+        self.utils.print_info(" Start --> Expand all filters ")
+        self.auto_actions.scroll_down()
+        self._expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), self.filter_element.get_state_connected_filter_chkbox(), filter_type='device state')
+        self._select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
+        self._select_filter_by(self.filter_element.device_state_disconnected_filter_chkbox, filter_name='disconnected')
+
+        self._expand_and_collapse_filters(self.filter_element.get_device_function_filter_link(), self.filter_element.get_device_function_access_point_chkbox(), filter_type='device function')
+        self._select_filter_by(self.filter_element.device_function_access_point_filter_chkbox, filter_name='access point')
+        self._select_filter_by(self.filter_element.device_function_switch_filter_chkbox, filter_name='switch')
+
+        self._expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), self.filter_element.get_user_profile_default_guest_filter_chkbox(), filter_type='device user profile')
+        self._select_filter_by(self.filter_element.device_default_guest_profile_filter_chkbox, filter_name='guest profile')
+        self._select_filter_by(self.filter_element.device_default_profile_filter_chkbox, filter_name='default profile')
+
+        self._expand_and_collapse_filters(self.filter_element.get_device_type_filter_link(), self.filter_element.get_real_device_filter_chkbox(), filter_type='device type')
+        self._select_filter_by(self.filter_element.real_device_filter_chkbox, filter_name='real device')
+        self._select_filter_by(self.filter_element.simulated_device_filter_chkbox, filter_name='simulated device')
+
+        self.utils.print_info(" Exit --> Expand all filters ")
+
+        return 1
+
+    def _check_available_devices(self, filter='default', real_device=False, ap_type=False):
+
+        """ verify if the polices are assigned to all devices
+                :param  filter :     filter type
+                :param  real_device: boolean
+                :param  ap_type:     boolean
+
+                :return list of column values
+        """
+
         self.utils.print_info(" Start --> Check available onboard devices ")
         self.clear_all_filters()
+        self.clear_column_filter()
         self.expand_default_filters()
 
-        if real_device: self.select_filter_by(self.filter_element.real_device_filter_chkbox)
-        if ap_type: self.select_filter_by(self.filter_element.device_function_access_point_filter_chkbox, filter_name='access point')
+        if real_device: self._select_filter_by(self.filter_element.real_device_filter_chkbox)
+        if ap_type: self._select_filter_by(self.filter_element.device_function_access_point_filter_chkbox,
+                                           filter_name='access point')
 
         if filter == 'device type':
-            self.select_filter_by(self.filter_element.real_device_filter_chkbox, self.filter_element.simulated_device_filter_chkbox,
-                                  filter_name='real and simulated device')
+            self._select_filter_by(self.filter_element.real_device_filter_chkbox,
+                                   self.filter_element.simulated_device_filter_chkbox,
+                                   filter_name='real and simulated device')
 
-        elif filter in ['firmware version']:
-            list1 = list(dict.fromkeys(self.get_column_values_from_device_page(filter)))
-            if not list1 and len(list1) == 0: return -1, " The available hardwares don't meet the requirement "
+        if filter in ['firmware version']:
+            list1 = list(dict.fromkeys(self._get_column_values_from_device_page(filter)))
+            if not list1 and len(list1) == 0:
+                return -1, " The available hardwares don't meet the requirement "
             return list1
 
-        sn_list, policy_list = self.get_column_values_from_device_page(filter)
-        if filter not in ['device type']:
-            sn_list, policy_list = self.get_devices_with_network_policy(sn_list, policy_list)
-
+        sn_list, policy_list = self._get_column_values_from_device_page(filter)
         if not sn_list or not policy_list or len(sn_list) == 0 or len(policy_list) == 0:
+            return -1, " The available hardwares don't meet the requirement "
+
+        if filter not in ['device type', 'device function']:
+            sn_list, policy_list = self._get_devices_with_network_policy(sn_list, policy_list)
+
+        if not sn_list or not policy_list or len(sn_list) == 0 or len(policy_list) <= 0:
             return -1, " The available hardwares don't meet the requirement "
 
         self.utils.print_info(" Exit --> Check available onboard devices ")
