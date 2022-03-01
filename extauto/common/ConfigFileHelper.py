@@ -5,7 +5,7 @@ from pathlib import Path
 from ExtremeAutomation.Imports import pytestConfigHelper
 
 ROBOT = False
-if 1 or "PYTEST_RUN_CONFIG" in os.environ:
+if "pytest" in sys.modules and "pytest.collect" in sys.modules:
     ROBOT = False
 else:
     try:
@@ -16,7 +16,6 @@ else:
         ROBOT = True
     except Exception:
         ROBOT = False
-
 
 
 yamlRe = re.compile(r".*([a-z0-9_\-\.]+yaml$)")
