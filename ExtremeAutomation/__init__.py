@@ -4,6 +4,7 @@ import os
 import site
 import importlib
 importlib.import_module("robot.api")
+importlib.import_module("robot")
 
 # pytest only
 if "pytest" in sys.modules and "pytest.collect" in sys.modules:
