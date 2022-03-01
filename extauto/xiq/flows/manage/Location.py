@@ -272,12 +272,15 @@ class Location:
         :return:
         """
         sleep(5)
-        self.utils.print_info("Clicking on ML Insights")
-        self.auto_actions.click(self.ml_insights_plan_web_elements.get_ml_insights_click())
-
-        sleep(3)
-        self.utils.print_info("Clicking on Network 360 plan")
-        self.auto_actions.click(self.ml_insights_plan_web_elements.get_network_360_plan_click())
+        self.utils.print_info("Clicking on Devices Planning")
+        self.auto_actions.click(self.ml_insights_plan_web_elements.get_manage_left_pane_click())
+        sleep(1)
+        self.utils.print_info("Clicking on Manage -> Planning")
+        if self.auto_actions.click(self.ml_insights_plan_web_elements.get_network_360_plan_click()):
+            self.utils.print_info("Button found")
+        else:
+            self.utils.print_info("Button not found")
+            return -1
         sleep(3)
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_plan_add_global_view())
 
@@ -324,12 +327,17 @@ class Location:
         :return:
         """
         sleep(5)
-        self.utils.print_info("Clicking on ML Insights")
-        self.auto_actions.click(self.ml_insights_plan_web_elements.get_ml_insights_click())
 
-        sleep(3)
-        self.utils.print_info("Clicking on Network 360 plan")
-        self.auto_actions.click(self.ml_insights_plan_web_elements.get_network_360_plan_click())
+        self.utils.print_info("Clicking on Devices Planning")
+        self.auto_actions.click(self.ml_insights_plan_web_elements.get_manage_left_pane_click())
+        sleep(1)
+        self.utils.print_info("Clicking on Manage -> Planning")
+        if self.auto_actions.click(self.ml_insights_plan_web_elements.get_network_360_plan_click()):
+            self.utils.print_info("Button found")
+        else:
+            self.utils.print_info("Button not found")
+            return -1
+
         sleep(3)
         self.utils.print_info("Searching floor ....")
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_plan_search_box(), floor)
@@ -466,10 +474,10 @@ class Location:
         :return: return 1 if the organization was created successfully, else -1
         '''
 
-        self.utils.print_info("Clicking on ML Insights")
-        self.auto_actions.click(self.ml_insights_plan_web_elements.get_ml_insights_click())
-        sleep(3)
-        self.utils.print_info("Clicking on Network 360 plan")
+        self.utils.print_info("Clicking on Devices Planning")
+        self.auto_actions.click(self.ml_insights_plan_web_elements.get_manage_left_pane_click())
+        sleep(1)
+        self.utils.print_info("Clicking on Manage -> Planning")
         if self.auto_actions.click(self.ml_insights_plan_web_elements.get_network_360_plan_click()):
             self.utils.print_info("Button found")
         else:
