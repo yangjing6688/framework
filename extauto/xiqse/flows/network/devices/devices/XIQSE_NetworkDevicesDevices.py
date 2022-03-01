@@ -2396,13 +2396,13 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
                 try:
                     self.xiqse_table.xiqse_refresh_table()
 
-                    is_stats = self.xiqse_get_device_column_value(device_ip, "Stats")
-                    self.utils.print_info(f"Historical: '{is_stats}'")
-                    if is_stats and is_stats == "Collecting Historical":
+                    stats_val = self.xiqse_get_device_column_value(device_ip, "Stats")
+                    self.utils.print_info(f"Stats Value: '{stats_val}'")
+                    if stats_val and stats_val == "Collecting Historical":
                         self.utils.print_info("Device is collecting historical statistics")
                         return 1
                     else:
-                        self.utils.print_info(f"Device is not yet collecting. Waiting for {retry_duration} seconds...")
+                        self.utils.print_info(f"Device is not yet collecting historical statistics. Waiting for {retry_duration} seconds...")
                         sleep(retry_duration)
 
                     # Break out of the Stale Element Exception loop
@@ -2415,7 +2415,101 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not become archived within allocated time. Please check.")
+            self.utils.print_info(f"Device did not update to collecting historical statistics within allocated time. Please check.")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_wait_until_device_stats_threshold_alarms(self, device_ip, retry_duration=30, retry_count=10):
+        """
+        - This keyword is used to wait for the device to show it is collecting threshold alarms.
+        - This keyword by default loops 10 times every 30 seconds to check if the device is collecting historical statistics.
+        - It is assumed the Network> Devices> Devices tab is already selected.
+        - Keyword Usage:
+         - ``XIQSE Wait Until Device Stats Threshold Alarms    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+
+        :param device_ip: device IP to check the stats column on
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if device stats within specified time; else -1
+        """
+        ret_val = -1
+        count = 1
+        while count <= retry_count:
+            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+
+            stale_retry = 1
+            while stale_retry <= 10:
+                try:
+                    self.xiqse_table.xiqse_refresh_table()
+
+                    stats_val = self.xiqse_get_device_column_value(device_ip, "Stats")
+                    self.utils.print_info(f"Stats Value: '{stats_val}'")
+                    if stats_val and stats_val == "Collecting Threshold Alarms":
+                        self.utils.print_info("Device is collecting threshold alarms statistics")
+                        return 1
+                    else:
+                        self.utils.print_info(f"Device is not yet collecting threshold alarms statistics. Waiting for {retry_duration} seconds...")
+                        sleep(retry_duration)
+
+                    # Break out of the Stale Element Exception loop
+                    break
+                except StaleElementReferenceException:
+                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                    stale_retry = stale_retry + 1
+
+            # Increment retry counter
+            count += 1
+
+        if ret_val == -1:
+            self.utils.print_info(f"Device did not update to collecting threshold alarms statistics within allocated time. Please check.")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_wait_until_device_stats_disable(self, device_ip, retry_duration=30, retry_count=10):
+        """
+        - This keyword is used to wait for the device to show it is not collecting device statistics.
+        - This keyword by default loops 10 times every 30 seconds to check if the device is collecting historical statistics.
+        - It is assumed the Network> Devices> Devices tab is already selected.
+        - Keyword Usage:
+         - ``XIQSE Wait Until Device Stats Disable    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+
+        :param device_ip: device IP to check the stats column on
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if device stats within specified time; else -1
+        """
+        ret_val = -1
+        count = 1
+        while count <= retry_count:
+            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+
+            stale_retry = 1
+            while stale_retry <= 10:
+                try:
+                    self.xiqse_table.xiqse_refresh_table()
+
+                    stats_val = self.xiqse_get_device_column_value(device_ip, "Stats")
+                    self.utils.print_info(f"Stats Value: '{stats_val}'")
+                    if stats_val and stats_val == "Not Collecting":
+                        self.utils.print_info("Device is not collecting device statistics")
+                        return 1
+                    else:
+                        self.utils.print_info(f"Device is not yet disabled for collecting device statistics. Waiting for {retry_duration} seconds...")
+                        sleep(retry_duration)
+
+                    # Break out of the Stale Element Exception loop
+                    break
+                except StaleElementReferenceException:
+                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                    stale_retry = stale_retry + 1
+
+            # Increment retry counter
+            count += 1
+
+        if ret_val == -1:
+            self.utils.print_info(f"Device did not update to not collecting device statistics within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
