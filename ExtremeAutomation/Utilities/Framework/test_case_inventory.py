@@ -33,10 +33,6 @@ class RobotTestData(ModelVisitor):
         # Call `generic_visit` to visit also child nodes.
         self.generic_visit(node)
 
-    def visit_TestCaseName(self, node):
-        #print(f"- {node.name} (on line {node.lineno})")
-        if node.name not in self.tests:
-            self.tests.update({node.name: {'tags': []}})
     def visit_ForceTags(self, node):
         #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
         for nTag in node.get_values('ARGUMENT'):
@@ -47,11 +43,15 @@ class RobotTestData(ModelVisitor):
         for nTag in node.get_values('ARGUMENT'):
             self.addTag(nTag)
             self.global_tags.add(nTag)
-    def visit_Tags(self, node):
-        #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
-        for nTag in node.get_values('ARGUMENT'):
-            self.addTag(nTag)
-            self.tests['tags'].append(nTag)
+    def visit_TestCase(self, node):
+        self.tests.update({node.name: {'tags': []}})
+        for statement in node.body:
+            # to get tags at test case level
+               if statement.type == "TAGS":
+                    self.tests[node.name]['tags'] = statement.values
+                    for tag in statement.values:
+                        self.addTag(tag)
+                    print(statement.values)
 
     def print_suite(self):
         goodCaseName = re.compile(r"(test_[0-9a-zA-Z\[\]\-_\.]+)")
@@ -62,7 +62,7 @@ class RobotTestData(ModelVisitor):
 
         print(f'Suite: {self.suite_name}')
 
-        for test_name, test_info in self.tests:
+        for test_name in self.tests:
             self.tcCount += 1
             print(f"{self.tcCount} Test Case - {test_name}")
 
@@ -75,7 +75,7 @@ class RobotTestData(ModelVisitor):
             uppercase_check = True    # True = all tags lowercase, False = atleast one tag with uppercase letters
             reserved_tags_check = False  # True = atleast one reserved tag found, False = no reserved tags used
             testbed_tag_exists = False
-            for tag in test_info['tags']:
+            for tag in self.tests[test_name]['tags']:
                 res2 = testbed_name_re.search(tag)
                 if res2:
                     testbed_tag_exists = True
@@ -95,7 +95,7 @@ class RobotTestData(ModelVisitor):
                 "valid_test_name": nameOK,
                 "contains_testbed_tag": testbed_tag_exists,
                 "contains_reserved_tag": reserved_tags_check,
-                "marker_list": self.tags[self.suite_file],
+                "marker_list": list(self.tests[test_name]['tags']),
                 "testcase_name": test_name
 
             }
