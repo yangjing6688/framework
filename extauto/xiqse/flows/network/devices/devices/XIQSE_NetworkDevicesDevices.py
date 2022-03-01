@@ -2423,7 +2423,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
     def xiqse_wait_until_device_stats_threshold_alarms(self, device_ip, retry_duration=30, retry_count=10):
         """
         - This keyword is used to wait for the device to show it is collecting threshold alarms.
-        - This keyword by default loops 10 times every 30 seconds to check if the device is collecting historical statistics.
+        - This keyword by default loops 10 times every 30 seconds to check if the device is collecting threshold alarms statistics.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
          - ``XIQSE Wait Until Device Stats Threshold Alarms    ${DEVICE_IP}    retry_duration=10    retry_count=12``
@@ -2467,13 +2467,13 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_wait_until_device_stats_disable(self, device_ip, retry_duration=30, retry_count=10):
+    def xiqse_wait_until_device_stats_not_collecting(self, device_ip, retry_duration=30, retry_count=10):
         """
         - This keyword is used to wait for the device to show it is not collecting device statistics.
-        - This keyword by default loops 10 times every 30 seconds to check if the device is collecting historical statistics.
+        - This keyword by default loops 10 times every 30 seconds to check if the device is not collecting device statistics.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Stats Disable    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+         - ``XIQSE Wait Until Device Stats Not Collecting    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the stats column on
         :param retry_duration: duration between each retry
