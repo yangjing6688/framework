@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Interface
-This feature is located in this file: `interface.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `interface.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: create_interface
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_create_interface(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_create_interface(device_name )
 
 	Robot API Call: 
 
@@ -47,7 +47,7 @@ UUID: b5e7580f-4520-49c9-bd91-ebeb5b224013
 # API Function: delete_interface
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_delete_interface(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_delete_interface(device_name )
 
 	Robot API Call: 
 
@@ -116,7 +116,7 @@ UUID: 2f7731c4-8177-4d5d-8cdd-cc08a0f5b973
 # API Function: create_loopback
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_create_loopback(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_create_loopback(device_name )
 
 	Robot API Call: 
 
@@ -174,7 +174,7 @@ UUID: 2bcbdcdf-2fff-4e3f-b5ac-c3502a06458d
 # API Function: delete_loopback
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_delete_loopback(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_delete_loopback(device_name )
 
 	Robot API Call: 
 
@@ -232,7 +232,7 @@ UUID: bd23349d-790b-4ab6-97ed-57cebbfefa34
 # API Function: enable_interface
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_interface(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_interface(device_name )
 
 	Robot API Call: 
 
@@ -290,7 +290,7 @@ UUID: 868e70b1-cdad-49e8-bf4d-21c57260c778
 # API Function: disable_interface
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_interface(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_interface(device_name )
 
 	Robot API Call: 
 
@@ -348,7 +348,7 @@ UUID: e0ae15d1-2638-420b-9e85-553cbfd83300
 # API Function: enable_ip_forwarding
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_ip_forwarding(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_ip_forwarding(device_name )
 
 	Robot API Call: 
 
@@ -413,7 +413,7 @@ UUID: 254578ba-4b09-4b11-94ab-54e2e35b6d80
 # API Function: disable_ip_forwarding
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_ip_forwarding(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_ip_forwarding(device_name )
 
 	Robot API Call: 
 
@@ -478,7 +478,7 @@ UUID: 8cdb265e-1431-402f-83d7-7802591dcc4c
 # API Function: enable_ipv6_forwarding
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_ipv6_forwarding(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_ipv6_forwarding(device_name )
 
 	Robot API Call: 
 
@@ -569,7 +569,7 @@ UUID: 55461a7a-832c-43ba-9686-4f3041c2fa68
 # API Function: disable_ipv6_forwarding
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_ipv6_forwarding(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_ipv6_forwarding(device_name )
 
 	Robot API Call: 
 
@@ -660,7 +660,7 @@ UUID: 7f1cb95a-154e-4345-b5cc-696b449f733a
 # API Function: enable_loopback
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_loopback(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_loopback(device_name )
 
 	Robot API Call: 
 
@@ -703,7 +703,7 @@ UUID: 698df2b4-d089-47d8-8bad-16810ca0dfa4
 # API Function: disable_loopback
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_loopback(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_loopback(device_name )
 
 	Robot API Call: 
 
@@ -746,7 +746,7 @@ UUID: 7b5568fb-59c7-4e53-84ee-fdba6d87d981
 # API Function: set_ipv4_primary_addr_prefix
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_primary_addr_prefix(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_primary_addr_prefix(device_name )
 
 	Robot API Call: 
 
@@ -826,7 +826,7 @@ UUID: c1ad8979-6fde-43a8-875a-68d081681141
 # API Function: set_ipv4_primary_addr_prefix_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_primary_addr_prefix_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_primary_addr_prefix_on_port(device_name )
 
 	Robot API Call: 
 
@@ -854,7 +854,7 @@ UUID: 3cd9a3e3-01b4-4f49-9175-01115be2a3fa
 # API Function: set_ipv4_primary_addr_netmask
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_primary_addr_netmask(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_primary_addr_netmask(device_name )
 
 	Robot API Call: 
 
@@ -934,7 +934,7 @@ UUID: 4ab3999b-dd5b-49c8-823c-1662e6d27577
 # API Function: set_ipv4_loopback_addr_prefix
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_loopback_addr_prefix(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_loopback_addr_prefix(device_name )
 
 	Robot API Call: 
 
@@ -1007,7 +1007,7 @@ UUID: 70097850-8529-4f50-aecb-94c8ad335ffe
 # API Function: set_ipv4_loopback_addr_netmask
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_loopback_addr_netmask(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_loopback_addr_netmask(device_name )
 
 	Robot API Call: 
 
@@ -1076,7 +1076,7 @@ UUID: c6b81f78-a585-44d5-a8a6-9133f6040147
 # API Function: set_ipv4_secondary_addr_prefix
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_secondary_addr_prefix(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_secondary_addr_prefix(device_name )
 
 	Robot API Call: 
 
@@ -1119,7 +1119,7 @@ UUID: 69dabb6e-504e-4ffa-b90e-06ce2d0ac9ca
 # API Function: set_ipv4_secondary_addr_prefix_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_secondary_addr_prefix_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_secondary_addr_prefix_on_port(device_name )
 
 	Robot API Call: 
 
@@ -1147,7 +1147,7 @@ UUID: d91bf647-2141-431c-a333-7c18ec068987
 # API Function: set_ipv4_secondary_addr_netmask
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_secondary_addr_netmask(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_secondary_addr_netmask(device_name )
 
 	Robot API Call: 
 
@@ -1190,7 +1190,7 @@ UUID: 7a54c0e5-3317-452d-a7af-450d8a8d72da
 # API Function: set_ipv6_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv6_address(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv6_address(device_name )
 
 	Robot API Call: 
 
@@ -1248,7 +1248,7 @@ UUID: 7b9b6449-4a37-49aa-94c2-684e7c9b16e1
 # API Function: set_ipv6_address_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv6_address_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv6_address_on_port(device_name )
 
 	Robot API Call: 
 
@@ -1276,7 +1276,7 @@ UUID: 492c31d1-b34f-4c4b-9618-410fe6f5cb1b
 # API Function: set_ipv6_link_local_addr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv6_link_local_addr(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv6_link_local_addr(device_name )
 
 	Robot API Call: 
 
@@ -1334,7 +1334,7 @@ UUID: b7dbcb5f-9cc1-427c-a664-57ca4a3ffb9e
 # API Function: set_ipv6_link_local_addr_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv6_link_local_addr_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv6_link_local_addr_on_port(device_name )
 
 	Robot API Call: 
 
@@ -1362,7 +1362,7 @@ UUID: b17f7577-754e-4232-98ed-50d70106777e
 # API Function: set_ipv6_eui64_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv6_eui64_address(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv6_eui64_address(device_name )
 
 	Robot API Call: 
 
@@ -1405,7 +1405,7 @@ UUID: d20198be-8ab6-499b-90bf-ec2fac05ab76
 # API Function: set_ipv6_eui64_address_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv6_eui64_address_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv6_eui64_address_on_port(device_name )
 
 	Robot API Call: 
 
@@ -1433,7 +1433,7 @@ UUID: 1e9e5bd7-4010-40ea-8f29-16d5c4539d0c
 # API Function: set_ipv6_loopback_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv6_loopback_address(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv6_loopback_address(device_name )
 
 	Robot API Call: 
 
@@ -1517,7 +1517,7 @@ UUID: 6b58151f-b851-473e-91e3-f5a93558d704
 # API Function: clear_ipv4_addr_prefix
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_clear_ipv4_addr_prefix(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_clear_ipv4_addr_prefix(device_name )
 
 	Robot API Call: 
 
@@ -1586,7 +1586,7 @@ UUID: b71694e4-08c1-4349-8731-8f4eda47aa4b
 # API Function: clear_ipv4_addr_prefix_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_clear_ipv4_addr_prefix_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_clear_ipv4_addr_prefix_on_port(device_name )
 
 	Robot API Call: 
 
@@ -1614,7 +1614,7 @@ UUID: 846dd3ea-46e2-4f4f-9391-14d796733a43
 # API Function: clear_ipv4_loopback_addr_netmask
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_clear_ipv4_loopback_addr_netmask(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_clear_ipv4_loopback_addr_netmask(device_name )
 
 	Robot API Call: 
 
@@ -1683,7 +1683,7 @@ UUID: 76011191-e5f1-485a-8972-a733c8aac574
 # API Function: clear_ipv6_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_clear_ipv6_address(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_clear_ipv6_address(device_name )
 
 	Robot API Call: 
 
@@ -1741,7 +1741,7 @@ UUID: 2ce752f3-b2f6-41bc-be3b-851216112a9c
 # API Function: clear_ipv6_address_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_clear_ipv6_address_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_clear_ipv6_address_on_port(device_name )
 
 	Robot API Call: 
 
@@ -1769,7 +1769,7 @@ UUID: 7d48aa22-eb31-4dff-b466-994965984199
 # API Function: clear_ipv6_loopback_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_clear_ipv6_loopback_address(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_clear_ipv6_loopback_address(device_name )
 
 	Robot API Call: 
 
@@ -1853,7 +1853,7 @@ UUID: a1eb4078-0a5b-4d5a-af46-fef7e95ffced
 # API Function: set_mac_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_mac_address(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_mac_address(device_name )
 
 	Robot API Call: 
 
@@ -1881,7 +1881,7 @@ UUID: d48f59fd-0ecf-41fd-b29e-5a25a83bec0c
 # API Function: enable_ipv6_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_ipv6_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_ipv6_vlan(device_name )
 
 	Robot API Call: 
 
@@ -1909,7 +1909,7 @@ UUID: 83fdb41e-e564-4965-9745-d916eb6ab086
 # API Function: disable_ipv6_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_ipv6_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_ipv6_vlan(device_name )
 
 	Robot API Call: 
 
@@ -1937,7 +1937,7 @@ UUID: ebb0c2a9-2647-49e0-a822-0f038f36f2d0
 # API Function: enable_ip_forwarding_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_ip_forwarding_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_ip_forwarding_global(device_name )
 
 	Robot API Call: 
 
@@ -1976,7 +1976,7 @@ UUID: 341d0432-4af1-4193-81e2-b4fc78474495
 # API Function: disable_ip_forwarding_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_ip_forwarding_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_ip_forwarding_global(device_name )
 
 	Robot API Call: 
 
@@ -2015,7 +2015,7 @@ UUID: 96cdbab4-c572-4776-9293-49dcb26a8b13
 # API Function: enable_ipv6_forwarding_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_ipv6_forwarding_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_ipv6_forwarding_global(device_name )
 
 	Robot API Call: 
 
@@ -2076,7 +2076,7 @@ UUID: 6d0bf439-55ff-4fef-9fe8-41921db1d612
 # API Function: disable_ipv6_forwarding_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_ipv6_forwarding_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_ipv6_forwarding_global(device_name )
 
 	Robot API Call: 
 
@@ -2137,7 +2137,7 @@ UUID: 4e3ca9b4-acbc-4cde-a93d-95630a943507
 # API Function: enable_vlan_spb_multicast
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_vlan_spb_multicast(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_vlan_spb_multicast(device_name )
 
 	Robot API Call: 
 
@@ -2165,7 +2165,7 @@ UUID: ad88dae7-329a-4f54-990e-02994e9797c2
 # API Function: disable_vlan_spb_multicast
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_vlan_spb_multicast(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_vlan_spb_multicast(device_name )
 
 	Robot API Call: 
 
@@ -2193,7 +2193,7 @@ UUID: f2d7faac-7535-4ac4-9274-be5991750c73
 # API Function: enable_chassis_force_topology_ip_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_enable_chassis_force_topology_ip_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_enable_chassis_force_topology_ip_flag(device_name )
 
 	Robot API Call: 
 
@@ -2232,7 +2232,7 @@ UUID: 548a81df-daa9-44ed-b511-5cc9da7ba746
 # API Function: disable_chassis_force_topology_ip_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_disable_chassis_force_topology_ip_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_disable_chassis_force_topology_ip_flag(device_name )
 
 	Robot API Call: 
 
@@ -2271,7 +2271,7 @@ UUID: c0f16a1b-2b8e-4a47-af20-b2144ca26db5
 # API Function: set_ipv4_brouter_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_set_ipv4_brouter_port(device_name, port, ip, netmask, vlan, mac_offset)
+		self.defaultLibrary.apiLowLevelApis.interface.interface_set_ipv4_brouter_port(device_name, port, ip, netmask, vlan, mac_offset)
 
 	Robot API Call: 
 
@@ -2310,7 +2310,7 @@ UUID: aad1181d-e49c-4288-80d2-3f39043e1aa0
 # API Function: clear_ipv4_brouter_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_clear_ipv4_brouter_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_clear_ipv4_brouter_port(device_name )
 
 	Robot API Call: 
 
@@ -2349,7 +2349,7 @@ UUID: 3c49a65a-5612-4fad-9dc4-c8235763425b
 # API Function: show_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_info(device_name )
 
 	Robot API Call: 
 
@@ -2418,7 +2418,7 @@ UUID: 15cdbea8-ad6f-4fb9-9b52-e77cf8d4cf84
 # API Function: show_info_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_info_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_info_port(device_name )
 
 	Robot API Call: 
 
@@ -2446,7 +2446,7 @@ UUID: 4c9736a8-4f91-4f5c-8b3f-cdae7f88bc1f
 # API Function: show_info_basic
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_info_basic(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_info_basic(device_name )
 
 	Robot API Call: 
 
@@ -2504,7 +2504,7 @@ UUID: 06c7a0d8-5f87-4c5b-9da6-fbc301fb3286
 # API Function: show_info_port_basic
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_info_port_basic(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_info_port_basic(device_name )
 
 	Robot API Call: 
 
@@ -2532,7 +2532,7 @@ UUID: 733a9bb3-1ab7-406a-9d79-07aaaffcea64
 # API Function: show_loopback_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_loopback_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_loopback_info(device_name )
 
 	Robot API Call: 
 
@@ -2616,7 +2616,7 @@ UUID: 236da547-93df-4d0c-85ec-a90a58052239
 # API Function: show_all
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_all(device_name )
 
 	Robot API Call: 
 
@@ -2685,7 +2685,7 @@ UUID: d9b49c07-4e41-4aa8-99b0-591c4b8c5842
 # API Function: show_all_ports
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_all_ports(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_all_ports(device_name )
 
 	Robot API Call: 
 
@@ -2713,7 +2713,7 @@ UUID: 2c5f8b8b-936a-4684-b5ed-86d88866d042
 # API Function: show_ipv6_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_ipv6_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_ipv6_info(device_name )
 
 	Robot API Call: 
 
@@ -2771,7 +2771,7 @@ UUID: 3fd0af31-77fc-4b10-a61d-994c08e33347
 # API Function: show_ipv6_port_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_ipv6_port_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_ipv6_port_info(device_name )
 
 	Robot API Call: 
 
@@ -2799,7 +2799,7 @@ UUID: 505276c0-f2b1-423d-a14a-582183dd3930
 # API Function: show_loopback
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_loopback(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_loopback(device_name )
 
 	Robot API Call: 
 
@@ -2842,7 +2842,7 @@ UUID: b9307bf3-9ca0-47c7-9eab-7262ac8b9500
 # API Function: show_brouter_port_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_brouter_port_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_brouter_port_vlan(device_name )
 
 	Robot API Call: 
 
@@ -2881,7 +2881,7 @@ UUID: 05830d6c-7ed5-408e-a134-fc9c73806a84
 # API Function: show_brouter_port_ipv4
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_brouter_port_ipv4(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_brouter_port_ipv4(device_name )
 
 	Robot API Call: 
 
@@ -2920,7 +2920,7 @@ UUID: 715182e6-dc59-49b0-818c-c66452ea44ca
 # API Function: show_chassis_force_topology_ip_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_chassis_force_topology_ip_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_chassis_force_topology_ip_flag(device_name )
 
 	Robot API Call: 
 
@@ -2959,7 +2959,7 @@ UUID: f74a7839-db65-4830-ab01-a5b09061e90d
 # API Function: show_ipv6_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_ipv6_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_ipv6_vlan(device_name )
 
 	Robot API Call: 
 
@@ -2987,7 +2987,7 @@ UUID: f6b298c6-b4d2-4208-a6d9-312f982a9bfc
 # API Function: show_vlan_vrf
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_vlan_vrf(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_vlan_vrf(device_name )
 
 	Robot API Call: 
 
@@ -3015,7 +3015,7 @@ UUID: 972489ae-f177-4716-8e4b-1a225c12bd35
 # API Function: show_vlan_vrf_spb
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_vlan_vrf_spb(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_vlan_vrf_spb(device_name )
 
 	Robot API Call: 
 
@@ -3043,7 +3043,7 @@ UUID: 7372931f-f04c-4554-8799-5e9b47e27058
 # API Function: show_vlan_spb
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementInterfaceGenKeywords.interface_show_vlan_spb(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_show_vlan_spb(device_name )
 
 	Robot API Call: 
 

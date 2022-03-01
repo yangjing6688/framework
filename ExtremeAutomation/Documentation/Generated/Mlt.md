@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Mlt
-This feature is located in this file: `mlt.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `mlt.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: create_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_create_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_create_id(device_name )
 
 	Robot API Call: 
 
@@ -43,7 +43,7 @@ UUID: 61c7cf26-44c8-47eb-b0b1-344baf998f46
 # API Function: delete_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_delete_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_delete_id(device_name )
 
 	Robot API Call: 
 
@@ -82,7 +82,7 @@ UUID: 10cf289a-a38f-40ab-985a-e1edab663ebd
 # API Function: enable_flex_uni
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_enable_flex_uni(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_enable_flex_uni(device_name )
 
 	Robot API Call: 
 
@@ -121,7 +121,7 @@ UUID: 97c17a90-02d4-4b74-af4e-80bc48f5fa95
 # API Function: disable_flex_uni
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_disable_flex_uni(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_disable_flex_uni(device_name )
 
 	Robot API Call: 
 
@@ -160,7 +160,7 @@ UUID: a9841ef0-3767-404f-84b5-a4125aa299a2
 # API Function: enable_lacp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_enable_lacp(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_enable_lacp(device_name )
 
 	Robot API Call: 
 
@@ -199,7 +199,7 @@ UUID: 1e1368d4-55d7-4507-a051-2b8a7752f43b
 # API Function: disable_lacp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_disable_lacp(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_disable_lacp(device_name )
 
 	Robot API Call: 
 
@@ -238,7 +238,7 @@ UUID: 68d147b8-0e4e-4ca6-9fb1-51cc995252ef
 # API Function: set_port_member
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_set_port_member(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_set_port_member(device_name )
 
 	Robot API Call: 
 
@@ -277,7 +277,7 @@ UUID: 5932c3c8-ee1e-497e-84a9-0d359a20fb79
 # API Function: clear_port_member
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_clear_port_member(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_clear_port_member(device_name )
 
 	Robot API Call: 
 
@@ -316,7 +316,7 @@ UUID: 7e1bb41b-e957-4855-b711-a7165922d877
 # API Function: set_type_split_mlt
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_set_type_split_mlt(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_set_type_split_mlt(device_name )
 
 	Robot API Call: 
 
@@ -355,7 +355,7 @@ UUID: 1b4685fe-bb79-40d1-9e07-52a4309e564c
 # API Function: set_type_normal_mlt
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_set_type_normal_mlt(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_set_type_normal_mlt(device_name )
 
 	Robot API Call: 
 
@@ -394,7 +394,7 @@ UUID: 42dad7ab-c2b1-47eb-968a-4770a759368e
 # API Function: set_encapsulation_dot1q
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_set_encapsulation_dot1q(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_set_encapsulation_dot1q(device_name )
 
 	Robot API Call: 
 
@@ -433,7 +433,7 @@ UUID: 4ce20ab9-ec4a-4726-8051-5afdb7c4d86c
 # API Function: clear_encapsulation_dot1q
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_clear_encapsulation_dot1q(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_clear_encapsulation_dot1q(device_name )
 
 	Robot API Call: 
 
@@ -472,7 +472,7 @@ UUID: 29d08a66-c90a-4bbb-8e85-0393f2e372d9
 # API Function: show_logical_index
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_logical_index(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_logical_index(device_name )
 
 	Robot API Call: 
 
@@ -511,7 +511,7 @@ UUID: f9e61724-4bd5-41ba-8b2d-55c509385e19
 # API Function: show_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_id(device_name )
 
 	Robot API Call: 
 
@@ -550,7 +550,7 @@ UUID: 807b2755-0104-46a2-870b-4da5acd5c071
 # API Function: show_admin_type
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_admin_type(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_admin_type(device_name )
 
 	Robot API Call: 
 
@@ -589,7 +589,7 @@ UUID: bb540ad3-2e42-42af-8aeb-3ec6dd029160
 # API Function: show_running_type
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_running_type(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_running_type(device_name )
 
 	Robot API Call: 
 
@@ -628,7 +628,7 @@ UUID: 5e58916a-129a-4991-b96c-740c57282f27
 # API Function: show_flex_uni_status
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_flex_uni_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_flex_uni_status(device_name )
 
 	Robot API Call: 
 
@@ -667,7 +667,7 @@ UUID: 2ea5876e-eb29-440c-94ff-a0987f93c6b1
 # API Function: show_lacp_admin_status
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_lacp_admin_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_lacp_admin_status(device_name )
 
 	Robot API Call: 
 
@@ -706,7 +706,7 @@ UUID: ace34c52-0b00-4837-813a-6d628aad74ec
 # API Function: show_lacp_oper_status
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_lacp_oper_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_lacp_oper_status(device_name )
 
 	Robot API Call: 
 
@@ -745,7 +745,7 @@ UUID: b88d9f44-5711-4553-a26c-42a96642a18a
 # API Function: show_ports
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_ports(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_ports(device_name )
 
 	Robot API Call: 
 
@@ -784,7 +784,7 @@ UUID: d7f2ad07-8835-4d66-8a93-2d9ea6eaeb31
 # API Function: show_encapsulation
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_encapsulation(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_show_encapsulation(device_name )
 
 	Robot API Call: 
 

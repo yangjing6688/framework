@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Syslog
-This feature is located in this file: `syslog.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `syslog.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: show_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSyslogGenKeywords.syslog_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.syslog.syslog_show_info(device_name )
 
 	Robot API Call: 
 
@@ -32,7 +32,7 @@ UUID: c7bf4eb2-f6c7-4a44-9ce3-481f7dee8a91
 # API Function: show_target_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSyslogGenKeywords.syslog_show_target_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.syslog.syslog_show_target_info(device_name )
 
 	Robot API Call: 
 

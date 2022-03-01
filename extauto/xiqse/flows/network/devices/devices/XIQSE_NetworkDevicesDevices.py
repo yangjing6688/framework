@@ -2265,3 +2265,75 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             return 1
 
         return ret_val
+
+    def xiqse_get_trap_status(self, device_ip):
+        """
+        - This keyword is used to get the trap status for the specified device in the devices table.
+        - It is assumed the Network> Devices> Devices tab is already selected.
+        - Keyword Usage:
+         - ``XIQSE Get Trap Status    ${DEVICE_IP}``
+
+        :param device_ip: device IP to look for
+        :param trap_status: expected value of the trap status
+        :return: trap status for the specified device;  empty string ("") if trap status cannot be determined
+        """
+        ret_val = ""
+
+        device_row = self.xiqse_get_device_row(device_ip)
+        if device_row:
+            the_col = self.get_device_column_by_name("Trap Status")
+            col_id = self.view_el.get_column_id(the_col)
+            self.utils.print_debug(f"Column ID: {col_id}")
+            if col_id != -1:
+                col_val = self.get_device_column_value(col_id, device_row)
+                if col_val:
+                    status_value = col_val.text
+                    self.utils.print_info(f"Returning Trap Status {status_value} for device {device_ip}")
+                    ret_val = status_value
+                else:
+                    self.utils.print_info(f"Unable to determine trap status for device {device_ip}")
+            else:
+                self.utils.print_info("Unable to find column ID for Trap Status column")
+        else:
+            self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
+
+        self.utils.print_info(f"Returning trap status {ret_val} for device {device_ip}")
+        self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_get_syslog_status(self, device_ip):
+        """
+        - This keyword is used to get the syslog status for the specified device in the devices table.
+        - It is assumed the Network> Devices> Devices tab is already selected.
+        - Keyword Usage:
+         - ``XIQSE Get Syslog Status    ${DEVICE_IP}``
+
+        :param device_ip: device IP to look for
+        :param syslog_status: expected value of the trap status
+        :return: syslog status for the specified device;  empty string ("") if syslog status cannot be determined
+        """
+        ret_val = ""
+
+        device_row = self.xiqse_get_device_row(device_ip)
+        if device_row:
+            the_col = self.get_device_column_by_name("Syslog Status")
+            col_id = self.view_el.get_column_id(the_col)
+            self.utils.print_debug(f"Column ID: {col_id}")
+            if col_id != -1:
+                col_val = self.get_device_column_value(col_id, device_row)
+                if col_val:
+                    status_value = col_val.text
+                    self.utils.print_info(f"Returning Syslog Status {status_value} for device {device_ip}")
+                    ret_val = status_value
+                else:
+                    self.utils.print_info(f"Unable to determine syslog status for device {device_ip}")
+            else:
+                self.utils.print_info("Unable to find column ID for Syslog Status column")
+        else:
+            self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
+
+        self.utils.print_info(f"Returning syslog status {ret_val} for device {device_ip}")
+        self.screen.save_screen_shot()
+
+        return ret_val
