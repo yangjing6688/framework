@@ -2346,7 +2346,6 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
          - ``XIQSE Get Device License    ${DEVICE_IP}``
 
         :param device_ip: device IP to look for
-        :param device_license: expected value of the device license
         :return: device license for the specified device;  empty string ("") if device license cannot be determined
         """
         ret_val = ""
@@ -2376,7 +2375,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_wait_until_device_stats_historical(self, device_ip, retry_duration=30, retry_count=10):
         """
-        - This keyword is used to wait for the device to show  it is collecting historical statistics.
+        - This keyword is used to wait for the device to show it is collecting historical statistics.
         - This keyword by default loops 10 times every 30 seconds to check if the device is collecting historical statistics.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
