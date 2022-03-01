@@ -59,7 +59,7 @@ class Switch(SwitchWebElements):
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), switch_serial)
         sleep(5)
 
-        if "VOSS" in device_os or "VOSS" in switch_make:
+        if "VOSS" in device_os or "VOSS" in switch_make or "voss" in device_os or "voss" in switch_make:
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
 
             try:
