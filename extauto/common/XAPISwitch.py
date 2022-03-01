@@ -31,14 +31,14 @@ class XAPISwitch:
 
         if device_type == 'VOSS':
             if device_model == '5520':
-                searchStr = "VSP_5520"
+                searchStr = "FabricEngine_5520"
             else:
-                searchStr = "VSP_5420"
+                searchStr = "FabricEngine_5420"
         else:
             if device_model == '5520':
-                searchStr = "EXOS_5520"
+                searchStr = "SwitchEngine_5520"
             else:
-                searchStr = "EXOS_5420"
+                searchStr = "SwitchEngine_5420"
 
         for device in deviceList:
             if device_type == 'STACK':
