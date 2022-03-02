@@ -46,12 +46,16 @@ class RobotTestData(ModelVisitor):
     def visit_TestCase(self, node):
         self.tests.update({node.name: {'tags': []}})
         for statement in node.body:
-            # to get tags at test case level
-               if statement.type == "TAGS":
+            # Get tags at test case level.
+            try:
+                if statement.type == "TAGS":
                     self.tests[node.name]['tags'] = list(statement.values)
                     for tag in statement.values:
                         self.addTag(tag)
-                    print(statement.values)
+                    break # We found our tags. Time to bail
+            except AttributeError:
+                # Hit an object without a "type" attribute. Skip to the next object
+                continue
 
     def print_suite(self):
         goodCaseName = re.compile(r"(test_[0-9a-zA-Z\[\]\-_\.]+)")
@@ -71,7 +75,7 @@ class RobotTestData(ModelVisitor):
             # Set results
             resn = goodCaseName.search(test_name)
             nameOK = True if resn else False
-            dev_exists = True if 'development' in self.tags[self.suite_file] else False
+            dev_exists = True if 'development' in self.tests[test_name]['tags'] else False
 
             qTestOK = False
             uppercase_check = True    # True = all tags lowercase, False = atleast one tag with uppercase letters
