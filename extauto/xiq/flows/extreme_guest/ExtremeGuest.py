@@ -339,3 +339,39 @@ class ExtremeGuest(object):
             output = self.cli.send(_spawn, "save config")
             self.cli.close_spawn(_spawn)
             return output
+
+    def go_to_analyze_page(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Configure Menu Window
+        - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure
+        - Keyword Usage:
+            ''Go To Analyze Page''
+        :return: 1 if success
+        """
+        self.go_to_extreme_guest_page()
+        self.utils.print_info("Clicking on Extreme Guest Analyze Page")
+        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_analyze_page())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        return 1
+
+    def go_to_analyze_manage_reports_page(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Analyze Reports Page
+        - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Users
+        - Keyword Usage:
+            ''Go To Analyze Manage Reports Page''
+        :return: 1 if success
+        """
+        self.go_to_analyze_page()
+        self.utils.print_info("Clicking on Extreme Guest Analyze Reports Page")
+        self.auto_actions.click(self)
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        return 1
