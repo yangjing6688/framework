@@ -856,3 +856,9 @@ class CopilotDefs:
                      'mat-raised-button mat-button-base mat-primary"]',
             'wait_for': 5
         }
+
+    adverse_traffic_patterns_widget_content = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-high-mbcast-summary-description',
+            'wait_for': 5,
+         }

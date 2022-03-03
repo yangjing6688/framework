@@ -2425,3 +2425,48 @@ class Copilot(CopilotWebElements):
         # if code made it here then location was not found
         self.utils.print_info(f"Unable to location : {location_name} " f"in Adverse Traffic Patterns Widget")
         return -1
+
+    def get_adverse_traffic_patterns_widget_summary(self):
+        """
+        - Gets adverse traffic patterns widget summary in copilot Page
+        - Flow : Copilot page --> adverse traffic patterns
+        - Keyword Usage
+         - ``${SUMMARY}  ${BUILDINGS}   ${AP}= Get Adverse Traffic Patterns Widget Summary``
+        :return: returns Buildings and APs count if success else returns -1 or -2
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(self.driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.print_info("Getting Adverse Traffic Patterns Widget Summary")
+        sleep(15)
+
+        self.utils.switch_to_iframe(self.driver)
+        sleep(5)
+
+        adverse_traffic_patterns_summary = -1
+        buildings = -1
+        aps = -1
+
+        try:
+            adverse_traffic_patterns_summary = self.get_adverse_traffic_patterns_widget_content().text
+            self.utils.print_info("Adverse Traffic Patterns widget Summary : ", adverse_traffic_patterns_summary)
+            if re.search(r'(\d+) places in your environment, affecting (\d+) devices.',
+                         adverse_traffic_patterns_summary):
+                summary = re.search(r'(\d+) places in your environment, affecting (\d+) devices',
+                                    adverse_traffic_patterns_summary)
+                buildings = summary.group(1)
+                aps = summary.group(2)
+                self.utils.print_info("Total Buildings : ", buildings)
+                self.utils.print_info("Total APs : ", aps)
+                self.utils.switch_to_default(self.driver)
+                return adverse_traffic_patterns_summary, buildings, aps
+            else:
+                self.utils.print_info("No anomalies detected for Adverse Traffic Patterns widget Summary")
+                self.utils.switch_to_default(self.driver)
+                return adverse_traffic_patterns_summary, buildings, aps
+        except Exception as e:
+            self.utils.print_info("Unable to get Adverse Traffic Patterns widget Summary")
+            self.utils.print_info(e)
+            self.utils.switch_to_default(self.driver)
+            return adverse_traffic_patterns_summary, buildings, aps
