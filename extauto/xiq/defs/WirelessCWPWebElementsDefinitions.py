@@ -392,7 +392,7 @@ class WirelessCWPWebElementsDefinitions:
 
     web_file_directory_drop_down = \
         {
-            'XPATH': '//div[@class="field-ctn web-file-dir"]//div[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//div[@class="field-ctn web-file-dir"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 5,
         }
 
