@@ -1391,6 +1391,10 @@ class FilterManageDevices():
     def verify_applied_filter_list(self, expected_count=0, is_more_btn=False, negative=False):
         self.utils.print_info("Verify the applied filter list ")
 
+        if not self.filter_element.get_device_type_filter_link().is_displayed():
+            self.utils.print_info("Expand the filter toggle ")
+            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            
         if is_more_btn:
            try:
                 self.utils.print_info("Click the more link ")
@@ -1410,6 +1414,10 @@ class FilterManageDevices():
 
     def verify_applied_name_filter(self, *filters, is_more_btn=False, negative=False):
         self.utils.print_info("verify name applied filter " + str(negative))
+
+        if not self.filter_element.get_device_type_filter_link().is_displayed():
+            self.utils.print_info("Expand the filter toggle ")
+            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
 
         sleep(5)
         if is_more_btn:
