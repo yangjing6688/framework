@@ -1,0 +1,45 @@
+name: Update Test Infomation in S3 for the UI
+# Ensures only one instance of this workflow is running at a time
+# This stops accidental multiple runs when manually starting a workflow
+on:
+  create:
+  delete:
+
+env:
+  WORK_DIR: workflow_output
+
+jobs:
+  update_ref_lists:
+    name: Update List of Branches/Tags
+    runs-on: ubuntu-latest
+    # Limit to one of these jobs at a time
+    concurrency: s3_sync_ref_lists
+    if: ${{ github.event_name == 'create' || github.event_name == 'delete' }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        ref: main
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Gather repository info
+      run: |
+        # Make clean directory that we can use to sync with S3
+        mkdir ${WORK_DIR}
+
+        # Get names of all remote branches and put in json array
+        git branch -r | sed -e "s/  origin\///" | sed -e "s/HEAD -> origin\/main//" | jq -ncR '[ inputs | select(length > 0) ]' > ${WORK_DIR}/framework_branches.json
+
+        # Get tags and put in json array
+        git tag | jq -ncR '[inputs]' > ${WORK_DIR}/framework_tags.json
+
+    - name: Upload Metadata
+      run: aws s3 sync ${WORK_DIR} s3://econgit/extreme_automation_tests
