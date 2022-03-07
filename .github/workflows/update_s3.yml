@@ -1,6 +1,4 @@
 name: Update Test Infomation in S3 for the UI
-# Ensures only one instance of this workflow is running at a time
-# This stops accidental multiple runs when manually starting a workflow
 on:
   create:
   delete:
