@@ -583,6 +583,7 @@ class FilterManageDevices():
             return -1, "Require at least one onboared device connecting 1 wirless network"
         ssids = list(dict.fromkeys(ssids))
 
+        count = 1
         for ssid in ssids:
             ssid_element = self.client_element.get_client_ssid_filter_checkbox(str(ssid))
             self._select_filter_by(ssid_element, filter_name='ssid')
@@ -592,6 +593,7 @@ class FilterManageDevices():
                 if str(actual_ssid) != str(ssid): return -1, "The SSID does not match " + str(actual_ssid) + ' ' + str(
                     ssid)
             self._select_filter_by(ssid_element, filter_name='ssid', reset=True)
+            if count == 1: break
 
         self._expand_and_collapse_filters(self.client_element.get_client_ssid_filter_link(), 'client', collapse=True)
 
