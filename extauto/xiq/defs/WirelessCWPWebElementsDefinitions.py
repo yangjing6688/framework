@@ -428,7 +428,7 @@ class WirelessCWPWebElementsDefinitions:
 
     customise_login_page_drop_down = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="loginPageCtn"]//div[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//div[@data-dojo-attach-point="loginPageCtn"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 5,
         }
 
@@ -440,7 +440,7 @@ class WirelessCWPWebElementsDefinitions:
 
     customise_success_page_drop_down = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="successPageCtn"]//div[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//div[@data-dojo-attach-point="successPageCtn"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 5
         }
 
