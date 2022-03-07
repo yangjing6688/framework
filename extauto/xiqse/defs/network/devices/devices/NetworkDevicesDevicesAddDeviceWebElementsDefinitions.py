@@ -30,6 +30,13 @@ class NetworkDevicesDevicesAddDeviceWebElementsDefinitions:
             'wait_for': 10
         }
 
+    run_site_add_actions_checkbox = \
+        {
+            'DESC': 'Run Site Add Actions checkbox in the Add Device dialog',
+            'XPATH': '//input[@name="runAddActions"]',
+            'wait_for': 10
+        }
+
     ok_button = \
         {
             'DESC': 'OK button in the Add Device dialog',

@@ -2043,6 +2043,27 @@ class Navigator(NavigatorWebElements):
         sleep(2)
         return 1
 
+    def navigate_to_configure_private_client_group(self):
+        """
+        - This keyword Navigates to Private Client Group On Configure Menu
+        - Flow: Configure --> Users --> User Management --> Private Client Groups
+        - Keyword Usage
+         - ``navigate_to_configure_private_client_group``
+
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_configure_tab()
+        self.navigate_to_configure_user_sub_tab()
+        sleep(5)
+
+        if self.get_configure_users_user_management_side_menu():
+            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            sleep(5)
+
+        self.utils.print_info("Click on private client group menu")
+        self.auto_actions.click(self.get_nav_configure_users_management_private_client_group())
+        sleep(2)
+
     def navigate_to_common_objects_management_options(self):
         """
         - This Keyword Navigate to Management Options on Common Objects
