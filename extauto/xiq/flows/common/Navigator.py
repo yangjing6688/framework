@@ -1614,17 +1614,13 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Manage Tab...")
         try:
+            sleep(5)
             manage_element = self.weh.get_element(self.manage_nav)
-            sleep(2)
-            if manage_element.is_displayed():
-                self.auto_actions.click(manage_element)
-            else:
-                return -2
-
+            self.auto_actions.click(manage_element)
             self.utils.print_info("Clicking on Application Tab..")
-            application_element = self.weh.get_element(self.get_manage_applications_menu_item)
-            self.auto_actions.click(application_element)
-            sleep(2)
+            sleep(5)
+            # application_element = self.weh.get_element(self.get_manage_applications_menu_item)
+            self.auto_actions.click(self.get_manage_applications_menu_item())
             return 1
         except Exception as e:
             self.utils.print_info("Unable to Navigate to  Manage--> Application")
