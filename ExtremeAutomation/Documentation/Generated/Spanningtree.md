@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Spanningtree
-This feature is located in this file: `spanningtree.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `spanningtree.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: enable_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_global(device_name )
 
 	Robot API Call: 
 
@@ -62,7 +62,7 @@ UUID: 3b6f55e6-7a02-4ec3-8e6b-4791fe167449
 # API Function: disable_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_global(device_name )
 
 	Robot API Call: 
 
@@ -120,7 +120,7 @@ UUID: bcdfcb77-c269-4562-a0ec-597bbac5214c
 # API Function: enable_mstp_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_mstp_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_mstp_global(device_name )
 
 	Robot API Call: 
 
@@ -148,7 +148,7 @@ UUID: 42f1f766-feb0-45c6-b64d-cebe1d91dcff
 # API Function: disable_mstp_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_mstp_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_mstp_global(device_name )
 
 	Robot API Call: 
 
@@ -176,7 +176,7 @@ UUID: b7afd649-658a-4a5c-81d8-235684d33470
 # API Function: enable_rstp_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_rstp_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_rstp_global(device_name )
 
 	Robot API Call: 
 
@@ -204,7 +204,7 @@ UUID: 76376f63-5b96-4e54-8c9b-1d06241f78fe
 # API Function: disable_rstp_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_rstp_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_rstp_global(device_name )
 
 	Robot API Call: 
 
@@ -232,7 +232,7 @@ UUID: 7f13a4ce-84cd-414d-9f92-892cb2705088
 # API Function: create_mst_instance
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_create_mst_instance(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_create_mst_instance(device_name )
 
 	Robot API Call: 
 
@@ -275,7 +275,7 @@ UUID: 60227c17-8db3-4021-a178-49179d250d27
 # API Function: delete_mst_instance
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_delete_mst_instance(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_delete_mst_instance(device_name )
 
 	Robot API Call: 
 
@@ -318,7 +318,7 @@ UUID: f899a4c0-e5a6-488b-8735-4634c023f36f
 # API Function: enable_port_admin
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_port_admin(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_port_admin(device_name )
 
 	Robot API Call: 
 
@@ -376,7 +376,7 @@ UUID: fb42dbbb-4759-410a-9810-bca7e9bd89ad
 # API Function: disable_port_admin
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_port_admin(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_port_admin(device_name )
 
 	Robot API Call: 
 
@@ -434,7 +434,7 @@ UUID: 4da238d6-8dda-4685-803c-44926e305ea6
 # API Function: enable_auto_edge
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_auto_edge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_auto_edge(device_name )
 
 	Robot API Call: 
 
@@ -492,7 +492,7 @@ UUID: c7c9f88e-ef19-491f-a9fe-ca577375b7f4
 # API Function: disable_auto_edge
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_auto_edge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_auto_edge(device_name )
 
 	Robot API Call: 
 
@@ -550,7 +550,7 @@ UUID: 096ef5df-1a36-4387-8082-7d441782c70b
 # API Function: set_stp_mode
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_stp_mode(device_name, mode, sid, msti)
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_stp_mode(device_name, mode, sid, msti)
 
 	Robot API Call: 
 
@@ -608,7 +608,7 @@ UUID: 92b4464f-52bb-4af1-898b-d56fd39c4191
 # API Function: clear_stp_mode
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_clear_stp_mode(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_clear_stp_mode(device_name )
 
 	Robot API Call: 
 
@@ -666,7 +666,7 @@ UUID: 2f7f1071-e451-4727-8844-66e25ea247a5
 # API Function: set_restricted_role
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_restricted_role(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_restricted_role(device_name )
 
 	Robot API Call: 
 
@@ -724,7 +724,7 @@ UUID: cae234b7-a797-43f4-8530-553aaa45d037
 # API Function: set_restricted_tcn
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_restricted_tcn(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_restricted_tcn(device_name )
 
 	Robot API Call: 
 
@@ -782,7 +782,7 @@ UUID: ececba25-0636-48d9-a542-eaa1c1721291
 # API Function: set_priority
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_priority(device_name, priority, port, sid)
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_priority(device_name, priority, port, sid)
 
 	Robot API Call: 
 
@@ -855,7 +855,7 @@ UUID: deda1330-9d1e-4073-9f84-c83b776f751a
 # API Function: set_priority_mode
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_priority_mode(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_priority_mode(device_name )
 
 	Robot API Call: 
 
@@ -898,7 +898,7 @@ UUID: 7fd87379-ff3a-4ec0-bae3-644aa2afbd0f
 # API Function: set_tc_trap
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_tc_trap(device_name, state, sid)
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_tc_trap(device_name, state, sid)
 
 	Robot API Call: 
 
@@ -941,7 +941,7 @@ UUID: e86d6ff5-508c-4873-a93c-b41392c95c61
 # API Function: clear_tc_trap
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_clear_tc_trap(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_clear_tc_trap(device_name )
 
 	Robot API Call: 
 
@@ -984,7 +984,7 @@ UUID: 443f3f6c-eac4-4155-8a1f-5be96078a32d
 # API Function: set_msti_vlan_mapping
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_msti_vlan_mapping(device_name, vlan, sid)
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_msti_vlan_mapping(device_name, vlan, sid)
 
 	Robot API Call: 
 
@@ -1042,7 +1042,7 @@ UUID: 6017e09a-4a1a-40c1-9ddf-d115e9493d53
 # API Function: clear_msti_vlan_mapping
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_clear_msti_vlan_mapping(device_name, vlan, sid)
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_clear_msti_vlan_mapping(device_name, vlan, sid)
 
 	Robot API Call: 
 
@@ -1100,7 +1100,7 @@ UUID: 4866041a-6d89-40db-b595-48c9c2590edb
 # API Function: set_mst_region_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_mst_region_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_mst_region_name(device_name )
 
 	Robot API Call: 
 
@@ -1173,7 +1173,7 @@ UUID: b5a10760-b5ab-47c4-a493-431a4a594df0
 # API Function: set_mst_revision_level
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_mst_revision_level(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_mst_revision_level(device_name )
 
 	Robot API Call: 
 
@@ -1246,7 +1246,7 @@ UUID: 625db2cb-e475-4068-bfba-1f10033d7312
 # API Function: set_hello_time
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_hello_time(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_hello_time(device_name )
 
 	Robot API Call: 
 
@@ -1304,7 +1304,7 @@ UUID: 7238ca1e-0519-418e-8768-7c2fbcd5ccb1
 # API Function: set_fwd_delay
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_fwd_delay(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_fwd_delay(device_name )
 
 	Robot API Call: 
 
@@ -1362,7 +1362,7 @@ UUID: 07dc6524-f57c-40df-a452-3b035f6a3a35
 # API Function: set_max_age
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_max_age(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_max_age(device_name )
 
 	Robot API Call: 
 
@@ -1420,7 +1420,7 @@ UUID: c8504eba-6791-4455-8d32-43e80b6a518d
 # API Function: enable_mst_instance
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_mst_instance(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_mst_instance(device_name )
 
 	Robot API Call: 
 
@@ -1463,7 +1463,7 @@ UUID: e39955cf-086f-4833-b817-99f2460a48d2
 # API Function: disable_mst_instance
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_mst_instance(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_mst_instance(device_name )
 
 	Robot API Call: 
 
@@ -1506,7 +1506,7 @@ UUID: 85d46362-9f42-4ec1-872b-578ca0a7e904
 # API Function: enable_vlan_autobind
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_vlan_autobind(device_name, vlan, sid)
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_vlan_autobind(device_name, vlan, sid)
 
 	Robot API Call: 
 
@@ -1534,7 +1534,7 @@ UUID: 9e2a9a6e-dba2-4d5b-bff9-a37727cb3e5a
 # API Function: disable_vlan_autobind
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_vlan_autobind(device_name, vlan, sid)
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_vlan_autobind(device_name, vlan, sid)
 
 	Robot API Call: 
 
@@ -1562,7 +1562,7 @@ UUID: 72fe19c2-c1b0-43b4-b59f-866468f5a089
 # API Function: set_mst_instance_tag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_mst_instance_tag(device_name, tag, sid)
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_mst_instance_tag(device_name, tag, sid)
 
 	Robot API Call: 
 
@@ -1605,7 +1605,7 @@ UUID: ca2243c4-4118-4c63-92c3-c2dc906603ff
 # API Function: set_port_link_type_point_to_point
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_port_link_type_point_to_point(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_port_link_type_point_to_point(device_name )
 
 	Robot API Call: 
 
@@ -1663,7 +1663,7 @@ UUID: 11ab7305-fd4a-48f0-ad0c-510934db0493
 # API Function: set_port_link_type_edge
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_port_link_type_edge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_port_link_type_edge(device_name )
 
 	Robot API Call: 
 
@@ -1721,7 +1721,7 @@ UUID: 88bc889e-d8f7-4723-8476-203e246d7669
 # API Function: set_instance_msti
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_instance_msti(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_instance_msti(device_name )
 
 	Robot API Call: 
 
@@ -1749,7 +1749,7 @@ UUID: eec6a957-d755-471b-803b-b4138bd7d448
 # API Function: set_instance_cist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_instance_cist(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_instance_cist(device_name )
 
 	Robot API Call: 
 
@@ -1777,7 +1777,7 @@ UUID: b3d6fbf3-b06c-4d4b-90f6-bd841e74d451
 # API Function: create_mst_vlan_instance
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_create_mst_vlan_instance(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_create_mst_vlan_instance(device_name )
 
 	Robot API Call: 
 
@@ -1805,7 +1805,7 @@ UUID: 41a178a7-fd2f-4842-963f-c19a351727c3
 # API Function: delete_mst_vlan_instance
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_delete_mst_vlan_instance(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_delete_mst_vlan_instance(device_name )
 
 	Robot API Call: 
 
@@ -1833,7 +1833,7 @@ UUID: 934d9114-29cc-4f39-af75-33d5d1c5dc6f
 # API Function: enable_mstp_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_mstp_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_mstp_on_port(device_name )
 
 	Robot API Call: 
 
@@ -1872,7 +1872,7 @@ UUID: 297a76aa-f908-41a3-ab44-d12772fe91c6
 # API Function: disable_mstp_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_mstp_on_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_mstp_on_port(device_name )
 
 	Robot API Call: 
 
@@ -1911,7 +1911,7 @@ UUID: 19af32a6-2617-4a02-9f03-4fe8064bf8b5
 # API Function: enable_bpduguard
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_enable_bpduguard(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_enable_bpduguard(device_name )
 
 	Robot API Call: 
 
@@ -1954,7 +1954,7 @@ UUID: 21bc4f3f-57ec-488a-b6a4-d00266a74697
 # API Function: disable_bpduguard
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_disable_bpduguard(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_disable_bpduguard(device_name )
 
 	Robot API Call: 
 
@@ -1997,7 +1997,7 @@ UUID: cc77f789-2c8d-4286-8fd5-7070f8c761fd
 # API Function: set_boot_flag_rstp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_boot_flag_rstp(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_boot_flag_rstp(device_name )
 
 	Robot API Call: 
 
@@ -2025,7 +2025,7 @@ UUID: 6fb3cfae-7b6c-4d5b-86e0-b6c4363cdba0
 # API Function: set_boot_flag_mstp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_boot_flag_mstp(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_boot_flag_mstp(device_name )
 
 	Robot API Call: 
 
@@ -2053,7 +2053,7 @@ UUID: 57c6dfb5-9d58-43be-8e43-fb92d6903488
 # API Function: set_bpduguard_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_set_bpduguard_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_set_bpduguard_timeout(device_name )
 
 	Robot API Call: 
 
@@ -2081,7 +2081,7 @@ UUID: eb8e550b-5d1a-4534-bab6-ce3b68d857b3
 # API Function: clear_bpduguard_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_clear_bpduguard_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_clear_bpduguard_timeout(device_name )
 
 	Robot API Call: 
 
@@ -2109,7 +2109,7 @@ UUID: 4a4c61e4-ace5-43fd-ab08-88c0ea57092a
 # API Function: show_info_detail
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_info_detail(device_name )
 
 	Robot API Call: 
 
@@ -2182,7 +2182,7 @@ UUID: c1bd6514-2f30-4b28-af6b-795c8bcdf237
 # API Function: show_info_summary
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_info_summary(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_info_summary(device_name )
 
 	Robot API Call: 
 
@@ -2255,7 +2255,7 @@ UUID: 636c4458-6a76-413b-b9d1-a08a2de9ed2a
 # API Function: show_instance_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_instance_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_instance_info(device_name )
 
 	Robot API Call: 
 
@@ -2298,7 +2298,7 @@ UUID: e5c3591a-7330-4a93-8805-a16067e5057c
 # API Function: show_instance_info_detail
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_instance_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_instance_info_detail(device_name )
 
 	Robot API Call: 
 
@@ -2341,7 +2341,7 @@ UUID: 70c662b8-4659-4805-b66e-6c755bde121b
 # API Function: show_port_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_port_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_info(device_name )
 
 	Robot API Call: 
 
@@ -2399,7 +2399,7 @@ UUID: d84bd022-69d9-4eee-b18f-3b23b8a5d0a2
 # API Function: show_port_info_detail
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_port_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_info_detail(device_name )
 
 	Robot API Call: 
 
@@ -2457,7 +2457,7 @@ UUID: bc473c5d-6e99-42b2-bf7d-c83b0d04e9f0
 # API Function: show_version
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_version(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_version(device_name )
 
 	Robot API Call: 
 
@@ -2515,7 +2515,7 @@ UUID: 538adba9-e73c-4fe7-994e-750762b8c5ee
 # API Function: show_port_admin
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_port_admin(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_admin(device_name )
 
 	Robot API Call: 
 
@@ -2573,7 +2573,7 @@ UUID: 9d55386e-ad6d-4a74-b207-d3bface7d346
 # API Function: show_autoedge
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_autoedge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_autoedge(device_name )
 
 	Robot API Call: 
 
@@ -2616,7 +2616,7 @@ UUID: 073792ca-203a-40eb-8d98-01d3e79b5492
 # API Function: show_mst_digest
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mst_digest(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mst_digest(device_name )
 
 	Robot API Call: 
 
@@ -2659,7 +2659,7 @@ UUID: 261d5955-a611-421d-85cf-7f6842a0a70a
 # API Function: show_port_edge
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_port_edge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_edge(device_name )
 
 	Robot API Call: 
 
@@ -2687,7 +2687,7 @@ UUID: ecfe168e-155e-45ea-b3db-f9780afe7254
 # API Function: show_port_role
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_port_role(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_role(device_name )
 
 	Robot API Call: 
 
@@ -2715,7 +2715,7 @@ UUID: 441cd158-f7b5-44c7-9e1b-48d36742e844
 # API Function: show_boot_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_boot_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_boot_flag(device_name )
 
 	Robot API Call: 
 
@@ -2743,7 +2743,7 @@ UUID: 2ccba41f-a300-4d78-95ea-205ebae46b32
 # API Function: show_bpduguard
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_bpduguard(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_bpduguard(device_name )
 
 	Robot API Call: 
 
@@ -2771,7 +2771,7 @@ UUID: c76489fd-79cb-40c4-91a5-44ed96f62912
 # API Function: show_mstp_info_detail
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mstp_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_info_detail(device_name )
 
 	Robot API Call: 
 
@@ -2799,7 +2799,7 @@ UUID: e1fc0d55-1412-4da7-a85c-f30a8bd7c63a
 # API Function: show_mstp_info_summary
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mstp_info_summary(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_info_summary(device_name )
 
 	Robot API Call: 
 
@@ -2842,7 +2842,7 @@ UUID: 3a0e0848-5bd4-4dfc-9a21-8b4f5bd6ceb2
 # API Function: show_mstp_instance_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mstp_instance_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_instance_info(device_name )
 
 	Robot API Call: 
 
@@ -2870,7 +2870,7 @@ UUID: 23ef58df-efd7-426e-aa93-61a777a2ca29
 # API Function: show_mstp_port_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mstp_port_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_port_info(device_name )
 
 	Robot API Call: 
 
@@ -2909,7 +2909,7 @@ UUID: 4af92ed0-14f1-4dfc-87f7-c856b79bdc82
 # API Function: show_mstp_port_info_detail
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mstp_port_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_port_info_detail(device_name )
 
 	Robot API Call: 
 
@@ -2937,7 +2937,7 @@ UUID: 98236257-3284-4425-8f58-e743d339939c
 # API Function: show_mstp_port_role
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mstp_port_role(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_port_role(device_name )
 
 	Robot API Call: 
 
@@ -2965,7 +2965,7 @@ UUID: 18c73d6a-7c48-47e3-b814-2049062a62d4
 # API Function: show_mstp_port_admin
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mstp_port_admin(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_port_admin(device_name )
 
 	Robot API Call: 
 
@@ -2993,7 +2993,7 @@ UUID: 36d8cdc9-c6b3-4f8b-82de-e5398c54528c
 # API Function: show_mstp_edge
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_mstp_edge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_edge(device_name )
 
 	Robot API Call: 
 
@@ -3021,7 +3021,7 @@ UUID: 3445779c-cbf5-44ee-9cd6-8b7e6aff2e01
 # API Function: show_stp_port_role
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSpanningtreeGenKeywords.spanningtree_show_stp_port_role(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_stp_port_role(device_name )
 
 	Robot API Call: 
 

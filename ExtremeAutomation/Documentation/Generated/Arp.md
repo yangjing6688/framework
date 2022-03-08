@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Arp
-This feature is located in this file: `arp.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `arp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: create_entry
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_create_entry(device_name, ip_address, mac)
+		self.defaultLibrary.apiLowLevelApis.arp.arp_create_entry(device_name, ip_address, mac)
 
 	Robot API Call: 
 
@@ -47,7 +47,7 @@ UUID: 9e145f7e-5188-4a1a-9293-6169429256ba
 # API Function: create_entry_interface
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_create_entry_interface(device_name, ip_address, mac, interface)
+		self.defaultLibrary.apiLowLevelApis.arp.arp_create_entry_interface(device_name, ip_address, mac, interface)
 
 	Robot API Call: 
 
@@ -105,7 +105,7 @@ UUID: 24a3e643-81cd-46e5-99ba-0e2aba2150ea
 # API Function: delete_entry
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_delete_entry(device_name )
+		self.defaultLibrary.apiLowLevelApis.arp.arp_delete_entry(device_name )
 
 	Robot API Call: 
 
@@ -163,7 +163,7 @@ UUID: 78efc289-9630-4ce7-842e-f1927fab2fd6
 # API Function: clear_all_entries
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_clear_all_entries(device_name )
+		self.defaultLibrary.apiLowLevelApis.arp.arp_clear_all_entries(device_name )
 
 	Robot API Call: 
 
@@ -206,7 +206,7 @@ UUID: c7a01592-4d90-41dd-a9ce-04ec8a451c42
 # API Function: create_entry_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_create_entry_port(device_name, ip_address, mac, port)
+		self.defaultLibrary.apiLowLevelApis.arp.arp_create_entry_port(device_name, ip_address, mac, port)
 
 	Robot API Call: 
 
@@ -234,7 +234,7 @@ UUID: b18ddc94-cccb-498e-a1df-5ebb199f9e7c
 # API Function: create_entry_port_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_create_entry_port_vlan(device_name, ip_address, mac, port, vlan)
+		self.defaultLibrary.apiLowLevelApis.arp.arp_create_entry_port_vlan(device_name, ip_address, mac, port, vlan)
 
 	Robot API Call: 
 
@@ -262,7 +262,7 @@ UUID: dbf72d3f-e00b-42af-b5ea-75d6d8ae223c
 # API Function: show_all_entries
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_show_all_entries(device_name )
+		self.defaultLibrary.apiLowLevelApis.arp.arp_show_all_entries(device_name )
 
 	Robot API Call: 
 
@@ -353,7 +353,7 @@ UUID: 43496482-51b0-4626-8199-1146fce297b1
 # API Function: show_entry
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_show_entry(device_name )
+		self.defaultLibrary.apiLowLevelApis.arp.arp_show_entry(device_name )
 
 	Robot API Call: 
 
@@ -444,7 +444,7 @@ UUID: 71c7a6cf-8ee3-4ad9-bdeb-9b0dfda3aebc
 # API Function: show_vrf_entry
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementArpGenKeywords.arp_show_vrf_entry(device_name )
+		self.defaultLibrary.apiLowLevelApis.arp.arp_show_vrf_entry(device_name )
 
 	Robot API Call: 
 

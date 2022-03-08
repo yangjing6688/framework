@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Hostinformation
-This feature is located in this file: `hostinformation.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `hostinformation.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: set_prompt
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_set_prompt(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_set_prompt(device_name )
 
 	Robot API Call: 
 
@@ -43,7 +43,7 @@ UUID: 8570be79-7439-4139-bd18-5a986b3389bd
 # API Function: set_host_contact
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_set_host_contact(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_set_host_contact(device_name )
 
 	Robot API Call: 
 
@@ -104,7 +104,7 @@ UUID: 783d173e-6609-4b01-a7c5-2030c6c54b0a
 # API Function: set_host_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_set_host_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_set_host_name(device_name )
 
 	Robot API Call: 
 
@@ -165,7 +165,7 @@ UUID: c7f45f88-cc06-4a62-981d-275f6fa8983f
 # API Function: set_host_location
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_set_host_location(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_set_host_location(device_name )
 
 	Robot API Call: 
 
@@ -226,7 +226,7 @@ UUID: 162acbb4-0e6f-43c9-8211-9b83e34bfc6b
 # API Function: clear_prompt
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_clear_prompt(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_clear_prompt(device_name )
 
 	Robot API Call: 
 
@@ -254,7 +254,7 @@ UUID: 2ff11f67-fb26-45a2-bfda-0afbd69fcae9
 # API Function: show_system_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_show_system_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_show_system_name(device_name )
 
 	Robot API Call: 
 
@@ -293,7 +293,7 @@ UUID: d8dc0a12-021d-4f17-947d-f275443dca07
 # API Function: show_host_contact
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_show_host_contact(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_show_host_contact(device_name )
 
 	Robot API Call: 
 
@@ -354,7 +354,7 @@ UUID: 1c4a1acc-30cd-438b-ae00-ff635a4dc656
 # API Function: show_host_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_show_host_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_show_host_name(device_name )
 
 	Robot API Call: 
 
@@ -415,7 +415,7 @@ UUID: 64689dd6-98ef-4b8e-8be4-6a7928ca6699
 # API Function: show_host_location
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_show_host_location(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_show_host_location(device_name )
 
 	Robot API Call: 
 
@@ -476,7 +476,7 @@ UUID: 9d709f83-dae7-4210-ae2d-4de62a70fa59
 # API Function: show_host_description
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_show_host_description(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_show_host_description(device_name )
 
 	Robot API Call: 
 
@@ -522,7 +522,7 @@ UUID: 1ad52fdc-d1b9-46cf-9150-2b6a0001e477
 # API Function: show_host_uptime
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_show_host_uptime(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_show_host_uptime(device_name )
 
 	Robot API Call: 
 
@@ -568,7 +568,7 @@ UUID: 672b7b89-fb7e-4ad5-b85f-e5c3e3416093
 # API Function: show_host_services
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_show_host_services(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_show_host_services(device_name )
 
 	Robot API Call: 
 
@@ -614,7 +614,7 @@ UUID: b2a81ac5-446b-444b-9c97-8d3ebe85427c
 # API Function: show_host_object_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementHostinformationGenKeywords.hostinformation_show_host_object_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_show_host_object_id(device_name )
 
 	Robot API Call: 
 

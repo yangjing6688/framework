@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Poe
-This feature is located in this file: `poe.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `poe.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: enable_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_enable_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_enable_port(device_name )
 
 	Robot API Call: 
 
@@ -58,7 +58,7 @@ UUID: d85ded5e-243f-4062-bd8d-ac66eb95dda9
 # API Function: disable_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_disable_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_disable_port(device_name )
 
 	Robot API Call: 
 
@@ -112,7 +112,7 @@ UUID: 5147e9d2-fd97-4272-b558-aa5299f90122
 # API Function: set_power_usage_threshold
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_set_power_usage_threshold(device_name, threshold, slot)
+		self.defaultLibrary.apiLowLevelApis.poe.poe_set_power_usage_threshold(device_name, threshold, slot)
 
 	Robot API Call: 
 
@@ -166,7 +166,7 @@ UUID: 142af738-8794-4d20-ab2d-9786dbeeda98
 # API Function: set_port_power_limit
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_set_port_power_limit(device_name, port, power_limit)
+		self.defaultLibrary.apiLowLevelApis.poe.poe_set_port_power_limit(device_name, port, power_limit)
 
 	Robot API Call: 
 
@@ -220,7 +220,7 @@ UUID: d7b94cad-7944-4f3e-8d18-13f8fb4588f1
 # API Function: set_port_power_priority
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_set_port_power_priority(device_name, port, power_priority)
+		self.defaultLibrary.apiLowLevelApis.poe.poe_set_port_power_priority(device_name, port, power_priority)
 
 	Robot API Call: 
 
@@ -274,7 +274,7 @@ UUID: c1d24df9-00f0-496a-b3f8-29e7b1e5ff8f
 # API Function: set_port_detect_type
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_set_port_detect_type(device_name, port, detect_type)
+		self.defaultLibrary.apiLowLevelApis.poe.poe_set_port_detect_type(device_name, port, detect_type)
 
 	Robot API Call: 
 
@@ -313,7 +313,7 @@ UUID: a1bb7007-736f-4b7f-ae63-16df0afdc9a2
 # API Function: show_power_usage_threshold
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_power_usage_threshold(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_power_usage_threshold(device_name )
 
 	Robot API Call: 
 
@@ -367,7 +367,7 @@ UUID: 72e7d69c-ce86-4112-b797-752234b16114
 # API Function: show_port_status
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_port_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_status(device_name )
 
 	Robot API Call: 
 
@@ -421,7 +421,7 @@ UUID: 4251b8a5-a8e8-4721-b7e3-4ac80ca6c683
 # API Function: show_port_measurements
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_port_measurements(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_measurements(device_name )
 
 	Robot API Call: 
 
@@ -460,7 +460,7 @@ UUID: 83d03a4d-fbda-4712-9821-add3bd61075a
 # API Function: show_port_power_limit
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_port_power_limit(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_power_limit(device_name )
 
 	Robot API Call: 
 
@@ -514,7 +514,7 @@ UUID: 9739e6ed-4d06-474c-b10e-6b2ce08243e0
 # API Function: show_port_power_priority
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_port_power_priority(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_power_priority(device_name )
 
 	Robot API Call: 
 
@@ -568,7 +568,7 @@ UUID: f6e29478-e3f0-44c1-bca7-7759b689b892
 # API Function: show_port_detection_status
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_port_detection_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_detection_status(device_name )
 
 	Robot API Call: 
 
@@ -622,7 +622,7 @@ UUID: b1a45e73-1513-495c-bd1e-8736af39962b
 # API Function: show_port_power_classification
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_port_power_classification(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_power_classification(device_name )
 
 	Robot API Call: 
 
@@ -676,7 +676,7 @@ UUID: c4ec8d10-3227-4f12-b170-cac9f3dc6101
 # API Function: show_global_status
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_global_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_global_status(device_name )
 
 	Robot API Call: 
 
@@ -730,7 +730,7 @@ UUID: cc6195c1-c167-4510-80eb-f5be4c095563
 # API Function: show_port_power_pairs
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_port_power_pairs(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_power_pairs(device_name )
 
 	Robot API Call: 
 
@@ -754,7 +754,7 @@ UUID: bb18849a-41a3-4174-835c-558e8c0f56bf
 # API Function: show_port_detect_type
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_port_detect_type(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_detect_type(device_name )
 
 	Robot API Call: 
 
@@ -793,7 +793,7 @@ UUID: c1e39a8b-22b3-451b-a18b-1109612238dd
 # API Function: enable_inline_power
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_enable_inline_power(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_enable_inline_power(device_name )
 
 	Robot API Call: 
 
@@ -821,7 +821,7 @@ UUID: 8ec88be4-58f4-4d2f-9fd5-9094f40fd3bb
 # API Function: disable_inline_power
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_disable_inline_power(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_disable_inline_power(device_name )
 
 	Robot API Call: 
 
@@ -849,7 +849,7 @@ UUID: 9025539e-fe7f-4b90-b9bf-e4a958e6cf1b
 # API Function: show_inline_power
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_inline_power(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power(device_name )
 
 	Robot API Call: 
 
@@ -877,7 +877,7 @@ UUID: 81267391-6ee1-4eab-90ea-c230b48cb963
 # API Function: show_inline_power_info_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_inline_power_info_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power_info_port(device_name )
 
 	Robot API Call: 
 
@@ -905,7 +905,7 @@ UUID: 38692552-cf69-451a-884b-5ecb0fac87e6
 # API Function: enable_inline_power_legacy
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_enable_inline_power_legacy(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_enable_inline_power_legacy(device_name )
 
 	Robot API Call: 
 
@@ -933,7 +933,7 @@ UUID: 6da49954-b1d9-4dd8-b905-15fd0609d2b6
 # API Function: disable_inline_power_legacy
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_disable_inline_power_legacy(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_disable_inline_power_legacy(device_name )
 
 	Robot API Call: 
 
@@ -961,7 +961,7 @@ UUID: 249d5f97-4872-4bad-b56c-2b60459937b0
 # API Function: show_inline_power_legacy
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_inline_power_legacy(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power_legacy(device_name )
 
 	Robot API Call: 
 
@@ -989,7 +989,7 @@ UUID: 960f6737-efc4-48cc-ac9d-8864296ec0a1
 # API Function: set_inline_power_disconnect_deny_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_set_inline_power_disconnect_deny_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_set_inline_power_disconnect_deny_port(device_name )
 
 	Robot API Call: 
 
@@ -1017,7 +1017,7 @@ UUID: fa8aaf1d-1d6d-4282-b05d-2c793c090fa7
 # API Function: set_inline_power_disconnect_lowest_priority
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_set_inline_power_disconnect_lowest_priority(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_set_inline_power_disconnect_lowest_priority(device_name )
 
 	Robot API Call: 
 
@@ -1045,7 +1045,7 @@ UUID: f9469e5c-858b-47d7-95a0-7e84b457c937
 # API Function: clear_inline_power_disconnect
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_clear_inline_power_disconnect(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_clear_inline_power_disconnect(device_name )
 
 	Robot API Call: 
 
@@ -1073,7 +1073,7 @@ UUID: a88c6ba4-5483-4c51-ba5b-7e5ac5a4bdac
 # API Function: set_inline_power_label
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_set_inline_power_label(device_name, port, test_label)
+		self.defaultLibrary.apiLowLevelApis.poe.poe_set_inline_power_label(device_name, port, test_label)
 
 	Robot API Call: 
 
@@ -1101,7 +1101,7 @@ UUID: 83510d13-fdc3-4f04-8fb4-2cdaaa20beb5
 # API Function: show_inline_power_label
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_inline_power_label(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power_label(device_name )
 
 	Robot API Call: 
 
@@ -1129,7 +1129,7 @@ UUID: 56218313-92c6-4165-aaf5-45f0c6398a50
 # API Function: show_inline_power_operator_limit
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementPoeGenKeywords.poe_show_inline_power_operator_limit(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power_operator_limit(device_name )
 
 	Robot API Call: 
 

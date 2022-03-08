@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Snmp
-This feature is located in this file: `snmp.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `snmp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: create_all_trap_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_all_trap_server(device_name, ip_address, server_name, param_name, tag_list)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_all_trap_server(device_name, ip_address, server_name, param_name, tag_list)
 
 	Robot API Call: 
 
@@ -47,7 +47,7 @@ UUID: 937890fb-dc59-4f13-a87c-c4e718fc9990
 # API Function: delete_trap_servers
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_trap_servers(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_trap_servers(device_name )
 
 	Robot API Call: 
 
@@ -90,7 +90,7 @@ UUID: 380d633f-5653-4917-bafb-2bed364f74eb
 # API Function: create_readonly_community
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_readonly_community(device_name, community_index, community_name, security_name, context)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_readonly_community(device_name, community_index, community_name, security_name, context)
 
 	Robot API Call: 
 
@@ -133,7 +133,7 @@ UUID: 3a7cc49b-7100-4584-9f62-ad1646c91afe
 # API Function: create_readwrite_community
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_readwrite_community(device_name, community_index, community_name, security_name, context)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_readwrite_community(device_name, community_index, community_name, security_name, context)
 
 	Robot API Call: 
 
@@ -176,7 +176,7 @@ UUID: 967de9e7-3ced-40a1-ad0d-c89ab4b5177d
 # API Function: delete_community
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_community(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_community(device_name )
 
 	Robot API Call: 
 
@@ -219,7 +219,7 @@ UUID: c8579c62-a6a4-4e03-9bea-89fd8b50c5b3
 # API Function: delete_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_user(device_name )
 
 	Robot API Call: 
 
@@ -262,7 +262,7 @@ UUID: 282ee4e9-601d-4c42-b69a-1965fe2a66e7
 # API Function: set_user_no_authentication
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_user_no_authentication(device_name, user_name, group)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_user_no_authentication(device_name, user_name, group)
 
 	Robot API Call: 
 
@@ -305,7 +305,7 @@ UUID: 86b262b8-fc15-4c68-be86-1ca3ef0bc457
 # API Function: set_user_authentication
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_user_authentication(device_name, user_name, auth_proto, auth_password, group)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_user_authentication(device_name, user_name, auth_proto, auth_password, group)
 
 	Robot API Call: 
 
@@ -348,7 +348,7 @@ UUID: 83cad0e6-f50c-4897-a587-7fdb393dc513
 # API Function: set_user_privacy
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_user_privacy(device_name, user_name, auth_proto, auth_password, priv_proto, priv_password, group)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_user_privacy(device_name, user_name, auth_proto, auth_password, priv_proto, priv_password, group)
 
 	Robot API Call: 
 
@@ -391,7 +391,7 @@ UUID: 2715b88c-a9de-41c0-8605-2900d2be9f33
 # API Function: set_user_no_authentication_engine_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_user_no_authentication_engine_id(device_name, engine_id, user_name, group)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_user_no_authentication_engine_id(device_name, engine_id, user_name, group)
 
 	Robot API Call: 
 
@@ -434,7 +434,7 @@ UUID: 5351d630-450c-4fa4-9a26-8c685b6ac119
 # API Function: set_user_authentication_engine_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_user_authentication_engine_id(device_name, auth_password, auth_proto, engine_id, user_name, group)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_user_authentication_engine_id(device_name, auth_password, auth_proto, engine_id, user_name, group)
 
 	Robot API Call: 
 
@@ -477,7 +477,7 @@ UUID: f75c5703-adac-4c4e-9885-5d73a91fbae9
 # API Function: set_user_privacy_engine_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_user_privacy_engine_id(device_name, auth_password, auth_proto, engine_id, priv_password, priv_proto, user_name, group)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_user_privacy_engine_id(device_name, auth_password, auth_proto, engine_id, priv_password, priv_proto, user_name, group)
 
 	Robot API Call: 
 
@@ -520,7 +520,7 @@ UUID: 9d182ff5-016a-42e3-a16a-e1fbbd96c461
 # API Function: enable_access_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_enable_access_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_enable_access_global(device_name )
 
 	Robot API Call: 
 
@@ -548,7 +548,7 @@ UUID: acd52df8-7550-404d-8cd9-e757fabab7c2
 # API Function: disable_access_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_disable_access_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_disable_access_global(device_name )
 
 	Robot API Call: 
 
@@ -576,7 +576,7 @@ UUID: 4ae2e419-faec-4a79-8d5b-c5475ea946a8
 # API Function: set_trap_param
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_trap_param(device_name, param_name, community, version)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_trap_param(device_name, param_name, community, version)
 
 	Robot API Call: 
 
@@ -604,7 +604,7 @@ UUID: 9911ac50-36b0-46eb-95c3-9e128d042a82
 # API Function: clear_trap_param
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_clear_trap_param(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_clear_trap_param(device_name )
 
 	Robot API Call: 
 
@@ -632,7 +632,7 @@ UUID: 502a9f4e-4cee-42a8-9689-5da899ad1bb8
 # API Function: set_notify
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_notify(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_notify(device_name )
 
 	Robot API Call: 
 
@@ -660,7 +660,7 @@ UUID: fa526bb7-d1fc-4196-8a0c-80dcf7cd84f7
 # API Function: clear_notify
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_clear_notify(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_clear_notify(device_name )
 
 	Robot API Call: 
 
@@ -688,7 +688,7 @@ UUID: d945dbb4-92ab-4f69-b810-97fbdd8d9a2b
 # API Function: enable_authentication_trap
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_enable_authentication_trap(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_enable_authentication_trap(device_name )
 
 	Robot API Call: 
 
@@ -716,7 +716,7 @@ UUID: 82570981-b4ba-4d40-8fe9-3868f9a706c7
 # API Function: disable_authentication_trap
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_disable_authentication_trap(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_disable_authentication_trap(device_name )
 
 	Robot API Call: 
 
@@ -744,7 +744,7 @@ UUID: 1af11b3a-7b17-4173-80ee-8b0075ee8a6f
 # API Function: enable_same_snmp_and_ip_sender_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_enable_same_snmp_and_ip_sender_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_enable_same_snmp_and_ip_sender_flag(device_name )
 
 	Robot API Call: 
 
@@ -772,7 +772,7 @@ UUID: 5a069297-79af-4ce3-b42a-057f33874574
 # API Function: disable_same_snmp_and_ip_sender_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_disable_same_snmp_and_ip_sender_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_disable_same_snmp_and_ip_sender_flag(device_name )
 
 	Robot API Call: 
 
@@ -800,7 +800,7 @@ UUID: b22d72e2-458b-4f59-a4ad-484bb7d29ad0
 # API Function: enable_same_snmp_trap_sender_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_enable_same_snmp_trap_sender_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_enable_same_snmp_trap_sender_ip(device_name )
 
 	Robot API Call: 
 
@@ -828,7 +828,7 @@ UUID: 103819d3-297a-4504-b03e-ae75b124b56b
 # API Function: disable_same_snmp_trap_sender_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_disable_same_snmp_trap_sender_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_disable_same_snmp_trap_sender_ip(device_name )
 
 	Robot API Call: 
 
@@ -856,7 +856,7 @@ UUID: 82f99f99-a12a-4765-b0c4-ef5a14932855
 # API Function: create_v1_trap_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_v1_trap_server(device_name, ip_addr, security_name, port)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_v1_trap_server(device_name, ip_addr, security_name, port)
 
 	Robot API Call: 
 
@@ -884,7 +884,7 @@ UUID: 65155113-aca6-401f-9523-d24e265742af
 # API Function: delete_v1_trap_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_v1_trap_server(device_name, ip_addr, security_name, port)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_v1_trap_server(device_name, ip_addr, security_name, port)
 
 	Robot API Call: 
 
@@ -912,7 +912,7 @@ UUID: a2fc0df6-ba11-4600-aaa7-2b310e3137fd
 # API Function: create_v2c_trap_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_v2c_trap_server(device_name, ip_addr, security_name, port)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_v2c_trap_server(device_name, ip_addr, security_name, port)
 
 	Robot API Call: 
 
@@ -940,7 +940,7 @@ UUID: ab9bc27d-48a7-49e8-8060-a2d05523c403
 # API Function: delete_v2c_trap_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_v2c_trap_server(device_name, ip_addr, security_name, port)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_v2c_trap_server(device_name, ip_addr, security_name, port)
 
 	Robot API Call: 
 
@@ -968,7 +968,7 @@ UUID: 32c795f8-1d58-49fc-8546-175dea332fde
 # API Function: create_v2c_inform_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_v2c_inform_server(device_name, ip_addr, security_name, port, timeout, retries, mms)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_v2c_inform_server(device_name, ip_addr, security_name, port, timeout, retries, mms)
 
 	Robot API Call: 
 
@@ -996,7 +996,7 @@ UUID: 262425cb-ecba-4def-ab78-92bef8d53265
 # API Function: delete_v2c_inform_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_v2c_inform_server(device_name, ip_addr, security_name)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_v2c_inform_server(device_name, ip_addr, security_name)
 
 	Robot API Call: 
 
@@ -1024,7 +1024,7 @@ UUID: 7b190c70-f885-4be0-afa8-7d02a752781e
 # API Function: create_v3_trap_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_v3_trap_server(device_name, ip_addr, security_name, security_level, port)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_v3_trap_server(device_name, ip_addr, security_name, security_level, port)
 
 	Robot API Call: 
 
@@ -1052,7 +1052,7 @@ UUID: 5c45efe6-41f2-4aca-bbc5-c2c58a4aa086
 # API Function: delete_v3_trap_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_v3_trap_server(device_name, ip_addr, security_name, port)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_v3_trap_server(device_name, ip_addr, security_name, port)
 
 	Robot API Call: 
 
@@ -1080,7 +1080,7 @@ UUID: 27309891-ea40-41ce-8f00-63492aa8db80
 # API Function: create_v3_inform_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_v3_inform_server(device_name, ip_addr, security_name, security_level, port, timeout, retries)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_v3_inform_server(device_name, ip_addr, security_name, security_level, port, timeout, retries)
 
 	Robot API Call: 
 
@@ -1108,7 +1108,7 @@ UUID: 60d292ee-8aa6-420e-8f61-9e5d94cf3c4b
 # API Function: delete_v3_inform_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_v3_inform_server(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_v3_inform_server(device_name )
 
 	Robot API Call: 
 
@@ -1136,7 +1136,7 @@ UUID: 8410645f-c725-4937-8f93-ed97ec5c6d72
 # API Function: set_notify_filter
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_set_notify_filter(device_name, profile_name, oid_tree)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_set_notify_filter(device_name, profile_name, oid_tree)
 
 	Robot API Call: 
 
@@ -1164,7 +1164,7 @@ UUID: dc2296ba-a156-49a2-9584-59b971ca9756
 # API Function: clear_notify_filter
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_clear_notify_filter(device_name, profile_name, oid_tree)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_clear_notify_filter(device_name, profile_name, oid_tree)
 
 	Robot API Call: 
 
@@ -1192,7 +1192,7 @@ UUID: 50c0c14a-8374-4114-859c-c7ffb10cb66c
 # API Function: delete_user_engine_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_user_engine_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_user_engine_id(device_name )
 
 	Robot API Call: 
 
@@ -1220,7 +1220,7 @@ UUID: e3dd38d3-79c0-4829-9a51-da0a58af052b
 # API Function: create_group_and_access
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_group_and_access(device_name, group, security_level, read_view, write_view, notify_view, context)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_group_and_access(device_name, group, security_level, read_view, write_view, notify_view, context)
 
 	Robot API Call: 
 
@@ -1248,7 +1248,7 @@ UUID: 8d68eddb-86bc-4b21-85a7-40ce75c3815d
 # API Function: delete_group_and_access
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_group_and_access(device_name, group, context)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_group_and_access(device_name, group, context)
 
 	Robot API Call: 
 
@@ -1276,7 +1276,7 @@ UUID: 453baa15-3319-46ad-8851-3b75ea6dab78
 # API Function: create_view
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_create_view(device_name, view_name, oid_tree)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_create_view(device_name, view_name, oid_tree)
 
 	Robot API Call: 
 
@@ -1304,7 +1304,7 @@ UUID: e714befc-dc0d-4293-8ab7-108d34aee8ef
 # API Function: delete_view
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_delete_view(device_name, view_name, oid_tree)
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_delete_view(device_name, view_name, oid_tree)
 
 	Robot API Call: 
 
@@ -1332,7 +1332,7 @@ UUID: 47f6342b-af6f-4346-b3cf-83e093410bbf
 # API Function: show_vr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_vr(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_vr(device_name )
 
 	Robot API Call: 
 
@@ -1360,7 +1360,7 @@ UUID: f93f38f1-df1a-47e2-a8b4-033f7b330ae3
 # API Function: show_globals
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_globals(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_globals(device_name )
 
 	Robot API Call: 
 
@@ -1388,7 +1388,7 @@ UUID: 188d9c0c-a329-4842-90c9-5d7758d9d4f7
 # API Function: show_community
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_community(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_community(device_name )
 
 	Robot API Call: 
 
@@ -1416,7 +1416,7 @@ UUID: 8cf2de00-0a2c-440a-b8ff-7a27be04b189
 # API Function: show_context
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_context(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_context(device_name )
 
 	Robot API Call: 
 
@@ -1444,7 +1444,7 @@ UUID: a2262541-9629-4502-8a7b-b5ba27b204cf
 # API Function: show_group
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_group(device_name )
 
 	Robot API Call: 
 
@@ -1472,7 +1472,7 @@ UUID: df37671c-b286-4eb7-afcf-8db270b76c9d
 # API Function: show_access
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_access(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_access(device_name )
 
 	Robot API Call: 
 
@@ -1500,7 +1500,7 @@ UUID: 77c7a6e6-f281-48d8-b21b-aad5fff0e7f5
 # API Function: show_host
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_host(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_host(device_name )
 
 	Robot API Call: 
 
@@ -1528,7 +1528,7 @@ UUID: 14bd2f4c-d351-40a9-add6-5ec45b20d689
 # API Function: show_notify_filter
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_notify_filter(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_notify_filter(device_name )
 
 	Robot API Call: 
 
@@ -1556,7 +1556,7 @@ UUID: 5810ac9d-ea35-4792-ad32-3b843495c8cb
 # API Function: show_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_user(device_name )
 
 	Robot API Call: 
 
@@ -1584,7 +1584,7 @@ UUID: b6de9c13-0c3a-4764-861a-2354e2d245c3
 # API Function: show_view
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSnmpGenKeywords.snmp_show_view(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_view(device_name )
 
 	Robot API Call: 
 

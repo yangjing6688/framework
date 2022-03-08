@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Dns
-This feature is located in this file: `dns.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `dns.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: create_domain_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_create_domain_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_create_domain_name(device_name )
 
 	Robot API Call: 
 
@@ -43,7 +43,7 @@ UUID: e52ebe68-5a1e-4318-b7eb-01f0165887db
 # API Function: delete_domain_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_delete_domain_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_delete_domain_name(device_name )
 
 	Robot API Call: 
 
@@ -82,7 +82,7 @@ UUID: 24f37769-0d47-4a87-b6de-7ba2735d7daf
 # API Function: set_primary_server_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_set_primary_server_ip(device_name, ip_addr, ip_type)
+		self.defaultLibrary.apiLowLevelApis.dns.dns_set_primary_server_ip(device_name, ip_addr, ip_type)
 
 	Robot API Call: 
 
@@ -121,7 +121,7 @@ UUID: 1a4f6daf-b175-4fd8-826b-87f0ad9d8ef5
 # API Function: set_secondary_server_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_set_secondary_server_ip(device_name, ip_addr, ip_type)
+		self.defaultLibrary.apiLowLevelApis.dns.dns_set_secondary_server_ip(device_name, ip_addr, ip_type)
 
 	Robot API Call: 
 
@@ -160,7 +160,7 @@ UUID: e309545c-f045-4ff1-b3b5-df236f6960bf
 # API Function: set_tertiary_server_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_set_tertiary_server_ip(device_name, ip_addr, ip_type)
+		self.defaultLibrary.apiLowLevelApis.dns.dns_set_tertiary_server_ip(device_name, ip_addr, ip_type)
 
 	Robot API Call: 
 
@@ -199,7 +199,7 @@ UUID: a7cfe8b1-4a4e-4c98-a4ee-00ccaaed6d61
 # API Function: clear_primary_server_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_clear_primary_server_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_clear_primary_server_ip(device_name )
 
 	Robot API Call: 
 
@@ -238,7 +238,7 @@ UUID: ff9d10d1-2200-492f-a0bc-ef9a9aaa1b9d
 # API Function: clear_secondary_server_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_clear_secondary_server_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_clear_secondary_server_ip(device_name )
 
 	Robot API Call: 
 
@@ -277,7 +277,7 @@ UUID: efd8b04c-9820-463e-a4e1-1b90aa0cedc4
 # API Function: clear_tertiary_server_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_clear_tertiary_server_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_clear_tertiary_server_ip(device_name )
 
 	Robot API Call: 
 
@@ -316,7 +316,7 @@ UUID: 44ad3310-2381-4b0f-87a9-0831a6b47c79
 # API Function: show_domain_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_show_domain_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_show_domain_name(device_name )
 
 	Robot API Call: 
 
@@ -355,7 +355,7 @@ UUID: 1e06dc66-ec69-44c8-9676-76fe265614e0
 # API Function: show_servers
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_show_servers(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_show_servers(device_name )
 
 	Robot API Call: 
 
@@ -394,7 +394,7 @@ UUID: 3f478d14-8e1b-4411-93c9-73b85fe57ea2
 # API Function: show_host_by_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_show_host_by_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_show_host_by_name(device_name )
 
 	Robot API Call: 
 
@@ -433,7 +433,7 @@ UUID: 4cac61fc-ac22-4d80-86d1-7b9c04e84d32
 # API Function: show_host_by_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDnsGenKeywords.dns_show_host_by_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_show_host_by_ip(device_name )
 
 	Robot API Call: 
 

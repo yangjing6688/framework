@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Dutlearning
-This feature is located in this file: `dutlearning.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `dutlearning.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: show_system_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_show_system_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_show_system_info(device_name )
 
 	Robot API Call: 
 
@@ -77,7 +77,7 @@ UUID: 2bc7a245-b0ec-4659-9315-8db8aec9e95c
 # API Function: show_stacking_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_show_stacking_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_show_stacking_info(device_name )
 
 	Robot API Call: 
 
@@ -135,7 +135,7 @@ UUID: 007b3667-0da2-4c9f-b3c4-32f8ab3c1e9b
 # API Function: show_stack_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_show_stack_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_show_stack_info(device_name )
 
 	Robot API Call: 
 
@@ -193,7 +193,7 @@ UUID: d24724dc-3b71-49af-916a-926edf7cf8ff
 # API Function: show_chassis_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_show_chassis_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_show_chassis_info(device_name )
 
 	Robot API Call: 
 
@@ -266,7 +266,7 @@ UUID: 4a297236-fcd2-441a-8491-be0d69a87558
 # API Function: show_unit_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_show_unit_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_show_unit_info(device_name )
 
 	Robot API Call: 
 
@@ -339,7 +339,7 @@ UUID: 7e8d8470-e156-42ef-aff1-d8a42cbf9c8c
 # API Function: show_port_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_show_port_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_show_port_info(device_name )
 
 	Robot API Call: 
 
@@ -412,7 +412,7 @@ UUID: d906bb8c-043e-4625-98d6-cbe8d10c4c4a
 # API Function: show_license_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_show_license_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_show_license_info(device_name )
 
 	Robot API Call: 
 
@@ -485,7 +485,7 @@ UUID: a3fc6b30-bcfd-4472-96b0-be93acca95da
 # API Function: getnext_system_location_dot_zero
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_getnext_system_location_dot_zero(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_getnext_system_location_dot_zero(device_name )
 
 	Robot API Call: 
 
@@ -531,7 +531,7 @@ UUID: 29a2dba5-0dad-4767-b8a6-d9ec5dd54d71
 # API Function: walk_system
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_walk_system(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_walk_system(device_name )
 
 	Robot API Call: 
 
@@ -577,7 +577,7 @@ UUID: 8b7981d9-5023-4c43-ba12-62ea9d8a2c50
 # API Function: bulkwalk_system
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDutlearningGenKeywords.dutlearning_bulkwalk_system(device_name )
+		self.defaultLibrary.apiLowLevelApis.dutlearning.dutlearning_bulkwalk_system(device_name )
 
 	Robot API Call: 
 
