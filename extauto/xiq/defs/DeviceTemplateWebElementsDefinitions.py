@@ -46,8 +46,7 @@ class DeviceTemplateWebElementDefinitions:
 
     device_template_ap_template_wifi1_tab = \
         {
-            'CSS_SELECTOR': '.ui-tab',
-            'index': 5,
+            'XPATH': '//*[@data-automation-tag="automation-ap-template-interface-settings-wifi-1"]',
             'wait_for': 5
         }
 
