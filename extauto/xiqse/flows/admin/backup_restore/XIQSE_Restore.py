@@ -175,7 +175,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
         - Keyword Usage:
-        - ``Quit Browser``
+        - ``XIQSE Force Quit Browser``
         :param _driver: specific driver to use; if not specified, default driver will be used
         :return: None
         """
