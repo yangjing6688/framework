@@ -457,86 +457,90 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
         #3  Finally, add the kwUuid & kwName data into the 'kwEvent' table.
 
         """
+        this_function_name = inspect.currentframe().f_code.co_name
+        callingfunction_name = inspect.currentframe().f_back.f_code.co_name
+        logger.info("[+] Entering function   : %s()", this_function_name)
+        logger.info("[+] Called from function: %s()", callingfunction_name)
+   
+        cmd_obj = kwargs.get("cmd_obj", False)
+        dev_obj = kwargs.get("dev_obj", False)
+  
+        assert cmd_obj is not False and dev_obj is not False
+ 
+        statsObj  = MicroserviceInterface()
+        startTime = datetime.fromtimestamp(cmd_obj.start_time).strftime("%Y-%m-%d %H:%M:%S.%f")
+        endTime   = datetime.fromtimestamp(cmd_obj.end_time).strftime("%Y-%m-%d %H:%M:%S.%f")
+        end       = datetime.strptime(endTime,"%Y-%m-%d %H:%M:%S.%f")
+        start     = datetime.strptime(startTime,"%Y-%m-%d %H:%M:%S.%f")
+
+        # Informational/logging only ... the stats microservice 
+        # calculates elapsed time, so no need to post
+        #
+        elapsedTime = end - start
+
+        # Step #1:
+        #
+        logger.info(" [+] Step #1: Update testFiles table data")
+        
+        # If we have a problem running the git command, set a default value. 
+        # This is for information logging only, so it's not worth failing over. 
+        #
         try:
-            this_function_name = inspect.currentframe().f_code.co_name
-            callingfunction_name = inspect.currentframe().f_back.f_code.co_name
-            logger.info("[+] Entering function   : %s()", this_function_name)
-            logger.info("[+] Called from function: %s()", callingfunction_name)
-    
-            cmd_obj = kwargs.get("cmd_obj", False)
-            dev_obj = kwargs.get("dev_obj", False)
-    
-            assert cmd_obj is not False and dev_obj is not False
-    
-            statsObj  = MicroserviceInterface()
-            startTime = datetime.fromtimestamp(cmd_obj.start_time).strftime("%Y-%m-%d %H:%M:%S.%f")
-            endTime   = datetime.fromtimestamp(cmd_obj.end_time).strftime("%Y-%m-%d %H:%M:%S.%f")
-            end       = datetime.strptime(endTime,"%Y-%m-%d %H:%M:%S.%f")
-            start     = datetime.strptime(startTime,"%Y-%m-%d %H:%M:%S.%f")
-    
-            # Informational/logging only ... the stats microservice 
-            # calculates elapsed time, so no need to post
-            #
-            elapsedTime = end - start
-    
-            # Step #1:
-            #
-            logger.info(" [+] Step #1: Update testFiles table data")
-    
             gitRepo   = os.path.basename(subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().strip())
-            tfileName = re.split(r':', os.getenv('PYTEST_CURRENT_TEST'))[0]
-            tfileData = {
-                    "testfileName": str(tfileName),
-                    "testfileRepo": str(gitRepo)
-                        }
-    
-            tfUuid = statsObj.postTfile(tfileData)
-    
-            logger.info(" [+] testfileUuid  : %s", tfUuid)
-            logger.info(" [+] testfileName  : %s", tfileName)
-            logger.info(" [+] testfileRepo  : %s", gitRepo)
-    
-            # Step #2:
-            #
-            logger.info(" [+] Step #2: Update keywordTiming table data")
-    
-            postThis = { 
-                    "startTime":str(startTime),
-                    "endTime":str(endTime),
-                    "os":dev_obj._oper_sys,
-                    "connectionType":dev_obj.connection_method,
-                    "hwType":dev_obj.platform,
-                    "keywordUuid":cmd_obj.uuid,
-                    "testCaseUuid":str(tfUuid)
-                       }
-             
-            status = statsObj.postStats(postThis)
-    
-            logger.info(" [+] Start Time    : %s", startTime)
-            logger.info(" [+] End Time      : %s", endTime)
-            logger.info(" [+] Elapsed Time  : %s", elapsedTime)
-            logger.info(" [+] os            : %s", dev_obj._oper_sys)
-            logger.info(" [+] connectionType: %s", dev_obj.connection_method)
-            logger.info(" [+] hwType        : %s", dev_obj.platform)
-            logger.info(" [+] keywordUuid   : %s", postThis['testCaseUuid'])
-            logger.info(" [+] testCaseUuid  : %s", postThis['testCaseUuid'])
-            logger.info(" [+] Status        : %s", status)
-    
-            # Step #2:
-            #
-            logger.info(" [+] Step #3: Update kwEvent table data")
-            eventData = {
-                    "keywordUuid": postThis['keywordUuid'],
-                    "keywordName": str(cmd_obj._command)
-                        }
-    
-            logger.info(" [+] keywordUuid   : %s", postThis['keywordUuid'])
-            logger.info(" [+] keywordName   : %s", cmd_obj._command)
-    
-            eventStat = statsObj.postEvent(eventData)
-            logger.info(" [+] eventStat     : %s", eventStat)
-    
-            logger.info("[+] Leaving function     : %s()", this_function_name)
-            logger.info("[+] Returning to function: %s()", callingfunction_name)
         except:
-            pass
+             gitRepo = 'extreme_automation_tests'
+
+        tfileName = re.split(r':', os.getenv('PYTEST_CURRENT_TEST'))[0]
+        tfileData = {
+                "testfileName": str(tfileName),
+                "testfileRepo": str(gitRepo)
+                    }
+
+        tfUuid = statsObj.postTfile(tfileData)
+
+        logger.info(" [+] testfileUuid  : %s", tfUuid)
+        logger.info(" [+] testfileName  : %s", tfileName)
+        logger.info(" [+] testfileRepo  : %s", gitRepo)
+
+        # Step #2:
+        #
+        logger.info(" [+] Step #2: Update keywordTiming table data")
+
+        postThis = { 
+                "startTime":str(startTime),
+                "endTime":str(endTime),
+                "os":dev_obj._oper_sys,
+                "connectionType":dev_obj.connection_method,
+                "hwType":dev_obj.platform,
+                "keywordUuid":cmd_obj.uuid,
+                "testCaseUuid":str(tfUuid)
+                   }
+         
+        status = statsObj.postStats(postThis)
+
+        logger.info(" [+] Start Time    : %s", startTime)
+        logger.info(" [+] End Time      : %s", endTime)
+        logger.info(" [+] Elapsed Time  : %s", elapsedTime)
+        logger.info(" [+] os            : %s", dev_obj._oper_sys)
+        logger.info(" [+] connectionType: %s", dev_obj.connection_method)
+        logger.info(" [+] hwType        : %s", dev_obj.platform)
+        logger.info(" [+] keywordUuid   : %s", postThis['testCaseUuid'])
+        logger.info(" [+] testCaseUuid  : %s", postThis['testCaseUuid'])
+        logger.info(" [+] Status        : %s", status)
+
+        # Step #2:
+        #
+        logger.info(" [+] Step #3: Update kwEvent table data")
+        eventData = {
+                "keywordUuid": postThis['keywordUuid'],
+                "keywordName": str(cmd_obj._command)
+                    }
+
+        logger.info(" [+] keywordUuid   : %s", postThis['keywordUuid'])
+        logger.info(" [+] keywordName   : %s", cmd_obj._command)
+
+        eventStat = statsObj.postEvent(eventData)
+        logger.info(" [+] eventStat     : %s", eventStat)
+
+        logger.info("[+] Leaving function     : %s()", this_function_name)
+        logger.info("[+] Returning to function: %s()", callingfunction_name)
