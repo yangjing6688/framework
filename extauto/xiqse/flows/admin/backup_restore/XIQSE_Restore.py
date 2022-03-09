@@ -4,23 +4,21 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from xiqse.elements.admin.backup_restore.AdminBackupRestoreWebElements import AdminBackupRestoreWebElements
-from xiqse.flows.common.XIQSE_CommonNavigator import XIQSE_CommonNavigator
 
 
 class XIQSE_Restore(AdminBackupRestoreWebElements):
     def __init__(self):
         super().__init__()
-        self.overwrite_file = AdminBackupRestoreWebElements()
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        self.view_el = AdminBackupRestoreWebElements()
-        self.xiqse_nav = XIQSE_CommonNavigator()
         self.driver = extauto.common.CloudDriver.cloud_driver
 
     def xiqse_select_restore_initial_database(self):
         """
-        This keyword selects the "Restore Initial Database" button on the Backup/Restore tab
+        - This keyword selects the "Restore Initial Database" button on the Backup/Restore tab
+        - Keyword Usage:
+        - "XIQSE Select Restore Initial Database"
         :return: 1 if successful, else -1
         """
         ret_val = 1
@@ -32,22 +30,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
 
         else:
             self.utils.print_info("Unable to find 'Restore Initial Database' radio button")
-            ret_val = -1
-
-        return ret_val
-
-    def xiqse_get_working_backup_load_mask(self):
-        """
-        - This keyword looks for the "Working" dialog when the backup is successful
-        - Keyword usage: XIQSE Get Working Backup Load Mask
-        :return: 1 if successful, else -1
-        """
-        load_mask = self.view_el.get_working_backup_load_mask()
-        if load_mask:
-            self.utils.print_info("Backup Started")
-            ret_val = 1
-        else:
-            self.utils.print_info("Backup not started")
+            self.screen.save_screen_shot()
             ret_val = -1
 
         return ret_val
@@ -55,8 +38,8 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
     def xiqse_click_restore_button(self):
         """
         - This keyword clicks the "Restore" button on the Backup/Restore File dialog to initiate restoration of database
-        - Keyword Usage
-        - XIQSE Click Restore Button
+        - Keyword Usage:
+        - "XIQSE Click Restore Button"
         :return: 1 if action successful, else -1
         """
         ret_val = 1
@@ -68,20 +51,22 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
 
         else:
             self.utils.print_info("Unable to find 'Restore' button")
+            self.screen.save_screen_shot()
             ret_val = -1
 
         return ret_val
 
-    def xiqse_confirm_database_reintialization(self):
+    def xiqse_confirm_database_reinitialization(self):
         """
         - This Keyword checks for the existence of "Reinitialize Database" dialog and clicks "Yes" to begin restore of initial database
-        - Keyword Usage: XIQSE Confirm Database Reinitialization
+        - Keyword Usage:
+        - "XIQSE Confirm Database Reinitialization"
         :return: 1 if successful, else -1
         """
 
         ret_val = 1
 
-        restore_initial_db_dialog = self.view_el.get_restore_initial_database_dialog()
+        restore_initial_db_dialog = self.get_restore_initial_database_dialog()
         if restore_initial_db_dialog and restore_initial_db_dialog.is_displayed:
             self.utils.print_info("Being prompted to restore the initial database")
             yes_button = self.get_restore_initial_database_yes_button()
@@ -92,9 +77,11 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
 
             else:
                 self.utils.print_info("'Yes' button is not displayed")
+                self.screen.save_screen_shot()
                 ret_val = -1
         else:
             self.utils.print_info("Restore Initial Database dialog is not displayed")
+            self.screen.save_screen_shot()
             ret_val = -1
 
         return ret_val
@@ -103,10 +90,11 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
         """
         This keyword starts the restoration of the initial XIQSE database by selecting the "Restore" button on the Backup/Restore tab
         and accepts confirmation dialogs to continue.
-        :return: 1 if successful, else -1
-        - Keyword Usage: XIQSE Start Restore Initial Database
+        - Keyword Usage:
+        - "XIQSE Start Restore Initial Database"
         :return: 1 if successful, else -1
         """
+
         ret_val = 1
 
         self.xiqse_select_restore_initial_database()
@@ -117,10 +105,11 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
             self.auto_actions.click(the_restore_button)
             sleep(1)
 
-            self.xiqse_confirm_database_reintialization()
+            self.xiqse_confirm_database_reinitialization()
 
         else:
             self.utils.print_info("Unable to find Restore Button")
+            self.screen.save_screen_shot()
             ret_val = -1
 
         return ret_val
@@ -128,7 +117,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
     def xiqse_wait_for_restore_to_complete(self, retry_duration=30, retry_count=60):
         """
         - This keyword looks for the "Reinitializing Database" dialog, indicating that the restore is in progress
-        - Keyword Usage
+        - Keyword Usage"
         - ''XIQSE Wait For Restore to Complete''
         :param retry_duration: amount of time to wait in between each check for the Connection to Server lost dialog to appear
         :param retry_count: Number of times for the check to be complete
@@ -138,7 +127,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
         count = 1
         while count <= retry_count:
             self.utils.print_info(f"Waiting for Restore of Initial Database to complete: loop {count}")
-            load_mask = self.view_el.get_restore_initial_database_load_mask()
+            load_mask = self.get_restore_initial_database_load_mask()
             if load_mask:
                 self.utils.print_info(f"Restore is still in progress")
                 sleep(retry_duration)
@@ -155,7 +144,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
     def xiqse_close_connection_lost_dialog(self, retry_duration=30, retry_count=60):
         """
         - This keyword waits for the "Connection to server lost" dialog, indicating that the server has shut down after restore and clicks OK to close the UI
-        - Keyword Usage
+        - Keyword Usage:
         - ''XIQSE Close Connection Lost Dialog''
         :param retry_duration: amount of time to wait in between each check for the Connection to Server lost dialog to appear
         :param retry_count: Number of times for the check to be complete
@@ -165,7 +154,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
         count = 1
         while count <= retry_count:
             self.utils.print_info(f"Restore has completed, waiting for server restart")
-            connection_lost = self.view_el.get_connection_to_server_lost_dialog()
+            connection_lost = self.get_connection_to_server_lost_dialog()
             if connection_lost:
                 self.utils.print_info("Connection lost to server dialog visible. Closing browser session.")
                 ok_button = self.get_connection_to_server_lost_ok_button()
@@ -186,8 +175,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
         - Keyword Usage:
-         - ``Quit Browser``
-
+        - ``Quit Browser``
         :param _driver: specific driver to use; if not specified, default driver will be used
         :return: None
         """
