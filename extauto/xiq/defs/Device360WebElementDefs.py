@@ -2046,3 +2046,51 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
             'wait_for': 5
         }
+    
+    device360_cpu_utilized_button = \
+        {
+            'XPATH': '//*[@class="timeline-legend-label" and text()="CPU UTILIZED"]',
+            'wait_for': 5
+        }
+    
+    device360_memory_utilized_button = \
+        {
+            'XPATH': '//*[@class="timeline-legend-label" and text()="MEMORY UTILIZED"]',
+            'wait_for': 5 
+        }
+    
+    device360_rx_counter_button = \
+        {
+            'XPATH': '//*[@class="timeline-legend-label" and text()="RX COUNTER"]',
+            'wait_for': 5 
+        }
+    
+    device360_tx_counter_button = \
+        {
+            'XPATH': '//*[@class="timeline-legend-label" and text()="TX COUNTER"]',
+            'wait_for': 5 
+        }
+        
+    device360_ports_list_graph = \
+        {
+            'XPATH': '//li[contains(@class, "port-rel")]//div[contains(@data-automation-tag, "automation-port") and not(contains(@class, "active"))]',
+            'wait_for': 5
+        }
+    
+    device360_columns_toggle_button = \
+        {
+            'XPATH': '//div[@aria-label="Show or hide columns" and @type="button"]',
+            'wait_for': 5
+        }
+    
+    device360_coluns_toggle_checkboxes = \
+        {
+            'XPATH': '//input[contains(@id, "hcgrid_") and @type="checkbox"]',
+            'wait_for': 5
+        }
+    
+    device360_ports_description_table_header = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="hcGrid"]//table[@class="dgrid-row-table" and @role="presentation"]',
+            'wait_for': 5
+        }
