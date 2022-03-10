@@ -41,5 +41,5 @@ class BuiltIn(object):
         print(txt)
         
     @staticmethod
-    def fail(msg=None, tags):
+    def fail(msg=None):
         raise AssertionError(msg) if msg else AssertionError()
