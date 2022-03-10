@@ -40,3 +40,6 @@ class BuiltIn(object):
     def log_to_console(txt):
         print(txt)
         
+    @staticmethod
+    def fail(txt, tags):
+        print(txt)

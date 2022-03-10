@@ -5,6 +5,7 @@ import re
 import json
 from pathlib import Path
 from robot.api.parsing import ModelVisitor
+import glob
 
 qTestMarker  = re.compile(r"(([A-Z]+[\-_])?TC[\-_][0-9]+)", flags=re.IGNORECASE)
 testbed_name_re = re.compile(r"testbed_([0-9]+)_node|testbed_not_required")
@@ -377,66 +378,38 @@ class PathTools():
         out = {"TestModule": testMod, "Category": cat, "RepoPath": p}
         return out
 
-    def locateCfg(self, cfgFile, search=[]):
-        keyList = ['extr', 'xiq', 'xiqse', 'econ', 'econxiq']
-        cfgDirs  = { 'xiq' : ['/testsuites/xiq/config/', '/testsuites/xiq/env/', '/testsuites/xiq/topologies/'],
-                    'xiqse' : ['/testsuites/xiqse/config/', '/testsuites/xiqse/env/', '/testsuites/xiqse/topologies/'],
-                    'econ' : ['/TestEnvironments/', '/TestEnvironments/Rdu/Physical/Exos/',
-                              '/TestEnvironments/Rdu/Virtual/Exos/', '/TestEnvironments/Salem/Physical/Demo/',
-                              '/TestEnvironments/Salem/Physical/Dev/'],
-                    'econxiq': ['/TestEnvironments/Xiq/', '/TestEnvironments/Xiq/Base/','/TestEnvironments/Xiq/Rdu/',
-                              '/TestEnvironments/Xiq/Salem/', '/TestEnvironments/Rdu/Physical/Exos/',
-                              '/TestEnvironments/Rdu/Virtual/Exos/', '/TestEnvironments/Salem/Physical/Demo/',
-                              '/TestEnvironments/Salem/Physical/Dev/' ],
-                    'extr': ['/Environments/', '/TestBeds/', '/TestBeds/BANGALORE/', '/TestBeds/CHENNAI/',
-                             '/TestBeds/RDU/', '/TestBeds/SALEM/', '/TestBeds/SJ/', '/TestBeds/Templates/',
-                             '/TestBeds/RDU/Demo/', '/TestBeds/RDU/Dev/', '/TestBeds/RDU/Prod/',
-                             '/TestBeds/SALEM/Demo/', '/TestBeds/SALEM/Dev/','/TestBeds/SALEM/Prod/',
-                             '/TestBeds/SJ/Demo/','/TestBeds/SJ/Dev/','/TestBeds/SJ/Prod/',
-                             '/TestBeds/BANGALORE/Demo/','/TestBeds/BANGALORE/Dev/','/TestBeds/BANGALORE/Prod/',
-                             '/TestBeds/CHENNAI/Demo/','/TestBeds/CHENNAI/Dev/','/TestBeds/CHENNAI/Prod/'
-                             ]
-                    }
-
+    def locateCfg(self, cfgFile):
         for p in sys.path:
-            testCfg = Path(p+'/'+cfgFile)
-            if testCfg.exists():
-                return testCfg
+            parts = self.pathParts(p)
+            tbedDir = Path(p+'/TestBeds')
+            if os.path.isdir(tbedDir) and 'extreme_automation_tests' in parts:
+                myCfgSrch = f'{tbedDir}/**/{cfgFile}'
+                myCfgFile = glob.glob(myCfgSrch, recursive = True)
+                if len(myCfgFile) > 0:
+                    return myCfgFile[0]
+        print(f"WARNING!! {cfgFile} could not be located")
+        return None
 
-        p1 = '*cw_automation*'
-        p2 = 'econ-automation-tests.*'
-        p3 = 'extreme_automation_tests.*'
-        if search:
-            for p in sys.path:
-                if 'xiqse' in search and re.match(p1, p):
-                    for cd in cfgDirs['xiqse']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
-                if 'xiq' in search and re.match(p1, p):
-                    for cd in cfgDirs['xiq']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
-                if 'econ' in search and re.match(p2, p):
-                    for cd in cfgDirs['econ']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
-                if 'econxiq' in search and re.match(p2, p):
-                    for cd in cfgDirs['econxiq']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
-                if 'extr' in search and re.match(p3, p):
-                    for cd in cfgDirs['extr']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
+    def locateEnv(self, envFile):
         for p in sys.path:
-            for srch in keyList:
-                for cd in cfgDirs[srch]:
-                    testCfg = Path(p + cd + cfgFile)
-                    if testCfg.exists():
-                        return testCfg
+            parts = self.pathParts(p)
+            envDir = Path(p+'/Environments')
+            if os.path.isdir(envDir) and 'extreme_automation_tests' in parts:
+                myEnvSrch = f'{envDir}/**/{envFile}'
+                myEnvFile = glob.glob(myEnvSrch, recursive = True)
+                if len(myEnvFile) > 0:
+                    return myEnvFile[0]
+        print(f"WARNING!! {envFile} could not be located")
+        return None
+
+    def locateTopo(self, topoFile):
+        for p in sys.path:
+            parts = self.pathParts(p)
+            envDir = Path(p+'/Environments')
+            if os.path.isdir(envDir) and 'extreme_automation_tests' in parts:
+                myTopoSrch = f'{envDir}/**/{topoFile}'
+                myTopoFile = glob.glob(myTopoSrch, recursive = True)
+                if len(myTopoFile) > 0:
+                    return myTopoFile[0]
+        print(f"WARNING!! {topoFile} could not be located")
         return None
