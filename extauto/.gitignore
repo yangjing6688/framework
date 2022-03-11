@@ -1,6 +1,5 @@
 
 *.png
-*.xml
 *.pyc
 .idea
 .idea/deployment.xml

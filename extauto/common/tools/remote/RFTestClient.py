@@ -1,15 +1,15 @@
-from extauto.common.tools.remote.SeleniumServer import SeleniumServer
-from extauto.common.tools.remote.Recording import Recording
-from extauto.common.tools.remote.captiveportal.CaptivePortal import CaptivePortal
+from common.tools.remote.SeleniumServer import SeleniumServer
+from common.tools.remote.Recording import Recording
+from common.tools.remote.captiveportal.CaptivePortal import CaptivePortal
 import sys
 
 from sys import platform
 if platform == "linux" or platform == "linux2":
     pass
 elif platform == "darwin":
-    from extauto.common.tools.remote.MacMuConnect import MacMuConnect as MuConnect
+    from common.tools.remote.MacMuConnect import MacMuConnect as MuConnect
 elif platform == "win32":
-    from extauto.common.tools.remote.WinMuConnect import WinMuConnect as MuConnect
+    from common.tools.remote.WinMuConnect import WinMuConnect as MuConnect
 
 
 class RFTestClient(SeleniumServer, Recording, MuConnect, CaptivePortal):
