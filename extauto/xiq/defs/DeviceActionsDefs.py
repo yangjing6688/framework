@@ -1,6 +1,7 @@
 class DeviceActionsDefs:
     device_actions_button = \
         {
+            'DESC': 'Actions button in the XIQ > Manage Devices view.',
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 2
         }
