@@ -7,7 +7,7 @@ class ExtremeGuestWebElementsDefs:
 
     extreme_guest_subscription_page_subscribe_button = \
         {
-            'XPATH': '//span[text()="Subscribe"]',
+            'XPATH': '//span[text()="Enable"]',
             'wait_for': 5
         }
 

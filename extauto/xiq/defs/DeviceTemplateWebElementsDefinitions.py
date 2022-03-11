@@ -46,8 +46,9 @@ class DeviceTemplateWebElementDefinitions:
 
     device_template_ap_template_wifi1_tab = \
         {
-            'CSS_SELECTOR': '.ui-tab',
-            'index': 5,
+            #'CSS_SELECTOR': '.ui-tab',
+            'XPATH': '//*[@data-automation-tag="automation-ap-template-interface-settings-wifi-1"]',
+            #'index': 5,
             'wait_for': 5
         }
 
@@ -92,6 +93,7 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+
     ap_template_radio_usage_wifi1_backhaul_mesh_checkbox = \
         {
             'CSS_SELECTOR': '.radioUsage',
@@ -105,6 +107,23 @@ class DeviceTemplateWebElementDefinitions:
             'index': 7,
             'wait_for': 5
         }
+    ap_template_radio_usage_wifi2_client_access_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzClientAccess"]',
+            'wait_for': 5
+        }
+
+    ap_template_radio_usage_wifi2_backhaul_mesh_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzMeshLink"]',
+            'wait_for': 5
+        }
+
+    ap_template_radio_usage_wifi2_sensor_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzSensor"]',
+            'wait_for': 5
+        }
 
     device_ap_template_items = {'CSS_SELECTOR': '.ui-menu-item', 'wait_for': 5}
 
@@ -114,7 +133,7 @@ class DeviceTemplateWebElementDefinitions:
 
     device_ap_template_add_button = \
         {
-            'XPATH': '//*[@id="ah/util/layout/Menu_6"]/span',
+            'XPATH': '//*[@data-automation-tag="automation-wireless-device-templates-menu-button"]',
             'wait_for': 5
         }
 

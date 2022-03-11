@@ -128,8 +128,9 @@ class AccountManagement(AccntMgmtWebElements):
         self.utils.print_info(f'click on account role:{role} radio button')
         self.auto_actions.click(role_dict[role])
         sleep(2)
-
-        if role != "GuestManagement":
+        if role == "GuestManagement" or role == "Administrator":
+            self.utils.print_info(f'Cannot select location for :{role} role')
+        if role != "GuestManagement" and role != "Administrator":
             self.utils.print_info(f'selecting the location check box')
             self.auto_actions.click(self.get_Rbac_Assign_Location_checkbox())
 

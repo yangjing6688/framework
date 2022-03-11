@@ -480,3 +480,6 @@ class CopilotWebElements(CopilotDefs):
 
     def get_adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_okay(self, panel):
         return self.weh.get_element(self.adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_okay, panel)
+
+    def get_adverse_traffic_patterns_widget_content(self):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_content)

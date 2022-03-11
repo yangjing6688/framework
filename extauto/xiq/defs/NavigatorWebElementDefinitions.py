@@ -262,7 +262,7 @@ class NavigatorWebElementDefinitions:
 
     device_nav = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-nav-devices"]//a',
+            'XPATH': ' //*[@data-automation-tag="automation-header-nav-devices"]',
             'wait_for': 10
         }
 
@@ -407,7 +407,7 @@ class NavigatorWebElementDefinitions:
 
     device_actions_advanced_cli_access = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-device-actions-ap-cli-access']//a",
+            'XPATH': "//a[@data-automation-tag='automation-manage-device-actions-ap-cli-access']",
             'wait_for': 5
         }
 
@@ -437,7 +437,7 @@ class NavigatorWebElementDefinitions:
 
     device_actions_button = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-actions_normal-btn"]',
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 10
         }
 
@@ -503,13 +503,13 @@ class NavigatorWebElementDefinitions:
 
     air_defence_nav = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-airdefense"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-airdefense-essentials"]',
             'wait_for': 2
         }
 
     onboard_nav = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-onboard"]',
+            'XPATH': '//*[@data-automation-tag="automation-ah-drawer-trigger"]',
             'wait_for': 2
         }
 
@@ -527,19 +527,25 @@ class NavigatorWebElementDefinitions:
 
     extreme_IOT_essentials = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-defender"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-iot-essentials"]',
             'wait_for': 5
         }
 
     extreme_guest = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-guestEssentials"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-guest-essentials"]',
+            'wait_for': 5
+        }
+
+    essentials_menu = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-essentials"]',
             'wait_for': 5
         }
 
     extreme_location = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-locationEssentials"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-location-essentials"]',
             'wait_for': 5
         }
 
@@ -924,4 +930,21 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-sider-list-ManagementOptions"]',
             'wait_for': 5
         }
-    
+
+    locked_users_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-lockedusers"]',
+            'wait_for': 5
+        }
+
+    unbind_device_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-unbinddevice"]',
+            'wait_for': 5
+        }
+
+    client_monitor_diagnosis_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-clientmonitor-Diagnosis"]',
+            'wait_for': 5
+        }
