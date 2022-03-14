@@ -1612,14 +1612,15 @@ class Devices:
 
         return latest_version
 
-    def xiq_upgrade_device_to_latest_version(self, device_serial):
+    def xiq_upgrade_device_to_latest_version(self, device_serial, action = "perform upgrade"):
         """
-        - This method update device(s) to latest version from the dropdown
+        - This method update device(s) to latest version from the XIQ 
         - Keyword Usage:
          - ``XIQ Upgrade Device To Latest Version   ${DEVICE_SERIAL}``
+         - xiq_upgrade_device_to_latest_version(device_serial, action = "perform upgrade")
 
         :param device_serial: serial number(s) of the device(s)
-        :return: 1 if success else -1
+        :return: Latest firmware version if success else -1
         """
         latest_version = -1
 
@@ -1646,8 +1647,17 @@ class Devices:
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
-            self.utils.print_info("Selecting Perform Update button...")
-            self.auto_actions.click(self.device_update.get_perform_update_button())
+            if (action == "perform upgrade"):
+                self.utils.print_info("Selecting Perform Update button...")
+                self.auto_actions.click(self.device_update.get_perform_update_button())
+
+            elif (action == "close"):
+                self.utils.print_info("Selecting Cancel and Close button...")
+                self.auto_actions.click(self.device_update.get_update_close_button())
+            
+            else:
+                self.utils.print_error("Selected action {action} is unavailable, hence closing the update window...")
+                self.auto_actions.click(self.device_update.get_update_close_button())
 
         return latest_version
 
@@ -5686,10 +5696,65 @@ class Devices:
             else:
                 self.utils.print_info("Could not get Stack status")
 
-    def verify_stack_devices_managed(self, stack_mac, slot_serial_list):
+#    def verify_stack_devices_managed(self, stack_mac, slot_serial_list):
+#        """
+#        - This keyword waits until the specified column for the specified device contains managed state.
+#        - This keyword by default loops every 30 seconds for 10 times to check the column data
+#        - Flow:
+#         - Navigate to Manage --> Devices
+#         - check the specified device column for data
+#        - Keyword Usage:
+#         - ``Verify Stack Devices Managed  ${STACK_MAC}  ${SLOT_SERIAL_LIST} ``
+#
+#        :param stack_mac: stack mac in use with which stack is onboarded
+#        :param slot_serial_list: list of serial numbers of stack devices to check the devices managed status
+#        :param col: column name to check for data
+#        :return: 1 if column contains data within the specified time, else -1
+#        """
+#        self.utils.print_info("Navigate to Manage-->Devices")
+#        self.navigator.navigate_to_devices()
+#
+#        self.utils.print_info("Search Stack row")
+#        stack_row = self.get_device_row(device_mac=stack_mac)
+#
+#        if stack_row:
+#            sleep(5)
+#            self.utils.print_info("Click on stack icon")
+#            self.auto_actions.click(self.devices_web_elements.get_stack_status_icon(stack_row))
+#            self.screen.save_screen_shot()
+#
+#        slot_rows = self.devices_web_elements.get_devices_page_stack_slot_rows(stack_row)
+#        if slot_rows:
+#            self.utils.print_info(f"Stack Slot Rows Found..")
+#        count = 0
+#        self.utils.print_info(f"Searching for slot entry in stack")
+#        for serial in slot_serial_list:
+#            row_found = 0
+#            for row in slot_rows:
+#                if serial in row.text:
+#                    self.utils.print_info(f"Found Slot row of Serial '{serial}' :  '{row.text}'")
+#                    row_found = 1
+#                    if 'Managed' in row.text:
+#                        self.utils.print_info(f"Slot with Serial number '{serial}' is Managed state..")
+#                        count += 1
+#                    else:
+#                        self.utils.print_info(f"Slot with Serial number '{serial}' is NOT in Managed state")
+#            if not row_found:
+#                self.utils.print_info(f"Slot with Serial number '{serial}' is NOT FOUND")
+#
+#        self.refresh_devices_page()
+#        self.screen.save_screen_shot()
+#
+#        if count == len(slot_serial_list):
+#            self.utils.print_info(f"All the Slots are in Managed state")
+#            return 1
+#        else:
+#            return -1
+
+    def verify_stack_devices_managed(self, stack_mac, slot_serial_list, retry_duration=10, retry_count=30):
         """
         - This keyword waits until the specified column for the specified device contains managed state.
-        - This keyword by default loops every 30 seconds for 10 times to check the column data
+        - This keyword by default loops every 10 seconds for 30 times to check the column data
         - Flow:
          - Navigate to Manage --> Devices
          - check the specified device column for data
@@ -5716,29 +5781,38 @@ class Devices:
         slot_rows = self.devices_web_elements.get_devices_page_stack_slot_rows(stack_row)
         if slot_rows:
             self.utils.print_info(f"Stack Slot Rows Found..")
+
         count = 0
-        self.utils.print_info(f"Searching for slot entry in stack")
-        for serial in slot_serial_list:
-            row_found = 0
-            for row in slot_rows:
-                if serial in row.text:
-                    self.utils.print_info(f"Found Slot row of Serial '{serial}' :  '{row.text}'")
-                    row_found = 1
-                    if 'Managed' in row.text:
-                        self.utils.print_info(f"Slot with Serial number '{serial}' is Managed state..")
-                        count += 1
-                    else:
-                        self.utils.print_info(f"Slot with Serial number '{serial}' is NOT in Managed state")
-            if not row_found:
-                self.utils.print_info(f"Slot with Serial number '{serial}' is NOT FOUND")
+        time_elapsed = 0
+        while (retry_count > 0) and (count < len(slot_serial_list)):
+            count = 0
+            self.utils.print_info(f"Searching for slot entry in stack")
+            for serial in slot_serial_list:
+                row_found = 0
+                for row in slot_rows:
+                    if serial in row.text:
+                        self.utils.print_info(f"Found Slot row of Serial '{serial}' :  '{row.text}'")
+                        row_found = 1
+                        if 'Managed' in row.text:
+                            self.utils.print_info(f"Slot with Serial number '{serial}' is Managed state..")
+                            count += 1
+                        else:
+                            self.utils.print_info(f"Slot with Serial number '{serial}' is NOT in Managed state")
+                if not row_found:
+                    self.utils.print_info(f"Slot with Serial number '{serial}' is NOT FOUND")
 
-        self.refresh_devices_page()
+            self.refresh_devices_page()
+            self.utils.print_info(f"Time elapsed for all the slots to be in managed state: {time_elapsed} seconds")
+            sleep(retry_duration)
+            time_elapsed += retry_duration
+            retry_count -= 1
+
         self.screen.save_screen_shot()
-
         if count == len(slot_serial_list):
             self.utils.print_info(f"All the Slots are in Managed state")
             return 1
         else:
+            self.utils.print_info(f"Not all the Slots are in Managed state")
             return -1
 
     def update_device_using_hostname(self, device_name):
