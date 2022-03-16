@@ -14,7 +14,6 @@ class PortUdks():
     def Enable_Port_and_Validate_Port_is_Enabled(self, netelem_name, port, **kwargs):
         self.networkElementPortGenKeywords.port_enable_state(netelem_name, port, **kwargs)
         self.networkElementPortGenKeywords.port_verify_admin_enabled(netelem_name, port, **kwargs)
-        self.Verify_Xstp_Forwarding_State(netelem_name, port, **kwargs)
 
     def Enable_Port_and_Validate_Port_is_Oper_Up(self, netelem_name, port, **kwargs):
         self.networkElementPortGenKeywords.port_enable_state(netelem_name, port, **kwargs)
