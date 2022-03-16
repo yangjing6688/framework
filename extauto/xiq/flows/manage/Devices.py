@@ -5700,6 +5700,9 @@ class Devices:
     def get_exos_stack_status(self, device_mac='default'):
         """
         - This keyword returns the EXOS Stack icon status is blue or red 
+        - 'blue' means all the stack members are in managed state
+        - 'red' means one or more slot is not in managed state
+        - '-1' means the device is not a stack device
         - Keyword Usage:
         - ``Get Exos Stack Status   device_mac=${DEVICE_MAC}``
 
