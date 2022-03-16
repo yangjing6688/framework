@@ -1,9 +1,13 @@
+import sys
+
 from robot.libraries.BuiltIn import BuiltIn
 from ExtremeAutomation.Library.Device.NetworkElement.NetelemLearning.UpdateEnvironment import UpdateEnvironment
 from ExtremeAutomation.Keywords.TrafficKeywords.Utils.Constants.GenerateRobotVariables import logger
 from ExtremeAutomation.Library.Device.Common.PlatformVariables.Library.PlatformVariableConstants import PlatformVariableConstants
 from ExtremeAutomation.Keywords.Utils.DeviceCollectionManager import DeviceCollectionManager
 import re
+
+p1 = '^\$\{'   # regex check to see if the var is already in robot format
 
 class RobotUtils():
     
@@ -17,7 +21,7 @@ class RobotUtils():
     
     @staticmethod
     def set_global_variable(key, value):
-        BuiltIn().set_global_variable("${" + key + "}", value)
+        BuiltIn().set_global_variable(key, value)
     
     
     @staticmethod
@@ -28,7 +32,7 @@ class RobotUtils():
             if elem_prefix is not None:
                 suite_vars = BuiltIn().get_variables(no_decoration=True)[elem_prefix]
                 updated_dict = UpdateEnvironment().update_environment(device_name, learned_system, suite_vars)
-                BuiltIn().set_global_variable("${" + elem_prefix + "}", updated_dict)
+                BuiltIn().set_global_variable(elem_prefix, updated_dict)
             else:
                 logger().log_trace("Unable to find prefix for device " + device_name +
                                    ", cannot update its variables.")
@@ -50,8 +54,7 @@ class RobotUtils():
             while i < len(key_value_pairs):
                 suite_vars[key_value_pairs[i]] = key_value_pairs[i + 1]
                 i += 2
-
-            BuiltIn().set_global_variable("${" + elem_prefix + "}", suite_vars)
+            BuiltIn().set_global_variable(elem_prefix, suite_vars)
         except Exception:
             pass
     

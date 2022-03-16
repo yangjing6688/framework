@@ -30,6 +30,7 @@ class XAPISwitch:
         """
         device_type = device_type.upper()
 
+
         if device_type == 'VOSS':
             if device_model == '5520':
                 searchStr = "FabricEngine_5520"

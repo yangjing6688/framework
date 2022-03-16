@@ -792,3 +792,73 @@ class CopilotDefs:
             'CSS_SELECTOR': '.nui-auto-copilot-high-mbcast-detail-pin.pinned-item',
             'wait_for': 5,
         }
+
+    adverse_traffic_patterns_widget_anomaly_muted = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-high-mbcast-summary-toggle-muted-btn',
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget = \
+        {
+            'CSS_SELECTOR': '.high-mbcast-widget',
+            'wait_for': 15
+        }
+
+    adverse_traffic_patterns_widget_location_more_button = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-high-mbcast-summary-more-options',
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget_location_mute_and_dismiss_div = \
+        {
+            'CSS_SELECTOR': '.mat-menu-content',
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget_location_mute_button = \
+        {
+            'CSS_SELECTOR': '.mat-focus-indicator',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget_location_dismiss_button = \
+        {
+            'CSS_SELECTOR': '.mat-focus-indicator',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget_location_unmute_button = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-high-mbcast-summary-unmute-btn',
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget_location_dismiss_confirm_dialog = \
+        {
+            'CSS_SELECTOR': '.confirmation-dialog',
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_cancel = \
+        {
+            'XPATH': '//*[@class="mat-dialog-actions"]'
+                     '//*[@class="mat-focus-indicator secondary-button-color mat-button mat-button-base"]',
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_okay = \
+        {
+            'XPATH': '//*[@class="mat-dialog-actions"]//*[@class="mat-focus-indicator primary-button-color '
+                     'mat-raised-button mat-button-base mat-primary"]',
+            'wait_for': 5
+        }
+
+    adverse_traffic_patterns_widget_content = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-high-mbcast-summary-description',
+            'wait_for': 5,
+         }

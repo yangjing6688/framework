@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Loginconfig
-This feature is located in this file: `loginconfig.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `loginconfig.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: create_admin_account
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_create_admin_account(device_name, username, passwd)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_create_admin_account(device_name, username, passwd)
 
 	Robot API Call: 
 
@@ -47,7 +47,7 @@ UUID: b2d5d8b4-05ff-448e-bd9a-6c3128a46f72
 # API Function: delete_account
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_delete_account(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_delete_account(device_name )
 
 	Robot API Call: 
 
@@ -90,7 +90,7 @@ UUID: 66d9fc62-de47-45e9-a80f-237df09d6830
 # API Function: enable_cli_ro_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_enable_cli_ro_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_enable_cli_ro_user(device_name )
 
 	Robot API Call: 
 
@@ -129,7 +129,7 @@ UUID: ea3d9fcc-d197-417e-a031-37b620fdd097
 # API Function: disable_cli_ro_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_disable_cli_ro_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_disable_cli_ro_user(device_name )
 
 	Robot API Call: 
 
@@ -168,7 +168,7 @@ UUID: c5e141ea-dc47-4717-84dd-bceb13094a74
 # API Function: enable_cli_rw_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_enable_cli_rw_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_enable_cli_rw_user(device_name )
 
 	Robot API Call: 
 
@@ -207,7 +207,7 @@ UUID: c99b279a-18b8-42d3-b972-8d1d29003d32
 # API Function: disable_cli_rw_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_disable_cli_rw_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_disable_cli_rw_user(device_name )
 
 	Robot API Call: 
 
@@ -246,7 +246,7 @@ UUID: 2ad7f9bb-ab1a-45df-b0b5-37fe61245c9c
 # API Function: enable_cli_l1_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_enable_cli_l1_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_enable_cli_l1_user(device_name )
 
 	Robot API Call: 
 
@@ -285,7 +285,7 @@ UUID: 207affc7-cf16-4e90-a775-4c144608e857
 # API Function: disable_cli_l1_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_disable_cli_l1_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_disable_cli_l1_user(device_name )
 
 	Robot API Call: 
 
@@ -324,7 +324,7 @@ UUID: 744838ca-cac8-4e62-9be6-c6564643150d
 # API Function: enable_cli_l2_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_enable_cli_l2_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_enable_cli_l2_user(device_name )
 
 	Robot API Call: 
 
@@ -363,7 +363,7 @@ UUID: 2c4a60d8-111c-4957-9650-c41a77a7db18
 # API Function: disable_cli_l2_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_disable_cli_l2_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_disable_cli_l2_user(device_name )
 
 	Robot API Call: 
 
@@ -402,7 +402,7 @@ UUID: 8193b82e-958e-4b6c-a1f7-8c2ae3e5f7f6
 # API Function: enable_cli_l3_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_enable_cli_l3_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_enable_cli_l3_user(device_name )
 
 	Robot API Call: 
 
@@ -441,7 +441,7 @@ UUID: 930c8b33-2eac-4e68-99dd-4e0b8e428282
 # API Function: disable_cli_l3_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_disable_cli_l3_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_disable_cli_l3_user(device_name )
 
 	Robot API Call: 
 
@@ -480,7 +480,7 @@ UUID: 981eaa7e-cda5-4aff-b814-f67b62d3a228
 # API Function: set_read_only_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_read_only_user(device_name, username, new_passwd, old_passwd)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_read_only_user(device_name, username, new_passwd, old_passwd)
 
 	Robot API Call: 
 
@@ -519,7 +519,7 @@ UUID: 4e834f1e-c3ea-4000-b985-d79bac2dd073
 # API Function: set_read_write_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_read_write_user(device_name, username, new_passwd, old_passwd)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_read_write_user(device_name, username, new_passwd, old_passwd)
 
 	Robot API Call: 
 
@@ -558,7 +558,7 @@ UUID: c447def2-3369-4b7b-80f4-714a37436ebd
 # API Function: set_read_write_all_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_read_write_all_user(device_name, username, new_passwd, old_passwd)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_read_write_all_user(device_name, username, new_passwd, old_passwd)
 
 	Robot API Call: 
 
@@ -597,7 +597,7 @@ UUID: 2fc53e4e-3c43-4f6f-bbb6-64325f9fbcc9
 # API Function: set_max_telnet_sessions
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_max_telnet_sessions(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_max_telnet_sessions(device_name )
 
 	Robot API Call: 
 
@@ -636,7 +636,7 @@ UUID: 61e97777-e3ab-40f7-9a67-41fa1ab23e69
 # API Function: set_max_rlogin_sessions
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_max_rlogin_sessions(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_max_rlogin_sessions(device_name )
 
 	Robot API Call: 
 
@@ -675,7 +675,7 @@ UUID: facb657e-8872-4a8d-883a-2ca8b94ad3c8
 # API Function: set_l1_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_l1_user(device_name, username, new_passwd, old_passwd)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_l1_user(device_name, username, new_passwd, old_passwd)
 
 	Robot API Call: 
 
@@ -714,7 +714,7 @@ UUID: eb4fbd98-37be-40e4-b574-791f38b81926
 # API Function: set_l2_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_l2_user(device_name, username, new_passwd, old_passwd)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_l2_user(device_name, username, new_passwd, old_passwd)
 
 	Robot API Call: 
 
@@ -753,7 +753,7 @@ UUID: 20a0224e-6eb4-42bd-9116-e4d6774b1b13
 # API Function: set_l3_user
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_l3_user(device_name, username, new_passwd, old_passwd)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_l3_user(device_name, username, new_passwd, old_passwd)
 
 	Robot API Call: 
 
@@ -792,7 +792,7 @@ UUID: a9865378-42fb-41e1-8785-69d0f34e00ad
 # API Function: set_cli_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_cli_timeout(device_name, in seconds to wait before timing out telnet and  rlogin sessions)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_cli_timeout(device_name, in seconds to wait before timing out telnet and  rlogin sessions)
 
 	Robot API Call: 
 
@@ -831,7 +831,7 @@ UUID: 5829f7a8-04b5-4b23-995f-7af584d3cba6
 # API Function: set_account_password_policy_min_length
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_account_password_policy_min_length(device_name, username, min_length)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_account_password_policy_min_length(device_name, username, min_length)
 
 	Robot API Call: 
 
@@ -859,7 +859,7 @@ UUID: 7b2711f4-0fc4-48a3-986d-9dd6cb6c9474
 # API Function: set_account_password_policy_min_different_chars
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_account_password_policy_min_different_chars(device_name, username, min_chars)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_account_password_policy_min_different_chars(device_name, username, min_chars)
 
 	Robot API Call: 
 
@@ -887,7 +887,7 @@ UUID: 769542b5-1b16-4127-901f-cdcf3bef674c
 # API Function: set_account_password_policy_min_age
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_account_password_policy_min_age(device_name, username, age)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_account_password_policy_min_age(device_name, username, age)
 
 	Robot API Call: 
 
@@ -915,7 +915,7 @@ UUID: e4fddf5a-e021-489a-b30c-f8f928150e9b
 # API Function: set_account_password_policy_max_age
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_account_password_policy_max_age(device_name, username, age)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_account_password_policy_max_age(device_name, username, age)
 
 	Robot API Call: 
 
@@ -943,7 +943,7 @@ UUID: 3c77851e-1dab-44cb-8076-4378392760be
 # API Function: set_account_password
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_set_account_password(device_name, username, old_password, new_password)
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_set_account_password(device_name, username, old_password, new_password)
 
 	Robot API Call: 
 
@@ -971,7 +971,7 @@ UUID: d4003c0a-2fad-4069-bd4c-1280e018bc1b
 # API Function: show_accounts
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_show_accounts(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_accounts(device_name )
 
 	Robot API Call: 
 
@@ -1014,7 +1014,7 @@ UUID: da0f6bef-fcb4-4509-bc9c-6262c01d3079
 # API Function: show_logged_in_users
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_show_logged_in_users(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_logged_in_users(device_name )
 
 	Robot API Call: 
 
@@ -1042,7 +1042,7 @@ UUID: 8ecd0acd-9ccd-42af-8c97-acc46413408b
 # API Function: show_logged_in_users_detail
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_show_logged_in_users_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_logged_in_users_detail(device_name )
 
 	Robot API Call: 
 
@@ -1070,7 +1070,7 @@ UUID: eb712e6f-91c6-4889-9864-a79c70318f94
 # API Function: show_cli_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_show_cli_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_cli_info(device_name )
 
 	Robot API Call: 
 
@@ -1109,7 +1109,7 @@ UUID: 02896d84-dba9-446d-af14-81389cac1372
 # API Function: show_cli_users_state
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_show_cli_users_state(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_cli_users_state(device_name )
 
 	Robot API Call: 
 
@@ -1148,7 +1148,7 @@ UUID: e92c8400-0654-4a65-ad92-bef8408ac5c3
 # API Function: show_accounts_password_policy
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_show_accounts_password_policy(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_accounts_password_policy(device_name )
 
 	Robot API Call: 
 
@@ -1176,7 +1176,7 @@ UUID: b9453801-62eb-4f8c-8a14-4254f921eb95
 # API Function: show_cli_num_access_violations
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementLoginconfigGenKeywords.loginconfig_show_cli_num_access_violations(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_cli_num_access_violations(device_name )
 
 	Robot API Call: 
 

@@ -80,8 +80,7 @@ class AdspWebElementsDefinitions:
 
     adsp_alarm_page_size_options = \
         {
-            'XPATH': '//div[@class="ng-tns-c118-52 ng-trigger ng-trigger-transformPanel mat-select-panel mat-primary"]'
-                     '//mat-option',
+            'XPATH': '//*[contains(@class, "mat-option mat-focus-indicator")]',
             'wait_for': 5
         }
 
@@ -131,7 +130,7 @@ class AdspWebElementsDefinitions:
 
     adsp_widget_refresh_button = \
         {
-            'CSS_SELECTOR': '.alarm-refresh-btn.float-right',
+            'CSS_SELECTOR': '.summary-refresh-btn',
             'wait_for': 5
         }
 

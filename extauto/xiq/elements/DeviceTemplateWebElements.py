@@ -80,17 +80,35 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
         """
         return self.weh.get_element(self.ap_template_radio_usage_wifi1_client_access_checkbox)
 
+    def get_client_access_checkbox_wifi2(self):
+        """
+        :return: get_client_access_checkbox_wifi2
+        """
+        return self.weh.get_element(self.ap_template_radio_usage_wifi2_client_access_checkbox)
+
     def get_backhaul_mesh_link_checkbox_wifi1(self):
         """
         :return: get_backhaul_mesh_link_checkbox_wifi1
         """
         return self.weh.get_element(self.ap_template_radio_usage_wifi1_backhaul_mesh_checkbox)
 
+    def get_backhaul_mesh_link_checkbox_wifi2(self):
+        """
+        :return: get_backhaul_mesh_link_checkbox_wifi2
+        """
+        return self.weh.get_element(self.ap_template_radio_usage_wifi2_backhaul_mesh_checkbox)
+
     def get_sensor_checkbox_wifi1(self):
         """
-        :return: get_backhaul_mesh_link_checkbox_wifi1
+        :return: get_sensor_checkbox_wifi2
         """
         return self.weh.get_element(self.ap_template_radio_usage_wifi1_sensor_checkbox)
+
+    def get_sensor_checkbox_wifi2(self):
+        """
+        :return: get_sensor_checkbox_wifi2
+        """
+        return self.weh.get_element(self.ap_template_radio_usage_wifi2_sensor_checkbox)
 
     def get_device_template_ap_template_wifi1_tab(self):
         """

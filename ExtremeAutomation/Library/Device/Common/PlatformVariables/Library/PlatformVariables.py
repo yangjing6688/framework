@@ -3,6 +3,9 @@ from ExtremeAutomation.Library.Utils.RobotUtils import RobotUtils
 from ExtremeAutomation.Keywords.Utils.DeviceCollectionManager import DeviceCollectionManager
 from ExtremeAutomation.Library.Device.Common.Factories.PlatformVariableFactory import PlatformVariableFactory
 from io import IOBase
+import re
+
+p1 = '^\$\{'   # regex check to see if the var is already in robot format
 
 class PlatformVariables(object):
     def __init__(self):
@@ -30,9 +33,8 @@ class PlatformVariables(object):
             try:
                 suite_vars = self.robot_built_in.get_variables(no_decoration=True)[elem_prefix]
                 self.set_to_dictionary(suite_vars, "plat_vars", plat_vars)
-                self.robot_built_in.set_global_variable("${" + elem_prefix + "}", suite_vars)
+                self.robot_built_in.set_global_variable(elem_prefix, suite_vars)
                 self.logger.log_trace("Adding platform variables...")
-                self.logger.log_trace(plat_vars)
             except Exception:
                 self.logger.log_trace("Unable to access robot process, platform variables not added.")
         else:

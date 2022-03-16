@@ -300,7 +300,7 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
             self.utils.print_info(f"Closed {close_count} banner message panels")
             self.screen.save_screen_shot()
             if close_count != btn_count:
-                self.utils_print_info("Not all banner message panels were closed")
+                self.utils.print_info("Not all banner message panels were closed")
                 ret_val = -1
         else:
             self.utils.print_info("No banner message panels to close")

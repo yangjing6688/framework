@@ -456,3 +456,30 @@ class CopilotWebElements(CopilotDefs):
 
     def get_adverse_traffic_patterns_anomaly_device_pinned(self, anomaly):
         return self.weh.get_element(self.adverse_traffic_patterns_anomaly_device_pinned, parent=anomaly)
+
+    def get_adverse_traffic_patterns_widget_location_more_button(self, row):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_location_more_button, row)
+
+    def get_adverse_traffic_patterns_widget_location_mute_and_dismiss_div(self):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_location_mute_and_dismiss_div)
+
+    def get_adverse_traffic_patterns_widget_location_mute_button(self, panel):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_location_mute_button, panel)
+
+    def get_adverse_traffic_patterns_widget_location_dismiss_button(self, panel):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_location_dismiss_button, panel)
+
+    def get_adverse_traffic_patterns_widget_location_unmute_button(self, panel):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_location_unmute_button, panel)
+
+    def get_adverse_traffic_patterns_widget_location_dismiss_confirm_dialog(self):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_location_dismiss_confirm_dialog)
+
+    def get_adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_cancel(self, panel):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_cancel, panel)
+
+    def get_adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_okay(self, panel):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_okay, panel)
+
+    def get_adverse_traffic_patterns_widget_content(self):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_content)

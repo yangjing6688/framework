@@ -30,6 +30,12 @@ class NetworkDevicesDevicesAddDeviceWebElements(NetworkDevicesDevicesAddDeviceWe
         """
         return self.weh.get_element(self.status_only_checkbox)
 
+    def get_run_site_add_actions_checkbox(self):
+        """
+        :return: 'Run Site's Add Actions' checkbox in the Add Device dialog
+        """
+        return self.weh.get_element(self.run_site_add_actions_checkbox)
+
     def get_ok_button(self):
         """
         :return: 'OK' button in the Add Device dialog

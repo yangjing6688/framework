@@ -156,6 +156,12 @@ class ExtremeGuestOnboardingWebElementsDefs:
             'wait_for': 5
         }
 
+    extreme_guest_onboarding_rule_add_save_exists_button = \
+        {
+            'XPATH': '//div[contains(text(),"already exists")]',
+            'wait_for': 5
+        }
+
     extreme_guest_onboarding_rule_add_save_ok_button = \
         {
             'XPATH': '//span[text()="OK"]',

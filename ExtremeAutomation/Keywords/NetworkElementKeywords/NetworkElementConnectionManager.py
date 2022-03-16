@@ -11,16 +11,18 @@ from ExtremeAutomation.Keywords.BaseClasses.NetworkElementKeywordBaseClass impor
 
 import inspect
 import logging
+import sys
+import copy
+
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logging.basicConfig(format='[%(asctime)s] %(levelname)s: [%(filename)s %(name)s %(funcName)s (Line#%(lineno)d)]: %(message)s')
-
 
 class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
     def connect_to_network_element(self, net_elem_name, ip, username, password, connection_method, device_os, port=None,
                                    device_platform=None, device_version=None, device_unit=None, debug_password=None,
-                                   max_wait="60", **kwargs):
+                                   max_wait="60", session_key="default", **kwargs):
         """
         Keyword Arguments:
         [net_elem_name] - A string name for calling the device. Example, "DUT1", "EXOS_1", or "DHCP_Server".
@@ -34,20 +36,24 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         [device_platform] - The platform of the device being connected to.
         [device_version] - The version of FW that the device being connected to is running.
         [device_unit] - This unit of the device being connected to.
-
+        [session_key] - Name of session only needed for multiple connections to same netelem
         This keyword connects to a network element. An exception is thrown if a connection cannot be established.
         """
-
-
-
         this_function_name   = inspect.currentframe().f_code.co_name
         callingfunction_name = inspect.currentframe().f_back.f_code.co_name
         callingfile_name = inspect.currentframe().f_back.f_code.co_filename
-        logger.info("[+]Entering function     : %s()", this_function_name)
-        logger.info("[+]Called from function  : %s()", callingfunction_name)
-        logger.info("[+]Called from file      : %s()", callingfile_name)
+        logger.debug("[+]Entering function     : %s()", this_function_name)
+        logger.debug("[+]Called from function  : %s()", callingfunction_name)
+        logger.debug("[+]Called from file      : %s()", callingfile_name)
 
         build_system = kwargs.get("build_system", False)
+        # Alter ip/port to console_ip console_port if required
+        # The default L3 connection is netelem# ip and port.  The next method only returns a value if
+        #     console or slot
+        cons_ip, cons_port = NetworkElementUtils.get_console_ip_port(None, net_elem_name, connection_method)
+        if cons_ip:
+            ip = cons_ip
+            port = cons_port
 
         self.__base_connect_to_network_element(net_elem_name, ip, username, password, connection_method, device_os,
                                                port, device_platform, device_version, device_unit, debug_password,
@@ -56,8 +62,11 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         dev, _, _ = self._init_keyword(net_elem_name, **kwargs)
         expect_error = self.get_kwarg_bool(kwargs, "expect_error", False)
         dev.max_connection_retries = 0 if expect_error else 3
+        dev.connection_method = connection_method
 
         start_time = time.time()
+
+        dev.track_named_agent(session_key, connection_method, ip, port)
 
         i = 1
         while not dev.current_agent.logged_in and (time.time() - start_time) < int(max_wait) and not expect_error:
@@ -91,7 +100,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         Searches the testbed environment file for network elements and connects to each.
         """
-        netelem_dict = self.__build_dict_of_netelems(**kwargs)
+        netelem_dict = self.build_dict_of_netelems(**kwargs)
         for netelem_name in netelem_dict:
             if not netelem_dict[netelem_name]["skip_connect"]:
                 netelem_ip = netelem_dict[netelem_name]["netelem_ip"]
@@ -103,14 +112,17 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_platform = netelem_dict[netelem_name]["netelem_platform"]
                 netelem_version = netelem_dict[netelem_name]["netelem_version"]
                 netelem_unit = netelem_dict[netelem_name]["netelem_unit"]
+                netelem_console_ip = netelem_dict[netelem_name]["netelem_console_ip"]
+                netelem_console_port = netelem_dict[netelem_name]["netelem_console_port"]
                 snmp_info = netelem_dict[netelem_name]["snmp_info"]
                 auth_mode = netelem_dict[netelem_name]["auth_mode"]
                 verify_cert = netelem_dict[netelem_name]["verify_cert"]
 
                 self.connect_to_network_element(netelem_name, netelem_ip, netelem_user, netelem_pass,
                                                 netelem_con_method, netelem_os, netelem_port, netelem_platform,
-                                                netelem_version, netelem_unit, snmp_info=snmp_info, auth_mode=auth_mode,
-                                                verify_cert=verify_cert, **kwargs)
+                                                netelem_version, netelem_unit, netelem_console_ip=netelem_console_ip,
+                                                netelem_console_port=netelem_console_port, snmp_info=snmp_info,
+                                                auth_mode=auth_mode, verify_cert=verify_cert, **kwargs)
 
     def connect_to_network_element_name(self, device_name, **kwargs):
         """
@@ -119,7 +131,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         Searches the testbed environment file for network elements and connects to each.
         """
-        netelem_dict = self.__build_dict_of_netelems(**kwargs)
+        netelem_dict = self.build_dict_of_netelems(**kwargs)
 
         if device_name in netelem_dict:
             netelem_ip = netelem_dict[device_name]["netelem_ip"]
@@ -130,6 +142,8 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             netelem_port = netelem_dict[device_name]["netelem_port"]
             netelem_platform = netelem_dict[device_name]["netelem_platform"]
             netelem_version = netelem_dict[device_name]["netelem_version"]
+            netelem_console_ip = netelem_dict[device_name]["netelem_console_ip"]
+            netelem_console_port = netelem_dict[device_name]["netelem_console_port"]
             netelem_unit = netelem_dict[device_name]["netelem_unit"]
             snmp_info = netelem_dict[device_name]["snmp_info"]
             auth_mode = netelem_dict[device_name]["auth_mode"]
@@ -137,8 +151,9 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
             self.connect_to_network_element(device_name, netelem_ip, netelem_user, netelem_pass,
                                             netelem_con_method, netelem_os, netelem_port, netelem_platform,
-                                            netelem_version, netelem_unit, snmp_info=snmp_info, auth_mode=auth_mode,
-                                            verify_cert=verify_cert, **kwargs)
+                                            netelem_version, netelem_unit, netelem_console_ip=netelem_console_ip,
+                                            netelem_console_port=netelem_console_port, snmp_info=snmp_info,
+                                            auth_mode=auth_mode, verify_cert=verify_cert, **kwargs)
 
     def connect_to_network_element_number(self, netelem_id, **kwargs):
         """
@@ -148,7 +163,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         Searches the testbed environment file for network elements and connects to each.
         """
-        netelem_dict = self.__build_dict_of_netelems(**kwargs)
+        netelem_dict = self.build_dict_of_netelems(**kwargs)
         for netelem_name in netelem_dict:
             if netelem_dict[netelem_name]["netelem_id"] == netelem_id:
                 netelem_ip = netelem_dict[netelem_name]["netelem_ip"]
@@ -160,14 +175,17 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_platform = netelem_dict[netelem_name]["netelem_platform"]
                 netelem_version = netelem_dict[netelem_name]["netelem_version"]
                 netelem_unit = netelem_dict[netelem_name]["netelem_unit"]
+                netelem_console_ip = netelem_dict[netelem_name]["netelem_console_ip"]
+                netelem_console_port = netelem_dict[netelem_name]["netelem_console_port"]
                 snmp_info = netelem_dict[netelem_name]["snmp_info"]
                 auth_mode = netelem_dict[netelem_name]["auth_mode"]
                 verify_cert = netelem_dict[netelem_name]["verify_cert"]
 
                 self.connect_to_network_element(netelem_name, netelem_ip, netelem_user, netelem_pass,
                                                 netelem_con_method, netelem_os, netelem_port, netelem_platform,
-                                                netelem_version, netelem_unit, snmp_info=snmp_info, auth_mode=auth_mode,
-                                                verify_cert=verify_cert, **kwargs)
+                                                netelem_version, netelem_unit, netelem_console_ip=netelem_console_ip,
+                                                netelem_console_port=netelem_console_port, snmp_info=snmp_info,
+                                                auth_mode=auth_mode, verify_cert=verify_cert, **kwargs)
                 break
 
     def close_connection_to_network_element(self, net_elem_nam, **kwargs):
@@ -179,6 +197,27 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         """
         dev, _, _ = self._init_keyword(net_elem_nam, check_initial_prompt=False, **kwargs)
         dev.disconnect()
+        if len(dev.agent_track) > 0:
+            killAgentDict = {}   # temp needed because disconnect modifies the looping dictionary.
+            for sess_agent in dev.agent_track.keys():
+                for sess_key in dev.agent_track[sess_agent].keys():
+                    dev.logger.log_debug(f"Netelem Agent Session disconnect {sess_agent} {sess_key}...")
+                    if dev.agent_track[sess_agent][sess_key]['agent']:
+                        killAgentDict[sess_key] = {}
+                        killAgentDict[sess_key]['connection_method'] = sess_agent
+                        killAgentDict[sess_key]['hostname'] = dev.agent_track[sess_agent][sess_key]['hostname']
+                        killAgentDict[sess_key]['port'] = dev.agent_track[sess_agent][sess_key]['port']
+                        killAgentDict[sess_key]['current_agent'] = dev.agent_track[sess_agent][sess_key]['agent']
+            for skey in killAgentDict.keys():
+                dev.session_key = skey
+                dev.connection_method = killAgentDict[skey]['connection_method']
+                dev.hostname = killAgentDict[skey]['hostname']
+                dev.port = killAgentDict[skey]['port']
+                dev.current_agent = killAgentDict[skey]['current_agent']
+                try:
+                    dev.disconnect()
+                except:
+                    pass
         self.device_collection.remove_device(net_elem_nam)
 
     def close_connection_to_all_network_elements(self, **kwargs):
@@ -198,12 +237,18 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         for netelem in netelem_list:
             self.close_connection_to_network_element(netelem, **kwargs)
 
-    def change_netelem_connection_agent(self, net_elem_name, connection_method, connection_port=None, **kwargs):
+    #
+    # Add  or change connections to a network element
+    #
+    def netelem_agent_connection_modify(self, net_elem_name, connection_method, session_key=None, connection_port=None,  **kwargs):
         """
         Keyword Arguments:
         [net_elem_name] - The network element whose connection agent should be changed.
         [connection_method] - The protocol used to connect to the device. Current options are
                               "telnet", "ssh", snmp, and "json"
+        [session_key]  -  "default" session_key string is used on the first connect to netelem.  When adding a new session
+                          use a new session_key.  To return to an existing open session.  Calling that conn_method/string
+                          pair, will return to the already open session.
         [connection_port] - The port used to connect to the device. If no port is provided the protocols
                             default will be used.
         """
@@ -211,12 +256,11 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         this_function_name   = inspect.currentframe().f_code.co_name
         callingfunction_name = inspect.currentframe().f_back.f_code.co_name
         callingfile_name = inspect.currentframe().f_back.f_code.co_filename
-        logger.info("[+]Entering function     : %s()", this_function_name)
-        logger.info("[+]Called from function  : %s()", callingfunction_name)
-        logger.info("[+]Called from file      : %s()", callingfile_name)
+        logger.debug("[+]Entering function     : %s()", this_function_name)
+        logger.debug("[+]Called from function  : %s()", callingfunction_name)
+        logger.debug("[+]Called from file      : %s()", callingfile_name)
 
         dev, _, _ = self._init_keyword(net_elem_name, **kwargs)
-        
         if kwargs.get("snmp_info", False):
             snmp_info = kwargs["snmp_info"]
         else:
@@ -229,23 +273,24 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 snmp_info = None
             else:
                 netelem_num = NetworkElementUtils.get_device_number(variables, net_elem_name)
+                self.add_agent_kwarg(dev, "verify_cert", kwargs)
+                self.add_agent_kwarg(dev, "auth_mode", kwargs)
+                self.add_agent_kwarg(dev, "headers", kwargs)
+                self.add_agent_kwarg(dev, "oauth", kwargs)
                 snmp_info = NetworkElementUtils.get_snmp_info(variables, netelem_num)
 
-        ip = dev.hostname
-        oper_sys = dev.oper_sys
-        unit = dev.unit
-        version = dev.version
-        platform = dev.platform
-        username = dev.username
-        password = dev.password
-        debug_password = dev.debug_password
-
-        if kwargs.get("netelem_session"):
-            dev.get_named_agent()
-            self.netelem_session = kwargs['netelem_session']
-            dev.set_named_agent(self.netelem_session, connection_method, connection_port)
+        ip, port = NetworkElementUtils.get_console_ip_port(dev, net_elem_name, connection_method, True)
+        if connection_port:
+            port = connection_port
+            dev.port = port
+        connection_method, port = NetworkElementUtils.get_connection_method(connection_method, port)
+        if session_key:
+            self.session_key = session_key
+            dev.set_and_connect_named_agent(self.session_key, connection_method, ip, port)
         else:
-            pass
+            logger.debug("[!]SessionKey should be set on initial connect")
+            self.session_key = 'default'
+            dev.set_and_connect_named_agent('default', connection_method, ip, port)
 
     def __base_connect_to_network_element(self, net_elem_name, ip, username, password, connection_method, device_os,
                                           port, device_platform, device_version, device_unit, debug_password, **kwargs):
@@ -254,9 +299,9 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         this_function_name   = inspect.currentframe().f_code.co_name
         callingfunction_name = inspect.currentframe().f_back.f_code.co_name
         callingfile_name = inspect.currentframe().f_back.f_code.co_filename
-        logger.info("[+]Entering function     : %s()", this_function_name)
-        logger.info("[+]Called from function  : %s()", callingfunction_name)
-        logger.info("[+]Called from file      : %s()", callingfile_name)
+        logger.debug("[+]Entering function     : %s()", this_function_name)
+        logger.debug("[+]Called from function  : %s()", callingfunction_name)
+        logger.debug("[+]Called from file      : %s()", callingfile_name)
 
         # Get os, platform, and prompts based on the device type.
         device_info = NetworkElementUtils.get_device_info(device_os, device_platform, device_version, device_unit)
@@ -322,13 +367,18 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         if learned_system is not None:
             RobotUtils.update_variables(net_elem_name, learned_system)
 
-    def __build_dict_of_netelems(self, **kwargs):
+    def build_dict_of_netelems(self, **kwargs):
         try:
             variables = RobotUtils.get_variables(no_decoration=True)
         except Exception as e:
                 raise e
 
         netelems = NetworkElementUtils.get_device_names_from_variables(variables, "netelem")
+        # We consider AP as an netelem
+        ap = NetworkElementUtils.get_device_names_from_variables(variables, "ap")
+
+        # Add the results together
+        netelems.extend(ap)
         netelem_dict = {}
         for netelem in netelems:
             netelem_id = netelem
@@ -339,6 +389,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             netelem_con_method = None
             netelem_port = None
             netelem_os = None
+            session_keylist = []
 
             try:
                 netelem_name = variables[netelem]["name"]
@@ -367,6 +418,8 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 if netelem_os is None:
                     self.logger.log_error("${" + netelem + ".os} variable not present in testbed resource file.")
 
+            netelem_console_ip = variables[netelem]["console_ip"] if "console_ip" in variables[netelem] else None
+            netelem_console_port = variables[netelem]["console_port"] if "console_port" in variables[netelem] else None
             netelem_platform = variables[netelem]["platform"] if "platform" in variables[netelem] else None
             netelem_version = variables[netelem]["version"] if "version" in variables[netelem] else None
             netelem_unit = variables[netelem]["unit"] if "unit" in variables[netelem] else None
@@ -377,6 +430,24 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             if netelem_con_method.lower() == "rest" and auth_mode is None:
                 self.logger.log_error("REST auth_mode was not provided. Using default AUTH_NONE.")
             verify_cert = variables[netelem]["verify_cert"] if "verify_cert" in variables[netelem] else None
+
+            netelem_stack = 1 if "stack" in variables[netelem] else None
+            slot1_console_ip = None
+            slot1_console_port = None
+            slot2_console_ip = None
+            slot2_console_port = None
+            if netelem_stack:
+                for k, v in variables[netelem]["stack"].items():
+                    if k == 'slot1':
+                        #session_keylist.append('slot1')
+                        slot1_console_ip = v["console_ip"] if "console_ip" in v else None
+                        slot1_console_port = v["console_port"] if "console_port" in v else None
+                    if k == 'slot2':
+                        session_keylist.append('slot2')
+                        slot2_console_ip = v["console_ip"] if "console_ip" in v else None
+                        slot2_console_port = v["console_port"] if "console_port" in v else None
+
+            netelem_vpex = 1 if "vpex" in variables[netelem] else None
 
             # Checking for 'skip_connect' key in the netelem dict
             skip_connect = variables[netelem].get("skip_connect", False)
@@ -391,10 +462,19 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                                           "netelem_platform": netelem_platform,
                                           "netelem_version": netelem_version,
                                           "netelem_unit": netelem_unit,
+                                          "netelem_console_ip": netelem_console_ip,
+                                          "netelem_console_port": netelem_console_port,
                                           "snmp_info": snmp_info,
                                           "auth_mode": auth_mode,
                                           "verify_cert": verify_cert,
                                           "netelem_id": netelem_id,
+                                          "netelem_stack": netelem_stack,
+                                          "netelem_slot1_console_ip": slot1_console_ip,
+                                          "netelem_slot1_console_port": slot1_console_port,
+                                          "netelem_slot2_console_ip": slot2_console_ip,
+                                          "netelem_slot2_console_port": slot2_console_port,
+                                          "netelem_session_keylist": session_keylist,
+                                          "netelem_vpex": netelem_vpex,
                                           "skip_connect": skip_connect}
 
         return netelem_dict

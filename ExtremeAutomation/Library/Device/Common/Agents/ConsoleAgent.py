@@ -16,6 +16,14 @@ class ConsoleAgent(TelnetAgent):
             self.connected = True
         return self.main_session
 
+    def login(self):
+        try:
+            ret = super(ConsoleAgent, self).login()
+            return ret
+        except:
+            print("test of console obj badness")
+            return False
+
     def disconnect(self):
         """
         Closes the connection to the console session.

@@ -73,6 +73,8 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                     cmd_obj = dev.send_command_object(cmd_obj)
                     self._parse_microservice_input(cmd_obj=cmd_obj,dev_obj=dev)
                 kw_results.append(self._determine_result(dev, cmd_obj, **kwargs))
+
+                self._init_keyword(device_name, api_const, None, **kwargs)
             else:
                 kw_results.append(KeywordResult(device_name, False, "", "Device \"" + device_name +"\" does not exist!", None))
                 break
@@ -257,6 +259,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                 kw_result = KeywordResult(dev.name, test_result, pass_string, fail_string, cmd_obj)
             else:
                 kw_result = KeywordResult(dev.name, True, "Returning parse values.", fail_string, cmd_obj)
+
         return kw_result
 
     def _keyword_cleanup(self, kw_results, ret_vals=None):
@@ -284,6 +287,8 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                     fail_excep = FailureException(err_msg) if self.continue_on_failure \
                         else BreakFailureException(err_msg)
                     raise fail_excep
+
+        super(NetworkElementKeywordBaseClass, self).log_keyword_result(keyword_failed)
 
         return kw_results
 
@@ -452,17 +457,16 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
         #3  Finally, add the kwUuid & kwName data into the 'kwEvent' table.
 
         """
-
         this_function_name = inspect.currentframe().f_code.co_name
         callingfunction_name = inspect.currentframe().f_back.f_code.co_name
         logger.info("[+] Entering function   : %s()", this_function_name)
         logger.info("[+] Called from function: %s()", callingfunction_name)
-
+   
         cmd_obj = kwargs.get("cmd_obj", False)
         dev_obj = kwargs.get("dev_obj", False)
-
+  
         assert cmd_obj is not False and dev_obj is not False
-
+ 
         statsObj  = MicroserviceInterface()
         startTime = datetime.fromtimestamp(cmd_obj.start_time).strftime("%Y-%m-%d %H:%M:%S.%f")
         endTime   = datetime.fromtimestamp(cmd_obj.end_time).strftime("%Y-%m-%d %H:%M:%S.%f")
@@ -477,8 +481,15 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
         # Step #1:
         #
         logger.info(" [+] Step #1: Update testFiles table data")
+        
+        # If we have a problem running the git command, set a default value. 
+        # This is for information logging only, so it's not worth failing over. 
+        #
+        try:
+            gitRepo   = os.path.basename(subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().strip())
+        except:
+             gitRepo = 'extreme_automation_tests'
 
-        gitRepo   = os.path.basename(subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().strip())
         tfileName = re.split(r':', os.getenv('PYTEST_CURRENT_TEST'))[0]
         tfileData = {
                 "testfileName": str(tfileName),

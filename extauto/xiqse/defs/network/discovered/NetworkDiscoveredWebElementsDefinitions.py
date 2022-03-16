@@ -94,9 +94,28 @@ class NetworkDiscoveredWebElementsDefinitions:
             'wait_for': 10
         }
 
+    clear_menu = \
+        {
+            'DESC': 'Clear menu option',
+            'XPATH': '//span[contains(@class, "x-menu-item-text")][text()="Clear"]',
+            'wait_for': 10
+        }
+    load_configuration_menu = \
+        {
+            'DESC': 'Load Configuration... menu option',
+            'XPATH': '//span[contains(@class, "x-menu-item-text")][text()="Load Configuration..."]',
+            'wait_for': 10
+        }
+    add_devices_menu = \
+        {
+            'DESC': 'Add Devices... menu option',
+            'XPATH': '//span[contains(@class, "x-menu-item-text")][text()="Add Devices..."]',
+            'wait_for': 10
+        }
+
     configure_devices_menu = \
         {
-            'DESC': 'Configure Devices menu item',
+            'DESC': 'Configure Devices... menu option',
             'XPATH': '//span[contains(@class, "x-menu-item-text")][text()="Configure Devices..."]',
             'wait_for': 10
         }

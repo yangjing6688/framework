@@ -6,22 +6,22 @@ To get started please follow these instructions:
 
 1. Install docker on the host machine
    
+   Linux:
+
+    [Docker Install Linux Directions](https://docs.docker.com/engine/install/)
+
    Windows:
 
     [Docker Install Windows Directions](https://docs.docker.com/docker-for-windows/install/)
 
-   Linux:
-
-    [Docker Install Linux Directions](https://docs.docker.com/engine/install/)
-    
-1. Install docker-compose
+1. Linux only: Install docker-compose
 
     [Docker Compose Directions](https://docs.docker.com/compose/install/)
 
 1. Create a directory in the root of the host file system called `automation` and a subdirectory called `git`
    
-   NOTE: The directory you work from cannot be an NFS mounted directory.  It must be a directory on your hard drive
-   NOTE: The path from which the `automation` directory is created will be stored in a local environmental variable and used in future steps
+   NOTE: The directory you work from cannot be an NFS mounted directory.  It must be a directory on your hard drive.
+   NOTE: For Linux, the path from which the `automation` directory is created will be stored in a local environmental variable and used in future steps.
 
     Linux:
 
@@ -42,10 +42,12 @@ To get started please follow these instructions:
         git clone git@github.com:extremenetworks/extreme_automation_tests.git
         git clone git@github.extremenetworks.com:Engineering/cw_automation.git
            
-   Note: If you are unable to clone the repositories or do not have access to the repositories please send an e-mail to helptools@extremenetworks.com
+   Note: If you are unable to clone the repositories or do not have access to the repositories please send an e-mail to helptools@extremenetworks.com. You can test access by attempting to view the repositories using a browser: https://github.com/extremenetworks/extreme_automation_tests, https://github.com/extremenetworks/extreme_automation_framework, https://github.extremenetworks.com/Engineering/cw_automation 
 
 1. Create a directory in `automation` called `home`. Within that new directory create another directory called `.ssh` and copy your ssh keys that you already use for GIT into that directory.
 
+    NOTE: The commands below include commands to copy ed25519 keys AND rsa keys.  Two of the commands should be expected to fail because you likely won't have both types of keys.  If you have other types of ssh keys you will need to copy them manually.
+  
     Linux:
 
         cd $AUTO_DIR
@@ -58,11 +60,11 @@ To get started please follow these instructions:
         cp ~/.ssh/id_rsa home/.ssh/
         cp ~/.ssh/id_rsa.pub home/.ssh/
 
-    NOTE: The commands above include commands to copy ed25519 keys AND rsa keys.  Two of the commands should be expected to fail because you likely won't have both types of keys.  If you have other types of ssh keys you will need to copy them manually.
-  
+    
     Windows:
 
         md C:\automation\home\.ssh
+        md C:\automation\home
         cd C:\automation\home\.ssh
         cp C:\Users\$env:UserName\.ssh\id_rsa .
         cp C:\Users\$env:UserName\.ssh\id_rsa.pub .
@@ -72,81 +74,78 @@ To get started please follow these instructions:
     
     Note: You will use the `automation/git` and `automation/home` directories as volumes for your docker image. id_rsa 
         
-1. Download the pycharm community installation [Linux file](https://www.jetbrains.com/pycharm/download/#section=linux) and copy that to the following directory /automation/git/econ-automation-framework/vm_env/docker/files. Rename this file to be the following: `pycharm-community.tar.gz`. This will be used to install pycharm on the docker image when it is built.
+1. Download the pre-built docker image:
 
-    Linux:
-    
-        cd $AUTO_DIR/git/extreme_automation_framework/vm_env/docker/files
-        wget -O pycharm-community.tar.gz https://download.jetbrains.com/python/pycharm-community-2021.2.tar.gz?_gl=1*bkldgd*_ga*MjA3NDkxOTI1NS4xNjI4MTAzNjY1*_ga_V0XZL7QHEB*MTYyODEwMzY2NC4xLjEuMTYyODEwMzY4Mi4w
-
-    Windows:
-    
-        ** Use your browser to go to: https://www.jetbrains.com/pycharm/download/#section=linux
-        ** Copy the file using a your browser to: C:\automation\git\extreme_automation_framework\vm_env\docker\files\pycharm-community.tar.gz
-        ** Note -- The file name must be "pycharm-community.tar.gz" you may need to rename the downloaded file
-
-     Note: the link above may change from time to time and may not work for you.  You can get a working link by going to the jetbrains.com website mentioned above and finding the direct link.
+        docker pull ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env:latest
         
+    Note: If you have not logged into the GitHub container registry for Docker you must complete the following steps before your "docker pull" command will work:
+  
+        a. Log in to your GitHub.com account, go to "Settings->Developer settings->Personal access tokens" and create a token with "read:packages" permissions
+        b. Copy the Token to your clipboard
+        c. Click "Enable SSO"
+        d. Export the PAT to your ENV, "export CR_PAT=<paste access token from clipboard>"
+        e. Perform a 'docker login' to the registry, "echo $CR_PAT | docker login ghcr.io -u <your github.com user name> --password-stdin"
+        f. docker pull ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env:latest
+
+1. Once the docker downloaded you can check for it by issuing the following command:
+
+        docker images
+
+        REPOSITORY                                                                TAG                     IMAGE ID       CREATED        SIZE
+        ghcr.io/extremenetworks/extreme_automation_framework/automation-dev-env   latest                  a1a976f3ab06   6 days ago     6.23GB
+        selenium/node-firefox                                                     4.0.0-beta-4-20210608   37a5d9470587   7 months ago   1.06GB
+        selenium/node-chrome                                                      4.0.0-beta-4-20210608   6eb85b0794dc   7 months ago   1.14GB
+        selenium/hub                                                              4.0.0-beta-4-20210608   601345179064   7 months ago   364MB
+   
+
 1. Change the directory to `automation/git/extreme_automation_framework/vm_env/docker`
+
     Linux:
 
         cd $AUTO_DIR/git/extreme_automation_framework/vm_env/docker
 
     Windows:
+   
         cd C:\automation\git\extreme_automation_framework\vm_env\docker
+   
+1. **Linux only**: Edit the 'docker-compose.yaml' file. You'll need to change the directories in the "volumes:' section to point to the directories that you have been working with.  The following commands can be used to generate the "volumes" lines for the yaml files.  The docker-compose.yaml file is already configured for Windows and doesn't not require any changes (assuming the directories used match these instructions).
 
-1. Note: If you want to download a pre-built Docker image instead of building your own,
-         you can run the following and skip the 'docker build' step below:
-
-        a. Log in to your GitHub.com account, go to "Settings->Developer settings->Personal access tokens" and create a token with "read:packages" and "write:packages" permissions
-        b. Copy the Token to your clipboard
-        c. Click "Enable SSO"
-        d. Export the PAT to your ENV, "export CR_PAT=<access token from step above>"
-        e. Perform a 'docker login' to the registry, "echo $CR_PAT | docker login ghcr.io -u <your github ID> --password-stdin"
-        f. docker pull ghcr.io/extremenetworks/econ-automation-framework/automation-dev-env:latest
-
-1. Issue the build command:
-
-        docker build -t automation-dev-env .
-
-1. Once the docker image is built (or downloaded) you can check for it by issuing the following command:
-
-        docker images
-
-        REPOSITORY                    TAG                     IMAGE ID       CREATED        SIZE
-        automation-dev-env            latest                  0086bfe603f7   3 weeks ago    4.73GB
-
-1. Edit the 'docker-compose.yaml' file. The directories in the "volumes:' section need to be modified to point to the directories that you have been working with.  The following commands can be used to generate the "volumes" lines for the yaml files.  The docker-compose.yaml file is already configured for Windows and doesn't not require any changes (assuming the directories used match these instructions).
-
-    Linux:
+    Linux Only:
 
         echo $AUTO_DIR/git:/automation/git
         echo $AUTO_DIR/home:/home/administrator
 
-    For example:
+    Example volumes lines:
 
         volumes:
           - /docker_automation_env/automation/git:/automation/git
           - /docker_automation_env/automation/home:/home/administrator
 
-    Where the directory before the ':' is the full path of the directories you've been working with.  Keep everyting after the ':' the same.
+    Note: The directory before the ':' is the full path of the directories you've been working with.  Keep everyting after the ':' the same.
 
-1. Linux Only: Create a local user with id 1202 change ownership of all the files and directories to that user then log in as the new user   
+1. **Linux Only**: Create a local user with id 1202 change ownership of all the files and directories to that user then log in as the new user.  This steps allows you to modify the repository files from within the container.
 
         sudo adduser -c "Local Automation User for automation docker containers" -u 1202 -M -s "/bin/bash" seluser
         cd $AUTO_DIR
         sudo chown -R seluser:seluser *
         
-        
 1. Start the docker images with the docker compose file:
 
+    Linux:
+    
         cd $AUTO_DIR/git/extreme_automation_framework/vm_env/docker
         docker-compose up
 
-## Accessing the environment:
-Once the docker images are running, access them via a browser using the following URLs.
+    Windows:
+    
+        cd c:\automation\git\extreme_automation_framework\vm_env\docker
+        docker-compose up
+    
 
-URLs:
+## Accessing the environment:
+Once the docker images are running, you can access them via a browser or a VNS Viewer.
+
+Accessing the containers from a browser:
 
 - Selenium Grid: [http://localhost:4444/ui/index.html#/](http://localhost:4444/ui/index.html#/)
 - noVNC - Dev machine: [http://localhost:7900/](http://localhost:7900/)
@@ -154,29 +153,20 @@ URLs:
 - noVNC - Firefox: [http://localhost:7902/](http://localhost:7902/) Password: secret
 - noVNC - Edge: [http://localhost:7903/](http://localhost:7903/) Password: secret (Note: edge is currently disabled)
 
-Note: You can access the images via a browswer and noVNC as listed above or you can also access them using a VNC client like TightVNC or MobaXterm.  The ability to copy and paste into the image is better outside of the browser.  When using the browser you will need to use the clipboard that is available in the tools widget on the left hand side of your screen.
+You can access the images via a browswer using noVNC as listed above or you can also access them using a VNC client like TightVNC or MobaXterm.  The ability to copy and paste into the image is better outside of the browser.  When using the browser you will need to use the clipboard that is available in the tools widget on the left hand side of your screen.
+   
+Access the containers from a VNC Viewer:
 
-## PROD Build
-You will need to complete the following steps to be able to push the docker image to github.com. 
-        a. Log in to your account, go to "Settings->Developer settings->Personal access tokens" and create a token with "read:packages" permissions.
-        b. Export the PAT to your ENV, "export GIT_PAT=<access token from step above>"
-        c. Perform a 'docker login' to the registry, "echo $GIT_PAT | docker login ghcr.io -u <your github ID> --password-stdin"
-
-To build the container in PROD mode issue the following command in the main directory (with the Dockerfile):
-
-    ./build_prod.sh
-
-## Download PROD images
-You can download the latest PROD images by issue the following command:
-
-    echo $GIT_PAT | docker login ghcr.io -u <your github ID> --password-stdin
-    docker pull ghcr.io/extremenetworks/extreme_automation_framework/econ_automation:latest
+- Dev machine: localhost:5901
+- Chrome: localhost:6900 Password: secret
+- Firefox: localhost:6902 Password: secret
+- Edge:  localhost:6901 Password: secret (Note: edge is currently disabled)
 
 ## Setup the pycharm IDE:
 
 ### Creating a New Pycharm Project
 
-You can start up pycharm in the docker developer image by right clicking on the desktop and selecting: Applications->Programming->pycharm.
+You can start up pycharm in the docker developer image clicking the panel menu (lower left of screen) and selecting Programming->pycharm.
 
 ![example project](img/Pycharm_menu.png)
 

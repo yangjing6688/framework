@@ -1,10 +1,13 @@
 import logging
 from robot.libraries.BuiltIn import BuiltIn
+from extauto.common.ConfigFileHelper import ConfigFileHelper
 
 
 class Logging:
     def __init__(self):
         self.logger = logging.getLogger('root')
+        self.cfgHelp = ConfigFileHelper()
+        self.cfgHelp.checkConfigRefresh()
 
     def set_log_level(self):
         log_level = BuiltIn().get_variable_value("${LOGLEVEL}")

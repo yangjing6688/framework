@@ -67,7 +67,8 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         return self.get_dislayed_element(elements)
 
     def get_common_object_confirm_delete_button(self):
-        return self.weh.get_element(self.common_object_confirm_delete_button)
+        elements = self.weh.get_elements(self.common_object_confirm_delete_button)
+        return self.get_dislayed_element(elements)
 
     def get_cwp_self_reg_employee_approval_button(self):
         return self.weh.get_element(self.cwp_self_reg_employee_approval_button)
@@ -281,6 +282,24 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_wifi1_radio_profile_dropdown(self):
         return self.weh.get_elements(self.common_object_wifi1_radio_profile_dropdown)
 
+    def get_common_object_wifi0_client_mode(self):
+        return self.weh.get_element(self.common_object_wifi0_client_mode)
+
+    def get_common_object_wifi0_add_client_mode_profile(self):
+        return self.weh.get_element(self.common_object_wifi0_add_client_mode_profile)
+
+    def get_common_object_wifi1_add_client_mode_profile(self):
+        return self.weh.get_element(self.common_object_wifi1_add_client_mode_profile)
+
+    def get_common_object_wifi0_1_client_mode_profile_name(self):
+        return self.weh.get_element(self.common_object_wifi0_1_client_mode_profile_name)
+
+    def get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(self):
+        return self.weh.get_element(self.common_object_wifi0_1_client_mode_profile_dhcp_server_scope)
+
+    def get_common_object_wifi0_1_client_mode_profile_save(self):
+        return self.weh.get_element(self.common_object_wifi0_1_client_mode_profile_save)
+
     def get_common_object_wifi0_client_access(self):
         return self.weh.get_element(self.common_object_wifi0_client_access)
 
@@ -289,6 +308,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_common_object_wifi0_sensor(self):
         return self.weh.get_element(self.common_object_wifi0_sensor)
+
+    def get_common_object_wifi1_client_mode(self):
+        return self.weh.get_element(self.common_object_wifi1_client_mode)
 
     def get_common_object_wifi1_client_access(self):
         return self.weh.get_element(self.common_object_wifi1_client_access)

@@ -92,3 +92,31 @@ class NetworkDevicesSiteWebElementsDefinitions:
             'XPATH': '//span[contains(@class, "x-btn-inner-default-small") and text()="Cancel"]/ancestor::a',
             'wait_for': 10
         }
+
+    site_unsaved_changes_dialog = \
+        {
+            'DESC': 'Site - Unsaved Changes dialog seen when moving away from a site with unsaved changes.',
+            'XPATH': '//div[text()="Site - Unsaved Changes"]/ancestor::div[contains(@class, "x-message-box")]',
+            'wait_for': 10
+        }
+
+    site_unsaved_changes_yes_button = \
+        {
+            'DESC': 'Yes button in the Site - Unsaved Changes dialog',
+            'XPATH': '//div[text()="Site - Unsaved Changes"]/ancestor::div[contains(@class, "x-message-box")]//span[text()="Yes"]',
+            'wait_for': 10
+        }
+
+    site_unsaved_changes_no_button = \
+        {
+            'DESC': 'No button in the Site - Unsaved Changes dialog',
+            'XPATH': '//div[text()="Site - Unsaved Changes"]/ancestor::div[contains(@class, "x-message-box")]//span[text()="No"]',
+            'wait_for': 10
+        }
+
+    site_unsaved_changes_cancel_button = \
+        {
+            'DESC': 'Cancel button in the Site - Unsaved Changes dialog',
+            'XPATH': '//div[text()="Site - Unsaved Changes"]/ancestor::div[contains(@class, "x-message-box")]//span[text()="Cancel"]',
+            'wait_for': 10
+        }

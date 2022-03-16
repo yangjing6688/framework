@@ -97,6 +97,30 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.device_delete_button)
 
+    def get_action_button(self):
+        """
+        :return: device action button
+        """
+        return self.weh.get_element(self.device_action_button)
+
+    def get_os_change_exos(self):
+        """
+        :return: change os button
+        """
+        return self.weh.get_element(self.device_os_change_exos)
+
+    def get_os_change_voss(self):
+        """
+        :return: change os button
+        """
+        return self.weh.get_element(self.device_os_change_voss)
+
+    def get_os_change_error_message(self):
+        """
+        :return error message
+        """
+        return self.weh.get_element(self.device_os_change_error_message)
+
     def get_device_delete_confirm_ok_button(self):
         """
         :return: device delete button triggers confirmation dialog
@@ -903,6 +927,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_devices_grid_column_headers(self):
         return self.weh.get_elements(self.devices_grid_column_headers)
 
+    def get_devices_page_horizontal_end(self):
+        return self.weh.get_element(self.devices_page_horizontal_end)
+
     def get_all_messages_banner(self):
         return self.weh.get_elements(self.all_messages_banner)
 
@@ -1035,3 +1062,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_number_of_rows(self):
         return self.weh.get_elements(self.number_of_rows)
+
+    def get_simulated_device_dropdown_table(self):
+        return self.weh.get_element(self.simulated_device_dropdown_table)
+
+    def get_simulated_device_dropdown_table_rows(self, table):
+        return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)

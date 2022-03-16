@@ -9,6 +9,8 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
+from extauto.xiq.elements.NetworkManagementOptionsElements import NetworkManagementOptionsElements
+from extauto.xiq.elements.UserProfileWebElements import UserProfileWebElements
 
 
 class CommonObjects(object):
@@ -21,6 +23,9 @@ class CommonObjects(object):
         self.cobj_web_elements = CommonObjectsWebElements()
         self.cwp_web_elements = WirelessCWPWebElements()
         self.wireless_web_elements = WirelessWebElements()
+        self.network_management_options_elements = NetworkManagementOptionsElements()
+        self.user_profile_web_elements = UserProfileWebElements()
+
 
     def navigate_to_basic_ip_object_hostname(self):
         """
@@ -86,13 +91,14 @@ class CommonObjects(object):
         This is common for all objects
         :return:
         """
-        self.utils.print_info("Click on delete button")
+        self.utils.print_info("Clicking on delete button")
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
         sleep(2)
 
-        if self.cobj_web_elements.get_common_object_confirm_delete_button():
-            self.utils.print_info("Click on confirm Yes button")
-            self.auto_actions.click(self.cobj_web_elements.get_common_object_confirm_delete_button())
+        confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
+        if confirm_delete_btn:
+            self.utils.print_info("Clicking on confirm Yes button")
+            self.auto_actions.click(confirm_delete_btn)
             sleep(3)
 
     def _select_delete_common_object(self, object_name):
@@ -138,10 +144,10 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name does't exists in the list")
+            self.utils.print_info(f"SSID Name {ssid_name} doesn't exist in the list")
             return 1
 
-        self.utils.print_info("Select and delete ssid")
+        self.utils.print_info(f"Select and delete SSID {ssid_name}")
         tool_tp_text = self._select_delete_common_object(ssid_name)
 
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
@@ -150,6 +156,7 @@ class CommonObjects(object):
                 self.utils.print_info(f"{value}")
                 return -1
             elif "Deleted SSID successfully" in value:
+                self.utils.print_info(f"Successfully deleted SSID {ssid_name}")
                 return 1
         return -1
 
@@ -177,7 +184,7 @@ class CommonObjects(object):
                 self._select_common_object_row(ssid)
                 select_ssid_flag = True
             else:
-                self.utils.print_info(f"SSID {ssid} does't exists in the list")
+                self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
 
         if not select_ssid_flag:
             return 1
@@ -190,6 +197,7 @@ class CommonObjects(object):
                 self.utils.print_info(f"{value}")
                 return -1
             elif "Deleted SSID successfully" in value:
+                self.utils.print_info(f"Successfully deleted SSIDs")
                 return 1
         return -1
 
@@ -879,7 +887,7 @@ class CommonObjects(object):
         sleep(5)
 
         if self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name already exists in the list")
+            self.utils.print_info(f"SSID Name {ssid_name} already exists in the list")
             return 1
 
         self.screen.save_screen_shot()
@@ -887,10 +895,6 @@ class CommonObjects(object):
 
         self.utils.print_info("Click on Add SSID Button")
         self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_add_ssid_button())
-        sleep(2)
-
-        self.utils.print_info("Click on standard network add button")
-        self.auto_actions.click(self.wireless_web_elements.get_standard_nw_menu())
         sleep(2)
 
         self.utils.print_info("Enter the Wireless Networks SSID Name:{}".format(ssid_name))
@@ -937,7 +941,7 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            self.utils.print_info("SSID Name does't exists in the list to clone")
+            self.utils.print_info(f"SSID Name {ssid_name} doesn't exist in the list to clone")
             return -1
 
         self._select_common_object_row(ssid_name)
@@ -1124,9 +1128,10 @@ class CommonObjects(object):
         - Keyword Usage
          - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
 
-        :param wifi0_profile: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
+        :param wifi0_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi0 Profile Configured Successfully else None
         """
+        client_mode_status_wifi0   = wifi0_profile.get('client_mode', 'Disable')
         client_access_status_wifi0 = wifi0_profile.get('client_access', 'Enable')
         backhaul_mesh_status_wifi0 = wifi0_profile.get('backhaul_mesh_link', 'Disable')
         sensor_status_wifi0 = wifi0_profile.get('sensor', 'Disable')
@@ -1154,6 +1159,27 @@ class CommonObjects(object):
         self.auto_actions.select_drop_down_options(self.cobj_web_elements.
                                                    get_common_object_wifi0_radio_profile_dropdown(),
                                                    radio_profile_wifi0)
+        if client_mode_status_wifi0.upper() == "ENABLE":
+            self.utils.print_info("Enable Client Mode Checkbox on WiFi0 Interface")
+            if not self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
+
+                wifi0_client_mode_profile = wifi0_profile['client_mode_profile']
+                client_mode_profile_name  =  wifi0_client_mode_profile.get('client_mode_profice_name', 'wifi0')
+                client_mode_profile_dhcp  =  wifi0_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
+                self.utils.print_info("Click Add Client Mode Profile")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_add_client_mode_profile())
+                self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
+                self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
+                self.utils.print_info("Click Save Client Mode Profile")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
+        else:
+            self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
+            if self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
+
         if client_access_status_wifi0.upper() == "ENABLE":
             self.utils.print_info("Enable Client Access Checkbox on WiFi0 Interface")
             if not self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected():
@@ -1169,7 +1195,7 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_mesh_link())
         else:
             self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi0 Interface")
-            if self.cobj_web_elements.get_common_object_wifi0_mesh_link.is_selected():
+            if self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_mesh_link())
 
         if sensor_status_wifi0.upper() == "ENABLE":
@@ -1204,9 +1230,10 @@ class CommonObjects(object):
         - Keyword Usage
          - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
 
-        :param wifi1_profile: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
+        :param wifi1_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi1 Profile Configured Successfully else None
         """
+        client_mode_status_wifi1   = wifi1_profile.get('client_mode', 'Disable')
         client_access_status_wifi1 = wifi1_profile.get('client_access', 'Enable')
         backhaul_mesh_status_wifi1 = wifi1_profile.get('backhaul_mesh_link', 'Enable')
         sensor_status_wifi1 = wifi1_profile.get('sensor', 'Enable')
@@ -1232,6 +1259,28 @@ class CommonObjects(object):
         self.auto_actions.select_drop_down_options(self.cobj_web_elements.
                                                    get_common_object_wifi1_radio_profile_dropdown(),
                                                    radio_profile_wifi1)
+
+        if client_mode_status_wifi1.upper() == "ENABLE":
+            self.utils.print_info("Enable Client Mode Checkbox on WiFi1 Interface")
+            if not self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
+
+                wifi1_client_mode_profile = wifi1_profile['client_mode_profile']
+                client_mode_profile_name = wifi1_client_mode_profile.get('client_mode_profice_name', 'wifi1')
+                client_mode_profile_dhcp = wifi1_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
+                self.utils.print_info("Click Add Client Mode Profile")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_add_client_mode_profile())
+                self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
+                self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
+                self.utils.print_info("Click Save Client Mode Profile")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
+        else:
+            self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
+            if self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
+
 
         if client_access_status_wifi1.upper() == "ENABLE":
             self.utils.print_info("Enable Client Access Checkbox on WiFi1 Interface")
@@ -1861,3 +1910,134 @@ class CommonObjects(object):
         else:
             self.utils.print_info("Unable Select IP firewall policy Under New User Profile")
             return -1
+
+    def delete_management_options(self, management_options_name):
+        """
+        - Flow: Configure --> Common Objects --> Network -->Management Options-->Delete Management Option Name
+        - Delete specified Management Options Name from the Management Options Grid
+        - Keyword Usage:
+         - ``Delete Management Options  ${NAME}``
+        :param management_options_name: Management Options Name
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to Management Options in Common Object")
+        self.navigator.navigate_to_common_objects_management_options()
+        sleep(3)
+
+        self.utils.print_info("Select and Delete Management Options row")
+        self._select_delete_common_object(management_options_name)
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        sleep(5)
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        if "Management options were deleted successfully" in tool_tp_text[-1]:
+            return 1
+        else:
+            self.utils.print_info("Unable to Delete Management options")
+            return -1
+
+    def add_network_management_options(self,  option_name="management_option_1", enable_legacy_http_redirect="True"):
+        """
+        - Adds new network management option(s)
+        -Flow: Configure --> Common Objects --> Network -->Management Options
+           - Keyword Usage:
+            - ``Add Network Management Options``
+        :param option_name : name of the management option
+        :param enable_legacy_http_redirect: determines if enable legacy http redirect should be clicked or not
+        :return: 1
+        """
+        self.navigator.navigate_to_common_objects_management_options()
+        sleep(5)
+
+        self.utils.print_info("Clicking on the Add Management Options Button")
+        add_button = self.network_management_options_elements.get_add_network_management_options_entry()
+        if add_button:
+            self.auto_actions.click(add_button)
+            sleep(5)
+            self.utils.print_info("Set Name for new Add Management Options Entry")
+            name_txt_field = self.network_management_options_elements.get_new_management_option_name()
+            if name_txt_field:
+                self.auto_actions.send_keys(name_txt_field, option_name)
+                if enable_legacy_http_redirect.lower() == "true":
+                    self.utils.print_info("Enabling legacy http redirect")
+                    enable_legacy_http_redirect_checkbox = self.network_management_options_elements.\
+                        get_legacy_http_redirect()
+                    if enable_legacy_http_redirect_checkbox:
+                        self.auto_actions.click(enable_legacy_http_redirect_checkbox)
+                    else:
+                        self.utils.print_info("Unable to enable legacy http redirect")
+                        return -1
+                self.utils.print_info("Saving configuration")
+                save_button = self.network_management_options_elements.get_save_button()
+                if save_button:
+                    self.auto_actions.click(save_button)
+                    return 1
+                else:
+                    self.utils.print_info("Unable save configuration")
+                    return -1
+            else:
+                self.utils.print_info("Unable to set  Name field for new Add Management Options Entry")
+                return -1
+        else:
+            self.utils.print_info("Unable to click on the Add Management Options Button")
+        return 1
+
+    def delete_user_profile(self, profile="user004"):
+        """
+        - It deletes user profile
+        -Flow: Configure --> Common Objects --> User Profile
+           - Keyword Usage:
+            - ``Delete User Profile       profile=${PROFILE}``
+
+        :param profile : profile name
+        :return: 1
+        """
+        self.navigator.navigate_to_common_object_user_profile()
+        sleep(5)
+
+        self.utils.print_info("Gathering all the user profiles in the profile table")
+        profile_rows = self.user_profile_web_elements.get_user_profile_grid_rows()
+        profile_was_located = False
+        if profile_rows:
+            self.utils.print_info("Checking profile list to see if " + profile + " is in the list")
+            for row in profile_rows:
+                self.utils.print_info(row.text)
+                if profile.lower().strip() == row.text.lower().strip():
+                    self.utils.print_info("Profile " + profile + " found")
+                    profile_was_located = True
+                    self.utils.print_info("Selecting the row")
+                    row_elements = self.user_profile_web_elements.get_all_profile_row_cells(row)
+                    check_box = row_elements[0]
+                    if check_box:
+                        self.auto_actions.click(check_box)
+                        self.utils.print_info("Clicking on the delete button")
+                        delete_button = self.user_profile_web_elements.get_user_profile_delete()
+                        if delete_button:
+                            self.auto_actions.click(delete_button)
+                            sleep(5)
+                            self.utils.print_info("Clicking yes on the confirm delete popup")
+                            confirm_yes = self.user_profile_web_elements.get_user_profile_confirm_delete_yes()
+                            if confirm_yes:
+                                self.auto_actions.click(confirm_yes)
+                                return 1
+                            else:
+                                self.utils.print_info("Unable to click yes on the confirm delete popup")
+                                return -1
+                        else:
+                            self.utils.print_info("Unable to click the delete button")
+                            return -1
+                    else:
+                        self.utils.print_info("Unable to select the row")
+                        return -1
+
+            if not profile_was_located:
+                self.utils.print_info("Profile " + profile + "was NOT found")
+                return -1
+        else:
+            self.utils.print_info("Unable to gather user profiles")
+            return -1
+        return -1
+

@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Mirroring
-This feature is located in this file: `mirroring.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `mirroring.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: create_both
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_create_both(device_name, name, src_port, dst_port)
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_create_both(device_name, name, src_port, dst_port)
 
 	Robot API Call: 
 
@@ -77,7 +77,7 @@ UUID: 35ff8622-050d-45d8-bdcd-cb2d0f1d0b00
 # API Function: create_ingress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_create_ingress(device_name, name, src_port, dst_port)
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_create_ingress(device_name, name, src_port, dst_port)
 
 	Robot API Call: 
 
@@ -150,7 +150,7 @@ UUID: 9c4fca35-e2b6-4795-9575-3dd9ff15beef
 # API Function: create_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_create_egress(device_name, name, src_port, dst_port)
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_create_egress(device_name, name, src_port, dst_port)
 
 	Robot API Call: 
 
@@ -223,7 +223,7 @@ UUID: e599fd8a-8124-4614-9442-34b1ed04b425
 # API Function: delete_port_mirror
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_delete_port_mirror(device_name, name, src_port, dst_port)
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_delete_port_mirror(device_name, name, src_port, dst_port)
 
 	Robot API Call: 
 
@@ -296,7 +296,7 @@ UUID: 8318eb28-5773-4485-a296-4e58fd750979
 # API Function: enable_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_enable_port(device_name, name, src_port, dst_port)
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_enable_port(device_name, name, src_port, dst_port)
 
 	Robot API Call: 
 
@@ -354,7 +354,7 @@ UUID: 11727cab-c503-416e-bb6c-bbdc34b8df48
 # API Function: disable_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_disable_port(device_name, name, src_port, dst_port)
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_disable_port(device_name, name, src_port, dst_port)
 
 	Robot API Call: 
 
@@ -412,7 +412,7 @@ UUID: 76c15bfb-dbac-4f97-88e2-303b7e1400e7
 # API Function: create_remote_both
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_create_remote_both(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_create_remote_both(device_name )
 
 	Robot API Call: 
 
@@ -440,7 +440,7 @@ UUID: 86f6074b-6927-4104-86bb-8c0f6a32ae7b
 # API Function: create_portlist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_create_portlist(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_create_portlist(device_name )
 
 	Robot API Call: 
 
@@ -468,7 +468,7 @@ UUID: 67f7a017-2424-4570-9fb4-2072b7a3cae3
 # API Function: set_source_port_both
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_set_source_port_both(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_set_source_port_both(device_name )
 
 	Robot API Call: 
 
@@ -496,7 +496,7 @@ UUID: 36706790-6717-4eba-bff7-ab50276d95fb
 # API Function: set_source_port_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_set_source_port_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_set_source_port_vlan(device_name )
 
 	Robot API Call: 
 
@@ -524,7 +524,7 @@ UUID: 4c7b5043-1eb9-46dc-aefe-f3546e24a662
 # API Function: set_source_port_ingress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_set_source_port_ingress(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_set_source_port_ingress(device_name )
 
 	Robot API Call: 
 
@@ -552,7 +552,7 @@ UUID: 056f8301-40d8-4252-b9a9-843000e960f4
 # API Function: set_source_port_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_set_source_port_egress(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_set_source_port_egress(device_name )
 
 	Robot API Call: 
 
@@ -580,7 +580,7 @@ UUID: 77e707e2-1dc1-4a94-afd7-dc289bdaafa1
 # API Function: set_description
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_set_description(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_set_description(device_name )
 
 	Robot API Call: 
 
@@ -608,7 +608,7 @@ UUID: a85983a3-446c-4086-86c1-56881347b937
 # API Function: clear_source_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_clear_source_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_clear_source_port(device_name )
 
 	Robot API Call: 
 
@@ -636,7 +636,7 @@ UUID: 8dd4f447-ca67-4415-857f-35d5bb131055
 # API Function: enable_remote_ping_check
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_enable_remote_ping_check(device_name, name, src_ip, dst_ip)
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_enable_remote_ping_check(device_name, name, src_ip, dst_ip)
 
 	Robot API Call: 
 
@@ -664,7 +664,7 @@ UUID: f2319f16-18ea-4819-bddc-60d9501568b6
 # API Function: disable_remote_ping_check
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_disable_remote_ping_check(device_name, name, src_ip, dst_ip)
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_disable_remote_ping_check(device_name, name, src_ip, dst_ip)
 
 	Robot API Call: 
 
@@ -692,7 +692,7 @@ UUID: 04077770-3b9f-4abf-88e0-2b7a2124a5dd
 # API Function: show_port_mirror
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_show_port_mirror(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_show_port_mirror(device_name )
 
 	Robot API Call: 
 
@@ -765,7 +765,7 @@ UUID: 2eea68a2-d875-4922-ba4e-190f13a1fc14
 # API Function: show_port_mirror_all
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMirroringGenKeywords.mirroring_show_port_mirror_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_show_port_mirror_all(device_name )
 
 	Robot API Call: 
 

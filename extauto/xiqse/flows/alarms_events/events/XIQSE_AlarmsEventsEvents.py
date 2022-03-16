@@ -217,6 +217,7 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
             if search_text and search_text.get_attribute("aria-hidden") == "false":
                 self.utils.print_info(f"Clicking Clear button")
                 self.auto_actions.click(clear_btn)
+                sleep(3)
                 ret_val = 1
             else:
                 self.utils.print_info(f"Search field not open")

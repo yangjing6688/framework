@@ -132,3 +132,18 @@ class MuSocialWebElements(MuSocialWebElementsDefs):
 
     def get_social_wifi_all_google_login_error_page(self):
         return self.weh.get_element(self.social_wifi_all_google_login_error_page, self.driver)
+
+    def get_user_registration_social_wifi_username_field(self):
+        return self.weh.get_element(self.user_registration_social_wifi_username_field, self.driver)
+
+    def get_user_registration_social_wifi_passcode_field(self):
+        return self.weh.get_element(self.user_registration_social_wifi_passcode_field, self.driver)
+
+    def get_user_registration_social_wifi_signin_button(self):
+        return self.weh.get_element(self.user_registration_social_wifi_signin_button, self.driver)
+
+    def get_user_registration_social_wifi_login_error_page(self):
+        return self.weh.get_element(self.user_registration_social_wifi_login_error_page, self.driver)
+
+    def get_default_template_page_company_logo(self):
+        return self.weh.get_element(self.default_template_page_company_logo,self.driver)

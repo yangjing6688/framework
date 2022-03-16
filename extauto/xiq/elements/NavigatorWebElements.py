@@ -307,6 +307,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_extreme_location_menu(self):
         return self.weh.get_element(self.extreme_location)
+
+    def get_essentials_menu(self):
+        return self.weh.get_element(self.essentials_menu)
       
     def get_ccg_option(self):
         return self.weh.get_element(self.common_objects_ccgs)
@@ -367,3 +370,15 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_navigate_to_device_management_settings_menu(self):
         return self.weh.get_element(self.navigate_to_device_management_settings_menu)
+
+    def get_common_object_network_management_options(self):
+        return self.weh.get_element(self.common_object_network_management_options)
+
+    def get_locked_users_tab(self):
+        return self.weh.get_element(self.locked_users_tab)
+
+    def get_unbind_device_tab(self):
+        return self.weh.get_element(self.unbind_device_tab)
+
+    def get_client_monitor_diagnosis_tab(self):
+        return self.weh.get_element(self.client_monitor_diagnosis_tab)

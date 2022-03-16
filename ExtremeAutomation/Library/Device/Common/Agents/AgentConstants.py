@@ -10,6 +10,8 @@ class AgentConstants(Constants):
     TYPE_SSH = "ssh"
     TYPE_TELNET = "telnet"
     TYPE_CONSOLE = "console"
+    TYPE_SLOT_1 = "slot1"   # Master/Slave deprecated for primary/backup chassis or stack controller.
+    TYPE_SLOT_2  = "slot2"    # primary/backup are serial/console/termserver ip+port connections
     TYPE_SERIAL = "serial"  # For using an actual serial port. Not for telnet console servers.
     TYPE_JSON = "json"
     TYPE_REST = "rest"
