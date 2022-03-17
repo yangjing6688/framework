@@ -66,6 +66,22 @@ class XAPISwitch:
 
         return -1
 
+    def extract_by_device_mac(self, deviceList, deviceMac):
+        '''
+
+        :param deviceList: List of devices
+        :param deviceMac: Mac Address to be searched for
+        :return: Device ID of the device
+        '''
+
+        for device in deviceList:
+            self.utils.print_info(device)
+            if deviceMac in device["mac_address"] :
+                return device["id"]
+
+        return -1
+
+
     def sendCLI_multiple_devices(self, URLpath, deviceIDList, CLIList):
         """
         :param URLpath  :   The endpoint for the XAPI Request
