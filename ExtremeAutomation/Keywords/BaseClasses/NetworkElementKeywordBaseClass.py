@@ -71,7 +71,10 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                 # If the command object returned is supported, have the device execute it.
                 if not cmd_obj.not_supported:
                     cmd_obj = dev.send_command_object(cmd_obj)
-                    self._parse_microservice_input(cmd_obj=cmd_obj,dev_obj=dev)
+                    try:
+                        self._parse_microservice_input(cmd_obj=cmd_obj,dev_obj=dev)
+                    except Exception as e:
+                        self.logger.log_info("Unable to record keyword stats for " + str(cmd_obj.uuid))
                 kw_results.append(self._determine_result(dev, cmd_obj, **kwargs))
 
                 self._init_keyword(device_name, api_const, None, **kwargs)
