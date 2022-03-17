@@ -111,7 +111,7 @@ class MicroserviceInterface():
         except Exception:
             logger.error("[ERROR] Line %s: requests.post returned: %s",lineno(),res.text)
             return False
-
+        res.text = "elatour-error!"
         retVal = json.loads(res.text)
         logger.info("[+] Line %s: requests.post returned: %s",lineno(),res.text)
         logger.info("[+] Line %s: Returning to caller   : %s",lineno(),retVal['result'])

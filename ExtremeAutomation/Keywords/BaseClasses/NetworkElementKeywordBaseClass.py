@@ -74,7 +74,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                     try:
                         self._parse_microservice_input(cmd_obj=cmd_obj,dev_obj=dev)
                     except Exception as e:
-                        self.logger.log_info("Unable to record keyword stats for " + str(cmd_obj.uuid))
+                        self.logger.log_info("Unable to record keyword stats for " + str(cmd_obj.uuid) + " => Exception: " + str(e))
                 kw_results.append(self._determine_result(dev, cmd_obj, **kwargs))
 
                 self._init_keyword(device_name, api_const, None, **kwargs)
