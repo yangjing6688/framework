@@ -16,7 +16,7 @@ class RouterTemplateWebElementsDefinitions:
     network_allocation_tab = \
         {
             'XPATH': '//ul[@data-dojo-attach-point="routerSubmenu"]//li[@data-tab="NetworkAllocation"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_template_tab = \
@@ -193,7 +193,7 @@ class RouterTemplateWebElementsDefinitions:
 
     network_allocation_add_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="networkAllocationContentArea"]//span[@data-tip="Add"]',
+            'XPATH': '//div[@class="subnet-main-ctn"]//*[@data-dojo-attach-point="actionLeft"]//span[@class="table-action-icons table-add"]',
             'wait_for': 5
         }
 
@@ -271,8 +271,7 @@ class RouterTemplateWebElementsDefinitions:
 
     port_new_vlan_select = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
-            'index': 3,
+            'XPATH': '//div[@class="dgrid-row dgrid-row-odd ui-state-default"]//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
             'wait_for': 5
         }
 
@@ -304,8 +303,7 @@ class RouterTemplateWebElementsDefinitions:
 
     port_subnetwork_select = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="ipElWrap"]//span[@data-dojo-attach-point="ipMark"]',
-            'index': 4,
+            'XPATH': '//div[contains(@class,"dgrid-row-odd")]//div[contains(@id,"ah/util/form/objects/SubnetObj")]//span[@data-dojo-attach-point="ipMark"]',
             'wait_for': 5
         }
 
@@ -318,14 +316,14 @@ class RouterTemplateWebElementsDefinitions:
 
     port_new_vlan_select_new_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="ipList"]//a[@data-type="vlan-profile"]',
+            'XPATH': '//div[contains(@id,"ah/util/form/objects")]//a[@class="item-new"]',
             'wait_for': 5
         }
 
     port_subnetwork_space_select_new_btn = \
         {
-            'XPATH': '//*[@id="ah/util/form/objects/_IpListPopup_19"]'
-                     '//*[@class="ui-ip-list-item"]//a[@data-type="subnetwork"]',
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//*[@class="ui-ip-list-item"]//a[@data-type="subnetwork"]',
+            'index': 1,
             'wait_for': 5
         }
 

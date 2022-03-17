@@ -17,7 +17,6 @@ from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
-
 class Login:
 
     def __init__(self):

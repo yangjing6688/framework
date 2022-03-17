@@ -264,6 +264,7 @@ class Onboarding(object):
         sleep(2)
 
         self.select_location_for_add_onboarding_rule_page(location_name)
+        sleep(3)
 
         self.utils.print_info("Clicking Save Button")
         self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_button())

@@ -927,6 +927,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_devices_grid_column_headers(self):
         return self.weh.get_elements(self.devices_grid_column_headers)
 
+    def get_devices_page_horizontal_end(self):
+        return self.weh.get_element(self.devices_page_horizontal_end)
+
     def get_all_messages_banner(self):
         return self.weh.get_elements(self.all_messages_banner)
 

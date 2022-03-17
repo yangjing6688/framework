@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Dhcp
-This feature is located in this file: `dhcp.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `dhcp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: enable_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_enable_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_enable_vlan(device_name )
 
 	Robot API Call: 
 
@@ -32,7 +32,7 @@ UUID: 95e41821-4973-49cf-8312-981cbb3160cf
 # API Function: disable_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_disable_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_disable_vlan(device_name )
 
 	Robot API Call: 
 
@@ -60,7 +60,7 @@ UUID: 44395079-d9af-4809-ae6d-0cd93722f7b9
 # API Function: enable_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_enable_port(device_name, vlan_name, port)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_enable_port(device_name, vlan_name, port)
 
 	Robot API Call: 
 
@@ -88,7 +88,7 @@ UUID: 4dfb6620-78ca-4385-b300-b25861893a72
 # API Function: disable_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_disable_port(device_name, vlan_name, port)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_disable_port(device_name, vlan_name, port)
 
 	Robot API Call: 
 
@@ -116,7 +116,7 @@ UUID: 48ab5fcb-082d-4ed6-b33e-219920b3f1a7
 # API Function: enable_bootprelay_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_enable_bootprelay_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_enable_bootprelay_vlan(device_name )
 
 	Robot API Call: 
 
@@ -144,7 +144,7 @@ UUID: 66669dfd-e515-42ed-96a3-a91040ab81f6
 # API Function: set_address_range
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_set_address_range(device_name, vlan_name, start_addr, end_addr)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_set_address_range(device_name, vlan_name, start_addr, end_addr)
 
 	Robot API Call: 
 
@@ -172,7 +172,7 @@ UUID: 751f49d4-8fd5-4a9d-b177-bcbf1e8110bc
 # API Function: set_lease_time
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_set_lease_time(device_name, vlan_name, seconds)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_set_lease_time(device_name, vlan_name, seconds)
 
 	Robot API Call: 
 
@@ -200,7 +200,7 @@ UUID: 74c693f6-a9f6-4e2c-8218-412df2631e82
 # API Function: set_netlogin_lease_time
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_set_netlogin_lease_time(device_name, vlan_name, seconds)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_set_netlogin_lease_time(device_name, vlan_name, seconds)
 
 	Robot API Call: 
 
@@ -228,7 +228,7 @@ UUID: d708d78b-4f60-4f47-92d7-a8878f97c96f
 # API Function: set_options_gateway
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_set_options_gateway(device_name, vlan_name, gateway_addr)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_set_options_gateway(device_name, vlan_name, gateway_addr)
 
 	Robot API Call: 
 
@@ -256,7 +256,7 @@ UUID: c53e256f-6efa-4c43-9579-b21d3ba4885a
 # API Function: set_options_dns
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_set_options_dns(device_name, vlan_name, dns_addr)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_set_options_dns(device_name, vlan_name, dns_addr)
 
 	Robot API Call: 
 
@@ -284,7 +284,7 @@ UUID: 1bf8479f-6b23-418a-b64e-c1b607df125c
 # API Function: set_options_dns_pri
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_set_options_dns_pri(device_name, vlan_name, dns_addr)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_set_options_dns_pri(device_name, vlan_name, dns_addr)
 
 	Robot API Call: 
 
@@ -312,7 +312,7 @@ UUID: b0ea2231-5950-43d8-90ae-b0e5e4624b86
 # API Function: set_options_dns_sec
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_set_options_dns_sec(device_name, vlan_name, dns_addr)
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_set_options_dns_sec(device_name, vlan_name, dns_addr)
 
 	Robot API Call: 
 
@@ -340,7 +340,7 @@ UUID: ba87f7ba-07a7-447a-b8af-8d07af7b304e
 # API Function: set_bootprelay_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_set_bootprelay_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_set_bootprelay_ip(device_name )
 
 	Robot API Call: 
 
@@ -368,7 +368,7 @@ UUID: b21625a1-7eb3-4836-b7e7-7aec620729d5
 # API Function: clear_address_range
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_clear_address_range(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_clear_address_range(device_name )
 
 	Robot API Call: 
 
@@ -396,7 +396,7 @@ UUID: fe3e3c6c-e698-4384-b64f-658b68054f92
 # API Function: clear_lease_time
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_clear_lease_time(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_clear_lease_time(device_name )
 
 	Robot API Call: 
 
@@ -424,7 +424,7 @@ UUID: c56985ed-e4d9-4ac8-9ca4-cdb304e912af
 # API Function: clear_netlogin_lease_time
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_clear_netlogin_lease_time(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_clear_netlogin_lease_time(device_name )
 
 	Robot API Call: 
 
@@ -452,7 +452,7 @@ UUID: 26aa9bb0-58d7-42ac-88c0-5f3b7865ec4a
 # API Function: clear_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_clear_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_clear_global(device_name )
 
 	Robot API Call: 
 
@@ -480,7 +480,7 @@ UUID: 5a3dc96a-b3f5-4a95-bea8-20afd1a27e27
 # API Function: clear_options_gateway
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_clear_options_gateway(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_clear_options_gateway(device_name )
 
 	Robot API Call: 
 
@@ -508,7 +508,7 @@ UUID: eb990672-d516-471d-bc82-0a79136bc4e8
 # API Function: clear_options_dns
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_clear_options_dns(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_clear_options_dns(device_name )
 
 	Robot API Call: 
 
@@ -536,7 +536,7 @@ UUID: 92351040-86fd-471d-bcec-1eedb2b37967
 # API Function: clear_options_dns_pri
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_clear_options_dns_pri(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_clear_options_dns_pri(device_name )
 
 	Robot API Call: 
 
@@ -564,7 +564,7 @@ UUID: 9035ed79-1b7d-48cc-b525-f8ddf589e889
 # API Function: clear_options_dns_sec
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_clear_options_dns_sec(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_clear_options_dns_sec(device_name )
 
 	Robot API Call: 
 
@@ -592,7 +592,7 @@ UUID: 4bce6caf-0ce0-41eb-afcd-39331cb4b12c
 # API Function: show_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_info(device_name )
 
 	Robot API Call: 
 
@@ -620,7 +620,7 @@ UUID: bcd409ba-54fa-4127-acd3-c1283652926b
 # API Function: show_address_allocation
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_show_address_allocation(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_address_allocation(device_name )
 
 	Robot API Call: 
 
@@ -648,7 +648,7 @@ UUID: f895139e-a019-43e0-bbde-406e33d7328a
 # API Function: show_bootprelay_info
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementDhcpGenKeywords.dhcp_show_bootprelay_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_bootprelay_info(device_name )
 
 	Robot API Call: 
 

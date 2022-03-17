@@ -475,10 +475,6 @@ class WirelessNetworks:
         self.auto_actions.click(self.wireless_web_elements.get_wireless_nw_add_button())
         sleep(5)
 
-        self.utils.print_info("Click on standard network add button")
-        self.auto_actions.click(self.wireless_web_elements.get_standard_nw_menu())
-
-        sleep(2)
         self.utils.print_info("Configure the SSID Name , Broadcast ssid name, and radio config ")
         self._config_wireless_network_ssid_section(ssid, **radio_config)
 
@@ -506,7 +502,7 @@ class WirelessNetworks:
         :return: 1 if successfully created else -1
         """
         ssid_name = wireless_network_conf.get('ssid_name')
-        network_type = wireless_network_conf.get('network_type')
+        network_type = wireless_network_conf.get('network_type', 'None')
 
         self.utils.print_info("Click on  wireless network tab tab")
         self.auto_actions.click(self.wireless_web_elements.get_wireless_networks_tab())
@@ -516,11 +512,8 @@ class WirelessNetworks:
             self.utils.print_info("Wireless network already exists")
             return 1
 
-        if network_type.upper() == "STANDARD":
+        if network_type.upper() == "STANDARD" or network_type == 'None':
             return self._config_standard_wireless_network(**wireless_network_conf)
-
-        if network_type.upper() == "GUESTACCESS":
-            return self.guest_access.create_guest_access_network(**wireless_network_conf)
 
     def navigate_to_standard_enterprise_network(self):
         """

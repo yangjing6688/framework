@@ -353,11 +353,18 @@ class GlobalSettingWebElementDefinitions:
             'wait_for': 3
         }
 
+    ssh_availability_option_status = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="enableSSHAvailability"]',
+            'wait_for': 3
+        }
+
     exos_device_management_settings_status = \
         {
             'XPATH': '//*[@data-dojo-attach-point="enableExosVoss"]',
             'wait_for': 3
         }
+
     exos_device_management_settings_save_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnSaveDefaultPassword"]',

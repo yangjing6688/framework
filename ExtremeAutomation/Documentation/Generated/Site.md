@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Site
-This feature is located in this file: `site.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `site.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
 
 # API Function: show_all
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSiteGenKeywords.site_show_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.site.site_show_all(device_name )
 
 	Robot API Call: 
 
@@ -32,7 +32,7 @@ UUID: 66054fea-36d6-49b3-a59a-c64727a94ad6
 # API Function: show_detail
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementSiteGenKeywords.site_show_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.site.site_show_detail(device_name )
 
 	Robot API Call: 
 

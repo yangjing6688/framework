@@ -1,3 +1,5 @@
+import sys
+
 from robot.libraries.BuiltIn import BuiltIn
 from ExtremeAutomation.Library.Device.NetworkElement.NetelemLearning.UpdateEnvironment import UpdateEnvironment
 from ExtremeAutomation.Keywords.TrafficKeywords.Utils.Constants.GenerateRobotVariables import logger

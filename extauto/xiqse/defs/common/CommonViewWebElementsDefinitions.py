@@ -36,3 +36,10 @@ class CommonViewWebElementsDefinitions:
             'XPATH': '//div[contains(@data-boundview, "${element_id}")]/label',
             'wait_for': 10
         }
+
+    panel_section_button = \
+        {
+            'DESC': 'Button that is used to collapse or expand a section in a panel',
+            'XPATH': '//div[@class="x-box-target"]//div[text()="${element_id}"]/../../div[contains(@class,"x-tool-after-title")]',
+            'wait_for': 10
+        }

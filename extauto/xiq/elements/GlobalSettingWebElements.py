@@ -235,6 +235,9 @@ class GlobalSettingWebElements(GlobalSettingWebElementDefinitions):
     def get_supplemental_cli_option_status(self):
         return self.weh.get_element(self.viq_supplemental_status)
 
+    def get_ssh_availability_option_status(self):
+        return self.weh.get_element(self.ssh_availability_option_status)
+
     def get_exos_device_management_settings_status(self):
         return self.weh.get_element(self.exos_device_management_settings_status)
 

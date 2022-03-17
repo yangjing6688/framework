@@ -164,7 +164,7 @@ class CommonObjectsWebElementsDefinitions:
     common_object_policy_add_ssid_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-common-object-ssidmanage-ssid-grid"]'
-                     '//span[@class="table-action-icons table-drop-add"]',
+                     '//span[@class="table-action-icons table-add"]',
             'wait_for': 5
         }
 
@@ -256,25 +256,61 @@ class CommonObjectsWebElementsDefinitions:
 
     common_object_wifi0_radio_profile_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="radioProfile2g"]//div[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile2g"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 3
         }
 
     common_object_wifi1_radio_profile_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="radioProfile5g"]//div[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile5g"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 3
         }
 
     common_object_wifi0_radio_profile_dropdown = \
         {
-            'XPATH': '//div[@id="ah_util_Chosen_11_chzn"]//ul[@data-automation-tag="chzn-results-ctn"]//li',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-wirelessporttype2ghz,wirelessporttype5dualghz"]//li',
             'wait_for': 3
         }
 
     common_object_wifi1_radio_profile_dropdown = \
         {
-            'XPATH': '//div[@id="ah_util_Chosen_16_chzn"]//ul[@data-automation-tag="chzn-results-ctn"]//li',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-wirelessporttype5ghz"]//li',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_client_mode = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzClientMode"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_add_client_mode_profile = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="addClientModeProfileLink2GHz"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi1_add_client_mode_profile = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="addClientModeProfileLink5GHz"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_client_mode_profile_name = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="nameArea"]//input[@data-dojo-attach-point="name"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_client_mode_profile_dhcp_server_scope = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="dhcpServerScope"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_client_mode_profile_save = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 3
         }
 
@@ -293,6 +329,12 @@ class CommonObjectsWebElementsDefinitions:
     common_object_wifi0_sensor = \
         {
             'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzSensor"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi1_client_mode = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage5GHzClientMode"]',
             'wait_for': 3
         }
 

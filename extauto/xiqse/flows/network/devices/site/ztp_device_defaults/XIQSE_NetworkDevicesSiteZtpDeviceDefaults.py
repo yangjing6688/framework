@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------
-# Copyright (C) 2021... 2021 Extreme Networks Inc.
+# Copyright (C) 2021... 2022 Extreme Networks Inc.
 # This software is copyright protected and may not be reproduced in any
 # form or fashion without the written consent of Extreme Networks Inc.
 # ----------------------------------------------------------------------
@@ -21,7 +21,38 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         self.view_el = CommonViewWebElements()
         self.com_field = XIQSE_CommonField()
 
-    def xiqse_site_ztp_set_use_discovered(self, use_discovered):
+    def xiqse_site_ztp_toggle_section(self, the_section="Basic Management"):
+        """
+         - This keyword toggles (collapses or expands) the specified section in the Site > ZTP+ Device Defaults view.
+         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+         - The Section name value is case-sensitive.
+         - Keyword Usage
+          - ``XIQSE Site Ztp Collapse Section   Basic Management``
+          - ``XIQSE Site Ztp Collapse Section   Configuration/Upgrade``
+          - ``XIQSE Site Ztp Collapse Section   Device Protocols``
+          - ``XIQSE Site Ztp Collapse Section   Global IP to Site Mapping``
+        :param the_section: the title of the section that should be toggled.
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+        self.utils.print_debug(f"This is the provided section value: {the_section}")
+
+        the_id = self.view_el.get_panel_section_button(the_section)
+        if the_id:
+            self.utils.print_debug(f"Section ID {the_id}")
+            collapsed = self.com_field.xiqse_is_panel_section_collapsed(the_id)
+            if collapsed:
+                self.utils.print_info(f"The {the_section} section will be expanded.")
+            else:
+                self.utils.print_info(f"The {the_section} section will be collapsed.")
+            self.auto_actions.click(the_id)
+            ret_val = 1
+        else:
+            self.utils.print_info(f"The {the_section} was not found in the panel.")
+
+        return ret_val
+
+    def xiqse_site_ztp_set_use_discovered(self, use_discovered="Disabled"):
         """
          - This keyword sets the Use Discovered value in the Site > ZTP+ Device Defaults tab
          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
@@ -39,7 +70,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         self.utils.print_debug(f"This is the provided Use Discovered value: {use_discovered}")
         the_field = self.get_use_discovered_drop_down()
         if the_field:
-            self.utils.print_info(f"Clicking the Use Discovered drop down to expand the choices")
+            self.utils.print_info("Clicking the Use Discovered drop down to expand the choices")
             self.auto_actions.click(the_field)
 
             # Obtain the dropdown items
@@ -64,7 +95,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Could not find the Use Discovered field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Use Discovered field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -85,7 +116,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         if subnet_address_field:
             self.auto_actions.send_keys(subnet_address_field, subnet_address)
         else:
-            self.utils.print_info(f"Could not find the Subnet Address field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Subnet Address field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
             ret_val = -1
 
@@ -98,22 +129,23 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - Keyword Usage
            - ``XIQSE Site Ztp Set Starting IP Address  starting_ip_address``
          :param starting_ip_address: value to set for the Starting IP Address
-         :return: 1 if action was successful (or the field is disabled), else -1
+         :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Starting IP Address value: {starting_ip_address}")
         starting_ip_address_field = self.get_starting_ip_address_field()
         if starting_ip_address_field:
             disabled = self.com_field.xiqse_is_field_disabled(starting_ip_address_field)
             if disabled:
-                self.utils.print_info(f"The Starting IP Address field is disabled.")
+                self.utils.print_info("The Starting IP Address field is disabled.")
+                ret_val = 2
             else:
                 self.auto_actions.send_keys(starting_ip_address_field, starting_ip_address)
+                ret_val = 1
         else:
-            self.utils.print_info(f"Could not find the Staring IP Address field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Staring IP Address field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
-            ret_val = -1
 
         return ret_val
 
@@ -124,22 +156,23 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - Keyword Usage
            - ``XIQSE Site Ztp Set Ending IP Address  ending_ip_address``
          :param ending_ip_address: value to set for the Ending IP Address
-         :return: 1 if action was successful (or the field is disabled), else -1
+         :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Starting IP Address value: {ending_ip_address}")
         ending_ip_address_field = self.get_ending_ip_address_field()
         if ending_ip_address_field:
             disabled = self.com_field.xiqse_is_field_disabled(ending_ip_address_field)
             if disabled:
-                self.utils.print_info(f"The Ending IP Address field is disabled.")
+                self.utils.print_info("The Ending IP Address field is disabled.")
+                ret_val = 2
             else:
                 self.auto_actions.send_keys(ending_ip_address_field, ending_ip_address)
+                ret_val = 1
         else:
-            self.utils.print_info(f"Could not find the Ending IP Address field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Ending IP Address field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
-            ret_val = -1
 
         return ret_val
 
@@ -150,26 +183,27 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - Keyword Usage
            - ``XIQSE Site Ztp Set Gateway Address  gateway_address``
          :param gateway_address: value to set for the Gateway Address
-         :return: 1 if action was successful (or the field is disabled), else -1
+         :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Gateway Address value: {gateway_address}")
         gateway_address_field = self.get_gateway_address_field()
         if gateway_address_field:
             disabled = self.com_field.xiqse_is_field_disabled(gateway_address_field)
             if disabled:
-                self.utils.print_info(f"The Gateway Address field is disabled.")
+                self.utils.print_info("The Gateway Address field is disabled.")
+                ret_val = 2
             else:
                 self.auto_actions.send_keys(gateway_address_field, gateway_address)
+                ret_val = 1
         else:
-            self.utils.print_info(f"Could not find the Gateway Address field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Gateway Address field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
-            ret_val = -1
 
         return ret_val
 
-    def xiqse_site_ztp_set_management_interface(self, management_interface):
+    def xiqse_site_ztp_set_management_interface(self, management_interface="Default"):
         """
          - This keyword sets the Management Interface value in the Site > ZTP+ Device Defaults tab.
          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
@@ -177,9 +211,9 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - ``XIQSE Site Ztp Set Management Interface  Out-Of-Band``
           - ``XIQSE Site Ztp Set Management Interface  Default``
           - ``XIQSE Site Ztp Set Management Interface  <VlAN-NAME>``
-        :param management_interface: value to select for the Use Discovered field
+        :param management_interface: value to select for the Management Interface field
                (Out-Of-Band || Default || VlAN-NAME)
-        :return: 1 if action was successful (or the field is disabled), else -1
+        :return: 1 if action was successful, 2 if the field is disabled, else -1
         """
         ret_val = -1
 
@@ -188,10 +222,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         if the_field:
             disabled = self.com_field.xiqse_is_field_disabled(the_field)
             if disabled:
-                self.utils.print_info(f"The Management Interface field is disabled.")
-                ret_val = 1
+                self.utils.print_info("The Management Interface field is disabled.")
+                ret_val = 2
             else:
-                self.utils.print_info(f"Clicking the Management Interface drop down to expand the choices")
+                self.utils.print_info("Clicking the Management Interface drop down to expand the choices")
                 self.auto_actions.click(the_field)
 
                 # Obtain the dropdown items
@@ -216,7 +250,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
                     # Click the dropdown again to close it
                     self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Could not find the Management Interface field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Management Interface field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -231,7 +265,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
               - ``XIQSE Site Ztp Set Cli Recovery Mode Only Checkbox  Enable``
               - ``XIQSE Site Ztp Set Cli Recovery Mode Only Checkbox  Disable``
             :param state: value to set for the Basic Management CLI Recovery Mode Only checkbox (Enable || Disable)
-            :return: 1 if action was successful (or the field is disabled), else -1
+            :return: 1 if action was successful, 2 if the field is disabled, else -1
             """
         ret_val = -1
 
@@ -240,9 +274,9 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         if checkbox:
             disabled = self.com_field.xiqse_is_field_disabled(checkbox)
             if disabled:
-                self.utils.print_info(f"The CLI Recovery Mode Only field is disabled.")
-                ret_val = 1
-            if state == "Enable":
+                self.utils.print_info("The CLI Recovery Mode Only field is disabled.")
+                ret_val = 2
+            elif state == "Enable":
                 self.utils.print_info("Enabling the Basic Management 'CLI Recovery Mode Only' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
                 ret_val = 1
@@ -251,9 +285,9 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
                 self.auto_actions.disable_check_box(checkbox)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Basic Management 'CLI Recovery Mode Only' checkbox.")
+                self.utils.print_info("Invalid value provided for the Basic Management 'CLI Recovery Mode Only' checkbox.")
         else:
-            self.utils.print_info(f"Could not find the Basic Management 'CLI Recovery Mode Only' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Basic Management 'CLI Recovery Mode Only' checkbox in ZTP+ Device Defaults")
 
         if ret_val == -1:
             self.screen.save_screen_shot()
@@ -267,22 +301,23 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - Keyword Usage
            - ``XIQSE Site Ztp Set Domain Name  domain_name``
          :param domain_name: value to set for the Domain Name
-         :return: 1 if action was successful (or the field is disabled), else -1
+         :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Domain Name value: {domain_name}")
         domain_name_field = self.get_domain_name_field()
         if domain_name_field:
             disabled = self.com_field.xiqse_is_field_disabled(domain_name_field)
             if disabled:
-                self.utils.print_info(f"The Domain Name field is disabled.")
+                self.utils.print_info("The Domain Name field is disabled.")
+                ret_val = 2
             else:
                 self.auto_actions.send_keys(domain_name_field, domain_name)
+                ret_val = 1
         else:
-            self.utils.print_info(f"Could not find the Domain Name field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Domain Name field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
-            ret_val = -1
 
         return ret_val
 
@@ -293,22 +328,23 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - Keyword Usage
            - ``XIQSE Site Ztp Set DNS Server  dns_server``
          :param dns_server: value to set for the DNS Server
-         :return: 1 if action was successful (or the field is disabled), else -1
+         :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided DNS Server value: {dns_server}")
         dns_server_field = self.get_dns_server_field()
         if dns_server_field:
             disabled = self.com_field.xiqse_is_field_disabled(dns_server_field)
             if disabled:
-                self.utils.print_info(f"The DNS Server field is disabled.")
+                self.utils.print_info("The DNS Server field is disabled.")
+                ret_val = 2
             else:
                 self.auto_actions.send_keys(dns_server_field, dns_server)
+                ret_val = 1
         else:
-            self.utils.print_info(f"Could not find the DNS Server field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the DNS Server field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
-            ret_val = -1
 
         return ret_val
 
@@ -319,22 +355,23 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - Keyword Usage
            - ``XIQSE Site Ztp Set DNS Server Two  dns_server``
          :param dns_server: value to set for the DNS Server 2
-         :return: 1 if action was successful (or the field is disabled), else -1
+         :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided DNS Server 2 value: {dns_server}")
         dns_server_two_field = self.get_dns_server_two_field()
         if dns_server_two_field:
             disabled = self.com_field.xiqse_is_field_disabled(dns_server_two_field)
             if disabled:
-                self.utils.print_info(f"The DNS Server 2 field is disabled.")
+                self.utils.print_info("The DNS Server 2 field is disabled.")
+                ret_val = 2
             else:
                 self.auto_actions.send_keys(dns_server_two_field, dns_server)
+                ret_val = 1
         else:
-            self.utils.print_info(f"Could not find the DNS Server 2 field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the DNS Server 2 field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
-            ret_val = -1
 
         return ret_val
 
@@ -345,22 +382,23 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - Keyword Usage
            - ``XIQSE Site Ztp Set DNS Server Three  dns_server``
          :param dns_server: value to set for the DNS Server 3
-         :return: 1 if action was successful (or the field is disabled), else -1
+         :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided DNS Server 3 value: {dns_server}")
         dns_server_three_field = self.get_dns_server_three_field()
         if dns_server_three_field:
             disabled = self.com_field.xiqse_is_field_disabled(dns_server_three_field)
             if disabled:
-                self.utils.print_info(f"The DNS Server 3 field is disabled.")
+                self.utils.print_info("The DNS Server 3 field is disabled.")
+                ret_val = 2
             else:
                 self.auto_actions.send_keys(dns_server_three_field, dns_server)
+                ret_val = 1
         else:
-            self.utils.print_info(f"Could not find the DNS Server 3 field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the DNS Server 3 field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
-            ret_val = -1
 
         return ret_val
 
@@ -371,22 +409,23 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - Keyword Usage
            - ``XIQSE Site Ztp Set DNS Search Suffix  dns_search_suffix``
          :param dns_search_suffix: value to set for the DNS Search Suffix
-         :return: 1 if action was successful (or the field is disabled), else -1
+         :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided DNS Search Suffix value: {dns_search_suffix}")
         dns_search_suffix_field = self.get_dns_search_suffix_field()
         if dns_search_suffix_field:
             disabled = self.com_field.xiqse_is_field_disabled(dns_search_suffix_field)
             if disabled:
-                self.utils.print_info(f"The DNS Search Suffix field is disabled.")
+                self.utils.print_info("The DNS Search Suffix field is disabled.")
+                ret_val = 2
             else:
                 self.auto_actions.send_keys(dns_search_suffix_field, dns_search_suffix)
+                ret_val = 1
         else:
-            self.utils.print_info(f"Could not find the DNS Search Suffix field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the DNS Search Suffix field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
-            ret_val = -1
 
         return ret_val
 
@@ -406,7 +445,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         if ntp_server_field:
             self.auto_actions.send_keys(ntp_server_field, ntp_server)
         else:
-            self.utils.print_info(f"Could not find the NTP Server field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the NTP Server field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
             ret_val = -1
 
@@ -428,7 +467,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         if ntp_server_two_field:
             self.auto_actions.send_keys(ntp_server_two_field, ntp_server)
         else:
-            self.utils.print_info(f"Could not find the NTP Server 2 field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the NTP Server 2 field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
             ret_val = -1
 
@@ -450,7 +489,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         if system_contact_field:
             self.auto_actions.send_keys(system_contact_field, system_contact)
         else:
-            self.utils.print_info(f"Could not find the System Contact field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the System Contact field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
             ret_val = -1
 
@@ -472,7 +511,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         if system_location_field:
             self.auto_actions.send_keys(system_location_field, system_location)
         else:
-            self.utils.print_info(f"Could not find the System Location field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the System Location field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
             ret_val = -1
 
@@ -492,7 +531,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         self.utils.print_debug(f"This is the provided Admin Profile value: {admin_profile}")
         the_field = self.get_admin_profile_drop_down()
         if the_field:
-            self.utils.print_info(f"Clicking the Admin Profile drop down to expand the choices")
+            self.utils.print_info("Clicking the Admin Profile drop down to expand the choices")
             self.auto_actions.click(the_field)
 
             # Obtain the dropdown items
@@ -517,7 +556,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Could not find the Admin Profile field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Admin Profile field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -538,7 +577,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         self.utils.print_debug(f"This is the provided Poll Group value: {poll_group}")
         the_field = self.get_poll_group_drop_down()
         if the_field:
-            self.utils.print_info(f"Clicking the Poll Group drop down to expand the choices")
+            self.utils.print_info("Clicking the Poll Group drop down to expand the choices")
             self.auto_actions.click(the_field)
 
             # Obtain the dropdown items
@@ -551,8 +590,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
                     self.utils.print_info(f"Selected {poll_group} in the Poll Group dropdown")
                     ret_val = 1
                 else:
-                    self.utils.print_info(
-                        f"Unable to select {poll_group} in the Poll Group dropdown")
+                    self.utils.print_info(f"Unable to select {poll_group} in the Poll Group dropdown")
                     self.screen.save_screen_shot()
 
                     # Click the dropdown again to close it
@@ -564,7 +602,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Could not find the Poll Group field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Poll Group field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -587,7 +625,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         self.utils.print_debug(f"This is the provided Poll Type value: {poll_type}")
         the_field = self.get_poll_type_drop_down()
         if the_field:
-            self.utils.print_info(f"Clicking the Poll Type drop down to expand the choices")
+            self.utils.print_info("Clicking the Poll Type drop down to expand the choices")
             self.auto_actions.click(the_field)
 
             # Obtain the dropdown items
@@ -612,7 +650,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Could not find the Poll Type field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Poll Type field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -629,7 +667,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
           - ``XIQSE Site Ztp Set Site Precedence  IP Range Only``
           - ``XIQSE Site Ztp Set Site Precedence  None``
         :param site_precedence: value to select for the Site Assignment Precedent field
-        :return: 1 if action was successful (or the field is disabled), else -1
+        :return: 1 if action was successful, 2 if the field is disabled, else -1
         """
         ret_val = -1
 
@@ -638,10 +676,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
         if the_field:
             disabled = self.com_field.xiqse_is_field_disabled(the_field)
             if disabled:
-                self.utils.print_info(f"The Site Assignment Precedent field is disabled.")
-                ret_val = 1
+                self.utils.print_info("The Site Assignment Precedent field is disabled.")
+                ret_val = 2
             else:
-                self.utils.print_info(f"Clicking the Site Assignment Precedent drop down to expand the choices")
+                self.utils.print_info("Clicking the Site Assignment Precedent drop down to expand the choices")
                 self.auto_actions.click(the_field)
 
                 # Obtain the dropdown items
@@ -666,7 +704,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
                     # Click the dropdown again to close it
                     self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Could not find the Site Assignment Precedent field in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Site Assignment Precedent field in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -685,7 +723,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols Telnet checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'Telnet' value: {state}")
         checkbox = self.get_device_protocols_telnet_checkbox()
@@ -693,17 +731,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'Telnet' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'Telnet' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'Telnet' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'Telnet' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'Telnet' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'Telnet' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -718,7 +755,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols SSH checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'SSH' value: {state}")
         checkbox = self.get_device_protocols_ssh_checkbox()
@@ -726,17 +763,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'SSH' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'SSH' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'SSH' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'SSH' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'SSH' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'SSH' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -751,7 +787,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols HTTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'HTTP' value: {state}")
         checkbox = self.get_device_protocols_http_checkbox()
@@ -759,17 +795,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'HTTP' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'HTTP' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'HTTP' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'HTTP' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'HTTP' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'HTTP' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -784,7 +819,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols HTTPS checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'HTTPS' value: {state}")
         checkbox = self.get_device_protocols_https_checkbox()
@@ -792,17 +827,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'HTTPS' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'HTTPS' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'HTTPS' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'HTTPS' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'HTTPS' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'HTTPS' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -817,7 +851,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols FTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'FTP' value: {state}")
         checkbox = self.get_device_protocols_ftp_checkbox()
@@ -825,17 +859,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'FTP' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'FTP' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'FTP' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'FTP' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'FTP' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'FTP' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -848,27 +881,31 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
               - ``XIQSE Site Ztp Set Device Protocols Snmp Checkbox  Enable``
               - ``XIQSE Site Ztp Set Device Protocols Snmp Checkbox  Disable``
             :param state: value to set for the Device Protocols SNMP checkbox (Enable || Disable)
-            :return: 1 if action was successful, else -1
+            :return: 1 if action was successful, 2 if the field is read-only, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'SNMP' value: {state}")
         checkbox = self.get_device_protocols_snmp_checkbox()
         if checkbox:
-            if state == "Enable":
-                self.utils.print_info("Enabling Device Protocols 'SNMP' checkbox")
-                self.auto_actions.enable_check_box(checkbox)
-            elif state == "Disable":
-                self.utils.print_info("Disabling Device Protocols 'SNMP' checkbox")
-                self.auto_actions.disable_check_box(checkbox)
+            disabled = self.com_field.xiqse_is_field_readonly(checkbox)
+            if disabled:
+                self.utils.print_info("The SNMP field is disabled.")
+                ret_val = 2
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'SNMP' checkbox.")
-                ret_val = -1
+                if state == "Enable":
+                    self.utils.print_info("Enabling Device Protocols 'SNMP' checkbox")
+                    self.auto_actions.enable_check_box(checkbox)
+                    ret_val = 1
+                elif state == "Disable":
+                    self.utils.print_info("Disabling Device Protocols 'SNMP' checkbox")
+                    self.auto_actions.disable_check_box(checkbox)
+                    ret_val = 1
+                else:
+                    self.utils.print_info("Invalid value provided for the Device Protocols 'SNMP' checkbox.")
+                    self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'SNMP' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'SNMP' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -883,7 +920,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols LACP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'LACP' value: {state}")
         checkbox = self.get_device_protocols_lacp_checkbox()
@@ -891,17 +928,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'LACP' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'LACP' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'LACP' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'LACP' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'LACP' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'LACP' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -916,7 +952,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols LLDP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'LLDP' value: {state}")
         checkbox = self.get_device_protocols_lldp_checkbox()
@@ -924,17 +960,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'LLDP' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'LLDP' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'LLDP' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'LLDP' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'LLDP' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'LLDP' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -949,7 +984,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols MVRP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'MVRP' value: {state}")
         checkbox = self.get_device_protocols_mvrp_checkbox()
@@ -957,17 +992,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'MVRP' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'MVRP' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'MVRP' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'MVRP' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'MVRP' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'MVRP' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -982,7 +1016,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols MSTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'MSTP' value: {state}")
         checkbox = self.get_device_protocols_mstp_checkbox()
@@ -990,17 +1024,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'MSTP' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'MSTP' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'MSTP' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'MSTP' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'MSTP' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'MSTP' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -1015,7 +1048,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols POE checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'POE' value: {state}")
         checkbox = self.get_device_protocols_poe_checkbox()
@@ -1023,17 +1056,16 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'POE' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'POE' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'POE' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'POE' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'POE' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
-
-        if ret_val == -1:
+            self.utils.print_info("Could not find the Device Protocols 'POE' checkbox in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -1048,7 +1080,7 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             :param state: value to set for the Device Protocols VXLAN checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
-        ret_val = 1
+        ret_val = -1
 
         self.utils.print_debug(f"This is the provided Device Protocols 'VXLAN' value: {state}")
         checkbox = self.get_device_protocols_vxlan_checkbox()
@@ -1056,17 +1088,44 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
             if state == "Enable":
                 self.utils.print_info("Enabling Device Protocols 'VXLAN' checkbox")
                 self.auto_actions.enable_check_box(checkbox)
+                ret_val = 1
             elif state == "Disable":
                 self.utils.print_info("Disabling Device Protocols 'VXLAN' checkbox")
                 self.auto_actions.disable_check_box(checkbox)
+                ret_val = 1
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'VXLAN' checkbox.")
-                ret_val = -1
+                self.utils.print_info("Invalid value provided for the Device Protocols 'VXLAN' checkbox.")
+                self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'VXLAN' checkbox in ZTP+ Device Defaults")
-            ret_val = -1
+            self.utils.print_info("Could not find the Device Protocols 'VXLAN' checkbox in ZTP+ Device Defaults")
+            self.screen.save_screen_shot()
 
-        if ret_val == -1:
+        return ret_val
+
+    # Global IP to Site Mapping section
+    def xiqse_site_ztp_global_ip_to_site_mapping_state(self):
+        """
+         - This keyword obtains the state of the Global IP to Site Mapping table in the Site > ZTP+ Device Defaults tab.
+         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+         - Note: This table is only read-write when the World site is selected.
+         - Keyword Usage
+          - ``XIQSE Site Ztp Global Ip To Site Mapping State``
+        :return: 1 if the table is read-write, 2 if the table is read-only, else -1
+        """
+        ret_val = -1
+
+        self.utils.print_debug("Determining the state of the Global IP to Site Mapping table.")
+        the_table = self.get_global_ip_to_site_mapping_table()
+        if the_table:
+            disabled = self.com_field.xiqse_is_field_disabled(the_table)
+            if disabled:
+                self.utils.print_info("The Global IP to Site Mapping table is read-only.")
+                ret_val = 2
+            else:
+                self.utils.print_info("The Global IP to Site Mapping table is read-write.")
+                ret_val = 1
+        else:
+            self.utils.print_info("Could not find the Global IP to Site Mapping table in ZTP+ Device Defaults")
             self.screen.save_screen_shot()
 
         return ret_val

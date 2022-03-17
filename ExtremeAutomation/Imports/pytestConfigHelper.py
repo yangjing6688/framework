@@ -515,8 +515,9 @@ def merge_map2(original, to_add, roboIze=True):
                                                                 dict):
             merge_map2(original[k], v)
         else:
-            original[k] = v
-            if roboIze and not re.match(p1, k):
+            if roboIze != 'Native':
+                original[k] = v
+            if (roboIze or roboIze == 'Native') and not re.match(p1, k):
                 roboK = '${' + k + '}'
                 original[roboK] = v
 

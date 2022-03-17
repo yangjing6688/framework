@@ -239,3 +239,91 @@ class Summary(object):
                 self.utils.print_info(f"Today's linkedin widget data: {linkedin_data.text}")
 
         return 1
+
+    def check_summary_page_total_users_widget_data(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
+        - Keyword Usage:
+            ''check summary page total users widget data''
+
+        :return: 1 if all widgets are displayed
+        """
+        if self.summary_web_elem.get_extreme_guest_summary_total_users_widget().is_displayed():
+            self.utils.print_info("total_users widget is displayed")
+        else:
+            self.utils.print_info("total_users widget is not displayed")
+            return -1
+
+        self.utils.print_info("Checking total_users widget data")
+        if total_users_data := self.summary_web_elem.get_extreme_guest_summary_total_users_widget():
+            if total_users_data.text:
+                self.utils.print_info(f"Today's total_users widget data: {total_users_data.text}")
+
+        return 1
+
+    def check_summary_page_online_users_widget_data(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
+        - Keyword Usage:
+            ''check summary page online users widget data''
+
+        :return: 1 if all widgets are displayed
+        """
+        if self.summary_web_elem.get_extreme_guest_summary_online_users_widget().is_displayed():
+            self.utils.print_info("online_users widget is displayed")
+        else:
+            self.utils.print_info("online_users widget is not displayed")
+            return -1
+
+        self.utils.print_info("Checking online_users widget data")
+        if online_users_data := self.summary_web_elem.get_extreme_guest_summary_online_users_widget():
+            if online_users_data.text:
+                self.utils.print_info(f"Today's online_users widget data: {online_users_data.text}")
+
+        return 1
+
+    def check_summary_page_total_clients_widget_data(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
+        - Keyword Usage:
+            ''check summary page total clients widget data''
+
+        :return: 1 if all widgets are displayed
+        """
+        if self.summary_web_elem.get_extreme_guest_summary_total_clients_widget().is_displayed():
+            self.utils.print_info("total_clients widget is displayed")
+        else:
+            self.utils.print_info("total_clients widget is not displayed")
+            return -1
+
+        self.utils.print_info("Checking total_clients widget data")
+        if total_clients_data := self.summary_web_elem.get_extreme_guest_summary_total_clients_widget():
+            if total_clients_data.text:
+                self.utils.print_info(f"Today's total_clients widget data: {total_clients_data.text}")
+
+        return 1
+    
+    def check_summary_page_online_clients_widget_data(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
+        - Keyword Usage:
+            ''check summary page total clients widget data''
+
+        :return: 1 if all widgets are displayed
+        """
+        if self.summary_web_elem.get_extreme_guest_summary_online_clients_widget().is_displayed():
+            self.utils.print_info("online_clients widget is displayed")
+        else:
+            self.utils.print_info("online_clients widget is not displayed")
+            return -1
+
+        self.utils.print_info("Checking online_clients widget data")
+        if online_clients_data := self.summary_web_elem.get_extreme_guest_summary_online_clients_widget():
+            if online_clients_data.text:
+                self.utils.print_info(f"Today's online_clients widget data: {online_clients_data.text}")
+
+        return 1

@@ -1,72 +1,88 @@
 import os
 from ExtremeAutomation.Utilities.EconClient.econ_request_api import econAPI
-from pprint import pprint
 import sys
 import re
 import json
 from pathlib import Path
+from robot.api.parsing import ModelVisitor
+import glob
 
-class RobotTestData():
+qTestMarker  = re.compile(r"(([A-Z]+[\-_])?TC[\-_][0-9]+)", flags=re.IGNORECASE)
+testbed_name_re = re.compile(r"testbed_([0-9]+)_node|testbed_not_required")
+reserved_tags_re = re.compile(r"production|regression|nightly|sanity|p[1-5]")
 
-    def __init__(self, path):
-        from robot.api import TestData
-        self.path = path
-        self.testsObj = TestData(source=path)
+
+class RobotTestData(ModelVisitor):
+
+    def __init__(self, node):
+        self.suite_file = ''
+        self.suite_name = ''
+        self.tests = {}
         self.tags = {}
-        self.qTestTags = []
-        self.qTestTagCount = 0
+        self.global_tags = set()
+        self.qTestTags = set()
         self.tcCount = 0
 
-    def print_suite(self,suite):
+    def visit_File(self, node):
+        self.suite_file = node.source
+        self.tags[self.suite_file] = set()
+        sname_raw = os.path.basename(node.source).split('.')[0]
+        self.suite_name = sname_raw.replace("_", " ")
+        self.suite_name = self.suite_name.title()
+        #print(f"File '{node.source}' Title '{self.suite_name}' has following tests:")
+
+        # Call `generic_visit` to visit also child nodes.
+        self.generic_visit(node)
+
+    def visit_ForceTags(self, node):
+        #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
+        for nTag in node.get_values('ARGUMENT'):
+            self.addTag(nTag)
+            self.global_tags.add(nTag)
+    def visit_DefaultTags(self, node):
+        #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
+        for nTag in node.get_values('ARGUMENT'):
+            self.addTag(nTag)
+            self.global_tags.add(nTag)
+    def visit_TestCase(self, node):
+        self.tests.update({node.name: {'tags': []}})
+        for statement in node.body:
+            # Get tags at test case level.
+            try:
+                if statement.type == "TAGS":
+                    self.tests[node.name]['tags'] = list(statement.values)
+                    for tag in statement.values:
+                        self.addTag(tag)
+                    break # We found our tags. Time to bail
+            except AttributeError:
+                # Hit an object without a "type" attribute. Skip to the next object
+                continue
+
+    def print_suite(self):
         goodCaseName = re.compile(r"(test_[0-9a-zA-Z\[\]\-_\.]+)")
-        qTestMarker  = re.compile(r"([a-zA-Z]+_TC_[0-9]+)")
-        testbed_name_re = re.compile(r"testbed_([0-9]+)_node|testbed_not_required")
-        reserved_tags_re = re.compile(r"production|regression|nightly|sanity|p[1-4]")
-        relative_path = os.path.relpath(suite.source,  os.getcwd())
+        relative_path = os.path.relpath(self.suite_file,  os.getcwd())
         output_dict = {
             relative_path: {}
         }
 
-        print(f'Suite: {suite.name}')
+        print(f'Suite: {self.suite_name}')
 
-        if suite.directory:
-            print(f"Directory source - {suite.source}")
-            if suite.source not in self.tags:
-                self.tags[suite.source] = []
-        if suite.setting_table.force_tags:
-            if isinstance(suite.setting_table.force_tags.value, list):
-                for t in suite.setting_table.force_tags.value:
-                    if t not in self.tags:
-                        self.tags[suite.source].extend(suite.setting_table.force_tags.value)
-                        self.tags[suite.source] = self.uTags(self.tags[suite.source])
-        if suite.setting_table.default_tags:
-            if isinstance(suite.setting_table.default_tags.value, list):
-                for t in suite.setting_table.default_tags.value:
-                    if t not in self.tags:
-                        self.tags[suite.source].extend(t)
-                        self.tags[suite.source] = self.uTags(self.tags[suite.source])
-            else:
-                if suite.setting_table.default_tags.value not in self.tags:
-                    self.tags[suite.source].extend(suite.setting_table.default_tags.value)
-                    self.tags[suite.source] = self.uTags(self.tags[suite.source])
-        for test in suite.testcase_table:
+        for test_name in self.tests:
             self.tcCount += 1
-            print(f"{self.tcCount} Test Case - {test.name}")
-            if test.tags:
-                if test.tags.value not in self.tags[suite.source]:
-                    self.tags[suite.source].extend(test.tags.value)
-                    self.tags[suite.source] = self.uTags(self.tags[suite.source])
+            print(f"{self.tcCount} Test Case - {test_name}")
+
+            self.tests[test_name]['tags'].extend(self.global_tags)
 
             # Set results
-            resn = goodCaseName.search(test.name)
+            resn = goodCaseName.search(test_name)
             nameOK = True if resn else False
-            dev_exists = True if 'development' in self.tags[suite.source] else False
+            dev_exists = True if 'development' in self.tests[test_name]['tags'] else False
 
             qTestOK = False
             uppercase_check = True    # True = all tags lowercase, False = atleast one tag with uppercase letters
             reserved_tags_check = False  # True = atleast one reserved tag found, False = no reserved tags used
             testbed_tag_exists = False
-            for tag in self.tags[suite.source]:
+            for tag in self.tests[test_name]['tags']:
                 res2 = testbed_name_re.search(tag)
                 if res2:
                     testbed_tag_exists = True
@@ -86,35 +102,23 @@ class RobotTestData():
                 "valid_test_name": nameOK,
                 "contains_testbed_tag": testbed_tag_exists,
                 "contains_reserved_tag": reserved_tags_check,
-                "marker_list": self.tags[suite.source],
-                "testcase_name": test.name
+                "marker_list": list(self.tests[test_name]['tags']),
+                "testcase_name": test_name
 
             }
 
             # Keyed on relative path of testcase file, then function name
-            output_dict[relative_path].setdefault(test.name, testcase_info)
+            output_dict[relative_path].setdefault(test_name, testcase_info)
 
-        print(f"   Tags - {self.tags[suite.source]}")
-
-
-        for child in suite.children:
-            self.print_suite(child)
 
         return output_dict
 
-    def uTags(self, list1):
-        unique_list = []
-        # traverse for all elements
-        for x in list1:
-            # filter qTest tags
-            if re.search('^[a-zA-Z]+\-[0-9]+',x, re.IGNORECASE):
-                if x not in self.qTestTags:
-                    self.qTestTags.append(x)
-                    self.qTestTagCount += 1
-            # check if exists in unique_list or not
-            if x not in unique_list:
-                unique_list.append(x)
-        return unique_list
+    def addTag(self, inTag):
+        # filter qTest tags
+        if qTestMarker.search(inTag):
+            self.qTestTags.add(inTag)
+        # add tag to set
+        self.tags[self.suite_file].add(inTag)
 
 class PytestItems():
     def __init__(self, session):
@@ -132,10 +136,6 @@ class PytestItems():
 
     def get_inventory_info(self):
         goodCaseName = re.compile(r"(test_[0-9a-zA-Z\[\]\-_\.]+)")
-        qTestMarker  = re.compile(r"([a-zA-Z]+_TC_[0-9]+)")
-        testbed_name_re = re.compile(r"testbed_([0-9]+)_node")
-        tag_case_re = re.compile(r"[A-Z]+") # checks if tag contains uppercase chars
-        reserved_tags_re = re.compile(r"production|regression|nightly|sanity|p[1-4]")
         output_dict = {}
 
         if self.session.config.option.get_test_info is not None:
@@ -163,8 +163,7 @@ class PytestItems():
                         qTestCheck = qTestMarker.search(k)
                         if qTestCheck:
                             qTestOK = True
-                        tag_case_result = tag_case_re.search(k)
-                        if tag_case_result:
+                        if not k.islower():
                             uppercase_check = False
                         reserved_tags_result = reserved_tags_re.search(k)
                         if reserved_tags_result:
@@ -379,66 +378,38 @@ class PathTools():
         out = {"TestModule": testMod, "Category": cat, "RepoPath": p}
         return out
 
-    def locateCfg(self, cfgFile, search=[]):
-        keyList = ['extr', 'xiq', 'xiqse', 'econ', 'econxiq']
-        cfgDirs  = { 'xiq' : ['/testsuites/xiq/config/', '/testsuites/xiq/env/', '/testsuites/xiq/topologies/'],
-                    'xiqse' : ['/testsuites/xiqse/config/', '/testsuites/xiqse/env/', '/testsuites/xiqse/topologies/'],
-                    'econ' : ['/TestEnvironments/', '/TestEnvironments/Rdu/Physical/Exos/',
-                              '/TestEnvironments/Rdu/Virtual/Exos/', '/TestEnvironments/Salem/Physical/Demo/',
-                              '/TestEnvironments/Salem/Physical/Dev/'],
-                    'econxiq': ['/TestEnvironments/Xiq/', '/TestEnvironments/Xiq/Base/','/TestEnvironments/Xiq/Rdu/',
-                              '/TestEnvironments/Xiq/Salem/', '/TestEnvironments/Rdu/Physical/Exos/',
-                              '/TestEnvironments/Rdu/Virtual/Exos/', '/TestEnvironments/Salem/Physical/Demo/',
-                              '/TestEnvironments/Salem/Physical/Dev/' ],
-                    'extr': ['/Environments/', '/TestBeds/', '/TestBeds/BANGALORE/', '/TestBeds/CHENNAI/',
-                             '/TestBeds/RDU/', '/TestBeds/SALEM/', '/TestBeds/SJ/', '/TestBeds/Templates/',
-                             '/TestBeds/RDU/Demo/', '/TestBeds/RDU/Dev/', '/TestBeds/RDU/Prod/',
-                             '/TestBeds/SALEM/Demo/', '/TestBeds/SALEM/Dev/','/TestBeds/SALEM/Prod/',
-                             '/TestBeds/SJ/Demo/','/TestBeds/SJ/Dev/','/TestBeds/SJ/Prod/',
-                             '/TestBeds/BANGALORE/Demo/','/TestBeds/BANGALORE/Dev/','/TestBeds/BANGALORE/Prod/',
-                             '/TestBeds/CHENNAI/Demo/','/TestBeds/CHENNAI/Dev/','/TestBeds/CHENNAI/Prod/'
-                             ]
-                    }
-
+    def locateCfg(self, cfgFile):
         for p in sys.path:
-            testCfg = Path(p+'/'+cfgFile)
-            if testCfg.exists():
-                return testCfg
+            parts = self.pathParts(p)
+            tbedDir = Path(p+'/TestBeds')
+            if os.path.isdir(tbedDir) and 'extreme_automation_tests' in parts:
+                myCfgSrch = f'{tbedDir}/**/{cfgFile}'
+                myCfgFile = glob.glob(myCfgSrch, recursive = True)
+                if len(myCfgFile) > 0:
+                    return myCfgFile[0]
+        print(f"WARNING!! {cfgFile} could not be located")
+        return None
 
-        p1 = '*cw_automation*'
-        p2 = 'econ-automation-tests.*'
-        p3 = 'extreme_automation_tests.*'
-        if search:
-            for p in sys.path:
-                if 'xiqse' in search and re.match(p1, p):
-                    for cd in cfgDirs['xiqse']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
-                if 'xiq' in search and re.match(p1, p):
-                    for cd in cfgDirs['xiq']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
-                if 'econ' in search and re.match(p2, p):
-                    for cd in cfgDirs['econ']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
-                if 'econxiq' in search and re.match(p2, p):
-                    for cd in cfgDirs['econxiq']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
-                if 'extr' in search and re.match(p3, p):
-                    for cd in cfgDirs['extr']:
-                        testCfg = Path(p + cd + cfgFile)
-                        if testCfg.exists():
-                            return testCfg
+    def locateEnv(self, envFile):
         for p in sys.path:
-            for srch in keyList:
-                for cd in cfgDirs[srch]:
-                    testCfg = Path(p + cd + cfgFile)
-                    if testCfg.exists():
-                        return testCfg
+            parts = self.pathParts(p)
+            envDir = Path(p+'/Environments')
+            if os.path.isdir(envDir) and 'extreme_automation_tests' in parts:
+                myEnvSrch = f'{envDir}/**/{envFile}'
+                myEnvFile = glob.glob(myEnvSrch, recursive = True)
+                if len(myEnvFile) > 0:
+                    return myEnvFile[0]
+        print(f"WARNING!! {envFile} could not be located")
+        return None
+
+    def locateTopo(self, topoFile):
+        for p in sys.path:
+            parts = self.pathParts(p)
+            envDir = Path(p+'/Environments')
+            if os.path.isdir(envDir) and 'extreme_automation_tests' in parts:
+                myTopoSrch = f'{envDir}/**/{topoFile}'
+                myTopoFile = glob.glob(myTopoSrch, recursive = True)
+                if len(myTopoFile) > 0:
+                    return myTopoFile[0]
+        print(f"WARNING!! {topoFile} could not be located")
         return None

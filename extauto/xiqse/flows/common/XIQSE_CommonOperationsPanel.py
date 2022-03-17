@@ -302,34 +302,40 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_confirm_operations_panel_message_for_type(self, op_type, the_message):
         """
-         - This keyword confirms the message from the last operations panel type entry contains the expected text.
+         - This keyword confirms the message from the 'Operations' panel type entry contains the expected text.
          - Keyword Usage
           - ``XIQSE Confirm Operations Panel Message For Type    ${OP_TYPE}    ${THE_MESSAGE}``
 
-        :param op_type:       type of operation to check the message on
+        :param op_type:       type of operation to check for the message
         :param the_message:   message to verify is present
         :return: 1 if message is found, else -1
         """
         ret_val = -1
 
-        # Make sure the group is expanded
+        # Make sure the Operation Type group is expanded
         self.xiqse_operations_expand_group(op_type)
 
-        # Determine the progress value for the operation
-        data_row = self.get_operations_table_group_data_row(op_type)
-        if data_row:
-            row_cells = self.get_operations_table_data_row_cells(data_row)
-            for cell in row_cells:
-                cell_text = cell.get_attribute("data-qtip")
-                if cell_text:
-                    if the_message in cell_text:
-                        self.utils.print_info(f"Found matching message in cell:  {cell_text}")
-                        ret_val = 1
-                        break
-                else:
-                    self.utils.print_info("Could not get data for cell")
-            else:
-                self.utils.print_info("Did not find matching message in cell")
+        # Obtain all message rows under the Operation Type
+        data_rows = self.get_operations_table_group_data_rows(op_type)
+        if data_rows:
+            self.utils.print_info(f"Searching for the message:  {the_message}")
+            for data_row in data_rows:
+                row_cells = self.get_operations_table_data_row_cells(data_row)
+                for cell in row_cells:
+                    cell_text = cell.get_attribute("data-qtip")
+                    self.utils.print_info(f"Found message in cell:  {cell_text}")
+                    if cell_text:
+                        if the_message in cell_text:
+                            self.utils.print_info(f"Found matching message in cell:  {cell_text}")
+                            ret_val = 1
+                            break
+                        else:
+                            self.utils.print_debug("Did not find matching message in cell")
+                    else:
+                        self.utils.print_info("Could not get data for the cell")
+                if ret_val == 1:
+                    # break out of the nested For Loop
+                    break
         else:
             self.utils.print_info(f"Could not find data row for operation {op_type}")
 
