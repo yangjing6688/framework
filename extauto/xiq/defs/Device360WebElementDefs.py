@@ -2046,3 +2046,18 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
             'wait_for': 5
         }
+    device360_click_particular_client = \
+        {
+            'XPATH': '//td[contains(@class,"field-clientMac")]//a[contains(@class,"open-client-entity")]',
+            'wait_for': 5
+        }
+    close_client360_dialog = \
+        {
+            'XPATH': '//div[@class="entity-page-icon entity-page-close"][@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
+    device360_hyperlink_client = \
+        {
+            'XPATH': '//*[@class="entity-content-ctn device-entity-connected-ctn"]//table[@class="dgrid-row-table"]//*[@data-mac]',
+            'wait_for': 5
+        }

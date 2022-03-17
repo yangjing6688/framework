@@ -11,7 +11,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
-
+from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 
@@ -24,6 +24,7 @@ class Device360(Device360WebElements):
         self.dev = Devices()
         self.navigator = Navigator()
         self.dev360 = Device360WebElements()
+        self.deviceConfig = DeviceConfig()
         self.devices_web_elements = DevicesWebElements()
         self.wireless_web_elements = WirelessWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
@@ -4920,3 +4921,299 @@ class Device360(Device360WebElements):
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click(self.get_close_dialog())
         return 1
+
+    def device360_check_wired_client(self, device_serial=None, device_mac=None, client_mac=None, sleep_time=30, iteration=15):
+        """
+           - This keyword is used to check the client in device360 page based on passed client mac address
+           -Flow: Manage --> Devices --> click on the Clients hyperlink which is present in Device grid row based on device serial
+           - Keyword Usage:
+            - ``${RESULT}=        Check Client In Device360          ${DEVICE_SERIAL}       ${CLIENT _MAC}``
+
+           :param device_serial: serial of the device
+           :param client_mac:  MAC of the client
+           :return: 1 if successful else -1
+           """
+        client_found = -1
+
+        for eachiteration in range(0, iteration):
+            if device_mac:
+                self.utils.print_info("Using device MAC: ", device_mac)
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+
+            if device_serial:
+                self.utils.print_info("Using device name: ", device_serial)
+                self.navigator.navigate_to_device360_page_with_host_name(device_serial)
+
+            self.device360_navigate_to_monitor_clients()
+            sleep(4)
+            self.utils.print_info("Searching Device Entry with Search String : ", client_mac)
+            self.auto_actions.send_keys(self.deviceConfig.get_unique_clients_search_field(), client_mac)
+            self.screen.save_screen_shot()
+            sleep(5)
+            table = self.dev360.get_device_active_clients_grid()
+            rows = self.dev360.get_device_active_clients_grid_rows(table)
+            self.screen.save_screen_shot()
+            sleep(5)
+            if rows:
+                for row in rows:
+                    self.utils.print_info("Getting the clients rows: ", row.text)
+                    get_client_mac = None
+                    try:
+                        get_client_mac = self.get_device360_hyperlink_client().text
+                    except:
+                        print("Problem while getting client mac")
+                    if client_mac in row.text and "CONNECTED" in row.text:
+                        self.utils.print_info("Client found")
+                        self.utils.print_info("Retrieve the device's unique client information")
+                        client_found = 1
+
+                    elif get_client_mac:
+                        if get_client_mac.lower() == client_mac.lower():
+                            self.utils.print_info("Client found ", get_client_mac)
+                            self.utils.print_info("Retrieve the device's unique client information")
+                            client_found = 1
+                    else:
+                        self.close_device360_window()
+                if client_found==1:
+                    break
+            else:
+                self.utils.print_info("Client not found yet! Retrying after 30 seconds")
+                self.close_device360_window()
+                sleep(sleep_time)
+
+        if client_found == 1:
+            client_info = dict()
+
+            try:
+                client_info["connection_type"] = self.deviceConfig.get_wired_client_connection_type().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Connection type not found")
+                client_info["connection_type"] = None
+
+            try:
+                client_info["ostype"] = self.deviceConfig.get_wired_client_os_type().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Os type not found")
+                client_info["ostype"] = None
+
+            try:
+                client_info["connectstatus"] = self.deviceConfig.get_wired_client_connection_status().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Connect status not found")
+                client_info["connectstatus"] = None
+
+            try:
+                client_info["hostname"] = self.deviceConfig.get_wired_client_hostname().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Host Name not found")
+                client_info["hostname"] = None
+
+            try:
+                client_info["clientmac"] = self.deviceConfig.get_wired_client_mac().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Client Mac not found")
+                client_info["clientmac"] = None
+
+            try:
+                client_info["ipv4"] = self.deviceConfig.get_wired_client_IPv4().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> IPv4 Address not found")
+                client_info["ipv4"] = None
+
+            try:
+                client_info["ipv6"] = self.deviceConfig.get_wired_client_IPv6().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> IPv6 not found")
+                client_info["ipv6"] = None
+
+            try:
+                client_info["username"] = self.deviceConfig.get_wired_client_user_name().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Username not found")
+                client_info["username"] = None
+
+            try:
+                client_info["vlan"] = self.deviceConfig.get_wired_client_vlan().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> vlan not found")
+                client_info["vlan"] = None
+
+            try:
+                client_info["Connected_via"] = self.deviceConfig.get_wired_client_connected_via().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Connected via not found")
+                client_info["Connected_via"] = None
+
+            print("The complete client info -> ",client_info)
+            self.close_device360_window()
+
+            return client_info
+        else:
+            return -1
+
+    def device360_click_clients(self,search_string,device_mac="",device_name="",sleeptime=30,iteration=30):
+        """
+
+        :param self:
+        :param search_string:
+        :return:
+        """
+        count = 0
+        for each in range(0,iteration):
+            self.navigator.navigate_to_devices()
+            count+=1
+            self.utils.print_info("Checking the client for ")
+            try:
+                if device_mac:
+                    self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+                    device_row = self.dev.get_device_row(device_mac)
+                    if device_row:
+                        if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                            self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                            return -1
+                        sleep(8)
+
+                if device_name:
+                    self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+                    device_row = self.dev.get_device_row(device_name)
+                    if device_row:
+                        if self.navigator.navigate_to_device360_page_with_host_name(device_name) == -1:
+                            self.utils.print_info(f"Device not found in the device row grid with device name :{device_name}")
+                            return -1
+                        sleep(8)
+                sleep(5)
+
+
+            except:
+                self.utils.print_info("Not able to navigate to the page")
+                return  -1
+            sleep(5)
+
+            self.utils.print_info("Click on Clients")
+            sleep(3)
+            self.device360_navigate_to_monitor_clients()
+
+            self.utils.print_info("Searching Device Entry with Search String : ", search_string)
+            self.auto_actions.send_keys(self.deviceConfig.get_unique_clients_search_field(), search_string)
+            self.screen.save_screen_shot()
+            sleep(5)
+            print("#################################################")
+            print(self.dev360.get_device360_click_particular_client())
+            #remove this try once AIQ-1529
+            clickable = -1
+            try:
+                clickable = self.auto_actions.click(self.dev360.get_device360_click_particular_client())
+                if clickable == 1:
+                    print("Able to click the client and see the popup...")
+                    sleep(5)
+                    break
+            except:
+                print("There was an error during click of Client")
+
+            if clickable != 1:
+                print("The link is not clickable, so waiting for the client Mac address to become clickable")
+                self.utils.print_info("Close D360 Dialogue Window")
+                self.close_device360_window()
+                self.dev.refresh_devices_page()
+                sleep(sleeptime)
+        return 1
+
+    def device360_read_wired_clients_popup(self):
+        """
+        """
+        print("Seems we have landed in C360 page")
+
+        client_info = dict()
+
+        try:
+            print(self.deviceConfig.get_wired_client_popup_mac())
+            client_info["client_mac"] = self.deviceConfig.get_wired_client_popup_mac().text
+
+        except:
+
+            self.utils.print_info("In Client Popup, Client Mac not found")
+            client_info["client_mac"] = None
+
+        try:
+            client_info["ipv4"] = self.deviceConfig.get_wired_client_popup_IPv4().text
+        except:
+            self.utils.print_info("In Client Popup, IPv4 Address not found")
+            client_info["ipv4"] = None
+
+        try:
+            client_info["ipv6"] = self.deviceConfig.get_wired_client_IPv6().text
+        except:
+            self.utils.print_info("In Client Popup, IPv6 not found")
+            client_info["ipv6"] = None
+
+        try:
+            client_info["port_speed"] = self.deviceConfig.get_wired_client_popup_portSpeed().text
+        except:
+            self.utils.print_info("In Client Popup, Port speed not found")
+            client_info["port_speed"] = None
+
+        try:
+            client_info["negotiated_speed"] = self.deviceConfig.get_wired_client_popup_negotiatedspeed().text
+        except:
+            self.utils.print_info("In Client Popup, Negotiated speed not found")
+            client_info["negotiated_speed"] = None
+
+        try:
+            client_info["vlan"] = self.deviceConfig.get_wired_client_popup_vlan().text
+        except:
+            self.utils.print_info("In Client Popup, VLAN Not found")
+            client_info["vlan"] = None
+        try:
+            client_info["portMode"] = self.deviceConfig.get_wired_client_popup_portMode().text
+        except:
+            self.utils.print_info("In Client Popup, portMode not found")
+            client_info["portMode"] = None
+
+        print("The complete client info -> ", client_info)
+        return client_info
+
+    def close_client360_window(self):
+        """
+        - This keyword closes the Device360 dialog window.  It assumes the Device360 Window is open - if the close
+          button cannot be found, a message is printed.
+        - Flow: Client 360 Window --> Click "X" to close Device360 Window
+        - Keyword Usage:
+         - ``Close Client360 Window``
+        :param  None
+        :return: 1 if the Client 360 window was closed, else -1
+        """
+        close_btn = self.dev360.get_client360_close_dialog()
+        if close_btn:
+            self.utils.print_info("Closing client360 Dialog Window.")
+            self.auto_actions.click(self.dev360.get_client360_close_dialog())
+            return 1
+        else:
+            self.screen.save_screen_shot()
+            self.utils.print_info("Could not obtain Client360 close button - make sure Client360 window is open")
+            return -1
+
+    def device360_decide_clientpage_or_device360_page(self):
+        """
+
+        :param device_serial:
+        :param device_mac:
+        :param client_mac:
+        :return:
+        """
+        connection_status = None
+        client_status = None
+        try:
+            connection_status = self.dev360.get_system_info_device_model().text
+        except:
+            self.utils.print_info("There is a problem while fetching connection status in D360 page, which means we are not at intended page")
+        try:
+            client_status = self.deviceConfig.get_wired_client_popup_mac().text
+        except:
+            self.utils.print_info("There is a problem while fetching mac of client, which indirectly means we are not landed at C360 page")
+        if client_status:
+            print("The current page is client 360 page....")
+            return 2
+        elif connection_status:
+            print("The current page is Device 360 page")
+            return 1
+        return -1

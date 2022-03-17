@@ -543,3 +543,57 @@ class DeviceConfigElements(DeviceConfigDefs):
 
     def get_imago_tag_add_profile_add_button(self):
         return self.weh.get_element(self.imago_tag_add_profile_add_button)
+
+    def get_wired_client_connection_type(self):
+        return self.weh.get_element(self.wired_client_connection_type)
+
+    def get_wired_client_os_type(self):
+        return self.weh.get_element(self.wired_client_os_type)
+
+    def get_wired_client_connection_status(self):
+        return self.weh.get_element(self.wired_client_connection_status)
+
+    def get_wired_client_hostname(self):
+        return self.weh.get_element(self.wired_client_hostname)
+
+    def get_wired_client_mac(self):
+        return self.weh.get_element(self.wired_client_mac)
+
+    def get_wired_client_IPv4(self):
+        return self.weh.get_element(self.wired_client_IPv4)
+
+    def get_wired_client_IPv6(self):
+        return self.weh.get_element(self.wired_client_IPv6)
+
+    def get_wired_client_user_name(self):
+        return self.weh.get_element(self.wired_client_user_name)
+
+    def get_wired_client_vlan(self):
+        return self.weh.get_element(self.wired_client_vlan)
+
+    def get_wired_client_connected_via(self):
+        return self.weh.get_element(self.wired_client_connected_via)
+
+    def get_wired_client_popup_mac(self):
+        return self.weh.get_element(self.wired_client_popup_mac)
+
+    def get_wired_client_popup_IPv4(self):
+        return self.weh.get_element(self.wired_client_popup_ipv4)
+
+    def get_wired_client_popup_portSpeed(self):
+        return self.weh.get_element(self.wired_client_popup_portSpeed)
+
+    def get_wired_client_popup_negotiatedspeed(self):
+        return self.weh.get_element(self.wired_client_popup_negotiatedspeed)
+
+    def get_wired_client_popup_portMode(self):
+        return self.weh.get_element(self.wired_client_popup_portMode)
+
+    def get_wired_client_popup_vlan(self):
+        return self.weh.get_element(self.wired_client_popup_vlan)
+
+    def get_wired_client_popup_portNumber(self):
+        return self.weh.get_element(self.wired_client_popup_portNumber)
+
+    def get_client360_page_confirmation(self):
+        return self.weh.get_element(self.wired_client_popup_confirmation)
