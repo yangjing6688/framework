@@ -2055,13 +2055,9 @@ class CommonObjects(object):
         sleep(3)
 
         self.utils.print_info("Select and Delete IP Firewall Policy row")
-        self._select_delete_common_object(ip_firewall_policy_name)
+        tool_tp_text = self._select_delete_common_object(ip_firewall_policy_name)
         self.screen.save_screen_shot()
         sleep(2)
-
-        sleep(5)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
 
         if "IP firewall policy was deleted successfully" in tool_tp_text[-1]:
             return 1
