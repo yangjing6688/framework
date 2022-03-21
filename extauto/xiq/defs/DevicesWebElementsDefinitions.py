@@ -369,7 +369,7 @@ class DevicesWebElementsDefinitions:
 
     actions_network_policy_drop_down_items = \
         {
-            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"]//tr[@data-dojo-attach-point="focusNode"]',
+            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"]//td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
         }
 

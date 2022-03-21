@@ -143,7 +143,7 @@ class AdminBackupRestoreWebElementsDefinitions:
     restore_initial_database_load_mask = \
         {
             'DESC': 'Working load mask while database is reinitializing',
-            'XPATH': '//div[contains(@data-ref,"bar")]/div[text()="Working..."]',
+            'XPATH': '//div[text()="Restoring Initial Database"]',
             'wait_for': 10
         }
 
@@ -151,5 +151,19 @@ class AdminBackupRestoreWebElementsDefinitions:
         {
             'DESC': 'OK button on Connection to Server Lost dialog after restore completes',
             'XPATH': '//div[@role="alertdialog"]//span[text()="OK"]/ancestor::a',
+            'wait_for': 10
+        }
+
+    restore_initial_database_dialog = \
+        {
+            'DESC': 'Confirmation of database reinitialization with Yes/No choices',
+            'XPATH': '//div[text()="Restore Initial Database Confirmation"]',
+            'wait_for': 10
+        }
+
+    connection_to_server_lost_dialog = \
+        {
+            'DESC': 'Connection to Server Lost dialog during reinitialization process/restart of server',
+            'XPATH': '//div[text()="Connection to server lost."]',
             'wait_for': 10
         }

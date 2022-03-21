@@ -91,6 +91,7 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+
     ap_template_radio_usage_wifi1_backhaul_mesh_checkbox = \
         {
             'CSS_SELECTOR': '.radioUsage',
@@ -102,6 +103,23 @@ class DeviceTemplateWebElementDefinitions:
         {
             'CSS_SELECTOR': '.radioUsage',
             'index': 7,
+            'wait_for': 5
+        }
+    ap_template_radio_usage_wifi2_client_access_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzClientAccess"]',
+            'wait_for': 5
+        }
+
+    ap_template_radio_usage_wifi2_backhaul_mesh_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzMeshLink"]',
+            'wait_for': 5
+        }
+
+    ap_template_radio_usage_wifi2_sensor_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzSensor"]',
             'wait_for': 5
         }
 
