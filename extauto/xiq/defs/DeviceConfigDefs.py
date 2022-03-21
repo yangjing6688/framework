@@ -60,6 +60,18 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    device_configuration_tab = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="deviceConfigurationTab"]',
+            'wait_for': 5
+        }
+
+    device_configuration_dhcp_checkbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="dhcpAddressOnly"]',
+            'wait_for': 5
+        }
+
     close_device360_dialog_window = \
         {
             'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',

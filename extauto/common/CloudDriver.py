@@ -1,7 +1,7 @@
 import sauceclient
 from datetime import datetime
 from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -45,13 +45,11 @@ def load_browser(url="default", program="default", incognito_mode="False"):
     element_value = ".btn"
     element_locator = "name"
     element_identify = "name"
-    element_identify_value_name = "username"
 
-    if program == 'adsp':
+    if   program == 'adsp':
         element_identify_value_name = "j_username"
         element_identify = "name"
-
-    if program == 'xiqse':
+    elif program == 'xiqse':
         if "xiqLicenseSetup.jsp" in url:
             xiqse_version = BuiltIn().get_variable_value("${XIQSE_OS_VERSION}")
             if xiqse_version:
@@ -68,6 +66,9 @@ def load_browser(url="default", program="default", incognito_mode="False"):
         else:
             element_identify_value_name = "j_username"
             element_identify = "name"
+    elif program == "clientmode":
+        element_identify = 'name'
+        element_identify_value_name = 'userName'
 
     if url == "default":
         url = BuiltIn().get_variable_value("${TEST_URL}")

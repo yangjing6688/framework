@@ -95,11 +95,11 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
         sleep(2)
 
-        confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
-        if confirm_delete_btn:
-            self.utils.print_info("Clicking on confirm Yes button")
-            self.auto_actions.click(confirm_delete_btn)
-            sleep(3)
+        # confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
+        # if confirm_delete_btn:
+        #     self.utils.print_info("Clicking on confirm Yes button")
+        #     self.auto_actions.click(confirm_delete_btn)
+        #     sleep(3)
 
     def _select_delete_common_object(self, object_name):
         """
@@ -1173,10 +1173,11 @@ class CommonObjects(object):
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
                 self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
+                self.screen.save_screen_shot()
                 self.utils.print_info("Click Save Client Mode Profile")
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
         else:
-            self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
+            self.utils.print_info("Disable Client Mode check box on WiFi0 Interface")
             if self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
 
@@ -1274,6 +1275,7 @@ class CommonObjects(object):
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
                 self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
+                self.screen.save_screen_shot()
                 self.utils.print_info("Click Save Client Mode Profile")
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
         else:
@@ -1287,7 +1289,7 @@ class CommonObjects(object):
             if not self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_access())
         else:
-            self.utils.print_info("Disable Client Access check box on WiFi1 Interface")
+            self.utils.print_info("Disable Client Mode check box on WiFi1 Interface")
             if self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_access())
 

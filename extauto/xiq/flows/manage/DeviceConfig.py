@@ -1521,6 +1521,47 @@ class DeviceConfig(DeviceConfigElements):
 
         return client_info
 
+    def navigate_to_device_config_device_config_dhcp(self, device_mac, dhcp="ENABLE"):
+        """
+        - This keyword will retrieve the all settings in the device configuration interface WiFi2 page
+        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> Device Configuration -->dhcp
+
+        - Keyword Usage:
+         - ``navigate_to_device_config_device   ${DEVICE_MAC}   Enable''
+
+        :param device_mac: device MAC to go to device 360 page
+        :param dhcp: Enable/Disable
+        :return: 1 or -1
+        """
+
+        try:
+            self.utils.print_info("Navigating to device 360 page")
+            if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                return -1
+
+            self.utils.print_info("click on configuration tab")
+            self.auto_actions.click(self.get_configuration_tab())
+            self.utils.print_info("Click on Device Configuration tab")
+            self.auto_actions.click(self.get_device_configuration_tab())
+
+            dhcp_status = self.get_device_configuration_dhcp_checkbox().is_selected()
+            if dhcp.upper() == "ENABLE" and not dhcp_status:
+                self.utils.print_info("Enable -> Use DHCP only to set IP Address")
+                self.auto_actions.click(self.get_device_configuration_dhcp_checkbox())
+            elif dhcp.upper() == "DISABLE" and dhcp_status:
+                self.utils.print_info("Disable -> Use DHCP only to set IP Address")
+                self.auto_actions.click(self.get_device_configuration_dhcp_checkbox())
+            self.auto_actions.click(self.get_device_override_save_device_configuration())
+            sleep(2)
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            sleep(2)
+        except:
+            self.utils.print_info("Not able to navigate to the page")
+
+        return 1
+
     def navigate_to_device_config_interface_wireless(self, device_mac, interface='wifi2'):
         """
         - This keyword will retrieve the all settings in the device configuration interface WiFi2 page
