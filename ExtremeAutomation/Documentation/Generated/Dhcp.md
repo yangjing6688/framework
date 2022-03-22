@@ -1,5 +1,5 @@
-# Keyword Library Documentation for Dhcp
-This feature is located in this file: `dhcp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+# Command Keyword Library Documentation for Dhcp
+This feature is located in this file: `dhcp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` * Note if you are looking for a verify (show + parsing command) keyword please refer to the verification documentaion.
 
 # API Function: enable_vlan
 	Pytest API Call: 
@@ -583,90 +583,6 @@ UUID: 4bce6caf-0ce0-41eb-afcd-39331cb4b12c
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
 
 		configure vlan {vlan_name} dhcp-options dns-server secondary
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_info
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_info(device_name )
-
-	Robot API Call: 
-
-		dhcp_show_info  device_name  
-
-UUID: bcd409ba-54fa-4127-acd3-c1283652926b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan_name} dhcp-config
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_address_allocation
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_address_allocation(device_name )
-
-	Robot API Call: 
-
-		dhcp_show_address_allocation  device_name  
-
-UUID: f895139e-a019-43e0-bbde-406e33d7328a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan_name} dhcp-address-allocation
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_bootprelay_info
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_bootprelay_info(device_name )
-
-	Robot API Call: 
-
-		dhcp_show_bootprelay_info  device_name  
-
-UUID: f34b0397-90ce-47c9-86bb-c243f31d5c2b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show bootprelay configuration
 
 ----------------------------------------------
 

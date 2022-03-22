@@ -35,7 +35,9 @@ class SshAgent(CliAgent):
                         "password": self.cmd_encode(self.device.password),
                         "port": self.device.port,
                         "timeout": 30,
-                        "keepalive": 3}
+                        "keepalive": 3,
+                        "banner_timeout": 200,
+                        "auth_timeout": 200}
 
             if self.device.oper_sys in [NetworkElementConstants.OS_EOS,
                                         NetworkElementConstants.OS_BOSS,

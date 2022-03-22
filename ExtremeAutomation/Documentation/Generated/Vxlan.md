@@ -1,5 +1,5 @@
-# Keyword Library Documentation for Vxlan
-This feature is located in this file: `vxlan.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+# Command Keyword Library Documentation for Vxlan
+This feature is located in this file: `vxlan.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` * Note if you are looking for a verify (show + parsing command) keyword please refer to the verification documentaion.
 
 # API Function: create_logical_switch
 	Pytest API Call: 
@@ -191,34 +191,6 @@ UUID: c3a92a89-a07e-4647-8249-c73cf068ea7a
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
 
 		clear tunnel remote-vtep logical-switch {name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_logical_switch
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.vxlan.vxlan_show_logical_switch(device_name )
-
-	Robot API Call: 
-
-		vxlan_show_logical_switch  device_name  
-
-UUID: 72f20dde-4018-43bc-96da-b490c6f11605
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show tunnel logical-switch
 
 ----------------------------------------------
 
