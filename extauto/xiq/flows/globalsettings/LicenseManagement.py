@@ -501,7 +501,7 @@ class LicenseManagement(LicenseManagementWebElements):
         return activated_count
 
     def wait_until_entitlement_counts_for_feature_matches(self, feature, expected_available, expected_activated, expected_devices,
-                                                          retry_duration=30, retry_count=20):
+                                                          retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the entitlement counts (Available, Activated, Devices) for the specified
         - feature match the expected value.
@@ -565,7 +565,7 @@ class LicenseManagement(LicenseManagementWebElements):
         return -1
 
     def wait_until_entitlement_device_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                retry_duration=30, retry_count=20):
+                                                                retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the device count for the specified license entitlement matches the
         - expected value.
@@ -612,7 +612,7 @@ class LicenseManagement(LicenseManagementWebElements):
         return -1
 
     def wait_until_entitlement_available_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                   retry_duration=30, retry_count=20):
+                                                                   retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the available count for the specified license entitlement matches the
         - expected value.
@@ -659,7 +659,7 @@ class LicenseManagement(LicenseManagementWebElements):
         return -1
 
     def wait_until_entitlement_activated_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                   retry_duration=30, retry_count=20):
+                                                                   retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the activated count for the specified license entitlement matches the
         - expected value.
@@ -705,7 +705,7 @@ class LicenseManagement(LicenseManagementWebElements):
 
         return -1
 
-    def wait_until_entitlements_table_empty(self, retry_duration=30, retry_count=20):
+    def wait_until_entitlements_table_empty(self, retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the Entitlements table is empty.
         -
