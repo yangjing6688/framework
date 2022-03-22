@@ -303,7 +303,7 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
     def xiqse_confirm_operations_panel_message_for_type(self, op_type, the_message):
         """
          - This keyword confirms the message from the 'Operations' panel type entry contains the expected text.
-         - This will ignore the case sensivitity of the message being searched for
+         - This will ignore the case sensitivity of the message being searched for
          - Keyword Usage
           - ``XIQSE Confirm Operations Panel Message For Type    ${OP_TYPE}    ${THE_MESSAGE}``
 
