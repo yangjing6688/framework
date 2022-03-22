@@ -1930,7 +1930,7 @@ class Device360(Device360WebElements):
         ret_val = -1
 
         self.utils.print_info(f"Checking if port {port_num} is deselected")
-        port_list = self.get_device360_port_diagnostics_deselected_ports()
+        #port_list = self.get_device360_port_diagnostics_deselected_ports()
         if port_list:
             port_count = len(port_list)
             self.utils.print_info(f"There are {port_count} deselected ports to check")
@@ -4924,15 +4924,19 @@ class Device360(Device360WebElements):
 
     def device360_check_wired_client(self, device_serial=None, device_mac=None, client_mac=None, sleep_time=30, iteration=15):
         """
-           - This keyword is used to check the client in device360 page based on passed client mac address
-           -Flow: Manage --> Devices --> click on the Clients hyperlink which is present in Device grid row based on device serial
+           - This keyword is used to check the client exist in device360 page based on passed client mac address
+           -Flow: Manage --> Devices --> check on the Clients which is present in Device grid row based on Client MAC
            - Keyword Usage:
-            - ``${RESULT}=        Check Client In Device360          ${DEVICE_SERIAL}       ${CLIENT _MAC}``
 
-           :param device_serial: serial of the device
-           :param client_mac:  MAC of the client
-           :return: 1 if successful else -1
-           """
+        :param device_serial: Serial Number of the Device
+        :param device_mac: Mac address of the Device
+        :param client_mac: Client MAC address
+        :param sleep_time: The time period between each iteration
+        :param iteration: The number of iteration
+        :return: -1 if there are any failure or client details in dict format
+        Client details: client mac,ipv4,ipv6,port speed,negotiated speed,vlan, port mode,
+
+        """
         client_found = -1
 
         for eachiteration in range(0, iteration):
@@ -5051,12 +5055,15 @@ class Device360(Device360WebElements):
         else:
             return -1
 
-    def device360_click_clients(self,search_string,device_mac="",device_name="",sleeptime=30,iteration=30):
+    def device360_click_clients(self,search_string,device_mac="",device_serial="",sleeptime=30,iteration=30):
         """
-
-        :param self:
-        :param search_string:
-        :return:
+        This keyword is to check whether the clients can be clickable
+        :param search_string: The mac address of the client
+        :param device_mac: Device MAC address for device selection
+        :param device_serial: Device serial number for device selection
+        :param sleeptime: The time period of sleep between each iteration
+        :param iteration: the number of iteration
+        :return: -1 if can't click client else return 1
         """
         count = 0
         for each in range(0,iteration):
@@ -5073,12 +5080,12 @@ class Device360(Device360WebElements):
                             return -1
                         sleep(8)
 
-                if device_name:
-                    self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-                    device_row = self.dev.get_device_row(device_name)
+                if device_serial:
+                    self.utils.print_info("Checking Search Result with Device Name : ", device_serial)
+                    device_row = self.dev.get_device_row(device_serial)
                     if device_row:
-                        if self.navigator.navigate_to_device360_page_with_host_name(device_name) == -1:
-                            self.utils.print_info(f"Device not found in the device row grid with device name :{device_name}")
+                        if self.navigator.navigate_to_device360_page_with_host_name(device_serial) == -1:
+                            self.utils.print_info(f"Device not found in the device row grid with device name :{device_serial}")
                             return -1
                         sleep(8)
                 sleep(5)
@@ -5086,7 +5093,7 @@ class Device360(Device360WebElements):
 
             except:
                 self.utils.print_info("Not able to navigate to the page")
-                return  -1
+                return -1
             sleep(5)
 
             self.utils.print_info("Click on Clients")
@@ -5097,8 +5104,6 @@ class Device360(Device360WebElements):
             self.auto_actions.send_keys(self.deviceConfig.get_unique_clients_search_field(), search_string)
             self.screen.save_screen_shot()
             sleep(5)
-            print("#################################################")
-            print(self.dev360.get_device360_click_particular_client())
             #remove this try once AIQ-1529
             clickable = -1
             try:
@@ -5120,8 +5125,13 @@ class Device360(Device360WebElements):
 
     def device360_read_wired_clients_popup(self):
         """
+        This keyword read the Wired client Popup
+        This keyword assumes that we should have clicked the wired client pop-up
+        Manage -> Devices -> Device 360 -> Clients -> Clickable client (clicked)
+        :return: client details in dict format if found else it will return client details with None
+        Client details: client mac,ipv4,ipv6,port speed,negotiated speed,vlan, port mode,
         """
-        print("Seems we have landed in C360 page")
+        print(" we should have landed in C360 page")
 
         client_info = dict()
 
@@ -5169,7 +5179,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("In Client Popup, portMode not found")
             client_info["portMode"] = None
 
-        print("The complete client info -> ", client_info)
+        self.utils.print_info("The complete client info -> ", client_info)
         return client_info
 
     def close_client360_window(self):
@@ -5194,11 +5204,8 @@ class Device360(Device360WebElements):
 
     def device360_decide_clientpage_or_device360_page(self):
         """
-
-        :param device_serial:
-        :param device_mac:
-        :param client_mac:
-        :return:
+        This keyword is to decide whether we have landed at client page or Device360 page
+        :return: 1 if Device 360 page ,2 if Client 360 page else -1
         """
         connection_status = None
         client_status = None
