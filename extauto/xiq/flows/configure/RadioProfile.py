@@ -620,3 +620,93 @@ class RadioProfile (RadioProfileWebElements):
             return -1
 
         return self.verify_radio_profile_channel_width_and_channels(channels, mode=mode)
+
+    def delete_radio_profile(self, profile_name='default'):
+        """
+            - This keyword deletes a radio profile in radio profile table
+            - Keyword Usage:
+             - ``delete_radio_profile   profile_name=abc_20MHz``
+            :param  profile_name: radio profile name
+            :return: 1
+        """
+
+        radio_profile_table_header = self.get_radio_profile_table_header()
+        page_size_100_link = self.get_radio_profile_page_size_100_link()
+
+        if page_size_100_link:
+            self.utils.print_info(" Click on page size 100 ")
+            self.auto_actions.click(page_size_100_link)
+            sleep(5)
+
+        cells = self.get_radio_profile_table_cells()
+        if not cells:
+            self.utils.print_info(" Radio Profile table is empty ")
+            return -1
+
+        row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
+        if not row:
+            self.utils.print_info(" Not able to find the radio profile in table " + profile_name)
+            return -1
+
+        self.utils.print_info(" Select a radio profile ")
+        self.auto_actions.click(row)
+
+        self.auto_actions.scroll_up()
+        self.utils.print_info(" Click on delete button ")
+        self.auto_actions.click(self.get_radio_profile_delete_button())
+
+        sleep(3)
+        diag_yes_button = self.get_radio_profile_dialog_yes_button()
+        if diag_yes_button:
+            self.utils.print_info(" Click on Yes button ")
+            self.auto_actions.click(self.get_radio_profile_dialog_yes_button())
+
+        sleep(3)
+        cells = self.get_radio_profile_table_cells()
+        row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
+        if row:
+            self.utils.print_info(" Not able to delete the radio profile " + profile_name)
+            return -1
+
+        return 1
+
+    def _search_radio_profile_in_table(self, no_columns_per_row, cells, radio_profile):
+
+        """
+        - This private function searches a radio profile in the radio profile table
+        :param  header_length: number column headers of the radio profile tables
+        :param  cells: all columns
+        :param  radio_profile: profile name
+        :return: row or -1
+        """
+        row_text = []
+        cnt = 0
+        found = False
+        check_box = None
+
+        self.utils.print_info("Search for the value " + str(radio_profile))
+        for cell in cells:
+            row_text.append(cell.text)
+            cnt = cnt + 1
+
+            if cnt == 1:
+                check_box = cell
+
+            if cnt == no_columns_per_row:
+                if radio_profile in str(row_text):
+                    found = True
+                    self.utils.print_info("Able to locate the radio in the radio profile table " + str(row_text))
+                    return check_box
+                else:
+                    found = False
+                    self.utils.print_info(str(row_text))
+
+                row_text = []
+                cnt = 0
+                check_box = None
+
+        if not found:
+            self.utils.print_info(" Not able to find the profile in table ")
+            return -1
+
+        return 1

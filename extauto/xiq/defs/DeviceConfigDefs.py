@@ -923,19 +923,19 @@ class DeviceConfigDefs:
 
     wireless_wifi2_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
     wireless_wifi1_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
     wireless_wifi0_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi0-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi0-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
