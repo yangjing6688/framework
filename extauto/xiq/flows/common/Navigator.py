@@ -221,7 +221,7 @@ class Navigator(NavigatorWebElements):
         """
          - This keyword Navigates to Client 360 Tab on Manage Menu
          - Keyword Usage
-          - ``Navigate To Client 360 Tab``
+          - ``Navigate To Clients Tab``
 
         :return: 1 if Navigation Successful to Clients On Manage Menu else return -1
         """
@@ -236,20 +236,25 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_clients(self):
         """
-        - This keyword Navigates to Clients On Monitor Menu
-        - Flow: Monitor --> Clients
+        - This keyword Navigates to Clients On Manage Menu
+        - Flow: Manage --> Client 360
         - Keyword Usage
          - ``Navigate To Clients``
 
         :return: 1 if Navigation Successful to Clients Tab on Monitor else return -1
         :return: -2 if Navigation Not Successful to Monitor Tab
         """
-        if self.get_manage_tab().is_displayed():
-            self.navigate_to_manage_tab()
-            sleep(2)
+        if self.navigate_to_manage_tab() == 1:
+            self.utils.print_info("Clicking Client 360 Tab...")
+            if self.auto_actions.click(self.get_clients_sub_tab()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Client 360 tab")
+                self.screen.save_screen_shot()
+                return -1
         else:
-            return -2
-        self.navigate_to_clients_tab()
+            return -1
 
     def navigate_to_user_account(self):
         """
@@ -303,7 +308,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Global Settings On User Account Menu
         - Flow: User Account Menu --> Global Settings
         - Keyword Usage
-         - ``Navigate To Clients``
+         - ``Navigate To Global Settings Page``
 
         :return: 1 if Navigation Successful to Clients Tab on Monitor else return -1
         :return: -2 if Navigation Not Successful to Monitor Tab
@@ -480,6 +485,18 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click(self.get_common_object_authentication_external_radius_server())
         sleep(5)
 
+        return 1
+
+    def navigate_to_a3_menu(self):
+        """
+        - This Keyword Navigate to A3 menu
+        - Keyword Usage
+         - ``Navigate To A3 Menu``
+        :return: 1 if Navigation Successful
+        """
+        self.utils.print_info("Clicking on A3 Icon")
+        self.auto_actions.click(self.get_a3_tab())
+        sleep(2)
         return 1
 
     def navigate_to_extreme_networks_a3(self):
@@ -803,6 +820,51 @@ class Navigator(NavigatorWebElements):
         sleep(5)
         return 1
 
+    def navigate_to_network_scorecard(self):
+        """
+        - This Keyword Navigate to network scorecard on ML Insights Menu
+        - Flow: ML Insights --> Network Scorecard
+        - Keyword Usage:
+         - ``Navigate To Network Scorecard``
+
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_ml_insight_tab()
+        self.utils.print_info("Click on Network Scorecard tab..")
+        self.auto_actions.click(self.get_ml_insight_network_scorecard())
+        sleep(5)
+        return 1
+
+    def navigate_to_retail_dashboard(self):
+        """
+        - This Keyword Navigate to retail dashboard on ML Insights Menu
+        - Flow: ML Insights --> Retail Dashboard
+        - Keyword Usage:
+         - ``Navigate To Retail Dashboard``
+
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_ml_insight_tab()
+        self.utils.print_info("Click on Retail Dashboard tab..")
+        self.auto_actions.click(self.get_ml_insight_retail())
+        sleep(5)
+        return 1
+
+    def navigate_to_client_monitor_diagnosis(self):
+        """
+        - This Keyword Navigate to client monitor and diagnosis on ML Insights Menu
+        - Flow: ML Insights --> Client Monitor & Diagnosis
+        - Keyword Usage:
+         - ``Navigate To Client Monitor Diagnosis``
+
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_ml_insight_tab()
+        self.utils.print_info("Click on Client Monitor & Diagnosis tab..")
+        self.auto_actions.click(self.get_client_monitor_diagnosis_tab())
+        sleep(5)
+        return 1
+
     def navigate_to_network_policies_list_view_page(self):
         """
         - This keyword Navigate to policies list view page
@@ -1071,6 +1133,36 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Selecting Inventory on A3 Page...")
         self.auto_actions.click(self.get_a3_inventory_tab())
+        sleep(2)
+        return 1
+
+    def navigate_a3_reporting(self):
+        """
+        - This Keyword Navigate to A3 --> Reporting
+        - Flow: A3--->Reporting
+        - Keyword Usage
+          - ``Navigate A3 Reporting``
+
+        :return: 1 if Navigation Successful to Reporting tab on A3 Menu else None
+        """
+        self.utils.print_info("Selecting A3 Tab...")
+        self.auto_actions.click(self.get_a3_tab())
+        sleep(2)
+
+        self.utils.print_info("Selecting Reporting on A3 Page...")
+        self.auto_actions.click(self.get_a3_reporting_tab())
+        sleep(2)
+        return 1
+
+    def navigate_to_essentials_menu(self):
+        """
+        - This Keyword Navigate to Essentials Menu
+        - Keyword Usage
+          - ``Navigate To Essentials Menu``
+        :return: 1 if Navigation Successful to Essentials Menu
+        """
+        self.utils.print_info("Clicking on Essentials Icon")
+        self.auto_actions.click(self.get_essentials_menu())
         sleep(2)
         return 1
 
@@ -1612,7 +1704,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to VIQ Management Page
         - Flow: Global Settings --> VIQ Management
         - Keyword Usage:
-         - ``navigate to viq management page``
+         - ``Navigate To Viq Management Page``
         :return: 1 if Navigation Successful
         """
         self.navigate_to_global_settings_page()
@@ -2794,3 +2886,150 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to navigate to Client Monitor & Diagnosis Page")
             self.screen.save_screen_shot()
             return -2
+
+    def navigate_to_manage_summary(self):
+        """
+         - This keyword Navigates to Summary on Manage Menu
+         - Flow Manage--> Summary
+         - Keyword Usage
+          - ``Navigate To Manage Summary``
+
+        :return: 1 if Navigation Successful to Summary Sub tab on Monitor Tab else return -1
+        """
+        if self.navigate_to_manage_tab() == 1:
+            self.utils.print_info("Clicking Summary Tab...")
+            if self.auto_actions.click(self.get_manage_summary_menu_item()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Summary tab")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            return -1
+
+    def navigate_to_manage_users(self):
+        """
+         - This keyword Navigates to Users on Manage Menu
+         - Flow Manage--> Summary
+         - Keyword Usage
+          - ``Navigate To Manage Users``
+
+        :return: 1 if Navigation Successful to Users Sub tab on Monitor Tab else return -1
+        """
+        if self.navigate_to_manage_tab() == 1:
+            self.utils.print_info("Clicking Users Tab...")
+            if self.auto_actions.click(self.get_manage_users_menu_item()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Users tab")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            return -1
+
+    def navigate_to_manage_events(self):
+        """
+         - This keyword Navigates to Events on Manage Menu
+         - Flow Manage--> Summary
+         - Keyword Usage
+          - ``Navigate To Manage Events``
+
+        :return: 1 if Navigation Successful to Events Sub tab on Monitor Tab else return -1
+        """
+        if self.navigate_to_manage_tab() == 1:
+            self.utils.print_info("Clicking Events Tab...")
+            if self.auto_actions.click(self.get_manage_events_menu_item()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Events tab")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            return -1
+
+    def navigate_to_manage_security(self):
+        """
+         - This keyword Navigates to Security on Manage Menu
+         - Flow Manage--> Security
+         - Keyword Usage
+          - ``Navigate To Manage Security``
+
+        :return: 1 if Navigation Successful to Security Sub tab on Monitor Tab else return -1
+        """
+        if self.navigate_to_manage_tab() == 1:
+            self.utils.print_info("Clicking Security Tab...")
+            if self.auto_actions.click(self.get_manage_security_nav()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Security tab")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            return -1
+
+    def navigate_to_manage_applications(self):
+        """
+         - This keyword Navigates to Applications on Manage Menu
+         - Flow Manage--> Applications
+         - Keyword Usage
+          - ``Navigate To Manage Applications``
+
+        :return: 1 if Navigation Successful to Applications Sub tab on Monitor Tab else return -1
+        """
+        if self.navigate_to_manage_tab() == 1:
+            self.utils.print_info("Clicking Applications Tab...")
+            if self.auto_actions.click(self.get_manage_applications_menu_item()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Applications tab")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            return -1
+
+    def navigate_to_configure_guest_essentials_users(self):
+        """
+         - This keyword Navigates to Guest Essentials Users on Configure Menu
+         - Flow Configure--> Guest Essentials Users
+         - Keyword Usage
+          - ``Navigate To Configure Guest Essentials Users``
+
+        :return: 1 if Navigation Successful to Guest Essentials Users Sub tab on Configure Tab else return -1
+        """
+        if self.navigate_to_configure_tab() == 1:
+            self.utils.print_info("Clicking Guest Essentials Users Tab...")
+            if self.auto_actions.click(self.get_configure_guest_essentials_users_menu_item()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Guest Essentials Users tab")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            return -1
+
+    def navigate_to_configure_network_policies(self):
+        """
+         - This keyword Navigates to Network Policies on Configure Menu
+         - Flow Configure--> Network Policies
+         - Keyword Usage
+          - ``Navigate To Configure Network Policies``
+
+        :return: 1 if Navigation Successful to Network Policies Sub tab on Configure Tab else return -1
+        """
+        if self.navigate_to_configure_tab() == 1:
+            self.utils.print_info("Clicking Network Policies Tab...")
+            if self.auto_actions.click(self.get_network_policies_sub_tab()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Guest Network Policies tab")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            return -1
