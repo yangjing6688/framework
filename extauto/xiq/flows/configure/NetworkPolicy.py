@@ -1,3 +1,4 @@
+import extauto.common.CloudDriver
 from time import sleep
 import re
 from robot.libraries.BuiltIn import BuiltIn
@@ -36,6 +37,7 @@ class NetworkPolicy(object):
         self.filter_element = FilterManageDeviceWebElements()
         self.robot_built_in = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
+        self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
         """
@@ -1661,4 +1663,71 @@ class NetworkPolicy(object):
         if "Managements options were saved successfully." in tool_tip_text:
             return 1
         else:
+            return -1
+
+    def select_network_policy_management_option(self, nw_policy, mgmt_option_name):
+        """
+        - This keyword is used to select a Management Options under a Network Policy.
+        - Flow: Configure --> Network Policy --> edit the Policy --> Additional Settings --> Management Options
+        - Keyword Usage:
+        -``Select Network Policy Management Option  ${POLICY_NAME}   ${MGMT_OPTION_NAME}''
+        :param nw_policy: name of the policy
+        :param mgmt_option_name: name of the management option
+        :return: 1 if successfully updated ; else -1
+        """
+
+        self.navigator.navigate_to_devices()
+        self.navigate_to_np_edit_tab(nw_policy)
+        sleep(2)
+
+        self.utils.print_info("Clicking on Additional Settings Tab")
+        self.auto_actions.click(self.np_web_elements.get_network_policy_additional_settings_tab())
+        sleep(2)
+
+        self.utils.print_info("Clicking on Management Options")
+        self.auto_actions.click(self.np_web_elements.get_network_policy_management_options())
+        sleep(5)
+        self.auto_actions.scroll_up()
+        sleep(10)
+
+        self.utils.print_info("Clicking on management options on/off button")
+        on_off_button = self.np_web_elements.get_management_option_on_off_button()
+        if on_off_button:
+            self.auto_actions.click(on_off_button)
+            self.utils.print_info("Clicking on Re-Use Management Options button")
+            re_use_button = self.np_web_elements.get_re_use_management_options_setting_button()
+            if re_use_button:
+                self.auto_actions.click(re_use_button)
+                sleep(5)
+                self.utils.print_info("Gathering all the Management Options")
+                all_table_rows = self.np_web_elements.get_table_management_options_rows()
+                if all_table_rows:
+                    for row in all_table_rows:
+                        self.utils.print_info("row text: ", row.text)
+                        if row.text == mgmt_option_name:
+                            self.utils.print_info("Selecting row " + row.text + "...")
+                            row_check = (self.np_web_elements.get_table_management_options_row_checkbox(row))[0]
+                            if row_check:
+                                self.auto_actions.click(row_check)
+                                self.utils.print_info("Clicking on Select button...")
+                                select_button = self.np_web_elements.get_management_options_select_button()
+                                if select_button:
+                                    self.auto_actions.click(select_button)
+                                    self.utils.print_info("Save changes to policy ")
+                                    self.auto_actions.click(self.np_web_elements.save_management_option_button())
+                                    return 1
+                                else:
+                                    self.utils.print_info("Unable to click on the Select button")
+                                    return -1
+                            else:
+                                self.utils.print_info("Unable to select row " + row.text)
+                                return -1
+                else:
+                    self.utils.print_info("Unable to locate gather the Management Options")
+                    return -1
+            else:
+                self.utils.print_info("Unable to locate Re-Use Management Options button")
+                return -1
+        else:
+            self.utils.print_info("Unable to locate management options on/off button")
             return -1

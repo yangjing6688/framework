@@ -931,6 +931,192 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    utilities_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-button"]',
+            'wait_for': 2
+        }
+
+    tools_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-tools"]',
+            'wait_for': 2
+        }
+
+    tools_client_information_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-tools-client-information"]',
+            'wait_for': 2
+        }
+
+    tools_get_tech_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-tools-get-tech-data"]',
+            'wait_for': 2
+        }
+
+    tools_locate_device_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-tools-locate-device"]',
+            'wait_for': 2
+        }
+
+    tools_layer_neighbor_info_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-tools-layer-neighbor-info"]',
+            'wait_for': 2
+        }
+
+    tools_packet_capture_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-tools-packet-capture"]',
+            'wait_for': 2
+        }
+
+    tools_vlan_probe_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-tools-vlan-probe"]',
+            'wait_for': 2
+        }
+
+    diagnostics_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_ping_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-ping"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_log_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-log"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_mac_table_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-mac-table"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_version_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-version"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_running_config_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-running-config"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_startup_config_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-startup-config"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_ip_routes_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-ip-routes"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_mac_routes_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-mac-routes"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_arp_cache_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-arp-cache"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_roaming_cache_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-roaming-cache"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_dnxp_neighbors_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-dnxp-neighbors"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_dnxp_cache_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-dnxp-cache"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_amrp_tunnel_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-amrp-tunnel"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_gre_tunnel_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-gre-tunnel"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_ike_event_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-ike-event"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_ike_sa_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-ike-sa"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_ipsec_sa_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-ipsec-sa"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_ipsec_tunnel_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-ipsec-tunnel"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_vpn_tunnel_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-vpn-tunnel"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_cpu_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-cpu"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_memory_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-memory"]',
+            'wait_for': 2
+        }
+
+    diagnostics_show_pse_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-pse"]',
+            'wait_for': 2
+        }
+
     locked_users_tab = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-lockedusers"]',

@@ -4920,3 +4920,96 @@ class Device360(Device360WebElements):
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click(self.get_close_dialog())
         return 1
+
+
+    def device360_set_network_policy(self, network_policy="default"):
+        """
+        - This keyword sets a custom network policy on the Device Configuration page.
+        - It is assumed that the Device360 window is open.
+        - Flow : Device 360 Page -> Configure -> Device Configuration
+        - Keyword Usage
+         - ``device360_set_network_policy  network_policy=PPSK_POL``
+        :return: 1 if the selection was made, -1 if not
+        """
+        self.utils.print_info(f"select '{network_policy}' from drop down")
+        self.auto_actions.click(self.get_device360_configure_device_network_policy())
+        device_network_policy_drop_down_items = self.get_device360_configure_device_network_policy_items()
+
+        if device_network_policy_drop_down_items:
+            if self.auto_actions.select_drop_down_options(device_network_policy_drop_down_items, network_policy):
+                self.utils.print_info(f"Selected network policy '{network_policy}' from drop down")
+
+        element = self.get_device360_configure_device_network_policy()
+        if element.text not in network_policy:
+            self.utils.print_info(f"Not able to select '{network_policy}' from drop down")
+            return -1
+
+        return 1
+
+
+    def select_dhcp_ip_address_view(self):
+        """
+        - This keyword clicks the DHCP & IP Address link on the Configure tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Configure tab.
+        - Flow: Device 360 Window --> Configure tab --> Click "DHCP & IP Address" link
+        - Keyword Usage:
+         - ``select_dhcp_ip_address_view``
+        :param  None
+        :return: 1 if the select_dhcp_ip_address_view was selected, else -1
+        """
+        dhcp_ip_link = self.get_device360_configure_dhcp_ip_address_link()
+        if dhcp_ip_link:
+            self.utils.print_info("Clicking the dhcp_ip_link on the Device360 Configure tab")
+            self.auto_actions.click(dhcp_ip_link)
+        else:
+            self.utils.print_info(
+                "Could not find the dhcp_ip_link - make sure Device360 window is open and on Configure tab")
+            return -1
+
+        return 1
+
+
+    def search_for_vlan_subnetworks_type_in_row_table(self, *searched_values):
+        """
+        - This keyword searches any multiple values in the subnetworks row table
+          The values must match to a row in table
+          It assumes the Device360 Window is open and on the Configure tab.
+        - Flow: Device 360 Window --> Configure tab --> Click "DHCP & IP Address" link
+        - Keyword Usage:
+         - ``search_for_vlan_subnetworks_type_in_row_table   192.168.167.0/25  MGMT  10``
+        :param  *searched_values: list of searched values
+        :return: 1 if all values are found in table
+        """
+        sleep(5)
+        subnet_header = self.get_device360_configure_subnetworks_header()
+        cells = self.get_device360_configure_subnetworks_tol_cells()
+
+        if not cells:
+            self.utils.print_info(" Table is empty ")
+            return -1
+
+        row_text = []
+        cnt = 0
+        found = False
+
+        self.utils.print_info("Search for the values " + str(searched_values))
+        for cell in cells:
+            row_text.append(cell.text)
+            cnt = cnt + 1
+            if cnt == len(subnet_header):
+                for value in searched_values:
+                    if value in str(row_text):
+                        found = True
+                    else:
+                        found = False
+                        self.utils.print_info(str(row_text))
+                        break
+                if found:
+                    self.utils.print_info("Able to locate the values in this row table " + str(row_text))
+                    return 1
+                row_text = []
+                cnt = 0
+
+        if not found:
+            self.utils.print_info(" Not able to find the searched value in table ")
+            return -1
