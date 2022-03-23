@@ -622,22 +622,6 @@ class DeviceConfig(DeviceConfigElements):
         else:
             return "OFF"
 
-
-    def _check_wifi2_radio_status(self):
-        """
-        - Configure WiFi1 Radio Status on Device Override
-        :return:  WiFi1 Radio status ie ON or OFF
-        """
-        self.utils.print_info("Click WIFI2 Tab")
-        self.auto_actions.click(self.get_wifi2_interface_tab())
-        sleep(2)
-
-        if self.get_device_override_configure_interface_settings_wifi2_radio_status().is_selected():
-            return "ON"
-        else:
-            return "OFF"
-
-
     def check_wifi_radio_status(self, wifi_interface_name, device_mac="", device_name=""):
         """
         - This keyword will check WiFi interface Radio status of the Device
