@@ -1292,6 +1292,42 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_edit_threshold_poe(self):
         return self.weh.get_element(self.device360_edit_threshold_poe)
 
+    def get_device360_device_config_description(self):
+        return self.weh.get_element(self.device360_device_configuration_description)
+
+    def get_device360_device_config_mac_address(self):
+        return self.weh.get_element(self.device360_device_configuration_mac_address)
+
+    def get_device360_device_config_device_model(self):
+        return self.weh.get_element(self.device360_device_configuration_device_model)
+
+    def get_device360_device_config_iq_engine(self):
+        return self.weh.get_element(self.device360_device_configuration_iq_engine)
+
+    def get_device360_device_config_override_acsp_network_policy(self):
+        return self.weh.get_element(self.device360_device_configuration_override_acsp_network_policy)
+
+    def get_device360_device_config_production_option(self):
+        return self.weh.get_element(self.device360_device_configuration_production_option)
+
+    def get_device360_device_config_pre_provision_option(self):
+        return self.weh.get_element(self.device360_device_configuration_pre_provision_option)
+
+    def get_device360_device_configuration_device_template(self):
+        return self.weh.get_element(self.device360_device_configuration_device_template)
+
+    def get_device360_configure_device_network_policy_items(self):
+        return self.weh.get_elements(self.device360_configure_device_network_policy_items)
+
+    def get_device360_configure_dhcp_ip_address_link(self):
+        return self.weh.get_element(self.device360_configure_dhcp_ip_address_link)
+
+    def get_device360_configure_subnetworks_tol_cells(self):
+        return self.weh.get_elements(self.device360_configure_subnetworks_all_cells)
+
+    def get_device360_configure_subnetworks_header(self):
+        return self.weh.get_elements(self.device360_configure_subnetworks_header)
+
     def get_device360_save_threshold_poe_value(self):
         return self.weh.get_element(self.device360_save_threshold_poe_value)
 
