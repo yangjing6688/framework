@@ -866,7 +866,7 @@ class NavigatorWebElementDefinitions:
 
     common_objects_radio_profile = \
         {
-            'XPATH': '//*[@id="hcApp/navigation/sideNav/SideNavView_0"]/div[3]/div[1]/div[2]/div[9]/a',
+            'XPATH': '//div[@data-automation-tag="automation-sider-list-RadioProfiles"]',
             'wait_for': 10
         }
     
