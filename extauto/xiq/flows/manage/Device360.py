@@ -5249,6 +5249,7 @@ class Device360(Device360WebElements):
 
         return 1
 
+    
     def select_dhcp_ip_address_view(self):
         """
         - This keyword clicks the DHCP & IP Address link on the Configure tab in the Device360 dialog window.
@@ -5270,6 +5271,7 @@ class Device360(Device360WebElements):
 
         return 1
 
+    
     def search_for_vlan_subnetworks_type_in_row_table(self, *searched_values):
         """
         - This keyword searches any multiple values in the subnetworks row table
