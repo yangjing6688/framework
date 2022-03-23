@@ -2041,3 +2041,26 @@ class CommonObjects(object):
             return -1
         return -1
 
+    def delete_ip_firewall_policy(self, ip_firewall_policy_name):
+        """
+        - Delete specified IP Firewall Policy Name from the Grid
+        - Keyword Usage:
+        - Flow: Flow: Configure --> Common Objects --> Security -->IP Firewall Policies
+         - ``Delete Ip Firewall Policy  ${NAME}``
+        :param ip_firewall_policy_name: IP Firewall Policy Name
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to IP Firewall Policies in Common Object")
+        self.navigator.navigate_to_security_ip_firewall_policies()
+        sleep(3)
+
+        self.utils.print_info("Select and Delete IP Firewall Policy row")
+        tool_tp_text = self._select_delete_common_object(ip_firewall_policy_name)
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        if "IP firewall policy was deleted successfully" in tool_tp_text[-1]:
+            return 1
+        else:
+            self.utils.print_info(f"Unable to Delete IP Firewall Policy {ip_firewall_policy_name}")
+            return -1
