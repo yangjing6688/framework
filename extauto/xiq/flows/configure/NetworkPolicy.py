@@ -1576,6 +1576,10 @@ class NetworkPolicy(object):
         self.auto_actions.click(self.np_web_elements.get_add_ssid_menu())
         sleep(2)
 
+        self.utils.print_info("Select All Other Networks(standard)")
+        self.auto_actions.click(self.np_web_elements.get_select_all_other_networks())
+        sleep(2)
+
         self.utils.print_info("Enter SSID")
         self.auto_actions.send_keys(self.np_web_elements.get_wireless_networks_ssid_textfield(), ssid)
         sleep(2)
