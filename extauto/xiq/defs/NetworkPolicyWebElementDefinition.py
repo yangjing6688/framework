@@ -605,7 +605,7 @@ class NetworkPolicyWebElementDefinition:
 
     add_ssid_menu = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-wireless-ssids-menu-__-btn"]',
+            'XPATH': '//*[@data-automation-tag="automation-wireless-ssids-add-btn"]',
             'wait_for': 5
         }
 
@@ -691,4 +691,35 @@ class NetworkPolicyWebElementDefinition:
         {
             'XPATH': '//*[@data-dojo-attach-point="textEl"]',
             'wait_for': 1
+        }
+
+    management_option_on_off_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="globalSwitcher"]',
+            'wait_for': 5
+        }
+
+    re_use_management_options_setting_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="resuableIcon"]',
+            'index': 2,
+            'wait_for': 4
+        }
+
+    table_management_options_rows = \
+        {
+            "CSS_SELECTOR": '.dojoxGridRow',
+            'wait_for': 10
+        }
+
+    table_management_options_row_checkbox = \
+        {
+            "CSS_SELECTOR": '.dojoxGridCell',
+            'wait_for': 5
+        }
+
+    management_options_select_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-dialog-link"]',
+            'wait_for': 10
         }

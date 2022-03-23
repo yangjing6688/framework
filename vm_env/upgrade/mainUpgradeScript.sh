@@ -20,3 +20,5 @@ bash ./packages_upgrade_v015.sh
 bash ./packages_upgrade_v016.sh
 bash ./packages_upgrade_v017.sh
 bash ./packages_upgrade_v018.sh
+bash ./packages_upgrade_v019.sh
+bash ./packages_upgrade_v020.sh

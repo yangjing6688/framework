@@ -427,3 +427,18 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
 
     def get_mgmt_option_success(self):
         return self.weh.get_element(self.mgmt_option_success)
+
+    def get_management_option_on_off_button(self):
+        return self.weh.get_element(self.management_option_on_off_button)
+
+    def get_re_use_management_options_setting_button(self):
+        return self.weh.get_element(self.re_use_management_options_setting_button)
+
+    def get_table_management_options_rows(self):
+        return self.weh.get_elements(self.table_management_options_rows)
+
+    def get_table_management_options_row_checkbox(self, row):
+        return self.weh.get_elements(self.table_management_options_row_checkbox, parent=row)
+
+    def get_management_options_select_button(self):
+        return self.weh.get_element(self.management_options_select_button)

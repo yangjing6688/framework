@@ -1,5 +1,5 @@
-from extauto.xiq.defs.NavigatorWebElementDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.NavigatorWebElementDefinitions import NavigatorWebElementDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class NavigatorWebElements(NavigatorWebElementDefinitions):
@@ -374,6 +374,192 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_common_object_network_management_options(self):
         return self.weh.get_element(self.common_object_network_management_options)
 
+    def get_device_utilities_button(self):
+        """
+        :return: Utilities Button
+        """
+        return self.weh.get_element(self.utilities_button)
+
+    def get_device_tools_menu_item(self):
+        """
+        :return: Tools Menu Item
+        """
+        return self.weh.get_element(self.tools_menu_item)
+
+    def get_device_tools_client_information_menu_item(self):
+        """
+        :return: Tools > Client Information Menu Item
+        """
+        return self.weh.get_element(self.tools_client_information_menu_item)
+
+    def get_device_tools_get_tech_menu_item(self):
+        """
+        :return: Tools > Get Tech Menu Item
+        """
+        return self.weh.get_element(self.tools_get_tech_menu_item)
+
+    def get_device_tools_locate_device_menu_item(self):
+        """
+        :return: Tools > Locate Device Menu Item
+        """
+        return self.weh.get_element(self.tools_locate_device_menu_item)
+
+    def get_device_tools_layer_neighbor_info_menu_item(self):
+        """
+        :return: Tools > Layer Neighbor Info Menu Item
+        """
+        return self.weh.get_element(self.tools_layer_neighbor_info_menu_item)
+
+    def get_device_tools_packet_capture_menu_item(self):
+        """
+        :return: Tools > Packet Capture Menu Item
+        """
+        return self.weh.get_element(self.tools_packet_capture_menu_item)
+
+    def get_device_tools_vlan_probe_menu_item(self):
+        """
+        :return: Tools > Packet Capture Menu Item
+        """
+        return self.weh.get_element(self.tools_vlan_probe_menu_item)
+
+    def get_device_diagnostics_menu_item(self):
+        """
+        :return: Diagnostics Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_menu_item)
+
+    def get_device_diagnostics_show_ping_menu_item(self):
+        """
+        :return: Diagnostics > Show Ping Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ping_menu_item)
+
+    def get_device_diagnostics_show_log_menu_item(self):
+        """
+        :return: Diagnostics > Show Log Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_log_menu_item)
+
+    def get_device_diagnostics_show_mac_table_menu_item(self):
+        """
+        :return: Diagnostics > Show MAC Table Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_mac_table_menu_item)
+
+    def get_device_diagnostics_show_version_menu_item(self):
+        """
+        :return: Diagnostics > Show Version Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_version_menu_item)
+
+    def get_device_diagnostics_show_running_config_menu_item(self):
+        """
+        :return: Diagnostics > Show Running Config Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_running_config_menu_item)
+
+    def get_device_diagnostics_show_startup_config_menu_item(self):
+        """
+        :return: Diagnostics > Show Startup Config Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_startup_config_menu_item)
+
+    def get_device_diagnostics_show_ip_routes_menu_item(self):
+        """
+        :return: Diagnostics > Show IP Routes Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ip_routes_menu_item)
+
+    def get_device_diagnostics_show_mac_routes_menu_item(self):
+        """
+        :return: Diagnostics > Show MAC Routes Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_mac_routes_menu_item)
+
+    def get_device_diagnostics_show_arp_cache_menu_item(self):
+        """
+        :return: Diagnostics > Show ARP Cache Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_arp_cache_menu_item)
+
+    def get_device_diagnostics_show_roaming_cache_menu_item(self):
+        """
+        :return: Diagnostics > Show Roaming Cache Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_roaming_cache_menu_item)
+
+    def get_device_diagnostics_show_dnxp_neighbors_menu_item(self):
+        """
+        :return: Diagnostics > Show DNXP Neighbors Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_dnxp_neighbors_menu_item)
+
+    def get_device_diagnostics_show_dnxp_cache_menu_item(self):
+        """
+        :return: Diagnostics > Show DNXP Cache Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_dnxp_cache_menu_item)
+
+    def get_device_diagnostics_show_amrp_tunnel_menu_item(self):
+        """
+        :return: Diagnostics > Show AMRP Tunnel Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_amrp_tunnel_menu_item)
+
+    def get_device_diagnostics_show_gre_tunnel_menu_item(self):
+        """
+        :return: Diagnostics > Show GRE Tunnel Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_gre_tunnel_menu_item)
+
+    def get_device_diagnostics_show_ike_event_menu_item(self):
+        """
+        :return: Diagnostics > Show IKE Event Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ike_event_menu_item)
+
+    def get_device_diagnostics_show_ike_sa_menu_item(self):
+        """
+        :return: Diagnostics > Show IKE SA Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ike_sa_menu_item)
+
+    def get_device_diagnostics_show_ipsec_sa_menu_item(self):
+        """
+        :return: Diagnostics > Show IPSec SA Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ipsec_sa_menu_item)
+
+    def get_device_diagnostics_show_ipsec_tunnel_menu_item(self):
+        """
+        :return: Diagnostics > Show IPSec Tunnel Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ipsec_tunnel_menu_item)
+
+    def get_device_diagnostics_show_vpn_tunnel_menu_item(self):
+        """
+        :return: Diagnostics > Show VPN Tunnel Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_vpn_tunnel_menu_item)
+
+    def get_device_diagnostics_show_cpu_menu_item(self):
+        """
+        :return: Diagnostics > Show CPU Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_cpu_menu_item)
+
+    def get_device_diagnostics_show_memory_menu_item(self):
+        """
+        :return: Diagnostics > Show Memory Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_memory_menu_item)
+
+    def get_device_diagnostics_show_pse_menu_item(self):
+        """
+        :return: Diagnostics > Show PSE Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_pse_menu_item)
+
     def get_locked_users_tab(self):
         return self.weh.get_element(self.locked_users_tab)
 
@@ -382,3 +568,4 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_client_monitor_diagnosis_tab(self):
         return self.weh.get_element(self.client_monitor_diagnosis_tab)
+

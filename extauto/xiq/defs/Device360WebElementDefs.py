@@ -1960,7 +1960,7 @@ class Device360WebElementDefs:
 
     cli_button = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-switch-cli-access"]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-switch-cli-access"]',
             'wait_for': 5
         }
 
@@ -2044,5 +2044,98 @@ class Device360WebElementDefs:
     device360_save_threshold_poe_value = \
         {
             'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-device-entity-device-configuration-tab"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_description = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="description"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_mac_address = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="macAddress"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_device_model = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="deviceconfiguration"]//input[@data-dojo-attach-point="deviceModel"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_iq_engine = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="softwareVersion"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_override_acsp_network_policy = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="overrideAcspLogging"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_production_option = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="deploymentState-production"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_pre_provision_option = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="deploymentState-preprovisioned"]',
+            'wait_for': 5
+        }
+
+    device360_device_configuration_device_template = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="deviceTemplateStatic"]',
+            'wait_for': 5
+        }
+
+    device360_configure_device_network_policy_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="networkPolicyArea"]//div/ul/li',
+            'wait_for': 5
+        }
+
+    device360_configure_dhcp_ip_address_link = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-device-entity-ip-addressing-tab"]',
+            'wait_for': 5
+        }
+
+    device360_configure_subnetworks_all_cells = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-ipaddressing-area-subnet-list"]//div[@class="dgrid-content ui-widget-content"]//table/tr/td',
+            'wait_for': 5
+        }
+
+    device360_configure_subnetworks_header = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-ipaddressing-area-subnet-list"]//div/table/tr/th',
+            'wait_for': 5
+        }
+    device360_click_particular_client = \
+        {
+            'XPATH': '//td[contains(@class,"field-clientMac")]//a[contains(@class,"open-client-entity")]',
+            'wait_for': 5
+        }
+    close_client360_dialog = \
+        {
+            'XPATH': '//div[@class="entity-page-icon entity-page-close"][@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
+    device360_hyperlink_client = \
+        {
+            'XPATH': '//*[@class="entity-content-ctn device-entity-connected-ctn"]//table[@class="dgrid-row-table"]//*[@data-mac]',
             'wait_for': 5
         }
