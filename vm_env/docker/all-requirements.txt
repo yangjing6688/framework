@@ -11,7 +11,7 @@ sauceclient==1.0.0
 selenium==3.141.0
 opencv-python
 bs4
-typing-extensions=4.1.1
+typing-extensions==4.1.1
 # ----------------- From Wireless End ---------------------
 pytest==6.2.2
 pytest-html==3.1.1
