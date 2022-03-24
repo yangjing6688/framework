@@ -1899,7 +1899,7 @@ class DeviceConfig(DeviceConfigElements):
                 if enabled_text.find("enabled") == -1:
                     self.utils.print_info(" channel is not enabled: ", channel)
                     return -1
-            elif mode == 'disable':
+            elif mode == 'disabled':
                 if enabled_text.find("disabled") == -1:
                     self.utils.print_info(" channel is not disabled: ", channel)
                     return -1
