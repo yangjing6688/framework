@@ -897,10 +897,6 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_add_ssid_button())
         sleep(2)
 
-        self.utils.print_info("Click on standard network add button")
-        self.auto_actions.click(self.wireless_web_elements.get_standard_nw_menu())
-        sleep(2)
-
         self.utils.print_info("Enter the Wireless Networks SSID Name:{}".format(ssid_name))
         self.auto_actions.send_keys(self.wireless_web_elements.get_wireless_ssid_field(), ssid_name)
         sleep(2)
@@ -1132,9 +1128,10 @@ class CommonObjects(object):
         - Keyword Usage
          - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
 
-        :param wifi0_profile: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
+        :param wifi0_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi0 Profile Configured Successfully else None
         """
+        client_mode_status_wifi0   = wifi0_profile.get('client_mode', 'Disable')
         client_access_status_wifi0 = wifi0_profile.get('client_access', 'Enable')
         backhaul_mesh_status_wifi0 = wifi0_profile.get('backhaul_mesh_link', 'Disable')
         sensor_status_wifi0 = wifi0_profile.get('sensor', 'Disable')
@@ -1162,6 +1159,27 @@ class CommonObjects(object):
         self.auto_actions.select_drop_down_options(self.cobj_web_elements.
                                                    get_common_object_wifi0_radio_profile_dropdown(),
                                                    radio_profile_wifi0)
+        if client_mode_status_wifi0.upper() == "ENABLE":
+            self.utils.print_info("Enable Client Mode Checkbox on WiFi0 Interface")
+            if not self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
+
+                wifi0_client_mode_profile = wifi0_profile['client_mode_profile']
+                client_mode_profile_name  =  wifi0_client_mode_profile.get('client_mode_profice_name', 'wifi0')
+                client_mode_profile_dhcp  =  wifi0_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
+                self.utils.print_info("Click Add Client Mode Profile")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_add_client_mode_profile())
+                self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
+                self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
+                self.utils.print_info("Click Save Client Mode Profile")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
+        else:
+            self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
+            if self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
+
         if client_access_status_wifi0.upper() == "ENABLE":
             self.utils.print_info("Enable Client Access Checkbox on WiFi0 Interface")
             if not self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected():
@@ -1177,7 +1195,7 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_mesh_link())
         else:
             self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi0 Interface")
-            if self.cobj_web_elements.get_common_object_wifi0_mesh_link.is_selected():
+            if self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_mesh_link())
 
         if sensor_status_wifi0.upper() == "ENABLE":
@@ -1212,9 +1230,10 @@ class CommonObjects(object):
         - Keyword Usage
          - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
 
-        :param wifi1_profile: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
+        :param wifi1_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi1 Profile Configured Successfully else None
         """
+        client_mode_status_wifi1   = wifi1_profile.get('client_mode', 'Disable')
         client_access_status_wifi1 = wifi1_profile.get('client_access', 'Enable')
         backhaul_mesh_status_wifi1 = wifi1_profile.get('backhaul_mesh_link', 'Enable')
         sensor_status_wifi1 = wifi1_profile.get('sensor', 'Enable')
@@ -1240,6 +1259,28 @@ class CommonObjects(object):
         self.auto_actions.select_drop_down_options(self.cobj_web_elements.
                                                    get_common_object_wifi1_radio_profile_dropdown(),
                                                    radio_profile_wifi1)
+
+        if client_mode_status_wifi1.upper() == "ENABLE":
+            self.utils.print_info("Enable Client Mode Checkbox on WiFi1 Interface")
+            if not self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
+
+                wifi1_client_mode_profile = wifi1_profile['client_mode_profile']
+                client_mode_profile_name = wifi1_client_mode_profile.get('client_mode_profice_name', 'wifi1')
+                client_mode_profile_dhcp = wifi1_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
+                self.utils.print_info("Click Add Client Mode Profile")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_add_client_mode_profile())
+                self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
+                self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
+                self.utils.print_info("Click Save Client Mode Profile")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
+        else:
+            self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
+            if self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
+
 
         if client_access_status_wifi1.upper() == "ENABLE":
             self.utils.print_info("Enable Client Access Checkbox on WiFi1 Interface")
@@ -2000,3 +2041,26 @@ class CommonObjects(object):
             return -1
         return -1
 
+    def delete_ip_firewall_policy(self, ip_firewall_policy_name):
+        """
+        - Delete specified IP Firewall Policy Name from the Grid
+        - Keyword Usage:
+        - Flow: Flow: Configure --> Common Objects --> Security -->IP Firewall Policies
+         - ``Delete Ip Firewall Policy  ${NAME}``
+        :param ip_firewall_policy_name: IP Firewall Policy Name
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to IP Firewall Policies in Common Object")
+        self.navigator.navigate_to_security_ip_firewall_policies()
+        sleep(3)
+
+        self.utils.print_info("Select and Delete IP Firewall Policy row")
+        tool_tp_text = self._select_delete_common_object(ip_firewall_policy_name)
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        if "IP firewall policy was deleted successfully" in tool_tp_text[-1]:
+            return 1
+        else:
+            self.utils.print_info(f"Unable to Delete IP Firewall Policy {ip_firewall_policy_name}")
+            return -1

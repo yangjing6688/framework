@@ -111,13 +111,14 @@ class ExtremeGuestUsers(object):
 
         return ret_val
 
-    def create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name=""):
+    def create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
         """
         - This Keyword will create Bulk Vouchers in Eguest users Page
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
          - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
 
+        :param print_users:
         :param number_of_vouchers: No. Of Vouchers Value
         :param access_group: Access Group
         :param location_name: Location tree in a comma-separated list format;
@@ -159,9 +160,14 @@ class ExtremeGuestUsers(object):
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_create_button())
         sleep(2)
 
-        self.utils.print_info("Clicking Close Button")
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
-        sleep(2)
+        if not print_users:
+            self.utils.print_info("Clicking Close Button")
+            self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
+            sleep(2)
+        else:
+            self.utils.print_info("Clicking Print Button")
+            self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_print_button())
+            sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -174,7 +180,11 @@ class ExtremeGuestUsers(object):
         :param search_string:
         :return:
         """
-        self._select_extreme_guest_users_page_user_row(search_string)
+
+        if type(search_string) is dict:
+            search_string = list(search_string.keys())[0]
+        self.auto_actions.click(self._get_extreme_guest_users_page_user_row(search_string))
+        sleep(2)
         self.utils.print_info("Deleting the User")
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_button())
         sleep(2)
@@ -184,7 +194,6 @@ class ExtremeGuestUsers(object):
 
         return 1
 
-
     def _get_extreme_guest_users_page_user_row(self, search_string):
         """
         Getting the row in Open SSID is same for all the objects
@@ -192,13 +201,12 @@ class ExtremeGuestUsers(object):
         :return:
         """
         self.utils.print_info("Getting user rows")
-        self.utils.print_info(self.user_web_elem.get_extreme_guest_users_grid_rows())
         rows = self.user_web_elem.get_extreme_guest_users_grid_rows()
         if rows:
-            for row in rows:
-                if cell := self.user_web_elem.get_extreme_guest_users_grid_row_cells(row):
-                    if search_string in cell.text:
-                        return row
+            for row in self.user_web_elem.get_extreme_guest_users_grid_rows():
+                self.utils.print_info("row calling: " + row.text)
+                if search_string in row.text:
+                    return row
 
     def _select_extreme_guest_users_page_user_row(self, search_string):
         """
@@ -206,9 +214,47 @@ class ExtremeGuestUsers(object):
         :param search_string:
         :return:
         """
-        row = self._get_extreme_guest_users_page_user_row(search_string)
-        self.utils.print_info("Selecting user row")
+        self.utils.print_info("Selecting user")
         self.auto_actions.click(
-            self.user_web_elem.get_extreme_guest_users_grid_row_cells(row, 'x-grid-checkcolumn'))
+            self.user_web_elem.get_extreme_guest_users_grid_row_cells(search_string))
         sleep(2)
         return 1
+
+    def create_bulk_vouchers_client_login(self, number_of_vouchers, access_group="", location_name=""):
+        """
+
+        :param number_of_vouchers:
+        :param access_group:
+        :param location_name:
+        :return:
+        """
+
+        self.create_bulk_vouchers(number_of_vouchers, access_group, location_name, True)
+
+        self.utils.print_info("Switch to New Extreme Guest user print Window")
+        self.driver.switch_to.window(self.driver.window_handles[2])
+
+        user_list = self.user_web_elem.get_extreme_guest_users_print_user_cells()
+        password_list = self.user_web_elem.get_extreme_guest_users_print_password_cells()
+
+        if user_list:
+            users = []
+            for user in user_list:
+                users.append(user.text)
+
+        if password_list:
+            passwords = []
+            for password in password_list:
+                passwords.append(password.text)
+
+        credentials = dict(zip(users, passwords))
+
+        self.utils.print_info("Switch to back to Extreme Guest Window")
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        sleep(2)
+
+        self.utils.print_info("Clicking Close Button")
+        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
+        sleep(2)
+
+        return credentials

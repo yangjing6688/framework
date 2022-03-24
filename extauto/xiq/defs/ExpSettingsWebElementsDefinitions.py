@@ -69,7 +69,7 @@ class ExpSettingsWebElementsDefinitions:
 
     delete_cred_after_drop_down = \
         {
-            'XPATH': '//div[@data-automation-tag="delete-after-unit-chzn-container-ctn"]',
+            'XPATH': '//div[@data-automation-tag="automation-delete-after-unit-chzn-arrow-down"]',
             'wait_for': 5,
         }
 

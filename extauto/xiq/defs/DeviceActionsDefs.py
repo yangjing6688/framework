@@ -1,7 +1,8 @@
 class DeviceActionsDefs:
     device_actions_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-actions_normal-btn"]',
+            'DESC': 'Actions button in the XIQ > Manage Devices view.',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 2
         }
 
@@ -15,7 +16,7 @@ class DeviceActionsDefs:
         {
             # The identifier differs depending on which type of device is selected (ap, switch, etc.),
             # so need to get all partial matches and select the displayed element
-            'XPATH': '//li[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-assign-location")]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-location"]',
             'wait_for': 5
         }
 
@@ -117,15 +118,13 @@ class DeviceActionsDefs:
 
     multiple_device_reset_button = \
         {
-            'XPATH': '//*[@class="ui-menu ui-menu-medium ui-menu-rt"]//a[contains(text(), "Reset Device to Default")]',
-            'index': 3,
+            'XPATH': '//*[@data-automation-tag="automation-manage-resetDevicetoDefaultMany"]',
             'wait_for': 5
         }
 
     single_device_reset_button = \
         {
-            'XPATH': '//*[@class="ui-menu ui-menu-medium ui-menu-rt"]//a[contains(text(), "Reset Device to Default")]',
-            'index': 0,
+            'XPATH': '//*[@data-automation-tag="automation-manage-resetDevicetoDefault"]',
             'wait_for': 5
         }
 

@@ -49,7 +49,7 @@ class DeviceTemplate(object):
                 return True
         return False
 
-    def add_ap_template(self, ap_template_name, **wifi_interface_config):
+    def add_ap_template(self, ap_model, ap_template_name, **wifi_interface_config):
         """
         - Checking the AP template present in the AP Templates Grid
         - If it is not there add New AP Template
@@ -57,7 +57,8 @@ class DeviceTemplate(object):
         - Keyword Usage
          - ``Add AP Template  ${AP_TEMPLATE_NAME}   &{AP_TEMPLATE_CONFIG}``
 
-        :param ap_template_name: AP Template Name ie AP630,AP410C
+        :param ap_template_name: AP Template Name ie prod_sanity_ap410ctemplate
+        :param ap_model: AP MODEL ie AP630,AP410C
         :param wifi_interface_config: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
         :return: 1 if AP Template Configured Successfully else -1
         """
@@ -78,12 +79,12 @@ class DeviceTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.utils.print_info("select the AP: ", ap_template_name)
+        self.utils.print_info("select the AP: ", ap_model)
         ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
         for el in ap_list_items:
             if not el:
                 pass
-            if ap_template_name.upper() in el.text.upper():
+            if ap_model.upper() in el.text.upper():
                 self.auto_actions.click(el)
                 break
             print(el.text)
@@ -207,7 +208,6 @@ class DeviceTemplate(object):
         backhaul_mesh_status_wifi1 = wifi1_profile.get('backhaul_mesh_link', 'Enable')
         sensor_status_wifi1 = wifi1_profile.get('sensor', 'Enable')
         radio_profile_wifi1 = wifi1_profile.get('radio_profile', 'radio_ng_11ax-5g')
-
         self.utils.print_info("Click on WiFi1 Tab on AP Template page")
         self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi1_tab())
         sleep(5)
@@ -268,8 +268,10 @@ class DeviceTemplate(object):
         :param wifi2_profile: (Config Dict) WiFi2 ADSP server Config ie primary server ip and port
         :return: 1 if WiFi2 Profile Configured Successfully else None
         """
+        client_access_status_wifi2 = wifi2_profile.get('client_access', 'Disable')
+        backhaul_mesh_status_wifi2 = wifi2_profile.get('backhaul_mesh_link', 'Disable')
+        sensor_status_wifi2 = wifi2_profile.get('sensor', 'Enable')
         radio_status_wifi2 = wifi2_profile.get('radio_status', 'Enable')
-
         self.utils.print_info("Click on WiFi2 Tab on AP Template page")
         self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab())
         sleep(5)
@@ -294,6 +296,37 @@ class DeviceTemplate(object):
 
                 self.screen.save_screen_shot()
                 sleep(2)
+        if client_access_status_wifi2.upper() == "ENABLE":
+            self.utils.print_info("Enable Client Access Checkbox on WiFi2 Interface")
+            if not self.device_template_web_elements.get_client_access_checkbox_wifi2().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi2())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Client Access check box on WiFi2 Interface")
+            if self.device_template_web_elements.get_client_access_checkbox_wifi2().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi2())
+                sleep(5)
+        if backhaul_mesh_status_wifi2.upper() == "ENABLE":
+            self.utils.print_info("Enable Backhaul Mesh Link Checkbox on WiFi2 Interface")
+            if not self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi2 Interface")
+            if self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2())
+                sleep(5)
+
+        if sensor_status_wifi2.upper() == "ENABLE":
+            self.utils.print_info("Enable Sensor Checkbox on WiFi2 Interface")
+            if not self.device_template_web_elements.get_sensor_checkbox_wifi2().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi2())
+                sleep(5)
+        else:
+            self.utils.print_info("Disable Sensor Checkbox on WiFi2 Interface")
+            if self.device_template_web_elements.get_sensor_checkbox_wifi2().is_selected():
+                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi2())
+                sleep(5)
 
         """ 
         ##### APC-44337 UI Changes #####

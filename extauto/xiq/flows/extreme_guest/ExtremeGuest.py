@@ -128,7 +128,7 @@ class ExtremeGuest(object):
 
         :return: 1 if navigation success
         """
-        self.go_to_extreme_guest_page()
+        # self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Monitor Page")
         self.auto_actions.click(self.guest_web_elem.get_extreme_guest_monitor_page())
         sleep(2)
@@ -178,7 +178,7 @@ class ExtremeGuest(object):
 
         :return: 1 if success
         """
-        self.go_to_extreme_guest_page()
+        # self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Configure Page")
         self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_page())
         sleep(2)
@@ -219,10 +219,8 @@ class ExtremeGuest(object):
         self.go_to_extreme_guest_subscribe_page()
         if self.guest_web_elem.get_extreme_guest_subscription_page_help_information().is_displayed():
             self.utils.print_info("Help information is displayed")
-        else:
-            return 0
-
-        return 1
+            return 1
+        return 0
 
     def _get_extreme_guest_subscription_page_open_ssid_row(self, search_string):
         """
@@ -231,7 +229,7 @@ class ExtremeGuest(object):
         :return:
         """
         self.utils.print_info("Getting open ssid rows")
-        self.utils.print_info(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows())
+        # self.utils.print_info(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows())
         rows = self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_rows()
         if rows:
             for row in rows:
@@ -260,10 +258,12 @@ class ExtremeGuest(object):
         :return:
         """
         row = self._get_extreme_guest_subscription_page_open_ssid_row(search_string)
-        self.auto_actions.click(
-            self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_row_cells(row, 'dgrid-selector'))
-        sleep(2)
-        return 1
+        if row:
+            self.auto_actions.click(
+                self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_row_cells(row, 'dgrid-selector'))
+            sleep(2)
+            return 1
+        return 0
 
     def apply_selected_open_ssid(self, search_string):
         """
@@ -276,13 +276,12 @@ class ExtremeGuest(object):
         :return: 1 if success
         """
         self.utils.print_info(f"Selecting {search_string} object grid row")
-        self._select_extreme_guest_subscription_page_open_ssid_row(search_string)
-
-        self.utils.print_info("Click Extreme Guest Subscribe Apply button")
-        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button())
-        sleep(3)
-
-        return 1
+        if self._select_extreme_guest_subscription_page_open_ssid_row(search_string):
+            self.utils.print_info("Click Extreme Guest Subscribe Apply button")
+            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button())
+            sleep(3)
+            return 1
+        return 0
 
     def check_created_ssid_table(self, ssid_name=None):
         """
@@ -294,15 +293,18 @@ class ExtremeGuest(object):
         :param ssid_name: Open SSID name to be searched
         :return: 1 if success
         """
-        self.go_to_extreme_guest_subscribe_page()
-        sleep(5)
-
-        if self._search_extreme_guest_subscription_page_open_ssid(ssid_name):
-            self.utils.print_info("SSID is available in the list")
-            return 1
+        if self.go_to_extreme_guest_subscribe_page():
+            sleep(5)
+            if self._search_extreme_guest_subscription_page_open_ssid(ssid_name):
+                self.utils.print_info("SSID is available in the list")
+                return 1
+            else:
+                self.utils.print_info("SSID is not available in the list")
+        else:
+            self.utils.print_info("SSID list is not available for selection ")
 
         self.screen.save_screen_shot()
-        sleep(2)
+        return 0
 
     def send_wg_cmd_to_ap(self, ssid_name, *cli_objs):
         """
@@ -338,3 +340,38 @@ class ExtremeGuest(object):
             self.cli.close_spawn(_spawn)
             return output
 
+    def go_to_analyze_page(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Configure Menu Window
+        - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure
+        - Keyword Usage:
+            ''Go To Analyze Page''
+        :return: 1 if success
+        """
+        self.go_to_extreme_guest_page()
+        self.utils.print_info("Clicking on Extreme Guest Analyze Page")
+        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_analyze_page())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        return 1
+
+    def go_to_analyze_manage_reports_page(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Analyze Reports Page
+        - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Users
+        - Keyword Usage:
+            ''Go To Analyze Manage Reports Page''
+        :return: 1 if success
+        """
+        self.go_to_analyze_page()
+        self.utils.print_info("Clicking on Extreme Guest Analyze Reports Page")
+        self.auto_actions.click(self)
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        return 1
