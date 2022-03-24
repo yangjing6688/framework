@@ -1960,7 +1960,7 @@ class Device360WebElementDefs:
 
     cli_button = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-switch-cli-access"]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-switch-cli-access"]',
             'wait_for': 5
         }
 
@@ -2122,5 +2122,20 @@ class Device360WebElementDefs:
     device360_configure_subnetworks_header = \
         {
             'XPATH': '//div[@data-automation-tag="automation-ipaddressing-area-subnet-list"]//div/table/tr/th',
+            'wait_for': 5
+        }
+    device360_click_particular_client = \
+        {
+            'XPATH': '//td[contains(@class,"field-clientMac")]//a[contains(@class,"open-client-entity")]',
+            'wait_for': 5
+        }
+    close_client360_dialog = \
+        {
+            'XPATH': '//div[@class="entity-page-icon entity-page-close"][@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
+    device360_hyperlink_client = \
+        {
+            'XPATH': '//*[@class="entity-content-ctn device-entity-connected-ctn"]//table[@class="dgrid-row-table"]//*[@data-mac]',
             'wait_for': 5
         }

@@ -217,6 +217,63 @@ class GmailHandler:
                 self._move_email_to_trash()
             return re.sub(rm, '&', url)
 
+    def get_sponsor_action_url(self, mail_id, password, sponsor_action):
+        """
+        - Get the sponsor action url link
+        - It will read the latest two emails
+        - Keyword Usage:
+         - ``Get Sponsor Action Url  ${EMAIL_ID}   ${PASSWORD}  ${SPONSOR_ACTION}``
+
+        :param mail_id:  email id to open
+        :param password: email id password
+        :param sponsor_action: 'permit' or 'deny' action by sponsor
+        :param mail_trash: trash the mail if mail trash is true
+        :return: url link
+        """
+        if email_msg := self._get_raw_email_from_folder(mail_id, password, "Requesting Access"):
+            re.sub(r'\n', '', str(email_msg))
+            _, _html, _ = self._get_content_from_email_body(email_msg)
+            soup = BeautifulSoup(_html, 'html.parser')
+            url_links = self._get_url_link(soup)
+            if(sponsor_action == 'permit'):
+                url = url_links[0]
+            else:
+                url = url_links[1]
+            rm = re.compile(r'&amp;')
+            return re.sub(rm, '&', url)
+
+    def get_sponsor_action_login_credential(self, mail_id, password, emailto, passcode_length):
+        """
+        - Get the user credential from email
+        - It will read the latest two emails
+        - Keyword Usage:
+         - ``Get Sponsor Action Login Credential  ${EMAIL_ID}   ${PASSWORD} ${EMAIL_TO}  ${SPONSOR_ACTION}``
+
+        :param mail_id:  email id to open
+        :param password: email id password
+        :param emailto: email is sent to 'sponsor' or 'user'
+        :param passcode_length: passcode length length=4 for OTP and 8 for Passcode
+        :return: passcode
+        """
+        if(emailto == 'sponsor'):
+            emailsubj = "Internet Access for"
+            if passcode_length == 4:
+                pattern = re.compile(r'''Passcode:\s(.{4})''')
+            else:
+                pattern = re.compile(r'''Passcode:\s(.{8})''')
+        else:
+            emailsubj = "your internet access code"
+            if passcode_length == 4:
+                pattern = re.compile(r'''passcode is\s(.{4})''')
+            else:
+                pattern = re.compile(r'''passcode is\s(.{8})''')
+        if email_msg := self._get_raw_email_from_folder(mail_id, password, emailsubj):
+            re.sub(r'\n', '', str(email_msg))
+            _, _html, _ = self._get_content_from_email_body(email_msg)
+            soup = BeautifulSoup(_html, 'html.parser')
+            password = re.findall(pattern, str(soup.text))
+            return password[0]
+
     def get_url_to_set_password_for_new_user(self, mail_id, password, mail_trash='True'):
         """
         - Get the url link to set the new user password

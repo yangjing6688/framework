@@ -701,7 +701,7 @@ class Devices:
             for row in rows:
                 if ap_serial:
                     if str(ap_serial) in row.text:
-                        self.utils.print_info("Selecting Device with Serial: ", ap_serial)
+                        self.utils.print_info("Selecting Device with AP Serial: ", ap_serial)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -709,7 +709,7 @@ class Devices:
 
                 if ap_name:
                     if str(ap_name) in row.text:
-                        self.utils.print_info("Selecting Device with Name: ", ap_name)
+                        self.utils.print_info("Selecting Device with AP Name: ", ap_name)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -717,7 +717,7 @@ class Devices:
 
                 if ap_mac:
                     if str(ap_mac) in row.text:
-                        self.utils.print_info("Selecting Device with MAC: ", ap_mac)
+                        self.utils.print_info("Selecting Device with AP MAC: ", ap_mac)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -940,11 +940,11 @@ class Devices:
                 config_update_msg = self.devices_web_elements.get_devices_config_update_message().text
                 self.utils.print_info(config_update_msg)
                 if reboot_message in config_update_msg:
-                    self.utils.print_info("AP is Rebooting after update configuration ")
+                    self.utils.print_info("Device is Rebooting after update configuration ")
                     return True
             sleep(1)
             count += 1
-        self.utils.print_info("AP is not Rebooting after update configuration")
+        self.utils.print_info("Device is not Rebooting after update configuration")
         return False
 
     def onboard_multiple_devices(self, serials, device_make):
@@ -1598,7 +1598,7 @@ class Devices:
 
             latest_version = self.device_update.get_latest_version()
 
-            self.utils.print_info("AP Latest Version: ", latest_version)
+            self.utils.print_info("Device Latest Version: ", latest_version)
             sleep(5)
 
             self.utils.print_info("Selecting Activate After radio button")
@@ -1638,11 +1638,11 @@ class Devices:
 
             latest_version = self.device_update.get_latest_version()
 
-            self.utils.print_info("AP Latest Version: ", latest_version)
+            self.utils.print_info("Device Latest Version: ", latest_version)
             sleep(5)
 
-            self.utils.print_info(
-                "Selecting Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same or "
+                                  "upgrading to same version which includes a patch")
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
@@ -1680,7 +1680,7 @@ class Devices:
             specific_version = self.device_update.get_specific_version()
             sleep(2)
 
-            self.utils.print_info("AP Specific Version: ", specific_version)
+            self.utils.print_info("Device Specific Version: ", specific_version)
 
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
@@ -1731,8 +1731,8 @@ class Devices:
 
             self.utils.print_info("Specific Upgrade Version: ", specific_version)
 
-            self.utils.print_info(
-                "Selecting Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same or "
+                                  "upgrading to same version which includes a patch")
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
@@ -6936,7 +6936,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
             # Check the already onboarded error
             if self.devices_web_elements.get_error_onboarding_message():
-                self.utils.print_info("{} already onboarded ".format(device_sn))
+                self.utils.print_info("Device(s) already onboarded ")
                 return -1
             else:
                 pass
@@ -7115,7 +7115,7 @@ class Devices:
 
             sleep(10)
 
-            self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
+            self.utils.print_info("Enter the Device Template Name: ", name_stack_template)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
                                         name_stack_template)
             self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())
