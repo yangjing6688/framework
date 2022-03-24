@@ -109,7 +109,10 @@ class CreateCliKeywords(object):
 
         # Copy all keyword files to temp directory.
         self.kw_files = self.__copy_files_to_temp()
-    
+        self.keyword_document_generated = os.path.join(PathUtils.get_project_root(), "ExtremeAutomation",
+                                                       "Documentation",
+                                                       "Generated")
+
         # try:
         for feature in data_beans:
             if feature not in self.manual_keywords:
@@ -167,6 +170,16 @@ class CreateCliKeywords(object):
                         for verify_keyword in verify_keywords:
                             kw_file.write("\n")
                             kw_file.write("\n".join(verify_keywords[verify_keyword]))
+
+                            arguments = re.findall('\[.*?\]',"\n".join(verify_keywords[verify_keyword]))
+                            argument_pytest_string = ", ".join(arguments).replace("[","").replace("]","")
+                            argument_robot_string = "  ".join(arguments).replace("[", "").replace("]", "")
+                            pytest_command = "\n\n\t\tself.defaultLibrary.apiLowLevelApis." + feature + "." + verify_keyword + "(" + argument_pytest_string + ")\n"
+                            robot_command = "\n\n\t\t" + verify_keyword + "  " + argument_robot_string + "\n"
+
+                            function_header = "# API Function: " + verify_keyword + "\n\tPytest API Call: " + pytest_command + "\n\tRobot API Call: " + robot_command
+                            self.__add_to_mapping_file_methods_commands(self.keyword_document_generated,
+                                                                        function_header, feature.capitalize())
 
                     if helper_keywords:
                         kw_file.write("\n")
@@ -804,4 +817,9 @@ class CreateCliKeywords(object):
                 if filename.startswith("NetworkElement") and filename.endswith("UtilsKeywords.py"):
                     static_keyword_files.add(filename)  
         return keyword_files, static_keyword_files
+
+    def __add_to_mapping_file_methods_commands(self, mappingdir, method_command, feature):
+        mappingfilename = os.path.join(mappingdir, feature + '.md')
+        with open(mappingfilename, "a") as file_object:
+            file_object.write(method_command + "\n")
 
