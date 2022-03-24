@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Iprouting
-This feature is located in this file: `iprouting.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `iprouting.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_static_route
 	Pytest API Call: 
@@ -367,203 +367,66 @@ UUID: 545b5ccb-1043-46e1-925a-35a934e7dae1
 
 ## REST
 ## SNMP
-# API Function: show_static_route
+# API Function: iprouting_verify_and_store_default_gateway_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_show_static_route(device_name )
+		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_verify_and_store_default_gateway_ip(device_name, destination_ip, gateway_name)
 
 	Robot API Call: 
 
-		iprouting_show_static_route  device_name  
+		iprouting_verify_and_store_default_gateway_ip  device_name  destination_ip  gateway_name
 
-UUID: 5b410683-0304-4499-b01e-1e45e72be629
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip route static
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show iproute origin static
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: LINUX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		sudo ip netns exec swns bash||sudo route
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_all_routes
+# API Function: iprouting_verify_route_interface
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_show_all_routes(device_name )
+		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_verify_route_interface(device_name, interface)
 
 	Robot API Call: 
 
-		iprouting_show_all_routes  device_name  
+		iprouting_verify_route_interface  device_name  interface
 
-UUID: 6c9cabb5-a09c-4778-b656-f394027fed95
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip route
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show iproute
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip route
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_all_ipv6_routes
+# API Function: iprouting_verify_route_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_show_all_ipv6_routes(device_name )
+		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_verify_route_exists(device_name, route, mask, nexthop, vrf_name, isid, cost, interface, protocol, age, route_type, preference)
 
 	Robot API Call: 
 
-		iprouting_show_all_ipv6_routes  device_name  
+		iprouting_verify_route_exists  device_name  route  mask  nexthop  vrf_name  isid  cost  interface  protocol  age  route_type  preference
 
-UUID: 7471f376-354e-48ab-a981-144ea27263b1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 route
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ip_route_vrf
+# API Function: iprouting_verify_route_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_show_ip_route_vrf(device_name )
+		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_verify_route_does_not_exist(device_name, route, mask, nexthop, vrf_name, isid, cost, interface, protocol, age, route_type, preference)
 
 	Robot API Call: 
 
-		iprouting_show_ip_route_vrf  device_name  
+		iprouting_verify_route_does_not_exist  device_name  route  mask  nexthop  vrf_name  isid  cost  interface  protocol  age  route_type  preference
 
-UUID: 00fb4403-703a-48bb-bb0f-6e564c51941e
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip route vrf {vrf_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ipv6_route_vrf
+# API Function: iprouting_verify_ipv6_route_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_show_ipv6_route_vrf(device_name )
+		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_verify_ipv6_route_exists(device_name, route, nexthop, interface, protocol, cost, age, route_type, preference)
 
 	Robot API Call: 
 
-		iprouting_show_ipv6_route_vrf  device_name  
+		iprouting_verify_ipv6_route_exists  device_name  route  nexthop  interface  protocol  cost  age  route_type  preference
 
-UUID: 2bfa0750-2851-462b-b868-68abbbb5d26c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: iprouting_verify_vrf_route_exists
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_verify_vrf_route_exists(device_name, route, mask, nexthop, vrf_name, cost, interface, protocol, age, route_type, preference)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		iprouting_verify_vrf_route_exists  device_name  route  mask  nexthop  vrf_name  cost  interface  protocol  age  route_type  preference
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: iprouting_verify_vrf_ipv6_route_exists
+	Pytest API Call: 
 
-		show ipv6 route vrf {vrf_name}
+		self.defaultLibrary.apiLowLevelApis.iprouting.iprouting_verify_vrf_ipv6_route_exists(device_name, route, nexthop, vrf_name, isid, cost, interface, protocol, age, route_type, preference)
 
-----------------------------------------------
+	Robot API Call: 
 
+		iprouting_verify_vrf_ipv6_route_exists  device_name  route  nexthop  vrf_name  isid  cost  interface  protocol  age  route_type  preference
 
-## REST
-## SNMP

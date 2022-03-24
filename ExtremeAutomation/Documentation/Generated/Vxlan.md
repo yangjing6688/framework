@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Vxlan
-This feature is located in this file: `vxlan.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `vxlan.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_logical_switch
 	Pytest API Call: 
@@ -197,31 +197,21 @@ UUID: c3a92a89-a07e-4647-8249-c73cf068ea7a
 
 ## REST
 ## SNMP
-# API Function: show_logical_switch
+# API Function: vxlan_verify_logical_switch_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vxlan.vxlan_show_logical_switch(device_name )
+		self.defaultLibrary.apiLowLevelApis.vxlan.vxlan_verify_logical_switch_exists(device_name, name)
 
 	Robot API Call: 
 
-		vxlan_show_logical_switch  device_name  
+		vxlan_verify_logical_switch_exists  device_name  name
 
-UUID: 72f20dde-4018-43bc-96da-b490c6f11605
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
+# API Function: vxlan_verify_logical_switch_does_not_exist
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.vxlan.vxlan_verify_logical_switch_does_not_exist(device_name, name)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		vxlan_verify_logical_switch_does_not_exist  device_name  name
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show tunnel logical-switch
-
-----------------------------------------------
-
-
-## REST
-## SNMP
