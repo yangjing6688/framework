@@ -2082,6 +2082,646 @@ class Navigator(NavigatorWebElements):
 
         return 1
 
+    def navigate_to_device_utilities_tools(self):
+        """
+        - This keyword is used to navigate to utilities tools menu
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Utilities Tools``
+        :return: 1 if Navigation Successful else -1
+        """
+        self.utils.print_info("Clicking on Utilities Button")
+        if self.get_device_utilities_button().is_enabled():
+            self.auto_actions.click(self.get_device_utilities_button())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Utilities Button due to being disabled")
+            return -1
+
+        self.utils.print_info("Hovering over Tools Menu Item")
+        if self.get_device_tools_menu_item().is_displayed():
+            self.auto_actions.move_to_element(self.get_device_tools_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to hover over Tools Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_client_information(self):
+        """
+        - This keyword is used to navigate to a single device client information tool window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Client Information``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_tools() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Client Information Menu Item")
+        if self.get_device_tools_client_information_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_tools_client_information_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Client Information Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_get_tech_data(self):
+        """
+        - This keyword is used to navigate to single/multiple device get tech data tool window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Get Tech Data``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_tools() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Get Tech Data Menu Item")
+        if self.get_device_tools_get_tech_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_tools_get_tech_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Get Tech Data Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_locate_device(self):
+        """
+        - This keyword is used to navigate to a single device locate device tool window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Locate Device``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_tools() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Locate Device Menu Item")
+        if self.get_device_tools_locate_device_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_tools_locate_device_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Locate Device Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_layer_neighbor_info(self):
+        """
+        - This keyword is used to navigate to a single device l2 neighbor info tool window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Layer Neighbor Info``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_tools() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on L2 Neighbor Info Menu Item")
+        if self.get_device_tools_layer_neighbor_info_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_tools_layer_neighbor_info_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on L2 Neighbor Info Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_packet_capture(self):
+        """
+        - This keyword is used to navigate to a single packet capture tool window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Packet Capture``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_tools() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Packet Capture Menu Item")
+        if self.get_device_tools_packet_capture_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_tools_packet_capture_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Packet Capture Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_vlan_probe(self):
+        """
+        - This keyword is used to navigate to single/multiple device vlan probe tool window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Vlan Probe``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_tools() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on VLAN Probe Menu Item")
+        if self.get_device_tools_vlan_probe_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_tools_vlan_probe_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on VLAN Probe Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_utilities_diagnostics(self):
+        """
+        - This keyword is used to navigate to utilities diagnostics menu
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Utilities Diagnostics``
+        :return: 1 if Navigation Successful else -1
+        """
+        self.utils.print_info("Clicking on Utilities Button")
+        if self.get_device_utilities_button().is_enabled():
+            self.auto_actions.click(self.get_device_utilities_button())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Utilities Button due to being disabled")
+            return -1
+
+        self.utils.print_info("Hovering over Diagnostics Menu Item")
+        if self.get_device_diagnostics_menu_item().is_displayed():
+            self.auto_actions.move_to_element(self.get_device_diagnostics_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to hover over Diagnostics Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_ping(self):
+        """
+        - This keyword is used to navigate to a single device ping diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Ping``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show Ping Menu Item")
+        if self.get_device_diagnostics_show_ping_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_ping_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show Ping Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_log(self):
+        """
+        - This keyword is used to navigate to a single device show log diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Log``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show Log Menu Item")
+        if self.get_device_diagnostics_show_log_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_log_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show Log Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_mac_table(self):
+        """
+        - This keyword is used to navigate to a single device show mac table diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Mac Table``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show MAC Table Menu Item")
+        if self.get_device_diagnostics_show_mac_table_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_mac_table_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show MAC Table Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_version(self):
+        """
+        - This keyword is used to navigate to a single device show version diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Version``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show Version Menu Item")
+        if self.get_device_diagnostics_show_version_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_version_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show Version Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_running_config(self):
+        """
+        - This keyword is used to navigate to a single device show running config diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Running Config``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show Running Config Menu Item")
+        if self.get_device_diagnostics_show_running_config_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_running_config_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show Running Config Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_startup_config(self):
+        """
+        - This keyword is used to navigate to a single device show startup config diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Startup Config``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show Startup Config Menu Item")
+        if self.get_device_diagnostics_show_startup_config_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_startup_config_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show Startup Config Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_ip_routes(self):
+        """
+        - This keyword is used to navigate to a single device show ip routes diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Ip Routes``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show IP Routes Menu Item")
+        if self.get_device_diagnostics_show_ip_routes_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_ip_routes_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show IP Routes Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_mac_routes(self):
+        """
+        - This keyword is used to navigate to a single device show mac routes diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Mac Routes``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show MAC Routes Menu Item")
+        if self.get_device_diagnostics_show_mac_routes_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_mac_routes_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show MAC Routes Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_arp_cache(self):
+        """
+        - This keyword is used to navigate to a single device show arp cache diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Arp Cache``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show ARP Cache Menu Item")
+        if self.get_device_diagnostics_show_arp_cache_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_arp_cache_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show ARP Cache Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_roaming_cache(self):
+        """
+        - This keyword is used to navigate to a single device show roaming cache diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Roaming Cache``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show Roaming Cache Menu Item")
+        if self.get_device_diagnostics_show_roaming_cache_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_roaming_cache_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show Roaming Cache Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_dnxp_neighbors(self):
+        """
+        - This keyword is used to navigate to a single device show dnxp neighbors diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Dnxp Neighbors``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show DNXP Neighbors Menu Item")
+        if self.get_device_diagnostics_show_dnxp_neighbors_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_dnxp_neighbors_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show DNXP Neighbors Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_dnxp_cache(self):
+        """
+        - This keyword is used to navigate to a single device show dnxp cache diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Dnxp Cache``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show DNXP Cache Menu Item")
+        if self.get_device_diagnostics_show_dnxp_cache_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_dnxp_cache_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show DNXP Cache Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_amrp_tunnel(self):
+        """
+        - This keyword is used to navigate to a single device show amrp tunnel diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Amrp Tunnel``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show AMRP Tunnel Menu Item")
+        if self.get_device_diagnostics_show_amrp_tunnel_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_amrp_tunnel_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show AMRP Tunnel Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_gre_tunnel(self):
+        """
+        - This keyword is used to navigate to a single device show gre tunnel diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Gre Tunnel``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show GRE Tunnel Menu Item")
+        if self.get_device_diagnostics_show_gre_tunnel_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_gre_tunnel_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show GRE Tunnel Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_ike_event(self):
+        """
+        - This keyword is used to navigate to a single device show ike event diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Ike Event``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show IKE Event Menu Item")
+        if self.get_device_diagnostics_show_ike_event_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_ike_event_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show IKE Event Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_ike_sa(self):
+        """
+        - This keyword is used to navigate to a single device show ike sa diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Ike Sa``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show IKE SA Menu Item")
+        if self.get_device_diagnostics_show_ike_sa_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_ike_sa_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show IKE SA Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_ipsec_sa(self):
+        """
+        - This keyword is used to navigate to a single device show ipsec sa diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Ipsec Sa``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show IPSec SA Menu Item")
+        if self.get_device_diagnostics_show_ipsec_sa_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_ipsec_sa_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show IPSec SA Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_ipsec_tunnel(self):
+        """
+        - This keyword is used to navigate to a single device show ipsec tunnel diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Ipsec Tunnel``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show IPSec Tunnel Menu Item")
+        if self.get_device_diagnostics_show_ipsec_tunnel_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_ipsec_tunnel_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show IPSec Tunnel Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_vpn_tunnel(self):
+        """
+        - This keyword is used to navigate to a single device show vpn tunnel diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Vpn Tunnel``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show VPN Tunnel Menu Item")
+        if self.get_device_diagnostics_show_vpn_tunnel_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_vpn_tunnel_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show VPN Tunnel Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_cpu(self):
+        """
+        - This keyword is used to navigate to a single device show cpu diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Cpu``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show CPU Menu Item")
+        if self.get_device_diagnostics_show_cpu_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_cpu_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show CPU Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_memory(self):
+        """
+        - This keyword is used to navigate to a single device show memory diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Memory``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show Memory Menu Item")
+        if self.get_device_diagnostics_show_memory_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_memory_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show Memory Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
+    def navigate_to_device_show_pse(self):
+        """
+        - This keyword is used to navigate to a single device show pse diagnostic window
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Show Pse``
+        :return: 1 if Navigation Successful else -1
+        """
+        if self.navigate_to_device_utilities_diagnostics() == -1:
+            return -1
+
+        self.utils.print_info("Clicking on Show PSE Menu Item")
+        if self.get_device_diagnostics_show_pse_menu_item().is_displayed():
+            self.auto_actions.click(self.get_device_diagnostics_show_pse_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to click on Show PSE Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
     def navigate_to_locked_users_tab(self):
         """"
         - This Keyword Navigate to Locked Users Page
