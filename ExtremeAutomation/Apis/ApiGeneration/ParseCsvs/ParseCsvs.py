@@ -111,12 +111,11 @@ class ParseCsvs(object):
                     # moved this here...
                     # Write Header for Doc
                     mappingfilename = self.keyword_document_generated
-                    header_text =   "# Command Keyword Library Documentation for " + \
+                    header_text =   "# Keyword Library Documentation for " + \
                                     feature.capitalize() + "\nThis feature is located in this file: `" + yaml_file_parsed + "` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition)" +\
                                     ". If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: " + \
                                     "/extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory " + \
-                                    "(/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` " \
-                                    "* Note if you are looking for a verify (show + parsing command) keyword please refer to the verification documentaion."
+                                    "(/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` "
                     
                     self.__create_index_file(mappingfilename, header_text, feature.capitalize())
                     self.__create_mapping_file_methods_commands(mappingfilename, header_text, feature.capitalize())
