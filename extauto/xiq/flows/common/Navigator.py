@@ -878,7 +878,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if navigated else -1
         """
         self.navigate_to_devices()
-        sleep(4)
+        sleep(6)
         return self.device_common.go_to_device360_window(device_host=device_host)
 
     def navigate_to_device360_with_client(self, device_serial=''):

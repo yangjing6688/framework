@@ -231,7 +231,7 @@ class Device360WebElementDefs:
 
     device360_configure_ssh_web_tab = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="sshTab1"]',
+            'XPATH': '//*[@data-dojo-attach-point="sshTab"]',
             'wait_for': 5
         }
 
@@ -366,9 +366,8 @@ class Device360WebElementDefs:
 
     device360_configure_ssh_web_5min_radio = \
         {
-            'NAME': 'timeout',
-            'wait_for': 10,
-            'index': 5
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-5"]',
+            'wait_for': 5
         }
 
     device360_configure_ssh_web_30min_radio = \
