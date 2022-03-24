@@ -7,7 +7,7 @@ from pathlib import Path
 from robot.api.parsing import ModelVisitor
 import glob
 
-qTestMarker  = re.compile(r"(([A-Z]+[\-_])?TC[A-Z]{0,3}[\-_][0-9]+)", flags=re.IGNORECASE)
+qTestMarker  = re.compile(r"TC[A-Z]{0,3}[\-_][0-9]+", flags=re.IGNORECASE)
 testbed_name_re = re.compile(r"testbed_([0-9]+)_node|testbed_not_required|testbed_none")
 reserved_tags_re = re.compile(r"production|regression|nightly|sanity|p[1-5]")
 
