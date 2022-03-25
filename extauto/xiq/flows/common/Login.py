@@ -38,25 +38,26 @@ class Login:
         :param url: if not default, will be read from the ${TEST_URL} variable
         :return: returns driver object
         """
-        global driver
+        # global driver
         self.utils = Utils()
-        if extauto.common.CloudDriver.cloud_driver == -1:
-            self.utils.print_info("Creating new cloud driver")
-            if extauto.common.CloudDriver.load_browser(url, incognito_mode=incognito_mode) == -2:
-                assert False, "Selenium host/node  is not responding. Possible issues can be:" \
-                              "Browser & webdriver versions mismatch or selenium standalone server stopped."
-            self.window_index = 0
-        else:
-            self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-            self.window_index = extauto.common.CloudDriver.open_window(url)
+        # if extauto.common.CloudDriver.cloud_driver == -1:
+        #     self.utils.print_info("Creating new cloud driver")
+        #     if extauto.common.CloudDriver.load_browser(url, incognito_mode=incognito_mode) == -2:
+        #         assert False, "Selenium host/node  is not responding. Possible issues can be:" \
+        #                       "Browser & webdriver versions mismatch or selenium standalone server stopped."
+        #     self.window_index = 0
+        # else:
+        #     self.utils.print_info("Cloud driver already exists - opening new window using same driver")
+        #     self.window_index = extauto.common.CloudDriver.open_window(url)
+        CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
         self.utils.print_info(f"Window Handle Index is {self.window_index}")
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
         self.nav_web_elements = NavigatorWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        return self.driver
+        # return self.driver
 
     def get_page_title(self):
         """
@@ -66,7 +67,7 @@ class Login:
 
         :return: page title
         """
-        return self.driver.title
+        return CloudDriver().cloud_driver.title
 
     def get_window_index(self):
         """
@@ -88,8 +89,8 @@ class Login:
         :return: 1 if loaded the url successfully
         """
         self.utils.print_info("Refresh Page")
-        self.driver.get(url)
-        self.driver.refresh()
+        CloudDriver().cloud_driver.get(url)
+        CloudDriver().cloud_driver.refresh()
         sleep(5)
         return 1
 
@@ -130,10 +131,10 @@ class Login:
         self.utils.print_info("Browser: ", browser)
 
         try:
-            self.utils.print_info("Version: ", self.driver.capabilities['version'])
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['version'])
         except Exception as e:
             self.utils.print_debug(e)
-            self.utils.print_info("Version: ", self.driver.capabilities['browserVersion'])
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['browserVersion'])
 
         self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
 
@@ -246,7 +247,7 @@ class Login:
                 self.t1.do_run = False
                 sleep(10)
 
-            self.driver.quit()
+            CloudDriver().cloud_driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
             extauto.common.CloudDriver.cloud_driver = -1
             return 1
@@ -460,7 +461,7 @@ class Login:
         else:
             self._init(url)
 
-        got_title = self.driver.title
+        got_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title on Reset password Page: ", got_title)
         self.utils.print_info(" entering the password")
         sleep(5)
@@ -472,7 +473,7 @@ class Login:
         self.utils.print_info(" saving the password")
         self.auto_actions.click(self.pw_web_elements.get_save_button())
 
-        got_title = self.driver.title
+        got_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title on Reset password Page: ", got_title)
         return 1
 
@@ -506,7 +507,7 @@ class Login:
          - ``Get Base URL Of Current Page``
         :return: current page url
         """
-        base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', self.driver.current_url)
+        base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', sCloudDriver().cloud_driver.current_url)
         return base_url.group()
 
     def get_current_page_url(self):
@@ -516,7 +517,7 @@ class Login:
          - ``Get Current Page URL``
         :return: current page url
         """
-        return self.driver.current_url
+        return CloudDriver().cloud_driver.current_url
 
     def skip_if_account_90_days(self):
         """
@@ -579,7 +580,7 @@ class Login:
 
         try:
             self.utils.print_info("Closing Browser")
-            self.driver.quit()
+            CloudDriver().cloud_driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
             extauto.common.CloudDriver.cloud_driver = -1
             return 1
@@ -619,9 +620,9 @@ class Login:
         :return: 1 if loaded the url successfully
         """
         self.utils.print_info(f"Loading url {url} to enable Co-Pilot Beta on XIQ UI")
-        self.driver.get(url)
+        CloudDriver().cloud_driver.get(url)
         self.utils.print_info("Refreshing Page")
-        self.driver.refresh()
+        CloudDriver().cloud_driver.refresh()
         sleep(5)
         return 1
 
@@ -656,10 +657,10 @@ class Login:
         self.utils.print_info("Browser: ", browser)
 
         try:
-            self.utils.print_info("Version: ", self.driver.capabilities['version'])
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['version'])
         except Exception as e:
             self.utils.print_debug(e)
-            self.utils.print_info("Version: ", self.driver.capabilities['browserVersion'])
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['browserVersion'])
 
         self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
 
@@ -1210,7 +1211,7 @@ class Login:
         """
         try:
             self.utils.print_info("Refreshing Page...")
-            self.driver.refresh()
+            CloudDriver().cloud_driver.refresh()
             sleep(refresh_delay)
         except Exception as e:
             self.utils.print_info("Unable to refresh the page...")

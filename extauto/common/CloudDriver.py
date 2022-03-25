@@ -30,6 +30,7 @@ class CloudDriver():
 
     def start_browser(self, url="default", program="default", incognito_mode="False"):
         self.cloud_driver = self.load_browser(url, program=program, incognito_mode=incognito_mode)
+        self.window_index = 0
         return self
 
     def close_browser(self):
