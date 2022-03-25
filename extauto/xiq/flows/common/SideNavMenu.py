@@ -1,16 +1,12 @@
 import extauto.common.CloudDriver
-from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.WebElementHandler import *
-from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
 class SideNavMenu(NavigatorWebElements):
     def __init__(self):
         super().__init__()
-        self.utils = Utils()
-        self.auto_actions = AutoActions()
         self.screen = Screen()
         self.driver = extauto.common.CloudDriver.cloud_driver
 

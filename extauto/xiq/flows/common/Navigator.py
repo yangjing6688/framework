@@ -2911,7 +2911,7 @@ class Navigator(NavigatorWebElements):
     def navigate_to_manage_users(self):
         """
          - This keyword Navigates to Users on Manage Menu
-         - Flow Manage--> Summary
+         - Flow Manage--> Users
          - Keyword Usage
           - ``Navigate To Manage Users``
 
@@ -2932,7 +2932,7 @@ class Navigator(NavigatorWebElements):
     def navigate_to_manage_events(self):
         """
          - This keyword Navigates to Events on Manage Menu
-         - Flow Manage--> Summary
+         - Flow Manage--> Events
          - Keyword Usage
           - ``Navigate To Manage Events``
 
@@ -3028,7 +3028,7 @@ class Navigator(NavigatorWebElements):
                 sleep(2)
                 return 1
             else:
-                self.utils.print_info("Unable to navigate to Guest Network Policies tab")
+                self.utils.print_info("Unable to navigate to Network Policies tab")
                 self.screen.save_screen_shot()
                 return -1
         else:
