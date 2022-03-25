@@ -1,5 +1,5 @@
 import os
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait

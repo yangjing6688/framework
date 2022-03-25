@@ -8,7 +8,7 @@ import re
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -35,12 +35,12 @@ class XIQSE_CommonLogin():
         :param window_index: The Child Window Index value.
         :return: returns driver object
         """
-        global driver
         self.utils = Utils()
         try:
             if extauto.common.CloudDriver.cloud_driver == -1:
                 self.utils.print_info("Creating new cloud driver")
-                extauto.common.CloudDriver.load_browser(url, program="xiqse", incognito_mode=incognito_mode)
+                CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
+                # extauto.common.CloudDriver.load_browser(url, program="xiqse", incognito_mode=incognito_mode)
                 self.window_index = 0
             elif window_index != 0:
                 self.utils.print_info(f"Initializing window with index: {window_index}")

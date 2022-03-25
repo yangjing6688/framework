@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from extauto.common.Utils import *
 from extauto.common.Screen import *
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 
 
 class AutoActions:

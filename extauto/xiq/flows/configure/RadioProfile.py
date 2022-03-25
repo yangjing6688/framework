@@ -8,7 +8,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.RadioProfileWebElements import RadioProfileWebElements
 
 from extauto.common.WebElementHandler import WebElementHandler
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 
 class RadioProfile (RadioProfileWebElements):
 

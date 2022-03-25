@@ -1,5 +1,5 @@
 from time import sleep
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.GmailHandler import GmailHandler
 from extauto.common.Utils import Utils

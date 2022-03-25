@@ -7,7 +7,7 @@ from robot.libraries.BuiltIn import BuiltIn
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.elements.CommunicationsWebElements import CommunicationsWebElements
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 
 
 class Communications(CommunicationsWebElements):

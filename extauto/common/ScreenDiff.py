@@ -1,7 +1,7 @@
 import time
 import shlex
 import subprocess
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn

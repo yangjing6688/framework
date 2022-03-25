@@ -1,6 +1,6 @@
 from time import sleep
 import threading
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 
 
 tool_tip_text = None

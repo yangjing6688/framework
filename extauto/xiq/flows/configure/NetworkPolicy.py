@@ -1,4 +1,4 @@
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 from time import sleep
 import re
 from robot.libraries.BuiltIn import BuiltIn

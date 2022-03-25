@@ -1,6 +1,6 @@
 import cv2
 import time
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 from selenium.webdriver.common.action_chains import ActionChains
 
 

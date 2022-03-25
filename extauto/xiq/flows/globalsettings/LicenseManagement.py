@@ -1,7 +1,7 @@
 import re
 from time import sleep
 
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -10,7 +10,6 @@ from extauto.xiq.flows.common.Login import Login
 from extauto.xiq.elements.LicenseManagementWebElements import LicenseManagementWebElements
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
-from extauto.common.CloudDriver import *
 
 
 class LicenseManagement(LicenseManagementWebElements):

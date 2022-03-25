@@ -1,7 +1,7 @@
 import time
 from PIL import Image
 
-import extauto.common.CloudDriver
+from common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from robot.libraries.BuiltIn import BuiltIn
 try:
