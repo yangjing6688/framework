@@ -1,6 +1,6 @@
 import re
 from time import sleep
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -13,7 +13,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
@@ -25,7 +25,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         :return:
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_location_menu()
         sleep(15)
@@ -58,7 +58,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         :return: 1 if navigation success
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_location_menu()
         sleep(15)
@@ -83,7 +83,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         else:
             self.utils.print_info("User Already Subscribed Extreme Location Page")
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         self.utils.print_info("Click More Insights button")
@@ -91,12 +91,12 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(15)
 
         self.utils.print_info("Switch to New Extreme Location Window")
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
 
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
 
         return 1
@@ -548,7 +548,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         :return:
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_location_menu()
         sleep(15)
@@ -600,7 +600,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         :return:
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_location_menu()
         sleep(15)
@@ -625,7 +625,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         else:
             self.utils.print_info("User Already Subscribed Extreme Location Page")
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(20)
 
         obj_type = self.get_xloc_authentication_error()
@@ -1095,11 +1095,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
         :return: 1 if data points of XLOC are resetted to zero which confirms pass of reset viq feature wrt XLOC
             """
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_location_menu()
         sleep(20)
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         self.utils.print_info("Clicking Refresh button of XLOC Summary")
@@ -1553,7 +1553,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         :return: 1 if not subscribed
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_location_menu()
         sleep(15)

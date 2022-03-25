@@ -1,7 +1,7 @@
 from time import sleep
 from selenium.webdriver.common.keys import Keys
 
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
@@ -21,7 +21,7 @@ class DeviceTemplate(object):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = NavigatorWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.network_policy = NetworkPolicy()
@@ -142,7 +142,7 @@ class DeviceTemplate(object):
         self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi0_tab())
         sleep(3)
 
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
         self.utils.print_info(f"select Radio Profile:{radio_profile_wifi0}")
         sleep(2)
         self.auto_actions.click(self.device_template_web_elements.get_wifi0_radio_profile_drop_down())
@@ -191,7 +191,7 @@ class DeviceTemplate(object):
                 self.auto_actions.click(self.device_template_web_elements.get_wifi0_sdr_checkbox())
                 sleep(5)
 
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
         sleep(5)
         return 1
 
@@ -212,7 +212,7 @@ class DeviceTemplate(object):
         self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi1_tab())
         sleep(5)
 
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
 
         self.utils.print_info(f"select Radio Profile:{radio_profile_wifi1}")
         sleep(2)
@@ -255,7 +255,7 @@ class DeviceTemplate(object):
 
             self.screen.save_screen_shot()
             sleep(2)
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
         sleep(5)
         return 1
 
@@ -276,7 +276,7 @@ class DeviceTemplate(object):
         self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab())
         sleep(5)
 
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
         sleep(2)
 
         if radio_status_wifi2.upper() == "ENABLE":
@@ -351,7 +351,7 @@ class DeviceTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
 
         return 1
 

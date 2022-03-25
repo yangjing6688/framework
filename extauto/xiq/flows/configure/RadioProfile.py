@@ -8,7 +8,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.RadioProfileWebElements import RadioProfileWebElements
 
 from extauto.common.WebElementHandler import WebElementHandler
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 
 class RadioProfile (RadioProfileWebElements):
 
@@ -20,7 +20,7 @@ class RadioProfile (RadioProfileWebElements):
         self.navigator = Navigator()
         self.radprof_web_elements = RadioProfileWebElements()
         self.web = WebElementHandler()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def add_radio_profile(self, radio_profile_name):
         """

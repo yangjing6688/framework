@@ -8,7 +8,7 @@ import re
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -305,9 +305,10 @@ class XIQSE_CommonLogin():
 
         try:
             self.utils.print_info("Closing Browser")
-            CloudDriver().cloud_driver.quit()
+            # CloudDriver().cloud_driver.quit()
+            CloudDriver().close_browser()
             self.utils.print_info("Resetting cloud driver to -1")
-            extauto.common.CloudDriver.cloud_driver = -1
+            # CloudDriver().cloud_driver = None
             return 1
         except Exception as e:
             self.utils.print_info("Error: ", e)

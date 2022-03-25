@@ -1,7 +1,7 @@
 import os
 from string import Template
 
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from string import Template
 from extauto.common.Utils import Utils
 from extauto.common.ImageHandler import ImageHandler
@@ -18,7 +18,7 @@ class WebElementHandler:
         self.utils = Utils()
         self.delay = BuiltIn().get_variable_value('${ELEMENT_DELAY}')
         self.desc = None
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.image_handler = ImageHandler()
         self.locator = {"CSS_SELECTOR": By.CSS_SELECTOR,
                          "XPATH": By.XPATH,
@@ -42,7 +42,7 @@ class WebElementHandler:
         _index = key_val.get('index', 0)  # web element index
         _delay = key_val.get('wait_for', self.delay)  # Explicit delay
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
-        _driver = self.driver if parent == "default" else parent
+        _driver = CloudDriver().cloud_driver if parent == "default" else parent
 
         for key, value in key_val.items():
             if 'IMAGE' in key:
@@ -94,7 +94,7 @@ class WebElementHandler:
         """
         _index = key_val.get('index', 0)  # web element index
         _delay = key_val.get('wait_for', self.delay)  # Explicit delay
-        _driver = self.driver if parent == "default" else parent
+        _driver = CloudDriver().cloud_driver if parent == "default" else parent
 
         for key, value in key_val.items():
             if key in self.locator.keys():  # check the key is in locator or not

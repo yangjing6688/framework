@@ -1,7 +1,7 @@
 import re
 from time import sleep
 
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -23,7 +23,7 @@ class LicenseManagement(LicenseManagementWebElements):
         self.lic_mgt_web_elements = LicenseManagementWebElements()
         self.login_web_elements = LoginWebElements()
         self.nav_web_elements = NavigatorWebElements()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def open_license_management_page(self):
         """
@@ -120,7 +120,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 :return: 1 if ek exists , else -1
         """
         if ekey is not None:
-            self.utils.switch_to_iframe_with_attr(self.driver,'@id="iframeIdForLicenseInfo"')
+            self.utils.switch_to_iframe_with_attr(CloudDriver().cloud_driver,'@id="iframeIdForLicenseInfo"')
             legacy_ek_elems = self.lic_mgt_web_elements.get_legacy_ek_data()
             self.utils.print_info(legacy_ek_elems)
             for ele in legacy_ek_elems:
@@ -128,7 +128,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.utils.print_info(ek)
                 if re.search(ekey, ek):
                     self.utils.print_info("Legacy EK exists in the legacy ek table.")
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return 1
                 else:
                     self.utils.print_info("Legacy EK not found the the table.")

@@ -4,12 +4,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from extauto.common.Utils import *
 from extauto.common.Screen import *
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 
 
 class AutoActions:
     def __init__(self):
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.retries = 3
         self.utils = Utils()
         self.screen = Screen()
@@ -35,7 +35,7 @@ class AutoActions:
                     self.screen.save_screen_shot()
 
     def move_to_element(self, element):
-        action = ActionChains(self.driver)
+        action = ActionChains(CloudDriver().cloud_driver)
         time.sleep(2)
 
         action.move_to_element(element)
@@ -73,15 +73,15 @@ class AutoActions:
         Scroll the page by 250 pixels y-coordinate
         :return:
         """
-        self.driver.execute_script("javascript:window.scrollBy(0,250)")
+        CloudDriver().cloud_driver.execute_script("javascript:window.scrollBy(0,250)")
 
     def scroll_down(self):
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
 
     def click_image(self, position):
-        actions = ActionChains(self.driver)
+        actions = ActionChains(CloudDriver().cloud_driver)
         (x, y) = position
-        actions.move_to_element_with_offset(self.driver.find_element_by_tag_name('body'), 0, 0)
+        actions.move_to_element_with_offset(CloudDriver().cloud_driver.find_element_by_tag_name('body'), 0, 0)
         time.sleep(5)
         actions.move_by_offset(x, y).click().perform()
         return
@@ -92,11 +92,11 @@ class AutoActions:
         :return:
         """
         desired_y = (element.size['height'] / 2) + element.location['y']
-        window_h = self.driver.execute_script('return window.innerHeight')
-        window_y = self.driver.execute_script('return window.pageYOffset')
+        window_h = CloudDriver().cloud_driver.execute_script('return window.innerHeight')
+        window_y = CloudDriver().cloud_driver.execute_script('return window.pageYOffset')
         current_y = (window_h / 2) + window_y
         scroll_y_by = desired_y - current_y
-        self.driver.execute_script("window.scrollBy(0, arguments[0]);", scroll_y_by)
+        sCloudDriver().cloud_driver.execute_script("window.scrollBy(0, arguments[0]);", scroll_y_by)
 
     def select_options(self, element, item, by='value'):
         """

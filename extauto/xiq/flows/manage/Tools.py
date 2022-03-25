@@ -1,6 +1,6 @@
 from time import sleep
 
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Cli import *
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -28,7 +28,7 @@ class Tools:
         self.cli = Cli()
         self.builtin = BuiltIn()
         self.web = WebElementHandler()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def get_neighbor_info(self, serial, mac):
         self.navigator.navigate_to_tools_page()
@@ -259,7 +259,7 @@ class Tools:
 
         # Feature is broken
         # self.wait_til_elements_avail(self.tool_utils.device_diag_list, 60)
-        # assert  host in self.driver.page_source, "Not able to find the host"
+        # assert  host in CloudDriver().cloud_driver.page_source, "Not able to find the host"
         # ??
         # self.click_til_element_avail(self.tool_utils.get_locked_device_element_btn())
         # Unlock a device   feature is broken and not able to move forward
@@ -333,8 +333,8 @@ class Tools:
         # Verify the device info
         if mode == "online":
             self.click_til_element_avail(self.tools_elements.get_device_client_info_btn())
-            assert ap_name in self.driver.page_source, "Not able to find the ap name"
-            assert ap_mac in self.driver.page_source, "Not able to find the ap mac"
+            assert ap_name in CloudDriver().cloud_driver.page_source, "Not able to find the ap name"
+            assert ap_mac in CloudDriver().cloud_driver.page_source, "Not able to find the ap mac"
             self.auto_actions.click(self.tools_elements.get_device_client_close_btn())
         else:
             btn_status = self.tools_elements.get_device_client_info_btn()
@@ -467,7 +467,7 @@ class Tools:
             self.auto_actions.send_keys(self.tools_elements.get_vlan_probe_timeout_input(), "10")
             self.click_til_element_avail(self.tools_elements.get_vlan_probe_start_btn())  # start vlan
             self.wait_til_elements_avail(self.tools_elements.vlan_probe_start_btn, 180, False)  # wait until vlan completes
-            assert "The VLAN Probe is complete!" in self.driver.page_source, "Can not start VLAN"
+            assert "The VLAN Probe is complete!" in CloudDriver().cloud_driver.page_source, "Can not start VLAN"
             self.click_til_element_avail(self.tools_elements.get_vlan_probe_close_diag())
         else:
             button_status = self.web.get_element(self.tools_elements.vlan_probe_btn)
@@ -505,7 +505,7 @@ class Tools:
             self.click_til_element_avail(self.tools_elements.get_tech_data_btn())
             self.click_til_element_avail(self.tools_elements.get_tech_data_yes_btn())
             self.wait_til_elements_avail(self.tools_elements.tech_data_download_btn, 60)
-            assert "Tech Data has been retrieved successfully" in self.driver.page_source, "Not able to retrieve data"
+            assert "Tech Data has been retrieved successfully" in CloudDriver().cloud_driver.page_source, "Not able to retrieve data"
             self.click_til_element_avail(self.tools_elements.get_tech_data_download_btn())
             button_status = self.web.get_element(self.tools_elements.tech_data_download_btn)
             assert button_status == None, "Downloading does not happen"

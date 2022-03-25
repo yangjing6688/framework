@@ -28,22 +28,20 @@ class CloudDriver():
         self.cloud_driver = None
         self.__initialized = True
 
-    def start_browser(self, url="default", program="default", incognito_mode="False"):
-        self.cloud_driver = self.load_browser(url, program=program, incognito_mode=incognito_mode)
-        self.window_index = 0
-        return self
-
     def close_browser(self):
         self.cloud_driver.quit()
         self.__initialized = False
 
+    def start_browser(self, url="default", program="default", incognito_mode="False"):
+        self.cloud_driver = self.load_browser(url, program=program, incognito_mode=incognito_mode)
+        return self
 
-    def load_browser(url="default", program="default", incognito_mode="False"):
+    def load_browser(self, url="default", program="default", incognito_mode="False"):
         """
         - This keyword will Load the default Test URL on Browser Mentioned in the topology file and environment file
         - Otherwise It Loads the Mentioned URL
         - By default it will not open the URL in Incognito Window
-        - Keyword Usage:
+        - Keyword Usge:
              - ``Load Browser  url=${URL}``
              - ``Load Browser  url=${URL}   program=${PROGRAM}   incognito_mode=${INCOGNITO_MODE}``
 
@@ -75,7 +73,6 @@ class CloudDriver():
             element_identify_value_xpath = "//*[@class='success_text']"
             element_identify = "xpath"
             utils.print_info("Approval")
-
 
         if program == 'xiqse':
             if "xiqLicenseSetup.jsp" in url:
@@ -383,7 +380,7 @@ class CloudDriver():
         return cloud_driver
 
 
-    def open_window(url="default", program="default"):
+    def open_window(self, url="default", program="default"):
         """
         - This keyword will Load the default Test URL mentioned in topology file on new windows handles
          - Keyword Usage:
@@ -433,7 +430,7 @@ class CloudDriver():
 
         utils.print_info("Opening New Window")
         self.cloud_driver.execute_script("window.open();")
-        window_handles = self.ccloud_driver.window_handles
+        window_handles = self.cloud_driver.window_handles
         win_count = len(window_handles)
         utils.print_debug(f"Window Handle Count: {win_count}")
         window_index = win_count - 1
@@ -461,7 +458,7 @@ class CloudDriver():
         return window_index
 
 
-    def switch_to_window(win_index=0):
+    def switch_to_window(self, win_index=0):
         """
         - This keyword will switch to Windows handles based on windows index value
         - By default it will switch to windows handles index 0
@@ -483,7 +480,7 @@ class CloudDriver():
             utils.print_info(f"Window Index {win_index} out of range ({win_count})")
 
 
-    def close_window(win_index=0):
+    def close_window(self, win_index=0):
         """
         - This keyword will close Windows handles based on windows index value
         - By default it will close windows handles index 0
@@ -509,7 +506,7 @@ class CloudDriver():
             utils.print_info(f"Window Index {win_index} out of range ({win_count})")
 
 
-    def get_child_window_list(win_index=0):
+    def get_child_window_list(self, win_index=0):
         """
         - This keyword will obtain the Windows handles for any child windows that are open.
         - The order of the list is reversed to handle the conditional test within 'Switch To Window'
@@ -538,7 +535,7 @@ class CloudDriver():
         return window_list
 
 
-    def refresh_page():
+    def refresh_page(self):
         utils = Utils()
         utils.print_info(f"Refreshing page")
         self.cloud_driver.refresh()

@@ -1,5 +1,5 @@
 from time import sleep
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.GmailHandler import GmailHandler
 from extauto.common.Utils import Utils
@@ -9,7 +9,7 @@ from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElemen
 
 class PasswordReset:
     def __init__(self):
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.pw_web_elements = PasswordResetWebElements()
         self.auto_actions = AutoActions()
         self.gm_handler = GmailHandler()

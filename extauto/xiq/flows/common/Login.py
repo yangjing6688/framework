@@ -5,7 +5,7 @@ from io import StringIO
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -24,7 +24,7 @@ class Login:
         self.record = False
         self.t1 = None
         self.utils = Utils()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
         self.nav_web_elements = NavigatorWebElements()
@@ -38,26 +38,12 @@ class Login:
         :param url: if not default, will be read from the ${TEST_URL} variable
         :return: returns driver object
         """
-        # global driver
-        self.utils = Utils()
-        # if extauto.common.CloudDriver.cloud_driver == -1:
-        #     self.utils.print_info("Creating new cloud driver")
-        #     if extauto.common.CloudDriver.load_browser(url, incognito_mode=incognito_mode) == -2:
-        #         assert False, "Selenium host/node  is not responding. Possible issues can be:" \
-        #                       "Browser & webdriver versions mismatch or selenium standalone server stopped."
-        #     self.window_index = 0
+        if CloudDriver().cloud_driver == None:
+            self.utils.print_info("Creating new cloud driver")
+            CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
         # else:
         #     self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-        #     self.window_index = extauto.common.CloudDriver.open_window(url)
-        CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
-        self.utils.print_info(f"Window Handle Index is {self.window_index}")
-        # self.driver = extauto.common.CloudDriver.cloud_driver
-        self.login_web_elements = LoginWebElements()
-        self.pw_web_elements = PasswordResetWebElements()
-        self.nav_web_elements = NavigatorWebElements()
-        self.auto_actions = AutoActions()
-        self.screen = Screen()
-        # return self.driver
+        #     self.window_index = CloudDriver().open_window(url)
 
     def get_page_title(self):
         """
@@ -120,7 +106,7 @@ class Login:
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
-            self._init(url, incognito_mode)
+            self._init(url=url, incognito_mode=incognito_mode)
 
         # start the thread to capture the tool tip text
         self.t1 = threading.Thread(target=extauto.xiq.flows.common.ToolTipCapture.tool_tip_capture, daemon=True)
@@ -247,9 +233,10 @@ class Login:
                 self.t1.do_run = False
                 sleep(10)
 
-            CloudDriver().cloud_driver.quit()
+            # CloudDriver().cloud_driver.quit()
+            CloudDriver().close_browser()
             self.utils.print_info("Resetting cloud driver to -1")
-            extauto.common.CloudDriver.cloud_driver = -1
+            # extauto.common.CloudDriver.cloud_driver = -1
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
@@ -580,9 +567,11 @@ class Login:
 
         try:
             self.utils.print_info("Closing Browser")
-            CloudDriver().cloud_driver.quit()
+            # CloudDriver().cloud_driver.quit()
+            CloudDriver().close_browser()
             self.utils.print_info("Resetting cloud driver to -1")
-            extauto.common.CloudDriver.cloud_driver = -1
+            # extauto.common.CloudDriver.cloud_driver = -1
+            # CloudDriver().cloud_driver = None
             return 1
 
         except Exception as e:

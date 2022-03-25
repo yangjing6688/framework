@@ -1,4 +1,4 @@
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -12,7 +12,7 @@ class ExtremeGuestUsers(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()

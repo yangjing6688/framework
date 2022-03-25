@@ -1,4 +1,4 @@
-from common.CloudDriver import CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 import re
 from robot.libraries.BuiltIn import BuiltIn
@@ -37,7 +37,7 @@ class NetworkPolicy(object):
         self.filter_element = FilterManageDeviceWebElements()
         self.robot_built_in = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
         """
