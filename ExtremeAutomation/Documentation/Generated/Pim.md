@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Pim
-This feature is located in this file: `pim.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `pim.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable
 	Pytest API Call: 
@@ -668,345 +668,255 @@ UUID: bda40a90-b5f8-4229-a94d-bfef85b44422
 
 ## REST
 ## SNMP
-# API Function: show_info
+# API Function: pim_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_enabled(device_names)
 
 	Robot API Call: 
 
-		pim_show_info  device_name  
+		pim_verify_enabled  device_names
 
-UUID: 7d7c7c2f-adbf-4f15-9f0f-9d0c94a68eb2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pim
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip pim
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_bsr
+# API Function: pim_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_bsr(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_disabled(device_names)
 
 	Robot API Call: 
 
-		pim_show_bsr  device_name  
+		pim_verify_disabled  device_names
 
-UUID: 70d5b5ee-5137-428b-a309-594642ec432b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pim detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip pim bsr
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip pim bsr
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_rp
+# API Function: pim_verify_enabled_on_interface
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_rp(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_enabled_on_interface(device_names, interface, ip_version, port_type, port_num)
 
 	Robot API Call: 
 
-		pim_show_rp  device_name  
+		pim_verify_enabled_on_interface  device_names  interface  ip_version  port_type  port_num
 
-UUID: 455651e9-8084-4043-9781-28474afd9a31
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show configuration pim
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip pim rp-candidate
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show run pim
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan
+# API Function: pim_verify_disabled_on_interface
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_disabled_on_interface(device_names, interface, ip_version, port_type, port_num, "6", "ipv6", "v6")
 
 	Robot API Call: 
 
-		pim_show_vlan  device_name  
+		pim_verify_disabled_on_interface  device_names  interface  ip_version  port_type  port_num  "6", "ipv6", "v6"
 
-UUID: 2ef3a781-aac3-4dd7-b069-6850ac2b63c9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pim vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip pim interface vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_cache
+# API Function: pim_verify_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_cache(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_enabled_on_vlan(device_names, vlan)
 
 	Robot API Call: 
 
-		pim_show_cache  device_name  
+		pim_verify_enabled_on_vlan  device_names  vlan
 
-UUID: 737e512b-ce7c-4a31-99ca-035fd6613083
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pim cache
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_cache_group
+# API Function: pim_verify_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_cache_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_disabled_on_vlan(device_names, vlan)
 
 	Robot API Call: 
 
-		pim_show_cache_group  device_name  
+		pim_verify_disabled_on_vlan  device_names  vlan
 
-UUID: 297b8551-9f31-47d9-a97e-07f523b89521
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pim cache {dest_group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_rp_set
+# API Function: pim_verify_sparse_mode_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_rp_set(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_sparse_mode_enabled(device_names)
 
 	Robot API Call: 
 
-		pim_show_rp_set  device_name  
+		pim_verify_sparse_mode_enabled  device_names
 
-UUID: b8661a1d-e91f-4036-8dee-e69a2998cf5d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pim rp-set
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_rp_set_group
+# API Function: pim_verify_ssm_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_rp_set_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_ssm_enabled(device_names)
 
 	Robot API Call: 
 
-		pim_show_rp_set_group  device_name  
+		pim_verify_ssm_enabled  device_names
 
-UUID: c4d7c570-3988-4fba-8aaa-3fae8467f8b2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pim rp-set {mcast_group_address}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_interface
+# API Function: pim_verify_expected_bsr_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.pim.pim_show_interface(device_name )
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_expected_bsr_ip(device_names, expected_bsr_ip)
 
 	Robot API Call: 
 
-		pim_show_interface  device_name  
+		pim_verify_expected_bsr_ip  device_names  expected_bsr_ip
 
-UUID: 9b49883a-3c46-4389-b8c8-dda5c0fffdb2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: pim_verify_expected_bsr_ip_is_not_present
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_expected_bsr_ip_is_not_present(device_names, expected_bsr_ip)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		pim_verify_expected_bsr_ip_is_not_present  device_names  expected_bsr_ip
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: pim_verify_candidate_bsr_ip
+	Pytest API Call: 
 
-		show ip pim interface GigabitEthernet {interface}
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_candidate_bsr_ip(device_names, interface, ip_address)
 
-----------------------------------------------
+	Robot API Call: 
 
+		pim_verify_candidate_bsr_ip  device_names  interface  ip_address
 
-## REST
-## SNMP
+# API Function: pim_verify_candidate_bsr_ip_not_present
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_candidate_bsr_ip_not_present(device_names, interface, ip_address)
+
+	Robot API Call: 
+
+		pim_verify_candidate_bsr_ip_not_present  device_names  interface  ip_address
+
+# API Function: pim_verify_candidate_rp_ip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_candidate_rp_ip(device_name, interface, ip_address, acl)
+
+	Robot API Call: 
+
+		pim_verify_candidate_rp_ip  device_name  interface  ip_address  acl
+
+# API Function: pim_verify_candidate_rp_ip_group_mask
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_candidate_rp_ip_group_mask(device_name, interface, ip_address, acl)
+
+	Robot API Call: 
+
+		pim_verify_candidate_rp_ip_group_mask  device_name  interface  ip_address  acl
+
+# API Function: pim_verify_rp_set
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_rp_set(device_name, mcast_group_address, ip)
+
+	Robot API Call: 
+
+		pim_verify_rp_set  device_name  mcast_group_address  ip
+
+# API Function: pim_verify_rp_set_is_not_present
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_rp_set_is_not_present(device_name, mcast_group_address, ip_address)
+
+	Robot API Call: 
+
+		pim_verify_rp_set_is_not_present  device_name  mcast_group_address  ip_address
+
+# API Function: pim_verify_candidate_rp_ip_not_present
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_candidate_rp_ip_not_present(device_names, interface, ip_address)
+
+	Robot API Call: 
+
+		pim_verify_candidate_rp_ip_not_present  device_names  interface  ip_address
+
+# API Function: pim_verify_candidate_rp_static
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_candidate_rp_static(device_names)
+
+	Robot API Call: 
+
+		pim_verify_candidate_rp_static  device_names
+
+# API Function: pim_verify_current_bsr_priority
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_current_bsr_priority(device_name, priority)
+
+	Robot API Call: 
+
+		pim_verify_current_bsr_priority  device_name  priority
+
+# API Function: pim_verify_current_mode
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_current_mode(device_name, pim_mode)
+
+	Robot API Call: 
+
+		pim_verify_current_mode  device_name  pim_mode
+
+# API Function: pim_verify_candidate_bsr_priority_interface
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_candidate_bsr_priority_interface(device_name, interface, priority)
+
+	Robot API Call: 
+
+		pim_verify_candidate_bsr_priority_interface  device_name  interface  priority
+
+# API Function: pim_verify_candidate_bsr_priority_vlan
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_candidate_bsr_priority_vlan(device_name, vlan, priority)
+
+	Robot API Call: 
+
+		pim_verify_candidate_bsr_priority_vlan  device_name  vlan  priority
+
+# API Function: pim_verify_any_source_group_entry
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_any_source_group_entry(device_name, dest_group)
+
+	Robot API Call: 
+
+		pim_verify_any_source_group_entry  device_name  dest_group
+
+# API Function: pim_verify_any_source_group_entry_is_not_present
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_any_source_group_entry_is_not_present(device_name, dest_group)
+
+	Robot API Call: 
+
+		pim_verify_any_source_group_entry_is_not_present  device_name  dest_group
+
+# API Function: pim_verify_source_group_entry
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_source_group_entry(device_name, source_ip, dest_group)
+
+	Robot API Call: 
+
+		pim_verify_source_group_entry  device_name  source_ip  dest_group
+
+# API Function: pim_verify_source_group_entry_is_not_present
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_source_group_entry_is_not_present(device_name, source_ip, dest_group)
+
+	Robot API Call: 
+
+		pim_verify_source_group_entry_is_not_present  device_name  source_ip  dest_group
+
+# API Function: pim_verify_cache_entry
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_cache_entry(device_name, mcast_group_address)
+
+	Robot API Call: 
+
+		pim_verify_cache_entry  device_name  mcast_group_address
+
+# API Function: pim_verify_cache_entry_is_not_present
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.pim.pim_verify_cache_entry_is_not_present(device_name, mcast_group_address)
+
+	Robot API Call: 
+
+		pim_verify_cache_entry_is_not_present  device_name  mcast_group_address
+

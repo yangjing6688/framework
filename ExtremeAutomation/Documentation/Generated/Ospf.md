@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Ospf
-This feature is located in this file: `ospf.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `ospf.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_global
 	Pytest API Call: 
@@ -809,189 +809,228 @@ UUID: 4856dfed-abcb-49a8-97f2-e8b9cc659943
 ----------------------------------------------
 
 
-# API Function: show_info
+# API Function: ospf_verify_router_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ospf.ospf_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_router_id(device_name, router_id)
 
 	Robot API Call: 
 
-		ospf_show_info  device_name  
+		ospf_verify_router_id  device_name  router_id
 
-UUID: 7cb9490c-58e2-4982-a677-dffd12962348
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ospf
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip ospf
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.14.1
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.14.1||1.3.6.1.4.1.2272.1.8.1.3||1.3.6.1.4.1.2272.1.8.1.4
-
-----------------------------------------------
-
-
-# API Function: show_neighbor
+# API Function: ospf_verify_router_id_removed
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ospf.ospf_show_neighbor(device_name )
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_router_id_removed(device_name, router_id)
 
 	Robot API Call: 
 
-		ospf_show_neighbor  device_name  
+		ospf_verify_router_id_removed  device_name  router_id
 
-UUID: 713eab98-b780-42f0-af6b-ddc205be6cec
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ospf neighbor
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan_interface
+# API Function: ospf_verify_globally_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ospf.ospf_show_vlan_interface(device_name )
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_globally_enabled(device_name)
 
 	Robot API Call: 
 
-		ospf_show_vlan_interface  device_name  
+		ospf_verify_globally_enabled  device_name
 
-UUID: 35b16b05-2cb2-42d9-bcff-849392b7a49b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ospf interface vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip ospf interface vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.14.7||1.3.6.1.4.1.2272.1.8.1.1.1.6
-
-----------------------------------------------
-
-
-# API Function: show_interface
+# API Function: ospf_verify_globally_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ospf.ospf_show_interface(device_name )
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_globally_disabled(device_name)
 
 	Robot API Call: 
 
-		ospf_show_interface  device_name  
+		ospf_verify_globally_disabled  device_name
 
-UUID: 533ab02d-5999-4a75-bf9a-1211d4db7905
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: ospf_verify_interface_enabled
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_interface_enabled(device_name, interface)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		ospf_verify_interface_enabled  device_name  interface
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: ospf_verify_interface_disabled
+	Pytest API Call: 
 
-		show interfaces GigabitEthernet ospf {interface}
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_interface_disabled(device_name, interface)
 
-----------------------------------------------
+	Robot API Call: 
 
+		ospf_verify_interface_disabled  device_name  interface
 
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: ospf_verify_vlan_enabled
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_vlan_enabled(device_name, vlan)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.14.7||1.3.6.1.4.1.2272.1.8.1.1.1.6
+		ospf_verify_vlan_enabled  device_name  vlan
 
-----------------------------------------------
+# API Function: ospf_verify_vlan_disabled
+	Pytest API Call: 
 
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_vlan_disabled(device_name, vlan)
+
+	Robot API Call: 
+
+		ospf_verify_vlan_disabled  device_name  vlan
+
+# API Function: ospf_verify_neighbor_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_neighbor_exists(device_name, neighbor_id, neighbor_ip)
+
+	Robot API Call: 
+
+		ospf_verify_neighbor_exists  device_name  neighbor_id  neighbor_ip
+
+# API Function: ospf_verify_neighbor_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_neighbor_does_not_exist(device_name, neighbor_id, neighbor_ip)
+
+	Robot API Call: 
+
+		ospf_verify_neighbor_does_not_exist  device_name  neighbor_id  neighbor_ip
+
+# API Function: ospf_verify_neighbor_adjacency_full
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_neighbor_adjacency_full(device_name, neighbor_id, neighbor_ip)
+
+	Robot API Call: 
+
+		ospf_verify_neighbor_adjacency_full  device_name  neighbor_id  neighbor_ip
+
+# API Function: ospf_verify_vlan_auth_md5
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_vlan_auth_md5(device_name, vlan, keyid)
+
+	Robot API Call: 
+
+		ospf_verify_vlan_auth_md5  device_name  vlan  keyid
+
+# API Function: ospf_verify_vlan_auth_none
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_vlan_auth_none(device_name, vlan)
+
+	Robot API Call: 
+
+		ospf_verify_vlan_auth_none  device_name  vlan
+
+# API Function: ospf_verify_metric_table_100g
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_100g(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_100g  device_name  cost
+
+# API Function: ospf_verify_metric_table_100m
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_100m(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_100m  device_name  cost
+
+# API Function: ospf_verify_metric_table_10g
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_10g(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_10g  device_name  cost
+
+# API Function: ospf_verify_metric_table_10m
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_10m(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_10m  device_name  cost
+
+# API Function: ospf_verify_metric_table_1g
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_1g(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_1g  device_name  cost
+
+# API Function: ospf_verify_metric_table_2dot5g
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_2dot5g(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_2dot5g  device_name  cost
+
+# API Function: ospf_verify_metric_table_25g
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_25g(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_25g  device_name  cost
+
+# API Function: ospf_verify_metric_table_40g
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_40g(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_40g  device_name  cost
+
+# API Function: ospf_verify_metric_table_50g
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_50g(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_50g  device_name  cost
+
+# API Function: ospf_verify_metric_table_5g
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_metric_table_5g(device_name, cost)
+
+	Robot API Call: 
+
+		ospf_verify_metric_table_5g  device_name  cost
+
+# API Function: ospf_verify_enabled_on_vlan
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_enabled_on_vlan(device_name, vlan)
+
+	Robot API Call: 
+
+		ospf_verify_enabled_on_vlan  device_name  vlan
+
+# API Function: ospf_verify_disabled_on_vlan
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ospf.ospf_verify_disabled_on_vlan(device_name, vlan)
+
+	Robot API Call: 
+
+		ospf_verify_disabled_on_vlan  device_name  vlan
 
