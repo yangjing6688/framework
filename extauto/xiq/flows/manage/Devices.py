@@ -1612,14 +1612,15 @@ class Devices:
 
         return latest_version
 
-    def xiq_upgrade_device_to_latest_version(self, device_serial):
+    def xiq_upgrade_device_to_latest_version(self, device_serial, action = "perform upgrade"):
         """
-        - This method update device(s) to latest version from the dropdown
+        - This method update device(s) to latest version from the XIQ 
         - Keyword Usage:
          - ``XIQ Upgrade Device To Latest Version   ${DEVICE_SERIAL}``
+         - xiq_upgrade_device_to_latest_version(device_serial, action = "perform upgrade")
 
         :param device_serial: serial number(s) of the device(s)
-        :return: 1 if success else -1
+        :return: Latest firmware version if success else -1
         """
         latest_version = -1
 
@@ -1646,8 +1647,17 @@ class Devices:
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
-            self.utils.print_info("Selecting Perform Update button...")
-            self.auto_actions.click(self.device_update.get_perform_update_button())
+            if (action == "perform upgrade"):
+                self.utils.print_info("Selecting Perform Update button...")
+                self.auto_actions.click(self.device_update.get_perform_update_button())
+
+            elif (action == "close"):
+                self.utils.print_info("Selecting Cancel and Close button...")
+                self.auto_actions.click(self.device_update.get_update_close_button())
+            
+            else:
+                self.utils.print_error("Selected action {action} is unavailable, hence closing the update window...")
+                self.auto_actions.click(self.device_update.get_update_close_button())
 
         return latest_version
 
@@ -5671,7 +5681,7 @@ class Devices:
         if device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac)
-
+        
         if device_row:
             sleep(5)
             stack_status = self.devices_web_elements.get_stack_status_cell(device_row)
@@ -5685,6 +5695,50 @@ class Devices:
                     return "disabled"
             else:
                 self.utils.print_info("Could not get Stack status")
+
+
+    def get_exos_stack_status(self, device_mac='default'):
+        """
+        - This keyword returns the EXOS Stack icon status is blue or red 
+        - 'blue' means all the stack members are in managed state
+        - 'red' means one or more slot is not in managed state
+        - '-1' means the device is not a stack device
+        - Keyword Usage:
+        - ``Get Exos Stack Status   device_mac=${DEVICE_MAC}``
+
+       :param device_mac: device MAC address
+
+       :return:
+       - 'blue' if all the stack members are in managed state else 'red'
+       - '-1' if the stack icon is not in the device row
+
+       """
+        device_row = -1
+        self.refresh_devices_page()
+
+        self.utils.print_info('Getting Stack Status ')
+
+        if device_mac != 'default':
+            self.utils.print_info("Getting status of device with MAC: ", device_mac)
+            device_row = self.get_device_row(device_mac)
+
+        if device_row:
+            sleep(5)
+            stack_status = self.devices_web_elements.get_stack_status_cell_icon(device_row)
+            self.screen.save_screen_shot()
+            sleep(2)
+
+            if stack_status:
+                if "ui-icon-stack-warning" in stack_status:
+                    return "red"
+                elif "ui-icon-stack" in stack_status:
+                    return "blue"
+            else:
+                self.utils.print_error("Could not get stack status")
+                return -1
+        else:
+            return -1
+
 
     def verify_stack_devices_managed(self, stack_mac, slot_serial_list):
         """
