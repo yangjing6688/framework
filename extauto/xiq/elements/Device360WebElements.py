@@ -1340,7 +1340,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_hyperlink_client(self):
         return self.weh.get_element(self.device360_hyperlink_client)
 
-
     def get_device360_cpu_utilized_button(self):
         return self.weh.get_element(self.device360_cpu_utilized_button)
 
@@ -1366,6 +1365,9 @@ class Device360WebElements(Device360WebElementDefs):
         header_element = self.weh.get_element(self.device360_ports_description_table_header)
         return [h.strip() for h in header_element.text.split("\n")]
 
+    def get_device360_ports_description_table_row(self):
+        return self.weh.get_element(self.device360_ports_description_table_header)
+
     def get_device360_all_checkboxes(self):
         checkboxes = self.get_device360_coluns_toggle_checkboxes()
         results = {}
@@ -1383,3 +1385,8 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_ports_table_current_pagination_size(self):
         return self.weh.get_element(self.device360_ports_table_current_pagination_size)
+
+    def get_device360_ports_table_th_columns(self):
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+        return {th.text.strip(): th for th in ths if th.text.strip()}

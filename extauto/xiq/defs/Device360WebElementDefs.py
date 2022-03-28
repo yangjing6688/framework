@@ -2205,3 +2205,9 @@ class Device360WebElementDefs:
             "XPATH": "//span[@class='pagination-size current-pagination']",
             'wait_for': 5  
         }
+
+    device360_ports_table_th_columns = \
+        {
+            "XPATH": ".//th[@role='columnheader']",
+            'wait_for': 5
+        }
