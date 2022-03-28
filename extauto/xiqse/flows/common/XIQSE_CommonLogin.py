@@ -39,7 +39,7 @@ class XIQSE_CommonLogin():
         try:
             if CloudDriver().cloud_driver == None:
                 self.utils.print_info("Creating new cloud driver")
-                CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
+                CloudDriver().start_browser(url=url, program="xiqse", incognito_mode=incognito_mode)
                 # extauto.common.CloudDriver.load_browser(url, program="xiqse", incognito_mode=incognito_mode)
                 self.window_index = 0
             elif window_index != 0:
