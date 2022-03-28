@@ -540,7 +540,7 @@ class Login:
         :param:  win_index - Index of the window to switch to
         :return: None
         """
-        extauto.common.CloudDriver.switch_to_window(win_index)
+        CloudDriver().switch_to_window(win_index)
 
     def close_window(self, win_index):
         """
@@ -549,7 +549,7 @@ class Login:
         :param:  win_index - Index of the window to close
         :return: None
         """
-        extauto.common.CloudDriver.close_window(win_index)
+        CloudDriver().close_window(win_index)
 
     def xiq_quit_browser(self, _driver=None):
         """
@@ -587,7 +587,7 @@ class Login:
         :param:  win_index - Index of the window to close
         :return: Return List containing the Child Window Indexes
         """
-        window_index_list = extauto.common.CloudDriver.get_child_window_list(win_index)
+        window_index_list = CloudDriver().get_child_window_list(win_index)
         return window_index_list
 
     def logo_check_on_login_screen(self):

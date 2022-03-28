@@ -345,7 +345,7 @@ class XIQSE_CommonLogin():
         :param win_index: Index of the window to switch to
         :return: None
         """
-        extauto.common.CloudDriver.switch_to_window(win_index)
+        CloudDriver().switch_to_window(win_index)
 
     def xiqse_close_window(self, win_index):
         """
@@ -354,7 +354,7 @@ class XIQSE_CommonLogin():
         :param win_index: Index of the window to close
         :return: None
         """
-        extauto.common.CloudDriver.close_window(win_index)
+        CloudDriver().close_window(win_index)
 
     def xiqse_refresh_page(self):
         """
@@ -362,7 +362,7 @@ class XIQSE_CommonLogin():
 
         :return: None
         """
-        extauto.common.CloudDriver.refresh_page()
+        CloudDriver().refresh_page()
 
     def xiqse_logout_user_child_window(self, win_index=0):
         """
@@ -411,7 +411,7 @@ class XIQSE_CommonLogin():
         :param:  win_index - Index of the parent window
         :return: Return List containing the Child Window Indexes
         """
-        window_index_list = extauto.common.CloudDriver.get_child_window_list(win_index)
+        window_index_list = CloudDriver().get_child_window_list(win_index)
 
         for window_index in window_index_list:
             self.xiqse_init_child_window(window_index)
