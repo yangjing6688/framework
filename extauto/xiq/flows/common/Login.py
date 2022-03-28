@@ -41,9 +41,9 @@ class Login:
         if CloudDriver().cloud_driver == None:
             self.utils.print_info("Creating new cloud driver")
             CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
-        # else:
-        #     self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-        #     self.window_index = CloudDriver().open_window(url)
+        else:
+            self.utils.print_info("Cloud driver already exists - opening new window using same driver")
+            self.window_index = CloudDriver().open_window(url)
 
     def get_page_title(self):
         """
