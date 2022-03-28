@@ -434,22 +434,22 @@ class CloudDriver():
         win_count = len(window_handles)
         utils.print_debug(f"Window Handle Count: {win_count}")
         window_index = win_count - 1
-        self.ccloud_driver.switch_to.window(self.ccloud_driver.window_handles[window_index])
+        self.cloud_driver.switch_to.window(self.cloud_driver.window_handles[window_index])
 
         utils.print_info("Opening URL: ", url)
-        self.ccloud_driver.get(url)
-        utils.print_debug(f"New Window Title: {self.ccloud_driver.title}")
+        self.cloud_driver.get(url)
+        utils.print_debug(f"New Window Title: {self.cloud_driver.title}")
 
         utils.print_info("Waiting for login page to load...")
 
         if element_identify == "name":
-            WebDriverWait(self.ccloud_driver, 60).until(ec.presence_of_element_located((By.NAME, element_identify_value_name)))
+            WebDriverWait(self.cloud_driver, 60).until(ec.presence_of_element_located((By.NAME, element_identify_value_name)))
 
         if element_identify == "id":
-            WebDriverWait(self.ccloud_driver, 60).until(ec.presence_of_element_located((By.ID, element_identify_value_id)))
+            WebDriverWait(self.cloud_driver, 60).until(ec.presence_of_element_located((By.ID, element_identify_value_id)))
 
         if element_identify == "class-name":
-            WebDriverWait(self.ccloud_driver, 60).until(
+            WebDriverWait(self.cloud_driver, 60).until(
                 ec.presence_of_element_located((By.CSS_SELECTOR, element_identify_value_css)))
 
         utils.print_info("Page Loaded Successfully")
