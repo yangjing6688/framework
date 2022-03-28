@@ -1390,3 +1390,19 @@ class Device360WebElements(Device360WebElementDefs):
         header_row = self.get_device360_ports_description_table_row()
         ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
         return {th.text.strip(): th for th in ths if th.text.strip()}
+
+    def get_device360_ports_table(self):
+        
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+        
+        table_rows = self.get_device360_port_table_rows()
+        results = []
+        for row in table_rows:
+            result = {}
+            tds = self.weh.get_elements(self.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip():
+                    result[th.text.strip()] = td.text.strip()
+            results.append(result)
+        return results
