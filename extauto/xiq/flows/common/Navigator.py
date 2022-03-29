@@ -2794,3 +2794,24 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to navigate to Client Monitor & Diagnosis Page")
             self.screen.save_screen_shot()
             return -2
+
+    def navigate_to_applications_tab(self):
+        """"
+        - This Keyword Navigate to Applications Page
+        - Flow: Manage --> Applications
+        - Keyword Usage:
+          - 'Navigate to Applications page'
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_manage_tab()
+        sleep(5)
+
+        self.utils.print_info("Click on Applications Page")
+        applications_page_ele = self.weh.get_element(self.applications_tab)
+        if applications_page_ele.is_displayed():
+            self.auto_actions.click(applications_page_ele)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Applications Page")
+            self.screen.save_screen_shot()
+            return -2
