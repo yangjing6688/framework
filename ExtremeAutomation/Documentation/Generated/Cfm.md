@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Cfm
-This feature is located in this file: `cfm.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `cfm.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_spbm
 	Pytest API Call: 
@@ -604,276 +604,93 @@ UUID: e28efc19-5192-4972-89dd-eb92bc17e614
 ----------------------------------------------
 
 
-# API Function: show_cmac
+# API Function: cfm_verify_spbm_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cfm.cfm_show_cmac(device_name )
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_spbm_enabled(device_name)
 
 	Robot API Call: 
 
-		cfm_show_cmac  device_name  
+		cfm_verify_spbm_enabled  device_name
 
-UUID: 5173ced0-99dc-495f-acdf-20472e39d547
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cfm cmac
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.69.10.15.0
-
-----------------------------------------------
-
-
-# API Function: show_spbm
+# API Function: cfm_verify_spbm_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cfm.cfm_show_spbm(device_name )
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_spbm_disabled(device_name)
 
 	Robot API Call: 
 
-		cfm_show_spbm  device_name  
+		cfm_verify_spbm_disabled  device_name
 
-UUID: c8cfba3f-68dc-48b0-9cf0-36abedb1c93a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cfm spbm
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.69.10
-
-----------------------------------------------
-
-
-# API Function: show_maintenance_endpoint
+# API Function: cfm_verify_spbm_mepid
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cfm.cfm_show_maintenance_endpoint(device_name )
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_spbm_mepid(device_name, mepid)
 
 	Robot API Call: 
 
-		cfm_show_maintenance_endpoint  device_name  
+		cfm_verify_spbm_mepid  device_name  mepid
 
-UUID: 3bc56ed5-76fc-4683-b72c-2c5862a502e2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cfm maintenance-endpoint
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.69.3
-
-----------------------------------------------
-
-
-# API Function: show_maintenance_association
+# API Function: cfm_verify_spbm_level
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cfm.cfm_show_maintenance_association(device_name )
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_spbm_level(device_name, spbm_level)
 
 	Robot API Call: 
 
-		cfm_show_maintenance_association  device_name  
+		cfm_verify_spbm_level  device_name  spbm_level
 
-UUID: 6037e58d-02b2-4e93-ae76-32e28d89845a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cfm maintenance-association
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.69.2
-
-----------------------------------------------
-
-
-# API Function: show_maintenance_domain
+# API Function: cfm_verify_spbm_mac
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cfm.cfm_show_maintenance_domain(device_name )
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_spbm_mac(device_name, spbm_mac)
 
 	Robot API Call: 
 
-		cfm_show_maintenance_domain  device_name  
+		cfm_verify_spbm_mac  device_name  spbm_mac
 
-UUID: 2927d7eb-8576-4c8b-9af5-015a2a39fc2f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cfm maintenance-domain
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.69.1
-
-----------------------------------------------
-
-
-# API Function: show_association_name
+# API Function: cfm_verify_maintenance_domain
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cfm.cfm_show_association_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_maintenance_domain(device_name, md_name, md_index, md_level)
 
 	Robot API Call: 
 
-		cfm_show_association_name  device_name  
+		cfm_verify_maintenance_domain  device_name  md_name  md_index  md_level
 
-UUID: 672c0a91-5e52-4a98-a48c-0465860acf50
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cfm maintenance-association
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.69.2.1.4
-
-----------------------------------------------
-
-
-# API Function: show_domain_name
+# API Function: cfm_verify_maintenance_domain_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cfm.cfm_show_domain_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_maintenance_domain_name(device_name, md_name)
 
 	Robot API Call: 
 
-		cfm_show_domain_name  device_name  
+		cfm_verify_maintenance_domain_name  device_name  md_name
 
-UUID: 24ec9c2f-94b7-4cea-80ec-6c04250cf980
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: cfm_verify_maintenance_domain_name_and_index
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_maintenance_domain_name_and_index(device_name, md_name, md_index)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		cfm_verify_maintenance_domain_name_and_index  device_name  md_name  md_index
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: cfm_verify_maintenance_domain_level
+	Pytest API Call: 
 
-		show cfm maintenance-domain
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_maintenance_domain_level(device_name, md_name, md_level)
 
-----------------------------------------------
+	Robot API Call: 
 
+		cfm_verify_maintenance_domain_level  device_name  md_name  md_level
 
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: cfm_verify_maintenance_domain_does_not_exist
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
+		self.defaultLibrary.apiLowLevelApis.cfm.cfm_verify_maintenance_domain_does_not_exist(device_name, md_name, md_index)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.69.1.1.2
-
-----------------------------------------------
-
+		cfm_verify_maintenance_domain_does_not_exist  device_name  md_name  md_index
 
