@@ -183,7 +183,7 @@ class Navigator(NavigatorWebElements):
         else:
             return -2
 
-        self.navigate_to_network_policies_tab()
+        return self.navigate_to_network_policies_tab()
 
     def navigate_configure_common_objects(self):
         """
