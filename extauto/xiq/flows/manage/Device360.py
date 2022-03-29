@@ -285,8 +285,8 @@ class Device360(Device360WebElements):
         :return: SSH String
         """
         if device_mac:
-            self.utils.print_info("Using device MAC: ", device_mac)
-            self.navigator.navigate_to_device360_page_with_mac(device_mac)
+            self.utils.print_info("Using device MAC: ", device_mac.upper())
+            self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
 
         if device_name:
             self.utils.print_info("Using device name: ", device_name)
@@ -345,8 +345,8 @@ class Device360(Device360WebElements):
         :return: SSH String
         """
         if device_mac:
-            self.utils.print_info("Using device MAC: ", device_mac)
-            self.navigator.navigate_to_device360_page_with_mac(device_mac)
+            self.utils.print_info("Using device MAC: ", device_mac.upper())
+            self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
 
         if device_name:
             self.utils.print_info("Using device name: ", device_name)

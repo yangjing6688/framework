@@ -62,6 +62,11 @@ class Login:
         self.screen = Screen()
         return self.driver
 
+    def set_active_browser(self):
+        global mydriver
+        mydriver = self.driver
+        return mydriver
+
     def get_page_title(self):
         """
         - Get the title of the page
@@ -99,7 +104,7 @@ class Login:
 
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                   salesforce_password=False, saleforce_shared_cuid=False, **kwargs):
+                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, **kwargs):
         """
         - Login to Xiq account with username and password
         - By default url will load from the topology file
@@ -150,7 +155,10 @@ class Login:
         self.utils.print_info("Clicking on Sign In button")
 
         self.auto_actions.click(self.login_web_elements.get_login_page_login_button())
-        sleep(10)
+        if quick:
+            sleep(2)
+        else:
+            sleep(10)
 
         self.utils.print_info("Check for wrong credentials..")
         credential_warnings = self.login_web_elements.get_credentials_error_message()
@@ -188,7 +196,11 @@ class Login:
                 sleep(2)
 
         self.utils.print_info("Check for Advance Onboard Popup page after login..")
-        sleep(10)
+        if quick:
+            sleep(2)
+        else:
+            sleep(10)
+
         try:
             if self.login_web_elements.get_drawer_content().is_displayed():
                 self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
@@ -219,7 +231,10 @@ class Login:
         :return: 1 if logout success
         """
         # stop tool tip text capture thread
-        self.t1.do_run = False
+        try:
+            self.t1.do_run = False
+        except:
+            print("t1.do_run not available to set")
         sleep(10)
         try:
             self.utils.print_info("Clicking on Logout Menu")
@@ -242,6 +257,13 @@ class Login:
         :param _driver
         :return: 1 if success
         """
+        # temp fix until singleton driver in place
+        global mydriver
+        if mydriver:
+            mydriver.quit()
+            self.utils.print_info("SINGLETON ISSUE Resetting cloud driver to -1")
+            extauto.common.CloudDriver.cloud_driver = -1
+            return 1
 
         if _driver:
             _driver.quit()
