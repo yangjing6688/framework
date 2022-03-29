@@ -1339,3 +1339,11 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_hyperlink_client(self):
         return self.weh.get_element(self.device360_hyperlink_client)
+
+    def get_device360_column_picker_icon(self):
+        elements = self.weh.get_elements(self.device360_column_picker_icon)
+        for el in elements:
+            if el.is_displayed():
+                return el
+        else:
+            return False
