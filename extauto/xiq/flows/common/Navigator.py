@@ -576,12 +576,14 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Manage --> Security
         - Flow: Manage--->Security
         - Keyword Usage
-          - ``Navigate To Manage Security``
+          - ``Navigate Manage Security``
 
         :return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
         """
-        self.navigate_to_manage_tab()
-        self.navigate_to_security_option()
+        if self.navigate_to_manage_tab() == 1:
+            return self.navigate_to_security_option()
+        else:
+            return -1
 
     def navigate_to_common_object_security_tab(self):
         """
@@ -2885,27 +2887,6 @@ class Navigator(NavigatorWebElements):
                 return 1
             else:
                 self.utils.print_info("Unable to navigate to Users tab")
-                self.screen.save_screen_shot()
-                return -1
-        else:
-            return -1
-
-    def navigate_to_manage_security(self):
-        """
-         - This keyword Navigates to Security on Manage Menu
-         - Flow Manage--> Security
-         - Keyword Usage
-          - ``Navigate To Manage Security``
-
-        :return: 1 if Navigation Successful to Security Sub tab on Monitor Tab else return -1
-        """
-        if self.navigate_to_manage_tab() == 1:
-            self.utils.print_info("Clicking Security Tab...")
-            if self.auto_actions.click(self.get_manage_security_nav()) == 1:
-                sleep(2)
-                return 1
-            else:
-                self.utils.print_info("Unable to navigate to Security tab")
                 self.screen.save_screen_shot()
                 return -1
         else:
