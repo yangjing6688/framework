@@ -1134,3 +1134,10 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-header-nav-clientmonitor-Diagnosis"]',
             'wait_for': 5
         }
+
+    applications_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-apps"]',
+            'wait_for': 5
+        }
+    
