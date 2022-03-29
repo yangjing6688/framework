@@ -53,12 +53,16 @@ class AutoActions:
                     # due to Xiq Application limitation we need to scroll the el into view, which is not visible on the page
                     # If scroll the el into view is not working will scroll down to the end of the page.
                     if count < 2:
-                        self.utils.print_info("Scroll element into view")
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view")
                         self.driver.execute_script("arguments[0].scrollIntoView(true); ", element)
                         sleep(2)
-                    elif 2 < count < 5:
+                    elif 2 < count < 4:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll down to page")
                         self.scroll_down()
-                        self.utils.print_info("Scroll down to page")
+                        sleep(2)
+                    elif count == 4:
+                        self.utils.print_info("'Element Click Intercepted Exception': trying javascript click().")
+                        self.driver.execute_script("arguments[0].click(); ", element)
                         sleep(2)
                     count += 1
 
@@ -153,7 +157,7 @@ class AutoActions:
         """
         self.driver.execute_script("javascript:window.scrollBy(0,250)")
 
-    def scroll_by_horizontal(self,element):
+    def scroll_by_horizontal(self, element):
         """
         - This Keyword Uses to Scroll the page ro end in x-coordinate
 

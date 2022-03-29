@@ -51,6 +51,16 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
+    def get_stack_status_cell_icon(self, row):
+        blue = self.weh.get_element(self.device_stack_status, row)
+        red = self.weh.get_element(self.device_stack_status_warning, row)
+        if blue:
+            return blue.get_attribute("class")
+        elif red:
+            return red.get_attribute("Class")
+        else:
+            return None
+
     def get_stack_status_icon(self, row):
         return self.weh.get_element(self.device_stack_status, row)
 
