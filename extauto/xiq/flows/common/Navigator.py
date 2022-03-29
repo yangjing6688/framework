@@ -2777,12 +2777,12 @@ class Navigator(NavigatorWebElements):
     def navigate_to_client_monitor_and_diagnosis_tab(self):
         """"
         - This Keyword Navigate to Client Monitor and Diagnosis Page
-        - Flow: ML Insights --> Client Monitor & Diagnosis
+        - Flow: Manage --> Client Monitor & Diagnosis
         - Keyword Usage:
           - 'Navigate to Client Monitor & Diagnosis page'
         :return: 1 if Navigation Successful
         """
-        self.navigate_to_ml_insight_tab()
+        self.navigate_to_manage_tab()
         sleep(5)
 
         self.utils.print_info("Click on Client Monitor & Diagnosis Page")
