@@ -246,7 +246,7 @@ class WirelessNetworksDefinitions:
         {
             # 'XPATH': '//div[contains(@class,"dgrid-row")]/table/tr/td[2]',
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            'wait_for': 15
         }
 
     wireless_chkbox = \
@@ -271,9 +271,8 @@ class WirelessNetworksDefinitions:
 
     wireless_re_use_delete_button = \
         {
-            'CSS_SELECTOR': '.table-remove',
+            'XPATH': '//*[@data-automation-tag="automation-reusable-grid"]//span[@data-tip="Delete"]',
             'wait_for': 5,
-            'index': 5
         }
 
     wireless_re_use_cancel_button = \

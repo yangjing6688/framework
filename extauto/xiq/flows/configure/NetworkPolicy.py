@@ -795,11 +795,11 @@ class NetworkPolicy(object):
             delete_button = self.wireless_element.get_wireless_delete_button()
             if delete_button:
                 self.auto_actions.click(delete_button)
-                sleep(2)
+                sleep(5)
                 confirm_yes = self.wireless_element.get_confirm_dialog_yes_button()
                 if confirm_yes:
                     self.auto_actions.click(confirm_yes)
-                    sleep(2)
+                    sleep(5)
                     reuse_button = self.wireless_element.get_wireless_re_use_button()
                     if reuse_button:
                         self.auto_actions.click(reuse_button)
@@ -819,13 +819,20 @@ class NetworkPolicy(object):
                             re_use_delete_button = self.wireless_element.get_wireless_re_use_delete_button()
                             if re_use_delete_button:
                                 self.auto_actions.click(re_use_delete_button)
-                                sleep(2)
+                                sleep(5)
                                 confirm_yes_re_usable = self.wireless_element.get_confirm_dialog_yes_button()
                                 if confirm_yes_re_usable:
                                     self.auto_actions.click(confirm_yes_re_usable)
+                                    tool_tp_text = tool_tip.tool_tip_text
+                                    self.utils.print_info(tool_tp_text)
                                     self.utils.print_info(" Closing SSID pop-up window ")
                                     self.auto_actions.click(self.wireless_element.get_wireless_re_use_cancel_button())
-                                    return 1
+                                    if "deleted successfully" in str(tool_tp_text):
+                                        self.utils.print_info(" SSIDs were successfully deleted ")
+                                        return 1
+                                    else:
+                                        self.utils.print_info(" SSIDs were NOT successfully deleted ")
+                                        return -1
                                 else:
                                     self.utils.print_info(" Unable to click on confirm yes button ")
                                     return -1
