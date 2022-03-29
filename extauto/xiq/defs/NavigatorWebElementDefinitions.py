@@ -1140,4 +1140,3 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-header-nav-apps"]',
             'wait_for': 5
         }
-    
