@@ -45,10 +45,6 @@ class Login:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
             self.window_index = CloudDriver().open_window(url)
 
-    def set_active_browser(self):
-        global mydriver
-        mydriver = self.driver
-        return mydriver
 
     def get_page_title(self):
         """
@@ -213,9 +209,10 @@ class Login:
         # stop tool tip text capture thread
         try:
             self.t1.do_run = False
+            sleep(10)
         except:
-            print("t1.do_run not available to set")
-        sleep(10)
+            print("t1.do_run not initialized")
+
         try:
             self.utils.print_info("Clicking on Logout Menu")
             self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
@@ -237,13 +234,6 @@ class Login:
         :param _driver
         :return: 1 if success
         """
-        # temp fix until singleton driver in place
-        global mydriver
-        if mydriver:
-            mydriver.quit()
-            self.utils.print_info("SINGLETON ISSUE Resetting cloud driver to -1")
-            extauto.common.CloudDriver.cloud_driver = -1
-            return 1
 
         if _driver:
             _driver.quit()
