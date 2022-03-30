@@ -804,7 +804,7 @@ class CommonObjects(object):
                 # self.auto_actions.click(next_page_el)
                 # sleep(2)
                 device_page_numbers = self.cobj_web_elements.get_page_numbers()
-                page_len = len(device_page_numbers.text.split())
+                page_len = int(max(device_page_numbers.text))
                 while page_len:
                     self.utils.print_info("  -- clicking next page")
                     self.auto_actions.click(next_page_el)
