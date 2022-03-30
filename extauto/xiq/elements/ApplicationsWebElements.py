@@ -35,3 +35,21 @@ class ApplicationsWebElements(ApplicationsWebElementsDefs):
 
     def get_manage_add_custom_tooltip_text(self):
         return self.weh.get_element(self.manage_add_custom_tooltip_text)
+
+    def get_manage_add_custom_app_search(self):
+        return self.weh.get_element(self.manage_add_custom_app_search)
+
+    def get_manage_add_custom_search_text(self):
+        return self.weh.get_element(self.manage_add_custom_search_text)
+
+    def get_manage_apps_cell(self):
+        return self.weh.get_element(self.manage_apps_cell)
+
+    def get_manage_add_custom_edit(self):
+        return self.weh.get_element(self.manage_add_custom_edit)
+
+    def get_manage_add_custom_delete(self):
+        return self.weh.get_element(self.manage_add_custom_delete)
+
+    def get_manage_add_custom_delete_confirm(self):
+        return self.weh.get_element(self.manage_add_custom_delete_confirm)
