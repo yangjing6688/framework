@@ -1,5 +1,5 @@
-from extauto.xiq.defs.NavigatorWebElementDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.NavigatorWebElementDefinitions import NavigatorWebElementDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class NavigatorWebElements(NavigatorWebElementDefinitions):
@@ -11,6 +11,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_configure_tab(self):
         return self.weh.get_element(self.configure_nav)
+
+    def get_configure_tab_img_class(self):
+        return self.weh.get_element(self.configure_nav_img).get_attribute('class')
 
     def get_policy_toggle(self):
         return self.weh.get_element(self.policy_toggle)
@@ -24,8 +27,14 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_manage_tab(self):
         return self.weh.get_element(self.manage_nav)
 
+    def get_manage_tab_img_class(self):
+        return self.weh.get_element(self.manage_nav_img).get_attribute('class')
+
     def get_ml_insight_tab(self):
         return self.weh.get_element(self.ml_insight_tab)
+
+    def get_ml_insight_tab_img_class(self):
+        return self.weh.get_element(self.ml_insight_tab_img).get_attribute('class')
 
     def get_devices_nav(self):
         return self.weh.get_element(self.device_nav)
@@ -134,6 +143,12 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_ml_insight_network360monitor(self):
         return self.weh.get_element(self.ml_insight_network360monitor)
 
+    def get_ml_insight_network_scorecard(self):
+        return self.weh.get_element(self.ml_insight_networkScorecard)
+    
+    def get_ml_insight_retail(self):
+        return self.weh.get_element(self.ml_insight_retail)
+
     def get_network_policy_list_view(self):
         return self.weh.get_element(self.list_view)
 
@@ -164,8 +179,14 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_a3_tab(self):
         return self.weh.get_element(self.a3_nav)
 
+    def get_a3_tab_img_class(self):
+        return self.weh.get_element(self.a3_nav_img).get_attribute('class')
+
     def get_a3_inventory_tab(self):
         return self.weh.get_element(self.a3_inventory_menu)
+
+    def get_a3_reporting_tab(self):
+        return self.weh.get_element(self.a3_reporting_menu)
 
     def get_air_defence_menu(self):
         return self.weh.get_element(self.air_defence_nav)
@@ -310,7 +331,10 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_essentials_menu(self):
         return self.weh.get_element(self.essentials_menu)
-      
+
+    def get_essentials_menu_img_class(self):
+        return self.weh.get_element(self.essentials_menu_img).get_attribute('class')
+
     def get_ccg_option(self):
         return self.weh.get_element(self.common_objects_ccgs)
 
@@ -353,6 +377,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_copilot_tab(self):
         return self.weh.get_element(self.copilot_tab)
 
+    def get_copilot_tab_img_class(self):
+        return self.weh.get_element(self.copilot_tab_img).get_attribute('class')
+
     def get_copilot_anomaly_notification_icon(self):
         return self.weh.get_element(self.copilot_anomaly_notification_icon)
 
@@ -374,6 +401,192 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_common_object_network_management_options(self):
         return self.weh.get_element(self.common_object_network_management_options)
 
+    def get_device_utilities_button(self):
+        """
+        :return: Utilities Button
+        """
+        return self.weh.get_element(self.utilities_button)
+
+    def get_device_tools_menu_item(self):
+        """
+        :return: Tools Menu Item
+        """
+        return self.weh.get_element(self.tools_menu_item)
+
+    def get_device_tools_client_information_menu_item(self):
+        """
+        :return: Tools > Client Information Menu Item
+        """
+        return self.weh.get_element(self.tools_client_information_menu_item)
+
+    def get_device_tools_get_tech_menu_item(self):
+        """
+        :return: Tools > Get Tech Menu Item
+        """
+        return self.weh.get_element(self.tools_get_tech_menu_item)
+
+    def get_device_tools_locate_device_menu_item(self):
+        """
+        :return: Tools > Locate Device Menu Item
+        """
+        return self.weh.get_element(self.tools_locate_device_menu_item)
+
+    def get_device_tools_layer_neighbor_info_menu_item(self):
+        """
+        :return: Tools > Layer Neighbor Info Menu Item
+        """
+        return self.weh.get_element(self.tools_layer_neighbor_info_menu_item)
+
+    def get_device_tools_packet_capture_menu_item(self):
+        """
+        :return: Tools > Packet Capture Menu Item
+        """
+        return self.weh.get_element(self.tools_packet_capture_menu_item)
+
+    def get_device_tools_vlan_probe_menu_item(self):
+        """
+        :return: Tools > Packet Capture Menu Item
+        """
+        return self.weh.get_element(self.tools_vlan_probe_menu_item)
+
+    def get_device_diagnostics_menu_item(self):
+        """
+        :return: Diagnostics Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_menu_item)
+
+    def get_device_diagnostics_show_ping_menu_item(self):
+        """
+        :return: Diagnostics > Show Ping Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ping_menu_item)
+
+    def get_device_diagnostics_show_log_menu_item(self):
+        """
+        :return: Diagnostics > Show Log Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_log_menu_item)
+
+    def get_device_diagnostics_show_mac_table_menu_item(self):
+        """
+        :return: Diagnostics > Show MAC Table Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_mac_table_menu_item)
+
+    def get_device_diagnostics_show_version_menu_item(self):
+        """
+        :return: Diagnostics > Show Version Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_version_menu_item)
+
+    def get_device_diagnostics_show_running_config_menu_item(self):
+        """
+        :return: Diagnostics > Show Running Config Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_running_config_menu_item)
+
+    def get_device_diagnostics_show_startup_config_menu_item(self):
+        """
+        :return: Diagnostics > Show Startup Config Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_startup_config_menu_item)
+
+    def get_device_diagnostics_show_ip_routes_menu_item(self):
+        """
+        :return: Diagnostics > Show IP Routes Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ip_routes_menu_item)
+
+    def get_device_diagnostics_show_mac_routes_menu_item(self):
+        """
+        :return: Diagnostics > Show MAC Routes Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_mac_routes_menu_item)
+
+    def get_device_diagnostics_show_arp_cache_menu_item(self):
+        """
+        :return: Diagnostics > Show ARP Cache Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_arp_cache_menu_item)
+
+    def get_device_diagnostics_show_roaming_cache_menu_item(self):
+        """
+        :return: Diagnostics > Show Roaming Cache Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_roaming_cache_menu_item)
+
+    def get_device_diagnostics_show_dnxp_neighbors_menu_item(self):
+        """
+        :return: Diagnostics > Show DNXP Neighbors Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_dnxp_neighbors_menu_item)
+
+    def get_device_diagnostics_show_dnxp_cache_menu_item(self):
+        """
+        :return: Diagnostics > Show DNXP Cache Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_dnxp_cache_menu_item)
+
+    def get_device_diagnostics_show_amrp_tunnel_menu_item(self):
+        """
+        :return: Diagnostics > Show AMRP Tunnel Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_amrp_tunnel_menu_item)
+
+    def get_device_diagnostics_show_gre_tunnel_menu_item(self):
+        """
+        :return: Diagnostics > Show GRE Tunnel Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_gre_tunnel_menu_item)
+
+    def get_device_diagnostics_show_ike_event_menu_item(self):
+        """
+        :return: Diagnostics > Show IKE Event Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ike_event_menu_item)
+
+    def get_device_diagnostics_show_ike_sa_menu_item(self):
+        """
+        :return: Diagnostics > Show IKE SA Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ike_sa_menu_item)
+
+    def get_device_diagnostics_show_ipsec_sa_menu_item(self):
+        """
+        :return: Diagnostics > Show IPSec SA Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ipsec_sa_menu_item)
+
+    def get_device_diagnostics_show_ipsec_tunnel_menu_item(self):
+        """
+        :return: Diagnostics > Show IPSec Tunnel Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_ipsec_tunnel_menu_item)
+
+    def get_device_diagnostics_show_vpn_tunnel_menu_item(self):
+        """
+        :return: Diagnostics > Show VPN Tunnel Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_vpn_tunnel_menu_item)
+
+    def get_device_diagnostics_show_cpu_menu_item(self):
+        """
+        :return: Diagnostics > Show CPU Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_cpu_menu_item)
+
+    def get_device_diagnostics_show_memory_menu_item(self):
+        """
+        :return: Diagnostics > Show Memory Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_memory_menu_item)
+
+    def get_device_diagnostics_show_pse_menu_item(self):
+        """
+        :return: Diagnostics > Show PSE Menu Item
+        """
+        return self.weh.get_element(self.diagnostics_show_pse_menu_item)
+
     def get_locked_users_tab(self):
         return self.weh.get_element(self.locked_users_tab)
 
@@ -382,3 +595,45 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_client_monitor_diagnosis_tab(self):
         return self.weh.get_element(self.client_monitor_diagnosis_tab)
+
+    def get_manage_summary_menu_item(self):
+        return self.weh.get_element(self.manage_summary_menu_item)
+
+    def get_manage_users_menu_item(self):
+        return self.weh.get_element(self.manage_users_menu_item)
+
+    def get_manage_events_menu_item(self):
+        return self.weh.get_element(self.manage_events_menu_item)
+
+    def get_configure_guest_essentials_users_menu_item(self):
+        return self.weh.get_element(self.configure_guest_essentials_users_menu_item)
+
+    def get_main_side_nav_tab_order_number(self, tab_tag):
+        els = self.weh.get_elements(self.main_side_nav_tabs)
+        order_number = 0
+        for el in els:
+            if el.is_displayed():
+                order_number += 1
+            if str(tab_tag) in el.get_attribute("data-automation-tag"):
+                return order_number
+        return -1
+
+    def get_side_nav_panel_1_menu_order_number(self, menu_item_tag):
+        els = self.weh.get_elements(self.side_nav_panel_1_menu_items)
+        order_number = 0
+        for el in els:
+            if el.is_displayed():
+                order_number += 1
+            if str(menu_item_tag) in el.get_attribute("data-automation-tag"):
+                return order_number
+        return -1
+
+    def get_side_nav_panel_2_menu_order_number(self, menu_item_tag):
+        els = self.weh.get_elements(self.side_nav_panel_2_menu_items)
+        order_number = 0
+        for el in els:
+            if el.is_displayed():
+                order_number += 1
+            if str(menu_item_tag) in el.get_attribute("data-automation-tag"):
+                return order_number
+        return -1

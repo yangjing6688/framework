@@ -50,6 +50,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 1
          }
 
+    device_stack_status_warning = \
+        {
+            'CSS_SELECTOR': '.ui-icon-stack-warning',
+            'wait_for': 1
+         }
+
     device_conn_status_after_ten_min = \
         {
             'CSS_SELECTOR': '.ui-icon-dc-ten-mins',

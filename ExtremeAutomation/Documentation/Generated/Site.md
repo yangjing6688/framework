@@ -1,59 +1,66 @@
 # Keyword Library Documentation for Site
-This feature is located in this file: `site.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `site.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
-# API Function: show_all
+# API Function: site_verify_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.site.site_show_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.site.site_verify_exists(device_name, site_name)
 
 	Robot API Call: 
 
-		site_show_all  device_name  
+		site_verify_exists  device_name  site_name
 
-UUID: 66054fea-36d6-49b3-a59a-c64727a94ad6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXTRWIRELESS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show site
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_detail
+# API Function: site_verify_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.site.site_show_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.site.site_verify_does_not_exist(device_name, site_name)
 
 	Robot API Call: 
 
-		site_show_detail  device_name  
+		site_verify_does_not_exist  device_name  site_name
 
-UUID: cb810be3-6e9d-48c1-878e-915722ddbf33
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXTRWIRELESS
+# API Function: site_verify_associated_ap_exists
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.site.site_verify_associated_ap_exists(device_name, site_name, ap_name)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		site_verify_associated_ap_exists  device_name  site_name  ap_name
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: site_verify_associated_ap_does_not_exist
+	Pytest API Call: 
 
-		show site "{site_name}"
+		self.defaultLibrary.apiLowLevelApis.site.site_verify_associated_ap_does_not_exist(device_name, site_name, ap_name)
 
-----------------------------------------------
+	Robot API Call: 
 
+		site_verify_associated_ap_does_not_exist  device_name  site_name  ap_name
 
-## REST
-## SNMP
+# API Function: site_verify_dns_server_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.site.site_verify_dns_server_exists(device_name, site_name, dns_server)
+
+	Robot API Call: 
+
+		site_verify_dns_server_exists  device_name  site_name  dns_server
+
+# API Function: site_verify_dns_server_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.site.site_verify_dns_server_does_not_exist(device_name, site_name, dns_server)
+
+	Robot API Call: 
+
+		site_verify_dns_server_does_not_exist  device_name  site_name  dns_server
+
+# API Function: site_verify_associated_wlan_radio_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.site.site_verify_associated_wlan_radio_exists(device_name, site_name, wlan_name, radio_mode)
+
+	Robot API Call: 
+
+		site_verify_associated_wlan_radio_exists  device_name  site_name  wlan_name  radio_mode
+

@@ -17,10 +17,20 @@ class NetworkElementCliSend(NetworkElementKeywordBaseClass):
         """
         Sends multiple commands separated by a ","
 
-       Keyword Arguments:
+        Keyword Arguments:
             device_name - The name of the device the keyword should be run against.
-            command - The command that should be sent to the device.
-        :return: output of the command
+            commands_list - The command that should be sent to the device.
+
+        Optional Arguments:
+            prompt - This accepts a prompt constant (which can be found in NetworkElementConstants).
+                     It tells the device which prompt it should sent the command from.
+            prompt_args - This accepts either a string or list of strings which should contain
+                          any arguments required by the prompt handler to change prompt.
+            confirmation_phrases - This accepts either a string or list of strings which contain any
+                                   outputs that require a response.
+            confirmation_args - This accepts a string or list of strings to send in response to the
+                                received confirmation phrase.
+        :return:  output of the command
         """
         command_list = commands_list.split(",")
         output_end = []
@@ -35,11 +45,22 @@ class NetworkElementCliSend(NetworkElementKeywordBaseClass):
 
     def send_cmd(self, device_name, command, **kwargs):
         """
+        Sends the given command to a device and logs the output.
+
         Keyword Arguments:
             device_name - The name of the device the keyword should be run against.
             command - The command that should be sent to the device.
 
-        Sends the given command to a device and logs the output.
+        Optional Arguments:
+            prompt - This accepts a prompt constant (which can be found in NetworkElementConstants).
+                     It tells the device which prompt it should sent the command from.
+            prompt_args - This accepts either a string or list of strings which should contain
+                          any arguments required by the prompt handler to change prompt.
+            confirmation_phrases - This accepts either a string or list of strings which contain any
+                                   outputs that require a response.
+            confirmation_args - This accepts a string or list of strings to send in response to the
+                                received confirmation phrase.
+        :return:  output of the command
         """
         
         dev, _, _ = self._init_keyword(device_name, **kwargs)
