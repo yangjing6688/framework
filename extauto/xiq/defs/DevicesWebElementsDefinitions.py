@@ -50,6 +50,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 1
          }
 
+    device_stack_status_warning = \
+        {
+            'CSS_SELECTOR': '.ui-icon-stack-warning',
+            'wait_for': 1
+         }
+
     device_conn_status_after_ten_min = \
         {
             'CSS_SELECTOR': '.ui-icon-dc-ten-mins',
@@ -345,13 +351,13 @@ class DevicesWebElementsDefinitions:
 
     manage_device_actions_button = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-device-actions-actions_normal-btn']",
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 5
         }
 
     actions_assign_network_policy = \
         {
-            'XPATH': "//*[contains(@data-automation-tag, 'automation-manage-device-actions') and contains(@data-automation-tag, '-assign-policy')]",
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions") and contains(@data-automation-tag, "-assign-policy")]',
             'wait_for': 5
         }
 
@@ -369,13 +375,13 @@ class DevicesWebElementsDefinitions:
 
     actions_network_policy_drop_down_items = \
         {
-            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"]//tr[@data-dojo-attach-point="focusNode"]',
+            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"]//td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
         }
 
     actions_network_policy_assign_button = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='continueBtn']",
+            'XPATH': '//*[@data-dojo-attach-point="continueBtn"]',
             'wait_for': 5,
         }
 
@@ -513,7 +519,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_to_router = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-device-actions-router-assign-policy']//a",
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
             'index': 1,
             'wait_for': 5
         }
@@ -1245,6 +1251,12 @@ class DevicesWebElementsDefinitions:
         {
             'CSS_SELECTOR': ".ui-tooltip-inner",
             'wait_for': 5
+        }
+
+    devices_page_horizontal_end = \
+        {
+            'XPATH': "//*[@data-automation-tag='device-list-grid-header-mgtVlan']",
+            'wait_for': 1
         }
 
     devices_grid_column_headers = \

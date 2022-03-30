@@ -180,3 +180,10 @@ class DeviceUpdateDefs:
         'CSS_SELECTOR': '.form-error',
         'wait_for': 5
     }
+
+    update_close_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 2
+        }
+

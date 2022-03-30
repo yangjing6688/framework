@@ -51,6 +51,16 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
+    def get_stack_status_cell_icon(self, row):
+        blue = self.weh.get_element(self.device_stack_status, row)
+        red = self.weh.get_element(self.device_stack_status_warning, row)
+        if blue:
+            return blue.get_attribute("class")
+        elif red:
+            return red.get_attribute("Class")
+        else:
+            return None
+
     def get_stack_status_icon(self, row):
         return self.weh.get_element(self.device_stack_status, row)
 
@@ -926,6 +936,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_devices_grid_column_headers(self):
         return self.weh.get_elements(self.devices_grid_column_headers)
+
+    def get_devices_page_horizontal_end(self):
+        return self.weh.get_element(self.devices_page_horizontal_end)
 
     def get_all_messages_banner(self):
         return self.weh.get_elements(self.all_messages_banner)

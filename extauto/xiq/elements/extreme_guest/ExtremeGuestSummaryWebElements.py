@@ -56,3 +56,15 @@ class ExtremeGuestSummaryWebElements(ExtremeGuestSummaryWebElementsDefs):
 
     def get_extreme_guest_summary_linkedin_widget(self):
         return self.weh.get_element(self.extreme_guest_summary_linkedin_widget)
+
+    def get_extreme_guest_summary_total_users_widget(self):
+        return self.weh.get_element(self.extreme_guest_summary_total_users_widget)
+
+    def get_extreme_guest_summary_online_users_widget(self):
+        return self.weh.get_element(self.extreme_guest_summary_online_users_widget)
+
+    def get_extreme_guest_summary_total_clients_widget(self):
+        return self.weh.get_element(self.extreme_guest_summary_total_clients_widget)
+
+    def get_extreme_guest_summary_online_clients_widget(self):
+        return self.weh.get_element(self.extreme_guest_summary_online_clients_widget)

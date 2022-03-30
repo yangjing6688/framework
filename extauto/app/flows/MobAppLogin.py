@@ -1,5 +1,5 @@
 from appium.webdriver.common.touch_action import TouchAction
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from app.elements.MobAppLoginWebElements import *
 from app.elements.NewDeviceOnboardWebElements import *
 from app.common.AutoActions import *
@@ -16,14 +16,14 @@ class MobAppLogin:
         :param url: if not default, will be read from the ${TEST_URL} variable
         :return: returns driver object
         """
-        global driver
-        extauto.common.CloudDriver.load_browser(url)
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
+        # extauto.common.CloudDriver.load_browser(url)
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.mob_login_web_elements = MobAppLoginWebElements()
         self.scan_web_elements = NewDeviceOnboardWebElements()
         self.auto_actions = AutoActions()
         self.utils = Utils()
-        return self.driver
+        # return self.driver
 
     def login_user(self, username, password, url="default"):
         if url == "default":
@@ -61,7 +61,7 @@ class MobAppLogin:
         self.auto_actions.click(self.scan_web_elements.get_onboard_symbol())
         self.utils.print_info("user clicked on onboard screen entry")
         time.sleep(2)
-        user_action = TouchAction(self.driver)
+        user_action = TouchAction(CloudDriver())
         user_action.press(x=540, y=1138).move_to(x=521, y=443).release().perform()
         self.utils.print_info("User tap the screen up")
 

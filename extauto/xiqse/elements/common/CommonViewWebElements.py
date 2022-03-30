@@ -68,9 +68,18 @@ class CommonViewWebElements(CommonViewWebElementsDefinitions):
 
     def get_combo_dropdown_items(self, the_id):
         """
-        Returns the dropdown items for the dropdown with the specified ID.  Assumes dropdown is a comboxbox type (uses /label).
+        Returns the dropdown items for the dropdown with the specified ID.  Assumes dropdown is a combobox type (uses /label).
 
         :param the_id: ID of the dropdown to return the items of
         :return: Dropdown items of the combobox type dropdown
         """
         return self.weh.get_template_elements(self.combo_dropdown_items, element_id=the_id)
+
+    def get_panel_section_button(self, the_id):
+        """
+        Returns the button ID for the specified section title.  Assumes the panel is already visible.
+         - The exact section title name (case-sensitive) should be provided.
+
+        :return: button ID for the specified section title
+        """
+        return self.weh.get_template_element(self.panel_section_button, element_id=the_id)

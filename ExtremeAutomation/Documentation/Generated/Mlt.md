@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Mlt
-This feature is located in this file: `mlt.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `mlt.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_create_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_create_id(device_name )
 
 	Robot API Call: 
 
@@ -43,7 +43,7 @@ UUID: 61c7cf26-44c8-47eb-b0b1-344baf998f46
 # API Function: delete_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_delete_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_delete_id(device_name )
 
 	Robot API Call: 
 
@@ -82,7 +82,7 @@ UUID: 10cf289a-a38f-40ab-985a-e1edab663ebd
 # API Function: enable_flex_uni
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_enable_flex_uni(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_enable_flex_uni(device_name )
 
 	Robot API Call: 
 
@@ -121,7 +121,7 @@ UUID: 97c17a90-02d4-4b74-af4e-80bc48f5fa95
 # API Function: disable_flex_uni
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_disable_flex_uni(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_disable_flex_uni(device_name )
 
 	Robot API Call: 
 
@@ -160,7 +160,7 @@ UUID: a9841ef0-3767-404f-84b5-a4125aa299a2
 # API Function: enable_lacp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_enable_lacp(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_enable_lacp(device_name )
 
 	Robot API Call: 
 
@@ -199,7 +199,7 @@ UUID: 1e1368d4-55d7-4507-a051-2b8a7752f43b
 # API Function: disable_lacp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_disable_lacp(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_disable_lacp(device_name )
 
 	Robot API Call: 
 
@@ -238,7 +238,7 @@ UUID: 68d147b8-0e4e-4ca6-9fb1-51cc995252ef
 # API Function: set_port_member
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_set_port_member(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_set_port_member(device_name )
 
 	Robot API Call: 
 
@@ -277,7 +277,7 @@ UUID: 5932c3c8-ee1e-497e-84a9-0d359a20fb79
 # API Function: clear_port_member
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_clear_port_member(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_clear_port_member(device_name )
 
 	Robot API Call: 
 
@@ -316,7 +316,7 @@ UUID: 7e1bb41b-e957-4855-b711-a7165922d877
 # API Function: set_type_split_mlt
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_set_type_split_mlt(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_set_type_split_mlt(device_name )
 
 	Robot API Call: 
 
@@ -355,7 +355,7 @@ UUID: 1b4685fe-bb79-40d1-9e07-52a4309e564c
 # API Function: set_type_normal_mlt
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_set_type_normal_mlt(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_set_type_normal_mlt(device_name )
 
 	Robot API Call: 
 
@@ -394,7 +394,7 @@ UUID: 42dad7ab-c2b1-47eb-968a-4770a759368e
 # API Function: set_encapsulation_dot1q
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_set_encapsulation_dot1q(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_set_encapsulation_dot1q(device_name )
 
 	Robot API Call: 
 
@@ -433,7 +433,7 @@ UUID: 4ce20ab9-ec4a-4726-8051-5afdb7c4d86c
 # API Function: clear_encapsulation_dot1q
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_clear_encapsulation_dot1q(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_clear_encapsulation_dot1q(device_name )
 
 	Robot API Call: 
 
@@ -469,354 +469,147 @@ UUID: 29d08a66-c90a-4bbb-8e85-0393f2e372d9
 ----------------------------------------------
 
 
-# API Function: show_logical_index
+# API Function: mlt_verify_id_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_logical_index(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_id_exists(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_logical_index  device_name  
+		mlt_verify_id_exists  device_name  mlt_id
 
-UUID: f9e61724-4bd5-41ba-8b2d-55c509385e19
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.11.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_id
+# API Function: mlt_verify_id_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_id_does_not_exist(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_id  device_name  
+		mlt_verify_id_does_not_exist  device_name  mlt_id
 
-UUID: 807b2755-0104-46a2-870b-4da5acd5c071
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.1.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_admin_type
+# API Function: mlt_verify_admin_mode_split
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_admin_type(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_admin_mode_split(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_admin_type  device_name  
+		mlt_verify_admin_mode_split  device_name  mlt_id
 
-UUID: bb540ad3-2e42-42af-8aeb-3ec6dd029160
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.12.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_running_type
+# API Function: mlt_verify_admin_mode_normal
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_running_type(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_admin_mode_normal(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_running_type  device_name  
+		mlt_verify_admin_mode_normal  device_name  mlt_id
 
-UUID: 5e58916a-129a-4991-b96c-740c57282f27
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.14.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_flex_uni_status
+# API Function: mlt_verify_oper_mode_split
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_flex_uni_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_oper_mode_split(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_flex_uni_status  device_name  
+		mlt_verify_oper_mode_split  device_name  mlt_id
 
-UUID: 2ea5876e-eb29-440c-94ff-a0987f93c6b1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.49.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_lacp_admin_status
+# API Function: mlt_verify_oper_mode_normal
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_lacp_admin_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_oper_mode_normal(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_lacp_admin_status  device_name  
+		mlt_verify_oper_mode_normal  device_name  mlt_id
 
-UUID: ace34c52-0b00-4837-813a-6d628aad74ec
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.18.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_lacp_oper_status
+# API Function: mlt_verify_flex_uni_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_lacp_oper_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_flex_uni_enabled(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_lacp_oper_status  device_name  
+		mlt_verify_flex_uni_enabled  device_name  mlt_id
 
-UUID: b88d9f44-5711-4553-a26c-42a96642a18a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.22.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_ports
+# API Function: mlt_verify_flex_uni_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_ports(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_flex_uni_disabled(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_ports  device_name  
+		mlt_verify_flex_uni_disabled  device_name  mlt_id
 
-UUID: d7f2ad07-8835-4d66-8a93-2d9ea6eaeb31
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.3.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_encapsulation
+# API Function: mlt_verify_lacp_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMltGenKeywords.mlt_show_encapsulation(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_lacp_enabled(device_name, mlt_id)
 
 	Robot API Call: 
 
-		mlt_show_encapsulation  device_name  
+		mlt_verify_lacp_enabled  device_name  mlt_id
 
-UUID: d2230dff-7053-440b-998d-7fcf101d6134
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: mlt_verify_lacp_disabled
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_lacp_disabled(device_name, mlt_id)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		mlt_verify_lacp_disabled  device_name  mlt_id
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: mlt_verify_lacp_oper_up
+	Pytest API Call: 
 
-		show mlt {mlt_id}
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_lacp_oper_up(device_name, mlt_id)
 
-----------------------------------------------
+	Robot API Call: 
 
+		mlt_verify_lacp_oper_up  device_name  mlt_id
 
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: mlt_verify_lacp_oper_down
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_lacp_oper_down(device_name, mlt_id)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.4.{mlt_id}
+		mlt_verify_lacp_oper_down  device_name  mlt_id
 
-----------------------------------------------
+# API Function: mlt_verify_port_exists
+	Pytest API Call: 
 
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_port_exists(device_name, mlt_id, ports)
+
+	Robot API Call: 
+
+		mlt_verify_port_exists  device_name  mlt_id  ports
+
+# API Function: mlt_verify_port_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_port_does_not_exist(device_name, mlt_id, ports)
+
+	Robot API Call: 
+
+		mlt_verify_port_does_not_exist  device_name  mlt_id  ports
+
+# API Function: mlt_verify_encapsulation_dot1q
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_encapsulation_dot1q(device_name, mlt_id)
+
+	Robot API Call: 
+
+		mlt_verify_encapsulation_dot1q  device_name  mlt_id
+
+# API Function: mlt_verify_encapsulation_not_dot1q
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mlt.mlt_verify_encapsulation_not_dot1q(device_name, mlt_id)
+
+	Robot API Call: 
+
+		mlt_verify_encapsulation_not_dot1q  device_name  mlt_id
 

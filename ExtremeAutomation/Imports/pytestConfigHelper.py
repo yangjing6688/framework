@@ -82,6 +82,12 @@ class PytestConfigHelper():
             # DUT 1
             self.dut1 = DotDict(config['netelem1'])
             self.dut1_name = config['netelem1']['name']
+            self.dut1_username = config['netelem1']['username']
+            self.dut1_password = config['netelem1']['password']
+            self.dut1_console_ip = config['netelem1']['console_ip']
+            self.dut1_console_port = config['netelem1']['console_port']
+            self.dut1_serial = config['netelem1']['serial']
+            self.dut1_mac = config['netelem1']['mac']
             self.node_count += 1
             self.dut1_os = config['netelem1']['os']
             self.dut1_platform = config['netelem1']['platform']
@@ -152,6 +158,12 @@ class PytestConfigHelper():
             self.dut2 = DotDict(config['netelem2'])
             self.node_count += 1
             self.dut2_name = config['netelem2']['name']
+            self.dut2_username = config['netelem2']['username']
+            self.dut2_password = config['netelem2']['password']
+            self.dut2_console_ip = config['netelem2']['console_ip']
+            self.dut2_console_port = config['netelem2']['console_port']
+            self.dut2_serial = config['netelem2']['serial']
+            self.dut2_mac = config['netelem2']['mac']
             self.dut2_os = config['netelem2']['os']
             self.dut2_platform = config['netelem2']['platform']
             self.dut2_model = config['netelem2']['model']
@@ -220,6 +232,12 @@ class PytestConfigHelper():
             self.dut3 = DotDict(config['netelem3'])
             self.node_count += 1
             self.dut3_name = config['netelem3']['name']
+            self.dut3_username = config['netelem3']['username']
+            self.dut3_password = config['netelem3']['password']
+            self.dut3_console_ip = config['netelem3']['console_ip']
+            self.dut3_console_port = config['netelem3']['console_port']
+            self.dut3_serial = config['netelem3']['serial']
+            self.dut3_mac = config['netelem3']['mac']
             self.dut3_os = config['netelem3']['os']
             self.dut3_platform = config['netelem3']['platform']
             self.dut3_model = config['netelem3']['model']
@@ -287,6 +305,12 @@ class PytestConfigHelper():
             self.dut4 = DotDict(config['netelem4'])
             self.node_count += 1
             self.dut4_name = config['netelem4']['name']
+            self.dut4_username = config['netelem4']['username']
+            self.dut4_password = config['netelem4']['password']
+            self.dut4_console_ip = config['netelem4']['console_ip']
+            self.dut4_console_port = config['netelem4']['console_port']
+            self.dut4_serial = config['netelem4']['serial']
+            self.dut4_mac = config['netelem4']['mac']
             self.dut4_os = config['netelem4']['os']
             self.dut4_platform = config['netelem4']['platform']
             self.dut4_model = config['netelem4']['model']
@@ -354,6 +378,12 @@ class PytestConfigHelper():
             self.dut5 = DotDict(config['netelem5'])
             self.node_count += 1
             self.dut5_name = config['netelem5']['name']
+            self.dut5_username = config['netelem5']['username']
+            self.dut5_password = config['netelem5']['password']
+            self.dut5_console_ip = config['netelem5']['console_ip']
+            self.dut5_console_port = config['netelem5']['console_port']
+            self.dut5_serial = config['netelem5']['serial']
+            self.dut5_mac = config['netelem5']['mac']
             self.dut5_os = config['netelem5']['os']
             self.dut5_platform = config['netelem5']['platform']
             self.dut5_model = config['netelem5']['model']
@@ -515,8 +545,9 @@ def merge_map2(original, to_add, roboIze=True):
                                                                 dict):
             merge_map2(original[k], v)
         else:
-            original[k] = v
-            if roboIze and not re.match(p1, k):
+            if roboIze != 'Native':
+                original[k] = v
+            if (roboIze or roboIze == 'Native') and not re.match(p1, k):
                 roboK = '${' + k + '}'
                 original[roboK] = v
 

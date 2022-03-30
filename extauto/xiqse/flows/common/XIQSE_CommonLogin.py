@@ -8,7 +8,7 @@ import re
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -35,32 +35,32 @@ class XIQSE_CommonLogin():
         :param window_index: The Child Window Index value.
         :return: returns driver object
         """
-        global driver
         self.utils = Utils()
         try:
-            if extauto.common.CloudDriver.cloud_driver == -1:
+            if CloudDriver().cloud_driver == None:
                 self.utils.print_info("Creating new cloud driver")
-                extauto.common.CloudDriver.load_browser(url, program="xiqse", incognito_mode=incognito_mode)
+                CloudDriver().start_browser(url=url, program="xiqse", incognito_mode=incognito_mode)
+                # extauto.common.CloudDriver.load_browser(url, program="xiqse", incognito_mode=incognito_mode)
                 self.window_index = 0
             elif window_index != 0:
                 self.utils.print_info(f"Initializing window with index: {window_index}")
                 self.window_index = window_index
             else:
                 self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-                self.window_index = extauto.common.CloudDriver.open_window(url, program="xiqse")
+                self.window_index = CloudDriver().open_window(url, program="xiqse")
         except Exception as e:
             self.utils.print_info("Error: ", e)
             self.window_index = -1
 
         self.utils.print_info(f"Window Handle Index is {self.window_index}")
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = CommonLoginWebElements()
         self.acct_web_elements = CommonAccountWebElements()
         self.error_web_elements = CommonErrorWebElements()
         self.view_web_elements = CommonViewWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        return self.driver
+        # return self.driver
 
     def xiqse_get_page_title(self):
         """
@@ -68,7 +68,7 @@ class XIQSE_CommonLogin():
 
         :return: page title
         """
-        return self.driver.title
+        return CloudDriver().cloud_driver.title
 
     def xiqse_get_window_index(self):
         """
@@ -159,10 +159,10 @@ class XIQSE_CommonLogin():
         self.utils.print_info("Browser: ", browser)
 
         try:
-            self.utils.print_info("Version: ", self.driver.capabilities['version'])
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['version'])
         except Exception as e:
             self.utils.print_debug(e)
-            self.utils.print_info("Version: ", self.driver.capabilities['browserVersion'])
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['browserVersion'])
 
         return 1
 
@@ -305,9 +305,10 @@ class XIQSE_CommonLogin():
 
         try:
             self.utils.print_info("Closing Browser")
-            self.driver.quit()
+            # CloudDriver().cloud_driver.quit()
+            CloudDriver().close_browser()
             self.utils.print_info("Resetting cloud driver to -1")
-            extauto.common.CloudDriver.cloud_driver = -1
+            # CloudDriver().cloud_driver = None
             return 1
         except Exception as e:
             self.utils.print_info("Error: ", e)
@@ -319,7 +320,7 @@ class XIQSE_CommonLogin():
         - This Keyword is used to get the url of current loaded page
         :return: url
         """
-        base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', self.driver.current_url)
+        base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', CloudDriver().cloud_driver.current_url)
         return base_url.group()
 
     def xiqse_get_version(self):
@@ -330,7 +331,7 @@ class XIQSE_CommonLogin():
         version = ""
         # Get the version
         try:
-            version = self.driver.execute_script("return fullVersion")
+            version = CloudDriver().cloud_driver.execute_script("return fullVersion")
             self.utils.print_info(f"Version of XIQSE is {version}")
         except JavascriptException:
             self.utils.print_info("Unable to obtain the version of XIQSE")
@@ -344,7 +345,7 @@ class XIQSE_CommonLogin():
         :param win_index: Index of the window to switch to
         :return: None
         """
-        extauto.common.CloudDriver.switch_to_window(win_index)
+        CloudDriver().switch_to_window(win_index)
 
     def xiqse_close_window(self, win_index):
         """
@@ -353,7 +354,7 @@ class XIQSE_CommonLogin():
         :param win_index: Index of the window to close
         :return: None
         """
-        extauto.common.CloudDriver.close_window(win_index)
+        CloudDriver().close_window(win_index)
 
     def xiqse_refresh_page(self):
         """
@@ -361,7 +362,7 @@ class XIQSE_CommonLogin():
 
         :return: None
         """
-        extauto.common.CloudDriver.refresh_page()
+        CloudDriver().refresh_page()
 
     def xiqse_logout_user_child_window(self, win_index=0):
         """
@@ -410,7 +411,7 @@ class XIQSE_CommonLogin():
         :param:  win_index - Index of the parent window
         :return: Return List containing the Child Window Indexes
         """
-        window_index_list = extauto.common.CloudDriver.get_child_window_list(win_index)
+        window_index_list = CloudDriver().get_child_window_list(win_index)
 
         for window_index in window_index_list:
             self.xiqse_init_child_window(window_index)

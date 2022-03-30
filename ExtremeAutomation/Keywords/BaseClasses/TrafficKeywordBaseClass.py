@@ -121,6 +121,8 @@ class TrafficKeywordBaseClass(KeywordBaseClass):
                 self._pause()
             raise FailureException("!!! Keyword Failed !!!")
 
+        super(TrafficKeywordBaseClass, self).log_keyword_result(keyword_failed)
+
     def _parse_kwargs(self, dev, **kwargs):
         super(TrafficKeywordBaseClass, self)._parse_kwargs(kwargs)
 
