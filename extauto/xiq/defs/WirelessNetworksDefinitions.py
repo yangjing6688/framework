@@ -244,21 +244,18 @@ class WirelessNetworksDefinitions:
 
     wireless_ssid_list = \
         {
-            # 'XPATH': '//div[contains(@class,"dgrid-row")]/table/tr/td[2]',
             'CSS_SELECTOR': '.dgrid-row',
             'wait_for': 15
         }
 
     wireless_chkbox = \
         {
-            # 'XPATH': '//div[contains(@class,"dgrid-row")]/table/tr[1]/td[1]/input',
             'CSS_SELECTOR': '.dgrid-selector',
             'wait_for': 5
         }
 
     wireless_delete_button = \
         {
-            # 'XPATH': '//div[contains(@data-automation-tag,"networks-grid")]//span[2]',
             'XPATH': '//*[@data-automation-tag="automation-wireless-ssids-remove-btn"]',
             'wait_for': 5
         }
