@@ -49,3 +49,42 @@ class ApplicationsWebElementsDefs:
             'index': 1,
             'wait_for': 5
         }
+
+    manage_add_custom_app_search = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-app-services-seach-container"]',
+            'wait_for': 3
+        }
+
+    manage_add_custom_search_text = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="txtFilterNode"]',
+            'wait_for': 3
+        }
+
+    manage_apps_cell = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]',
+            'wait_for': 3
+        }
+
+    manage_add_custom_edit = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-application-services-app-list"]'
+                     '//span[@class="table-action-icons table-edit"]',
+            'wait_for': 3
+        }
+
+    manage_add_custom_delete = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-application-services-app-list"]'
+                     '//span[@class="table-action-icons table-remove"]',
+            'wait_for': 3
+        }
+
+    manage_add_custom_delete_confirm = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 3
+
+        }
