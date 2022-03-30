@@ -17,7 +17,7 @@ class WebElementHandler:
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.locator = {"CSS_SELECTOR": By.CSS_SELECTOR,
                          "XPATH": By.XPATH,
-                         "TAG_NAME": By.TAG_NAME,CloudDriver().cloud_driver
+                         "TAG_NAME": By.TAG_NAME,
                          "NAME": By.NAME,
                         "CLASS_NAME": By.CLASS_NAME,
                         "ID": By.ID
