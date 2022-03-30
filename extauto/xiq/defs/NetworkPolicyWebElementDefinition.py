@@ -605,7 +605,7 @@ class NetworkPolicyWebElementDefinition:
 
     add_ssid_menu = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-wireless-ssids-add-btn"]',
+            'XPATH': '//*[@data-automation-tag="automation-wireless-ssids-menu-__-btn"]',
             'wait_for': 5
         }
 

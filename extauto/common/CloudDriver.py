@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sauceclient
 from datetime import datetime
 from selenium import webdriver
@@ -43,7 +42,6 @@ def load_browser(url="default", program="default", incognito_mode="False"):
     element_identify_value_name = "username"
     element_identify_value_id = "password"
     element_identify_value_css = ".eguest-username"
-    element_identify_value_xpath = "//*[@class='success_text']"
     element_value = ".btn"
     element_locator = "name"
     element_identify = "name"
@@ -52,12 +50,6 @@ def load_browser(url="default", program="default", incognito_mode="False"):
     if program == 'adsp':
         element_identify_value_name = "j_username"
         element_identify = "name"
-
-    if program == 'approval':
-        element_identify_value_xpath = "//*[@class='success_text']"
-        element_identify = "xpath"
-        utils.print_info("Approval")
-        
 
     if program == 'xiqse':
         if "xiqLicenseSetup.jsp" in url:
@@ -355,10 +347,6 @@ def load_browser(url="default", program="default", incognito_mode="False"):
     if element_identify == "class-name":
         WebDriverWait(cloud_driver, 60).until(
             ec.presence_of_element_located((By.CSS_SELECTOR, element_identify_value_css)))
-
-    if element_identify == "xpath":
-        WebDriverWait(cloud_driver, 60).until(
-            ec.presence_of_element_located((By.XPATH, element_identify_value_xpath)))
 
     utils.print_info("Page Loaded Successfully")
 

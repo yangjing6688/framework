@@ -1960,7 +1960,7 @@ class Device360WebElementDefs:
 
     cli_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-switch-cli-access"]',
+            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-switch-cli-access"]',
             'wait_for': 5
         }
 

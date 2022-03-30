@@ -16,7 +16,8 @@ class XAPISwitch:
         self.cliCommandSet={}
         self.buildCLICommandSet()
 
-    def extract_by_device_type(self, deviceList, device_type='EXOS', device_model='5520'):
+    def extract_by_device_type(self, deviceList, device_type='EXOS',
+            device_model='5520', stack_mac='null'):
         """
         - The keyword is used to extract a device ID of the specified type from the List
         :param deviceList:  - List of all devices
@@ -43,7 +44,7 @@ class XAPISwitch:
 
         for device in deviceList:
             if device_type == 'STACK':
-                if searchStr in device["product_type"] and "Stack" in device["hostname"]:
+                if searchStr in device["product_type"] and "Stack" in device["hostname"] and stack_mac in device["mac_address"]:
                     return device["id"]
             else:
                 if searchStr in device["product_type"] and "Stack" not in device["hostname"]:
@@ -64,6 +65,22 @@ class XAPISwitch:
                 return device["id"]
 
         return -1
+
+    def extract_by_device_mac(self, deviceList, deviceMac):
+        '''
+
+        :param deviceList: List of devices
+        :param deviceMac: Mac Address to be searched for
+        :return: Device ID of the device
+        '''
+
+        for device in deviceList:
+            self.utils.print_info(device)
+            if deviceMac in device["mac_address"] :
+                return device["id"]
+
+        return -1
+
 
     def sendCLI_multiple_devices(self, URLpath, deviceIDList, CLIList):
         """
