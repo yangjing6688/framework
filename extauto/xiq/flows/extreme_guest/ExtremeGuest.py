@@ -28,7 +28,7 @@ class ExtremeGuest(object):
 
         :return: 1 if navigation success
         """
-        self.utils.switch_to_default(sCloudDriver().cloud_driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_guest_menu()
         sleep(10)
@@ -58,7 +58,7 @@ class ExtremeGuest(object):
 
         :return: 1 if navigation success
         """
-        self.utils.switch_to_default(sCloudDriver().cloud_driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_guest_menu()
         sleep(10)
@@ -92,7 +92,7 @@ class ExtremeGuest(object):
         else:
             self.utils.print_info("User Already Subscribed Extreme Guest Page")
 
-        self.utils.switch_to_iframe(sCloudDriver().cloud_driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         return 1
@@ -112,7 +112,7 @@ class ExtremeGuest(object):
         sleep(10)
 
         self.utils.print_info("Switch to New Extreme Guest Window")
-        sCloudDriver().cloud_driver.switch_to.window(sCloudDriver().cloud_driver.window_handles[1])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -165,7 +165,7 @@ class ExtremeGuest(object):
         :return: 1 if success
         """
         self.utils.print_info("Switch to XIQ Window")
-        sCloudDriver().cloud_driver.switch_to.window(sCloudDriver().cloud_driver.window_handles[0])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
 
         return 1
 

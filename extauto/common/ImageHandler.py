@@ -50,7 +50,7 @@ class ImageHandler:
         """
         - Clicks on input image
         """
-        actions = ActionChains(sCloudDriver().cloud_driver)
+        actions = ActionChains(CloudDriver().cloud_driver)
         x, y = self.get_position(target_icon)
         time.sleep(5)
         actions.move_to_element_with_offset(CloudDriver().cloud_driver.find_element_by_tag_name('body'), 0, 0)

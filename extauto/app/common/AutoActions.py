@@ -96,7 +96,7 @@ class AutoActions:
         window_y = CloudDriver().cloud_driver.execute_script('return window.pageYOffset')
         current_y = (window_h / 2) + window_y
         scroll_y_by = desired_y - current_y
-        sCloudDriver().cloud_driver.execute_script("window.scrollBy(0, arguments[0]);", scroll_y_by)
+        CloudDriver().cloud_driver.execute_script("window.scrollBy(0, arguments[0]);", scroll_y_by)
 
     def select_options(self, element, item, by='value'):
         """

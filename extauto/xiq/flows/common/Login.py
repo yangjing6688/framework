@@ -494,7 +494,7 @@ class Login:
          - ``Get Base URL Of Current Page``
         :return: current page url
         """
-        base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', sCloudDriver().cloud_driver.current_url)
+        base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', CloudDriver().cloud_driver.current_url)
         return base_url.group()
 
     def get_current_page_url(self):
