@@ -212,6 +212,8 @@ except Exception as e:
     Logger().log_error(e)
     Logger().log_error(traceback.format_exc())
 
+from ExtremeAutomation.Utilities.deprecated import deprecated
+
       
 
 
@@ -284,7 +286,7 @@ class XiqLibrary():
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
 
 
-
+    @deprecated("Please use self.xiq.login.login_user(...)")
     def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default", incognito_mode="False", **kwargs):
         res = -1
         try:
