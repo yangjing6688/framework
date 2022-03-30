@@ -1,7 +1,7 @@
 class RadioProfileWebElementsDefinitions:
     radio_profile_add_radio_profile = \
         {
-            'CSS_SELECTOR': '.table-action-icons.table-add',
+            'XPATH': '//span[@data-automation-tag="automation-radio-mgmt-add-btn"]',
             'wait_for': 1
         }
     radio_profile_name_textfield = \

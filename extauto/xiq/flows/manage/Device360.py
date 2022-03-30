@@ -4538,7 +4538,6 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
         return -1
 
-
     def test_device_cli(self, command,device_serial=None, device_mac=None, max_time=180, interval_time=20, delay=30):
         '''
         This function is used for testing WEB CLI from extauto.xiq. A command or a list of commands can be send from XIQ to exos
