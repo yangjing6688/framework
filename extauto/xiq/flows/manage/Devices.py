@@ -2613,7 +2613,7 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
         device_page_numbers = self.devices_web_elements.get_page_numbers()
-        page_len = len(device_page_numbers.text.split())
+        page_len = int(max(device_page_numbers.text))
         device_found = False
         try:
             while page_len:
@@ -2659,7 +2659,7 @@ class Devices:
         sleep(5)
         rows = self.devices_web_elements.get_grid_rows()
         device_page_numbers = self.devices_web_elements.get_page_numbers()
-        page_len = len(device_page_numbers.text.split())
+        page_len = int(max(device_page_numbers.text))
         device_found = False
         while page_len:
             rows = self.devices_web_elements.get_grid_rows()
@@ -2718,7 +2718,7 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
         device_page_numbers = self.devices_web_elements.get_page_numbers()
-        page_len = len(device_page_numbers.text.split())
+        page_len = int(max(device_page_numbers.text))
         rows = self.devices_web_elements.get_grid_rows()
         device_found = False
         while page_len:
