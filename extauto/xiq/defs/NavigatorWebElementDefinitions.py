@@ -1134,3 +1134,9 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-header-nav-clientmonitor-Diagnosis"]',
             'wait_for': 5
         }
+
+    configure_alert_nav = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-alert"]',
+            'wait_for': 2
+        }

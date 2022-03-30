@@ -569,3 +569,5 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_client_monitor_diagnosis_tab(self):
         return self.weh.get_element(self.client_monitor_diagnosis_tab)
 
+    def get_alert_sub_tab(self):
+        return self.weh.get_element(self.configure_alert_nav)

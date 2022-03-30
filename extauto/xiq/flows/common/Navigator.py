@@ -2794,3 +2794,39 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to navigate to Client Monitor & Diagnosis Page")
             self.screen.save_screen_shot()
             return -2
+
+    def navigate_configure_alert(self):
+        """
+         - This keyword Navigates to Alert On Configure Menu
+         - Flow Configure--> Alert
+         - Keyword Usage
+          - ``Navigate Configure Alert``
+
+        :return: 1 if Navigation Successful to Alert On Configure Menu else return -1
+        """
+        self.utils.print_info("Selecting Configure tab...")
+        if self.get_configure_tab().is_displayed():
+            self.navigate_to_configure_tab()
+            sleep(2)
+        else:
+            return -2
+
+        return self.navigate_to_alert_tab()
+
+    def navigate_to_alert_tab(self):
+        """
+         - This keyword Navigates to Alert
+         - Keyword Usage
+          - ``Navigate To Alert Tab``
+
+        :return: 1 if Navigation Successful to Alert On Configure Menu else return -1
+        """
+        self.utils.print_info("Selecting Alert Tab...")
+        if self.get_alert_sub_tab():
+            self.auto_actions.click(self.get_alert_sub_tab())
+            sleep(2)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Alert tab")
+            self.screen.save_screen_shot()
+            return -1
