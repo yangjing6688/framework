@@ -163,8 +163,8 @@ class Devices:
             ap_row = self.get_ap_row(ap_name=ap_name)
 
         if ap_mac != 'default':
-            self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
-            ap_row = self.get_ap_row(ap_mac=ap_mac)
+            self.utils.print_info("Getting status of AP with MAC: ", str(ap_mac).upper())
+            ap_row = self.get_ap_row(ap_mac=str(ap_mac).upper())
 
         if ap_row:
             sleep(10)
@@ -413,7 +413,7 @@ class Devices:
                         self.utils.print_info("Found AP row: ", self.format_row(row.text))
                         return row
                 if ap_mac != 'default':
-                    if ap_mac in row.text:
+                    if str(ap_mac) in row.text:
                         self.utils.print_info("Found AP row: ", self.format_row(row.text))
                         return row
         else:
