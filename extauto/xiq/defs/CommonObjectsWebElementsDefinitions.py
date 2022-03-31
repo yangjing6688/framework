@@ -302,6 +302,64 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_wifi0_1_cm_local_web_page_checkbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableLocalWeb"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_add = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ssidListWrap"]//span[@data-tip="Add"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_ssid_textbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_password_textbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="password"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_auth_dropdown = \
+        {
+            'DESC': 'Auth Method click to dropdown',
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]//following::div[@data-automation-tag="automation-chzn-arrow-down"][1]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_auth_dropdown_option = \
+        {
+            'DESC': 'Auth Method Pre-Shared key/Open',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-securitytype"]/li',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_key_type_dropdown = \
+        {
+            'DESC': 'Key Type click to dropdown',
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]//following::div[@data-automation-tag="automation-chzn-arrow-down"][2]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_key_type_dropdown_option = \
+        {
+            'DESC': 'Key Type ASCII/HEX',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-keytype"]/li',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_add_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="addToSsid"]',
+            'wait_for': 3
+        }
+
     common_object_wifi0_1_client_mode_profile_dhcp_server_scope = \
         {
             'XPATH': '//input[@data-dojo-attach-point="dhcpServerScope"]',
