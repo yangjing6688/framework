@@ -14,19 +14,19 @@ reserved_tags_re = re.compile(r'production|regression|nightly|sanity|p[1-5]')
 PYTESTINI_PATH = 'pytest.ini'
 
 def readPytestIni():
-    try:
-        parser = ConfigParser()
-        parser.read(PYTESTINI_PATH)
+    # try:
+    parser = ConfigParser()
+    parser.read(PYTESTINI_PATH)
 
-        marker_list = parser['pytest']['markers'].split('\n')
-        testbed_markers = []
-        for item in marker_list:
-            marker = item.split(':')[0] # Grab only the name of the marker/tag ignore the description
-            if marker.startswith('testbed_'):
-                testbed_markers.append(item.split(':')[0])
+    marker_list = parser['pytest']['markers'].split('\n')
+    testbed_markers = []
+    for item in marker_list:
+        marker = item.split(':')[0] # Grab only the name of the marker/tag ignore the description
+        if marker.startswith('testbed_'):
+            testbed_markers.append(item.split(':')[0])
 
-    except Exception:
-        testbed_markers = fallback_testbed_names
+    # except Exception:
+    #     testbed_markers = fallback_testbed_names
 
     return testbed_markers
 
