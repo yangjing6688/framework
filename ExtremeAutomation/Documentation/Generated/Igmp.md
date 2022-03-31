@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Igmp
-This feature is located in this file: `igmp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `igmp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: set_version
 	Pytest API Call: 
@@ -984,562 +984,174 @@ UUID: cd2a3cb1-3e0a-4fd3-adc2-6d23e9e5d52b
 
 ## REST
 ## SNMP
-# API Function: show_version
+# API Function: igmp_verify_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_version(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_version  device_name  
+		igmp_verify_enabled_on_vlan  device_name  vlan
 
-UUID: b4ec33ba-8bd1-4b3c-91c8-9d60afeb97ba
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show igmp config {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show igmp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp interface vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp snooping vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_state
+# API Function: igmp_verify_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_state(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_disabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_state  device_name  
+		igmp_verify_disabled_on_vlan  device_name  vlan
 
-UUID: 7b779ef2-9d5c-4543-ac6d-dfb5b7740cd9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show igmp config
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show igmp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp interface vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp snooping
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan
+# API Function: igmp_verify_version
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_version(device_name, vlan, version)
 
 	Robot API Call: 
 
-		igmp_show_vlan  device_name  
+		igmp_verify_version  device_name  vlan  version
 
-UUID: cba4b245-18c5-44fe-ab3c-28a8cdd281bf
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show igmp vlan {vlan_name}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp interface vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp snooping vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_group
+# API Function: igmp_verify_snooping_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_group  device_name  
+		igmp_verify_snooping_enabled_on_vlan  device_name  vlan
 
-UUID: 7f377619-0c96-4bad-b335-662383a5e945
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show igmp group
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp group
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp groups
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_groups_vlan
+# API Function: igmp_verify_snooping_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_groups_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_disabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_groups_vlan  device_name  
+		igmp_verify_snooping_disabled_on_vlan  device_name  vlan
 
-UUID: 59372db3-f62c-4e4b-a66c-903de6c80db1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp groups vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port
+# API Function: igmp_verify_snooping_querier_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_querier_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_port  device_name  
+		igmp_verify_snooping_querier_enabled_on_vlan  device_name  vlan
 
-UUID: ab9fddf2-0215-4878-8f5f-583539cb3a72
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp interface gigabitethernet {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp groups interface ethernet {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_snooping
+# API Function: igmp_verify_snooping_querier_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_snooping(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_querier_disabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_snooping  device_name  
+		igmp_verify_snooping_querier_disabled_on_vlan  device_name  vlan
 
-UUID: df44a792-0235-41f4-986e-fac40d8dfc66
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp snooping
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp snooping
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_snooping_querier_address
+# API Function: igmp_verify_snooping_querier_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_snooping_querier_address(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_querier_address(device_name, vlan, ip)
 
 	Robot API Call: 
 
-		igmp_show_snooping_querier_address  device_name  
+		igmp_verify_snooping_querier_address  device_name  vlan  ip
 
-UUID: 0f0d4e7a-7780-47d3-9759-e967b5747a02
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp interface vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_sender
+# API Function: igmp_verify_snooping_querier_address_removed
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_sender(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_querier_address_removed(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_sender  device_name  
+		igmp_verify_snooping_querier_address_removed  device_name  vlan
 
-UUID: 7ecd4539-b6c9-49c1-9a6f-ca8e1c02bee2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp sender
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp snooping mrouter
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_snoop_trace
+# API Function: igmp_verify_snooping_proxy_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_snoop_trace(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_proxy_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_snoop_trace  device_name  
+		igmp_verify_snooping_proxy_enabled_on_vlan  device_name  vlan
 
-UUID: 964a8781-a06b-45dd-9a78-8658ec2aa204
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp snoop-trace
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_router_alert
+# API Function: igmp_verify_snooping_proxy_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_router_alert(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_proxy_disabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_router_alert  device_name  
+		igmp_verify_snooping_proxy_disabled_on_vlan  device_name  vlan
 
-UUID: 9196a77e-31f8-4a09-836e-31265609e84f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp router-alert
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_statistics_vlan
+# API Function: igmp_verify_snooping_dynamic_downgrade_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_statistics_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_dynamic_downgrade_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_statistics_vlan  device_name  
+		igmp_verify_snooping_dynamic_downgrade_enabled_on_vlan  device_name  vlan
 
-UUID: b6bef82c-589e-4c85-8f11-fd7aae803b0c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip igmp statistics vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_statistics_port
+# API Function: igmp_verify_snooping_dynamic_downgrade_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.igmp.igmp_show_statistics_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_dynamic_downgrade_disabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		igmp_show_statistics_port  device_name  
+		igmp_verify_snooping_dynamic_downgrade_disabled_on_vlan  device_name  vlan
 
-UUID: e9a9217a-3e61-4fce-8cd7-2a189a477d52
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
+# API Function: igmp_verify_snooping_compatibility_mode_enabled_on_vlan
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_compatibility_mode_enabled_on_vlan(device_name, vlan)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		igmp_verify_snooping_compatibility_mode_enabled_on_vlan  device_name  vlan
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: igmp_verify_snooping_compatibility_mode_disabled_on_vlan
+	Pytest API Call: 
 
-		show ip igmp statistics interface ethernet {port}
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_compatibility_mode_disabled_on_vlan(device_name, vlan)
 
-----------------------------------------------
+	Robot API Call: 
 
+		igmp_verify_snooping_compatibility_mode_disabled_on_vlan  device_name  vlan
 
-## REST
-## SNMP
+# API Function: igmp_verify_snooping_explicit_host_tracking_enabled_on_vlan
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_explicit_host_tracking_enabled_on_vlan(device_name, vlan)
+
+	Robot API Call: 
+
+		igmp_verify_snooping_explicit_host_tracking_enabled_on_vlan  device_name  vlan
+
+# API Function: igmp_verify_snooping_explicit_host_tracking_disabled_on_vlan
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_snooping_explicit_host_tracking_disabled_on_vlan(device_name, vlan)
+
+	Robot API Call: 
+
+		igmp_verify_snooping_explicit_host_tracking_disabled_on_vlan  device_name  vlan
+
+# API Function: igmp_verify_group_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_group_exists(device_name, group, vlan, port)
+
+	Robot API Call: 
+
+		igmp_verify_group_exists  device_name  group  vlan  port
+
+# API Function: igmp_verify_group_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.igmp.igmp_verify_group_does_not_exist(device_name, group, vlan, port)
+
+	Robot API Call: 
+
+		igmp_verify_group_does_not_exist  device_name  group  vlan  port
+

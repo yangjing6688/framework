@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Mld
-This feature is located in this file: `mld.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `mld.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_vlan
 	Pytest API Call: 
@@ -694,147 +694,48 @@ UUID: 0bbca321-7d96-4f9e-a96a-2a0256e5ee8e
 
 ## REST
 ## SNMP
-# API Function: show_vlan
+# API Function: mld_verify_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mld.mld_show_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		mld_show_vlan  device_name  
+		mld_verify_enabled_on_vlan  device_name  vlan
 
-UUID: 5a011cd7-4ac2-4c80-83a3-77739dfe7063
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mld config
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mld
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 mld snooping vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_version
+# API Function: mld_verify_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mld.mld_show_version(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_disabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		mld_show_version  device_name  
+		mld_verify_disabled_on_vlan  device_name  vlan
 
-UUID: f2376d5c-ee82-4fb3-83a4-00b9492c2c03
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mld config {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mld
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 mld snooping vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_statistics
+# API Function: mld_verify_snooping_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mld.mld_show_statistics(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_snooping_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		mld_show_statistics  device_name  
+		mld_verify_snooping_enabled_on_vlan  device_name  vlan
 
-UUID: 2f96ab47-c496-4ac7-b953-b2f65d27ed32
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
+# API Function: mld_verify_snooping_disabled_on_vlan
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_snooping_disabled_on_vlan(device_name, vlan)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		mld_verify_snooping_disabled_on_vlan  device_name  vlan
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: mld_verify_version
+	Pytest API Call: 
 
-		show ipv6 mld statistics vlan {vlan}
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_version(device_name, vlan, version)
 
-----------------------------------------------
+	Robot API Call: 
 
+		mld_verify_version  device_name  vlan  version
 
-## REST
-## SNMP

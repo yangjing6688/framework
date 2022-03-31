@@ -701,7 +701,7 @@ class Devices:
             for row in rows:
                 if ap_serial:
                     if str(ap_serial) in row.text:
-                        self.utils.print_info("Selecting Device with Serial: ", ap_serial)
+                        self.utils.print_info("Selecting Device with AP Serial: ", ap_serial)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -709,7 +709,7 @@ class Devices:
 
                 if ap_name:
                     if str(ap_name) in row.text:
-                        self.utils.print_info("Selecting Device with Name: ", ap_name)
+                        self.utils.print_info("Selecting Device with AP Name: ", ap_name)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -717,7 +717,7 @@ class Devices:
 
                 if ap_mac:
                     if str(ap_mac) in row.text:
-                        self.utils.print_info("Selecting Device with MAC: ", ap_mac)
+                        self.utils.print_info("Selecting Device with AP MAC: ", ap_mac)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -940,11 +940,11 @@ class Devices:
                 config_update_msg = self.devices_web_elements.get_devices_config_update_message().text
                 self.utils.print_info(config_update_msg)
                 if reboot_message in config_update_msg:
-                    self.utils.print_info("AP is Rebooting after update configuration ")
+                    self.utils.print_info("Device is Rebooting after update configuration ")
                     return True
             sleep(1)
             count += 1
-        self.utils.print_info("AP is not Rebooting after update configuration")
+        self.utils.print_info("Device is not Rebooting after update configuration")
         return False
 
     def onboard_multiple_devices(self, serials, device_make):
@@ -1513,7 +1513,7 @@ class Devices:
                 if ap_serial in row.text:
                     flag_cell = self.devices_web_elements.get_country_code_cell(row)
                     if flag_cell:
-                        self.screen.save_element_screen_shot(flag_cell)
+                        self.screen.save_screen_shot()
                         self.utils.print_info("Saved the flag successfully")
                         return 1
             self.utils.print_info("Did not find row")
@@ -1598,7 +1598,7 @@ class Devices:
 
             latest_version = self.device_update.get_latest_version()
 
-            self.utils.print_info("AP Latest Version: ", latest_version)
+            self.utils.print_info("Device Latest Version: ", latest_version)
             sleep(5)
 
             self.utils.print_info("Selecting Activate After radio button")
@@ -1612,14 +1612,15 @@ class Devices:
 
         return latest_version
 
-    def xiq_upgrade_device_to_latest_version(self, device_serial):
+    def xiq_upgrade_device_to_latest_version(self, device_serial, action = "perform upgrade"):
         """
-        - This method update device(s) to latest version from the dropdown
+        - This method update device(s) to latest version from the XIQ 
         - Keyword Usage:
          - ``XIQ Upgrade Device To Latest Version   ${DEVICE_SERIAL}``
+         - xiq_upgrade_device_to_latest_version(device_serial, action = "perform upgrade")
 
         :param device_serial: serial number(s) of the device(s)
-        :return: 1 if success else -1
+        :return: Latest firmware version if success else -1
         """
         latest_version = -1
 
@@ -1638,16 +1639,25 @@ class Devices:
 
             latest_version = self.device_update.get_latest_version()
 
-            self.utils.print_info("AP Latest Version: ", latest_version)
+            self.utils.print_info("Device Latest Version: ", latest_version)
             sleep(5)
 
-            self.utils.print_info(
-                "Selecting Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same or "
+                                  "upgrading to same version which includes a patch")
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
-            self.utils.print_info("Selecting Perform Update button...")
-            self.auto_actions.click(self.device_update.get_perform_update_button())
+            if (action == "perform upgrade"):
+                self.utils.print_info("Selecting Perform Update button...")
+                self.auto_actions.click(self.device_update.get_perform_update_button())
+
+            elif (action == "close"):
+                self.utils.print_info("Selecting Cancel and Close button...")
+                self.auto_actions.click(self.device_update.get_update_close_button())
+            
+            else:
+                self.utils.print_error("Selected action {action} is unavailable, hence closing the update window...")
+                self.auto_actions.click(self.device_update.get_update_close_button())
 
         return latest_version
 
@@ -1680,7 +1690,7 @@ class Devices:
             specific_version = self.device_update.get_specific_version()
             sleep(2)
 
-            self.utils.print_info("AP Specific Version: ", specific_version)
+            self.utils.print_info("Device Specific Version: ", specific_version)
 
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
@@ -1731,8 +1741,8 @@ class Devices:
 
             self.utils.print_info("Specific Upgrade Version: ", specific_version)
 
-            self.utils.print_info(
-                "Selecting Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same or "
+                                  "upgrading to same version which includes a patch")
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
@@ -5671,7 +5681,7 @@ class Devices:
         if device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac)
-
+        
         if device_row:
             sleep(5)
             stack_status = self.devices_web_elements.get_stack_status_cell(device_row)
@@ -5685,6 +5695,50 @@ class Devices:
                     return "disabled"
             else:
                 self.utils.print_info("Could not get Stack status")
+
+
+    def get_exos_stack_status(self, device_mac='default'):
+        """
+        - This keyword returns the EXOS Stack icon status is blue or red 
+        - 'blue' means all the stack members are in managed state
+        - 'red' means one or more slot is not in managed state
+        - '-1' means the device is not a stack device
+        - Keyword Usage:
+        - ``Get Exos Stack Status   device_mac=${DEVICE_MAC}``
+
+       :param device_mac: device MAC address
+
+       :return:
+       - 'blue' if all the stack members are in managed state else 'red'
+       - '-1' if the stack icon is not in the device row
+
+       """
+        device_row = -1
+        self.refresh_devices_page()
+
+        self.utils.print_info('Getting Stack Status ')
+
+        if device_mac != 'default':
+            self.utils.print_info("Getting status of device with MAC: ", device_mac)
+            device_row = self.get_device_row(device_mac)
+
+        if device_row:
+            sleep(5)
+            stack_status = self.devices_web_elements.get_stack_status_cell_icon(device_row)
+            self.screen.save_screen_shot()
+            sleep(2)
+
+            if stack_status:
+                if "ui-icon-stack-warning" in stack_status:
+                    return "red"
+                elif "ui-icon-stack" in stack_status:
+                    return "blue"
+            else:
+                self.utils.print_error("Could not get stack status")
+                return -1
+        else:
+            return -1
+
 
     def verify_stack_devices_managed(self, stack_mac, slot_serial_list):
         """
@@ -6936,7 +6990,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
             # Check the already onboarded error
             if self.devices_web_elements.get_error_onboarding_message():
-                self.utils.print_info("{} already onboarded ".format(device_sn))
+                self.utils.print_info("Device(s) already onboarded ")
                 return -1
             else:
                 pass
@@ -7115,7 +7169,7 @@ class Devices:
 
             sleep(10)
 
-            self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
+            self.utils.print_info("Enter the Device Template Name: ", name_stack_template)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
                                         name_stack_template)
             self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())

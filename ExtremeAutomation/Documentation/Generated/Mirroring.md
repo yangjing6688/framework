@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Mirroring
-This feature is located in this file: `mirroring.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `mirroring.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_both
 	Pytest API Call: 
@@ -689,134 +689,93 @@ UUID: 04077770-3b9f-4abf-88e0-2b7a2124a5dd
 
 ## REST
 ## SNMP
-# API Function: show_port_mirror
+# API Function: mirroring_verify_port_mirror_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_show_port_mirror(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_port_mirror_exists(device_name, name, src_port, dst_port)
 
 	Robot API Call: 
 
-		mirroring_show_port_mirror  device_name  
+		mirroring_verify_port_mirror_exists  device_name  name  src_port  dst_port
 
-UUID: 2eea68a2-d875-4922-ba4e-190f13a1fc14
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port mirroring
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mirror {name}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mirror-by-port {name}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show monitor session {name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_mirror_all
+# API Function: mirroring_verify_port_mirror_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_show_port_mirror_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_port_mirror_does_not_exist(device_name, name, src_port, dst_port)
 
 	Robot API Call: 
 
-		mirroring_show_port_mirror_all  device_name  
+		mirroring_verify_port_mirror_does_not_exist  device_name  name  src_port  dst_port
 
-UUID: 32dfd4e2-3f84-4991-be7b-cc91db8fbc3d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
+# API Function: mirroring_verify_ingress_mirror_exists
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_ingress_mirror_exists(device_name, name, src_port, dst_port)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		mirroring_verify_ingress_mirror_exists  device_name  name  src_port  dst_port
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: mirroring_verify_ingress_mirror_does_not_exist
+	Pytest API Call: 
 
-		show port mirroring
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_ingress_mirror_does_not_exist(device_name, name, src_port, dst_port)
 
-----------------------------------------------
+	Robot API Call: 
 
+		mirroring_verify_ingress_mirror_does_not_exist  device_name  name  src_port  dst_port
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: mirroring_verify_egress_mirror_exists
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_egress_mirror_exists(device_name, name, src_port, dst_port)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		mirroring_verify_egress_mirror_exists  device_name  name  src_port  dst_port
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: mirroring_verify_egress_mirror_does_not_exist
+	Pytest API Call: 
 
-		show mirror
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_egress_mirror_does_not_exist(device_name, name, src_port, dst_port)
 
-----------------------------------------------
+	Robot API Call: 
 
+		mirroring_verify_egress_mirror_does_not_exist  device_name  name  src_port  dst_port
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: mirroring_verify_ingress_egress_mirror_exists
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_ingress_egress_mirror_exists(device_name, name, src_port, dst_port)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		mirroring_verify_ingress_egress_mirror_exists  device_name  name  src_port  dst_port
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: mirroring_verify_ingress_egress_mirror_does_not_exist
+	Pytest API Call: 
 
-		show mirror-by-port
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_ingress_egress_mirror_does_not_exist(device_name, name, src_port, dst_port)
 
-----------------------------------------------
+	Robot API Call: 
 
+		mirroring_verify_ingress_egress_mirror_does_not_exist  device_name  name  src_port  dst_port
 
-## REST
-## SNMP
+# API Function: mirroring_verify_port_mirror_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_port_mirror_enabled(device_name, name, src_port, dst_port)
+
+	Robot API Call: 
+
+		mirroring_verify_port_mirror_enabled  device_name  name  src_port  dst_port
+
+# API Function: mirroring_verify_port_mirror_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mirroring.mirroring_verify_port_mirror_disabled(device_name, name, src_port, dst_port)
+
+	Robot API Call: 
+
+		mirroring_verify_port_mirror_disabled  device_name  name  src_port  dst_port
+
