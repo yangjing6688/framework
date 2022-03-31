@@ -62,7 +62,7 @@ class AutoActions:
                         sleep(2)
                     elif count == 4:
                         self.utils.print_info("'Element Click Intercepted Exception': trying javascript click().")
-                        self.driver.execute_script("arguments[0].click(); ", element)
+                        CloudDriver().execute_script("arguments[0].click(); ", element)
                         sleep(2)
                     count += 1
 
