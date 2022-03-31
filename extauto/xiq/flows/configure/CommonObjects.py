@@ -95,6 +95,10 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
         sleep(2)
 
+        """
+        ###Add the Reason for commenting the code
+        #  Confirmation for delete popup UI have been remove in new release (Q2r1 - Build ID: 2022-03-29-02.27.12)
+        """
         # confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
         # if confirm_delete_btn:
         #     self.utils.print_info("Clicking on confirm Yes button")

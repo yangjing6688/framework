@@ -39,21 +39,3 @@ class ClientModeWebElements(ClientModeDefinitions):
 
     def get_cancel_button(self):
         return self.weh.get_element(self.cancel_button)
-
-    # def get_wifi_connection_status(self):
-    #     return self.wifi_connection_status['XPATH']
-
-    # def get_(self):
-    #     return self.weh.get_element(self.)
-    #
-    # def get_(self):
-    #     return self.weh.get_element(self.)
-    #
-    # def get_(self):
-    #     return self.weh.get_element(self.)
-    #
-    # def get_(self):
-    #     return self.weh.get_element(self.)
-    #
-    # def get_(self):
-    #     return self.weh.get_element(self.)
