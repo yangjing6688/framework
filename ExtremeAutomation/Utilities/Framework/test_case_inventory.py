@@ -1,3 +1,4 @@
+from configparser import ConfigParser
 import os
 from ExtremeAutomation.Utilities.EconClient.econ_request_api import econAPI
 import sys
@@ -6,7 +7,6 @@ import json
 from pathlib import Path
 from robot.api.parsing import ModelVisitor
 import glob
-from configparser import ConfigParser
 
 qTestMarker  = re.compile(r'TC[A-Z]{0,3}[\-_][0-9]+', flags=re.IGNORECASE)
 fallback_testbed_names = ['testbed_1_node', 'testbed_2_node', 'testbed_3_node', 'testbed_4_node', 'testbed_5_node', 'testbed_adsp', 'testbed_none', 'testbed_not_required']
@@ -14,19 +14,20 @@ reserved_tags_re = re.compile(r'production|regression|nightly|sanity|p[1-5]')
 PYTESTINI_PATH = 'pytest.ini'
 
 def readPytestIni():
-    # try:
-    parser = ConfigParser()
-    parser.read(PYTESTINI_PATH)
+    try:
+        parser = ConfigParser()
+        parser.read(PYTESTINI_PATH)
 
-    marker_list = parser['pytest']['markers'].split('\n')
-    testbed_markers = []
-    for item in marker_list:
-        marker = item.split(':')[0] # Grab only the name of the marker/tag ignore the description
-        if marker.startswith('testbed_'):
-            testbed_markers.append(item.split(':')[0])
+        marker_list = parser['pytest']['markers'].split('\n')
+        testbed_markers = []
+        for item in marker_list:
+            marker = item.split(':')[0] # Grab only the name of the marker/tag ignore the description
+            if marker.startswith('testbed_'):
+                testbed_markers.append(item.split(':')[0])
 
-    # except Exception:
-    #     testbed_markers = fallback_testbed_names
+    # This will only work when the CI is running this script. Fallback to a static list otherwise
+    except Exception:
+        testbed_markers = fallback_testbed_names
 
     return testbed_markers
 
