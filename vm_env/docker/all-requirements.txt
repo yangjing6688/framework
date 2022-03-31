@@ -5,11 +5,13 @@ image==1.5.28
 netmiko==3.0.0
 paramiko==2.7.1
 pexpect==4.8.0
-robotframework
-selenium
-sauceclient
+robotframework==4.1.1
+robotframework-pabot==2.1.0
+sauceclient==1.0.0
+selenium==3.141.0
 opencv-python
 bs4
+typing-extensions==4.1.1
 # ----------------- From Wireless End ---------------------
 pytest==6.2.2
 pytest-html==3.1.1

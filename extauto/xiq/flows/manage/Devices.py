@@ -6089,6 +6089,7 @@ class Devices:
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Could not find the 'Maximum 5 Site Engine > Device View...' message")
+            self.screen.save_screen_shot()
 
         return ret_val
 

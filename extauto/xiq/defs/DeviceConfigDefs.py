@@ -935,19 +935,19 @@ class DeviceConfigDefs:
 
     wireless_wifi2_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
     wireless_wifi1_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
     wireless_wifi0_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi0-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi0-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
@@ -1068,5 +1068,104 @@ class DeviceConfigDefs:
     imago_tag_add_profile_add_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="imagotagAdd"]',
+            'wait_for': 5
+        }
+    wired_client_connection_type = \
+        {
+            'XPATH': '//td',
+            'wait_for': 5
+        }
+
+    wired_client_os_type = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-0 field-connectionType w70"]',
+            'wait_for': 5
+        }
+
+    wired_client_connection_status = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-1 field-osType w80 fn-ellipsis"]',
+            'wait_for': 5
+        }
+
+    wired_client_hostname = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-4 field-hostName w100 fn-ellipsis"]',
+            'wait_for': 5
+        }
+
+    wired_client_mac = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-3 field-clientMac w110 fn-ellipsis"]',
+            'wait_for': 5
+        }
+
+    wired_client_IPv4 = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-6 field-ipAddress w100"]',
+            'wait_for': 5
+        }
+
+    wired_client_IPv6 = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-7 field-ipv6Address w300"]',
+            'wait_for': 5
+        }
+
+    wired_client_user_name = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-8 field-userName w75 fn-ellipsis"]',
+            'wait_for': 5
+        }
+
+    wired_client_vlan = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-9 field-vlan w100"]',
+            'wait_for': 5
+        }
+
+    wired_client_connected_via = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-5 field-port w110 fn-ellipsis"]',
+            'wait_for': 5
+        }
+    wired_client_popup_mac = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientMac"]',
+            'wait_for': 5
+        }
+    wired_client_popup_ipv4 = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="switchIp"]',
+            'wait_for': 5
+        }
+    wired_client_popup_portSpeed = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portSpeed"]',
+            'wait_for': 5
+        }
+    wired_client_popup_negotiatedspeed = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="negotiatedSpeed"]',
+            'wait_for': 5
+        }
+    wired_client_popup_portMode = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portMode"]',
+            'wait_for': 5
+        }
+    wired_client_popup_vlan = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="vlan"]',
+            'wait_for': 5
+        }
+    wired_client_popup_portNumber = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portNumber"]',
+            'wait_for': 5
+        }
+    wired_client_popup_confirmation = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point=""]',
             'wait_for': 5
         }
