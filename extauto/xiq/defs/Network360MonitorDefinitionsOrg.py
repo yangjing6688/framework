@@ -62,15 +62,6 @@ class Network360MonitorDefinitions:
             'wait_for': 5
         }
 
-    n360_monitor_clients_card = \
-        {
-            #'XPATH': '//*[@data-dojo-attach-point="deviceHealthScoreLabelCtn"]//span[@class="open-screen-icon ah-global-icon"]',
-            #'XPATH': '//*[@data-dojo-attach-point="automation-tracker-n360-card-device"]',
-            'CSS_SELECTOR': '.open-screen-icon.ah-global-icon',
-            'index': 1,
-            'wait_for': 5
-        }
-
     device_health_overal_score_availability_score = \
         {
             'XPATH': '//*[@data-dojo-attach-point="scoreAvailabilityValue"]',
@@ -94,21 +85,3 @@ class Network360MonitorDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="physicalMap"]',
             'wait_for': 5
         }
-
-    client_health_clients_widget_count_2G = \
-        {
-            'XPATH': '//span[contains(text(), "2.4 GHz")]/../b',
-            'wait_for': 5
-        }
-
-    client_health_clients_widget_count_5G = \
-    {
-        'XPATH': '//span[contains(text(),"5 GHz")]/../b',
-        'wait_for': 5
-    }
-
-    client_health_clients_widget_count_6G = \
-    {
-        'XPATH': '//span[contains(text(),"6 GHz")]/../b',
-        'wait_for': 5
-    }
