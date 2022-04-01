@@ -8,8 +8,12 @@ from robot.api.parsing import ModelVisitor
 import glob
 
 qTestMarker  = re.compile(r"TC[A-Z]{0,3}[\-_][0-9]+", flags=re.IGNORECASE)
-testbed_name_re = re.compile(r"testbed_([0-9]+)_node|testbed_not_required|testbed_none")
+testbed_name_re = re.compile(r"testbed_([0-9]+)_node|testbed_(not_required|none|adsp)")
 reserved_tags_re = re.compile(r"production|regression|nightly|sanity|p[1-5]")
+
+# def readPytestIni(path):
+#     with open(path, 'w') as inifile:
+#         print(inifile.readlines())
 
 
 class RobotTestData(ModelVisitor):

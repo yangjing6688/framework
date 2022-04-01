@@ -1513,7 +1513,7 @@ class Devices:
                 if ap_serial in row.text:
                     flag_cell = self.devices_web_elements.get_country_code_cell(row)
                     if flag_cell:
-                        self.screen.save_element_screen_shot(flag_cell)
+                        self.screen.save_screen_shot()
                         self.utils.print_info("Saved the flag successfully")
                         return 1
             self.utils.print_info("Did not find row")
