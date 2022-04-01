@@ -394,13 +394,13 @@ class Device360(Device360WebElements):
 
         return url
 
-    def device360_is_ssh_web_connectivity_enabled(self, device_mac='', device_name=''):
+    def device360_is_ssh_enabled(self, device_mac='', device_name=''):
         """
         - This keyword verifies if SSH Web Connectivity is enabled
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Device360 Is SSH Web Connectivity Enabled  device_mac=${AP1_MAC}``
-         - ``Device360 Is SSH Web Connectivity Enabled  device_name=${AP1_NAME}``
+         - ``Device360 Is SSH Enabled  device_mac=${AP1_MAC}``
+         - ``Device360 Is SSH Enabled  device_name=${AP1_NAME}``
         :param device_mac: device MAC address
         :param device_name: device name
         :return: 1 if is enabled, else -1
@@ -417,23 +417,23 @@ class Device360(Device360WebElements):
         self.auto_actions.click(self.get_device360_configure_button())
         self.screen.save_screen_shot()
 
-        self.utils.print_info("Clicking Device 360 SSH WEB tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_web_tab())
+        self.utils.print_info("Clicking Device 360 SSH tab")
+        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
         self.screen.save_screen_shot()
 
         self.utils.print_info("Check if enabled based on first radio button")
-        if self.get_device360_configure_ssh_web_5min_radio().is_enabled():
+        if self.get_device360_configure_ssh_cli_5min_radio().is_enabled():
             return 1
 
         return -1
 
-    def device360_is_ssh_web_connectivity_disabled(self, device_mac='', device_name=''):
+    def device360_is_ssh_disabled(self, device_mac='', device_name=''):
         """
         - This keyword verifies if SSH Web Connectivity is disabled
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Device360 Is SSH Web Connectivity Disabled  device_mac=${AP1_MAC}``
-         - ``Device360 Is SSH Web Connectivity Disabled  device_name=${AP1_NAME}``
+         - ``Device360 Is SSH Disabled  device_mac=${AP1_MAC}``
+         - ``Device360 Is SSH Disabled  device_name=${AP1_NAME}``
         :param device_mac: device MAC address
         :param device_name: device name
         :return: 1 if is disabled, else -1
@@ -450,12 +450,12 @@ class Device360(Device360WebElements):
         self.auto_actions.click(self.get_device360_configure_button())
         self.screen.save_screen_shot()
 
-        self.utils.print_info("Clicking Device 360 SSH WEB tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_web_tab())
+        self.utils.print_info("Clicking Device 360 SSH tab")
+        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
         self.screen.save_screen_shot()
 
         self.utils.print_info("Check if disabled based on first radio button")
-        if self.get_device360_configure_ssh_web_5min_radio().is_enabled():
+        if self.get_device360_configure_ssh_cli_5min_radio().is_enabled():
             return -1
 
         return 1

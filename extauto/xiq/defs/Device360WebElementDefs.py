@@ -231,7 +231,7 @@ class Device360WebElementDefs:
 
     device360_configure_ssh_web_tab = \
         {
-            'XPATH': '//*[@data-id="sshavailability"]',
+            'XPATH': '//*[@data-id="sshavailability1"]',
             'wait_for': 5
         }
 
