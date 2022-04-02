@@ -64,8 +64,6 @@ class Network360MonitorDefinitions:
 
     n360_monitor_clients_card = \
         {
-            #'XPATH': '//*[@data-dojo-attach-point="deviceHealthScoreLabelCtn"]//span[@class="open-screen-icon ah-global-icon"]',
-            #'XPATH': '//*[@data-dojo-attach-point="automation-tracker-n360-card-device"]',
             'CSS_SELECTOR': '.open-screen-icon.ah-global-icon',
             'index': 1,
             'wait_for': 5
