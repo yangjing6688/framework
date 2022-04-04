@@ -1,4 +1,4 @@
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -11,7 +11,7 @@ class Summary(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
