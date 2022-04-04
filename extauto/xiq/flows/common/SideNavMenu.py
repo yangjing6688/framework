@@ -1,4 +1,4 @@
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.WebElementHandler import *
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
@@ -8,7 +8,7 @@ class SideNavMenu(NavigatorWebElements):
     def __init__(self):
         super().__init__()
         self.screen = Screen()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def get_order_number_of_main_nav_tab(self, tab_tag):
         """
@@ -360,7 +360,7 @@ class SideNavMenu(NavigatorWebElements):
         :return: 1 if exists, else -1
         """
         self.screen.save_screen_shot()
-        if expected_url in self.driver.current_url:
+        if expected_url in CloudDriver().cloud_driver.current_url:
             return 1
 
         return -1

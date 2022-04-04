@@ -73,18 +73,18 @@ class MobAppLogin:
     def entry_onboard_screen(self):
         self.auto_actions.click(self.scan_web_elements.get_onboard_symbol())
         self.utils.print_info("user clicked on onboard screen entry symbol")
-        #user_action = TouchAction(self.driver)
+        #user_action = TouchAction(CloudDriver().cloud_driver)
         #user_action.press(x=540, y=1138).move_to(x=521, y=443).release().perform()
         #self.utils.print_info("User tap the screen up")
 
     def tap_screen(self):
-        user_action = TouchAction(self.driver)
+        user_action = TouchAction(CloudDriver().cloud_driver)
         user_action.press(x=540, y=1138).move_to(x=521, y=443).release().perform()
         self.utils.print_info("User tap the screen up")
         time.sleep(2)
 
     def tap_device_list(self):
-        user_action = TouchAction(self.driver)
+        user_action = TouchAction(CloudDriver().cloud_driver)
         user_action.press(x=531, y=1808).move_to(x=543, y=802).release().perform()
         self.utils.print_info("User tap the device list")
         time.sleep(10)
