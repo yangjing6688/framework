@@ -1851,6 +1851,10 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
 
+        self.utils.print_info("Entering Serial Number...")
+        self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+        sleep(5)
+
         if 'Extreme - Aerohive' in device_make:
             if entry_type:
                 if 'Manual' in entry_type:
@@ -1871,18 +1875,17 @@ class Devices:
                 return _errors
 
         # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
-        if 'voss' in device_make.lower():
-            self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_drop_down())
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_voss_choice())
-            sleep(1)
-
-            if entry_type:
-                self.utils.print_info("Selecting Entry Type")
-                self.auto_actions.click(self.devices_web_elements.get_device_entry_type_drop_down())
+        if "VOSS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
+            try:
+                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
                 sleep(2)
-                self.auto_actions.select_drop_down_options(self.devices_web_elements.
-                                                           get_device_entry_type_drop_down_options(), entry_type)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
+                                                           , "VOSS")
+            except Exception as e:
+                self.utils.print_debug("Exception: ", e)
+                self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+
             if entry_type == "CSV":
                 if csv_location:
                     upload_button = self.devices_web_elements.get_device_entry_voss_csv_upload_button()
@@ -1899,26 +1902,17 @@ class Devices:
                     self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     return -1
-            else:
-                self.utils.print_info("Entering Serial Number for VOSS device...")
-                self.auto_actions.send_keys(self.devices_web_elements.get_devices_voss_serial_text_area(),
-                                            device_serial)
-                _errors = self.check_negative_combinations()
-                if _errors != 1:
-                    return _errors
 
-        if 'exos' in device_make.lower():
-            self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_drop_down())
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_exos_choice())
-            sleep(1)
-
-            if entry_type:
-                self.utils.print_info("Selecting Entry Type")
-                self.auto_actions.click(self.devices_web_elements.get_device_entry_type_drop_down())
+        if "EXOS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
+            try:
+                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
                 sleep(2)
-                self.auto_actions.select_drop_down_options(self.devices_web_elements.
-                                                           get_device_entry_type_drop_down_options(), entry_type)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(), "EXOS")
+            except Exception as e:
+                self.utils.print_debug("Exception: ", e)
+                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+
             if entry_type == "CSV":
                 if csv_location:
                     upload_button = self.devices_web_elements.get_device_entry_exos_csv_upload_button()
@@ -1936,12 +1930,10 @@ class Devices:
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     return -1
             else:
-                self.utils.print_info("Entering Serial Number for EXOS device...")
-                self.auto_actions.send_keys(self.devices_web_elements.get_devices_exos_serial_text_area(),
-                                            device_serial)
                 _errors = self.check_negative_combinations()
                 if _errors != 1:
                     return _errors
+
         if 'Dell' in device_make:
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
