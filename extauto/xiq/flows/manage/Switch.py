@@ -102,10 +102,6 @@ class Switch(SwitchWebElements):
         self.auto_actions.click(self.get_devices_refresh_button())
         sleep(5)
 
-        # if self.devices.search_device(device_serial=switch_serial):
-        #     self.utils.print_info("Successfully Onboarded Switch")
-        #     return 1
-
         if "," in switch_serial:
             switch_serial_list = switch_serial.split(",")
             for serial in switch_serial_list:
