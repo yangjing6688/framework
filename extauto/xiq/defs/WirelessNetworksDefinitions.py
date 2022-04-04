@@ -244,19 +244,43 @@ class WirelessNetworksDefinitions:
 
     wireless_ssid_list = \
         {
-            'XPATH': '//div[contains(@class,"dgrid-row")]/table/tr/td[2]',
-            'wait_for': 10
+            'CSS_SELECTOR': '.dgrid-row',
+            'wait_for': 15
         }
 
     wireless_chkbox = \
         {
-            'XPATH': '//div[contains(@class,"dgrid-row")]/table/tr[1]/td[1]/input',
+            'CSS_SELECTOR': '.dgrid-selector',
             'wait_for': 5
         }
 
     wireless_delete_button = \
         {
-            'XPATH': '//div[contains(@data-automation-tag,"networks-grid")]//span[2]',
+            'XPATH': '//*[@data-automation-tag="automation-wireless-ssids-remove-btn"]',
+            'wait_for': 5
+        }
+
+    wireless_re_use_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-wireless-ssids-reusable-btn"]',
+            'wait_for': 5
+        }
+
+    wireless_re_use_delete_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-reusable-grid"]//span[@data-tip="Delete"]',
+            'wait_for': 5,
+        }
+
+    wireless_re_use_cancel_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="cancelButton"]',
+            'wait_for': 5,
+        }
+
+    confirm_dialog_yes_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-confirm-message-yes-button"]',
             'wait_for': 5
         }
 

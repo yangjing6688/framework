@@ -1,17 +1,14 @@
 import sauceclient
 from datetime import datetime
 from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.chrome.options import Options
 from robot.libraries.BuiltIn import BuiltIn
 from urllib3.exceptions import MaxRetryError
-
 from extauto.common.Utils import Utils
-
-
 
 class CloudDriver():
     __instance = None
@@ -64,16 +61,14 @@ class CloudDriver():
         element_identify = "name"
         element_identify_value_name = "username"
 
-        if program == 'adsp':
-            element_identify_value_name = "j_username"
-            element_identify = "name"
-
         if program == 'approval':
             element_identify_value_xpath = "//*[@class='success_text']"
             element_identify = "xpath"
-            utils.print_info("Approval")
-
-        if program == 'xiqse':
+            utils.print_info("Approval")        
+        elif program == 'adsp':
+            element_identify_value_name = "j_username"
+            element_identify = "name"
+        elif program == 'xiqse': 
             if "xiqLicenseSetup.jsp" in url:
                 xiqse_version = BuiltIn().get_variable_value("${XIQSE_OS_VERSION}")
                 if xiqse_version:
@@ -90,6 +85,9 @@ class CloudDriver():
             else:
                 element_identify_value_name = "j_username"
                 element_identify = "name"
+        elif program == "clientmode":
+            element_identify = 'name'
+            element_identify_value_name = 'userName'
 
         if url == "default":
             url = BuiltIn().get_variable_value("${TEST_URL}")
@@ -97,6 +95,9 @@ class CloudDriver():
         if "hotmail" in url:
             element_identify_value_name = "loginfmt"
             element_identify = "name"
+    elif program == "clientmode":
+        element_identify = 'name'
+        element_identify_value_name = 'userName'
 
         if "eguest" in url:
             element_identify = "class-name"
