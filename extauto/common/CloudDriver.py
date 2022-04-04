@@ -96,9 +96,6 @@ class CloudDriver():
         if "hotmail" in url:
             element_identify_value_name = "loginfmt"
             element_identify = "name"
-    elif program == "clientmode":
-        element_identify = 'name'
-        element_identify_value_name = 'userName'
 
         if "eguest" in url:
             element_identify = "class-name"
