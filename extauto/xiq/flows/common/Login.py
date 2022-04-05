@@ -244,15 +244,13 @@ class Login:
             if self.t1.is_alive():
                 self.t1.do_run = False
                 sleep(10)
-
-            # CloudDriver().cloud_driver.quit()
-            CloudDriver().close_browser()
-            self.utils.print_info("Resetting cloud driver to -1")
-            # extauto.common.CloudDriver.cloud_driver = -1
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
             return -1
+        finally:
+            CloudDriver().close_browser()
+            self.utils.print_info("Resetting cloud driver to -1")
 
     def start_video_record(self, record_sta_ip, test_name=None):
         """
