@@ -2134,3 +2134,14 @@ class Device360WebElementDefs:
             'XPATH': '//*[@class="entity-content-ctn device-entity-connected-ctn"]//table[@class="dgrid-row-table"]//*[@data-mac]',
             'wait_for': 5
         }
+    device360_column_picker_scroll_bar = \
+        {
+            'XPATH': '//*[@class="dgrid-hider-menu"]',
+            'wait_for': 5
+        }
+
+    device360_column_picker_icon = \
+        {
+            'XPATH': '//*[@class="ui-icon dgrid-hider-toggle"]',
+            'wait_for': 5
+        }
