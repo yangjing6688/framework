@@ -113,10 +113,10 @@ class Switch(SwitchWebElements):
             return 1
         else:
             if self.devices.search_device(device_serial=switch_serial):
-                self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {serial}")
+                self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {switch_serial}")
                 return 1
             else:
-                self.utils.print_error(f"Switch with serial no. {serial} is not successfully onboarded...")
+                self.utils.print_error(f"Switch with serial no. {switch_serial} is not successfully onboarded...")
                 return -1
 
 
