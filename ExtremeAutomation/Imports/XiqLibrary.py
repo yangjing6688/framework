@@ -283,6 +283,7 @@ class XiqLibrary():
         self.xflowsmanageReports = Reports()
         self.xflowsmanageSwitch = Switch()
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
+        self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
 
 

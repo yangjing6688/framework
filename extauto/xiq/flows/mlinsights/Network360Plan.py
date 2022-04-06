@@ -19,7 +19,8 @@ class Network360Plan:
         self.auto_actions = AutoActions()
         self.n360_elements = Network360PlanElements()
 
-        self.custom_file_dir = os.getcwd() + '/import_map_files/'
+        self.custom_file_dir = '/automation/tests/extreme_automation_tests/Environments/Config/maps/'
+        #self.custom_file_dir = os.getcwd() + '/import_map_files/'
 
     def search_floor_in_network360plan(self, floor_name='default'):
         """
