@@ -19,8 +19,20 @@ class Network360Plan:
         self.auto_actions = AutoActions()
         self.n360_elements = Network360PlanElements()
 
-        self.custom_file_dir = '/automation/tests/extreme_automation_tests/Environments/Config/maps/'
-        #self.custom_file_dir = os.getcwd() + '/import_map_files/'
+        """
+            Need to build a string that represents the location of the map files
+            In a VM the path would be:
+            '/automation/framework/extreme_automation_framework/extauto/xiq/configs/maps'
+            Since not everyone is using a VM the begining of the path can be different.
+            To handle this condition, we will get the path of this file and split it into variables.
+            Then remove 3 directories from the end, and rebuild the path to include configs/maps/
+        """
+        self.current_path = os.path.realpath(__file__).split(os.sep)
+        self.current_path.pop()
+        self.current_path.pop()
+        self.current_path.pop()
+        self.custom_file_dir = os.path.join(os.sep,*self.current_path, "configs", "maps") + os.sep
+
 
     def search_floor_in_network360plan(self, floor_name='default'):
         """
