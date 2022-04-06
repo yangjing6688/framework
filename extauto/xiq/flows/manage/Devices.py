@@ -1092,17 +1092,15 @@ class Devices:
                         device_detail_dict = {}
                         for cell in cells:
                             try:
-                                self.utils.print_info(f"pre cell match {cell.text} class="+cell.get_attribute("class"))
+                                testcell = cell.get_attribute("class")
                             except:
                                 print("cell print error")
                                 continue
                             if re.search(r'field-\w*', cell.get_attribute("class")):
-                                self.utils.print_info(f"cell match {cell.text}")
                                 try:
                                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
                                 except:
                                     label = 'OOPS'
-                                self.utils.print_info(f"got label -- {label}")
                                 device_detail_dict[label] = cell.text
                             else:
                                 self.utils.print_info(f"missed class match " + cell.get_attribute("class"))
