@@ -1577,3 +1577,10 @@ class DevicesWebElementsDefinitions:
             'CSS_SELECTOR': '.dijitMenuItem',
             'wait_for': 5
         }
+
+    manage_devices_table_load_mask = \
+        {
+            'DESC': 'Manage > Devices "load" mask',
+            'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
+            'wait_for': 5
+        }

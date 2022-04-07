@@ -1078,3 +1078,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_simulated_device_dropdown_table_rows(self, table):
         return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
+
+    def get_manage_devices_table_load_mask(self):
+        return self.weh.get_element(self.manage_devices_table_load_mask)
