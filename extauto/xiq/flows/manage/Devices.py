@@ -1,5 +1,6 @@
 import re
 import os
+import copy
 from time import sleep
 from datetime import datetime
 from selenium.common.exceptions import StaleElementReferenceException
@@ -162,8 +163,8 @@ class Devices:
             ap_row = self.get_ap_row(ap_name=ap_name)
 
         if ap_mac != 'default':
-            self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
-            ap_row = self.get_ap_row(ap_mac=ap_mac)
+            self.utils.print_info("Getting status of AP with MAC: ", str(ap_mac).upper())
+            ap_row = self.get_ap_row(ap_mac=str(ap_mac).upper())
 
         if ap_row:
             sleep(10)
@@ -412,7 +413,7 @@ class Devices:
                         self.utils.print_info("Found AP row: ", self.format_row(row.text))
                         return row
                 if ap_mac != 'default':
-                    if ap_mac in row.text:
+                    if str(ap_mac) in row.text:
                         self.utils.print_info("Found AP row: ", self.format_row(row.text))
                         return row
         else:
@@ -1076,16 +1077,33 @@ class Devices:
         try:
             # self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
             prev_dev_list = []
+            sleep(5)
             rows = self.devices_web_elements.get_grid_rows()
             if rows:
                 for row in rows:
                     if device_type in row.text:
-                        cells = self.devices_web_elements.get_device_row_cells(row)
+                        self.utils.print_info(f"{row.text}")
+                        try:
+                            cells = self.devices_web_elements.get_device_row_cells(row)
+                            self.utils.print_info(f"found cells {len(cells)}")
+                        except:
+                            self.utils.print_info(f"Could not get Row Cells - {row}")
+                            continue
                         device_detail_dict = {}
                         for cell in cells:
+                            try:
+                                testcell = cell.get_attribute("class")
+                            except:
+                                print("cell print error")
+                                continue
                             if re.search(r'field-\w*', cell.get_attribute("class")):
-                                label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
+                                try:
+                                    label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
+                                except:
+                                    label = 'OOPS'
                                 device_detail_dict[label] = cell.text
+                            else:
+                                self.utils.print_info(f"missed class match " + cell.get_attribute("class"))
                         res = device_detail_dict.get("serialNumber")
                         prev_dev_list.append(res)
                 self.utils.print_info(f"List of Serial Numbers of Devices with device type {device_type}: {prev_dev_list}")

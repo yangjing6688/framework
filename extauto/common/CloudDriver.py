@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sauceclient
 from datetime import datetime
 from selenium import webdriver

@@ -45,6 +45,7 @@ class Login:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
             self.window_index = CloudDriver().open_window(url)
 
+
     def get_page_title(self):
         """
         - Get the title of the page
@@ -82,7 +83,7 @@ class Login:
 
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                   salesforce_password=False, saleforce_shared_cuid=False, **kwargs):
+                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, **kwargs):
         """
         - Login to Xiq account with username and password
         - By default url will load from the topology file
@@ -133,7 +134,10 @@ class Login:
         self.utils.print_info("Clicking on Sign In button")
 
         self.auto_actions.click(self.login_web_elements.get_login_page_login_button())
-        sleep(10)
+        if quick:
+            sleep(2)
+        else:
+            sleep(10)
 
         self.utils.print_info("Check for wrong credentials..")
         credential_warnings = self.login_web_elements.get_credentials_error_message()
@@ -169,7 +173,11 @@ class Login:
                 sleep(2)
 
         self.utils.print_info("Check for Advance Onboard Popup page after login..")
-        sleep(10)
+        if quick:
+            sleep(2)
+        else:
+            sleep(10)
+
         try:
             if self.login_web_elements.get_drawer_content().is_displayed():
                 self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
@@ -199,8 +207,12 @@ class Login:
         :return: 1 if logout success
         """
         # stop tool tip text capture thread
-        self.t1.do_run = False
-        sleep(10)
+        try:
+            self.t1.do_run = False
+            sleep(10)
+        except:
+            print("t1.do_run not initialized")
+
         try:
             self.utils.print_info("Clicking on Logout Menu")
             self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
@@ -232,15 +244,13 @@ class Login:
             if self.t1.is_alive():
                 self.t1.do_run = False
                 sleep(10)
-
-            # CloudDriver().cloud_driver.quit()
-            CloudDriver().close_browser()
-            self.utils.print_info("Resetting cloud driver to -1")
-            # extauto.common.CloudDriver.cloud_driver = -1
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
             return -1
+        finally:
+            CloudDriver().close_browser()
+            self.utils.print_info("Resetting cloud driver to -1")
 
     def start_video_record(self, record_sta_ip, test_name=None):
         """

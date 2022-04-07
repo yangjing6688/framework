@@ -1165,10 +1165,12 @@ class Cli(object):
         :return: returns 1 if 0 packet loss else -1
         """
         try:
-            self.utils.print_info("Host    : ", host)
-            self.utils.print_info("Username: ", username)
-            self.utils.print_info("Password: ", password)
-            self.utils.print_info("Port    : ", _port)
+            self.utils.print_info("Host        : ", host)
+            self.utils.print_info("Username    : ", username)
+            self.utils.print_info("Password    : ", password)
+            self.utils.print_info("Port        : ", _port)
+            self.utils.print_info("PromptReset : ", prompt_reset)
+            self.utils.print_info("Sync Multi  : ", sync_multiplier)
 
             if disable_strict_host_key_checking:
                 self.utils.print_info("Disabling SSH key Checking for Remote Device/Host On Server")
