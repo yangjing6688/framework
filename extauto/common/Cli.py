@@ -2125,8 +2125,6 @@ class Cli(object):
 
         if _spawn != -1:
             if 'AEROHIVE' in device_make.upper():
-                import sys, pdb;
-                pdb.Pdb(stdout=sys.__stdout__).set_trace()
                 self.send(_spawn, f'capwap client server name {server_name}')
                 self.send(_spawn, f'capwap client default-server-name {server_name}')
                 self.send(_spawn, f'capwap client server backup name {server_name}')
