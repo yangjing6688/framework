@@ -124,7 +124,24 @@ class Login:
             self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['browserVersion'])
 
         self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
-
+        if 'portal' in url:
+            self.utils.print_info("Entering Username...")
+            self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_username_text(), username)
+            sleep(3)
+            self.utils.print_info("Entering Password...")
+            self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_password_text(), password)
+            sleep(3)
+            self.utils.print_info("Clicking on Sign In button")
+            self.auto_actions.click(self.login_web_elements.get_login_portal_page_login_button())
+            sleep(2)
+            check_error = self.login_web_elements.get_login_portal_check_error()
+            if check_error:
+                self.utils.print_info("Error is displayed at loging : ", check_error.text)
+                return -1
+            else:
+                pass
+            sleep(5)
+            return 1
         self.utils.print_info("Entering Username...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
 
