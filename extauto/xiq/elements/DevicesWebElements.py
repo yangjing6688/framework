@@ -962,7 +962,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.check_unmanage_box)
 
     def get_pilot_lic_inventory(self):
-        return self.weh.get_element(self.pilot_lic_inventory)
+        return self.weh.get_elements(self.pilot_lic_inventory)
 
     def get_sn_button(self):
         return self.weh.get_element(self.sn_button)

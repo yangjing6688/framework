@@ -1364,7 +1364,7 @@ class DevicesWebElementsDefinitions:
 
     pilot_lic_inventory = \
         {
-            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]',
+            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]//div',
             'wait_for': 5
         }
 
