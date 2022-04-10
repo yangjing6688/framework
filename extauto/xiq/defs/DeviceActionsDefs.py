@@ -218,6 +218,57 @@ class DeviceActionsDefs:
             'XPATH': '//button[@data-dojo-attach-point="yesBtn"]',
             'wait_for': 5
         }
+    #ultima functie din main
+    device_actions_change_management_status = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-changemanagementstatus"]',
+            'wait_for': 2
+        }
 
+    manage_device_btn = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-manage-device"]',
+            'wait_for': 2
+        }
 
+    unmanage_device_btn = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-unmanage-device"]',
+            'wait_for': 2
+        }
 
+    confirm_manage_btn_yes = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 2
+        }
+
+    confirm_manage_message_txt = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="mainContent"]',
+            'wait_for': 2
+        }
+
+    close_message_btn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 2
+        }
+
+    unmanage_msg_text = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="errorMsg"]',
+            'wait_for': 2
+        }
+
+    change_os_actions_exos = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-ap-os-exos"]',
+            'wait_for': 5
+        }
+
+    change_os_actions_voss = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-ap-os-voss"]',
+            'wait_for': 5
+        }

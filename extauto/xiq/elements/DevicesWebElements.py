@@ -1081,3 +1081,13 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
+#ultima functie din main
+    def get_license_mgmt(self):
+        return self.weh.get_element(self.license_mgmt)
+
+    def get_license_unmanage_box(self):
+        el = self.weh.get_element(self.license_unmanage_box)
+        if el.is_displayed():
+            return el
+        else:
+            return None

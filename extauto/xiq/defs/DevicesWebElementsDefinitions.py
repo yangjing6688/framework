@@ -1584,3 +1584,15 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
+    #ultima functie din main
+    license_mgmt = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-licenseMng"]',
+            'wait_for': 5
+        }
+
+    license_unmanage_box = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="unmanage"]',
+            'wait_for': 5
+        }

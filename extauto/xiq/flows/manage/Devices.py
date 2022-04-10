@@ -6,6 +6,7 @@ from datetime import datetime
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
+from robot.libraries.String import String
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -43,6 +44,7 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
+        self.string = String()
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
@@ -6780,7 +6782,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
             # Check the already onboarded error
             if self.devices_web_elements.get_error_onboarding_message():
-                self.utils.print_info("{} already onboarded ".format(device_sn))
+                self.utils.print_info("SN already onboarded ")
                 return -1
             else:
                 pass
@@ -8868,4 +8870,525 @@ class Devices:
                 return -1
         else:
             self.utils.print_info("audit_rows was not found ")
+            return -1
+#ultima functie
+    def check_voss_image_version(self, spawn, os_version, operator = 'less'):
+        """
+        Check is os_version is equel, less or greater than on version from cli
+        :param spawn:
+        :param os_version: 8.6.0.0
+        :param operator: equel, less or greater than on version from cli
+        :return: True or False if os_version is equel, less or greater than on version from cli ; else -1
+        """
+
+        output_cmd1 = self.cli.send(spawn, "enable")
+        output_cmd2 = self.cli.send(spawn, "config t")
+        output_cmd3 = self.cli.send(spawn, "show sys software")
+        pattern1 = "Version[\\s\\:\\w]+\\s+(\\d+.\\d+.\\d+.\\d+)"
+        cli_os_version= self.string.get_regexp_matches(output_cmd3, pattern1, 1)
+        if cli_os_version:
+            self.utils.print_info(cli_os_version)
+            split_cli_os_version = cli_os_version[0].split('.')
+            self.utils.print_info(split_cli_os_version)
+
+            split_os_version = os_version.split('.')
+            self.utils.print_info(split_os_version)
+            cnt = 0
+            for el in split_os_version:
+                if int(el) > int(split_cli_os_version[cnt]):
+                    if operator == 'equel':
+                        return False
+                    elif operator == 'less':
+                        return False
+                    elif operator == 'greater':
+                        return True
+                    else:
+                        return -1
+
+                elif int(el) < int(split_cli_os_version[cnt]):
+                    if operator == 'equel':
+                        return False
+                    elif operator == 'less':
+                        return True
+                    elif operator == 'greater':
+                        return False
+                    else:
+                        return -1
+                elif int(el) == int(split_cli_os_version[cnt]):
+                    pass
+                else:
+                    return -1
+                cnt = cnt + 1
+        else:
+            return -1
+        if operator == 'equel':
+            return True
+        elif operator == 'less':
+            return False
+        elif operator == 'greater':
+            return False
+        else:
+            return -1
+
+    def teardown_check_and_revoke_license(self, device_sn):
+        '''
+        This function revoke all device license
+        :param device_sn: Sn of device
+        :return: 1 if device license status in "None" ; else -1
+        '''
+        flag_revoke = False
+        error = None
+        cnt = 0
+        while cnt < 2:
+            status = self.check_license_status(device_sn)
+            list_status_lic_and_error = status.split(" ", maxsplit=1)
+            if len(list_status_lic_and_error) == 1:
+                if list_status_lic_and_error[0] == 'None':
+                    return 1
+                else:
+                    pass
+                if flag_revoke:
+                    self.utils.print_info("There are still active licenses ({})".format(list_status_lic_and_error[0]))
+                    return -1
+                list_status_lic = list_status_lic_and_error[0].split(",")
+                for lic in list_status_lic:
+                    self.revoke_device_license(device_sn, lic, skip_warning_check=True)
+                    self.check_license_status(device_sn)
+                flag_revoke = True
+
+            elif len(list_status_lic_and_error) == 2:
+                if list_status_lic_and_error[0] == 'None':
+                    return 1
+                if error:
+                    self.utils.print_info("There are still active licenses ({}) and error is displayed: {} ".format(list_status_lic_and_error[0],error))
+                    return -1
+                list_status_lic = list_status_lic_and_error[0].split(",")
+                for lic in list_status_lic:
+                    self.revoke_device_license(device_sn, lic, skip_warning_check = True)
+                    self.check_license_status(device_sn)
+                flag_revoke = True
+                error = list_status_lic_and_error[1]
+            else:
+                self.screen.save_screen_shot()
+                return -1
+            cnt = cnt +1
+        return -1
+
+
+    def change_manage_device_status(self, manage_type='MANAGE', device_serial=None, device_mac=None, device_name=None):
+        '''
+        This Keyword changes the management status of the device.
+        - Keyword Usage:
+         - ``Change Manage Device Status    MANAGE      device_serial=${DEVICE_SERIAL}``
+         - ``Change Manage Device Status    UNMANAGE    device_mac=${DEVICE_MAC}``
+         - ``Change Manage Device Status    MANAGE    device_mac=${DEVICE_NAME}``
+
+        :param device_serial: device Serial
+        :param device_mac: device MAC address
+        :param manage_type: Manage/Unmanage device
+        :return: 1 if the management status was changed
+        '''
+
+        manage_setting = 'MANAGE'
+        unmanage_setting = 'UNMANAGE'
+        select_flag = False
+        if device_serial:
+            select_flag = False
+            for device in device_serial.split(','):
+                if self.select_device(device_serial = device):
+                    self.utils.print_info("Device with serial {} was selected".format(device))
+                    select_flag = True
+                else:
+                    self.utils.print_info("Device with serial {} was not been selected".format(device))
+                    return -1
+        elif device_mac:
+            select_flag = False
+            if self.select_device(device_mac = device_mac):
+                self.utils.print_info("Device with mac {} was selected".format(device_mac))
+                select_flag = True
+            else:
+                self.utils.print_info("Device with mac {} was not been selected".format(device_mac))
+                return -1
+        elif device_name:
+            select_flag = False
+            if self.device_name(device_name = device_name):
+                self.utils.print_info("Device with name {} was selected".format(device_name))
+                select_flag = True
+            else:
+                self.utils.print_info("Device with name {} was not been selected".format(device_name))
+                return -1
+        else:
+            self.utils.print_info("No device serial, device mac or device name has been given.")
+            return -1
+        if select_flag:
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            sleep(2)
+        self.utils.print_info("Trying to Change Management Status")
+        sleep(2)
+        manage_status = self.device_actions.get_device_actions_change_manage_status()
+        self.utils.print_info("Change Management Status")
+        self.utils.print_info(manage_status)
+
+        if manage_status:
+            self.utils.print_info("Selecting Change management status ")
+            self.auto_actions.move_to_element(manage_status)
+            sleep(2)
+            self.utils.print_info("Trying to select manage/unmanage.")
+            if str(manage_type).upper() in 'MANAGE':
+                manage_btn = self.device_actions.get_manage_device_btn()
+                if manage_btn:
+                    self.utils.print_info("Select Manage device")
+                    self.auto_actions.click(manage_btn)
+                    sleep(2)
+                    confirm_btn = self.device_actions.get_confirm_manage_btn_yes()
+                    if confirm_btn:
+                        self.utils.print_info("Confirm manage device")
+                        self.auto_actions.click(confirm_btn)
+                        sleep(2)
+                    else:
+                        self.utils.print_info("Confirm button not found")
+                        return -1
+                    sleep(10)
+                    confirm_msg = self.device_actions.get_confirm_manage_message()
+                    confirm_msg_txt = confirm_msg.text
+                    self.utils.print_info("Text: ", confirm_msg_txt)
+
+                    if "successfully changed to MANAGED" in confirm_msg_txt:
+                        self.utils.print_info("Managed status succesfully changed")
+
+                        close_confirm_tab = self.device_actions.get_close_message_btn()
+                        if close_confirm_tab:
+                            self.utils.print_info("Closing the manage confirmation tab")
+                            self.auto_actions.click(close_confirm_tab)
+                            return 1
+                        else:
+                            self.utils.print_info("Could not close the manage confirmation tab")
+                            return -1
+                    else:
+                        self.utils.print_info("Managed status was not changed")
+                        self.utils.print_info("Expected message: The device was successfully changed to MANAGED.")
+                        self.utils.print_info("Actual message: ", confirm_msg_txt)
+                        return -1
+                else:
+                    self.utils.print_info("Manage button not found")
+                    return -1
+            elif str(manage_type).upper() in 'UNMANAGE':
+                unmanage_btn = self.device_actions.get_unmanage_device_btn()
+                if unmanage_btn:
+                    self.utils.print_info("Select Unmanage device")
+                    self.auto_actions.click(unmanage_btn)
+                    sleep(2)
+
+                    confirm_btn = self.device_actions.get_confirm_manage_btn_yes()
+                    if confirm_btn:
+                        self.utils.print_info("Confirm unmanage device")
+                        self.auto_actions.click(confirm_btn)
+                        sleep(2)
+                    else:
+                        self.utils.print_info("Confirm button not found")
+                        return -1
+                    sleep(10)
+                    confirm_msg = self.device_actions.get_confirm_manage_message()
+                    confirm_msg_txt = confirm_msg.text
+                    self.utils.print_info("Text: ", confirm_msg_txt)
+
+                    if "successfully changed to UNMANAGED" in confirm_msg_txt:
+                        self.utils.print_info("Unmanaged status succesfully changed")
+                        close_confirm_tab = self.device_actions.get_close_message_btn()
+                        if close_confirm_tab:
+                            self.utils.print_info("Closing the unmanage confirmation tab")
+                            self.auto_actions.click(close_confirm_tab)
+                            return 1
+                        else:
+                            self.utils.print_info("Could not close the unmanage confirmation tab")
+                            return -1
+                    else:
+                        self.utils.print_info("Managed status was not changed")
+                        self.utils.print_info("Expected message: The device was successfully changed to UNMANAGED.")
+                        self.utils.print_info("Actual message: ", confirm_msg_txt)
+                        return -1
+                else:
+                    self.utils.print_info("Unmanage button not found")
+                    return -1
+            else:
+                self.utils.print_info("Manage status unknown")
+                return -1
+        else:
+            self.utils.print_info("Change management status not found")
+            self.screen.save_screen_shot()
+            return -1
+        return -1
+
+
+    def check_unmanage_message_on_device(self):
+        '''
+        This Keyword verifies if the unmanage message was shown.
+        :return: 1 if the unmanaged message was shown
+        '''
+
+        unmanage_msg = self.device_actions.get_unmanage_msg_text()
+        if unmanage_msg:
+            self.utils.print_info("Error message is shown. Checking if it's unmanage message.")
+            unmanage_msg_txt = unmanage_msg.text
+            self.utils.print_info("Unmanage text: ", unmanage_msg_txt)
+            self.utils.print_info("Checking if the error message is from unmanage")
+            if "was marked as unmanaged on" in unmanage_msg_txt:
+                self.utils.print_info("Unmanage message is present")
+                close_msg_btn = self.device_actions.get_close_message_btn()
+                if close_msg_btn:
+                    self.utils.print_info("Closing the device tab")
+                    self.auto_actions.click(close_msg_btn)
+                    return 1
+                else:
+                    self.utils.print_info("Could not close the device tab")
+                    return -1
+            else:
+                self.utils.print_info("Error message does not contain the unmanage message.")
+                self.utils.print_info("Error message shown is: ", unmanage_msg_txt)
+                return -1
+        else:
+            self.utils.print_info("Unmanage message not found.")
+            return -1
+
+
+    def onboarding_stack_per_unit(self, serial_numbers_list, device_os, location):
+        '''
+        This functions onboard serials one by one
+        :param serial_numbers_list: list of SNs
+        :param device_os: device os
+        :param location: location
+        :return: 1 if all SN was onboarded; else -1
+        '''
+
+        for serial_number in serial_numbers_list:
+            self.utils.print_info("Onboarding the serial: {}".format(serial_number))
+
+            check_onboarding_success = self.quick_onboarding_cloud_manual(serial_number, device_os, location)
+            if check_onboarding_success == 1:
+                self.utils.print_info("The serial: {} was succesfully onboarded.".format(serial_number))
+            else:
+                self.utils.print_info("Could not onboard the serial number {}".format(serial_number))
+                return -1
+        return 1
+
+    def change_device_onboarding_date_for_each_stack_member(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days,
+                                                            serial_number, owner_id, sw_connection_host):
+        '''
+        This function change the onboarding date with specific number of days behind
+        To use this function you need to have access to RDC database
+
+        :param ip_dest_ssh: ip of 'Jump station'
+        :param user_dest_ssh: extreme account user
+        :param pass_dest_ssh: extreme account password
+        :param days: The number of days passed from onboarding date
+        :param serial_number: Serial number of device
+        :param owner_id: Owner Id for XIQ account
+        :param rdc: RDC name : e.g w1r1 , g2r1
+        :return: 1 if onboarding date has been changed ; else -1
+        '''
+        if isinstance(serial_number, list):
+            self.utils.print_info("Trying to change the onboarding date for each serial...")
+            for serial in serial_number:
+                self.utils.print_info("Changing onboarding date for serial {}.".format(serial))
+                change_date_status = self.change_device_onboarding_date(ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days,
+                                                                        serial, owner_id, sw_connection_host)
+                if change_date_status != 1:
+                    self.utils.print_info("For this serial the onboarding date was not changed:",serial)
+                    return -1
+            return 1
+        else:
+            self.utils.print_info("The serial number given is not a list!")
+            return -1
+
+    def actions_change_os(self, device_serial, os, max_time=300, time_interval=10):
+        '''
+        This function chenge the os on switch by using ACTIONS->CHANGE OS button . Return 1 when "Rebooting" status is displayed
+        :param device_serial: SN of device
+        :param os: exos or voss
+        :param max_time:  maximum time waited for "Rebooting" status
+        :param time_interval: check interval
+        :return: 1 when "Rebooting" status is displayed; else -1
+        '''
+        select_flag = False
+        for el in device_serial.split(','):
+            if self.select_device(el):
+                self.utils.print_info("Device with serial {} was selected".format(el))
+                select_flag = True
+            else:
+                self.utils.print_info("Device with serial {} was not been selected".format(el))
+
+        if select_flag:
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            sleep(2)
+
+        self.utils.print_info("Select Change OS ")
+        if 'voss' in os.lower():
+            change_os_actions = self.device_actions.get_change_os_actions_exos()
+        elif 'exos' in os.lower():
+            change_os_actions = self.device_actions.get_change_os_actions_exos()
+        self.utils.print_info(change_os_actions)
+        if change_os_actions:
+            self.utils.print_info("Change OS")
+            self.auto_actions.click(change_os_actions)
+            sleep(2)
+        else:
+            self.utils.print_info("change OS not found")
+            self.screen.save_screen_shot()
+            return -1
+
+        yes_confirmation = self.device_actions.get_yes_confirmation()
+        if yes_confirmation:
+            self.utils.print_info("yes confirmation button was found ")
+            self.auto_actions.click(yes_confirmation)
+        else:
+            self.utils.print_info("yes confirmation button was not found ")
+            return -1
+        self.utils.print_info("Start checking the status")
+        retry_count = 0
+        while retry_count <= max_time:
+            sleep(5)
+            if device_serial != 'default':
+                self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
+                device_row = self.get_device_row(device_serial)
+            else:
+                return -1
+            device_update_status = self.devices_web_elements.get_updated_status_cell(device_row)
+            if device_update_status:
+                if 'Rebooting' in device_update_status.text:
+                    self.utils.print_info("Rebooting status was found  ", device_update_status.text)
+                    return 1
+                elif 'Failed' in device_update_status.text:
+                    self.utils.print_info("Device Update Failed: ", device_update_status.text)
+                    return -1
+                else:
+                    self.utils.print_info("Waiting for Rebooting status; Now the status is :  ", device_update_status.text)
+            else:
+                pass
+            sleep(time_interval)
+            self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
+            retry_count += time_interval
+        self.utils.print_info("return -1  ", device_update_status)
+        return -1
+
+    def get_cuid_and_viq_id(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, owner_id, sw_connection_host):
+        '''
+        This functions returns VHM ID an CUID ID.
+        :param ip_dest_ssh: ip/dns destination of bastion host
+        :param user_dest_ssh: user for bastion host account
+        :param pass_dest_ssh: password for bastion host account
+        :param owner_id: Owner id
+        :param sw_connection_host: RDC environment
+        :return: CUID and VIQ_IQ; else return None
+        '''
+
+        pattern1 = "(\\w+)r\\d."
+        gdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
+        output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(gdc[0]))
+        self.utils.print_info(output_cmd)
+        output_cmd1 = self.cli.send_pxssh(spawn, "sudo su -")
+        output_cmd2 = self.cli.send_pxssh(spawn, "psqlaccountdb", expected_output="Password for user accountuser:")
+        output_cmd3 = self.cli.send_pxssh(spawn, "aerohive")
+        output_cmd6 = self.cli.send_pxssh(spawn, ";")
+        output_cmd5 = self.cli.send_pxssh(spawn,
+                                          "select viq_id,system_cuid from viqid_to_cuid where owner_id ={};".format(
+                                              owner_id))
+        output_cmd4 = self.cli.send_pxssh(spawn,
+                                          "select * from viqid_to_cuid where owner_id ={};".format(
+                                              owner_id))
+        self.utils.print_info(output_cmd)
+        self.utils.print_info(output_cmd1)
+        self.utils.print_info(output_cmd2)
+        self.utils.print_info(output_cmd3)
+        self.utils.print_info(output_cmd4)
+        self.utils.print_info(output_cmd5)
+
+        pattern = "(VHM[\\w\\-]+)\\s+\\|\\s+\\w+"
+        pattern2 = "VHM[\\w\\-]+\\s+\\|\\s+(\\w+)"
+        viq_id = self.string.get_regexp_matches(output_cmd5, pattern,1)
+        system_cuid = self.string.get_regexp_matches(output_cmd5, pattern2,1)
+        self.utils.print_info(viq_id)
+        self.utils.print_info(system_cuid)
+
+        self.cli.close_spawn(spawn)
+        return viq_id[0],system_cuid[0]
+
+    def delete_all_devices(self):
+        '''
+        This function select all boxes from device manage page and then delete them
+        :return: 1 if all devices was deleted or devices are already deleted; else -1
+        '''
+
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            for row in rows:
+                self.utils.print_debug("Found device Row: ", self.format_row(row.text))
+                self.auto_actions.click(self.devices_web_elements.get_device_select_checkbox(row))
+                self.screen.save_screen_shot()
+                sleep(2)
+
+            self.utils.print_info("Click delete button")
+            sleep(2)
+            self.auto_actions.click(self.devices_web_elements.get_delete_button())
+            sleep(2)
+
+            self.utils.print_info("Click confirmation Yes Button")
+            self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+            sleep(2)
+            self.screen.save_screen_shot()
+
+            rows = self.devices_web_elements.get_grid_rows()
+            if rows:
+                return -1
+        else:
+            return 1
+
+    def unmanage_device_when_license_expired(self,device_sn):
+        '''
+        This function unmanage a device when unmanage box is displayed
+        :param device_sn: Sn of device
+        :return: 1 when device was unmanage ; else -1
+        '''
+
+        if self.select_device(device_sn) == 1:
+            unmanage_button = self.devices_web_elements.get_license_unmanage_box()
+            if unmanage_button:
+                self.auto_actions.click(unmanage_button)
+                confirm_btn = self.device_actions.get_confirm_manage_btn_yes()
+                if confirm_btn:
+                    self.utils.print_info("Confirm manage device")
+                    self.auto_actions.click(confirm_btn)
+                    sleep(2)
+                else:
+                    self.utils.print_info("Confirm button not found")
+                    return -1
+                sleep(10)
+                confirm_msg = self.device_actions.get_confirm_manage_message()
+                if confirm_msg:
+                    if "The device was successfully changed to UNMANAGED." in confirm_msg.text:
+                        self.utils.print_info("The device was successfully changed to UNMANAGED.")
+                        close_confirm_tab = self.device_actions.get_close_message_btn()
+                        if close_confirm_tab:
+                            self.utils.print_info("Closing the manage confirmation tab")
+                            self.auto_actions.click(close_confirm_tab)
+                            return 1
+                        else:
+                            self.utils.print_info("Could not close the manage confirmation tab")
+                            return -1
+                    else:
+                        self.utils.print_info("The unmanage message is not correct")
+                        self.utils.print_info("Actual message: ", confirm_msg.text)
+                        close_confirm_tab = self.device_actions.get_close_message_btn()
+                        if close_confirm_tab:
+                            self.utils.print_info("Closing the manage confirmation tab")
+                            self.auto_actions.click(close_confirm_tab)
+                        else:
+                            self.utils.print_info("Could not close the manage confirmation tab")
+                        return -1
+            else:
+                self.utils.print_info("unmanage button not found ")
+                return -1
+        else:
             return -1
