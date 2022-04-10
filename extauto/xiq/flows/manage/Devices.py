@@ -7819,8 +7819,8 @@ class Devices:
         else:
             self.utils.print_info("Double verification doesn't appear")
             return -1
-
-    def change_device_onboarding_date(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days, serial_number, owner_id, rdc="g2r1"):
+#de aici incep update
+    def change_device_onboarding_date(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days, serial_number, owner_id, sw_connection_host):
         '''
         This function change the onboarding date with specific number of days behind
         To use this function you need to have access to RDC database
@@ -7834,19 +7834,21 @@ class Devices:
         :param rdc: RDC name : e.g w1r1 , g2r1
         :return: 1 if onboarding date has been changed ; else -1
         '''
+        pattern1 = "(\\w+)."
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh,user_dest_ssh,pass_dest_ssh)
         if spawn == -1:
             return -1
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
         output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
         if "No such file or directory" in output_cmd_cd:
-            self.robot_built_in.skip('The .ssh folder does not exist')
+            return -1
         else:
             self.cli.send_pxssh(spawn, "cd ..")
-        if not "ahdev_id_rsa" in output_cmd_ls:
-            self.robot_built_in.skip('No ssh certificate exist on jump station')
+        if not "ahqa_id_rsa" in output_cmd_ls:
+           #self.robot_built_in.skip('No ssh certificate exist on jump station')
             return -1
-        output_cmd = self.cli.send_pxssh(spawn ,"ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc))
+        output_cmd = self.cli.send_pxssh(spawn ,"ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
         self.utils.print_info(output_cmd)
         output_cmd1 = self.cli.send_pxssh(spawn, "sudo su -")
         output_cmd2 = self.cli.send_pxssh(spawn, "psqlconfigdb_1")
@@ -7877,7 +7879,7 @@ class Devices:
         self.cli.close_spawn(spawn)
         return 1
 
-    def max_device_num_from_hm_vhm_account_table(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, vhm_id, rdc="g2r1"):
+    def max_device_num_from_hm_vhm_account_table(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, vhm_id, sw_connection_host):
         '''
         This function returns the number of devices which can be onboarded
         To use this function you need to have access to RDC database
@@ -7890,18 +7892,21 @@ class Devices:
         :return: number of devices which can be onboarded  ; else -1
         '''
 
+        pattern1 = "(\\w+)."
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
         output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
         if "No such file or directory" in output_cmd_cd:
-            self.robot_built_in.skip('The .ssh folder does not exist')
+            return -1
         else:
             self.cli.send_pxssh(spawn, "cd ..")
-        if not "ahdev_id_rsa" in output_cmd_ls:
-            self.robot_built_in.skip('No ssh certificate exist on jump station')
+        if not "ahqa_id_rsa" in output_cmd_ls:
+            #self.robot_built_in.skip('No ssh certificate exist on jump station')
             return -1
-        output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc))
+        output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
         self.utils.print_info(output_cmd)
+        #output_cmd1 = self.cli.send_pxssh(spawn, "yes")
         output_cmd1 = self.cli.send_pxssh(spawn, "sudo su -")
         output_cmd2 = self.cli.send_pxssh(spawn, "psqlsystemdb")
         output_cmd3 = self.cli.send_pxssh(spawn,
@@ -7916,31 +7921,33 @@ class Devices:
         self.utils.print_info(output_cmd3)
         self.utils.print_info(output_cmd4)
         pattern = vhm_id + "\\s+\\|\\s+(\\d+)"
-        max_devices = self.utils.get_regexp_matches(output_cmd4, pattern, 1)
+        max_devices = self.string.get_regexp_matches(output_cmd4, pattern, 1)
         self.utils.print_info(max_devices)
         self.cli.close_spawn(spawn)
         return max_devices[0]
 
-    def check_update_time_on_rdc(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, rdc="g2r1"):
+    def check_update_time_on_rdc(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, sw_connection_host):
         '''
         This function returns the update time interval for RDC
 
-        :param ip_dest_ssh: ip of 'Jump station'
+        :param ip_dest_ssh: ip of 'bastion station'
         :param user_dest_ssh: extreme account user
         :param pass_dest_ssh: extreme account password
-        :param rdc: RDC name : e.g w1r1 , g2r1
+        :param sw_connection_host: The RDC DNS
         :return: interval time and interval unit ; else -1
         '''
+        pattern1 = "(\\w+)."
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
 
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
         output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
         if "No such file or directory" in output_cmd_cd:
-            self.robot_built_in.skip('The .ssh folder does not exist')
+            return -1
         else:
             self.cli.send_pxssh(spawn, "cd ..")
-        if not "ahdev_id_rsa" in output_cmd_ls:
-            self.robot_built_in.skip('No ssh certificate exist on jump station')
+        if not "ahqa_id_rsa" in output_cmd_ls:
+
             return -1
         output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc))
         self.utils.print_info(output_cmd)
@@ -8015,7 +8022,8 @@ class Devices:
             return -1
         return 1
 
-    def activate_device_license(self, device_serial, license_type, username = None, password = None, shared_cuid = None):
+    def activate_device_license(self, device_serial, license_type, username = None, password = None, shared_cuid = None,
+                                warning_msg = None, skip_warning_check = False):
         '''
         This function activate premier or macsec license on a device
 
@@ -8057,7 +8065,7 @@ class Devices:
             self.utils.print_info("Button not found ")
             return -1
 
-        if license_type == 'premier':
+        if license_type == 'premier' or license_type == 'PREMIER':
             premier_act_button = self.device_actions.get_act_premier_btn()
             self.utils.print_info(premier_act_button)
             if premier_act_button:
@@ -8066,7 +8074,7 @@ class Devices:
             else:
                 self.utils.print_info("Button not found ")
                 return -1
-        elif license_type == 'macsec':
+        elif license_type == 'macsec' or license_type == 'MACSEC':
             macsec_button = self.device_actions.get_act_macsec_btn()
             if macsec_button:
                 self.utils.print_info("Press Macsec license")
@@ -8074,12 +8082,84 @@ class Devices:
             else:
                 self.utils.print_info("Button not found ")
                 return -1
+        elif license_type == 'FOURPORT10G':
+            act_10g_4p_btn = self.device_actions.get_act_10g_4p_btn()
+            if act_10g_4p_btn:
+                self.utils.print_info("Press 10G 4P license")
+                self.auto_actions.click(act_10g_4p_btn)
+
+            else:
+                self.utils.print_info("Button not found ")
+                self.screen.save_screen_shot()
+                return -1
+        elif license_type == 'EIGHTPORT10G':
+            act_10g_8p_btn = self.device_actions.get_act_10g_8p_btn()
+            if act_10g_8p_btn:
+                self.utils.print_info("Press 10G 8P license")
+                self.auto_actions.click(act_10g_8p_btn)
+            else:
+                self.utils.print_info("Button not found ")
+                return -1
+
         else:
             return -1
+        sleep(3)
         yes_confirmation = self.device_actions.get_yes_confirmation()
         if yes_confirmation:
             self.utils.print_info("yes confirmation button was found ")
             self.auto_actions.click(yes_confirmation)
+            sleep(4)
+            if license_type == 'FOURPORT10G' or license_type == 'EIGHTPORT10G':
+                if skip_warning_check:
+                    confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
+                    if confirm_msg_yes:
+                        self.utils.print_info("confirm_msg_yes button was found")
+                        self.auto_actions.click(confirm_msg_yes)
+                        return 1
+                    else:
+                        self.utils.print_info("confirm_msg_yes button not found")
+                else:
+                    pass
+                if warning_msg:
+                    warning_xiq_text = self.device_actions.get_warning_xiq_text()
+                    if warning_xiq_text:
+                        self.utils.print_info("Expected message is  :", warning_msg)
+                        self.utils.print_info("Message from XIQ is :",warning_xiq_text.text)
+                        if warning_msg in warning_xiq_text.text:
+                            self.utils.print_info("Message match")
+                            confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
+                            if confirm_msg_yes:
+                                self.utils.print_info("confirm_msg_yes button was found")
+                                self.auto_actions.click(confirm_msg_yes)
+                                return 1
+                            else:
+                                self.utils.print_info("confirm_msg_yes button not found")
+                                self.screen.save_screen_shot()
+                                return -1
+                        else:
+                            self.utils.print_info("Message doesn't match")
+                            self.screen.save_screen_shot()
+                            return -1
+                    else:
+                        self.utils.print_info("Warning message was not found.")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    warning_xiq_text = self.device_actions.get_warning_xiq_text()
+                    if warning_xiq_text:
+                        self.utils.print_info("Warning message is displayed. Warning message should not be displayed .")
+                        confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
+                        if confirm_msg_yes:
+                            self.utils.print_info("confirm_msg_yes button was found")
+                            self.auto_actions.click(confirm_msg_yes)
+
+                        else:
+                            self.utils.print_info("confirm_msg_yes button not found")
+                            self.screen.save_screen_shot()
+                            return -1
+                        return -1
+            else:
+                pass
             sleep(20)
             check_portal_page = self.devices_web_elements.get_check_portal_page()
             if check_portal_page:
@@ -8087,15 +8167,18 @@ class Devices:
                     self.utils.print_info("Login to extreme portal")
                     return 1
                 else:
+                    self.screen.save_screen_shot()
                     return -1
             else:
                 self.utils.print_info("Login to extreme portal page was not displayed ")
         else:
             self.utils.print_info("yes confirmation button was not found ")
+            self.screen.save_screen_shot()
             return -1
         return 1
 
-    def revoke_device_license(self, device_serial,license_type, username = None, password = None, shared_cuid = None):
+    def revoke_device_license(self, device_serial,license_type, username = None, password = None, shared_cuid = None,
+                              warning_msg = None, skip_warning_check = False):
         '''
         This function revoke premier or macsec license on a device
 
@@ -8117,7 +8200,6 @@ class Devices:
             self.auto_actions.click(self.device_actions.get_device_actions_button())
             sleep(2)
 
-        self.utils.print_info("Select Manage Device License ")
         manage_license = self.device_actions.get_device_actions_manage_license()
         if manage_license:
             self.utils.print_info("Select Manage Device License ")
@@ -8135,7 +8217,7 @@ class Devices:
         else:
             self.utils.print_info("Button not found ")
             return -1
-        if license_type == 'premier':
+        if license_type == 'premier' or license_type == 'PREMIER':
             premier_rev_button = self.device_actions.get_rev_premier_btn()
             if premier_rev_button:
                 self.utils.print_info("Press Premier button")
@@ -8143,7 +8225,7 @@ class Devices:
             else:
                 self.utils.print_info("Button not found ")
                 return -1
-        elif license_type == 'macsec':
+        elif license_type == 'macsec' or license_type == 'MACSEC':
             macsec_button = self.device_actions.get_rev_macsec_btn()
             if macsec_button:
                 self.utils.print_info("Press Macsec license")
@@ -8151,12 +8233,78 @@ class Devices:
             else:
                 self.utils.print_info("Button not found ")
                 return -1
+        elif license_type == 'FOURPORT10G':
+            rev_10g_4p_btn = self.device_actions.get_rev_10g_4p_btn()
+            if rev_10g_4p_btn:
+                self.utils.print_info("Press 10G 4P license")
+                self.auto_actions.click(rev_10g_4p_btn)
+            else:
+                self.utils.print_info("Button not found ")
+                return -1
+
+        elif license_type == 'EIGHTPORT10G':
+            rev_10g_8p_btn = self.device_actions.get_rev_10g_8p_btn()
+            if rev_10g_8p_btn:
+                self.utils.print_info("Press 10G 8P license")
+                self.auto_actions.click(rev_10g_8p_btn)
+            else:
+                self.utils.print_info("Button not found ")
+                return -1
         else:
             return -1
+        sleep(3)
         yes_confirmation = self.device_actions.get_yes_confirmation()
         if yes_confirmation:
             self.utils.print_info("yes confirmation button was found ")
             self.auto_actions.click(yes_confirmation)
+            sleep(4)
+            if license_type == 'FOURPORT10G' or license_type == 'EIGHTPORT10G':
+                if skip_warning_check:
+                    confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
+                    if confirm_msg_yes:
+                        self.utils.print_info("confirm_msg_yes button was found")
+                        self.auto_actions.click(confirm_msg_yes)
+                        return 1
+                    else:
+                        self.utils.print_info("confirm_msg_yes button not found")
+                else:
+                    pass
+
+                if warning_msg:
+                    warning_xiq_text = self.device_actions.get_warning_rvk_xiq_text()
+                    if warning_xiq_text:
+                        self.utils.print_info("Message is  :", warning_msg)
+                        self.utils.print_info("Message is XIQ :",warning_xiq_text.text)
+                        if warning_msg in warning_xiq_text.text:
+                            self.utils.print_info("Message match")
+                            confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
+                            if confirm_msg_yes:
+                                self.utils.print_info("confirm_msg_yes button was found")
+                                self.auto_actions.click(confirm_msg_yes)
+                                self.utils.print_info("Return 1")
+                                return 1
+                            else:
+                                self.utils.print_info("confirm_msg_yes button not found")
+                                self.screen.save_screen_shot()
+                                return -1
+                        else:
+                            self.utils.print_info("Message doesn't match")
+                            self.screen.save_screen_shot()
+                            return -1
+                    else:
+                        self.utils.print_info("Warning message was not found.")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    self.utils.print_info("Am ajuns aici.")
+                    warning_xiq_text = self.device_actions.get_warning_rvk_xiq_text()
+                    if warning_xiq_text:
+                        self.utils.print_info("Warning message is displayed . The revocation warning should not be displayed ")
+                        return -1
+                    else:
+                        pass
+            else:
+                pass
             sleep(20)
             check_portal_page = self.devices_web_elements.get_check_portal_page()
             if check_portal_page:
@@ -8179,80 +8327,98 @@ class Devices:
         :param device_sn: Device serial
         :param max_time: Maximum duration of check
         :param time_interval: Time interval between two consecutive checks
-        :return: returns the status displayed into device license field (NONE; PREMIER; MACSEC or PREMIER,MACSEC ) +
+        :return: returns the status displayed into device license field (NONE; PREMIER; MACSEC; FOURPORT10G;EIGHTPORT10G) +
         error message if it is present ;else -1
         """
         self.utils.print_info("Start checking the status for device license")
         sleep(20)
         retry_count = 0
-        try_one_more_time_to_confirm_error = False
-        try_one_more_time = None
-        error = ''
-        while retry_count <= max_time or try_one_more_time:
+        error = None
+        error_before = None
+        options_list = ['PREMIER','MACSEC','FOURPORT10G','EIGHTPORT10G','None']
+        check_list_before = [None] * 5
+        check_list = [None] * 5
+        flag_try_again = False
+        list_return = []
+        while retry_count <= max_time or flag_try_again:
+            flag_try_again = False
             rows = self.devices_web_elements.get_grid_rows()
             if rows:
                 for row in rows:
                     if device_sn in row.text:
-                        self.utils.print_debug("Found device Row: ", self.format_row(row.text))
                         license_form_error = self.devices_web_elements.get_license_form_error(row)
                         if license_form_error:
-                            if try_one_more_time_to_confirm_error:
-                                self.utils.print_info("Final status is {} ".format(license_form_error.get_attribute("title")))
-                                error = ' ' + license_form_error.get_attribute("title")
+                            if isinstance(license_form_error.get_attribute("title"), str):
+                               error = ' ' + license_form_error.get_attribute("title")
+                               self.utils.print_info("ERROR FOUND:",error)
                             else:
-                                if try_one_more_time:
-                                    try_one_more_time = None
-                                    max_time += 2 * time_interval
-                                else:
-                                    pass
-                                try_one_more_time_to_confirm_error = True
-                                self.utils.print_info("Try one more time to confirm the result :", license_form_error.text)
+                                error = None
                         else:
-                            pass
+                            self.utils.print_info("ERROR not FOUND")
                         field_license_stat = self.devices_web_elements.get_field_license_stat(row)
                         if field_license_stat:
-                            self.utils.print_info("Actual status is {} ".format(field_license_stat.text + error))
-                            if 'None' in field_license_stat.text:
-                                if try_one_more_time == 'None':
-                                    self.utils.print_info("Final status is {} ".format(field_license_stat.text + error))
-                                    return 'None' + error
-                                else:
-                                    try_one_more_time = 'None'
-                                    self.utils.print_info("Try one more time to confirm the result :", try_one_more_time)
-                                    sleep(10)
-                            elif '%' in field_license_stat.text:
-                                self.utils.print_info("After {} sec the status is ".format(retry_count, field_license_stat.text))
-                                sleep(10)
-                            elif 'PREMIER' in field_license_stat.text and 'MACSEC' in field_license_stat.text:
-                                if try_one_more_time == 'PREMIER,MACSEC':
-                                    self.utils.print_info("Final status is {} ".format(field_license_stat.text + error))
-                                    return 'PREMIER,MACSEC' + error
-                                else:
-                                    try_one_more_time = 'PREMIER,MACSEC'
-                                    self.utils.print_info("Try one more time to confirm the result :", try_one_more_time)
-                                    sleep(10)
-                            elif 'MACSEC' == field_license_stat.text:
-                                if try_one_more_time == 'MACSEC':
-                                    self.utils.print_info("Final status is {} ".format(field_license_stat.text + error))
-                                    return 'MACSEC' + error
-                                else:
-                                    try_one_more_time = 'MACSEC'
-                                    self.utils.print_info("Try one more time to confirm the result :", try_one_more_time)
-                                    sleep(10)
-                            elif 'PREMIER' == field_license_stat.text:
-                                if try_one_more_time == 'PREMIER':
-                                    self.utils.print_info("Final status is {} ".format(field_license_stat.text + error))
-                                    return 'PREMIER' + error
-                                else:
-                                    try_one_more_time = 'PREMIER'
-                                    self.utils.print_info("Try one more time to confirm the result :", try_one_more_time)
-                                    sleep(10)
+                            if '%' in field_license_stat.text:
+                                self.utils.print_info("Still loading. Will try again ")
+                                check_list_before = [None] * 5
+                                error_before = None
                             else:
-                                self.utils.print_info("field_license_stat has unexpected value")
+                                field_license_stat_list = field_license_stat.text.split(',')
+                                self.utils.print_info("License status is :",field_license_stat_list)
+                                for el in field_license_stat_list:
+                                    if el in options_list:
+                                        self.utils.print_info("{} is valid value".format(el))
+                                    else:
+                                        return -1
+                                cnt = 0
+                                for lic in options_list:
+                                    if lic in field_license_stat.text:
+                                        check_list[cnt] = lic
+                                    else:
+                                        pass
+                                    cnt = cnt + 1
+                                self.utils.print_info("Current status for license field : ",check_list)
                         else:
-                            self.utils.print_info("field_license_stat not found")
+                            self.utils.print_info("license field status not found ")
                             return -1
-                        break
+                        if error:
+                            if error_before == error:
+                                pass
+                            else:
+                                error_before = error
+                                flag_try_again = True
+                        else:
+                            pass
+                        if not check_list == [None] * 5:
+                            if check_list_before == check_list:
+                                first_el = True
+                                for el in check_list:
+                                    if el:
+                                        if first_el:
+                                            list_return = el
+                                            first_el = False
+                                        else:
+                                            list_return = list_return + "," + el
+                                    else:
+                                        pass
+                                if error:
+                                    if error_before == error and flag_try_again == False:
+                                        self.utils.print_info("Return :",list_return + error)
+                                        return list_return + error
+                                    else:
+                                        pass
+                                else:
+                                    self.utils.print_info("Return :",list_return)
+                                    self.utils.print_info("Return type :", type(list_return))
+                                    return list_return
+                            else:
+                                check_list_before = check_list.copy()
+                                flag_try_again = True
+                        else:
+                            check_list_before = check_list.copy()
+                        if flag_try_again:
+                            self.utils.print_info("Will try again to confirm the result: {} and Error : {}".format(check_list,error))
+                        check_list = [None] * 5
+                        error = None
                     else:
                         pass
                 self.refresh_devices_page()
@@ -8283,17 +8449,26 @@ class Devices:
             if check_unmanage_box:
                 pilot_lic_inventory = self.devices_web_elements.get_pilot_lic_inventory()
                 if pilot_lic_inventory:
-                    if '/' in pilot_lic_inventory.text:
-                        self.utils.print_info("Am ajuns aici")
-                        pilot_inventory_found = pilot_lic_inventory.text
-                        break
+                    for el in pilot_lic_inventory:
+                        if 'Pilot' in el.text:
+                            if '/' in el.text:
+                                pilot_inventory_found = el.text
+                                break
+                            else:
+                                pass
+                        else:
+                            self.utils.print_info(el.text)
                 else:
-                    self.utils.print_info("The unmanage box is displayed but device inventory not found  ")
+                    self.utils.print_info("The inventory box not found  ")
             else:
                 self.utils.print_info("The unmanage box not found  ")
             sleep(interval_time)
             cnt = cnt + interval_time
             self.utils.print_info("Time", cnt)
+            if pilot_inventory_found:
+                break
+            else:
+                pass
         if pilot_inventory_found:
             self.utils.print_info("The unmanage box was found: ", pilot_inventory_found)
             return pilot_inventory_found
@@ -8526,7 +8701,7 @@ class Devices:
         else:
             pass
 
-        sleep(10)
+        sleep(20)
         enter_shared_cuid = self.devices_web_elements.get_enter_shared_cuid()
         if enter_shared_cuid:
             self.auto_actions.send_keys(enter_shared_cuid, shared_cuid)
@@ -8596,16 +8771,20 @@ class Devices:
         :return: 1 if the account was unlinked ; else -1
         '''
         self.utils.print_info("Starting unlink")
+        sleep(3)
         sfdc_unlink = self.devices_web_elements.get_sfdc_unlink()
         if sfdc_unlink:
             self.auto_actions.click(sfdc_unlink)
+            sleep(3)
             yes_button_unlink = self.devices_web_elements.get_yes_button_unlink()
             if yes_button_unlink:
                 self.utils.print_info("press yes confirmation")
                 self.auto_actions.click(yes_button_unlink)
+                sleep(3)
             else:
                 self.utils.print_info("confirmation button was not found ")
             self.login.refresh_page()
+            sleep(3)
             if self.check_unlink_button() == -1:
                 self.utils.print_info("the account was unlinked")
                 return 1
@@ -8616,9 +8795,8 @@ class Devices:
             self.utils.print_info("unlink button was not found ")
             return -1
 
-
     def check_pilot_license_consumption(self, expected_available, expected_activated, license_type = "PRD-XIQ-PIL-S-C",
-                                        max_time=600, interval_check_time=60):
+                                        max_time=660, interval_check_time=60):
         '''
         This function checks if the available and activated licenses are displayed as expected into License Management page
         :param expected_available: Number of expected available licenses
@@ -8630,6 +8808,7 @@ class Devices:
         '''
 
         cnt = 0
+        still_loading = False
         while cnt < max_time:
             available = 0
             activated = 0
@@ -8640,10 +8819,10 @@ class Devices:
                 self.auto_actions.click(license_mgmt)
             else:
                 self.utils.print_info("license_mgmt button was not found ")
-                return -1
 
             subscription_rows = self.devices_web_elements.get_subscription_rows()
             if subscription_rows:
+                still_loading = False
                 self.utils.print_info("Found {} subscription rows".format(len(subscription_rows)))
                 if len(subscription_rows) > 1:
                     self.utils.print_info("Many subscription rows were found ")
@@ -8678,27 +8857,36 @@ class Devices:
                 else:
                     pass
             else:
-                self.utils.print_info("license_mgmt button was not found ")
-                return -1
+                if still_loading:
+                    self.utils.print_info("license_mgmt button was not found ")
+                    return -1
+                else:
+                    self.utils.print_info("license_mgmt button was not found. Adding delay and try again ")
+                    still_loading = True
             sleep(interval_check_time)
             cnt = cnt + interval_check_time
             self.utils.print_info("Waited {} sec".format(cnt))
             self.login.refresh_page()
+            if still_loading:
+                sleep(20)
         self.utils.print_info("Available and activated values from XIQ do not match with the expected values ")
         self.utils.print_info("Available Expected {} ; Displayed in XIQ {}: ".format(expected_available, available))
         self.utils.print_info("Activated Expected {} ; Displayed in XIQ {}: ".format(expected_activated, activated))
         return -1
 
-    def check_long_sn_or_legacy_sn_mapping(self, device_serial, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, rdc="g2r1"):
+    def check_long_sn_or_legacy_sn_mapping(self, device_serial, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, sw_connection_host):
         '''
         This function checks if the SN for 5520 has short or long format . If the function has short format the sn will be
         searched into extr_legacy_sn_mapping table
         :param ip_dest_ssh: ip of 'Jump Station'
         :param user_dest_ssh: SFDC username account
         :param pass_dest_ssh: SFDC password account
-        :param rdc: The RDC name . e.g. w1r1 ,w1r3 ,g2r1
+        :param sw_connection_host: The RDC DNS
         :return: 1 if SN has long format or if it is into db ; else -1
         '''
+
+        pattern1 = "(\\w+)."
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
 
         if len(device_serial) > 11:
             self.utils.print_info("device SN has long format")
@@ -8708,11 +8896,11 @@ class Devices:
             output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
             output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
             if "No such file or directory" in output_cmd_cd:
-                self.robot_built_in.skip('The .ssh folder does not exist')
+                return -1
             else:
                 self.cli.send_pxssh(spawn, "cd ..")
-            if not "ahdev_id_rsa" in output_cmd_ls:
-                self.robot_built_in.skip('No ssh certificate exist on jump station')
+            if not "ahqa_id_rsa" in output_cmd_ls:
+                #self.robot_built_in.skip('No ssh certificate exist on jump station')
                 return -1
             output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc))
             self.utils.print_info(output_cmd)
@@ -8773,7 +8961,6 @@ class Devices:
 
         if not self.navigator.navigate_to_license_management() == 1:
             return -1
-
         sleep(2)
         get_link_my_account = self.devices_web_elements.get_link_my_account()
         if get_link_my_account:
@@ -8782,7 +8969,6 @@ class Devices:
         else:
             self.utils.print_info("'Link my extreme portal' button was not found ")
             return -1
-
         sleep(2)
         get_link_my_account_agree = self.devices_web_elements.get_link_my_account_agree()
         if get_link_my_account_agree:
@@ -8791,7 +8977,6 @@ class Devices:
         else:
             self.utils.print_info("Checkbox Agree was not found ")
             return -1
-
         link_my_account_continue = self.devices_web_elements.get_link_my_account_continue()
         if link_my_account_continue:
             self.utils.print_info("Continue button was found ")
