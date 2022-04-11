@@ -9278,8 +9278,6 @@ class Devices:
         sleep(2)
         manage_status = self.device_actions.get_device_actions_change_manage_status()
         self.utils.print_info("Change Management Status")
-        self.utils.print_info(manage_status)
-
         if manage_status:
             self.utils.print_info("Selecting Change management status ")
             self.auto_actions.move_to_element(manage_status)
@@ -9291,6 +9289,7 @@ class Devices:
                     self.utils.print_info("Select Manage device")
                     self.auto_actions.click(manage_btn)
                     sleep(2)
+                    self.screen.save_screen_shot()
                     confirm_btn = self.device_actions.get_confirm_manage_btn_yes()
                     if confirm_btn:
                         self.utils.print_info("Confirm manage device")
@@ -9298,10 +9297,14 @@ class Devices:
                         sleep(2)
                     else:
                         self.utils.print_info("Confirm button not found")
-                        self.screen.save_screen_shot()
                         return -1
                     sleep(10)
                     confirm_msg = self.device_actions.get_confirm_manage_message()
+                    if not confirm_msg:
+                        self.utils.print_info("confirm manage message was not found ")
+                        return -1
+                    else:
+                        pass
                     confirm_msg_txt = confirm_msg.text
                     self.utils.print_info("Text: ", confirm_msg_txt)
 
