@@ -1,6 +1,6 @@
 import re
 from time import sleep
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -12,7 +12,7 @@ class AirDefenceAlarms(AdspWebElements):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
@@ -31,11 +31,11 @@ class AirDefenceAlarms(AdspWebElements):
         :return: ADSP Alarm details dictionary which matches first in the Grid else None
         """
         alarm_details = {}
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         self.utils.print_info("Click More Insights button")
@@ -43,7 +43,7 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(5)
 
         self.utils.print_info("Switch to new ADSP tab")
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -84,7 +84,7 @@ class AirDefenceAlarms(AdspWebElements):
 
         :return:
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
 
@@ -108,7 +108,7 @@ class AirDefenceAlarms(AdspWebElements):
         else:
             self.utils.print_info("User already subscribed ADSP page")
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         self.utils.print_info("Click More Insights button")
@@ -116,7 +116,7 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(6)
 
         self.utils.print_info("Switch to new ADSP Tab")
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -174,13 +174,13 @@ class AirDefenceAlarms(AdspWebElements):
             self.auto_actions.click(self.get_adsp_alarm_clear_confirm_yes_button())
 
             self.utils.print_info("Switch to parent ADSP tab")
-            self.driver.switch_to.window(self.driver.window_handles[0])
+            CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
 
             return 1
         else:
             self.utils.print_info("ADSP alarms rows not present in the grid")
             self.utils.print_info("Switch to new ADSP tab")
-            self.driver.switch_to.window(self.driver.window_handles[0])
+            CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
             return -1
 
     def get_total_adsp_alarm_count(self):
@@ -209,13 +209,13 @@ class AirDefenceAlarms(AdspWebElements):
         :return: Total Alarm Count
         """
         self.utils.print_info("Switch to first ADSP tab")
-        self.driver.switch_to.window(self.driver.window_handles[0])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         self.utils.print_info("Click widget refresh button")
@@ -240,13 +240,13 @@ class AirDefenceAlarms(AdspWebElements):
         :return: Total Alarm Count
         """
         self.utils.print_info("Switch to first ADSP Tab")
-        self.driver.switch_to.window(self.driver.window_handles[0])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         self.utils.print_info("Click Widget Refresh button")
@@ -268,11 +268,11 @@ class AirDefenceAlarms(AdspWebElements):
 
         :return:
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         self.utils.print_info("Click Settings Button")
@@ -380,7 +380,7 @@ class AirDefenceAlarms(AdspWebElements):
                   - ``Subscribe Adess Essentials ``
           :return: return 1 after ADESS is subscribed 
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
         sleep(15)

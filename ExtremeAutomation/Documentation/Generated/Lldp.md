@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Lldp
-This feature is located in this file: `lldp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `lldp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable
 	Pytest API Call: 
@@ -2485,1321 +2485,489 @@ UUID: 66eb3cef-0c24-4f81-b8f4-123be3838a24
 ----------------------------------------------
 
 
-# API Function: show_info
+# API Function: lldp_verify_tx_interval
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_tx_interval(device_name, interval)
 
 	Robot API Call: 
 
-		lldp_show_info  device_name  
+		lldp_verify_tx_interval  device_name  interval
 
-UUID: 62450147-99e0-443c-aaad-b21b4c9925d1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-lldp:lldp/config
-
-----------------------------------------------
-
-
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.0.8802.1.1.2.1.1.1.0||1.0.8802.1.1.2.1.1.2.0||1.0.8802.1.1.2.1.1.3.0||1.0.8802.1.1.2.1.1.4.0||1.0.8802.1.1.2.1.1.5.0
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.0.8802.1.1.2.1.1.1.0||1.0.8802.1.1.2.1.1.2.0||1.0.8802.1.1.2.1.1.3.0||1.0.8802.1.1.2.1.1.4.0||1.0.8802.1.1.2.1.1.5.0
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.0.8802.1.1.2.1.1.1.0||1.0.8802.1.1.2.1.1.2.0||1.0.8802.1.1.2.1.1.3.0||1.0.8802.1.1.2.1.1.4.0||1.0.8802.1.1.2.1.1.5.0
-
-----------------------------------------------
-
-
-# API Function: show_remote_info
+# API Function: lldp_verify_tx_hold_multiplier
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_remote_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_tx_hold_multiplier(device_name, multiplier)
 
 	Robot API Call: 
 
-		lldp_show_remote_info  device_name  
+		lldp_verify_tx_hold_multiplier  device_name  multiplier
 
-UUID: 7d530f4d-ac18-45cd-ad0e-691f9ced3f68
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port remote-info {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port} neighbors
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-lldp:lldp/interfaces/interface={port}/neighbors
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_port_status
+# API Function: lldp_verify_port_desc_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_port_desc_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_status  device_name  
+		lldp_verify_port_desc_tlv_enabled  device_name  port
 
-UUID: 48a749d4-bcb4-4e9c-8f11-c3922d86b571
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port status {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp interface ethernet {port}
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-lldp:lldp/interfaces/interface={port}
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_port_tlv_port_desc
+# API Function: lldp_verify_port_desc_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_port_desc(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_port_desc_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_port_desc  device_name  
+		lldp_verify_port_desc_tlv_disabled  device_name  port
 
-UUID: 90b69a1c-5850-4db2-923c-98c82ed26567
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_sys_name
+# API Function: lldp_verify_sys_name_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_sys_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_sys_name_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_sys_name  device_name  
+		lldp_verify_sys_name_tlv_enabled  device_name  port
 
-UUID: b87d809c-15fc-4500-872a-385b4dd9a830
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_sys_desc
+# API Function: lldp_verify_sys_name_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_sys_desc(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_sys_name_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_sys_desc  device_name  
+		lldp_verify_sys_name_tlv_disabled  device_name  port
 
-UUID: 09bba48c-f31b-4464-97fc-d320b32df75b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_sys_cap
+# API Function: lldp_verify_sys_desc_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_sys_cap(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_sys_desc_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_sys_cap  device_name  
+		lldp_verify_sys_desc_tlv_enabled  device_name  port
 
-UUID: 74f91b41-fb4e-4f14-aaf9-f186b6adc31a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_mgmt_addr
+# API Function: lldp_verify_sys_desc_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_mgmt_addr(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_sys_desc_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_mgmt_addr  device_name  
+		lldp_verify_sys_desc_tlv_disabled  device_name  port
 
-UUID: 2a2a935d-6545-4429-b769-bed5bcdc8244
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_vlan_id
+# API Function: lldp_verify_sys_cap_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_vlan_id(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_sys_cap_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_vlan_id  device_name  
+		lldp_verify_sys_cap_tlv_enabled  device_name  port
 
-UUID: 9d034d05-1d46-45d0-bb47-3551e4ef6755
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_stp
+# API Function: lldp_verify_sys_cap_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_stp(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_sys_cap_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_stp  device_name  
+		lldp_verify_sys_cap_tlv_disabled  device_name  port
 
-UUID: 4dad8fde-005f-4df9-8ed4-b62667924c4a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_lacp
+# API Function: lldp_verify_mgmt_addr_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_lacp(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_mgmt_addr_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_lacp  device_name  
+		lldp_verify_mgmt_addr_tlv_enabled  device_name  port
 
-UUID: 4e67faaf-c530-4b1c-97f3-e707862b5446
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_gvrp
+# API Function: lldp_verify_mgmt_addr_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_gvrp(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_mgmt_addr_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_gvrp  device_name  
+		lldp_verify_mgmt_addr_tlv_disabled  device_name  port
 
-UUID: fcfcaf7b-2770-450e-a4d2-d216a8eea45e
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_mac_phy
+# API Function: lldp_verify_vlan_id_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_mac_phy(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_vlan_id_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_mac_phy  device_name  
+		lldp_verify_vlan_id_tlv_enabled  device_name  port
 
-UUID: 8a3cbdba-f26a-4ffa-9ee5-6fa5b8a28ab7
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_poe
+# API Function: lldp_verify_vlan_id_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_poe(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_vlan_id_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_poe  device_name  
+		lldp_verify_vlan_id_tlv_disabled  device_name  port
 
-UUID: d9b47836-69f9-4292-aba6-0ac1d085beef
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_link_aggr
+# API Function: lldp_verify_stp_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_link_aggr(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_stp_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_link_aggr  device_name  
+		lldp_verify_stp_tlv_enabled  device_name  port
 
-UUID: 83b6aabd-28fd-4904-bc87-88d1fd5e06cd
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_max_frame
+# API Function: lldp_verify_stp_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_max_frame(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_stp_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_max_frame  device_name  
+		lldp_verify_stp_tlv_disabled  device_name  port
 
-UUID: ba29f2a8-f288-43bf-a654-bb45cf65a3c7
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_med_cap
+# API Function: lldp_verify_lacp_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_med_cap(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_lacp_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_med_cap  device_name  
+		lldp_verify_lacp_tlv_enabled  device_name  port
 
-UUID: 49c622d4-a173-4067-9074-95c099f76bce
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_med_pol
+# API Function: lldp_verify_lacp_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_med_pol(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_lacp_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_med_pol  device_name  
+		lldp_verify_lacp_tlv_disabled  device_name  port
 
-UUID: 947194fe-e2f5-44e3-8830-54c878751896
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_med_loc
+# API Function: lldp_verify_gvrp_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_med_loc(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_gvrp_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_med_loc  device_name  
+		lldp_verify_gvrp_tlv_enabled  device_name  port
 
-UUID: 93f736c3-3667-41ed-89ac-db7d39e1d3b2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_med_poe
+# API Function: lldp_verify_gvrp_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_med_poe(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_gvrp_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_med_poe  device_name  
+		lldp_verify_gvrp_tlv_disabled  device_name  port
 
-UUID: e1d82fd0-e7d6-4447-9ae1-8cb99caba77d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_enhanced_trans_config
+# API Function: lldp_verify_mac_phy_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_enhanced_trans_config(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_mac_phy_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_enhanced_trans_config  device_name  
+		lldp_verify_mac_phy_tlv_enabled  device_name  port
 
-UUID: 868604b6-9e7b-4910-ac1e-fdb928b78109
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv data-center-bridging {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_enhanced_trans_rec
+# API Function: lldp_verify_mac_phy_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_enhanced_trans_rec(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_mac_phy_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_enhanced_trans_rec  device_name  
+		lldp_verify_mac_phy_tlv_disabled  device_name  port
 
-UUID: 2bf0f891-4fc9-40cc-b0ca-5b0712735aba
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv data-center-bridging {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_priority_flowctrl
+# API Function: lldp_verify_poe_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_priority_flowctrl(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_poe_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_priority_flowctrl  device_name  
+		lldp_verify_poe_tlv_enabled  device_name  port
 
-UUID: 548ecdd2-d112-42df-9ad1-961cd10a4035
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv data-center-bridging {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_application_pri
+# API Function: lldp_verify_poe_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_application_pri(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_poe_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_application_pri  device_name  
+		lldp_verify_poe_tlv_disabled  device_name  port
 
-UUID: 8a5c24db-532e-4423-ac2b-a6bfb90ba359
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv data-center-bridging {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_congestion_notif
+# API Function: lldp_verify_link_aggr_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_congestion_notif(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_link_aggr_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_congestion_notif  device_name  
+		lldp_verify_link_aggr_tlv_enabled  device_name  port
 
-UUID: 12b3ff22-830f-478f-bd3a-f37a3cfdc9f9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv data-center-bridging {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_tlv_energy_eff_eth
+# API Function: lldp_verify_link_aggr_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_port_tlv_energy_eff_eth(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_link_aggr_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_port_tlv_energy_eff_eth  device_name  
+		lldp_verify_link_aggr_tlv_disabled  device_name  port
 
-UUID: 496b0655-1270-49c3-9b6a-801b4d9b3db1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp port tx-tlv {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_neighbors
+# API Function: lldp_verify_max_frame_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_neighbors(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_max_frame_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_neighbors  device_name  
+		lldp_verify_max_frame_tlv_enabled  device_name  port
 
-UUID: 1699e38a-323c-4bfc-84c1-6da0e3d38c26
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp neighbors
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp neighbors
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-lldp:lldp/interfaces/interface={port}/neighbors
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_neighbors_detail
+# API Function: lldp_verify_max_frame_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_neighbors_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_max_frame_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_neighbors_detail  device_name  
+		lldp_verify_max_frame_tlv_disabled  device_name  port
 
-UUID: b1129059-c017-4c0c-8a72-c504643e9225
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp neighbors detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_neighbors_port
+# API Function: lldp_verify_med_cap_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_neighbors_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_med_cap_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_neighbors_port  device_name  
+		lldp_verify_med_cap_tlv_enabled  device_name  port
 
-UUID: 47393c00-d263-482f-a18f-c55e07a57da9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp neighbors interface ethernet {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_neighbors_port_detail
+# API Function: lldp_verify_med_cap_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_neighbors_port_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_med_cap_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_neighbors_port_detail  device_name  
+		lldp_verify_med_cap_tlv_disabled  device_name  port
 
-UUID: bb1be6ca-c87d-41ea-8120-029d9437c3f8
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp neighbors interface ethernet {port} detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_statistics
+# API Function: lldp_verify_med_pol_tlv_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_statistics(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_med_pol_tlv_enabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_statistics  device_name  
+		lldp_verify_med_pol_tlv_enabled  device_name  port
 
-UUID: 98be780a-6dc7-4681-a41b-c22ab3472db8
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lldp statistics
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_statistics_port
+# API Function: lldp_verify_med_pol_tlv_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lldp.lldp_show_statistics_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_med_pol_tlv_disabled(device_name, port)
 
 	Robot API Call: 
 
-		lldp_show_statistics_port  device_name  
+		lldp_verify_med_pol_tlv_disabled  device_name  port
 
-UUID: 7e12d9d4-a6cd-418e-a4b8-e54a245fb542
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
+# API Function: lldp_verify_med_loc_tlv_enabled
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_med_loc_tlv_enabled(device_name, port)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		lldp_verify_med_loc_tlv_enabled  device_name  port
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: lldp_verify_med_loc_tlv_disabled
+	Pytest API Call: 
 
-		show lldp statistics interface ethernet {port}
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_med_loc_tlv_disabled(device_name, port)
 
-----------------------------------------------
+	Robot API Call: 
 
+		lldp_verify_med_loc_tlv_disabled  device_name  port
 
-## REST
-## SNMP
+# API Function: lldp_verify_med_poe_tlv_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_med_poe_tlv_enabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_med_poe_tlv_enabled  device_name  port
+
+# API Function: lldp_verify_med_poe_tlv_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_med_poe_tlv_disabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_med_poe_tlv_disabled  device_name  port
+
+# API Function: lldp_verify_enhanced_trans_config_tlv_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_enhanced_trans_config_tlv_enabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_enhanced_trans_config_tlv_enabled  device_name  port
+
+# API Function: lldp_verify_enhanced_trans_config_tlv_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_enhanced_trans_config_tlv_disabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_enhanced_trans_config_tlv_disabled  device_name  port
+
+# API Function: lldp_verify_enhanced_trans_rec_tlv_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_enhanced_trans_rec_tlv_enabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_enhanced_trans_rec_tlv_enabled  device_name  port
+
+# API Function: lldp_verify_enhanced_trans_rec_tlv_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_enhanced_trans_rec_tlv_disabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_enhanced_trans_rec_tlv_disabled  device_name  port
+
+# API Function: lldp_verify_priority_flowctrl_tlv_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_priority_flowctrl_tlv_enabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_priority_flowctrl_tlv_enabled  device_name  port
+
+# API Function: lldp_verify_priority_flowctrl_tlv_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_priority_flowctrl_tlv_disabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_priority_flowctrl_tlv_disabled  device_name  port
+
+# API Function: lldp_verify_application_pri_tlv_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_application_pri_tlv_enabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_application_pri_tlv_enabled  device_name  port
+
+# API Function: lldp_verify_application_pri_tlv_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_application_pri_tlv_disabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_application_pri_tlv_disabled  device_name  port
+
+# API Function: lldp_verify_congestion_notif_tlv_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_congestion_notif_tlv_enabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_congestion_notif_tlv_enabled  device_name  port
+
+# API Function: lldp_verify_congestion_notif_tlv_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_congestion_notif_tlv_disabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_congestion_notif_tlv_disabled  device_name  port
+
+# API Function: lldp_verify_energy_eff_eth_tlv_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_energy_eff_eth_tlv_enabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_energy_eff_eth_tlv_enabled  device_name  port
+
+# API Function: lldp_verify_energy_eff_eth_tlv_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_energy_eff_eth_tlv_disabled(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_energy_eff_eth_tlv_disabled  device_name  port
+
+# API Function: lldp_verify_transmit_enabled_on_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_transmit_enabled_on_port(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_transmit_enabled_on_port  device_name  port
+
+# API Function: lldp_verify_transmit_disabled_on_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_transmit_disabled_on_port(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_transmit_disabled_on_port  device_name  port
+
+# API Function: lldp_verify_receive_enabled_on_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_receive_enabled_on_port(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_receive_enabled_on_port  device_name  port
+
+# API Function: lldp_verify_receive_disabled_on_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_receive_disabled_on_port(device_name, port)
+
+	Robot API Call: 
+
+		lldp_verify_receive_disabled_on_port  device_name  port
+
+# API Function: lldp_verify_remote_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_remote_port(device_name, port, remote_port)
+
+	Robot API Call: 
+
+		lldp_verify_remote_port  device_name  port  remote_port
+
+# API Function: lldp_verify_neighbor_sysname
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.lldp.lldp_verify_neighbor_sysname(device_name, port, neighbor_sysname)
+
+	Robot API Call: 
+
+		lldp_verify_neighbor_sysname  device_name  port  neighbor_sysname
+

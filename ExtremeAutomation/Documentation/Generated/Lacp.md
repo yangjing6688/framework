@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Lacp
-This feature is located in this file: `lacp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `lacp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_global
 	Pytest API Call: 
@@ -565,309 +565,57 @@ UUID: 5de1719c-872a-41d7-9013-8930edadad8d
 
 ## REST
 ## SNMP
-# API Function: show_info
+# API Function: lacp_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lacp.lacp_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.lacp.lacp_verify_enabled(device_name)
 
 	Robot API Call: 
 
-		lacp_show_info  device_name  
+		lacp_verify_enabled  device_name
 
-UUID: 8fce70a1-95e7-48ef-ad00-c5980b9c5025
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_lag_info
+# API Function: lacp_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lacp.lacp_show_lag_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.lacp.lacp_verify_disabled(device_name)
 
 	Robot API Call: 
 
-		lacp_show_lag_info  device_name  
+		lacp_verify_disabled  device_name
 
-UUID: 54ab7d26-c328-4646-a763-c0745b816128
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp||show lacp interface gigabitethernet {main_lag_port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interface port-channel {main_lag_port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_all
+# API Function: lacp_verify_group_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lacp.lacp_show_port_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.lacp.lacp_verify_group_exists(device_name, main_lag_port, lag_port, key)
 
 	Robot API Call: 
 
-		lacp_show_port_all  device_name  
+		lacp_verify_group_exists  device_name  main_lag_port  lag_port  key
 
-UUID: aac2b104-bf1d-441c-99ec-8767d1aa2699
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp interface gigabitethernet {main_lag_port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mlt_port
+# API Function: lacp_verify_group_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lacp.lacp_show_mlt_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.lacp.lacp_verify_group_does_not_exist(device_name, main_lag_port, lag_port, key)
 
 	Robot API Call: 
 
-		lacp_show_mlt_port  device_name  
+		lacp_verify_group_does_not_exist  device_name  main_lag_port  lag_port  key
 
-UUID: 13eb0ca6-2f5f-4abf-b877-3825fa9fa980
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp interface mlt id {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.2.840.10006.300.43.1.1.1.1.2.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.3.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.4.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.5.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.6.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.7.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.8.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.9.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.10.{mlt_id}||1.2.840.10006.300.43.1.1.1.1.11.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_mlt_id_logical_index
+# API Function: lacp_verify_port_in_lag_group
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lacp.lacp_show_mlt_id_logical_index(device_name )
+		self.defaultLibrary.apiLowLevelApis.lacp.lacp_verify_port_in_lag_group(device_name, main_lag_port, lag_port)
 
 	Robot API Call: 
 
-		lacp_show_mlt_id_logical_index  device_name  
+		lacp_verify_port_in_lag_group  device_name  main_lag_port  lag_port
 
-UUID: 5267dee0-dbe1-4295-9356-b54d56fb36b3
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlt {mlt_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.17.10.1.11.{mlt_id}
-
-----------------------------------------------
-
-
-# API Function: show_lag
+# API Function: lacp_verify_port_not_in_lag_group
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.lacp.lacp_show_lag(device_name )
+		self.defaultLibrary.apiLowLevelApis.lacp.lacp_verify_port_not_in_lag_group(device_name, main_lag_port, lag_port)
 
 	Robot API Call: 
 
-		lacp_show_lag  device_name  
+		lacp_verify_port_not_in_lag_group  device_name  main_lag_port  lag_port
 
-UUID: aa67c54a-05ba-4169-a0e0-2b30a5e136c4
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp {main_lag_port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ports {main_lag_port} sharing detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_counter
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.lacp.lacp_show_counter(device_name )
-
-	Robot API Call: 
-
-		lacp_show_counter  device_name  
-
-UUID: 63358f3c-9b19-4554-96f2-5e6445c9e5d1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp counter {interface}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_sysid
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.lacp.lacp_show_sysid(device_name )
-
-	Robot API Call: 
-
-		lacp_show_sysid  device_name  
-
-UUID: 97fa1e24-c39c-43ce-903f-6b1e363a968c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show lacp sys-id
-
-----------------------------------------------
-
-
-## REST
-## SNMP

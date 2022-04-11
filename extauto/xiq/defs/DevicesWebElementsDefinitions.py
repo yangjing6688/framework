@@ -50,6 +50,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 1
          }
 
+    device_stack_status_warning = \
+        {
+            'CSS_SELECTOR': '.ui-icon-stack-warning',
+            'wait_for': 1
+         }
+
     device_conn_status_after_ten_min = \
         {
             'CSS_SELECTOR': '.ui-icon-dc-ten-mins',
@@ -1569,5 +1575,12 @@ class DevicesWebElementsDefinitions:
     simulated_device_dropdown_table_rows = \
         {
             'CSS_SELECTOR': '.dijitMenuItem',
+            'wait_for': 5
+        }
+
+    manage_devices_table_load_mask = \
+        {
+            'DESC': 'Manage > Devices "load" mask',
+            'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
