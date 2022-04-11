@@ -2107,9 +2107,12 @@ class Cli(object):
             return output2
 
     def configure_device_to_connect_to_cloud(self, device_make, ip, port, username, password, platform, server_name,
-                                             retry_count=10):
+                                             vr='VR-Default', retry_count=10):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
+        - Keyword Usage:
+         - ``Configure Device To Connect To Cloud   ${DEVICE_MAKE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}
+                                                    ${PLATFORM}  ${SERVER_NAME}``
 
         :param device_make: Device Make
         :param ip: Console IP Address of the Device
@@ -2118,6 +2121,7 @@ class Cli(object):
         :param password: Password to access console
         :param platform: device Platform example: aerohive,aerohive-switch,aerohive-fastpath,exos,voss,wing,xiqse etc
         :param server_name: Cloud Server Name to connect the device
+        :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
         :param retry_count: Retry count to check device connection status with capwap server
         :return: 1 id device successfully connected with capwap server else -1
         """
@@ -2147,7 +2151,7 @@ class Cli(object):
 
             if 'EXOS' in device_make.upper():
                 self.send(_spawn, f'configure iqagent server ipaddress {server_name}')
-                self.send(_spawn, f'configure iqagent server vr VR-Default')
+                self.send(_spawn, f'configure iqagent server vr {vr}')
                 count = 1
                 while count <= retry_count:
                     self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
