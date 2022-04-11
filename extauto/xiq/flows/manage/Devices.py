@@ -7995,9 +7995,11 @@ class Devices:
         for el in all_error_messages:
             if str(expected_message) in el.text:
                 self.utils.print_info("Message found")
+                self.screen.save_screen_shot()
                 return 1
             else:
                 pass
+        self.screen.save_screen_shot()
         return -1
 
     def move_to_free_pilot_from_trial_or_connect(self):
@@ -8016,9 +8018,11 @@ class Devices:
                 self.auto_actions.click(yes_button)
             else:
                 self.utils.print_info("yes button not found  ... ")
+                self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info("Upgrade button not found ")
+            self.screen.save_screen_shot()
             return -1
         return 1
 
@@ -8063,6 +8067,7 @@ class Devices:
             self.auto_actions.move_to_element(premier_button)
         else:
             self.utils.print_info("Button not found ")
+            self.screen.save_screen_shot()
             return -1
 
         if license_type == 'premier' or license_type == 'PREMIER':
@@ -8073,6 +8078,7 @@ class Devices:
                 self.auto_actions.click(premier_act_button)
             else:
                 self.utils.print_info("Button not found ")
+                self.screen.save_screen_shot()
                 return -1
         elif license_type == 'macsec' or license_type == 'MACSEC':
             macsec_button = self.device_actions.get_act_macsec_btn()
@@ -8081,13 +8087,13 @@ class Devices:
                 self.auto_actions.click(macsec_button)
             else:
                 self.utils.print_info("Button not found ")
+                self.screen.save_screen_shot()
                 return -1
         elif license_type == 'FOURPORT10G':
             act_10g_4p_btn = self.device_actions.get_act_10g_4p_btn()
             if act_10g_4p_btn:
                 self.utils.print_info("Press 10G 4P license")
                 self.auto_actions.click(act_10g_4p_btn)
-
             else:
                 self.utils.print_info("Button not found ")
                 self.screen.save_screen_shot()
@@ -8099,9 +8105,11 @@ class Devices:
                 self.auto_actions.click(act_10g_8p_btn)
             else:
                 self.utils.print_info("Button not found ")
+                self.screen.save_screen_shot()
                 return -1
 
         else:
+            self.screen.save_screen_shot()
             return -1
         sleep(3)
         yes_confirmation = self.device_actions.get_yes_confirmation()
@@ -8216,6 +8224,7 @@ class Devices:
             self.auto_actions.move_to_element(premier_button)
         else:
             self.utils.print_info("Button not found ")
+            self.screen.save_screen_shot()
             return -1
         if license_type == 'premier' or license_type == 'PREMIER':
             premier_rev_button = self.device_actions.get_rev_premier_btn()
@@ -8224,6 +8233,7 @@ class Devices:
                 self.auto_actions.click(premier_rev_button)
             else:
                 self.utils.print_info("Button not found ")
+                self.screen.save_screen_shot()
                 return -1
         elif license_type == 'macsec' or license_type == 'MACSEC':
             macsec_button = self.device_actions.get_rev_macsec_btn()
@@ -8232,6 +8242,7 @@ class Devices:
                 self.auto_actions.click(macsec_button)
             else:
                 self.utils.print_info("Button not found ")
+                self.screen.save_screen_shot()
                 return -1
         elif license_type == 'FOURPORT10G':
             rev_10g_4p_btn = self.device_actions.get_rev_10g_4p_btn()
@@ -8240,6 +8251,7 @@ class Devices:
                 self.auto_actions.click(rev_10g_4p_btn)
             else:
                 self.utils.print_info("Button not found ")
+                self.screen.save_screen_shot()
                 return -1
 
         elif license_type == 'EIGHTPORT10G':
@@ -8249,8 +8261,10 @@ class Devices:
                 self.auto_actions.click(rev_10g_8p_btn)
             else:
                 self.utils.print_info("Button not found ")
+                self.screen.save_screen_shot()
                 return -1
         else:
+            self.screen.save_screen_shot()
             return -1
         sleep(3)
         yes_confirmation = self.device_actions.get_yes_confirmation()
@@ -8282,6 +8296,7 @@ class Devices:
                                 self.utils.print_info("confirm_msg_yes button was found")
                                 self.auto_actions.click(confirm_msg_yes)
                                 self.utils.print_info("Return 1")
+                                self.screen.save_screen_shot()
                                 return 1
                             else:
                                 self.utils.print_info("confirm_msg_yes button not found")
@@ -8300,6 +8315,7 @@ class Devices:
                     warning_xiq_text = self.device_actions.get_warning_rvk_xiq_text()
                     if warning_xiq_text:
                         self.utils.print_info("Warning message is displayed . The revocation warning should not be displayed ")
+                        self.screen.save_screen_shot()
                         return -1
                     else:
                         pass
@@ -8312,11 +8328,13 @@ class Devices:
                     self.utils.print_info("Login to extreme portal")
                     return 1
                 else:
+                    self.screen.save_screen_shot()
                     return -1
             else:
                 pass
         else:
             self.utils.print_info("yes confirmation button was not found ")
+            self.screen.save_screen_shot()
             return -1
         return 1
 
@@ -8368,6 +8386,7 @@ class Devices:
                                     if el in options_list:
                                         self.utils.print_info("{} is valid value".format(el))
                                     else:
+                                        self.screen.save_screen_shot()
                                         return -1
                                 cnt = 0
                                 for lic in options_list:
@@ -8379,6 +8398,7 @@ class Devices:
                                 self.utils.print_info("Current status for license field : ",check_list)
                         else:
                             self.utils.print_info("license field status not found ")
+                            self.screen.save_screen_shot()
                             return -1
                         if error:
                             if error_before == error:
@@ -8403,12 +8423,14 @@ class Devices:
                                 if error:
                                     if error_before == error and flag_try_again == False:
                                         self.utils.print_info("Return :",list_return + error)
+                                        self.screen.save_screen_shot()
                                         return list_return + error
                                     else:
                                         pass
                                 else:
                                     self.utils.print_info("Return :",list_return)
                                     self.utils.print_info("Return type :", type(list_return))
+                                    self.screen.save_screen_shot()
                                     return list_return
                             else:
                                 check_list_before = check_list.copy()
@@ -8428,6 +8450,7 @@ class Devices:
             else:
                 self.utils.print_debug("No row found")
                 return -1
+        self.screen.save_screen_shot()
         self.utils.print_info("return -1  ")
         return -1
 
@@ -8469,6 +8492,7 @@ class Devices:
                 break
             else:
                 pass
+        self.screen.save_screen_shot()
         if pilot_inventory_found:
             self.utils.print_info("The unmanage box was found: ", pilot_inventory_found)
             return pilot_inventory_found
@@ -8486,7 +8510,7 @@ class Devices:
 
         serial_list = serial.split(",")
         self.utils.print_info(len(serial_list))
-
+        self.screen.save_screen_shot()
         sn_button = self.devices_web_elements.get_sn_button()
         if sn_button:
             self.utils.print_info("Sn button was found ")
@@ -8494,6 +8518,8 @@ class Devices:
         else:
             self.utils.print_info("Sn button was not found ")
             return -1
+        sleep(3)
+        self.screen.save_screen_shot()
         result_found = []
         result_duplicate = []
         sn_xiq_list = self.devices_web_elements.get_sn_xiq_list()
@@ -8568,13 +8594,14 @@ class Devices:
         :param shared_cuid: SFDC shared cuid
         :return: 1 if account was linked ; else -1
         '''
-
+        self.screen.save_screen_shot()
         add_a_license = self.devices_web_elements.get_add_a_license()
         if add_a_license:
             self.utils.print_info("ADD a license button was found ")
             self.auto_actions.click(add_a_license)
         else:
             self.utils.print_info("ADD a license button was not found ")
+            self.screen.save_screen_shot()
             return -1
 
         sleep(2)
@@ -8584,6 +8611,7 @@ class Devices:
             self.auto_actions.click(get_link_my_account)
         else:
             self.utils.print_info("'Link my extreme portal' button was not found ")
+            self.screen.save_screen_shot()
             return -1
 
         sleep(2)
@@ -8593,6 +8621,7 @@ class Devices:
             self.auto_actions.click(get_link_my_account_agree)
         else:
             self.utils.print_info("Checkbox Agree was not found ")
+            self.screen.save_screen_shot()
             return -1
 
         link_my_account_continue = self.devices_web_elements.get_link_my_account_continue()
@@ -8601,6 +8630,7 @@ class Devices:
             self.auto_actions.click(link_my_account_continue)
         else:
             self.utils.print_info("Continue  button was not found ")
+            self.screen.save_screen_shot()
             return -1
         sleep(10)
         return self.login_to_extreme_portal(username, password, shared_cuid)
@@ -8614,7 +8644,7 @@ class Devices:
         :param shared_cuid: SFDC shared cuid
         :return: 1 if account was moved into Pilot mode  ; else -1
         '''
-
+        self.screen.save_screen_shot()
         add_a_license = self.devices_web_elements.get_add_a_license()
         if add_a_license:
             self.utils.print_info("ADD a license button was found ")
@@ -8623,6 +8653,7 @@ class Devices:
             self.utils.print_info("ADD a license button was not found ")
             return -1
         sleep(2)
+        self.screen.save_screen_shot()
         upgrade_account_to_pilot = self.devices_web_elements.get_upgrade_account_to_pilot()
         if upgrade_account_to_pilot:
             self.utils.print_info(" 'UPGRADE ACCOUNT' button was found ")
@@ -8631,6 +8662,7 @@ class Devices:
             self.utils.print_info("'UPGRADE ACCOUNT' button was not found ")
             return -1
         sleep(2)
+        self.screen.save_screen_shot()
         get_link_my_account_agree = self.devices_web_elements.get_link_my_account_agree()
         if get_link_my_account_agree:
             self.utils.print_info(" Checkbox Agree was found ")
@@ -8638,6 +8670,7 @@ class Devices:
         else:
             self.utils.print_info("Checkbox Agree was not found ")
             return -1
+        self.screen.save_screen_shot()
         link_my_account_continue = self.devices_web_elements.get_link_my_account_continue()
         if link_my_account_continue:
             self.utils.print_info("Continue button was found ")
@@ -8654,7 +8687,7 @@ class Devices:
 
         :return: 1 if account button was pressed  ; else -1
         '''
-
+        self.screen.save_screen_shot()
         upgrade_account_to_pilot = self.devices_web_elements.get_upgrade_account_to_pilot()
         if upgrade_account_to_pilot:
             self.utils.print_info(" 'UPGRADE ACCOUNT' button was found ")
@@ -8681,6 +8714,7 @@ class Devices:
             self.screen.save_screen_shot()
         else:
             self.utils.print_info("Entering Salesforce page was not found ")
+            self.screen.save_screen_shot()
             return -1
 
         self.utils.print_info("Entering Salesforce password")
@@ -8702,6 +8736,7 @@ class Devices:
             pass
 
         sleep(20)
+        self.screen.save_screen_shot()
         enter_shared_cuid = self.devices_web_elements.get_enter_shared_cuid()
         if enter_shared_cuid:
             self.auto_actions.send_keys(enter_shared_cuid, shared_cuid)
@@ -8711,7 +8746,9 @@ class Devices:
                 self.auto_actions.click(submit_shared_cuid)
             else:
                 self.utils.print_info("submit button not found ")
+                self.screen.save_screen_shot()
                 return -1
+            self.screen.save_screen_shot()
             check_error_shared_cuid = self.devices_web_elements.get_check_error_shared_cuid()
             if check_error_shared_cuid:
                 self.utils.print_info("The below error was displayed when enter shared CUID:", check_error_shared_cuid.text)
@@ -8721,6 +8758,7 @@ class Devices:
                 return 1
         else:
             self.utils.print_info("shared cuid dialog is not displayed ")
+            self.screen.save_screen_shot()
             license_button = self.devices_web_elements.get_license_button()
             if license_button:
                 self.utils.print_info("submit button was found")
@@ -8738,6 +8776,7 @@ class Devices:
                     else:
                         self.screen.save_screen_shot()
                         self.utils.print_info("submit button not found ")
+                        self.screen.save_screen_shot()
                         return -1
                     check_error_shared_cuid = self.devices_web_elements.get_check_error_shared_cuid()
                     if check_error_shared_cuid:
@@ -8759,6 +8798,7 @@ class Devices:
 
         :return: 1 if unlink button is present ; else -1
         '''
+        self.screen.save_screen_shot()
         sfdc_unlink = self.devices_web_elements.get_sfdc_unlink()
         if sfdc_unlink:
             return 1
@@ -8787,12 +8827,15 @@ class Devices:
             sleep(3)
             if self.check_unlink_button() == -1:
                 self.utils.print_info("the account was unlinked")
+                self.screen.save_screen_shot()
                 return 1
             else:
                 self.utils.print_info("the account was not unlinked ")
+                self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info("unlink button was not found ")
+            self.screen.save_screen_shot()
             return -1
 
     def check_pilot_license_consumption(self, expected_available, expected_activated, license_type = "PRD-XIQ-PIL-S-C",
@@ -8836,6 +8879,7 @@ class Devices:
                             available += int(subscription_available.text)
                         else:
                             self.utils.print_info("subscription_available element was not found ")
+                            self.screen.save_screen_shot()
                             return -1
                         subscription_activated = self.devices_web_elements.get_subscription_activated(el)
                         if subscription_activated:
@@ -8843,6 +8887,7 @@ class Devices:
                             activated += int(subscription_activated.text)
                         else:
                             self.utils.print_info("subscription_activated element was not found ")
+                            self.screen.save_screen_shot()
                             return -1
                     else:
                         pass
@@ -8853,12 +8898,14 @@ class Devices:
                     self.utils.print_info(
                         "Activated Expected {} ; Displayed in XIQ {}: ".format(expected_activated,
                                                                                subscription_activated.text))
+                    self.screen.save_screen_shot()
                     return 1
                 else:
                     pass
             else:
                 if still_loading:
                     self.utils.print_info("license_mgmt button was not found ")
+                    self.screen.save_screen_shot()
                     return -1
                 else:
                     self.utils.print_info("license_mgmt button was not found. Adding delay and try again ")
@@ -8872,6 +8919,7 @@ class Devices:
         self.utils.print_info("Available and activated values from XIQ do not match with the expected values ")
         self.utils.print_info("Available Expected {} ; Displayed in XIQ {}: ".format(expected_available, available))
         self.utils.print_info("Activated Expected {} ; Displayed in XIQ {}: ".format(expected_activated, activated))
+        self.screen.save_screen_shot()
         return -1
 
     def check_long_sn_or_legacy_sn_mapping(self, device_serial, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, sw_connection_host):
@@ -8936,6 +8984,7 @@ class Devices:
             sleep(10)
         else:
             self.utils.print_info("'Unlink' button was not found ")
+            self.screen.save_screen_shot()
             return -1
         message_unlink_button = self.devices_web_elements.get_message_unlink_button()
         if message_unlink_button:
@@ -8945,9 +8994,11 @@ class Devices:
                 return 1
             else:
                 self.utils.print_info("The messages are not matching")
+                self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info("Message was not found ")
+        self.screen.save_screen_shot()
         return -1
 
     def link_to_sfdc_from_license_management_page(self, username, password, shared_cuid=None):
@@ -8960,6 +9011,7 @@ class Devices:
         '''
 
         if not self.navigator.navigate_to_license_management() == 1:
+            self.screen.save_screen_shot()
             return -1
         sleep(2)
         get_link_my_account = self.devices_web_elements.get_link_my_account()
@@ -8968,6 +9020,7 @@ class Devices:
             self.auto_actions.click(get_link_my_account)
         else:
             self.utils.print_info("'Link my extreme portal' button was not found ")
+            self.screen.save_screen_shot()
             return -1
         sleep(2)
         get_link_my_account_agree = self.devices_web_elements.get_link_my_account_agree()
@@ -8976,6 +9029,7 @@ class Devices:
             self.auto_actions.click(get_link_my_account_agree)
         else:
             self.utils.print_info("Checkbox Agree was not found ")
+            self.screen.save_screen_shot()
             return -1
         link_my_account_continue = self.devices_web_elements.get_link_my_account_continue()
         if link_my_account_continue:
@@ -8983,6 +9037,7 @@ class Devices:
             self.auto_actions.click(link_my_account_continue)
         else:
             self.utils.print_info("Continue  button was not found ")
+            self.screen.save_screen_shot()
             return -1
         sleep(10)
         return self.login_to_extreme_portal(username, password, shared_cuid)
@@ -8999,6 +9054,7 @@ class Devices:
             self.auto_actions.move_to_element(user_button)
         else:
             self.utils.print_info("User button was not found ")
+            self.screen.save_screen_shot()
             return -1
 
         global_settings = self.devices_web_elements.get_global_settings()
@@ -9007,6 +9063,7 @@ class Devices:
             self.auto_actions.click(global_settings)
         else:
             self.utils.print_info("global_setting was not found ")
+            self.screen.save_screen_shot()
             return -1
 
         audit_button = self.devices_web_elements.get_audit_button()
@@ -9015,6 +9072,7 @@ class Devices:
             self.auto_actions.click(audit_button)
         else:
             self.utils.print_info("audit_button was not found ")
+            self.screen.save_screen_shot()
             return -1
 
         sort_time_stamp1 = self.devices_web_elements.get_sort_time_stamp()
@@ -9052,9 +9110,11 @@ class Devices:
                 return time_stamp.text
             else:
                 self.utils.print_info("time_stamp was not found ")
+                self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info("audit_rows was not found ")
+            self.screen.save_screen_shot()
             return -1
 #ultima functie
     def check_voss_image_version(self, spawn, os_version, operator = 'less'):
@@ -9134,6 +9194,7 @@ class Devices:
                     pass
                 if flag_revoke:
                     self.utils.print_info("There are still active licenses ({})".format(list_status_lic_and_error[0]))
+                    self.screen.save_screen_shot()
                     return -1
                 list_status_lic = list_status_lic_and_error[0].split(",")
                 for lic in list_status_lic:
@@ -9146,6 +9207,7 @@ class Devices:
                     return 1
                 if error:
                     self.utils.print_info("There are still active licenses ({}) and error is displayed: {} ".format(list_status_lic_and_error[0],error))
+                    self.screen.save_screen_shot()
                     return -1
                 list_status_lic = list_status_lic_and_error[0].split(",")
                 for lic in list_status_lic:
@@ -9185,6 +9247,7 @@ class Devices:
                     select_flag = True
                 else:
                     self.utils.print_info("Device with serial {} was not been selected".format(device))
+                    self.screen.save_screen_shot()
                     return -1
         elif device_mac:
             select_flag = False
@@ -9193,6 +9256,7 @@ class Devices:
                 select_flag = True
             else:
                 self.utils.print_info("Device with mac {} was not been selected".format(device_mac))
+                self.screen.save_screen_shot()
                 return -1
         elif device_name:
             select_flag = False
@@ -9201,6 +9265,7 @@ class Devices:
                 select_flag = True
             else:
                 self.utils.print_info("Device with name {} was not been selected".format(device_name))
+                self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info("No device serial, device mac or device name has been given.")
@@ -9233,6 +9298,7 @@ class Devices:
                         sleep(2)
                     else:
                         self.utils.print_info("Confirm button not found")
+                        self.screen.save_screen_shot()
                         return -1
                     sleep(10)
                     confirm_msg = self.device_actions.get_confirm_manage_message()
@@ -9249,14 +9315,17 @@ class Devices:
                             return 1
                         else:
                             self.utils.print_info("Could not close the manage confirmation tab")
+                            self.screen.save_screen_shot()
                             return -1
                     else:
                         self.utils.print_info("Managed status was not changed")
                         self.utils.print_info("Expected message: The device was successfully changed to MANAGED.")
                         self.utils.print_info("Actual message: ", confirm_msg_txt)
+                        self.screen.save_screen_shot()
                         return -1
                 else:
                     self.utils.print_info("Manage button not found")
+                    self.screen.save_screen_shot()
                     return -1
             elif str(manage_type).upper() in 'UNMANAGE':
                 unmanage_btn = self.device_actions.get_unmanage_device_btn()
@@ -9272,6 +9341,7 @@ class Devices:
                         sleep(2)
                     else:
                         self.utils.print_info("Confirm button not found")
+                        self.screen.save_screen_shot()
                         return -1
                     sleep(10)
                     confirm_msg = self.device_actions.get_confirm_manage_message()
@@ -9287,17 +9357,21 @@ class Devices:
                             return 1
                         else:
                             self.utils.print_info("Could not close the unmanage confirmation tab")
+                            self.screen.save_screen_shot()
                             return -1
                     else:
                         self.utils.print_info("Managed status was not changed")
                         self.utils.print_info("Expected message: The device was successfully changed to UNMANAGED.")
                         self.utils.print_info("Actual message: ", confirm_msg_txt)
+                        self.screen.save_screen_shot()
                         return -1
                 else:
                     self.utils.print_info("Unmanage button not found")
+                    self.screen.save_screen_shot()
                     return -1
             else:
                 self.utils.print_info("Manage status unknown")
+                self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info("Change management status not found")
@@ -9327,13 +9401,16 @@ class Devices:
                     return 1
                 else:
                     self.utils.print_info("Could not close the device tab")
+                    self.screen.save_screen_shot()
                     return -1
             else:
                 self.utils.print_info("Error message does not contain the unmanage message.")
                 self.utils.print_info("Error message shown is: ", unmanage_msg_txt)
+                self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info("Unmanage message not found.")
+            self.screen.save_screen_shot()
             return -1
 
 
@@ -9354,6 +9431,7 @@ class Devices:
                 self.utils.print_info("The serial: {} was succesfully onboarded.".format(serial_number))
             else:
                 self.utils.print_info("Could not onboard the serial number {}".format(serial_number))
+                self.screen.save_screen_shot()
                 return -1
         return 1
 
@@ -9429,6 +9507,7 @@ class Devices:
             self.auto_actions.click(yes_confirmation)
         else:
             self.utils.print_info("yes confirmation button was not found ")
+            self.screen.save_screen_shot()
             return -1
         self.utils.print_info("Start checking the status")
         retry_count = 0
@@ -9455,6 +9534,7 @@ class Devices:
             self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
             retry_count += time_interval
         self.utils.print_info("return -1  ", device_update_status)
+        self.screen.save_screen_shot()
         return -1
 
     def get_cuid_and_viq_id(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, owner_id, sw_connection_host):
@@ -9526,8 +9606,10 @@ class Devices:
 
             rows = self.devices_web_elements.get_grid_rows()
             if rows:
+                self.screen.save_screen_shot()
                 return -1
         else:
+            self.screen.save_screen_shot()
             return 1
 
     def unmanage_device_when_license_expired(self,device_sn):
@@ -9548,6 +9630,7 @@ class Devices:
                     sleep(2)
                 else:
                     self.utils.print_info("Confirm button not found")
+                    self.screen.save_screen_shot()
                     return -1
                 sleep(10)
                 confirm_msg = self.device_actions.get_confirm_manage_message()
@@ -9561,6 +9644,7 @@ class Devices:
                             return 1
                         else:
                             self.utils.print_info("Could not close the manage confirmation tab")
+                            self.screen.save_screen_shot()
                             return -1
                     else:
                         self.utils.print_info("The unmanage message is not correct")
@@ -9571,9 +9655,11 @@ class Devices:
                             self.auto_actions.click(close_confirm_tab)
                         else:
                             self.utils.print_info("Could not close the manage confirmation tab")
+                            self.screen.save_screen_shot()
                         return -1
             else:
                 self.utils.print_info("unmanage button not found ")
+                self.screen.save_screen_shot()
                 return -1
         else:
             return -1
