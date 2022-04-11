@@ -1,4 +1,11 @@
 class Device360WebElementDefs:
+
+    lldp_neigbour_from_table = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-2 field-lldpSystemName w75"]',
+            'wait_for': 5
+        }
+
     system_info_button = \
         {
             'XPATH': '//*[@data-id="systeminfo"]',

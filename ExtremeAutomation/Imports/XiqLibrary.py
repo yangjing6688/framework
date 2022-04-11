@@ -1,3 +1,5 @@
+from ExtremeAutomation.Library.Device.NetworkElement.NetelemLearning.DeviceDiscoveryKeywords import \
+    DeviceDiscoveryKeywords
 from ExtremeAutomation.Library.Logger.Logger import Logger
 import traceback
 
@@ -321,6 +323,7 @@ class XiqLibrary():
             self.WipsWebElementDefinitions = WipsWebElementDefinitions()
             self.WirelessCWPWebElementsDefinitions = WirelessCWPWebElementsDefinitions()
             self.WirelessNetworksDefinitions = WirelessNetworksDefinitions()
+            self.DeviceDiscoveryKeywords = DeviceDiscoveryKeywords()
 
             self.xeleA3InventoryWebElements = A3InventoryWebElements()
             self.xeleAccntMgmtWebElements = AccntMgmtWebElements()

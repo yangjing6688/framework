@@ -1766,7 +1766,7 @@ class Cli(object):
                               'Please press Enter to activate this console.',
                               'Login incorrect',
                               'Login:',
-                              'assword:',
+                              'Password:',
                               ' #'
                               '#',
                               '\>',

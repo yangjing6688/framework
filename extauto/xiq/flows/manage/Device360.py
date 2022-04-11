@@ -3384,33 +3384,34 @@ class Device360(Device360WebElements):
         try:
             rows = self.get_d360_switch_ports_table_grid_rows()
             for row in rows:
-                port_name_cell = self.get_d360_switch_ports_table_interface_port_name_cell(row).text
-                if port_number == port_name_cell:
-                    switch_device360_info = dict()
-                    self.utils.print_info("Getting Port Table Information")
-                    switch_device360_info["port_name"] = self.dev360.get_device360_switch_port_table_port_name(row).text
-                    switch_device360_info["port_type"] = self.dev360.get_device360_switch_port_table_port_type(row).text
-                    switch_device360_info["lldp_neighbor"] = self.dev360.get_device360_switch_port_table_lacp_neighbor(row).text
-                    switch_device360_info["lldp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
-                    switch_device360_info["port_status"] = self.dev360.get_device360_switch_port_table_port_status(row).text
-                    switch_device360_info["trasmission_mode"] = self.dev360.get_device360_switch_port_table_transmission_mode(row).text
-                    switch_device360_info["port_mode"] = self.dev360.get_device360_switch_port_table_port_mode(row).text
-                    switch_device360_info["access_vlan"] = self.dev360.get_device360_switch_port_table_access_vlan(row).text
-                    if self.dev360.get_device360_switch_port_table_tagged_vlans(row):
-                       switch_device360_info["tagged_vlans"] = self.dev360.get_device360_switch_port_table_tagged_vlans(row).text
-                    switch_device360_info["traffic_received"] = self.dev360.get_device360_switch_port_table_traffic_received(row).text
-                    switch_device360_info["traffic_transmitted"] = self.dev360.get_device360_switch_port_table_traffic_transmitted(row).text
-                    switch_device360_info["power_used"] = self.dev360.get_device360_switch_port_table_power_used(row).text
-                    switch_device360_info["port_speed"] = self.dev360.get_device360_switch_port_table_port_speed(row).text
+                # port_name_cell = self.get_d360_switch_ports_table_interface_port_name_cell(row).text
+                # if port_number == port_name_cell:
+                switch_device360_info = dict()
+                self.utils.print_info("Getting Port Table Information")
+                switch_device360_info["port_name"] = self.dev360.get_device360_switch_port_table_port_name(row)
+                switch_device360_info["port_type"] = self.dev360.get_device360_switch_port_table_port_type(row).text
+                switch_device360_info["lldp_neighbor"] = self.dev360.get_device360_switch_port_table_lacp_neighbor(row).text
+                switch_device360_info["lldp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
+                switch_device360_info["port_status"] = self.dev360.get_device360_switch_port_table_port_status(row).text
+                switch_device360_info["trasmission_mode"] = self.dev360.get_device360_switch_port_table_transmission_mode(row).text
+                switch_device360_info["port_mode"] = self.dev360.get_device360_switch_port_table_port_mode(row).text
+                switch_device360_info["access_vlan"] = self.dev360.get_device360_switch_port_table_access_vlan(row).text
+                if self.dev360.get_device360_switch_port_table_tagged_vlans(row):
+                   switch_device360_info["tagged_vlans"] = self.dev360.get_device360_switch_port_table_tagged_vlans(row).text
+                switch_device360_info["traffic_received"] = self.dev360.get_device360_switch_port_table_traffic_received(row).text
+                switch_device360_info["traffic_transmitted"] = self.dev360.get_device360_switch_port_table_traffic_transmitted(row).text
+                switch_device360_info["power_used"] = self.dev360.get_device360_switch_port_table_power_used(row).text
+                switch_device360_info["port_speed"] = self.dev360.get_device360_switch_port_table_port_speed(row).text
 
-                    self.utils.print_info(f"****************** Switch Port Table Information ************************")
-                    for key, value in switch_device360_info.items():
-                        self.utils.print_info(f"{key}:{value}")
+                self.utils.print_info(f"****************** Switch Port Table Information ************************")
+                for key, value in switch_device360_info.items():
+                    self.utils.print_info(f"{key}:{value}")
 
-                    self.screen.save_screen_shot()
-                    self.auto_actions.click(self.dev360.get_close_dialog())
-                    self.screen.save_screen_shot()
-                    return switch_device360_info
+                self.screen.save_screen_shot()
+                self.auto_actions.click(self.dev360.get_close_dialog())
+                self.screen.save_screen_shot()
+                print("switch_device360_info = {}".format(switch_device360_info))
+                return switch_device360_info
         except Exception as e:
             self.utils.print_info("Unable to get Port Table Information")
             self.screen.save_screen_shot()

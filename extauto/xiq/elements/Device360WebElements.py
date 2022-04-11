@@ -7,6 +7,9 @@ class Device360WebElements(Device360WebElementDefs):
     def __init__(self):
         self.weh = WebElementHandler()
 
+    def get_lldp_neigbour_from_table(self):
+        return self.weh.get_element(self.lldp_neigbour_from_table)
+
     def get_system_info_button(self):
         return self.weh.get_element(self.system_info_button)
 
