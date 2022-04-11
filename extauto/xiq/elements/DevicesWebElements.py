@@ -959,7 +959,11 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.field_license_stat, row)
 
     def get_check_unmanage_box(self):
-        return self.weh.get_element(self.check_unmanage_box)
+        el = self.weh.get_element(self.check_unmanage_box)
+        if el.is_displayed():
+            return el
+        else:
+            return None
 
     def get_pilot_lic_inventory(self):
         return self.weh.get_elements(self.pilot_lic_inventory)
