@@ -9299,6 +9299,7 @@ class Devices:
                         self.utils.print_info("Confirm button not found")
                         return -1
                     sleep(10)
+                    self.screen.save_screen_shot()
                     confirm_msg = self.device_actions.get_confirm_manage_message()
                     if not confirm_msg:
                         self.utils.print_info("confirm manage message was not found ")
