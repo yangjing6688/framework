@@ -91,6 +91,7 @@ class PytestConfigHelper():
             self.node_count += 1
             self.dut1_os = config['netelem1']['os']
             self.dut1_platform = config['netelem1']['platform']
+            self.dut1_make = config['netelem1']['make']
             self.dut1_model = config['netelem1']['model']
             self.dut_list.append('dut1')
         except:
@@ -166,6 +167,7 @@ class PytestConfigHelper():
             self.dut2_mac = config['netelem2']['mac']
             self.dut2_os = config['netelem2']['os']
             self.dut2_platform = config['netelem2']['platform']
+            self.dut2_make = config['netelem2']['make']
             self.dut2_model = config['netelem2']['model']
             self.dut_list.append('dut2')
         except:
@@ -240,6 +242,7 @@ class PytestConfigHelper():
             self.dut3_mac = config['netelem3']['mac']
             self.dut3_os = config['netelem3']['os']
             self.dut3_platform = config['netelem3']['platform']
+            self.dut3_make = config['netelem3']['make']
             self.dut3_model = config['netelem3']['model']
             self.dut_list.append('dut3')
         except:
@@ -313,6 +316,7 @@ class PytestConfigHelper():
             self.dut4_mac = config['netelem4']['mac']
             self.dut4_os = config['netelem4']['os']
             self.dut4_platform = config['netelem4']['platform']
+            self.dut4_make = config['netelem4']['make']
             self.dut4_model = config['netelem4']['model']
             self.dut_list.append('dut4')
         except:
@@ -386,6 +390,7 @@ class PytestConfigHelper():
             self.dut5_mac = config['netelem5']['mac']
             self.dut5_os = config['netelem5']['os']
             self.dut5_platform = config['netelem5']['platform']
+            self.dut5_make = config['netelem5']['make']
             self.dut5_model = config['netelem5']['model']
             self.dut_list.append('dut5')
         except:
