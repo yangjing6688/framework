@@ -9667,3 +9667,86 @@ class Devices:
                 return -1
         else:
             return -1
+
+    def check_license_update_frequency(self, ip_dest_ssh="", user_dest_ssh="", pass_dest_ssh="",sw_connection_host="int1r1."):
+        '''
+        This function checks the update frequency for license job
+
+        :param ip_dest_ssh: ip of 'Jump station'
+        :param user_dest_ssh: extreme account user
+        :param pass_dest_ssh: extreme account password
+        :param sw_connection_host: RDC DNS
+        :return: 1 if update time is less or equal than 10 minutes ; else -1
+        '''
+
+        pattern1 = "(\\w+)."
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
+        output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
+        output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
+        if "No such file or directory" in output_cmd_cd:
+            return -1
+        else:
+            self.cli.send_pxssh(spawn, "cd ..")
+        if not "ahqa_id_rsa" in output_cmd_ls:
+            # self.robot_built_in.skip('No ssh certificate exist on jump station')
+            return -1
+        output_cmd = self.cli.send_pxssh(spawn,
+                                         "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
+        self.utils.print_info(output_cmd)
+        output_cmd1 = self.cli.send_pxssh(spawn, "sudo su -")
+        output_cmd2 = self.cli.send_pxssh(spawn, "psqlscheduledb")
+
+        output_cmd4 = self.cli.send_pxssh(spawn,
+        "select id,interval from hm_job_trigger where id in (select job_trigger_id from hm_job where name = "
+        "'validate Gemalto license for Cloud task');")
+
+        output_cmd3 = self.cli.send_pxssh(spawn,
+                                          "select id,cron,end_time from hm_job_trigger where id in (select job_trigger_id from "
+                                          "hm_job where name = 'validate Gemalto license for Cloud task');")
+        self.cli.close_spawn(spawn)
+        #output_cmd5 = self.cli.send_pxssh(spawn,
+        #"select interval from hm_job_trigger where id in (select job_trigger_id from hm_job where name =
+        # 'validate Gemalto license for Cloud task');")
+
+        self.utils.print_info(output_cmd)
+        self.utils.print_info(output_cmd1)
+        self.utils.print_info(output_cmd2)
+        self.utils.print_info(output_cmd3)
+        self.utils.print_info(output_cmd4)
+        #self.utils.print_info(output_cmd5)
+        #output_cmd3 = " 324384 | 0 0/5 * * * ?"
+        #output_cmd3 = " 324384 | 0 0 1 * * ?"
+        pattern3 = "\\s+\\d+\\s+\\|\\s+([\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+)\\s+\\|"
+        #pattern3 = "\\s+([\\d\\W]\\s[\\d\\W]+\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W])"
+        cron = self.string.get_regexp_matches(output_cmd3, pattern3, 1)
+        self.utils.print_info("cron",cron)
+
+        #output_cmd4 = "        0"
+        pattern4= "\\s+\\d+\\s+\\|\\s+(\\d+)"
+        interval = self.string.get_regexp_matches(output_cmd4, pattern4, 1)
+        self.utils.print_info("interval",interval)
+
+        #output_cmd5 = "SECONDS"
+        # pattern5 = "(\\w+)"
+        # interval_unit = self.string.get_regexp_matches(output_cmd5, pattern5, 1)
+        # self.utils.print_info(interval_unit)
+
+        if '0 0 1 * * ?' in cron[0]:
+            if int(interval[0]) == 0:
+                self.utils.print_info("The update license job is running once at each 24 hours. Skip the test ")
+                return -1
+            elif int(interval[0]) <= 10 and not int(interval[0]) == 0 :
+                self.utils.print_info("The update license job is running once at less than 10 minutes")
+                return 1
+            else:
+                return -1
+        elif '0 0/10 * * * ?' in cron[0]:
+            self.utils.print_info("The update license job is running once at each 10 minutes  ")
+            return 1
+        elif '0 0/5 * * * ?' in cron[0]:
+            self.utils.print_info("The update license job is running once at each 5 minutes  ")
+            return 1
+        else:
+            return -1
+        return 1
