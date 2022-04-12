@@ -363,13 +363,13 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select"]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-policy"]',
             'wait_for': 5,
         }
 
     action_assign_network_policy_dialog = \
         {
-            "CSS_SELECTOR": '.policy-select-dialog',
+            "CSS_SELECTOR": '.ui-menu-list',
             'wait_for': 5
         }
 
@@ -377,6 +377,13 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"]//td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
+        }
+
+    nw_policy_drop = \
+        {
+            'XPATH':  '//*[contains(@class, "dijitReset dijitRight dijitButtonNode dijitArrowButton dijitDownArrowButton dijitArrowButtonContainer") and contains(@data-dojo-attach-point, "titleNode")]',
+            'wait_for': 2,
+            'index': 6
         }
 
     actions_network_policy_assign_button = \
@@ -1492,6 +1499,12 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//div[@data-dojo-attach-point="containerNode"]//div[@data-dojo-attach-point="wrapEl"]//*[@class="ui-tipbox-title"]',
             'wait_for': 3,
+        }
+
+    perform_update_tooltip = \
+        {
+            'XPATH':  '//*[contains(@class, "ui-tipbox ui-tipbox-error") and contains(@data-dojo-attach-point, "wrapEl")]',
+            'wait_for': 3
         }
 
     license_button = \

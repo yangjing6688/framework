@@ -3027,7 +3027,8 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
         self.auto_actions.scroll_down()
         sleep(2)
-
+        
+        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
         policy_status = False
         for item in network_policy_items:
@@ -3070,22 +3071,34 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
             count = 5
+            tool_tp_text_error=self.devices_web_elements.get_perform_update_tooltip()
+            self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
-            self.utils.print_info(tool_tp_text)
-            for value in tool_tp_text:
-                if "a device mode change is not supported with a delta configuration update" in value.lower():
-                    self.utils.print_info(value)
-                    update_method = "Complete"
+            if tool_tp_text_error:
+               if "a configuration related action is currently in progress for device" in tool_tp_text_error.text.lower():
+                   self.utils.print_info(tool_tp_text_error.text)
+                   return -1
+            if tool_tp_text:
+                for value in tool_tp_text:
+                    if "a device mode change is not supported with a delta configuration update" in value.lower():
+                        self.utils.print_info(value)
+                        update_method = "Complete"
 
         if update_method == "Complete":
             self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            self.screen.save_screen_shot()
+            tool_tp_text = tool_tip.tool_tip_text
+            if tool_tp_text_error:
+                if "a configuration related action is currently in progress for device" in tool_tp_text_error.text.lower():
+                    self.utils.print_info(tool_tp_text_error.text)
+                    return -1
             count = 10
 
         self.screen.save_screen_shot()
         sleep(2)
-
         while count > 0:
             policy_applied = self.get_router_network_policy(router_serial=router_serial)
             if policy_name.upper() == policy_applied.upper():
