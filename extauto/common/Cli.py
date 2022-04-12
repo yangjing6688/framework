@@ -2182,9 +2182,9 @@ class Cli(object):
                     time.sleep(10)
 
                     output1 = self.send(_spawn, f'show application iqagent | include "Server Address"')
-                    output2 = self.send(_spawn, f'show application iqagent | include "Agent Oper State"')
+                    output2 = self.send(_spawn, f'show application iqagent status | include "Connection Status"')
 
-                    if server_name in output1 and 'connected' in output2:
+                    if server_name in output1 and 'Connected' in output2:
                         self.close_spawn(_spawn)
                         self.utils.print_info(f"Device Successfully Connected to {server_name}")
                         return 1
