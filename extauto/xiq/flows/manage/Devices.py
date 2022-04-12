@@ -9668,7 +9668,7 @@ class Devices:
         else:
             return -1
 
-    def check_license_update_frequency(self, ip_dest_ssh="", user_dest_ssh="", pass_dest_ssh="",sw_connection_host="int1r1."):
+    def check_license_update_frequency(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh,sw_connection_host):
         '''
         This function checks the update frequency for license job
 
