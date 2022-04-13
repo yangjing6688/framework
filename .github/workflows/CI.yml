@@ -1,34 +1,16 @@
-name: Update Test Infomation in S3 for the UI
+name: CI Workflow
 on:
   pull_request:
     branches: [main]
 
-env:
-  WORK_DIR: workflow_output
-
 jobs:
   check_tests_functionality:
-    needs: [check_tags]
     name: Test functionality validation
     runs-on: ubuntu-latest
     outputs:
       status: ${{ steps.set-output.outputs.status }}
 
     steps:
-
-    - uses: actions/download-artifact@v2
-      with:
-        name: ${{ env.changed_files_artifact_name }}
-
-    - name: Prep environment
-      run: |
-        # Create report file
-        cat >${{ env.testcase_func_report_path }} <<EOL
-        ***********************************************************
-        ************** Testcase Functionality Report **************
-        ***********************************************************
-
-        EOL
 
     - name: Pre-job-submission prep
       run: |
@@ -107,14 +89,6 @@ jobs:
     #   "platform": "i386",
     #   "universalTestBedOs": ["blah","test"]
     # }
-
-    - name: Upload test results to GH artifacts
-      uses: actions/upload-artifact@v2
-      if: ${{ always() }}
-      with:
-        name: ${{ env.report_artifact_name }}
-        path: |
-          ${{ env.testcase_func_report_path }}
 
     - name: Set job status output
       if: ${{ always() }}
