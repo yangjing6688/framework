@@ -17,9 +17,9 @@ jobs:
         # Get a session token for this run
         curl_return_code=0
         curl_output=$( curl -X GET  --no-progress-meter \
-                        "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPAT" \
+                        "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPA" \
                         -H "accept: application/json" \
-                        -H "authorization: PAT " )
+                        -H "authorization: PAT ${{ secrets.AUTOIQ_PAT }}" )
         curl_return_code=$?
 
         if (( $curl_return_code != 0 )); then
@@ -32,17 +32,33 @@ jobs:
         # Get list of available testbeds for each harness
         # harnesses: econ_auto(pytest), xiq_auto(robot), tcl
         # 11111111-2222-2222-2222-111111111111 (pytest), 11111111-6666-6666-6666-111111111111 (robot), 11111111-5555-5555-5555-111111111111 (tcl)
-        available_testbeds_pytest=$( curl -X GET --no-progress-meter \
+        curl_return_code=0
+        curl_output=$( curl -X GET --no-progress-meter \
                                     "http://autoiq.extremenetworks.com/tbedmgr/jobmgr/cicdPlatforms/pytest" \
                                     -H "accept: application/json" \
-                                    -H "authorization: Bearer ${session_token}" \
-                                    | jq '.result[]' )
+                                    -H "authorization: Bearer ${session_token}" )
+        curl_return_code=$?
 
-        available_testbeds_robot=$( curl -X GET --no-progress-meter \
+        if (( $curl_return_code != 0 )); then
+          echo "Error getting session token. Message: ${curl_output}"
+          exit 1
+        else
+          available_testbeds_pytest=$( echo "${curl_output}" | jq '.result[]' )
+        fi
+
+        curl_return_code=0
+        curl_output=$( curl -X GET --no-progress-meter \
                                     "http://autoiq.extremenetworks.com/tbedmgr/jobmgr/cicdPlatforms/robot" \
                                     -H "accept: application/json" \
-                                    -H "authorization: Bearer ${session_token}" \
-                                    | jq '.result[]' )
+                                    -H "authorization: Bearer ${session_token}" )
+        curl_return_code=$?
+
+        if (( $curl_return_code != 0 )); then
+          echo "Error getting session token. Message: ${curl_output}"
+          exit 1
+        else
+          available_testbeds_robot=$( echo "${curl_output}" | jq '.result[]' )
+        fi
 
         echo "pytest testbeds: $available_testbeds_pytest"
         echo "robot testbeds: $available_testbeds_robot"
