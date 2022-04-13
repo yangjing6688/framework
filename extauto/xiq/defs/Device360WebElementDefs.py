@@ -2217,3 +2217,9 @@ class Device360WebElementDefs:
             "XPATH": ".//tr//td[@role='gridcell']",
             'wait_for': 5
         }
+
+    d360_pagination_current_page = \
+        {
+            'XPATH': '//span[@class="pagination-page current-pagination"]',
+            'wait_for': 3
+        }

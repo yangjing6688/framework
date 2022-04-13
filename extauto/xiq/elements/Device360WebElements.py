@@ -1418,3 +1418,9 @@ class Device360WebElements(Device360WebElementDefs):
                     result[th.text.strip()] = td.text.strip()
             results.append(result)
         return results
+
+    def get_device360_pagination_page_buttons(self):
+        return self.weh.get_elements(self.d360_pagination_page_button)
+
+    def get_device360_pagination_current_page(self):
+        return self.weh.get_element(self.d360_pagination_current_page)
