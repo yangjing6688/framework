@@ -19,7 +19,7 @@ jobs:
         curl_output=$( curl -X GET  --no-progress-meter \
                         "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPAT" \
                         -H "accept: application/json" \
-                        -H "authorization: PAT ${{ secrets.AUTOIQ_PAT }}" )
+                        -H "authorization: PAT " )
         curl_return_code=$?
 
         if (( $curl_return_code != 0 )); then
