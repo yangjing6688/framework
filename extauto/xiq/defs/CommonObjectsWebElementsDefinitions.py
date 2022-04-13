@@ -92,6 +92,16 @@ class CommonObjectsWebElementsDefinitions:
     next_page_element = \
         {
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next',
+            # 'CSS_SELECTOR': '.J-page-item.ui-page-item.ui-page-item',
+            'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            'index': 1,
+            'wait_for': 2
+        }
+
+    page_numbers = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="pagesWrap"]',
+            'index': 1,
             'wait_for': 2
         }
 
