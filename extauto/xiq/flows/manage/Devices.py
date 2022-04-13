@@ -2631,7 +2631,11 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
         device_page_numbers = self.devices_web_elements.get_page_numbers()
-        page_len = int(max(device_page_numbers.text))
+        if device_page_numbers.text:
+            page_len = int(max(device_page_numbers.text))
+        else:
+            page_len=int(1)
+        
         device_found = False
         try:
             while page_len:
@@ -2677,7 +2681,11 @@ class Devices:
         sleep(5)
         rows = self.devices_web_elements.get_grid_rows()
         device_page_numbers = self.devices_web_elements.get_page_numbers()
-        page_len = int(max(device_page_numbers.text))
+        if device_page_numbers.text:
+            page_len = int(max(device_page_numbers.text))
+        else:
+            page_len = int(1)
+
         device_found = False
         while page_len:
             rows = self.devices_web_elements.get_grid_rows()
@@ -2736,7 +2744,11 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
         device_page_numbers = self.devices_web_elements.get_page_numbers()
-        page_len = int(max(device_page_numbers.text))
+        if device_page_numbers.text:
+            page_len = int(max(device_page_numbers.text))
+        else:
+            page_len = int(1)
+
         rows = self.devices_web_elements.get_grid_rows()
         device_found = False
         while page_len:
@@ -5235,6 +5247,35 @@ class Devices:
             count += 1
 
         self.utils.print_info(f"{col} column for device {device_serial} still does not contain data. Please check.")
+        return -1
+
+    def wait_until_devices_load_mask_cleared(self, retry_duration=30, retry_count=10):
+        """
+        - This keyword waits until the Manage > Devices 'loading' mask is cleared.
+        - This keyword by default loops every 30 seconds for 10 times to check for the 'loading' mask.
+        - Flow:
+         - Assumes that the 'Manage --> Devices' view is already visible.
+         - check for the 'loading' mask
+        - Keyword Usage:
+         - ``Wait Until Devices Load Mask Cleared   retry_duration=10    retry_count=5``
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if the 'loading' mask is cleared within the specified time, else -1
+        """
+        count = 1
+
+        while count <= retry_count:
+            self.utils.print_info(f"Checking for 'loading' mask: loop {count}")
+            load_mask = self.devices_web_elements.get_manage_devices_table_load_mask()
+            if load_mask:
+                self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
+                sleep(retry_duration)
+            else:
+                self.utils.print_info("The 'loading' mask is no longer visible.")
+                return 1
+            count += 1
+
+        self.utils.print_info("The 'loading' mask is still visible in the Manage --> Devices view.")
         return -1
 
     def wait_until_device_data_present(self, device_serial, col, retry_duration=30, retry_count=10):
