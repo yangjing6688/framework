@@ -29,7 +29,7 @@ jobs:
         # Get a session token for this run
         curl_command="-X GET --no-progress-meter \"http://autoiq.extremenetworks.com/auth/getSessionTokenFromPA\" -H \"accept: application/json\" -H \"authorization: PAT ${{ secrets.AUTOIQ_PAT }}\""
         echo $curl_command
-        run_curl $curl_command
+        run_curl "$curl_command"
         session_token=$( echo "$curl_command" | jq -r '.result.sessionToken' )
         echo $curl_output
 
