@@ -4,6 +4,7 @@ from extauto.common.Screen import Screen
 from extauto.common.WebElementHandler import *
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.DeviceUtilitiesWebElements import DeviceUtilitiesWebElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
 class DevicesUtilities(DeviceUtilitiesWebElements):
@@ -12,6 +13,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
+        self.navigator = NavigatorWebElements()
 
     def verify_device_tool_loading_is_open(self):
         """
@@ -1006,3 +1008,255 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
             return -1
         else:
             return 1
+
+    def is_device_tool_ping_available(self):
+        """
+        - This keyword checks if the diagnostic ping option is available
+        - Keyword Usage:
+         - ``Is Device Tool Ping Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_ping_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_log_available(self):
+        """
+        - This keyword checks if the diagnostic show log option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Log Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_log_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_version_available(self):
+        """
+        - This keyword checks if the diagnostic show version option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Version Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_version_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_running_config_available(self):
+        """
+        - This keyword checks if the diagnostic show running config option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Running Config Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_running_config_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_startup_config_available(self):
+        """
+        - This keyword checks if the diagnostic show startup config option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Startup Config Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_startup_config_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_ip_routes_available(self):
+        """
+        - This keyword checks if the diagnostic show ip routes option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Ip Routes Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_ip_routes_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_mac_routes_available(self):
+        """
+        - This keyword checks if the diagnostic show mac routes option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Mac Routes Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_mac_routes_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_arp_cache_available(self):
+        """
+        - This keyword checks if the diagnostic show arp cache option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Arp Cache Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_arp_cache_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_roaming_cache_available(self):
+        """
+        - This keyword checks if the diagnostic show roaming cache option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Roaming Cache Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_roaming_cache_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_dnxp_neighbors_available(self):
+        """
+        - This keyword checks if the diagnostic show dnxp neighbors option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Dnxp Neighbors Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_dnxp_neighbors_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_dnxp_cache_available(self):
+        """
+        - This keyword checks if the diagnostic show dnxp cache option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Dnxp Cache Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_dnxp_cache_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_amrp_tunnel_available(self):
+        """
+        - This keyword checks if the diagnostic show amrp tunnel option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Amrp Tunnel Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_amrp_tunnel_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_gre_tunnel_available(self):
+        """
+        - This keyword checks if the diagnostic show gre tunnel option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Gre Tunnel Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_gre_tunnel_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_ike_event_available(self):
+        """
+        - This keyword checks if the diagnostic show ike event option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Ike Event Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_ike_event_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_ike_sa_available(self):
+        """
+        - This keyword checks if the diagnostic show ike sa option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Ike Sa Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_ike_sa_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_ipsec_sa_available(self):
+        """
+        - This keyword checks if the diagnostic show ipsec sa option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Ipsec Sa Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_ipsec_sa_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_ipsec_tunnel_available(self):
+        """
+        - This keyword checks if the diagnostic show ipsec tunnel option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Ipsec Tunnel Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_ipsec_tunnel_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_cpu_available(self):
+        """
+        - This keyword checks if the diagnostic show cpu option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Cpu Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_cpu_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_memory_available(self):
+        """
+        - This keyword checks if the diagnostic show memory option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Memory Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_memory_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_mac_table_available(self):
+        """
+        - This keyword checks if the diagnostic show mac table option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Mac Table Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_mac_table_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_show_pse_available(self):
+        """
+        - This keyword checks if the diagnostic show pse option is available
+        - Keyword Usage:
+         - ``Is Device Tool Show Pse Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_diagnostics_show_pse_menu_item().is_displayed():
+            return 1
+
+        return -1

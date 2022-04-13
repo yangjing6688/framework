@@ -107,6 +107,18 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.device_delete_button)
 
+    def get_download_button(self):
+        """
+        :return: device download button
+        """
+        return self.weh.get_element(self.device_download_button)
+
+    def get_bulk_edit_button(self):
+        """
+        :return: device bulk edit button
+        """
+        return self.weh.get_element(self.device_bulk_edit_button)
+
     def get_action_button(self):
         """
         :return: device action button
@@ -238,6 +250,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_device_actions_button(self):
         return self.weh.get_element(self.manage_device_actions_button)
+
+    def get_manage_device_utilities_button(self):
+        return self.weh.get_element(self.manage_device_utilities_button)
 
     def get_actions_assign_network_policy_combo(self):
         elements = self.weh.get_elements(self.actions_assign_network_policy)
