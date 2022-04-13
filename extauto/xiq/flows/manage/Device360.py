@@ -3391,7 +3391,7 @@ class Device360(Device360WebElements):
                     switch_device360_info["port_name"] = self.dev360.get_device360_switch_port_table_port_name(row).text
                     switch_device360_info["port_type"] = self.dev360.get_device360_switch_port_table_port_type(row).text
                     switch_device360_info["lldp_neighbor"] = self.dev360.get_device360_switch_port_table_lacp_neighbor(row).text
-                    switch_device360_info["lldp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
+                    switch_device360_info["lacp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
                     switch_device360_info["port_status"] = self.dev360.get_device360_switch_port_table_port_status(row).text
                     switch_device360_info["trasmission_mode"] = self.dev360.get_device360_switch_port_table_transmission_mode(row).text
                     switch_device360_info["port_mode"] = self.dev360.get_device360_switch_port_table_port_mode(row).text
