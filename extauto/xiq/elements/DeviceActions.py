@@ -134,6 +134,28 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_yes_confirmation(self):
         return self.weh.get_element(self.yes_confirmation)
+
+    def get_act_10g_4p_btn(self):
+        return self.weh.get_element(self.act_10g_4p_btn)
+
+    def get_act_10g_8p_btn(self):
+        return self.weh.get_element(self.act_10g_8p_btn)
+
+    def get_rev_10g_4p_btn(self):
+        return self.weh.get_element(self.rev_10g_4p_btn)
+
+    def get_rev_10g_8p_btn(self):
+        return self.weh.get_element(self.rev_10g_8p_btn)
+
+    def get_warning_xiq_text(self):
+        return self.weh.get_element(self.warning_xiq_text)
+
+    def get_warning_rvk_xiq_text(self):
+        return self.weh.get_element(self.warning_rvk_xiq_text)
+
+    def get_confirm_msg_yes(self):
+        return self.weh.get_element(self.confirm_msg_yes)
+
 #ultima functie din main
     def get_device_actions_change_manage_status(self):
         elements = self.weh.get_elements(self.device_actions_change_management_status)
