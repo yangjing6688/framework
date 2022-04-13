@@ -29,7 +29,7 @@ jobs:
         # }
 
         # # Get a session token for this run
-        # curl_command="-X GET --no-progress-meter \"http://autoiq.extremenetworks.com/auth/getSessionTokenFromPA\" -H \"accept: application/json\" -H \"authorization: PAT ${{ secrets.AUTOIQ_PAT }}\""
+        # curl_command="-X GET --no-progress-meter \"http://autoiq.extremenetworks.com/auth/getSessionTokenFromPAT\" -H \"accept: application/json\" -H \"authorization: PAT ${{ secrets.AUTOIQ_PAT }}\""
         # echo $curl_command
         # run_curl "$curl_command"
         # session_token=$( echo "$curl_command" | jq -r '.result.sessionToken' )
@@ -39,7 +39,7 @@ jobs:
         ### Get Session token
         curl_return_code=0
         curl_output=$( curl -X GET  --no-progress-meter \
-                        "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPA" \
+                        "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPAT" \
                         -H "accept: application/json" \
                         -H "authorization: PAT ${{ secrets.AUTOIQ_PAT }}" )
         curl_return_code=$?
