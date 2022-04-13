@@ -94,7 +94,7 @@ class Onboarding(object):
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_items(), condition_type)
 
-        if (condition_type != 'Social Type') or (condition_type != 'User type'):
+        if not (condition_type == 'Social Type'):
             self.utils.print_info("Entering Condition Value  ", condition_value)
             self.auto_actions.send_keys(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_value(),
                                         condition_value)
