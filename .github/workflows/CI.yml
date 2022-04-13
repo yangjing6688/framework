@@ -15,7 +15,7 @@ jobs:
     - name: Pre-job-submission prep
       run: |
         run_curl () {
-          curl_output=$( $1 )
+          curl_output=$( curl $1 )
           curl_return_code=$?
 
           if (( $curl_return_code != 0 )); then
@@ -25,7 +25,7 @@ jobs:
         }
 
         # Get a session token for this run
-        curl_command="curl -X GET  --no-progress-meter \"http://autoiq.extremenetworks.com/auth/getSessionTokenFromPA\" -H \"accept: application/json\" -H \"authorization: PAT ${{ secrets.AUTOIQ_PAT }}\""
+        curl_command="-X GET --no-progress-meter \"http://autoiq.extremenetworks.com/auth/getSessionTokenFromPA\" -H \"accept: application/json\" -H \"authorization: PAT ${{ secrets.AUTOIQ_PAT }}\""
         echo $curl_command
         run_curl $curl_command
         session_token=$( echo "$curl_command" | jq -r '.result.sessionToken' )
