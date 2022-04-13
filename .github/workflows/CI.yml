@@ -15,7 +15,7 @@ jobs:
     - name: Pre-job-submission prep
       run: |
         run_curl () {
-          curl_output=$( curl $1 )
+          curl_output=$( curl "$1" )
           curl_return_code=$?
 
           if (( $curl_return_code != 0 )); then
