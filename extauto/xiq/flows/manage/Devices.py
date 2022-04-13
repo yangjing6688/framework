@@ -2394,9 +2394,6 @@ class Devices:
                     self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
                     sleep(2)
                     self.screen.save_screen_shot()
-                    
-                    # Wait until 'loading' mask is cleared
-                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
 
                     # Wait until 'loading' mask is cleared
                     self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
@@ -2429,9 +2426,6 @@ class Devices:
                     self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
                     sleep(2)
                     self.screen.save_screen_shot()
-                    
-                    # Wait until 'loading' mask is cleared
-                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
 
                     # Wait until 'loading' mask is cleared
                     self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
@@ -2464,9 +2458,6 @@ class Devices:
                     self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
                     sleep(2)
                     self.screen.save_screen_shot()
-                    
-                    # Wait until 'loading' mask is cleared
-                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
 
                     # Wait until 'loading' mask is cleared
                     self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
@@ -2649,7 +2640,7 @@ class Devices:
 
         if not device_serial:
             self.utils.print_info("No serial number provided to search for")
-            return False
+            return -1
         else:
             self.utils.print_info(f"Searching for serial number '{device_serial}'")
 
@@ -2659,15 +2650,10 @@ class Devices:
 
         self.screen.save_screen_shot()
         sleep(2)
-        device_page_numbers = self.devices_web_elements.get_page_numbers()
-        if device_page_numbers.text:
-            page_len = int(max(device_page_numbers.text))
-        else:
-            page_len=int(1)
-        
-        device_found = False
-        try:
-            while page_len:
+
+        stale_retry = 1
+        while stale_retry <= 10:
+            try:
                 rows = self.devices_web_elements.get_grid_rows()
                 if rows:
                     self.utils.print_debug(f"Searching {len(rows)} rows")
@@ -2675,20 +2661,16 @@ class Devices:
                         self.utils.print_info("row data: ", self.format_row(row.text))
                         if device_serial in row.text:
                             self.utils.print_info("Found Device Row: ", self.format_row(row.text))
-                            device_found = True
                             return 1
-                            break
-                    if device_found:
-                        break
-                self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
-                self.utils.print_info("Searching in next page")
-                sleep(5)
-                page_len = page_len - 1
+                    self.utils.print_info(f"Did not find device row with serial {device_serial}")
+                    return -1
+                else:
+                    self.utils.print_info(f"Did not find device row with serial {device_serial} - no rows present")
+                    return -1
+            except StaleElementReferenceException:
+                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                stale_retry = stale_retry + 1
 
-            self.utils.print_info(f"Did not find device row with serial {device_serial}")
-            return False
-        except StaleElementReferenceException:
-            self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
         return -1
 
     def search_device_mac(self, device_mac):
@@ -2698,43 +2680,20 @@ class Devices:
         :param device_mac: device's MAC
         :return: return 1 if device found, else -1
         """
+
         if not device_mac:
             self.utils.print_info("No MAC provided to search for")
             return -1
         else:
             self.utils.print_info(f"Searching for MAC '{device_mac}'")
+
         sleep(2)
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
-        self.screen.save_screen_shot()
-        sleep(5)
-        rows = self.devices_web_elements.get_grid_rows()
-        device_page_numbers = self.devices_web_elements.get_page_numbers()
-        if device_page_numbers.text:
-            page_len = int(max(device_page_numbers.text))
-        else:
-            page_len = int(1)
 
-        device_found = False
-        while page_len:
-            rows = self.devices_web_elements.get_grid_rows()
-            sleep(5)
-            self.utils.print_debug(f"Searching {len(rows)} rows")
-            if rows:
-                for row in rows:
-                    if device_mac in row.text:
-                        self.utils.print_info("Found device Row1: ", self.format_row(row.text))
-                        device_found = True
-                        return 1
-                        break
-                if device_found:
-                    break
-            self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
-            self.utils.print_info("Searching in next page")
-            sleep(5)
-            page_len = page_len - 1
-        self.utils.print_info(f"Did not find device row with MAC address {device_mac}")
+        self.screen.save_screen_shot()
         sleep(2)
+
         stale_retry = 1
         while stale_retry <= 10:
             try:
@@ -2753,6 +2712,7 @@ class Devices:
             except StaleElementReferenceException:
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
+
         return -1
 
     def search_device_name(self, device_name):
@@ -2762,42 +2722,20 @@ class Devices:
         :param device_name: device's Name
         :return: return 1 if device found, else -1
         """
+
         if not device_name:
             self.utils.print_info("No device name provided to search for")
             return -1
         else:
             self.utils.print_info(f"Searching for device name '{device_name}'")
+
         sleep(2)
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
+
         self.screen.save_screen_shot()
         sleep(2)
-        device_page_numbers = self.devices_web_elements.get_page_numbers()
-        if device_page_numbers.text:
-            page_len = int(max(device_page_numbers.text))
-        else:
-            page_len = int(1)
 
-        rows = self.devices_web_elements.get_grid_rows()
-        device_found = False
-        while page_len:
-            rows = self.devices_web_elements.get_grid_rows()
-            sleep(5)
-            self.utils.print_debug(f"Searching {len(rows)} rows")
-            if rows:
-                for row in rows:
-                    if device_name in row.text:
-                        self.utils.print_info("Found device Row1: ", self.format_row(row.text))
-                        device_found = True
-                        return 1
-                        break
-                if device_found:
-                    break
-            self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
-            self.utils.print_info("Searching in next page")
-            sleep(5)
-            page_len = page_len - 1
-        self.utils.print_info(f"Did not find device row with name {device_name}")
         stale_retry = 1
         while stale_retry <= 10:
             try:
@@ -2816,6 +2754,7 @@ class Devices:
             except StaleElementReferenceException:
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
+
         return -1
 
     def select_device(self, device_serial=None, device_name=None, device_mac=None):
@@ -5289,35 +5228,6 @@ class Devices:
             count += 1
 
         self.utils.print_info(f"{col} column for device {device_serial} still does not contain data. Please check.")
-        return -1
-
-    def wait_until_devices_load_mask_cleared(self, retry_duration=30, retry_count=10):
-        """
-        - This keyword waits until the Manage > Devices 'loading' mask is cleared.
-        - This keyword by default loops every 30 seconds for 10 times to check for the 'loading' mask.
-        - Flow:
-         - Assumes that the 'Manage --> Devices' view is already visible.
-         - check for the 'loading' mask
-        - Keyword Usage:
-         - ``Wait Until Devices Load Mask Cleared   retry_duration=10    retry_count=5``
-        :param retry_duration: duration between each retry
-        :param retry_count: retry count
-        :return: 1 if the 'loading' mask is cleared within the specified time, else -1
-        """
-        count = 1
-
-        while count <= retry_count:
-            self.utils.print_info(f"Checking for 'loading' mask: loop {count}")
-            load_mask = self.devices_web_elements.get_manage_devices_table_load_mask()
-            if load_mask:
-                self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
-                sleep(retry_duration)
-            else:
-                self.utils.print_info("The 'loading' mask is no longer visible.")
-                return 1
-            count += 1
-
-        self.utils.print_info("The 'loading' mask is still visible in the Manage --> Devices view.")
         return -1
 
     def wait_until_device_data_present(self, device_serial, col, retry_duration=30, retry_count=10):
