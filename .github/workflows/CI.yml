@@ -15,11 +15,19 @@ jobs:
     - name: Pre-job-submission prep
       run: |
         # Get a session token for this run
-        session_token=$( curl -X GET  --no-progress-meter \
+        curl_return_code=0
+        curl_output=$( curl -X GET  --no-progress-meter \
                         "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPAT" \
                         -H "accept: application/json" \
-                        -H "authorization: PAT ${{ secrets.AUTOIQ_PAT }}" \
-                        | jq -r '.result.sessionToken' )
+                        -H "authorization: PAT ${{ secrets.AUTOIQ_PAT }}" )
+        curl_return_code=$?
+
+        if (( $curl_return_code != 0 )); then
+          echo "Error getting session token. Message: ${ curl_output }"
+          exit 1
+        else
+          session_token=$( echo "${ curl_output }" |  jq -r '.result.sessionToken' )
+        fi
 
         # Get list of available testbeds for each harness
         # harnesses: econ_auto(pytest), xiq_auto(robot), tcl
