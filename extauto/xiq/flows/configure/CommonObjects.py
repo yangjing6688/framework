@@ -95,16 +95,11 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
         sleep(2)
 
-        """
-        ###Add the Reason for commenting the code
-        #  Confirmation for delete popup UI have been remove in new release (Q2r1 - Build ID: 2022-03-29-02.27.12)
-        
         confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirm Yes button")
             self.auto_actions.click(confirm_delete_btn)
             sleep(3)
-        """
 
     def _select_delete_common_object(self, object_name):
         """
@@ -700,7 +695,7 @@ class CommonObjects(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        if "Template was deleted successfully." in tool_tp_text[-1]:
+        if "Template was successfully removed from policy." in tool_tp_text[-1]:
             return 1
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
             return -1
@@ -754,10 +749,6 @@ class CommonObjects(object):
         self._select_common_object_template_row(object_name)
         sleep(2)
         self._delete_common_objects()
-        sleep(5)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-        return tool_tp_text
 
     def _select_edit_common_object(self, object_name):
         """
