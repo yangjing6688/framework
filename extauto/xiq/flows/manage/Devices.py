@@ -9140,6 +9140,7 @@ class Devices:
         :return: True or False if os_version is equel, less or greater than on version from cli ; else -1
         """
 
+        pattern1 = "Version[\\s\\:\\w]+\\s+(\\d+.\\d+.\\d+.\\d+)"
         cli_os_version= self.string.get_regexp_matches(output_image_version, pattern1, 1)
         if cli_os_version:
             self.utils.print_info(cli_os_version)
