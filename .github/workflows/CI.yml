@@ -17,7 +17,7 @@ jobs:
         run_curl () {
           echo $1
           echo "$1"
-          curl_output=$( curl "$1" )
+          curl_output=$( curl $1 )
           curl_return_code=$?
 
           if (( $curl_return_code != 0 )); then
