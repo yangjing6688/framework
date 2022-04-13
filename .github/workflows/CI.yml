@@ -1,0 +1,123 @@
+name: Update Test Infomation in S3 for the UI
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  WORK_DIR: workflow_output
+
+jobs:
+  check_tests_functionality:
+    needs: [check_tags]
+    name: Test functionality validation
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.set-output.outputs.status }}
+
+    steps:
+
+    - uses: actions/download-artifact@v2
+      with:
+        name: ${{ env.changed_files_artifact_name }}
+
+    - name: Prep environment
+      run: |
+        # Create report file
+        cat >${{ env.testcase_func_report_path }} <<EOL
+        ***********************************************************
+        ************** Testcase Functionality Report **************
+        ***********************************************************
+
+        EOL
+
+    - name: Pre-job-submission prep
+      run: |
+        # Get a session token for this run
+        session_token=$( curl -X GET  --no-progress-meter \
+                        "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPAT" \
+                        -H "accept: application/json" \
+                        -H "authorization: PAT ${{ secrets.AUTOIQ_PAT }}" \
+                        | jq -r '.result.sessionToken' )
+
+        # Get list of available testbeds for each harness
+        # harnesses: econ_auto(pytest), xiq_auto(robot), tcl
+        # 11111111-2222-2222-2222-111111111111 (pytest), 11111111-6666-6666-6666-111111111111 (robot), 11111111-5555-5555-5555-111111111111 (tcl)
+        available_testbeds_pytest=$( curl -X GET --no-progress-meter \
+                                    "http://autoiq.extremenetworks.com/tbedmgr/jobmgr/cicdPlatforms/econ_auto" \
+                                    -H "accept: application/json" \
+                                    -H "authorization: Bearer ${session_token}" \
+                                    | jq '.result[]' )
+
+        available_testbeds_robot=$( curl -X GET --no-progress-meter \
+                                    "http://autoiq.extremenetworks.com/tbedmgr/jobmgr/cicdPlatforms/xiq_auto" \
+                                    -H "accept: application/json" \
+                                    -H "authorization: Bearer ${session_token}" \
+                                    | jq '.result[]' )
+
+        echo "pytest testbeds: $available_testbeds_pytest"
+        echo "robot testbeds: $available_testbeds_robot"
+
+    # # Submit job for each platform on each NOS that runs all the tests
+
+    # # - name: Run Modified TestCases
+    # #   run: |
+    # curl -X POST --no-progress-meter \
+    # "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
+    # -H "accept: application/json" \
+    # -H "authorization: Bearer ${session_token}" \
+    # '{"jsonString":{ \
+    #     "description": "CI Verification Run", \
+    #     "priority": 3, \
+    #     "rerun": 0, \
+    #     "postResults": 1, \
+    #     "notifyOnStart": 0, \
+    #     "username": "CI_Service", \
+    #     "group": "CICD", \
+    #     "jobType": "private", \
+    #     "auxInfoList" : [ \
+    #       {"cicd_pr":1}, \
+    #       {"context": "econ-cron/test-context"}, \
+    #       {"repo":"extremenetworks/econ-cron"}, \
+    #       {"sha":"a964180c2aae2fd5c72d1137d9e20b6678217a82"} \
+    #     ], \
+    #     "jobPlatforms": [ \
+    #       { \
+    #           "platform": "i386", \
+    #           "hardwareConfiguration": "Standalone", \
+    #           "priority": 3, \
+    #           "auxInfoList": [], \
+    #           "jobPlatformTestModules" : \
+    #           [ \
+    #               { \
+    #                   "testModule_uuid": "11111111-2222-2222-2222-111111111111", \
+    #                   "auxInfoList" : [ \
+    #                                     {"nodeCount": 4}, \
+    #                                     {"universalTestBedOs": "EXOS"}, \
+    #                                     {"test_name": ["blah.py","Tests\whatever\blah.py", "Tests\"] } \
+    #                                     ] \
+    #               } \
+    #           ] \
+    #       } \
+    #     ] \
+    # }}'
+
+    # robot testbeds: {
+    #   "hardwareConfiguration": "Standalone",
+    #   "nodeCount": 4,
+    #   "platform": "i386",
+    #   "universalTestBedOs": ["blah","test"]
+    # }
+
+    - name: Upload test results to GH artifacts
+      uses: actions/upload-artifact@v2
+      if: ${{ always() }}
+      with:
+        name: ${{ env.report_artifact_name }}
+        path: |
+          ${{ env.testcase_func_report_path }}
+
+    - name: Set job status output
+      if: ${{ always() }}
+      id: set-output
+      run: |
+        echo "::set-output name=status::${{ job.status }}"
