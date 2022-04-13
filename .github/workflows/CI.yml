@@ -23,10 +23,10 @@ jobs:
         curl_return_code=$?
 
         if (( $curl_return_code != 0 )); then
-          echo "Error getting session token. Message: ${ curl_output }"
+          echo "Error getting session token. Message: ${curl_output}"
           exit 1
         else
-          session_token=$( echo "${ curl_output }" |  jq -r '.result.sessionToken' )
+          session_token=$( echo "${curl_output}" |  jq -r '.result.sessionToken' )
         fi
 
         # Get list of available testbeds for each harness
