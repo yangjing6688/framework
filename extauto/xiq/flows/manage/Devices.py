@@ -25,6 +25,7 @@ from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 
 
+
 class Devices:
     def __init__(self):
         self.utils = Utils()
@@ -9130,20 +9131,16 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 #ultima functie
-    def check_voss_image_version(self, spawn, os_version, operator = 'less'):
+    def check_voss_image_version(self, output_image_version, os_version, operator = 'less'):
         """
         Check is os_version is equel, less or greater than on version from cli
         :param spawn:
         :param os_version: 8.6.0.0
-        :param operator: equel, less or greater than on version from cli
+        :param operator: equal, less or greater than on version from cli
         :return: True or False if os_version is equel, less or greater than on version from cli ; else -1
         """
 
-        output_cmd1 = self.cli.send(spawn, "enable")
-        output_cmd2 = self.cli.send(spawn, "config t")
-        output_cmd3 = self.cli.send(spawn, "show sys software")
-        pattern1 = "Version[\\s\\:\\w]+\\s+(\\d+.\\d+.\\d+.\\d+)"
-        cli_os_version= self.string.get_regexp_matches(output_cmd3, pattern1, 1)
+        cli_os_version= self.string.get_regexp_matches(output_image_version, pattern1, 1)
         if cli_os_version:
             self.utils.print_info(cli_os_version)
             split_cli_os_version = cli_os_version[0].split('.')
@@ -9154,7 +9151,7 @@ class Devices:
             cnt = 0
             for el in split_os_version:
                 if int(el) > int(split_cli_os_version[cnt]):
-                    if operator == 'equel':
+                    if operator == 'equal':
                         return False
                     elif operator == 'less':
                         return False
@@ -9164,7 +9161,7 @@ class Devices:
                         return -1
 
                 elif int(el) < int(split_cli_os_version[cnt]):
-                    if operator == 'equel':
+                    if operator == 'equal':
                         return False
                     elif operator == 'less':
                         return True
@@ -9179,7 +9176,7 @@ class Devices:
                 cnt = cnt + 1
         else:
             return -1
-        if operator == 'equel':
+        if operator == 'equal':
             return True
         elif operator == 'less':
             return False
