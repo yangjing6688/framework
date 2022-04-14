@@ -1,5 +1,5 @@
 import re
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -11,7 +11,7 @@ from extauto.xiq.elements.AdspWebElements import AdspWebElements
 class Adsp(AdspWebElements):
     def __init__(self):
         super().__init__()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.utils = Utils()
@@ -30,11 +30,11 @@ class Adsp(AdspWebElements):
         :return:(dict) Alarm Details in dictionary Format
         """
         alarm_details = {}
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         self.utils.print_info("Click More Insights button")
@@ -42,7 +42,7 @@ class Adsp(AdspWebElements):
         sleep(2)
 
         self.utils.print_info("Switch to New ADSP Tab")
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
 
         if row := self.get_adsp_alarm_grid_row(search_string):
             cells = self.get_adsp_alarms_grid_row_cells(row)

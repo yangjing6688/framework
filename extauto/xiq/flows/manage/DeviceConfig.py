@@ -9,7 +9,7 @@ from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElemen
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
 from extauto.common.WebElementHandler import WebElementHandler
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 
 
 class DeviceConfig(DeviceConfigElements):
@@ -21,7 +21,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions = AutoActions()
         self.device_common = DeviceCommon()
         self.web = WebElementHandler()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
 
 
@@ -621,6 +621,22 @@ class DeviceConfig(DeviceConfigElements):
             return "ON"
         else:
             return "OFF"
+
+
+    def _check_wifi2_radio_status(self):
+        """
+        - Configure WiFi1 Radio Status on Device Override
+        :return:  WiFi1 Radio status ie ON or OFF
+        """
+        self.utils.print_info("Click WIFI2 Tab")
+        self.auto_actions.click(self.get_wifi2_interface_tab())
+        sleep(2)
+
+        if self.get_device_override_configure_interface_settings_wifi2_radio_status().is_selected():
+            return "ON"
+        else:
+            return "OFF"
+
 
     def check_wifi_radio_status(self, wifi_interface_name, device_mac="", device_name=""):
         """
@@ -1361,12 +1377,12 @@ class DeviceConfig(DeviceConfigElements):
         """
         if transmission_mode == "Auto":
             self.utils.print_info("Enable Transmission Power Mode To Auto")
-            self.driver.execute_script("arguments[0].click();", self.get_wireless_interface_wifi2_transmission_mode_auto())
+            CloudDriver().cloud_driver.execute_script("arguments[0].click();", self.get_wireless_interface_wifi2_transmission_mode_auto())
             sleep(2)
 
         if transmission_mode == "Manual":
             self.utils.print_info("Enable Transmission Power Mode To Manual")
-            self.driver.execute_script("arguments[0].click();", self.get_wireless_interface_wifi2_transmission_mode_manual())
+            CloudDriver().cloud_driver.execute_script("arguments[0].click();", self.get_wireless_interface_wifi2_transmission_mode_manual())
             sleep(2)
 
             if power_value != "default":
@@ -1419,7 +1435,7 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info(" LOCATOR ------ " + str(locator))
             element = self.web.get_element(locator)
             element.click()
-            self.driver.execute_script("arguments[0].click();", element)
+            CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         except:
             self.utils.print_info(" Not able to configure any channel; leaving as default.")
@@ -1488,7 +1504,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click on Clients")
-        self.driver.execute_script("arguments[0].click();", self.get_go_to_clients())
+        CloudDriver().cloud_driver.execute_script("arguments[0].click();", self.get_go_to_clients())
         sleep(3)
 
         total_client_count = self.get_total_client_count().text
@@ -1520,6 +1536,47 @@ class DeviceConfig(DeviceConfigElements):
         client_info["SNR"] = self.get_client_snr().text
 
         return client_info
+
+    def navigate_to_device_config_device_config_dhcp(self, device_mac, dhcp="ENABLE"):
+        """
+        - This keyword will retrieve the all settings in the device configuration interface WiFi2 page
+        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> Device Configuration -->dhcp
+
+        - Keyword Usage:
+         - ``navigate_to_device_config_device   ${DEVICE_MAC}   Enable''
+
+        :param device_mac: device MAC to go to device 360 page
+        :param dhcp: Enable/Disable
+        :return: 1 or -1
+        """
+
+        try:
+            self.utils.print_info("Navigating to device 360 page")
+            if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                return -1
+
+            self.utils.print_info("click on configuration tab")
+            self.auto_actions.click(self.get_configuration_tab())
+            self.utils.print_info("Click on Device Configuration tab")
+            self.auto_actions.click(self.get_device_configuration_tab())
+
+            dhcp_status = self.get_device_configuration_dhcp_checkbox().is_selected()
+            if dhcp.upper() == "ENABLE" and not dhcp_status:
+                self.utils.print_info("Enable -> Use DHCP only to set IP Address")
+                self.auto_actions.click(self.get_device_configuration_dhcp_checkbox())
+            elif dhcp.upper() == "DISABLE" and dhcp_status:
+                self.utils.print_info("Disable -> Use DHCP only to set IP Address")
+                self.auto_actions.click(self.get_device_configuration_dhcp_checkbox())
+            self.auto_actions.click(self.get_device_override_save_device_configuration())
+            sleep(2)
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            sleep(2)
+        except:
+            self.utils.print_info("Not able to navigate to the page")
+
+        return 1
 
     def navigate_to_device_config_interface_wireless(self, device_mac, interface='wifi2'):
         """
@@ -1803,11 +1860,11 @@ class DeviceConfig(DeviceConfigElements):
                 if mode == 'excluded':
                     if enabled_text.find("excluded") == -1:
                         self.utils.print_info(" Click on the channel " + str(channel))
-                        self.driver.execute_script("arguments[0].click();", element)
+                        CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
                 elif mode == 'included':
                     if enabled_text.find("included") == -1:
                         self.utils.print_info(" Click on the channel " + str(channel))
-                        self.driver.execute_script("arguments[0].click();", element)
+                        CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         except:
             self.utils.print_info(" Not able to click on the channel ")
@@ -1936,7 +1993,7 @@ class DeviceConfig(DeviceConfigElements):
             locator = self.get_select_wireless_wifi2_radio_profile(str(profile_name))
             self.auto_actions.click(self.web.get_element(locator))
             element = self.get_default_wireless_wifi2_radio_profile_drop_down()
-            # self.driver.execute_script("arguments[0].click();", element)
+            # CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         elif interface in ['wifi1', 'WIFI1']:
             self.auto_actions.click(self.get_default_wireless_wifi1_radio_profile_drop_down())
@@ -2042,16 +2099,16 @@ class DeviceConfig(DeviceConfigElements):
         if interface in ['wifi2', 'WIFI2']:
             element = self.get_wireless_wifi2_override_channel_exclusion_setting_radio_profile_checkbox()
             if not element.is_selected():
-                self.driver.execute_script("arguments[0].click();", element)
+                CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         elif interface in ['wifi1', 'WIFI1']:
             element = self.get_wireless_wifi1_override_channel_exclusion_setting_radio_profile_checkbox()
             if not element.is_selected():
-                self.driver.execute_script("arguments[0].click();", element)
+                CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
         elif interface in ['wifi0', 'WIFI0']:
             element = self.get_wireless_wifi0_override_channel_exclusion_setting_radio_profile_checkbox()
             if not element.is_selected():
-                self.driver.execute_script("arguments[0].click();", element)
+                CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
         return 1
 
     def _go_to_wired_interface_settings_page(self):

@@ -102,9 +102,23 @@ class Switch(SwitchWebElements):
         self.auto_actions.click(self.get_devices_refresh_button())
         sleep(5)
 
-        if self.devices.search_device(device_serial=switch_serial):
-            self.utils.print_info("Successfully Onboarded Switch")
+        if "," in switch_serial:
+            switch_serial_list = switch_serial.split(",")
+            for serial in switch_serial_list:
+                if self.devices.search_device(device_serial=serial):
+                    self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {serial}")
+                else:
+                    self.utils.print_error(f"Switch with serial no. {serial} is not successfully onboarded...")
+                    return -1
             return 1
+        else:
+            if self.devices.search_device(device_serial=switch_serial):
+                self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {switch_serial}")
+                return 1
+            else:
+                self.utils.print_error(f"Switch with serial no. {switch_serial} is not successfully onboarded...")
+                return -1
+
 
     def onboard_aerohive_switch(self, switch_serial, switch_type):
         """

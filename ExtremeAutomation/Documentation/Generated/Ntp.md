@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Ntp
-This feature is located in this file: `ntp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `ntp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_client
 	Pytest API Call: 
@@ -1078,305 +1078,183 @@ UUID: 0c8daefc-7345-4f9a-b77d-115e6eebac6b
 ----------------------------------------------
 
 
-# API Function: show_info
+# API Function: ntp_verify_server_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ntp.ntp_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_enabled(device_name, server)
 
 	Robot API Call: 
 
-		ntp_show_info  device_name  
+		ntp_verify_server_enabled  device_name  server
 
-UUID: 631a00eb-4564-415a-ab79-47363713be48
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show sntp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp status
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.33.
-
-----------------------------------------------
-
-
-# API Function: show_association
+# API Function: ntp_verify_server_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ntp.ntp_show_association(device_name )
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_disabled(device_name, server)
 
 	Robot API Call: 
 
-		ntp_show_association  device_name  
+		ntp_verify_server_disabled  device_name  server
 
-UUID: ce8c3fe3-eebb-43cf-8745-de5f5bd5b14c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp association
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp association
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_association_detail
+# API Function: ntp_verify_client_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ntp.ntp_show_association_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_client_enabled(device_name)
 
 	Robot API Call: 
 
-		ntp_show_association_detail  device_name  
+		ntp_verify_client_enabled  device_name
 
-UUID: c7c5dde3-3aa1-4dca-9bca-fc6be13458ac
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp association detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_servers
+# API Function: ntp_verify_client_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ntp.ntp_show_servers(device_name )
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_client_disabled(device_name)
 
 	Robot API Call: 
 
-		ntp_show_servers  device_name  
+		ntp_verify_client_disabled  device_name
 
-UUID: 6d62bc6f-e817-482f-a755-be026d8b43f8
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show sntp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp server
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp server
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.33.2.
-
-----------------------------------------------
-
-
-# API Function: show_key
+# API Function: ntp_verify_server_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ntp.ntp_show_key(device_name )
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_exists(device_name, server, precedence, key)
 
 	Robot API Call: 
 
-		ntp_show_key  device_name  
+		ntp_verify_server_exists  device_name  server  precedence  key
 
-UUID: 0cab21c8-f88d-4bba-aa60-45b1edfa9f8c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ntp key
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.33.3.
-
-----------------------------------------------
-
-
-# API Function: show_statistics
+# API Function: ntp_verify_server_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.ntp.ntp_show_statistics(device_name )
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_does_not_exist(device_name, server, precedence, key)
 
 	Robot API Call: 
 
-		ntp_show_statistics  device_name  
+		ntp_verify_server_does_not_exist  device_name  server  precedence  key
 
-UUID: a67a4bf0-9652-4b7d-b5ba-c2005fa802db
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: ntp_verify_interval
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_interval(device_name, interval)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		ntp_verify_interval  device_name  interval
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: ntp_verify_server_key_id
+	Pytest API Call: 
 
-		show ntp statistics
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_key_id(device_name, server)
 
-----------------------------------------------
+	Robot API Call: 
 
+		ntp_verify_server_key_id  device_name  server
 
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: ntp_verify_server_auth_enabled
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_auth_enabled(device_name, server)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.33.2.
+		ntp_verify_server_auth_enabled  device_name  server
 
-----------------------------------------------
+# API Function: ntp_verify_server_auth_disabled
+	Pytest API Call: 
 
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_auth_disabled(device_name, server)
+
+	Robot API Call: 
+
+		ntp_verify_server_auth_disabled  device_name  server
+
+# API Function: ntp_verify_server_source_ip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_source_ip(device_name, server, source_ip)
+
+	Robot API Call: 
+
+		ntp_verify_server_source_ip  device_name  server  source_ip
+
+# API Function: ntp_verify_auth_key_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_auth_key_exists(device_name, key_id)
+
+	Robot API Call: 
+
+		ntp_verify_auth_key_exists  device_name  key_id
+
+# API Function: ntp_verify_auth_key_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_auth_key_does_not_exist(device_name, key_id)
+
+	Robot API Call: 
+
+		ntp_verify_auth_key_does_not_exist  device_name  key_id
+
+# API Function: ntp_verify_auth_key_secret
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_auth_key_secret(device_name, key_id, key_secret)
+
+	Robot API Call: 
+
+		ntp_verify_auth_key_secret  device_name  key_id  key_secret
+
+# API Function: ntp_verify_auth_key_type
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_auth_key_type(device_name, key_id, key_type)
+
+	Robot API Call: 
+
+		ntp_verify_auth_key_type  device_name  key_id  key_type
+
+# API Function: ntp_verify_server_reachable
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_reachable(device_name, server)
+
+	Robot API Call: 
+
+		ntp_verify_server_reachable  device_name  server
+
+# API Function: ntp_verify_server_synced
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_synced(device_name, server)
+
+	Robot API Call: 
+
+		ntp_verify_server_synced  device_name  server
+
+# API Function: ntp_verify_server_access_failures
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_access_failures(device_name, server)
+
+	Robot API Call: 
+
+		ntp_verify_server_access_failures  device_name  server
+
+# API Function: ntp_verify_server_stratum
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_stratum(device_name, server)
+
+	Robot API Call: 
+
+		ntp_verify_server_stratum  device_name  server
+
+# API Function: ntp_verify_server_version
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.ntp.ntp_verify_server_version(device_name, server)
+
+	Robot API Call: 
+
+		ntp_verify_server_version  device_name  server
 

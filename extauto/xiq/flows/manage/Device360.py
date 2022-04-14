@@ -11,7 +11,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
-
+from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 
@@ -24,6 +24,7 @@ class Device360(Device360WebElements):
         self.dev = Devices()
         self.navigator = Navigator()
         self.dev360 = Device360WebElements()
+        self.deviceConfig = DeviceConfig()
         self.devices_web_elements = DevicesWebElements()
         self.wireless_web_elements = WirelessWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
@@ -285,8 +286,8 @@ class Device360(Device360WebElements):
         :return: SSH String
         """
         if device_mac:
-            self.utils.print_info("Using device MAC: ", device_mac)
-            self.navigator.navigate_to_device360_page_with_mac(device_mac)
+            self.utils.print_info("Using device MAC: ", device_mac.upper())
+            self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
 
         if device_name:
             self.utils.print_info("Using device name: ", device_name)
@@ -339,14 +340,14 @@ class Device360(Device360WebElements):
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Get Device360 Enable SSH CLI Connectivity  device_mac=${AP1_MAC}    run_time=5``
-         - ``Get Device360 Enable SSH CLI Connectivity  device_name=${AP1_NAME}  run_time=10``
+         - ``Device360 Enable SSH Web Connectivity  device_mac=${AP1_MAC}    run_time=5``
+         - ``Device360 Enable SSH Web Connectivity  device_name=${AP1_NAME}  run_time=10``
 
         :return: SSH String
         """
         if device_mac:
-            self.utils.print_info("Using device MAC: ", device_mac)
-            self.navigator.navigate_to_device360_page_with_mac(device_mac)
+            self.utils.print_info("Using device MAC: ", device_mac.upper())
+            self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
 
         if device_name:
             self.utils.print_info("Using device name: ", device_name)
@@ -392,6 +393,72 @@ class Device360(Device360WebElements):
         self.utils.print_info("Device 360 SSH WEB URL: ", url)
 
         return url
+
+    def device360_is_ssh_enabled(self, device_mac='', device_name=''):
+        """
+        - This keyword verifies if SSH Web Connectivity is enabled
+        - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
+        - Keyword Usage
+         - ``Device360 Is SSH Enabled  device_mac=${AP1_MAC}``
+         - ``Device360 Is SSH Enabled  device_name=${AP1_NAME}``
+        :param device_mac: device MAC address
+        :param device_name: device name
+        :return: 1 if is enabled, else -1
+        """
+        if device_mac:
+            self.utils.print_info("Using device MAC: ", device_mac)
+            self.navigator.navigate_to_device360_page_with_mac(device_mac)
+
+        if device_name:
+            self.utils.print_info("Using device name: ", device_name)
+            self.navigator.navigate_to_device360_page_with_host_name(device_name)
+
+        self.utils.print_info("Clicking Device 360 Configure button")
+        self.auto_actions.click(self.get_device360_configure_button())
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Clicking Device 360 SSH tab")
+        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Check if enabled based on first radio button")
+        if self.get_device360_configure_ssh_cli_5min_radio().is_enabled():
+            return 1
+
+        return -1
+
+    def device360_is_ssh_disabled(self, device_mac='', device_name=''):
+        """
+        - This keyword verifies if SSH Web Connectivity is disabled
+        - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
+        - Keyword Usage
+         - ``Device360 Is SSH Disabled  device_mac=${AP1_MAC}``
+         - ``Device360 Is SSH Disabled  device_name=${AP1_NAME}``
+        :param device_mac: device MAC address
+        :param device_name: device name
+        :return: 1 if is disabled, else -1
+        """
+        if device_mac:
+            self.utils.print_info("Using device MAC: ", device_mac)
+            self.navigator.navigate_to_device360_page_with_mac(device_mac)
+
+        if device_name:
+            self.utils.print_info("Using device name: ", device_name)
+            self.navigator.navigate_to_device360_page_with_host_name(device_name)
+
+        self.utils.print_info("Clicking Device 360 Configure button")
+        self.auto_actions.click(self.get_device360_configure_button())
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Clicking Device 360 SSH tab")
+        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Check if disabled based on first radio button")
+        if self.get_device360_configure_ssh_cli_5min_radio().is_enabled():
+            return -1
+
+        return 1
 
     def get_exos_information(self):
         """
@@ -784,8 +851,8 @@ class Device360(Device360WebElements):
         - This keyword disables SSH WEB Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Get Device360 Disable SSH Web Connectivity  device_mac=${AP1_MAC}``
-         - ``Get Device360 Disable SSH Web Connectivity  device_name=${AP1_NAME}``
+         - ``Device360 Disable SSH Web Connectivity  device_mac=${AP1_MAC}``
+         - ``Device360 Disable SSH Web Connectivity  device_name=${AP1_NAME}``
 
         :return: 1 if passed else -1
         """
@@ -1929,7 +1996,7 @@ class Device360(Device360WebElements):
         ret_val = -1
 
         self.utils.print_info(f"Checking if port {port_num} is deselected")
-        port_list = self.get_device360_port_diagnostics_deselected_ports()
+        #port_list = self.get_device360_port_diagnostics_deselected_ports()
         if port_list:
             port_count = len(port_list)
             self.utils.print_info(f"There are {port_count} deselected ports to check")
@@ -4921,6 +4988,308 @@ class Device360(Device360WebElements):
         self.auto_actions.click(self.get_close_dialog())
         return 1
 
+    def device360_check_wired_client(self, device_serial=None, device_mac=None, client_mac=None, sleep_time=30, iteration=15):
+        """
+           - This keyword is used to check the client exist in device360 page based on passed client mac address
+           -Flow: Manage --> Devices --> check on the Clients which is present in Device grid row based on Client MAC
+           - Keyword Usage:
+
+        :param device_serial: Serial Number of the Device
+        :param device_mac: Mac address of the Device
+        :param client_mac: Client MAC address
+        :param sleep_time: The time period between each iteration
+        :param iteration: The number of iteration
+        :return: -1 if there are any failure or client details in dict format
+        Client details: client mac,ipv4,ipv6,port speed,negotiated speed,vlan, port mode,
+
+        """
+        client_found = -1
+
+        for eachiteration in range(0, iteration):
+            if device_mac:
+                self.utils.print_info("Using device MAC: ", device_mac)
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+
+            if device_serial:
+                self.utils.print_info("Using device name: ", device_serial)
+                self.navigator.navigate_to_device360_page_with_host_name(device_serial)
+
+            self.device360_navigate_to_monitor_clients()
+            sleep(4)
+            self.utils.print_info("Searching Device Entry with Search String : ", client_mac)
+            self.auto_actions.send_keys(self.deviceConfig.get_unique_clients_search_field(), client_mac)
+            self.screen.save_screen_shot()
+            sleep(5)
+            table = self.dev360.get_device_active_clients_grid()
+            rows = self.dev360.get_device_active_clients_grid_rows(table)
+            self.screen.save_screen_shot()
+            sleep(5)
+            if rows:
+                for row in rows:
+                    self.utils.print_info("Getting the clients rows: ", row.text)
+                    get_client_mac = None
+                    try:
+                        get_client_mac = self.get_device360_hyperlink_client().text
+                    except:
+                        print("Problem while getting client mac")
+                    if client_mac in row.text and "CONNECTED" in row.text:
+                        self.utils.print_info("Client found")
+                        self.utils.print_info("Retrieve the device's unique client information")
+                        client_found = 1
+
+                    elif get_client_mac:
+                        if get_client_mac.lower() == client_mac.lower():
+                            self.utils.print_info("Client found ", get_client_mac)
+                            self.utils.print_info("Retrieve the device's unique client information")
+                            client_found = 1
+                    else:
+                        self.close_device360_window()
+                if client_found==1:
+                    break
+            else:
+                self.utils.print_info("Client not found yet! Retrying after 30 seconds")
+                self.close_device360_window()
+                sleep(sleep_time)
+
+        if client_found == 1:
+            client_info = dict()
+
+            try:
+                client_info["connection_type"] = self.deviceConfig.get_wired_client_connection_type().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Connection type not found")
+                client_info["connection_type"] = None
+
+            try:
+                client_info["ostype"] = self.deviceConfig.get_wired_client_os_type().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Os type not found")
+                client_info["ostype"] = None
+
+            try:
+                client_info["connectstatus"] = self.deviceConfig.get_wired_client_connection_status().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Connect status not found")
+                client_info["connectstatus"] = None
+
+            try:
+                client_info["hostname"] = self.deviceConfig.get_wired_client_hostname().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Host Name not found")
+                client_info["hostname"] = None
+
+            try:
+                client_info["clientmac"] = self.deviceConfig.get_wired_client_mac().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Client Mac not found")
+                client_info["clientmac"] = None
+
+            try:
+                client_info["ipv4"] = self.deviceConfig.get_wired_client_IPv4().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> IPv4 Address not found")
+                client_info["ipv4"] = None
+
+            try:
+                client_info["ipv6"] = self.deviceConfig.get_wired_client_IPv6().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> IPv6 not found")
+                client_info["ipv6"] = None
+
+            try:
+                client_info["username"] = self.deviceConfig.get_wired_client_user_name().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Username not found")
+                client_info["username"] = None
+
+            try:
+                client_info["vlan"] = self.deviceConfig.get_wired_client_vlan().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> vlan not found")
+                client_info["vlan"] = None
+
+            try:
+                client_info["Connected_via"] = self.deviceConfig.get_wired_client_connected_via().text
+            except:
+                self.utils.print_info("In Device360 -> clients table -> Connected via not found")
+                client_info["Connected_via"] = None
+
+            print("The complete client info -> ",client_info)
+            self.close_device360_window()
+
+            return client_info
+        else:
+            return -1
+
+    def device360_click_clients(self,search_string,device_mac="",device_serial="",sleeptime=30,iteration=30):
+        """
+        This keyword is to check whether the clients can be clickable
+        :param search_string: The mac address of the client
+        :param device_mac: Device MAC address for device selection
+        :param device_serial: Device serial number for device selection
+        :param sleeptime: The time period of sleep between each iteration
+        :param iteration: the number of iteration
+        :return: -1 if can't click client else return 1
+        """
+        count = 0
+        for each in range(0,iteration):
+            self.navigator.navigate_to_devices()
+            count+=1
+            self.utils.print_info("Checking the client for ")
+            try:
+                if device_mac:
+                    self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+                    device_row = self.dev.get_device_row(device_mac)
+                    if device_row:
+                        if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                            self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                            return -1
+                        sleep(8)
+
+                if device_serial:
+                    self.utils.print_info("Checking Search Result with Device Name : ", device_serial)
+                    device_row = self.dev.get_device_row(device_serial)
+                    if device_row:
+                        if self.navigator.navigate_to_device360_page_with_host_name(device_serial) == -1:
+                            self.utils.print_info(f"Device not found in the device row grid with device name :{device_serial}")
+                            return -1
+                        sleep(8)
+                sleep(5)
+
+
+            except:
+                self.utils.print_info("Not able to navigate to the page")
+                return -1
+            sleep(5)
+
+            self.utils.print_info("Click on Clients")
+            sleep(3)
+            self.device360_navigate_to_monitor_clients()
+
+            self.utils.print_info("Searching Device Entry with Search String : ", search_string)
+            self.auto_actions.send_keys(self.deviceConfig.get_unique_clients_search_field(), search_string)
+            self.screen.save_screen_shot()
+            sleep(5)
+            #remove this try once AIQ-1529
+            clickable = -1
+            try:
+                clickable = self.auto_actions.click(self.dev360.get_device360_click_particular_client())
+                if clickable == 1:
+                    print("Able to click the client and see the popup...")
+                    sleep(5)
+                    break
+            except:
+                print("There was an error during click of Client")
+
+            if clickable != 1:
+                print("The link is not clickable, so waiting for the client Mac address to become clickable")
+                self.utils.print_info("Close D360 Dialogue Window")
+                self.close_device360_window()
+                self.dev.refresh_devices_page()
+                sleep(sleeptime)
+        return 1
+
+    def device360_read_wired_clients_popup(self):
+        """
+        This keyword read the Wired client Popup
+        This keyword assumes that we should have clicked the wired client pop-up
+        Manage -> Devices -> Device 360 -> Clients -> Clickable client (clicked)
+        :return: client details in dict format if found else it will return client details with None
+        Client details: client mac,ipv4,ipv6,port speed,negotiated speed,vlan, port mode,
+        """
+        print(" we should have landed in C360 page")
+
+        client_info = dict()
+
+        try:
+            print(self.deviceConfig.get_wired_client_popup_mac())
+            client_info["client_mac"] = self.deviceConfig.get_wired_client_popup_mac().text
+
+        except:
+
+            self.utils.print_info("In Client Popup, Client Mac not found")
+            client_info["client_mac"] = None
+
+        try:
+            client_info["ipv4"] = self.deviceConfig.get_wired_client_popup_IPv4().text
+        except:
+            self.utils.print_info("In Client Popup, IPv4 Address not found")
+            client_info["ipv4"] = None
+
+        try:
+            client_info["ipv6"] = self.deviceConfig.get_wired_client_IPv6().text
+        except:
+            self.utils.print_info("In Client Popup, IPv6 not found")
+            client_info["ipv6"] = None
+
+        try:
+            client_info["port_speed"] = self.deviceConfig.get_wired_client_popup_portSpeed().text
+        except:
+            self.utils.print_info("In Client Popup, Port speed not found")
+            client_info["port_speed"] = None
+
+        try:
+            client_info["negotiated_speed"] = self.deviceConfig.get_wired_client_popup_negotiatedspeed().text
+        except:
+            self.utils.print_info("In Client Popup, Negotiated speed not found")
+            client_info["negotiated_speed"] = None
+
+        try:
+            client_info["vlan"] = self.deviceConfig.get_wired_client_popup_vlan().text
+        except:
+            self.utils.print_info("In Client Popup, VLAN Not found")
+            client_info["vlan"] = None
+        try:
+            client_info["portMode"] = self.deviceConfig.get_wired_client_popup_portMode().text
+        except:
+            self.utils.print_info("In Client Popup, portMode not found")
+            client_info["portMode"] = None
+
+        self.utils.print_info("The complete client info -> ", client_info)
+        return client_info
+
+    def close_client360_window(self):
+        """
+        - This keyword closes the Device360 dialog window.  It assumes the Device360 Window is open - if the close
+          button cannot be found, a message is printed.
+        - Flow: Client 360 Window --> Click "X" to close Device360 Window
+        - Keyword Usage:
+         - ``Close Client360 Window``
+        :param  None
+        :return: 1 if the Client 360 window was closed, else -1
+        """
+        close_btn = self.dev360.get_client360_close_dialog()
+        if close_btn:
+            self.utils.print_info("Closing client360 Dialog Window.")
+            self.auto_actions.click(self.dev360.get_client360_close_dialog())
+            return 1
+        else:
+            self.screen.save_screen_shot()
+            self.utils.print_info("Could not obtain Client360 close button - make sure Client360 window is open")
+            return -1
+
+    def device360_decide_clientpage_or_device360_page(self):
+        """
+        This keyword is to decide whether we have landed at client page or Device360 page
+        :return: 1 if Device 360 page ,2 if Client 360 page else -1
+        """
+        connection_status = None
+        client_status = None
+        try:
+            connection_status = self.dev360.get_system_info_device_model().text
+        except:
+            self.utils.print_info("There is a problem while fetching connection status in D360 page, which means we are not at intended page")
+        try:
+            client_status = self.deviceConfig.get_wired_client_popup_mac().text
+        except:
+            self.utils.print_info("There is a problem while fetching mac of client, which indirectly means we are not landed at C360 page")
+        if client_status:
+            print("The current page is client 360 page....")
+            return 2
+        elif connection_status:
+            print("The current page is Device 360 page")
+            return 1
+        return -1
 
     def device360_set_network_policy(self, network_policy="default"):
         """
@@ -4946,7 +5315,7 @@ class Device360(Device360WebElements):
 
         return 1
 
-
+    
     def select_dhcp_ip_address_view(self):
         """
         - This keyword clicks the DHCP & IP Address link on the Configure tab in the Device360 dialog window.
@@ -4968,7 +5337,7 @@ class Device360(Device360WebElements):
 
         return 1
 
-
+    
     def search_for_vlan_subnetworks_type_in_row_table(self, *searched_values):
         """
         - This keyword searches any multiple values in the subnetworks row table
@@ -5013,3 +5382,212 @@ class Device360(Device360WebElements):
         if not found:
             self.utils.print_info(" Not able to find the searched value in table ")
             return -1
+    def device360_confirm_column_picker_column_selected(self, option, *columns, select_page="", device_mac="",
+                                                        device_name=""):
+        """
+        - This keyword confirms the list of columns are all selected in the column picker
+        - Keyword Usage:
+            - `Confirm Column Picker Column Selected  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
+
+        :param columns: list of device columns that should be selected
+        :return: returns 1 if all columns are selected in the column picker; else, -1
+        """
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+                sleep(10)
+
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+                sleep(10)
+        if select_page == "Overview":
+            self.utils.print_info(f"Selecting '{select_page}' page")
+            self.select_monitor_overview()
+            sleep(5)
+        elif select_page == "Clients":
+            self.utils.print_info(f"Selecting '{select_page}' page")
+            self.select_monitor_clients()
+            sleep(5)
+        elif select_page == "Events":
+            self.utils.print_info(f"Selecting '{select_page}' page")
+            self.device360_select_events_view()
+            sleep(5)
+        elif select_page == "Alarms":
+            self.utils.print_info(f"Selecting '{select_page}' page")
+            self.device360_select_alarms_view()
+            sleep(5)
+        else:
+            self.utils.print_info(f"No '{select_page}' page ")
+            sleep(2)
+            return -1
+
+        ret_val = 1
+        self.utils.print_info("Clicking on Column Picker")
+        sleep(10)
+        # Handle the case where a tooltip / popup is covering the column picker icon
+        self.auto_actions.click(self.get_device360_column_picker_icon())
+        sleep(2)
+        if option.lower() == "check":
+            self.utils.print_info("Column list to check for selected items: ", columns)
+            for filter_ in columns:
+                filter_row, row_num = self.dev._get_column_picker_filter_exact(filter_)
+                if filter_row != "":
+                    row_inputs = self.devices_web_elements.get_column_picker_row_input()
+                    row_input_count = 0
+                    for row_inp in row_inputs:
+                        row_input_count += 1
+                        if row_input_count == row_num:
+                            ans = row_inp.get_attribute("checked")
+                            if ans == "true":
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
+                                sleep(2)
+                            else:
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
+                                self.utils.print_info(f"Selecting Column Picker Filter '{filter_}'")
+                                self.auto_actions.click(filter_row)
+                                sleep(2)
+                            break
+                else:
+                    self.utils.print_info("Unable to obtain status of the column ", filter_)
+                    ret_val = -1
+        elif option.lower() == "uncheck":
+            self.utils.print_info("Column list to uncheck for selected items: ", columns)
+            for filter_ in columns:
+                filter_row, row_num = self.dev._get_column_picker_filter_exact(filter_)
+                if filter_row != "":
+                    row_inputs = self.devices_web_elements.get_column_picker_row_input()
+                    row_input_count = 0
+                    for row_inp in row_inputs:
+                        row_input_count += 1
+                        if row_input_count == row_num:
+                            ans = row_inp.get_attribute("checked")
+                            if ans == "true":
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
+                                self.utils.print_info(f"Unselecting Column Picker Filter '{filter_}'")
+                                self.auto_actions.click(filter_row)
+                                sleep(2)
+                            else:
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
+                                sleep(2)
+                            break
+                else:
+                    self.utils.print_info("Unable to obtain status of the column ", filter_)
+                    ret_val = -1
+        else:
+            self.utils.print_info(f"No option available '{option}'")
+            ret_val = -1
+
+        self.utils.print_info("Closing Column Picker")
+        # Handle the case where a tooltip / popup is covering the column picker icon
+        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.utils.print_info("Close Dialogue Window")
+        self.auto_actions.click(self.get_close_dialog())
+        sleep(2)
+
+        return ret_val
+
+    def device360_check_column_picker(self, option, *columns, select_page="", device_mac="", device_name=""):
+
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+                sleep(10)
+
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+                sleep(10)
+        if select_page == "Overview":
+            self.utils.print_info(f"Selecting '{select_page}' page")
+            self.select_monitor_overview()
+            sleep(5)
+        elif select_page == "Clients":
+            self.utils.print_info(f"Selecting '{select_page}' page")
+            self.select_monitor_clients()
+            sleep(5)
+        elif select_page == "Events":
+            self.utils.print_info(f"Selecting '{select_page}' page")
+            self.device360_select_events_view()
+            sleep(5)
+        elif select_page == "Alarms":
+            self.utils.print_info(f"Selecting '{select_page}' page")
+            self.device360_select_alarms_view()
+            sleep(5)
+        else:
+            self.utils.print_info(f"No '{select_page}' page ")
+            sleep(2)
+            return -1
+        ret_val = 1
+        self.utils.print_info("Clicking on Column Picker")
+        sleep(10)
+        # Handle the case where a tooltip / popup is covering the column picker icon
+        self.auto_actions.click(self.get_device360_column_picker_icon())
+        sleep(2)
+        if option.lower() == "unchecked":
+            self.utils.print_info(f"Checking '{columns}' are not selected")
+            sleep(2)
+            for filter_ in columns:
+                filter_row, row_num = self.dev._get_column_picker_filter_exact(filter_)
+                if filter_row != "":
+                    row_inputs = self.devices_web_elements.get_column_picker_row_input()
+                    row_input_count = 0
+                    for row_inp in row_inputs:
+                        row_input_count += 1
+                        if row_input_count == row_num:
+                            ans = row_inp.get_attribute("checked")
+                            if ans == "true":
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
+                                sleep(2)
+                                ret_val = -1
+                            else:
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
+                                sleep(2)
+                               # return -1
+                else:
+                    self.utils.print_info("Unable to obtain status of the column ", filter_)
+                    ret_val = -1
+        elif option.lower() == "checked":
+            self.utils.print_info(f"Checking '{columns}' are selected")
+            sleep(2)
+            for filter_ in columns:
+                filter_row, row_num = self.dev._get_column_picker_filter_exact(filter_)
+                if filter_row != "":
+                    row_inputs = self.devices_web_elements.get_column_picker_row_input()
+                    row_input_count = 0
+                    for row_inp in row_inputs:
+                        row_input_count += 1
+                        if row_input_count == row_num:
+                            ans = row_inp.get_attribute("checked")
+                            if ans == "true":
+                               # self.act
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
+                                sleep(2)
+                            else:
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
+                                sleep(2)
+                                ret_val = -1
+                else:
+                    self.utils.print_info("Unable to obtain status of the column ", filter_)
+                    ret_val = -1
+        else:
+            self.utils.print_info(f"No option available '{option}'")
+            ret_val = -1
+
+        self.utils.print_info("Closing Column Picker")
+        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.utils.print_info("Close Dialogue Window")
+        self.auto_actions.click(self.get_close_dialog())
+        sleep(2)
+        return ret_val
+

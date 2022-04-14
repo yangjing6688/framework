@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Fdb
-This feature is located in this file: `fdb.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `fdb.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: set_agetime
 	Pytest API Call: 
@@ -1117,561 +1117,66 @@ UUID: 8fa25d83-1e10-4208-8bb4-681351ac937e
 
 ## REST
 ## SNMP
-# API Function: show_agetime
+# API Function: fdb_verify_agetime
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_agetime(device_name )
+		self.defaultLibrary.apiLowLevelApis.fdb.fdb_verify_agetime(device_name)
 
 	Robot API Call: 
 
-		fdb_show_agetime  device_name  
+		fdb_verify_agetime  device_name
 
-UUID: 1ed8be08-313f-4598-b926-59ef7dccdfd3
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mac agetime
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mac-address-table aging-time
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_all_entries
+# API Function: fdb_verify_entry_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_all_entries(device_name )
+		self.defaultLibrary.apiLowLevelApis.fdb.fdb_verify_entry_exists(device_name, mac, vlan, port)
 
 	Robot API Call: 
 
-		fdb_show_all_entries  device_name  
+		fdb_verify_entry_exists  device_name  mac  vlan  port
 
-UUID: d4a7b29a-1b98-4d7f-9ae5-854280b9839a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mac
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces gigabitethernet fdb-entry
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-# API Function: show_entry
+# API Function: fdb_verify_entry_has_only_one_instance
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_entry(device_name )
+		self.defaultLibrary.apiLowLevelApis.fdb.fdb_verify_entry_has_only_one_instance(device_name, mac)
 
 	Robot API Call: 
 
-		fdb_show_entry  device_name  
+		fdb_verify_entry_has_only_one_instance  device_name  mac
 
-UUID: ccaf6147-a3a7-4abc-8363-e820e491b0a9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mac address {mac}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb {mac}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan mac-address-entry mac {mac}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-# API Function: show_stats
+# API Function: fdb_verify_entry_has_only_two_instances
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_stats(device_name )
+		self.defaultLibrary.apiLowLevelApis.fdb.fdb_verify_entry_has_only_two_instances(device_name, mac)
 
 	Robot API Call: 
 
-		fdb_show_stats  device_name  
+		fdb_verify_entry_has_only_two_instances  device_name  mac
 
-UUID: 580e73cc-3bb3-4969-bf36-9693e774e881
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb stats
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_stats_port
+# API Function: fdb_verify_entry_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_stats_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.fdb.fdb_verify_entry_does_not_exist(device_name, mac, vlan, port)
 
 	Robot API Call: 
 
-		fdb_show_stats_port  device_name  
+		fdb_verify_entry_does_not_exist  device_name  mac  vlan  port
 
-UUID: b66bd965-8cd4-4d34-b33c-253da38d49aa
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb stats ports {port} no-refresh
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_stats_vlan
+# API Function: fdb_verify_entries_all_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_stats_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.fdb.fdb_verify_entries_all_exist(device_name, mac, vlan, port)
 
 	Robot API Call: 
 
-		fdb_show_stats_vlan  device_name  
+		fdb_verify_entries_all_exist  device_name  mac  vlan  port
 
-UUID: 7b06a937-6471-4e42-b07b-2682ff7a7dca
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb stats {vlan} no-refresh
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_stats_vlan_name
+# API Function: fdb_verify_entry_exists_for_duration
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_stats_vlan_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.fdb.fdb_verify_entry_exists_for_duration(device_name, mac, vlan, port, max_wait, interval)
 
 	Robot API Call: 
 
-		fdb_show_stats_vlan_name  device_name  
+		fdb_verify_entry_exists_for_duration  device_name  mac  vlan  port  max_wait  interval
 
-UUID: 8482d37f-363b-4e4e-ba50-6eba757ef79a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb stats vlan {vlan} no-refresh
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_vlan(device_name )
-
-	Robot API Call: 
-
-		fdb_show_vlan  device_name  
-
-UUID: d68b2ec4-ae4b-47b5-a9a6-860d8bedc72b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb {vlan} 
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2.{vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2.{vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2.{vlan}
-
-----------------------------------------------
-
-
-# API Function: show_vlan_name
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_vlan_name(device_name )
-
-	Robot API Call: 
-
-		fdb_show_vlan_name  device_name  
-
-UUID: eb426da0-ea1d-4ef3-8b00-c1a1065205c7
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb vlan {vlan} 
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_port(device_name )
-
-	Robot API Call: 
-
-		fdb_show_port  device_name  
-
-UUID: 2381d26e-3903-4d9f-89a3-0feb18f1bb6e
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show fdb port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.2.2.1.2
-
-----------------------------------------------
-
-
-# API Function: show_entries_vlan
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_entries_vlan(device_name )
-
-	Robot API Call: 
-
-		fdb_show_entries_vlan  device_name  
-
-UUID: 4ac951b9-8be2-4cc4-af98-76d7a6fdca2e
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan mac-address-entry {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_entries_port
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.fdb.fdb_show_entries_port(device_name )
-
-	Robot API Call: 
-
-		fdb_show_entries_port  device_name  
-
-UUID: c5eb792d-6d07-4bae-9e10-7f5b6df91522
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces gigabitethernet fdb-entry {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP

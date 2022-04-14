@@ -1,59 +1,21 @@
 # Keyword Library Documentation for Wlanservices
-This feature is located in this file: `wlanservices.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `wlanservices.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
-# API Function: show_all
+# API Function: wlanservices_verify_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.wlanservices.wlanservices_show_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.wlanservices.wlanservices_verify_exists(device_name, wlan_service_name)
 
 	Robot API Call: 
 
-		wlanservices_show_all  device_name  
+		wlanservices_verify_exists  device_name  wlan_service_name
 
-UUID: 3b504f20-a9fe-4d6e-b8fc-1d6480f59dea
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXTRWIRELESS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show wlans
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_detail
+# API Function: wlanservices_verify_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.wlanservices.wlanservices_show_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.wlanservices.wlanservices_verify_does_not_exist(device_name, wlan_service_name)
 
 	Robot API Call: 
 
-		wlanservices_show_detail  device_name  
+		wlanservices_verify_does_not_exist  device_name  wlan_service_name
 
-UUID: 99808fc2-1b5d-4693-ada6-523765211ee2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXTRWIRELESS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show wlans "{wlan_service_name}"
-
-----------------------------------------------
-
-
-## REST
-## SNMP
