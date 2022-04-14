@@ -1,6 +1,5 @@
 from ExtremeAutomation.Apis.NetworkElement.GeneratedApis.ParseApis.CLI.sysinfo.base.SysinfoBaseCustomShowTools import \
     SysinfoBaseCustomShowTools
-import re
 # All imports above this line will be removed after generation.
 # User imports must be added below.
 

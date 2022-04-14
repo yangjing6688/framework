@@ -771,6 +771,18 @@ class Device360WebElements(Device360WebElementDefs):
         :return: stack info present in title element in the Device 360 view
         """
         return self.weh.get_element(self.device360_title_stack_info)
+
+    def get_stack_members_status(self):
+        """
+        :return: a list of stack members elements in the Device 360 view
+        """
+        stack_members = []
+        elements = self.weh.get_elements(self.device360_topbar_stack_mem_status)
+        if elements:
+            for el in elements:
+                if el.is_displayed():
+                    stack_members.append(el)
+        return stack_members
     
     def get_stack_topbar_mac_usage(self):
         return self.weh.get_elements(self.device360_topbar_mac_usage)
@@ -1340,6 +1352,13 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_hyperlink_client(self):
         return self.weh.get_element(self.device360_hyperlink_client)
 
+    def get_device360_column_picker_icon(self):
+        elements = self.weh.get_elements(self.device360_column_picker_icon)
+        for el in elements:
+            if el.is_displayed():
+                return el
+        else:
+            return False
     def get_device360_cpu_utilized_button(self):
         return self.weh.get_element(self.device360_cpu_utilized_button)
 
@@ -1392,10 +1411,10 @@ class Device360WebElements(Device360WebElementDefs):
         return {th.text.strip(): th for th in ths if th.text.strip()}
 
     def get_device360_ports_table(self):
-        
+
         header_row = self.get_device360_ports_description_table_row()
         ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
-        
+
         table_rows = self.get_device360_port_table_rows()
         results = []
         for row in table_rows:
@@ -1406,3 +1425,9 @@ class Device360WebElements(Device360WebElementDefs):
                     result[th.text.strip()] = td.text.strip()
             results.append(result)
         return results
+
+    def get_device360_pagination_page_buttons(self):
+        return self.weh.get_elements(self.d360_pagination_page_button)
+
+    def get_device360_pagination_current_page(self):
+        return self.weh.get_element(self.d360_pagination_current_page)

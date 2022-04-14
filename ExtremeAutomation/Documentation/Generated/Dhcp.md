@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Dhcp
-This feature is located in this file: `dhcp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `dhcp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_vlan
 	Pytest API Call: 
@@ -589,87 +589,111 @@ UUID: 4bce6caf-0ce0-41eb-afcd-39331cb4b12c
 
 ## REST
 ## SNMP
-# API Function: show_info
+# API Function: dhcp_verify_address_range
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_address_range(device_name, vlan, start_addr, end_addr)
 
 	Robot API Call: 
 
-		dhcp_show_info  device_name  
+		dhcp_verify_address_range  device_name  vlan  start_addr  end_addr
 
-UUID: bcd409ba-54fa-4127-acd3-c1283652926b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan_name} dhcp-config
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_address_allocation
+# API Function: dhcp_verify_multiauth_lease_timer
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_address_allocation(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_multiauth_lease_timer(device_name, vlan, seconds)
 
 	Robot API Call: 
 
-		dhcp_show_address_allocation  device_name  
+		dhcp_verify_multiauth_lease_timer  device_name  vlan  seconds
 
-UUID: f895139e-a019-43e0-bbde-406e33d7328a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan_name} dhcp-address-allocation
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_bootprelay_info
+# API Function: dhcp_verify_lease_timer
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_show_bootprelay_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_lease_timer(device_name, vlan, seconds)
 
 	Robot API Call: 
 
-		dhcp_show_bootprelay_info  device_name  
+		dhcp_verify_lease_timer  device_name  vlan  seconds
 
-UUID: f34b0397-90ce-47c9-86bb-c243f31d5c2b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: dhcp_verify_ports_enabled
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_ports_enabled(device_name, vlan, ports)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		dhcp_verify_ports_enabled  device_name  vlan  ports
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: dhcp_verify_default_gateway
+	Pytest API Call: 
 
-		show bootprelay configuration
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_default_gateway(device_name, vlan, gateway_ip)
 
-----------------------------------------------
+	Robot API Call: 
 
+		dhcp_verify_default_gateway  device_name  vlan  gateway_ip
 
-## REST
-## SNMP
+# API Function: dhcp_verify_primary_dns
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_primary_dns(device_name, vlan, dns1_ip)
+
+	Robot API Call: 
+
+		dhcp_verify_primary_dns  device_name  vlan  dns1_ip
+
+# API Function: dhcp_verify_secondary_dns
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_secondary_dns(device_name, vlan, dns2_ip)
+
+	Robot API Call: 
+
+		dhcp_verify_secondary_dns  device_name  vlan  dns2_ip
+
+# API Function: dhcp_verify_ip_address
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_ip_address(device_name, vlan, ip_address)
+
+	Robot API Call: 
+
+		dhcp_verify_ip_address  device_name  vlan  ip_address
+
+# API Function: dhcp_verify_mac_address
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_mac_address(device_name, vlan, mac)
+
+	Robot API Call: 
+
+		dhcp_verify_mac_address  device_name  vlan  mac
+
+# API Function: dhcp_verify_bootprelay_server
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_bootprelay_server(device_name, ip)
+
+	Robot API Call: 
+
+		dhcp_verify_bootprelay_server  device_name  ip
+
+# API Function: dhcp_verify_bootprelay_interface_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_bootprelay_interface_enabled(device_name, vlan)
+
+	Robot API Call: 
+
+		dhcp_verify_bootprelay_interface_enabled  device_name  vlan
+
+# API Function: dhcp_verify_bootprelay_interface_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dhcp.dhcp_verify_bootprelay_interface_disabled(device_name, vlan)
+
+	Robot API Call: 
+
+		dhcp_verify_bootprelay_interface_disabled  device_name  vlan
+

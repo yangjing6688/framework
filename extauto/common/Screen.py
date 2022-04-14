@@ -1,7 +1,7 @@
 import time
 from PIL import Image
 
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from robot.libraries.BuiltIn import BuiltIn
 try:
@@ -14,7 +14,7 @@ except:
 class Screen:
     def __init__(self):
         self.utils = Utils()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def add_screen_shot_to_allure(self, file_name, driver):
         try:
@@ -30,14 +30,14 @@ class Screen:
             _driver.get_screenshot_as_file(file_path)
             self.add_screen_shot_to_allure(file_name, _driver)
         else:
-            self.driver.get_screenshot_as_file(file_path)
-            self.add_screen_shot_to_allure(file_name, self.driver)
+            CloudDriver().cloud_driver.get_screenshot_as_file(file_path)
+            self.add_screen_shot_to_allure(file_name, CloudDriver().cloud_driver)
         print(
             "*HTML* <a href=" + file_name + "> <img src=" + file_name + " width=\"600px\" style=\"border:5px solid red\"></a>")
         return file_name
 
     def save_element_screen_shot64(self):
-        self.driver.get_screenshot_as_file()
+        CloudDriver().cloud_driver.get_screenshot_as_file()
 
     def save_element_screen_shot(self, element):
         location = element.location
@@ -46,7 +46,7 @@ class Screen:
         self.utils.print_info("Element Image Size: ", size)
         self.utils.print_info("Element Image Location: ", location)
 
-        self.driver.save_screenshot('tmp.png')
+        CloudDriver().cloud_driver.save_screenshot('tmp.png')
         # Uses PIL library to open image in memory
         im = Image.open('tmp.png')
         left = int(location['x'])
@@ -76,7 +76,7 @@ class Screen:
         file_path = output_folder + "/" + file_name
 
         if _driver is None:
-            _driver = self.driver
+            _driver = CloudDriver().cloud_driver
 
         _driver.get_screenshot_as_file(file_path)
         time.sleep(5)

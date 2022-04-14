@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Mlag
-This feature is located in this file: `mlag.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `mlag.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_port_peer_id
 	Pytest API Call: 
@@ -645,115 +645,93 @@ UUID: 5ee749cf-6635-4b08-8009-904a5692bd98
 
 ## REST
 ## SNMP
-# API Function: show_peer
+# API Function: mlag_verify_peer_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mlag.mlag_show_peer(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_peer_exists(device_name, peer)
 
 	Robot API Call: 
 
-		mlag_show_peer  device_name  
+		mlag_verify_peer_exists  device_name  peer
 
-UUID: 18c01586-d6ad-49c2-8dc5-d5c94e2e4343
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlag peer {peer}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_peer_all
+# API Function: mlag_verify_peer_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mlag.mlag_show_peer_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_peer_does_not_exist(device_name, peer)
 
 	Robot API Call: 
 
-		mlag_show_peer_all  device_name  
+		mlag_verify_peer_does_not_exist  device_name  peer
 
-UUID: e9f85c68-c116-4539-a42e-440172315425
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlag peer
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ports
+# API Function: mlag_verify_peer_ipaddress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mlag.mlag_show_ports(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_peer_ipaddress(device_name, peer, ip, vr)
 
 	Robot API Call: 
 
-		mlag_show_ports  device_name  
+		mlag_verify_peer_ipaddress  device_name  peer  ip  vr
 
-UUID: 13a9eb43-00e9-4f9e-ba20-e43295a0d37e
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mlag ports {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ports_all
+# API Function: mlag_verify_peer_ipaddress_cleared
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.mlag.mlag_show_ports_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_peer_ipaddress_cleared(device_name, peer, ip, vr)
 
 	Robot API Call: 
 
-		mlag_show_ports_all  device_name  
+		mlag_verify_peer_ipaddress_cleared  device_name  peer  ip  vr
 
-UUID: bf864b86-2ae1-43b4-b3b2-d976b017cbae
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: mlag_verify_peer_id
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_peer_id(device_name, peer, pid)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		mlag_verify_peer_id  device_name  peer  pid
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: mlag_verify_peer_id_cleared
+	Pytest API Call: 
 
-		show mlag ports
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_peer_id_cleared(device_name, peer, pid)
 
-----------------------------------------------
+	Robot API Call: 
 
+		mlag_verify_peer_id_cleared  device_name  peer  pid
 
-## REST
-## SNMP
+# API Function: mlag_verify_reload_delay_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_reload_delay_enabled(device_name, port)
+
+	Robot API Call: 
+
+		mlag_verify_reload_delay_enabled  device_name  port
+
+# API Function: mlag_verify_reload_delay_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_reload_delay_disabled(device_name, port)
+
+	Robot API Call: 
+
+		mlag_verify_reload_delay_disabled  device_name  port
+
+# API Function: mlag_verify_md5_authentication_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_md5_authentication_enabled(device_name, peer)
+
+	Robot API Call: 
+
+		mlag_verify_md5_authentication_enabled  device_name  peer
+
+# API Function: mlag_verify_port_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.mlag.mlag_verify_port_disabled(device_name, port)
+
+	Robot API Call: 
+
+		mlag_verify_port_disabled  device_name  port
+
