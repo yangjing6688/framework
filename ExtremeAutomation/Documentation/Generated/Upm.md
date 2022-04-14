@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Upm
-This feature is located in this file: `upm.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `upm.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: set_auth
 	Pytest API Call: 
@@ -225,59 +225,39 @@ UUID: 0d164f68-612b-4ecc-be4e-983749106921
 
 ## REST
 ## SNMP
-# API Function: show_event_authenticate
+# API Function: upm_verify_authenticate_event_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.upm.upm_show_event_authenticate(device_name )
+		self.defaultLibrary.apiLowLevelApis.upm.upm_verify_authenticate_event_exists(device_name, auth_profile, ports)
 
 	Robot API Call: 
 
-		upm_show_event_authenticate  device_name  
+		upm_verify_authenticate_event_exists  device_name  auth_profile  ports
 
-UUID: 4470ffb8-a43f-46ef-adf3-c92df8012cc6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show upm event user-authenticate
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_event_unauthenticated
+# API Function: upm_verify_authenticate_event_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.upm.upm_show_event_unauthenticated(device_name )
+		self.defaultLibrary.apiLowLevelApis.upm.upm_verify_authenticate_event_does_not_exist(device_name, auth_profile, ports)
 
 	Robot API Call: 
 
-		upm_show_event_unauthenticated  device_name  
+		upm_verify_authenticate_event_does_not_exist  device_name  auth_profile  ports
 
-UUID: 32c36576-7b50-4278-9f26-588024d10204
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: upm_verify_unauthenticated_event_exists
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.upm.upm_verify_unauthenticated_event_exists(device_name, auth_profile, ports)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		upm_verify_unauthenticated_event_exists  device_name  auth_profile  ports
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: upm_verify_unauthenticated_event_does_not_exist
+	Pytest API Call: 
 
-		show upm event user-unauthenticated
+		self.defaultLibrary.apiLowLevelApis.upm.upm_verify_unauthenticated_event_does_not_exist(device_name, auth_profile, ports)
 
-----------------------------------------------
+	Robot API Call: 
 
+		upm_verify_unauthenticated_event_does_not_exist  device_name  auth_profile  ports
 
-## REST
-## SNMP

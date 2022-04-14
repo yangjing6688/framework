@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Spanningtree
-This feature is located in this file: `spanningtree.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `spanningtree.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_global
 	Pytest API Call: 
@@ -2106,943 +2106,444 @@ UUID: 4a4c61e4-ace5-43fd-ab08-88c0ea57092a
 
 ## REST
 ## SNMP
-# API Function: show_info_detail
+# API Function: spanningtree_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_enabled(device_name, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_info_detail  device_name  
+		spanningtree_verify_enabled  device_name  sid
 
-UUID: c1bd6514-2f30-4b28-af6b-795c8bcdf237
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree debug
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree rstp status
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_info_summary
+# API Function: spanningtree_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_info_summary(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_disabled(device_name, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_info_summary  device_name  
+		spanningtree_verify_disabled  device_name  sid
 
-UUID: 636c4458-6a76-413b-b9d1-a08a2de9ed2a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree stats sid {sid}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree rstp config
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_instance_info
+# API Function: spanningtree_verify_boot_flag_rstp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_instance_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_boot_flag_rstp(device_name)
 
 	Robot API Call: 
 
-		spanningtree_show_instance_info  device_name  
+		spanningtree_verify_boot_flag_rstp  device_name
 
-UUID: e5c3591a-7330-4a93-8805-a16067e5057c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree stats sid {sid}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd s{sid}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_instance_info_detail
+# API Function: spanningtree_verify_boot_flag_mstp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_instance_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_boot_flag_mstp(device_name)
 
 	Robot API Call: 
 
-		spanningtree_show_instance_info_detail  device_name  
+		spanningtree_verify_boot_flag_mstp  device_name
 
-UUID: 70c662b8-4659-4805-b66e-6c755bde121b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree debug sid {sid}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd s{sid} detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_info
+# API Function: spanningtree_verify_mode_stp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mode_stp(device_name, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_port_info  device_name  
+		spanningtree_verify_mode_stp  device_name  sid
 
-UUID: d84bd022-69d9-4eee-b18f-3b23b8a5d0a2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree stats port {port} sid {sid}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd s{sid} ports {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree rstp port config {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_info_detail
+# API Function: spanningtree_verify_mode_rstp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mode_rstp(device_name, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_port_info_detail  device_name  
+		spanningtree_verify_mode_rstp  device_name  sid
 
-UUID: bc473c5d-6e99-42b2-bf7d-c83b0d04e9f0
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree debug port {port} sid {sid}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd s{sid} ports {port} detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree rstp port config {port}||show spanning-tree rstp port status {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_version
+# API Function: spanningtree_verify_mode_mstp
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_version(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mode_mstp(device_name, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_version  device_name  
+		spanningtree_verify_mode_mstp  device_name  sid
 
-UUID: 538adba9-e73c-4fe7-994e-750762b8c5ee
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree version
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd s{sid} detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree config
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_admin
+# API Function: spanningtree_verify_bridge_priority
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_admin(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_bridge_priority(device_name, bridge_priority, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_port_admin  device_name  
+		spanningtree_verify_bridge_priority  device_name  bridge_priority  sid
 
-UUID: 9d55386e-ad6d-4a74-b207-d3bface7d346
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show span portadmin port {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd s{sid} ports {port} detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree rstp port role {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_autoedge
+# API Function: spanningtree_verify_loop_protect_enabled_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_autoedge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_loop_protect_enabled_on_port(device_name, port, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_autoedge  device_name  
+		spanningtree_verify_loop_protect_enabled_on_port  device_name  port  sid
 
-UUID: 073792ca-203a-40eb-8d98-01d3e79b5492
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree autoedge
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd s{sid} ports {port} detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mst_digest
+# API Function: spanningtree_verify_loop_protect_disabled_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mst_digest(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_loop_protect_disabled_on_port(device_name, port, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_mst_digest  device_name  
+		spanningtree_verify_loop_protect_disabled_on_port  device_name  port  sid
 
-UUID: 261d5955-a611-421d-85cf-7f6842a0a70a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spantree mstcfg
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show stpd
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_edge
+# API Function: spanningtree_verify_spanguard_enabled_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_edge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_spanguard_enabled_on_port(device_name, port, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_port_edge  device_name  
+		spanningtree_verify_spanguard_enabled_on_port  device_name  port  sid
 
-UUID: ecfe168e-155e-45ea-b3db-f9780afe7254
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree rstp port config {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_role
+# API Function: spanningtree_verify_spanguard_disabled_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_port_role(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_spanguard_disabled_on_port(device_name, port, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_port_role  device_name  
+		spanningtree_verify_spanguard_disabled_on_port  device_name  port  sid
 
-UUID: 441cd158-f7b5-44c7-9e1b-48d36742e844
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree rstp port role {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_boot_flag
+# API Function: spanningtree_verify_tc_counter_incremented
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_boot_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_tc_counter_incremented(device_name, increment, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_boot_flag  device_name  
+		spanningtree_verify_tc_counter_incremented  device_name  increment  sid
 
-UUID: 2ccba41f-a300-4d78-95ea-205ebae46b32
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show boot config flags
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_bpduguard
+# API Function: spanningtree_verify_tc_counter_did_not_increment
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_bpduguard(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_tc_counter_did_not_increment(device_name, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_bpduguard  device_name  
+		spanningtree_verify_tc_counter_did_not_increment  device_name  sid
 
-UUID: c76489fd-79cb-40c4-91a5-44ed96f62912
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree bpduguard {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mstp_info_detail
+# API Function: spanningtree_verify_root_bridge
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_root_bridge(device_name, root_id, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_mstp_info_detail  device_name  
+		spanningtree_verify_root_bridge  device_name  root_id  sid
 
-UUID: e1fc0d55-1412-4da7-a85c-f30a8bd7c63a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mstp status
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mstp_info_summary
+# API Function: spanningtree_verify_cist_root
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_info_summary(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_cist_root(device_name, root_id, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_mstp_info_summary  device_name  
+		spanningtree_verify_cist_root  device_name  root_id  sid
 
-UUID: 3a0e0848-5bd4-4dfc-9a21-8b4f5bd6ceb2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mstp config
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mst
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mstp_instance_info
+# API Function: spanningtree_verify_mstp_cist_regional_root
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_instance_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mstp_cist_regional_root(device_name, root_id, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_mstp_instance_info  device_name  
+		spanningtree_verify_mstp_cist_regional_root  device_name  root_id  sid
 
-UUID: 23ef58df-efd7-426e-aa93-61a777a2ca29
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mstp msti config s{sid}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mstp_port_info
+# API Function: spanningtree_verify_mstp_regional_root
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_port_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mstp_regional_root(device_name, root_id, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_mstp_port_info  device_name  
+		spanningtree_verify_mstp_regional_root  device_name  root_id  sid
 
-UUID: 4af92ed0-14f1-4dfc-87f7-c856b79bdc82
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mstp port config {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.45.5.5.1.3.1.13
-
-----------------------------------------------
-
-
-# API Function: show_mstp_port_info_detail
+# API Function: spanningtree_verify_mstp_region_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_port_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mstp_region_name(device_name, region_name)
 
 	Robot API Call: 
 
-		spanningtree_show_mstp_port_info_detail  device_name  
+		spanningtree_verify_mstp_region_name  device_name  region_name
 
-UUID: 98236257-3284-4425-8f58-e743d339939c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mstp port config {port}||show spanning-tree mstp port status {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mstp_port_role
+# API Function: spanningtree_verify_mstp_revision_level
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_port_role(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mstp_revision_level(device_name, revision_level)
 
 	Robot API Call: 
 
-		spanningtree_show_mstp_port_role  device_name  
+		spanningtree_verify_mstp_revision_level  device_name  revision_level
 
-UUID: 18c73d6a-7c48-47e3-b814-2049062a62d4
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mstp port role {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mstp_port_admin
+# API Function: spanningtree_verify_root_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_port_admin(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_root_port(device_name, port, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_mstp_port_admin  device_name  
+		spanningtree_verify_root_port  device_name  port  sid
 
-UUID: 36d8cdc9-c6b3-4f8b-82de-e5398c54528c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mstp port role {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mstp_edge
+# API Function: spanningtree_verify_port_role_designated
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_mstp_edge(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_role_designated(device_name, port, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_mstp_edge  device_name  
+		spanningtree_verify_port_role_designated  device_name  port  sid
 
-UUID: 3445779c-cbf5-44ee-9cd6-8b7e6aff2e01
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show spanning-tree mstp port config {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_stp_port_role
+# API Function: spanningtree_verify_port_role_root
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_show_stp_port_role(device_name )
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_role_root(device_name, port, sid)
 
 	Robot API Call: 
 
-		spanningtree_show_stp_port_role  device_name  
+		spanningtree_verify_port_role_root  device_name  port  sid
 
-UUID: ce22c661-e033-461a-a7a5-2019d548ed04
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: spanningtree_verify_port_role_backup
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_role_backup(device_name, port, sid)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		spanningtree_verify_port_role_backup  device_name  port  sid
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: spanningtree_verify_port_role_alternate
+	Pytest API Call: 
 
-		show spanning-tree {stp_type} port role {port}
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_role_alternate(device_name, port, sid)
 
-----------------------------------------------
+	Robot API Call: 
 
+		spanningtree_verify_port_role_alternate  device_name  port  sid
 
-## REST
-## SNMP
+# API Function: spanningtree_verify_port_role_forwarding
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_role_forwarding(device_name, port, sid, stp_type)
+
+	Robot API Call: 
+
+		spanningtree_verify_port_role_forwarding  device_name  port  sid  stp_type
+
+# API Function: spanningtree_verify_port_role_restricted
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_role_restricted(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_port_role_restricted  device_name  port  sid
+
+# API Function: spanningtree_verify_port_autoedge_enable
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_autoedge_enable(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_port_autoedge_enable  device_name  port  sid
+
+# API Function: spanningtree_verify_port_autoedge_disable
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_autoedge_disable(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_port_autoedge_disable  device_name  port  sid
+
+# API Function: spanningtree_verify_port_edge_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_edge_enabled(device_name, port)
+
+	Robot API Call: 
+
+		spanningtree_verify_port_edge_enabled  device_name  port
+
+# API Function: spanningtree_verify_port_edge_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_edge_disabled(device_name, port)
+
+	Robot API Call: 
+
+		spanningtree_verify_port_edge_disabled  device_name  port
+
+# API Function: spanningtree_verify_portadmin_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_portadmin_enabled(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_portadmin_enabled  device_name  port  sid
+
+# API Function: spanningtree_verify_portadmin_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_portadmin_disabled(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_portadmin_disabled  device_name  port  sid
+
+# API Function: spanningtree_verify_portadmin_oper_up
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_portadmin_oper_up(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_portadmin_oper_up  device_name  port  sid
+
+# API Function: spanningtree_verify_portadmin_oper_down
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_portadmin_oper_down(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_portadmin_oper_down  device_name  port  sid
+
+# API Function: spanningtree_verify_bridge_hello_time
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_bridge_hello_time(device_name, hello_time, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_bridge_hello_time  device_name  hello_time  sid
+
+# API Function: spanningtree_verify_bridge_forward_delay
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_bridge_forward_delay(device_name, fwd_delay, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_bridge_forward_delay  device_name  fwd_delay  sid
+
+# API Function: spanningtree_verify_bridge_max_age
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_bridge_max_age(device_name, max_age, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_bridge_max_age  device_name  max_age  sid
+
+# API Function: spanningtree_verify_root_hello_time
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_root_hello_time(device_name, hello_time, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_root_hello_time  device_name  hello_time  sid
+
+# API Function: spanningtree_verify_root_forward_delay
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_root_forward_delay(device_name, fwd_delay, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_root_forward_delay  device_name  fwd_delay  sid
+
+# API Function: spanningtree_verify_root_max_age
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_root_max_age(device_name, max_age, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_root_max_age  device_name  max_age  sid
+
+# API Function: spanningtree_verify_port_link_type_point_to_point
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_link_type_point_to_point(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_port_link_type_point_to_point  device_name  port  sid
+
+# API Function: spanningtree_verify_port_link_type_edge
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_port_link_type_edge(device_name, port, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_port_link_type_edge  device_name  port  sid
+
+# API Function: spanningtree_verify_bpduguard_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_bpduguard_enabled(device_name, port)
+
+	Robot API Call: 
+
+		spanningtree_verify_bpduguard_enabled  device_name  port
+
+# API Function: spanningtree_verify_bpduguard_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_bpduguard_disabled(device_name, port)
+
+	Robot API Call: 
+
+		spanningtree_verify_bpduguard_disabled  device_name  port
+
+# API Function: spanningtree_verify_mstp_enabled_on_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mstp_enabled_on_port(device_name, port)
+
+	Robot API Call: 
+
+		spanningtree_verify_mstp_enabled_on_port  device_name  port
+
+# API Function: spanningtree_verify_mstp_disabled_on_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mstp_disabled_on_port(device_name, port)
+
+	Robot API Call: 
+
+		spanningtree_verify_mstp_disabled_on_port  device_name  port
+
+# API Function: spanningtree_verify_mst_config_digest
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_mst_config_digest(device_name, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_mst_config_digest  device_name  sid
+
+# API Function: spanningtree_verify_and_store_current_tc_counter
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.spanningtree.spanningtree_verify_and_store_current_tc_counter(device_name, sid)
+
+	Robot API Call: 
+
+		spanningtree_verify_and_store_current_tc_counter  device_name  sid
+

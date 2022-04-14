@@ -1,7 +1,7 @@
 import json
 import requests
 from time import sleep
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import *
@@ -13,7 +13,7 @@ class A3Inventory(A3InventoryWebElements):
     def __init__(self):
         super().__init__()
         self.utils = Utils()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.auto_actions = AutoActions()
@@ -126,11 +126,11 @@ class A3Inventory(A3InventoryWebElements):
         """
         - This keyword will navigates to A3 inventory refresh list
         """
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
         self.navigator.navigate_a3_inventory()
         sleep(2)
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
         self.utils.print_info("Click A3 Inventory Refresh button")
         self.auto_actions.click(self.get_refresh_a3_devices_page())
@@ -372,7 +372,7 @@ class A3Inventory(A3InventoryWebElements):
         """
         self._access_go_to_a3_button(a3_host_name)
         self.utils.print_info("Switching to newly opened tab")
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -399,7 +399,7 @@ class A3Inventory(A3InventoryWebElements):
         self.screen.save_screen_shot()
         sleep(2)
 
-        a3_page_title = self.driver.title
+        a3_page_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title is : ", a3_page_title)
         return a3_page_title
 
@@ -421,7 +421,7 @@ class A3Inventory(A3InventoryWebElements):
         sleep(2)
 
         self.utils.print_info("Switching to newly opened A3 UI tab")
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -448,7 +448,7 @@ class A3Inventory(A3InventoryWebElements):
         self.screen.save_screen_shot()
         sleep(2)
 
-        a3_page_title = self.driver.title
+        a3_page_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title is : ", a3_page_title)
         return a3_page_title
 
@@ -461,7 +461,7 @@ class A3Inventory(A3InventoryWebElements):
         """
         self.navigator.navigate_a3_inventory()
         sleep(2)
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
         if not self.get_refresh_a3_devices_page():
             self.utils.print_info("Checking A3 page text after unlink to XIQ")

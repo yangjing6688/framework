@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Vrf
-This feature is located in this file: `vrf.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `vrf.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_router
 	Pytest API Call: 
@@ -757,479 +757,237 @@ UUID: 64858983-7fc7-496e-a08f-fa9f39c061a3
 
 ## REST
 ## SNMP
-# API Function: show_all
+# API Function: vrf_verify_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_name(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_all  device_name  
+		vrf_verify_name  device_name  vrf_name
 
-UUID: 122d7f45-c278-4264-b3a2-c2e0eb7c0f5a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_max_routes
+# API Function: vrf_verify_vrfid
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_max_routes(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_vrfid(device_name, vrf_name, vrfid)
 
 	Robot API Call: 
 
-		vrf_show_max_routes  device_name  
+		vrf_verify_vrfid  device_name  vrf_name  vrfid
 
-UUID: 32ff249b-19de-4d42-9834-920c6d1ad191
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf max-routes {vrfid}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_max_routes_all
+# API Function: vrf_verify_mvpn_fwd_cache_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_max_routes_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_mvpn_fwd_cache_timeout(device_name, vrf_name, timeout)
 
 	Robot API Call: 
 
-		vrf_show_max_routes_all  device_name  
+		vrf_verify_mvpn_fwd_cache_timeout  device_name  vrf_name  timeout
 
-UUID: 5926680c-1188-4cc0-91c0-548027d80000
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf max-routes
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_max_routes_name
+# API Function: vrf_verify_name_and_vrfid
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_max_routes_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_name_and_vrfid(device_name, vrf_name, vrfid)
 
 	Robot API Call: 
 
-		vrf_show_max_routes_name  device_name  
+		vrf_verify_name_and_vrfid  device_name  vrf_name  vrfid
 
-UUID: 9b319b7f-8e92-425b-a437-e9d957cd1ce6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf max-routes {vrf_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ipv6_max_routes
+# API Function: vrf_verify_name_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_ipv6_max_routes(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_name_does_not_exist(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_ipv6_max_routes  device_name  
+		vrf_verify_name_does_not_exist  device_name  vrf_name
 
-UUID: d91beefa-3111-46c5-be3d-825b7070cd3b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf ipv6-max-routes {vrfid}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ipv6_max_routes_all
+# API Function: vrf_verify_vrfid_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_ipv6_max_routes_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_vrfid_does_not_exist(device_name, vrfid)
 
 	Robot API Call: 
 
-		vrf_show_ipv6_max_routes_all  device_name  
+		vrf_verify_vrfid_does_not_exist  device_name  vrfid
 
-UUID: 67513f17-d50b-4bd9-8b7a-b94d38dfc1c6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf ipv6-max-routes
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ipv6_max_routes_name
+# API Function: vrf_verify_trap_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_ipv6_max_routes_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_trap_enabled(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_ipv6_max_routes_name  device_name  
+		vrf_verify_trap_enabled  device_name  vrf_name
 
-UUID: 91068bf4-fcd0-4b54-9fbc-ca3846574916
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf ipv6-max-routes {vrf_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mvpn
+# API Function: vrf_verify_trap_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_mvpn(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_trap_disabled(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_mvpn  device_name  
+		vrf_verify_trap_disabled  device_name  vrf_name
 
-UUID: b2d4d2be-c6e7-401d-a7df-7a7db05d178a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf mvpn
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vrfids
+# API Function: vrf_verify_mvpn_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_vrfids(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_mvpn_enabled(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_vrfids  device_name  
+		vrf_verify_mvpn_enabled  device_name  vrf_name
 
-UUID: 035dd6c5-fac6-46d3-b8ea-473996d6da49
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf vrfids {vrfid}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_name
+# API Function: vrf_verify_mvpn_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_mvpn_disabled(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_name  device_name  
+		vrf_verify_mvpn_disabled  device_name  vrf_name
 
-UUID: e94f578c-29c8-4f0f-abc1-462116671166
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip vrf {vrf_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ip_route
+# API Function: vrf_verify_max_routes_trap_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_ip_route(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_max_routes_trap_enabled(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_ip_route  device_name  
+		vrf_verify_max_routes_trap_enabled  device_name  vrf_name
 
-UUID: c900cc3e-a3cf-470e-9488-5a9d23683ef3
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip route vrf {vrf_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ip_routing
+# API Function: vrf_verify_max_routes_trap_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_ip_routing(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_max_routes_trap_disabled(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_ip_routing  device_name  
+		vrf_verify_max_routes_trap_disabled  device_name  vrf_name
 
-UUID: 6c0e905c-ed7e-480f-a8a4-aaf3b1f1cc2f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip routing vrf {vrf_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vrfid_ip_routing
+# API Function: vrf_verify_ipv6_max_routes_trap_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_vrfid_ip_routing(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_ipv6_max_routes_trap_enabled(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_vrfid_ip_routing  device_name  
+		vrf_verify_ipv6_max_routes_trap_enabled  device_name  vrf_name
 
-UUID: 71c51a81-0912-40a4-b0af-590d4a9d1ad5
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip routing vrfids {vrfid}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_isid_list
+# API Function: vrf_verify_ipv6_max_routes_trap_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_isid_list(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_ipv6_max_routes_trap_disabled(device_name, vrf_name)
 
 	Robot API Call: 
 
-		vrf_show_isid_list  device_name  
+		vrf_verify_ipv6_max_routes_trap_disabled  device_name  vrf_name
 
-UUID: 68709988-4b5f-42ac-89ac-6548d7c7ea2d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip isid-list vrf {vrfid}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_interface_vlan
+# API Function: vrf_verify_max_routes
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_interface_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_max_routes(device_name, vrf_name, num_max_routes)
 
 	Robot API Call: 
 
-		vrf_show_interface_vlan  device_name  
+		vrf_verify_max_routes  device_name  vrf_name  num_max_routes
 
-UUID: e7633a10-ae1e-4fc7-994b-ec5a49a2c4da
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces vlan vrf {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ipvpn
+# API Function: vrf_verify_ipv6_max_routes
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_ipvpn(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_ipv6_max_routes(device_name, vrf_name, num_max_routes)
 
 	Robot API Call: 
 
-		vrf_show_ipvpn  device_name  
+		vrf_verify_ipv6_max_routes  device_name  vrf_name  num_max_routes
 
-UUID: fed38f0c-a323-47f9-afc0-04fe78d4b491
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip ipvpn vrf {vrf_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_isis_redistribute_direct
+# API Function: vrf_verify_interface_vlan_assigned
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrf.vrf_show_isis_redistribute_direct(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_interface_vlan_assigned(device_name, vrf_name, vlan)
 
 	Robot API Call: 
 
-		vrf_show_isis_redistribute_direct  device_name  
+		vrf_verify_interface_vlan_assigned  device_name  vrf_name  vlan
 
-UUID: d84ccd0b-4a21-4b2a-8fc7-0385735e0e68
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: vrf_verify_interface_vlan_not_assigned
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_interface_vlan_not_assigned(device_name, vrf_name, vlan)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		vrf_verify_interface_vlan_not_assigned  device_name  vrf_name  vlan
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: vrf_verify_ipvpn
+	Pytest API Call: 
 
-		show ip isis redistribute vrf {vrf_name}
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_ipvpn(device_name, vrf_name)
 
-----------------------------------------------
+	Robot API Call: 
 
+		vrf_verify_ipvpn  device_name  vrf_name
 
-## REST
-## SNMP
+# API Function: vrf_verify_isid
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_isid(device_name, vrf_name, i_sid)
+
+	Robot API Call: 
+
+		vrf_verify_isid  device_name  vrf_name  i_sid
+
+# API Function: vrf_verify_ipvpn_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_ipvpn_enabled(device_name, vrf_name)
+
+	Robot API Call: 
+
+		vrf_verify_ipvpn_enabled  device_name  vrf_name
+
+# API Function: vrf_verify_ipvpn_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_ipvpn_disabled(device_name, vrf_name)
+
+	Robot API Call: 
+
+		vrf_verify_ipvpn_disabled  device_name  vrf_name
+
+# API Function: vrf_verify_isis_redistribute_direct
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_isis_redistribute_direct(device_name, vrf_name)
+
+	Robot API Call: 
+
+		vrf_verify_isis_redistribute_direct  device_name  vrf_name
+
+# API Function: vrf_verify_isis_redistribute_direct_cleared
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_isis_redistribute_direct_cleared(device_name, vrf_name)
+
+	Robot API Call: 
+
+		vrf_verify_isis_redistribute_direct_cleared  device_name  vrf_name
+
+# API Function: vrf_verify_isis_redistribute_direct_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_isis_redistribute_direct_enabled(device_name, vrf_name)
+
+	Robot API Call: 
+
+		vrf_verify_isis_redistribute_direct_enabled  device_name  vrf_name
+
+# API Function: vrf_verify_isis_redistribute_direct_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrf.vrf_verify_isis_redistribute_direct_disabled(device_name, vrf_name)
+
+	Robot API Call: 
+
+		vrf_verify_isis_redistribute_direct_disabled  device_name  vrf_name
+

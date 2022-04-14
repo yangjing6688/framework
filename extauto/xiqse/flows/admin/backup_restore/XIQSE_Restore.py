@@ -1,4 +1,4 @@
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
@@ -12,7 +12,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def xiqse_select_restore_initial_database(self):
         """
@@ -182,9 +182,10 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
 
         if _driver:
             _driver.quit()
-            self.driver.quit()
+            CloudDriver().close_browser()
+            # CloudDriver().cloud_driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
-            extauto.common.CloudDriver.cloud_driver = -1
+            # extauto.common.CloudDriver.cloud_driver = None
             return 1
         else:
             self.utils.print_info("Could not close Web Driver")

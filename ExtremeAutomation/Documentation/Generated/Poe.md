@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Poe
-This feature is located in this file: `poe.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `poe.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_port
 	Pytest API Call: 
@@ -310,486 +310,6 @@ UUID: a1bb7007-736f-4b7f-ae63-16df0afdc9a2
 ----------------------------------------------
 
 
-# API Function: show_power_usage_threshold
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_power_usage_threshold(device_name )
-
-	Robot API Call: 
-
-		poe_show_power_usage_threshold  device_name  
-
-UUID: 72e7d69c-ce86-4112-b797-752234b16114
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show poe-main-status
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.105.1.3.1.1.5.{slot}
-
-----------------------------------------------
-
-
-# API Function: show_port_status
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_status(device_name )
-
-	Robot API Call: 
-
-		poe_show_port_status  device_name  
-
-UUID: 4251b8a5-a8e8-4721-b7e3-4ac80ca6c683
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show poe-port-status {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power stats ports {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.105.1.1.1.3.{port}
-
-----------------------------------------------
-
-
-# API Function: show_port_measurements
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_measurements(device_name )
-
-	Robot API Call: 
-
-		poe_show_port_measurements  device_name  
-
-UUID: 83d03a4d-fbda-4712-9821-add3bd61075a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show poe-power-measurement {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.45.5.8.1.1
-
-----------------------------------------------
-
-
-# API Function: show_port_power_limit
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_power_limit(device_name )
-
-	Robot API Call: 
-
-		poe_show_port_power_limit  device_name  
-
-UUID: 9739e6ed-4d06-474c-b10e-6b2ce08243e0
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show poe-port-status {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power configuration ports {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.45.5.8.1.1.1.3.{port}
-
-----------------------------------------------
-
-
-# API Function: show_port_power_priority
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_power_priority(device_name )
-
-	Robot API Call: 
-
-		poe_show_port_power_priority  device_name  
-
-UUID: f6e29478-e3f0-44c1-bca7-7759b689b892
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show poe-port-status {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power configuration ports {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.105.1.1.1.7.{port}
-
-----------------------------------------------
-
-
-# API Function: show_port_detection_status
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_detection_status(device_name )
-
-	Robot API Call: 
-
-		poe_show_port_detection_status  device_name  
-
-UUID: b1a45e73-1513-495c-bd1e-8736af39962b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show poe-port-status {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power configuration ports {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.105.1.1.1.6.{port}
-
-----------------------------------------------
-
-
-# API Function: show_port_power_classification
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_power_classification(device_name )
-
-	Robot API Call: 
-
-		poe_show_port_power_classification  device_name  
-
-UUID: c4ec8d10-3227-4f12-b170-cac9f3dc6101
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show poe-port-status {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power configuration ports {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.105.1.1.1.10.{port}
-
-----------------------------------------------
-
-
-# API Function: show_global_status
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_global_status(device_name )
-
-	Robot API Call: 
-
-		poe_show_global_status  device_name  
-
-UUID: cc6195c1-c167-4510-80eb-f5be4c095563
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show poe-main-status
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power stats
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.105.1.3.1.1.2.{slot}||1.3.6.1.2.1.105.1.3.1.1.3.{slot}||1.3.6.1.2.1.105.1.3.1.1.4.{slot}||1.3.6.1.2.1.105.1.3.1.1.5.{slot}
-
-----------------------------------------------
-
-
-# API Function: show_port_power_pairs
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_power_pairs(device_name )
-
-	Robot API Call: 
-
-		poe_show_port_power_pairs  device_name  
-
-UUID: bb18849a-41a3-4174-835c-558e8c0f56bf
-## CLI
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.105.1.1.1.5.{port}
-
-----------------------------------------------
-
-
-# API Function: show_port_detect_type
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_port_detect_type(device_name )
-
-	Robot API Call: 
-
-		poe_show_port_detect_type  device_name  
-
-UUID: c1e39a8b-22b3-451b-a18b-1109612238dd
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power config port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.45.1.6.15.1.1.1.6.{port}
-
-----------------------------------------------
-
-
 # API Function: enable_inline_power
 	Pytest API Call: 
 
@@ -846,62 +366,6 @@ UUID: 9025539e-fe7f-4b90-b9bf-e4a958e6cf1b
 
 ## REST
 ## SNMP
-# API Function: show_inline_power
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power(device_name )
-
-	Robot API Call: 
-
-		poe_show_inline_power  device_name  
-
-UUID: 81267391-6ee1-4eab-90ea-c230b48cb963
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_inline_power_info_port
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power_info_port(device_name )
-
-	Robot API Call: 
-
-		poe_show_inline_power_info_port  device_name  
-
-UUID: 38692552-cf69-451a-884b-5ecb0fac87e6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power info ports {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
 # API Function: enable_inline_power_legacy
 	Pytest API Call: 
 
@@ -952,34 +416,6 @@ UUID: 249d5f97-4872-4bad-b56c-2b60459937b0
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
 
 		disable inline-power legacy
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_inline_power_legacy
-	Pytest API Call: 
-
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power_legacy(device_name )
-
-	Robot API Call: 
-
-		poe_show_inline_power_legacy  device_name  
-
-UUID: 960f6737-efc4-48cc-ac9d-8864296ec0a1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power config port {port}
 
 ----------------------------------------------
 
@@ -1098,59 +534,246 @@ UUID: 83510d13-fdc3-4f04-8fb4-2cdaaa20beb5
 
 ## REST
 ## SNMP
-# API Function: show_inline_power_label
+# API Function: poe_verify_power_threshold
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power_label(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_power_threshold(device_name, threshold, slot)
 
 	Robot API Call: 
 
-		poe_show_inline_power_label  device_name  
+		poe_verify_power_threshold  device_name  threshold  slot
 
-UUID: 56218313-92c6-4165-aaf5-45f0c6398a50
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show inline-power config port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_inline_power_operator_limit
+# API Function: poe_verify_power_invalid_threshold
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.poe.poe_show_inline_power_operator_limit(device_name )
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_power_invalid_threshold(device_name, threshold, slot)
 
 	Robot API Call: 
 
-		poe_show_inline_power_operator_limit  device_name  
+		poe_verify_power_invalid_threshold  device_name  threshold  slot
 
-UUID: e98c8e08-fe3e-45d7-94c5-faa84e171287
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: poe_verify_port_enabled
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_enabled(device_name, ports)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		poe_verify_port_enabled  device_name  ports
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: poe_verify_port_disabled
+	Pytest API Call: 
 
-		show inline-power config port {port}
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_disabled(device_name, ports)
 
-----------------------------------------------
+	Robot API Call: 
 
+		poe_verify_port_disabled  device_name  ports
 
-## REST
-## SNMP
+# API Function: poe_verify_port_power_limit
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_power_limit(device_name, ports, power_limit)
+
+	Robot API Call: 
+
+		poe_verify_port_power_limit  device_name  ports  power_limit
+
+# API Function: poe_verify_port_priority
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_priority(device_name, ports, power_priority)
+
+	Robot API Call: 
+
+		poe_verify_port_priority  device_name  ports  power_priority
+
+# API Function: poe_verify_port_detect_type
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_detect_type(device_name, ports, detect_type)
+
+	Robot API Call: 
+
+		poe_verify_port_detect_type  device_name  ports  detect_type
+
+# API Function: poe_verify_port_measured_voltage
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_measured_voltage(device_name, ports, decivolts, value_operator)
+
+	Robot API Call: 
+
+		poe_verify_port_measured_voltage  device_name  ports  decivolts  value_operator
+
+# API Function: poe_verify_port_measured_current
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_measured_current(device_name, ports, milliamps, value_operator)
+
+	Robot API Call: 
+
+		poe_verify_port_measured_current  device_name  ports  milliamps  value_operator
+
+# API Function: poe_verify_port_measured_power
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_measured_power(device_name, ports, milliwatts, value_operator)
+
+	Robot API Call: 
+
+		poe_verify_port_measured_power  device_name  ports  milliwatts  value_operator
+
+# API Function: poe_verify_port_detection_status
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_detection_status(device_name, ports, detect_status)
+
+	Robot API Call: 
+
+		poe_verify_port_detection_status  device_name  ports  detect_status
+
+# API Function: poe_verify_port_power_classification
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_power_classification(device_name, ports, power_class)
+
+	Robot API Call: 
+
+		poe_verify_port_power_classification  device_name  ports  power_class
+
+# API Function: poe_verify_port_power_pairs_on_signal
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_power_pairs_on_signal(device_name, ports)
+
+	Robot API Call: 
+
+		poe_verify_port_power_pairs_on_signal  device_name  ports
+
+# API Function: poe_verify_port_power_pairs_on_spare
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_port_power_pairs_on_spare(device_name, ports)
+
+	Robot API Call: 
+
+		poe_verify_port_power_pairs_on_spare  device_name  ports
+
+# API Function: poe_verify_main_available_power
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_main_available_power(device_name, power, slot)
+
+	Robot API Call: 
+
+		poe_verify_main_available_power  device_name  power  slot
+
+# API Function: poe_verify_main_consumption_power
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_main_consumption_power(device_name, power, value_operator, slot)
+
+	Robot API Call: 
+
+		poe_verify_main_consumption_power  device_name  power  value_operator  slot
+
+# API Function: poe_verify_inline_power_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_disabled()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_disabled  
+
+# API Function: poe_verify_inline_power_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_enabled()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_enabled  
+
+# API Function: poe_verify_inline_power_port_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_port_disabled()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_port_disabled  
+
+# API Function: poe_verify_inline_power_port_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_port_enabled()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_port_enabled  
+
+# API Function: poe_verify_inline_power_legacy_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_legacy_enabled()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_legacy_enabled  
+
+# API Function: poe_verify_inline_power_legacy_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_legacy_disabled()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_legacy_disabled  
+
+# API Function: poe_verify_inline_power_disconnect_deny_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_disconnect_deny_port()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_disconnect_deny_port  
+
+# API Function: poe_verify_inline_power_disconnect_lowest_priority
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_disconnect_lowest_priority()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_disconnect_lowest_priority  
+
+# API Function: poe_verify_inline_power_unconfigure_disconnect
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_unconfigure_disconnect()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_unconfigure_disconnect  
+
+# API Function: poe_verify_inline_power_label
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_label()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_label  
+
+# API Function: poe_verify_inline_power_operator_limit
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.poe.poe_verify_inline_power_operator_limit()
+
+	Robot API Call: 
+
+		poe_verify_inline_power_operator_limit  
+

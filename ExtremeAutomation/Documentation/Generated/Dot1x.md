@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Dot1x
-This feature is located in this file: `dot1x.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `dot1x.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_global
 	Pytest API Call: 
@@ -966,201 +966,129 @@ UUID: 5d0e205f-703d-4c13-92da-28a54ae522a7
 
 ## REST
 ## SNMP
-# API Function: show_session
+# API Function: dot1x_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_show_session(device_name )
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_enabled(device_name)
 
 	Robot API Call: 
 
-		dot1x_show_session  device_name  
+		dot1x_verify_enabled  device_name
 
-UUID: 1040132a-7bc2-4890-855a-98cb60039d93
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin session agent dot1x
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_session_by_port
+# API Function: dot1x_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_show_session_by_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_disabled(device_name)
 
 	Robot API Call: 
 
-		dot1x_show_session_by_port  device_name  
+		dot1x_verify_disabled  device_name
 
-UUID: 70edc6d7-118e-4f77-bd17-e36a3d4a2f48
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show dot1x session-info interface ethernet {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_global_idle_timeout
+# API Function: dot1x_verify_port_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_show_global_idle_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_port_enabled(device_name, port)
 
 	Robot API Call: 
 
-		dot1x_show_global_idle_timeout  device_name  
+		dot1x_verify_port_enabled  device_name  port
 
-UUID: f86ce869-441d-45eb-a778-c54187689f03
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin timeout
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_global_session_timeout
+# API Function: dot1x_verify_port_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_show_global_session_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_port_disabled(device_name, port)
 
 	Robot API Call: 
 
-		dot1x_show_global_session_timeout  device_name  
+		dot1x_verify_port_disabled  device_name  port
 
-UUID: 12a41323-1d7a-4e66-8716-c407283c8c9a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin timeout
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_auth_cfg
+# API Function: dot1x_verify_accounting_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_show_auth_cfg(device_name )
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_accounting_enabled(device_name)
 
 	Robot API Call: 
 
-		dot1x_show_auth_cfg  device_name  
+		dot1x_verify_accounting_enabled  device_name
 
-UUID: 32cba31a-69dc-494b-af45-5af8bdce12cc
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin dot1x
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show dot1x
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_auth_cfg_port
+# API Function: dot1x_verify_accounting_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_show_auth_cfg_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_accounting_disabled(device_names)
 
 	Robot API Call: 
 
-		dot1x_show_auth_cfg_port  device_name  
+		dot1x_verify_accounting_disabled  device_names
 
-UUID: 9d54fa2e-011d-462e-9b63-80dc32f7b9a7
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: dot1x_verify_user_authenticated
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_user_authenticated(device_name, mac_or_ip_or_user)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		dot1x_verify_user_authenticated  device_name  mac_or_ip_or_user
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: dot1x_verify_session_timeout
+	Pytest API Call: 
 
-		show config netlogin
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_session_timeout(device_name, session_timeout)
 
-----------------------------------------------
+	Robot API Call: 
 
+		dot1x_verify_session_timeout  device_name  session_timeout
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
+# API Function: dot1x_verify_global_session_timeout
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_global_session_timeout(device_name, seconds)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		dot1x_verify_global_session_timeout  device_name  seconds
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: dot1x_verify_idle_timeout
+	Pytest API Call: 
 
-		show dot1x all
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_idle_timeout(device_name, idle_timeout)
 
-----------------------------------------------
+	Robot API Call: 
 
+		dot1x_verify_idle_timeout  device_name  idle_timeout
 
-## REST
-## SNMP
+# API Function: dot1x_verify_global_idle_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_global_idle_timeout(device_name, seconds)
+
+	Robot API Call: 
+
+		dot1x_verify_global_idle_timeout  device_name  seconds
+
+# API Function: dot1x_verify_port_reauth_period
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_port_reauth_period(device_name, port, interval)
+
+	Robot API Call: 
+
+		dot1x_verify_port_reauth_period  device_name  port  interval
+
+# API Function: dot1x_verify_port_reauth_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_port_reauth_enabled(device_name, port)
+
+	Robot API Call: 
+
+		dot1x_verify_port_reauth_enabled  device_name  port
+
+# API Function: dot1x_verify_port_reauth_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dot1x.dot1x_verify_port_reauth_disabled(device_name, port)
+
+	Robot API Call: 
+
+		dot1x_verify_port_reauth_disabled  device_name  port
+

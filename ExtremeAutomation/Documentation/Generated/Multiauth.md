@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Multiauth
-This feature is located in this file: `multiauth.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `multiauth.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_session_refresh
 	Pytest API Call: 
@@ -711,274 +711,210 @@ UUID: 62f29872-ded8-4e28-9eef-50da69f83dea
 
 ## REST
 ## SNMP
-# API Function: show_session_timeout
+# API Function: multiauth_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_show_session_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_enabled(device_name)
 
 	Robot API Call: 
 
-		multiauth_show_session_timeout  device_name  
+		multiauth_verify_enabled  device_name
 
-UUID: 8bcf7706-aa82-413c-855a-c857cf38c1d5
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin timeout
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show multiauth session-timeout
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_idle_timeout
+# API Function: multiauth_verify_session_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_show_idle_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_exists(device_name, station_address, port, auth_status, last_attempt, agent_type, session_applied, server_type, vlan_tun_attr, policy_index, policy_name, session_timeout, session_duration, idle_timeout, idle_time, termination_time, auth_server_ip, session_duration_operator, idle_time_operator)
 
 	Robot API Call: 
 
-		multiauth_show_idle_timeout  device_name  
+		multiauth_verify_session_exists  device_name  station_address  port  auth_status  last_attempt  agent_type  session_applied  server_type  vlan_tun_attr  policy_index  policy_name  session_timeout  session_duration  idle_timeout  idle_time  termination_time  auth_server_ip  session_duration_operator  idle_time_operator
 
-UUID: 45039e37-9b00-46ce-aa89-4200cbd456a9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin timeout
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show multiauth idle-timeout
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_session
+# API Function: multiauth_verify_session_exists_by_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_show_session(device_name )
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_exists_by_port(device_name, station_address, port, auth_status, last_attempt, agent_type, session_applied, server_type, vlan_tun_attr, policy_index, policy_name, session_timeout, session_duration, idle_timeout, idle_time, termination_time, auth_server_ip, session_duration_operator, idle_time_operator)
 
 	Robot API Call: 
 
-		multiauth_show_session  device_name  
+		multiauth_verify_session_exists_by_port  device_name  station_address  port  auth_status  last_attempt  agent_type  session_applied  server_type  vlan_tun_attr  policy_index  policy_name  session_timeout  session_duration  idle_timeout  idle_time  termination_time  auth_server_ip  session_duration_operator  idle_time_operator
 
-UUID: a9b1d689-56ed-4730-827b-749683939450
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin session
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_info
+# API Function: multiauth_verify_session_exists_by_mac
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_exists_by_mac(device_name, station_address, port, auth_status, last_attempt, agent_type, session_applied, server_type, vlan_tun_attr, policy_index, policy_name, session_timeout, session_duration, idle_timeout, idle_time, termination_time, auth_server_ip, session_duration_operator, idle_time_operator, last_attempt_operator)
 
 	Robot API Call: 
 
-		multiauth_show_info  device_name  
+		multiauth_verify_session_exists_by_mac  device_name  station_address  port  auth_status  last_attempt  agent_type  session_applied  server_type  vlan_tun_attr  policy_index  policy_name  session_timeout  session_duration  idle_timeout  idle_time  termination_time  auth_server_ip  session_duration_operator  idle_time_operator  last_attempt_operator
 
-UUID: 13a2b82c-e007-4ede-8c21-645b7862308b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show multiauth
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_session_all
+# API Function: multiauth_verify_session_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_show_session_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_does_not_exist(device_name, station_address, port, auth_status, last_attempt, agent_type, session_applied, server_type, vlan_tun_attr, policy_index, policy_name, session_timeout, session_duration, idle_timeout, idle_time, termination_time, auth_server_ip, session_duration_operator, idle_time_operator, last_attempt_operator)
 
 	Robot API Call: 
 
-		multiauth_show_session_all  device_name  
+		multiauth_verify_session_does_not_exist  device_name  station_address  port  auth_status  last_attempt  agent_type  session_applied  server_type  vlan_tun_attr  policy_index  policy_name  session_timeout  session_duration  idle_timeout  idle_time  termination_time  auth_server_ip  session_duration_operator  idle_time_operator  last_attempt_operator
 
-UUID: 73dbfaa0-d576-4855-b148-05640ab7eafe
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin session all
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show multiauth session all
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_session_mac
+# API Function: multiauth_verify_session_expired
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_show_session_mac(device_name )
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_expired(device_name, station_address, port, auth_status, last_attempt, agent_type, session_applied, server_type, vlan_tun_attr, policy_index, policy_name, session_timeout, session_duration, idle_timeout, idle_time, termination_time, auth_server_ip, session_duration_operator, idle_time_operator, last_attempt_operator)
 
 	Robot API Call: 
 
-		multiauth_show_session_mac  device_name  
+		multiauth_verify_session_expired  device_name  station_address  port  auth_status  last_attempt  agent_type  session_applied  server_type  vlan_tun_attr  policy_index  policy_name  session_timeout  session_duration  idle_timeout  idle_time  termination_time  auth_server_ip  session_duration_operator  idle_time_operator  last_attempt_operator
 
-UUID: 41e1c599-622f-4338-8a86-2de304ba5c52
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin session mac-address {station_address}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show multiauth session mac {station_address}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_session_port
+# API Function: multiauth_verify_vlan_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_show_session_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_vlan_exist(device_names, vlan)
 
 	Robot API Call: 
 
-		multiauth_show_session_port  device_name  
+		multiauth_verify_vlan_exist  device_names  vlan
 
-UUID: 884857ec-cf3f-4075-be87-115f081d5f5b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: multiauth_verify_vlan_does_not_exist
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_vlan_does_not_exist(device_names, vlan)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		multiauth_verify_vlan_does_not_exist  device_names  vlan
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: multiauth_verify_session_timeout
+	Pytest API Call: 
 
-		show netlogin session ports {port}
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_timeout(device_name, timeout)
 
-----------------------------------------------
+	Robot API Call: 
 
+		multiauth_verify_session_timeout  device_name  timeout
 
-## REST
-## SNMP
+# API Function: multiauth_verify_mac_session_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_mac_session_timeout(device_name, timeout)
+
+	Robot API Call: 
+
+		multiauth_verify_mac_session_timeout  device_name  timeout
+
+# API Function: multiauth_verify_dot1x_session_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_dot1x_session_timeout(device_name, timeout)
+
+	Robot API Call: 
+
+		multiauth_verify_dot1x_session_timeout  device_name  timeout
+
+# API Function: multiauth_verify_web_session_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_web_session_timeout(device_name, timeout)
+
+	Robot API Call: 
+
+		multiauth_verify_web_session_timeout  device_name  timeout
+
+# API Function: multiauth_verify_idle_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_idle_timeout(device_name, timeout)
+
+	Robot API Call: 
+
+		multiauth_verify_idle_timeout  device_name  timeout
+
+# API Function: multiauth_verify_mac_idle_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_mac_idle_timeout(device_name, timeout)
+
+	Robot API Call: 
+
+		multiauth_verify_mac_idle_timeout  device_name  timeout
+
+# API Function: multiauth_verify_dot1x_idle_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_dot1x_idle_timeout(device_name, timeout)
+
+	Robot API Call: 
+
+		multiauth_verify_dot1x_idle_timeout  device_name  timeout
+
+# API Function: multiauth_verify_web_idle_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_web_idle_timeout(device_name, timeout)
+
+	Robot API Call: 
+
+		multiauth_verify_web_idle_timeout  device_name  timeout
+
+# API Function: multiauth_verify_session_refresh_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_refresh_enabled(device_name)
+
+	Robot API Call: 
+
+		multiauth_verify_session_refresh_enabled  device_name
+
+# API Function: multiauth_verify_session_refresh_interval
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_refresh_interval(device_name, interval)
+
+	Robot API Call: 
+
+		multiauth_verify_session_refresh_interval  device_name  interval
+
+# API Function: multiauth_verify_session_idle_time
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_idle_time(device_name, timer)
+
+	Robot API Call: 
+
+		multiauth_verify_session_idle_time  device_name  timer
+
+# API Function: multiauth_verify_session_idle_time_greater_than
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_idle_time_greater_than(device_name, timer)
+
+	Robot API Call: 
+
+		multiauth_verify_session_idle_time_greater_than  device_name  timer
+
+# API Function: multiauth_verify_session_idle_time_less_than
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_idle_time_less_than(device_name, timer)
+
+	Robot API Call: 
+
+		multiauth_verify_session_idle_time_less_than  device_name  timer
+
+# API Function: multiauth_verify_session_duration_greater_than
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_duration_greater_than(device_name, timer)
+
+	Robot API Call: 
+
+		multiauth_verify_session_duration_greater_than  device_name  timer
+
+# API Function: multiauth_verify_session_duration_less_than
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.multiauth.multiauth_verify_session_duration_less_than(device_name, timer)
+
+	Robot API Call: 
+
+		multiauth_verify_session_duration_less_than  device_name  timer
+
