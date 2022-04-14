@@ -1,4 +1,4 @@
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -11,7 +11,6 @@ import re
 class EspAlert(EspAlertWebElements):
     def __init__(self):
         super().__init__()
-        self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.utils = Utils()
@@ -25,8 +24,8 @@ class EspAlert(EspAlertWebElements):
         :return: 1 if loaded the url successfully
         """
         self.utils.print_info("Refresh Page")
-        self.driver.get(url)
-        self.driver.refresh()
+        CloudDriver().cloud_driver.get(url)
+        CloudDriver().cloud_driver.refresh()
         sleep(5)
         return 1
     def go_to_policy_and_check_tab(self,configred_title,not_configured_title):
@@ -40,7 +39,7 @@ class EspAlert(EspAlertWebElements):
         self.navigator.navigate_configure_alert()
 
         sleep(5)
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.click(self.get_go_to_policy())
         self.utils.print_info("Going to Policy page")
