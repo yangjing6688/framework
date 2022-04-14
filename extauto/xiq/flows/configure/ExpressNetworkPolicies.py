@@ -197,23 +197,61 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         self.utils.print_info("Click on network policy card view button")
         self.navigator.navigate_to_network_policies_card_view_page()
         new_express_btn = self.get_new_account_express_policy_setup_button()
+        # if new_express_btn and new_express_btn.is_displayed():
+        #     self.utils.print_info("Clicking on Express Policy Setup")
+        #     self.auto_actions.click(new_express_btn)
+
         if new_express_btn and new_express_btn.is_displayed():
             self.utils.print_info("Clicking on Express Policy Setup")
             self.auto_actions.click(new_express_btn)
-            self.utils.print_info("Setting Policy Name to " + policy_name)
-            policy_name_text_field = self.get_policy_name_text()
-            self.auto_actions.send_keys(policy_name_text_field, policy_name)
-            self.utils.print_info("Uncheck Create Wireless Network checkbox")
-            network_checkbox = self.get_wireless_network_toggle_check_box()
-            self.auto_actions.click(network_checkbox)
-            self.utils.print_info("Clicking on Create button")
-            create_button = self.get_network_policy_create_button()
-            self.auto_actions.click(create_button)
-            done_button = self.get_network_policy_dialog_done_button()
-            if done_button:
-                self.utils.print_info("Clicking on Done button")
-                self.auto_actions.click(done_button)
+        else:
+            if self._search_network_policy_in_card_view(policy_name):
+                self.utils.print_info(f"Network policy:{policy_name} already exists in the network polices list")
+                return 1
+
+            self.utils.print_info("Click on Express policy setup button")
+            express_btn = self.get_express_policy_setup_button()
+            if express_btn:
+                self.auto_actions.click(express_btn)
+                sleep(2)
             else:
-                self.utils.print_info("Could not locate Done button")
-            return 1
-        return -1
+                self.utils.print_info(f"Unable to find button to create express policy")
+                self.screen.save_screen_shot()
+                return -1
+
+        cancel_button = self.get_network_policy_cancel_button()
+
+        self.utils.print_info("Setting Policy Name to " + policy_name)
+        policy_name_text_field = self.get_policy_name_text()
+        self.auto_actions.send_keys(policy_name_text_field, policy_name)
+
+        self.utils.print_info("Uncheck Create Wireless Network checkbox")
+        network_checkbox = self.get_wireless_network_toggle_check_box()
+        self.auto_actions.click(network_checkbox)
+
+        self.utils.print_info("Click on network policy create button")
+        create_btn = self.get_network_policy_create_button()
+        if create_btn:
+            self.auto_actions.click(create_btn)
+            sleep(5)
+        else:
+            self.utils.print_info(f"Unable to find Create button to create the policy")
+            self.screen.save_screen_shot()
+            if cancel_button:
+                self.auto_actions.click(cancel_button)
+            return -1
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Click on network policy create Done button")
+        done_btn = self.get_network_policy_dialog_done_button()
+        if done_btn:
+            self.auto_actions.click(done_btn)
+            sleep(2)
+        else:
+            self.utils.print_info(f"Unable to find Done button after creating the policy")
+            self.screen.save_screen_shot()
+            return -1
+
+        return 1
