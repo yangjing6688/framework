@@ -4114,20 +4114,21 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click PortConfiguration Button")
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
-        sleep(2)
+        sleep(30)
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
+            sleep(10)
             port_row = self.device360_get_port_row(port_number)
             if port_row:
                 self.utils.print_debug("Found row for port: ", port_row.text)
                 self.utils.print_info("click Port Usage drop down")
                 self.auto_actions.click(self.get_device360_configure_port_usage_drop_down_button(port_row))
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Selecting Port Usage")
                 self.auto_actions.select_drop_down_options(self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Entering Search String...")
                 self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row), Keys.CONTROL + "a")
@@ -4135,7 +4136,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row), Keys.BACK_SPACE)
                 self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row), access_vlan_id)
                 self.screen.save_screen_shot()
-                sleep(2)
+                sleep(4)
 
                 save_btn = self.get_device360_configure_port_save_button()
                 if save_btn:
@@ -4209,7 +4210,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click PortConfiguration Button")
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
-        sleep(2)
+        sleep(30)
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
@@ -4322,7 +4323,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Port Settings Tab")
         self.auto_actions.click(self.get_device360_port_configuration_port_settings_tab())
-        sleep(2)
+        sleep(30)
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
