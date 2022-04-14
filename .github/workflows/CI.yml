@@ -128,18 +128,13 @@ jobs:
                 }
               }'
 
-        echo "$job_template"
-
+        # Generate JSON body
         CURL_BODY=$(jq --null-input \
                   --arg test "PINK" \
                   --arg password "$PASSWORD" \
                   "$job_template")
-        echo $CURL_BODY
-        # # Generate JSON body
-        # CURL_BODY=$(jq --null-input \
-        #   --arg user "$USERNAME" \
-        #   --arg password "$PASSWORD" \
-        #   '$job_template')
+
+        echo "[*] Job Submit JSON: \n$CURL_BODY"
 
         curl -X POST --no-progress-meter \
         "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
