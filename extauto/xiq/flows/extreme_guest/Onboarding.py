@@ -114,7 +114,7 @@ class Onboarding(object):
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_group_select_dropdown_items(), group_name)
 
-        if self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown():
+        if not (action_type == 'Register Client'):
             self.utils.print_info("Clicking User Notification Drop Down Button")
             self.auto_actions.click(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown())
@@ -123,7 +123,7 @@ class Onboarding(object):
             self.auto_actions.select_drop_down_options(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown_items(), user_notifpolicy)
 
-        if self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown():
+        if not (action_type == 'Register Client'):
             self.utils.print_info("Clicking Sponsor Notification Drop Down Button")
             self.auto_actions.click(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown())
