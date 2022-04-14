@@ -1,20 +1,19 @@
 import re
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.ClientModeWebElements import ClientModeWebElements
-import extauto.common.CloudDriver as CDr
 
 
 class ClientMode:
     def __init__(self):
-        self.utils = None
-        self.driver = None
-        self.screen = None
-        self.auto_actions = None
-        self.ClientModeWebElements = None
+        self.utils = Utils()
+        self.ClientModeWebElements = ClientModeWebElements()
+        self.auto_actions = AutoActions()
+        self.screen = Screen()
 
     def _init(self, url="default", incognito_mode="False"):
         """
@@ -22,21 +21,12 @@ class ClientMode:
         :param url: if not default, will be read from the ${TEST_URL} variable
         :return: returns driver object
         """
-        self.utils = Utils()
-        if CDr.cloud_driver == -1:
+        if CloudDriver().cloud_driver == None:
             self.utils.print_info("Creating new cloud driver")
-            if CDr.load_browser(url, program='clientmode', incognito_mode=incognito_mode) == -2:
-                assert False, "Selenium host/node  is not responding. Possible issues can be:" \
-                              "Browser & webdriver versions mismatch or selenium standalone server stopped."
-            self.window_index = 0
+            CloudDriver().start_browser(url=url, program="clientmode", incognito_mode=incognito_mode)
         else:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-            self.window_index = CDr.open_window(url)
-        self.utils.print_info(f"Window Handle Index is {self.window_index}")
-        self.driver = CDr.cloud_driver
-        self.ClientModeWebElements = ClientModeWebElements()
-        self.auto_actions = AutoActions()
-        self.screen = Screen()
+            self.window_index = CloudDriver().open_window(url)
 
     def login_user_client_mode(self, username, password, **kwargs):
         """
@@ -51,10 +41,10 @@ class ClientMode:
         browser = BuiltIn().get_variable_value("${BROWSER}")
         self.utils.print_info("Browser: ", browser)
         try:
-            self.utils.print_info("Version: ", self.driver.capabilities['version'])
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['version'])
         except Exception as e:
             self.utils.print_debug(e)
-            self.utils.print_info("Version: ", self.driver.capabilities['browserVersion'])
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['browserVersion'])
 
         try:
             self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
@@ -87,9 +77,8 @@ class ClientMode:
             return 1
 
         try:
-            self.driver.quit()
+            CloudDriver().cloud_driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
-            extauto.common.CloudDriver.cloud_driver = -1
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
@@ -102,6 +91,7 @@ class ClientMode:
         self.screen.save_screen_shot()
 
     def manual_passphrase_ssid_connect(self, ssid, password='aerohive', security='WPA2'):
+        disconnect = 0
         wifi_status = None
         self.utils.print_info("Click other SSIDs button.")
         self.auto_actions.click(self.ClientModeWebElements.get_other_ssids_button())
@@ -123,14 +113,9 @@ class ClientMode:
                 self.screen.save_screen_shot()
                 return [1, x.group()]
             elif 'disconnected' in wifi_status:
+                disconnect += 1
+            elif disconnect == 20:
                 break
         self.screen.save_screen_shot()
         return [-1, wifi_status]
 
-
-
-
-
-if __name__ == '__main__':
-    cm = ClientMode()
-    cm.login_user_client_mode('admin', 'Aerohive123')
