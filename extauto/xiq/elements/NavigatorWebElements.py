@@ -587,6 +587,21 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
         """
         return self.weh.get_element(self.diagnostics_show_pse_menu_item)
 
+    def get_spectrum_intelligence_menu_item(self):
+        return self.weh.get_element(self.spectrum_intelligence_menu_item)
+
+    def get_reset_device_to_default_menu_item(self):
+        return self.weh.get_element(self.reset_device_to_default_menu_item)
+
+    def get_device_utilities_status_menu_item(self):
+        return self.weh.get_element(self.device_utilities_status)
+
+    def get_device_status_advanced_channel_selection_protocol_menu_item(self):
+        return self.weh.get_element(self.utilities_status_adv_channel_sel)
+
+    def get_device_status_interface_menu_item(self):
+        return self.weh.get_element(self.utilities_status_interface)
+
     def get_locked_users_tab(self):
         return self.weh.get_element(self.locked_users_tab)
 

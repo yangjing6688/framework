@@ -1260,3 +1260,136 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
             return 1
 
         return -1
+
+    def is_device_spectrum_intelligence_available(self):
+        """
+        - This keyword checks if the spectrum intelligence option is available
+        - Keyword Usage:
+         - ``Is Device Spectrum Intelligence Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_spectrum_intelligence_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_status_advanced_channel_selection_protocol_available(self):
+        """
+        - This keyword checks if the status advanced channel selection protocol option is available
+        - Keyword Usage:
+         - ``Is Device Status Advanced Channel Selection Protocol Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_status_advanced_channel_selection_protocol_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_status_interface_available(self):
+        """
+        - This keyword checks if the status interface option is available
+        - Keyword Usage:
+         - ``Is Device Status Interface Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_status_interface_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_status_wifi_status_summary_available(self):
+        """
+        - This keyword checks if the status wifi status summary option is available
+        - Keyword Usage:
+         - ``Is Device Status Wifi Status Summary Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_utilities_status_wifi_status_summary().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_client_information_available(self):
+        """
+        - This keyword checks if the tool client information option is available
+        - Keyword Usage:
+         - ``Is Device Tool Client Information Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_tools_client_information_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_get_tech_data_available(self):
+        """
+        - This keyword checks if the tool get tech data option is available
+        - Keyword Usage:
+         - ``Is Device Tool Get Tech Data Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_tools_get_tech_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_locate_device_available(self):
+        """
+        - This keyword checks if the tool locate device option is available
+        - Keyword Usage:
+         - ``Is Device Tool Locate Device Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_tools_locate_device_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_layer_neighbor_info_available(self):
+        """
+        - This keyword checks if the tool layer neighbor info option is available
+        - Keyword Usage:
+         - ``Is Device Tool Layer Neighbor Info Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_tools_layer_neighbor_info_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_packet_capture_available(self):
+        """
+        - This keyword checks if the tool packet capture option is available
+        - Keyword Usage:
+         - ``Is Device Tool Packet Capture Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_tools_packet_capture_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_device_tool_vlan_probe_available(self):
+        """
+        - This keyword checks if the tool vlan probe option is available
+        - Keyword Usage:
+         - ``Is Device Tool Vlan Probe Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_device_tools_vlan_probe_menu_item().is_displayed():
+            return 1
+
+        return -1
+
+    def is_reset_device_to_default_available(self):
+        """
+        - This keyword checks if the reset device to default option is available
+        - Keyword Usage:
+         - ``Is Reset Device To Default Available``
+        :return: 1 if is displayed else -1
+        """
+        if self.navigator.get_reset_device_to_default_menu_item() and self.navigator.get_reset_device_to_default_menu_item().is_displayed():
+            return 1
+
+        return -1
+
