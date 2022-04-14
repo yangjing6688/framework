@@ -598,6 +598,7 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_alert_sub_tab(self):
         return self.weh.get_element(self.configure_alert_nav)
+
     def get_manage_summary_menu_item(self):
         return self.weh.get_element(self.manage_summary_menu_item)
 
