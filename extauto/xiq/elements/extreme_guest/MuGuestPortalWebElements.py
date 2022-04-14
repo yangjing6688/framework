@@ -1,4 +1,4 @@
-from extauto.xiq.defs.extreme_guest.MuSocialWebElementsDefs import MuSocialWebElementsDefs
+from xiq.defs.extreme_guest.MuGuestPortalWebElementsDefs import MuGuestPortalWebElementsDefs
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
@@ -7,7 +7,7 @@ from extauto.common.Screen import *
 from time import sleep
 
 
-class MuSocialWebElements(MuSocialWebElementsDefs):
+class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):
     def __init__(self):
         self.weh = WebElementHandler()
         self.driver = None
@@ -147,3 +147,81 @@ class MuSocialWebElements(MuSocialWebElementsDefs):
 
     def get_default_template_page_company_logo(self):
         return self.weh.get_element(self.default_template_page_company_logo,self.driver)
+
+    def get_sponsor_guest_access_username_field(self):
+        return self.weh.get_element(self.sponsor_guest_access_username_field, self.driver)
+
+    def get_sponsor_guest_access_password_field(self):
+        return self.weh.get_element(self.sponsor_guest_access_password_field, self.driver)
+
+    def get_sponsor_guest_access_signin_btn(self):
+        return self.weh.get_element(self.sponsor_guest_access_signin_btn, self.driver)
+
+    def get_sponsor_guest_access_clear_btn(self):
+        return self.weh.get_element(self.sponsor_guest_access_clear_btn, self.driver)
+
+    def get_sponsor_guest_access_registernow_btn(self):
+        return self.weh.get_element(self.sponsor_guest_access_registernow_btn, self.driver)
+
+    def get_sponsor_guest_access_register_employee_btn(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_employee_btn, self.driver)
+
+    def get_sponsor_guest_access_register_vendor_btn(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_vendor_btn, self.driver)
+
+    def get_sponsor_guest_access_register_guest_btn(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_btn, self.driver)
+
+    def get_sponsor_guest_access_register_guest_name(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_name, self.driver)
+
+    def get_sponsor_guest_access_register_guest_email(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_email, self.driver)
+
+    def get_sponsor_guest_access_register_guest_mobile(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_mobile, self.driver)
+
+    def get_sponsor_guest_access_register_guest_emailpreferred(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_emailpreferred, self.driver)
+
+    def get_sponsor_guest_access_register_guest_mobilepreferred(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_mobilepreferred, self.driver)
+
+    def get_sponsor_guest_access_register_guest_sponsor_name(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_sponsor_name, self.driver)
+
+    def get_sponsor_guest_access_register_guest_sponsor_mobile(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_sponsor_mobile, self.driver)
+
+    def get_sponsor_guest_access_register_guest_sponsor_email(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_sponsor_email, self.driver)
+
+    def get_sponsor_guest_access_register_guest_purpose(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_purpose, self.driver)
+
+    def get_sponsor_guest_access_register_guest_disclaimer(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_disclaimer, self.driver)
+
+    def get_sponsor_guest_access_register_guest_register(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_register, self.driver)
+
+    def get_sponsor_guest_access_register_guest_clear(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_clear, self.driver)
+
+    def get_sponsor_guest_access_register_guest_sponsorlogin(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_sponsorlogin, self.driver)
+
+    def get_sponsor_guest_access_register_guest_registration_status_text(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_guest_registration_status, self.driver).text
+
+    def get_sponsor_guest_access_register_employee_registration_status_text(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_employee_registration_status, self.driver).text
+
+    def get_sponsor_guest_access_register_vendor_registration_status_text(self):
+        return self.weh.get_element(self.sponsor_guest_access_register_vendor_registration_status, self.driver).text
+
+    def get_sponsor_guest_access_login_error_button(self):
+        return self.weh.get_element(self.sponsor_guest_access_login_error_button, self.driver)
+
+    def get_sponsor_guest_access_login_success_page(self):
+        return self.weh.get_element(self.sponsor_guest_access_login_success_page, self.driver)
