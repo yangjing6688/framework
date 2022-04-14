@@ -85,49 +85,62 @@ jobs:
         echo "pytest testbeds: $available_testbeds_pytest"
         echo "robot testbeds: $available_testbeds_robot"
 
-    # # Submit job for each platform on each NOS that runs all the tests
+    # Submit job for each platform on each NOS that runs all the tests
 
-    # # - name: Run Modified TestCases
-    # #   run: |
-    # curl -X POST --no-progress-meter \
-    # "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
-    # -H "accept: application/json" \
-    # -H "authorization: Bearer ${session_token}" \
-    # '{"jsonString":{ \
-    #     "description": "CI Verification Run", \
-    #     "priority": 3, \
-    #     "rerun": 0, \
-    #     "postResults": 1, \
-    #     "notifyOnStart": 0, \
-    #     "username": "CI_Service", \
-    #     "group": "CICD", \
-    #     "jobType": "private", \
-    #     "auxInfoList" : [ \
-    #       {"cicd_pr":1}, \
-    #       {"context": "econ-cron/test-context"}, \
-    #       {"repo":"extremenetworks/econ-cron"}, \
-    #       {"sha":"a964180c2aae2fd5c72d1137d9e20b6678217a82"} \
-    #     ], \
-    #     "jobPlatforms": [ \
-    #       { \
-    #           "platform": "i386", \
-    #           "hardwareConfiguration": "Standalone", \
-    #           "priority": 3, \
-    #           "auxInfoList": [], \
-    #           "jobPlatformTestModules" : \
-    #           [ \
-    #               { \
-    #                   "testModule_uuid": "11111111-2222-2222-2222-111111111111", \
-    #                   "auxInfoList" : [ \
-    #                                     {"nodeCount": 4}, \
-    #                                     {"universalTestBedOs": "EXOS"}, \
-    #                                     {"test_name": ["blah.py","Tests\whatever\blah.py", "Tests\"] } \
-    #                                     ] \
-    #               } \
-    #           ] \
-    #       } \
-    #     ] \
-    # }}'
+    - name: Run Modified TestCases
+      run: |
+        # CreateJob body template
+        job_template='{
+                "jsonString":{
+                    "description": "CI Verification Run",
+                    "priority": 3,
+                    "rerun": 0,
+                    "postResults": 1,
+                    "notifyOnStart": 0,
+                    "username": "CI_Service",
+                    "group": "CICD",
+                    "jobType": "private",
+                    "auxInfoList" : [
+                      {"cicd_pr":1},
+                      {"context": "econ-cron/test-context"},
+                      {"repo":"extremenetworks/econ-cron"},
+                      {"sha":"a964180c2aae2fd5c72d1137d9e20b6678217a82"}
+                    ],
+                    "jobPlatforms": [
+                      {
+                        "platform": "i386",
+                        "hardwareConfiguration": "Standalone",
+                        "priority": 3,
+                        "auxInfoList": [],
+                        "jobPlatformTestModules" :
+                        [
+                            {
+                                "testModule_uuid": "11111111-2222-2222-2222-111111111111",
+                                "auxInfoList" : [
+                                                  {"nodeCount": 4},
+                                                  {"universalTestBedOs": "EXOS"},
+                                                  {"test_name": ["blah.py","Tests\\whatever\\blah.py", "Tests\\"] }
+                                                  ]
+                            }
+                        ]
+                      }
+                    ]
+                }
+              }'
+
+
+        # Generate JSON body
+        CURL_BODY=$(jq --null-input \
+          --arg user "$USERNAME" \
+          --arg password "$PASSWORD" \
+          '$job_template')
+
+        curl -X POST --no-progress-meter \
+        "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
+        -H "accept: application/json" \
+        -H "authorization: Bearer ${session_token}" \
+        -d "${CURL_BODY}"
+
 
     # robot testbeds: {
     #   "hardwareConfiguration": "Standalone",
