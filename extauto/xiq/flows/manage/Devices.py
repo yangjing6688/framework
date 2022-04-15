@@ -8480,6 +8480,7 @@ class Devices:
 
         pilot_inventory_found = False
         cnt = 0
+        self.screen.save_screen_shot()
         while cnt < max_time:
             check_unmanage_box = self.devices_web_elements.get_check_unmanage_box()
             self.utils.print_info(check_unmanage_box)

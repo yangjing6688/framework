@@ -966,8 +966,11 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_check_unmanage_box(self):
         el = self.weh.get_element(self.check_unmanage_box)
-        if el.is_displayed():
-            return el
+        if el:
+            if el.is_displayed():
+                return el
+            else:
+                return None
         else:
             return None
 
