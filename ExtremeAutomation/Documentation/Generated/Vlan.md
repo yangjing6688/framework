@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Vlan
-This feature is located in this file: `vlan.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `vlan.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_vlan
 	Pytest API Call: 
@@ -1553,1057 +1553,372 @@ UUID: 7c4d0acd-43c6-4374-9863-49b5ebaac0a2
 ----------------------------------------------
 
 
-# API Function: show_all_info
+# API Function: vlan_verify_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_all_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_exists(device_name, vlan)
 
 	Robot API Call: 
 
-		vlan_show_all_info  device_name  
+		vlan_verify_exists  device_name  vlan
 
-UUID: 665c60ed-ab31-4ccd-9b85-7946db3c01a3
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan basic
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: BOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOSSTACKS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: ALPHA
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan brief
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-vlan:vlans
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SNAPROUTE
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /public/v1/state/Vlans
-
-----------------------------------------------
-
-
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.3.2
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.4.3.1.1
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.17.7.1.4.3.1.1
-
-----------------------------------------------
-
-
-# API Function: show_info
+# API Function: vlan_verify_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_does_not_exist(device_name, vlan)
 
 	Robot API Call: 
 
-		vlan_show_info  device_name  
+		vlan_verify_does_not_exist  device_name  vlan
 
-UUID: 62cb48f8-848b-4604-a67b-5e135a96d45a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOSSTACKS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: ALPHA
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan detail {vlan}
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-vlan:vlans/vlan={vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SNAPROUTE
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /public/v1/config/Vlan
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_name
+# API Function: vlan_verify_vman_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_vman_exists(device_name, vman)
 
 	Robot API Call: 
 
-		vlan_show_name  device_name  
+		vlan_verify_vman_exists  device_name  vman
 
-UUID: 48cf27a1-71fd-4212-85a3-12db4d2f899d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan name {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: BOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan id {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOSSTACKS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: ALPHA
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan detail {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.3.2.1.2.{vlan}
-
-----------------------------------------------
-
-
-# API Function: show_names
+# API Function: vlan_verify_vman_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_names(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_vman_does_not_exist(device_name, vman)
 
 	Robot API Call: 
 
-		vlan_show_names  device_name  
+		vlan_verify_vman_does_not_exist  device_name  vman
 
-UUID: 33817197-48b1-4c12-8c3f-7ee0be7b92e2
-## CLI
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.3.2.1.2.1
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.31.1.1.1.1
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.2.1.31.1.1.1.1
-
-----------------------------------------------
-
-
-# API Function: show_description
+# API Function: vlan_verify_port_on_untagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_description(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_on_untagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_description  device_name  
+		vlan_verify_port_on_untagged_egress  device_name  vlan  port
 
-UUID: eecd4686-9ec0-483b-99ca-2d7c45bd5036
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_status
+# API Function: vlan_verify_port_not_on_untagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_not_on_untagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_status  device_name  
+		vlan_verify_port_not_on_untagged_egress  device_name  vlan  port
 
-UUID: d487d4f0-befa-4034-9882-80fa3f609e21
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan basic {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_pvid
+# API Function: vlan_verify_port_not_on_operational_untagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_pvid(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_not_on_operational_untagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_pvid  device_name  
+		vlan_verify_port_not_on_operational_untagged_egress  device_name  vlan  port
 
-UUID: 49369c19-a5c0-4518-bd93-317d7ff99061
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port vlan {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port vlan {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOSSTACKS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port vlan {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: ALPHA
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_static
+# API Function: vlan_verify_port_on_tagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_static(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_on_tagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_static  device_name  
+		vlan_verify_port_on_tagged_egress  device_name  vlan  port
 
-UUID: 61b9b7fc-add0-405d-ac77-30694a708e62
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan static {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan mac-address-static {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOSSTACKS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan static {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_egress
+# API Function: vlan_verify_port_not_on_tagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_port_egress(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_not_on_tagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_port_egress  device_name  
+		vlan_verify_port_not_on_tagged_egress  device_name  vlan  port
 
-UUID: 5129a33b-95c8-4b61-a2b9-f18d94db9f53
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port egress {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port vlans
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_all_vman_info
+# API Function: vlan_verify_port_not_on_operational_tagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_all_vman_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_not_on_operational_tagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_all_vman_info  device_name  
+		vlan_verify_port_not_on_operational_tagged_egress  device_name  vlan  port
 
-UUID: 970b28f4-48a1-44ca-8fb6-db655fd6e5dc
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vman
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vman_info
+# API Function: vlan_verify_port_on_forbidden_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_vman_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_on_forbidden_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_vman_info  device_name  
+		vlan_verify_port_on_forbidden_egress  device_name  vlan  port
 
-UUID: 0232c1ae-d430-4d55-a131-f2d3f7b14710
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vman {vman}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_fabric_attach_assignments
+# API Function: vlan_verify_port_on_static_forbidden_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_fabric_attach_assignments(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_on_static_forbidden_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_fabric_attach_assignments  device_name  
+		vlan_verify_port_on_static_forbidden_egress  device_name  vlan  port
 
-UUID: 7c45c869-ca15-45f3-b775-70972371f537
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan fabric attach assignments
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_nsi
+# API Function: vlan_verify_port_on_static_untagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_nsi(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_on_static_untagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_nsi  device_name  
+		vlan_verify_port_on_static_untagged_egress  device_name  vlan  port
 
-UUID: 27ad3b81-b4a6-4daf-a3f1-76ed5ff2ed36
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan} fabric attach mappings
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan} fabric attach assignments
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_isid
+# API Function: vlan_verify_port_on_static_tagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_isid(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_on_static_tagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_isid  device_name  
+		vlan_verify_port_on_static_tagged_egress  device_name  vlan  port
 
-UUID: d693505e-bd3f-4930-b12e-b46a62309c08
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {vlan} fabric attach mappings
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan i-sid {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.3.2.1.61.{vlan}
-
-----------------------------------------------
-
-
-# API Function: show_members
+# API Function: vlan_verify_port_not_on_static_tagged_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_members(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_not_on_static_tagged_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_members  device_name  
+		vlan_verify_port_not_on_static_tagged_egress  device_name  vlan  port
 
-UUID: 40751f42-ee75-4d5c-91df-31cec8779388
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan members
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_members_port
+# API Function: vlan_verify_port_not_on_forbidden_egress
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_members_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_not_on_forbidden_egress(device_name, vlan, port)
 
 	Robot API Call: 
 
-		vlan_show_members_port  device_name  
+		vlan_verify_port_not_on_forbidden_egress  device_name  vlan  port
 
-UUID: ee7a03f6-be9e-4946-baf0-75d059ca98a6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan members port {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.3.2.1.11.{vlan}
-
-----------------------------------------------
-
-
-# API Function: show_port
+# API Function: vlan_verify_port_on_vman_untagged
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vlan.vlan_show_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_on_vman_untagged(device_name, vman, port)
 
 	Robot API Call: 
 
-		vlan_show_port  device_name  
+		vlan_verify_port_on_vman_untagged  device_name  vman  port
 
-UUID: f3e6ecae-2e8a-4de3-9cc3-0faede0c623f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: vlan_verify_port_not_on_vman_untagged
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_not_on_vman_untagged(device_name, vman, port)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		vlan_verify_port_not_on_vman_untagged  device_name  vman  port
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: vlan_verify_port_on_vman_tagged
+	Pytest API Call: 
 
-		show interfaces gigabitEthernet name {port}
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_on_vman_tagged(device_name, vman, port)
 
-----------------------------------------------
+	Robot API Call: 
 
+		vlan_verify_port_on_vman_tagged  device_name  vman  port
 
-## REST
-## SNMP
+# API Function: vlan_verify_port_not_on_vman_tagged
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_not_on_vman_tagged(device_name, vman, port)
+
+	Robot API Call: 
+
+		vlan_verify_port_not_on_vman_tagged  device_name  vman  port
+
+# API Function: vlan_verify_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_enabled(device_name, vlan)
+
+	Robot API Call: 
+
+		vlan_verify_enabled  device_name  vlan
+
+# API Function: vlan_verify_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_disabled(device_name, vlan)
+
+	Robot API Call: 
+
+		vlan_verify_disabled  device_name  vlan
+
+# API Function: vlan_verify_port_pvid
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_pvid(device_name, port, pvid)
+
+	Robot API Call: 
+
+		vlan_verify_port_pvid  device_name  port  pvid
+
+# API Function: vlan_verify_port_does_not_have_pvid
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_does_not_have_pvid(device_name, port, pvid)
+
+	Robot API Call: 
+
+		vlan_verify_port_does_not_have_pvid  device_name  port  pvid
+
+# API Function: vlan_verify_tag
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_tag(device_name, vlan, tag)
+
+	Robot API Call: 
+
+		vlan_verify_tag  device_name  vlan  tag
+
+# API Function: vlan_verify_tag_not_equal
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_tag_not_equal(device_name, vlan, tag)
+
+	Robot API Call: 
+
+		vlan_verify_tag_not_equal  device_name  vlan  tag
+
+# API Function: vlan_verify_name
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_name(device_name, vlan, name)
+
+	Robot API Call: 
+
+		vlan_verify_name  device_name  vlan  name
+
+# API Function: vlan_verify_name_is_not
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_name_is_not(device_name, vlan, name)
+
+	Robot API Call: 
+
+		vlan_verify_name_is_not  device_name  vlan  name
+
+# API Function: vlan_verify_name_and_id
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_name_and_id(device_name, vlan_name)
+
+	Robot API Call: 
+
+		vlan_verify_name_and_id  device_name  vlan_name
+
+# API Function: vlan_verify_description
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_description(device_name, vlan, description)
+
+	Robot API Call: 
+
+		vlan_verify_description  device_name  vlan  description
+
+# API Function: vlan_verify_description_is_not
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_description_is_not(device_name, vlan, description)
+
+	Robot API Call: 
+
+		vlan_verify_description_is_not  device_name  vlan  description
+
+# API Function: vlan_verify_port_tagged_egress
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_tagged_egress(device_name, vlan)
+
+	Robot API Call: 
+
+		vlan_verify_port_tagged_egress  device_name  vlan
+
+# API Function: vlan_verify_port_untagged_egress
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_untagged_egress(device_name, vlan)
+
+	Robot API Call: 
+
+		vlan_verify_port_untagged_egress  device_name  vlan
+
+# API Function: vlan_verify_isid_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_isid_exists(device_name, vlan, i_sid)
+
+	Robot API Call: 
+
+		vlan_verify_isid_exists  device_name  vlan  i_sid
+
+# API Function: vlan_verify_isid_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_isid_does_not_exist(device_name, vlan, i_sid)
+
+	Robot API Call: 
+
+		vlan_verify_isid_does_not_exist  device_name  vlan  i_sid
+
+# API Function: vlan_verify_nsi_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_nsi_exists(device_name, vlan, nsi)
+
+	Robot API Call: 
+
+		vlan_verify_nsi_exists  device_name  vlan  nsi
+
+# API Function: vlan_verify_nsi_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_nsi_does_not_exist(device_name, vlan, nsi)
+
+	Robot API Call: 
+
+		vlan_verify_nsi_does_not_exist  device_name  vlan  nsi
+
+# API Function: vlan_verify_port_encapsulation_dot1q
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_encapsulation_dot1q(device_name, port)
+
+	Robot API Call: 
+
+		vlan_verify_port_encapsulation_dot1q  device_name  port
+
+# API Function: vlan_verify_port_encapsulation_not_dot1q
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_encapsulation_not_dot1q(device_name, port)
+
+	Robot API Call: 
+
+		vlan_verify_port_encapsulation_not_dot1q  device_name  port
+
+# API Function: vlan_verify_port_is_member_of_vlan
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_is_member_of_vlan(device_name, ports, vlan)
+
+	Robot API Call: 
+
+		vlan_verify_port_is_member_of_vlan  device_name  ports  vlan
+
+# API Function: vlan_verify_port_is_not_member_of_vlan
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vlan.vlan_verify_port_is_not_member_of_vlan(device_name, ports, vlan)
+
+	Robot API Call: 
+
+		vlan_verify_port_is_not_member_of_vlan  device_name  ports  vlan
+

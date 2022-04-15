@@ -128,3 +128,11 @@ class SysinfoCustomShowTools(SysinfoBaseCustomShowTools):
         self.logger.log_debug(f"Model: {systype}")
         result = True if systype.lower() != "valuenotpresent" else False
         return result, systype
+
+    def check_for_system_type(self, output, args, **kwargs):
+        systype = self.pw.get_value_by_offset(output, "System Type:", 2)
+        systype = re.sub('\-EXOS', '', str(systype))
+        self.logger.log_debug(f"Model: {systype}")
+        expected_value = args['type']
+        result = True if systype.lower() != "valuenotpresent" and systype.lower() == expected_value.lower() else False
+        return result, {"ret_system_type": systype, "output":output}

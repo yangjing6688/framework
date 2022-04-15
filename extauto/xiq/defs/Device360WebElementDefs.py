@@ -238,37 +238,37 @@ class Device360WebElementDefs:
 
     device360_configure_ssh_web_tab = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="sshTab1"]',
+            'XPATH': '//*[@data-id="sshavailability1"]',
             'wait_for': 5
         }
 
     device360_configure_ssh_cli_5min_radio = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="timeout"]//input[@value="5"]',
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-5"]',
             'wait_for': 5
         }
 
     device360_configure_ssh_cli_30min_radio = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="timeout"]//input[@value="30"]',
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-30"]',
             'wait_for': 5
         }
 
     device360_configure_ssh_cli_60min_radio = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="timeout"]//input[@value="60"]',
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-60"]',
             'wait_for': 5
         }
 
     device360_configure_ssh_cli_120min_radio = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="timeout"]//input[@value="120"]',
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-120"]',
             'wait_for': 5
         }
 
     device360_configure_ssh_cli_240min_radio = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="timeout"]//input[@value="240"]',
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-240"]',
             'wait_for': 5
         }
 
@@ -373,37 +373,32 @@ class Device360WebElementDefs:
 
     device360_configure_ssh_web_5min_radio = \
         {
-            'NAME': 'timeout',
-            'wait_for': 10,
-            'index': 5
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-5"]',
+            'wait_for': 5
         }
 
     device360_configure_ssh_web_30min_radio = \
         {
-            'NAME': 'timeout',
-            'wait_for': 10,
-            'index': 6
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-30"]',
+            'wait_for': 5
         }
 
     device360_configure_ssh_web_60min_radio = \
         {
-            'NAME': 'timeout',
-            'wait_for': 10,
-            'index': 7
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-60"]',
+            'wait_for': 5
         }
 
     device360_configure_ssh_web_120min_radio = \
         {
-            'NAME': 'timeout',
-            'wait_for': 10,
-            'index': 8
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-120"]',
+            'wait_for': 5
         }
 
     device360_configure_ssh_web_240min_radio = \
         {
-            'NAME': 'timeout',
-            'wait_for': 10,
-            'index': 9
+            'XPATH': '//input[@data-automation-tag="automation-config-ssh-240"]',
+            'wait_for': 5
         }
 
     device360_device_configuration_button = \
@@ -2146,6 +2141,17 @@ class Device360WebElementDefs:
             'XPATH': '//*[@class="entity-content-ctn device-entity-connected-ctn"]//table[@class="dgrid-row-table"]//*[@data-mac]',
             'wait_for': 5
         }
+    device360_column_picker_scroll_bar = \
+        {
+            'XPATH': '//*[@class="dgrid-hider-menu"]',
+            'wait_for': 5
+        }
+
+    device360_column_picker_icon = \
+        {
+            'XPATH': '//*[@class="ui-icon dgrid-hider-toggle"]',
+            'wait_for': 5
+        }
 
     device360_cpu_utilized_button = \
         {
@@ -2206,11 +2212,11 @@ class Device360WebElementDefs:
             "XPATH": "//span[contains(@class, 'pagination-size')]",
             'wait_for': 5
         }
-    
+
     device360_ports_table_current_pagination_size = \
         {
             "XPATH": "//span[@class='pagination-size current-pagination']",
-            'wait_for': 5  
+            'wait_for': 5
         }
 
     device360_ports_table_th_columns = \

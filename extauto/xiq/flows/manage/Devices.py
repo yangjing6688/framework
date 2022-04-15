@@ -1,5 +1,6 @@
 import re
 import os
+import copy
 from time import sleep
 from datetime import datetime
 from selenium.common.exceptions import StaleElementReferenceException
@@ -162,8 +163,8 @@ class Devices:
             ap_row = self.get_ap_row(ap_name=ap_name)
 
         if ap_mac != 'default':
-            self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
-            ap_row = self.get_ap_row(ap_mac=ap_mac)
+            self.utils.print_info("Getting status of AP with MAC: ", str(ap_mac).upper())
+            ap_row = self.get_ap_row(ap_mac=str(ap_mac).upper())
 
         if ap_row:
             sleep(10)
@@ -412,7 +413,7 @@ class Devices:
                         self.utils.print_info("Found AP row: ", self.format_row(row.text))
                         return row
                 if ap_mac != 'default':
-                    if ap_mac in row.text:
+                    if str(ap_mac) in row.text:
                         self.utils.print_info("Found AP row: ", self.format_row(row.text))
                         return row
         else:
@@ -701,7 +702,7 @@ class Devices:
             for row in rows:
                 if ap_serial:
                     if str(ap_serial) in row.text:
-                        self.utils.print_info("Selecting Device with Serial: ", ap_serial)
+                        self.utils.print_info("Selecting Device with AP Serial: ", ap_serial)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -709,7 +710,7 @@ class Devices:
 
                 if ap_name:
                     if str(ap_name) in row.text:
-                        self.utils.print_info("Selecting Device with Name: ", ap_name)
+                        self.utils.print_info("Selecting Device with AP Name: ", ap_name)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -717,7 +718,7 @@ class Devices:
 
                 if ap_mac:
                     if str(ap_mac) in row.text:
-                        self.utils.print_info("Selecting Device with MAC: ", ap_mac)
+                        self.utils.print_info("Selecting Device with AP MAC: ", ap_mac)
                         self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
                         self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                         sleep(2)
@@ -940,11 +941,11 @@ class Devices:
                 config_update_msg = self.devices_web_elements.get_devices_config_update_message().text
                 self.utils.print_info(config_update_msg)
                 if reboot_message in config_update_msg:
-                    self.utils.print_info("AP is Rebooting after update configuration ")
+                    self.utils.print_info("Device is Rebooting after update configuration ")
                     return True
             sleep(1)
             count += 1
-        self.utils.print_info("AP is not Rebooting after update configuration")
+        self.utils.print_info("Device is not Rebooting after update configuration")
         return False
 
     def onboard_multiple_devices(self, serials, device_make):
@@ -1076,16 +1077,33 @@ class Devices:
         try:
             # self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
             prev_dev_list = []
+            sleep(5)
             rows = self.devices_web_elements.get_grid_rows()
             if rows:
                 for row in rows:
                     if device_type in row.text:
-                        cells = self.devices_web_elements.get_device_row_cells(row)
+                        self.utils.print_info(f"{row.text}")
+                        try:
+                            cells = self.devices_web_elements.get_device_row_cells(row)
+                            self.utils.print_info(f"found cells {len(cells)}")
+                        except:
+                            self.utils.print_info(f"Could not get Row Cells - {row}")
+                            continue
                         device_detail_dict = {}
                         for cell in cells:
+                            try:
+                                testcell = cell.get_attribute("class")
+                            except:
+                                print("cell print error")
+                                continue
                             if re.search(r'field-\w*', cell.get_attribute("class")):
-                                label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
+                                try:
+                                    label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
+                                except:
+                                    label = 'OOPS'
                                 device_detail_dict[label] = cell.text
+                            else:
+                                self.utils.print_info(f"missed class match " + cell.get_attribute("class"))
                         res = device_detail_dict.get("serialNumber")
                         prev_dev_list.append(res)
                 self.utils.print_info(f"List of Serial Numbers of Devices with device type {device_type}: {prev_dev_list}")
@@ -1513,7 +1531,7 @@ class Devices:
                 if ap_serial in row.text:
                     flag_cell = self.devices_web_elements.get_country_code_cell(row)
                     if flag_cell:
-                        self.screen.save_element_screen_shot(flag_cell)
+                        self.screen.save_screen_shot()
                         self.utils.print_info("Saved the flag successfully")
                         return 1
             self.utils.print_info("Did not find row")
@@ -1598,7 +1616,7 @@ class Devices:
 
             latest_version = self.device_update.get_latest_version()
 
-            self.utils.print_info("AP Latest Version: ", latest_version)
+            self.utils.print_info("Device Latest Version: ", latest_version)
             sleep(5)
 
             self.utils.print_info("Selecting Activate After radio button")
@@ -1612,14 +1630,15 @@ class Devices:
 
         return latest_version
 
-    def xiq_upgrade_device_to_latest_version(self, device_serial):
+    def xiq_upgrade_device_to_latest_version(self, device_serial, action = "perform upgrade"):
         """
-        - This method update device(s) to latest version from the dropdown
+        - This method update device(s) to latest version from the XIQ 
         - Keyword Usage:
          - ``XIQ Upgrade Device To Latest Version   ${DEVICE_SERIAL}``
+         - xiq_upgrade_device_to_latest_version(device_serial, action = "perform upgrade")
 
         :param device_serial: serial number(s) of the device(s)
-        :return: 1 if success else -1
+        :return: Latest firmware version if success else -1
         """
         latest_version = -1
 
@@ -1638,16 +1657,25 @@ class Devices:
 
             latest_version = self.device_update.get_latest_version()
 
-            self.utils.print_info("AP Latest Version: ", latest_version)
+            self.utils.print_info("Device Latest Version: ", latest_version)
             sleep(5)
 
-            self.utils.print_info(
-                "Selecting Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same or "
+                                  "upgrading to same version which includes a patch")
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
-            self.utils.print_info("Selecting Perform Update button...")
-            self.auto_actions.click(self.device_update.get_perform_update_button())
+            if (action == "perform upgrade"):
+                self.utils.print_info("Selecting Perform Update button...")
+                self.auto_actions.click(self.device_update.get_perform_update_button())
+
+            elif (action == "close"):
+                self.utils.print_info("Selecting Cancel and Close button...")
+                self.auto_actions.click(self.device_update.get_update_close_button())
+            
+            else:
+                self.utils.print_error("Selected action {action} is unavailable, hence closing the update window...")
+                self.auto_actions.click(self.device_update.get_update_close_button())
 
         return latest_version
 
@@ -1680,7 +1708,7 @@ class Devices:
             specific_version = self.device_update.get_specific_version()
             sleep(2)
 
-            self.utils.print_info("AP Specific Version: ", specific_version)
+            self.utils.print_info("Device Specific Version: ", specific_version)
 
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
@@ -1731,8 +1759,8 @@ class Devices:
 
             self.utils.print_info("Specific Upgrade Version: ", specific_version)
 
-            self.utils.print_info(
-                "Selecting Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same or "
+                                  "upgrading to same version which includes a patch")
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
@@ -1841,6 +1869,10 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
 
+        self.utils.print_info("Entering Serial Number...")
+        self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+        sleep(5)
+
         if 'Extreme - Aerohive' in device_make:
             if entry_type:
                 if 'Manual' in entry_type:
@@ -1861,18 +1893,17 @@ class Devices:
                 return _errors
 
         # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
-        if 'voss' in device_make.lower():
-            self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_drop_down())
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_voss_choice())
-            sleep(1)
-
-            if entry_type:
-                self.utils.print_info("Selecting Entry Type")
-                self.auto_actions.click(self.devices_web_elements.get_device_entry_type_drop_down())
+        if "VOSS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
+            try:
+                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
                 sleep(2)
-                self.auto_actions.select_drop_down_options(self.devices_web_elements.
-                                                           get_device_entry_type_drop_down_options(), entry_type)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
+                                                           , "VOSS")
+            except Exception as e:
+                self.utils.print_debug("Exception: ", e)
+                self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+
             if entry_type == "CSV":
                 if csv_location:
                     upload_button = self.devices_web_elements.get_device_entry_voss_csv_upload_button()
@@ -1889,26 +1920,17 @@ class Devices:
                     self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     return -1
-            else:
-                self.utils.print_info("Entering Serial Number for VOSS device...")
-                self.auto_actions.send_keys(self.devices_web_elements.get_devices_voss_serial_text_area(),
-                                            device_serial)
-                _errors = self.check_negative_combinations()
-                if _errors != 1:
-                    return _errors
 
-        if 'exos' in device_make.lower():
-            self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_drop_down())
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_exos_choice())
-            sleep(1)
-
-            if entry_type:
-                self.utils.print_info("Selecting Entry Type")
-                self.auto_actions.click(self.devices_web_elements.get_device_entry_type_drop_down())
+        if "EXOS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
+            try:
+                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
                 sleep(2)
-                self.auto_actions.select_drop_down_options(self.devices_web_elements.
-                                                           get_device_entry_type_drop_down_options(), entry_type)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(), "EXOS")
+            except Exception as e:
+                self.utils.print_debug("Exception: ", e)
+                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+
             if entry_type == "CSV":
                 if csv_location:
                     upload_button = self.devices_web_elements.get_device_entry_exos_csv_upload_button()
@@ -1926,12 +1948,10 @@ class Devices:
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     return -1
             else:
-                self.utils.print_info("Entering Serial Number for EXOS device...")
-                self.auto_actions.send_keys(self.devices_web_elements.get_devices_exos_serial_text_area(),
-                                            device_serial)
                 _errors = self.check_negative_combinations()
                 if _errors != 1:
                     return _errors
+
         if 'Dell' in device_make:
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
@@ -2375,6 +2395,9 @@ class Devices:
                     sleep(2)
                     self.screen.save_screen_shot()
 
+                    # Wait until 'loading' mask is cleared
+                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
+
                     # Wait until the device is removed from the view
                     self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
 
@@ -2404,6 +2427,9 @@ class Devices:
                     sleep(2)
                     self.screen.save_screen_shot()
 
+                    # Wait until 'loading' mask is cleared
+                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
+
                     # Wait until the device is removed from the view
                     self.wait_until_device_removed(device_name=device_name, retry_duration=10, retry_count=6)
 
@@ -2432,6 +2458,9 @@ class Devices:
                     self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
                     sleep(2)
                     self.screen.save_screen_shot()
+
+                    # Wait until 'loading' mask is cleared
+                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
 
                     # Wait until the device is removed from the view
                     self.wait_until_device_removed(device_mac=device_mac, retry_duration=10, retry_count=6)
@@ -2996,7 +3025,8 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
         self.auto_actions.scroll_down()
         sleep(2)
-
+        
+        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
         policy_status = False
         for item in network_policy_items:
@@ -3039,22 +3069,34 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
             count = 5
+            tool_tp_text_error=self.devices_web_elements.get_perform_update_tooltip()
+            self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
-            self.utils.print_info(tool_tp_text)
-            for value in tool_tp_text:
-                if "a device mode change is not supported with a delta configuration update" in value.lower():
-                    self.utils.print_info(value)
-                    update_method = "Complete"
+            if tool_tp_text_error:
+               if "a configuration related action is currently in progress for device" in tool_tp_text_error.text.lower():
+                   self.utils.print_info(tool_tp_text_error.text)
+                   return -1
+            if tool_tp_text:
+                for value in tool_tp_text:
+                    if "a device mode change is not supported with a delta configuration update" in value.lower():
+                        self.utils.print_info(value)
+                        update_method = "Complete"
 
         if update_method == "Complete":
             self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            self.screen.save_screen_shot()
+            tool_tp_text = tool_tip.tool_tip_text
+            if tool_tp_text_error:
+                if "a configuration related action is currently in progress for device" in tool_tp_text_error.text.lower():
+                    self.utils.print_info(tool_tp_text_error.text)
+                    return -1
             count = 10
 
         self.screen.save_screen_shot()
         sleep(2)
-
         while count > 0:
             policy_applied = self.get_router_network_policy(router_serial=router_serial)
             if policy_name.upper() == policy_applied.upper():
@@ -4365,21 +4407,28 @@ class Devices:
         sleep(4)
 
         self.utils.print_info("Click on network policy drop down")
+	# First try with get_actions_assign_network_policy_drop_down - with 22R3 use get_nw_policy_drop
         self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
-        sleep(5)
+        self.auto_actions.scroll_down()
+        sleep(2)
+	# Try with new policy elements
+        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
 
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
-        sleep(2)
-
-        if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
-            self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
-        else:
+        policy_status = False
+        for item in network_policy_items:
+            if policy_name.upper() in item.text.upper():
+                self.utils.print_info("Selecting Network policy from drop down")
+                self.auto_actions.click(item)
+                policy_status = True
+                sleep(2)
+                break
+        if not policy_status:
             self.utils.print_info("Network policy is not present in drop down")
-            self.screen.save_screen_shot()
-            return False
+            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_cancel_button())
 
         self.screen.save_screen_shot()
-        sleep(5)
+        sleep(2)
 
         self.utils.print_info("Click on network policy assign button")
         self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
@@ -4393,8 +4442,8 @@ class Devices:
             if "Your account does not have permission to perform that action" in tooltip_text:
                 self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
                 sleep(5)
-                return False
-        return True
+                return -1
+        return 1
 
     def _update_switch(self, update_method="PolicyAndConfig"):
         """
@@ -5224,6 +5273,36 @@ class Devices:
         self.utils.print_info(f"{col} column for device {device_serial} still does not contain data. Please check.")
         return -1
 
+    def wait_until_devices_load_mask_cleared(self, retry_duration=30, retry_count=10):
+        """
+        - This keyword waits until the Manage > Devices 'loading' mask is cleared.
+        - This keyword by default loops every 30 seconds for 10 times to check for the 'loading' mask.
+        - Flow:
+         - Assumes that the 'Manage --> Devices' view is already visible.
+         - check for the 'loading' mask
+        - Keyword Usage:
+         - ``Wait Until Devices Load Mask Cleared   retry_duration=10    retry_count=5``
+
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if the 'loading' mask is cleared within the specified time, else -1
+        """
+        count = 1
+
+        while count <= retry_count:
+            self.utils.print_info(f"Checking for 'loading' mask: loop {count}")
+            load_mask = self.devices_web_elements.get_manage_devices_table_load_mask()
+            if load_mask:
+                self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
+                sleep(retry_duration)
+            else:
+                self.utils.print_info("The 'loading' mask is no longer visible.")
+                return 1
+            count += 1
+
+        self.utils.print_info("The 'loading' mask is still visible in the Manage --> Devices view.")
+        return -1
+
     def get_ap_management_ip_address(self, ap_serial=None, ap_name=None, ap_mac=None):
         """
         - Get Management IP Assigned to the AP
@@ -5671,7 +5750,7 @@ class Devices:
         if device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac)
-
+        
         if device_row:
             sleep(5)
             stack_status = self.devices_web_elements.get_stack_status_cell(device_row)
@@ -5685,6 +5764,50 @@ class Devices:
                     return "disabled"
             else:
                 self.utils.print_info("Could not get Stack status")
+
+
+    def get_exos_stack_status(self, device_mac='default'):
+        """
+        - This keyword returns the EXOS Stack icon status is blue or red 
+        - 'blue' means all the stack members are in managed state
+        - 'red' means one or more slot is not in managed state
+        - '-1' means the device is not a stack device
+        - Keyword Usage:
+        - ``Get Exos Stack Status   device_mac=${DEVICE_MAC}``
+
+       :param device_mac: device MAC address
+
+       :return:
+       - 'blue' if all the stack members are in managed state else 'red'
+       - '-1' if the stack icon is not in the device row
+
+       """
+        device_row = -1
+        self.refresh_devices_page()
+
+        self.utils.print_info('Getting Stack Status ')
+
+        if device_mac != 'default':
+            self.utils.print_info("Getting status of device with MAC: ", device_mac)
+            device_row = self.get_device_row(device_mac)
+
+        if device_row:
+            sleep(5)
+            stack_status = self.devices_web_elements.get_stack_status_cell_icon(device_row)
+            self.screen.save_screen_shot()
+            sleep(2)
+
+            if stack_status:
+                if "ui-icon-stack-warning" in stack_status:
+                    return "red"
+                elif "ui-icon-stack" in stack_status:
+                    return "blue"
+            else:
+                self.utils.print_error("Could not get stack status")
+                return -1
+        else:
+            return -1
+
 
     def verify_stack_devices_managed(self, stack_mac, slot_serial_list):
         """
@@ -6936,7 +7059,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
             # Check the already onboarded error
             if self.devices_web_elements.get_error_onboarding_message():
-                self.utils.print_info("{} already onboarded ".format(device_sn))
+                self.utils.print_info("Device(s) already onboarded ")
                 return -1
             else:
                 pass
@@ -7115,7 +7238,7 @@ class Devices:
 
             sleep(10)
 
-            self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
+            self.utils.print_info("Enter the Device Template Name: ", name_stack_template)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
                                         name_stack_template)
             self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())

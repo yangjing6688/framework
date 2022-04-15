@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Macauth
-This feature is located in this file: `macauth.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `macauth.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable
 	Pytest API Call: 
@@ -659,160 +659,129 @@ UUID: 7cc9a61d-9629-486e-abaf-2c2d4e076b0b
 
 ## REST
 ## SNMP
-# API Function: show
+# API Function: macauth_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macauth.macauth_show(device_name )
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_enabled(device_name)
 
 	Robot API Call: 
 
-		macauth_show  device_name  
+		macauth_verify_enabled  device_name
 
-UUID: 2e73c468-f660-4e8b-9098-ddcafd5eb76d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macauthentication
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin mac
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port
+# API Function: macauth_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macauth.macauth_show_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_disabled(device_name)
 
 	Robot API Call: 
 
-		macauth_show_port  device_name  
+		macauth_verify_disabled  device_name
 
-UUID: 9fff3204-4fa6-40c2-871e-a9d512f451bc
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macauth {port}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show config netlogin
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show running-config interface ethernet {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_authentication
+# API Function: macauth_verify_enabled_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macauth.macauth_show_port_authentication(device_name )
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_enabled_on_port(device_name, port)
 
 	Robot API Call: 
 
-		macauth_show_port_authentication  device_name  
+		macauth_verify_enabled_on_port  device_name  port
 
-UUID: 373e5598-b4ba-4214-aa38-e55ccee04966
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mac-address-table endpoint-tracking authenticated interface ethernet {port}||show mac-address-table endpoint-tracking authentication-failed interface ethernet {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_mac_list
+# API Function: macauth_verify_disabled_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macauth.macauth_show_mac_list(device_name )
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_disabled_on_port(device_name, port)
 
 	Robot API Call: 
 
-		macauth_show_mac_list  device_name  
+		macauth_verify_disabled_on_port  device_name  port
 
-UUID: eb354c10-8a72-4050-9084-f62e5361a144
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: macauth_verify_reauth_period
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_reauth_period(device_name, interval)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		macauth_verify_reauth_period  device_name  interval
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: macauth_verify_port_reauth_period
+	Pytest API Call: 
 
-		show netlogin mac-list
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_port_reauth_period(device_name, port, interval)
 
-----------------------------------------------
+	Robot API Call: 
 
+		macauth_verify_port_reauth_period  device_name  port  interval
 
-## REST
-## SNMP
+# API Function: macauth_verify_port_reauth_period_default
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_port_reauth_period_default(device_name, port, interval)
+
+	Robot API Call: 
+
+		macauth_verify_port_reauth_period_default  device_name  port  interval
+
+# API Function: macauth_verify_reauth_state_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_reauth_state_enabled(device_name, port)
+
+	Robot API Call: 
+
+		macauth_verify_reauth_state_enabled  device_name  port
+
+# API Function: macauth_verify_reauth_state_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_reauth_state_disabled(device_name, port)
+
+	Robot API Call: 
+
+		macauth_verify_reauth_state_disabled  device_name  port
+
+# API Function: macauth_verify_port_reauth_delay
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_port_reauth_delay(device_name, port, interval)
+
+	Robot API Call: 
+
+		macauth_verify_port_reauth_delay  device_name  port  interval
+
+# API Function: macauth_verify_mac_list_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_mac_list_exists(device_name, mac_addrs, mask)
+
+	Robot API Call: 
+
+		macauth_verify_mac_list_exists  device_name  mac_addrs  mask
+
+# API Function: macauth_verify_mac_list_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_mac_list_does_not_exist(device_name, mac_addrs, mask)
+
+	Robot API Call: 
+
+		macauth_verify_mac_list_does_not_exist  device_name  mac_addrs  mask
+
+# API Function: macauth_verify_session_exists_by_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_session_exists_by_port(device_name, port, mac_addr, vlanid, mac_type, state)
+
+	Robot API Call: 
+
+		macauth_verify_session_exists_by_port  device_name  port  mac_addr  vlanid  mac_type  state
+
+# API Function: macauth_verify_session_does_not_exist_by_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macauth.macauth_verify_session_does_not_exist_by_port(device_name, port, mac_addr, vlanid, mac_type, state)
+
+	Robot API Call: 
+
+		macauth_verify_session_does_not_exist_by_port  device_name  port  mac_addr  vlanid  mac_type  state
+

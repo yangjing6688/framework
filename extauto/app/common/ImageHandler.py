@@ -1,20 +1,20 @@
 import cv2
 import time
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from selenium.webdriver.common.action_chains import ActionChains
 
 
 class ImageHandler:
     def __init__(self):
         self.method = cv2.TM_SQDIFF_NORMED
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         # 'cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR',
         # 'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED'
 
     def get_position(self, target_icon):
         # Read the images from the file
         small_image = cv2.imread(target_icon)
-        self.driver.save_screenshot('screen1.png')
+        CloudDriver().cloud_driver.save_screenshot('screen1.png')
         time.sleep(5)
 
         large_image = cv2.imread('screen1.png')
@@ -44,10 +44,10 @@ class ImageHandler:
         return (_MPx+_MPx+tcols)/2, (_MPy+_MPy+trows)/2
 
     def click_image(self, target_icon):
-        actions = ActionChains(self.driver)
+        actions = ActionChains(CloudDriver().cloud_driver)
         x, y = self.get_position(target_icon)
         time.sleep(5)
-        actions.move_to_element_with_offset(self.driver.find_element_by_tag_name('body'), 0, 0)
+        actions.move_to_element_with_offset(CloudDriver().cloud_driver.find_element_by_tag_name('body'), 0, 0)
         # print x, y
         time.sleep(5)
         actions.move_by_offset(x, y).click().perform()

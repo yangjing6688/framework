@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Policy
-This feature is located in this file: `policy.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `policy.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: set_invalid
 	Pytest API Call: 
@@ -4150,666 +4150,1164 @@ UUID: 2f33e730-926b-4585-b011-2fa6537d21a6
 
 ## REST
 ## SNMP
-# API Function: show_state
+# API Function: policy_verify_state_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_state(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_state_enabled(device_name)
 
 	Robot API Call: 
 
-		policy_show_state  device_name  
+		policy_verify_state_enabled  device_name
 
-UUID: 871fd84a-db46-4ea5-931c-e4f4859c97d6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy state
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_map_response
+# API Function: policy_verify_port_admin_profile_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_map_response(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_port_admin_profile_exists(device_name, port, profile_id)
 
 	Robot API Call: 
 
-		policy_show_map_response  device_name  
+		policy_verify_port_admin_profile_exists  device_name  port  profile_id
 
-UUID: 81343f8f-b126-4181-9d3e-53dfc8070538
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy maptable
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy maptable
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_profiles
+# API Function: policy_verify_mac_source_admin_profile_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_profiles(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_mac_source_admin_profile_exists(device_name, mac_addr, port, profile_id)
 
 	Robot API Call: 
 
-		policy_show_profiles  device_name  
+		policy_verify_mac_source_admin_profile_exists  device_name  mac_addr  port  profile_id
 
-UUID: ee409148-6d7f-40cc-9ad6-33c490e4744b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy profile detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy profile -verbose
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_profile
+# API Function: policy_verify_profile_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_profile(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_exists(device_name, profile_ids)
 
 	Robot API Call: 
 
-		policy_show_profile  device_name  
+		policy_verify_profile_exists  device_name  profile_ids
 
-UUID: f4cc3445-c7d6-4131-9f3f-58f5aceb62c8
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy profile {profile_index}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_rules
+# API Function: policy_verify_profile_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_rules(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_name(device_name, profile_id, policy_name)
 
 	Robot API Call: 
 
-		policy_show_rules  device_name  
+		policy_verify_profile_name  device_name  profile_id  policy_name
 
-UUID: e6c422c4-8307-4b49-800c-693b86ad4819
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy rule {rule_type} detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy rule {rule_type} -verbose
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_invalid_action
+# API Function: policy_verify_profile_pvid_status_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_invalid_action(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_pvid_status_enabled(device_name, profile_id)
 
 	Robot API Call: 
 
-		policy_show_invalid_action  device_name  
+		policy_verify_profile_pvid_status_enabled  device_name  profile_id
 
-UUID: fb37f6cd-aa15-400c-b47b-6f1cf02e71c1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy invalid action
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy invalid action
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlanauthorization
+# API Function: policy_verify_profile_pvid_status_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_vlanauthorization(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_pvid_status_disabled(device_name, profile_id)
 
 	Robot API Call: 
 
-		policy_show_vlanauthorization  device_name  
+		policy_verify_profile_pvid_status_disabled  device_name  profile_id
 
-UUID: fc6bd614-b5b7-4624-ad95-62e32311bdee
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy vlanauthorization
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_allow_type
+# API Function: policy_verify_profile_pvid
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_allow_type(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_pvid(device_name, profile_id, pvid)
 
 	Robot API Call: 
 
-		policy_show_allow_type  device_name  
+		policy_verify_profile_pvid  device_name  profile_id  pvid
 
-UUID: f09ee2b9-6d5c-40bd-8d6d-a2cb1ca2940f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy allowed-type {port} detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy allowed-type {port} -verbose
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_all_rules
+# API Function: policy_verify_profile_cos_status_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_all_rules(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_cos_status_enabled(device_name, profile_id)
 
 	Robot API Call: 
 
-		policy_show_all_rules  device_name  
+		policy_verify_profile_cos_status_enabled  device_name  profile_id
 
-UUID: 1fbc44c3-7b05-4234-b056-fc3bc876feeb
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy rule detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy rule -verbose
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_all_profiles
+# API Function: policy_verify_profile_cos_status_should_be_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_all_profiles(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_cos_status_should_be_disabled(device_name, profile_id)
 
 	Robot API Call: 
 
-		policy_show_all_profiles  device_name  
+		policy_verify_profile_cos_status_should_be_disabled  device_name  profile_id
 
-UUID: 4cc7973d-623a-4ba9-a48a-3963adc44854
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy profile detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy profile -verbose
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXTRWIRELESS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		role show
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_rules_profile
+# API Function: policy_verify_profile_cos
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_rules_profile(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_cos(device_name, profile_id, cos_value)
 
 	Robot API Call: 
 
-		policy_show_rules_profile  device_name  
+		policy_verify_profile_cos  device_name  profile_id  cos_value
 
-UUID: 5e757112-dbf2-46f6-98d3-c97d3966fcbe
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy rule profile-index {profile_id} detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy rule {profile_id} -verbose
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXTRWIRELESS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		role {profile_id} acfilters show
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_invalid_count
+# API Function: policy_verify_profile_egress_vlan_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_invalid_count(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_egress_vlan_exists(device_name, profile_id, vlans)
 
 	Robot API Call: 
 
-		policy_show_invalid_count  device_name  
+		policy_verify_profile_egress_vlan_exists  device_name  profile_id  vlans
 
-UUID: 4042d414-f795-40fe-ba31-5215c68b748b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy invalid count
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_admin_profiles
+# API Function: policy_verify_profile_untagged_vlan_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_admin_profiles(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_untagged_vlan_exists(device_name, profile_id, vlans)
 
 	Robot API Call: 
 
-		policy_show_admin_profiles  device_name  
+		policy_verify_profile_untagged_vlan_exists  device_name  profile_id  vlans
 
-UUID: 35c5144b-815e-46b3-a13f-f07fee9e3557
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy rule admin-pid {profile_id} detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy rule admin-pid {profile_id} -verbose
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_access_list_rule_name
+# API Function: policy_verify_profile_forbidden_vlan_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_access_list_rule_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_forbidden_vlan_exists(device_name, profile_id, vlans)
 
 	Robot API Call: 
 
-		policy_show_access_list_rule_name  device_name  
+		policy_verify_profile_forbidden_vlan_exists  device_name  profile_id  vlans
 
-UUID: 352acacf-6fdb-4070-a7e3-0ef8baef9294
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy access-list {list_name}.{rule}
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/ietf-access-control-list:acls/acl={list_name}/aces/ace={rule}
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_access_list_list_name
+# API Function: policy_verify_profile_tci_overwrite_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_access_list_list_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_tci_overwrite_enabled(device_name, profile_ids)
 
 	Robot API Call: 
 
-		policy_show_access_list_list_name  device_name  
+		policy_verify_profile_tci_overwrite_enabled  device_name  profile_ids
 
-UUID: e5d08279-b58c-4b2f-9941-bec2c5f6bb66
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy access-list {list_name}
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/ietf-access-control-list:acls/acl={list_name}
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_access_list_action_set
+# API Function: policy_verify_profile_tci_overwrite_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_access_list_action_set(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_tci_overwrite_disabled(device_name, profile_ids)
 
 	Robot API Call: 
 
-		policy_show_access_list_action_set  device_name  
+		policy_verify_profile_tci_overwrite_disabled  device_name  profile_ids
 
-UUID: 7d55818b-8301-4ef1-9574-0e6626056b81
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show policy access-list action-set {set_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_profile_detail
+# API Function: policy_verify_profile_precedence
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.policy.policy_show_profile_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_precedence(device_name, profile_ids, precedence_string)
 
 	Robot API Call: 
 
-		policy_show_profile_detail  device_name  
+		policy_verify_profile_precedence  device_name  profile_ids  precedence_string
 
-UUID: 49398e02-08d0-4cb0-997c-e333ac188cba
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXTRWIRELESS
+# API Function: policy_verify_profile_mirror_destination
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_mirror_destination(device_name, profile_id, mirror_index)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		policy_verify_profile_mirror_destination  device_name  profile_id  mirror_index
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: policy_verify_profile_syslog_state_enabled
+	Pytest API Call: 
 
-		role {profile_name} show
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_syslog_state_enabled(device_name, profile_id)
 
-----------------------------------------------
+	Robot API Call: 
 
+		policy_verify_profile_syslog_state_enabled  device_name  profile_id
 
-## REST
-## SNMP
+# API Function: policy_verify_profile_syslog_state_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_syslog_state_disabled(device_name, profile_id)
+
+	Robot API Call: 
+
+		policy_verify_profile_syslog_state_disabled  device_name  profile_id
+
+# API Function: policy_verify_profile_trap_state_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_trap_state_enabled(device_name, profile_id)
+
+	Robot API Call: 
+
+		policy_verify_profile_trap_state_enabled  device_name  profile_id
+
+# API Function: policy_verify_profile_trap_state_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_trap_state_disabled(device_name, profile_id)
+
+	Robot API Call: 
+
+		policy_verify_profile_trap_state_disabled  device_name  profile_id
+
+# API Function: policy_verify_profile_disable_port_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_disable_port_enabled(device_name, profile_id)
+
+	Robot API Call: 
+
+		policy_verify_profile_disable_port_enabled  device_name  profile_id
+
+# API Function: policy_verify_profile_disable_port_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_disable_port_disabled(device_name, profile_id)
+
+	Robot API Call: 
+
+		policy_verify_profile_disable_port_disabled  device_name  profile_id
+
+# API Function: policy_verify_profile_fst_index
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_fst_index(device_name, profile_id, fst_index)
+
+	Robot API Call: 
+
+		policy_verify_profile_fst_index  device_name  profile_id  fst_index
+
+# API Function: policy_verify_profile_web_redirect_index
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_web_redirect_index(device_name, profile_id, web_redirect_index)
+
+	Robot API Call: 
+
+		policy_verify_profile_web_redirect_index  device_name  profile_id  web_redirect_index
+
+# API Function: policy_verify_rule_application_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_application_exists(device_name, profile_id, application, application_type, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_application_exists  device_name  profile_id  application  application_type  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ethertype_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ethertype_exists(device_name, profile_id, ether_type, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ethertype_exists  device_name  profile_id  ether_type  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_icmp6type_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_icmp6type_exists(device_name, profile_id, icmp6_type, icmp6_code, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_icmp6type_exists  device_name  profile_id  icmp6_type  icmp6_code  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_icmptype_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_icmptype_exists(device_name, profile_id, icmp_type, icmp_code, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_icmptype_exists  device_name  profile_id  icmp_type  icmp_code  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ip6dest_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ip6dest_exists(device_name, profile_id, ipv6_addr, l4_port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ip6dest_exists  device_name  profile_id  ipv6_addr  l4_port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ip6flowlabel_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ip6flowlabel_exists(device_name, profile_id, ipv6_flow_label, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ip6flowlabel_exists  device_name  profile_id  ipv6_flow_label  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ip6source_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ip6source_exists(device_name, profile_id, ipv6_addr, l4_port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ip6source_exists  device_name  profile_id  ipv6_addr  l4_port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipdestsocket_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipdestsocket_exists(device_name, profile_id, ip_addr, l4_port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipdestsocket_exists  device_name  profile_id  ip_addr  l4_port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipfrag_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipfrag_exists(device_name, profile_id, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipfrag_exists  device_name  profile_id  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipproto_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipproto_exists(device_name, profile_id, ip_proto, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipproto_exists  device_name  profile_id  ip_proto  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipsourcesocket_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipsourcesocket_exists(device_name, profile_id, ip_addr, l4_port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipsourcesocket_exists  device_name  profile_id  ip_addr  l4_port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_iptos_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_iptos_exists(device_names, profile_id, ip_tos, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_iptos_exists  device_names  profile_id  ip_tos  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipttl_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipttl_exists(device_name, profile_id, ip_ttl, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipttl_exists  device_name  profile_id  ip_ttl  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxclass_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxclass_exists(device_name, profile_id, ipx_class, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxclass_exists  device_name  profile_id  ipx_class  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxdest_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxdest_exists(device_name, profile_id, ipx_dest, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxdest_exists  device_name  profile_id  ipx_dest  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxdestsocket_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxdestsocket_exists(device_name, profile_id, ipx_dest_socket, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxdestsocket_exists  device_name  profile_id  ipx_dest_socket  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxsource_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxsource_exists(device_name, profile_id, ipx_source, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxsource_exists  device_name  profile_id  ipx_source  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxsourcesocket_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxsourcesocket_exists(device_name, profile_id, ipx_source_socket, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxsourcesocket_exists  device_name  profile_id  ipx_source_socket  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxtype_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxtype_exists(device_name, profile_id, ipx_type, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxtype_exists  device_name  profile_id  ipx_type  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_llcdsapssap_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_llcdsapssap_exists(device_name, profile_id, llc_dsap_ssap, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_llcdsapssap_exists  device_name  profile_id  llc_dsap_ssap  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_macdest_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_macdest_exists(device_names, profile_id, mac_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_macdest_exists  device_names  profile_id  mac_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_macsource_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_macsource_exists(device_name, profile_id, mac_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_macsource_exists  device_name  profile_id  mac_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_port_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_port_exists(device_name, profile_id, port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_port_exists  device_name  profile_id  port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_tci_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_tci_exists(device_name, profile_id, tci_value, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_tci_exists  device_name  profile_id  tci_value  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_tcpdestportip_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_tcpdestportip_exists(device_name, profile_id, tcp_port, ip_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_tcpdestportip_exists  device_name  profile_id  tcp_port  ip_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_tcpsourceportip_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_tcpsourceportip_exists(device_name, profile_id, tcp_port, ip_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_tcpsourceportip_exists  device_name  profile_id  tcp_port  ip_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_udpdestportip_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_udpdestportip_exists(device_name, profile_id, udp_port, ip_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_udpdestportip_exists  device_name  profile_id  udp_port  ip_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_udpsourceportip_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_udpsourceportip_exists(device_name, profile_id, udp_port, ip_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_udpsourceportip_exists  device_name  profile_id  udp_port  ip_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_vlantag_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_vlantag_exists(device_name, profile_id, vlan_tag, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_vlantag_exists  device_name  profile_id  vlan_tag  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_allow_types
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_allow_types(device_name, device_ports, allow_type_list, " in allow_type_list and ", )
+
+	Robot API Call: 
+
+		policy_verify_allow_types  device_name  device_ports  allow_type_list  " in allow_type_list and "  
+
+# API Function: policy_verify_invalid_action
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_invalid_action(device_name, action)
+
+	Robot API Call: 
+
+		policy_verify_invalid_action  device_name  action
+
+# API Function: policy_verify_maptable_response
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_maptable_response(device_name, attribute)
+
+	Robot API Call: 
+
+		policy_verify_maptable_response  device_name  attribute
+
+# API Function: policy_verify_global_vlan_authorization
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_global_vlan_authorization(device_name, state)
+
+	Robot API Call: 
+
+		policy_verify_global_vlan_authorization  device_name  state
+
+# API Function: policy_verify_invalid_count
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_invalid_count(device_name, count)
+
+	Robot API Call: 
+
+		policy_verify_invalid_count  device_name  count
+
+# API Function: policy_verify_invalid_counter_should_increment
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_invalid_counter_should_increment(device_name, increment)
+
+	Robot API Call: 
+
+		policy_verify_invalid_counter_should_increment  device_name  increment
+
+# API Function: policy_verify_rule_model_access_list
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_model_access_list(device_name)
+
+	Robot API Call: 
+
+		policy_verify_rule_model_access_list  device_name
+
+# API Function: policy_verify_rule_model_hierarchical
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_model_hierarchical(device_name)
+
+	Robot API Call: 
+
+		policy_verify_rule_model_hierarchical  device_name
+
+# API Function: policy_verify_acl_ipttl
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_ipttl(device_name, list_name, rule, ttl, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_ipttl  device_name  list_name, rule  ttl  mask
+
+# API Function: policy_verify_acl_ether
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_ether(device_name, list_name, rule, ether, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_ether  device_name  list_name, rule  ether  mask
+
+# API Function: policy_verify_acl_icmp6type
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_icmp6type(device_name, list_name, rule, icmp6type, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_icmp6type  device_name  list_name, rule  icmp6type  mask
+
+# API Function: policy_verify_acl_icmptype
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_icmptype(device_name, list_name, rule, icmptype, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_icmptype  device_name  list_name, rule  icmptype  mask
+
+# API Function: policy_verify_acl_ipdestsocket
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_ipdestsocket(device_name, list_name, rule, ipdestsocket, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_ipdestsocket  device_name  list_name, rule  ipdestsocket  mask
+
+# API Function: policy_verify_acl_ipfrag
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_ipfrag(device_name, list_name, rule)
+
+	Robot API Call: 
+
+		policy_verify_acl_ipfrag  device_name  list_name, rule
+
+# API Function: policy_verify_acl_ipproto
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_ipproto(device_name, list_name, rule, ipproto, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_ipproto  device_name  list_name, rule  ipproto  mask
+
+# API Function: policy_verify_acl_ipsourcesocket
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_ipsourcesocket(device_name, list_name, rule, ipsourcesocket, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_ipsourcesocket  device_name  list_name, rule  ipsourcesocket  mask
+
+# API Function: policy_verify_acl_iptos
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_iptos(device_name, list_name, rule, iptos, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_iptos  device_name  list_name, rule  iptos  mask
+
+# API Function: policy_verify_acl_tcpdestportip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_tcpdestportip(device_name, list_name, rule, tcpdestportip, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_tcpdestportip  device_name  list_name, rule  tcpdestportip  mask
+
+# API Function: policy_verify_acl_tcpsourceportip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_tcpsourceportip(device_name, list_name, rule, tcpsourceportip, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_tcpsourceportip  device_name  list_name, rule  tcpsourceportip  mask
+
+# API Function: policy_verify_acl_udpdestportip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_udpdestportip(device_name, list_name, rule, udpdestportip, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_udpdestportip  device_name  list_name, rule  udpdestportip  mask
+
+# API Function: policy_verify_acl_udpsourceportip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_udpsourceportip(device_name, list_name, rule, udpsourceportip, mask)
+
+	Robot API Call: 
+
+		policy_verify_acl_udpsourceportip  device_name  list_name, rule  udpsourceportip  mask
+
+# API Function: policy_verify_acl_action_cos
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_cos(device_name, list_name, rule, cos)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_cos  device_name  list_name, rule  cos
+
+# API Function: policy_verify_acl_action_mirror
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_mirror(device_name, list_name, rule, mirror_index)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_mirror  device_name  list_name, rule  mirror_index
+
+# API Function: policy_verify_acl_action_drop
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_drop(device_name, list_name, rule)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_drop  device_name  list_name, rule
+
+# API Function: policy_verify_acl_action_forward
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_forward(device_name, list_name, rule)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_forward  device_name  list_name, rule
+
+# API Function: policy_verify_acl_action_trap_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_trap_enabled(device_name, list_name, rule)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_trap_enabled  device_name  list_name, rule
+
+# API Function: policy_verify_acl_action_syslog_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_syslog_enabled(device_name, list_name, rule)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_syslog_enabled  device_name  list_name, rule
+
+# API Function: policy_verify_acl_action_all
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_all(device_name, list_name, rule, volatile, trap_syslog_flag, drop_fwrd, cos, mirror)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_all  device_name  list_name, rule  volatile  trap_syslog_flag  drop_fwrd  cos  mirror
+
+# API Function: policy_verify_acl_action_set_cos
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_set_cos(device_name, set_id, cos)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_set_cos  device_name  set_id  cos
+
+# API Function: policy_verify_acl_action_set_mirror
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_set_mirror(device_name, set_id, mirror_index)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_set_mirror  device_name  set_id  mirror_index
+
+# API Function: policy_verify_acl_action_set_drop
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_set_drop(device_name, set_id)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_set_drop  device_name  set_id
+
+# API Function: policy_verify_acl_action_set_forward
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_set_forward(device_name, set_id)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_set_forward  device_name  set_id
+
+# API Function: policy_verify_acl_action_set_trap_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_set_trap_enabled(device_name, set_id)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_set_trap_enabled  device_name  set_id
+
+# API Function: policy_verify_acl_action_set_syslog_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_set_syslog_enabled(device_name, set_id)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_set_syslog_enabled  device_name  set_id
+
+# API Function: policy_verify_acl_action_set_all
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_set_all(device_name, set_id, volatile, trap_syslog_flag, drop_fwrd, cos, mirror)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_set_all  device_name  set_id  volatile  trap_syslog_flag  drop_fwrd  cos  mirror
+
+# API Function: policy_verify_acl_profile_index
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_profile_index(device_name, list_name, index)
+
+	Robot API Call: 
+
+		policy_verify_acl_profile_index  device_name  list_name  index
+
+# API Function: policy_verify_state_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_state_disabled(device_name)
+
+	Robot API Call: 
+
+		policy_verify_state_disabled  device_name
+
+# API Function: policy_verify_port_admin_profile_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_port_admin_profile_does_not_exist(device_name, port, profile_id)
+
+	Robot API Call: 
+
+		policy_verify_port_admin_profile_does_not_exist  device_name  port  profile_id
+
+# API Function: policy_verify_mac_source_admin_profile_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_mac_source_admin_profile_does_not_exist(device_name, mac_addr, port, profile_id)
+
+	Robot API Call: 
+
+		policy_verify_mac_source_admin_profile_does_not_exist  device_name  mac_addr  port  profile_id
+
+# API Function: policy_verify_profile_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_profile_does_not_exist(device_name, profile_ids)
+
+	Robot API Call: 
+
+		policy_verify_profile_does_not_exist  device_name  profile_ids
+
+# API Function: policy_verify_rule_application_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_application_does_not_exist(device_name, profile_id, application, application_type, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_application_does_not_exist  device_name  profile_id  application  application_type  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ethertype_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ethertype_does_not_exist(device_name, profile_id, ether_type, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ethertype_does_not_exist  device_name  profile_id  ether_type  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_icmp6type_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_icmp6type_does_not_exist(device_name, profile_id, icmp6_type, icmp6_code, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_icmp6type_does_not_exist  device_name  profile_id  icmp6_type  icmp6_code  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_icmptype_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_icmptype_does_not_exist(device_name, profile_id, icmp_type, icmp_code, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_icmptype_does_not_exist  device_name  profile_id  icmp_type  icmp_code  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ip6dest_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ip6dest_does_not_exist(device_name, profile_id, ipv6_addr, l4_port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ip6dest_does_not_exist  device_name  profile_id  ipv6_addr  l4_port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ip6flowlabel_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ip6flowlabel_does_not_exist(device_name, profile_id, ipv6_flow_label, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ip6flowlabel_does_not_exist  device_name  profile_id  ipv6_flow_label  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ip6source_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ip6source_does_not_exist(device_name, profile_id, ipv6_addr, l4_port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ip6source_does_not_exist  device_name  profile_id  ipv6_addr  l4_port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipdestsocket_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipdestsocket_does_not_exist(device_name, profile_id, ip_addr, l4_port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipdestsocket_does_not_exist  device_name  profile_id  ip_addr  l4_port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipfrag_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipfrag_does_not_exist(device_name, profile_id, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipfrag_does_not_exist  device_name  profile_id  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipproto_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipproto_does_not_exist(device_name, profile_id, ip_proto, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipproto_does_not_exist  device_name  profile_id  ip_proto  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipsourcesocket_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipsourcesocket_does_not_exist(device_name, profile_id, ip_addr, l4_port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipsourcesocket_does_not_exist  device_name  profile_id  ip_addr  l4_port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_iptos_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_iptos_does_not_exist(device_names, profile_id, ip_tos, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_iptos_does_not_exist  device_names  profile_id  ip_tos  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipttl_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipttl_does_not_exist(device_name, profile_id, ip_ttl, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipttl_does_not_exist  device_name  profile_id  ip_ttl  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxclass_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxclass_does_not_exist(device_name, profile_id, ipx_class, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxclass_does_not_exist  device_name  profile_id  ipx_class  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxdest_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxdest_does_not_exist(device_name, profile_id, ipx_dest, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxdest_does_not_exist  device_name  profile_id  ipx_dest  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxdestsocket_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxdestsocket_does_not_exist(device_name, profile_id, ipx_dest_socket, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxdestsocket_does_not_exist  device_name  profile_id  ipx_dest_socket  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxsource_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxsource_does_not_exist(device_name, profile_id, ipx_source, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxsource_does_not_exist  device_name  profile_id  ipx_source  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxsourcesocket_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxsourcesocket_does_not_exist(device_name, profile_id, ipx_source_socket, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxsourcesocket_does_not_exist  device_name  profile_id  ipx_source_socket  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_ipxtype_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_ipxtype_does_not_exist(device_name, profile_id, ipx_type, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_ipxtype_does_not_exist  device_name  profile_id  ipx_type  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_llcdsapssap_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_llcdsapssap_does_not_exist(device_name, profile_id, llc_dsap_ssap, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_llcdsapssap_does_not_exist  device_name  profile_id  llc_dsap_ssap  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_macdest_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_macdest_does_not_exist(device_names, profile_id, mac_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_macdest_does_not_exist  device_names  profile_id  mac_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_macsource_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_macsource_does_not_exist(device_name, profile_id, mac_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_macsource_does_not_exist  device_name  profile_id  mac_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_port_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_port_does_not_exist(device_name, profile_id, port, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_port_does_not_exist  device_name  profile_id  port  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_tci_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_tci_does_not_exist(device_name, profile_id, tci_value, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_tci_does_not_exist  device_name  profile_id  tci_value  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_tcpdestportip_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_tcpdestportip_does_not_exist(device_name, profile_id, tcp_port, ip_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_tcpdestportip_does_not_exist  device_name  profile_id  tcp_port  ip_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_tcpsourceportip_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_tcpsourceportip_does_not_exist(device_name, profile_id, tcp_port, ip_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_tcpsourceportip_does_not_exist  device_name  profile_id  tcp_port  ip_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_udpdestportip_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_udpdestportip_does_not_exist(device_name, profile_id, udp_port, ip_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_udpdestportip_does_not_exist  device_name  profile_id  udp_port  ip_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_udpsourceportip_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_udpsourceportip_does_not_exist(device_name, profile_id, udp_port, ip_addr, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_udpsourceportip_does_not_exist  device_name  profile_id  udp_port  ip_addr  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_rule_vlantag_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_rule_vlantag_does_not_exist(device_name, profile_id, vlan_tag, mask, port_string, storage_type, vlan, cos, tci_overwrite, mirror_destination, syslog, trap, disable_port, quarantine_profile)
+
+	Robot API Call: 
+
+		policy_verify_rule_vlantag_does_not_exist  device_name  profile_id  vlan_tag  mask  port_string  storage_type  vlan  cos  tci_overwrite  mirror_destination  syslog  trap  disable_port  quarantine_profile
+
+# API Function: policy_verify_acl_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_does_not_exist(device_name, list_name)
+
+	Robot API Call: 
+
+		policy_verify_acl_does_not_exist  device_name  list_name
+
+# API Function: policy_verify_acl_rule_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_rule_does_not_exist(device_name, list_name, rule)
+
+	Robot API Call: 
+
+		policy_verify_acl_rule_does_not_exist  device_name  list_name  rule
+
+# API Function: policy_verify_acl_action_set_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_action_set_does_not_exist(device_name, set_id)
+
+	Robot API Call: 
+
+		policy_verify_acl_action_set_does_not_exist  device_name  set_id
+
+# API Function: policy_verify_acl_profile_index_none
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_acl_profile_index_none(device_name, list_name)
+
+	Robot API Call: 
+
+		policy_verify_acl_profile_index_none  device_name  list_name
+
+# API Function: policy_verify_and_store_invalid_counter
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.policy.policy_verify_and_store_invalid_counter(device_name)
+
+	Robot API Call: 
+
+		policy_verify_and_store_invalid_counter  device_name
+
