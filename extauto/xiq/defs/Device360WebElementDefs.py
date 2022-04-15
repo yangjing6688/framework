@@ -1718,6 +1718,12 @@ class Device360WebElementDefs:
             'wait_for': 10
         }
 
+    d360_monitor_lldp_neighbor_header = \
+        {
+            'XPATH': '//th[contains(@class, "field-lldpSystemName")]',
+            'wait_for': 5
+        }
+
     d360_monitor_interface_name = \
         {
             'CSS_SELECTOR': '.field-ifName',
