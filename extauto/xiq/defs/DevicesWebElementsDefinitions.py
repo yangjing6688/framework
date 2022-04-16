@@ -159,13 +159,13 @@ class DevicesWebElementsDefinitions:
             'wait_for': 2
         }
 
-    device_download_button: \
+    device_download_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-device-list-download-btn"]',
             'wait_for': 2
         }
 
-    device_bulk_edit_button: \
+    device_bulk_edit_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-device-list-bulkEdit-btn"]',
             'wait_for': 2
