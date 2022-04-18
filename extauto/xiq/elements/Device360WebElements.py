@@ -1160,6 +1160,14 @@ class Device360WebElements(Device360WebElementDefs):
                 port_list.append(el)
         return port_list
 
+    def get_device360_automation_port(self):
+        port_list = []
+        elements = self.weh.get_elements(self.d360_automation_port)
+        for el in elements:
+            if el.is_displayed():
+                port_list.append(el)
+        return port_list
+
     def get_device360_port_leftclick_interface_name(self):
         return self.weh.get_element(self.d360_port_leftclick_interface_name)
 
