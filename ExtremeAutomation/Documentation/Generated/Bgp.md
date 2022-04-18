@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Bgp
-This feature is located in this file: `bgp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `bgp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_global
 	Pytest API Call: 
@@ -1811,559 +1811,246 @@ UUID: a3b1620a-94c4-43fc-8238-bd410c4325b0
 
 
 ## SNMP
-# API Function: show_all_routes
+# API Function: bgp_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_all_routes(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_enabled(device_name)
 
 	Robot API Call: 
 
-		bgp_show_all_routes  device_name  
+		bgp_verify_enabled  device_name
 
-UUID: 8b16d3d7-c625-41bc-8383-cac30cee3fa3
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show bgp routes all
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp route
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_always_compare_med
+# API Function: bgp_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_always_compare_med(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_disabled(device_name)
 
 	Robot API Call: 
 
-		bgp_show_always_compare_med  device_name  
+		bgp_verify_disabled  device_name
 
-UUID: 2f58dba2-5c72-45fa-9fc5-2df51dd47c50
-## CLI
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/global/route-selection-options/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_advertise_inactive_routes_ipv6_unicast
+# API Function: bgp_verify_as
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_advertise_inactive_routes_ipv6_unicast(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_as(device_name, asnum)
 
 	Robot API Call: 
 
-		bgp_show_advertise_inactive_routes_ipv6_unicast  device_name  
+		bgp_verify_as  device_name  asnum
 
-UUID: d1bd3e72-c0ed-4f03-ac30-500fa542fb04
-## CLI
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/global/afi-safis/afi-safi=oc-bgp-types:IPV6_UNICAST/route-selection-options/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_advertise_inactive_routes_l3vpn_ipv4_unicast
+# API Function: bgp_verify_as_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_advertise_inactive_routes_l3vpn_ipv4_unicast(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_as_does_not_exist(device_name, asnum)
 
 	Robot API Call: 
 
-		bgp_show_advertise_inactive_routes_l3vpn_ipv4_unicast  device_name  
+		bgp_verify_as_does_not_exist  device_name  asnum
 
-UUID: 33c5d664-750c-41d7-a5f9-52c300235a8d
-## CLI
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/global/afi-safis/afi-safi=oc-bgp-types:L3VPN_IPV4_UNICAST/route-selection-options/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_advertise_inactive_routes_ipv4_unicast
+# API Function: bgp_verify_routerid
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_advertise_inactive_routes_ipv4_unicast(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_routerid(device_name, rtrid, asnum)
 
 	Robot API Call: 
 
-		bgp_show_advertise_inactive_routes_ipv4_unicast  device_name  
+		bgp_verify_routerid  device_name  rtrid  asnum
 
-UUID: b0ce34d9-7537-42dd-a92d-e5926912ad27
-## CLI
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/global/afi-safis/afi-safi=oc-bgp-types:IPV4_UNICAST/route-selection-options/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_use_multiple_paths
+# API Function: bgp_verify_routerid_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_use_multiple_paths(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_routerid_does_not_exist(device_name, rtrid, asnum)
 
 	Robot API Call: 
 
-		bgp_show_use_multiple_paths  device_name  
+		bgp_verify_routerid_does_not_exist  device_name  rtrid  asnum
 
-UUID: eba4d97d-a690-4178-9b33-0f686e64944f
-## CLI
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/global/use-multiple-paths/ebgp/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_neighbor_timers
+# API Function: bgp_verify_auto_peering
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_neighbor_timers(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_auto_peering(device_name, peering_value)
 
 	Robot API Call: 
 
-		bgp_show_neighbor_timers  device_name  
+		bgp_verify_auto_peering  device_name  peering_value
 
-UUID: 35e97848-eec3-482b-b10b-df4dcb53234a
-## CLI
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/neighbors/neighbor={neighbor_ip}/timers/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_confederation
+# API Function: bgp_verify_auto_peering_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_confederation(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_auto_peering_disabled(device_name)
 
 	Robot API Call: 
 
-		bgp_show_confederation  device_name  
+		bgp_verify_auto_peering_disabled  device_name
 
-UUID: e1ed7408-fce4-434a-8b5f-96a3bb7b6889
-## CLI
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/global/confederation/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_graceful_restart
+# API Function: bgp_verify_neighbor_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_graceful_restart(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_neighbor_exists(device_name, ip, asnum)
 
 	Robot API Call: 
 
-		bgp_show_graceful_restart  device_name  
+		bgp_verify_neighbor_exists  device_name  ip  asnum
 
-UUID: 1cb80208-c9c2-40c9-8578-ba2dbb8967bc
-## CLI
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/global/graceful-restart/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_neighbors
+# API Function: bgp_verify_neighbor_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_neighbors(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_neighbor_does_not_exist(device_name, ip, asnum)
 
 	Robot API Call: 
 
-		bgp_show_neighbors  device_name  
+		bgp_verify_neighbor_does_not_exist  device_name  ip  asnum
 
-UUID: 1909e224-5174-4515-9adf-6576c2c4e2a6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp neighbors
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show bgp neighbor
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp neighbor
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/neighbors
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_status
+# API Function: bgp_verify_route_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_status(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_route_exists(device_name, route, nexthop, intf)
 
 	Robot API Call: 
 
-		bgp_show_status  device_name  
+		bgp_verify_route_exists  device_name  route  nexthop  intf
 
-UUID: 41a0b4f3-4260-40e2-8f9d-7b9cbad07fd4
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show bgp
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp conf
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /rest/restconf/data/openconfig-bgp:bgp/global/config
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_route_ip
+# API Function: bgp_verify_route_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_route_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_route_does_not_exist(device_name, route, nexthop, intf)
 
 	Robot API Call: 
 
-		bgp_show_route_ip  device_name  
+		bgp_verify_route_does_not_exist  device_name  route  nexthop  intf
 
-UUID: 5819fa87-9a46-4fa3-8e05-bab1c8706b8a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp route ip {ip}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_redistributed_routes
+# API Function: bgp_verify_neighbor_state
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_redistributed_routes(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_neighbor_state(device_name, neighbor, state)
 
 	Robot API Call: 
 
-		bgp_show_redistributed_routes  device_name  
+		bgp_verify_neighbor_state  device_name  neighbor  state
 
-UUID: 7625e7d8-4a49-4a50-8f8a-d4454cc10e9b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp redistributed-routes
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_networks
+# API Function: bgp_verify_linklocal_neighbor_state
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_networks(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_linklocal_neighbor_state(device_name, neighbor, vlan, state)
 
 	Robot API Call: 
 
-		bgp_show_networks  device_name  
+		bgp_verify_linklocal_neighbor_state  device_name  neighbor  vlan  state
 
-UUID: ea4608a6-3755-48a5-b4a8-24d63a169206
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp networks
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_peer_group
+# API Function: bgp_verify_confederation_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_peer_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_confederation_id(device_name, confed_id)
 
 	Robot API Call: 
 
-		bgp_show_peer_group  device_name  
+		bgp_verify_confederation_id  device_name  confed_id
 
-UUID: 1318cdee-ef72-43a3-9f59-565e2ee6c063
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp peer-group
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_stats
+# API Function: bgp_verify_confederation_peer_member_as_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_stats(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_confederation_peer_member_as_exists(device_name, peer, exists)
 
 	Robot API Call: 
 
-		bgp_show_stats  device_name  
+		bgp_verify_confederation_peer_member_as_exists  device_name  peer  exists
 
-UUID: 513d37b3-784d-4d0a-85be-0d2cedc0758a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip bgp stats
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_summary
+# API Function: bgp_verify_graceful_restart
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.bgp.bgp_show_summary(device_name )
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_graceful_restart(device_name, graceful_restart)
 
 	Robot API Call: 
 
-		bgp_show_summary  device_name  
+		bgp_verify_graceful_restart  device_name  graceful_restart
 
-UUID: 9dc5582d-e992-44a9-be29-489e98d79d5e
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: bgp_verify_graceful_restart_time
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_graceful_restart_time(device_name, restart_time)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		bgp_verify_graceful_restart_time  device_name  restart_time
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: bgp_verify_graceful_stale_route_time
+	Pytest API Call: 
 
-		show ip bgp summary
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_graceful_stale_route_time(device_name, stale_route_time)
 
-----------------------------------------------
+	Robot API Call: 
 
+		bgp_verify_graceful_stale_route_time  device_name  stale_route_time
 
-## REST
-## SNMP
+# API Function: bgp_verify_allow_multiple_as
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_allow_multiple_as(device_name, allow_multiple_as)
+
+	Robot API Call: 
+
+		bgp_verify_allow_multiple_as  device_name  allow_multiple_as
+
+# API Function: bgp_verify_maximum_paths
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_maximum_paths(device_name, maximum_paths)
+
+	Robot API Call: 
+
+		bgp_verify_maximum_paths  device_name  maximum_paths
+
+# API Function: bgp_verify_always_compare_med
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_always_compare_med(device_name, always_compare_med)
+
+	Robot API Call: 
+
+		bgp_verify_always_compare_med  device_name  always_compare_med
+
+# API Function: bgp_verify_advertise_inactive_routes_ipv4_unicast
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_advertise_inactive_routes_ipv4_unicast(device_name, advertise_inactive_routes)
+
+	Robot API Call: 
+
+		bgp_verify_advertise_inactive_routes_ipv4_unicast  device_name  advertise_inactive_routes
+
+# API Function: bgp_verify_advertise_inactive_routes_ipv6_unicast
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_advertise_inactive_routes_ipv6_unicast(device_name, advertise_inactive_routes)
+
+	Robot API Call: 
+
+		bgp_verify_advertise_inactive_routes_ipv6_unicast  device_name  advertise_inactive_routes
+
+# API Function: bgp_verify_advertise_inactive_routes_l3vpn_ipv4_unicast
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_advertise_inactive_routes_l3vpn_ipv4_unicast(device_name, advertise_inactive_routes)
+
+	Robot API Call: 
+
+		bgp_verify_advertise_inactive_routes_l3vpn_ipv4_unicast  device_name  advertise_inactive_routes
+
+# API Function: bgp_verify_neighbor_keep_alive_time
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_neighbor_keep_alive_time(device_name, neighbor_ip, keep_alive_interval)
+
+	Robot API Call: 
+
+		bgp_verify_neighbor_keep_alive_time  device_name  neighbor_ip  keep_alive_interval
+
+# API Function: bgp_verify_neighbor_hold_time
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.bgp.bgp_verify_neighbor_hold_time(device_name, neighbor_ip, hold_time)
+
+	Robot API Call: 
+
+		bgp_verify_neighbor_hold_time  device_name  neighbor_ip  hold_time
+

@@ -38,6 +38,12 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_configuration_tab(self):
         return self.weh.get_element(self.configuration_tab)
 
+    def get_device_configuration_tab(self):
+        return self.weh.get_element(self.device_configuration_tab)
+
+    def get_device_configuration_dhcp_checkbox(self):
+        return self.weh.get_element(self.device_configuration_dhcp_checkbox)
+
     def get_close_device360_dialog_window(self):
         return self.weh.get_element(self.close_device360_dialog_window)
 

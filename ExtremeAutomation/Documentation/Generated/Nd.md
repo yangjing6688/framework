@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Nd
-This feature is located in this file: `nd.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `nd.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: set_v6_neighbor
 	Pytest API Call: 
@@ -145,61 +145,21 @@ UUID: 5d2a9bd2-cb72-463d-aaa1-08dd326ed63d
 
 ## REST
 ## SNMP
-# API Function: show_table
+# API Function: nd_verify_neighbor_entry
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.nd.nd_show_table(device_name )
+		self.defaultLibrary.apiLowLevelApis.nd.nd_verify_neighbor_entry(device_name, ipv6_addr, hw_addr, interface)
 
 	Robot API Call: 
 
-		nd_show_table  device_name  
+		nd_verify_neighbor_entry  device_name  ipv6_addr  hw_addr  interface
 
-UUID: f054d52a-5be0-4259-9249-bf718dd595a0
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: nd_verify_neighbor_entry_does_not_exist
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.nd.nd_verify_neighbor_entry_does_not_exist(device_name, ipv6_addr, hw_addr, interface)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		nd_verify_neighbor_entry_does_not_exist  device_name  ipv6_addr  hw_addr  interface
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show neighbor-discovery cache
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 neighbors
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 neighbor
-
-----------------------------------------------
-
-
-## REST
-## SNMP

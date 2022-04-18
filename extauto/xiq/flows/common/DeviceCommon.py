@@ -173,12 +173,15 @@ class DeviceCommon(DeviceCommonElements):
         for row in self.get_device_grid_rows():
             if search_strg in row.text:
                 self.utils.print_info(f"found device with:{search_strg}")
-                for cell in self.get_device_row_cells():
-                    if search_strg in cell.text:
-                        self.utils.print_info(f"click on device cell")
-                        self.auto_actions.click(self.get_cell_href(cell))
-                        sleep(5)
-                        return 1
+                if self.get_device_row_cells_with_row(row):
+                    for cell in self.get_device_row_cells_with_row(row):
+                        if search_strg in cell.text:
+                            self.utils.print_info(f"click on device cell")
+                            if self.get_cell_href(cell):
+                                self.auto_actions.click(self.get_cell_href(cell))
+                                sleep(5)
+                                return 1
+
         self.utils.print_info(f"Device not found in the grid with:{search_strg}")
         self.screen.save_screen_shot()
         return -1

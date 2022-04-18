@@ -1,7 +1,7 @@
 import time
 import shlex
 import subprocess
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
@@ -11,7 +11,7 @@ class ScreenDiff:
     def __init__(self):
         self.utils = Utils()
         self.screen = Screen()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def compare_screens(self, input_image, threshold='default'):
         """
@@ -21,7 +21,7 @@ class ScreenDiff:
         """
         output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
 
-        on_run = self.screen.take_screen_shot(self.driver)
+        on_run = self.screen.take_screen_shot(CloudDriver().cloud_driver)
         time.sleep(5)
 
         self.utils.print_info("COMMAND: cp ../screens/" + input_image + " " + output_folder)
@@ -89,7 +89,7 @@ class ScreenDiff:
         """
         output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
 
-        #on_run = self.screen.take_screen_shot(self.driver)
+        #on_run = self.screen.take_screen_shot(CloudDriver().cloud_driver)
         #time.sleep(5)
 
         self.utils.print_info("COMMAND: cp ../screens/" + input_image1 + " " + output_folder)

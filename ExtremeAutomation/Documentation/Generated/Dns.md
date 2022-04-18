@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Dns
-This feature is located in this file: `dns.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `dns.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_domain_name
 	Pytest API Call: 
@@ -313,159 +313,93 @@ UUID: 44ad3310-2381-4b0f-87a9-0831a6b47c79
 ----------------------------------------------
 
 
-# API Function: show_domain_name
+# API Function: dns_verify_domain_name
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dns.dns_show_domain_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_domain_name(device_name, domain_name)
 
 	Robot API Call: 
 
-		dns_show_domain_name  device_name  
+		dns_verify_domain_name  device_name  domain_name
 
-UUID: 1e06dc66-ec69-44c8-9676-76fe265614e0
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip dns
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.1.70.0
-
-----------------------------------------------
-
-
-# API Function: show_servers
+# API Function: dns_verify_domain_name_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dns.dns_show_servers(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_domain_name_does_not_exist(device_name, domain_name)
 
 	Robot API Call: 
 
-		dns_show_servers  device_name  
+		dns_verify_domain_name_does_not_exist  device_name  domain_name
 
-UUID: 3f478d14-8e1b-4411-93c9-73b85fe57ea2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip dns
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.1.64
-
-----------------------------------------------
-
-
-# API Function: show_host_by_name
+# API Function: dns_verify_server_ip
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dns.dns_show_host_by_name(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_server_ip(device_name, ip_addr, pri_sec_or_ter)
 
 	Robot API Call: 
 
-		dns_show_host_by_name  device_name  
+		dns_verify_server_ip  device_name  ip_addr  pri_sec_or_ter
 
-UUID: 4cac61fc-ac22-4d80-86d1-7b9c04e84d32
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show hosts {host_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.1.65.1.2.{host_name}||1.3.6.1.4.1.2272.1.1.65.1.5.{host_name}||1.3.6.1.4.1.2272.1.1.65.1.6.{host_name}
-
-----------------------------------------------
-
-
-# API Function: show_host_by_ip
+# API Function: dns_verify_server_status_active
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.dns.dns_show_host_by_ip(device_name )
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_server_status_active(device_name, pri_sec_or_ter)
 
 	Robot API Call: 
 
-		dns_show_host_by_ip  device_name  
+		dns_verify_server_status_active  device_name  pri_sec_or_ter
 
-UUID: 9513a6d8-fea3-405c-a3d9-1a4971678132
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: dns_verify_server_status_inactive
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_server_status_inactive(device_name, pri_sec_or_ter)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		dns_verify_server_status_inactive  device_name  pri_sec_or_ter
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: dns_verify_server_sent_requests
+	Pytest API Call: 
 
-		show hosts {host_ip}
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_server_sent_requests(device_name, ip_addr, count, count_operator, pri_sec_or_ter)
 
-----------------------------------------------
+	Robot API Call: 
 
+		dns_verify_server_sent_requests  device_name  ip_addr  count  count_operator  pri_sec_or_ter
 
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: dns_verify_server_successful_requests
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_server_successful_requests(device_name, ip_addr, count, count_operator, pri_sec_or_ter)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.1.65.1.2.{host_ip}||1.3.6.1.4.1.2272.1.1.65.1.5.{host_ip}||1.3.6.1.4.1.2272.1.1.65.1.6.{host_ip}
+		dns_verify_server_successful_requests  device_name  ip_addr  count  count_operator  pri_sec_or_ter
 
-----------------------------------------------
+# API Function: dns_verify_server_does_not_exist
+	Pytest API Call: 
 
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_server_does_not_exist(device_name, ip_addr, pri_sec_or_ter)
+
+	Robot API Call: 
+
+		dns_verify_server_does_not_exist  device_name  ip_addr  pri_sec_or_ter
+
+# API Function: dns_verify_remote_host_ip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_remote_host_ip(device_name, host_ip, host_name)
+
+	Robot API Call: 
+
+		dns_verify_remote_host_ip  device_name  host_ip  host_name
+
+# API Function: dns_verify_remote_host_name
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.dns.dns_verify_remote_host_name(device_name, host_ip, host_name)
+
+	Robot API Call: 
+
+		dns_verify_remote_host_name  device_name  host_ip  host_name
 
