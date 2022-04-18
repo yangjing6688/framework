@@ -1406,3 +1406,6 @@ class Device360WebElements(Device360WebElementDefs):
                     result[th.text.strip()] = td.text.strip()
             results.append(result)
         return results
+
+    def get_device360_ah_icon(self,index):
+        return self.weh.get_template_element(self.device360_ah_icons, index=index)

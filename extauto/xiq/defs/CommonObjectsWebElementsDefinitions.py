@@ -89,6 +89,12 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 2
         }
 
+    pagination_size_element = \
+        {
+            'XPATH': '//div/a[@data-size="100"]',
+            'wait_for': 2
+        }
+
     next_page_element = \
         {
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next',

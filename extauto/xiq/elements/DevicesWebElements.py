@@ -1068,3 +1068,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_simulated_device_dropdown_table_rows(self, table):
         return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
+
+    def get_port_details_info(self):
+        return self.weh.get_elements(self.port_details_info)

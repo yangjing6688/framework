@@ -2217,3 +2217,9 @@ class Device360WebElementDefs:
             "XPATH": ".//tr//td[@role='gridcell']",
             'wait_for': 5
         }
+
+    device360_ah_icons = \
+        {
+            "XPATH": '//li/div[contains(@class,"AH-ports-icons")][@data-index="${index}"]',
+            'wait_for': 5
+        }

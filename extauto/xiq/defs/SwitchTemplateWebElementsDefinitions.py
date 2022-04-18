@@ -259,6 +259,13 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    all_ports_autosense = \
+        {
+            "CSS_SELECTOR": '.state-type-autoSense-port',
+            'wait_for': 5
+        }
+
+
     port_details_row_label = \
         {
             "CSS_SELECTOR": '.portInterface',
@@ -354,6 +361,12 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
             'index': 4,
+            'wait_for': 5
+        }
+
+    switch_temp_save_button_good = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -485,13 +498,19 @@ class SwitchTemplateWebElementDefinitions:
 
     existing_port_type = \
         {
-            'XPATH': '//a[@data-automation-tag="automation-switch-template-choose-existing"]',
+            'XPATH': '//a[@data-automation-tag="automation-switch-template-chooseexisting"]',
             'wait_for': 2
         }
 
     switch_template_port_types_list = \
         {
             'XPATH': '//ul[@data-dojo-attach-point="portTypeList"]//li',
+            'wait_for': 2
+        }
+
+    switch_template_port_type_custom = \
+        {
+            'XPATH': '//ul[@data-dojo-attach-point="portTypeList"]//li//span[contains(text(), "${port_type_name}")]//preceding-sibling::input',
             'wait_for': 2
         }
 
@@ -540,5 +559,11 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_scli_save_btn = \
         {
             'XPATH': "//*[@data-dojo-attach-point='saveButton']",
+            'wait_for': 5
+        }
+
+    sw_template_autoSense_btn = \
+        {
+            'XPATH': '//*/input[@data-dojo-attach-point="enableAutoSense"]',
             'wait_for': 5
         }

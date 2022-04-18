@@ -83,6 +83,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
                 if str(page_size) in el.text:
                     return el
 
+    def get_pagination_elem(self):
+        return self.weh.get_element(self.pagination_size_element)
+
     def get_next_page_element(self, page_size='50'):
         return self.weh.get_elements(self.next_page_element)
 
