@@ -38,3 +38,7 @@ class DeviceCommonElements(DeviceCommonDefs):
 
     def get_devices_per_page_current(self):
         return self.weh.get_element(self.devices_per_page_current)
+
+    def get_change_view_to_100_elems(self):
+        return self.weh.get_elements(self.change_view_to_100_elems)
+
