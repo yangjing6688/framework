@@ -1152,6 +1152,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_monitor_interface_name(self, row):
         return self.weh.get_element(self.d360_monitor_interface_name, row)
 
+    def get_d360_monitor_lldp_neighbor_header(self):
+        return self.weh.get_element(self.d360_monitor_lldp_neighbor_header)
+
     def get_d360_vim_model(self):
         return self.weh.get_element(self.d360_vim_model)
 
@@ -1161,6 +1164,14 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_wireframe_port(self):
         port_list = []
         elements = self.weh.get_elements(self.d360_wireframe_port)
+        for el in elements:
+            if el.is_displayed():
+                port_list.append(el)
+        return port_list
+
+    def get_device360_automation_port(self):
+        port_list = []
+        elements = self.weh.get_elements(self.d360_automation_port)
         for el in elements:
             if el.is_displayed():
                 port_list.append(el)

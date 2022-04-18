@@ -1737,6 +1737,12 @@ class Device360WebElementDefs:
             'wait_for': 10
         }
 
+    d360_monitor_lldp_neighbor_header = \
+        {
+            'XPATH': '//th[contains(@class, "field-lldpSystemName")]',
+            'wait_for': 5
+        }
+
     d360_monitor_interface_name = \
         {
             'CSS_SELECTOR': '.field-ifName',
@@ -1761,6 +1767,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    d360_automation_port = \
+        {
+            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li/div',
+            'wait_for': 5
+        }
+
     d360_port_leftclick_interface_name = \
         {
             'XPATH': '//div[@class="port-info interface-name"]',
@@ -1775,7 +1787,7 @@ class Device360WebElementDefs:
 
     d360_port_leftclick_port_mode = \
         {
-            'XPATH': '//div[@class="port-info port-mode "]',
+            'XPATH': '//div[@class="port-info port-mode"]',
             'wait_for': 5
         }
 
