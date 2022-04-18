@@ -7,6 +7,12 @@ class Device360WebElements(Device360WebElementDefs):
     def __init__(self):
         self.weh = WebElementHandler()
 
+    def get_ports_from_device360_up_lldp_neighbour(self):
+        return self.weh.get_element(self.ports_from_device360_up_lldp_neighbour)
+
+    def get_ports_from_device360_up(self):
+        return self.weh.get_elements(self.ports_from_device360_up)
+
     def get_lldp_neigbour_from_table(self):
         return self.weh.get_element(self.lldp_neigbour_from_table)
 

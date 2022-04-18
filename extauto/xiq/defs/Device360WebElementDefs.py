@@ -1,4 +1,16 @@
 class Device360WebElementDefs:
+    
+    ports_from_device360_up_lldp_neighbour = \
+        {
+            'XPATH': '//div[@class="port-info port-lldp-neighbor  "]',
+            'wait_for': 5
+        }
+
+    ports_from_device360_up = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="portFlexWrap"]//ul//li//ul//li',
+            'wait_for': 5
+        }
 
     lldp_neigbour_from_table = \
         {
