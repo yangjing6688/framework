@@ -561,6 +561,13 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': "//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
+    sw_template_scli_save_btn = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='saveButton']",
+            'wait_for': 5
+        }
+
+
 
     sw_template_autoSense_btn = \
         {
