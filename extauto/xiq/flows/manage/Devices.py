@@ -2378,7 +2378,7 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-
+        
         if device_serial:
             self.utils.print_info("Deleting device: ", device_serial)
             search_result = self.search_device(device_serial=device_serial)
@@ -8881,4 +8881,116 @@ class Devices:
                 return -1
         else:
             self.utils.print_info("audit_rows was not found ")
+            return -1
+
+    def is_delete_button_visible(self):
+        """
+        - This Keyword checks if the delete button is visible
+        - Keyword Usage:
+         - ``Is Delete Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_delete_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_download_button_visible(self):
+        """
+        - This Keyword checks if the download button is visible
+        - Keyword Usage:
+         - ``Is Download Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_download_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_bulk_edit_button_visible(self):
+        """
+        - This Keyword checks if the bulk edit button is visible
+        - Keyword Usage:
+         - ``Is Bulk Edit Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_bulk_edit_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_add_button_visible(self):
+        """
+        - This Keyword checks if the add button is visible
+        - Keyword Usage:
+         - ``Is Add Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_devices_add_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_update_device_button_visible(self):
+        """
+        - This Keyword checks if the device update button is visible
+        - Keyword Usage:
+         - ``Is Update Device Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_update_device_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_actions_button_visible(self):
+        """
+        - This Keyword checks if the actions button is visible
+        - Keyword Usage:
+         - ``Is Actions Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_manage_device_actions_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_utilities_button_visible(self):
+        """
+        - This Keyword checks if the utilities button is visible
+        - Keyword Usage:
+         - ``Is Utilities Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_manage_device_utilities_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
             return -1

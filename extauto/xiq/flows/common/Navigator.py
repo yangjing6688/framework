@@ -977,6 +977,33 @@ class Navigator(NavigatorWebElements):
             sleep(5)
         return 1
 
+    def navigate_to_device_utilities_status(self):
+        """
+        - This keyword is used to navigate to utilities status menu
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Utilities Status``
+        :return: 1 if Navigation Successful else -1
+        """
+        if not self.get_device_utilities_status_menu_item().is_displayed():
+            self.utils.print_info("Clicking on Utilities Button")
+            if self.get_device_utilities_button().is_enabled():
+                self.auto_actions.click(self.get_device_utilities_button())
+                sleep(2)
+            else:
+                self.utils.print_info("Unable to click on Utilities Button due to being disabled")
+                return -1
+
+        self.utils.print_info("Hovering over Status Menu Item")
+        if self.get_device_utilities_status_menu_item().is_displayed():
+            self.auto_actions.move_to_element(self.get_device_utilities_status_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to hover over Status Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
     def navigate_to_status_interface(self, device_serial=''):
         """
         - This Keyword navigates to device Status Interface window
@@ -992,14 +1019,8 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         self.device_common.select_device_row(device_serial)
 
-        self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
-        sleep(2)
-
-        self.utils.print_info("Hovering over Status button")
-        status_element = self.weh.get_element(self.device_utilities_status)
-        self.auto_actions.move_to_element(status_element)
-        sleep(5)
+        if self.navigate_to_device_utilities_status() == -1:
+            return -1
 
         self.utils.print_info("Clicking on Interface")
         interface_access = self.weh.get_element(self.utilities_status_interface)
@@ -1022,14 +1043,8 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         self.device_common.select_device_row(device_serial)
 
-        self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
-        sleep(2)
-
-        self.utils.print_info("Hovering over Status button")
-        status_element = self.weh.get_element(self.device_utilities_status)
-        self.auto_actions.move_to_element(status_element)
-        sleep(5)
+        if self.navigate_to_device_utilities_status() == -1:
+            return -1
 
         self.utils.print_info("Clicking on Advance Channel Selection")
         adv_channel = self.weh.get_element(self.utilities_status_adv_channel_sel)
@@ -1052,14 +1067,8 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         self.device_common.select_device_row(device_serial)
 
-        self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
-        sleep(2)
-
-        self.utils.print_info("Hovering over Status button")
-        status_element = self.weh.get_element(self.device_utilities_status)
-        self.auto_actions.move_to_element(status_element)
-        sleep(5)
+        if self.navigate_to_device_utilities_status() == -1:
+            return -1
 
         self.utils.print_info("Clicking on Wifi Status Summary")
         wifi = self.weh.get_element(self.utilities_status_wifi_status_summary)
@@ -2145,13 +2154,14 @@ class Navigator(NavigatorWebElements):
          - ``Navigate To Device Utilities Tools``
         :return: 1 if Navigation Successful else -1
         """
-        self.utils.print_info("Clicking on Utilities Button")
-        if self.get_device_utilities_button().is_enabled():
-            self.auto_actions.click(self.get_device_utilities_button())
-            sleep(2)
-        else:
-            self.utils.print_info("Unable to click on Utilities Button due to being disabled")
-            return -1
+        if not self.get_device_tools_menu_item().is_displayed():
+            self.utils.print_info("Clicking on Utilities Button")
+            if self.get_device_utilities_button().is_enabled():
+                self.auto_actions.click(self.get_device_utilities_button())
+                sleep(2)
+            else:
+                self.utils.print_info("Unable to click on Utilities Button due to being disabled")
+                return -1
 
         self.utils.print_info("Hovering over Tools Menu Item")
         if self.get_device_tools_menu_item().is_displayed():
@@ -2832,12 +2842,12 @@ class Navigator(NavigatorWebElements):
     def navigate_to_client_monitor_and_diagnosis_tab(self):
         """"
         - This Keyword Navigate to Client Monitor and Diagnosis Page
-        - Flow: ML Insights --> Client Monitor & Diagnosis
+        - Flow: Manage --> Client Monitor & Diagnosis
         - Keyword Usage:
           - 'Navigate To Client Monitor And Diagnosis Tab'
         :return: 1 if Navigation Successful
         """
-        self.navigate_to_ml_insight_tab()
+        self.navigate_to_manage_tab()
         sleep(5)
 
         self.utils.print_info("Click on Client Monitor & Diagnosis Page")
