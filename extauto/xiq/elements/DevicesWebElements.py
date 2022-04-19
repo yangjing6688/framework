@@ -23,6 +23,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return False
 
+    def get_grid_rows_next(self):
+        grid_rows = self.weh.get_elements(self.devices_page_grid_rows_next)
+        if grid_rows:
+            return grid_rows
+        else:
+            return False
+
+    def get_page_numbers(self):
+        page_numbers = self.weh.get_elements(self.devices_page_numbers)
+        if page_numbers:
+            return page_numbers
+        else:
+            return False
+
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
         return refresh_icon

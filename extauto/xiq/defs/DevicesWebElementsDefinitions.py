@@ -13,6 +13,21 @@ class DevicesWebElementsDefinitions:
             'wait_for': 10
          }
 
+    devices_page_grid_rows_next = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            # 'XPATH': "//*[@data-page='1']",
+            'index': 1,
+            'wait_for': 2,
+        }
+
+    devices_page_numbers = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="pagesWrap"]',
+            'index': 1,
+            'wait_for': 2
+        }
+
     devices_page_grid_ap_name_cells = \
         {
             'CSS_SELECTOR': '.field-hostname',
