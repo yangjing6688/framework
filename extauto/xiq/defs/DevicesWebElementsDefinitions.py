@@ -433,7 +433,7 @@ class DevicesWebElementsDefinitions:
 
     actions_country_code_dropdown = \
         {
-            'XPATH': '//*[contains(@class, "device-actions-dialog")]//*[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//*[contains(@class, "device-actions-dialog")]//*[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
 
