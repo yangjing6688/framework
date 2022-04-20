@@ -120,7 +120,7 @@ jobs:
                                 "auxInfoList" : [
                                                   {"nodeCount": 4},
                                                   {"universalTestBedOs": "EXOS"},
-                                                  {"test_name": ["blah.py","Tests\\whatever\\blah.py", "Tests\\"] }
+                                                  {"test_name": ["extreme_automation_tests//Tests/Robot/Functional/XIQ/Wired/VOSS/APC-46151/.py"] }
                                                   ]
                             }
                         ]
