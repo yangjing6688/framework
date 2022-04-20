@@ -2042,12 +2042,6 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    device360_device_configuration_button = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-device-entity-device-configuration-tab"]',
-            'wait_for': 5
-        }
-
     device360_device_configuration_description = \
         {
             'XPATH': '//*[@data-dojo-attach-point="description"]',
