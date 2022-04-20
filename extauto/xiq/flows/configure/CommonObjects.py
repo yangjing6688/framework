@@ -1161,7 +1161,7 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
 
                 wifi0_client_mode_profile = wifi0_profile['client_mode_profile']
-                client_mode_profile_name  = wifi0_client_mode_profile.get('client_mode_profice_name', 'wifi0')
+                client_mode_profile_name  = wifi0_client_mode_profile.get('client_mode_profile_name', 'wifi0')
                 client_mode_profile_dhcp  = wifi0_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
                 cm_enable_local_web_page  = wifi0_client_mode_profile.get('local_web_page', 'ENABLE')
                 cm_ssid_name              = wifi0_client_mode_profile.get('ssid_name', 'bk_enterprise')
@@ -1287,7 +1287,7 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
 
                 wifi1_client_mode_profile = wifi1_profile['client_mode_profile']
-                client_mode_profile_name  = wifi1_client_mode_profile.get('client_mode_profice_name', 'wifi1')
+                client_mode_profile_name  = wifi1_client_mode_profile.get('client_mode_profile_name', 'wifi1')
                 client_mode_profile_dhcp  = wifi1_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
                 cm_enable_local_web_page  = wifi1_client_mode_profile.get('local_web_page', 'ENABLE')
                 cm_ssid_name              = wifi1_client_mode_profile.get('ssid_name', 'bk_enterprise')
@@ -1298,8 +1298,6 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_add_client_mode_profile())
                 self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
-                self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
-                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
                 if cm_enable_local_web_page.upper() == 'DISABLE':
                     self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_checkbox())
@@ -1319,6 +1317,8 @@ class CommonObjects(object):
                     sleep(2)
                     self.utils.print_info(f"Click Add button")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
+                self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Click Save Client Mode Profile")
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
