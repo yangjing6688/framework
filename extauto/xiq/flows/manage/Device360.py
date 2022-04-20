@@ -625,9 +625,20 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                self.device360_navigate_to_device_configuration()
+
+                self.utils.print_info("Clicking Device360 Configure tab")
+                self.auto_actions.move_to_element(self.get_sidebar_model())
+                self.auto_actions.scroll_down()
+
+                self.auto_actions.click(self.get_device360_configure_button())
                 sleep(8)
+
+                self.utils.print_info("Clicking Device Configuration on the Device360 Configure tab")
+                self.auto_actions.click(self.get_device360_device_configuration_button())
+                sleep(3)
+
                 voss_info = self.get_voss_device_configuration_information()
+
                 self.device360_device_configuration_click_cancel()
                 self.close_device360_window()
 
@@ -636,8 +647,17 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                self.device360_navigate_to_device_configuration()
+
+                self.utils.print_info("Clicking Device360 Configure tab")
+                self.auto_actions.move_to_element(self.get_sidebar_model())
+                self.auto_actions.scroll_down()
+
+                self.auto_actions.click(self.get_device360_configure_button())
                 sleep(8)
+
+                self.utils.print_info("Clicking Device Configuration on the Device360 Configure tab")
+                self.auto_actions.click(self.get_device360_device_configuration_button())
+                sleep(3)
                 voss_info = self.get_voss_device_configuration_information()
                 self.device360_device_configuration_click_cancel()
                 self.close_device360_window()
