@@ -52,7 +52,7 @@ jobs:
         fi
 
         ### Get list of available testbeds for each harness
-        # harnesses: econ_auto(pytest), xiq_auto(robot), tcl
+        # harnesses: pytest, robot, tcl
         # 11111111-2222-2222-2222-111111111111 (pytest), 11111111-6666-6666-6666-111111111111 (robot), 11111111-5555-5555-5555-111111111111 (tcl)
         curl_return_code=0
         curl_output=$( curl -X GET --no-progress-meter \
@@ -94,9 +94,10 @@ jobs:
                 "jsonString":{
                     "description": "CI Verification Run",
                     "priority": 3,
-                    "rerun": 0,
-                    "postResults": 1,
-                    "notifyOnStart": 0,
+                    "version": 1,
+                    "rerun": false,
+                    "postResults": true,
+                    "notifyOnStart": false,
                     "username": "CI_Service",
                     "group": "CICD",
                     "jobType": "private",
@@ -134,7 +135,7 @@ jobs:
                   --arg password "$PASSWORD" \
                   "$job_template")
 
-        echo "[*] Job Submit JSON: \n$CURL_BODY"
+        echo "[*] Job Submit JSON: $CURL_BODY"
 
         curl -X POST --no-progress-meter \
         "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
