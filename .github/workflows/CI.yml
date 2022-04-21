@@ -85,6 +85,8 @@ jobs:
         echo "pytest testbeds: $available_testbeds_pytest"
         echo "robot testbeds: $available_testbeds_robot"
 
+        echo "SESSION_TOKEN=${session_token}" >> $GITHUB_ENV
+
     # Submit job for each platform on each NOS that runs all the tests
 
     - name: Run Modified TestCases
@@ -105,11 +107,12 @@ jobs:
                       {"cicd_pr":1},
                       {"context": "econ-cron/test-context"},
                       {"repo":"extremenetworks/econ-cron"},
-                      {"sha":"a964180c2aae2fd5c72d1137d9e20b6678217a82"}
+                      {"sha":"a964180c2aae2fd5c72d1137d9e20b6678217a82"},
+                      {"state":""}
                     ],
                     "jobPlatforms": [
                       {
-                        "platform": "i386",
+                        "platform": "EXOS-DT",
                         "hardwareConfiguration": "Standalone",
                         "priority": 3,
                         "auxInfoList": [],
@@ -120,7 +123,7 @@ jobs:
                                 "auxInfoList" : [
                                                   {"nodeCount": 4},
                                                   {"universalTestBedOs": "EXOS"},
-                                                  {"test_name": ["extreme_automation_tests//Tests/Robot/Functional/XIQ/Wired/VOSS/APC-46151/.py"] }
+                                                  {"test_name": [$tests] }
                                                   ]
                             }
                         ]
@@ -129,9 +132,15 @@ jobs:
                 }
               }'
 
+        # Format Test Lists
+        pytest_tests=$( echo "" | jq -ncR 'inputs | split(",")' )
+        robot_tests=$( echo "" | jq -ncR 'inputs | split(",")' )
+
+        printf 'Pytest tests to run: %s\nRobot tests to run: %s\n' "$pytest_tests" "$robot_tests"
+
         # Generate JSON body
         CURL_BODY=$(jq --null-input \
-                  --arg test "PINK" \
+                  --arg tests "$pytest_tests" \
                   --arg password "$PASSWORD" \
                   "$job_template")
 
@@ -140,7 +149,7 @@ jobs:
         curl -X POST --no-progress-meter \
         "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
         -H "accept: application/json" \
-        -H "authorization: Bearer ${session_token}" \
+        -H "authorization: Bearer ${SESSION_TOKEN}" \
         -d "${CURL_BODY}"
 
 
