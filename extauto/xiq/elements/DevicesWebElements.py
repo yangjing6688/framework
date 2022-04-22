@@ -324,6 +324,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_actions_network_policy_close_button(self):
         return self.weh.get_element(self.assign_policy_close_btn)
 
+    def get_actions_network_policy_close_button_md(self):
+        return self.weh.get_elements(self.assign_policy_close_btn)
+
     def get_device_select_checkbox(self, row):
         return self.weh.get_element(self.device_select_check_box, parent=row)
 

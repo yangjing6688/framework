@@ -959,7 +959,7 @@ class DevicesWebElementsDefinitions:
 
     devices_stack_update_policy_dropdown_items = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="stackTemplateChooser"]//div[@data-automation-tag="chzn-drop-ctn"]//ul//li',
+            'XPATH': '//div[@data-dojo-attach-point="stackTemplateChooser"]//div[@data-automation-tag="automation-chzn-drop-ctn"]//ul//li',
             'wait_for': 10
         }
 

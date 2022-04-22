@@ -806,7 +806,7 @@ class CommonObjects(object):
             next_page_el = self.cobj_web_elements.get_next_page_element()
             if next_page_el:
                 self.utils.print_info("  -- clicking next page")
-                self.auto_actions.click(next_page_el)
+                self.auto_actions.click(next_page_el[1])
                 sleep(2)
             if not self._search_switch_template(template_name):
                 self.utils.print_info("Switch Template doesn't exist in the list")
