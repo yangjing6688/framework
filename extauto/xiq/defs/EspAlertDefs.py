@@ -85,3 +85,13 @@ class EspAlertDefs:
             'CSS_SELECTOR': '.mat-column-when',
             'wait_for': 5
         }
+    del_icon_in_row = \
+        {
+            'CSS_SELECTOR': '.mat-column-clickColumn .mat-icon',
+            'wait_for': 5
+        }
+    del_confirm_ok = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-delete-confirm-dialog .mat-dialog-actions .primary-button-color',
+            'wait_for': 5
+        }

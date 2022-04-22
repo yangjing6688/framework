@@ -2879,7 +2879,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Alert Tab...")
         if self.get_alert_sub_tab():
             self.auto_actions.click(self.get_alert_sub_tab())
-            sleep(2)
+            sleep(5)
             return 1
         else:
             self.utils.print_info("Unable to navigate to Alert tab")

@@ -38,7 +38,6 @@ class EspAlert(EspAlertWebElements):
         self.utils.print_info("Navigating to Alert menu..")
         self.navigator.navigate_configure_alert()
 
-        sleep(5)
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.utils.print_info("Going to Policy page")
@@ -64,10 +63,6 @@ class EspAlert(EspAlertWebElements):
          - ``Create Alert Policy  ${policy_type}  ${source_parent}  ${source}  ${trigger_type}``
         :return: returns 1 if successfully create alert policy else -1
         """
-        self.utils.print_info("Navigating to Alert menu..")
-        self.navigator.navigate_configure_alert()
-
-        sleep(5)
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.utils.print_info("Going to Policy page")
@@ -100,4 +95,25 @@ class EspAlert(EspAlertWebElements):
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
                 return 1
+        return -1
+    def delete_alert_policy(self,when):
+        """
+        - Go to policy page and delete alert policy in configured grid
+        - Keyword Usage
+         - ``Delete Alert Policy  ${when}``
+        :return: returns 1 if successfully delete alert policy else -1
+        """
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+
+        self.utils.print_info("Going to Policy page")
+        self.auto_actions.click(self.get_go_to_policy())
+        sleep(2)
+        for row in self.get_configured_grid_rows():
+            if self.get_when_in_rows(row).text == when:
+                self.auto_actions.click(self.get_del_icon_in_row(row))
+                sleep(2)
+                self.auto_actions.click(self.get_del_confirm_ok)
+                sleep(5)
+                if self.find_when_in_configured_grid(when) == -1:
+                    return 1
         return -1

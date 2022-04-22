@@ -53,3 +53,9 @@ class EspAlertWebElements(EspAlertDefs):
 
     def get_when_in_rows(self,row):
         return self.weh.get_element(self.configred_grid_when_text, row)
+
+    def get_del_icon_in_row(self,row):
+        return self.weh.get_element(self.del_icon_in_row, row)
+
+    def get_del_confirm_ok(self):
+        return self.weh.get_element(self.del_confirm_ok)
