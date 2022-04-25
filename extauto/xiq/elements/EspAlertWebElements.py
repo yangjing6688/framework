@@ -92,3 +92,6 @@ class EspAlertWebElements(EspAlertDefs):
 
     def get_desc_in_unconfigured_grid_rows(self,row):
         return self.weh.get_element(self.unconfigured_grid_rows_desc,row)
+
+    def get_add_icon_in_row(self,row):
+        return self.weh.get_element(self.add_icon_in_row,row)

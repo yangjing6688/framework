@@ -97,7 +97,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and find alert policy in configured grid
         - Keyword Usage
          - ``Find When In Configured Grid  ${when}``
-        :return: returns 1 if successfully create alert policy else -1
+        :return: returns 1 if successfully matched else -1
         """
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
@@ -146,10 +146,46 @@ class EspAlert(EspAlertWebElements):
         self.auto_actions.click(self.get_unconfigured_search_icon())
         self.utils.print_info('Entering search :'+search_input)
         self.auto_actions.send_keys(self.get_unconfigured_search_input(), search_input)
-        return self.find_text_in_unconfigured_grid(search_input)
-    def find_text_in_unconfigured_grid(self,text):
+        return self.find_desc_in_unconfigured_grid(search_input)
+    def find_desc_in_unconfigured_grid(self,desc):
+        """
+        - Go to policy page and find event/metric in unconfigured grid
+        - Keyword Usage
+         - ``Find Desc In Unconfigured Grid  ${when}``
+        :return: returns 1 if successfully matched else -1
+        """
         for row in self.get_unconfigured_grid_rows():
-            if self.get_desc_in_unconfigured_grid_rows(row).text == text:
+            if self.get_desc_in_unconfigured_grid_rows(row).text == desc:
                 return 1
         self.screen.save_screen_shot()
+        return -1
+    def create_alert_policy_by_unconfigured_grid(self,policy_type,when,trigger_type,threshold_operator="",threshold_input=""):
+        """
+        - Go to policy page and check create alert policy by unconfigure event/metric works
+        - Keyword Usage
+         - ``Create Alert Policy By Unconfigured Grid  ${policy_type}  ${when}  ${trigger_type}  ${threshold_operator}  ${threshold_input}``
+        :return: returns 1 if successfully create alert policy else -1
+        """
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+
+        self.utils.print_info("Going to Policy page")
+        self.auto_actions.click(self.get_go_to_policy())
+        sleep(2)
+        self.utils.print_info("Clicking Unconfigured Policies Tab")
+        self.auto_actions.click(self.get_not_configred_tab_txt())
+        for row in self.get_unconfigured_grid_rows():
+            if self.get_desc_in_unconfigured_grid_rows(row).text == when:
+                self.auto_actions.click(self.get_add_icon_in_row(),row)
+                self.utils.print_info("Clicking trigger type:" + trigger_type)
+                self.auto_actions.click(getattr(self,"get_trigger_type_"+trigger_type)())
+                if policy_type == 'metric':
+                    self.utils.print_info('Clicking threshold operator:'+threshold_operator)
+                    self.auto_actions.click(self.get_threshold_operator_select())
+                    self.auto_actions.click(getattr(self,"get_threshold_operator_select_"+threshold_operator)())
+                    self.utils.print_info('Entering threshold :'+threshold_input)
+                    self.auto_actions.send_keys(self.get_threshold_input(), threshold_input)
+                self.utils.print_info("Clicking save")
+                self.auto_actions.click(self.get_save())
+                sleep(5)
+                return self.find_when_in_configured_grid(when)
         return -1

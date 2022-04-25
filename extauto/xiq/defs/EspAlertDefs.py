@@ -155,3 +155,8 @@ class EspAlertDefs:
             'CSS_SELECTOR': '.mat-column-description',
             'wait_for': 5
         }
+    add_icon_in_row = \
+        {
+            'CSS_SELECTOR': '.mat-column-clickColumn .mat-icon',
+            'wait_for': 5
+        }
