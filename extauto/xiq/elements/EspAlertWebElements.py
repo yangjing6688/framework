@@ -74,3 +74,21 @@ class EspAlertWebElements(EspAlertDefs):
 
     def get_del_confirm_ok(self):
         return self.weh.get_element(self.del_confirm_ok)
+
+    def get_unconfigured_event(self):
+        return self.weh.get_element(self.unconfigured_event)
+
+    def get_unconfigured_metric(self):
+        return self.weh.get_element(self.unconfigured_metric)
+
+    def get_unconfigured_search_icon(self):
+        return self.weh.get_element(self.unconfigured_search_icon)
+
+    def get_unconfigured_search_input(self):
+        return self.weh.get_element(self.unconfigured_search_input)
+
+    def get_unconfigured_grid_rows(self):
+        return self.weh.get_elements(self.unconfigured_grid_rows, self.weh.get_element(self.unconfigured_grid))
+
+    def get_desc_in_unconfigured_grid_rows(self,row):
+        return self.weh.get_element(self.unconfigured_grid_rows_desc,row)

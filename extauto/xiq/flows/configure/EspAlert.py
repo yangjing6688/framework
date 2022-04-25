@@ -55,6 +55,7 @@ class EspAlert(EspAlertWebElements):
         if configured_tab_title == configred_title and not_configured_tab_title == not_configured_title:
             return 1
         else:
+            self.screen.save_screen_shot()
             return -1
     def create_alert_policy(self,policy_type,source_parent,source,trigger_type,when,threshold_operator="",threshold_input=""):
         """
@@ -101,6 +102,7 @@ class EspAlert(EspAlertWebElements):
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
                 return 1
+        self.screen.save_screen_shot()
         return -1
     def delete_alert_policy(self,when):
         """
@@ -122,4 +124,32 @@ class EspAlert(EspAlertWebElements):
                 sleep(5)
                 if self.find_when_in_configured_grid(when) == -1:
                     return 1
+        self.screen.save_screen_shot()
+        return -1
+    def search_in_unconfigure_grid(self,policy_type,search_input):
+        """
+        - Go to policy page and search in unconfigured grid
+        - Keyword Usage
+         - ``Search In Unconfigure Grid  ${policy_type}  ${search_input}``
+        :return: returns 1 if successfully search else -1
+        """
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+
+        self.utils.print_info("Going to Policy page")
+        self.auto_actions.click(self.get_go_to_policy())
+        sleep(2)
+        self.utils.print_info("Clicking Unconfigured Policies Tab")
+        self.auto_actions.click(self.get_not_configred_tab_txt())
+        self.utils.print_info("Clicking policy type:" + policy_type)
+        self.auto_actions.click(getattr(self,"get_unconfigured_"+policy_type)())
+        self.utils.print_info("Clicking search icon")
+        self.auto_actions.click(self.get_unconfigured_search_icon())
+        self.utils.print_info('Entering search :'+search_input)
+        self.auto_actions.send_keys(self.get_unconfigured_search_input(), search_input)
+        return self.find_text_in_unconfigured_grid(search_input)
+    def find_text_in_unconfigured_grid(self,text):
+        for row in self.get_unconfigured_grid_rows():
+            if self.get_desc_in_unconfigured_grid_rows(row).text == text:
+                return 1
+        self.screen.save_screen_shot()
         return -1

@@ -120,3 +120,38 @@ class EspAlertDefs:
             'CSS_SELECTOR': '.nui-auto-esp-alert-policy-delete-confirm-dialog .mat-dialog-actions .primary-button-color',
             'wait_for': 5
         }
+    unconfigured_event = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-unconfigured-event',
+            'wait_for': 5
+        }
+    unconfigured_metric = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-unconfigured-metric',
+            'wait_for': 5
+        }
+    unconfigured_search_icon = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-unconfigured-search-icon',
+            'wait_for': 5
+        }
+    unconfigured_search_input = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-unconfigured-search-input',
+            'wait_for': 5
+        }
+    unconfigured_grid = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-not-configured-grid',
+            'wait_for': 5
+        }
+    unconfigured_grid_rows = \
+        {
+            'CSS_SELECTOR': '.table-row',
+            'wait_for': 5
+        }
+    unconfigured_grid_rows_desc = \
+        {
+            'CSS_SELECTOR': '.mat-column-description',
+            'wait_for': 5
+        }
