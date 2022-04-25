@@ -56,11 +56,11 @@ class EspAlert(EspAlertWebElements):
             return 1
         else:
             return -1
-    def create_alert_policy(self,policy_type,source_parent,source,trigger_type,when):
+    def create_alert_policy(self,policy_type,source_parent,source,trigger_type,when,threshold_operator="",threshold_input=""):
         """
         - Go to policy page and check create alert policy works
         - Keyword Usage
-         - ``Create Alert Policy  ${policy_type}  ${source_parent}  ${source}  ${trigger_type}``
+         - ``Create Alert Policy  ${policy_type}  ${source_parent}  ${source}  ${trigger_type}  ${when}  ${threshold_operator}  ${threshold_input}``
         :return: returns 1 if successfully create alert policy else -1
         """
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
@@ -81,6 +81,12 @@ class EspAlert(EspAlertWebElements):
         self.auto_actions.click(getattr(self,"get_source_"+source)())
         self.utils.print_info("Clicking trigger type:" + trigger_type)
         self.auto_actions.click(getattr(self,"get_trigger_type_"+trigger_type)())
+        if policy_type == 'metric':
+            self.utils.print_info('Clicking threshold operator:'+threshold_operator)
+            self.auto_actions.click(self.get_threshold_operator_select())
+            self.auto_actions.click(getattr(self,"get_threshold_operator_select_"+threshold_operator)())
+            self.utils.print_info('Entering threshold :'+threshold_input)
+            self.auto_actions.send_keys(self.get_threshold_input(), threshold_input)
         self.utils.print_info("Clicking save")
         self.auto_actions.click(self.get_save())
         sleep(5)

@@ -39,11 +39,26 @@ class EspAlertWebElements(EspAlertDefs):
     def get_source_parent_device(self):
         return self.weh.get_element(self.source_parent_device)
 
+    def get_source_parent_power_consumption(self):
+        return self.weh.get_element(self.source_parent_power_consumption)
+
     def get_source(self):
         return self.weh.get_element(self.source)
 
     def get_source_device_down(self):
         return self.weh.get_element(self.source_device_down)
+
+    def get_source_power_consumption_power_consumed(self):
+        return self.weh.get_element(self.source_power_consumption_power_consumed)
+
+    def get_threshold_operator_select(self):
+        return self.weh.get_element(self.threshold_operator_select)
+
+    def get_threshold_operator_select_ne(self):
+        return self.weh.get_element(self.threshold_operator_select_ne)
+
+    def get_threshold_input(self):
+        return self.weh.get_element(self.threshold_input)
 
     def get_save(self):
         return self.weh.get_element(self.save)

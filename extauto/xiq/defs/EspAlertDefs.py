@@ -55,6 +55,11 @@ class EspAlertDefs:
             'CSS_SELECTOR': '.nui-auto-esp-alert-profile-sp-select-DEVICE',
             'wait_for': 5
         }
+    source_parent_power_consumption = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-sp-select-POWER_CONSUMPTION',
+            'wait_for': 5
+        }
     source = \
         {
             'CSS_SELECTOR': '.nui-auto-esp-alert-profile-source-select',
@@ -63,6 +68,26 @@ class EspAlertDefs:
     source_device_down = \
         {
             'CSS_SELECTOR': '.nui-auto-esp-alert-profile-source-select-DEVICE_DOWN',
+            'wait_for': 5
+        }
+    source_power_consumption_power_consumed = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-source-select-power_consumption_power_consumed',
+            'wait_for': 5
+        }
+    threshold_operator_select = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-threshold-operator-select',
+            'wait_for': 5
+        }
+    threshold_operator_select_ne = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-threshold-operator-select-NE',
+            'wait_for': 5
+        }
+    threshold_input = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-threshold-input',
             'wait_for': 5
         }
     save = \
