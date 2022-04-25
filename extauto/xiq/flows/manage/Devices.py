@@ -1850,9 +1850,6 @@ class Devices:
         if 'Controllers' in device_make or 'XCC' in device_make:
             return self.onboard_wing_ap(device_serial, device_mac, device_make, location)
 
-        if 'Dual Boot' in device_make:
-            return self.onboard_ap(device_serial, device_make, location, device_os)
-
         self.navigator.navigate_to_devices()
 
         self.utils.print_info("Clicking on ADD button...")
