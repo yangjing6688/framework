@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Interface
-This feature is located in this file: `interface.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `interface.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_interface
 	Pytest API Call: 
@@ -2346,725 +2346,273 @@ UUID: 3c49a65a-5612-4fad-9dc4-c8235763425b
 ----------------------------------------------
 
 
-# API Function: show_info
+# API Function: interface_verify_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_exists(device_name, interface)
 
 	Robot API Call: 
 
-		interface_show_info  device_name  
+		interface_verify_exists  device_name  interface
 
-UUID: 15cdbea8-ad6f-4fb9-9b52-e77cf8d4cf84
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip interface vlan.0.{interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces vlan ip {interface}
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SNAPROUTE
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /public/v1/config/IPv4Intf
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_info_port
+# API Function: interface_verify_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_info_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_does_not_exist(device_name, interface)
 
 	Robot API Call: 
 
-		interface_show_info_port  device_name  
+		interface_verify_does_not_exist  device_name  interface
 
-UUID: 4c9736a8-4f91-4f5c-8b3f-cdae7f88bc1f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interface ethernet {interface}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_info_basic
+# API Function: interface_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_info_basic(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_enabled(device_name, interface)
 
 	Robot API Call: 
 
-		interface_show_info_basic  device_name  
+		interface_verify_enabled  device_name  interface
 
-UUID: 06c7a0d8-5f87-4c5b-9da6-fbc301fb3286
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interface vlan.0.{interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces vlan ip {interface}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_info_port_basic
+# API Function: interface_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_info_port_basic(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_disabled(device_name, interface)
 
 	Robot API Call: 
 
-		interface_show_info_port_basic  device_name  
+		interface_verify_disabled  device_name  interface
 
-UUID: 733a9bb3-1ab7-406a-9d79-07aaaffcea64
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interface ethernet {interface}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_loopback_info
+# API Function: interface_verify_spb_multicast_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_loopback_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_spb_multicast_enabled(device_name, interface, vlan)
 
 	Robot API Call: 
 
-		interface_show_loopback_info  device_name  
+		interface_verify_spb_multicast_enabled  device_name  interface  vlan
 
-UUID: 236da547-93df-4d0c-85ec-a90a58052239
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip interface loop.0.{interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces vlan ip {interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interface loopback {interface}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.8.2||1.3.6.1.4.1.2272.1.62.1.1.3
-
-----------------------------------------------
-
-
-# API Function: show_all
+# API Function: interface_verify_spb_multicast_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_spb_multicast_disabled(device_name, interface, vlan)
 
 	Robot API Call: 
 
-		interface_show_all  device_name  
+		interface_verify_spb_multicast_disabled  device_name  interface  vlan
 
-UUID: d9b49c07-4e41-4aa8-99b0-591c4b8c5842
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip interface
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces vlan ip
-
-----------------------------------------------
-
-
-## REST
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SNAPROUTE
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: REST
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: /public/v1/state/IPv4Intfs
-
-----------------------------------------------
-
-
-## SNMP
-# API Function: show_all_ports
+# API Function: interface_verify_vrf_spb_multicast_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_all_ports(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_vrf_spb_multicast_enabled(device_name, vrf_name, vlan)
 
 	Robot API Call: 
 
-		interface_show_all_ports  device_name  
+		interface_verify_vrf_spb_multicast_enabled  device_name  vrf_name  vlan
 
-UUID: 2c5f8b8b-936a-4684-b5ed-86d88866d042
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interface status
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ipv6_info
+# API Function: interface_verify_vrf_spb_multicast_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_ipv6_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_vrf_spb_multicast_disabled(device_name, vrf_name, vlan)
 
 	Robot API Call: 
 
-		interface_show_ipv6_info  device_name  
+		interface_verify_vrf_spb_multicast_disabled  device_name  vrf_name  vlan
 
-UUID: 3fd0af31-77fc-4b10-a61d-994c08e33347
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: routerConfigPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 interface {interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vlan {interface}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 address interface vlan {interface}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_ipv6_port_info
+# API Function: interface_verify_loopback_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_ipv6_port_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_loopback_exists(device_name, interface)
 
 	Robot API Call: 
 
-		interface_show_ipv6_port_info  device_name  
+		interface_verify_loopback_exists  device_name  interface
 
-UUID: 505276c0-f2b1-423d-a14a-582183dd3930
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 interface ethernet {interface}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_loopback
+# API Function: interface_verify_loopback_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_loopback(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_loopback_does_not_exist(device_name, interface)
 
 	Robot API Call: 
 
-		interface_show_loopback  device_name  
+		interface_verify_loopback_does_not_exist  device_name  interface
 
-UUID: b9307bf3-9ca0-47c7-9eab-7262ac8b9500
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces loopback
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interface loopback {loopback_id}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_brouter_port_vlan
+# API Function: interface_verify_ip_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_brouter_port_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_ip_address(device_name, interface, ipaddr, prefix_or_subnet)
 
 	Robot API Call: 
 
-		interface_show_brouter_port_vlan  device_name  
+		interface_verify_ip_address  device_name  interface  ipaddr  prefix_or_subnet
 
-UUID: 05830d6c-7ed5-408e-a134-fc9c73806a84
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show brouter | include {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: getnext
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.8.2.1.7.{port}
-
-----------------------------------------------
-
-
-# API Function: show_brouter_port_ipv4
+# API Function: interface_verify_ip_address_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_brouter_port_ipv4(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_ip_address_does_not_exist(device_name, interface, ipaddr, prefix_or_subnet)
 
 	Robot API Call: 
 
-		interface_show_brouter_port_ipv4  device_name  
+		interface_verify_ip_address_does_not_exist  device_name  interface  ipaddr  prefix_or_subnet
 
-UUID: 715182e6-dc59-49b0-818c-c66452ea44ca
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.8.2.1.2.{port}
-
-----------------------------------------------
-
-
-# API Function: show_chassis_force_topology_ip_flag
+# API Function: interface_verify_ipv6_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_chassis_force_topology_ip_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_ipv6_address(device_name, interface, ipaddr, prefix_or_subnet)
 
 	Robot API Call: 
 
-		interface_show_chassis_force_topology_ip_flag  device_name  
+		interface_verify_ipv6_address  device_name  interface  ipaddr  prefix_or_subnet
 
-UUID: f74a7839-db65-4830-ab01-a5b09061e90d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show sys setting
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.4.53.0
-
-----------------------------------------------
-
-
-# API Function: show_ipv6_vlan
+# API Function: interface_verify_ipv6_address_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_ipv6_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_ipv6_address_does_not_exist(device_name, interface, ipaddr, prefix_or_subnet)
 
 	Robot API Call: 
 
-		interface_show_ipv6_vlan  device_name  
+		interface_verify_ipv6_address_does_not_exist  device_name  interface  ipaddr  prefix_or_subnet
 
-UUID: f6b298c6-b4d2-4208-a6d9-312f982a9bfc
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 interface vlan {interface}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan_vrf
+# API Function: interface_verify_linklocal_ipv6_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_vlan_vrf(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_linklocal_ipv6_address(device_name, interface, ipaddr, prefix_or_subnet)
 
 	Robot API Call: 
 
-		interface_show_vlan_vrf  device_name  
+		interface_verify_linklocal_ipv6_address  device_name  interface  ipaddr  prefix_or_subnet
 
-UUID: 972489ae-f177-4716-8e4b-1a225c12bd35
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show interfaces vlan vrf {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan_vrf_spb
+# API Function: interface_verify_mac_address
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_vlan_vrf_spb(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_mac_address(device_name, interface, mac)
 
 	Robot API Call: 
 
-		interface_show_vlan_vrf_spb  device_name  
+		interface_verify_mac_address  device_name  interface  mac
 
-UUID: 7372931f-f04c-4554-8799-5e9b47e27058
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ip mroute interface vrf {vrf_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan_spb
+# API Function: interface_verify_loopback_id
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.interface.interface_show_vlan_spb(device_name )
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_loopback_id(device_name, loopback_id, ip)
 
 	Robot API Call: 
 
-		interface_show_vlan_spb  device_name  
+		interface_verify_loopback_id  device_name  loopback_id  ip
 
-UUID: 12a39efd-1b96-4b35-8b4e-113833270f0d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: interface_verify_loopback_ipv4_address
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_loopback_ipv4_address(device_name, interface, ipaddr, prefix_or_subnet)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		interface_verify_loopback_ipv4_address  device_name  interface  ipaddr  prefix_or_subnet
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: interface_verify_loopback_ipv4_address_does_not_exist
+	Pytest API Call: 
 
-		show ip mroute interface
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_loopback_ipv4_address_does_not_exist(device_name, loopback_id, ip)
 
-----------------------------------------------
+	Robot API Call: 
 
+		interface_verify_loopback_ipv4_address_does_not_exist  device_name  loopback_id  ip
 
-## REST
-## SNMP
+# API Function: interface_verify_loopback_ipv6_address
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_loopback_ipv6_address(device_name, loopback_id, ipv6_addr)
+
+	Robot API Call: 
+
+		interface_verify_loopback_ipv6_address  device_name  loopback_id  ipv6_addr
+
+# API Function: interface_verify_loopback_ipv6_prefix
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_loopback_ipv6_prefix(device_name, loopback_id, ipv6_addr, prefix_len)
+
+	Robot API Call: 
+
+		interface_verify_loopback_ipv6_prefix  device_name  loopback_id  ipv6_addr  prefix_len
+
+# API Function: interface_verify_loopback_ipv6_address_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_loopback_ipv6_address_does_not_exist(device_name, loopback_id, ipv6_addr)
+
+	Robot API Call: 
+
+		interface_verify_loopback_ipv6_address_does_not_exist  device_name  loopback_id  ipv6_addr
+
+# API Function: interface_verify_brouter_port_ipv4_address
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_brouter_port_ipv4_address(device_name, port, ip)
+
+	Robot API Call: 
+
+		interface_verify_brouter_port_ipv4_address  device_name  port  ip
+
+# API Function: interface_verify_brouter_port_ipv4_address_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_brouter_port_ipv4_address_does_not_exist(device_name, port, ip)
+
+	Robot API Call: 
+
+		interface_verify_brouter_port_ipv4_address_does_not_exist  device_name  port  ip
+
+# API Function: interface_verify_brouter_port_vlan
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_brouter_port_vlan(device_name, port, vlan)
+
+	Robot API Call: 
+
+		interface_verify_brouter_port_vlan  device_name  port  vlan
+
+# API Function: interface_verify_brouter_port_vlan_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_brouter_port_vlan_does_not_exist(device_name, port, vlan)
+
+	Robot API Call: 
+
+		interface_verify_brouter_port_vlan_does_not_exist  device_name  port  vlan
+
+# API Function: interface_verify_chassis_force_topology_ip_flag_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_chassis_force_topology_ip_flag_enabled(device_name)
+
+	Robot API Call: 
+
+		interface_verify_chassis_force_topology_ip_flag_enabled  device_name
+
+# API Function: interface_verify_chassis_force_topology_ip_flag_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_chassis_force_topology_ip_flag_disabled(device_name)
+
+	Robot API Call: 
+
+		interface_verify_chassis_force_topology_ip_flag_disabled  device_name
+
+# API Function: interface_verify_ipv6_vlan_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_ipv6_vlan_enabled(device_name, interface)
+
+	Robot API Call: 
+
+		interface_verify_ipv6_vlan_enabled  device_name  interface
+
+# API Function: interface_verify_ipv6_vlan_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.interface.interface_verify_ipv6_vlan_disabled(device_name, interface)
+
+	Robot API Call: 
+
+		interface_verify_ipv6_vlan_disabled  device_name  interface
+

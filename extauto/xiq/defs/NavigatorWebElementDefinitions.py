@@ -3,7 +3,13 @@ class NavigatorWebElementDefinitions:
         {
             'XPATH': '//*[@data-automation-tag="automation-header-configure"]',
             'wait_for': 2
-            }
+        }
+
+    configure_nav_img = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-configure"]//img',
+            'wait_for': 2
+        }
 
     configure_network_policy_nav = \
         {
@@ -17,9 +23,21 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
+    manage_nav_img = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-manage"]//img',
+            'wait_for': 2
+        }
+
     ml_insight_tab = \
         {
             'XPATH': '//div[@data-automation-tag="automation-header-n360"]',
+            'wait_for': 2
+        }
+
+    ml_insight_tab_img = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-header-n360"]//img',
             'wait_for': 2
         }
 
@@ -398,6 +416,18 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    ml_insight_networkScorecard = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-header-nav-scorecard"]',
+            'wait_for': 5
+        }
+
+    ml_insight_retail = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-header-nav-retail"]',
+            'wait_for': 5
+        }
+
     device_actions_advanced = \
         {
             'XPATH': '//*[contains(@class, "ui-menu-item")]//a[contains(text(), "Advanced")]'
@@ -489,9 +519,21 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
+    a3_nav_img = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-a3"]//img',
+            'wait_for': 2
+        }
+
     a3_inventory_menu = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-a3-inventory"]',
+            'wait_for': 2
+        }
+
+    a3_reporting_menu = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-a3-reporting"]',
             'wait_for': 2
         }
 
@@ -543,6 +585,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    essentials_menu_img = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-essentials"]//img',
+            'wait_for': 5
+        }
+
     extreme_location = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-location-essentials"]',
@@ -557,31 +605,31 @@ class NavigatorWebElementDefinitions:
 
     extreme_IOT_dashboard = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-defender-dashboard"]',
+            'XPATH': '//div[@data-automation-tag="automation-header-iot-essentials-dashboard"]',
             'wait_for': 5
         }
 
     extreme_IOT_devices = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-defender-devices"]',
+            'XPATH': '//div[@data-automation-tag="automation-header-iot-essentials-devices"]',
             'wait_for': 5
         }
 
     extreme_IOT_clients = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-defender-clients"]',
+            'XPATH': '//div[@data-automation-tag="automation-header-iot-essentials-clients"]',
             'wait_for': 5
         }
 
     extreme_IOT_user_profiles = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-defender-userProfile"]',
+            'XPATH': '//div[@data-automation-tag="automation-header-iot-essentials-userProfile"]',
             'wait_for': 5
         }
 
     extreme_IOT_policy_groups = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-defender-groups"]',
+            'XPATH': '//div[@data-automation-tag="automation-header-iot-essentials-groups"]',
             'wait_for': 5
         }
 
@@ -889,6 +937,13 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    copilot_tab_img = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-copilotdash"]//img',
+            'index': 0,
+            'wait_for': 5
+        }
+
     copilot_anomaly_notification_icon = \
         {
             'XPATH': '//div[@data-dojo-attach-point="headerAnomalyIcon"]',
@@ -1132,5 +1187,41 @@ class NavigatorWebElementDefinitions:
     client_monitor_diagnosis_tab = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-clientmonitor-Diagnosis"]',
+            'wait_for': 5
+        }
+
+    main_side_nav_tabs = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="headerMenu"]//div',
+            'wait_for': 5
+        }
+
+    side_nav_panel_1_menu_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="panel1"]/div[@class="panel-container"]//div[contains(@class, "subTab-option")]',
+            'wait_for': 5
+        }
+
+    side_nav_panel_2_menu_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="panel2"]/div[@class="panel-container"]//div[contains(@class, "subTab-option")]',
+            'wait_for': 5
+        }
+
+    manage_summary_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-summary"]',
+            'wait_for': 5
+        }
+
+    manage_users_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-manage-clients"]',
+            'wait_for': 5
+        }
+
+    configure_guest_essentials_users_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-configure-guest-essentials-users"]',
             'wait_for': 5
         }

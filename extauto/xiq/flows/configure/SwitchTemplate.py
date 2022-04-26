@@ -103,20 +103,24 @@ class SwitchTemplate(object):
                 sw_list_items = self.sw_template_web_elements.get_sw_template_platform_from_drop_down()
                 sleep(2)
                 for el in sw_list_items:
-                    self.utils.print_info("Switch template names: ", el.text.upper())
                     if not el:
-                        pass
+                        continue
+                    if el.text == "":
+                        continue
+                    self.utils.print_info("Switch template names: ", el.text.upper())
+                    self.utils.print_info("Looking for: ", sw_model.upper())
                     if sw_model.upper() in el.text.upper():
+                        self.utils.print_info("    -switch template match")
                         self.auto_actions.click(el)
                         break
-                    print(el.text)
-                sleep(3)
 
-                self.utils.print_info("Enter the switch Template Name: ", sw_template_name)
+                sleep(1)
+
+                self.utils.print_info("Get Template Field and enter the switch Template Name: ", sw_template_name)
                 self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
                                             sw_template_name)
-                sleep(3)
-
+                sleep(1)
+                self.utils.print_info("Get Template Save Button")
                 save_btns = self.sw_template_web_elements.get_sw_template_save_button()
 
                 rc = -1

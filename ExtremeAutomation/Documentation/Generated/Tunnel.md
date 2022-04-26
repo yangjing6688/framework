@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Tunnel
-This feature is located in this file: `tunnel.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `tunnel.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_interface
 	Pytest API Call: 
@@ -500,89 +500,57 @@ UUID: 5efab2db-71ff-4999-bee6-0ee3c80407ea
 
 ## REST
 ## SNMP
-# API Function: show_tunnel
+# API Function: tunnel_verify_interface_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.tunnel.tunnel_show_tunnel(device_name )
+		self.defaultLibrary.apiLowLevelApis.tunnel.tunnel_verify_interface_exists(device_name, tunnel)
 
 	Robot API Call: 
 
-		tunnel_show_tunnel  device_name  
+		tunnel_verify_interface_exists  device_name  tunnel
 
-UUID: bb5a6d27-f8bd-4338-afa2-e97330929747
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show tunnel {tunnel}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_all
+# API Function: tunnel_verify_interface_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.tunnel.tunnel_show_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.tunnel.tunnel_verify_interface_does_not_exist(device_name, tunnel)
 
 	Robot API Call: 
 
-		tunnel_show_all  device_name  
+		tunnel_verify_interface_does_not_exist  device_name  tunnel
 
-UUID: 51405cc7-f7f3-4911-8061-66bf00c1f0a4
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
+# API Function: tunnel_verify_mode_gre
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.tunnel.tunnel_verify_mode_gre(device_name, tunnel)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		tunnel_verify_mode_gre  device_name  tunnel
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: tunnel_verify_mode_gre_l2tb
+	Pytest API Call: 
 
-		show tunnel
+		self.defaultLibrary.apiLowLevelApis.tunnel.tunnel_verify_mode_gre_l2tb(device_name, tunnel)
 
-----------------------------------------------
+	Robot API Call: 
 
+		tunnel_verify_mode_gre_l2tb  device_name  tunnel
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: tunnel_verify_mode_vxlan
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.tunnel.tunnel_verify_mode_vxlan(device_name, tunnel)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		tunnel_verify_mode_vxlan  device_name  tunnel
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: tunnel_verify_mode_l2tb_port
+	Pytest API Call: 
 
-		show tunnel
+		self.defaultLibrary.apiLowLevelApis.tunnel.tunnel_verify_mode_l2tb_port(device_name, tunnel)
 
-----------------------------------------------
+	Robot API Call: 
 
+		tunnel_verify_mode_l2tb_port  device_name  tunnel
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show tunnel brief
-
-----------------------------------------------
-
-
-## REST
-## SNMP

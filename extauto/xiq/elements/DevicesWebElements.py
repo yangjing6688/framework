@@ -51,6 +51,16 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
+    def get_stack_status_cell_icon(self, row):
+        blue = self.weh.get_element(self.device_stack_status, row)
+        red = self.weh.get_element(self.device_stack_status_warning, row)
+        if blue:
+            return blue.get_attribute("class")
+        elif red:
+            return red.get_attribute("Class")
+        else:
+            return None
+
     def get_stack_status_icon(self, row):
         return self.weh.get_element(self.device_stack_status, row)
 
@@ -235,6 +245,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
+    
+    def get_nw_policy_drop(self):
+        return self.weh.get_element(self.nw_policy_drop)
 
     def get_actions_assign_network_policy_drop_down(self):
         dialog = self.get_action_assign_network_policy_dialog()
@@ -245,6 +258,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_network_policy_assign_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_button)
+    
+    def get_perform_update_tooltip(self):
+        return self.weh.get_element(self.perform_update_tooltip)
 
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
@@ -1068,3 +1084,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_simulated_device_dropdown_table_rows(self, table):
         return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
+
+    def get_manage_devices_table_load_mask(self):
+        return self.weh.get_element(self.manage_devices_table_load_mask)

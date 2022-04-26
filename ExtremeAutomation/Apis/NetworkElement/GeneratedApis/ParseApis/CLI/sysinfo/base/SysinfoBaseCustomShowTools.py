@@ -29,6 +29,9 @@ class SysinfoBaseCustomShowTools(BaseShowApi):
     def get_firmware_version(self, *func_args, **kwargs):
         return self.cmd_obj_constants.METHOD_NOT_SUPPORTED, None
 
+    def check_for_system_type(self, *func_args, **kwargs):
+        return self.cmd_obj_constants.METHOD_NOT_SUPPORTED, None
+
     def store_firmware_version(self, *func_args, **kwargs):
         return self.cmd_obj_constants.METHOD_NOT_SUPPORTED, None
 

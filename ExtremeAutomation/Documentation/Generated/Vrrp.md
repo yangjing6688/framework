@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Vrrp
-This feature is located in this file: `vrrp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `vrrp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_global
 	Pytest API Call: 
@@ -337,255 +337,129 @@ UUID: 059235e6-51ad-4ccf-a7c8-6d9d704244ef
 
 ## REST
 ## SNMP
-# API Function: show_all
+# API Function: vrrp_verify_globally_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_globally_enabled(device_name, vlan)
 
 	Robot API Call: 
 
-		vrrp_show_all  device_name  
+		vrrp_verify_globally_enabled  device_name  vlan
 
-UUID: 2fbb4647-b867-4879-bf9f-2396a31f2f26
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vrrp
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_detail
+# API Function: vrrp_verify_globally_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_globally_disabled(device_name, vlan)
 
 	Robot API Call: 
 
-		vrrp_show_detail  device_name  
+		vrrp_verify_globally_disabled  device_name  vlan
 
-UUID: e0e5da77-7d20-4f32-bcb0-098d7d8738d1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vrrp detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_group
+# API Function: vrrp_verify_vlan_and_vrid_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_vlan_and_vrid_exist(device_name, vlan)
 
 	Robot API Call: 
 
-		vrrp_show_group  device_name  
+		vrrp_verify_vlan_and_vrid_exist  device_name  vlan
 
-UUID: 30b95afc-6bb0-4b95-a010-98512a2f240f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vrrp group {name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_group_all
+# API Function: vrrp_verify_vlan_and_vrid_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_group_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_vlan_and_vrid_does_not_exist(device_name, vlan)
 
 	Robot API Call: 
 
-		vrrp_show_group_all  device_name  
+		vrrp_verify_vlan_and_vrid_does_not_exist  device_name  vlan
 
-UUID: d6566d08-8827-4deb-9854-b0385e36eb25
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vrrp group
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_virtual_router
+# API Function: vrrp_verify_vlan_priority_is_set
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_virtual_router(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_vlan_priority_is_set(device_name, vlan, priority)
 
 	Robot API Call: 
 
-		vrrp_show_virtual_router  device_name  
+		vrrp_verify_vlan_priority_is_set  device_name  vlan  priority
 
-UUID: e7fa2cb7-bf6a-4545-9f3e-7ff0213ef03b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vrrp virtual-router {vr}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_virtual_router_all
+# API Function: vrrp_verify_vlan_virtual_ip_address_is_set
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_virtual_router_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_vlan_virtual_ip_address_is_set(device_name, vlan, ip)
 
 	Robot API Call: 
 
-		vrrp_show_virtual_router_all  device_name  
+		vrrp_verify_vlan_virtual_ip_address_is_set  device_name  vlan  ip
 
-UUID: 6b1813fa-e46c-41a6-b598-3e95b2843322
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vrrp virtual-router
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vr
+# API Function: vrrp_verify_fabric_routing_is_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_vr(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_fabric_routing_is_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		vrrp_show_vr  device_name  
+		vrrp_verify_fabric_routing_is_enabled_on_vlan  device_name  vlan
 
-UUID: f4a84284-c695-4d6f-ac5e-6ec621e73fa9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vrrp vr {vr}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vr_all
+# API Function: vrrp_verify_fabric_routing_is_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_vr_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_fabric_routing_is_disabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		vrrp_show_vr_all  device_name  
+		vrrp_verify_fabric_routing_is_disabled_on_vlan  device_name  vlan
 
-UUID: 8c5cfc15-1800-42e6-8b4d-ffd299d703f8
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show vrrp vr
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan
+# API Function: vrrp_verify_vlan_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_show_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_vlan_enabled(device_name, vlan)
 
 	Robot API Call: 
 
-		vrrp_show_vlan  device_name  
+		vrrp_verify_vlan_enabled  device_name  vlan
 
-UUID: 4940f28d-6bef-432d-9160-a29a28c80b07
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: vrrp_verify_vlan_disabled
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_vlan_disabled(device_name, vlan)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		vrrp_verify_vlan_disabled  device_name  vlan
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: vrrp_verify_state_master
+	Pytest API Call: 
 
-		show vrrp vlan {vlan}
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_state_master(device_name, vlan)
 
-----------------------------------------------
+	Robot API Call: 
 
+		vrrp_verify_state_master  device_name  vlan
 
-## REST
-## SNMP
+# API Function: vrrp_verify_state_backup
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_state_backup(device_name, vlan)
+
+	Robot API Call: 
+
+		vrrp_verify_state_backup  device_name  vlan
+
+# API Function: vrrp_verify_group_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_group_exists(device_name, name)
+
+	Robot API Call: 
+
+		vrrp_verify_group_exists  device_name  name
+
+# API Function: vrrp_verify_group_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.vrrp.vrrp_verify_group_does_not_exist(device_name, name)
+
+	Robot API Call: 
+
+		vrrp_verify_group_does_not_exist  device_name  name
+
