@@ -1361,6 +1361,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_coluns_toggle_checkboxes(self):
         return self.weh.get_elements(self.device360_coluns_toggle_checkboxes)
 
+    def get_device360_columns_checkboxes_button(self):
+        return self.weh.get_elements(self.device360_configure_checkboxes_button)
+
     def get_device360_ports_description_table_header(self):
         header_element = self.weh.get_element(self.device360_ports_description_table_header)
         return [h.strip() for h in header_element.text.split("\n")]
@@ -1375,6 +1378,16 @@ class Device360WebElements(Device360WebElementDefs):
             label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
             label = self.weh.get_element({"XPATH": label_xpath}).text
             results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
+        return results
+
+    def get_device360_all_marked_checkboxes(self):
+        checkboxes = self.get_device360_coluns_toggle_checkboxes()
+        results = {}
+        for checkbox in checkboxes:
+            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
+            label = self.weh.get_element({"XPATH": label_xpath}).text
+            if checkbox.is_selected():
+                results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
         return results
 
     def get_device360_port_table_rows(self):

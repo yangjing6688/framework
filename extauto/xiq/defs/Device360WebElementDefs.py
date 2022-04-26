@@ -228,6 +228,11 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-id="sshavailability"]',
             'wait_for': 5
         }
+    device360_configure_checkboxes_button = \
+        {
+            'XPATH': '//*[@id="hcgrid_0"]/div[6]',
+            'wait_for': 5
+        }
 
     device360_configure_ssh_web_tab = \
         {
@@ -2211,7 +2216,6 @@ class Device360WebElementDefs:
             "XPATH": ".//th[@role='columnheader']",
             'wait_for': 5
         }
-
     device360_ports_table_td_gridcell = \
         {
             "XPATH": ".//tr//td[@role='gridcell']",
