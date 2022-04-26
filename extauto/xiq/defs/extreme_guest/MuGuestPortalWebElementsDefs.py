@@ -143,6 +143,12 @@ class MuGuestPortalWebElementsDefs:
             'wait_for': 5
         }
 
+    default_template_page_acceptandconnect_button = \
+        {
+            'XPATH': '//a[text()=" ACCEPT & CONNECT "]',
+            'wait_for': 5
+        }
+
     sponsor_guest_access_username_field = \
         {
             'XPATH': '//input[@name="f_user"]',

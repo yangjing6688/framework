@@ -127,6 +127,46 @@ class ExtremeGuestUsers(object):
         :return: 1 if Users Bulk Vouchers Created Successfully
         """
         self.ext_guest.go_to_configure_users_page()
+        if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
+            return 1
+        return -1
+
+    def create_guest_management_role_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
+        """
+        - This Keyword will create Bulk Vouchers in Guest Mangement Users Page
+        - Flow : Guest Management Users --> Add user--> Create Bulk users Vouchers
+        - Keyword Usage:
+         - ``Create Guest Management Role Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+
+        :param print_users:
+        :param number_of_vouchers: No. Of Vouchers Value
+        :param access_group: Access Group
+        :param location_name: Location tree in a comma-separated list format;
+               e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
+
+        :return: 1 if Users Bulk Vouchers Created Successfully
+        """
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
+            return 1
+        return -1
+
+    def _create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
+        """
+        - This Keyword will create Bulk Vouchers in Eguest users Page
+        - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
+        - Keyword Usage:
+         - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+
+        :param print_users:
+        :param number_of_vouchers: No. Of Vouchers Value
+        :param access_group: Access Group
+        :param location_name: Location tree in a comma-separated list format;
+               e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
+
+        :return: 1 if Users Bulk Vouchers Created Successfully
+        """
+        
         self.utils.print_info("Clicking Add User Button ")
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_add_button())
         sleep(2)
@@ -193,6 +233,22 @@ class ExtremeGuestUsers(object):
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_status_ok_button())
 
         return 1
+
+    def get_extreme_guest_users_count(self):
+        """
+        Getting the row count in Extreme Guest Users Page
+        - Keyword Usage:
+         - ``Get Extreme Guest Users Count``
+        :param search_string:
+        :return: User Count
+        """
+        count=0
+        self.utils.print_info("Getting user rows")
+        rows = self.user_web_elem.get_extreme_guest_users_grid_rows()
+        if rows:
+            for row in self.user_web_elem.get_extreme_guest_users_grid_rows():
+                count += 1
+        return count
 
     def _get_extreme_guest_users_page_user_row(self, search_string):
         """

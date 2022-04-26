@@ -148,6 +148,9 @@ class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):
     def get_default_template_page_company_logo(self):
         return self.weh.get_element(self.default_template_page_company_logo,self.driver)
 
+    def get_default_template_page_acceptandconnect_button(self):
+        return self.weh.get_element(self.default_template_page_acceptandconnect_button,self.driver)
+
     def get_sponsor_guest_access_username_field(self):
         return self.weh.get_element(self.sponsor_guest_access_username_field, self.driver)
 

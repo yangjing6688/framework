@@ -186,8 +186,11 @@ class MuGuestPortal(MuGuestPortalWebElements):
 
         if self.get_default_template_page_company_logo().is_displayed():
             self.utils.print_info("Default template is displayed")
-            sleep(3)
             self.get_gp_page_screen_shot()
+            self.auto_actions.click(self.get_default_template_page_acceptandconnect_button())
+            self.get_gp_page_screen_shot()
+
+        if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
             return -1
@@ -327,4 +330,5 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.utils.print_info(success_text.text)
         return success_text.text
 
+    # def register_device_for_guest_access(self):
 
