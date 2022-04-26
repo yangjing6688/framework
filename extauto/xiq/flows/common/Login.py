@@ -1487,3 +1487,24 @@ class Login:
         else:
             self.utils.print_info("Unable to find LOGOUT button.")
             return -1
+
+    def get_portal_url(self, sw_connection_host = "int1r1.qa.xcloudiq.com"):
+        '''
+
+        :param sw_connection_host:
+        :return:
+        '''
+
+        pattern1 = "(\\w+)r\\d+."
+        gdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        self.utils.print_info("GDC is : ", gdc[0])
+        if isinstance(gdc,list):
+            if isinstance(gdc[0],str):
+                url = "https://" + gdc[0] + "-portal.qa.xcloudiq.com/portal/"
+                self.utils.print_info("url is : ", url)
+                return url
+            else:
+                return -1
+        else:
+            return -1
+        return -1
