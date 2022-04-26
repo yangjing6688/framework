@@ -1247,7 +1247,7 @@ class Login:
         :param admin_last_name: last name of the admin
         :param admin_email: admin email, the email that is used to log in into xiq cloud
         :param admin_password: the password chosen to log in into xiq cloud
-        :param sw_connection_host: the url of the datacenter
+        :param sw_connection_host: the url of the RDC
         :return: returns 1 if the account was created succesfully or -1 if otherwise
         """
         self.screen.save_screen_shot()
@@ -1488,11 +1488,11 @@ class Login:
             self.utils.print_info("Unable to find LOGOUT button.")
             return -1
 
-    def get_portal_url(self, sw_connection_host = "int1r1.qa.xcloudiq.com"):
+    def get_portal_url(self, sw_connection_host):
         '''
 
-        :param sw_connection_host:
-        :return:
+        :param sw_connection_host: the url of the RDC
+        :return: the url of portal page ; else -1 
         '''
 
         pattern1 = "(\\w+)r\\d+."
