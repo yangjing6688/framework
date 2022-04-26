@@ -1,6 +1,7 @@
 import threading
 import pycurl
 import re
+import random
 from io import StringIO
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
@@ -1250,6 +1251,28 @@ class Login:
         :param sw_connection_host: the url of the RDC
         :return: returns 1 if the account was created succesfully or -1 if otherwise
         """
+        cnt = 0
+        while cnt < 3:
+            random_nr = random.randrange(1, 10000)
+            user = customer_name + "_" + str(random_nr) + "@gmail.com"
+            self.utils.print_info("user:", user)
+            check = self.check_if_xiq_user_exists(user)
+            if check == 1:
+                break
+            elif check == -1:
+                if cnt == 2:
+                    self.utils.print_info("the users already existed")
+                    return -1
+                else:
+                    self.utils.print_info("the user already existed . Try again")
+            else:
+                if cnt == 2:
+                    self.utils.print_info("Error")
+                    return -1
+                else:
+                    pass
+            cnt = cnt + 1
+
         self.screen.save_screen_shot()
         self.utils.print_info("Creating new user...")
         self.utils.print_info("Clicking on add button...")
@@ -1267,7 +1290,7 @@ class Login:
                 self.utils.print_info("Unable to find the add button.Try again:", cnt)
             sleep(20)
         if not found_page:
-            self.utils.print_info("ADD BUTTON NOT FOUN")
+            self.utils.print_info("ADD BUTTON NOT FOUND")
             return -1
         sleep(5)
         self.screen.save_screen_shot()
@@ -1275,8 +1298,8 @@ class Login:
         customer_name_field = self.login_web_elements.get_customer_name_field()
         if customer_name_field:
             self.utils.print_info("Found customer name field!")
-            self.utils.print_info("Inserting customer name: " + customer_name)
-            self.auto_actions.send_keys(customer_name_field, customer_name)
+            self.utils.print_info("Inserting customer name: " + user)
+            self.auto_actions.send_keys(customer_name_field, user)
         else:
             self.utils.print_info("Unable to find customer name field.")
             self.screen.save_screen_shot()
@@ -1308,8 +1331,8 @@ class Login:
         admin_email_field = self.login_web_elements.get_admin_email_field()
         if admin_email_field:
             self.utils.print_info("Found admin email field!")
-            self.utils.print_info("Inserting admin email: " + admin_email)
-            self.auto_actions.send_keys(admin_email_field, admin_email)
+            self.utils.print_info("Inserting admin email: " + user)
+            self.auto_actions.send_keys(admin_email_field, user)
         else:
             self.utils.print_info("Unable to find admin email field.")
             self.screen.save_screen_shot()
@@ -1373,7 +1396,7 @@ class Login:
             self.utils.print_info("Found submit button!")
             sleep(2)
             self.auto_actions.click(submit_button)
-            return 1
+            return user
         else:
             self.utils.print_info("Unable to find submit button.")
             return -1
@@ -1508,3 +1531,64 @@ class Login:
         else:
             return -1
         return -1
+
+    def check_if_xiq_user_exists(self, customer_name):
+        '''
+        This function check if the XIQ user exists into portal page
+        :param customer_name:   the name of the customer under which the account was created
+        :return: returns 1 if the account user doesn't exist; else -1
+        '''
+
+        self.screen.save_screen_shot()
+        self.utils.print_info("Clicking on name cell menu button ...")
+        cell_menu_button = self.login_web_elements.get_cell_menu_button_name_section()
+        if cell_menu_button:
+            self.utils.print_info("Cell menu button found!")
+            self.auto_actions.click(cell_menu_button)
+            self.utils.print_info("Clicking on filter type dropdown")
+            filter_type_dropdown = self.login_web_elements.get_filter_type_dropdown()
+            if filter_type_dropdown:
+                self.utils.print_info("Found the filter type dropdown!")
+                self.auto_actions.click(filter_type_dropdown)
+                sleep(2)
+                filter_dropdown_option_equals = self.login_web_elements.get_filter_dropdown_option_equals()
+                if filter_dropdown_option_equals:
+                    self.utils.print_info("Found filter dropdown option: Equals")
+                    self.auto_actions.click(filter_dropdown_option_equals)
+                else:
+                    self.utils.print_info("Unable to find dropdown option: Equals")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                self.utils.print_info("Unable to click filter type dropdown.")
+                self.screen.save_screen_shot()
+                return -1
+            filter_text_box = self.login_web_elements.get_filter_text_box()
+            if filter_text_box:
+                self.utils.print_info("Found the filter text box!")
+                self.auto_actions.send_keys(filter_text_box, customer_name)
+            else:
+                self.utils.print_info("Unable to find the filter text box!")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info("Unable to find cell menu button.")
+            self.screen.save_screen_shot()
+            return -1
+        sleep(3)
+        user_found = self.login_web_elements.get_user_found()
+        if user_found:
+            if len(user_found) == 1:
+                self.utils.print_info(user_found[0].text)
+                sleep(5)
+                self.utils.print_info("Found user!")
+                return -1
+            else:
+                self.utils.print_info("Multiple users were found ")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info("The user has already been deleted or it hasn't been created.")
+            self.screen.save_screen_shot()
+            return 1
+        return 1
