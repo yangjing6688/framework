@@ -120,7 +120,7 @@ class EspAlert(EspAlertWebElements):
             if self.get_when_in_rows(row).text == when:
                 self.auto_actions.click(self.get_del_icon_in_row(row))
                 sleep(2)
-                self.auto_actions.click(self.get_del_confirm_ok)
+                self.auto_actions.click(self.get_del_confirm_ok())
                 sleep(5)
                 if self.find_when_in_configured_grid(when) == -1:
                     return 1
@@ -189,3 +189,38 @@ class EspAlert(EspAlertWebElements):
                 sleep(5)
                 return self.find_when_in_configured_grid(when)
         return -1
+    def edit_alert_policy(self,when,severity,desc):
+        """
+        - Go to policy page and check edit alert policy works
+        - Keyword Usage
+         - ``Edit Alert Policy  ${when}  ${severity}  ${desc}``
+        :return: returns 1 if successfully edit alert policy else -1
+        """
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+
+        self.utils.print_info("Going to Policy page")
+        self.auto_actions.click(self.get_go_to_policy())
+        sleep(2)
+        self.utils.print_info("Opening profile dialog")
+        self.auto_actions.click(self.get_add_policy())
+        sleep(3)
+        for row in self.get_configured_grid_rows():
+            if self.get_when_in_rows(row).text == when:
+                self.auto_actions.click(self.get_when_in_rows(row))
+                sleep(2)
+                self.utils.print_info("Clicking severity select:"+severity)
+                self.auto_actions.click(self.get_severity_select())
+                self.auto_actions.click(getattr(self,"get_severity_select_"+severity)())
+                self.utils.print_info("Entering desc text:"+desc)
+                self.auto_actions.send_keys(self.get_profile_description(),desc)
+                self.utils.print_info("Clicking save")
+                self.auto_actions.click(self.get_save())
+                sleep(3)
+                break
+        for row in self.get_configured_grid_rows():
+            if self.get_when_in_rows(row).text == when:
+                if self.get_severity_in_rows(row).text.lower() == severity:
+                    return 1
+                else:
+                    self.screen.save_screen_shot()
+                    return -1

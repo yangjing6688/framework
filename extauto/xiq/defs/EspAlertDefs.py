@@ -110,6 +110,11 @@ class EspAlertDefs:
             'CSS_SELECTOR': '.mat-column-when',
             'wait_for': 5
         }
+    configred_grid_severity_text = \
+        {
+            'CSS_SELECTOR': '.mat-column-severity',
+            'wait_for': 5
+        }
     del_icon_in_row = \
         {
             'CSS_SELECTOR': '.mat-column-clickColumn .mat-icon',
@@ -158,5 +163,30 @@ class EspAlertDefs:
     add_icon_in_row = \
         {
             'CSS_SELECTOR': '.mat-column-clickColumn .mat-icon',
+            'wait_for': 5
+        }
+    severity_select = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-severity-select',
+            'wait_for': 5
+        }
+    severity_select_info = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-severity-select-info',
+            'wait_for': 5
+        }
+    severity_select_warning = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-severity-select-warning',
+            'wait_for': 5
+        }
+    severity_select_critical = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-severity-select-critical',
+            'wait_for': 5
+        }
+    profile_description = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-description-textarea',
             'wait_for': 5
         }

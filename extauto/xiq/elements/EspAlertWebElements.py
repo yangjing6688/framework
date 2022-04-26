@@ -69,6 +69,9 @@ class EspAlertWebElements(EspAlertDefs):
     def get_when_in_rows(self,row):
         return self.weh.get_element(self.configred_grid_when_text, row)
 
+    def get_severity_in_rows(self,row):
+        return self.weh.get_element(self.configred_grid_severity_text, row)
+
     def get_del_icon_in_row(self,row):
         return self.weh.get_element(self.del_icon_in_row, row)
 
@@ -95,3 +98,18 @@ class EspAlertWebElements(EspAlertDefs):
 
     def get_add_icon_in_row(self,row):
         return self.weh.get_element(self.add_icon_in_row,row)
+
+    def get_severity_select(self):
+        return self.weh.get_element(self.severity_select)
+
+    def get_severity_select_info(self):
+        return self.weh.get_element(self.severity_select_info)
+
+    def get_severity_select_warning(self):
+        return self.weh.get_element(self.severity_select_warning)
+
+    def get_severity_select_critical(self):
+        return self.weh.get_element(self.severity_select_critical)
+
+    def get_profile_description(self):
+        return self.weh.get_element(self.profile_description)
