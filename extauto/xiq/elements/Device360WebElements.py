@@ -1351,7 +1351,7 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_create_port_type(self,port_row):
         return self.weh.get_element(self.d360_create_port_type, port_row)
 
-    def get_select_element_port_type(self,element,value = None):
+    def get_select_element_port_type(self,element, value = None):
         #pag1
         if element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
@@ -1382,4 +1382,9 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_name)
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
-
+        # pag2
+        # pag3
+        # pag4
+        # pag5
+        # pag6
+        # pag7

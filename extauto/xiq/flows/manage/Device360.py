@@ -5591,6 +5591,88 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 #de aici incepe cod
+    def create_new_port_type2(self, template_values, port="1/10", os="voss", support_poe=True):
+
+        port_conf_content = self.get_device360_port_configuration_content()
+        if port_conf_content:
+            port_row = self.device360_get_port_row(port)
+            if port_row:
+                self.utils.print_debug("Found row for port: ", port_row.text)
+
+                d360_create_port_type = self.get_d360_create_port_type(port_row)
+                if d360_create_port_type:
+                    self.utils.print_info(" The button d360_create_port_type  was found")
+                    self.auto_actions.click(d360_create_port_type)
+                else:
+                    self.utils.print_info(" The button d360_create_port_type  was not found")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                self.utils.print_info("Port was not found ")
+        else:
+            pass
+        cnt = 0
+        for key in template_values.keys():
+            print(f"Default value for {key} is {template_values[key][0]}")
+            print(f"Selected value for {key} is {template_values[key][1]}")
+            conf_element = self.configure_element_port_type(key,template_values[key][1])
+            if conf_element == 1:
+                self.utils.print_info("The element was configured ")
+            else:
+                return -1
+
+
+            get_element  = self.get_select_element_port_type(key,template_values[key][1])
+            if get_element:
+                self.utils.print_info("The element was found ")
+
+            # if we don't want to make changes and use the default values we skip the current option
+            if template_values[key][0] == template_values[key][1]:
+                continue
+            if cnt == 1:
+                break
+        return 1
+
+    def configure_element_port_type(self,element,value):
+        # pag1
+        if element == "name":
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+
+        elif element == "description":
+            get_description_el = self.get_select_element_port_type(element)
+            if get_description_el:
+                self.auto_actions.send_keys(get_description_el, value)
+        elif element == "status":
+            get_status_el = self.get_select_element_port_type(element)
+            if get_status_el:
+                self.auto_actions.click(get_status_el)
+        elif element == "auto-sense":
+            get_auto_sense_el = self.get_select_element_port_type(element)
+            if get_auto_sense_el:
+                self.auto_actions.click(get_auto_sense_el)
+        elif element == "port usage" and value == "access port":
+            get_access_el = self.get_select_element_port_type(element)
+            if get_access_el:
+                self.auto_actions.click(get_access_el)
+        elif element == "port usage" and value == "trunk port":
+            get_trunk_el = self.get_select_element_port_type(element)
+            if get_trunk_el:
+                self.auto_actions.click(get_trunk_el)
+        # pag2
+        if element == "vlan":
+            #apasa next 
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+        # pag3
+        # pag4
+        # pag5
+        # pag6
+        # pag7
+        return 1
+
     def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
 
         port_conf_content = self.get_device360_port_configuration_content()

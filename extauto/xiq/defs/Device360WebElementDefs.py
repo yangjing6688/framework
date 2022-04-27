@@ -2187,3 +2187,27 @@ class Device360WebElementDefs:
             'XPATH': '',
             'wait_for': 5
         }
+
+    # pag2-Vlan
+    select_element_port_type_vlan_add_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanArea"]//span[@data-dojo-attach-point="ipSave"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_add_name = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="nameEl"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_add_id = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="defaultVlanId"]',
+            'wait_for': 5
+        }
+    # pag3
+    # pag4
+    # pag5
+    # pag6
+    # pag7
