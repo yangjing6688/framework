@@ -104,6 +104,9 @@ class Login:
         :param entitlement_key: Entitlement Key
         :param salesforce_username: Salesforce Username
         :param salesforce_password: Salesforce Password
+        :param saleforce_shared_cuid: Salesforce Shared CUID
+        :param quick: Quick login without more sleep time while loading url
+        :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
         :return: 1 if login successful else -1
         """
         if url == "default":
