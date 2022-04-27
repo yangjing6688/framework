@@ -5591,7 +5591,7 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 #de aici incepe cod
-    def create_new_port_type(self,port="1/10", os="voss", dict, support_poe=True):
+    def create_new_port_type(self,port="1/10", os="voss", template_values, support_poe=True):
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content:
@@ -5610,11 +5610,11 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info("Port was not found ")
         if os == 'voss':
-            for key in dict.keys():
-                print(f"Default value for {key} is {dict[key][0]}")
-                print(f"Selected value for {key} is {dict[key][1]}")
+            for key in template_values.keys():
+                print(f"Default value for {key} is {template_values[key][0]}")
+                print(f"Selected value for {key} is {template_values[key][1]}")
                 # if we don't want to make changes and use the default values we skip the current option
-                if dict[key][0] == dict[key][1]:
+                if template_values[key][0] == template_values[key][1]:
                     continue
 
                 # verify the options that can't be changed (that have only one value in port template or can't be selected)
@@ -5627,19 +5627,43 @@ class Device360(Device360WebElements):
                 #if we have values that we want to change
                 else:
                     # trebuie facut un check daca avem port access sau trunk ca sa vedem ce elemente de vlan folosim
+                    if key == 'port usage':
+                        if template_values[key][0] == 'auto sense enabled':
+                            continue
+                        elif template_values[key][0] == 'access port':
+                        # trebuie facut un check pt VLAN daca exista deja in lista
+                        # *****************  de facut functia check_vlan_in_list(vlan)   *****************
+                        VLAN_flag = check_vlan_in_list(template_values['vlan'])
+                        if VLAN_flag:
+                            get_d360_create_port_type(key, template_values[key][1])
+                        else:
+                            #***************** de facut functia create_vlan(vlan)  *****************
+                            create_vlan(template_values['vlan'])
+                            get_d360_create_port_type(key, template_values[key][1])
 
-                    # trebuie facut un check pt VLAN daca exista deja in lista
+                        elif template_values[key][0] == 'trunk port':
+                        # trebuie facut un check pt Native VLAN daca exista deja in lista
+                        VLAN_flag = False
+                        VLAN_flag = check_vlan_in_list(template_values['vlan'])
+                        if VLAN_flag:
+                            get_d360_create_port_type(key, template_values[key][1])
+                        else:
+                            create_vlan(template_values['vlan'])
+                            get_d360_create_port_type(key, template_values[key][1])
+
+
 
                     # un check pentru optiunile "transmission type" si "transmission speed"
 
 
                     #trebuie facut un check pt rate limit value default pt ca difera de la device la device
-                    #va trebui sa luam intai valoarea din tab si sa o punem in dict[key][0]
+
+                    #va trebui sa luam intai valoarea din tab si sa o punem in template_values[key][0]
                     #val_rate_limit = get_actual_value()
-                    #if val_rate_limit == dict[key][1]:
+                    #if val_rate_limit == template_values[key][1]:
                     #    continue
                     #else:
-                    #    get_d360_create_port_type(key, dict[key][1])
+                    #    get_d360_create_port_type(key, template_values[key][1])
 
 
                     # mai trebuie facut un check pt tab-ul de pse - lipseste daca device-ul nu suporta pse
