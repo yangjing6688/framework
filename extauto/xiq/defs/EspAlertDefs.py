@@ -70,6 +70,11 @@ class EspAlertDefs:
             'CSS_SELECTOR': '.nui-auto-esp-alert-profile-source-select-DEVICE_DOWN',
             'wait_for': 5
         }
+    source_device_up = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-source-select-DEVICE_UP',
+            'wait_for': 5
+        }
     source_power_consumption_power_consumed = \
         {
             'CSS_SELECTOR': '.nui-auto-esp-alert-profile-source-select-power_consumption_power_consumed',
@@ -188,5 +193,40 @@ class EspAlertDefs:
     profile_description = \
         {
             'CSS_SELECTOR': '.nui-auto-esp-alert-profile-description-textarea',
+            'wait_for': 5
+        }
+    status_slide_toggle = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-configured-enable-slide',
+            'wait_for': 5
+        }
+    subscribe_email = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-configured-email-checkbox',
+            'wait_for': 5
+        }
+    subscribe_sms = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-configured-sms-checkbox',
+            'wait_for': 5
+        }
+    subscribed_text = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-policy-configured-subscribed-text',
+            'wait_for': 5
+        }
+    detail_grid = \
+        {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-detail-grid-detail-grid',
+            'wait_for': 5
+        }
+    detail_grid_row = \
+        {
+            'CSS_SELECTOR': '.table-row',
+            'wait_for': 5
+        }
+    summary_in_row = \
+        {
+            'CSS_SELECTOR': '.mat-column-summary',
             'wait_for': 5
         }

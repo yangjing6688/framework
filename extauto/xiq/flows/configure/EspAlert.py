@@ -231,3 +231,75 @@ class EspAlert(EspAlertWebElements):
                 else:
                     self.screen.save_screen_shot()
                     return -1
+    def toggle_alert_policy_status(self,when):
+        """
+        - Go to policy page and check disable alert policy works
+        - Keyword Usage
+         - ``Toggle Alert Policy Status  ${when}``
+        :return: returns 1 if successfully disable alert policy else -1
+        """
+        sleep(2)
+        status_target = ""
+        for row in self.get_configured_grid_rows():
+            if self.get_when_in_rows(row).text == when:
+                self.utils.print_info("Clicking enable slide toggle")
+                if self.get_status_slide_toggle(row).text.lower() == "enable":
+                    status_target = "disable"
+                else:
+                    status_target = "enable"
+                self.utils.print_info("Target toggle status:"+status_target)
+                self.auto_actions.click(self.get_status_slide_toggle(row))
+                sleep(3)
+                break
+        for row in self.get_configured_grid_rows():
+            if self.get_when_in_rows(row).text == when:
+                self.utils.print_info("Chkecking status slide toggle for: "+when)
+                if self.get_status_slide_toggle(row).text.lower() == status_target:
+                    return 1
+        self.screen.save_screen_shot()
+        return -1
+    def subscribe_alert_policy(self,when,name):
+        """
+        - Go to policy page and check subscribe alert policy works
+        - Keyword Usage
+         - ``Subscribe Alert Policy  ${when}``
+        :return: returns 1 if successfully subscribe alert policy else -1
+        """
+        sleep(2)
+        for row in self.get_configured_grid_rows():
+            if self.get_when_in_rows(row).text == when:
+                self.auto_actions.click(self.get_subscribe_email(row))
+                sleep(3)
+                break
+        for row in self.get_configured_grid_rows():
+            if self.get_when_in_rows(row).text == when:
+                subscribed_texts = self.get_subscribed_text(row)
+                self.utils.print_info(f"subscribed texts:{subscribed_texts}")
+                if subscribed_texts:
+                    for text in subscribed_texts:
+                        self.utils.print_info(f"text:{text}")
+                        if text == name:
+                            return 1
+        self.screen.save_screen_shot()
+        return -1
+    def go_to_alert_policy(self):
+        sleep(3)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+
+        self.utils.print_info("Going to Policy page")
+        self.auto_actions.click(self.get_go_to_policy())
+        sleep(2)
+    def check_alert_detail(self,summary):
+        """
+        - Go to policy page and check alert detail exist
+        - Keyword Usage
+         - ``Check Alert Detail  ${summary}``
+        :return: returns 1 if successfully check alert detail exist else -1
+        """
+        detail_rows = self.get_detail_grid_rows()
+        if detail_rows:
+            for row in detail_rows:
+                if self.get_summary_in_row(row).text == summary:
+                    return 1
+        self.screen.save_screen_shot()
+        return -1

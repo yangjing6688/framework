@@ -48,6 +48,9 @@ class EspAlertWebElements(EspAlertDefs):
     def get_source_device_down(self):
         return self.weh.get_element(self.source_device_down)
 
+    def get_source_device_up(self):
+        return self.weh.get_element(self.source_device_up)
+
     def get_source_power_consumption_power_consumed(self):
         return self.weh.get_element(self.source_power_consumption_power_consumed)
 
@@ -113,3 +116,21 @@ class EspAlertWebElements(EspAlertDefs):
 
     def get_profile_description(self):
         return self.weh.get_element(self.profile_description)
+
+    def get_status_slide_toggle(self,row):
+        return self.weh.get_element(self.status_slide_toggle,row)
+
+    def get_subscribe_email(self,row):
+        return self.weh.get_element(self.subscribe_email,row)
+
+    def get_subscribe_sms(self,row):
+        return self.weh.get_element(self.subscribe_sms,row)
+
+    def get_subscribed_text(self,row):
+        return self.weh.get_elements(self.subscribed_text,row)
+
+    def get_detail_grid_rows(self):
+        return self.weh.get_elements(self.detail_grid_row, self.weh.get_element(self.detail_grid))
+
+    def get_summary_in_row(self,row):
+        return self.weh.get_elements(self.summary_in_row, row)
