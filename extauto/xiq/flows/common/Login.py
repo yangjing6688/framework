@@ -425,6 +425,31 @@ class Login:
         self.utils.print_info("Unable to find the reset message")
         return -1
 
+    def _capture_data_center_name(self):
+        """
+        - Get XIQ Data Center Name
+
+        :return: data_center_name
+        """
+        self.utils.print_info("Clicking on About ExtremecloudIQ link")
+        self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
+        sleep(2)
+        self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
+        sleep(2)
+
+        data_center_name = self.login_web_elements.get_data_center_name()
+        self.utils.print_info("XIQ Data Center Name Is: ", data_center_name)
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Close About ExtremecloudIQ Link Dialogue Page")
+        self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
+
+        return data_center_name
+
+
     def _capture_xiq_version(self):
         """
         - Get XIQ Build version details
@@ -540,6 +565,14 @@ class Login:
         except:
             return -1, "Could not select the option of 90 days trial "
         return str(1), None
+
+    def get_data_center_name(self):
+        """
+        - Get XIQ Data Center Name
+
+        :return: data_center_name
+        """
+        return self._capture_data_center_name()
 
     def get_xiq_version(self):
         """
