@@ -19,12 +19,12 @@ class LoginWebElementsDefinitions:
         {
             'DESC': 'Login Page Submit Button',
             'XPATH': "//*[@data-automation-tag='automation-login-page-submit-btn']",
-            'wait_for': 10
+            'wait_for': 5
         }
 
-    login_page_wrong_password_message = {'CSS_SELECTOR': '.wrong-password', 'wait_for': 10}
+    login_page_wrong_password_message = {'CSS_SELECTOR': '.wrong-password', 'wait_for': 3}
 
-    logout_account_info = {'CSS_SELECTOR': '.ah-header-account-info', 'wait_for': 10}
+    logout_account_info = {'CSS_SELECTOR': '.ah-header-account-info', 'wait_for': 5}
 
     logout_user_menu_item = {'CSS_SELECTOR': '.user-list.user-list-acct', 'wait_for': 5}
 
