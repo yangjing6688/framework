@@ -5591,3 +5591,6 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 
+    def create_new_port_type(self):
+        return 1
+
