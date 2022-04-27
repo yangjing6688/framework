@@ -5621,11 +5621,6 @@ class Device360(Device360WebElements):
             else:
                 return -1
 
-
-            get_element  = self.get_select_element_port_type(key,template_values[key][1])
-            if get_element:
-                self.utils.print_info("The element was found ")
-
             # if we don't want to make changes and use the default values we skip the current option
             if template_values[key][0] == template_values[key][1]:
                 continue
@@ -5653,14 +5648,14 @@ class Device360(Device360WebElements):
             if get_auto_sense_el:
                 self.auto_actions.click(get_auto_sense_el)
         elif element == "port usage" and value == "access port":
-            get_access_el = self.get_select_element_port_type(element)
+            get_access_el = self.get_select_element_port_type(element,value)
             if get_access_el:
                 self.auto_actions.click(get_access_el)
         elif element == "port usage" and value == "trunk port":
-            get_trunk_el = self.get_select_element_port_type(element)
+            get_trunk_el = self.get_select_element_port_type(element,value)
             if get_trunk_el:
                 self.auto_actions.click(get_trunk_el)
-        # pag2
+        # pag2 Vlan
         if element == "vlan":
             #apasa next 
             get_name_el = self.get_select_element_port_type(element)
