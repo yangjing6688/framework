@@ -1239,7 +1239,7 @@ class Login:
             self.utils.print_info("Unable to refresh the page...")
             self.utils.print_info(e)
 
-    def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_email, admin_password,
+    def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_password,
                                sw_connection_host):
         """
         Creates a fresh new user in portal
