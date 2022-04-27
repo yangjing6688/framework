@@ -5619,8 +5619,9 @@ class Device360(Device360WebElements):
                 if template_values[key][0] == template_values[key][1]:
                     continue
 
-                # verify the options that can't be changed (that have only one value in port template or can't be selected)
-                elif key in ['thresholds', 'rate limit type', 'unknown unicast']:
+                # verify the options that can't be changed(that have only one value in port template or can't be selected) or that are used only for vlan
+                elif key in ['vlan','native vlan', 'allowed vlans', 'thresholds', 'rate limit type', 'unknown unicast']:
+                    #vlan, native vlan and allowed vlans will be used separatelly later on port usage part
                     # for thresholds we can't select drop-down now (is not implemented)
                     #for rate limit type there is only one value implemented
                     #unknown unicast is not supported on voss
@@ -5653,7 +5654,8 @@ class Device360(Device360WebElements):
                                 get_d360_create_port_type(key, template_values[key][1])
                             else:
                                 create_vlan(template_values['vlan'])
-                                get_d360_create_port_type(key, template_values[key][1])
+                                get_d360_create_port_type('vlan', template_values['vlan'][1])
+                            get_d360_create_port_type('allowed vlans', template_values['allowed vlans'][1])
 
 
 
