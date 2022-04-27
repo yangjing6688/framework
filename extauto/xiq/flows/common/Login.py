@@ -84,7 +84,8 @@ class Login:
 
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, **kwargs):
+                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   **kwargs):
         """
         - Login to Xiq account with username and password
         - By default url will load from the topology file
@@ -103,6 +104,9 @@ class Login:
         :param entitlement_key: Entitlement Key
         :param salesforce_username: Salesforce Username
         :param salesforce_password: Salesforce Password
+        :param saleforce_shared_cuid: Salesforce Shared CUID
+        :param quick: Quick login without more sleep time while loading url
+        :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
         :return: 1 if login successful else -1
         """
         if url == "default":
@@ -138,7 +142,7 @@ class Login:
         if quick:
             sleep(2)
         else:
-            sleep(10)
+            sleep(5)
 
         self.utils.print_info("Check for wrong credentials..")
         credential_warnings = self.login_web_elements.get_credentials_error_message()
@@ -155,35 +159,36 @@ class Login:
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
-        self.utils.print_info("Check for Warning Messages..")
-        if self.login_web_elements.get_dialog_message():
-            self.utils.print_info("Clicking Close button")
-            self.auto_actions.click(self.login_web_elements.get_dialog_box_close_button())
-
-        self.utils.print_info("Check for WIPS Warning Messages..")
-        wips_warnings = self.login_web_elements.get_wips_dialog_message()
-        self.utils.print_info("Check for WIPS Warning Message is : ", wips_warnings)
-        if self.login_web_elements.get_wips_dialog_message():
-            if "Please update existing WIPS policies" in wips_warnings:
-                self.utils.print_info("Clicking Don't show again Checkbox")
-                self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox())
-                sleep(2)
-
-                self.utils.print_info("Clicking Close button")
-                self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_close_button())
-                sleep(2)
-
-        self.utils.print_info("Check for Advance Onboard Popup page after login..")
         if quick:
             sleep(2)
         else:
             sleep(10)
 
-        try:
-            if self.login_web_elements.get_drawer_content().is_displayed():
-                self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
-        except Exception as e:
-            pass
+        if check_warning_msg:
+            self.utils.print_info("Check for Warning Messages..")
+            if self.login_web_elements.get_dialog_message():
+                self.utils.print_info("Clicking Close button")
+                self.auto_actions.click(self.login_web_elements.get_dialog_box_close_button())
+
+            self.utils.print_info("Check for WIPS Warning Messages..")
+            wips_warnings = self.login_web_elements.get_wips_dialog_message()
+            self.utils.print_info("Check for WIPS Warning Message is : ", wips_warnings)
+            if self.login_web_elements.get_wips_dialog_message():
+                if "Please update existing WIPS policies" in wips_warnings:
+                    self.utils.print_info("Clicking Don't show again Checkbox")
+                    self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox())
+                    sleep(2)
+
+                    self.utils.print_info("Clicking Close button")
+                    self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_close_button())
+                    sleep(2)
+
+            self.utils.print_info("Check for Advance Onboard Popup page after login..")
+            try:
+                if self.login_web_elements.get_drawer_content().is_displayed():
+                    self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+            except Exception as e:
+                pass
 
         if co_pilot_status:
             url = BuiltIn().get_variable_value("${TEST_URL}")
