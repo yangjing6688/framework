@@ -304,3 +304,99 @@ class MuGuestPortalWebElementsDefs:
             'XPATH': '//font[text()="Welcome, enjoy your free internet!"]',
             'wait_for': 1
         }
+    
+    username_field = \
+        {
+            'XPATH': '//input[@name="f_user"]',
+            'wait_for': 1
+        }
+
+    password_field = \
+        {
+            'XPATH': '//input[@name="f_pass"]',
+            'wait_for': 1
+        }
+
+    signin_btn = \
+        {
+            'XPATH': '//a[contains(@class,"submit")]',
+            'wait_for': 1
+        }
+
+    register_btn = \
+        {
+            'XPATH': '//a[contains(@class,"submit")]',
+            'wait_for': 1
+        }
+
+    login_btn = \
+        {
+            'XPATH': '//a[contains(@class,"logButton")]',
+            'wait_for': 1
+        }
+
+    clear_btn = \
+        {
+            'XPATH': '//a[@type="reset"]',
+            'wait_for': 1
+        }
+
+    registernow_btn = \
+        {
+            'XPATH': '//a[contains(@class,"regButton")]',
+            'wait_for': 1
+        }
+
+    login_error_page = \
+        {
+            'XPATH': '//button[text()="Send anyway"]',
+            'wait_for': 5
+        }
+
+    login_success_page = \
+        {
+            'XPATH': '//font[text()="Welcome, enjoy your free internet!"]',
+            'wait_for': 1
+        }
+
+    name_field = \
+        {
+            'XPATH': '//input[@name="f_name"]',
+            'wait_for': 1
+        }
+
+    email_field = \
+        {
+            'XPATH': '//input[@name="f_email"]',
+            'wait_for': 1
+        }
+
+    mobile_field = \
+        {
+            'XPATH': '//input[@name="f_mobile"]',
+            'wait_for': 1
+        }
+
+    emailpreferred_check = \
+        {
+            'XPATH': '//input[@name="f_emailcheck"]',
+            'wait_for': 1
+        }
+
+    mobilepreferred_check = \
+        {
+            'XPATH': '//input[@name="f_mobilecheck"]',
+            'wait_for': 1
+        }
+
+    registration_status = \
+        {
+            'XPATH': '//div[@class="formError form-group"]',
+            'wait_for': 1
+        }
+
+    disclaimer_check = \
+        {
+            'XPATH': '//input[@name="f_disclaimer"]',
+            'wait_for': 1
+        }

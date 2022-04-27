@@ -228,3 +228,51 @@ class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):
 
     def get_sponsor_guest_access_login_success_page(self):
         return self.weh.get_element(self.sponsor_guest_access_login_success_page, self.driver)
+
+    def get_username_field(self):
+        return self.weh.get_element(self.username_field, self.driver)
+
+    def get_password_field(self):
+        return self.weh.get_element(self.password_field, self.driver)
+
+    def get_signin_btn(self):
+        return self.weh.get_element(self.signin_btn, self.driver)
+
+    def get_register_btn(self):
+        return self.weh.get_element(self.register_btn, self.driver)
+
+    def get_login_btn(self):
+        return self.weh.get_element(self.login_btn, self.driver)
+
+    def get_clear_btn(self):
+        return self.weh.get_element(self.clear_btn, self.driver)
+
+    def get_registernow_btn(self):
+        return self.weh.get_element(self.registernow_btn, self.driver)
+
+    def get_login_error_page(self):
+        return self.weh.get_element(self.login_error_page, self.driver)
+
+    def get_login_success_page(self):
+        return self.weh.get_element(self.login_success_page, self.driver)
+
+    def get_name_field(self):
+        return self.weh.get_element(self.name_field, self.driver)
+
+    def get_email_field(self):
+        return self.weh.get_element(self.email_field, self.driver)
+
+    def get_mobile_field(self):
+        return self.weh.get_element(self.mobile_field, self.driver)
+
+    def get_emailpreferred_check(self):
+        return self.weh.get_element(self.emailpreferred_check, self.driver)
+
+    def get_mobilepreferred_check(self):
+        return self.weh.get_element(self.mobilepreferred_check, self.driver)
+
+    def get_registration_status(self):
+        return self.weh.get_element(self.registration_status, self.driver).text
+
+    def get_disclaimer_check(self):
+        return self.weh.get_element(self.disclaimer_check, self.driver)
