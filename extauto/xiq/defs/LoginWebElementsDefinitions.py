@@ -45,6 +45,13 @@ class LoginWebElementsDefinitions:
             'wait_for': 5
         }
 
+    data_center_name = \
+        {
+            'DESC': 'Data Center Name',
+            'XPATH': "//*[@data-dojo-attach-point='dataCenterName']",
+            'wait_for': 5
+        }
+
     user_account_nav = \
         {
             'CSS_SELECTOR': '.ah-header-account-info-username',
