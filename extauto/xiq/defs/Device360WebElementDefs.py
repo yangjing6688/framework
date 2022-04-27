@@ -1787,7 +1787,7 @@ class Device360WebElementDefs:
 
     d360_port_leftclick_port_mode = \
         {
-            'XPATH': '//div[@class="port-info port-mode"]',
+            'XPATH': '//div[starts-with(@class, "port-info port-mode")]',
             'wait_for': 5
         }
 
