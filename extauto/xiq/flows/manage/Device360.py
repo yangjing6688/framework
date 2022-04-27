@@ -5591,7 +5591,7 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 #de aici incepe cod
-    def create_new_port_type(self,port, os):
+    def create_new_port_type(self,port="1/10", os="voss"):
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content:
@@ -5599,7 +5599,7 @@ class Device360(Device360WebElements):
             if port_row:
                 self.utils.print_debug("Found row for port: ", port_row.text)
 
-                d360_create_port_type = self.get_d360_create_port_type()
+                d360_create_port_type = self.get_d360_create_port_type(port_row)
                 if d360_create_port_type:
                     self.utils.print_info(" The button d360_create_port_type  was found")
                     self.auto_actions.click(d360_create_port_type)

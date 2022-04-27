@@ -1348,5 +1348,5 @@ class Device360WebElements(Device360WebElementDefs):
         else:
             return False
 #de aici incepe cod
-    def get_d360_create_port_type(self):
-        return self.weh.get_element(self.d360_create_port_type)
+    def get_d360_create_port_type(self,port_row):
+        return self.weh.get_element(self.d360_create_port_type,port_row)
