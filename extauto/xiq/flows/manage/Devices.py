@@ -1065,11 +1065,61 @@ class Devices:
             self.utils.print_info("Unable to Onboard Simulated Device")
             return -1
 
+    def get_device_data_field_value(self, device_type, data_field):
+        """
+        - gets all specified device field (serial number, mac addres, ip address, etc.) values with the same device_type
+        - Keyword Usage:
+         - ``Get Device Data Field Value    ${DEVICE_TYPE}     ${DATA_FIELD}``
+
+        :param device_type: type of device to onboard
+        :param data_field: data field values of interest to be returned
+        :return: an array of data field values
+        """
+        try:
+            prev_dev_list = []
+            sleep(5)
+            rows = self.devices_web_elements.get_grid_rows()
+            if rows:
+                for row in rows:
+                    if device_type in row.text:
+                        self.utils.print_info(f"{row.text}")
+                        try:
+                            cells = self.devices_web_elements.get_device_row_cells(row)
+                            self.utils.print_info(f"found cells {len(cells)}")
+                        except:
+                            self.utils.print_info(f"Could not get Row Cells - {row}")
+                            continue
+                        device_detail_dict = {}
+                        for cell in cells:
+                            try:
+                                testcell = cell.get_attribute("class")
+                            except:
+                                print("cell print error")
+                                continue
+                            if re.search(r'field-\w*', cell.get_attribute("class")):
+                                try:
+                                    label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
+                                except:
+                                    label = 'OOPS'
+                                device_detail_dict[label] = cell.text
+                            else:
+                                self.utils.print_info(f"missed class match " + cell.get_attribute("class"))
+                        res = device_detail_dict.get(data_field)
+                        prev_dev_list.append(res)
+                self.utils.print_info(f"List of data fields values with device type {device_type}: {prev_dev_list}")
+            else:
+                self.utils.print_info("No rows present")
+            return prev_dev_list
+        except Exception as e:
+            self.utils.print_info(e)
+            self.utils.print_info(f"Unable to get Device data field with Device Type {device_type}")
+            return -1
+
     def get_device_serial_numbers(self, device_type):
         """
         - gets all existing devices serials with the same device_type
         - Keyword Usage:
-         - Get Device Serial Number   ${DEVICE_TYPE}``
+         - ``Get Device Serial Number   ${DEVICE_TYPE}``
 
         :param device_type: type of device to onboard
         :return: serial number(s) with same device type
@@ -7366,6 +7416,7 @@ class Devices:
          - ``Perform Search On Devices Table  ${SERIAL}``
          - ``Perform Search On Devices Table  ${HOST_NAME}``
          - ``Perform Search On Devices Table  ${MAC}``
+         - ``Perform Search On Devices Table  ${IP_ADDRESS}``
 
         :param the_value: value to enter in the search box above the Devices table (Serial, MAC Address, or Host Name)
         :return  1 if action was successful, else -1
