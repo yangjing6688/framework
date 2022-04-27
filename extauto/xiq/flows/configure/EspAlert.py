@@ -278,7 +278,7 @@ class EspAlert(EspAlertWebElements):
                 if subscribed_texts:
                     for text in subscribed_texts:
                         self.utils.print_info(f"text:{text}")
-                        if text == name:
+                        if text.text == name:
                             return 1
         self.screen.save_screen_shot()
         return -1
