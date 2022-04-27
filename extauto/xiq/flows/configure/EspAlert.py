@@ -35,9 +35,7 @@ class EspAlert(EspAlertWebElements):
          - ``Go To Policy And Check Tab  ${configred_title}  ${not_configured_title}``
         :return: returns 1 if successfully show configred policies and not configured policies tab else -1
         """
-        self.utils.print_info("Navigating to Alert menu..")
-        self.navigator.navigate_configure_alert()
-
+        sleep(3)
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.utils.print_info("Going to Policy page")
@@ -64,10 +62,6 @@ class EspAlert(EspAlertWebElements):
          - ``Create Alert Policy  ${policy_type}  ${source_parent}  ${source}  ${trigger_type}  ${when}  ${threshold_operator}  ${threshold_input}``
         :return: returns 1 if successfully create alert policy else -1
         """
-        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-
-        self.utils.print_info("Going to Policy page")
-        self.auto_actions.click(self.get_go_to_policy())
         sleep(2)
         self.utils.print_info("Opening profile dialog")
         self.auto_actions.click(self.get_add_policy())
@@ -99,6 +93,7 @@ class EspAlert(EspAlertWebElements):
          - ``Find When In Configured Grid  ${when}``
         :return: returns 1 if successfully matched else -1
         """
+        sleep(1)
         if self.get_configured_grid_rows():
             for row in self.get_configured_grid_rows():
                 if self.get_when_in_rows(row).text == when:
@@ -115,10 +110,6 @@ class EspAlert(EspAlertWebElements):
          - ``Delete Alert Policy  ${when}``
         :return: returns 1 if successfully delete alert policy else -1
         """
-        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-
-        self.utils.print_info("Going to Policy page")
-        self.auto_actions.click(self.get_go_to_policy())
         sleep(2)
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
@@ -137,10 +128,6 @@ class EspAlert(EspAlertWebElements):
          - ``Search In Unconfigure Grid  ${event_search_input}  ${metric_search_input}``
         :return: returns 1 if successfully search else -1
         """
-        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-
-        self.utils.print_info("Going to Policy page")
-        self.auto_actions.click(self.get_go_to_policy())
         sleep(2)
         self.utils.print_info("Clicking Unconfigured Policies Tab")
         self.auto_actions.click(self.get_not_configred_tab_txt())
@@ -167,6 +154,7 @@ class EspAlert(EspAlertWebElements):
          - ``Find Desc In Unconfigured Grid  ${when}``
         :return: returns 1 if successfully matched else -1
         """
+        sleep(1)
         for row in self.get_unconfigured_grid_rows():
             if self.get_desc_in_unconfigured_grid_rows(row).text == desc:
                 return 1
@@ -179,13 +167,16 @@ class EspAlert(EspAlertWebElements):
          - ``Create Alert Policy By Unconfigured Grid  ${policy_type}  ${when}  ${trigger_type}  ${threshold_operator}  ${threshold_input}``
         :return: returns 1 if successfully create alert policy else -1
         """
-        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-
-        self.utils.print_info("Going to Policy page")
-        self.auto_actions.click(self.get_go_to_policy())
         sleep(2)
         self.utils.print_info("Clicking Unconfigured Policies Tab")
         self.auto_actions.click(self.get_not_configred_tab_txt())
+        sleep(2)
+        self.utils.print_info("Clicking policy type: "+policy_type)
+        self.auto_actions.click(getattr(self,"get_unconfigured_"+policy_type)())
+        sleep(2)
+        self.utils.print_info('Cleaning&Entering search: '+when)
+        self.auto_actions.send_keys(self.get_unconfigured_search_input(), "")
+        self.auto_actions.send_keys(self.get_unconfigured_search_input(), when)
         sleep(2)
         self.utils.print_info("Matching:"+when)
         for row in self.get_unconfigured_grid_rows():
@@ -219,10 +210,6 @@ class EspAlert(EspAlertWebElements):
          - ``Edit Alert Policy  ${when}  ${severity}  ${desc}``
         :return: returns 1 if successfully edit alert policy else -1
         """
-        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-
-        self.utils.print_info("Going to Policy page")
-        self.auto_actions.click(self.get_go_to_policy())
         sleep(2)
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
@@ -231,8 +218,8 @@ class EspAlert(EspAlertWebElements):
                 self.utils.print_info("Clicking severity select:"+severity)
                 self.auto_actions.click(self.get_severity_select())
                 self.auto_actions.click(getattr(self,"get_severity_select_"+severity)())
-                # self.utils.print_info("Entering desc text:"+desc)
-                # self.auto_actions.send_keys(self.get_profile_description(),desc)
+                self.utils.print_info("Entering desc text:"+desc)
+                self.auto_actions.send_keys(self.get_profile_description(),desc)
                 self.utils.print_info("Clicking save")
                 self.auto_actions.click(self.get_save())
                 sleep(3)
