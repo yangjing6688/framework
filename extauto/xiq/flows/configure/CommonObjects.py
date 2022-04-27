@@ -786,7 +786,6 @@ class CommonObjects(object):
         :return: 1 if deleted else -1
         """
         self.navigator.navigate_to_switch_templates()
-        sleep(5)
 
         self.utils.print_info("Click on full page view for switch template")
         page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
@@ -801,9 +800,13 @@ class CommonObjects(object):
             self.utils.print_info("Switch Template doesn't exist on first page")
             next_page_el = self.cobj_web_elements.get_next_page_element()
             if next_page_el:
-                self.utils.print_info("  -- clicking next page")
-                self.auto_actions.click(next_page_el[1])
-                sleep(2)
+                device_page_numbers = self.cobj_web_elements.get_page_numbers()
+                page_len = int(max(device_page_numbers.text))
+                while page_len:
+                    self.utils.print_info("  -- clicking next page")
+                    self.auto_actions.click(next_page_el)
+                    sleep(2)
+                    page_len = page_len - 1
             if not self._search_switch_template(template_name):
                 self.utils.print_info("Switch Template doesn't exist in the list")
                 return 1
