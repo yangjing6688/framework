@@ -2145,3 +2145,9 @@ class Device360WebElementDefs:
             'XPATH': '//*[@class="ui-icon dgrid-hider-toggle"]',
             'wait_for': 5
         }
+    #de aici incepe cod
+    d360_create_port_type = \
+        {
+            'CSS': ".table-action-icons",
+            'wait_for': 5
+        }
