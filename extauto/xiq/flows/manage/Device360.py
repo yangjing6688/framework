@@ -5591,7 +5591,7 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 #de aici incepe cod
-    def create_new_port_type(self,port="1/10", os="voss", template_values, support_poe=True):
+    def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content:
@@ -5609,6 +5609,8 @@ class Device360(Device360WebElements):
                     return -1
             else:
                 self.utils.print_info("Port was not found ")
+        else:
+            pass
         if os == 'voss':
             for key in template_values.keys():
                 print(f"Default value for {key} is {template_values[key][0]}")
@@ -5631,25 +5633,27 @@ class Device360(Device360WebElements):
                         if template_values[key][0] == 'auto sense enabled':
                             continue
                         elif template_values[key][0] == 'access port':
-                        # trebuie facut un check pt VLAN daca exista deja in lista
-                        # *****************  de facut functia check_vlan_in_list(vlan)   *****************
-                        VLAN_flag = check_vlan_in_list(template_values['vlan'])
-                        if VLAN_flag:
-                            get_d360_create_port_type(key, template_values[key][1])
-                        else:
-                            #***************** de facut functia create_vlan(vlan)  *****************
-                            create_vlan(template_values['vlan'])
-                            get_d360_create_port_type(key, template_values[key][1])
+                            pass
+                            # trebuie facut un check pt VLAN daca exista deja in lista
+                            # *****************  de facut functia check_vlan_in_list(vlan)   *****************
+                            VLAN_flag = check_vlan_in_list(template_values['vlan'])
+                            if VLAN_flag:
+                                get_d360_create_port_type(key, template_values[key][1])
+                            else:
+                                #***************** de facut functia create_vlan(vlan)  *****************
+                                create_vlan(template_values['vlan'])
+                                get_d360_create_port_type(key, template_values[key][1])
 
                         elif template_values[key][0] == 'trunk port':
-                        # trebuie facut un check pt Native VLAN daca exista deja in lista
-                        VLAN_flag = False
-                        VLAN_flag = check_vlan_in_list(template_values['vlan'])
-                        if VLAN_flag:
-                            get_d360_create_port_type(key, template_values[key][1])
-                        else:
-                            create_vlan(template_values['vlan'])
-                            get_d360_create_port_type(key, template_values[key][1])
+                            pass
+                            # trebuie facut un check pt Native VLAN daca exista deja in lista
+                            VLAN_flag = False
+                            VLAN_flag = check_vlan_in_list(template_values['vlan'])
+                            if VLAN_flag:
+                                get_d360_create_port_type(key, template_values[key][1])
+                            else:
+                                create_vlan(template_values['vlan'])
+                                get_d360_create_port_type(key, template_values[key][1])
 
 
 
@@ -5673,6 +5677,9 @@ class Device360(Device360WebElements):
 
 
         elif os == 'exos':
+            pass
+        else:
+            return -1
 
 
         return 1
