@@ -786,6 +786,7 @@ class CommonObjects(object):
         :return: 1 if deleted else -1
         """
         self.navigator.navigate_to_switch_templates()
+        sleep(5)
 
         self.utils.print_info("Click on full page view for switch template")
         page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
