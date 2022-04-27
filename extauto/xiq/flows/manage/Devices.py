@@ -3139,6 +3139,7 @@ class Devices:
         device_row = -1
 
         self.refresh_devices_page()
+        sleep(5)
 
         self.utils.print_info('Getting device Updated Status using')
         if device_serial != 'default':
