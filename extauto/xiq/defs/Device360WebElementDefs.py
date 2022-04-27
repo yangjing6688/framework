@@ -2148,6 +2148,42 @@ class Device360WebElementDefs:
     #de aici incepe cod
     d360_create_port_type = \
         {
-            'CSS': ".table-action-icons",
+            'CSS_SELECTOR': '.table-action-icons',
+            'wait_for': 5
+        }
+#pag1
+    select_element_port_type_name = \
+        {
+            'XPATH': '//input[@class="form-error"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_description = \
+        {
+            'XPATH': '//div[@class="field port-desc"]//textarea',
+            'wait_for': 5
+        }
+
+    select_element_port_type_status = \
+        {
+            'XPATH': '',
+            'wait_for': 5
+        }
+
+    select_element_port_type_auto_sense = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="autoSenseSelect"]//input[@data-dojo-attach-point="enableAutoSense"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_port_usage_access = \
+        {
+            'XPATH': '',
+            'wait_for': 5
+        }
+
+    select_element_port_type_port_usage_trunk = \
+        {
+            'XPATH': '',
             'wait_for': 5
         }

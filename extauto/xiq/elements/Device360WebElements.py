@@ -1349,4 +1349,37 @@ class Device360WebElements(Device360WebElementDefs):
             return False
 #de aici incepe cod
     def get_d360_create_port_type(self,port_row):
-        return self.weh.get_element(self.d360_create_port_type,port_row)
+        return self.weh.get_element(self.d360_create_port_type, port_row)
+
+    def get_select_element_port_type(self,element,value = None):
+        #pag1
+        if element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "description":
+            return self.weh.get_element(self.select_element_port_type_description)
+        elif element == "status":
+            return self.weh.get_element(self.select_element_port_type_status)
+        elif element == "auto-sense":
+            return self.weh.get_element(self.select_element_port_type_auto_sense)
+        elif element == "port usage" and value == "access port":
+            return self.weh.get_element(self.select_element_port_type_port_usage_access)
+        elif element == "port usage" and value == "trunk port":
+            return self.weh.get_element(self.select_element_port_type_port_usage_trunk)
+        #pag2
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+
