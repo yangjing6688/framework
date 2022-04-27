@@ -98,7 +98,6 @@ class CommonObjects(object):
         """
         ###Add the Reason for commenting the code
         #  Confirmation for delete popup UI have been remove in new release (Q2r1 - Build ID: 2022-03-29-02.27.12)
-        
         confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirm Yes button")
@@ -791,6 +790,7 @@ class CommonObjects(object):
         :return: 1 if deleted else -1
         """
         self.navigator.navigate_to_switch_templates()
+        sleep(5)
 
         self.utils.print_info("Click on full page view for switch template")
         page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
