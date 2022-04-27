@@ -5591,7 +5591,7 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 #de aici incepe cod
-    def create_new_port_type(self,port="1/10", os="voss"):
+    def create_new_port_type(self,port="1/10", os="voss", dict):
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content:
@@ -5609,6 +5609,42 @@ class Device360(Device360WebElements):
                     return -1
             else:
                 self.utils.print_info("Port was not found ")
+        if os == 'voss':
+            for key in dict.keys():
+                print(f"Default value for {key} is {dict[key][0]}")
+                print(f"Selected value for {key} is {dict[key][1]}")
+                # verify the options that can't be changed (that have only one value in port template)
+                #if wanted_value is different from default one, we will use the default value
+                if key in ['thresholds', 'rate limit type']:
+                    # for thresholds we can't select drop-down now (is not implemented)
+                    #for rate limit type there is only one value implemented
+                    continue
+
+                    # elif key == 'rate limit type':
+                    #     if dict[key][0] == dict[key][1]:
+                    #         # we change the value
+                    #         get_d360_create_port_type(key, dict[key][1])
+                    #     else:
+                    #         get_d360_create_port_type(key, dict[key][0])
+
+                #if we don't want to make changes and use the default values
+                elif dict[key][0] == dict[key][1]:
+                    continue
+
+                #if we have values that we want to change
+                else:
+                    # trebuie facut un check daca avem port access sau trunk ca sa vedem ce elemente de vlan folosim
+
+                    # trebuie facut un check pt VLAN daca exista deja in lista
+
+                    # un check pentru optiunile "transmission type" si "transmission speed"
+
+                    # mai trebuie facut un check pt tab-ul de pse - lipseste daca device-ul nu suporta pse
+                    # trebuie facut un check pt PSE template daca exista deja in lista
+
+
+
+        elif os == 'exos':
 
 
         return 1
