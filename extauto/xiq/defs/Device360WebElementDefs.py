@@ -2222,3 +2222,9 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-automation-tag="automation-port-type-stp-priority-chzn-drop-ctn"]//ul//li',
             'wait_for': 5
         }
+
+    select_rate_limit_value = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-sc-rate-limit-value"]',
+            'wait_for': 5
+        }

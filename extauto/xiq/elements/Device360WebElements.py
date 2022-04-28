@@ -1385,6 +1385,42 @@ class Device360WebElements(Device360WebElementDefs):
         # pag2
         # pag3
         # pag4
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
         # pag5
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "thresholds":
+            continue
+        elif element == "rate limit type":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "rate limit value":
+            return self.weh.get_element(self.select_rate_limit_value)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
         # pag6
         # pag7
+
+    def get_rate_limit_value(self, elem):
+        if eleme == "rate limit value":
+            return self.weh.get_element(self.select_rate_limit_value).text

@@ -5663,10 +5663,57 @@ class Device360(Device360WebElements):
             if get_name_el:
                 self.auto_actions.send_keys(get_name_el, value)
         # pag3
-        # pag4
-        # pag5
-        # pag6
-        # pag7
+
+        # pag4 STP
+        elif element == "stp enable":
+            get_stp_el = self.get_select_element_port_type(element,value)
+            if get_stp_el:
+                elf.auto_actions.click(get_stp_el)
+        elif element == "edge port":
+            get_edge_el = self.get_select_element_port_type(element,value)
+            if get_edge_el:
+                elf.auto_actions.click(get_edge_el)
+        elif element == "bpdu protection":
+
+        elif element == "priority":
+
+        elif element == "path cost":
+            get_cost_el = self.get_select_element_port_type(element)
+            if get_cost_el:
+                self.auto_actions.send_keys(get_cost_el, value)
+
+        # pag5 Storm Control
+
+        elif element == "broadcast":
+            get_broadcast_el = self.get_select_element_port_type(element,value)
+            if get_broadcast_el:
+                self.auto_actions.click(get_broadcast_el)
+        elif element == "unknown unicast" and os == "voss":
+            continue
+        elif element == "unknown unicast" and os == "exos":
+            get_unknown_el = self.get_select_element_port_type(element,value)
+            if get_unknown_el:
+                elf.auto_actions.click(get_unknown_el)
+        elif element == "multicast":
+            get_multicast_el = self.get_select_element_port_type(element,value)
+            if get_multicast_el:
+                elf.auto_actions.click(get_multicast_el)
+        elif element == "thresholds":
+            continue
+        elif element === "rate limit type":
+            continue
+        elif element == "rate limit value":
+            get_rate_limit_el = self.get_select_element_port_type(element)
+            if get_rate_limit_el:
+                self.auto_actions.send_keys(get_rate_limit_el, value)
+        # pag6 PSE
+        elif elem == "pse profile":
+
+        elif elem == "poe status":
+            get_poe_status_el = self.get_select_element_port_type(element,value)
+            if get_poe_status_el:
+                elf.auto_actions.click(get_poe_status_el)
+        # pag7 Summary
         return 1
 
     def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
