@@ -9604,10 +9604,16 @@ class Devices:
         check_page = self.devices_web_elements.get_delete_button()
         if check_page:
             if check_page.is_displayed():
-                pass
+                self.utils.print_info("this is the device page ")
+                self.screen.save_screen_shot()
             else:
+                self.utils.print_info("the page is not device page ")
+                self.screen.save_screen_shot()
                 return -1
-        return -1
+        else:
+            self.utils.print_info("the page is not device page ")
+            self.screen.save_screen_shot()
+            return -1
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
