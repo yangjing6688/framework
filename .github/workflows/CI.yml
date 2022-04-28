@@ -136,8 +136,8 @@ jobs:
               }'
 
         # Format Test Lists
-        pytest_tests=$( echo "Tests/Pytest/Demos/DefaultTemplateUI/TestCases,Tests/Pytest/Demos/VLAN/TestCases" | jq -ncR 'inputs | split(",")' )
-        robot_tests=$( echo "Tests/Robot/Demos/XiQ/TestCases" | jq -ncR 'inputs | split(",")' )
+        pytest_tests=$( echo "/automation/tests/extreme_automation_tests/Tests/Pytest/Demos/DefaultTemplateUI/TestCases,/automation/tests/extreme_automation_tests/Tests/Pytest/Demos/VLAN/TestCases" | jq -ncR 'inputs | split(",")' )
+        robot_tests=$( echo "/automation/tests/extreme_automation_tests/Tests/Robot/Demos/XiQ/TestCases" | jq -ncR 'inputs | split(",")' )
 
         pytest_harness_uuid="11111111-2222-2222-2222-111111111111"
         robot_harness_uuid="11111111-6666-6666-6666-111111111111"
