@@ -152,12 +152,12 @@ jobs:
 
         echo "[*] Robot Job Submit JSON: $CURL_BODY"
 
-        # curl -X POST --no-progress-meter \
-        # "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
-        # -H "accept: application/json" \
-        # -H "Content-Type: application/json" \
-        # -H "authorization: Bearer ${SESSION_TOKEN}" \
-        # -d "${CURL_BODY}"
+        curl -X POST --no-progress-meter \
+        "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
+        -H "accept: application/json" \
+        -H "Content-Type: application/json" \
+        -H "authorization: Bearer ${SESSION_TOKEN}" \
+        -d "${CURL_BODY}"
 
         # Generate pytest JSON body
         CURL_BODY=$(jq --null-input \
@@ -167,12 +167,12 @@ jobs:
 
         echo "[*] Pytest Job Submit JSON: $CURL_BODY"
 
-        # curl -X POST --no-progress-meter \
-        # "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
-        # -H "accept: application/json" \
-        # -H "Content-Type: application/json" \
-        # -H "authorization: Bearer ${SESSION_TOKEN}" \
-        # -d "${CURL_BODY}"
+        curl -X POST --no-progress-meter \
+        "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
+        -H "accept: application/json" \
+        -H "Content-Type: application/json" \
+        -H "authorization: Bearer ${SESSION_TOKEN}" \
+        -d "${CURL_BODY}"
 
 
     - name: Set job status output
