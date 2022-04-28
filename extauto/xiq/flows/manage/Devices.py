@@ -9601,7 +9601,13 @@ class Devices:
         This function select all boxes from device manage page and then delete them
         :return: 1 if all devices was deleted or devices are already deleted; else -1
         '''
-
+        check_page = self.devices_web_elements.get_delete_button()
+        if check_page:
+            if check_page.is_displayed():
+                pass
+            else:
+                return -1
+        return -1
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
