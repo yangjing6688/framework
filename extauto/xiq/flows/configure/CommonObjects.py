@@ -1548,6 +1548,79 @@ class CommonObjects(object):
             return -1
         return -2
 
+    def delete_all_ap_templates(self):
+        """
+        - Flow: Configure --> Common Objects --> Policy --> AP Templates
+        - Delete All ap templates except default template from Template grid
+        - Keyword Usage:
+         - ``Delete All AP Templates``
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to Configure->Common Objects->Policy->AP Template.")
+        self.navigator.navigate_to_policy_ap_template()
+        if self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages():
+            self.utils.print_info("Click Full pages button")
+            self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages())
+
+        self.utils.print_info("Getting common object rows")
+        rows = self.cobj_web_elements.get_common_object_grid_rows()
+        if not rows:
+            self.utils.print_info("row(s) not present in the grid")
+            return 1
+
+        select_template_flag = None
+        for row in rows:
+            cell = self.cobj_web_elements.get_common_object_template_grid_row_cells(row)
+            if not cell:
+                pass
+            elif 'default-template' not in cell.text:
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_grid_row_cells(row, 'dgrid-selector'))
+                select_template_flag = True
+
+        if not select_template_flag:
+            return 1
+        self.screen.save_screen_shot()
+        self._delete_common_objects()
+        self.screen.save_screen_shot()
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+        if 'Template was successfully removed from policy.' in tool_tp_text:
+            return 1
+        else:
+            return -1
+
+    def delete_all_client_mode_profiles(self):
+        """
+        - Flow: Configure --> Common Objects --> Basic --> Client Mode Profiles
+        - Delete all client mode profiles from Client Mode Profiles grid
+        - Keyword Usage:
+         - ``Delete All Client Mode Profiles``
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to Configure->Common Objects-> Basic->Client Mode Profiles.")
+        self.navigator.navigate_to_client_mode_profiles()
+        rows = self.cobj_web_elements.get_common_object_basic_client_mode_profiles_grid_rows_all()
+        if not rows:
+            self.utils.print_info("Client Mode Profile(s) not present in the grid")
+            return 1
+        else:
+            try:
+                self.utils.print_info(len(rows), " row(s) of client mode profile(s).")
+                self.utils.print_info("Selecting Device grid checkbox Icon.")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_basic_client_mode_profiles_selectall())
+                self.utils.print_info("Selecting Delete Icon.")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_basic_client_mode_profiles_delete())
+                self.utils.print_info("Confirming delete...")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_basic_client_mode_profiles_delete_confirm_ok_button())
+                sleep(2)
+                self.screen.save_screen_shot()
+
+                return 1
+            except Exception as e:
+                self.screen.save_screen_shot()
+                self.utils.print_info("Unable to delete Client Mode Profiles")
+                return -1
+
     def radio_phy_mode_fiveghz(self, model):
             """
                 - Flow: Configure --> Common Objects --> Policy -->Radio Profile

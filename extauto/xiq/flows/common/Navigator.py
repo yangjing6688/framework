@@ -256,6 +256,21 @@ class Navigator(NavigatorWebElements):
         else:
             return -1
 
+    def navigate_to_client_mode_profiles(self):
+        """
+        - This Keyword Navigate to Client Mode Profile on Common Objects
+        - Flow: CONFIGURE-->COMMON OBJECTS-->Basic-->Client Mode Profiles
+        - Keyword Usage:
+         - ``Navigate To Client Mode Profiles``
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_configure_common_objects()
+        self.utils.print_info("Click on Basic tab")
+        self.navigate_to_common_object_basic_tab()
+        self.utils.print_info("Click on Client Mode Profiles...")
+        self.auto_actions.click(self.get_common_object_basic_client_mode_profiles())
+        return 1
+
     def navigate_to_user_account(self):
         """
         - This keyword Navigates to User Account Menu
