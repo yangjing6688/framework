@@ -51,42 +51,42 @@ jobs:
           session_token=$( echo "${curl_output}" |  jq -r '.result.sessionToken' )
         fi
 
-# Commented on 4/28/22 by petersadej
-# This is not currently needed here because we are deafulting to the DT testbed. May be needed in the future
-#
-# ### Get list of available testbeds for each harness
-# # harnesses: pytest, robot, tcl
-# # 11111111-2222-2222-2222-111111111111 (pytest), 11111111-6666-6666-6666-111111111111 (robot), 11111111-5555-5555-5555-111111111111 (tcl)
-# curl_return_code=0
-# curl_output=$( curl -X GET --no-progress-meter \
-#                             "http://autoiq.extremenetworks.com/tbedmgr/jobmgr/cicdPlatforms/pytest" \
-#                             -H "accept: application/json" \
-#                             -H "authorization: Bearer ${session_token}" )
-# curl_return_code=$?
+        # Commented on 4/28/22 by petersadej
+        # This is not currently needed here because we are deafulting to the DT testbed. May be needed in the future
+        #
+        # ### Get list of available testbeds for each harness
+        # # harnesses: pytest, robot, tcl
+        # # 11111111-2222-2222-2222-111111111111 (pytest), 11111111-6666-6666-6666-111111111111 (robot), 11111111-5555-5555-5555-111111111111 (tcl)
+        # curl_return_code=0
+        # curl_output=$( curl -X GET --no-progress-meter \
+        #                             "http://autoiq.extremenetworks.com/tbedmgr/jobmgr/cicdPlatforms/pytest" \
+        #                             -H "accept: application/json" \
+        #                             -H "authorization: Bearer ${session_token}" )
+        # curl_return_code=$?
 
-# if (( $curl_return_code != 0 )); then
-#   echo "Error getting session token. Message: ${curl_output}"
-#   exit 1
-# else
-#   available_testbeds_pytest=$( echo "${curl_output}" | jq '.result[]' )
-# fi
+        # if (( $curl_return_code != 0 )); then
+        #   echo "Error getting session token. Message: ${curl_output}"
+        #   exit 1
+        # else
+        #   available_testbeds_pytest=$( echo "${curl_output}" | jq '.result[]' )
+        # fi
 
-# curl_return_code=0
-# curl_output=$( curl -X GET --no-progress-meter \
-#                             "http://autoiq.extremenetworks.com/tbedmgr/jobmgr/cicdPlatforms/robot" \
-#                             -H "accept: application/json" \
-#                             -H "authorization: Bearer ${session_token}" )
-# curl_return_code=$?
+        # curl_return_code=0
+        # curl_output=$( curl -X GET --no-progress-meter \
+        #                             "http://autoiq.extremenetworks.com/tbedmgr/jobmgr/cicdPlatforms/robot" \
+        #                             -H "accept: application/json" \
+        #                             -H "authorization: Bearer ${session_token}" )
+        # curl_return_code=$?
 
-# if (( $curl_return_code != 0 )); then
-#   echo "Error getting session token. Message: ${curl_output}"
-#   exit 1
-# else
-#   available_testbeds_robot=$( echo "${curl_output}" | jq '.result[]' )
-# fi
+        # if (( $curl_return_code != 0 )); then
+        #   echo "Error getting session token. Message: ${curl_output}"
+        #   exit 1
+        # else
+        #   available_testbeds_robot=$( echo "${curl_output}" | jq '.result[]' )
+        # fi
 
-# echo "pytest testbeds: $available_testbeds_pytest"
-# echo "robot testbeds: $available_testbeds_robot"
+        # echo "pytest testbeds: $available_testbeds_pytest"
+        # echo "robot testbeds: $available_testbeds_robot"
 
         echo "SESSION_TOKEN=${session_token}" >> $GITHUB_ENV
 
