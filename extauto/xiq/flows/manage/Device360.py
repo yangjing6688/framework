@@ -5613,6 +5613,7 @@ class Device360(Device360WebElements):
             pass
         cnt = 0
         for key in template_values.keys():
+            cnt = cnt +1
             print(f"Default value for {key} is {template_values[key][0]}")
             print(f"Selected value for {key} is {template_values[key][1]}")
             conf_element = self.configure_element_port_type(key,template_values[key][1])
