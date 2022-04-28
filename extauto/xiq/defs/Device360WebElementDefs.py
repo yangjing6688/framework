@@ -2208,8 +2208,52 @@ class Device360WebElementDefs:
         }
     # pag3
     # pag4
+    select_element_stp_name= \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-stp-enable"]',
+            'wait_for': 5
+        }
+    select_element_edge_name = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-stp-edge-port"]',
+            'wait_for': 5
+        }
+    #for BPDU protection
+
+    #for priority
+
+    select_element_cost_name = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-stp-path-cost"]',
+            'wait_for': 5
+        }
     # pag5
+    select_element_broadcast_name = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-sc-broadcast"]',
+            'wait_for': 5
+        }
+    select_element_unknown_name = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-sc-unicast"]',
+            'wait_for': 5
+        }
+    select_element_multicast_name = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-sc-multicast"]',
+            'wait_for': 5
+        }
+    select_element_rate_limit_val_name = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-sc-rate-limit-value"]',
+            'wait_for': 5
+        }
     # pag6
+    #for PSE profile
+    select_pse_status_name = \
+        {
+
+        }
     # pag7
     select_element_port_type_bpdu_protection_items = \
         {
@@ -2220,11 +2264,5 @@ class Device360WebElementDefs:
     select_element_port_type_bpdu_protection_items = \
         {
             'XPATH': '//div[@data-automation-tag="automation-port-type-stp-priority-chzn-drop-ctn"]//ul//li',
-            'wait_for': 5
-        }
-
-    select_rate_limit_value = \
-        {
-            'XPATH': '//input[@data-automation-tag="automation-port-type-sc-rate-limit-value"]',
             'wait_for': 5
         }

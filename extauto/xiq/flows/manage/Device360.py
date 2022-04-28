@@ -5683,7 +5683,6 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(get_cost_el, value)
 
         # pag5 Storm Control
-
         elif element == "broadcast":
             get_broadcast_el = self.get_select_element_port_type(element,value)
             if get_broadcast_el:
@@ -5703,9 +5702,9 @@ class Device360(Device360WebElements):
         elif element === "rate limit type":
             continue
         elif element == "rate limit value":
-            get_rate_limit_el = self.get_select_element_port_type(element)
-            if get_rate_limit_el:
-                self.auto_actions.send_keys(get_rate_limit_el, value)
+            get_rate_limit_val_el = self.get_select_element_port_type(element)
+            if get_rate_limit_val_el:
+                self.auto_actions.send_keys(get_rate_limit_val_el, value)
         # pag6 PSE
         elif elem == "pse profile":
 

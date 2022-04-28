@@ -1385,42 +1385,28 @@ class Device360WebElements(Device360WebElementDefs):
         # pag2
         # pag3
         # pag4
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        # pag5
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "thresholds":
-            continue
-        elif element == "rate limit type":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "rate limit value":
-            return self.weh.get_element(self.select_rate_limit_value)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        # pag6
-        # pag7
+        elif element == "stp enable":
+            return self.weh.get_element(self.select_element_stp_name)
+        elif element == "edge port":
+            return self.weh.get_element(self.select_element_edge_name)
+        elif element == "bpdu protection":
 
-    def get_rate_limit_value(self, elem):
-        if eleme == "rate limit value":
-            return self.weh.get_element(self.select_rate_limit_value).text
+        elif element == "priority":
+
+        elif element == "path cost":
+            return self.weh.get_element(self.select_element_cost_name)
+        # pag5
+        elif element == "broadcast":
+            return self.weh.get_element(self.select_element_broadcast_name)
+        elif element == "unknown unicast" and os == "exos":
+            return self.weh.get_element(self.select_element_unknown_name)
+        elif element == "multicast":
+            return self.weh.get_element(self.select_element_multicast_name)
+        elif element == "rate limit value":
+            return self.weh.get_element(self.select_element_rate_limit_val_name)
+        # pag6
+        elif elem == "pse profile":
+
+        elif elem == "poe status":
+            return self.weh.get_element(self.select_pse_status_name)
+        # pag7
