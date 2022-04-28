@@ -2154,19 +2154,19 @@ class Device360WebElementDefs:
 #pag1
     select_element_port_type_name = \
         {
-            'XPATH': '//input[@class="form-error"]',
+            'XPATH': '//input[@data-automation-tag="automation-port-type-name"]',
             'wait_for': 5
         }
 
     select_element_port_type_description = \
         {
-            'XPATH': '//div[@class="field port-desc"]//textarea',
+            'XPATH': '//textarea[@data-automation-tag="automation-port-type-description"]',
             'wait_for': 5
         }
 
     select_element_port_type_status = \
         {
-            'XPATH': '',
+            'XPATH': '//input[@data-automation-tag="automation-port-type-status"]',
             'wait_for': 5
         }
 
@@ -2178,13 +2178,13 @@ class Device360WebElementDefs:
 
     select_element_port_type_port_usage_access = \
         {
-            'XPATH': '',
+            'XPATH': '//input[@data-dojo-attach-point="accessType"]',
             'wait_for': 5
         }
 
     select_element_port_type_port_usage_trunk = \
         {
-            'XPATH': '',
+            'XPATH': '//input[@data-dojo-attach-point="trunkType"]',
             'wait_for': 5
         }
 
