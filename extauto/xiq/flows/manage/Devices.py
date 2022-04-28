@@ -1647,6 +1647,12 @@ class Devices:
             self.auto_actions.click(self.device_update.get_update_devices_button())
             sleep(5)
 
+            uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
+
+            if  uptd.is_selected():
+                self.utils.print_info(f"uncheck the update configuration checkbox ")
+                self.auto_actions.click(uptd)
+
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
             sleep(5)
@@ -1866,7 +1872,7 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
 
-        self.utils.print_info("Entering Serial Number...")
+        self.utils.print_info("Entering Serial Number...",device_serial)
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
         sleep(5)
 
@@ -3193,7 +3199,9 @@ class Devices:
         :return: 'updated Time' if the device is updated correctly else return updating status message
         """
         device_row = -1
+
         self.refresh_devices_page()
+        sleep(5)
 
         self.utils.print_info('Getting device Updated Status using')
         if device_serial != 'default':
