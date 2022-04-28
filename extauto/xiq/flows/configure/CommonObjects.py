@@ -695,7 +695,7 @@ class CommonObjects(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        if "Template was deleted successfully." in tool_tp_text[-1]:
+        if "Template was successfully removed from policy." in tool_tp_text[-1]:
             return 1
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
             return -1
@@ -749,10 +749,6 @@ class CommonObjects(object):
         self._select_common_object_template_row(object_name)
         sleep(2)
         self._delete_common_objects()
-        sleep(5)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-        return tool_tp_text
 
     def _select_edit_common_object(self, object_name):
         """
@@ -786,7 +782,6 @@ class CommonObjects(object):
         :return: 1 if deleted else -1
         """
         self.navigator.navigate_to_switch_templates()
-        sleep(5)
 
         self.utils.print_info("Click on full page view for switch template")
         page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
@@ -805,7 +800,7 @@ class CommonObjects(object):
                 page_len = int(max(device_page_numbers.text))
                 while page_len:
                     self.utils.print_info("  -- clicking next page")
-                    self.auto_actions.click(next_page_el[1])
+                    self.auto_actions.click(next_page_el)
                     sleep(2)
                     page_len = page_len - 1
             if not self._search_switch_template(template_name):
