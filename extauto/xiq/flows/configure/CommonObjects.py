@@ -805,7 +805,7 @@ class CommonObjects(object):
                 page_len = int(max(device_page_numbers.text))
                 while page_len:
                     self.utils.print_info("  -- clicking next page")
-                    self.auto_actions.click(next_page_el)
+                    self.auto_actions.click(next_page_el[1])
                     sleep(2)
                     page_len = page_len - 1
             if not self._search_switch_template(template_name):
