@@ -9618,19 +9618,32 @@ class Devices:
         if rows:
             for row in rows:
                 self.utils.print_debug("Found device Row: ", self.format_row(row.text))
-                self.auto_actions.click(self.devices_web_elements.get_device_select_checkbox(row))
+                click_checkbox = self.devices_web_elements.get_device_select_checkbox(row)
+                if click_checkbox:
+                    self.auto_actions.click(click_checkbox)
+                else:
+                    pass
                 self.screen.save_screen_shot()
                 sleep(2)
 
             self.utils.print_info("Click delete button")
             sleep(2)
-            self.auto_actions.click(self.devices_web_elements.get_delete_button())
-            sleep(2)
+            delete_button = self.devices_web_elements.get_delete_button()
+            if delete_button:
+                self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                sleep(2)
+            else:
+                return -1
 
             self.utils.print_info("Click confirmation Yes Button")
-            self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-            sleep(2)
-            self.screen.save_screen_shot()
+            confirm_yes_button = self.dialogue_web_elements.get_confirm_yes_button()
+            if confirm_yes_button:
+                self.auto_actions.click(confirm_yes_button)
+                sleep(2)
+                self.screen.save_screen_shot()
+            else:
+                self.screen.save_screen_shot()
+                return -1
 
             rows = self.devices_web_elements.get_grid_rows()
             if rows:
@@ -9639,6 +9652,7 @@ class Devices:
         else:
             self.screen.save_screen_shot()
             return 1
+        return 1
 
     def unmanage_device_when_license_expired(self,device_sn):
         '''
