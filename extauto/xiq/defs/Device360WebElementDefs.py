@@ -2216,3 +2216,9 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-automation-tag="automation-port-type-stp-bpdu-protection-chzn-drop-ctn"]//ul//li',
             'wait_for': 5
         }
+
+    select_element_port_type_bpdu_protection_items = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-stp-priority-chzn-drop-ctn"]//ul//li',
+            'wait_for': 5
+        }
