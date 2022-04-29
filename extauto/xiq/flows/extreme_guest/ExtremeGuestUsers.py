@@ -314,3 +314,13 @@ class ExtremeGuestUsers(object):
         sleep(2)
 
         return credentials
+
+    def get_username_from_vouchers(self, credentials):
+        """
+        - Get first username from the list of credentials
+        - Keyword Usage:
+         - ``Get Username from vouchers   ${CREDENTIALS}``
+        
+        """
+        username = list(credentials.keys())[0]
+        return username
