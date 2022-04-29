@@ -1894,6 +1894,10 @@ class Devices:
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
             _errors = self.check_negative_combinations()
+
+            self.auto_actions.click(self.devices_web_elements.get_device_make_dropdownoption())
+            self.auto_actions.select_drop_down_options(
+                self.devices_web_elements.get_device_make_drop_down_options(), device_make)
             if _errors != 1:
                 return _errors
 
