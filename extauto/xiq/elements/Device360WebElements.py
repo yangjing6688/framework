@@ -1391,8 +1391,8 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_elements(self.select_element_port_type_native_vlan_dropdown_items)
         elif element == "save_vlan":
             return self.weh.get_element(self.select_element_port_type_save_vlan)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "allowed vlans":
+            return self.weh.get_element(self.select_element_port_type_allowed_vlans)
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
         # pag2

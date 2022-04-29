@@ -2260,6 +2260,12 @@ class Device360WebElementDefs:
             'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 5
         }
+
+    select_element_port_type_allowed_vlans = \
+        {
+            'XPATH': '',
+            'wait_for': 5
+        }
     # pag3
     # pag4
     select_element_stp_name= \

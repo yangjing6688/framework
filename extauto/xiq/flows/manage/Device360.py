@@ -5625,7 +5625,7 @@ class Device360(Device360WebElements):
             # if we don't want to make changes and use the default values we skip the current option
             if template_values[key][0] == template_values[key][1]:
                 continue
-            if cnt == 5:
+            if cnt == 8:
                 break
         return 1
 
@@ -5712,6 +5712,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("native vlan get_next_button not found ")
             get_select_button = self.get_select_element_port_type("native_vlan_select_button")
             if get_select_button:
+                self.utils.print_info("am ajuns aici ")
                 self.auto_actions.click(get_select_button)
                 sleep(2)
                 get_dropdown_items = self.get_select_element_port_type("native_vlan_dropdown_items")
@@ -5721,16 +5722,19 @@ class Device360(Device360WebElements):
                 else:
                     get_add_vlan = self.get_select_element_port_type("native_vlan_add_vlan")
                     if get_add_vlan:
+                        self.utils.print_info("am ajuns aici 1")
                         self.auto_actions.click(get_add_vlan)
                         sleep(2)
                         get_name_vlan = self.get_select_element_port_type("native_vlan_name_vlan")
                         if get_name_vlan:
+                            self.utils.print_info("am ajuns aici 2")
                             self.auto_actions.send_keys(get_name_vlan,value)
                             sleep(2)
                         else:
                             self.utils.print_info("native vlan get_id_vlan not found ")
                         get_id_vlan = self.get_select_element_port_type("native_vlan_id_vlan")
                         if get_id_vlan:
+                            self.utils.print_info("am ajuns aici 3 ")
                             self.auto_actions.send_keys(get_id_vlan,value)
                             sleep(2)
                         else:
@@ -5740,7 +5744,7 @@ class Device360(Device360WebElements):
                             self.auto_actions.click(get_save_vlan)
                             sleep(2)
                         else:
-                            self.utils.print_info("get_id_vlan not found ")
+                            self.utils.print_info("get_save_vlan not found ")
                     else:
                         self.utils.print_info("native vlan get_add_vlan not found ")
             else:
