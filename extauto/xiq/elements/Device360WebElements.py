@@ -1403,8 +1403,10 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "edge port":
             return self.weh.get_element(self.select_element_edge_name)
         elif element == "bpdu protection":
+            pass
 
         elif element == "priority":
+            pass
 
         elif element == "path cost":
             return self.weh.get_element(self.select_element_cost_name)
@@ -1419,6 +1421,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_rate_limit_val_name)
         # pag6
         elif elem == "pse profile":
+            pass
 
         elif elem == "poe status":
             return self.weh.get_element(self.select_pse_status_name)

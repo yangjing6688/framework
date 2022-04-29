@@ -5748,150 +5748,150 @@ class Device360(Device360WebElements):
             self.utils.print_info(" Error when configure native vlan ")
             return -1
 
-        # pag3
+        # # pag3
+        #
+        # # pag4 STP
+        # elif element == "stp enable":
+        #     get_stp_el = self.get_select_element_port_type(element,value)
+        #     if get_stp_el:
+        #         elf.auto_actions.click(get_stp_el)
+        # elif element == "edge port":
+        #     get_edge_el = self.get_select_element_port_type(element,value)
+        #     if get_edge_el:
+        #         elf.auto_actions.click(get_edge_el)
+        # elif element == "bpdu protection":
+        #
+        # elif element == "priority":
+        #
+        # elif element == "path cost":
+        #     get_cost_el = self.get_select_element_port_type(element)
+        #     if get_cost_el:
+        #         self.auto_actions.send_keys(get_cost_el, value)
+        #
+        # # pag5 Storm Control
+        # elif element == "broadcast":
+        #     get_broadcast_el = self.get_select_element_port_type(element,value)
+        #     if get_broadcast_el:
+        #         self.auto_actions.click(get_broadcast_el)
+        # elif element == "unknown unicast" and os == "voss":
+        #     continue
+        # elif element == "unknown unicast" and os == "exos":
+        #     get_unknown_el = self.get_select_element_port_type(element,value)
+        #     if get_unknown_el:
+        #         elf.auto_actions.click(get_unknown_el)
+        # elif element == "multicast":
+        #     get_multicast_el = self.get_select_element_port_type(element,value)
+        #     if get_multicast_el:
+        #         elf.auto_actions.click(get_multicast_el)
+        # elif element == "thresholds":
+        #     continue
+        # elif element === "rate limit type":
+        #     continue
+        # elif element == "rate limit value":
+        #     get_rate_limit_val_el = self.get_select_element_port_type(element)
+        #     if get_rate_limit_val_el:
+        #         self.auto_actions.send_keys(get_rate_limit_val_el, value)
+        # # pag6 PSE
+        # elif elem == "pse profile":
+        #
+        # elif elem == "poe status":
+        #     get_poe_status_el = self.get_select_element_port_type(element,value)
+        #     if get_poe_status_el:
+        #         elf.auto_actions.click(get_poe_status_el)
+        # # pag7 Summary
+        # return 1
 
-        # pag4 STP
-        elif element == "stp enable":
-            get_stp_el = self.get_select_element_port_type(element,value)
-            if get_stp_el:
-                elf.auto_actions.click(get_stp_el)
-        elif element == "edge port":
-            get_edge_el = self.get_select_element_port_type(element,value)
-            if get_edge_el:
-                elf.auto_actions.click(get_edge_el)
-        elif element == "bpdu protection":
-
-        elif element == "priority":
-
-        elif element == "path cost":
-            get_cost_el = self.get_select_element_port_type(element)
-            if get_cost_el:
-                self.auto_actions.send_keys(get_cost_el, value)
-
-        # pag5 Storm Control
-        elif element == "broadcast":
-            get_broadcast_el = self.get_select_element_port_type(element,value)
-            if get_broadcast_el:
-                self.auto_actions.click(get_broadcast_el)
-        elif element == "unknown unicast" and os == "voss":
-            continue
-        elif element == "unknown unicast" and os == "exos":
-            get_unknown_el = self.get_select_element_port_type(element,value)
-            if get_unknown_el:
-                elf.auto_actions.click(get_unknown_el)
-        elif element == "multicast":
-            get_multicast_el = self.get_select_element_port_type(element,value)
-            if get_multicast_el:
-                elf.auto_actions.click(get_multicast_el)
-        elif element == "thresholds":
-            continue
-        elif element === "rate limit type":
-            continue
-        elif element == "rate limit value":
-            get_rate_limit_val_el = self.get_select_element_port_type(element)
-            if get_rate_limit_val_el:
-                self.auto_actions.send_keys(get_rate_limit_val_el, value)
-        # pag6 PSE
-        elif elem == "pse profile":
-
-        elif elem == "poe status":
-            get_poe_status_el = self.get_select_element_port_type(element,value)
-            if get_poe_status_el:
-                elf.auto_actions.click(get_poe_status_el)
-        # pag7 Summary
-        return 1
-
-    def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
-
-        port_conf_content = self.get_device360_port_configuration_content()
-        if port_conf_content:
-            port_row = self.device360_get_port_row(port)
-            if port_row:
-                self.utils.print_debug("Found row for port: ", port_row.text)
-
-                d360_create_port_type = self.get_d360_create_port_type(port_row)
-                if d360_create_port_type:
-                    self.utils.print_info(" The button d360_create_port_type  was found")
-                    self.auto_actions.click(d360_create_port_type)
-                else:
-                    self.utils.print_info(" The button d360_create_port_type  was not found")
-                    self.screen.save_screen_shot()
-                    return -1
-            else:
-                self.utils.print_info("Port was not found ")
-        else:
-            pass
-        if os == 'voss':
-            for key in template_values.keys():
-                print(f"Default value for {key} is {template_values[key][0]}")
-                print(f"Selected value for {key} is {template_values[key][1]}")
-                # if we don't want to make changes and use the default values we skip the current option
-                if template_values[key][0] == template_values[key][1]:
-                    continue
-
-                # verify the options that can't be changed(that have only one value in port template or can't be selected) or that are used only for vlan
-                elif key in ['vlan','native vlan', 'allowed vlans', 'thresholds', 'rate limit type', 'unknown unicast']:
-                    #vlan, native vlan and allowed vlans will be used separatelly later on port usage part
-                    # for thresholds we can't select drop-down now (is not implemented)
-                    #for rate limit type there is only one value implemented
-                    #unknown unicast is not supported on voss
-                    continue
-
-                #if we have values that we want to change
-                else:
-                    # trebuie facut un check daca avem port access sau trunk ca sa vedem ce elemente de vlan folosim
-                    if key == 'port usage':
-                        if template_values[key][0] == 'auto sense enabled':
-                            continue
-                        elif template_values[key][0] == 'access port':
-                            pass
-                            # trebuie facut un check pt VLAN daca exista deja in lista
-                            # *****************  de facut functia check_vlan_in_list(vlan)   *****************
-                            VLAN_flag = check_vlan_in_list(template_values['vlan'])
-                            if VLAN_flag:
-                                get_d360_create_port_type(key, template_values[key][1])
-                            else:
-                                #***************** de facut functia create_vlan(vlan)  *****************
-                                create_vlan(template_values['vlan'])
-                                get_d360_create_port_type(key, template_values[key][1])
-
-                        elif template_values[key][0] == 'trunk port':
-                            pass
-                            # trebuie facut un check pt Native VLAN daca exista deja in lista
-                            VLAN_flag = False
-                            VLAN_flag = check_vlan_in_list(template_values['vlan'])
-                            if VLAN_flag:
-                                get_d360_create_port_type(key, template_values[key][1])
-                            else:
-                                create_vlan(template_values['vlan'])
-                                get_d360_create_port_type('vlan', template_values['vlan'][1])
-                            get_d360_create_port_type('allowed vlans', template_values['allowed vlans'][1])
-
-
-
-                    # un check pentru optiunile "transmission type" si "transmission speed"
-
-
-                    #trebuie facut un check pt rate limit value default pt ca difera de la device la device
-
-                    #va trebui sa luam intai valoarea din tab si sa o punem in template_values[key][0]
-                    #val_rate_limit = get_actual_value()
-                    #if val_rate_limit == template_values[key][1]:
-                    #    continue
-                    #else:
-                    #    get_d360_create_port_type(key, template_values[key][1])
-
-
-                    # mai trebuie facut un check pt tab-ul de pse - lipseste daca device-ul nu suporta pse
-
-                    # trebuie facut un check pt PSE template daca exista deja in lista
-
-
-
-        elif os == 'exos':
-            pass
-        else:
-            return -1
+    # def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
+    #
+    #     port_conf_content = self.get_device360_port_configuration_content()
+    #     if port_conf_content:
+    #         port_row = self.device360_get_port_row(port)
+    #         if port_row:
+    #             self.utils.print_debug("Found row for port: ", port_row.text)
+    #
+    #             d360_create_port_type = self.get_d360_create_port_type(port_row)
+    #             if d360_create_port_type:
+    #                 self.utils.print_info(" The button d360_create_port_type  was found")
+    #                 self.auto_actions.click(d360_create_port_type)
+    #             else:
+    #                 self.utils.print_info(" The button d360_create_port_type  was not found")
+    #                 self.screen.save_screen_shot()
+    #                 return -1
+    #         else:
+    #             self.utils.print_info("Port was not found ")
+    #     else:
+    #         pass
+        # if os == 'voss':
+        #     for key in template_values.keys():
+        #         print(f"Default value for {key} is {template_values[key][0]}")
+        #         print(f"Selected value for {key} is {template_values[key][1]}")
+        #         # if we don't want to make changes and use the default values we skip the current option
+        #         if template_values[key][0] == template_values[key][1]:
+        #             continue
+        #
+        #         # verify the options that can't be changed(that have only one value in port template or can't be selected) or that are used only for vlan
+        #         elif key in ['vlan','native vlan', 'allowed vlans', 'thresholds', 'rate limit type', 'unknown unicast']:
+        #             #vlan, native vlan and allowed vlans will be used separatelly later on port usage part
+        #             # for thresholds we can't select drop-down now (is not implemented)
+        #             #for rate limit type there is only one value implemented
+        #             #unknown unicast is not supported on voss
+        #             continue
+        #
+        #         #if we have values that we want to change
+        #         else:
+        #             # trebuie facut un check daca avem port access sau trunk ca sa vedem ce elemente de vlan folosim
+        #             if key == 'port usage':
+        #                 if template_values[key][0] == 'auto sense enabled':
+        #                     continue
+        #                 elif template_values[key][0] == 'access port':
+        #                     pass
+        #                     # trebuie facut un check pt VLAN daca exista deja in lista
+        #                     # *****************  de facut functia check_vlan_in_list(vlan)   *****************
+        #                     VLAN_flag = check_vlan_in_list(template_values['vlan'])
+        #                     if VLAN_flag:
+        #                         self.get_d360_create_port_type(key, template_values[key][1])
+        #                     else:
+        #                         #***************** de facut functia create_vlan(vlan)  *****************
+        #                         create_vlan(template_values['vlan'])
+        #                         self.get_d360_create_port_type(key, template_values[key][1])
+        #
+        #                 elif template_values[key][0] == 'trunk port':
+        #                     pass
+        #                     # trebuie facut un check pt Native VLAN daca exista deja in lista
+        #                     VLAN_flag = False
+        #                     VLAN_flag = check_vlan_in_list(template_values['vlan'])
+        #                     if VLAN_flag:
+        #                         self.get_d360_create_port_type(key, template_values[key][1])
+        #                     else:
+        #                         create_vlan(template_values['vlan'])
+        #                         self.get_d360_create_port_type('vlan', template_values['vlan'][1])
+        #                     self.get_d360_create_port_type('allowed vlans', template_values['allowed vlans'][1])
+        #
+        #
+        #
+        #             # un check pentru optiunile "transmission type" si "transmission speed"
+        #
+        #
+        #             #trebuie facut un check pt rate limit value default pt ca difera de la device la device
+        #
+        #             #va trebui sa luam intai valoarea din tab si sa o punem in template_values[key][0]
+        #             #val_rate_limit = get_actual_value()
+        #             #if val_rate_limit == template_values[key][1]:
+        #             #    continue
+        #             #else:
+        #             #    get_d360_create_port_type(key, template_values[key][1])
+        #
+        #
+        #             # mai trebuie facut un check pt tab-ul de pse - lipseste daca device-ul nu suporta pse
+        #
+        #             # trebuie facut un check pt PSE template daca exista deja in lista
+        #
+        #
+        #
+        # elif os == 'exos':
+        #     pass
+        # else:
+        #     return -1
 
 
         return 1
