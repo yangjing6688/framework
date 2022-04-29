@@ -2189,21 +2189,75 @@ class Device360WebElementDefs:
         }
 
     # pag2-Vlan
-    select_element_port_type_vlan_add_button = \
+    select_element_port_type_next_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="vlanArea"]//span[@data-dojo-attach-point="ipSave"]',
+            'XPATH': '//button[@data-dojo-attach-point="wizardNext"]',
             'wait_for': 5
         }
 
-    select_element_port_type_vlan_add_name = \
+    select_element_port_type_vlan_name_vlan = \
         {
             'XPATH': '//input[@data-dojo-attach-point="nameEl"]',
             'wait_for': 5
         }
 
-    select_element_port_type_vlan_add_id = \
+    select_element_port_type_vlan_add_vlan = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanArea"]//span[@data-dojo-attach-point="ipSave"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_id_vlan = \
         {
             'XPATH': '//input[@data-dojo-attach-point="defaultVlanId"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_select_button = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-port-type-vlan-select-btn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_dropdown_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//ul/li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_name_vlan = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="nameEl"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_add_vlan = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="nativeVlanArea"]//span[@data-dojo-attach-point="ipSave"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_id_vlan = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="defaultVlanId"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_select_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="nativeVlanArea"]//span[@data-dojo-attach-point="ipMark"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_dropdown_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//ul//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_save_vlan = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 5
         }
     # pag3

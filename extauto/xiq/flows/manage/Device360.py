@@ -5625,7 +5625,7 @@ class Device360(Device360WebElements):
             # if we don't want to make changes and use the default values we skip the current option
             if template_values[key][0] == template_values[key][1]:
                 continue
-            if cnt == 1:
+            if cnt == 5:
                 break
         return 1
 
@@ -5654,14 +5654,100 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_access_el)
         elif element == "port usage" and value == "trunk port":
             get_trunk_el = self.get_select_element_port_type(element,value)
+            self.utils.print_info("trunk element",get_trunk_el)
             if get_trunk_el:
                 self.auto_actions.click(get_trunk_el)
         # pag2 Vlan
-        if element == "vlan":
-            #apasa next 
-            get_name_el = self.get_select_element_port_type(element)
-            if get_name_el:
-                self.auto_actions.send_keys(get_name_el, value)
+        elif element == "vlan":
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                self.auto_actions.click(get_next_button)
+                sleep(2)
+            else:
+                self.utils.print_info("get_next_button not found ")
+            get_select_button = self.get_select_element_port_type("select_button")
+            if get_select_button:
+                self.auto_actions.click(get_select_button)
+                sleep(2)
+                get_dropdown_items = self.get_select_element_port_type("dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                   self.utils.print_info(" Selected into dropdown value : ", value)
+                   return 1
+                else:
+                    get_add_vlan = self.get_select_element_port_type("add_vlan")
+                    if get_add_vlan:
+                        self.auto_actions.click(get_add_vlan)
+                        sleep(2)
+                        get_name_vlan = self.get_select_element_port_type("name_vlan")
+                        if get_name_vlan:
+                            self.auto_actions.send_keys(get_name_vlan,value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_id_vlan not found ")
+                        get_id_vlan = self.get_select_element_port_type("id_vlan")
+                        if get_id_vlan:
+                            self.auto_actions.send_keys(get_id_vlan,value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_id_vlan not found ")
+                        get_save_vlan = self.get_select_element_port_type("save_vlan")
+                        if get_save_vlan:
+                            self.auto_actions.click(get_save_vlan)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_id_vlan not found ")
+                    else:
+                        self.utils.print_info("get_add_vlan not found ")
+            else:
+                self.utils.print_info("get_select_button not found ")
+            self.utils.print_info(" Error when configure vlan  ")
+            return -1
+
+        elif element == "native vlan":
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                self.auto_actions.click(get_next_button)
+                sleep(2)
+            else:
+                self.utils.print_info("native vlan get_next_button not found ")
+            get_select_button = self.get_select_element_port_type("native_vlan_select_button")
+            if get_select_button:
+                self.auto_actions.click(get_select_button)
+                sleep(2)
+                get_dropdown_items = self.get_select_element_port_type("native_vlan_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+                else:
+                    get_add_vlan = self.get_select_element_port_type("native_vlan_add_vlan")
+                    if get_add_vlan:
+                        self.auto_actions.click(get_add_vlan)
+                        sleep(2)
+                        get_name_vlan = self.get_select_element_port_type("native_vlan_name_vlan")
+                        if get_name_vlan:
+                            self.auto_actions.send_keys(get_name_vlan,value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("native vlan get_id_vlan not found ")
+                        get_id_vlan = self.get_select_element_port_type("native_vlan_id_vlan")
+                        if get_id_vlan:
+                            self.auto_actions.send_keys(get_id_vlan,value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("native vlan get_id_vlan not found ")
+                        get_save_vlan = self.get_select_element_port_type("save_vlan")
+                        if get_save_vlan:
+                            self.auto_actions.click(get_save_vlan)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_id_vlan not found ")
+                    else:
+                        self.utils.print_info("native vlan get_add_vlan not found ")
+            else:
+                self.utils.print_info("native vlan get_select_button not found ")
+            self.utils.print_info(" Error when configure native vlan ")
+            return -1
+
         # pag3
 
         # pag4 STP

@@ -1366,18 +1366,31 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "port usage" and value == "trunk port":
             return self.weh.get_element(self.select_element_port_type_port_usage_trunk)
         #pag2
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "next_button":
+            return self.weh.get_element(self.select_element_port_type_next_button)
+        elif element == "add_vlan":
+            return self.weh.get_element(self.select_element_port_type_vlan_add_vlan)
+        elif element == "name_vlan":
+            return self.weh.get_element(self.select_element_port_type_vlan_name_vlan)
+        elif element == "id_vlan":
+            return self.weh.get_element(self.select_element_port_type_vlan_id_vlan)
+        elif element == "select_button":
+            return self.weh.get_element(self.select_element_port_type_vlan_select_button)
+        elif element == "dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_vlan_dropdown_items)
+
+        elif element == "native_vlan_add_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_add_vlan)
+        elif element == "native_vlan_name_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_name_vlan)
+        elif element == "native_vlan_id_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_id_vlan)
+        elif element == "native_vlan_select_button":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_select_button)
+        elif element == "native_vlan_dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_native_vlan_dropdown_items)
+        elif element == "save_vlan":
+            return self.weh.get_element(self.select_element_port_type_save_vlan)
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
         elif element == "name":
