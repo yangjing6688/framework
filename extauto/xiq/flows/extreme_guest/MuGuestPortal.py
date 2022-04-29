@@ -339,53 +339,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         """
 
         self.utils.print_info("Click Register button")
-        self.auto_actions.click(self.get_registernow_btn)
-        sleep(2)
-
-        self.utils.print_info("Enter Guest Name")
-        self.auto_actions.send_keys(self.get_name_field(), visitor_name)
-
-        self.utils.print_info("Enter Guest Email")
-        self.auto_actions.send_keys(self.get_email_field(), visitor_email)
-
-        self.utils.print_info("Disabling SMS Preferred Checkbox")
-        self.auto_actions.click(self.get_mobilepreferred_check())
-
-        self.utils.print_info("Clicking Disclaimer Checkbox")
-        self.auto_actions.click(self.get_disclaimer_check())
-
-        self.utils.print_info("Clicking Register Button")
-        self.auto_actions.click(self.get_register_btn())
-        sleep(2)
-
-        self.get_gp_page_screen_shot()
-        sleep(2)
-
-        if self.get_registration_status() == 'Successfully registered!':
-            self.utils.print_info("Registration Successful!")
-            self.utils.print_info("Clicking Login Button")
-            self.auto_actions.click(self.get_login_btn())
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info(self.get_sponsor_guest_access_register_guest_registration_status_text())
-        return -1
-
-    def register_device_for_guest_access(self, visitor_name, visitor_email):
-        """
-        - Register network via Sponsor Action CWP
-        - Register User with Captive Web Portal Sponsor Form
-        - Keyword Usage:
-         - ``Register Device for Guest Access  ${VISITOR_NAME}   ${VISITOR_EMAIL}   ${VISITOR_MOBILE}``
-
-        :param visitor_name: Visitor Name
-        :param visitor_email: Visitor Email
-        :param visitor_mobile: Visitor Mobile
-        :return: 1 if successfully registered else -1
-        """
-
-        self.utils.print_info("Click Register button")
-        self.auto_actions.click(self.get_registernow_btn)
+        self.auto_actions.click(self.get_registernow_btn())
         sleep(2)
 
         self.utils.print_info("Enter Guest Name")

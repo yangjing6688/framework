@@ -288,7 +288,7 @@ class ExtremeGuestUsers(object):
         self.create_bulk_vouchers(number_of_vouchers, access_group, location_name, True)
 
         self.utils.print_info("Switch to New Extreme Guest user print Window")
-        CloudDriver.cloud_driver.switch_to.window(CloudDriver.cloud_driver.window_handles[2])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[2])
 
         user_list = self.user_web_elem.get_extreme_guest_users_print_user_cells()
         password_list = self.user_web_elem.get_extreme_guest_users_print_password_cells()
@@ -306,7 +306,7 @@ class ExtremeGuestUsers(object):
         credentials = dict(zip(users, passwords))
 
         self.utils.print_info("Switch to back to Extreme Guest Window")
-        CloudDriver.cloud_driver.switch_to.window(CloudDriver.cloud_driver.window_handles[1])
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
         sleep(2)
 
         self.utils.print_info("Clicking Close Button")
