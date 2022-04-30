@@ -46,7 +46,7 @@ class Devices:
         self.cli = Cli()
 
 
-    def onboard_ap(self, ap_serial, device_make, location, device_os=False):
+    def onboard_ap(self, ap_serial, device_make="null", location, device_os=False):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
         - Keyword Usage:
@@ -82,6 +82,11 @@ class Devices:
             self.utils.print_info("Device OS: ", device_os)
             if 'Cloud IQ Engine' in device_os:
                 self.utils.print_info("Device OS matched")
+
+        if 'Extreme - Aerohive' in device_make:
+            self.auto_actions.click(self.devices_web_elements.get_device_make_dropdownoption())
+            self.auto_actions.select_drop_down_options(
+                self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
         if location:
             self.utils.print_info("Selecting location")
@@ -1894,10 +1899,6 @@ class Devices:
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
             _errors = self.check_negative_combinations()
-
-            self.auto_actions.click(self.devices_web_elements.get_device_make_dropdownoption())
-            self.auto_actions.select_drop_down_options(
-                self.devices_web_elements.get_device_make_drop_down_options(), device_make)
             if _errors != 1:
                 return _errors
 
