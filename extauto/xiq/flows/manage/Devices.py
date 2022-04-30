@@ -46,7 +46,7 @@ class Devices:
         self.cli = Cli()
 
 
-    def onboard_ap(self, ap_serial, device_make="null", location, device_os=False):
+    def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
         - Keyword Usage:
