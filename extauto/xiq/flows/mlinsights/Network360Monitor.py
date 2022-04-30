@@ -369,6 +369,9 @@ class Network360Monitor:
         self.auto_actions.click(self.n360_elements.get_n360_monitor_clients_card())
         sleep(5)
 
+        self.screen.save_screen_shot()
+        sleep(2)
+        
         self.utils.print_info("Checking CLIENT widget...")
         client_count_2G = self.n360_elements.get_client_health_clients_widget_count_2G()
         client_count_5G = self.n360_elements.get_client_health_clients_widget_count_5G()
