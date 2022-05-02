@@ -163,7 +163,7 @@ class MuGuestPortalWebElementsDefs:
 
     sponsor_guest_access_signin_btn = \
         {
-            'XPATH': '//a[contains(@class,"submit")]',
+            'XPATH': '//form[@class="loginForm"]//a[contains(@class,"submit")]',
             'wait_for': 1
         }
 
@@ -319,7 +319,7 @@ class MuGuestPortalWebElementsDefs:
 
     signin_btn = \
         {
-            'XPATH': '//a[contains(@class,"submit")]',
+            'XPATH': '//form[@class="loginForm"]//a[contains(@class,"submit")]',
             'wait_for': 1
         }
 
