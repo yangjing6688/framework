@@ -2308,44 +2308,65 @@ class Device360WebElementDefs:
             'XPATH': '//input[@data-automation-tag="automation-port-type-lldp-receive"]',
             'wait_for': 5
         }
-    # pag3
     # pag4
-    select_element_stp_name= \
+    select_element_port_type_stp_enable= \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-type-stp-enable"]',
             'wait_for': 5
         }
-    select_element_edge_name = \
+    select_element_port_type_edge_port = \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-type-stp-edge-port"]',
             'wait_for': 5
         }
     #for BPDU protection
+    select_element_port_type_bpdu_protection = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-stp-bpdu-protection-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_bpdu_protection_items = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-port-type-stp-bpdu-protection-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
 
     #for priority
+    select_element_port_type_priority = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-stp-priority-chzn-container-ctn"]',
+            'wait_for': 5
+        }
 
-    select_element_cost_name = \
+    select_element_port_type_priority_items = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-port-type-stp-priority-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_path_cost = \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-type-stp-path-cost"]',
             'wait_for': 5
         }
     # pag5
-    select_element_broadcast_name = \
+    select_element_port_type_broadcast = \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-type-sc-broadcast"]',
             'wait_for': 5
         }
-    select_element_unknown_name = \
+    select_element_port_type_unknown_unicast = \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-type-sc-unicast"]',
             'wait_for': 5
         }
-    select_element_multicast_name = \
+    select_element_port_type_multicast = \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-type-sc-multicast"]',
             'wait_for': 5
         }
-    select_element_rate_limit_val_name = \
+    select_element_port_type_rate_limit_value = \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-type-sc-rate-limit-value"]',
             'wait_for': 5

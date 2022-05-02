@@ -1411,26 +1411,28 @@ class Device360WebElements(Device360WebElementDefs):
 
         # pag4
         elif element == "stp enable":
-            return self.weh.get_element(self.select_element_stp_name)
+            return self.weh.get_element(self.select_element_port_type_stp_enable)
         elif element == "edge port":
-            return self.weh.get_element(self.select_element_edge_name)
+            return self.weh.get_element(self.select_element_port_type_edge_port)
         elif element == "bpdu protection":
-            pass
-
+            return self.weh.get_element(self.select_element_port_type_bpdu_protection)
+        elif element == "bpdu_protection_items":
+            return self.weh.get_elements(self.select_element_port_type_bpdu_protection_items)
         elif element == "priority":
-            pass
-
+            return self.weh.get_element(self.select_element_port_type_priority)
+        elif element == "priority_items":
+            return self.weh.get_elements(self.select_element_port_type_priority_items)
         elif element == "path cost":
-            return self.weh.get_element(self.select_element_cost_name)
+            return self.weh.get_element(self.select_element_port_type_path_cost)
         # pag5
         elif element == "broadcast":
-            return self.weh.get_element(self.select_element_broadcast_name)
+            return self.weh.get_element(self.select_element_port_type_broadcast)
         elif element == "unknown unicast" and os == "exos":
-            return self.weh.get_element(self.select_element_unknown_name)
+            return self.weh.get_element(self.select_element_port_type_unknown_unicast)
         elif element == "multicast":
-            return self.weh.get_element(self.select_element_multicast_name)
+            return self.weh.get_element(self.select_element_port_type_multicast)
         elif element == "rate limit value":
-            return self.weh.get_element(self.select_element_rate_limit_val_name)
+            return self.weh.get_element(self.select_element_port_type_rate_limit_value)
         # pag6
         elif elem == "pse profile":
             pass

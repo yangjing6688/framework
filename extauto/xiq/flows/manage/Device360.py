@@ -5629,7 +5629,7 @@ class Device360(Device360WebElements):
                 break
         return 1
 
-    def configure_element_port_type(self,element,value):
+    def configure_element_port_type(self,element,value,os="voss"):
         # pag1
         if element == "name":
             get_name_el = self.get_select_element_port_type(element)
@@ -5755,7 +5755,7 @@ class Device360(Device360WebElements):
             get_allowed_vlans = self.get_select_element_port_type(element)
             if get_allowed_vlans:
                 self.auto_actions.send_keys(get_allowed_vlans, value)
-    #Pag3
+        #Pag3
         elif element == "transmission type":
             get_next_button = self.get_select_element_port_type("next_button")
             if get_next_button:
@@ -5778,68 +5778,79 @@ class Device360(Device360WebElements):
                 if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
                     self.utils.print_info(" Selected into dropdown value : ", value)
                     return 1
-
         elif element == "cdp receive":
             get_lldp_receive = self.get_select_element_port_type(element)
             if get_lldp_receive:
                 self.auto_actions.click(get_lldp_receive)
                 sleep(2)
-
         elif element == "lldp transmit":
             get_lldp_transmit = self.get_select_element_port_type(element)
             if get_lldp_transmit:
                 self.auto_actions.click(get_lldp_transmit)
                 sleep(2)
-
         elif element == "lldp receive":
             get_lldp_receive = self.get_select_element_port_type(element)
             if get_lldp_receive:
                 self.auto_actions.click(get_lldp_receive)
                 sleep(2)
-
-        # # pag3
-        #
-        # # pag4 STP
-        # elif element == "stp enable":
-        #     get_stp_el = self.get_select_element_port_type(element,value)
-        #     if get_stp_el:
-        #         elf.auto_actions.click(get_stp_el)
-        # elif element == "edge port":
-        #     get_edge_el = self.get_select_element_port_type(element,value)
-        #     if get_edge_el:
-        #         elf.auto_actions.click(get_edge_el)
-        # elif element == "bpdu protection":
-        #
-        # elif element == "priority":
-        #
-        # elif element == "path cost":
-        #     get_cost_el = self.get_select_element_port_type(element)
-        #     if get_cost_el:
-        #         self.auto_actions.send_keys(get_cost_el, value)
-        #
+        # pag4 STP
+        elif element == "stp enable":
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                self.auto_actions.click(get_next_button)
+                sleep(2)
+            else:
+                self.utils.print_info("native vlan get_next_button not found ")
+            get_stp_el = self.get_select_element_port_type(element,value)
+            if get_stp_el:
+                self.auto_actions.click(get_stp_el)
+        elif element == "edge port":
+            get_edge_el = self.get_select_element_port_type(element,value)
+            if get_edge_el:
+                self.auto_actions.click(get_edge_el)
+        elif element == "bpdu protection":
+            get_bpdu_protection = self.get_select_element_port_type(element)
+            if get_bpdu_protection:
+                self.auto_actions.click(get_bpdu_protection)
+                get_bpdu_protection_items = self.get_select_element_port_type("bpdu_protection_items")
+                if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+        elif element == "priority":
+            get_priority = self.get_select_element_port_type(element)
+            if get_priority:
+                self.auto_actions.click(get_priority)
+                get_priority_items = self.get_select_element_port_type("priority_items")
+                if self.auto_actions.select_drop_down_options(get_priority_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+        elif element == "path cost":
+            get_cost_el = self.get_select_element_port_type(element)
+            if get_cost_el:
+                self.auto_actions.send_keys(get_cost_el, value)
         # # pag5 Storm Control
-        # elif element == "broadcast":
-        #     get_broadcast_el = self.get_select_element_port_type(element,value)
-        #     if get_broadcast_el:
-        #         self.auto_actions.click(get_broadcast_el)
-        # elif element == "unknown unicast" and os == "voss":
-        #     continue
-        # elif element == "unknown unicast" and os == "exos":
-        #     get_unknown_el = self.get_select_element_port_type(element,value)
-        #     if get_unknown_el:
-        #         elf.auto_actions.click(get_unknown_el)
-        # elif element == "multicast":
-        #     get_multicast_el = self.get_select_element_port_type(element,value)
-        #     if get_multicast_el:
-        #         elf.auto_actions.click(get_multicast_el)
-        # elif element == "thresholds":
-        #     continue
-        # elif element === "rate limit type":
-        #     continue
-        # elif element == "rate limit value":
-        #     get_rate_limit_val_el = self.get_select_element_port_type(element)
-        #     if get_rate_limit_val_el:
-        #         self.auto_actions.send_keys(get_rate_limit_val_el, value)
+        elif element == "broadcast":
+            get_broadcast_el = self.get_select_element_port_type(element,value)
+            if get_broadcast_el:
+                self.auto_actions.click(get_broadcast_el)
+        elif element == "unknown unicast" and os == "voss":
+            pass
+        elif element == "unknown unicast" and os == "exos":
+            get_unknown_el = self.get_select_element_port_type(element,value)
+            if get_unknown_el:
+                self.auto_actions.click(get_unknown_el)
+        elif element == "multicast":
+            get_multicast_el = self.get_select_element_port_type(element,value)
+            if get_multicast_el:
+                self.auto_actions.click(get_multicast_el)
+        elif element == "thresholds":
+            pass
+        elif element == "rate limit type":
+            pass
+        elif element == "rate limit value":
+            get_rate_limit_val_el = self.get_select_element_port_type(element)
+            if get_rate_limit_val_el:
+                self.auto_actions.send_keys(get_rate_limit_val_el, value)
         # # pag6 PSE
         # elif elem == "pse profile":
         #
