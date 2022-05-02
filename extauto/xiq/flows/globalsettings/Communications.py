@@ -7,7 +7,7 @@ from robot.libraries.BuiltIn import BuiltIn
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.elements.CommunicationsWebElements import CommunicationsWebElements
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 
 
 class Communications(CommunicationsWebElements):
@@ -20,7 +20,7 @@ class Communications(CommunicationsWebElements):
         self.screen = Screen()
         self.navigate = Navigator()
         self.builtin = BuiltIn()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def validate_communications_page(self):
         """
@@ -36,11 +36,11 @@ class Communications(CommunicationsWebElements):
 
         try:
             self.utils.print_info("Switching to iframe and reading page header...")
-            self.utils.switch_to_iframe(self.driver)
+            self.utils.switch_to_iframe(CloudDriver().cloud_driver)
             comm_txt = self.get_communications_page_text().text
             sleep(2)
             self.utils.print_info("Communications text: ", comm_txt)
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             comm_url = self.get_iframe_url()
             sleep(2)
             self.utils.print_info("Communications url: ", comm_url)
@@ -50,7 +50,7 @@ class Communications(CommunicationsWebElements):
             self.utils.print_info("Unable to get Communications page header. Please check")
             return -1
 
-        if "ExtremeCloud IQ" in comm_txt:
+        if "ExtremeCloud IQ" or "NOTIFICATIONS" in comm_txt:
             self.utils.print_info("Communications page found.")
             return 1
         else:
@@ -72,12 +72,12 @@ class Communications(CommunicationsWebElements):
 
         try:
             self.utils.print_info("Switching to iframe and reading page header...")
-            self.utils.switch_to_iframe_n(self.driver, 1)
+            self.utils.switch_to_iframe_n(CloudDriver().cloud_driver, 1)
             sleep(2)
             notification_txt = self.get_notifications_page_text().text
             sleep(5)
             self.utils.print_info("Notifications page header: ", notification_txt)
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             sleep(2)
 
         except Exception as e:
@@ -105,12 +105,12 @@ class Communications(CommunicationsWebElements):
 
         try:
             self.utils.print_info("Switching to iframe and reading page header...")
-            self.utils.switch_to_iframe_n(self.driver, 2)
+            self.utils.switch_to_iframe_n(CloudDriver().cloud_driver, 2)
             sleep(2)
             preview_txt = self.get_previews_page_text().text
             sleep(5)
             self.utils.print_info("Preview page header: ", preview_txt)
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             sleep(2)
         except Exception as e:
             self.utils.print_info(e)
@@ -139,12 +139,12 @@ class Communications(CommunicationsWebElements):
 
         try:
             self.utils.print_info("Switching to iframe and reading page header...")
-            self.utils.switch_to_iframe_n(self.driver, 2)
+            self.utils.switch_to_iframe_n(CloudDriver().cloud_driver, 2)
             sleep(2)
             new_comm_txt = self.get_new_in_extremecloud_page_text().text
             sleep(5)
             self.utils.print_info("New in XIQ Page header: ", new_comm_txt)
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             sleep(2)
         except Exception as e:
             self.utils.print_info(e)

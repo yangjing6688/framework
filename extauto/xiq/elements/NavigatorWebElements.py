@@ -12,6 +12,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_configure_tab(self):
         return self.weh.get_element(self.configure_nav)
 
+    def get_configure_tab_img_class(self):
+        return self.weh.get_element(self.configure_nav_img).get_attribute('class')
+
     def get_policy_toggle(self):
         return self.weh.get_element(self.policy_toggle)
 
@@ -24,8 +27,14 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_manage_tab(self):
         return self.weh.get_element(self.manage_nav)
 
+    def get_manage_tab_img_class(self):
+        return self.weh.get_element(self.manage_nav_img).get_attribute('class')
+
     def get_ml_insight_tab(self):
         return self.weh.get_element(self.ml_insight_tab)
+
+    def get_ml_insight_tab_img_class(self):
+        return self.weh.get_element(self.ml_insight_tab_img).get_attribute('class')
 
     def get_devices_nav(self):
         return self.weh.get_element(self.device_nav)
@@ -134,6 +143,12 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_ml_insight_network360monitor(self):
         return self.weh.get_element(self.ml_insight_network360monitor)
 
+    def get_ml_insight_network_scorecard(self):
+        return self.weh.get_element(self.ml_insight_networkScorecard)
+    
+    def get_ml_insight_retail(self):
+        return self.weh.get_element(self.ml_insight_retail)
+
     def get_network_policy_list_view(self):
         return self.weh.get_element(self.list_view)
 
@@ -164,8 +179,14 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_a3_tab(self):
         return self.weh.get_element(self.a3_nav)
 
+    def get_a3_tab_img_class(self):
+        return self.weh.get_element(self.a3_nav_img).get_attribute('class')
+
     def get_a3_inventory_tab(self):
         return self.weh.get_element(self.a3_inventory_menu)
+
+    def get_a3_reporting_tab(self):
+        return self.weh.get_element(self.a3_reporting_menu)
 
     def get_air_defence_menu(self):
         return self.weh.get_element(self.air_defence_nav)
@@ -310,7 +331,10 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_essentials_menu(self):
         return self.weh.get_element(self.essentials_menu)
-      
+
+    def get_essentials_menu_img_class(self):
+        return self.weh.get_element(self.essentials_menu_img).get_attribute('class')
+
     def get_ccg_option(self):
         return self.weh.get_element(self.common_objects_ccgs)
 
@@ -352,6 +376,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_copilot_tab(self):
         return self.weh.get_element(self.copilot_tab)
+
+    def get_copilot_tab_img_class(self):
+        return self.weh.get_element(self.copilot_tab_img).get_attribute('class')
 
     def get_copilot_anomaly_notification_icon(self):
         return self.weh.get_element(self.copilot_anomaly_notification_icon)
@@ -560,6 +587,21 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
         """
         return self.weh.get_element(self.diagnostics_show_pse_menu_item)
 
+    def get_spectrum_intelligence_menu_item(self):
+        return self.weh.get_element(self.spectrum_intelligence_menu_item)
+
+    def get_reset_device_to_default_menu_item(self):
+        return self.weh.get_element(self.reset_device_to_default_menu_item)
+
+    def get_device_utilities_status_menu_item(self):
+        return self.weh.get_element(self.device_utilities_status)
+
+    def get_device_status_advanced_channel_selection_protocol_menu_item(self):
+        return self.weh.get_element(self.utilities_status_adv_channel_sel)
+
+    def get_device_status_interface_menu_item(self):
+        return self.weh.get_element(self.utilities_status_interface)
+
     def get_locked_users_tab(self):
         return self.weh.get_element(self.locked_users_tab)
 
@@ -572,3 +614,44 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_applications_tab(self):
         return self.weh.get_element(self.applications_tab)
 
+    def get_manage_summary_menu_item(self):
+        return self.weh.get_element(self.manage_summary_menu_item)
+
+    def get_manage_users_menu_item(self):
+        return self.weh.get_element(self.manage_users_menu_item)
+
+    def get_manage_events_menu_item(self):
+        return self.weh.get_element(self.manage_events_menu_item)
+
+    def get_configure_guest_essentials_users_menu_item(self):
+        return self.weh.get_element(self.configure_guest_essentials_users_menu_item)
+
+    def get_main_side_nav_tab_order_number(self, tab_tag):
+        els = self.weh.get_elements(self.main_side_nav_tabs)
+        order_number = 0
+        for el in els:
+            if el.is_displayed():
+                order_number += 1
+            if str(tab_tag) in el.get_attribute("data-automation-tag"):
+                return order_number
+        return -1
+
+    def get_side_nav_panel_1_menu_order_number(self, menu_item_tag):
+        els = self.weh.get_elements(self.side_nav_panel_1_menu_items)
+        order_number = 0
+        for el in els:
+            if el.is_displayed():
+                order_number += 1
+            if str(menu_item_tag) in el.get_attribute("data-automation-tag"):
+                return order_number
+        return -1
+
+    def get_side_nav_panel_2_menu_order_number(self, menu_item_tag):
+        els = self.weh.get_elements(self.side_nav_panel_2_menu_items)
+        order_number = 0
+        for el in els:
+            if el.is_displayed():
+                order_number += 1
+            if str(menu_item_tag) in el.get_attribute("data-automation-tag"):
+                return order_number
+        return -1

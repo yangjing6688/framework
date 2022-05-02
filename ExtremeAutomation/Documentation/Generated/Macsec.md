@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Macsec
-This feature is located in this file: `macsec.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `macsec.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_ca_port
 	Pytest API Call: 
@@ -561,283 +561,255 @@ UUID: ae4bf96e-121f-4c57-a716-a7eede466818
 
 ## REST
 ## SNMP
-# API Function: show
+# API Function: macsec_verify_enabled_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_enabled_on_port(device_name, port)
 
 	Robot API Call: 
 
-		macsec_show  device_name  
+		macsec_verify_enabled_on_port  device_name  port
 
-UUID: 74b4a151-0750-4a8a-a517-2d38020705c9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port
+# API Function: macsec_verify_disabled_on_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_disabled_on_port(device_name, port)
 
 	Robot API Call: 
 
-		macsec_show_port  device_name  
+		macsec_verify_disabled_on_port  device_name  port
 
-UUID: 37d44773-2324-41d4-8f0b-f9598032bb1f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec ports {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_configuration
+# API Function: macsec_verify_ca_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_port_configuration(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_ca_port(device_name, ca_name, port)
 
 	Robot API Call: 
 
-		macsec_show_port_configuration  device_name  
+		macsec_verify_ca_port  device_name  ca_name  port
 
-UUID: 226173dd-ee7b-400a-bef1-b0596a0e1f43
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec ports {port} configuration
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_detail
+# API Function: macsec_verify_ca_ckn
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_port_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_ca_ckn(device_name, ca_name, ckn_name)
 
 	Robot API Call: 
 
-		macsec_show_port_detail  device_name  
+		macsec_verify_ca_ckn  device_name  ca_name  ckn_name
 
-UUID: b71624f5-cf44-4ada-b5fb-30d9db0fb416
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec ports {port} detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_counters
+# API Function: macsec_verify_ca_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_port_counters(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_ca_exists(device_name, ca_name)
 
 	Robot API Call: 
 
-		macsec_show_port_counters  device_name  
+		macsec_verify_ca_exists  device_name  ca_name
 
-UUID: 84da5599-b18b-408e-9e94-d6851a2f5989
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec ports {port} detail | begin "SecY Interface Statistics"
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_all
+# API Function: macsec_verify_ca_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_port_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_ca_does_not_exist(device_name, ca_name)
 
 	Robot API Call: 
 
-		macsec_show_port_all  device_name  
+		macsec_verify_ca_does_not_exist  device_name  ca_name
 
-UUID: 98724d26-bf74-4ac8-a968-2464089fe8c9
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec ports all
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_all_config
+# API Function: macsec_verify_port_actor_priority
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_port_all_config(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_port_actor_priority(device_name, priority)
 
 	Robot API Call: 
 
-		macsec_show_port_all_config  device_name  
+		macsec_verify_port_actor_priority  device_name  priority
 
-UUID: 2da424eb-8975-4468-b929-52aa754c9948
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec ports all configuration
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_all_detail
+# API Function: macsec_verify_port_removed_from_ca
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_port_all_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_port_removed_from_ca(device_name, ca_name, port)
 
 	Robot API Call: 
 
-		macsec_show_port_all_detail  device_name  
+		macsec_verify_port_removed_from_ca  device_name  ca_name  port
 
-UUID: a81825d5-5fff-48ca-9e60-2ba8d00b3ee7
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec ports all detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_connectivity_association
+# API Function: macsec_verify_port_cipher_suite
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_connectivity_association(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_port_cipher_suite(device_name, port, cipher_value)
 
 	Robot API Call: 
 
-		macsec_show_connectivity_association  device_name  
+		macsec_verify_port_cipher_suite  device_name  port  cipher_value
 
-UUID: d9de53c4-5be3-43cd-b8d4-33052a211c74
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show macsec connectivity-association {ca_name}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_connectivity_association_all
+# API Function: macsec_verify_port_connection_status
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.macsec.macsec_show_connectivity_association_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_port_connection_status(device_name, port, status)
 
 	Robot API Call: 
 
-		macsec_show_connectivity_association_all  device_name  
+		macsec_verify_port_connection_status  device_name  port  status
 
-UUID: 3a2df81f-d76c-49e1-9d88-d2256b6b26cf
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: macsec_verify_port_cipher_suite_admin
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_port_cipher_suite_admin(device_name, port, suite)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		macsec_verify_port_cipher_suite_admin  device_name  port  suite
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: macsec_verify_port_cipher_suite_oper
+	Pytest API Call: 
 
-		show macsec connectivity-association
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_port_cipher_suite_oper(device_name, port, suite)
 
-----------------------------------------------
+	Robot API Call: 
 
+		macsec_verify_port_cipher_suite_oper  device_name  port  suite
 
-## REST
-## SNMP
+# API Function: macsec_verify_port_confidentiality_offset_admin
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_port_confidentiality_offset_admin(device_name, port, offset)
+
+	Robot API Call: 
+
+		macsec_verify_port_confidentiality_offset_admin  device_name  port  offset
+
+# API Function: macsec_verify_port_confidentiality_offset_oper
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_port_confidentiality_offset_oper(device_name, port, offset)
+
+	Robot API Call: 
+
+		macsec_verify_port_confidentiality_offset_oper  device_name  port  offset
+
+# API Function: macsec_verify_tx_port_key_number
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_tx_port_key_number(device_name, port, tx_key_num)
+
+	Robot API Call: 
+
+		macsec_verify_tx_port_key_number  device_name  port  tx_key_num
+
+# API Function: macsec_verify_rx_port_key_number
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_rx_port_key_number(device_name, port, rx_key_num)
+
+	Robot API Call: 
+
+		macsec_verify_rx_port_key_number  device_name  port  rx_key_num
+
+# API Function: macsec_verify_tx_port_association_number
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_tx_port_association_number(device_name, port, tx_assoc_num)
+
+	Robot API Call: 
+
+		macsec_verify_tx_port_association_number  device_name  port  tx_assoc_num
+
+# API Function: macsec_verify_rx_port_association_number
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_rx_port_association_number(device_name, port, rx_assoc_num)
+
+	Robot API Call: 
+
+		macsec_verify_rx_port_association_number  device_name  port  rx_assoc_num
+
+# API Function: macsec_verify_self_elected_key_server
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_self_elected_key_server(device_name, port)
+
+	Robot API Call: 
+
+		macsec_verify_self_elected_key_server  device_name  port
+
+# API Function: macsec_verify_peer_elected_key_server
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_peer_elected_key_server(device_name, port)
+
+	Robot API Call: 
+
+		macsec_verify_peer_elected_key_server  device_name  port
+
+# API Function: macsec_verify_tx_port_no_errors
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_tx_port_no_errors(device_name, port)
+
+	Robot API Call: 
+
+		macsec_verify_tx_port_no_errors  device_name  port
+
+# API Function: macsec_verify_rx_port_no_errors
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_rx_port_no_errors(device_name, port)
+
+	Robot API Call: 
+
+		macsec_verify_rx_port_no_errors  device_name  port
+
+# API Function: macsec_verify_tx_sc_octets_encrypted
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_tx_sc_octets_encrypted(device_name, port, count, count_max)
+
+	Robot API Call: 
+
+		macsec_verify_tx_sc_octets_encrypted  device_name  port  count  count_max
+
+# API Function: macsec_verify_tx_sc_encrypted_packets
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_tx_sc_encrypted_packets(device_name, port, count, count_max)
+
+	Robot API Call: 
+
+		macsec_verify_tx_sc_encrypted_packets  device_name  port  count  count_max
+
+# API Function: macsec_verify_tx_sa_encrypted_packets
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_tx_sa_encrypted_packets(device_name, port, count, count_max)
+
+	Robot API Call: 
+
+		macsec_verify_tx_sa_encrypted_packets  device_name  port  count  count_max
+
+# API Function: macsec_verify_rx_sc_octets_decrypted
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_rx_sc_octets_decrypted(device_name, port, count, count_max)
+
+	Robot API Call: 
+
+		macsec_verify_rx_sc_octets_decrypted  device_name  port  count  count_max
+
+# API Function: macsec_verify_rx_sc_ok_packets
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_rx_sc_ok_packets(device_name, port, count, count_max)
+
+	Robot API Call: 
+
+		macsec_verify_rx_sc_ok_packets  device_name  port  count  count_max
+
+# API Function: macsec_verify_rx_sa_ok_packets
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.macsec.macsec_verify_rx_sa_ok_packets(device_name, port, count, count_max)
+
+	Robot API Call: 
+
+		macsec_verify_rx_sa_ok_packets  device_name  port  count  count_max
+

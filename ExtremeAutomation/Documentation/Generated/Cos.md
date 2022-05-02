@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Cos
-This feature is located in this file: `cos.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `cos.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_qos_profile
 	Pytest API Call: 
@@ -1421,756 +1421,318 @@ UUID: 6eb8182a-3f4e-4297-bdcb-91cf976a3b10
 
 ## REST
 ## SNMP
-# API Function: show_qos_profile
+# API Function: cos_verify_qos_profile_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_qos_profile(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_qos_profile_exists(device_name, qos_profiles)
 
 	Robot API Call: 
 
-		cos_show_qos_profile  device_name  
+		cos_verify_qos_profile_exists  device_name  qos_profiles
 
-UUID: 8af5466a-74af-4c37-a0ed-8837a12ede2a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show qosprofile
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_qos_profile
+# API Function: cos_verify_qos_profile_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_port_qos_profile(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_qos_profile_does_not_exist(device_name, qos_profiles)
 
 	Robot API Call: 
 
-		cos_show_port_qos_profile  device_name  
+		cos_verify_qos_profile_does_not_exist  device_name  qos_profiles
 
-UUID: 2d27c8a2-9489-42c0-874f-09be75f4790f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port {port} information detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_txq_port_group
+# API Function: cos_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_txq_port_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_enabled(device_name)
 
 	Robot API Call: 
 
-		cos_show_txq_port_group  device_name  
+		cos_verify_enabled  device_name
 
-UUID: 23c637da-2dc2-4ca0-804f-0ac6cfa139fa
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ports group
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-config txq
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_irl_port_group
+# API Function: cos_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_irl_port_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_disabled(device_name)
 
 	Robot API Call: 
 
-		cos_show_irl_port_group  device_name  
+		cos_verify_disabled  device_name
 
-UUID: 2ca4b67d-e4bc-488c-abfd-e1297c797c7b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ports group
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-config irl
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_txq_port_group_specific
+# API Function: cos_verify_irl_port_group_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_txq_port_group_specific(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_irl_port_group_exists(device_name, group, port_type)
 
 	Robot API Call: 
 
-		cos_show_txq_port_group_specific  device_name  
+		cos_verify_irl_port_group_exists  device_name  group  port_type
 
-UUID: cbe6c744-9dc1-4426-8988-fea7ac6f8f8b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ports group {group}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-config txq {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_irl_port_group_specific
+# API Function: cos_verify_irl_port_group_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_irl_port_group_specific(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_irl_port_group_does_not_exist(device_name, group, port_type)
 
 	Robot API Call: 
 
-		cos_show_irl_port_group_specific  device_name  
+		cos_verify_irl_port_group_does_not_exist  device_name  group  port_type
 
-UUID: e7689244-5e18-4dd2-b976-b1f1f5971fec
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ports group {group}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-config irl {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_txq_wfq_weights
+# API Function: cos_verify_txq_port_group_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_txq_wfq_weights(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_txq_port_group_exists(device_name, group, port_type)
 
 	Robot API Call: 
 
-		cos_show_txq_wfq_weights  device_name  
+		cos_verify_txq_port_group_exists  device_name  group  port_type
 
-UUID: 6604b740-d30e-4fa5-b90e-3a3bcbda1fe2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show qosprofile ports {group}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-config txq {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_irl_wfq_weights
+# API Function: cos_verify_txq_port_group_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_irl_wfq_weights(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_txq_port_group_does_not_exist(device_name, group, port_type)
 
 	Robot API Call: 
 
-		cos_show_irl_wfq_weights  device_name  
+		cos_verify_txq_port_group_does_not_exist  device_name  group  port_type
 
-UUID: 107298bb-d6ae-46c5-b305-1bed401515d0
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show qosprofile ports {group}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-config irl {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_txq_port_resource_specific
+# API Function: cos_verify_irl_configured
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_txq_port_resource_specific(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_irl_configured(device_name, group, cos_index, rate, unit)
 
 	Robot API Call: 
 
-		cos_show_txq_port_resource_specific  device_name  
+		cos_verify_irl_configured  device_name  group  cos_index  rate  unit
 
-UUID: c1317888-e5c9-4782-99b3-8030f254ced6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show meter ingmeter{cos_index}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-resource txq {group} {cos_index}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_irl_port_resource_specific
+# API Function: cos_verify_irl_not_configured
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_irl_port_resource_specific(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_irl_not_configured(device_name, group, cos_index)
 
 	Robot API Call: 
 
-		cos_show_irl_port_resource_specific  device_name  
+		cos_verify_irl_not_configured  device_name  group  cos_index
 
-UUID: 0889d392-49f0-493a-ab67-400f65d5308b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show meter ingmeter{cos_index}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-resource irl {group} {cos_index}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_qos_scheduler
+# API Function: cos_verify_txq_wfq_weights
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_qos_scheduler(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_txq_wfq_weights(device_name, group_number, port_type, queue, weight)
 
 	Robot API Call: 
 
-		cos_show_qos_scheduler  device_name  
+		cos_verify_txq_wfq_weights  device_name  group_number  port_type  queue  weight
 
-UUID: 09e8faf0-586f-448b-93fa-66d33f4ef28e
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show qosscheduler ports {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_settings
+# API Function: cos_verify_irl_reference
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_settings(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_irl_reference(device_name, group, port_type, reference, rate_limiter)
 
 	Robot API Call: 
 
-		cos_show_settings  device_name  
+		cos_verify_irl_reference  device_name  group  port_type  reference  rate_limiter
 
-UUID: 8b13448c-1ef0-4618-a60e-c211f1e18dfc
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos-index
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos settings
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_priority
+# API Function: cos_verify_orl_reference
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_port_priority(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_orl_reference(device_name, group_number, port_type, reference, rate_limiter)
 
 	Robot API Call: 
 
-		cos_show_port_priority  device_name  
+		cos_verify_orl_reference  device_name  group_number  port_type  reference  rate_limiter
 
-UUID: 97c2d9be-0104-4fee-9377-67980e562501
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port {port} information detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port priority {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port_info_detail
+# API Function: cos_verify_txq_reference
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_port_info_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_txq_reference(device_name, group_number, port_type, reference, queue)
 
 	Robot API Call: 
 
-		cos_show_port_info_detail  device_name  
+		cos_verify_txq_reference  device_name  group_number  port_type  reference  queue
 
-UUID: 4b41b6b8-9790-490a-b66d-2e1b742d5cf2
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ports {port} information detail
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show port status {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_txq_port_resource
+# API Function: cos_verify_irl_port_resource
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_txq_port_resource(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_irl_port_resource(device_name, group_number, port_type, cos_index, unit, rate)
 
 	Robot API Call: 
 
-		cos_show_txq_port_resource  device_name  
+		cos_verify_irl_port_resource  device_name  group_number  port_type  cos_index  unit  rate
 
-UUID: b5dbeeb0-7ff4-409e-89f9-06442ed4fa1b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-resource txq {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_irl_port_resource
+# API Function: cos_verify_orl_port_resource
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_irl_port_resource(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_orl_port_resource(device_name, group_number, port_type, cos_index, unit, rate)
 
 	Robot API Call: 
 
-		cos_show_irl_port_resource  device_name  
+		cos_verify_orl_port_resource  device_name  group_number  port_type  cos_index  unit  rate
 
-UUID: a2e90dc9-f2f3-4619-a838-6db6e6725216
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-resource irl {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_orl_port_resource
+# API Function: cos_verify_txq_port_resource
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_orl_port_resource(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_txq_port_resource(device_name, group_number, port_type, cos_index, unit, rate)
 
 	Robot API Call: 
 
-		cos_show_orl_port_resource  device_name  
+		cos_verify_txq_port_resource  device_name  group_number  port_type  cos_index  unit  rate
 
-UUID: 87e83d8c-bf1b-4dd9-8937-57a759acd060
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos port-resource orl {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_txq_reference
+# API Function: cos_verify_index_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_txq_reference(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_exists(device_name, cos_indexes)
 
 	Robot API Call: 
 
-		cos_show_txq_reference  device_name  
+		cos_verify_index_exists  device_name  cos_indexes
 
-UUID: fa0aa14d-7015-4b3a-9416-82cd84226498
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos reference txq {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_irl_reference
+# API Function: cos_verify_index_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_irl_reference(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_does_not_exist(device_name, cos_indexes)
 
 	Robot API Call: 
 
-		cos_show_irl_reference  device_name  
+		cos_verify_index_does_not_exist  device_name  cos_indexes
 
-UUID: 68aed0bb-747f-4bf0-a8a3-710c0d7ba107
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos reference irl {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_orl_reference
+# API Function: cos_verify_index_priority
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_orl_reference(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_priority(device_name, cos_indexes, priority)
 
 	Robot API Call: 
 
-		cos_show_orl_reference  device_name  
+		cos_verify_index_priority  device_name  cos_indexes  priority
 
-UUID: 24d8c23d-249a-42d6-8b3e-672f57764661
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cos reference orl {group}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_state
+# API Function: cos_verify_index_tos
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.cos.cos_show_state(device_name )
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_tos(device_name, cos_indexes, tos)
 
 	Robot API Call: 
 
-		cos_show_state  device_name  
+		cos_verify_index_tos  device_name  cos_indexes  tos
 
-UUID: 0ccbb8d4-5ae5-4e01-84dc-8fbd9e868808
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
+# API Function: cos_verify_index_txq
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_txq(device_name, cos_indexes, txq)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		cos_verify_index_txq  device_name  cos_indexes  txq
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: cos_verify_index_irl
+	Pytest API Call: 
 
-		show cos state
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_irl(device_name, cos_indexes, irl)
 
-----------------------------------------------
+	Robot API Call: 
 
+		cos_verify_index_irl  device_name  cos_indexes  irl
 
-## REST
-## SNMP
+# API Function: cos_verify_index_orl
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_orl(device_name, cos_indexes, orl)
+
+	Robot API Call: 
+
+		cos_verify_index_orl  device_name  cos_indexes  orl
+
+# API Function: cos_verify_index_drop_precedence
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_drop_precedence(device_name, cos_indexes, drop_precedence)
+
+	Robot API Call: 
+
+		cos_verify_index_drop_precedence  device_name  cos_indexes  drop_precedence
+
+# API Function: cos_verify_index_flood_control
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_index_flood_control(device_name, cos_indexes, flood_ctrl)
+
+	Robot API Call: 
+
+		cos_verify_index_flood_control  device_name  cos_indexes  flood_ctrl
+
+# API Function: cos_verify_port_in_irl_port_group
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_port_in_irl_port_group(device_name, group, port)
+
+	Robot API Call: 
+
+		cos_verify_port_in_irl_port_group  device_name  group  port
+
+# API Function: cos_verify_port_not_in_irl_port_group
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_port_not_in_irl_port_group(device_name, group, port)
+
+	Robot API Call: 
+
+		cos_verify_port_not_in_irl_port_group  device_name  group  port
+
+# API Function: cos_verify_port_in_txq_port_group
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_port_in_txq_port_group(device_name, group, port)
+
+	Robot API Call: 
+
+		cos_verify_port_in_txq_port_group  device_name  group  port
+
+# API Function: cos_verify_port_not_in_txq_port_group
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_port_not_in_txq_port_group(device_name, group, port)
+
+	Robot API Call: 
+
+		cos_verify_port_not_in_txq_port_group  device_name  group  port
+
+# API Function: cos_verify_qos_scheduler_strict_priority
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_qos_scheduler_strict_priority(device_name, group)
+
+	Robot API Call: 
+
+		cos_verify_qos_scheduler_strict_priority  device_name  group
+
+# API Function: cos_verify_qos_scheduler_weighted_round_robin
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_qos_scheduler_weighted_round_robin(device_name, group)
+
+	Robot API Call: 
+
+		cos_verify_qos_scheduler_weighted_round_robin  device_name  group
+
+# API Function: cos_verify_qos_scheduler_weighted_deficit_round_robin
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_qos_scheduler_weighted_deficit_round_robin(device_name, group)
+
+	Robot API Call: 
+
+		cos_verify_qos_scheduler_weighted_deficit_round_robin  device_name  group
+
+# API Function: cos_verify_port_priority
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_port_priority(device_name, port, priority)
+
+	Robot API Call: 
+
+		cos_verify_port_priority  device_name  port  priority
+
+# API Function: cos_verify_port_qos_profile
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.cos.cos_verify_port_qos_profile(device_name, port, qos_profile)
+
+	Robot API Call: 
+
+		cos_verify_port_qos_profile  device_name  port  qos_profile
+

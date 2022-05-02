@@ -2,7 +2,7 @@ from time import sleep
 import re
 
 from extauto.common.Screen import Screen
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
 
@@ -23,7 +23,7 @@ class Wips(WipsWebElements):
         super().__init__()
         self.utils = Utils()
         self.auto_actions = AutoActions()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.cobj_web_elements = CommonObjectsWebElements()
