@@ -2151,7 +2151,7 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.table-action-icons',
             'wait_for': 5
         }
-#pag1
+    #pag1
     select_element_port_type_name = \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-type-name"]',
@@ -2319,7 +2319,6 @@ class Device360WebElementDefs:
             'XPATH': '//input[@data-automation-tag="automation-port-type-stp-edge-port"]',
             'wait_for': 5
         }
-    #for BPDU protection
     select_element_port_type_bpdu_protection = \
         {
             'XPATH': '//div[@data-automation-tag="automation-port-type-stp-bpdu-protection-chzn-container-ctn"]',
@@ -2332,7 +2331,6 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    #for priority
     select_element_port_type_priority = \
         {
             'XPATH': '//div[@data-automation-tag="automation-port-type-stp-priority-chzn-container-ctn"]',
@@ -2372,20 +2370,62 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
     # pag6
-    #for PSE profile
-    select_pse_status_name = \
+    select_element_port_type_pse_profile = \
         {
-
+            'XPATH': '//div[@data-automation-tag="automation-port-type-pse-profile"]//span[@data-dojo-attach-point="ipMark"]',
+            'wait_for': 5
         }
-    # pag7
-    select_element_port_type_bpdu_protection_items = \
+    select_element_port_type_pse_profile_items = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-port-type-stp-bpdu-protection-chzn-drop-ctn"]//ul//li',
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//ul//li',
             'wait_for': 5
         }
 
-    select_element_port_type_bpdu_protection_items = \
+    select_element_port_type_pse_profile_add = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-port-type-stp-priority-chzn-drop-ctn"]//ul//li',
+            'XPATH': '//div[@data-automation-tag="automation-port-type-pse-profile"]//span[@data-dojo-attach-point="ipSave"]',
             'wait_for': 5
         }
+
+    select_element_port_type_pse_profile_name = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="nameEl"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode = \
+        {
+            'XPATH': '',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode_items = \
+        {
+            'XPATH': '',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_priority = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//div[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_priority_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_description = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="description"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_poe_status = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-pse-enable"]',
+            'wait_for': 5
+        }
+

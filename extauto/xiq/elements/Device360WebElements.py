@@ -1408,7 +1408,6 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_lldp_transmit)
         elif element == "lldp receive":
             return self.weh.get_element(self.select_element_port_type_lldp_receive)
-
         # pag4
         elif element == "stp enable":
             return self.weh.get_element(self.select_element_port_type_stp_enable)
@@ -1434,9 +1433,25 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "rate limit value":
             return self.weh.get_element(self.select_element_port_type_rate_limit_value)
         # pag6
-        elif elem == "pse profile":
-            pass
-
-        elif elem == "poe status":
-            return self.weh.get_element(self.select_pse_status_name)
+        elif element == "pse profile":
+            return self.weh.get_element(self.select_element_port_type_pse_profile)
+        elif element == "pse_profile_items":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_items)
+        elif element == "pse_profile_add":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_add)
+        elif element == "pse_profile_name":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_name)
+        elif element == "pse_profile_power_mode":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_power_mode)
+        elif element == "pse_profile_power_mode_items":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_power_mode_items)
+        elif element == "pse_profile_priority":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_priority)
+        elif element == "pse_profile_priority_items":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_priority_items)
+        elif element == "pse_profile_description":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_description)
+        elif element == "poe status":
+            return self.weh.get_element(self.select_element_port_type_poe_status)
         # pag7
+        return -1
