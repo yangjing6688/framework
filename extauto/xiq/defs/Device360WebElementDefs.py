@@ -2263,7 +2263,49 @@ class Device360WebElementDefs:
 
     select_element_port_type_allowed_vlans = \
         {
-            'XPATH': '',
+            'XPATH': '//input[@data-automation-tag="automation-port-type-allowed-vlans"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_type = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-duplex-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_type_dropdown_items = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-port-type-duplex-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_speed = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-speed-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_speed_dropdown_items = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-port-type-speed-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_cdp_receive = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-cdp"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_lldp_transmit = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-lldp-transmit"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_lldp_receive = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-type-lldp-receive"]',
             'wait_for': 5
         }
     # pag3

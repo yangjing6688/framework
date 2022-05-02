@@ -1365,7 +1365,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_port_usage_access)
         elif element == "port usage" and value == "trunk port":
             return self.weh.get_element(self.select_element_port_type_port_usage_trunk)
-        #pag2
+        #pag2-access Vlan
         elif element == "next_button":
             return self.weh.get_element(self.select_element_port_type_next_button)
         elif element == "add_vlan":
@@ -1378,7 +1378,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_vlan_select_button)
         elif element == "dropdown_items":
             return self.weh.get_elements(self.select_element_port_type_vlan_dropdown_items)
-
+        #pag2 Trunk vlan
         elif element == "native_vlan_add_vlan":
             return self.weh.get_element(self.select_element_port_type_native_vlan_add_vlan)
         elif element == "native_vlan_name_vlan":
@@ -1393,10 +1393,22 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_save_vlan)
         elif element == "allowed vlans":
             return self.weh.get_element(self.select_element_port_type_allowed_vlans)
-        elif element == "name":
-            return self.weh.get_element(self.select_element_port_type_name)
-        # pag2
-        # pag3
+        #pag3
+        elif element == "transmission type":
+            return self.weh.get_element(self.select_element_port_type_transmission_type)
+        elif element == "transmission_type_dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_transmission_type_dropdown_items)
+        elif element == "transmission speed":
+            return self.weh.get_element(self.select_element_port_type_transmission_speed)
+        elif element == "transmission_speed_dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_transmission_speed_dropdown_items)
+        elif element == "cdp receive":
+            return self.weh.get_element(self.select_element_port_type_cdp_receive)
+        elif element == "lldp transmit":
+            return self.weh.get_element(self.select_element_port_type_lldp_transmit)
+        elif element == "lldp receive":
+            return self.weh.get_element(self.select_element_port_type_lldp_receive)
+
         # pag4
         elif element == "stp enable":
             return self.weh.get_element(self.select_element_stp_name)

@@ -5751,6 +5751,51 @@ class Device360(Device360WebElements):
                 self.utils.print_info("native vlan get_select_button not found ")
             self.utils.print_info(" Error when configure native vlan ")
             return -1
+        elif element == "allowed vlans":
+            get_allowed_vlans = self.get_select_element_port_type(element)
+            if get_allowed_vlans:
+                self.auto_actions.send_keys(get_allowed_vlans, value)
+    #Pag3
+        elif element == "transmission type":
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                self.auto_actions.click(get_next_button)
+                sleep(2)
+            else:
+                self.utils.print_info("native vlan get_next_button not found ")
+            get_transmission_type = self.get_select_element_port_type(element)
+            if get_transmission_type:
+                self.auto_actions.click(get_transmission_type)
+                get_dropdown_items = self.get_select_element_port_type("transmission_type_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+        elif element == "transmission speed":
+            get_transmission_speed = self.get_select_element_port_type(element)
+            if get_transmission_speed:
+                self.auto_actions.click(get_transmission_speed)
+                get_dropdown_items = self.get_select_element_port_type("transmission_type_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+
+        elif element == "cdp receive":
+            get_lldp_receive = self.get_select_element_port_type(element)
+            if get_lldp_receive:
+                self.auto_actions.click(get_lldp_receive)
+                sleep(2)
+
+        elif element == "lldp transmit":
+            get_lldp_transmit = self.get_select_element_port_type(element)
+            if get_lldp_transmit:
+                self.auto_actions.click(get_lldp_transmit)
+                sleep(2)
+
+        elif element == "lldp receive":
+            get_lldp_receive = self.get_select_element_port_type(element)
+            if get_lldp_receive:
+                self.auto_actions.click(get_lldp_receive)
+                sleep(2)
 
         # # pag3
         #
