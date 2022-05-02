@@ -6165,12 +6165,10 @@ class Devices:
             sleep(2)
 
             self.utils.print_info("Click on version drop down")
-            # self.auto_actions.click(self.device_update.get_actions_update_version_drop_down())
-            self.auto_actions.click(self.device_update.get_xiq_upgrade_to_specific_version_dropdown())
+            self.auto_actions.click(self.device_update.get_actions_update_version_drop_down())
             sleep(5)
 
-            # update_version_items = self.device_update.get_actions_update_version_drop_down_items()
-            update_version_items = self.device_update.get_upgrade_to_specific_version_dropdown_list()
+            update_version_items = self.device_update.get_actions_update_version_drop_down_items()
             self.auto_actions.scroll_down()
             sleep(2)
 
