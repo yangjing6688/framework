@@ -2774,6 +2774,7 @@ class Devices:
         if rows:
             if device_serial:
                 self.utils.print_info("Selecting Device with serial: ", device_serial)
+                sleep(10)
                 for row in rows:
                     if device_serial in row.text:
                         self.utils.print_debug("Found device Row: ", self.format_row(row.text))

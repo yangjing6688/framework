@@ -245,7 +245,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
-    
+
     def get_nw_policy_drop(self):
         return self.weh.get_element(self.nw_policy_drop)
 
@@ -258,7 +258,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_network_policy_assign_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_button)
-    
+
     def get_perform_update_tooltip(self):
         return self.weh.get_element(self.perform_update_tooltip)
 
@@ -1087,3 +1087,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
+
+    def get_port_details_info(self):
+        return self.weh.get_elements(self.port_details_info)

@@ -1792,7 +1792,7 @@ class Device360WebElementDefs:
 
     d360_port_leftclick_port_mode = \
         {
-            'XPATH': '//div[@class="port-info port-mode"]',
+            'XPATH': '//div[starts-with(@class, "port-info port-mode")]',
             'wait_for': 5
         }
 
@@ -2263,4 +2263,10 @@ class Device360WebElementDefs:
         {
             'XPATH': '//span[@class="pagination-page current-pagination"]',
             'wait_for': 3
+        }
+
+    device360_ah_icons = \
+        {
+            "XPATH": '//li/div[contains(@class,"AH-ports-icons")][@data-index="${index}"]',
+            'wait_for': 5
         }

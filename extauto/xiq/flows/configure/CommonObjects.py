@@ -862,7 +862,7 @@ class CommonObjects(object):
         :return:
         """
         self._select_switch_template_row(object_name)
-        sleep(2)
+        sleep(5)
         self._delete_switch_template()
         sleep(5)
         tool_tp_text = tool_tip.tool_tip_text

@@ -4336,9 +4336,22 @@ class Device360(Device360WebElements):
             self.auto_actions.click(self.get_device360_configure_button())
         sleep(4)
 
-        self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
-        sleep(30)
+        retry = 0
+        while retry < 10:
+            sleep(5)
+            configure_port_btn = self.get_device360_configure_port_configuration_button()
+            if configure_port_btn:
+                self.utils.print_info("Click PortConfiguration Button")
+                self.auto_actions.click(configure_port_btn)
+                sleep(3)
+                break
+            else:
+                self.utils.print_info("Could not find element port configuration button")
+                retry += 1
+                self.utils.print_info("  -- retry: " + str(retry))
+        if retry >= 10:
+            self.utils.print_info("Element not loaded after" + str(retry) + "retries")
+            return -1
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
@@ -4449,9 +4462,22 @@ class Device360(Device360WebElements):
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
         sleep(2)
 
-        self.utils.print_info("Click Port Settings Tab")
-        self.auto_actions.click(self.get_device360_port_configuration_port_settings_tab())
-        sleep(30)
+        retry = 0
+        while retry < 10:
+            sleep(5)
+            configure_port_btn = self.get_device360_port_configuration_port_settings_tab()
+            if configure_port_btn:
+                self.utils.print_info("Click Port Settings Tab")
+                self.auto_actions.click(configure_port_btn)
+                sleep(3)
+                break
+            else:
+                self.utils.print_info("Could not find element port configuration button")
+                retry += 1
+                self.utils.print_info("  -- retry: " + str(retry))
+        if retry >= 10:
+            self.utils.print_info("Element not loaded after" + str(retry) + "retries")
+            return -1
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():

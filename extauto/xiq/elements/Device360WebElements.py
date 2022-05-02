@@ -792,7 +792,7 @@ class Device360WebElements(Device360WebElementDefs):
                 if el.is_displayed():
                     stack_members.append(el)
         return stack_members
-    
+
     def get_stack_topbar_mac_usage(self):
         return self.weh.get_elements(self.device360_topbar_mac_usage)
 
@@ -1464,3 +1464,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_pagination_current_page(self):
         return self.weh.get_element(self.d360_pagination_current_page)
+
+    def get_device360_ah_icon(self,index):
+        return self.weh.get_template_element(self.device360_ah_icons, index=index)
