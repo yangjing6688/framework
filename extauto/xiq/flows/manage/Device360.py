@@ -5591,7 +5591,7 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 #de aici incepe cod
-    def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True, verify_summary = True):
+    def create_new_port_type(self, template_values, port="2:10", os="voss", support_poe=True, verify_summary = True):
 
         if template_values["name"][0] == None:
             self.utils.print_info("name can not be empty" )
@@ -5646,7 +5646,7 @@ class Device360(Device360WebElements):
                 if conf_element.text.lower() == template_values[key][1].lower():
                     self.utils.print_info("ok ")
                 else:
-                    self.utils.print_info("not ok ",conf_element)
+                    self.utils.print_info("not ok ",conf_element.text)
                     self.utils.print_info("not ok ",template_values[key][1])
                     return -1
             else:
