@@ -5591,7 +5591,7 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 #de aici incepe cod
-    def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
+    def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True, verify_summary = True):
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content:
@@ -5621,7 +5621,33 @@ class Device360(Device360WebElements):
                 self.utils.print_info("The element was configured ")
             else:
                 return -1
+        if verify_summary:
+            return self.port_type_verify_summary(template_values)
+        else:
+            return 1
+
+    def port_type_verify_summary(self,template_values):
+
+        cnt = 0
+        for key in template_values.keys():
+            cnt = cnt +1
+            print(f"Default value for {key} is {template_values[key][0]}")
+            print(f"Selected value for {key} is {template_values[key][1]}")
+
+            if not template_values[key][1] == None:
+                conf_element = self.get_select_element_port_type_summery(key)
+                if conf_element == template_values[key][1]:
+                    self.utils.print_info("ok ")
+                else:
+                    self.utils.print_info("not ok ",conf_element)
+                    self.utils.print_info("not ok ",template_values[key][1])
+                    return -1
+            else:
+                pass
+
+
         return 1
+
 
     def configure_element_port_type(self,element,value,os="voss"):
         # pag1
