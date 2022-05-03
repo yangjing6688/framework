@@ -5649,7 +5649,7 @@ class Device360(Device360WebElements):
             if not template_values[key][1] == None:
                 conf_element = self.get_select_element_port_type_summery(key)
                 if conf_element.text.lower() == template_values[key][1].lower():
-                    self.utils.print_info("The element is correct into summary ",conf_element.text)
+                    self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: {conf_element.text.lower()}")
                 else:
                     self.utils.print_info("The element is not correct into summary  " + conf_element.text + " " + template_values[key][1])
                     return -1
