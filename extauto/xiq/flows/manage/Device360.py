@@ -5883,6 +5883,8 @@ class Device360(Device360WebElements):
         #     if get_poe_status_el:
         #         elf.auto_actions.click(get_poe_status_el)
         # # pag7 Summary
+
+
         # return 1
 
     # def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
