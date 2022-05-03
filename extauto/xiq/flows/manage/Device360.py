@@ -5609,6 +5609,7 @@ class Device360(Device360WebElements):
                 if d360_create_port_type:
                     self.utils.print_info(" The button d360_create_port_type  was found")
                     self.auto_actions.click(d360_create_port_type)
+                    sleep(2)
                 else:
                     self.utils.print_info(" The button d360_create_port_type  was not found")
                     self.screen.save_screen_shot()
@@ -5662,6 +5663,7 @@ class Device360(Device360WebElements):
 
     def configure_element_port_type(self,element,value):
         # pag1
+        sleep(2)
         if "page" in element:
             get_next_button = self.get_select_element_port_type("next_button")
             if get_next_button:
@@ -5804,19 +5806,16 @@ class Device360(Device360WebElements):
             get_lldp_receive = self.get_select_element_port_type(element)
             if get_lldp_receive:
                 self.auto_actions.click(get_lldp_receive)
-                sleep(2)
                 return 1
         elif element == "lldp transmit":
             get_lldp_transmit = self.get_select_element_port_type(element)
             if get_lldp_transmit:
                 self.auto_actions.click(get_lldp_transmit)
-                sleep(2)
                 return 1
         elif element == "lldp receive":
             get_lldp_receive = self.get_select_element_port_type(element)
             if get_lldp_receive:
                 self.auto_actions.click(get_lldp_receive)
-                sleep(2)
                 return 1
         # pag4 STP
         elif element == "stp enable":
@@ -5878,6 +5877,7 @@ class Device360(Device360WebElements):
             get_pse_profile = self.get_select_element_port_type(element)
             if get_pse_profile:
                 self.auto_actions.click(get_pse_profile)
+                sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, value):
                     self.utils.print_info(" Selected into dropdown value : ", value)
@@ -5896,15 +5896,19 @@ class Device360(Device360WebElements):
                         get_pse_profile_power_mode = self.get_select_element_port_type(element)
                         if get_pse_profile_power_mode:
                             self.auto_actions.click(get_pse_profile_power_mode)
+                            sleep(2)
                             get_pse_profile_power_mode_items = self.get_select_element_port_type("pse_profile_power_mode_items")
                             if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value):
                                 self.utils.print_info(" Selected into dropdown value : ", value)
+                        sleep(2)
                         get_pse_profile_priority = self.get_select_element_port_type(element)
                         if get_pse_profile_priority:
                             self.auto_actions.click(get_pse_profile_priority)
+                            sleep(2)
                             get_pse_profile_priority_items = self.get_select_element_port_type("pse_profile_priority_items")
                             if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value):
                                 self.utils.print_info(" Selected into dropdown value : ", value)
+                        sleep(2)
                         get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
                         if get_pse_profile_description:
                             self.auto_actions.send_keys(get_pse_profile_description, value)
@@ -5921,10 +5925,10 @@ class Device360(Device360WebElements):
                         self.utils.print_info("get_pse_profile_add not found ")
             else:
                 self.utils.print_info("get_pse_profile not found ")
-        self.utils.print_info(" Error when configure : ",element)
+        self.utils.print_info(" Error when configure : ", element)
         return -1
 
-        
+
 
     # def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
     #
