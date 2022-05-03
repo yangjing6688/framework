@@ -5,13 +5,11 @@ import subprocess
 from urllib3.exceptions import InsecureRequestWarning
 
 from extauto.common.Utils import Utils
-from extauto.common.Cli import Cli
 from robot.libraries.BuiltIn import BuiltIn
 
 class Rest:
     def __init__(self):
         self.utils = Utils()
-        self.cli = Cli()
         self.builtin = BuiltIn()
 
     def generate_access_token(self, auth_code, client_secret, client_id, redirect_uri):
@@ -26,16 +24,19 @@ class Rest:
         """
         url = f"{redirect_uri}/acct-webapp/services/acct/thirdparty/accesstoken?authCode={auth_code}"
 
-        curl_cmd = f"curl --location --request POST '{url}' --header 'X-AH-API-CLIENT-SECRET: {client_secret}' " \
-                   f"--header 'X-AH-API-CLIENT-ID: {client_id}'  --header 'X-AH-API-CLIENT-REDIRECT-URI: {redirect_uri}'"
+        headers = {
+            "X-AH-API-CLIENT-SECRET": client_secret,
+            "X-AH-API-CLIENT-ID": client_id,
+            "X-AH-API-CLIENT-REDIRECT-URI": redirect_uri
+        }
+        self.utils.print_info("URL: ", url, " Headers: ", headers)
 
-        self.utils.print_info("Curl Command: ", curl_cmd)
+        _, json_response, _ = self._api_requests(url, headers, "POST")
 
-        json_response = self.cli.exec_shell_command(curl_cmd)
         try:
-            data = self.get_json_value(json_response, "data")
+            _ = self.get_json_value(json_response, "data")
             return json_response
-        except KeyError as e:
+        except KeyError:
             err_msg = self.get_json_value(json_response, "error")['message']
             self.builtin.fail(err_msg)
 
@@ -49,7 +50,7 @@ class Rest:
         data = self.get_json_value(json_data, "data")
         return data[owner_id][key]
 
-    def _api_requests(self, url, headers, method, data='default'):
+    def _api_requests(self, url, headers, method, data=""):
         """
         - This method is used to call the API requests using requests
 
@@ -75,7 +76,7 @@ class Rest:
             if method == "DELETE":
                 r = requests.delete(url, headers=headers)
 
-            json_response = r.json()
+            json_response = r.text
             response_code = r.status_code
             total_time = r.elapsed.total_seconds()
         except ValueError:
@@ -109,7 +110,7 @@ class Rest:
             "X-AH-API-CLIENT-REDIRECT-URI": "https://extremenetworks.com"
         }
 
-        response_code, json_response, total_time = self._api_requests(url_path, headers, "GET")
+        response_code, json_response, _ = self._api_requests(url_path, headers, "GET")
 
         if response_code == 200:
             self.utils.print_info("Success")
