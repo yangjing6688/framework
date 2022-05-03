@@ -80,8 +80,8 @@ class Rest:
             total_time = r.elapsed.total_seconds()
         except ValueError:
             json_response = "No Output"
-            response_code = r.status_code
-            total_time = r.elapsed.total_seconds()
+            response_code = None
+            total_time = None
 
 
         self.utils.print_info("HTTP Status Code: ", response_code)
@@ -257,51 +257,3 @@ class Rest:
     #     self.utils.print_info("Time: ", total_time)
 
     #     return response_code
-
-if __name__ == "__main__":
-    def _api_requests(url, headers, method, data='default'):
-        """
-        - This method is used to call the API requests using requests
-
-        :param url: api complete url
-        :param headers: headers in dictionary format
-        :param method: methods to call i.e GET, PUT, POST
-        :param data: data to be put or post
-        :return: response_code, json_response, total_time
-        """
-
-        try:
-            if method == "GET":
-                r = requests.get(url, headers=headers)
-
-            if method == "POST":
-                r = requests.post(url, headers=headers, data=data)
-
-            if method == "PUT":
-                r = requests.put(url, headers=headers, data=data)
-
-            if method == "DELETE":
-                r = requests.delete(url, headers=headers)
-
-            json_response = r.json()
-            response_code = r.status_code
-            total_time = r.elapsed.total_seconds()
-        except requests.exceptions.RequestException: # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions
-            json_response = "No Output"
-            response_code = ""
-            total_time = ""
-
-
-        print("HTTP Status Code: ", response_code)
-        print("Response : ", json_response)
-        print("Time: ", total_time)
-
-        return response_code, json_response, total_time
-
-    headers = {
-        "X-AH-API-CLIENT-SECRET": "blah",
-        "X-AH-API-CLIENT-ID": "client_id",
-        "Authorization": "Bearer",
-        "X-AH-API-CLIENT-REDIRECT-URI": "https://extremenetworks.com"
-    }
-    _api_requests("http://ip.jsontest.com/", headers=headers, method="GET")

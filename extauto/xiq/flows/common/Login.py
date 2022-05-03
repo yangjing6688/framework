@@ -303,8 +303,8 @@ class Login:
             total_time = r.elapsed.total_seconds()
         except requests.exceptions.RequestException: # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions
             json_response = "No Output"
-            response_code = ""
-            total_time = ""
+            response_code = None
+            total_time = None
 
 
         print("HTTP Status Code: ", response_code)
