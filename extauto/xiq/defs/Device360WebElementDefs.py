@@ -2432,145 +2432,145 @@ class Device360WebElementDefs:
 
     select_element_port_type_name_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-name"]',
             'wait_for': 5
         }
 
     select_element_port_type_description_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-desc"]',
             'wait_for': 5
         }
 
     select_element_port_type_status_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-status"]',
             'wait_for': 5
         }
 
     select_element_port_type_port_usage_access_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-usage"]',
             'wait_for': 5
         }
 
     select_element_port_type_vlan_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-vlan"]',
             'wait_for': 5
         }
 
     select_element_port_type_native_vlan_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-native-vlan"]',
             'wait_for': 5
         }
 
     select_element_port_type_allowed_vlans_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-allowed-vlans"]',
             'wait_for': 5
         }
 
     select_element_port_type_transmission_type_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-duplex"]',
             'wait_for': 5
         }
 
     select_element_port_type_transmission_speed_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-speed"]',
             'wait_for': 5
         }
 
     select_element_port_type_cdp_receive_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-cdp"]',
             'wait_for': 5
         }
 
     select_element_port_type_lldp_transmit_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-lldp-tx"]',
             'wait_for': 5
         }
 
     select_element_port_type_lldp_receive_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-lldp-rx"]',
             'wait_for': 5
         }
 
     select_element_port_type_stp_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-status"]',
             'wait_for': 5
         }
 
     select_element_port_type_edge_port_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-edge-port"]',
             'wait_for': 5
         }
 
     select_element_port_type_bpdu_protection_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-bpdu-prot"]',
             'wait_for': 5
         }
 
     select_element_port_type_priority_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-priority"]',
             'wait_for': 5
         }
 
     select_element_port_type_path_cost_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-path-cost"]',
             'wait_for': 5
         }
 
     select_element_port_type_broadcast_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-broadcast"]',
             'wait_for': 5
         }
 
     select_element_port_type_unknown_unicast_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-unicast"]',
             'wait_for': 5
         }
 
     select_element_port_type_multicast_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-multicast"]',
             'wait_for': 5
         }
 
     select_element_port_type_rate_limit_type_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-rate-limit-type"]',
             'wait_for': 5
         }
 
     select_element_port_type_rate_limit_value_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-rate-limit-value"]',
             'wait_for': 5
         }
 
     select_element_port_type_pse_profile_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-pse-profile"]',
             'wait_for': 5
         }
 
     select_element_port_type_poe_status_summery = \
         {
-            'XPATH': '',
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-pse-status"]',
             'wait_for': 5
         }
 
