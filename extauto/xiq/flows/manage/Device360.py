@@ -5626,9 +5626,9 @@ class Device360(Device360WebElements):
                 print(f"Selected value for {key} is {template_values[key][0]}")
                 conf_element = self.configure_element_port_type(key,template_values[key][0])
                 if conf_element == 1:
-                    self.utils.print_info("The element {} was configured ",key)
+                    self.utils.print_info("The element {} was configured ".format(key))
                 else:
-                    self.utils.print_info("The element {} was not configured ", key)
+                    self.utils.print_info("The element {} was not configured ".format(key))
                     return -1
             else:
                 pass
@@ -5669,6 +5669,7 @@ class Device360(Device360WebElements):
             if get_next_button:
                 self.auto_actions.click(get_next_button)
                 sleep(2)
+                return 1
             else:
                 self.utils.print_info("get_next_button not found ")
         elif element == "name":
