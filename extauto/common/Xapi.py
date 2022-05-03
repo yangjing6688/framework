@@ -1,14 +1,7 @@
-import ast
 import json
-import pycurl
-import base64
 import subprocess
 
-from io import BytesIO
-from io import StringIO
-
 from extauto.common.Utils import Utils
-from extauto.common.Cli import Cli
 
 from robot.libraries.BuiltIn import BuiltIn
 
