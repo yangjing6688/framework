@@ -5615,8 +5615,9 @@ class Device360(Device360WebElements):
                     return -1
             else:
                 self.utils.print_info("Port was not found ")
+                return -1
         else:
-            pass
+            return -1
         cnt = 0
         for key in template_values.keys():
             if not template_values[key][0] == None:
@@ -5624,8 +5625,9 @@ class Device360(Device360WebElements):
                 print(f"Selected value for {key} is {template_values[key][0]}")
                 conf_element = self.configure_element_port_type(key,template_values[key][0])
                 if conf_element == 1:
-                    self.utils.print_info("The element was configured ")
+                    self.utils.print_info("The element {} was configured ",key)
                 else:
+                    self.utils.print_info("The element {} was not configured ", key)
                     return -1
             else:
                 pass
@@ -5658,7 +5660,7 @@ class Device360(Device360WebElements):
         return 1
 
 
-    def configure_element_port_type(self,element,value,os="voss"):
+    def configure_element_port_type(self,element,value):
         # pag1
         if "page" in element:
             get_next_button = self.get_select_element_port_type("next_button")
@@ -5671,28 +5673,33 @@ class Device360(Device360WebElements):
             get_name_el = self.get_select_element_port_type(element)
             if get_name_el:
                 self.auto_actions.send_keys(get_name_el, value)
-
+                return 1
         elif element == "description":
             get_description_el = self.get_select_element_port_type(element)
             if get_description_el:
                 self.auto_actions.send_keys(get_description_el, value)
+                return 1
         elif element == "status":
             get_status_el = self.get_select_element_port_type(element)
             if get_status_el:
                 self.auto_actions.click(get_status_el)
+                return 1
         elif element == "auto-sense":
             get_auto_sense_el = self.get_select_element_port_type(element)
             if get_auto_sense_el:
                 self.auto_actions.click(get_auto_sense_el)
+                return 1
         elif element == "port usage" and value == "access port":
             get_access_el = self.get_select_element_port_type(element,value)
             if get_access_el:
                 self.auto_actions.click(get_access_el)
+                return 1
         elif element == "port usage" and value == "trunk port":
             get_trunk_el = self.get_select_element_port_type(element,value)
             self.utils.print_info("trunk element",get_trunk_el)
             if get_trunk_el:
                 self.auto_actions.click(get_trunk_el)
+                return 1
         # pag2 Vlan
         elif element == "vlan":
             get_select_button = self.get_select_element_port_type("select_button")
@@ -5723,7 +5730,7 @@ class Device360(Device360WebElements):
                         get_save_vlan = self.get_select_element_port_type("save_vlan")
                         if get_save_vlan:
                             self.auto_actions.click(get_save_vlan)
-                            sleep(2)
+                            return 1
                         else:
                             self.utils.print_info("get_id_vlan not found ")
                     else:
@@ -5762,7 +5769,7 @@ class Device360(Device360WebElements):
                         get_save_vlan = self.get_select_element_port_type("save_vlan")
                         if get_save_vlan:
                             self.auto_actions.click(get_save_vlan)
-                            sleep(2)
+                            return 1
                         else:
                             self.utils.print_info("get_save_vlan not found ")
                     else:
@@ -5775,9 +5782,9 @@ class Device360(Device360WebElements):
             get_allowed_vlans = self.get_select_element_port_type(element)
             if get_allowed_vlans:
                 self.auto_actions.send_keys(get_allowed_vlans, value)
+                return 1
         #Pag3
         elif element == "transmission type":
-
             get_transmission_type = self.get_select_element_port_type(element)
             if get_transmission_type:
                 self.auto_actions.click(get_transmission_type)
@@ -5798,25 +5805,30 @@ class Device360(Device360WebElements):
             if get_lldp_receive:
                 self.auto_actions.click(get_lldp_receive)
                 sleep(2)
+                return 1
         elif element == "lldp transmit":
             get_lldp_transmit = self.get_select_element_port_type(element)
             if get_lldp_transmit:
                 self.auto_actions.click(get_lldp_transmit)
                 sleep(2)
+                return 1
         elif element == "lldp receive":
             get_lldp_receive = self.get_select_element_port_type(element)
             if get_lldp_receive:
                 self.auto_actions.click(get_lldp_receive)
                 sleep(2)
+                return 1
         # pag4 STP
         elif element == "stp enable":
             get_stp_el = self.get_select_element_port_type(element,value)
             if get_stp_el:
                 self.auto_actions.click(get_stp_el)
+                return 1
         elif element == "edge port":
             get_edge_el = self.get_select_element_port_type(element,value)
             if get_edge_el:
                 self.auto_actions.click(get_edge_el)
+                return 1
         elif element == "bpdu protection":
             get_bpdu_protection = self.get_select_element_port_type(element)
             if get_bpdu_protection:
@@ -5837,27 +5849,30 @@ class Device360(Device360WebElements):
             get_cost_el = self.get_select_element_port_type(element)
             if get_cost_el:
                 self.auto_actions.send_keys(get_cost_el, value)
+                return 1
         # # pag5 Storm Control
         elif element == "broadcast":
             get_broadcast_el = self.get_select_element_port_type(element,value)
             if get_broadcast_el:
                 self.auto_actions.click(get_broadcast_el)
+                return 1
         elif element == "unknown unicast":
             get_unknown_el = self.get_select_element_port_type(element,value)
             if get_unknown_el:
                 self.auto_actions.click(get_unknown_el)
+                return 1
         elif element == "multicast":
             get_multicast_el = self.get_select_element_port_type(element,value)
             if get_multicast_el:
                 self.auto_actions.click(get_multicast_el)
-        elif element == "thresholds":
-            pass
+                return 1
         elif element == "rate limit type":
-            pass
+            return 1
         elif element == "rate limit value":
             get_rate_limit_val_el = self.get_select_element_port_type(element)
             if get_rate_limit_val_el:
                 self.auto_actions.send_keys(get_rate_limit_val_el, value)
+                return 1
         # pag6 PSE
         elif element == "pse profile":
             get_pse_profile = self.get_select_element_port_type(element)
@@ -5878,49 +5893,38 @@ class Device360(Device360WebElements):
                             sleep(2)
                         else:
                             self.utils.print_info("get_pse_profile_name not found ")
-
                         get_pse_profile_power_mode = self.get_select_element_port_type(element)
                         if get_pse_profile_power_mode:
                             self.auto_actions.click(get_pse_profile_power_mode)
                             get_pse_profile_power_mode_items = self.get_select_element_port_type("pse_profile_power_mode_items")
                             if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value):
                                 self.utils.print_info(" Selected into dropdown value : ", value)
-                                return 1
-
                         get_pse_profile_priority = self.get_select_element_port_type(element)
                         if get_pse_profile_priority:
                             self.auto_actions.click(get_pse_profile_priority)
                             get_pse_profile_priority_items = self.get_select_element_port_type("pse_profile_priority_items")
                             if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value):
                                 self.utils.print_info(" Selected into dropdown value : ", value)
-                                return 1
-
-
-
-
                         get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
                         if get_pse_profile_description:
                             self.auto_actions.send_keys(get_pse_profile_description, value)
                             sleep(2)
                         else:
                             self.utils.print_info("get_pse_profile_description not found ")
-
+                        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
+                        if get_pse_profile_save:
+                            self.auto_actions.click(get_pse_profile_save)
+                            return 1
+                        else:
+                            self.utils.print_info("get_pse_profile_save not found ")
                     else:
                         self.utils.print_info("get_pse_profile_add not found ")
             else:
                 self.utils.print_info("get_pse_profile not found ")
-            self.utils.print_info(" Error when configure native vlan ")
-            return -1
+        self.utils.print_info(" Error when configure : ",element)
+        return -1
 
-
-        # elif elem == "poe status":
-        #     get_poe_status_el = self.get_select_element_port_type(element,value)
-        #     if get_poe_status_el:
-        #         elf.auto_actions.click(get_poe_status_el)
-        # # pag7 Summary
-
-
-        # return 1
+        
 
     # def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
     #
@@ -6015,5 +6019,5 @@ class Device360(Device360WebElements):
         #     return -1
 
 
-        return 1
+
 

@@ -2423,6 +2423,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_element_port_type_pse_profile_save = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
     select_element_port_type_poe_status = \
         {
             'XPATH': '//input[@data-automation-tag="port-type-editor-pse-enable"]',

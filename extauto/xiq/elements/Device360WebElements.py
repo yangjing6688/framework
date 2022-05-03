@@ -1426,7 +1426,7 @@ class Device360WebElements(Device360WebElementDefs):
         # pag5
         elif element == "broadcast":
             return self.weh.get_element(self.select_element_port_type_broadcast)
-        elif element == "unknown unicast" and os == "exos":
+        elif element == "unknown unicast":
             return self.weh.get_element(self.select_element_port_type_unknown_unicast)
         elif element == "multicast":
             return self.weh.get_element(self.select_element_port_type_multicast)
@@ -1451,6 +1451,8 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_elements(self.select_element_port_type_pse_profile_priority_items)
         elif element == "pse_profile_description":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_description)
+        elif element == "pse_profile_save":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
         # pag7
