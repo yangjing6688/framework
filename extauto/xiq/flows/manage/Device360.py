@@ -5593,6 +5593,10 @@ class Device360(Device360WebElements):
 #de aici incepe cod
     def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True, verify_summary = True):
 
+        if template_values["name"][0] == None:
+            self.utils.print_info("name can not be empty" )
+            return -1
+
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content:
             port_row = self.device360_get_port_row(port)
@@ -5613,14 +5617,17 @@ class Device360(Device360WebElements):
             pass
         cnt = 0
         for key in template_values.keys():
-            cnt = cnt +1
-            print(f"Default value for {key} is {template_values[key][0]}")
-            print(f"Selected value for {key} is {template_values[key][1]}")
-            conf_element = self.configure_element_port_type(key,template_values[key][1])
-            if conf_element == 1:
-                self.utils.print_info("The element was configured ")
+            if not template_values[key][0] == None:
+                print(f"Default value for {key} is {template_values[key][1]}")
+                print(f"Selected value for {key} is {template_values[key][0]}")
+                conf_element = self.configure_element_port_type(key,template_values[key][0])
+                if conf_element == 1:
+                    self.utils.print_info("The element was configured ")
+                else:
+                    return -1
             else:
-                return -1
+                pass
+            cnt = cnt + 1
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
@@ -5636,7 +5643,7 @@ class Device360(Device360WebElements):
 
             if not template_values[key][1] == None:
                 conf_element = self.get_select_element_port_type_summery(key)
-                if conf_element == template_values[key][1]:
+                if conf_element.text.lower() == template_values[key][1].lower():
                     self.utils.print_info("ok ")
                 else:
                     self.utils.print_info("not ok ",conf_element)
