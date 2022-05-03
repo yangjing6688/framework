@@ -5791,6 +5791,7 @@ class Device360(Device360WebElements):
             get_transmission_type = self.get_select_element_port_type(element)
             if get_transmission_type:
                 self.auto_actions.click(get_transmission_type)
+                sleep(2)
                 get_dropdown_items = self.get_select_element_port_type("transmission_type_dropdown_items")
                 if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
                     self.utils.print_info(" Selected into dropdown value : ", value)
@@ -5799,10 +5800,15 @@ class Device360(Device360WebElements):
             get_transmission_speed = self.get_select_element_port_type(element)
             if get_transmission_speed:
                 self.auto_actions.click(get_transmission_speed)
-                get_dropdown_items = self.get_select_element_port_type("transmission_type_dropdown_items")
+                sleep(2)
+                get_dropdown_items = self.get_select_element_port_type("transmission_speed_dropdown_items")
                 if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
                     self.utils.print_info(" Selected into dropdown value : ", value)
                     return 1
+                else:
+                    self.utils.print_info(" Error get_dropdown_items ")
+            else:
+                self.utils.print_info(" Error get_transmission_speed ")
         elif element == "cdp receive":
             get_lldp_receive = self.get_select_element_port_type(element)
             if get_lldp_receive:
