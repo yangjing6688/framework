@@ -5592,7 +5592,7 @@ class Device360(Device360WebElements):
         return ret_val
 #de aici incepe cod
 
-    def create_new_port_type(self, template_values, port="7", os="voss", support_poe=True, verify_summary = True):
+    def create_new_port_type(self, template_values, port, verify_summary = True):
 
 
         if template_values["name"][0] == None:
@@ -5649,15 +5649,12 @@ class Device360(Device360WebElements):
             if not template_values[key][1] == None:
                 conf_element = self.get_select_element_port_type_summery(key)
                 if conf_element.text.lower() == template_values[key][1].lower():
-                    self.utils.print_info("ok ")
+                    self.utils.print_info("The element is correct into summary ",conf_element.text)
                 else:
-                    self.utils.print_info("not ok ",conf_element.text)
-                    self.utils.print_info("not ok ",template_values[key][1])
+                    self.utils.print_info("The element is not correct into summary  " + conf_element.text + " " + template_values[key][1])
                     return -1
             else:
                 pass
-
-
         return 1
 
 
