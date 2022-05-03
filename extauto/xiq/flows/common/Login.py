@@ -307,9 +307,9 @@ class Login:
             total_time = None
 
 
-        print("HTTP Status Code: ", response_code)
-        print("Response : ", json_response)
-        print("Time: ", total_time)
+        self.utils.print_info("HTTP Status Code: ", response_code)
+        self.utils.print_info("Response : ", json_response)
+        self.utils.print_info("Time: ", total_time)
 
         return response_code, json_response, total_time
 
