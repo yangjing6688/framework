@@ -16,14 +16,14 @@ class ClientMonitor(ClientMonitorWebElements):
 
     def get_authentication_counts(self):
         """
-        - Flow: Manage --> Tools --> Client Monitor
+        - Flow: Manage --> Client Monitor & Diagnosis --> Client Monitor
         - get ths issue authentication counts from authentication status card
         - Keyword Usage:
          - ``Get Authentication Counts``
 
         :return: client authentication issue count
         """
-        self.navigator.navigate_to_tools_page()
+        self.navigator.navigate_to_client_monitor_and_diagnosis_tab()
         self.screen.save_screen_shot()
         sleep(2)
 

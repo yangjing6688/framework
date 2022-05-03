@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Snmp
-This feature is located in this file: `snmp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `snmp.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_all_trap_server
 	Pytest API Call: 
@@ -1329,283 +1329,264 @@ UUID: 47f6342b-af6f-4346-b3cf-83e093410bbf
 
 ## REST
 ## SNMP
-# API Function: show_vr
+# API Function: snmp_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_vr(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_enabled(device_name, vr)
 
 	Robot API Call: 
 
-		snmp_show_vr  device_name  
+		snmp_verify_enabled  device_name  vr
 
-UUID: f93f38f1-df1a-47e2-a8b4-033f7b330ae3
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp {vr}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_globals
+# API Function: snmp_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_globals(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_disabled(device_name, vr)
 
 	Robot API Call: 
 
-		snmp_show_globals  device_name  
+		snmp_verify_disabled  device_name  vr
 
-UUID: 188d9c0c-a329-4842-90c9-5d7758d9d4f7
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp-server
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_community
+# API Function: snmp_verify_notify_filter
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_community(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_notify_filter(device_name, profile_name, oid_tree)
 
 	Robot API Call: 
 
-		snmp_show_community  device_name  
+		snmp_verify_notify_filter  device_name  profile_name  oid_tree
 
-UUID: 8cf2de00-0a2c-440a-b8ff-7a27be04b189
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp-server community
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_context
+# API Function: snmp_verify_authentication_trap_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_context(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_authentication_trap_enabled(device_name)
 
 	Robot API Call: 
 
-		snmp_show_context  device_name  
+		snmp_verify_authentication_trap_enabled  device_name
 
-UUID: a2262541-9629-4502-8a7b-b5ba27b204cf
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp-server context
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_group
+# API Function: snmp_verify_authentication_trap_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_group(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_authentication_trap_disabled(device_name)
 
 	Robot API Call: 
 
-		snmp_show_group  device_name  
+		snmp_verify_authentication_trap_disabled  device_name
 
-UUID: df37671c-b286-4eb7-afcf-8db270b76c9d
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp-server group
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_access
+# API Function: snmp_verify_same_ip_as_ip_sender_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_access(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_same_ip_as_ip_sender_enabled(device_name)
 
 	Robot API Call: 
 
-		snmp_show_access  device_name  
+		snmp_verify_same_ip_as_ip_sender_enabled  device_name
 
-UUID: 77c7a6e6-f281-48d8-b21b-aad5fff0e7f5
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp-server group
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_host
+# API Function: snmp_verify_same_ip_as_ip_sender_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_host(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_same_ip_as_ip_sender_disabled(device_name)
 
 	Robot API Call: 
 
-		snmp_show_host  device_name  
+		snmp_verify_same_ip_as_ip_sender_disabled  device_name
 
-UUID: 14bd2f4c-d351-40a9-add6-5ec45b20d689
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp-server host
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_notify_filter
+# API Function: snmp_verify_same_trap_ip_as_ip_sender_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_notify_filter(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_same_trap_ip_as_ip_sender_enabled(device_name)
 
 	Robot API Call: 
 
-		snmp_show_notify_filter  device_name  
+		snmp_verify_same_trap_ip_as_ip_sender_enabled  device_name
 
-UUID: 5810ac9d-ea35-4792-ad32-3b843495c8cb
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp-server notify-filter
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_user
+# API Function: snmp_verify_same_trap_ip_as_ip_sender_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_user(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_same_trap_ip_as_ip_sender_disabled(device_name)
 
 	Robot API Call: 
 
-		snmp_show_user  device_name  
+		snmp_verify_same_trap_ip_as_ip_sender_disabled  device_name
 
-UUID: b6de9c13-0c3a-4764-861a-2354e2d245c3
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show snmp-server user
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_view
+# API Function: snmp_verify_v1_trap_server_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.snmp.snmp_show_view(device_name )
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v1_trap_server_exists(device_name, ip_addr, security_name, port)
 
 	Robot API Call: 
 
-		snmp_show_view  device_name  
+		snmp_verify_v1_trap_server_exists  device_name  ip_addr  security_name  port
 
-UUID: ac04eb58-4784-4705-8831-1e1d8196a25f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: snmp_verify_v1_trap_server_does_not_exist
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v1_trap_server_does_not_exist(device_name, ip_addr, security_name, port)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		snmp_verify_v1_trap_server_does_not_exist  device_name  ip_addr  security_name  port
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: snmp_verify_v2c_trap_server_exists
+	Pytest API Call: 
 
-		show snmp-server view
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v2c_trap_server_exists(device_name, ip_addr, security_name, port)
 
-----------------------------------------------
+	Robot API Call: 
 
+		snmp_verify_v2c_trap_server_exists  device_name  ip_addr  security_name  port
 
-## REST
-## SNMP
+# API Function: snmp_verify_v2c_trap_server_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v2c_trap_server_does_not_exist(device_name, ip_addr, security_name, port)
+
+	Robot API Call: 
+
+		snmp_verify_v2c_trap_server_does_not_exist  device_name  ip_addr  security_name  port
+
+# API Function: snmp_verify_v2c_inform_server_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v2c_inform_server_exists(device_name, ip_addr, security_name, timeout, port)
+
+	Robot API Call: 
+
+		snmp_verify_v2c_inform_server_exists  device_name  ip_addr  security_name  timeout  port
+
+# API Function: snmp_verify_v2c_inform_server_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v2c_inform_server_does_not_exist(device_name, ip_addr, security_name, timeout, port)
+
+	Robot API Call: 
+
+		snmp_verify_v2c_inform_server_does_not_exist  device_name  ip_addr  security_name  timeout  port
+
+# API Function: snmp_verify_v3_trap_server_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v3_trap_server_exists(device_name, ip_addr, security_name, security_level, port)
+
+	Robot API Call: 
+
+		snmp_verify_v3_trap_server_exists  device_name  ip_addr  security_name  security_level  port
+
+# API Function: snmp_verify_v3_trap_server_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v3_trap_server_does_not_exist(device_name, ip_addr, security_name, security_level, port)
+
+	Robot API Call: 
+
+		snmp_verify_v3_trap_server_does_not_exist  device_name  ip_addr  security_name  security_level  port
+
+# API Function: snmp_verify_v3_inform_server_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v3_inform_server_exists(device_name, ip_addr, security_name, security_level, timeout, port)
+
+	Robot API Call: 
+
+		snmp_verify_v3_inform_server_exists  device_name  ip_addr  security_name  security_level  timeout  port
+
+# API Function: snmp_verify_v3_inform_server_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_v3_inform_server_does_not_exist(device_name, ip_addr, security_name, security_level, timeout, port)
+
+	Robot API Call: 
+
+		snmp_verify_v3_inform_server_does_not_exist  device_name  ip_addr  security_name  security_level  timeout  port
+
+# API Function: snmp_verify_community_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_community_exists(device_name, community_index, community_name, security_name)
+
+	Robot API Call: 
+
+		snmp_verify_community_exists  device_name  community_index  community_name  security_name
+
+# API Function: snmp_verify_community_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_community_does_not_exist(device_name, community_index, community_name, security_name)
+
+	Robot API Call: 
+
+		snmp_verify_community_does_not_exist  device_name  community_index  community_name  security_name
+
+# API Function: snmp_verify_user_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_user_exists(device_name, user_name)
+
+	Robot API Call: 
+
+		snmp_verify_user_exists  device_name  user_name
+
+# API Function: snmp_verify_user_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_user_does_not_exist(device_name, user_name)
+
+	Robot API Call: 
+
+		snmp_verify_user_does_not_exist  device_name  user_name
+
+# API Function: snmp_verify_group_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_group_exists(device_name, group)
+
+	Robot API Call: 
+
+		snmp_verify_group_exists  device_name  group
+
+# API Function: snmp_verify_group_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_group_does_not_exist(device_name, group)
+
+	Robot API Call: 
+
+		snmp_verify_group_does_not_exist  device_name  group
+
+# API Function: snmp_verify_access_for_group_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_access_for_group_exists(device_name, group, security_level)
+
+	Robot API Call: 
+
+		snmp_verify_access_for_group_exists  device_name  group  security_level
+
+# API Function: snmp_verify_access_for_group_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_access_for_group_does_not_exist(device_name, group, security_level)
+
+	Robot API Call: 
+
+		snmp_verify_access_for_group_does_not_exist  device_name  group  security_level
+
+# API Function: snmp_verify_view_exists
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_view_exists(device_name, view_name, oid_tree)
+
+	Robot API Call: 
+
+		snmp_verify_view_exists  device_name  view_name  oid_tree
+
+# API Function: snmp_verify_view_does_not_exist
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.snmp.snmp_verify_view_does_not_exist(device_name, view_name, oid_tree)
+
+	Robot API Call: 
+
+		snmp_verify_view_does_not_exist  device_name  view_name  oid_tree
+

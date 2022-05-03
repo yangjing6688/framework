@@ -1,5 +1,5 @@
 # Keyword Library Documentation for Loginconfig
-This feature is located in this file: `loginconfig.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `loginconfig.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: create_admin_account
 	Pytest API Call: 
@@ -968,232 +968,228 @@ UUID: d4003c0a-2fad-4069-bd4c-1280e018bc1b
 
 ## REST
 ## SNMP
-# API Function: show_accounts
+# API Function: loginconfig_verify_account_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_accounts(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_account_exists(device_name, login_account)
 
 	Robot API Call: 
 
-		loginconfig_show_accounts  device_name  
+		loginconfig_verify_account_exists  device_name  login_account
 
-UUID: da0f6bef-fcb4-4509-bc9c-6262c01d3079
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show system login
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show accounts
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_logged_in_users
+# API Function: loginconfig_verify_account_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_logged_in_users(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_account_does_not_exist(device_name, login_account)
 
 	Robot API Call: 
 
-		loginconfig_show_logged_in_users  device_name  
+		loginconfig_verify_account_does_not_exist  device_name  login_account
 
-UUID: 8ecd0acd-9ccd-42af-8c97-acc46413408b
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show session
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_logged_in_users_detail
+# API Function: loginconfig_verify_admin_account_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_logged_in_users_detail(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_admin_account_exists(device_name, username)
 
 	Robot API Call: 
 
-		loginconfig_show_logged_in_users_detail  device_name  
+		loginconfig_verify_admin_account_exists  device_name  username
 
-UUID: eb712e6f-91c6-4889-9864-a79c70318f94
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show session detail
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_cli_info
+# API Function: loginconfig_verify_admin_account_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_cli_info(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_admin_account_does_not_exist(device_name, username)
 
 	Robot API Call: 
 
-		loginconfig_show_cli_info  device_name  
+		loginconfig_verify_admin_account_does_not_exist  device_name  username
 
-UUID: 02896d84-dba9-446d-af14-81389cac1372
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cli info
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.19
-
-----------------------------------------------
-
-
-# API Function: show_cli_users_state
+# API Function: loginconfig_verify_user_auth_method
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_cli_users_state(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_user_auth_method(device_name, user_name, auth_method)
 
 	Robot API Call: 
 
-		loginconfig_show_cli_users_state  device_name  
+		loginconfig_verify_user_auth_method  device_name  user_name  auth_method
 
-UUID: e92c8400-0654-4a65-ad92-bef8408ac5c3
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show cli password
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.19.19.0||1.3.6.1.4.1.2272.1.19.20.0||1.3.6.1.4.1.2272.1.19.21.0||1.3.6.1.4.1.2272.1.19.22.0||1.3.6.1.4.1.2272.1.19.23.0||1.3.6.1.4.1.2272.1.19.24.0
-
-----------------------------------------------
-
-
-# API Function: show_accounts_password_policy
+# API Function: loginconfig_verify_cli_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_accounts_password_policy(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_cli_timeout(device_name, timeout)
 
 	Robot API Call: 
 
-		loginconfig_show_accounts_password_policy  device_name  
+		loginconfig_verify_cli_timeout  device_name  timeout
 
-UUID: b9453801-62eb-4f8c-8a14-4254f921eb95
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show accounts password-policy
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_cli_num_access_violations
+# API Function: loginconfig_verify_max_telnet_sessions
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_show_cli_num_access_violations(device_name )
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_max_telnet_sessions(device_name, max_sessions)
 
 	Robot API Call: 
 
-		loginconfig_show_cli_num_access_violations  device_name  
+		loginconfig_verify_max_telnet_sessions  device_name  max_sessions
 
-UUID: 063d8ab3-9026-4d4a-a95e-4730ace910e8
-## CLI
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: loginconfig_verify_max_rlogin_sessions
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_max_rlogin_sessions(device_name, max_sessions)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.19.14.0
+		loginconfig_verify_max_rlogin_sessions  device_name  max_sessions
 
-----------------------------------------------
+# API Function: loginconfig_verify_ro_account_enabled
+	Pytest API Call: 
 
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_ro_account_enabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_ro_account_enabled  device_name
+
+# API Function: loginconfig_verify_ro_account_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_ro_account_disabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_ro_account_disabled  device_name
+
+# API Function: loginconfig_verify_rw_account_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_rw_account_enabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_rw_account_enabled  device_name
+
+# API Function: loginconfig_verify_rw_account_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_rw_account_disabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_rw_account_disabled  device_name
+
+# API Function: loginconfig_verify_l1_rw_account_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_l1_rw_account_enabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_l1_rw_account_enabled  device_name
+
+# API Function: loginconfig_verify_l1_rw_account_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_l1_rw_account_disabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_l1_rw_account_disabled  device_name
+
+# API Function: loginconfig_verify_l2_rw_account_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_l2_rw_account_enabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_l2_rw_account_enabled  device_name
+
+# API Function: loginconfig_verify_l2_rw_account_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_l2_rw_account_disabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_l2_rw_account_disabled  device_name
+
+# API Function: loginconfig_verify_l3_rw_account_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_l3_rw_account_enabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_l3_rw_account_enabled  device_name
+
+# API Function: loginconfig_verify_l3_rw_account_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_l3_rw_account_disabled(device_name)
+
+	Robot API Call: 
+
+		loginconfig_verify_l3_rw_account_disabled  device_name
+
+# API Function: loginconfig_verify_total_failed_login_attempts
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_total_failed_login_attempts(device_name, username, login_attempts)
+
+	Robot API Call: 
+
+		loginconfig_verify_total_failed_login_attempts  device_name  username  login_attempts
+
+# API Function: loginconfig_verify_failed_login_attempts_since_success
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_failed_login_attempts_since_success(device_name, username, login_attempts)
+
+	Robot API Call: 
+
+		loginconfig_verify_failed_login_attempts_since_success  device_name  username  login_attempts
+
+# API Function: loginconfig_verify_successful_logins
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_successful_logins(device_name, username, login_attempts)
+
+	Robot API Call: 
+
+		loginconfig_verify_successful_logins  device_name  username  login_attempts
+
+# API Function: loginconfig_verify_password_max_age
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_password_max_age(device_name, username, age)
+
+	Robot API Call: 
+
+		loginconfig_verify_password_max_age  device_name  username  age
+
+# API Function: loginconfig_verify_password_min_age
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_password_min_age(device_name, username, age)
+
+	Robot API Call: 
+
+		loginconfig_verify_password_min_age  device_name  username  age
+
+# API Function: loginconfig_verify_password_min_length
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_password_min_length(device_name, username, length)
+
+	Robot API Call: 
+
+		loginconfig_verify_password_min_length  device_name  username  length
+
+# API Function: loginconfig_verify_password_min_diff_chars
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.loginconfig.loginconfig_verify_password_min_diff_chars(device_name, username, min_diff_chars)
+
+	Robot API Call: 
+
+		loginconfig_verify_password_min_diff_chars  device_name  username  min_diff_chars
 

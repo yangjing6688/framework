@@ -1330,3 +1330,20 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_save_threshold_poe_value(self):
         return self.weh.get_element(self.device360_save_threshold_poe_value)
+
+    def get_device360_click_particular_client(self):
+        return self.weh.get_element(self.device360_click_particular_client)
+
+    def get_client360_close_dialog(self):
+        return self.weh.get_element(self.close_client360_dialog)
+
+    def get_device360_hyperlink_client(self):
+        return self.weh.get_element(self.device360_hyperlink_client)
+
+    def get_device360_column_picker_icon(self):
+        elements = self.weh.get_elements(self.device360_column_picker_icon)
+        for el in elements:
+            if el.is_displayed():
+                return el
+        else:
+            return False

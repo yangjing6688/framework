@@ -22,6 +22,11 @@ sysinfo:
         apis:
             CLI:
                 - [EOS,base,baseversion,baseunit]
+    check_for_system_type:
+        uuid: 4873964a-28fc-4087-94ef-370e51716b2c
+        apis:
+            CLI:
+                - [ EXOS,base,baseversion,baseunit ]
     get_corefile_list:
         uuid: 97312f7c-ad41-40ee-965d-b5c1392f4fe8
         apis:

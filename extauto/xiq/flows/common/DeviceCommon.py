@@ -12,6 +12,96 @@ class DeviceCommon(DeviceCommonElements):
         self.screen = Screen()
         self.auto_actions = AutoActions()
 
+    def _get_device_grid_row_by_serial(self, device_serial=''):
+        """
+        - This method is used to get the device grid row where the serial number is a match
+
+        :param device_serial: serial number of the device
+        :return: row if match, else None
+        """
+        for row in self.get_device_grid_rows():
+            if device_serial in row.text:
+                self.utils.print_info("Found the row with the device serial: ", device_serial)
+                return row
+
+        self.utils.print_info("Device serial is not found in the Device grid")
+        return None
+
+    def _get_client_cell(self, row):
+        """
+        - This method is used to get the client cell
+
+        :param row: device row object
+        :return: cell if match, else None
+        """
+        for cell in self.get_device_row_cells_with_row(row):
+            if "activeClientCount" in cell.get_attribute("class"):
+                self.utils.print_info("Found the client cell")
+                return cell
+
+        self.utils.print_info("Connected Clients column is not found in the Device grid")
+        return None
+
+    def _get_hostname_cell(self, row):
+        """
+        - This method is used to get the host name cell
+
+        :param row: device row object
+        :return: cell if match, else None
+        """
+        for cell in self.get_device_row_cells_with_row(row):
+            if "hostname" in cell.get_attribute("class"):
+                self.utils.print_info("Found the host name cell")
+                return cell
+
+        self.utils.print_info("Host Name column is not found in the Device grid")
+        return None
+
+    def _get_mac_cell(self, row):
+        """
+        - This method is used to get the MAC cell
+
+        :param row: device row object
+        :return: cell if match, else None
+        """
+        for cell in self.get_device_row_cells_with_row(row):
+            if "macAddress" in cell.get_attribute("class"):
+                self.utils.print_info("Found the MAC cell")
+                return cell
+
+        self.utils.print_info("MAC column is not found in the Device grid")
+        return None
+
+    def _get_policy_cell(self, row):
+        """
+        - This method is used to get the Network Policy cell
+
+        :param row: device row object
+        :return: cell if match, else None
+        """
+        for cell in self.get_device_row_cells_with_row(row):
+            if "networkPolicyName" in cell.get_attribute("class"):
+                self.utils.print_info("Found the policy cell")
+                return cell
+
+        self.utils.print_info("Network Policy column is not found in the Device grid")
+        return None
+
+    def _get_location_cell(self, row):
+        """
+        - This method is used to get the Location cell
+
+        :param row: device row object
+        :return: cell if match, else None
+        """
+        for cell in self.get_device_row_cells_with_row(row):
+            if "locationName" in cell.get_attribute("class"):
+                self.utils.print_info("Found the location cell")
+                return cell
+
+        self.utils.print_info("Location column is not found in the Device grid")
+        return None
+
     def _select_device_grid_row(self, row):
         """
         - This method is used to select the device grid row select check box
@@ -173,12 +263,15 @@ class DeviceCommon(DeviceCommonElements):
         for row in self.get_device_grid_rows():
             if search_strg in row.text:
                 self.utils.print_info(f"found device with:{search_strg}")
-                for cell in self.get_device_row_cells():
-                    if search_strg in cell.text:
-                        self.utils.print_info(f"click on device cell")
-                        self.auto_actions.click(self.get_cell_href(cell))
-                        sleep(5)
-                        return 1
+                if self.get_device_row_cells_with_row(row):
+                    for cell in self.get_device_row_cells_with_row(row):
+                        if search_strg in cell.text:
+                            self.utils.print_info(f"click on device cell")
+                            if self.get_cell_href(cell):
+                                self.auto_actions.click(self.get_cell_href(cell))
+                                sleep(5)
+                                return 1
+
         self.utils.print_info(f"Device not found in the grid with:{search_strg}")
         self.screen.save_screen_shot()
         return -1
@@ -188,24 +281,78 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and clicks on client hyperlink.
         - Keyword Usage:
-         - ``Goto  Device360 With Client   ${DEVICE_SERIAL}``
+         - ``Goto Device360 With Client   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if navigated to client page from manage devices grid else -1
         """
-        for row in self.get_device_grid_rows():
-            if device_serial in row.text:
-                self.utils.print_info("Selecting the row with the device serial: ", device_serial)
-                for cell in self.get_device_row_cells_with_row(row):
-                    if "activeClientCount" in cell.get_attribute("class"):
-                        self.utils.print_info("Clicking on client hyperlink")
-                        self.auto_actions.click(self.get_cell_href(cell))
-                        sleep(5)
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            cell = self._get_client_cell(row)
+            if cell and self.get_cell_href(cell):
+                self.utils.print_info("Clicking on client hyperlink")
+                self.auto_actions.click(self.get_cell_href(cell))
+                sleep(5)
 
-                        return 1
+                return 1
 
-        self.utils.print_info("Device serial is not found in the Device grid")
-        return -1
+            else:
+                return -1
+
+        else:
+            return -1
+
+    def goto_device360_with_mac(self, device_serial=None):
+        """
+        - Assume that navigated to the Manage --> Device
+        - This keyword searches for the row with passed device serial and clicks on MAC hyperlink.
+        - Keyword Usage:
+         - ``Goto Device360 With Mac   ${DEVICE_SERIAL}``
+
+        :param device_serial:  device serial number
+        :return: 1 if navigated to D360 page from manage devices grid else -1
+        """
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            cell = self._get_mac_cell(row)
+            if cell and self.get_cell_href(cell):
+                self.utils.print_info("Clicking on MAC hyperlink")
+                self.auto_actions.click(self.get_cell_href(cell))
+                sleep(5)
+
+                return 1
+
+            else:
+                return -1
+
+        else:
+            return -1
+
+    def goto_device360_with_hostname(self, device_serial=None):
+        """
+        - Assume that navigated to the Manage --> Device
+        - This keyword searches for the row with passed device serial and clicks on host name hyperlink.
+        - Keyword Usage:
+         - ``Goto Device360 With Hostname   ${DEVICE_SERIAL}``
+
+        :param device_serial:  device serial number
+        :return: 1 if navigated to D360 page from manage devices grid else -1
+        """
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            cell = self._get_hostname_cell(row)
+            if cell and self.get_cell_href(cell):
+                self.utils.print_info("Clicking on Host Name hyperlink")
+                self.auto_actions.click(self.get_cell_href(cell))
+                sleep(5)
+
+                return 1
+
+            else:
+                return -1
+
+        else:
+            return -1
 
     def get_select_device_checkbox_status(self, device_serial):
         """
@@ -218,14 +365,14 @@ class DeviceCommon(DeviceCommonElements):
         :return: 1 if device row selected, -1 if device row not found in grid
         """
         sleep(10)
-        for row in self.get_device_grid_rows():
-            if device_serial in row.text:
-                self.utils.print_info(f"Checking Select Device Checkbox Status for the device row: {device_serial}")
-                if self._select_device_checkbox_status_row(row):
-                    return 1
-                else:
-                    self.utils.print_info(f"Select Device Checkbox not selected")
-                    return -1
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            self.utils.print_info(f"Checking Select Device Checkbox Status for the device row: {device_serial}")
+            if self._select_device_checkbox_status_row(row):
+                return 1
+            else:
+                self.utils.print_info(f"Select Device Checkbox not selected")
+                return -1
         self.utils.print_info(f"Select Device Checkbox is Checked with serial number:{device_serial}")
         return -1
 
@@ -315,3 +462,123 @@ class DeviceCommon(DeviceCommonElements):
             self.utils.print_info(f"A Devices Per Page value of {device_count} is not supported.")
 
         return ret_val
+
+    def is_client_link_available(self, device_serial=None):
+        """
+        - Assume that navigated to the Manage --> Device
+        - This keyword searches for the row with passed device serial and checks if client hyperlink is available
+        - Keyword Usage:
+         - ``Is Client Link Available   ${DEVICE_SERIAL}``
+
+        :param device_serial:  device serial number
+        :return: 1 if available else -1
+        """
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            cell = self._get_client_cell(row)
+            if cell and self.get_cell_href(cell):
+                self.utils.print_info("Client link is available")
+                return 1
+
+            else:
+                self.utils.print_info("Client link is not available")
+                return -1
+
+        else:
+            return -1
+
+    def is_hostname_link_available(self, device_serial=None):
+        """
+        - Assume that navigated to the Manage --> Device
+        - This keyword searches for the row with passed device serial and checks if host name hyperlink is available
+        - Keyword Usage:
+         - ``Is Hostname Link Available   ${DEVICE_SERIAL}``
+
+        :param device_serial:  device serial number
+        :return: 1 if available else -1
+        """
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            cell = self._get_hostname_cell(row)
+            if cell and self.get_cell_href(cell):
+                self.utils.print_info("Host Name link is available")
+                return 1
+
+            else:
+                self.utils.print_info("Host Name link is not available")
+                return -1
+
+        else:
+            return -1
+
+    def is_mac_link_available(self, device_serial=None):
+        """
+        - Assume that navigated to the Manage --> Device
+        - This keyword searches for the row with passed device serial and checks if mac hyperlink is available
+        - Keyword Usage:
+         - ``Is Mac Link Available   ${DEVICE_SERIAL}``
+
+        :param device_serial:  device serial number
+        :return: 1 if available else -1
+        """
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            cell = self._get_mac_cell(row)
+            if cell and self.get_cell_href(cell):
+                self.utils.print_info("MAC link is available")
+                return 1
+
+            else:
+                self.utils.print_info("MAC link is not available")
+                return -1
+
+        else:
+            return -1
+
+    def is_policy_link_available(self, device_serial=None):
+        """
+        - Assume that navigated to the Manage --> Device
+        - This keyword searches for the row with passed device serial and checks if network policy hyperlink is available
+        - Keyword Usage:
+         - ``Is Policy Link Available   ${DEVICE_SERIAL}``
+
+        :param device_serial:  device serial number
+        :return: 1 if available else -1
+        """
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            cell = self._get_policy_cell(row)
+            if cell and self.get_cell_href(cell):
+                self.utils.print_info("Policy link is available")
+                return 1
+
+            else:
+                self.utils.print_info("Policy link is not available")
+                return -1
+
+        else:
+            return -1
+
+    def is_location_link_available(self, device_serial=None):
+        """
+        - Assume that navigated to the Manage --> Device
+        - This keyword searches for the row with passed device serial and checks if location hyperlink is available
+        - Keyword Usage:
+         - ``Is Location Link Available   ${DEVICE_SERIAL}``
+
+        :param device_serial:  device serial number
+        :return: 1 if available else -1
+        """
+        row = self._get_device_grid_row_by_serial(device_serial)
+        if row:
+            cell = self._get_location_cell(row)
+            if cell and self.get_cell_href(cell):
+                self.utils.print_info("Location link is available")
+                return 1
+
+            else:
+                self.utils.print_info("Location link is not available")
+                return -1
+
+        else:
+            return -1

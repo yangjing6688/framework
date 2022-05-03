@@ -201,8 +201,8 @@ class WirelessWebElements(WirelessNetworksDefinitions):
     def get_ssid_list(self):
         return self.weh.get_elements(self.wireless_ssid_list)
 
-    def get_ssid_chkbox(self):
-        return self.weh.get_element(self.wireless_chkbox)
+    def get_ssid_chkbox(self, row):
+        return self.weh.get_element(self.wireless_chkbox, parent=row)
 
     def get_wireless_delete_button(self):
         return self.weh.get_element(self.wireless_delete_button)
@@ -230,3 +230,15 @@ class WirelessWebElements(WirelessNetworksDefinitions):
 
     def get_wireless_wifi2_checkbox_dialog_yes_button(self):
         return self.weh.get_element(self.wireless_wifi2_checkbox_dialog_yes_button)
+
+    def get_confirm_dialog_yes_button(self):
+        return self.weh.get_element(self.confirm_dialog_yes_button)
+
+    def get_wireless_re_use_button(self):
+        return self.weh.get_element(self.wireless_re_use_button)
+
+    def get_wireless_re_use_delete_button(self):
+        return self.weh.get_element(self.wireless_re_use_delete_button)
+
+    def get_wireless_re_use_cancel_button(self):
+        return self.weh.get_element(self.wireless_re_use_cancel_button)

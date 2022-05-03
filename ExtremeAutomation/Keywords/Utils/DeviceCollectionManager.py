@@ -28,7 +28,7 @@ class DeviceCollectionManager(object):
         """
 
         if (name in self.device_dict and
-            connection_method in self.device and
+            connection_method in self.device_dict and
             connection_method != 'None'):
             self.logger.log_info("ENTRY " + name + " ALREADY EXISTS OVERWRITING.")
 

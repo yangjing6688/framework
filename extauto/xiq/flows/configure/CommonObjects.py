@@ -695,7 +695,7 @@ class CommonObjects(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        if "Template was deleted successfully." in tool_tp_text[-1]:
+        if "Template was successfully removed from policy." in tool_tp_text[-1]:
             return 1
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
             return -1
@@ -749,10 +749,6 @@ class CommonObjects(object):
         self._select_common_object_template_row(object_name)
         sleep(2)
         self._delete_common_objects()
-        sleep(5)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-        return tool_tp_text
 
     def _select_edit_common_object(self, object_name):
         """
@@ -800,9 +796,13 @@ class CommonObjects(object):
             self.utils.print_info("Switch Template doesn't exist on first page")
             next_page_el = self.cobj_web_elements.get_next_page_element()
             if next_page_el:
-                self.utils.print_info("  -- clicking next page")
-                self.auto_actions.click(next_page_el)
-                sleep(2)
+                device_page_numbers = self.cobj_web_elements.get_page_numbers()
+                page_len = int(max(device_page_numbers.text))
+                while page_len:
+                    self.utils.print_info("  -- clicking next page")
+                    self.auto_actions.click(next_page_el)
+                    sleep(2)
+                    page_len = page_len - 1
             if not self._search_switch_template(template_name):
                 self.utils.print_info("Switch Template doesn't exist in the list")
                 return 1
@@ -1165,18 +1165,43 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
 
                 wifi0_client_mode_profile = wifi0_profile['client_mode_profile']
-                client_mode_profile_name  =  wifi0_client_mode_profile.get('client_mode_profice_name', 'wifi0')
-                client_mode_profile_dhcp  =  wifi0_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
+                client_mode_profile_name  = wifi0_client_mode_profile.get('client_mode_profice_name', 'wifi0')
+                client_mode_profile_dhcp  = wifi0_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
+                cm_enable_local_web_page  = wifi0_client_mode_profile.get('local_web_page', 'ENABLE')
+                cm_ssid_name              = wifi0_client_mode_profile.get('ssid_name', 'bk_enterprise')
+                cm_password               = wifi0_client_mode_profile.get('password', 'aerohive')
+                cm_auth_method            = wifi0_client_mode_profile.get('auth_method', 'Pre-Shared Key')
+                cm_key_type               = wifi0_client_mode_profile.get('key_type', 'ASCII')
                 self.utils.print_info("Click Add Client Mode Profile")
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_add_client_mode_profile())
                 self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
+                if cm_enable_local_web_page.upper() == 'DISABLE':
+                    self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_checkbox())
+                    self.utils.print_info(f"Click Add(+)")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add())
+                    self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
+                    self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
+                    self.utils.print_info(f"Enter Password: {cm_password}")
+                    self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_password_textbox(), cm_password)
+                    self.utils.print_info(f"Auth Method: {cm_auth_method}")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_auth_dropdown())
+                    self.auto_actions.select_drop_down_options(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_auth_dropdown_option(), cm_auth_method)
+                    self.utils.print_info(f"Key Type: {cm_key_type}")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_key_type_dropdown())
+                    self.auto_actions.select_drop_down_options(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
+                    self.screen.save_screen_shot()
+                    sleep(2)
+                    self.utils.print_info(f"Click Add button")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
                 self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
+                self.screen.save_screen_shot()
                 self.utils.print_info("Click Save Client Mode Profile")
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
         else:
-            self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
+            self.utils.print_info("Disable Client Mode check box on WiFi0 Interface")
             if self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
 
@@ -1266,14 +1291,39 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
 
                 wifi1_client_mode_profile = wifi1_profile['client_mode_profile']
-                client_mode_profile_name = wifi1_client_mode_profile.get('client_mode_profice_name', 'wifi1')
-                client_mode_profile_dhcp = wifi1_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
+                client_mode_profile_name  = wifi1_client_mode_profile.get('client_mode_profice_name', 'wifi1')
+                client_mode_profile_dhcp  = wifi1_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
+                cm_enable_local_web_page  = wifi1_client_mode_profile.get('local_web_page', 'ENABLE')
+                cm_ssid_name              = wifi1_client_mode_profile.get('ssid_name', 'bk_enterprise')
+                cm_password               = wifi1_client_mode_profile.get('password', 'aerohive')
+                cm_auth_method            = wifi1_client_mode_profile.get('auth_method', 'Pre-Shared Key')
+                cm_key_type               = wifi1_client_mode_profile.get('key_type', 'ASCII')
                 self.utils.print_info("Click Add Client Mode Profile")
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_add_client_mode_profile())
                 self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
                 self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
+                if cm_enable_local_web_page.upper() == 'DISABLE':
+                    self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_checkbox())
+                    self.utils.print_info(f"Click Add(+)")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add())
+                    self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
+                    self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
+                    self.utils.print_info(f"Enter Password: {cm_password}")
+                    self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_password_textbox(), cm_password)
+                    self.utils.print_info(f"Auth Method: {cm_auth_method}")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_auth_dropdown())
+                    self.auto_actions.select_drop_down_options(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_auth_dropdown_option(), cm_auth_method)
+                    self.utils.print_info(f"Key Type: {cm_key_type}")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_key_type_dropdown())
+                    self.auto_actions.select_drop_down_options(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
+                    self.screen.save_screen_shot()
+                    sleep(2)
+                    self.utils.print_info(f"Click Add button")
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
+                self.screen.save_screen_shot()
                 self.utils.print_info("Click Save Client Mode Profile")
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
         else:
@@ -1287,7 +1337,7 @@ class CommonObjects(object):
             if not self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_access())
         else:
-            self.utils.print_info("Disable Client Access check box on WiFi1 Interface")
+            self.utils.print_info("Disable Client Mode check box on WiFi1 Interface")
             if self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_access())
 
