@@ -1,13 +1,12 @@
 import json
-import pycurl
-from io import StringIO
+import requests
+import base64
+import subprocess
+from urllib3.exceptions import InsecureRequestWarning
+
 from extauto.common.Utils import Utils
 from extauto.common.Cli import Cli
 from robot.libraries.BuiltIn import BuiltIn
-from io import BytesIO
-import base64
-import subprocess
-
 
 class Rest:
     def __init__(self):
@@ -50,49 +49,40 @@ class Rest:
         data = self.get_json_value(json_data, "data")
         return data[owner_id][key]
 
-    def _api_requests(self, url, header, method, data='default'):
+    def _api_requests(self, url, headers, method, data='default'):
         """
-        - This method is used to call the API requests using pycurl
+        - This method is used to call the API requests using requests
 
         :param url: api complete url
-        :param header: header in list format
+        :param headers: headers in dictionary format
         :param method: methods to call i.e GET, PUT, POST
         :param data: data to be put or post
         :return: response_code, json_response, total_time
         """
         self.utils.print_info(url)
-        self.utils.print_info(header)
-        buffer = BytesIO()
-        c = pycurl.Curl()
-        c.setopt(pycurl.URL, url)
-        c.setopt(pycurl.HTTPHEADER, header)
-        c.setopt(pycurl.VERBOSE, True)
-
-        if method == "GET":
-            c.setopt(pycurl.HTTPGET, 1)
-
-        if method == "POST":
-            c.setopt(pycurl.POSTFIELDS, data)
-
-        if method == "PUT":
-            c.setopt(pycurl.CUSTOMREQUEST, " PUT ")
-            c.setopt(pycurl.POSTFIELDS, data)
-
-        if method == "DELETE":
-            c.setopt(pycurl.CUSTOMREQUEST, " DELETE ")
-
-        c.setopt(pycurl.WRITEFUNCTION, buffer.write)
-        c.perform()
+        self.utils.print_info(headers)
 
         try:
-            json_response = buffer.getvalue()
+            if method == "GET":
+                r = requests.get(url, headers=headers)
+
+            if method == "POST":
+                r = requests.post(url, headers=headers, data=data)
+
+            if method == "PUT":
+                r = requests.put(url, headers=headers, data=data)
+
+            if method == "DELETE":
+                r = requests.delete(url, headers=headers)
+
+            json_response = r.json()
+            response_code = r.status_code
+            total_time = r.elapsed.total_seconds()
         except ValueError:
             json_response = "No Output"
+            response_code = r.status_code
+            total_time = r.elapsed.total_seconds()
 
-        response_code = c.getinfo(pycurl.RESPONSE_CODE)
-        total_time = c.getinfo(pycurl.TOTAL_TIME)
-
-        c.close()
 
         self.utils.print_info("HTTP Status Code: ", response_code)
         self.utils.print_info("Response : ", json_response)
@@ -112,13 +102,14 @@ class Rest:
         :param access_token: access token
         :return: json response
         """
-        header = [f"X-AH-API-CLIENT-SECRET: {client_secret}",
-                  f"X-AH-API-CLIENT-ID: {client_id}",
-                  f"Authorization: Bearer {access_token}",
-                  f"X-AH-API-CLIENT-REDIRECT-URI: https://extremenetworks.com"
-                  ]
+        headers = {
+            "X-AH-API-CLIENT-SECRET": client_secret,
+            "X-AH-API-CLIENT-ID": client_id,
+            "Authorization": f"Bearer {access_token}",
+            "X-AH-API-CLIENT-REDIRECT-URI": "https://extremenetworks.com"
+        }
 
-        response_code, json_response, total_time = self._api_requests(url_path, header, "GET")
+        response_code, json_response, total_time = self._api_requests(url_path, headers, "GET")
 
         if response_code == 200:
             self.utils.print_info("Success")
@@ -138,6 +129,7 @@ class Rest:
         self.utils.print_info("Curl Command: ", curl_cmd)
         self.utils.print_info("****************************************************")
 
+        # WHY WOULD YOU EVER DO THIS???????
         process = subprocess.Popen(curl_cmd, shell=True,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
@@ -212,292 +204,10 @@ class Rest:
 
         if client_mac in clients_data:
             return client_mac
-        
+
         self.builtin.fail("The clients presence data not available in the api response")
         return -1
 
-    """
-    Below Keyword are obsolete .... Will delete them Soon
-    def get_access_token_curl(self, role="default"):
-        username = None
-        password = None
-        method = "POST"
-
-        self.utils.print_info("Role : ", role)
-
-        if role == "default":
-            username = BuiltIn().get_variable_value("${USERNAME}")
-            password = BuiltIn().get_variable_value("${PASSWORD}")
-        if role == "msp":
-            username = BuiltIn().get_variable_value("${MSP_USERNAME}")
-            password = BuiltIn().get_variable_value("${MSP_PASSWORD}")
-        if role == "msp1":
-            username = BuiltIn().get_variable_value("${MSP_USERNAME1}")
-            password = BuiltIn().get_variable_value("${MSP_PASSWORD1}")
-        if role == "devops":
-            username = BuiltIn().get_variable_value("${DEVOPS_USERNAME}")
-            password = BuiltIn().get_variable_value("${DEVOPS_PASSWORD}")
-
-        grant_type = "..."
-        scope = "..."
-
-        self.utils.print_info("Username : ", username)
-        self.utils.print_info("Password : ", password)
-
-        data_binary = {"userId": username, "password": password, "grantType": grant_type, "scope": scope}
-        json_data = json.dumps(data_binary)
-
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        rest_url = BuiltIn().get_variable_value("${REST_URL}")
-
-        token_url = base_url + rest_url
-        self.utils.print_info("OAUTH Token URL: ", token_url)
-
-        curl_url = "curl -H \"Content-Type: application/json\" -X " + method + " --data-binary \'%s\'"\
-                                                                               % json_data + " " + token_url
-        json_result = self.cli.exec_shell_command(curl_url)
-        self.utils.print_info("json_result : ", json_result)
-
-        at = self.get_json_value(json_result, "access_token")
-
-        self.utils.print_info("Access Token: ", at)
-
-        return at
-
-    def pycurl_request(self, url, auth_bearer, method, data="default"):
-        self.utils.print_info("-------------------------------------------------------------")
-        self.utils.print_info("HTTP Method: ", method)
-        self.utils.print_info("-------------------------------------------------------------")
-        buf = cStringIO.StringIO()
-        c = pycurl.Curl()
-        c.setopt(pycurl.URL, url)
-        c.setopt(pycurl.HTTPHEADER, ['Content-Type: application/json', auth_bearer])
-        c.setopt(pycurl.VERBOSE, True)
-
-        if method == "POST":
-            c.setopt(pycurl.POSTFIELDS, data)
-
-        if method == "PUT":
-            c.setopt(pycurl.CUSTOMREQUEST, " PUT ")
-            c.setopt(pycurl.POSTFIELDS, data)
-
-        if method == "DELETE":
-            c.setopt(pycurl.CUSTOMREQUEST, " DELETE ")
-
-        c.setopt(pycurl.WRITEFUNCTION, buf.write)
-        c.perform()
-
-        try:
-            json_response = buf.getvalue()
-        except ValueError:
-            json_response = "No Output"
-
-        response_code = c.getinfo(pycurl.RESPONSE_CODE)
-        total_time = c.getinfo(pycurl.TOTAL_TIME)
-
-        c.close()
-
-        self.utils.print_info("HTTP Status Code: ", response_code)
-        self.utils.print_info("Response : ", json_response)
-        self.utils.print_info("Time: ", total_time)
-
-        return response_code, json_response, total_time
-
-    def rest_api_get(self, url_path, role="default", result_code="default"):
-        if result_code == "default":
-            result_code = -1
-
-        at = self.get_access_token_curl(role)
-
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
-
-        _url = base_url + url_path
-        self.utils.print_info("URL: ", _url)
-
-        auth_bearer = 'Authorization: Bearer %s' % at
-
-        response_code, json_response, total_time = self.pycurl_request(_url, auth_bearer, "GET")
-
-        if response_code == int(result_code):
-            self.utils.print_info("Success")
-            return 1
-        elif response_code == 200:
-            self.utils.print_info("Success")
-            return json_response
-        else:
-            self.utils.print_info("Failed")
-            return json_response
-
-    def rest_api_post(self, url_path, post_data, return_output="default", result_code="default", role="default"):
-        self.utils.print_info("Return Output :", return_output)
-        self.utils.print_info("Role : ", role)
-
-        self.utils.print_info("URL Path : ", url_path)
-        self.utils.print_info("POST Data: ", post_data)
-
-        at = self.get_access_token_curl(role)
-
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        url1 = base_url + url_path
-        auth_bearer = 'Authorization: Bearer %s' % at
-
-        response_code, json_response, total_time = self.pycurl_request(url1, auth_bearer, "POST", post_data)
-
-        if return_output != "default":
-            return json_response
-
-        if response_code == int(result_code):
-            self.utils.print_info("Success")
-            return 1
-        else:
-            self.utils.print_info("Failed")
-            return json_response
-
-    def rest_api_post_with_output(self, url_path, post_data, return_output="default", result_code="default",
-                                  role="default"):
-        self.utils.print_info("Return Output :", return_output)
-        self.utils.print_info("Role : ", role)
-
-        self.utils.print_info("URL Path : ", url_path)
-        self.utils.print_info("POST Data: ", post_data)
-
-        at = self.get_access_token_curl(role)
-
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        url1 = base_url + url_path
-        auth_bearer = 'Authorization: Bearer %s' % at
-
-        response_code, json_response, total_time = self.pycurl_request(url1, auth_bearer, "POST", post_data)
-
-        if return_output != "default":
-            return json_response
-
-        if response_code == int(result_code):
-            self.utils.print_info("Success")
-            return json_response
-        else:
-            self.utils.print_info("Failed")
-            return json_response
-
-    def rest_api_put(self, url_path, put_data, return_output="default", result_code="default", role="default"):
-        at = self.get_access_token_curl(role)
-
-        self.utils.print_debug("Return Output: ", return_output)
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        url1 = base_url + url_path
-        auth_bearer = 'Authorization: Bearer %s' % at
-
-        response_code, json_response, total_time = self.pycurl_request(url1, auth_bearer, "PUT", put_data)
-
-        if response_code == int(result_code):
-            self.utils.print_info("Success")
-            return 1
-        else:
-            self.utils.print_info("Failed")
-            return -1
-
-    def rest_api_put_with_output(self, url_path, put_data, role="default", result_code="default"):
-        at = self.get_access_token_curl(role)
-
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        url1 = base_url + url_path
-        auth_bearer = 'Authorization: Bearer %s' % at
-
-        response_code, json_response, total_time = self.pycurl_request(url1, auth_bearer, "PUT", put_data)
-
-        self.utils.print_info("HTTP Status Code: ", response_code)
-        self.utils.print_info("Response : ", json_response)
-        self.utils.print_info("Time: ", total_time)
-
-        if response_code == int(result_code):
-            self.utils.print_info("Success")
-            return json_response
-        else:
-            self.utils.print_info("Failed")
-            return -1
-
-    def rest_api_delete(self, url_path, result_code="default", role="default"):
-
-        at = self.get_access_token_curl(role)
-
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        url1 = base_url + url_path
-        auth_bearer = 'Authorization: Bearer %s' % at
-
-        response_code, json_response, total_time = self.pycurl_request(url1, auth_bearer, "DELETE")
-
-        if response_code == int(result_code):
-            self.utils.print_info("Success")
-            return 1
-        else:
-            self.utils.print_info("Failed")
-            return -1
-
-    def rest_api_delete_code(self, url_path, return_output="default", result_code="default", role="default"):
-        self.utils.print_info("URL Path : ", url_path)
-        at = self.get_access_token_curl(role)
-
-        self.utils.print_debug("Return Output: ", return_output)
-
-        base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        url1 = base_url + url_path
-        auth_bearer = 'Authorization: Bearer %s' % at
-        self.utils.print_info("auth_token: ", auth_bearer)
-        buf = cStringIO.StringIO()
-
-        c = pycurl.Curl()
-        c.setopt(pycurl.URL, url1)
-        c.setopt(pycurl.HTTPHEADER, ['Content-Type: application/json', auth_bearer])
-        c.setopt(pycurl.VERBOSE, True)
-        c.setopt(pycurl.CUSTOMREQUEST, " DELETE ")
-        c.setopt(pycurl.WRITEFUNCTION, buf.write)
-        c.perform()
-
-        json_response = buf.getvalue()
-        response_code = c.getinfo(pycurl.RESPONSE_CODE)
-        total_time = c.getinfo(pycurl.TOTAL_TIME)
-        self.utils.print_info("json_response: ", json_response)
-        self.utils.print_info("HTTP Status Code: ", response_code)
-        self.utils.print_info("Time: ", total_time)
-
-        if response_code == int(result_code):
-            self.utils.print_info("Success")
-            return 1
-        else:
-            self.utils.print_info("Failed")
-            return -1
-
-    def entitle_ap_to_msp(self, ap_serial, ap_hw_number, base_url="default"):
-        self.utils.print_info("Entitling AP")
-        msp_name = BuiltIn().get_variable_value("${MSP_NAME}")
-        post_data = '{"deviceEntitlements" : [{"contractNumber" : "4-5575081431", ' \
-                    '"account" : {"accountName" : "' + msp_name + '", ' \
-                                                                  '"accountCsn" : "Msp-tenantid-2UDipMmvZyeRHmLe"}, ' \
-                                                                  '"entitlementId" : "2KBQQ9J", ' \
-                                                                  '"entitlementService" : "00000", ' \
-                                                                  '"start" : "8/24/2015", ' \
-                                                                  '"end" : "8/24/2020", ' \
-                                                                  '"status" : "active", ' \
-                                                                  '"hardwarePartNumber" : "' + ap_hw_number + '", ' \
-                                                                  '"serialNumber" : "' + ap_serial + '", ' \
-                                                                  '"quantity" : 1}]}'
-        url_path = "v1/update/deviceentitlements"
-        at = "cfafb44d81e477026bae73444d096894"
-
-        if base_url == "default":
-            base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        url1 = base_url + url_path
-        method = "POST"
-        curl_url = "curl -X %s -iH \"Content-Type: application/json\" -H \"Authorization: Bearer %s\" " % (method, at) \
-                   + " --data-binary " + "'" + post_data + "' " + url1
-        self.utils.print_info("curl_url : ", curl_url)
-        
-        json_result = self.cli.exec_shell_command(curl_url)
-        self.utils.print_info("json_result: ", json_result)
-        if "errorMessage" in json_result:
-            return -1
-        else:
-            return 1 """
     def get_json_value(self, json_data, json_key):
         self.utils.print_debug("JSON Data: ", json_data)
         self.utils.print_debug("JSON Key: ", json_key)
@@ -510,37 +220,88 @@ class Rest:
         value1 = self.get_json_value(json_data, json_key)
         self.utils.print_info("Value: ", value1)
 
-    def curl_command(self, _url):
-        self.utils.print_info("Getting URL: ", _url)
-        buf = None
-        c = None
+    # Not used anywhere...  Should we delete? or convert to requests? - petersadej
+    # def curl_command(self, _url):
+    #     self.utils.print_info("Getting URL: ", _url)
+    #     # Suppress only the single warning from urllib3 needed.
+    #     requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+    #     buf = None
+    #     c = None
+
+    #     try:
+    #         buf = StringIO()
+    #         c = pycurl.Curl()
+    #         c.setopt(pycurl.URL, _url)
+    #         c.setopt(pycurl.VERBOSE, True)
+    #         c.setopt(pycurl.SSL_VERIFYPEER, 0)
+    #         c.setopt(pycurl.SSL_VERIFYHOST, 0)
+    #         c.setopt(pycurl.WRITEFUNCTION, buf.write)
+    #         c.perform()
+
+    #     except Exception as e:
+    #         self.utils.print_info(e)
+    #         self.utils.print_info("Error while URL Get")
+
+    #     try:
+    #         json_response = buf.getvalue()
+    #     except ValueError:
+    #         json_response = "No Output"
+
+    #     response_code = c.getinfo(pycurl.RESPONSE_CODE)
+    #     total_time = c.getinfo(pycurl.TOTAL_TIME)
+
+    #     c.close()
+
+    #     self.utils.print_info("HTTP Status Code: ", response_code)
+    #     self.utils.print_info("Response : ", json_response)
+    #     self.utils.print_info("Time: ", total_time)
+
+    #     return response_code
+
+if __name__ == "__main__":
+    def _api_requests(url, headers, method, data='default'):
+        """
+        - This method is used to call the API requests using requests
+
+        :param url: api complete url
+        :param headers: headers in dictionary format
+        :param method: methods to call i.e GET, PUT, POST
+        :param data: data to be put or post
+        :return: response_code, json_response, total_time
+        """
 
         try:
-            buf = StringIO()
-            c = pycurl.Curl()
-            c.setopt(pycurl.URL, _url)
-            c.setopt(pycurl.VERBOSE, True)
-            c.setopt(pycurl.SSL_VERIFYPEER, 0)
-            c.setopt(pycurl.SSL_VERIFYHOST, 0)
-            c.setopt(pycurl.WRITEFUNCTION, buf.write)
-            c.perform()
+            if method == "GET":
+                r = requests.get(url, headers=headers)
 
-        except Exception as e:
-            self.utils.print_info(e)
-            self.utils.print_info("Error while URL Get")
+            if method == "POST":
+                r = requests.post(url, headers=headers, data=data)
 
-        try:
-            json_response = buf.getvalue()
-        except ValueError:
+            if method == "PUT":
+                r = requests.put(url, headers=headers, data=data)
+
+            if method == "DELETE":
+                r = requests.delete(url, headers=headers)
+
+            json_response = r.json()
+            response_code = r.status_code
+            total_time = r.elapsed.total_seconds()
+        except requests.exceptions.RequestException: # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions
             json_response = "No Output"
+            response_code = ""
+            total_time = ""
 
-        response_code = c.getinfo(pycurl.RESPONSE_CODE)
-        total_time = c.getinfo(pycurl.TOTAL_TIME)
 
-        c.close()
+        print("HTTP Status Code: ", response_code)
+        print("Response : ", json_response)
+        print("Time: ", total_time)
 
-        self.utils.print_info("HTTP Status Code: ", response_code)
-        self.utils.print_info("Response : ", json_response)
-        self.utils.print_info("Time: ", total_time)
+        return response_code, json_response, total_time
 
-        return response_code
+    headers = {
+        "X-AH-API-CLIENT-SECRET": "blah",
+        "X-AH-API-CLIENT-ID": "client_id",
+        "Authorization": "Bearer",
+        "X-AH-API-CLIENT-REDIRECT-URI": "https://extremenetworks.com"
+    }
+    _api_requests("http://ip.jsontest.com/", headers=headers, method="GET")

@@ -1,7 +1,6 @@
 import threading
-import pycurl
+import requests
 import re
-from io import StringIO
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
@@ -288,26 +287,29 @@ class Login:
             self._post_url(stop_record_url)
 
     def _post_url(self, url):
+        """
+        - This method is used to call the API requests using requests
+
+        :param url: api complete url
+        :return: response_code, json_response, total_time
+        """
         self.utils.print_info("URL: ", url)
-        buf = StringIO()
-        c = pycurl.Curl()
-        c.setopt(pycurl.URL, url)
-        c.setopt(pycurl.VERBOSE, True)
-        c.perform()
 
         try:
-            json_response = buf.getvalue()
-        except ValueError:
+            r = requests.post(url)
+
+            json_response = r.json()
+            response_code = r.status_code
+            total_time = r.elapsed.total_seconds()
+        except requests.exceptions.RequestException: # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions
             json_response = "No Output"
+            response_code = ""
+            total_time = ""
 
-        response_code = c.getinfo(pycurl.RESPONSE_CODE)
-        total_time = c.getinfo(pycurl.TOTAL_TIME)
 
-        c.close()
-
-        self.utils.print_info("HTTP Status Code: ", response_code)
-        self.utils.print_info("Response : ", json_response)
-        self.utils.print_info("Time: ", total_time)
+        print("HTTP Status Code: ", response_code)
+        print("Response : ", json_response)
+        print("Time: ", total_time)
 
         return response_code, json_response, total_time
 
