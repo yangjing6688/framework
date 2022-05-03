@@ -1460,7 +1460,12 @@ class Device360WebElements(Device360WebElementDefs):
         if element == "name":
             return self.weh.get_element(self.select_element_port_type_name_summery)
         elif element == "description":
-            return self.weh.get_element(self.select_element_port_type_description_summery)
+            descr = self.weh.get_element(self.select_element_port_type_description_summery)
+            if descr:
+                return descr
+            else:
+                self.screen.save_screen_shot()
+                return None
         elif element == "status":
             return self.weh.get_element(self.select_element_port_type_status_summery)
         elif element == "port usage":
@@ -1490,7 +1495,12 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "priority":
             return self.weh.get_element(self.select_element_port_type_priority_summery)
         elif element == "path cost":
-            return self.weh.get_element(self.select_element_port_type_path_cost_summery)
+            path_cost = self.weh.get_element(self.select_element_port_type_path_cost_summery)
+            if path_cost:
+                return path_cost
+            else:
+                self.screen.save_screen_shot()
+                return None
         elif element == "broadcast":
             return self.weh.get_element(self.select_element_port_type_broadcast_summery)
         elif element == "unknown unicast":
