@@ -5680,12 +5680,20 @@ class Device360(Device360WebElements):
         cnt = 0
         for key in template_values.keys():
             if not template_values[key][0] == None:
-                conf_element = self.configure_element_port_type(key,template_values[key][0])
-                if conf_element == 1:
-                    self.utils.print_info("The element {} was configured ".format(key))
+                if "page" in key:
+                    conf_element = self.configure_element_port_type(key,"None")
+                    if conf_element == 1:
+                        self.utils.print_info("The element {} was configured ".format(key))
+                    else:
+                        self.utils.print_info("The element {} was not configured ".format(key))
+                        return -1
                 else:
-                    self.utils.print_info("The element {} was not configured ".format(key))
-                    return -1
+                    conf_element = self.configure_element_port_type(key,template_values[key][0])
+                    if conf_element == 1:
+                        self.utils.print_info("The element {} was configured ".format(key))
+                    else:
+                        self.utils.print_info("The element {} was not configured ".format(key))
+                        return -1
             else:
                 pass
             cnt = cnt + 1
@@ -5715,7 +5723,7 @@ class Device360(Device360WebElements):
 
 
     def configure_element_port_type(self,element,value):
-        # pag1
+        # tab
         sleep(2)
         if "next_page" in value:
             get_next_button = self.get_select_element_port_type("next_button")
@@ -5726,42 +5734,48 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info("get_next_button not found ")
 
+        elif "usagePage" in element:
+            get_tab_usagePage = self.get_select_element_port_type("usagePage")
+            if get_tab_usagePage:
+                self.auto_actions.click(get_tab_usagePage)
+                return 1
+
         elif "trunkVlanPage" in element or "accessVlanPage" in element:
-            get_name_el = self.get_select_element_port_type_tab_(element)
-            if get_name_el:
-                self.auto_actions.send_keys(get_name_el, value)
+            get_tab_vlan = self.get_select_element_port_type("tab_vlan")
+            if get_tab_vlan:
+                self.auto_actions.click(get_tab_vlan)
                 return 1
 
         elif "transmissionSettingsPage" in element:
-            get_name_el = self.get_select_element_port_type(element)
-            if get_name_el:
-                self.auto_actions.send_keys(get_name_el, value)
+            get_tab_transmission = self.get_select_element_port_type("transmissionSettingsPage")
+            if get_tab_transmission:
+                self.auto_actions.click(get_tab_transmission)
                 return 1
 
         elif "stpPage" in element:
-            get_name_el = self.get_select_element_port_type(element)
-            if get_name_el:
-                self.auto_actions.send_keys(get_name_el, value)
+            get_tab_stp = self.get_select_element_port_type("stpPage")
+            if get_tab_stp:
+                self.auto_actions.click(get_tab_stp)
                 return 1
 
         elif "stormControlSettingsPage" in element:
-            get_name_el = self.get_select_element_port_type(element)
-            if get_name_el:
-                self.auto_actions.send_keys(get_name_el, value)
+            get_storm_control = self.get_select_element_port_type("stormControlSettingsPage")
+            if get_storm_control:
+                self.auto_actions.click(get_storm_control)
                 return 1
 
         elif "pseSettingsPage" in element:
-            get_name_el = self.get_select_element_port_type(element)
-            if get_name_el:
-                self.auto_actions.send_keys(get_name_el, value)
+            get_tab_pse_settings = self.get_select_element_port_type("pseSettingsPage")
+            if get_tab_pse_settings:
+                self.auto_actions.click(get_tab_pse_settings)
                 return 1
 
         elif "summaryPage" in element:
-            get_name_el = self.get_select_element_port_type(element)
-            if get_name_el:
-                self.auto_actions.send_keys(get_name_el, value)
+            get_tab_summary = self.get_select_element_port_type("summaryPage")
+            if get_tab_summary:
+                self.auto_actions.click(get_tab_summary)
                 return 1
-
+        #pag1
         elif element == "name":
             get_name_el = self.get_select_element_port_type(element)
             if get_name_el:

@@ -1358,8 +1358,26 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_element(self.policy_edit_port_type, port_row)
 
     def get_select_element_port_type(self,element, value = None):
+        #tab
+
+        if element == "tab_vlan":
+            return self.weh.get_element(self.select_element_port_type_tab_vlan)
+        elif element == "usagePage":
+            return self.weh.get_element(self.select_element_port_type_tab_usage)
+        elif element == "transmissionSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_tab_transmission)
+        elif element == "stpPage":
+            return self.weh.get_element(self.select_element_port_type_tab_stp)
+        elif element == "stormControlSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_tab_storm_control)
+        elif element == "pseSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_tab_pse_settings)
+        elif element == "summaryPage":
+            return self.weh.get_element(self.select_element_port_type_tab_summary)
+        elif element == "elrdp":
+            return self.weh.get_element(self.select_element_port_type_name)
         #pag1
-        if element == "name":
+        elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
         elif element == "description":
             return self.weh.get_element(self.select_element_port_type_description)

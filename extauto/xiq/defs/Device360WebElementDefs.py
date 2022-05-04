@@ -2163,6 +2163,55 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.table-action-icons.table-edit',
             'wait_for': 5
         }
+    #tab
+    select_element_port_type_tab_usage = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-info"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_vlan = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-vlan"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_transmission = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-trans"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_stp = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-stp"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_storm_control = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-storm-control"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_pse_settings = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-pse"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_summary = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-summary"]',
+            'wait_for': 5
+        }
+
+    defacutelrdp = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-name"]',
+            'wait_for': 5
+        }
+
     #pag1
     select_element_port_type_name = \
         {
