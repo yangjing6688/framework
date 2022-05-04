@@ -392,6 +392,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    common_object_basic_client_mode_profiles = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-sider-list-clientModeProfile"]',
+            'wait_for': 5
+        }
+
     common_object_basic_vlans = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-VLANs"]',

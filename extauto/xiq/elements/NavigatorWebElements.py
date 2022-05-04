@@ -128,6 +128,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_common_object_basic_tab(self):
         return self.weh.get_element(self.common_object_basic_tab)
 
+    def get_common_object_basic_client_mode_profiles(self):
+        return self.weh.get_element(self.common_object_basic_client_mode_profiles)
+
     def get_common_object_basic_vlans(self):
         return self.weh.get_element(self.common_object_basic_vlans)
 
