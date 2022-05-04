@@ -2937,3 +2937,41 @@ class Navigator(NavigatorWebElements):
                 return -1
         else:
             return -1
+
+    def navigate_to_vpn_services_tab(self):
+        """"
+        - This Keyword Navigate to VPN Services Page
+        - Flow: Manage --> VPN Services
+        - Keyword Usage:
+          - 'Navigate to VPN Services Tab'
+        :return: 1 if Navigation Successful, else -1
+        """
+        self.navigate_to_manage_tab()
+        sleep(5)
+
+        self.utils.print_info("Click on VPN Services Tab")
+        if self.get_vpn_services_tab().is_displayed():
+            self.auto_actions.click(self.get_vpn_services_tab())
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to VPN Services Page")
+            self.screen.save_screen_shot()
+            return -1
+
+    def point_client_hyperlink_to_client360(self):
+        """"
+        - This Keyword point client hyperlink to Client 360 page in ML Insights
+        - Flow: Client Hyperlink --> ML Insights --> Client 360
+        - Keyword Usage:
+          - 'Point Client Hyperlink To Client360'
+        :return: 1 if Navigation Successful, else -1
+        """
+
+        self.utils.print_info("Click on Clients Hyperlink")
+        if self.get_clients_hyperlink().is_displayed():
+            self.auto_actions.click(self.get_clients_hyperlink())
+            return 1
+        else:
+            self.utils.print_info("Unable to open clients hyperlink page")
+            self.screen.save_screen_shot()
+            return -1
