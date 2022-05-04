@@ -5727,7 +5727,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("get_next_button not found ")
 
         elif "trunkVlanPage" in element or "accessVlanPage" in element:
-            get_name_el = self.get_select_element_port_type(element)
+            get_name_el = self.get_select_element_port_type_tab_(element)
             if get_name_el:
                 self.auto_actions.send_keys(get_name_el, value)
                 return 1
