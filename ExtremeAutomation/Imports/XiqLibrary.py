@@ -238,6 +238,7 @@ class XiqLibrary():
         self.WingAP = WingAP()
         self.Xapi = Xapi()
 
+        self.xflowscommonAutoActions = AutoActions()
         self.xflowsmanageFilterManageDevices = FilterManageDevices()
         self.xflowsAirDefenceAirDefenceAlarms = AirDefenceAlarms()
         self.xflowscommonAdsp = Adsp()
@@ -285,6 +286,7 @@ class XiqLibrary():
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
+        self.xeleDevice360WebElements = Device360WebElements()
 
 
     @deprecated("Please use self.xiq.login.login_user(...)")
