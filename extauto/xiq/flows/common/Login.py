@@ -298,7 +298,7 @@ class Login:
         try:
             r = requests.post(url)
 
-            json_response = r.json()
+            json_response = r.text
             response_code = r.status_code
             total_time = r.elapsed.total_seconds()
         except requests.exceptions.RequestException: # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions

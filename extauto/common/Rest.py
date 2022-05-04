@@ -50,7 +50,7 @@ class Rest:
         data = self.get_json_value(json_data, "data")
         return data[owner_id][key]
 
-    def _api_requests(self, url, headers, method, data=""):
+    def _api_requests(self, url, headers, method, data="", verify=True):
         """
         - This method is used to call the API requests using requests
 
@@ -58,6 +58,7 @@ class Rest:
         :param headers: headers in dictionary format
         :param method: methods to call i.e GET, PUT, POST
         :param data: data to be put or post
+        :param verify: True = Check SSL certs, False = Skip SSL cert checks
         :return: response_code, json_response, total_time
         """
         self.utils.print_info(url)
@@ -65,21 +66,22 @@ class Rest:
 
         try:
             if method == "GET":
-                r = requests.get(url, headers=headers)
+                r = requests.get(url, headers=headers, verify=verify)
 
             if method == "POST":
-                r = requests.post(url, headers=headers, data=data)
+                r = requests.post(url, headers=headers, data=data, verify=verify)
 
             if method == "PUT":
-                r = requests.put(url, headers=headers, data=data)
+                r = requests.put(url, headers=headers, data=data, verify=verify)
 
             if method == "DELETE":
-                r = requests.delete(url, headers=headers)
+                r = requests.delete(url, headers=headers, verify=verify)
 
             json_response = r.text
             response_code = r.status_code
             total_time = r.elapsed.total_seconds()
-        except ValueError:
+        except requests.exceptions.RequestException as e: # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions
+            self.utils.print_info(e)
             json_response = "No Output"
             response_code = None
             total_time = None
@@ -130,7 +132,6 @@ class Rest:
         self.utils.print_info("Curl Command: ", curl_cmd)
         self.utils.print_info("****************************************************")
 
-        # WHY WOULD YOU EVER DO THIS???????
         process = subprocess.Popen(curl_cmd, shell=True,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
@@ -221,40 +222,22 @@ class Rest:
         value1 = self.get_json_value(json_data, json_key)
         self.utils.print_info("Value: ", value1)
 
-    # Not used anywhere...  Should we delete? or convert to requests? - petersadej
-    # def curl_command(self, _url):
-    #     self.utils.print_info("Getting URL: ", _url)
-    #     # Suppress only the single warning from urllib3 needed.
-    #     requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
-    #     buf = None
-    #     c = None
+    # Used only in extreme_automation_tests\Tests\Robot\Functional\XIQ\Wireless\Sanity\TestCases\wing_onboarding_XIQ-000.robot.
+    # This function should be deprecated and replaced with a generic HTTP request function - petersadej 5/4/22
+    #
+    def curl_command(self, _url):
+        self.utils.print_info("Getting URL: ", _url)
 
-    #     try:
-    #         buf = StringIO()
-    #         c = pycurl.Curl()
-    #         c.setopt(pycurl.URL, _url)
-    #         c.setopt(pycurl.VERBOSE, True)
-    #         c.setopt(pycurl.SSL_VERIFYPEER, 0)
-    #         c.setopt(pycurl.SSL_VERIFYHOST, 0)
-    #         c.setopt(pycurl.WRITEFUNCTION, buf.write)
-    #         c.perform()
+        # Surpress SSL warnings
+        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
-    #     except Exception as e:
-    #         self.utils.print_info(e)
-    #         self.utils.print_info("Error while URL Get")
+        response_code, json_response, total_time = self._api_requests(_url, method="GET", verify=False)
 
-    #     try:
-    #         json_response = buf.getvalue()
-    #     except ValueError:
-    #         json_response = "No Output"
+        if response_code is None:
+            self.utils.print_info("Error while URL Get")
 
-    #     response_code = c.getinfo(pycurl.RESPONSE_CODE)
-    #     total_time = c.getinfo(pycurl.TOTAL_TIME)
+        self.utils.print_info("HTTP Status Code: ", response_code)
+        self.utils.print_info("Response : ", json_response)
+        self.utils.print_info("Time: ", total_time)
 
-    #     c.close()
-
-    #     self.utils.print_info("HTTP Status Code: ", response_code)
-    #     self.utils.print_info("Response : ", json_response)
-    #     self.utils.print_info("Time: ", total_time)
-
-    #     return response_code
+        return response_code
