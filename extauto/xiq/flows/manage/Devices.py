@@ -6715,7 +6715,7 @@ class Devices:
             return -1
         return 1
 
-    def quick_onboarding_cloud_csv(self, device_make, csv_location, location=None,policy_name=None):
+    def quick_onboarding_cloud_csv(self, device_make, csv_location, location=None, policy_name=None):
         '''
         This keyword on boards your devices directly to cloud by using new onboarding flow
         Can on boards an aerohive device [AP or Switch], Universal APs , Exos Switch, Exos Stack and Voss devices
@@ -6810,7 +6810,7 @@ class Devices:
             self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
             self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
             return -1
-        if location !=None:
+        if location != None:
             if self.devices_web_elements.get_add_location_button():
                 self.utils.print_info("Click on 'Location'")
                 self.auto_actions.click(self.devices_web_elements.get_add_location_button())
