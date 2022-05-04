@@ -652,3 +652,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
             if str(menu_item_tag) in el.get_attribute("data-automation-tag"):
                 return order_number
         return -1
+
+    def get_vpn_services_tab(self):
+        return self.weh.get_element(self.vpn_services_tab)
+
+    def get_clients_hyperlink(self):
+        return self.weh.get_element(self.clients_hyperlink)
