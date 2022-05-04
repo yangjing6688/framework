@@ -1175,6 +1175,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_port_configuration_content(self):
         return self.weh.get_element(self.device360_port_configuration_content)
 
+    def get_policy_configure_port_rows(self):
+        return self.weh.get_elements(self.policy_configure_port_rows)
+
     def get_device360_configure_port_configuration_button(self):
         return self.weh.get_element(self.device360_configure_port_configuration_button)
 
@@ -1350,6 +1353,9 @@ class Device360WebElements(Device360WebElementDefs):
 #de aici incepe cod
     def get_d360_create_port_type(self,port_row):
         return self.weh.get_element(self.d360_create_port_type, port_row)
+
+    def get_policy_edit_port_type(self,port_row):
+        return self.weh.get_element(self.policy_edit_port_type, port_row)
 
     def get_select_element_port_type(self,element, value = None):
         #pag1

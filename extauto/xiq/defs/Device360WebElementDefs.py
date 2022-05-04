@@ -1808,6 +1808,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    policy_configure_port_rows = \
+        {
+            'XPATH': '//tabset[@data-dojo-attach-point="configuration-ports-tabs"]//portdetails//portentry-row',
+            'wait_for': 5
+        }
+
     sw_template_stack_sw_item = \
         {
             'XPATH': '//span[@data-dojo-attach-point="deviceType"]',
@@ -2149,6 +2155,12 @@ class Device360WebElementDefs:
     d360_create_port_type = \
         {
             'CSS_SELECTOR': '.table-action-icons',
+            'wait_for': 5
+        }
+
+    policy_edit_port_type = \
+        {
+            'CSS_SELECTOR': '.table-action-icons.table-edit',
             'wait_for': 5
         }
     #pag1

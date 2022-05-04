@@ -5592,38 +5592,94 @@ class Device360(Device360WebElements):
         return ret_val
 #de aici incepe cod
 
-    def create_new_port_type(self, template_values, port, verify_summary = True):
-
+    def create_new_port_type(self, template_values, port, d360 = False, verify_summary = True):
 
         if template_values["name"][0] == None:
             self.utils.print_info("name can not be empty" )
             return -1
 
-        port_conf_content = self.get_device360_port_configuration_content()
-        if port_conf_content:
-            port_row = self.device360_get_port_row(port)
-            if port_row:
-                self.utils.print_debug("Found row for port: ", port_row.text)
+        if not d360:
+            rows = self.get_policy_configure_port_rows()
+            if not rows:
+                self.utils.print_info("Could not obtain list of port rows")
+                return -1
+            else:
+                for row in rows:
+                    if port in row.text:
+                        d360_create_port_type = self.get_d360_create_port_type(row)
+                        if d360_create_port_type:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was found")
+                            self.auto_actions.click(d360_create_port_type)
+                            sleep(2)
+                            break
+                        else:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was not found")
+                            self.screen.save_screen_shot()
+                            return -1
 
-                d360_create_port_type = self.get_d360_create_port_type(port_row)
-                if d360_create_port_type:
-                    self.utils.print_info(" The button d360_create_port_type  was found")
-                    self.auto_actions.click(d360_create_port_type)
-                    sleep(2)
+        else:
+            port_conf_content = self.get_device360_port_configuration_content()
+            if port_conf_content:
+                port_row = self.device360_get_port_row(port)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+
+                    d360_create_port_type = self.get_policy_edit_port_type(port_row)
+                    if d360_create_port_type:
+                        self.utils.print_info(" The button d360_create_port_type  was found")
+                        self.auto_actions.click(d360_create_port_type)
+                        sleep(2)
+                    else:
+                        self.utils.print_info(" The button d360_create_port_type  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
                 else:
-                    self.utils.print_info(" The button d360_create_port_type  was not found")
-                    self.screen.save_screen_shot()
+                    self.utils.print_info("Port was not found ")
                     return -1
             else:
-                self.utils.print_info("Port was not found ")
                 return -1
-        else:
-            return -1
         cnt = 0
         for key in template_values.keys():
             if not template_values[key][0] == None:
                 print(f"Default value for {key} is {template_values[key][1]}")
                 print(f"Selected value for {key} is {template_values[key][0]}")
+                conf_element = self.configure_element_port_type(key,template_values[key][0])
+                if conf_element == 1:
+                    self.utils.print_info("The element {} was configured ".format(key))
+                else:
+                    self.utils.print_info("The element {} was not configured ".format(key))
+                    return -1
+            else:
+                pass
+            cnt = cnt + 1
+        if verify_summary:
+            return self.port_type_verify_summary(template_values)
+        else:
+            return 1
+
+    def edit_port_type(self, template_values, port, verify_summary = True):
+
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return -1
+        else:
+            for row in rows:
+                if port in row.text:
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info(" The button d360_create_port_type from policy  was found")
+                        self.auto_actions.click(policy_edit_port_type)
+                        sleep(2)
+                        break
+                    else:
+                        self.utils.print_info(" The button d360_create_port_type from policy  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+
+        cnt = 0
+        for key in template_values.keys():
+            if not template_values[key][0] == None:
                 conf_element = self.configure_element_port_type(key,template_values[key][0])
                 if conf_element == 1:
                     self.utils.print_info("The element {} was configured ".format(key))
@@ -5661,7 +5717,7 @@ class Device360(Device360WebElements):
     def configure_element_port_type(self,element,value):
         # pag1
         sleep(2)
-        if "page" in element:
+        if "next_page" in value:
             get_next_button = self.get_select_element_port_type("next_button")
             if get_next_button:
                 self.auto_actions.click(get_next_button)
@@ -5669,6 +5725,43 @@ class Device360(Device360WebElements):
                 return 1
             else:
                 self.utils.print_info("get_next_button not found ")
+
+        elif "trunkVlanPage" in element or "accessVlanPage" in element:
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+                return 1
+
+        elif "transmissionSettingsPage" in element:
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+                return 1
+
+        elif "stpPage" in element:
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+                return 1
+
+        elif "stormControlSettingsPage" in element:
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+                return 1
+
+        elif "pseSettingsPage" in element:
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+                return 1
+
+        elif "summaryPage" in element:
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+                return 1
+
         elif element == "name":
             get_name_el = self.get_select_element_port_type(element)
             if get_name_el:
