@@ -135,3 +135,69 @@ class DeviceActions(DeviceActionsDefs):
     def get_yes_confirmation(self):
         return self.weh.get_element(self.yes_confirmation)
 
+    def get_act_10g_4p_btn(self):
+        return self.weh.get_element(self.act_10g_4p_btn)
+
+    def get_act_10g_8p_btn(self):
+        return self.weh.get_element(self.act_10g_8p_btn)
+
+    def get_rev_10g_4p_btn(self):
+        return self.weh.get_element(self.rev_10g_4p_btn)
+
+    def get_rev_10g_8p_btn(self):
+        return self.weh.get_element(self.rev_10g_8p_btn)
+
+    def get_warning_xiq_text(self):
+        return self.weh.get_element(self.warning_xiq_text)
+
+    def get_warning_rvk_xiq_text(self):
+        return self.weh.get_element(self.warning_rvk_xiq_text)
+
+    def get_confirm_msg_yes(self):
+        return self.weh.get_element(self.confirm_msg_yes)
+
+#ultima functie din main
+    def get_device_actions_change_manage_status(self):
+        elements = self.weh.get_elements(self.device_actions_change_management_status)
+        for el in elements:
+            if el.is_displayed():
+                return el
+            else:
+                pass
+        return None
+
+    def get_manage_device_btn(self):
+        elements = self.weh.get_elements(self.manage_device_btn)
+        for el in elements:
+            if el.is_displayed():
+                return el
+            else:
+                pass
+        return None
+
+    def get_unmanage_device_btn(self):
+        elements = self.weh.get_elements(self.unmanage_device_btn)
+        for el in elements:
+            if el.is_displayed():
+                return el
+            else:
+                pass
+        return None
+
+    def get_confirm_manage_btn_yes(self):
+        return self.weh.get_element(self.confirm_manage_btn_yes)
+
+    def get_confirm_manage_message(self):
+        return self.weh.get_element(self.confirm_manage_message_txt)
+
+    def get_close_message_btn(self):
+        return self.weh.get_element(self.close_message_btn)
+
+    def get_unmanage_msg_text(self):
+        return self.weh.get_element(self.unmanage_msg_text)
+
+    def get_change_os_actions_exos(self):
+        return self.weh.get_element(self.change_os_actions_exos)
+
+    def get_change_os_actions_voss(self):
+        return self.weh.get_element(self.change_os_actions_voss)

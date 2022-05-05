@@ -171,45 +171,48 @@ class DeviceActionsDefs:
             'wait_for': 5
         }
 
+
     device_actions_manage_license = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-manage-device-license"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-manage-device-license"]',
+
             'wait_for': 2
         }
 
+
     activate_license = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-manage-device-license-activate-license"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-manage-device-license-activate-license"]',
             'wait_for': 2
         }
 
     revoke_license = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-manage-device-license-revoke-license"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-manage-device-license-revoke-license"]',
             'wait_for': 2
         }
 
     act_premier_btn = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-manage-device-license"]//a[@type="activatePremierLicense"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-activate-premier-license"]',
             'wait_for': 2
         }
 
     act_macsec_btn = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-manage-device-license"]//a[@type="activateMacsecLicense"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-activate-macsec-license"]',
             'wait_for': 2
         }
 
     rev_premier_btn = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-manage-device-license"]//a[@type="revokePremierLicense"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-revoke-premier-license"]',
             'wait_for': 2
         }
 
     rev_macsec_btn = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-manage-device-actions-manage-device-license"]//a[@type="revokeMacsecLicense"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-revoke-macsec-license"]',
             'wait_for': 2
         }
 
@@ -219,5 +222,98 @@ class DeviceActionsDefs:
             'wait_for': 5
         }
 
+    act_10g_4p_btn = \
+        {
+            'XPATH': '//a[@type="activate4Port10gLicense"]',
+            'wait_for': 2
+        }
 
+    act_10g_8p_btn = \
+        {
+            'XPATH': '//a[@type="activate8Port10gLicense"]',
+            'wait_for': 2
+        }
 
+    rev_10g_4p_btn = \
+        {
+            'XPATH': '//a[@type="revoke4Port10gLicense"]',
+            'wait_for': 2
+        }
+
+    rev_10g_8p_btn = \
+        {
+            'XPATH': '//a[@type="revoke8Port10gLicense"]',
+            'wait_for': 2
+        }
+
+    warning_xiq_text = \
+        {
+            'XPATH': '//p[@data-automation-tag="automation-confirm-msg-activate10g"]',
+            'wait_for': 2
+        }
+
+    warning_rvk_xiq_text = \
+        {
+            'XPATH': '//p[@data-automation-tag="automation-confirm-msg-revoke10g"]',
+            'wait_for': 2
+        }
+
+    confirm_msg_yes = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 2
+        }
+    #ultima functie din main
+    device_actions_change_management_status = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-changemanagementstatus"]',
+            'wait_for': 2
+        }
+
+    manage_device_btn = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-manage-device"]',
+            'wait_for': 2
+        }
+
+    unmanage_device_btn = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-unmanage-device"]',
+            'wait_for': 2
+        }
+
+    confirm_manage_btn_yes = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 2
+        }
+
+    confirm_manage_message_txt = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="mainContent"]',
+            'wait_for': 2
+        }
+
+    close_message_btn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 2
+        }
+
+    unmanage_msg_text = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="errorMsg"]',
+            'wait_for': 2
+        }
+
+    change_os_actions_exos = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-ap-os-exos"]',
+            'wait_for': 5
+        }
+
+    change_os_actions_voss = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-ap-os-voss"]',
+            'wait_for': 5
+        }

@@ -994,10 +994,17 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.field_license_stat, row)
 
     def get_check_unmanage_box(self):
-        return self.weh.get_element(self.check_unmanage_box)
+        el = self.weh.get_element(self.check_unmanage_box)
+        if el:
+            if el.is_displayed():
+                return el
+            else:
+                return None
+        else:
+            return None
 
     def get_pilot_lic_inventory(self):
-        return self.weh.get_element(self.pilot_lic_inventory)
+        return self.weh.get_elements(self.pilot_lic_inventory)
 
     def get_sn_button(self):
         return self.weh.get_element(self.sn_button)
@@ -1116,3 +1123,13 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
+#ultima functie din main
+    def get_license_mgmt(self):
+        return self.weh.get_element(self.license_mgmt)
+
+    def get_license_unmanage_box(self):
+        el = self.weh.get_element(self.license_unmanage_box)
+        if el.is_displayed():
+            return el
+        else:
+            return None
