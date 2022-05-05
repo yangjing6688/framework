@@ -1,7 +1,7 @@
 class DeviceConfigDefs:
     interface_settings_tab = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-sider-list-interfaceSettings"]//a',
+            'XPATH': '//li[@data-automation-tag="device-entity-nav-menu-interface-settings"]',
             'wait_for': 5
         }
 
@@ -35,6 +35,118 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    override_client_mode_wifi0_checked = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzClientMode"]',
+            'wait_for': 5
+        }
+
+    override_client_mode_wifi1_checked = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage5GHzClientMode"]',
+            'wait_for': 5
+        }
+
+    override_client_access_wifi0_checked = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzClientAccess"]',
+            'wait_for': 5
+        }
+
+    override_client_access_wifi1_checked = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage5GHzClientAccess"]',
+            'wait_for': 5
+        }
+
+    override_add_client_mode_wifi0_profile = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="addClientModeProfileLink2GHz"]',
+            'wait_for': 5
+        }
+
+    override_add_client_mode_wifi1_profile = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="addClientModeProfileLink5GHz"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_client_mode_profile_name = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="nameArea"]//input[@data-dojo-attach-point="name"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_checkbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableLocalWeb"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_add = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ssidListWrap"]//span[@data-tip="Add"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_ssid_textbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_password_textbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="password"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_auth_dropdown = \
+        {
+            'DESC': 'Auth Method click to dropdown',
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]//following::div[@data-automation-tag="automation-chzn-arrow-down"][1]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_auth_dropdown_option = \
+        {
+            'DESC': 'Auth Method Pre-Shared key/Open',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-securitytype"]/li',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_key_type_dropdown = \
+        {
+            'DESC': 'Key Type click to dropdown',
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]//following::div[@data-automation-tag="automation-chzn-arrow-down"][2]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_key_type_dropdown_option = \
+        {
+            'DESC': 'Key Type ASCII/HEX',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-keytype"]/li',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_add_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="addToSsid"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_client_mode_profile_dhcp_server_scope = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="dhcpServerScope"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_client_mode_profile_save = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
     override_wifi0_ssid_broadcast_ssid_field = \
         {
             'XPATH': '//tbody[@data-dojo-attach-point="wifi0_SsidAreaContents"]//input[@name="SsidBroadcastName"]',
@@ -47,10 +159,9 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
-    interface_settings_save_btuuton = \
+    interface_settings_save_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="interfaceSettingsContainer"]'
-                     '//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//div[@data-dojo-attach-point="interfaceSettingsContainer"]//button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 

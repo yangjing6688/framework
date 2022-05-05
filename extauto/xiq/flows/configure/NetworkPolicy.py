@@ -1277,6 +1277,7 @@ class NetworkPolicy(object):
                     if sw_template_name in el.text:
                         self.utils.print_info(f" Select {el.text} from dropdown")
                         self.auto_actions.select_drop_down_options(dropdown_items, el.text)
+                        break
                     else:
                         self.utils.print_info(f" The template name was not found in dropdown")
             else:
@@ -1284,12 +1285,17 @@ class NetworkPolicy(object):
         else:
             self.utils.print_info(f" The sw_template_name is None  ")
 
+        uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
+
+        if not uptd.is_selected():
+            self.utils.print_info(f" Click on the update configuration checkbox ")
+            self.auto_actions.click(uptd)
+
         # Perform the update
         self.screen.save_screen_shot()
         sleep(5)
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
-
         if self.np_web_elements.get_perform_update_policy_button():
             self.utils.print_info("Click on update policy button ")
             self.auto_actions.click(self.np_web_elements.get_perform_update_policy_button())
@@ -1300,6 +1306,10 @@ class NetworkPolicy(object):
         sleep(5)
         tool_tp_text_after = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_after)
+
+        self.utils.print_info("close the device update button ##################")
+        x=self.devices_web_elements.get_actions_network_policy_close_button_md()
+        self.auto_actions.click(x[-1])
 
         for item_after in tool_tp_text_after:
             if item_after in tool_tp_text_before:

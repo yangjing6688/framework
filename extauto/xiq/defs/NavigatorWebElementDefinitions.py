@@ -392,6 +392,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    common_object_basic_client_mode_profiles = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-sider-list-clientModeProfile"]',
+            'wait_for': 5
+        }
+
     common_object_basic_vlans = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-VLANs"]',
@@ -473,19 +479,19 @@ class NavigatorWebElementDefinitions:
 
     device_utilities_status = \
         {
-            'XPATH': '//*[@class="ui-menu ui-menu-medium ui-menu-rt"]//a[contains(text(), "Status")]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-status"]',
             'wait_for': 5
         }
 
     utilities_status_interface = \
         {
-            'XPATH': '//*[@class="ui-menu ui-menu-medium ui-menu-rt"]//a[contains(text(), "Interface")]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-status-interface"]',
             'wait_for': 5
         }
 
     utilities_status_adv_channel_sel = \
         {
-            'XPATH': '//*[@class="ui-menu ui-menu-medium ui-menu-rt"]//a[contains(text(), "Advanced Channel Selection Protocol")]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-status-advanced-channel-selection-protocol"]',
             'wait_for': 5
         }
 
@@ -497,7 +503,7 @@ class NavigatorWebElementDefinitions:
 
     utilities_status_wifi_status_summary = \
         {
-            'XPATH': '//*[@class="ui-menu ui-menu-medium ui-menu-rt"]//a[contains(text(), "Wi-Fi Status Summary")]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-status-wifi-status-summary"]',
             'wait_for': 5
         }
 
@@ -1190,10 +1196,17 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+
     configure_alert_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-alert"]',
             'wait_for': 2
+        }
+
+    applications_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-apps"]',
+            'wait_for': 5
         }
 
     main_side_nav_tabs = \
@@ -1229,5 +1242,29 @@ class NavigatorWebElementDefinitions:
     configure_guest_essentials_users_menu_item = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-configure-guest-essentials-users"]',
+            'wait_for': 5
+        }
+
+    spectrum_intelligence_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-spectrum-intelligence"]',
+            'wait_for': 5
+        }
+
+    reset_device_to_default_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-reset-device-to-default"]',
+            'wait_for': 5
+        }
+
+    vpn_services_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-vpnServices"]',
+            'wait_for': 5
+        }
+
+    clients_hyperlink = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-dashboard-health-cards-client-header-count"]',
             'wait_for': 5
         }

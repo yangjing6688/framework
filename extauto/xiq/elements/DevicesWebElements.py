@@ -23,6 +23,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return False
 
+    def get_grid_rows_next(self):
+        grid_rows = self.weh.get_elements(self.devices_page_grid_rows_next)
+        if grid_rows:
+            return grid_rows
+        else:
+            return False
+
+    def get_page_numbers(self):
+        page_numbers = self.weh.get_elements(self.devices_page_numbers)
+        if page_numbers:
+            return page_numbers
+        else:
+            return False
+
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
         return refresh_icon
@@ -106,6 +120,18 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: device delete button
         """
         return self.weh.get_element(self.device_delete_button)
+
+    def get_download_button(self):
+        """
+        :return: device download button
+        """
+        return self.weh.get_element(self.device_download_button)
+
+    def get_bulk_edit_button(self):
+        """
+        :return: device bulk edit button
+        """
+        return self.weh.get_element(self.device_bulk_edit_button)
 
     def get_action_button(self):
         """
@@ -239,6 +265,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_actions_button(self):
         return self.weh.get_element(self.manage_device_actions_button)
 
+    def get_manage_device_utilities_button(self):
+        return self.weh.get_element(self.manage_device_utilities_button)
+
     def get_actions_assign_network_policy_combo(self):
         elements = self.weh.get_elements(self.actions_assign_network_policy)
         return self.get_dislayed_element(elements)
@@ -329,6 +358,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_network_policy_close_button(self):
         return self.weh.get_element(self.assign_policy_close_btn)
+
+    def get_actions_network_policy_close_button_md(self):
+        return self.weh.get_elements(self.assign_policy_close_btn)
 
     def get_device_select_checkbox(self, row):
         return self.weh.get_element(self.device_select_check_box, parent=row)
