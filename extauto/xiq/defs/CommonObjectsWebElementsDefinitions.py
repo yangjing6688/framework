@@ -381,6 +381,29 @@ class CommonObjectsWebElementsDefinitions:
             'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 3
         }
+    common_object_basic_client_mode_profiles_grid_rows_all = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td[contains(@class, "dgrid-selector")]/../..',
+            'wait_for': 10
+        }
+
+    common_object_basic_client_mode_profiles_selectall = \
+        {
+            'XPATH': '//th[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]/div/input',
+            'wait_for': 5
+        }
+
+    common_object_basic_client_mode_profiles_delete = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="additionalSettingsContentArea"]//span[@class="table-action-icons table-remove"]',
+            'wait_for': 5
+        }
+
+    common_object_basic_client_mode_profiles_delete_confirm_ok_button = \
+        {
+            'XPATH': "//button[@data-dojo-attach-point='yesBtn']",
+            'wait_for': 5
+        }
 
     common_object_wifi0_client_access = \
         {
