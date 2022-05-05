@@ -1407,7 +1407,7 @@ class DevicesWebElementsDefinitions:
 
     pilot_lic_inventory = \
         {
-            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]//div',
+            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]',
             'wait_for': 5
         }
 
@@ -1631,17 +1631,5 @@ class DevicesWebElementsDefinitions:
         {
             'DESC': 'Manage > Devices "load" mask',
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
-            'wait_for': 5
-        }
-    #ultima functie din main
-    license_mgmt = \
-        {
-            'XPATH': '//li[@data-automation-tag="automation-sider-list-licenseMng"]',
-            'wait_for': 5
-        }
-
-    license_unmanage_box = \
-        {
-            'XPATH': '//span[@data-dojo-attach-point="unmanage"]',
             'wait_for': 5
         }
