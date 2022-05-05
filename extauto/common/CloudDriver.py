@@ -110,8 +110,6 @@ class CloudDriver():
 
         mode = BuiltIn().get_variable_value("${WEB_DRIVER_LOC}")
         os_platform = BuiltIn().get_variable_value("${OS_PLATFORM}")
-        import sys, pdb;
-        pdb.Pdb(stdout=sys.__stdout__).set_trace()
 
         utils.print_info("Opening URL: ", url)
         if BuiltIn().get_variable_value("${WEB_DRIVER_LOC}") == "bstack":
