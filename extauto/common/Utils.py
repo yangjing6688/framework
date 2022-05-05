@@ -240,7 +240,7 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(words)
+        line = "".join(str(words))
         if "DEBUG" in BuiltIn().get_variable_value("${LOG_LEVEL}"):
             BuiltIn().log_to_console(line)
 
