@@ -329,6 +329,18 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_wifi0_1_client_mode_profile_save(self):
         return self.weh.get_element(self.common_object_wifi0_1_client_mode_profile_save)
 
+    def get_common_object_basic_client_mode_profiles_grid_rows_all(self):
+        return self.weh.get_elements(self.common_object_basic_client_mode_profiles_grid_rows_all)
+
+    def get_common_object_basic_client_mode_profiles_selectall(self):
+        return self.weh.get_element(self.common_object_basic_client_mode_profiles_selectall)
+
+    def get_common_object_basic_client_mode_profiles_delete(self):
+        return self.weh.get_element(self.common_object_basic_client_mode_profiles_delete)
+
+    def get_common_object_basic_client_mode_profiles_delete_confirm_ok_button(self):
+        return self.weh.get_element(self.common_object_basic_client_mode_profiles_delete_confirm_ok_button)
+
     def get_common_object_wifi0_client_access(self):
         return self.weh.get_element(self.common_object_wifi0_client_access)
 
