@@ -110,6 +110,8 @@ class CloudDriver():
 
         mode = BuiltIn().get_variable_value("${WEB_DRIVER_LOC}")
         os_platform = BuiltIn().get_variable_value("${OS_PLATFORM}")
+        import sys, pdb;
+        pdb.Pdb(stdout=sys.__stdout__).set_trace()
 
         utils.print_info("Opening URL: ", url)
         if BuiltIn().get_variable_value("${WEB_DRIVER_LOC}") == "bstack":
@@ -231,8 +233,8 @@ class CloudDriver():
 
                 if mode == "remote":
                     try:
-                        utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":",
-                                         webdriver_port, "/wd/hub")
+                        utils.print_info(f"Redirecting to Remote WebDriver at http://", str(webdriver_ip), ":",
+                                         str(webdriver_port), "/wd/hub")
                         host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                         cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.CHROME)
                     except (MaxRetryError, WebDriverException) as err:
