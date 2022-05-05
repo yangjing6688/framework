@@ -5624,7 +5624,7 @@ class Device360(Device360WebElements):
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
 
-                    d360_create_port_type = self.get_policy_edit_port_type(port_row)
+                    d360_create_port_type = self.get_d360_create_port_type(port_row)
                     if d360_create_port_type:
                         self.utils.print_info(" The button d360_create_port_type  was found")
                         self.auto_actions.click(d360_create_port_type)

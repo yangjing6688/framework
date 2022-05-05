@@ -225,6 +225,7 @@ class XiqLibrary():
         self.Ap = Ap()
         self.Cli = Cli()
         self.Utils = Utils()
+        self.CloudDriver = CloudDriver()
         self.Screen = Screen()
         self.GmailHandler = GmailHandler()
         self.ImageAnalysis = ImageAnalysis()

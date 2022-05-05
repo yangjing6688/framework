@@ -2154,7 +2154,7 @@ class Device360WebElementDefs:
     #de aici incepe cod
     d360_create_port_type = \
         {
-            'CSS_SELECTOR': '.table-action-icons',
+            'CSS_SELECTOR': '.table-action-icons.table-add',
             'wait_for': 5
         }
 
