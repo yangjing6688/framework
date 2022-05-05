@@ -177,7 +177,7 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(words)
+        line = "".join(map(str, words))
 
         if "DEBUG" in line:
             BuiltIn().log_to_console(line)
@@ -191,7 +191,7 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(words)
+        line = "".join(map(str, words))
 
         self.logger.error(line)
         test_name = BuiltIn().get_variable_value("${TEST_NAME}")
@@ -225,7 +225,7 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(words)
+        line = "".join(map(str, words))
 
         self.logger.info(line)
         test_name = BuiltIn().get_variable_value("${TEST_NAME}")
@@ -240,7 +240,7 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(str(words))
+        line = "".join(map(str, words))
         if "DEBUG" in BuiltIn().get_variable_value("${LOG_LEVEL}"):
             BuiltIn().log_to_console(line)
 
