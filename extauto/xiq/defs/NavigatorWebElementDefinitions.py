@@ -1196,6 +1196,11 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    applications_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-apps"]',
+            'wait_for': 5
+        }
     main_side_nav_tabs = \
         {
             'XPATH': '//div[@data-dojo-attach-point="headerMenu"]//div',

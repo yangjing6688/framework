@@ -614,6 +614,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_client_monitor_diagnosis_tab(self):
         return self.weh.get_element(self.client_monitor_diagnosis_tab)
 
+    def get_applications_tab(self):
+        return self.weh.get_element(self.applications_tab)
+
     def get_manage_summary_menu_item(self):
         return self.weh.get_element(self.manage_summary_menu_item)
 
