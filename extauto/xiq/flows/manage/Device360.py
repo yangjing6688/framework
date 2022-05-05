@@ -5655,6 +5655,14 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
+            close_port_type_box = self.get_close_port_type_box()
+            if close_port_type_box:
+                self.utils.print_info(" The button close_port_type_box from policy  was found")
+                self.auto_actions.click(close_port_type_box)
+                sleep(2)
+            else:
+                self.utils.print_info(" The button close_port_type_box from policy was not found")
+
             return 1
 
     def edit_port_type(self, template_values, port, verify_summary = True):
@@ -5724,6 +5732,13 @@ class Device360(Device360WebElements):
                     return -1
             else:
                 pass
+        close_port_type_box = self.get_close_port_type_box()
+        if close_port_type_box:
+            self.utils.print_info(" The button close_port_type_box from policy  was found")
+            self.auto_actions.click(close_port_type_box)
+            sleep(2)
+        else:
+            self.utils.print_info(" The button close_port_type_box from policy was not found")
         return 1
 
 

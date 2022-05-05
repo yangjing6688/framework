@@ -2163,6 +2163,12 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.table-action-icons.table-edit',
             'wait_for': 5
         }
+
+    close_port_type_box = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
+            'wait_for': 5
+        }
     #tab
     select_element_port_type_tab_usage = \
         {
