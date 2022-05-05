@@ -5668,20 +5668,23 @@ class Device360(Device360WebElements):
                 if port in row.text:
                     policy_edit_port_type = self.get_policy_edit_port_type(row)
                     if policy_edit_port_type:
-                        self.utils.print_info(" The button d360_create_port_type from policy  was found")
+                        self.utils.print_info(" The button policy_edit_port_type from policy  was found")
                         self.auto_actions.click(policy_edit_port_type)
                         sleep(2)
                         break
                     else:
-                        self.utils.print_info(" The button d360_create_port_type from policy  was not found")
+                        self.utils.print_info(" The button policy_edit_port_type from policy  was not found")
                         self.screen.save_screen_shot()
                         return -1
 
         cnt = 0
         for key in template_values.keys():
-            if not template_values[key][0] == None:
+            if not template_values[key][0] == None or 'usagePage' in key:
+                self.utils.print_info(key)
                 if "page" in key:
+                    self.utils.print_info("am ajuns aici")
                     conf_element = self.configure_element_port_type(key,"None")
+                    self.utils.print_info("return",conf_element)
                     if conf_element == 1:
                         self.utils.print_info("The element {} was configured ".format(key))
                     else:
@@ -5698,6 +5701,7 @@ class Device360(Device360WebElements):
                 pass
             cnt = cnt + 1
         if verify_summary:
+            #return 1
             return self.port_type_verify_summary(template_values)
         else:
             return 1
@@ -5712,6 +5716,7 @@ class Device360(Device360WebElements):
 
             if not template_values[key][1] == None:
                 conf_element = self.get_select_element_port_type_summery(key)
+                print(conf_element)
                 if conf_element.text.lower() == template_values[key][1].lower():
                     self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: {conf_element.text.lower()}")
                 else:
@@ -6036,8 +6041,15 @@ class Device360(Device360WebElements):
                         self.utils.print_info("get_pse_profile_add not found ")
             else:
                 self.utils.print_info("get_pse_profile not found ")
+        elif element == "poe status":
+            get_poe_status = self.get_select_element_port_type(element,value)
+            if get_poe_status:
+                self.auto_actions.click(get_poe_status)
+                return 1
         self.utils.print_info(" Error when configure : ", element)
         return -1
+
+
 
 
 
