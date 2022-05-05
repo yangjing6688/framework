@@ -4410,7 +4410,6 @@ class Devices:
         self.utils.print_info("Click on network policy drop down")
 	    # First try with get_actions_assign_network_policy_drop_down - with 22R3 use get_nw_policy_drop
         self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
-        self.auto_actions.scroll_down()
         sleep(5)
         
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
