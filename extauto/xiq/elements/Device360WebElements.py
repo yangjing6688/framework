@@ -1357,7 +1357,7 @@ class Device360WebElements(Device360WebElementDefs):
     def get_policy_edit_port_type(self,port_row):
         return self.weh.get_element(self.policy_edit_port_type, port_row)
 
-    def get_close_port_type_box(self,port_row):
+    def get_close_port_type_box(self):
         return self.weh.get_element(self.close_port_type_box)
 
     def get_select_element_port_type(self,element, value = None):
