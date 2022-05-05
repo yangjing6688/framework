@@ -1177,9 +1177,10 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
         sleep(5)
 
+        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
+
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
         sleep(2)
-
         if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
             self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
         else:
@@ -3074,7 +3075,7 @@ class Devices:
         sleep(2)
 
         self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
+        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down_router())
         self.auto_actions.scroll_down()
         sleep(2)
         

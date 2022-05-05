@@ -398,6 +398,12 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-policy"]',
+            'wait_for': 5
+        }
+
+    actions_assign_network_policy_drop_down_router = \
+        {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
             'wait_for': 5,
             'index': 1
