@@ -433,10 +433,17 @@ class Devices:
         :param ap_mac: AP MAC
         :return: returns the row object
         """
-        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
 
-        if page_size_field and page_number_field.is_displayed():
+        page_size_field_text = ""
+        page_number_field_text = ""
+        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
+        if page_size_field:
+            page_size_field_text = (page_size_field.text).strip()
+        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
+        if page_number_field:
+            page_number_field_text = (page_number_field.text).strip()
+
+        if page_size_field_text and page_number_field_text:
             self.utils.print_info('Getting AP row with Pagination Enabled on Devices Page...')
             if ap_serial != 'default':
                 self.utils.print_info("Getting status of AP with serial: ", ap_serial)
