@@ -1119,7 +1119,7 @@ class DevicesWebElementsDefinitions:
 
     add_devices_button = \
         {
-            'XPATH': '//*[@class="dijit dijitReset dijitInline primary honeycomb-ui-form-button"]',
+            'XPATH': '//span[@data-automation-tag="automation-device-list-menu-button"]',
             'wait_for': 5
         }
 
