@@ -1119,7 +1119,7 @@ class DevicesWebElementsDefinitions:
 
     add_devices_button = \
         {
-            'XPATH': '//span[@data-automation-tag="automation-device-list-menu-button"]',
+            'XPATH': '//div[@data-dojo-attach-point="addButton"]',
             'wait_for': 5
         }
 
