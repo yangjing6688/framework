@@ -25,6 +25,6 @@ class ExtremeGuestAnalyzeClientsWebElementsDefs:
 
     extreme_guest_analyze_clients_grid_macaddress_column = \
         {
-            'XPATH': '//span[contains(@class,"eguest-analyzeclients-macaddress-txt")]',
+            'XPATH': '//span[text()="${mac}"]',
             'wait_for': 5
         }
