@@ -2276,3 +2276,38 @@ class Cli(object):
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
             return -1
+
+    def wait_for_cli_output2(self, ip_dest, username, password, port, cmd, expected_output, retry_duration=30, retry_count=10):
+        """
+        - This Keyword will Helps to Wait till getting expected output based on retry duration
+        - Retry duration by default 30 seconds
+        - Retry Count by default 10
+        - Keyword Usage:
+         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}``
+         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60``
+         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60  ${COUNT}=15``
+
+        :param spawn: Device Spawn
+        :param cmd: Command to Execute
+        :param expected_output: Expected CLI Output
+        :param retry_duration: Retry Duration in seconds
+        :param retry_count: Retry Count
+        :return: 1 if Getting the expected output else -1
+        """
+        conn_str = 'telnet ' + ip_dest + " " + str(port)
+        spawn = self.open_exos_switch_spawn(conn_str,username, password, False)
+        if spawn == -1:
+            return -1
+
+        count = 1
+        while count <= retry_count:
+            _output = self.send(spawn, cmd)
+            if expected_output in _output:
+                self.utils.print_info("Got the expected output")
+                return 1
+            else:
+                self.utils.print_info("Waiting for: ", retry_duration, " Seconds")
+                time.sleep(retry_duration)
+            count += 1
+        self.utils.print_info("Unable to get the expected output. Please check.")
+        return -1
