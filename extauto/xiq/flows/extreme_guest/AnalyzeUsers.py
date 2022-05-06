@@ -52,5 +52,7 @@ class AnalyzeUsers(object):
 
         self.utils.print_info("Checking the Username in the Analyze Users Grid")
         if self.users_web_elem.get_extreme_guest_analyze_users_grid_username(username):
+            self.screen.save_screen_shot()
+            sleep(2)
             return 1
         return -1

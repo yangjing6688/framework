@@ -56,5 +56,7 @@ class AnalyzeClients(object):
 
         self.utils.print_info("Checking the Client mac address in the Analyze Clients Grid")
         if self.clients_web_elem.get_extreme_guest_analyze_clients_grid_macaddress(mac):
+            self.screen.save_screen_shot()
+            sleep(2)
             return 1
         return -1

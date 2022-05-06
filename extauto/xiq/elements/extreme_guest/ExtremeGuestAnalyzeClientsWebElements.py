@@ -26,8 +26,5 @@ class ExtremeGuestAnalyzeClientsWebElements(ExtremeGuestAnalyzeClientsWebElement
     def get_extreme_guest_analyze_clients_grid_macaddress(self, search_string):
         macaddress = '-'.join(search_string[i:i+2] for i in range(0, len(search_string), 2))
         cell = self.weh.get_template_element(self.extreme_guest_analyze_clients_grid_macaddress_column, mac=macaddress)
-        print(macaddress)
-        print(cell)
-        print(cell.text)
         if macaddress in cell.text:
             return cell
