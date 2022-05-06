@@ -1071,9 +1071,9 @@ class Devices:
         - Keyword Usage:
          - ``Get Device Data Field Value    ${DEVICE_TYPE}     ${DATA_FIELD}``
 
-        :param device_type: type of device to onboard
+        :param device_type: type of device
         :param data_field: data field values of interest to be returned
-        :return: an array of data field values
+        :return: an array of data field values, else -1
         """
         try:
             prev_dev_list = []
@@ -7411,7 +7411,7 @@ class Devices:
     def perform_search_on_devices_table(self, the_value):
         """
         - Enters the search string value into the Search box on the Manage> Devices page.
-        - Note: currently, search is only supported for Serial Number, MAC Address, or Host Name.
+        - Note: currently, search is only supported for Serial Number, MAC Address, Host Name, or Ip Address.
         - Keyword Usage:
          - ``Perform Search On Devices Table  ${SERIAL}``
          - ``Perform Search On Devices Table  ${HOST_NAME}``
