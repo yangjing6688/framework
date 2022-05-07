@@ -1119,7 +1119,7 @@ class DevicesWebElementsDefinitions:
 
     add_devices_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="addButton"]',
+            'XPATH': '//*[@class="dijit dijitReset dijitInline primary honeycomb-ui-form-button"]',
             'wait_for': 5
         }
 
