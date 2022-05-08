@@ -505,6 +505,7 @@ class Login:
 
         :return: viq id
         """
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking on About Extreme cloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
