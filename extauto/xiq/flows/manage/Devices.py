@@ -2383,7 +2383,7 @@ class Devices:
             self.utils.print_info("Deleting device: ", device_serial)
             search_result = self.search_device(device_serial=device_serial)
 
-            if search_result != -1:
+            if search_result:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click delete button")
                     sleep(2)
@@ -6594,7 +6594,7 @@ class Devices:
             if self.devices_web_elements.get_add_location_button():
                 self.utils.print_info("Click on 'Location'")
                 self.auto_actions.click(self.devices_web_elements.get_add_location_button())
-                self.utils.print_info("Selecting location '" + location + "'")
+                self.utils.print_info("Selecting location " + location)
                 if self.select_location_quick_onboarding(location) == 1:
                     self.utils.print_info("Location selected ")
                     self.utils.print_info("Clicking on select location Button")
