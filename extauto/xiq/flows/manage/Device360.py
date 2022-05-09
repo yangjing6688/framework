@@ -5592,7 +5592,81 @@ class Device360(Device360WebElements):
         return ret_val
 #de aici incepe cod
 
-    def create_new_port_type(self, template_values, port, d360 = False, verify_summary = True):
+    def create_new_port_type(self, template_values, port, d360=False, verify_summary=True):
+        '''
+        This function is used to create a new port type from d360 or template page by using new format
+        (XIQ-921 Honeycomb Port Editor )
+
+        :param template_values: A dictionary with below structure:
+
+        Each element from dictionary template_values has the following format:
+                'setting name': [configured_value, check_summary_value]
+
+        To change the value of a setting, use the following syntax:
+                template_voss_auto_sense_on['setting name'][0] = 'configured_value'
+        To not configure an element from dictionary:
+                template_voss_auto_sense_on['setting name'][0] = None
+
+        To check the value of a setting into summary page, use the following sintax:
+                template_voss_auto_sense_on['setting name'][1] = 'check_summary_value'
+        To not verify an element from dictionary into summary page :
+                template_voss_auto_sense_on['setting name'][1] = None
+
+        To press next buttom use into dictionary an element like this : 'page2 accessVlanPage':["next_page", None],
+
+        template_values=                {'name': ["port type name", 'port type name'],
+                                        'description': ["add_description", "add_description"],
+                                        'status':['click', 'off'],          #['click'/None, 'on'/'off'/None]
+                                        'auto-sense':['click',None],       #['click'/None, None]
+                                        'port usage':['trunk port', 'trunk'],
+                                                #['trunk port'/'access port'/None, 'trunk'/'access'/'auto_sense'/None]
+
+                                        #'page2 accessVlanPage':["next_page", None],       # used for access ports
+                                        #'vlan':['40', '40'],                       # used for access ports
+
+                                        'page2 trunkVlanPage': ["next_page", None],
+                                        'native vlan': ['50', '50'],     # used for trunk ports
+                                        'allowed vlans': ['60', '60'],   # used for trunk ports ['all'/None, 'all'/None]
+
+                                        'page3 transmissionSettingsPage': ["next_page", None],
+                                        'transmission type': ['auto','auto'],
+                                            #['auto'/'Half-Duplex'/'Full-Duplex', 'auto'/'Half_Duplex'/'Full_Duplex'/None]
+                                        'transmission speed':['auto','auto'],
+                                            #['auto'/'10 Mbps'/'100 Mbps'/None, 'auto'/'10 Mbps'/'100 Mbps'/None]
+                                        'cdp receive':[None, 'off'],        # ['click'/'None', 'on'/'off'/None]
+                                        'lldp transmit':['click', 'off'],   # ['click'/'None', 'on'/'off'/None]
+                                        'lldp receive':[None, 'off'],       # ['click'/'None', 'on'/'off'/None]
+
+                                        'page4 stpPage': ["next_page", None],
+                                        'stp enable':['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+                                        'edge port': ['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+                                        'bpdu protection':[None, 'disabled'],   #['click'/None, 'on'/'off'/None]
+                                        'priority':['32', '32'],
+                                                #['0'/'16'/'32'/'48'.../'192'/None, '0'/'16'/'32'/'48'.../'192'/None]
+                                        'path cost':['50', '50'],   #['1 - 200000000'/None, '1 - 200000000'/None]
+
+                                        'page5 stormControlSettingsPage': ["next_page", None],
+                                        'broadcast':[None, 'disabled'],         #['click'/None, 'enabled'/'disabled'/None]
+                                        'unknown unicast':[None, 'disabled'],   #[None, 'disabled'/None]
+                                        'multicast':[None, 'disabled'],         #['click'/None, 'enabled'/'disabled'/None]
+                                        'rate limit type':[None,'pps'],         #[None, 'pps'/None]
+                                        'rate limit value': ['65535', '65535'], #['0-65535'/None, '0-65535'/None]
+
+                                        'page6 pseSettingsPage': ["next_page", None],
+                                        'PSE profile':[None,None],
+                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                        'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
+
+                                        'page7 summaryPage': ["next_page", None]
+                                    }
+
+        :param port: the port where new port type will be created
+        :param d360: False if new port type will be created into policy template, True if new port type will be created
+        into d360 page
+        :param verify_summary: True if configured values will be verify on summary page. False if verification on summary
+        page will be skipped
+        :return: 1 if new port type was successfully created and summary page displays correct values  ; else -1
+        '''
 
         if template_values["name"][0] == None:
             self.utils.print_info("name can not be empty" )
@@ -5641,8 +5715,6 @@ class Device360(Device360WebElements):
         cnt = 0
         for key in template_values.keys():
             if not template_values[key][0] == None:
-                print(f"Default value for {key} is {template_values[key][1]}")
-                print(f"Selected value for {key} is {template_values[key][0]}")
                 conf_element = self.configure_element_port_type(key,template_values[key][0])
                 if conf_element == 1:
                     self.utils.print_info("The element {} was configured ".format(key))
@@ -5662,10 +5734,82 @@ class Device360(Device360WebElements):
                 sleep(2)
             else:
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
-
             return 1
 
-    def edit_port_type(self, template_values, port, verify_summary = True):
+    def edit_port_type(self, template_values, port, verify_summary=True):
+        '''
+
+
+        :param template_values:
+        A dictionary with below structure:
+
+        Each element from dictionary template_values has the following format:
+                'setting name': [configured_value, check_summary_value]
+
+        To change the value of a setting, use the following syntax:
+                template_voss_auto_sense_on['setting name'][0] = 'configured_value'
+        To not configure an element from dictionary:
+                template_voss_auto_sense_on['setting name'][0] = None
+
+        To check the value of a setting into summary page, use the following sintax:
+                template_voss_auto_sense_on['setting name'][1] = 'check_summary_value'
+        To not verify an element from dictionary into summary page :
+                template_voss_auto_sense_on['setting name'][1] = None
+
+        To press next buttom use into dictionary an element like this : 'page2 accessVlanPage':["next_page", None],
+
+        template_values=                {
+                                        'page1 usagePage': [None, None],
+                                        'name': ["port type name", 'port type name'],
+                                        'description': ["add_description", "add_description"],
+                                        'status':['click', 'off'],          #['click'/None, 'on'/'off'/None]
+                                        'auto-sense':['click',None],       #['click'/None, None]
+                                        'port usage':['trunk port', 'trunk'],
+                                                #['trunk port'/'access port'/None, 'trunk'/'access'/'auto_sense'/None]
+
+                                        #'page2 accessVlanPage':["next_page", None],       # used for access ports
+                                        #'vlan':['40', '40'],                       # used for access ports
+
+                                        'page2 trunkVlanPage': ["next_page", None],
+                                        'native vlan': ['50', '50'],     # used for trunk ports
+                                        'allowed vlans': ['60', '60'],   # used for trunk ports ['all'/None, 'all'/None]
+
+                                        'page3 transmissionSettingsPage': ["next_page", None],
+                                        'transmission type': ['auto','auto'],
+                                            #['auto'/'Half-Duplex'/'Full-Duplex', 'auto'/'Half_Duplex'/'Full_Duplex'/None]
+                                        'transmission speed':['auto','auto'],
+                                            #['auto'/'10 Mbps'/'100 Mbps'/None, 'auto'/'10 Mbps'/'100 Mbps'/None]
+                                        'cdp receive':[None, 'off'],        # ['click'/'None', 'on'/'off'/None]
+                                        'lldp transmit':['click', 'off'],   # ['click'/'None', 'on'/'off'/None]
+                                        'lldp receive':[None, 'off'],       # ['click'/'None', 'on'/'off'/None]
+
+                                        'page4 stpPage': ["next_page", None],
+                                        'stp enable':['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+                                        'edge port': ['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+                                        'bpdu protection':[None, 'disabled'],   #['click'/None, 'on'/'off'/None]
+                                        'priority':['32', '32'],
+                                                #['0'/'16'/'32'/'48'.../'192'/None, '0'/'16'/'32'/'48'.../'192'/None]
+                                        'path cost':['50', '50'],   #['1 - 200000000'/None, '1 - 200000000'/None]
+
+                                        'page5 stormControlSettingsPage': ["next_page", None],
+                                        'broadcast':[None, 'disabled'],         #['click'/None, 'enabled'/'disabled'/None]
+                                        'unknown unicast':[None, 'disabled'],   #[None, 'disabled'/None]
+                                        'multicast':[None, 'disabled'],         #['click'/None, 'enabled'/'disabled'/None]
+                                        'rate limit type':[None,'pps'],         #[None, 'pps'/None]
+                                        'rate limit value': ['65535', '65535'], #['0-65535'/None, '0-65535'/None]
+
+                                        'page6 pseSettingsPage': ["next_page", None],
+                                        'PSE profile':[None,None],
+                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                        'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
+
+                                        'page7 summaryPage': ["next_page", None]
+                                    }
+        :param port: the port where new port type will be created
+        :param verify_summary: True if configured values will be verify on summary page. False if verification on summary
+        page will be skipped
+        :return: 1 if new port type was successfully edited and summary page displays correct values  ; else -1
+        '''
 
         rows = self.get_policy_configure_port_rows()
         if not rows:
@@ -5684,15 +5828,13 @@ class Device360(Device360WebElements):
                         self.utils.print_info(" The button policy_edit_port_type from policy  was not found")
                         self.screen.save_screen_shot()
                         return -1
-
         cnt = 0
         for key in template_values.keys():
             if not template_values[key][0] == None or 'usagePage' in key:
                 self.utils.print_info(key)
                 if "page" in key:
-                    self.utils.print_info("am ajuns aici")
-                    conf_element = self.configure_element_port_type(key,"None")
-                    self.utils.print_info("return",conf_element)
+                    conf_element = self.configure_element_port_type(key, "None")
+                    self.utils.print_info("return", conf_element)
                     if conf_element == 1:
                         self.utils.print_info("The element {} was configured ".format(key))
                     else:
@@ -5709,7 +5851,6 @@ class Device360(Device360WebElements):
                 pass
             cnt = cnt + 1
         if verify_summary:
-            #return 1
             return self.port_type_verify_summary(template_values)
         else:
             return 1
@@ -5719,16 +5860,15 @@ class Device360(Device360WebElements):
         cnt = 0
         for key in template_values.keys():
             cnt = cnt +1
-            print(f"Default value for {key} is {template_values[key][0]}")
-            print(f"Selected value for {key} is {template_values[key][1]}")
-
             if not template_values[key][1] == None:
                 conf_element = self.get_select_element_port_type_summery(key)
                 print(conf_element)
                 if conf_element.text.lower() == template_values[key][1].lower():
-                    self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: {conf_element.text.lower()}")
+                    self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: "
+                                          f"{conf_element.text.lower()}")
                 else:
-                    self.utils.print_info("The element is not correct into summary. Current value in summary:" + conf_element.text + " Wanted value: " + template_values[key][1])
+                    self.utils.print_info("The element is not correct into summary. Current value in summary:" +
+                                          conf_element.text + " Wanted value: " + template_values[key][1])
                     return -1
             else:
                 pass
@@ -5743,6 +5883,7 @@ class Device360(Device360WebElements):
 
 
     def configure_element_port_type(self,element,value):
+
         # tab
         sleep(2)
         if "next_page" in value:
