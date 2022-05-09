@@ -57,6 +57,21 @@ class ExtremeGuestSplashTemplateWebElements(ExtremeGuestSplashTemplateWebElement
     def get_extreme_guest_clone_system_template_dropdown_failure_item(self):
         return self.weh.get_element(self.extreme_guest_clone_system_template_dropdown_failure_item)
 
+    def get_extreme_guest_clone_system_template_selectwidget_icon(self):
+        return self.weh.get_element(self.extreme_guest_clone_system_template_selectwidget_icon)
+
+    def get_extreme_guest_clone_system_template_main_droppanel(self):
+        return self.weh.get_element(self.extreme_guest_clone_system_template_main_droppanel)
+
+    def get_extreme_guest_clone_system_template_secondary_droppanel(self):
+        return self.weh.get_element(self.extreme_guest_clone_system_template_secondary_droppanel)
+
+    def get_extreme_guest_clone_system_template_theme_layout1(self):
+        return self.weh.get_element(self.extreme_guest_clone_system_template_theme_layout1)
+
+    def get_extreme_guest_clone_system_template_loginform_widget_icon(self):
+        return self.weh.get_element(self.extreme_guest_clone_system_template_loginform_widget_icon)
+
     def get_extreme_guest_clone_system_template_widget_icon(self):
         return self.weh.get_element(self.extreme_guest_clone_system_template_widget_icon)
 

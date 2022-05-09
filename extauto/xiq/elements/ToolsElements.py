@@ -225,3 +225,19 @@ class ToolsElements(ToolsUtilitiesDefs):
 
     def get_tech_data_close_dialog(self):
         return self.weh.get_element(self.tech_data_close_diaglog)
+
+    def get_device_utilities(self):
+        return self.weh.get_element(self.device_utilities)
+
+    def get_device_diagnostics(self):
+        return self.weh.get_element(self.device_diagnostics)
+
+    def get_device_ping(self):
+        return self.weh.get_element(self.device_ping)
+
+    def get_device_ping_content(self):
+        return self.weh.get_element(self.device_ping_content)
+
+    def get_device_ping_close(self):
+        return self.weh.get_element(self.device_ping_close)
+

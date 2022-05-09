@@ -1,0 +1,116 @@
+name: CI Workflow
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  framework_sanity:
+    name: Validate Framework Functionality
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.set-output.outputs.status }}
+
+    steps:
+    - name: Run "sanity" tests to ensure basic framework functionality
+      run: |
+        ### Get Session token
+        curl_return_code=0
+        curl_output=$( curl -X GET  --no-progress-meter \
+                        "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPAT" \
+                        -H "accept: application/json" \
+                        -H "authorization: PAT ${{ secrets.AUTOIQ_PAT }}" )
+        curl_return_code=$?
+
+        if (( $curl_return_code != 0 )); then
+          echo "Error getting session token. Message: ${curl_output}"
+          exit 1
+        else
+          SESSION_TOKEN=$( echo "${curl_output}" |  jq -r '.result.sessionToken' )
+        fi
+
+        # CreateJob body template
+        job_template='{
+                "jsonString":{
+                    "description": "CI Verification Run",
+                    "priority": 3,
+                    "version": 1,
+                    "rerun": 0,
+                    "postResults": 1,
+                    "notifyOnStart": 0,
+                    "username": "CI_Service",
+                    "group": "CICD",
+                    "jobType": "private",
+                    "auxInfoList" : [
+                      {"cicd_pr":1},
+                      {"context": "${{ github.event.repository.name }}/test-context"},
+                      {"repo":"${{ github.repository }}"},
+                      {"sha":"${{ github.sha }}"},
+                      {"state":"pending"}
+                    ],
+                    "jobPlatforms": [
+                      {
+                        "platform": "EXOS-DT",
+                        "hardwareConfiguration": "Standalone",
+                        "priority": 3,
+                        "auxInfoList": [],
+                        "jobPlatformTestModules" :
+                        [
+                            {
+                                "testModule_uuid": $harness_uuid,
+                                "auxInfoList" : [
+                                                  {"nodeCount": 4},
+                                                  {"universalTestBedOs": "EXOS"},
+                                                  {"test_name": $tests }
+                                                  ]
+                            }
+                        ]
+                      }
+                    ]
+                }
+              }'
+
+        # Format Test Lists
+        pytest_tests=$( echo "extreme_automation_tests/Tests/Pytest/Demos/DefaultTemplateUI/TestCases,extreme_automation_tests/Tests/Pytest/Demos/VLAN/TestCases" | jq -ncR 'inputs | split(",")' )
+        robot_tests=$( echo "extreme_automation_tests/Tests/Robot/Demos/XiQ/TestCases" | jq -ncR 'inputs | split(",")' )
+
+        pytest_harness_uuid="11111111-2222-2222-2222-111111111111"
+        robot_harness_uuid="11111111-6666-6666-6666-111111111111"
+
+        printf 'Pytest tests to run: %s\nRobot tests to run: %s\n' "$pytest_tests" "$robot_tests"
+
+        # Generate robot JSON body
+        CURL_BODY=$(jq --null-input \
+                  --argjson tests "$robot_tests" \
+                  --arg harness_uuid "$robot_harness_uuid" \
+                  "$job_template")
+
+        printf '%s\n\n' "[*] Robot Job Submit JSON: $CURL_BODY"
+
+        curl -X POST --no-progress-meter \
+        "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
+        -H "accept: application/json" \
+        -H "Content-Type: application/json" \
+        -H "authorization: Bearer ${SESSION_TOKEN}" \
+        -d "${CURL_BODY}"
+
+        # Generate pytest JSON body
+        CURL_BODY=$(jq --null-input \
+                  --argjson tests "$pytest_tests" \
+                  --arg harness_uuid "$pytest_harness_uuid" \
+                  "$job_template")
+
+        printf '%s\n\n' "[*] Pytest Job Submit JSON: $CURL_BODY"
+
+        curl -X POST --no-progress-meter \
+        "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
+        -H "accept: application/json" \
+        -H "Content-Type: application/json" \
+        -H "authorization: Bearer ${SESSION_TOKEN}" \
+        -d "${CURL_BODY}"
+
+
+    - name: Set job status output
+      if: ${{ always() }}
+      id: set-output
+      run: |
+        echo "::set-output name=status::${{ job.status }}"

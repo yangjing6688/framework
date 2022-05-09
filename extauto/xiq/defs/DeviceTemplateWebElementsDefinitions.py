@@ -335,3 +335,81 @@ class DeviceTemplateWebElementDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="btnCtn"]//button[@data-dojo-attach-point="cancelButton"]',
             'wait_for': 5
         }
+
+    network_policy_add_button = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@class="table-action-icons table-add"]',
+            'wait_for': 3
+        }
+
+    network_policy_name_text = \
+        {
+            'XPATH': "//input[@data-automation-tag='automation-policy-name']",
+            'wait_for': 5
+        }
+
+    network_policy_save_button = \
+        {
+            'XPATH': "//button[@data-automation-tag='automation-policy-save']",
+            'wait_for': 5
+        }
+
+    select_device_template = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="configwizardNav"]//li[@class="wiz-item wiz-item-2"]',
+            'wait_for': 5
+        }
+
+    ap_template_advanced_settings = \
+        {
+            'XPATH': '//li[@class="ui-nav-sider-item has-cap-advanced nav-configuration-advanced active-result"]',
+            'wait_for': 3
+        }
+
+    ap_template_enable_scli = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enabledControl"]',
+            'wait_for': 3
+        }
+
+    ap_template_scli_config_enter_name = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="name"]',
+            'wait_for': 5
+        }
+
+    ap_template_scli_enter_commands = \
+        {
+            'XPATH': '//textarea[@data-dojo-attach-point="cli"]',
+            'wait_for': 5
+        }
+
+    ap_template_save_template = \
+        {
+            'XPATH': '//fixed-bar[@data-dojo-attach-point="btnCtn"]//button[@class="btn btn-primary"]',
+            'wait_for': 5
+        }
+
+    select_switch_template = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-device-templates-show-switch"]',
+            'wait_for': 5
+        }
+
+    switch_template_add_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="accesspointListArea"]//span[@class="table-action-icons table-filter-drop-add"]',
+            'wait_for': 5
+        }
+
+    switch_template_advanced_settings = \
+        {
+            'XPATH': '//li[@class="ui-nav-sider-item has-cap-advanced nav-configuration-advanced"]',
+            'wait_for': 3
+        }
+
+    switch_template_save_template = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@class="btn btn-primary"]',
+            'wait_for': 5
+        }
