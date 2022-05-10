@@ -183,8 +183,11 @@ class Reports(object):
                 return 1
         elif save_type == "save-run":
             self.utils.print_info("Clicking save & run button")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_run_button())
+
+            self.screen.save_screen_shot()
             sleep(2)
+            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_run_button())
+            sleep(10)
             self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
             sleep(5)
             if self._get_extreme_guest_manage_reports_page_user_row(report_name):

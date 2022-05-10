@@ -614,3 +614,38 @@ class Tools:
                 return 1
             seconds = seconds - 3
         self.builtin.fail("Not able to click " + element.text)
+
+    def installer_role_diagnostics_ping(self):
+        """
+        - This keyword is for testing Ping utility from Installer Role
+        - Flow: Installer Role -> Select a device ->  Utilities -> Diagnostics -> Ping
+         - Keyword Usage:
+          - 'Installer Role Diagnostics Ping'
+        :return: 1 if operation is successful
+        """
+        self.utils.print_info("Clicking Utilities...")
+        self.auto_actions.click(self.tools_elements.get_device_utilities())
+        sleep(2)
+
+        self.utils.print_info("Clicking Diagnostics...")
+        self.auto_actions.move_to_element(self.tools_elements.get_device_diagnostics())
+        sleep(2)
+
+        self.utils.print_info("Clicking Ping...")
+        self.auto_actions.click(self.tools_elements.get_device_ping())
+        sleep(2)
+
+        self.utils.print_info("Getting Ping Output...")
+        output = self.tools_elements.get_device_ping_content().text
+        sleep(2)
+
+        self.utils.print_info("Getting Ping Output: ", output)
+        sleep(2)
+
+        self.utils.print_info("Closing the Dialog page")
+        self.auto_actions.click(self.tools_elements.get_device_ping_close())
+
+        if 'ping statistics' in output and '5 packets transmitted' in output:
+            return 1
+
+        return -1

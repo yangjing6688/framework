@@ -393,3 +393,32 @@ class ToolsUtilitiesDefs:
         {'XPATH': '//span[@data-dojo-attach-point="closeDialog"]',
          'wait_for': 3
          }
+
+    device_utilities = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-utilities-button"]',
+            'wait_for': 5
+        }
+    device_diagnostics = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-utilities-diagnostics"]',
+            'wait_for': 5
+        }
+
+    device_ping = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-utilities-diagnostics-show-ping"]',
+            'wait_for': 5
+        }
+
+    device_ping_content = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="contentList"]',
+            'wait_for': 5
+        }
+
+    device_ping_close = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-show-ping-dialog-close-button"]',
+            'wait_for': 5
+        }
