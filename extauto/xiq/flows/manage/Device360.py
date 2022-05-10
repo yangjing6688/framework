@@ -6205,6 +6205,17 @@ class Device360(Device360WebElements):
         self.utils.print_info(" Error when configure : ", element)
         return -1
 
+    def d360_save_port_configuration(self):
+
+        get_save_button = self.get_device_d360_save_port_configuration()
+        if get_save_button:
+            self.auto_actions.click(get_save_button)
+            self.utils.print_info("save the port configuration ")
+            return 1
+        else:
+            return -1
+
+
 
 
 

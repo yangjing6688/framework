@@ -1535,3 +1535,6 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status_summery)
         return None
+
+    def get_device_d360_save_port_configuration(self):
+        return self.weh.get_element(self.device_d360_save_port_configuration)
