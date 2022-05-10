@@ -160,6 +160,7 @@ class PytestItems():
     def get_inventory_info(self):
         goodCaseName = re.compile(r"(test_[0-9a-zA-Z\[\]\-_\.]+)")
         output_dict = {}
+        cwd = os.getcwd()
 
         if self.session.config.option.get_test_info is not None:
             for item in self.session.items:
@@ -194,7 +195,6 @@ class PytestItems():
 
                         mlist.append(k)
                 # Set results
-                cwd = os.getcwd()
                 relative_path = os.path.relpath(item.fspath,  cwd)
                 resn = goodCaseName.search(item.name)
                 nameOK = True if resn else False
