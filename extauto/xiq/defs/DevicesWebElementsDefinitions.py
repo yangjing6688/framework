@@ -613,7 +613,7 @@ class DevicesWebElementsDefinitions:
 
     manage_device_search_field = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-search-input"]',
+            'XPATH': '//*[@data-dojo-attach-point="deviceSearchInput"]',
             'wait_for': 5
         }
 
