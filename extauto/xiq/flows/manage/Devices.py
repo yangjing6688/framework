@@ -9423,10 +9423,30 @@ class Devices:
                 self.utils.print_info("Error message does not contain the unmanage message.")
                 self.utils.print_info("Error message shown is: ", unmanage_msg_txt)
                 self.screen.save_screen_shot()
+
+                close_msg_btn = self.device_actions.get_close_message_btn()
+                if close_msg_btn:
+                    self.utils.print_info("Closing the device tab")
+                    self.auto_actions.click(close_msg_btn)
+                    return 1
+                else:
+                    self.utils.print_info("Could not close the device tab")
+                    self.screen.save_screen_shot()
+                    return -1
                 return -1
         else:
             self.utils.print_info("Unmanage message not found.")
             self.screen.save_screen_shot()
+
+            close_msg_btn = self.device_actions.get_close_message_btn()
+            if close_msg_btn:
+                self.utils.print_info("Closing the device tab")
+                self.auto_actions.click(close_msg_btn)
+                return 1
+            else:
+                self.utils.print_info("Could not close the device tab")
+                self.screen.save_screen_shot()
+                return -1
             return -1
 
 
