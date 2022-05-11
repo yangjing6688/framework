@@ -1,7 +1,7 @@
 class DeviceConfigDefs:
     interface_settings_tab = \
         {
-            'XPATH': '//li[@data-automation-tag="device-entity-nav-menu-interface-settings"]',
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-interfaceSettings"]//a',
             'wait_for': 5
         }
 
@@ -956,19 +956,19 @@ class DeviceConfigDefs:
     
     wireless_wifi2_channel_dropdown = \
         {
-            'XPATH': '//div[@class="grid_10 column"]/div[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-container-ctn"]/a/span',
+            'XPATH': '//div[@class="grid_10 column"]/div[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-container-ctn"]/a/span',
             'wait_for': 5
         }
 
     wireless_wifi1_channel_dropdown = \
         {
-            'XPATH': '//div[@data-automation-tag="interface-settings-wifi1-channel-chzn-container-ctn"]',
+            'XPATH': '//div[@data-automation-tag="automation-interface-settings-wifi1-channel-chzn-container-ctn"]',
             'wait_for': 5
         }
 
     wireless_wifi0_channel_dropdown = \
         {
-            'XPATH': '//div[@data-automation-tag="interface-settings-wifi0-radio-profile-chzn-container-ctn"]/a/span',
+            'XPATH': '//div[@data-automation-tag="automation-interface-settings-wifi0-channel-chzn-container-ctn"]/a/span',
             'wait_for': 5
         }
 
@@ -1278,5 +1278,12 @@ class DeviceConfigDefs:
     wired_client_popup_confirmation = \
         {
             'XPATH': '//*[@data-dojo-attach-point=""]',
+            'wait_for': 5
+        }
+
+# Close D360 configuration page
+    close_D360_popup = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 5
         }
