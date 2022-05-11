@@ -72,9 +72,12 @@ class DevicesActions:
         :return: 1 if Reset is Successful else -1
         """
         self.utils.print_info("Device serial(s) : ", device_list)
-        self.select_device_utilities(*device_list)
+        select = self.select_device_utilities(*device_list)
         self.screen.save_screen_shot()
         sleep(2)
+        if select == -1:
+            return ['False'], ['Unable to select any device(s)']
+
         self.utils.print_info("Click Reset Device to Default.")
         self.auto_actions.click(self.device_actions.get_reset_devices_to_default())
         self.screen.save_screen_shot()
@@ -189,12 +192,18 @@ class DevicesActions:
         :return: 1 if selecting Utilities is successful
         """
         self.navigator.navigate_to_devices()
+        select = False
         for device in device_list:
             if self.devices.select_device(device_serial=device):
                 self.utils.print_info(f"Selected device {device}")
+                select = True
             else:
                 self.utils.print_info(f"Unable to select device {device}")
-        self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.device_actions.get_device_utilities())
-        sleep(2)
-        return 1
+
+        if select:
+            self.utils.print_info("Clicking on Utilities")
+            self.auto_actions.click(self.device_actions.get_device_utilities())
+            sleep(2)
+            return 1
+        else:
+            return -1
