@@ -9428,11 +9428,9 @@ class Devices:
                 if close_msg_btn:
                     self.utils.print_info("Closing the device tab")
                     self.auto_actions.click(close_msg_btn)
-                    return 1
                 else:
                     self.utils.print_info("Could not close the device tab")
                     self.screen.save_screen_shot()
-                    return -1
                 return -1
         else:
             self.utils.print_info("Unmanage message not found.")
