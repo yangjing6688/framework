@@ -9468,7 +9468,7 @@ class Devices:
         '''
         if not isinstance(serial_number, list):
             serial_number = serial_number.split(",")
-            
+
         if isinstance(serial_number, list):
             self.utils.print_info("Trying to change the onboarding date for each serial...")
             for serial in serial_number:
