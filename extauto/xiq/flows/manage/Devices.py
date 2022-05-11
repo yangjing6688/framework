@@ -9198,7 +9198,11 @@ class Devices:
                         self.utils.print_info(f"Total number of images found from the drop down list :{len(update_version_items)}")
                         for opt in update_version_items:
                             avilableImagesList.append(opt.text)
-                            
+                            self.utils.print_info(f"One of the list image is : '{opt.text}'")
+                    else:
+                        self.utils.print_error(f"Unable to get the list of images from drop down option...")
+                        return -1
+                                                    
                     if avilableImagesList == []:
                         self.utils.print_error("Image list from the drop down is empty!")
                         self.screen.save_screen_shot()
@@ -9444,12 +9448,12 @@ class Devices:
             while True:
                 self.utils.print_info(f"Time elapsed in comparing the firmware version : {count} seconds ...")
                 if  str(deviceImageVersion) in str(updateToVersion):
-                    self.utils.print_info(f"Device firmware updated successfully to version '{deviceImageVersion}'")
+                    self.utils.print_info(f"Device firmware successfully updated to version : '{deviceImageVersion}'")
                     self.screen.save_screen_shot()
                     sleep(5)
-                    return deviceImageVersion   # This is where we return the updated status with updated firmware version
-                elif (count > 300) and (str(deviceImageVersion) not in str(updateToVersion)):
-                    self.utils.print_error(f"Firmware Update failed, expected version {updateToVersion} but found {deviceImageVersion}...")
+                    return deviceImageVersion                           # This is where we return the updated status with updated firmware version
+                elif (count > 600) and (str(deviceImageVersion) not in str(updateToVersion)):
+                    self.utils.print_error(f"Firmware Update Failed..., expected version is '{updateToVersion}' but found '{deviceImageVersion}'")
                     self.screen.save_screen_shot()
                     sleep(5)
                     return -1
