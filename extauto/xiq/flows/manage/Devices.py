@@ -6088,6 +6088,7 @@ class Devices:
                                 if connected_status == 'green':
                                     status = 'blue'
                                     self.utils.print_info("Return :", status)
+                                    self.screen.save_screen_shot()
                                     return status
                                 elif connected_status == 'disconnected':
                                     self.utils.print_info(
@@ -6096,6 +6097,7 @@ class Devices:
                                     status = connected_status
                                 else:
                                     self.utils.print_info("Return :", connected_status)
+                                    self.screen.save_screen_shot()
                                     return connected_status
                             else:
                                 self.utils.print_info("Cannot read the conection status")
@@ -6105,6 +6107,7 @@ class Devices:
                             status = 'red'
                         else:
                             self.utils.print_info("stack_toggle icon is present but the status can not be read ")
+                            self.screen.save_screen_shot()
                             return -1
                     else:
                         pass
@@ -6113,6 +6116,7 @@ class Devices:
                         try_one_more_time_mac = False
                     else:
                         self.utils.print_info("Found a raw with mac but stack_toggle icon was not found ")
+                        self.screen.save_screen_shot()
                         return -1
             else:
                 self.utils.print_info("No found a raw with mac :", device_mac)
@@ -6122,6 +6126,7 @@ class Devices:
                     self.utils.print_info("Found a raw with serial {}.The stack is not formed yet. "
                                           "Continue to check until duration_retry expired ".format(device_serial))
                     status = -1
+                    self.screen.save_screen_shot()
                 else:
                     self.utils.print_info("Did not found a raw with serial or mac ; Try one more time  ")
                     if try_one_more_time_serial:
@@ -6129,10 +6134,12 @@ class Devices:
                     else:
                         self.utils.print_info(
                             "Not found a raw with serial {} or mac {}  :".format(device_serial, device_mac))
+                        self.screen.save_screen_shot()
                         return -1
             retry_count += 30
             self.utils.print_info("Try again after {} seconds:".format(duration_retry / 10))
             sleep(duration_retry / 10)
+        self.screen.save_screen_shot()
         self.utils.print_info("duration_retry expired ; Return :", status)
         return status
 
