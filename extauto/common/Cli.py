@@ -2100,7 +2100,7 @@ class Cli(object):
             return -1
         spawn.sendline(line)
         time.sleep(wait)
-        output2 = spawn.read_nonblocking(size=100000)
+        output2 = spawn.read_nonblocking(size=100000000)
         if isinstance(output2, bytes):
             return output2.decode()
         else:
