@@ -23,7 +23,7 @@ def readPytestIni():
         for item in marker_list:
             marker = item.split(':')[0] # Grab only the name of the marker/tag ignore the description
             if marker.startswith('testbed_'):
-                testbed_markers.append(item.split(':')[0])
+                testbed_markers.append(marker)
 
     # This will only work when the CI is running this script. Fallback to a static list otherwise
     except Exception:
@@ -59,11 +59,13 @@ class RobotTestData(ModelVisitor):
     def visit_ForceTags(self, node):
         #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
         for nTag in node.get_values('ARGUMENT'):
+            nTag = nTag.strip()
             self.addTag(nTag)
             self.global_tags.add(nTag)
     def visit_DefaultTags(self, node):
         #print(f"- {node.get_values('ARGUMENT')} (on line {node.lineno})")
         for nTag in node.get_values('ARGUMENT'):
+            nTag = nTag.strip()
             self.addTag(nTag)
             self.global_tags.add(nTag)
     def visit_TestCase(self, node):
@@ -74,7 +76,7 @@ class RobotTestData(ModelVisitor):
                 if statement.type == "TAGS":
                     self.tests[node.name]['tags'] = list(statement.values)
                     for tag in statement.values:
-                        self.addTag(tag)
+                        self.addTag(tag.strip())
                     break # We found our tags. Time to bail
             except AttributeError:
                 # Hit an object without a "type" attribute. Skip to the next object
@@ -96,8 +98,7 @@ class RobotTestData(ModelVisitor):
             self.tests[test_name]['tags'].extend(self.global_tags)
 
             # Set results
-            resn = goodCaseName.search(test_name)
-            nameOK = True if resn else False
+            nameOK = True if goodCaseName.match(test_name) else False
             dev_exists = True if 'development' in self.tests[test_name]['tags'] else False
 
             qTestOK = False
@@ -107,13 +108,11 @@ class RobotTestData(ModelVisitor):
             for tag in self.tests[test_name]['tags']:
                 if tag in self.testbed_tags:
                     testbed_tag_exists = True
-                qTestCheck = qTestMarker.search(tag)
-                if qTestCheck:
+                if qTestMarker.match(tag):
                     qTestOK = True
                 if not tag.islower():
                     uppercase_check = False
-                reserved_tags_result = reserved_tags_re.search(tag)
-                if reserved_tags_result:
+                if reserved_tags_re.match(tag):
                     reserved_tags_check = True
 
             testcase_info = {
@@ -168,7 +167,7 @@ class PytestItems():
                 self.testcount += 1
                 mlist = []
                 markers = item.keywords.__dict__['_markers']
-                m1 = re.compile(r"true|false|[0-9]+\-[0-9]+|TRUE|FALSE|True|False")
+                ignore_markers = re.compile(r"true|false|[0-9]+\-[0-9]+|TRUE|FALSE|True|False|pytestmark|parametrize")
 
                 # make list of user created markers
                 qTestOK = False
@@ -176,28 +175,26 @@ class PytestItems():
                 reserved_tags_check = False  # True = atleast one reserved tag found, False = no reserved tags used
                 testbed_tag_exists = False
                 for (k, v) in markers.items():
-                    res = m1.search(str(k))
-                    if k == 'pytestmark' or k == 'parametrize' or res:
+                    marker = str(k).strip()
+                    # Skip markers we don't care about. pyTest intenal, etc.
+                    if ignore_markers.match(marker):
                         continue
-                    if v == True and k != item.name:
-                        if k in self.testbed_markers:
-                            if k.endswith('node'):
-                                caseNodes = int(k.split('_')[1])
+                    if v and k != item.name:
+                        if marker in self.testbed_markers:
+                            if marker.endswith('node'):
+                                caseNodes = int(marker.split('_')[1])
                             testbed_tag_exists = True
-                        qTestCheck = qTestMarker.search(k)
-                        if qTestCheck:
+                        if qTestMarker.match(marker):
                             qTestOK = True
-                        if not k.islower():
+                        if not marker.islower():
                             uppercase_check = False
-                        reserved_tags_result = reserved_tags_re.search(k)
-                        if reserved_tags_result:
+                        if reserved_tags_re.match(marker):
                             reserved_tags_check = True
 
-                        mlist.append(k)
+                        mlist.append(marker)
                 # Set results
                 relative_path = os.path.relpath(item.fspath,  cwd)
-                resn = goodCaseName.search(item.name)
-                nameOK = True if resn else False
+                nameOK = True if goodCaseName.match(item.name) else False
                 dev_exists = True if 'development' in mlist else False
 
                 testcase_info = {
@@ -214,15 +211,6 @@ class PytestItems():
                 # Keyed on relative path of testcase file, then function name
                 output_dict.setdefault(relative_path, {}).setdefault(item.name, testcase_info)
 
-
-
-                # Output info to console
-                # print('*** Start CICD Info ***')
-                # print('Test_Name: {}\nTest_Location: {}\nTest_Name_Check: {}'.format(item.name, item.fspath, nameOK ))
-                # if len(mlist) > 0:
-                #     print('    MARKERS qTest {} - {}'.format(qTestOK,mlist))
-
-                # print('*** End CICD Info ***')
 
                 # Test module stuff
                 parts = self.PT.pathParts(item.fspath)
