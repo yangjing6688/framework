@@ -112,7 +112,7 @@ class RobotTestData(ModelVisitor):
                     qTestOK = True
                 if not tag.islower():
                     uppercase_check = False
-                if reserved_tags_re.match(tag):
+                if reserved_tags_re.fullmatch(tag):
                     reserved_tags_check = True
 
             testcase_info = {
@@ -188,7 +188,7 @@ class PytestItems():
                             qTestOK = True
                         if not marker.islower():
                             uppercase_check = False
-                        if reserved_tags_re.match(marker):
+                        if reserved_tags_re.fullmatch(marker):
                             reserved_tags_check = True
 
                         mlist.append(marker)
