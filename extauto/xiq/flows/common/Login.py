@@ -1397,6 +1397,7 @@ class Login:
             self.utils.print_info("Found submit button!")
             sleep(2)
             self.auto_actions.click(submit_button)
+            self.screen.save_screen_shot()
             return user
         else:
             self.utils.print_info("Unable to find submit button.")
