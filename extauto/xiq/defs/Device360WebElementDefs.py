@@ -2649,7 +2649,13 @@ class Device360WebElementDefs:
 
     device_d360_save_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
+            'wait_for': 5
+        }
+
+    device_d360_cancel_port_configuration = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 5
         }
 

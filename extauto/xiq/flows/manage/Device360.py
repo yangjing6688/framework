@@ -6222,6 +6222,16 @@ class Device360(Device360WebElements):
         else:
             return -1
 
+    def d360_cancel_port_configuration(self):
+
+        get_save_button = self.get_device_d360_cancel_port_configuration()
+        if get_save_button:
+            self.auto_actions.click(get_save_button)
+            self.utils.print_info("Exit the port configuration ")
+            return 1
+        else:
+            return -1
+
 
 
 

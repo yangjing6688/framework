@@ -1538,3 +1538,5 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device_d360_save_port_configuration(self):
         return self.weh.get_element(self.device_d360_save_port_configuration)
+    def get_device_d360_cancel_port_configuration(self):
+        return self.weh.get_element(self.device_d360_cancel_port_configuration)
