@@ -188,6 +188,14 @@ class SwitchTemplate(object):
             self.auto_actions.click(tab)
             sleep(2)
 
+        sw_template_add_button = self.sw_template_web_elements.get_sw_template_add_button()
+        if sw_template_add_button:
+            self.utils.print_info("Click on Add button ")
+            self.auto_actions.click(sw_template_add_button)
+        else:
+            self.utils.print_info("Add button not found")
+
+
         row = self.get_sw_template_row(sw_template)
         self.auto_actions.click(row)
         return 1
@@ -1584,3 +1592,93 @@ class SwitchTemplate(object):
                 else:
                     pass
         return -1
+
+    def add_5520_sw_template(self, nw_policy, sw_model, sw_template_name, save_template=True):
+        """
+        - Checks the given STACK switch template present already in the switch Templates Grid
+        - If it is not there add to the sw_template
+        - This function is working only for stack
+        - Keyword Usage
+         - ``  ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
+         - e.g. Add Sw Stack Template                           5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS
+           ...                             bgd2        EXOS-5520-Series-Stack          politicamea      True
+        :param model_units: a string will all units e.g 5520-24T,5520-24X,5520-48T
+        :param nw_policy: network policy
+        :param sw_model: Switch Model  ie EXOS-5520-Series-Stack
+        :param sw_template_name: Switch Template Name e.g mypolicy
+        :param save_template: True - will save the template ; False - will not save the template (More configures can be added after)
+
+        :return: 1 if Switch Template Configured Successfully else -1
+        """
+        self.utils.print_info("Navigate to devices")
+        self.navigator.navigate_to_devices()
+        self.utils.print_info("Navigating Network Policies")
+        self.navigator.navigate_configure_network_policies()
+        sleep(1)
+
+        if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
+            self.utils.print_info("Not found the network policy. Make sure that it was created before ")
+            return -1
+
+        sleep(2)
+
+        self.utils.print_debug("Click on Device Template tab button")
+        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        sleep(2)
+
+        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        if tab.is_displayed():
+            self.utils.print_info("Click on Switch Templates tab")
+            self.auto_actions.click(tab)
+            sleep(2)
+
+        if self.check_sw_template(sw_template_name):
+            self.utils.print_info(
+                "Template with name {} already present in the template grid".format(sw_template_name))
+            return -1
+
+        add_btn = self.sw_template_web_elements.get_new_sw_template_add_button()
+        sleep(2)
+
+        if add_btn:
+            self.utils.print_info("Click on sw Template Add button")
+            self.auto_actions.click(add_btn)
+            sleep(1)
+
+            self.utils.print_info("select the sw: ", sw_model)
+            sw_list_items = self.sw_template_web_elements.get_sw_template_platform_from_drop_down()
+            sleep(2)
+            for el in sw_list_items:
+                self.utils.print_debug("Switch template names: ", el.text.upper())
+                if not el:
+                    pass
+                if sw_model.upper() in el.text.upper():
+                    self.auto_actions.click(el)
+                    break
+                print(el.text)
+            sleep(3)
+
+            self.utils.print_info("Enter the switch Template Name: ", sw_template_name)
+            self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
+                                        sw_template_name)
+            sleep(3)
+        if save_template:
+            save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+            for save_btn in save_btns:
+                if save_btn.is_displayed():
+                    self.utils.print_info("Click on the save template button")
+                    self.auto_actions.click(save_btn)
+                    sleep(10)
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    for cnt3 in tool_tip_text:
+                        if 'Stack template has been saved successfully.' in cnt3:
+                            self.utils.print_info("Found successfully message")
+                            return 1
+                        else:
+                            self.utils.print_info("Not found successfully message yet ")
+                else:
+                    self.utils.print_info("Not found 'Save template' button ")
+        else:
+            self.utils.print_info("User choose not to save the policy. More configs could be added")
+            return 1

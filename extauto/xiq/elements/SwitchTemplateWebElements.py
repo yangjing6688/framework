@@ -406,3 +406,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
             if el.is_displayed():
                 return el
         return None
+
+    def get_new_sw_template_add_button(self):
+        return self.weh.get_element(self.new_sw_template_add_button)

@@ -537,7 +537,7 @@ class CommonObjects(object):
         sleep(2)
 
         if not self._search_common_object(port_type_name):
-            self.utils.print_info("Port Type Profile Name does't exists in the list")
+            self.utils.print_info("Port Type Profile Name does't exists in the list",port_type_name)
             return 1
 
         self.utils.print_info("Select and delete Port Type Profile row")

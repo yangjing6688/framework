@@ -542,3 +542,9 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': "//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
+
+    new_sw_template_add_button = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-switch-device-templates-menu-button"]',
+            'wait_for': 5
+        }
