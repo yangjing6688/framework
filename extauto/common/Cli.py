@@ -139,7 +139,7 @@ class Cli(object):
             return -1
 
         conn_str = 'telnet ' + ip + " " + str(port)
-        if (port == '22') or (port == 8554):
+        if (str(port) == '22') or (str(port) == '8554'):
             self.utils.print_info("Opening SSH Spawn...")
             conn_str = 'ssh ' + username + "@" + ip + " -p " + str(port) + " -o StrictHostKeyChecking=no"
             self.utils.print_info("SSH conn_str: ", conn_str)
