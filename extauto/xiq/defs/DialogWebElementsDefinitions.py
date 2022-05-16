@@ -17,7 +17,8 @@ class DialogWebElementsDefinitions:
          }
 
     dialog_ok_button = \
-        {'CSS_SELECTOR': '.btn.btn-small.btn-primary',
+        {
+         'XPATH': "//*[@data-dojo-attach-point='okBtn']",
          'wait_for': 5
          }
 
