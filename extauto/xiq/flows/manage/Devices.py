@@ -1071,56 +1071,6 @@ class Devices:
             self.utils.print_info("Unable to Onboard Simulated Device")
             return -1
 
-    def get_device_data_field_value(self, device_type, data_field):
-        """
-        - gets all specified device field (serial number, mac addres, ip address, etc.) values with the same device_type
-        - Keyword Usage:
-         - ``Get Device Data Field Value    ${DEVICE_TYPE}     ${DATA_FIELD}``
-
-        :param device_type: type of device
-        :param data_field: data field values of interest to be returned
-        :return: an array of data field values, else -1
-        """
-        try:
-            prev_dev_list = []
-            sleep(5)
-            rows = self.devices_web_elements.get_grid_rows()
-            if rows:
-                for row in rows:
-                    if device_type in row.text:
-                        self.utils.print_info(f"{row.text}")
-                        try:
-                            cells = self.devices_web_elements.get_device_row_cells(row)
-                            self.utils.print_info(f"found cells {len(cells)}")
-                        except:
-                            self.utils.print_info(f"Could not get Row Cells - {row}")
-                            continue
-                        device_detail_dict = {}
-                        for cell in cells:
-                            try:
-                                testcell = cell.get_attribute("class")
-                            except:
-                                print("cell print error")
-                                continue
-                            if re.search(r'field-\w*', cell.get_attribute("class")):
-                                try:
-                                    label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
-                                except:
-                                    label = 'OOPS'
-                                device_detail_dict[label] = cell.text
-                            else:
-                                self.utils.print_info(f"missed class match " + cell.get_attribute("class"))
-                        res = device_detail_dict.get(data_field)
-                        prev_dev_list.append(res)
-                self.utils.print_info(f"List of data fields values with device type {device_type}: {prev_dev_list}")
-            else:
-                self.utils.print_info("No rows present")
-            return prev_dev_list
-        except Exception as e:
-            self.utils.print_info(e)
-            self.utils.print_info(f"Unable to get Device data field with Device Type {device_type}")
-            return -1
-
     def get_device_serial_numbers(self, device_type):
         """
         - gets all existing devices serials with the same device_type
@@ -1919,7 +1869,7 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
 
         self.utils.print_info("Selecting Quick Add Devices menu")
-        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
+        self.auto_actions.move_to_element(self.devices_web_elements.quick_add_devices())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
         self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
@@ -9111,7 +9061,6 @@ class Devices:
         except Exception as e:
             return -1
 
-
     def update_network_device_firmware(self,device_mac='default',version='default',forceDownloadImage="true",performUpgrade="true",saveDefault="false",updateTo="latest",updatefromD360Page="false",retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
@@ -9139,13 +9088,14 @@ class Devices:
         device_row = -1
         updateToVersion = -1
         initial_timestamp = 0
+        initial_updated_status = ""
 
         # Get the Updated cell data timestamp to validate the update process 
         self.utils.print_info("Navigate to Manage --> Devices")
         self.navigator.navigate_to_devices()        
         self.refresh_devices_page()
         sleep(5)
-        self.close_last_refreshed_tooltip()       
+        self.close_last_refreshed_tooltip()      
         
         if device_mac != 'default':
             self.utils.print_info("Getting Updated Status of Device with MAC: ", device_mac)
@@ -9156,6 +9106,7 @@ class Devices:
         if device_row:
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status : ", device_updated_status)
+            initial_updated_status = device_updated_status
             if re.search(r'\d+-\d+-\d+', device_updated_status):
                 initial_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
             os_version = self.get_device_row_values(device_mac, 'OS VERSION')
@@ -9254,7 +9205,11 @@ class Devices:
                         self.utils.print_info(f"Total number of images found from the drop down list :{len(update_version_items)}")
                         for opt in update_version_items:
                             avilableImagesList.append(opt.text)
-                            
+                            self.utils.print_info(f"One of the list image is : '{opt.text}'")
+                    else:
+                        self.utils.print_error(f"Unable to get the list of images from drop down option...")
+                        return -1
+                                                    
                     if avilableImagesList == []:
                         self.utils.print_error("Image list from the drop down is empty!")
                         self.screen.save_screen_shot()
@@ -9401,7 +9356,7 @@ class Devices:
             self.navigator.navigate_to_devices()
             self.refresh_devices_page()
             sleep(5)
-            self.close_last_refreshed_tooltip()
+
             device_row = self.get_device_row(device_mac)
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status : ", device_updated_status)
@@ -9409,7 +9364,7 @@ class Devices:
             # Incase close option is selected then will return 1 
             if performUpgrade.lower() != "true" and "Firmware Updating" not in device_updated_status:
                 self.utils.print_info("Firmware update is not triggered when clicking the close button...")
-                return 1
+                return 1        # This is where we return the updated status as 1
             elif performUpgrade.lower() != "true" and "Firmware Updating" in device_updated_status:
                 self.screen.save_screen_shot()
                 sleep(5)
@@ -9417,7 +9372,7 @@ class Devices:
                 return -1
                 
             if (forceDownloadImage.lower() == "true") or (nos_version not in str(updateToVersion)): 
-            
+                self.utils.print_info("Check for the device updated status when force image download is enabled...")
                 # Checking for the update column to reflect the firmware updating status max timer is 300 seconds
                 count = 0
                 while ("Firmware Updating" not in device_updated_status):
@@ -9425,7 +9380,6 @@ class Devices:
                     count += retry_duration
                     self.refresh_devices_page()
                     sleep(5)
-                    self.close_last_refreshed_tooltip()
                     device_row = self.get_device_row(device_mac)
                     device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                     self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
@@ -9440,7 +9394,6 @@ class Devices:
                     count += retry_duration
                     self.refresh_devices_page()
                     sleep(5)
-                    self.close_last_refreshed_tooltip()
                     device_row = self.get_device_row(device_mac)
                     device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                     self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
@@ -9453,19 +9406,18 @@ class Devices:
                         self.utils.print_info("Firmware Update 100% Completed!")
                         break
             else:
+                self.utils.print_info("Check for the device updated status when force image download is disabled...")
+                self.utils.print_info("Initial Device Updated Status : ", initial_updated_status)
                 sleep(30)
                 self.refresh_devices_page()
-                sleep(5)
-                self.close_last_refreshed_tooltip()
+                sleep(10)
                 device_row = self.get_device_row(device_mac)
                 device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
-                self.utils.print_info("Device Updated Status : ", device_updated_status)  
+                self.utils.print_info("Current Device Updated Status : ", device_updated_status)
                 if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
                     count = 0
                     while True:
                         latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
-                        count += retry_duration
-                        sleep(retry_duration)
                         if latest_timestamp > initial_timestamp:
                             self.utils.print_info(f"Device update is finished by just updating the timestamp to : ", str(dt.datetime.fromtimestamp(latest_timestamp)))
                             self.screen.save_screen_shot()
@@ -9482,6 +9434,10 @@ class Devices:
                             self.screen.save_screen_shot()
                             sleep(5)
                             return -1
+                        sleep(retry_duration)
+                        count += retry_duration
+                        device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+                        sleep(5)
                 else:
                     self.utils.print_error("Device Update Failed due to ", device_updated_status)
                     self.screen.save_screen_shot()
@@ -9499,12 +9455,12 @@ class Devices:
             while True:
                 self.utils.print_info(f"Time elapsed in comparing the firmware version : {count} seconds ...")
                 if  str(deviceImageVersion) in str(updateToVersion):
-                    self.utils.print_info(f"Device firmware updated successfully to version '{deviceImageVersion}'")
+                    self.utils.print_info(f"Device firmware successfully updated to version : '{deviceImageVersion}'")
                     self.screen.save_screen_shot()
                     sleep(5)
-                    return deviceImageVersion   # This is where we return the updated status with updated firmware version
-                elif (count > 300) and (str(deviceImageVersion) not in str(updateToVersion)):
-                    self.utils.print_error(f"Firmware Update failed, expected version {updateToVersion} but found {deviceImageVersion}...")
+                    return deviceImageVersion                           # This is where we return the updated status with updated firmware version
+                elif (count > 600) and (str(deviceImageVersion) not in str(updateToVersion)):
+                    self.utils.print_error(f"Firmware Update Failed..., expected version is '{updateToVersion}' but found '{deviceImageVersion}'")
                     self.screen.save_screen_shot()
                     sleep(5)
                     return -1
