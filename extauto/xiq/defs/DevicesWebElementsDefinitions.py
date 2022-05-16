@@ -1119,7 +1119,8 @@ class DevicesWebElementsDefinitions:
 
     quick_add_devices = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="actionLeft"]//a[@type="quickAdd"]',
+            'XPATH': '//*[@class="ui-menu-list"]'
+                     '//*[@data-automation-tag="automation-device-list-menu-quick-add-devices"]',
             'wait_for': 3
         }
 
