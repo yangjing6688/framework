@@ -45,6 +45,12 @@ class LoginWebElementsDefinitions:
             'wait_for': 5
         }
 
+    click_about_extreme_cloudiq_link = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-account-menu-about-link']",
+            'wait_for': 2
+        }
+
     data_center_name = \
         {
             'DESC': 'Data Center Name',
