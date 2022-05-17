@@ -7,11 +7,9 @@ RUN apt-get update && apt-get install -y \
       python3 \
       python3-venv \
       python3-pip \
-      python3-pycurl \
       python3-opencv \
       wget \
       curl \
-      libcurl4-openssl-dev \
       libssl-dev \
       default-jdk \
       unzip \

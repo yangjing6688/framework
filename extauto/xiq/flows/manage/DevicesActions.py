@@ -59,6 +59,46 @@ class DevicesActions:
             self.utils.print_info("Unable to Clear Audit Mismatch On Device ")
             return -1
 
+    def reset_device_to_default(self, *device_list):
+        """
+        - This Keyword performs factory reset on AP
+        - Navigate to Manage --> Device
+        - Select the device row based on the passed device serial
+        - Click Utilities --> Reset Device to Default
+        - Handles device reset pop up and validates reset dialogue box message.
+        - Keyword Usage:
+         - ``Reset Device to Default     ${AP1_SERIAL}   ${AP2_SERIAL}``
+        :param device_list: serial numbers of the devices
+        :return: 1 if Reset is Successful else -1
+        """
+        self.utils.print_info("Device serial(s) : ", device_list)
+        select = self.select_device_utilities(*device_list)
+        self.screen.save_screen_shot()
+        sleep(2)
+        if select == -1:
+            return ['False'], ['Unable to select any device(s)']
+
+        self.utils.print_info("Click Reset Device to Default.")
+        self.auto_actions.click(self.device_actions.get_reset_devices_to_default())
+        self.screen.save_screen_shot()
+        sleep(2)
+        self.utils.print_info(self.device_actions.get_device_reset_warning_msg().text)
+        self.utils.print_info("Click 'yes' button ")
+        self.auto_actions.click(self.device_actions.get_device_reset_yes_dialog())
+        self.utils.print_info("Wait....")
+        sleep(10)
+        msg = self.device_actions.get_device_reset_dialog_box_msg().text
+        self.screen.save_screen_shot()
+        sleep(2)
+        self.utils.print_info("dialogue box message :", msg)
+        reset_list = self.validate_reset_dialogue_box_msg(msg, *device_list)
+        self.utils.print_info("Return values of failed and success list :", reset_list)
+        self.utils.print_info("Closing the Reset dialogue box")
+        self.auto_actions.click(self.device_actions.get_device_reset_close_dialog())
+        self.screen.save_screen_shot()
+        sleep(1)
+        return reset_list
+
     def perform_device_factory_reset(self, *device_list):
         """
         - This Keyword performs factory reset on AP
@@ -152,12 +192,18 @@ class DevicesActions:
         :return: 1 if selecting Utilities is successful
         """
         self.navigator.navigate_to_devices()
+        select = False
         for device in device_list:
             if self.devices.select_device(device_serial=device):
                 self.utils.print_info(f"Selected device {device}")
+                select = True
             else:
                 self.utils.print_info(f"Unable to select device {device}")
-        self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.device_actions.get_device_utilities())
-        sleep(2)
-        return 1
+
+        if select:
+            self.utils.print_info("Clicking on Utilities")
+            self.auto_actions.click(self.device_actions.get_device_utilities())
+            sleep(2)
+            return 1
+        else:
+            return -1

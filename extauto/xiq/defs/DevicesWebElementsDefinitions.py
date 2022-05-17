@@ -13,6 +13,21 @@ class DevicesWebElementsDefinitions:
             'wait_for': 10
          }
 
+    devices_page_grid_rows_next = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            # 'XPATH': "//*[@data-page='1']",
+            'index': 1,
+            'wait_for': 2,
+        }
+
+    devices_page_numbers = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="pagesWrap"]',
+            'index': 1,
+            'wait_for': 2
+        }
+
     devices_page_grid_ap_name_cells = \
         {
             'CSS_SELECTOR': '.field-hostname',
@@ -66,13 +81,8 @@ class DevicesWebElementsDefinitions:
         {
             'CLASS_NAME': 'field-hostname',
             'wait_for': 1
-         }
+        }
 
-    devices_add_button = \
-        {
-            'XPATH': '//*[@class="table-action-icons table-drop-add"]',
-            'wait_for': 1
-         }
     device_entry_exos_csv_upload_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="quickImportCtn"]'
@@ -80,55 +90,56 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5,
             'index': 0
         }
+
     devices_add_menu = \
         {
             'CSS_SELECTOR': '.ui-menu-list',
             'wait_for': 1
-         }
+        }
 
     devices_quick_add_menu_item = \
         {
             'CSS_SELECTOR': '.ui-menu-item',
             'wait_for': 1
-         }
+        }
 
     devices_quick_add_devices_menu_item = \
-    {
-        'CSS_SELECTOR': '.ui-menu-item',
-        'wait_for': 1
-    }
+        {
+            'CSS_SELECTOR': '.ui-menu-item',
+            'wait_for': 1
+        }
 
     deploy_devices_to_cloud_menu_item = \
         {
             'CSS_SELECTOR': '.ui-menu-item.quick-add-deploy-menu-item',
             'index': 0,
             'wait_for': 1
-         }
+        }
 
     deploy_devices_locally_menu_item = \
         {
             'CSS_SELECTOR': '.ui-menu-item.quick-add-deploy-menu-item',
             'index': 1,
             'wait_for': 1
-         }
+        }
 
     devices_serial_text_area = \
         {
             # 'CSS_SELECTOR': '.serial-numbers.aerohive',
             'XPATH': "//*[@data-automation-tag='automation-quick-add-onboard-serial-number-textbox']",
             'wait_for': 1
-         }
+        }
 
     location_button = \
         {
             'XPATH': "//*[@data-automation-tag='automation-quick-add-onboard-select-location-button']",
             'wait_for': 1
-         }
+        }
 
     device_os_radio = \
         {
-        'XPATH': "//*[@data-dojo-attach-point='cloudIqEngineLine']",
-        'wait_for': 1
+            'XPATH': "//*[@data-dojo-attach-point='cloudIqEngineLine']",
+            'wait_for': 1
         }
 
     location_select_button = \
@@ -151,10 +162,28 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    devices_add_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-device-list-menu-button"]',
+            'wait_for': 2
+        }
+
     device_delete_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-device-list-speRemove-btn"]',
-            'wait_for': 5
+            'wait_for': 2
+        }
+
+    device_download_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-device-list-download-btn"]',
+            'wait_for': 2
+        }
+
+    device_bulk_edit_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-device-list-bulkEdit-btn"]',
+            'wait_for': 2
         }
 
     device_action_button = \
@@ -355,6 +384,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    manage_device_utilities_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-button"]',
+            'wait_for': 2
+        }
+
     actions_assign_network_policy = \
         {
             'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions") and contains(@data-automation-tag, "-assign-policy")]',
@@ -364,7 +399,14 @@ class DevicesWebElementsDefinitions:
     actions_assign_network_policy_drop_down = \
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-policy"]',
+            'wait_for': 5
+        }
+
+    actions_assign_network_policy_drop_down_router = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
             'wait_for': 5,
+            'index': 1
         }
 
     action_assign_network_policy_dialog = \
@@ -412,7 +454,7 @@ class DevicesWebElementsDefinitions:
 
     actions_country_code_dropdown = \
         {
-            'XPATH': '//*[contains(@class, "device-actions-dialog")]//*[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//*[contains(@class, "device-actions-dialog")]//*[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
 
@@ -966,7 +1008,7 @@ class DevicesWebElementsDefinitions:
 
     devices_stack_update_policy_dropdown_items = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="stackTemplateChooser"]//div[@data-automation-tag="chzn-drop-ctn"]//ul//li',
+            'XPATH': '//div[@data-dojo-attach-point="stackTemplateChooser"]//div[@data-automation-tag="automation-chzn-drop-ctn"]//ul//li',
             'wait_for': 10
         }
 
@@ -1077,7 +1119,8 @@ class DevicesWebElementsDefinitions:
 
     quick_add_devices = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="actionLeft"]//a[@type="quickAdd"]',
+            'XPATH': '//*[@class="ui-menu-list"]'
+                     '//*[@data-automation-tag="automation-device-list-menu-quick-add-devices"]',
             'wait_for': 3
         }
 

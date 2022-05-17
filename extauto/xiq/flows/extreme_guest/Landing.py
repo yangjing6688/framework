@@ -71,3 +71,25 @@ class Landing(object):
             return 1
         else:
             return 0
+
+    def check_map_location_widget(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Page and check map widget marker
+        - Flow: XIQ--> Extreme Guest
+        - Keyword Usage:
+            ''Check Map Location Widget''
+
+        :return: 1 if widget is displayed
+        """
+        if self.auto_actions.click(self.landing_web_elem.get_extreme_guest_map_location_marker()):
+            print("Online Users Count: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_users_count().text)
+            print("Total Users Count: ", self.landing_web_elem.get_extreme_guest_map_location_marker_total_users_count().text)
+            print("Total Users Today: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_today('Total Users').text)
+            print("Total Users Yesterday: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_yesterday('Total Users').text)
+            print("New Users Today: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_today('New Users').text)
+            print("New Users Yesterday: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_yesterday('New Users').text)
+            print("Return Users Today: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_today('Return Users').text)
+            print("Return Users Yesterday: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_yesterday('Return Users').text)
+            self.screen.save_screen_shot()
+            return 1
+        return -1
