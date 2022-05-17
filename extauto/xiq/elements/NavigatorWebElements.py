@@ -128,6 +128,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_common_object_basic_tab(self):
         return self.weh.get_element(self.common_object_basic_tab)
 
+    def get_common_object_basic_client_mode_profiles(self):
+        return self.weh.get_element(self.common_object_basic_client_mode_profiles)
+
     def get_common_object_basic_vlans(self):
         return self.weh.get_element(self.common_object_basic_vlans)
 
@@ -611,6 +614,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_client_monitor_diagnosis_tab(self):
         return self.weh.get_element(self.client_monitor_diagnosis_tab)
 
+    def get_applications_tab(self):
+        return self.weh.get_element(self.applications_tab)
+
     def get_manage_summary_menu_item(self):
         return self.weh.get_element(self.manage_summary_menu_item)
 
@@ -652,3 +658,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
             if str(menu_item_tag) in el.get_attribute("data-automation-tag"):
                 return order_number
         return -1
+
+    def get_vpn_services_tab(self):
+        return self.weh.get_element(self.vpn_services_tab)
+
+    def get_clients_hyperlink(self):
+        return self.weh.get_element(self.clients_hyperlink)

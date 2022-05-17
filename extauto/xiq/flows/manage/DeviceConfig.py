@@ -75,6 +75,114 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.click(self.get_wireless_interface_toggle())
             self.utils.print_info("able to click toggle")
 
+    def override_client_mode_in_device_config(self, device_mac='', interface='', **client_mode_profile):
+        """
+        - This keyword is used to modify or override the client mode settings in wireless interface settings page
+        - override wireless interface settings includes client mode options of radio usage
+        - Flow: Manage --> Devices --> Select single device -->  Select interface setting tab --> Wireless Interfaces
+        - Keyword Usage:
+         - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi0   &{client_mode_profile}``
+         - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi1   &{client_mode_profile}``
+
+        :param device_mac:  device mac
+        :param interface: device interface i.e WiFi0/WiFi1
+        :param client_mode_profile: override config dict
+        :return: 1 if interface setting updated success else -1
+        """
+        self.utils.print_info("Navigating to device 360 page")
+        if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+            self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+            return -1
+        self.utils.print_info("click on configuration tab")
+        self.auto_actions.click(self.get_configuration_tab())
+        self.utils.print_info("Click on interface settings tab")
+        self.auto_actions.click(self.get_interface_settings_tab())
+        self._go_to_wireless_interface_settings_page()
+        sleep(3)
+        self.auto_actions.click(self.get_wifi0_interface_tab())
+        self.auto_actions.click(self.get_override_client_access_wifi0_checked())
+        self.auto_actions.click(self.get_override_client_access_wifi0_checked())
+        self.auto_actions.click(self.get_interface_settings_save_button())
+        sleep(3)
+        self._go_to_wireless_interface_settings_page()
+
+        if   interface.lower() == 'wifi0':
+            self.utils.print_info("Click on WiFi0 interface tab")
+            self.auto_actions.click(self.get_wifi0_interface_tab())
+            self.utils.print_info("Click enable Client Mode Checkbox")
+            self.auto_actions.click(self.get_override_client_mode_wifi0_checked())
+            sleep(3)
+            self.auto_actions.scroll_down()
+            self.utils.print_info("Click Add(+)")
+            self.auto_actions.click(self.get_override_add_client_mode_wifi0_profile())
+        elif interface.lower() == 'wifi1':
+            self.utils.print_info("Click on WiFi1 interface tab")
+            self.auto_actions.click(self.get_wifi1_interface_tab())
+            self.utils.print_info("Click enable Client Mode Checkbox")
+            self.auto_actions.click(self.get_override_client_mode_wifi1_checked())
+            sleep(3)
+            self.auto_actions.scroll_down()
+            self.utils.print_info("Click Add(+)")
+            self.auto_actions.click(self.get_override_add_client_mode_wifi1_profile())
+        else:
+            self.utils.print_info(f"Can you specify interface(wifi0 or wifi1)?")
+
+        self._override_client_mode_wifi0_1(**client_mode_profile)
+        sleep(3)
+        self.utils.print_info("Click on interface settings save button")
+        self.auto_actions.click(self.get_interface_settings_save_button())
+        sleep(5)
+        self.screen.save_screen_shot()
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+        self.utils.print_info("Close the device360 page dialog window")
+        self.auto_actions.click(self.get_close_device360_dialog_window())
+
+        if 'Interface Settings were updated successfully.' in tool_tp_text:
+            return 1
+        else:
+            return -1
+
+    def _override_client_mode_wifi0_1(self, **client_mode_profile):
+        """
+        - Get the override client mode wifi0 and 1
+        :return:
+        """
+        client_mode_profile_name = client_mode_profile['client_mode_profile_name']
+        dhcp_server_scope = client_mode_profile['dhcp_server_scope']
+        cm_enable_local_web_page = client_mode_profile.get('local_web_page', 'ENABLE')
+        cm_ssid_name = client_mode_profile.get('ssid_name', 'bk_enterprise')
+        cm_password = client_mode_profile.get('password', 'aerohive')
+        cm_auth_method = client_mode_profile.get('auth_method', 'Pre-Shared Key')
+        cm_key_type = client_mode_profile.get('key_type', 'ASCII')
+
+        self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
+        self.auto_actions.send_keys(self.get_override_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
+        if cm_enable_local_web_page.upper() == 'DISABLE':
+            self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
+            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_checkbox())
+            self.utils.print_info(f"Click Add(+)")
+            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_add())
+            self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
+            self.auto_actions.send_keys(self.get_override_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
+            self.utils.print_info(f"Enter Password: {cm_password}")
+            self.auto_actions.send_keys(self.get_override_wifi0_1_cm_local_web_page_password_textbox(), cm_password)
+            self.utils.print_info(f"Auth Method: {cm_auth_method}")
+            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_auth_dropdown())
+            self.auto_actions.select_drop_down_options(self.get_override_wifi0_1_cm_local_web_page_auth_dropdown_option(), cm_auth_method)
+            self.utils.print_info(f"Key Type: {cm_key_type}")
+            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_key_type_dropdown())
+            self.auto_actions.select_drop_down_options(self.get_override_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
+            self.screen.save_screen_shot()
+            sleep(2)
+            self.utils.print_info(f"Click Add button")
+            self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
+        self.utils.print_info(f"Enter DHCP Server Scope: {dhcp_server_scope}")
+        self.auto_actions.send_keys(self.get_override_wifi0_1_client_mode_profile_dhcp_server_scope(), dhcp_server_scope)
+        self.screen.save_screen_shot()
+        self.utils.print_info("Click Save Client Mode Profile")
+        self.auto_actions.click(self.get_override_wifi0_1_client_mode_profile_save())
+
     def override_psk_ssid_settings(self, device_serials='', **override_args):
         """
         - This keyword is used to modify or override the psk ssid settings in wireless interface settings page

@@ -294,7 +294,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.port_type_cancel_button)
 
     def get_port_type_save_button(self):
-        return self.weh.get_element(self.port_type_save_button)
+        return self.weh.get_element(self.port_new_type_save_button)
 
     def get_switch_temp_cancel_button(self):
         return self.weh.get_element(self.switch_temp_cancel_button)
@@ -406,6 +406,16 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
             if el.is_displayed():
                 return el
         return None
+
+    def get_mgmt_toggle_check_box(self):
+        return self.weh.get_element(self.mgmt_checkbox)
+
+    def get_mgmt_vlan_text_field(self):
+        return self.weh.get_element(self.mgmt_vlan_text_field)
+
+
+
+
 
     def get_new_sw_template_add_button(self):
         return self.weh.get_element(self.new_sw_template_add_button)

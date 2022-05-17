@@ -84,6 +84,13 @@ class DeviceUpdateDefs:
             'XPATH': '//*[@data-dojo-attach-point="forceDownloadImage"]',
             'wait_for': 2
         }
+        
+    upgrade_even_if_versions_same_checkbox_input = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="forceDownloadImage"]//input',
+            'wait_for': 2
+        }
+       
 
     activate_at_next_reboot_radio = \
         {
@@ -187,3 +194,9 @@ class DeviceUpdateDefs:
             'wait_for': 2
         }
 
+    update_devices_button_from_d360 = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="deployNowBtn"]',
+            'wait_for': 2
+        }
+        

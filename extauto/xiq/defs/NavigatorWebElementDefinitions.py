@@ -392,6 +392,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    common_object_basic_client_mode_profiles = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-sider-list-clientModeProfile"]',
+            'wait_for': 5
+        }
+
     common_object_basic_vlans = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-VLANs"]',
@@ -1190,6 +1196,11 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    applications_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-apps"]',
+            'wait_for': 5
+        }
     main_side_nav_tabs = \
         {
             'XPATH': '//div[@data-dojo-attach-point="headerMenu"]//div',
@@ -1238,3 +1249,14 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    vpn_services_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-vpnServices"]',
+            'wait_for': 5
+        }
+
+    clients_hyperlink = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-dashboard-health-cards-client-header-count"]',
+            'wait_for': 5
+        }

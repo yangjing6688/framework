@@ -282,6 +282,10 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         dialog = self.get_action_assign_network_policy_dialog()
         return self.weh.get_element(self.actions_assign_network_policy_drop_down, parent=dialog)
 
+    def get_actions_assign_network_policy_drop_down_router(self):
+        dialog = self.get_action_assign_network_policy_dialog()
+        return self.weh.get_element(self.actions_assign_network_policy_drop_down_router, parent=dialog)
+
     def get_actions_network_policy_drop_down_items(self):
         return self.weh.get_elements(self.actions_network_policy_drop_down_items)
 
@@ -358,6 +362,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_network_policy_close_button(self):
         return self.weh.get_element(self.assign_policy_close_btn)
+
+    def get_actions_network_policy_close_button_md(self):
+        return self.weh.get_elements(self.assign_policy_close_btn)
 
     def get_device_select_checkbox(self, row):
         return self.weh.get_element(self.device_select_check_box, parent=row)
