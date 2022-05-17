@@ -4976,7 +4976,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Save button not found")
             return -1
-        save_btn = self.get_device360_configure_port_save_button()
+        save_btn = self.get_device360_configure_port_save_button_stack()
         if save_btn:
             self.utils.print_info("Clicking 'Save Port Configuration' button'")
             self.auto_actions.click(save_btn)
@@ -5591,3 +5591,102 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 
+    def select_stack_unit(self, slot):
+        self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
+        self.utils.print_info("Gather the list of the devices in the stack")
+        slot_index = 1
+        slot_found = False
+        complete_stack = self.dev360.get_device360_port_configuration_stack_units_dropdown_parent_rows()
+        if complete_stack:
+            slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows(complete_stack)
+            for stack_item in slots_in_stack:
+                if slot_index == int(slot):
+                    self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.auto_actions.click(stack_item)
+                    slot_found = True
+                    break
+                slot_index = slot_index + 1
+            if not slot_found:
+                self.utils.print_info("Unable to locate the correct slot")
+                return -1
+            return -1
+        else:
+            self.utils.print_info("Unable to gather the list of the devices in the stack")
+            return -1
+
+    def device360_configure_poe_threshold_value_stack(self, threshold_value, slot, device_mac="",device_name=""):
+        """
+         - This keyword will configure the POE threshold value in Device 360
+         - Flow: Click Device --> Device 360 Window --> Port Configuration --> PSE --> PSE SETTINGS FOR DEVICE
+         - Keyword Usage:
+         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_mac=${DEVICE_MAC}``
+         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_name=${DEVICE_NAME}``
+        :param threshold_value: value for threshold between 1 and 99
+        :param device_mac: Device Mac Address
+        :param device_name: Device Name
+        :return: 1 if value was configured successfully , else -1
+        """
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+                sleep(8)
+
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+                sleep(8)
+        sleep(5)
+        self.select_configure_tab()
+        self.select_port_configuration_view()
+        sleep(2)
+        self.select_stack_unit(slot=slot)
+        sleep(5)
+        self.utils.print_info("Click PSE Tab")
+        self.auto_actions.click(self.get_device360_port_config_pse_tab_slot_stack())
+        sleep(2)
+        pse_settings_for_device_button = self.get_device360_pse_settings_for_device_button_stack()
+        if pse_settings_for_device_button:
+            self.utils.print_info("Click on PSE settings for device")
+            self.auto_actions.click(pse_settings_for_device_button)
+        else:
+            self.utils.print_info("PSE settings for device button not found")
+            return -1
+        sleep(2)
+        edit_threshold_poe = self.get_device360_edit_threshold_poe_stack()
+        self.utils.print_info("Editing threshold value")
+        self.auto_actions.send_keys(edit_threshold_poe, Keys.CONTROL + "a" + Keys.BACK_SPACE)
+        sleep(2)
+        threshold_value_int = int(threshold_value)
+        if 1 <= threshold_value_int <= 99:
+            self.utils.print_info("Sending threshold {} % value".format(threshold_value))
+            self.auto_actions.send_keys(edit_threshold_poe, threshold_value)
+            self.screen.save_screen_shot()
+            sleep(5)
+        else:
+            self.utils.print_info("Value needs to be between 1 and 99.")
+            return -1
+        sleep(2)
+        save_threshold_poe = self.get_device360_save_threshold_poe_value_stack()
+        if save_threshold_poe:
+            self.utils.print_info("Saving threshold {} % ".format(threshold_value))
+            self.auto_actions.click(save_threshold_poe)
+            sleep(2)
+        else:
+            self.utils.print_info("Save button not found")
+            return -1
+        save_btn = self.get_device360_save_threshold_poe_value_stack()
+        if save_btn:
+            self.utils.print_info("Clicking 'Save Port Configuration' button'")
+            self.auto_actions.click(save_btn)
+            sleep(2)
+        else:
+            self.utils.print_info("Could not click Save button")
+            return -1
+        self.utils.print_info("Close Dialogue Window")
+        self.auto_actions.click(self.get_close_dialog())
+        return 1

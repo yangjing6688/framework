@@ -363,7 +363,8 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-policy"]',
+            #'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-policy"]',
+            'XPATH': '//div[@class="select-policy-container"]//tr[@role="presentation"]',
             'wait_for': 5,
         }
 

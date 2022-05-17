@@ -2146,3 +2146,52 @@ class Device360WebElementDefs:
             'XPATH': '//*[@class="ui-icon dgrid-hider-toggle"]',
             'wait_for': 5
         }
+
+    device360_port_configuration_stack_units_dropdown = \
+        {
+            'XPATH': '//div[@class="stack-member-chooser"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_stack_units_dropdown_parent_rows = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]//ul[@data-automation-tag="automation-chzn-results-ctn"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    device360_port_configuration_stack_units_rows = \
+        {
+            "CSS_SELECTOR": '.active-result',
+            'wait_for': 5
+        }
+
+    device360_port_config_pse_tab_slot_stack = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-port-config-pse"]',
+            'wait_for': 5
+        }
+
+    device360_pse_settings_for_device_button_stack = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="showPSESettingsBtn"]',
+            'wait_for': 5
+        }
+
+    device360_edit_threshold_poe_stack = \
+        {
+            'XPATH': '//div[@class="field-container max-power-budget"]//input[@type="text"]',
+            'wait_for': 5
+        }
+
+    device360_save_threshold_poe_value_stack = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
+    device360_configure_port_save_button_stack = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'wait_for': 5
+        }
