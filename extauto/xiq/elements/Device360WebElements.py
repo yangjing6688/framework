@@ -360,10 +360,12 @@ class Device360WebElements(Device360WebElementDefs):
         """
         :return: returns the 'Save Port Configuration' button in the Port Configuration view
         """
-        elements = self.weh.get_elements(self.device360_configure_port_save_button)
-        for el in elements:
-            if el.is_displayed():
-                return el
+        #elements = self.weh.get_elements(self.device360_configure_port_save_button)
+        #for el in elements:
+            # if el.is_displayed():
+            #     return el
+
+        return self.weh.get_element(self.device360_configure_port_save_button)
 
     def get_device360_refresh_page_button(self):
         """

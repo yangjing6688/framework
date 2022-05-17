@@ -210,14 +210,14 @@ class Login:
         # stop tool tip text capture thread
         try:
             self.t1.do_run = False
-            sleep(10)
+            sleep(30)
         except:
             print("t1.do_run not initialized")
 
         try:
             self.utils.print_info("Clicking on Logout Menu")
             self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
-            sleep(2)
+            sleep(20)
 
             self.auto_actions.click(self.login_web_elements.get_logout_link())
         except Exception as e:
