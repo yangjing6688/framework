@@ -5679,7 +5679,10 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Save button not found")
             return -1
-        save_btn = self.get_device360_save_threshold_poe_value_stack()
+        sleep(5)
+        self.select_configure_tab()
+        sleep(5)
+        save_btn = self.get_device360_configure_port_save_button_stack()
         if save_btn:
             self.utils.print_info("Clicking 'Save Port Configuration' button'")
             self.auto_actions.click(save_btn)
@@ -5688,5 +5691,6 @@ class Device360(Device360WebElements):
             self.utils.print_info("Could not click Save button")
             return -1
         self.utils.print_info("Close Dialogue Window")
+        sleep(5)
         self.auto_actions.click(self.get_close_dialog())
         return 1
