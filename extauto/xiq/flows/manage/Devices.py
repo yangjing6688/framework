@@ -9460,7 +9460,7 @@ class Devices:
     def get_device_updated_status_percentage(self, device_serial='default', device_name='default',
                                              device_mac='default'):
         """
-        - This keyword returns the device updated status by searching device row using serial, name or mac address
+        - This keyword returns the device updated status in percentage by searching device row using serial, name or mac address
         - Assumes that already navigated to the manage-->device page
         - Keyword Usage:
          - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
@@ -9470,7 +9470,7 @@ class Devices:
         :param device_serial: device Serial
         :param device_name: device Name
         :param device_mac: device MAC
-        :return: 'updated Time' if the device is updated correctly else return updating status message
+        :return: 'device_update_status_strip' status number without '%'
         """
         device_row = -1
 
@@ -9499,6 +9499,9 @@ class Devices:
                 return 'Device Update Failed'
             else:
                 device_update_status_replace = device_updated_status.replace("%", "")
-                device_update_status_strip = device_update_status_replace.strip("\nConfiguration Updating")
+                if 'Configuration Updating' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Updating")
+                elif 'Waiting Switch Execution Result' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nWaiting Switch Execution Result")
                 self.utils.print_info(f"Device Updated Status is: {device_update_status_strip}%")
                 return device_update_status_strip
