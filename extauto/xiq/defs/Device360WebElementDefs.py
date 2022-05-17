@@ -1832,6 +1832,18 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_configure_onboarding_port_vlan_textfield = \
+        {
+            'CSS_SELECTOR': '.portUsageVLANfield.onboardingVLAN',
+            'wait_for': 5
+        }
+
+    device360_configure_disabled_port_vlan_textfield = \
+        {
+            'CSS_SELECTOR': '.portUsageVLANfield.disabledVLAN',
+            'wait_for': 5
+        }
+
     device360_configure_port_trunk_native_vlan_textfield = \
         {
             'CSS_SELECTOR': '.portUsageVLANfield.trunkNativeVLAN',

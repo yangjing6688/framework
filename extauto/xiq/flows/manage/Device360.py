@@ -5611,3 +5611,188 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 
+    def device360_configure_onboarding_port_vlan(self, device_mac="", device_name="", port_number="", onboarding_vlan_id="",
+                                             port_type="Onboarding Port"):
+        """
+        - This keyword will Configure Onboarding Port in Device360 Page.
+        - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> interface --> Port Usage and Vlan
+        - Keyword Usage:
+         - ``Device360 Configure Onboarding Port Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  onboarding_port_vlan_id=${VLAN_ID}``
+         - ``Device360 Configure Onboarding Vlan  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}  onboarding_port_vlan_id=${VLAN_ID}``
+
+         :param device_mac: Device Mac Address
+         :param device_name: Device Name
+         :param port_number: Port Number of the Switch
+         :param onboarding_port_vlan_id: Onboarding Port Vlan Number for switch port
+        :param  port_type:  Onboarding Port
+        :return: 1 if Port Usage Onboarding Vlan Successfully configured else -1
+        """
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+                sleep(8)
+
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+                sleep(8)
+
+        self.utils.print_info("Click Configure Button")
+        if not self.get_device360_configure_button().is_selected():
+            self.auto_actions.click(self.get_device360_configure_button())
+        sleep(4)
+
+        self.utils.print_info("Click Port Configuration Button")
+        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        sleep(2)
+
+        port_conf_content = self.get_device360_port_configuration_content()
+        if port_conf_content and port_conf_content.is_displayed():
+            port_row = self.device360_get_port_row(port_number)
+            if port_row:
+                self.utils.print_debug("Found row for port: ", port_row.text)
+                self.utils.print_info("click Port Usage drop down")
+                self.auto_actions.click(self.get_device360_configure_port_usage_drop_down_button(port_row))
+                sleep(2)
+
+                self.utils.print_info("Selecting Port Usage")
+                self.auto_actions.select_drop_down_options(self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
+                sleep(2)
+
+                self.utils.print_info("Entering Search String...")
+                self.auto_actions.send_keys(self.get_device360_configure_onboarding_port_vlan_textfield(port_row), Keys.CONTROL + "a")
+                self.utils.print_info("Deleting the selected values in port..")
+                self.auto_actions.send_keys(self.get_device360_configure_onboarding_port_vlan_textfield(port_row), Keys.BACK_SPACE)
+                self.auto_actions.send_keys(self.get_device360_configure_onboarding_port_vlan_textfield(port_row), access_vlan_id)
+                self.screen.save_screen_shot()
+                sleep(2)
+
+                save_btn = self.get_device360_configure_port_save_button()
+                if save_btn:
+                    self.utils.print_info("Clicking 'Save Port Configuration' button'")
+                    self.auto_actions.click(save_btn)
+
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.screen.save_screen_shot()
+                    sleep(2)
+
+                    self.utils.print_info("Close Dialogue Window")
+                    self.auto_actions.click(self.get_close_dialog())
+                    self.screen.save_screen_shot()
+                    sleep(2)
+
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    if "Interface settings were updated successfully." in tool_tip_text:
+                        return 1
+                    else:
+                        return -1
+            else:
+                self.utils.print_info(f"Port Row Not Found")
+                self.utils.print_info("Close Dialogue Window")
+                self.auto_actions.click(self.get_close_dialog())
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info(f"Port Configuration Page Content not available in the Page")
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            self.screen.save_screen_shot()
+            return -1
+
+   def device360_configure_disabled_port_vlan(self, device_mac="", device_name="", port_number="", disabled_vlan_id="",
+                                             port_type="Disabled Port"):
+        """
+        - This keyword will Configure Disabled Port in Device360 Page.
+        - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> interface --> Port Usage and Vlan
+        - Keyword Usage:
+         - ``Device360 Configure Disabled Port Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  disabled_port_vlan_id=${VLAN_ID}``
+         - ``Device360 Configure Disabled Vlan  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}  disabled_port_vlan_id=${VLAN_ID}``
+
+         :param device_mac: Device Mac Address
+         :param device_name: Device Name
+         :param port_number: Port Number of the Switch
+         :param disabled_port_vlan_id: disabled Port Vlan Number for switch port
+        :param  port_type:  Disabled Port
+        :return: 1 if Port Usage Disabled Port Vlan Successfully configured else -1
+        """
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+                sleep(8)
+
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+                sleep(8)
+
+        self.utils.print_info("Click Configure Button")
+        if not self.get_device360_configure_button().is_selected():
+            self.auto_actions.click(self.get_device360_configure_button())
+        sleep(4)
+
+        self.utils.print_info("Click Port Configuration Button")
+        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        sleep(2)
+
+        port_conf_content = self.get_device360_port_configuration_content()
+        if port_conf_content and port_conf_content.is_displayed():
+            port_row = self.device360_get_port_row(port_number)
+            if port_row:
+                self.utils.print_debug("Found row for port: ", port_row.text)
+                self.utils.print_info("click Port Usage drop down")
+                self.auto_actions.click(self.get_device360_configure_port_usage_drop_down_button(port_row))
+                sleep(2)
+
+                self.utils.print_info("Selecting Port Usage")
+                self.auto_actions.select_drop_down_options(self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
+                sleep(2)
+
+                self.utils.print_info("Entering Search String...")
+                self.auto_actions.send_keys(self.get_device360_configure_disabled_port_vlan_textfield(port_row), Keys.CONTROL + "a")
+                self.utils.print_info("Deleting the selected values in port..")
+                self.auto_actions.send_keys(self.get_device360_configure_disabled_port_vlan_textfield(port_row), Keys.BACK_SPACE)
+                self.auto_actions.send_keys(self.get_device360_configure_disabled_port_vlan_textfield(port_row), access_vlan_id)
+                self.screen.save_screen_shot()
+                sleep(2)
+
+                save_btn = self.get_device360_configure_port_save_button()
+                if save_btn:
+                    self.utils.print_info("Clicking 'Save Port Configuration' button'")
+                    self.auto_actions.click(save_btn)
+
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.screen.save_screen_shot()
+                    sleep(2)
+
+                    self.utils.print_info("Close Dialogue Window")
+                    self.auto_actions.click(self.get_close_dialog())
+                    self.screen.save_screen_shot()
+                    sleep(2)
+
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    if "Interface settings were updated successfully." in tool_tip_text:
+                        return 1
+                    else:
+                        return -1
+            else:
+                self.utils.print_info(f"Port Row Not Found")
+                self.utils.print_info("Close Dialogue Window")
+                self.auto_actions.click(self.get_close_dialog())
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info(f"Port Configuration Page Content not available in the Page")
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            self.screen.save_screen_shot()
+            return -1

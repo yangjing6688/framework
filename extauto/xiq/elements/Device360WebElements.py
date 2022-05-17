@@ -1190,6 +1190,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_configure_port_access_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_access_vlan_textfield, row)
 
+    def get_device360_configure_onboarding_port_vlan_textfield(self, row):
+        return self.weh.get_element(self.device360_configure_onboarding_port_vlan_textfield, row)
+
+    def get_device360_configure_disabled_port_vlan_textfield(self, row):
+        return self.weh.get_element(self.device360_configure_disabled_port_vlan_textfield, row)
+
     def get_device360_configure_port_trunk_native_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield, row)
 
