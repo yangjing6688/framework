@@ -2276,3 +2276,14 @@ class Cli(object):
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
             return -1
+
+if __name__ == '__main__':
+    from pytest_testconfig import *
+    config['${TEST_NAME}'] = 'bob'
+    tCli = Cli()
+    #sID = tCli.open_pxssh_spawn('10.69.61.101', 'extreme', 'extreme', 22, prompt_reset=False,
+    #                     disable_strict_host_key_checking=False, sync_multiplier=5)
+    conn_str = "ssh extreme@10.69.61.101"
+    username = 'extreme'
+    password = 'extreme'
+    sID = tCli.open_windows_spawn(conn_str, username, password)
