@@ -5643,7 +5643,7 @@ class Device360(Device360WebElements):
         sleep(5)
         self.select_configure_tab()
         self.select_port_configuration_view()
-        sleep(2)
+        sleep(10)
         self.select_stack_unit(slot=slot)
         sleep(5)
         self.utils.print_info("Click PSE Tab")
