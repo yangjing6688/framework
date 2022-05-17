@@ -150,8 +150,6 @@ class DevicesWebElementsDefinitions:
 
     devices_add_devices_button = \
         {
-            # 'XPATH': '//*[@data-dojo-attach-point="quickAddBtn"]',
-            # 'has_text': 'Add Devices',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-add-button"]',
             'wait_for': 5
          }
@@ -1161,7 +1159,7 @@ class DevicesWebElementsDefinitions:
 
     add_devices_button = \
         {
-            'XPATH': '//*[@class="dijit dijitReset dijitInline primary honeycomb-ui-form-button"]',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-add-button"]',
             'wait_for': 5
         }
 
