@@ -87,11 +87,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
         return self.weh.get_element(self.user_account_nav)
 
     def get_about_extreme_cloudiq_link(self):
-        menu = self.weh.get_element(self.logout_user_menu_item)
-        menu_items = self.weh.get_elements(self.menu_item, menu)
-        for menu_item in menu_items:
-            if 'ABOUT EXTREMECLOUD IQ' in menu_item.text.upper():
-                return menu_item
+        return self.weh.get_element(self.click_about_extreme_cloudiq_link)
 
     def get_cancel_about_extremecloudiq_dialogue(self):
         elements = self.weh.get_elements(self.cancel_about_extremecloudiq_dialogue)
