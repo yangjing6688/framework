@@ -2276,3 +2276,22 @@ class Cli(object):
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
             return -1
+
+    def enable_debug_mode_iqagent(self, ip, port, username, password, platform):
+
+        _spawn = self.open_spawn(ip, port, username, password, platform)
+
+        if _spawn != -1:
+            if 'EXOS' in platform.upper():
+                self.send(_spawn, f'disable cli paging')
+                self.send(_spawn, f'debug iqagent show log hive-agent tail', expect_match="", time_out="", platform="")
+                return _spawn
+            if 'VOSS' in platform.upper():
+                self.send(_spawn, f'enable')
+                self.send(_spawn, f'configure terminal')
+                self.send(_spawn, f'trace level 261 3')
+                self.send(_spawn, f'trace screen enable')
+                return _spawn
+        else:
+            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+            return -1

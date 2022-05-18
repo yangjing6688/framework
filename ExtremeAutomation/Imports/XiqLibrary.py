@@ -286,7 +286,6 @@ class XiqLibrary():
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
-        self.xflowscommonDevice360WebElements = Device360WebElements()
 
 
     @deprecated("Please use self.xiq.login.login_user(...)")
