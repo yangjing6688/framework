@@ -9118,7 +9118,11 @@ class Devices:
 
         try:
             if self.select_device(device_mac):
-                
+                sleep(2)
+                self.close_last_refreshed_tooltip()
+                self.utils.print_info("Closing the last refreshed tool tip")
+                sleep(2)
+
                 if updatefromD360Page.lower() == "false":
                     self.utils.print_info("Selecting Update Devices Button")
                     self.auto_actions.click(self.device_update.get_update_devices_button())
