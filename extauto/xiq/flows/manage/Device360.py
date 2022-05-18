@@ -5694,3 +5694,55 @@ class Device360(Device360WebElements):
         sleep(5)
         self.auto_actions.click(self.get_close_dialog())
         return 1
+
+    def device360_power_details_stack(self,slot,device_mac="",device_name=""):
+        """
+         - This keyword will get Power Supply Details in Device 360 from thunderbolt icon
+         - Flow: Click Device -->Device 360 Window -->Thunderbolt ICON
+         - Keyword Usage:
+         - ``Device360 Power Details      device_mac=${DEVICE_MAC}``
+         - ``Device360 Power Details      device_name=${DEVICE_NAME}``
+        :param device_mac: Device Mac Address
+        :param device_name: Device Name
+        :return: list with power supply details
+        """
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+                sleep(8)
+
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+                sleep(8)
+        slot_index = 1
+        slot_found = False
+        sleep(5)
+        slot_details_overview = self.get_device360_stack_overview_slot_details_rows()
+        if slot_details_overview:
+            power_elements = self.dev360.get_device360_thunderbold_icon_stack(slot_details_overview)
+            for power_item in power_elements:
+                if slot_index == int(slot):
+                    self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.auto_actions.click_and_hold_element(power_item)
+                    self.auto_actions.move_to_element(power_item)
+                    slot_found = True
+                    break
+                slot_index = slot_index + 1
+            if not slot_found:
+                self.utils.print_info("Unable to locate the correct slot")
+                return -1
+        else:
+            self.utils.print_info("Power details not found")
+            return -1
+        sleep(5)
+        power_details = self.dev360.get_device360_power_details().text
+        self.utils.print_info(f"",power_details)
+        self.utils.print_info("Close Dialogue Window")
+        self.auto_actions.click(self.get_close_dialog())
+        return power_details

@@ -2195,3 +2195,15 @@ class Device360WebElementDefs:
             'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
             'wait_for': 5
         }
+
+    device360_stack_overview_slot_details_rows = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="switchStackPortsPanelContainer"]',
+            'wait_for': 5
+        }
+
+    device360_thunderbold_icon_stack = \
+        {
+            'CSS_SELECTOR': '.power-supply',
+            'wait_for': 5
+        }
