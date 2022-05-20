@@ -1649,4 +1649,164 @@ class SwitchTemplate(object):
                 self.utils.print_info("Not found 'Save template' button ")
         return -1
 
+    def template_assign_ports_to_an_existing_port_type(self, ports, port_type_name):
+        """
+        - This keyword will assign multiple ports in a template to an existing port type
+        - Assumes That Already in Device Template Port Configuration
+        - Flow: Select the ports -> Assign -> Choose Existing -> Select and existing Port Type -> Save
+        :param policy_name:     The name of the network policy
+        :param sw_template:     The name of the switch template
+        :param ports:           The port interfaces [written as 1,2,4...]
+        :param port_type_name:  The existing port type name
+        :return: returns 1 if the ports have been assigned the existing port type
+                 returns -1 if otherwise
+        """
+        # self.navigator.navigate_to_network_policies_list_view_page()
+        # self.select_sw_template(policy_name, sw_template)
+        # self.go_to_edit_device_template(sw_template)
+        # self.go_to_port_configuration()
+        self.select_wireframe_net_ports(ports)
 
+        assign_button = self.sw_template_web_elements.get_sw_template_assign_button()
+        if assign_button:
+            self.utils.print_info("Clicking on the Assign button...")
+            self.auto_actions.click(assign_button)
+            sleep(3)
+
+            self.utils.print_info("Clicking on Choose Existing button...")
+            choose_existing_port_type = self.sw_template_web_elements.existing_port_type_button()
+            if choose_existing_port_type:
+                self.auto_actions.click(choose_existing_port_type)
+
+            existing_port_type_list = self.sw_template_web_elements.port_type_list()
+            sleep(3)
+            if existing_port_type_list:
+                self.utils.print_info("Found the port type list!")
+                for item in existing_port_type_list:
+                    self.utils.print_info(item.text)
+                    if port_type_name == item.text:
+                        self.utils.print_info("Searching for the Port type Option")
+                        sleep(3)
+                        self.auto_actions.click(item)
+                        self.utils.print_info("Clicking on Save Existing Port Type")
+                        sleep(3)
+                        save_btn_existing_port_type = self.sw_template_web_elements.save_btn_existing_port()
+                        if save_btn_existing_port_type:
+                            self.auto_actions.click(save_btn_existing_port_type)
+                            self.utils.print_info("Saved")
+                            sleep(3)
+                            dialog_trunk_choice = self.sw_template_web_elements.\
+                                get_sw_template_assign_choose_existing_trunk_choice_second_dialog_box()
+
+                            if dialog_trunk_choice:
+                                self.utils.print_info("A trunk option was chosen. Saving the current allowed/native "
+                                                      "configuration fields...")
+                                save_button_trunk_choice_dialog = self.sw_template_web_elements.\
+                                                                                    get_switch_temp_save_button()
+                                if save_button_trunk_choice_dialog:
+                                    self.utils.print_info("Clicking on the 'Save' button...")
+                                    self.auto_actions.click(save_button_trunk_choice_dialog)
+                                    self.utils.print_info("Saved")
+                                else:
+                                    self.utils.print_info("Unable to find the 'Save' button in this section!")
+                                    return -1
+                            else:
+                                pass
+
+                            self.utils.print_info("Attempting to locate Save Template Button")
+                            sleep(10)
+                            save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+                            rc = -1
+                            for save_btn in save_btns:
+                                if save_btn.is_displayed():
+                                    self.utils.print_info("Click on the save template button")
+                                    self.auto_actions.click(save_btn)
+                                    sleep(10)
+                                    tool_tip_text = tool_tip.tool_tip_text
+                                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                                    if "Switch template has been saved successfully." in tool_tip_text:
+                                        rc = 1
+                                    break
+                            return rc
+                        else:
+                            self.utils.print_info("Did not find the save button!")
+                            return -1
+
+        else:
+            self.utils.print_info("Could not find the assign button!")
+            return -1
+
+    def delete_switch_template(self, nw_policy, sw_template_name):
+        """
+        - This keyword will delete the switch template from a newtwork policy
+        - Flow: Network Policies -> Edit nw_policy -> Device Templates -> Select Template -> Delete Template
+        :param nw_policy: The name of the network policy
+        :param sw_template_name: The name of the template
+        :return: Returns 1 if template is succesfully deleted,
+                 Returns -1 if network policy not found
+        """
+        self.utils.print_info("Navigate to devices")
+        self.navigator.navigate_to_devices()
+        self.utils.print_info("Navigating Network Policies")
+        self.navigator.navigate_configure_network_policies()
+        sleep(1)
+        if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
+            self.utils.print_info("Not found the network policy. Make sure that it was created")
+            return -1
+        sleep(2)
+        self.utils.print_info("Click on Device Template tab button")
+        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        sleep(2)
+        self.utils.print_info("Searching the template: ", sw_template_name)
+        sw_templates_rows = self.sw_template_web_elements.get_sw_template_rows()
+        if sw_templates_rows:
+            self.utils.print_info("Found the template rows.")
+            found = False
+            for sw_template_row in sw_templates_rows:
+                if sw_template_name in sw_template_row.text:
+                    self.utils.print_info("Found the template row: ", sw_template_row.text)
+                    found = True
+                    self.utils.print_info("Clicking the template checkbox...")
+                    self.auto_actions.click(self.sw_template_web_elements.get_sw_template_check_box_row(sw_template_row))
+                    self.utils.print_info("Searching for the delete button...")
+                    delete_button = self.sw_template_web_elements.get_sw_template_delete_button()
+                    if delete_button:
+                        self.utils.print_info("Found the delete button.")
+                        self.utils.print_info("Clicking the delete button...")
+                        self.auto_actions.click(delete_button)
+                        return 1
+            if not found:
+                self.utils.print_info("The template '" + sw_template_name + "' is not present here, it may have been "
+                                      "already deleted or it wasn't created.")
+                return 1
+        else:
+            self.utils.print_info("There aren't any templates here.")
+            return 1
+
+    def sw_template_stack_select_slot(self, slot):
+        """
+        - Assume that already in Device Template Port Configuration
+        :param slot: "The slot number that needs to be selected"
+        :return: Returns 1 if slot found and clicked
+                 Returns -1 if otherwise
+        """
+        self.utils.print_info("Gather the list of the devices in the stack")
+        slot_index = 1
+        slot_found = False
+        complete_stack = self.sw_template_web_elements.get_complete_stack_list()
+        if complete_stack:
+            slots_in_stack = self.sw_template_web_elements.get_complete_stack_all_rows(complete_stack)
+            for stack_item in slots_in_stack:
+                if slot_index == int(slot):
+                    self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.auto_actions.click(stack_item)
+                    slot_found = True
+                    break
+                slot_index = slot_index + 1
+            if not slot_found:
+                self.utils.print_info("Unable to locate the correct slot")
+                return -1
+            return -1
+        else:
+            self.utils.print_info("Unable to gather the list of the devices in the stack")
+            return -1

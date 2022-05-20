@@ -2346,3 +2346,31 @@ class DeviceConfig(DeviceConfigElements):
             self.get_close_device360_dialog_window().click()
 
             return -1
+
+    def get_device_config_audit_delta(self, device_mac):
+        """
+        - This keyword will get the delta cli configuration
+        - Assumes That Already in Devices Page
+        :param device_mac:   The serial of the device string
+        :return:                Returns a list of strings with the commands present in delta cli
+        """
+        rows = self.get_grid_rows()
+        if rows:
+            if device_mac:
+                self.utils.print_info("Selecting Device with mac address: ", device_mac)
+                for row in rows:
+                    if device_mac in row.text:
+                        self.utils.print_debug("Found device!")
+                        self.utils.print_info("Click on Device Config Audit tab")
+                        self.auto_actions.click(self.get_config_audit_delta_view_button(row))
+                        self.utils.print_info("Click on Device Config Audit Delta View")
+                        self.auto_actions.click(self.get_device_config_audit_delta_view())
+                        sleep(20)
+                        self.screen.save_screen_shot()
+                        sleep(5)
+
+                        self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+                        delta_configs = self.get_device_config_audit_delta_view_content().text
+                        self.utils.print_info("Delta Configs : ", delta_configs)
+                        self.auto_actions.click(self.get_device_config_audit_view_close_button())
+                        return delta_configs
