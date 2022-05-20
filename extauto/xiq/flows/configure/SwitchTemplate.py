@@ -1661,10 +1661,6 @@ class SwitchTemplate(object):
         :return: returns 1 if the ports have been assigned the existing port type
                  returns -1 if otherwise
         """
-        # self.navigator.navigate_to_network_policies_list_view_page()
-        # self.select_sw_template(policy_name, sw_template)
-        # self.go_to_edit_device_template(sw_template)
-        # self.go_to_port_configuration()
         self.select_wireframe_net_ports(ports)
 
         assign_button = self.sw_template_web_elements.get_sw_template_assign_button()

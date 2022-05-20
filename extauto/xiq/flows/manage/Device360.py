@@ -5738,36 +5738,36 @@ class Device360(Device360WebElements):
                         self.auto_actions.click(drop_down_button)
 
                     self.auto_actions.select_drop_down_options(
-                        self.get_device360_configure_port_usage_drop_down_options_stack(port_row), port_type)
+                        self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
 
                     sleep(3)
                     self.utils.print_info("Entering Trunk Native Vlan TextField...")
                     self.auto_actions.send_keys(
-                        self.get_device360_configure_port_trunk_native_vlan_textfield_stack(port_row),
+                        self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                         Keys.CONTROL + "a")
                     self.utils.print_info("Deleting the selected values in port..")
                     sleep(3)
                     self.auto_actions.send_keys(
-                        self.get_device360_configure_port_trunk_native_vlan_textfield_stack(port_row),
+                        self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                         Keys.BACK_SPACE)
                     self.utils.print_info(f"Inserting native vlan value: {trunk_native_vlan} ...")
                     sleep(3)
                     self.auto_actions.send_keys(
-                        self.get_device360_configure_port_trunk_native_vlan_textfield_stack(port_row),
+                        self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                         trunk_native_vlan)
                     self.utils.print_info("Selecting the actual allowed vlans values...")
                     sleep(3)
                     self.auto_actions.send_keys(
-                        self.get_device360_configure_port_trunk_vlan_textfield_stack(port_row),
+                        self.get_device360_configure_port_trunk_vlan_textfield(port_row),
                         Keys.CONTROL + "a")
                     self.utils.print_info("Deleting the actual allowed vlans values...")
                     sleep(3)
                     self.auto_actions.send_keys(
-                        self.get_device360_configure_port_trunk_vlan_textfield_stack(port_row),
+                        self.get_device360_configure_port_trunk_vlan_textfield(port_row),
                         Keys.BACK_SPACE)
                     self.utils.print_info("Entering allowed vlans values in allowed vlans textfield...")
                     sleep(3)
-                    element = self.get_device360_configure_port_trunk_vlan_textfield_stack(port_row)
+                    element = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
                     element.send_keys(trunk_vlan_id)
                     sleep(3)
                 else:
