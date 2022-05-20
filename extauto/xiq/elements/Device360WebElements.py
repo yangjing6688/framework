@@ -1347,3 +1347,15 @@ class Device360WebElements(Device360WebElementDefs):
                 return el
         else:
             return False
+
+    def get_device360_configure_port_usage_drop_down_options_presence(self, row):
+        return self.weh.get_element(self.device360_configure_port_usage_drop_down_options_presence, parent=row)
+
+    def get_device360_port_configuration_stack_units_dropdown(self):
+        return self.weh.get_element(self.device360_port_configuration_stack_units_dropdown)
+
+    def get_device360_port_configuration_stack_units_dropdown_parent_rows(self):
+        return self.weh.get_element(self.device360_port_configuration_stack_units_dropdown_parent_rows)
+
+    def get_device360_port_configuration_stack_units_rows(self, row):
+        return self.weh.get_elements(self.device360_port_configuration_stack_units_rows, parent=row)

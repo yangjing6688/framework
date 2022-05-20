@@ -2139,3 +2139,28 @@ class Device360WebElementDefs:
             'XPATH': '//*[@class="ui-icon dgrid-hider-toggle"]',
             'wait_for': 5
         }
+
+    device360_configure_port_usage_drop_down_options_presence = \
+        {
+            'CSS_SELECTOR': '.chzn-single-with-drop',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_stack_units_dropdown = \
+        {
+            'XPATH': '//div[@class="stack-member-chooser"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_stack_units_dropdown_parent_rows = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]//ul[@data-automation-tag="automation-chzn-results-ctn"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    device360_port_configuration_stack_units_rows = \
+        {
+            "CSS_SELECTOR": '.active-result',
+            'wait_for': 5
+        }
