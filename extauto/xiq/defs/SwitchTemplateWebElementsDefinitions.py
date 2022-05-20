@@ -75,7 +75,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_row_cells = \
         {
-            'CSS_SELECTOR': '.dgrid-cell',
+            'CSS_SELECTOR': '.J-tmplName',
             'wait_for': 5
         }
 
@@ -352,8 +352,7 @@ class SwitchTemplateWebElementDefinitions:
 
     switch_temp_save_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
-            'index': 4,
+            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -485,7 +484,7 @@ class SwitchTemplateWebElementDefinitions:
 
     existing_port_type = \
         {
-            'XPATH': '//a[@data-automation-tag="automation-switch-template-choose-existing"]',
+            'XPATH': '//a[@data-automation-tag="automation-switch-template-chooseexisting"]',
             'wait_for': 2
         }
 

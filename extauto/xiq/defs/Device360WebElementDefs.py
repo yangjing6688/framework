@@ -1822,25 +1822,27 @@ class Device360WebElementDefs:
 
     device360_configure_port_usage_drop_down_options = \
         {
-            'CSS_SELECTOR': '.chzn-results.qa-chzn-results-portusage li',
+            'CSS_SELECTOR': '.active-result',
             'wait_for': 5
         }
 
     device360_configure_port_access_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.portUsageVLANfield.accessVLAN',
+            'CSS_SELECTOR': '.port-type-vlan-value',
             'wait_for': 5
         }
 
     device360_configure_port_trunk_native_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.portUsageVLANfield.trunkNativeVLAN',
+            'CSS_SELECTOR': '.native-vlan',
+            'index': 1,
             'wait_for': 5
         }
 
     device360_configure_port_trunk_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.portUsageVLANfield.trunkAllowedVLAN',
+            'CSS_SELECTOR': '.allowed-vlan',
+            'index': 1,
             'wait_for': 5
         }
 
