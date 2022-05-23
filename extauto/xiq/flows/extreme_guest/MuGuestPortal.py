@@ -1,3 +1,4 @@
+import email
 from xiq.elements.extreme_guest.MuGuestPortalWebElements import MuGuestPortalWebElements
 from extauto.common.GmailHandler import GmailHandler
 from extauto.common.AutoActions import AutoActions
@@ -370,3 +371,34 @@ class MuGuestPortal(MuGuestPortalWebElements):
         else:
             self.utils.print_info(self.get_sponsor_guest_access_register_guest_registration_status_text())
         return -1
+
+    def register_device_with_email_for_guest_access(self, visitor_email):
+        """
+        - Register Device with email to receive offers
+        - Register Device with Captive Web Portal Email Access Form
+        - Keyword Usage:
+         - ``Register Device with Email for Guest Access  ${VISITOR_EMAIL}``
+
+        :param email: Visitor Email
+        :return: 1 if successfully registered else -1
+        """
+
+        self.utils.print_info("Enter Guest Email")
+        self.auto_actions.send_keys(self.get_email_field(), visitor_email)
+
+        self.utils.print_info("Clicking Go Button")
+        self.auto_actions.click(self.get_register_btn())
+        sleep(2)
+
+        if self.get_sponsor_guest_access_login_error_button():
+            self.utils.print_info("Click Send Anyway after login in button")
+            self.auto_actions.click(self.get_sponsor_guest_access_login_error_button())
+            sleep(3)
+
+        self.get_gp_page_screen_shot()
+        sleep(2)
+
+        if self.get_sponsor_guest_access_login_success_page():
+            return 1
+        else:
+            return -1
