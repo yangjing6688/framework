@@ -2430,6 +2430,13 @@ class Device360WebElementDefs:
             'XPATH': '//input[@data-automation-tag="port-type-editor-sc-rate-limit-value"]',
             'wait_for': 5
         }
+    #pag6 ELRP (ONLY FOR EXOS)
+    select_element_port_type_elrp_status = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-elrp-enable"]',
+            'wait_for': 5
+        }
+
     # pag6
     select_element_port_type_pse_profile = \
         {
@@ -2629,6 +2636,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_element_port_type_elrp_status_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-elrp-enabled"]',
+            'wait_for': 5
+        }
+
     select_element_port_type_pse_profile_summery = \
         {
             'XPATH': '//a[@data-automation-tag="port-type-editor-summary-pse-profile"]',
@@ -2652,4 +2665,3 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 5
         }
-

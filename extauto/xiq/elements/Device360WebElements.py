@@ -1350,7 +1350,7 @@ class Device360WebElements(Device360WebElementDefs):
                 return el
         else:
             return False
-#de aici incepe cod
+
     def get_d360_create_port_type(self,port_row):
         return self.weh.get_element(self.d360_create_port_type, port_row)
 
@@ -1459,6 +1459,9 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_multicast)
         elif element == "rate limit value":
             return self.weh.get_element(self.select_element_port_type_rate_limit_value)
+        #pag 6 ELRP (ONLY FOR EXOS)
+        elif element == "elrp status":
+            return self.weh.get_element(self.select_element_port_type_elrp_status)
         # pag6
         elif element == "pse profile":
             return self.weh.get_element(self.select_element_port_type_pse_profile)
@@ -1530,6 +1533,8 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_rate_limit_type_summery)
         elif element == "rate limit value":
             return self.weh.get_element(self.select_element_port_type_rate_limit_value_summery)
+        elif element == "elrp status":
+            return self.weh.get_element(self.select_element_port_type_elrp_status_summery)
         elif element == "pse profile":
             return self.weh.get_element(self.select_element_port_type_pse_profile_summery)
         elif element == "poe status":

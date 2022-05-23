@@ -5610,12 +5610,10 @@ class Device360(Device360WebElements):
         self.auto_actions.click(self.get_close_dialog())
         sleep(2)
         return ret_val
-#de aici incepe cod
 
     def create_new_port_type(self, template_values, port, d360=False, verify_summary=True):
         '''
         This function is used to create a new port type from d360 or template page by using new format
-        (XIQ-921 Honeycomb Port Editor )
 
         :param template_values: A dictionary with below structure:
 
@@ -5672,12 +5670,25 @@ class Device360(Device360WebElements):
                                         'rate limit type':[None,'pps'],         #[None, 'pps'/None]
                                         'rate limit value': ['65535', '65535'], #['0-65535'/None, '0-65535'/None]
 
+                                        #for VOSS
                                         'page6 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
                                                 #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page7 summaryPage': ["next_page", None]
+
+                                        #==========================================
+                                        #Only for exos
+                                        'page6 ELRPSettingsPage': ["next_page", None],
+                                        'elrp status': ['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+
+                                        'page7 pseSettingsPage': ["next_page", None],
+                                        'PSE profile':[None,None],
+                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                        'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
+
+                                        'page8 summaryPage': ["next_page", None]
                                     }
 
         :param port: the port where new port type will be created
@@ -5778,9 +5789,7 @@ class Device360(Device360WebElements):
 
         To press next buttom use into dictionary an element like this : 'page2 accessVlanPage':["next_page", None],
 
-        template_values=                {
-                                        'page1 usagePage': [None, None],
-                                        'name': ["port type name", 'port type name'],
+        template_values=                {'name': ["port type name", 'port type name'],
                                         'description': ["add_description", "add_description"],
                                         'status':['click', 'off'],          #['click'/None, 'on'/'off'/None]
                                         'auto-sense':['click',None],       #['click'/None, None]
@@ -5818,12 +5827,25 @@ class Device360(Device360WebElements):
                                         'rate limit type':[None,'pps'],         #[None, 'pps'/None]
                                         'rate limit value': ['65535', '65535'], #['0-65535'/None, '0-65535'/None]
 
+                                        #for VOSS
                                         'page6 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
                                                 #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page7 summaryPage': ["next_page", None]
+
+                                        #==========================================
+                                        #Only for EXOS
+                                        'page6 ELRPSettingsPage': ["next_page", None],
+                                        'elrp status': ['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+
+                                        'page7 pseSettingsPage': ["next_page", None],
+                                        'PSE profile':[None,None],
+                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                        'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
+
+                                        'page8 summaryPage': ["next_page", None]
                                     }
         :param port: the port where new port type will be created
         :param verify_summary: True if configured values will be verify on summary page. False if verification on summary
@@ -5950,6 +5972,12 @@ class Device360(Device360WebElements):
             get_storm_control = self.get_select_element_port_type("stormControlSettingsPage")
             if get_storm_control:
                 self.auto_actions.click(get_storm_control)
+                return 1
+
+        elif "ELRPSettingsPage" in element:
+            get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
+            if get_elrp:
+                self.auto_actions.click(get_elrp)
                 return 1
 
         elif "pseSettingsPage" in element:
@@ -6171,6 +6199,14 @@ class Device360(Device360WebElements):
             if get_rate_limit_val_el:
                 self.auto_actions.send_keys(get_rate_limit_val_el, value)
                 return 1
+
+        #pag6 ELRP (ONLY FOR EXOS)
+        elif element == "elrp status":
+            get_elrp_status = self.get_select_element_port_type(element,value)
+            if get_elrp_status:
+                self.auto_actions.click(get_elrp_status)
+                return 1
+
         # pag6 PSE
         elif element == "pse profile":
             get_pse_profile = self.get_select_element_port_type(element)
