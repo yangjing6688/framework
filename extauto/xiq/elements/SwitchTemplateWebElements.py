@@ -132,6 +132,18 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         """
         return self.weh.get_element(self.sw_template_assign_create_new)
 
+    def get_sw_template_assign_advanced_actions(self):
+        """
+        :return: 'Advanced Actions' option of 'ASSIGN' button of the Port Configuration page in the switch template view
+        """
+        return self.weh.get_element(self.sw_template_assign_advanced_actions)
+
+    def get_sw_template_assign_advanced_actions_aggr(self):
+        """
+        :return: 'Advanced Actions Aggregate' option of 'ASSIGN' button of the Port Configuration page in the switch template view
+        """
+        return self.weh.get_element(self.sw_template_assign_advanced_actions_aggr)
+
     def get_sw_template_all_port_type_list_radio(self):
         """
         :return:  Radio buttons of the Port Types shown om ASSIGN -> Chooose Existing
@@ -311,6 +323,12 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_complete_stack_all_rows(self, web_list):
         return self.weh.get_elements(self.complete_stack_all_rows, parent=web_list)
 
+    def get_aggr_ports_across_stack_button(self):
+        return self.weh.get_elements(self.aggr_ports_across_stack_button)
+
+    def get_aggr_ports_standalone_button(self):
+        return self.weh.get_elements(self.aggr_ports_standalone_button)
+
     def poe_button(self):
         return self.weh.get_element(self.poe_status)
 
@@ -412,6 +430,17 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_mgmt_vlan_text_field(self):
         return self.weh.get_element(self.mgmt_vlan_text_field)
+
+    def get_lacp_toggle_button(self):
+        return self.weh.get_element(self.lacp_toggle_button)
+
+    def get_lag_remove_port_button(self):
+        return self.weh.get_element(self.lag_remove_port_button)
+
+    def get_lag_add_port_button(self):
+        return self.weh.get_element(self.lag_add_port_button)
+
+
 
 
 

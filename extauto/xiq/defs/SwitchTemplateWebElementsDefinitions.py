@@ -145,6 +145,18 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    sw_template_assign_advanced_actions = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-advancedactions"]',
+            'wait_for': 5
+        }
+
+    sw_template_assign_advanced_actions_aggr = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-aggregate"]',
+            'wait_for': 5
+        }
+
     sw_template_port_type_list_radio = \
         {
             'XPATH': '//ul[@data-dojo-attach-point="portTypeList"]//label/input',
@@ -369,6 +381,19 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    aggr_ports_across_stack_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-aggregate-for-stack"]',
+            'wait_for': 5
+        }
+
+    aggr_ports_standalone_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-aggregate-for-exos"]',
+            'wait_for': 5
+        }
+
+
     poe_status = \
         {
             'XPATH': '//*[@data-dojo-attach-point="poeStatus"]',
@@ -552,5 +577,23 @@ class SwitchTemplateWebElementDefinitions:
     mgmt_vlan_text_field = \
         {
             'XPATH': '//div[@data-dojo-attach-point="detail-mgtd-vlan"]//input[@data-dojo-attach-point="mgtVlan"]',
+            'wait_for': 2
+        }
+
+    lacp_toggle_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-lacp-toggle"]',
+            'wait_for': 2
+        }
+
+    lag_remove_port_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-remove-port-button"]',
+            'wait_for': 2
+        }
+
+    lag_add_port_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-add-port-button"]',
             'wait_for': 2
         }
