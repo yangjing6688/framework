@@ -4196,8 +4196,8 @@ class Device360(Device360WebElements):
         - This keyword will Configure Device switch Port Trunk Vlan in Device360 Page.
         - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> interface --> Port Usage and Vlan
         - Keyword Usage:
-         - ``Device360 Configure Port Trunk Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
-         - ``Device360 Configure Port Trunk Vlan  device_name=${NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
+         - ``Device360 Configure Port Trunk Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  trunk_vlan_id=${VLAN_ID}``
+         - ``Device360 Configure Port Trunk Vlan  device_name=${NAME}  port_number=${PORT_NUMBER}  trunk_vlan_id=${VLAN_ID}``
 
          :param device_mac: Device Mac Address
          :param device_name: Device Name
@@ -5668,7 +5668,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(self.get_device360_configure_onboarding_port_vlan_textfield(port_row), Keys.CONTROL + "a")
                 self.utils.print_info("Deleting the selected values in port..")
                 self.auto_actions.send_keys(self.get_device360_configure_onboarding_port_vlan_textfield(port_row), Keys.BACK_SPACE)
-                self.auto_actions.send_keys(self.get_device360_configure_onboarding_port_vlan_textfield(port_row), access_vlan_id)
+                self.auto_actions.send_keys(self.get_device360_configure_onboarding_port_vlan_textfield(port_row), onboarding_vlan_id)
                 self.screen.save_screen_shot()
                 sleep(2)
 
@@ -5761,7 +5761,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(self.get_device360_configure_disabled_port_vlan_textfield(port_row), Keys.CONTROL + "a")
                 self.utils.print_info("Deleting the selected values in port..")
                 self.auto_actions.send_keys(self.get_device360_configure_disabled_port_vlan_textfield(port_row), Keys.BACK_SPACE)
-                self.auto_actions.send_keys(self.get_device360_configure_disabled_port_vlan_textfield(port_row), access_vlan_id)
+                self.auto_actions.send_keys(self.get_device360_configure_disabled_port_vlan_textfield(port_row), disabled_vlan_id)
                 self.screen.save_screen_shot()
                 sleep(2)
 
