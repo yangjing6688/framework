@@ -1,4 +1,3 @@
-import email
 from xiq.elements.extreme_guest.MuGuestPortalWebElements import MuGuestPortalWebElements
 from extauto.common.GmailHandler import GmailHandler
 from extauto.common.AutoActions import AutoActions
