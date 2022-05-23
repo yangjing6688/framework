@@ -2194,7 +2194,7 @@ class Cli(object):
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
             return -1
-    def downgrade_iqagent(self, ip, port, username, password, platform, retry_count=10):
+    def downgrade_iqagent(self, ip, port, username, password, platform):
 
         _spawn = self.open_spawn(ip, port, username, password, platform)
 
