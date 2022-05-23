@@ -969,13 +969,15 @@ class DevicesWebElementsDefinitions:
     devices_display_count_per_page_buttons = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottom"]//div[@data-dojo-attach-point="gridBottomLeft"]',
-            'wait_for': 10
+            'wait_for': 10,
+            'index': 1
          }
 
     devices_pagination_buttons = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottom"]//div[@data-dojo-attach-point="gridBottomRight"]',
-            'wait_for': 3
+            'wait_for': 3,
+            'index' : 1
         }
 
     manage_device_search_clear_button = \
