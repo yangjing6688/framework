@@ -58,7 +58,7 @@ class WebElementHandler:
             else:
                 continue
             try:
-                if el_info:
+                if self.el_info:
                     if 'True' in self.el_info:
                         self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
                                               .format(key, value, _index, _delay, _desc))
