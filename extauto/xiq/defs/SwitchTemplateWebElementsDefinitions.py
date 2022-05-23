@@ -554,3 +554,28 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//div[@data-dojo-attach-point="detail-mgtd-vlan"]//input[@data-dojo-attach-point="mgtVlan"]',
             'wait_for': 2
         }
+
+    select_all_rows = \
+        {
+            'XPATH': '//div[@id="ah/util/AHGrid_1_rowSelector_-1"]',
+            'wait_for': 5
+        }
+
+    confirm_message_yes_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 5
+        }
+
+    sw_template_adv_tab_textfield = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-switch-template-name"]',
+            'wait_for': 2
+        }
+
+    sw_template_save_btn_adv_tab = \
+        {
+            'XPATH': '//*[@class = "bottom"]//*[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 2
+        }
+

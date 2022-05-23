@@ -413,6 +413,28 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_mgmt_vlan_text_field(self):
         return self.weh.get_element(self.mgmt_vlan_text_field)
 
+    def get_select_all_rows(self):
+        return self.weh.get_element(self.select_all_rows)
+
+    def get_sw_template_adv_settings_tab(self):
+        return self.weh.get_element(self.sw_template_adv_settings_tab)
+
+    def get_sw_template_adv_tab_textfield(self):
+        return self.weh.get_element(self.sw_template_adv_tab_textfield)
+
+    def get_sw_template_save_button_adv_tab(self):
+        return self.weh.get_elements(self.sw_template_save_btn_adv_tab)
+
+    def get_confirm_message_yes_button(self):
+        return self.weh.get_element(self.confirm_message_yes_button)
+
+
+
+
+
+
+
+
 
 
 
