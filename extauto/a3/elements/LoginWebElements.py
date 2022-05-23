@@ -13,11 +13,11 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_login_page_username_text(self, override_driver):
         return self.weh.get_element(self.login_page_username_text_ids, override_driver=override_driver)
 
-    def get_login_page_password_text(self):
-        return self.weh.get_element(self.login_page_password_text_ids)
+    def get_login_page_password_text(self, override_driver):
+        return self.weh.get_element(self.login_page_password_text_ids, override_driver=override_driver)
 
-    def get_login_page_login_button(self):
-        return self.weh.get_element(self.login_page_login_button_ids)
+    def get_login_page_login_button(self, override_driver):
+        return self.weh.get_element(self.login_page_login_button_ids, override_driver=override_driver)
 
     def get_dialog_message(self):
         try:

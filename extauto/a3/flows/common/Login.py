@@ -93,11 +93,11 @@ class Login:
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(my_driver), username)
 
         self.utils.print_info("Entering Password...")
-        self.auto_actions.send_keys(self.login_web_elements.get_login_page_password_text(), password)
+        self.auto_actions.send_keys(self.login_web_elements.get_login_page_password_text(my_driver), password)
 
         self.utils.print_info("Clicking on Sign In button")
 
-        self.auto_actions.click(self.login_web_elements.get_login_page_login_button())
+        self.auto_actions.click(self.login_web_elements.get_login_page_login_button(my_driver))
         sleep(10)
 
         return 1
