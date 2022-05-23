@@ -32,7 +32,7 @@ class WebElementHandler:
                                    ElementNotSelectableException,
                                    ElementNotInteractableException]
 
-    def get_element(self, key_val, parent='default'):
+    def get_element(self, key_val, parent='default', override_driver=None):
         """
         get the web element based on the locators provided in key_val dictionary
         :param key_val: (dict) containing the locator:value ex: 'CSS_SELECTOR': '.btn.btn-primary-2.btn-dim'
@@ -43,6 +43,9 @@ class WebElementHandler:
         _delay = key_val.get('wait_for', self.delay)  # Explicit delay
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
         _driver = self.driver if parent == "default" else parent
+
+        if _driver == -1 and override_driver:
+            _driver = override_driver
 
         for key, value in key_val.items():
             if 'IMAGE' in key:
@@ -55,13 +58,15 @@ class WebElementHandler:
             else:
                 continue
             try:
-                if 'True' in self.el_info:
-                    self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
-                                          .format(key, value, _index, _delay, _desc))
-                if type(value) is list:
-                    self.utils.print_info("Element has multiple definitions: ", value)
+                if el_info:
+                    if 'True' in self.el_info:
+                        self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
+                                              .format(key, value, _index, _delay, _desc))
+                if list:
+                    if type(value) is list:
+                        self.utils.print_info("Element has multiple definitions: ", value)
 
-                if type(_index) is list:
+                if list and type(_index) is list:
                     handles_list = []
                     self.utils.print_info("Index is an array: ", _index)
                     for each_index in _index:

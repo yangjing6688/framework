@@ -10,8 +10,8 @@ class LoginWebElements(LoginWebElementsDefinitions):
         self.auto_actions = AutoActions()
         self.utils = Utils()
 
-    def get_login_page_username_text(self):
-        return self.weh.get_element(self.login_page_username_text_ids)
+    def get_login_page_username_text(self, override_driver):
+        return self.weh.get_element(self.login_page_username_text_ids, override_driver=override_driver)
 
     def get_login_page_password_text(self):
         return self.weh.get_element(self.login_page_password_text_ids)

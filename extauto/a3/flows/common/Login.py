@@ -67,10 +67,11 @@ class Login:
         :return: 1 if login successful else -1
         """
 
+        my_driver = None
         if url == "default":
-            self._init(incognito_mode=incognito_mode)
+            my_driver = self._init(incognito_mode=incognito_mode)
         else:
-            self._init(url, incognito_mode)
+            my_driver = self._init(url, incognito_mode)
 
         #start the thread to capture the tool tip text
         self.t1 = threading.Thread(target=xiq.flows.common.ToolTipCapture.tool_tip_capture, daemon=True)
@@ -89,7 +90,7 @@ class Login:
         self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
 
         self.utils.print_info("Entering Username...")
-        self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
+        self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(my_driver), username)
 
         self.utils.print_info("Entering Password...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_password_text(), password)
