@@ -2211,7 +2211,6 @@ class Cli(object):
                 self.send(_spawn, f'dbg enable')
                 self.send(_spawn, f'config t')
                 self.send(_spawn, f'application')
-                self.send(_spawn,f'disable clipaging')
                 output_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
                 self.send(_spawn, f'no iqagent enable')
                 self.send(_spawn, f'software iqagent reinstall')
