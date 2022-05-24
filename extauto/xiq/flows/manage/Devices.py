@@ -9503,6 +9503,8 @@ class Devices:
                     device_update_status_strip = device_update_status_replace.strip("\nConfiguration Updating")
                 elif 'Waiting Switch Execution Result' in device_update_status_replace:
                     device_update_status_strip = device_update_status_replace.strip("\nWaiting Switch Execution Result")
+                elif 'Configuration Audit Clear' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Audit Clear")
                 self.utils.print_info(f"Device Updated Status is: {device_update_status_strip}%")
                 return device_update_status_strip
         else:
