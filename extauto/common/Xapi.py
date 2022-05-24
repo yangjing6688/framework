@@ -1,9 +1,7 @@
 import json
 import subprocess
 import random
-import ast
-import pycurl
-import base64
+
 
 from extauto.common.Utils import Utils
 from extauto.common.Cli import Cli
@@ -324,7 +322,7 @@ class Xapi:
         if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/1.1 200' in str(stderr):
-                htppCode = 200
+                httpCode = 200
             elif 'HTTP/1.1 400' in str(stderr):
                 httpCode = 400
             elif 'HTTP/1.1 500' in str(stderr):
@@ -404,7 +402,7 @@ class Xapi:
         if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/1.1 200' in str(stderr):
-                htppCode = 200
+                httpCode = 200
             elif 'HTTP/1.1 400' in str(stderr):
                 httpCode = 400
             elif 'HTTP/1.1 500' in str(stderr):
@@ -449,7 +447,7 @@ class Xapi:
         if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/2 200' in str(stderr):
-                htppCode = 200
+                httpCode = 200
             elif 'HTTP/1.1 400' in str(stderr):
                 httpCode = 400
             elif 'HTTP/1.1 500' in str(stderr):
@@ -561,7 +559,7 @@ class Xapi:
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
 
-        if delete_data=="default":
+        if delete_data == "default":
             curl_cmd = f"curl -v --location --request DELETE '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
         else:
             curl_cmd = f"curl -v --location --request DELETE '{url}/{delete_data}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
@@ -712,6 +710,10 @@ class Xapi:
     def rest_api_post_v3(self, path, post_data="default", access_token="default", return_output="default",
                          result_code="default",
                          role="default"):
+        """
+        - This Keyword is used to post the API request evaluating the httpCode
+        """
+
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
 
@@ -745,10 +747,15 @@ class Xapi:
                 return stdout
             else:
                 return -1
-        # return stdout
+
 
     def rest_api_put_v3(self, path, put_data="default", access_token="default", return_output="default",
                         result_code="default", role="default"):
+
+        """
+        - This Keyword is used to run the update API request evaluating the httpCode
+        """
+
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
 
@@ -765,8 +772,6 @@ class Xapi:
             curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
         else:
             curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + put_data
-
-        # curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d "  + put_data
 
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
@@ -786,7 +791,7 @@ class Xapi:
                 return -1
         return stdout
 
-    # Subramani R - below code is to get NETWORK POLICY NAME of the device
+
     def get_index_nw_policy_name_from_list_json(self, json_data, index):
         """
          - This Keyword is used to get the specific network policy name for the specified index of list json
@@ -796,7 +801,7 @@ class Xapi:
          """
         return list(map(extract_nw_policy_name_from_json, json_data))[int(index)] if len(json_data) > 0 else 0
 
-    # Subramani R - below code is to get DEVICE ADMIN STATE of the device
+
     def get_index_device_admin_state_from_list_json(self, json_data, index):
         """
         - This Keyword is used to get the specific device admin state for the specified index of list json
@@ -806,10 +811,9 @@ class Xapi:
         """
         return list(map(extract_device_admin_state_from_json, json_data))[int(index)] if len(json_data) > 0 else 0
 
-    # Subramani R - below code is to get CONNECTED status of the device
     def get_index_connected_status_from_list_json(self, json_data, index):
         """
-        - This Keyword is used to get the specific device admin state for the specified index of list json
+        - This Keyword is used to get the specific connected status of the device for the specified index of list json
         :param json_data:  the list of json data
         :param index: the index of list
         :return: returns id
