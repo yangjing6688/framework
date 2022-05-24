@@ -497,7 +497,7 @@ class DevicesWebElementsDefinitions:
         {
             # The identifier differs depending on which type of device is selected (ap, switch, etc.),
             # so need to get all partial matches and select the displayed element
-            'XPATH': '//li[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-reboot")]',
+            'XPATH': '//a[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-reboot")]',
             'wait_for': 5
         }
 
