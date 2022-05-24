@@ -2358,19 +2358,52 @@ class DeviceConfig(DeviceConfigElements):
         if rows:
             if device_mac:
                 self.utils.print_info("Selecting Device with mac address: ", device_mac)
+                device_found = 0
                 for row in rows:
                     if device_mac in row.text:
+                        device_found = 1
                         self.utils.print_debug("Found device!")
-                        self.utils.print_info("Click on Device Config Audit tab")
-                        self.auto_actions.click(self.get_config_audit_delta_view_button(row))
-                        self.utils.print_info("Click on Device Config Audit Delta View")
-                        self.auto_actions.click(self.get_device_config_audit_delta_view())
-                        sleep(20)
-                        self.screen.save_screen_shot()
+
+                        self.utils.print_info("Attempting to click audit delta view button...")
+                        audit_delta_view_button = self.get_config_audit_delta_view_button(row)
+                        if audit_delta_view_button:
+                            self.utils.print_info("Found the delta view button!")
+                            self.utils.print_info("Clicking the delta view button...")
+                            self.auto_actions.click(audit_delta_view_button)
+                        else:
+                            self.utils.print_info("Did not find the delta view button")
+                            return -1
                         sleep(5)
 
-                        self.utils.print_info("Get the Config content from Device Config Audit Delta View")
-                        delta_configs = self.get_device_config_audit_delta_view_content().text
-                        self.utils.print_info("Delta Configs : ", delta_configs)
-                        self.auto_actions.click(self.get_device_config_audit_view_close_button())
+                        delta_view = self.get_device_config_audit_delta_view()
+                        self.utils.print_info("Attempting to locate delta view...")
+                        if delta_view:
+                            self.utils.print_info("Clicking on Device Config Audit Delta View...")
+                            self.auto_actions.click(self.get_device_config_audit_delta_view())
+                        else:
+                            self.utils.print_info("Did not find the delta view...")
+                            return -1
+                        sleep(15)
+                        self.utils.print_info("Attempting to locate the delta config content...")
+                        if self.get_device_config_audit_delta_view_content():
+                            self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+                            delta_configs = self.get_device_config_audit_delta_view_content().text
+                            self.utils.print_info("Delta Configs : ", delta_configs)
+                        else:
+                            self.utils.print_info("Did not manage to locate the content...")
+                            return -1
+
+                        close_audit_view_button = self.get_device_config_audit_view_close_button()
+                        self.utils.print_info("Attempting to locate the close button...")
+                        if close_audit_view_button:
+                            self.auto_actions.click(self.get_device_config_audit_view_close_button())
+                        else:
+                            self.utils.print_info("Did not find the close button.")
+                            return -1
                         return delta_configs
+                if device_found == 0:
+                    self.utils.print_info(f"Did not find any device with mac address: {device_mac}")
+                    return -1
+        else:
+            self.utils.print_info("Did not find any rows!")
+            return -1

@@ -1681,7 +1681,7 @@ class SwitchTemplate(object):
                 for item in existing_port_type_list:
                     self.utils.print_info(item.text)
                     if port_type_name == item.text:
-                        self.utils.print_info("Searching for the Port type Option")
+                        self.utils.print_info(f"Searching for the Port type option: {port_type_name}")
                         sleep(3)
                         self.auto_actions.click(item)
                         self.utils.print_info("Clicking on Save Existing Port Type")

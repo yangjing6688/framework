@@ -5619,7 +5619,6 @@ class Device360(Device360WebElements):
         - Assume that already in device360 window
         - Flow: Configure --> Port Configuration--> interface --> Ports Usage and Vlan Range
 
-        :param device_mac: Device Mac Address
         :param device_name: Device Name
         :param port_number: Port Number of the Switch
         :param trunk_native_vlan: Trunk Native Vlan Number for switch port
