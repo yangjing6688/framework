@@ -9505,3 +9505,6 @@ class Devices:
                     device_update_status_strip = device_update_status_replace.strip("\nWaiting Switch Execution Result")
                 self.utils.print_info(f"Device Updated Status is: {device_update_status_strip}%")
                 return device_update_status_strip
+        else:
+            self.utils.print_info(f"Device row not found")
+            return -1
