@@ -428,6 +428,12 @@ class DevicesWebElementsDefinitions:
             'index': 6
         }
 
+    nw_policy_drop_v2 = \
+        {
+            'XPATH':  '//div[contains(@class, "dijitReset dijitInputField dijitButtonText") and @data-dojo-attach-point="containerNode,textDirNode"]',
+            'wait_for': 2,
+        }
+
     actions_network_policy_assign_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="continueBtn"]',
