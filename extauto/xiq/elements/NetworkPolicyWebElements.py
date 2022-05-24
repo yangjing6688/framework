@@ -442,3 +442,6 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
 
     def get_management_options_select_button(self):
         return self.weh.get_element(self.management_options_select_button)
+
+    def get_device_templates_tab(self):
+        return self.weh.get_element(self.device_templates_tab)

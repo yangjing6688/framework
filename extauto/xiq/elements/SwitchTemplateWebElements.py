@@ -440,6 +440,31 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_lag_add_port_button(self):
         return self.weh.get_element(self.lag_add_port_button)
 
+    def get_select_ports_available(self):
+        return self.weh.get_elements(self.select_ports_available)
+
+    def get_cancel_button(self):
+        return self.weh.get_element(self.cancel_button)
+
+    def get_save_port_type_button(self):
+        return self.weh.get_element(self.save_port_type_button)
+
+    def get_switch_temp_save_button_v2(self):
+        return self.weh.get_element(self.switch_temp_save_button_v2)
+
+    def get_lag_span(self, lag):
+        return self.weh.get_template_elements(self.lag_span, lag=lag)
+
+    def get_available_port(self, port):
+        return self.weh.get_template_element(self.available_port, port=port)
+
+    def get_selected_port(self, port):
+        return self.weh.get_template_element(self.selected_port, port=port)
+
+    def get_port_settings_tab(self):
+        return self.weh.get_element(self.port_settings_tab)
+
+
 
 
 

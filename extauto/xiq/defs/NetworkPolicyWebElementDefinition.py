@@ -341,13 +341,13 @@ class NetworkPolicyWebElementDefinition:
 
     perform_update_policy_button = \
         {
-            'XPATH': '//div/a[@data-dojo-attach-point="uploadBtn"]',
+            'XPATH': '//button[@data-dojo-attach-point="upload"]',
             'wait_for': 2
         }
 
     perform_after_select_update_policy_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="upload"]',
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-btn"]',
             'wait_for': 2
         }
 
@@ -722,4 +722,10 @@ class NetworkPolicyWebElementDefinition:
         {
             'XPATH': '//*[@data-automation-tag="automation-dialog-link"]',
             'wait_for': 10
+        }
+
+    device_templates_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tab-switch-settings"]',
+            'wait_for': 5
         }

@@ -597,3 +597,52 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-lag-add-port-button"]',
             'wait_for': 2
         }
+
+    select_ports_available = \
+        {
+            'XPATH': '//select[@data-dojo-attach-point="portsAvailable"]//option',
+            'wait_for': 5
+        }
+
+    cancel_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-lag-cancel-button"]',
+            'wait_for': 5
+        }
+
+    save_port_type_button = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-automation-tag="automation-lag-save-button"]',
+            'wait_for': 5
+        }
+
+    switch_temp_save_button_v2 = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 5,
+            'index': 1
+        }
+
+    lag_span = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-lag-edit-lag-${lag}"]',
+            'wait_for': 5
+        }
+
+    available_port = \
+        {
+            'XPATH': '//option[@data-automation-tag="automation-lag-available-port-${port}"]',
+            'wait_for': 5
+        }
+
+    selected_port = \
+        {
+            'XPATH': '//option[@data-automation-tag="automation-lag-selected-port-${port}"]',
+            'wait_for': 5
+        }
+
+    port_settings_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-settings"]',
+            'wait_for': 5
+        }
