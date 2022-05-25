@@ -2166,3 +2166,530 @@ class Device360WebElementDefs:
             "CSS_SELECTOR": '.active-result',
             'wait_for': 5
         }
+
+    policy_configure_port_rows = \
+        {
+            'XPATH': '//tabset[@data-dojo-attach-point="configuration-ports-tabs"]//portdetails//portentry-row',
+            'wait_for': 5
+        }
+
+    #de aici incepe cod
+    d360_create_port_type = \
+        {
+            'CSS_SELECTOR': '.table-action-icons.table-add',
+            'wait_for': 5
+        }
+
+    policy_edit_port_type = \
+        {
+            'CSS_SELECTOR': '.table-action-icons.table-edit',
+            'wait_for': 5
+        }
+
+    close_port_type_box = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
+            'wait_for': 5
+        }
+    #tab
+    select_element_port_type_tab_usage = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-info"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_vlan = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-vlan"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_transmission = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-trans"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_stp = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-stp"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_storm_control = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-storm-control"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_pse_settings = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-pse"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_summary = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-summary"]',
+            'wait_for': 5
+        }
+
+    defacutelrdp = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-name"]',
+            'wait_for': 5
+        }
+
+    #pag1
+    select_element_port_type_name = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-name"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_description = \
+        {
+            'XPATH': '//textarea[@data-automation-tag="port-type-editor-description"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_status = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-status"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_auto_sense = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-auto-sense-status"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_port_usage_access = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="accessType"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_port_usage_trunk = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="trunkType"]',
+            'wait_for': 5
+        }
+
+    # pag2-Vlan
+    select_element_port_type_next_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="wizardNext"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_name_vlan = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="nameEl"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_add_vlan = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanArea"]//span[@data-dojo-attach-point="ipSave"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_id_vlan = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="defaultVlanId"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_select_button = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-port-type-vlan-select-btn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_dropdown_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//ul/li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_name_vlan = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="nameEl"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_add_vlan = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="nativeVlanArea"]//span[@data-dojo-attach-point="ipSave"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_id_vlan = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="defaultVlanId"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_select_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="nativeVlanArea"]//span[@data-dojo-attach-point="ipMark"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_dropdown_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//ul//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_save_vlan = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_allowed_vlans = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-allowed-vlans"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_type = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-editor-duplex-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_type_dropdown_items = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-port-type-editor-duplex-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_speed = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-editor-speed-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_speed_dropdown_items = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-port-type-editor-speed-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_cdp_receive = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-cdp"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_lldp_transmit = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-lldp-tx"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_lldp_receive = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-lldp-rx"]',
+            'wait_for': 5
+        }
+    # pag4
+    select_element_port_type_stp_enable= \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-stp-enable"]',
+            'wait_for': 5
+        }
+    select_element_port_type_edge_port = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-stp-edge-port"]',
+            'wait_for': 5
+        }
+    select_element_port_type_bpdu_protection = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-editor-stp-bpdu-prot-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_bpdu_protection_items = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-port-type-editor-stp-bpdu-prot-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_priority = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-editor-stp-priority-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_priority_items = \
+        {
+            'XPATH': '//ul[@data-automation-tag="automation-port-type-editor-stp-priority-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_path_cost = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-stp-path-cost"]',
+            'wait_for': 5
+        }
+    # pag5
+    select_element_port_type_broadcast = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-sc-broadcast"]',
+            'wait_for': 5
+        }
+    select_element_port_type_unknown_unicast = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-sc-unicast"]',
+            'wait_for': 5
+        }
+    select_element_port_type_multicast = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-sc-multicast"]',
+            'wait_for': 5
+        }
+    select_element_port_type_rate_limit_value = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-sc-rate-limit-value"]',
+            'wait_for': 5
+        }
+    #pag6 ELRP (ONLY FOR EXOS)
+    select_element_port_type_elrp_status = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-elrp-enable"]',
+            'wait_for': 5
+        }
+
+    # pag6
+    select_element_port_type_pse_profile = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-editor-pse-profile"]//span[@data-dojo-attach-point="ipMark"]',
+            'wait_for': 5
+        }
+    select_element_port_type_pse_profile_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//ul//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_add = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-type-editor-pse-profile"]//span[@data-dojo-attach-point="ipSave"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_name = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="nameEl"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode = \
+        {
+            'XPATH': '',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode_items = \
+        {
+            'XPATH': '',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_priority = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//div[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_priority_items = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_description = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="description"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_save = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_poe_status = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-pse-enable"]',
+            'wait_for': 5
+        }
+    #summary
+
+    select_element_port_type_name_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-name"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_description_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-desc"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_status_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-status"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_port_usage_access_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-usage"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_vlan_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-vlan"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_native_vlan_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-native-vlan"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_allowed_vlans_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-allowed-vlans"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_type_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-duplex"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_transmission_speed_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-speed"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_cdp_receive_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-cdp"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_lldp_transmit_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-lldp-tx"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_lldp_receive_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-lldp-rx"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_stp_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-status"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_edge_port_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-edge-port"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_bpdu_protection_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-bpdu-prot"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_priority_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-priority"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_path_cost_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-path-cost"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_broadcast_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-broadcast"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_unknown_unicast_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-unicast"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_multicast_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-multicast"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_rate_limit_type_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-rate-limit-type"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_rate_limit_value_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-rate-limit-value"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_elrp_status_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-elrp-enabled"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-pse-profile"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_poe_status_summery = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-pse-status"]',
+            'wait_for': 5
+        }
+
+    device_d360_save_port_configuration = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
+            'wait_for': 5
+        }
+
+    device_d360_cancel_port_configuration = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
