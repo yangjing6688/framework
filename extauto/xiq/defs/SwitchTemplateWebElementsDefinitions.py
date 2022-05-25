@@ -646,3 +646,22 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-settings"]',
             'wait_for': 5
         }
+
+    available_slot = \
+        {
+            'XPATH': '//option[@data-automation-tag="automation-lag-available-slot-${slot}"]',
+            'wait_for': 5
+        }
+
+    error_message = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'wait_for': 1,
+            'index': 2
+        }
+
+    template_link = \
+        {
+            'XPATH': '//a[text()="${template}"]',
+            'wait_for': 5
+        }

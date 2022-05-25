@@ -464,9 +464,11 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_port_settings_tab(self):
         return self.weh.get_element(self.port_settings_tab)
 
+    def get_available_slot(self, slot):
+        return self.weh.get_template_element(self.available_slot, slot=slot)
 
+    def get_error_message(self):
+        return self.weh.get_template_element(self.error_message)
 
-
-
-
-
+    def get_template_link(self, template):
+        return self.weh.get_template_element(self.template_link, template=template)
