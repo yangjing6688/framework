@@ -1,5 +1,5 @@
 from ExtremeAutomation.Library.Utils.DotDict import DotDict
-#from pytest_testconfig import load_yaml
+from pytest_testconfig import load_yaml
 import sys
 import os
 import codecs
