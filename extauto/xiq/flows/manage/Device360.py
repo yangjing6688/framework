@@ -5611,6 +5611,682 @@ class Device360(Device360WebElements):
         sleep(2)
         return ret_val
 
+    def create_new_port_type(self, template_values, port, d360=False, verify_summary=True):
+        '''
+        This function is used to create a new port type from d360 or template page by using new format
+
+        :param template_values: A dictionary with below structure:
+
+        Each element from dictionary template_values has the following format:
+                'setting name': [configured_value, check_summary_value]
+
+        To change the value of a setting, use the following syntax:
+                template_voss_auto_sense_on['setting name'][0] = 'configured_value'
+        To not configure an element from dictionary:
+                template_voss_auto_sense_on['setting name'][0] = None
+
+        To check the value of a setting into summary page, use the following sintax:
+                template_voss_auto_sense_on['setting name'][1] = 'check_summary_value'
+        To not verify an element from dictionary into summary page :
+                template_voss_auto_sense_on['setting name'][1] = None
+
+        To press next buttom use into dictionary an element like this : 'page2 accessVlanPage':["next_page", None],
+
+        template_values=                {'name': ["port type name", 'port type name'],
+                                        'description': ["add_description", "add_description"],
+                                        'status':['click', 'off'],          #['click'/None, 'on'/'off'/None]
+                                        'auto-sense':['click',None],       #['click'/None, None]
+                                        'port usage':['trunk port', 'trunk'],
+                                                #['trunk port'/'access port'/None, 'trunk'/'access'/'auto_sense'/None]
+
+                                        #'page2 accessVlanPage':["next_page", None],       # used for access ports
+                                        #'vlan':['40', '40'],                       # used for access ports
+
+                                        'page2 trunkVlanPage': ["next_page", None],
+                                        'native vlan': ['50', '50'],     # used for trunk ports
+                                        'allowed vlans': ['60', '60'],   # used for trunk ports ['all'/None, 'all'/None]
+
+                                        'page3 transmissionSettingsPage': ["next_page", None],
+                                        'transmission type': ['auto','auto'],
+                                            #['auto'/'Half-Duplex'/'Full-Duplex', 'auto'/'Half_Duplex'/'Full_Duplex'/None]
+                                        'transmission speed':['auto','auto'],
+                                            #['auto'/'10 Mbps'/'100 Mbps'/None, 'auto'/'10 Mbps'/'100 Mbps'/None]
+                                        'cdp receive':[None, 'off'],        # ['click'/'None', 'on'/'off'/None]
+                                        'lldp transmit':['click', 'off'],   # ['click'/'None', 'on'/'off'/None]
+                                        'lldp receive':[None, 'off'],       # ['click'/'None', 'on'/'off'/None]
+
+                                        'page4 stpPage': ["next_page", None],
+                                        'stp enable':['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+                                        'edge port': ['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+                                        'bpdu protection':[None, 'disabled'],   #['click'/None, 'on'/'off'/None]
+                                        'priority':['32', '32'],
+                                                #['0'/'16'/'32'/'48'.../'192'/None, '0'/'16'/'32'/'48'.../'192'/None]
+                                        'path cost':['50', '50'],   #['1 - 200000000'/None, '1 - 200000000'/None]
+
+                                        'page5 stormControlSettingsPage': ["next_page", None],
+                                        'broadcast':[None, 'disabled'],         #['click'/None, 'enabled'/'disabled'/None]
+                                        'unknown unicast':[None, 'disabled'],   #[None, 'disabled'/None]
+                                        'multicast':[None, 'disabled'],         #['click'/None, 'enabled'/'disabled'/None]
+                                        'rate limit type':[None,'pps'],         #[None, 'pps'/None]
+                                        'rate limit value': ['65535', '65535'], #['0-65535'/None, '0-65535'/None]
+
+                                        #for VOSS
+                                        'page6 pseSettingsPage': ["next_page", None],
+                                        'PSE profile':[None,None],
+                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                        'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
+
+                                        'page7 summaryPage': ["next_page", None]
+
+                                        #==========================================
+                                        #Only for exos
+                                        'page6 ELRPSettingsPage': ["next_page", None],
+                                        'elrp status': ['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+
+                                        'page7 pseSettingsPage': ["next_page", None],
+                                        'PSE profile':[None,None],
+                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                        'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
+
+                                        'page8 summaryPage': ["next_page", None]
+                                    }
+
+        :param port: the port where new port type will be created
+        :param d360: False if new port type will be created into policy template, True if new port type will be created
+        into d360 page
+        :param verify_summary: True if configured values will be verify on summary page. False if verification on summary
+        page will be skipped
+        :return: 1 if new port type was successfully created and summary page displays correct values  ; else -1
+        '''
+
+        if template_values["name"][0] == None:
+            self.utils.print_info("name can not be empty" )
+            return -1
+
+        if not d360:
+            rows = self.get_policy_configure_port_rows()
+            if not rows:
+                self.utils.print_info("Could not obtain list of port rows")
+                return -1
+            else:
+                for row in rows:
+                    if port in row.text:
+                        d360_create_port_type = self.get_d360_create_port_type(row)
+                        if d360_create_port_type:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was found")
+                            self.auto_actions.click(d360_create_port_type)
+                            sleep(2)
+                            break
+                        else:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was not found")
+                            self.screen.save_screen_shot()
+                            return -1
+
+        else:
+            port_conf_content = self.get_device360_port_configuration_content()
+            if port_conf_content:
+                port_row = self.device360_get_port_row(port)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+
+                    d360_create_port_type = self.get_d360_create_port_type(port_row)
+                    if d360_create_port_type:
+                        self.utils.print_info(" The button d360_create_port_type  was found")
+                        self.auto_actions.click(d360_create_port_type)
+                        sleep(2)
+                    else:
+                        self.utils.print_info(" The button d360_create_port_type  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    self.utils.print_info("Port was not found ")
+                    return -1
+            else:
+                return -1
+        cnt = 0
+        for key in template_values.keys():
+            if not template_values[key][0] == None:
+                conf_element = self.configure_element_port_type(key,template_values[key][0])
+                if conf_element == 1:
+                    self.utils.print_info("The element {} was configured ".format(key))
+                else:
+                    self.utils.print_info("The element {} was not configured ".format(key))
+                    return -1
+            else:
+                pass
+            cnt = cnt + 1
+        if verify_summary:
+            return self.port_type_verify_summary(template_values)
+        else:
+            close_port_type_box = self.get_close_port_type_box()
+            if close_port_type_box:
+                self.utils.print_info(" The button close_port_type_box from policy  was found")
+                self.auto_actions.click(close_port_type_box)
+                sleep(2)
+            else:
+                self.utils.print_info(" The button close_port_type_box from policy was not found")
+            return 1
+
+    def edit_port_type(self, template_values, port, verify_summary=True):
+        '''
+
+
+        :param template_values:
+        A dictionary with below structure:
+
+        Each element from dictionary template_values has the following format:
+                'setting name': [configured_value, check_summary_value]
+
+        To change the value of a setting, use the following syntax:
+                template_voss_auto_sense_on['setting name'][0] = 'configured_value'
+        To not configure an element from dictionary:
+                template_voss_auto_sense_on['setting name'][0] = None
+
+        To check the value of a setting into summary page, use the following sintax:
+                template_voss_auto_sense_on['setting name'][1] = 'check_summary_value'
+        To not verify an element from dictionary into summary page :
+                template_voss_auto_sense_on['setting name'][1] = None
+
+        To press next buttom use into dictionary an element like this : 'page2 accessVlanPage':["next_page", None],
+
+        template_values=                {'name': ["port type name", 'port type name'],
+                                        'description': ["add_description", "add_description"],
+                                        'status':['click', 'off'],          #['click'/None, 'on'/'off'/None]
+                                        'auto-sense':['click',None],       #['click'/None, None]
+                                        'port usage':['trunk port', 'trunk'],
+                                                #['trunk port'/'access port'/None, 'trunk'/'access'/'auto_sense'/None]
+
+                                        #'page2 accessVlanPage':["next_page", None],       # used for access ports
+                                        #'vlan':['40', '40'],                       # used for access ports
+
+                                        'page2 trunkVlanPage': ["next_page", None],
+                                        'native vlan': ['50', '50'],     # used for trunk ports
+                                        'allowed vlans': ['60', '60'],   # used for trunk ports ['all'/None, 'all'/None]
+
+                                        'page3 transmissionSettingsPage': ["next_page", None],
+                                        'transmission type': ['auto','auto'],
+                                            #['auto'/'Half-Duplex'/'Full-Duplex', 'auto'/'Half_Duplex'/'Full_Duplex'/None]
+                                        'transmission speed':['auto','auto'],
+                                            #['auto'/'10 Mbps'/'100 Mbps'/None, 'auto'/'10 Mbps'/'100 Mbps'/None]
+                                        'cdp receive':[None, 'off'],        # ['click'/'None', 'on'/'off'/None]
+                                        'lldp transmit':['click', 'off'],   # ['click'/'None', 'on'/'off'/None]
+                                        'lldp receive':[None, 'off'],       # ['click'/'None', 'on'/'off'/None]
+
+                                        'page4 stpPage': ["next_page", None],
+                                        'stp enable':['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+                                        'edge port': ['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+                                        'bpdu protection':[None, 'disabled'],   #['click'/None, 'on'/'off'/None]
+                                        'priority':['32', '32'],
+                                                #['0'/'16'/'32'/'48'.../'192'/None, '0'/'16'/'32'/'48'.../'192'/None]
+                                        'path cost':['50', '50'],   #['1 - 200000000'/None, '1 - 200000000'/None]
+
+                                        'page5 stormControlSettingsPage': ["next_page", None],
+                                        'broadcast':[None, 'disabled'],         #['click'/None, 'enabled'/'disabled'/None]
+                                        'unknown unicast':[None, 'disabled'],   #[None, 'disabled'/None]
+                                        'multicast':[None, 'disabled'],         #['click'/None, 'enabled'/'disabled'/None]
+                                        'rate limit type':[None,'pps'],         #[None, 'pps'/None]
+                                        'rate limit value': ['65535', '65535'], #['0-65535'/None, '0-65535'/None]
+
+                                        #for VOSS
+                                        'page6 pseSettingsPage': ["next_page", None],
+                                        'PSE profile':[None,None],
+                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                        'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
+
+                                        'page7 summaryPage': ["next_page", None]
+
+                                        #==========================================
+                                        #Only for EXOS
+                                        'page6 ELRPSettingsPage': ["next_page", None],
+                                        'elrp status': ['click', 'enabled'],      #['click'/None, 'on'/'off'/None]
+
+                                        'page7 pseSettingsPage': ["next_page", None],
+                                        'PSE profile':[None,None],
+                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                        'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
+
+                                        'page8 summaryPage': ["next_page", None]
+                                    }
+        :param port: the port where new port type will be created
+        :param verify_summary: True if configured values will be verify on summary page. False if verification on summary
+        page will be skipped
+        :return: 1 if new port type was successfully edited and summary page displays correct values  ; else -1
+        '''
+
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return -1
+        else:
+            for row in rows:
+                if port in row.text:
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info(" The button policy_edit_port_type from policy  was found")
+                        self.auto_actions.click(policy_edit_port_type)
+                        sleep(2)
+                        break
+                    else:
+                        self.utils.print_info(" The button policy_edit_port_type from policy  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+        cnt = 0
+        for key in template_values.keys():
+            if not template_values[key][0] == None or 'usagePage' in key:
+                self.utils.print_info(key)
+                if "page" in key:
+                    conf_element = self.configure_element_port_type(key, "None")
+                    self.utils.print_info("return", conf_element)
+                    if conf_element == 1:
+                        self.utils.print_info("The element {} was configured ".format(key))
+                    else:
+                        self.utils.print_info("The element {} was not configured ".format(key))
+                        return -1
+                else:
+                    conf_element = self.configure_element_port_type(key,template_values[key][0])
+                    if conf_element == 1:
+                        self.utils.print_info("The element {} was configured ".format(key))
+                    else:
+                        self.utils.print_info("The element {} was not configured ".format(key))
+                        return -1
+            else:
+                pass
+            cnt = cnt + 1
+        if verify_summary:
+            return self.port_type_verify_summary(template_values)
+        else:
+            close_port_type_box = self.get_close_port_type_box()
+            if close_port_type_box:
+                self.utils.print_info(" The button close_port_type_box from policy  was found")
+                self.auto_actions.click(close_port_type_box)
+                sleep(2)
+            else:
+                self.utils.print_info(" The button close_port_type_box from policy was not found")
+            return 1
+
+    def port_type_verify_summary(self,template_values):
+
+        cnt = 0
+        for key in template_values.keys():
+            cnt = cnt +1
+            if not template_values[key][1] == None:
+                conf_element = self.get_select_element_port_type_summery(key)
+                print(conf_element)
+                if conf_element.text.lower() == template_values[key][1].lower():
+                    self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: "
+                                          f"{conf_element.text.lower()}")
+                else:
+                    self.utils.print_info("The element is not correct into summary. Current value in summary:" +
+                                          conf_element.text + " Wanted value: " + template_values[key][1])
+                    return -1
+            else:
+                pass
+        close_port_type_box = self.get_close_port_type_box()
+        if close_port_type_box:
+            self.utils.print_info(" The button close_port_type_box from policy  was found")
+            self.auto_actions.click(close_port_type_box)
+            sleep(2)
+        else:
+            self.utils.print_info(" The button close_port_type_box from policy was not found")
+        return 1
+
+
+    def configure_element_port_type(self,element,value):
+
+        # tab
+        sleep(2)
+        if "next_page" in value:
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                self.auto_actions.click(get_next_button)
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("get_next_button not found ")
+
+        elif "usagePage" in element:
+            get_tab_usagePage = self.get_select_element_port_type("usagePage")
+            if get_tab_usagePage:
+                self.auto_actions.click(get_tab_usagePage)
+                return 1
+
+        elif "trunkVlanPage" in element or "accessVlanPage" in element:
+            get_tab_vlan = self.get_select_element_port_type("tab_vlan")
+            if get_tab_vlan:
+                self.auto_actions.click(get_tab_vlan)
+                return 1
+
+        elif "transmissionSettingsPage" in element:
+            get_tab_transmission = self.get_select_element_port_type("transmissionSettingsPage")
+            if get_tab_transmission:
+                self.auto_actions.click(get_tab_transmission)
+                return 1
+
+        elif "stpPage" in element:
+            get_tab_stp = self.get_select_element_port_type("stpPage")
+            if get_tab_stp:
+                self.auto_actions.click(get_tab_stp)
+                return 1
+
+        elif "stormControlSettingsPage" in element:
+            get_storm_control = self.get_select_element_port_type("stormControlSettingsPage")
+            if get_storm_control:
+                self.auto_actions.click(get_storm_control)
+                return 1
+
+        elif "ELRPSettingsPage" in element:
+            get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
+            if get_elrp:
+                self.auto_actions.click(get_elrp)
+                return 1
+
+        elif "pseSettingsPage" in element:
+            get_tab_pse_settings = self.get_select_element_port_type("pseSettingsPage")
+            if get_tab_pse_settings:
+                self.auto_actions.click(get_tab_pse_settings)
+                return 1
+
+        elif "summaryPage" in element:
+            get_tab_summary = self.get_select_element_port_type("summaryPage")
+            if get_tab_summary:
+                self.auto_actions.click(get_tab_summary)
+                return 1
+        #pag1
+        elif element == "name":
+            get_name_el = self.get_select_element_port_type(element)
+            if get_name_el:
+                self.auto_actions.send_keys(get_name_el, value)
+                return 1
+        elif element == "description":
+            get_description_el = self.get_select_element_port_type(element)
+            if get_description_el:
+                self.auto_actions.send_keys(get_description_el, value)
+                return 1
+        elif element == "status":
+            get_status_el = self.get_select_element_port_type(element)
+            if get_status_el:
+                self.auto_actions.click(get_status_el)
+                return 1
+        elif element == "auto-sense":
+            get_auto_sense_el = self.get_select_element_port_type(element)
+            if get_auto_sense_el:
+                self.auto_actions.click(get_auto_sense_el)
+                return 1
+        elif element == "port usage" and value == "access port":
+            get_access_el = self.get_select_element_port_type(element,value)
+            if get_access_el:
+                self.auto_actions.click(get_access_el)
+                return 1
+        elif element == "port usage" and value == "trunk port":
+            get_trunk_el = self.get_select_element_port_type(element,value)
+            self.utils.print_info("trunk element",get_trunk_el)
+            if get_trunk_el:
+                self.auto_actions.click(get_trunk_el)
+                return 1
+        # pag2 Vlan
+        elif element == "vlan":
+            get_select_button = self.get_select_element_port_type("select_button")
+            if get_select_button:
+                self.auto_actions.click(get_select_button)
+                sleep(2)
+                get_dropdown_items = self.get_select_element_port_type("dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                   self.utils.print_info(" Selected into dropdown value : ", value)
+                   return 1
+                else:
+                    get_add_vlan = self.get_select_element_port_type("add_vlan")
+                    if get_add_vlan:
+                        self.auto_actions.click(get_add_vlan)
+                        sleep(2)
+                        get_name_vlan = self.get_select_element_port_type("name_vlan")
+                        if get_name_vlan:
+                            self.auto_actions.send_keys(get_name_vlan,value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_id_vlan not found ")
+                        get_id_vlan = self.get_select_element_port_type("id_vlan")
+                        if get_id_vlan:
+                            self.auto_actions.send_keys(get_id_vlan,value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_id_vlan not found ")
+                        get_save_vlan = self.get_select_element_port_type("save_vlan")
+                        if get_save_vlan:
+                            self.auto_actions.click(get_save_vlan)
+                            return 1
+                        else:
+                            self.utils.print_info("get_id_vlan not found ")
+                    else:
+                        self.utils.print_info("get_add_vlan not found ")
+            else:
+                self.utils.print_info("get_select_button not found ")
+            self.utils.print_info(" Error when configure vlan  ")
+            return -1
+
+        elif element == "native vlan":
+            get_select_button = self.get_select_element_port_type("native_vlan_select_button")
+            if get_select_button:
+                self.auto_actions.click(get_select_button)
+                sleep(2)
+                get_dropdown_items = self.get_select_element_port_type("native_vlan_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+                else:
+                    get_add_vlan = self.get_select_element_port_type("native_vlan_add_vlan")
+                    if get_add_vlan:
+                        self.auto_actions.click(get_add_vlan)
+                        sleep(2)
+                        get_name_vlan = self.get_select_element_port_type("native_vlan_name_vlan")
+                        if get_name_vlan:
+                            self.auto_actions.send_keys(get_name_vlan,value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("native vlan get_id_vlan not found ")
+                        get_id_vlan = self.get_select_element_port_type("native_vlan_id_vlan")
+                        if get_id_vlan:
+                            self.auto_actions.send_keys(get_id_vlan,value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("native vlan get_id_vlan not found ")
+                        get_save_vlan = self.get_select_element_port_type("save_vlan")
+                        if get_save_vlan:
+                            self.auto_actions.click(get_save_vlan)
+                            return 1
+                        else:
+                            self.utils.print_info("get_save_vlan not found ")
+                    else:
+                        self.utils.print_info("native vlan get_add_vlan not found ")
+            else:
+                self.utils.print_info("native vlan get_select_button not found ")
+            self.utils.print_info(" Error when configure native vlan ")
+            return -1
+        elif element == "allowed vlans":
+            get_allowed_vlans = self.get_select_element_port_type(element)
+            if get_allowed_vlans:
+                self.auto_actions.send_keys(get_allowed_vlans, value)
+                return 1
+        #Pag3
+        elif element == "transmission type":
+            get_transmission_type = self.get_select_element_port_type(element)
+            if get_transmission_type:
+                self.auto_actions.click(get_transmission_type)
+                sleep(2)
+                get_dropdown_items = self.get_select_element_port_type("transmission_type_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+        elif element == "transmission speed":
+            get_transmission_speed = self.get_select_element_port_type(element)
+            if get_transmission_speed:
+                self.auto_actions.click(get_transmission_speed)
+                sleep(2)
+                get_dropdown_items = self.get_select_element_port_type("transmission_speed_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+                else:
+                    self.utils.print_info(" Error get_dropdown_items ")
+            else:
+                self.utils.print_info(" Error get_transmission_speed ")
+        elif element == "cdp receive":
+            get_lldp_receive = self.get_select_element_port_type(element)
+            if get_lldp_receive:
+                self.auto_actions.click(get_lldp_receive)
+                return 1
+        elif element == "lldp transmit":
+            get_lldp_transmit = self.get_select_element_port_type(element)
+            if get_lldp_transmit:
+                self.auto_actions.click(get_lldp_transmit)
+                return 1
+        elif element == "lldp receive":
+            get_lldp_receive = self.get_select_element_port_type(element)
+            if get_lldp_receive:
+                self.auto_actions.click(get_lldp_receive)
+                return 1
+        # pag4 STP
+        elif element == "stp enable":
+            get_stp_el = self.get_select_element_port_type(element,value)
+            if get_stp_el:
+                self.auto_actions.click(get_stp_el)
+                return 1
+        elif element == "edge port":
+            get_edge_el = self.get_select_element_port_type(element,value)
+            if get_edge_el:
+                self.auto_actions.click(get_edge_el)
+                return 1
+        elif element == "bpdu protection":
+            get_bpdu_protection = self.get_select_element_port_type(element)
+            if get_bpdu_protection:
+                self.auto_actions.click(get_bpdu_protection)
+                get_bpdu_protection_items = self.get_select_element_port_type("bpdu_protection_items")
+                if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+        elif element == "priority":
+            get_priority = self.get_select_element_port_type(element)
+            if get_priority:
+                self.auto_actions.click(get_priority)
+                get_priority_items = self.get_select_element_port_type("priority_items")
+                if self.auto_actions.select_drop_down_options(get_priority_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+        elif element == "path cost":
+            get_cost_el = self.get_select_element_port_type(element)
+            if get_cost_el:
+                self.auto_actions.send_keys(get_cost_el, value)
+                return 1
+        # # pag5 Storm Control
+        elif element == "broadcast":
+            get_broadcast_el = self.get_select_element_port_type(element,value)
+            if get_broadcast_el:
+                self.auto_actions.click(get_broadcast_el)
+                return 1
+        elif element == "unknown unicast":
+            get_unknown_el = self.get_select_element_port_type(element,value)
+            if get_unknown_el:
+                self.auto_actions.click(get_unknown_el)
+                return 1
+        elif element == "multicast":
+            get_multicast_el = self.get_select_element_port_type(element,value)
+            if get_multicast_el:
+                self.auto_actions.click(get_multicast_el)
+                return 1
+        elif element == "rate limit type":
+            return 1
+        elif element == "rate limit value":
+            get_rate_limit_val_el = self.get_select_element_port_type(element)
+            if get_rate_limit_val_el:
+                self.auto_actions.send_keys(get_rate_limit_val_el, value)
+                return 1
+
+        #pag6 ELRP (ONLY FOR EXOS)
+        elif element == "elrp status":
+            get_elrp_status = self.get_select_element_port_type(element,value)
+            if get_elrp_status:
+                self.auto_actions.click(get_elrp_status)
+                return 1
+
+        # pag6 PSE
+        elif element == "pse profile":
+            get_pse_profile = self.get_select_element_port_type(element)
+            if get_pse_profile:
+                self.auto_actions.click(get_pse_profile)
+                sleep(2)
+                get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
+                if self.auto_actions.select_drop_down_options(get_pse_profile_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+                else:
+                    get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
+                    if get_pse_profile_add:
+                        self.auto_actions.click(get_pse_profile_add)
+                        sleep(2)
+                        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
+                        if get_pse_profile_name:
+                            self.auto_actions.send_keys(get_pse_profile_name, value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_pse_profile_name not found ")
+                        get_pse_profile_power_mode = self.get_select_element_port_type(element)
+                        if get_pse_profile_power_mode:
+                            self.auto_actions.click(get_pse_profile_power_mode)
+                            sleep(2)
+                            get_pse_profile_power_mode_items = self.get_select_element_port_type("pse_profile_power_mode_items")
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value):
+                                self.utils.print_info(" Selected into dropdown value : ", value)
+                        sleep(2)
+                        get_pse_profile_priority = self.get_select_element_port_type(element)
+                        if get_pse_profile_priority:
+                            self.auto_actions.click(get_pse_profile_priority)
+                            sleep(2)
+                            get_pse_profile_priority_items = self.get_select_element_port_type("pse_profile_priority_items")
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value):
+                                self.utils.print_info(" Selected into dropdown value : ", value)
+                        sleep(2)
+                        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
+                        if get_pse_profile_description:
+                            self.auto_actions.send_keys(get_pse_profile_description, value)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_pse_profile_description not found ")
+                        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
+                        if get_pse_profile_save:
+                            self.auto_actions.click(get_pse_profile_save)
+                            return 1
+                        else:
+                            self.utils.print_info("get_pse_profile_save not found ")
+                    else:
+                        self.utils.print_info("get_pse_profile_add not found ")
+            else:
+                self.utils.print_info("get_pse_profile not found ")
+        elif element == "poe status":
+            get_poe_status = self.get_select_element_port_type(element,value)
+            if get_poe_status:
+                self.auto_actions.click(get_poe_status)
+                return 1
+        self.utils.print_info(" Error when configure : ", element)
+        return -1
+
+    def d360_save_port_configuration(self):
+
+        get_save_button = self.get_device_d360_save_port_configuration()
+        if get_save_button:
+            self.auto_actions.click(get_save_button)
+            self.utils.print_info("save the port configuration ")
+            return 1
+        else:
+            return -1
+
+    def d360_cancel_port_configuration(self):
+
+        get_save_button = self.get_device_d360_cancel_port_configuration()
+        if get_save_button:
+            self.auto_actions.click(get_save_button)
+            self.utils.print_info("Exit the port configuration ")
+            return 1
+        else:
+            return -1
 
     def device360_configure_ports_trunk_vlan(self, port_numbers="", trunk_native_vlan="", trunk_vlan_id="",
                                                    port_type="Trunk Port"):
