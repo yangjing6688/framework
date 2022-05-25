@@ -2139,3 +2139,63 @@ class Device360WebElementDefs:
             'XPATH': '//*[@class="ui-icon dgrid-hider-toggle"]',
             'wait_for': 5
         }
+
+    device360_configure_aggregated_port_settings_aggregation_rows = \
+        {
+            'XPATH': '//aggregate-ports/div[@class="port-settings-entry "]',
+            'wait_for': 5
+        }
+
+    device360_port_settings_click_checkbox = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-settings-port-check" and @value=${port}]',
+            'wait_for': 5
+        }
+
+    device360_aggregate_selected_ports_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-port-settings-aggregate"]',
+            'wait_for': 5
+        }
+
+    device360_lacp_toggle = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-lag-lacp-toggle"]//input[@data-dojo-attach-point="inputNode"]',
+            'wait_for': 5
+        }
+
+    device360_lag_save_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-save-button"]',
+            'wait_for': 5
+        }
+
+    device360_save_port_config = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-port-config-save"]',
+            'wait_for': 5
+        }
+
+    device360_lacp_label = \
+        {
+            'XPATH': '//div[@class ="port-settings-entry link-type-agg link-type-agg-prime state-expanded" and @data-agg-master-id=${port}]/div[@class ="port-entry"]//label[@class ="control-label"]',
+            'wait_for': 5
+        }
+
+    device360_port_from_aggregation_list = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-selected-port-${port}"]',
+            'wait_for': 5
+        }
+
+    device360_aggregate_remove_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="removeButton"]',
+            'wait_for': 5
+        }
+
+    device360_perform_update_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-btn"]',
+            'wait_for': 5
+        }

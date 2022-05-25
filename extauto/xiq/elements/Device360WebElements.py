@@ -1347,3 +1347,41 @@ class Device360WebElements(Device360WebElementDefs):
                 return el
         else:
             return False
+
+    def get_device360_port_settings_and_aggregation_interface_exos_standalone(self, port):
+        port_num = 0
+        try:
+            port_num = int(port)
+        except Exception as e:
+            return False
+        return self.weh.get_template_element(self.device360_port_settings_click_checkbox, port=str(port_num-1))
+
+    def get_device360_configure_port_aggregate_button(self):
+        elements = self.weh.get_elements(self.device360_aggregate_selected_ports_button)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_device360_lacp_toggle(self):
+        return self.weh.get_element(self.device360_lacp_toggle)
+
+    def get_device360_lag_save_button(self):
+        return self.weh.get_element(self.device360_lag_save_button)
+
+    def get_device360_save_port_config(self):
+        return self.weh.get_element(self.device360_save_port_config)
+
+    def get_device360_lacp_label(self, port):
+        return self.weh.get_template_element(self.device360_lacp_label, port=port)
+
+    def get_device360_port_from_aggregation_list(self, port):
+        return self.weh.get_template_element(self.device360_port_from_aggregation_list, port=port)
+
+    def get_device360_aggregate_remove_button(self):
+        return self.weh.get_element(self.device360_aggregate_remove_button)
+
+    def get_device360_perform_update_button(self):
+        return self.weh.get_element(self.device360_perform_update_button)
+
+    def get_device360_configure_aggregated_port_settings_aggregation_rows(self):
+        return self.weh.get_elements(self.device360_configure_aggregated_port_settings_aggregation_rows)
