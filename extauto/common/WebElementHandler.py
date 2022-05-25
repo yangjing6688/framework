@@ -1,7 +1,7 @@
 import os
 from string import Template
 
-import extauto.common.CloudDriver
+import common.CloudDriver
 from string import Template
 from extauto.common.Utils import Utils
 from extauto.common.ImageHandler import ImageHandler
@@ -18,7 +18,7 @@ class WebElementHandler:
         self.utils = Utils()
         self.delay = BuiltIn().get_variable_value('${ELEMENT_DELAY}')
         self.desc = None
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        self.driver = common.CloudDriver.cloud_driver
         self.image_handler = ImageHandler()
         self.locator = {"CSS_SELECTOR": By.CSS_SELECTOR,
                          "XPATH": By.XPATH,
@@ -32,7 +32,7 @@ class WebElementHandler:
                                    ElementNotSelectableException,
                                    ElementNotInteractableException]
 
-    def get_element(self, key_val, parent='default', override_driver=None):
+    def get_element(self, key_val, parent='default'):
         """
         get the web element based on the locators provided in key_val dictionary
         :param key_val: (dict) containing the locator:value ex: 'CSS_SELECTOR': '.btn.btn-primary-2.btn-dim'
@@ -43,9 +43,6 @@ class WebElementHandler:
         _delay = key_val.get('wait_for', self.delay)  # Explicit delay
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
         _driver = self.driver if parent == "default" else parent
-
-        if _driver == -1 and override_driver:
-            _driver = override_driver
 
         for key, value in key_val.items():
             if 'IMAGE' in key:
