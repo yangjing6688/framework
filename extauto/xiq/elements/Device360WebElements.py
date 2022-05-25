@@ -1359,3 +1359,202 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_port_configuration_stack_units_rows(self, row):
         return self.weh.get_elements(self.device360_port_configuration_stack_units_rows, parent=row)
+
+    def get_policy_configure_port_rows(self):
+        return self.weh.get_elements(self.policy_configure_port_rows)
+
+    def get_d360_create_port_type(self,port_row):
+        return self.weh.get_element(self.d360_create_port_type, port_row)
+
+    def get_close_port_type_box(self):
+        return self.weh.get_element(self.close_port_type_box)
+
+    def get_policy_edit_port_type(self,port_row):
+        return self.weh.get_element(self.policy_edit_port_type, port_row)
+
+    def get_select_element_port_type_summery(self,element):
+        if element == "name":
+            return self.weh.get_element(self.select_element_port_type_name_summery)
+        elif element == "description":
+            return self.weh.get_element(self.select_element_port_type_description_summery)
+        elif element == "status":
+            return self.weh.get_element(self.select_element_port_type_status_summery)
+        elif element == "port usage":
+            return self.weh.get_element(self.select_element_port_type_port_usage_access_summery)
+        elif element == "vlan":
+            return self.weh.get_element(self.select_element_port_type_vlan_summery)
+        elif element == "native vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_summery)
+        elif element == "allowed vlans":
+            return self.weh.get_element(self.select_element_port_type_allowed_vlans_summery)
+        elif element == "transmission type":
+            return self.weh.get_element(self.select_element_port_type_transmission_type_summery)
+        elif element == "transmission speed":
+            return self.weh.get_element(self.select_element_port_type_transmission_speed_summery)
+        elif element == "cdp receive":
+            return self.weh.get_element(self.select_element_port_type_cdp_receive_summery)
+        elif element == "lldp transmit":
+            return self.weh.get_element(self.select_element_port_type_lldp_transmit_summery)
+        elif element == "lldp receive":
+            return self.weh.get_element(self.select_element_port_type_lldp_receive_summery)
+        elif element == "stp":
+            return self.weh.get_element(self.select_element_port_type_stp_summery)
+        elif element == "edge port":
+            return self.weh.get_element(self.select_element_port_type_edge_port_summery)
+        elif element == "bpdu protection":
+            return self.weh.get_element(self.select_element_port_type_bpdu_protection_summery)
+        elif element == "priority":
+            return self.weh.get_element(self.select_element_port_type_priority_summery)
+        elif element == "path cost":
+            return self.weh.get_element(self.select_element_port_type_path_cost_summery)
+        elif element == "broadcast":
+            return self.weh.get_element(self.select_element_port_type_broadcast_summery)
+        elif element == "unknown unicast":
+            return self.weh.get_element(self.select_element_port_type_unknown_unicast_summery)
+        elif element == "multicast":
+            return self.weh.get_element(self.select_element_port_type_multicast_summery)
+        elif element == "rate limit type":
+            return self.weh.get_element(self.select_element_port_type_rate_limit_type_summery)
+        elif element == "rate limit value":
+            return self.weh.get_element(self.select_element_port_type_rate_limit_value_summery)
+        elif element == "elrp status":
+            return self.weh.get_element(self.select_element_port_type_elrp_status_summery)
+        elif element == "pse profile":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_summery)
+        elif element == "poe status":
+            return self.weh.get_element(self.select_element_port_type_poe_status_summery)
+        return None
+
+    def get_select_element_port_type(self,element, value = None):
+        #tab
+
+        if element == "tab_vlan":
+            return self.weh.get_element(self.select_element_port_type_tab_vlan)
+        elif element == "usagePage":
+            return self.weh.get_element(self.select_element_port_type_tab_usage)
+        elif element == "transmissionSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_tab_transmission)
+        elif element == "stpPage":
+            return self.weh.get_element(self.select_element_port_type_tab_stp)
+        elif element == "stormControlSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_tab_storm_control)
+        elif element == "pseSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_tab_pse_settings)
+        elif element == "summaryPage":
+            return self.weh.get_element(self.select_element_port_type_tab_summary)
+        elif element == "elrdp":
+            return self.weh.get_element(self.select_element_port_type_name)
+        #pag1
+        elif element == "name":
+            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "description":
+            return self.weh.get_element(self.select_element_port_type_description)
+        elif element == "status":
+            return self.weh.get_element(self.select_element_port_type_status)
+        elif element == "auto-sense":
+            return self.weh.get_element(self.select_element_port_type_auto_sense)
+        elif element == "port usage" and value == "access port":
+            return self.weh.get_element(self.select_element_port_type_port_usage_access)
+        elif element == "port usage" and value == "trunk port":
+            return self.weh.get_element(self.select_element_port_type_port_usage_trunk)
+        #pag2-access Vlan
+        elif element == "next_button":
+            return self.weh.get_element(self.select_element_port_type_next_button)
+        elif element == "add_vlan":
+            return self.weh.get_element(self.select_element_port_type_vlan_add_vlan)
+        elif element == "name_vlan":
+            return self.weh.get_element(self.select_element_port_type_vlan_name_vlan)
+        elif element == "id_vlan":
+            return self.weh.get_element(self.select_element_port_type_vlan_id_vlan)
+        elif element == "select_button":
+            return self.weh.get_element(self.select_element_port_type_vlan_select_button)
+        elif element == "dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_vlan_dropdown_items)
+        #pag2 Trunk vlan
+        elif element == "native_vlan_add_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_add_vlan)
+        elif element == "native_vlan_name_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_name_vlan)
+        elif element == "native_vlan_id_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_id_vlan)
+        elif element == "native_vlan_select_button":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_select_button)
+        elif element == "native_vlan_dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_native_vlan_dropdown_items)
+        elif element == "save_vlan":
+            return self.weh.get_element(self.select_element_port_type_save_vlan)
+        elif element == "allowed vlans":
+            return self.weh.get_element(self.select_element_port_type_allowed_vlans)
+        #pag3
+        elif element == "transmission type":
+            return self.weh.get_element(self.select_element_port_type_transmission_type)
+        elif element == "transmission_type_dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_transmission_type_dropdown_items)
+        elif element == "transmission speed":
+            return self.weh.get_element(self.select_element_port_type_transmission_speed)
+        elif element == "transmission_speed_dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_transmission_speed_dropdown_items)
+        elif element == "cdp receive":
+            return self.weh.get_element(self.select_element_port_type_cdp_receive)
+        elif element == "lldp transmit":
+            return self.weh.get_element(self.select_element_port_type_lldp_transmit)
+        elif element == "lldp receive":
+            return self.weh.get_element(self.select_element_port_type_lldp_receive)
+        # pag4
+        elif element == "stp enable":
+            return self.weh.get_element(self.select_element_port_type_stp_enable)
+        elif element == "edge port":
+            return self.weh.get_element(self.select_element_port_type_edge_port)
+        elif element == "bpdu protection":
+            return self.weh.get_element(self.select_element_port_type_bpdu_protection)
+        elif element == "bpdu_protection_items":
+            return self.weh.get_elements(self.select_element_port_type_bpdu_protection_items)
+        elif element == "priority":
+            return self.weh.get_element(self.select_element_port_type_priority)
+        elif element == "priority_items":
+            return self.weh.get_elements(self.select_element_port_type_priority_items)
+        elif element == "path cost":
+            return self.weh.get_element(self.select_element_port_type_path_cost)
+        # pag5
+        elif element == "broadcast":
+            return self.weh.get_element(self.select_element_port_type_broadcast)
+        elif element == "unknown unicast":
+            return self.weh.get_element(self.select_element_port_type_unknown_unicast)
+        elif element == "multicast":
+            return self.weh.get_element(self.select_element_port_type_multicast)
+        elif element == "rate limit value":
+            return self.weh.get_element(self.select_element_port_type_rate_limit_value)
+        #pag 6 ELRP (ONLY FOR EXOS)
+        elif element == "elrp status":
+            return self.weh.get_element(self.select_element_port_type_elrp_status)
+        # pag6
+        elif element == "pse profile":
+            return self.weh.get_element(self.select_element_port_type_pse_profile)
+        elif element == "pse_profile_items":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_items)
+        elif element == "pse_profile_add":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_add)
+        elif element == "pse_profile_name":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_name)
+        elif element == "pse_profile_power_mode":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_power_mode)
+        elif element == "pse_profile_power_mode_items":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_power_mode_items)
+        elif element == "pse_profile_priority":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_priority)
+        elif element == "pse_profile_priority_items":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_priority_items)
+        elif element == "pse_profile_description":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_description)
+        elif element == "pse_profile_save":
+            return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
+        elif element == "poe status":
+            return self.weh.get_element(self.select_element_port_type_poe_status)
+        # pag7
+        return -1
+
+    def get_device_d360_save_port_configuration(self):
+        return self.weh.get_element(self.device_d360_save_port_configuration)
+
+    def get_device_d360_cancel_port_configuration(self):
+        return self.weh.get_element(self.device_d360_cancel_port_configuration)
