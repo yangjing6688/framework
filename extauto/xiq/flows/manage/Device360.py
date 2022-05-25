@@ -4253,18 +4253,21 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row), Keys.BACK_SPACE)
                 sleep(2)
                 self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row), trunk_native_vlan)
-                self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),   Keys.TAB)
                 self.screen.save_screen_shot()
                 sleep(4)
 
                 self.utils.print_info("Entering Trunk Allowed Vlan IDs TextField...")
-                self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),   Keys.TAB)
                 sleep(2)
                 element = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
+                self.utils.print_info("Deleting the selected values in Vlan ID textfield..")
+                self.auto_actions.send_keys(element, Keys.CONTROL + "a")
+                self.auto_actions.send_keys(element, Keys.BACK_SPACE)
                 element.send_keys(trunk_vlan_id)
                 self.screen.save_screen_shot()
                 sleep(2)
 
+                self.select_configure_tab()
+                sleep(5)
                 save_btn = self.get_device360_configure_port_save_button()
                 if save_btn:
                     self.utils.print_info("Clicking 'Save Port Configuration' button'")
