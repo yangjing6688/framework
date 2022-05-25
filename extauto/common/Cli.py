@@ -126,13 +126,13 @@ class Cli(object):
         p_count = 0
         while p_count < 3:
             _cmd = "ping -c 2 %s" % str(ip)
-            # self.utils.print_info("CMD: ", _cmd)
+            #self.utils.print_info("CMD: ", _cmd)
             _out =subprocess.check_output([_cmd], shell = True)
             if " 0% packet loss" in str(_out):
                 break
             p_count += 1
 
-        if " 0.0% packet loss" in str(_out):
+        if " 0.0% packet loss"  or " 0% packet loss"in str(_out):
             self.utils.print_info("Ping received successfully...")
         else:
             self.utils.print_info("Unable to reach the DUT/MU")
@@ -1617,7 +1617,7 @@ class Cli(object):
                 spawn.sendline("\r")
             self.utils.print_info("Loop: ", retry_count)
             i = spawn.expect(['login:',
-                              'assword:',
+                              'password:',
                               'yes/no',
                               '#',
                               'Login incorrect',
@@ -2194,7 +2194,7 @@ class Cli(object):
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
             return -1
-    def downgrade_iqagent(self, ip, port, username, password, platform):
+    def downgrade_iqagent_voss(self, ip, port, username, password, platform):
 
         _spawn = self.open_spawn(ip, port, username, password, platform)
 
@@ -2216,6 +2216,19 @@ class Cli(object):
                 self.send(_spawn, f'software iqagent reinstall')
                 self.send(_spawn, f'iqagent enable')
                 output_new_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
+                self.close_spawn(_spawn)
+
+    def  downgrade_iqagent_exos(self, ip, port, username, password, platform,url_image):
+
+        _spawn = self.open_spawn(ip, port, username, password, platform)
+
+        if _spawn != -1:
+            if 'EXOS' in platform:
+                self.send(_spawn, f'show iqagent | include Version')
+                self.send(_spawn, url_image, expect_match='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)')
+                self.send(_spawn, f'yes')
+                time.sleep(10)
+                self.send(_spawn, f'show iqagent | include Version')
                 self.close_spawn(_spawn)
 
 

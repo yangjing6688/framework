@@ -3,7 +3,7 @@ from extauto.common.Logging import Logging
 import traceback
 import abc
 import os
-import pytest
+#import pytest
 """  A JIRA AIQ-1403 was raised to track the following problem
     [ ERROR ] Unexpected error: ModuleNotFoundError: No module named 'robot.utils'
     We trace the issue back to when the CommonValidation.py was added to the system.

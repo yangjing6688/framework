@@ -1,5 +1,5 @@
 import threading
-import pycurl
+#import pycurl
 import re
 from io import StringIO
 from time import sleep
