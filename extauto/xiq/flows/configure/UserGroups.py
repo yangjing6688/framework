@@ -884,7 +884,7 @@ class UserGroups(UserGroupsWebElements):
         """
         - Delete all custom user groups form user groups grid
         - Keyword Usage:
-         - ``delete_all_user_groups    ${ EXCLUSIVE GROUP_NAME1}   ${EXCLUSIVE GROUP_NAME2}``
+        - ``delete_all_user_groups    ${ EXCLUSIVE GROUP_NAME1}   ${EXCLUSIVE GROUP_NAME2}``
 
         :param groups: excluded groups names
         :return: 1 if deleted successfully else -1
@@ -904,4 +904,8 @@ class UserGroups(UserGroupsWebElements):
                     continue
                 else:
                     self._select_user_group_row(exclusive_group)
+        except:
+            self.utils.print_info("Not able to delete all user groups ")
+            return -1
+        
         return self._perform_user_group_delete()
