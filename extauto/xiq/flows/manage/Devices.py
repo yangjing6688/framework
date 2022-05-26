@@ -9476,4 +9476,24 @@ class Devices:
                 count += 30
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
+             
+    def wait_until_all_devices_update_done(self):
+        """
+            - This Keyword checks if all devices are done with updating
+            - Keyword Usage:
+            - ``wait_until_all_devices_update_done``
+                   :return: 1 if done, -1 if not
+        """
+        done = False
+        self.utils.print_info("Checking all device progress status ")
+        while not done:
+            rows = self.devices_web_elements.get_manage_all_devices_progress_status()
+            if rows == None:
+               done = True
+            else:
+               self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
+               sleep(45)
+
+        self.utils.print_info("All devices finish updating ")
+        return 1
 
