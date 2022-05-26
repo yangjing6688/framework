@@ -5730,7 +5730,9 @@ class Device360(Device360WebElements):
                 if slot_index == int(slot):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
                     self.auto_actions.click_and_hold_element(power_item)
+                    sleep(5)
                     self.auto_actions.move_to_element(power_item)
+                    sleep(5)
                     slot_found = True
                     break
                 slot_index = slot_index + 1
