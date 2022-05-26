@@ -1617,7 +1617,7 @@ class Cli(object):
                 spawn.sendline("\r")
             self.utils.print_info("Loop: ", retry_count)
             i = spawn.expect(['login:',
-                              'password:',
+                              'assword:',
                               'yes/no',
                               '#',
                               'Login incorrect',
