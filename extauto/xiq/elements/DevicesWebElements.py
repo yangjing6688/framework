@@ -1123,3 +1123,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
+    
+    def get_manage_all_devices_progress_status(self):
+        return self.weh.get_elements(self.manage_devices_progress_status)
