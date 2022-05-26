@@ -1641,3 +1641,10 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
+    
+    manage_devices_progress_status = \
+        {
+            'DESC': 'Manage > Devices "devices progress status',
+            'XPATH': '//div[contains(@id,"updatedOn")]//div[@class="progress-message"]',
+            'wait_for': 10
+        }
