@@ -879,3 +879,33 @@ class UserGroups(UserGroupsWebElements):
         self.utils.print_info(f"User Profile:{profile_name} not present !!!")
         self.auto_actions.click(self.get_wireless_usr_profile_select_wind_cancel_button())
         return False
+    
+    def delete_all_user_groups(self, *groups):
+    """
+    - Delete all custom user groups form user groups grid
+    - Keyword Usage:
+     - ``delete_all_user_groups    ${ EXCLUSIVE GROUP_NAME1}   ${EXCLUSIVE GROUP_NAME2}``
+
+    :param groups: excluded groups names
+    :return: 1 if deleted successfully else -1
+    """
+    self.utils.print_info("Navigating to the configure users")
+    self.navigator.navigate_to_configure_user_groups()
+
+    self.utils.print_info("Click on full page view")
+    if self.get_paze_size_element():
+        self.auto_actions.click(self.get_paze_size_element())
+        sleep(3)
+    try:
+        self.auto_actions.click(self.get_usr_group_select_all_checkbox())
+        for exclusive_group in groups:
+            if not self._search_user_group(exclusive_group):
+                self.utils.print_info("User group doesn't exists in user group list")
+                continue
+            else:
+                self._select_user_group_row(exclusive_group)
+
+
+    return self._perform_user_group_delete()
+    
+    
