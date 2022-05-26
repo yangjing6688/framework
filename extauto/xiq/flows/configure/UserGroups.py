@@ -904,8 +904,6 @@ class UserGroups(UserGroupsWebElements):
                 continue
             else:
                 self._select_user_group_row(exclusive_group)
-
-
     return self._perform_user_group_delete()
     
     
