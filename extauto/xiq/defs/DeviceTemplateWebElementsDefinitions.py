@@ -413,3 +413,4 @@ class DeviceTemplateWebElementDefinitions:
             'XPATH': '//fixed-bar[@class="bottom"]//button[@class="btn btn-primary"]',
             'wait_for': 5
         }
+

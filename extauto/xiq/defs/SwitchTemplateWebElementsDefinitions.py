@@ -579,3 +579,40 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 2
         }
 
+    sw_template_adv_settings_upgrade_device_text = \
+        {
+            'XPATH': '//*[contains(text(),"Upgrade device firmware upon device authentication")]/text()',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgrade_device_on_off_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableUploadAuthExos"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upload_config_text = \
+        {
+            'XPATH': '//*[contains(text(),"Upload configuration automatically")]/text()',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upload_configuration_on_off_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="configPushAuto"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgr_firm_latest_button = \
+        {
+            'XPATH': '//input[@dojo-attach-point="downloadFirmwareOption-latest"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgr_firm_specific_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="downloadFirmwareOption-specific"]',
+            'wait_for': 2
+        }
+
+

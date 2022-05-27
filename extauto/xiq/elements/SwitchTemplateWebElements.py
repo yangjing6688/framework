@@ -428,6 +428,30 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_confirm_message_yes_button(self):
         return self.weh.get_element(self.confirm_message_yes_button)
 
+    def get_sw_template_adv_settings_upgrade_device_text(self):
+
+        return self.weh.get_element(self.sw_template_adv_settings_upgrade_device_text)
+
+    def get_sw_template_adv_settings_upgrade_device_on_off_button(self):
+
+        return self.weh.get_element(self.sw_template_adv_settings_upgrade_device_on_off_button)
+
+    def get_sw_template_adv_settings_upload_config_text(self):
+
+        return self.weh.get_element(self.sw_template_adv_settings_upload_config_text)
+
+    def get_sw_template_adv_settings_upload_configuration_on_off_button(self):
+
+        return self.weh.get_element(self.sw_template_adv_settings_upload_configuration_on_off_button)
+
+    def get_sw_template_adv_settings_upgr_firm_latest_button(self):
+
+        return self.weh.get_element(self.sw_template_adv_settings_upgr_firm_latest_button)
+
+    def get_sw_template_adv_settings_upgr_firm_specific_button(self):
+
+        return self.weh.get_element(self.sw_template_adv_settings_upgr_firm_specific_button)
+
 
 
 

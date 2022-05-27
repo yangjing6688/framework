@@ -250,3 +250,5 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
 
     def get_switch_template_save_template(self):
         return self.weh.get_element(self.switch_template_save_template)
+
+
