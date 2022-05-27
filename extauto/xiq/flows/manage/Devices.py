@@ -3397,6 +3397,9 @@ class Devices:
         :return: 1 if Devices Deleted Successfully else -1
         """
 
+        if self.devices_web_elements.get_device_page_size_100() != None:
+            self.auto_actions.click(self.devices_web_elements.get_device_page_size_100())
+            
         if self.get_device_count() == 0:
             self.utils.print_info("No devices present in the Devices grid")
             return 1
@@ -3406,14 +3409,15 @@ class Devices:
                 sleep(20)
 
                 # grid = self.devices_web_elements.get_grid()
+                
                 self.utils.print_info("Selecting Device grid checkbox...")
                 # self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(grid))
                 self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Clicking Delete button")
                 self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Confirming delete...")
                 self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
