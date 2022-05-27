@@ -9494,6 +9494,7 @@ class Devices:
                self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
                sleep(45)
 
+        sleep(30)
         self.utils.print_info("All devices finish updating ")
         return 1
 
