@@ -1127,5 +1127,5 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)
     
-    def get_device_page_size_100(self)
-        return self.weh.get_element(self.device_page_size_100) 
+    def get_device_page_size_100(self):
+        return self.weh.get_element(self.device_page_size_100)
