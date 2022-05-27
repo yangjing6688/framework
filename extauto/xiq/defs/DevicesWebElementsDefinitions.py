@@ -1648,3 +1648,9 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[contains(@id,"updatedOn")]//div[@class="progress-message"]',
             'wait_for': 10
         }
+    
+    device_page_size_100 = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottom"]/div/a[@data-size="100"]',
+            'wait_for': 3
+        }
