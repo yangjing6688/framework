@@ -1380,8 +1380,26 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_aggregate_remove_button(self):
         return self.weh.get_element(self.device360_aggregate_remove_button)
 
+    def get_device360_aggregate_add_button(self):
+        return self.weh.get_element(self.device360_aggregate_add_button)
+
     def get_device360_perform_update_button(self):
         return self.weh.get_element(self.device360_perform_update_button)
 
     def get_device360_configure_aggregated_port_settings_aggregation_rows(self):
         return self.weh.get_elements(self.device360_configure_aggregated_port_settings_aggregation_rows)
+
+    def get_device360_port_config_stack_slots_dropdown(self):
+        return self.weh.get_element(self.device360_port_config_stack_slots_dropdown)
+
+    def get_device360_slot_from_dropdown(self, unit):
+        return self.weh.get_template_element(self.device360_slot_from_dropdown, unit=unit)
+
+    def get_device360_aggregate_choose_slot(self, unit):
+        return self.weh.get_template_element(self.device360_aggregate_choose_slot, unit=unit)
+
+    def get_device360_aggregate_available_port(self, port):
+        return self.weh.get_template_element(self.device360_aggregate_available_port, port=port)
+
+    def get_device360_aggregate_selected_port(self, port):
+        return self.weh.get_template_element(self.device360_aggregate_selected_port, port=port)

@@ -2178,7 +2178,7 @@ class Device360WebElementDefs:
 
     device360_lacp_label = \
         {
-            'XPATH': '//div[@class ="port-settings-entry link-type-agg link-type-agg-prime state-expanded" and @data-agg-master-id=${port}]/div[@class ="port-entry"]//label[@class ="control-label"]',
+            'XPATH': '//div[@class ="port-settings-entry link-type-agg link-type-agg-prime state-expanded" and @data-agg-master-id="${port}"]/div[@class ="port-entry"]//label[@class ="control-label"]',
             'wait_for': 5
         }
 
@@ -2194,8 +2194,44 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_aggregate_add_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-add-port-button"]',
+            'wait_for': 5
+        }
+
     device360_perform_update_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-btn"]',
+            'wait_for': 5
+        }
+
+    device360_port_config_stack_slots_dropdown = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="stackMemberChooserArea"]'
+                     '/*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    device360_slot_from_dropdown = \
+        {
+            'XPATH': '//*[starts-with(@data-automation-tag, "Unit_${unit}_-")]',
+            'wait_for': 5
+        }
+
+    device360_aggregate_choose_slot = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-available-slot-${unit}"]',
+            'wait_for': 5
+        }
+
+    device360_aggregate_available_port = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-available-port-${port}"]',
+            'wait_for': 5
+        }
+    device360_aggregate_selected_port = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-selected-port-${port}"]',
             'wait_for': 5
         }
