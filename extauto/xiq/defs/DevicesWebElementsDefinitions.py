@@ -546,9 +546,10 @@ class DevicesWebElementsDefinitions:
     simulated_device_dropdown = \
         {
             #'XPATH': '//*[@data-automation-tag="chzn-container-ctn"]//span[contains(text(), "ATOM")]',
-            #'XPATH': '//*[@data-dojo-attach-point=_buttonNode,tableNode,focusNode,_popupStateNode"]',
-            "CSS_SELECTOR": ".dijit.dijitReset.dijitInline.dijitLeft.dijitDownArrowButton.honeycomb-ui-form-select",
-            "index": 1,
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-simulated-device-control"]'
+                     '//*[@data-dojo-attach-point="_buttonNode,tableNode,focusNode,_popupStateNode"]',
+            # "CSS_SELECTOR": ".dijit.dijitReset.dijitInline.dijitLeft.dijitDownArrowButton.honeycomb-ui-form-select",
+            # "index": 1,
             'wait_for': 5
         }
 
@@ -1641,3 +1642,11 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
+
+    simulation_device_count_input_field = \
+        {
+            'DESC': 'Manage > Devices "load" mask',
+            'XPATH': '//*[@data-dojo-attach-point="numOfDevices"]',
+            'wait_for': 5
+        }
+

@@ -139,21 +139,19 @@ class CopilotDefs:
 
     assurance_scan_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="assuranceScanWidget"]',
+            'XPATH': '//*[@class="assurance-scan-widget"]',
             'wait_for': 10
         }
 
     assurance_total_scan_count = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="assuranceScanWidget"]'
-                     '//*[@data-dojo-attach-point="totalAssuranceScanValue"]',
+            'CSS_SELECTOR': '.nui-auto-copilot-assurance-scanheader-text',
             'wait_for': 10
         }
 
     show_or_hide_muted_button_in_wifi_capacity_widget = \
         {
-            'XPATH': '//div[@class="copilot-card copilot-wifi-capacity-card"]'
-                     '//button[@data-dojo-attach-point="toggleMuteAnomalyButton"]',
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-summary-toggle-muted-btn',
             'wait_for': 10
         }
 
@@ -165,7 +163,7 @@ class CopilotDefs:
 
     wifi_capacity_video_help_icon = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wifiCapacityWidget"]//span[@class="video-help-icon"]',
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-summary-help-btn',
             'wait_for': 5
          }
 
@@ -209,21 +207,20 @@ class CopilotDefs:
 
     wifi_efficiency_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="wifiEfficiencyWidget"]',
+            'XPATH': '//*[@class="wifi-efficiency-widget"]',
             'wait_for': 5
          }
 
     wifi_efficiency_widget_content = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-wifi-efficiency-overall-summary"]',
-            'index': 0,
+            'XPATH': '//*[@class="wifi-efficiency-widget"]'
+                     '//*[@class="nui-auto-copilot-wifi-efficiency-summary-description"]',
             'wait_for': 5
         }
 
     wifi_efficiency_widget_location_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wifiEfficiencyWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]',
+            'XPATH': '//*[@class="wifi-efficiency-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
             'wait_for': 5
          }
 
