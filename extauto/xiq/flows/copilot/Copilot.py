@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.CopilotWebElements import CopilotWebElements
 import re
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Copilot(CopilotWebElements):
@@ -16,6 +17,7 @@ class Copilot(CopilotWebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
     def get_wifi_capacity_widget_summary(self):
         """
@@ -2470,3 +2472,116 @@ class Copilot(CopilotWebElements):
             self.utils.print_info(e)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return adverse_traffic_patterns_summary, buildings, aps
+
+    def display_wifi_capacity_anomaly_ap_row(self, location_name,**kwargs):
+
+        """
+        - This Keyword will click the AP (ap name) under the Location (location name)
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and click it
+        - Keyword Usage:
+         - ``Display Wifi Capacity Anomaly Ap Row  ${LOCATION_NAME}  $AP_NAME}``
+
+        :param location_name: Location name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        return_value = -1
+        searching_for_location_row = -1
+        fail_message = ""
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(5)
+        wifi_cap_widget =  self.get_wifi_capacity_widget()
+        if not wifi_cap_widget:
+            self.utils.print_info("Unable to get WIFI capacty widget")
+            fail_message = "Unable to get WIFI capacty widget"
+            self.common_validation.validate(-1, 1, **kwargs)
+        else:
+            location_rows = self.get_wifi_capacity_widget_location_grid_rows_from_widget(wifi_cap_widget)
+            if not location_rows:
+                self.utils.print_info("Unable to get rows from widget")
+                fail_message = "Unable to get rows from widget"
+                self.common_validation.validate(-1, 1, **kwargs)
+            else:
+                self.utils.print_info("Searching for loacation : " + location_name)
+                searching_for_location_row = 1
+                for row in location_rows:
+                    self.utils.print_info("Current location :" + row.text)
+                    if location_name in row.text:
+                        self.utils.print_info("Loacation : " + location_name + " found")
+                        self.utils.print_info("Clicking on row")
+                        self.auto_actions.click(row)
+                        sleep(4)
+                        return_value = 1
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        if return_value == -1:
+            if searching_for_location_row == 1:
+                fail_message = "Unable to find location : " + location_name
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.validate(-1, 1, **kwargs)
+        else:
+            kwargs['pass_msg'] = "Location successfully clicked to display AP list"
+            self.common_validation.validate(1, 1, **kwargs)
+        return return_value
+
+
+    def display_wifi_capacity_anomaly_ap_row_23(self, location_name):
+
+        """
+        - This Keyword will click the AP (ap name) under the Location (location name)
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and click it
+        - Keyword Usage:
+         - ``Display Wifi Capacity Anomaly Ap Row 23 ${LOCATION_NAME}  $AP_NAME}``
+
+        :param location_name: Location name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        return_value = -1
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(5)
+
+        wifi_cap_widget =  self.get_wifi_capacity_widget()
+        if not wifi_cap_widget:
+            self.utils.print_info("Unable to get WIFI capacty widget")
+        else:
+            location_rows = self.get_wifi_capacity_widget_location_grid_rows_from_widget(wifi_cap_widget)
+            if not location_rows:
+                self.utils.print_info("Unable to get rows from widget")
+            else:
+                self.utils.print_info("Searching for loacation : " + location_name)
+                for row in location_rows:
+
+                    self.utils.print_info("Current location :" + row.text)
+
+                    if location_name in row.text:
+                        self.utils.print_info("Loacation : " + location_name + " found")
+                        self.utils.print_info("Clicking on row")
+                        self.auto_actions.click(row)
+                        sleep(4)
+                        return_value = 1
+
+                        '''internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
+
+                        if not internal_rows:
+                            self.utils.print_info("Unable to get APs from location")
+
+                        for ap_row in internal_rows:
+                            self.utils.print_info("Current location :" + ap_row.text)
+
+                            if ap_name in ap_row.text:
+                                self.utils.print_info("AP name : " + ap_name + " found")
+                                self.utils.print_info("Clicking on row")
+                                self.auto_actions.click(ap_row)
+                                return_value = 1
+                                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                                return return_value'''
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        return return_value
