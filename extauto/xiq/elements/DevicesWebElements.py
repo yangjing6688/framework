@@ -85,6 +85,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
+    def get_device_config_audit_button(self, row):
+        return self.weh.get_element(self.device_config_audit)
+
     def get_device_conn_status_after_ten_min(self, row):
         return self.weh.get_element(self.device_conn_status_after_ten_min, row)
 
