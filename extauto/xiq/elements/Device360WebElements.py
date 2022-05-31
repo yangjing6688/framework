@@ -1219,14 +1219,29 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_configure_port_usage_drop_down_options(self, row):
         return self.weh.get_elements(self.device360_configure_port_usage_drop_down_options, row)
 
+    def get_device360_configure_port_usage_drop_down_options_with_index(self, row, index):
+        return self.weh.get_template_elements(self.device360_configure_port_usage_drop_down_options_with_index, row, index=index)
+
     def get_device360_configure_port_access_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_access_vlan_textfield, row)
+
+    def get_device360_configure_port_access_vlan_textfield_with_index(self, row, index):
+        return self.weh.get_template_element(self.device360_configure_port_access_vlan_textfield_with_index, row, index=index)
 
     def get_device360_configure_port_trunk_native_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield, row)
 
+    def get_device360_configure_port_trunk_native_vlan_textfield_with_index(self, row, index):
+        return self.weh.get_template_element(self.device360_configure_port_trunk_native_vlan_textfield_with_index, row, index=index)
+
     def get_device360_configure_port_trunk_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_trunk_vlan_textfield, row)
+
+    def get_device360_configure_port_trunk_vlan_textfield_with_index(self, row, index):
+        return self.weh.get_template_element(self.device360_configure_port_trunk_vlan_textfield_with_index, row, index=index)
+
+    def get_device360_configure_port_description_textfield_with_index(self, row, index):
+        return self.weh.get_template_element(self.device360_configure_port_description_textfield_with_index, row, index=index)
 
     def get_device360_port_configuration_port_settings_tab(self):
         return self.weh.get_element(self.device360_port_configuration_port_settings_tab)
