@@ -649,7 +649,7 @@ class SwitchTemplateWebElementDefinitions:
 
     available_slot = \
         {
-            'XPATH': '//option[@data-automation-tag="automation-lag-available-slot-${slot}"]',
+            'XPATH': '//*[@data-automation-tag="automation-lag-slots-available"]//option[@value="${slot}"]',
             'wait_for': 5
         }
 
