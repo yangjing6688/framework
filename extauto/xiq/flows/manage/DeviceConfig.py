@@ -5,6 +5,8 @@ from extauto.common.AutoActions import AutoActions
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DeviceConfigElements import DeviceConfigElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
@@ -21,6 +23,8 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions = AutoActions()
         self.device_common = DeviceCommon()
         self.web = WebElementHandler()
+        self.devices_web_elements = DevicesWebElements()
+        self.devices = Devices()
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
 
@@ -1235,22 +1239,32 @@ class DeviceConfig(DeviceConfigElements):
         :return: 1 in case of success else -1
         """
 
-        self.utils.print_info("Click on Device Config Audit tab")
-        self.auto_actions.click(self.get_device_config_audit_view())
-        sleep(20)
-        self.screen.save_screen_shot()
+        delta_configs = 'Cannot retrieve delta configs'
 
-        self.utils.print_info("Click on Device Config Audit Delta View")
-        self.auto_actions.click(self.get_device_config_audit_delta_view())
-        sleep(20)
-        self.screen.save_screen_shot()
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
         sleep(5)
 
-        self.utils.print_info("Get the Config content from Device Config Audit Delta View")
-        delta_configs = self.get_device_config_audit_delta_view_content().text
-        self.utils.print_info("Delta Configs : ", delta_configs)
+        device_row = self.devices.get_device_row(serial)
 
-        self.auto_actions.click(self.get_device_config_audit_view_close_button())
+        if device_row:
+            self.utils.print_info("Click on Configuration Audit button")
+            self.auto_actions.click(self.devices_web_elements.get_device_config_audit_button(device_row))
+            sleep(10)
+
+            self.utils.print_info("Click on Device Config Audit Delta View")
+            self.auto_actions.click(self.get_device_config_audit_delta_view())
+            sleep(10)
+            self.screen.save_screen_shot()
+            sleep(5)
+
+            self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+            delta_configs = self.get_device_config_audit_delta_view_content().text
+            self.utils.print_info("Delta Configs : ", delta_configs)
+
+            self.auto_actions.click(self.get_device_config_audit_view_close_button())
+
+        self.devices.deselect_all_devices()
 
         return delta_configs
 

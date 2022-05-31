@@ -4021,6 +4021,8 @@ class Devices:
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
+        sleep(5)
+
         device_row = self.get_device_row(device_serial)
 
         if device_row:
