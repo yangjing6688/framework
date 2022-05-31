@@ -9809,3 +9809,70 @@ class Devices:
         else:
             return -1
         return 1
+
+    def get_pilot_license_consumption(self,license_type = "PRD-XIQ-PIL-S-C",max_time=120, interval_check_time=60):
+        '''
+        This functions gets the available and activated licenses
+        :param license_type:
+        :param max_time:
+        :param interval_check_time:
+        :return: available and activated licenses
+        '''
+
+        cnt = 0
+        still_loading = False
+        while cnt < max_time:
+            available = 0
+            activated = 0
+            sleep(5)
+            license_mgmt = self.devices_web_elements.get_license_mgmt()
+            if license_mgmt:
+                self.utils.print_info("license_mgmt button was found ")
+                self.auto_actions.click(license_mgmt)
+            else:
+                self.utils.print_info("license_mgmt button was not found ")
+
+            subscription_rows = self.devices_web_elements.get_subscription_rows()
+            if subscription_rows:
+                still_loading = False
+                self.utils.print_info("Found {} subscription rows".format(len(subscription_rows)))
+                if len(subscription_rows) > 1:
+                    self.utils.print_info("Many subscription rows were found ")
+                else:
+                    pass
+                for el in subscription_rows:
+                    if license_type in el.text:
+                        subscription_available = self.devices_web_elements.get_subscription_available(el)
+                        if subscription_available:
+                            self.utils.print_info("Pilot license available : ", subscription_available.text)
+                            available += int(subscription_available.text)
+                        else:
+                            self.utils.print_info("subscription_available element was not found ")
+                            self.screen.save_screen_shot()
+                            return -1
+                        subscription_activated = self.devices_web_elements.get_subscription_activated(el)
+                        if subscription_activated:
+                            self.utils.print_info("Pilot license activated : ", subscription_activated.text)
+                            activated += int(subscription_activated.text)
+                        else:
+                            self.utils.print_info("subscription_activated element was not found ")
+                            self.screen.save_screen_shot()
+                            return -1
+                    else:
+                        pass
+            else:
+                if still_loading:
+                    self.utils.print_info("license_mgmt button was not found ")
+                    self.screen.save_screen_shot()
+                    return -1
+                else:
+                    self.utils.print_info("license_mgmt button was not found. Adding delay and try again ")
+                    still_loading = True
+            sleep(interval_check_time)
+            cnt = cnt + interval_check_time
+            self.utils.print_info("Waited {} sec".format(cnt))
+            self.login.refresh_page()
+            if still_loading:
+                sleep(20)
+        self.screen.save_screen_shot()
+        return [available, activated]
