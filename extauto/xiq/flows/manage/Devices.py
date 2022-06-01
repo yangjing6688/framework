@@ -3386,11 +3386,11 @@ class Devices:
         self.utils.print_info(f"Country Code of AP:{country_code}")
         return country_code
 
-    def delete_all_aps(self):
+    def delete_all_devices(self):
         """
         - This Keyword will Delete All the Devices in the Manage--> Devices Grid
         - Keyword Usage:
-         - ``Delete All Aps``
+         - ``Delete All devices``
 
         :return: 1 if Devices Deleted Successfully else -1
         """
@@ -9479,24 +9479,26 @@ class Devices:
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
              
-    def wait_until_all_devices_update_done(self):
+    def wait_until_all_devices_update_done(self, wait_time_in_min=10):
         """
             - This Keyword checks if all devices are done with updating
             - Keyword Usage:
             - ``wait_until_all_devices_update_done``
+                   :param  wai_time_in_min: time to wait
                    :return: 1 if done, -1 if not
         """
-        done = False
+        n_time = 0
         self.utils.print_info("Checking all device progress status ")
-        while not done:
+        while n_time < wait_time_in_min*2:
             rows = self.devices_web_elements.get_manage_all_devices_progress_status()
             if rows == None:
-               done = True
+               break
             else:
                self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
-               sleep(45)
+               n_time = n_time + 1
+               sleep(30)
 
-        sleep(30)
+        sleep(10)
         self.utils.print_info("All devices finish updating ")
         return 1
 
