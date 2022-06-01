@@ -1021,8 +1021,12 @@ class Devices:
         self.navigator.navigate_to_devices()
 
         try:
-            prev_serials = self.get_device_serial_numbers(device_model)
-            self.utils.print_info("Previously onboarded simulated device serials: ", prev_serials)
+
+            if self.get_device_serial_numbers(device_model):
+                prev_serials = self.get_device_serial_numbers(device_model)
+                self.utils.print_info("Previously onboarded simulated device serials: ", prev_serials)
+            else:
+                prev_serials = []
 
             self.utils.print_info("Clicking on ADD button...")
             self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
@@ -1038,22 +1042,16 @@ class Devices:
 
             self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
 
-            # options = self.devices_web_elements.get_simulated_device_dropdown_options()
-            # get table
             table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
-            # get all rows in table (of APs)
-            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
 
+            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
             for option in options:
                 if device_model in option.text:
                     self.utils.print_info("Simulated device option: ", option.text)
                     self.auto_actions.click(option)
 
-            count -= 1
-            while count:
-                self.auto_actions.click(self.devices_web_elements.get_add_another_device())
-                sleep(2)
-                count -= 1
+            self.utils.print_info(f"Entering Device Count: {count}")
+            self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), count)
 
             if location:
                 self.utils.print_info("Device OS matched")
@@ -1065,7 +1063,7 @@ class Devices:
             sleep(5)
 
             cur_serials = self.get_device_serial_numbers(device_model)
-            self.utils.print_info("prev ", prev_serials, "cur ", cur_serials)
+            self.utils.print_debug("prev ", prev_serials, "cur ", cur_serials)
             new_serials = list(set(cur_serials) - set(prev_serials))
             self.utils.print_info(f"Successfully Onboarded Simulated Device: {device_model} with Serial Number "
                                   f"{new_serials}")

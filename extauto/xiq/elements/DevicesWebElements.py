@@ -1129,3 +1129,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     
     def get_device_page_size_100(self):
         return self.weh.get_element(self.device_page_size_100)
+
+    def get_simulation_device_count_input_field(self):
+        return self.weh.get_element(self.simulation_device_count_input_field)
