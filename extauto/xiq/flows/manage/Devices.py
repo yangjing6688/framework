@@ -1021,8 +1021,12 @@ class Devices:
         self.navigator.navigate_to_devices()
 
         try:
-            prev_serials = self.get_device_serial_numbers(device_model)
-            self.utils.print_info("Previously onboarded simulated device serials: ", prev_serials)
+
+            if self.get_device_serial_numbers(device_model):
+                prev_serials = self.get_device_serial_numbers(device_model)
+                self.utils.print_info("Previously onboarded simulated device serials: ", prev_serials)
+            else:
+                prev_serials = []
 
             self.utils.print_info("Clicking on ADD button...")
             self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
@@ -1038,22 +1042,16 @@ class Devices:
 
             self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
 
-            # options = self.devices_web_elements.get_simulated_device_dropdown_options()
-            # get table
             table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
-            # get all rows in table (of APs)
-            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
 
+            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
             for option in options:
                 if device_model in option.text:
                     self.utils.print_info("Simulated device option: ", option.text)
                     self.auto_actions.click(option)
 
-            count -= 1
-            while count:
-                self.auto_actions.click(self.devices_web_elements.get_add_another_device())
-                sleep(2)
-                count -= 1
+            self.utils.print_info(f"Entering Device Count: {count}")
+            self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), count)
 
             if location:
                 self.utils.print_info("Device OS matched")
@@ -1065,7 +1063,7 @@ class Devices:
             sleep(5)
 
             cur_serials = self.get_device_serial_numbers(device_model)
-            self.utils.print_info("prev ", prev_serials, "cur ", cur_serials)
+            self.utils.print_debug("prev ", prev_serials, "cur ", cur_serials)
             new_serials = list(set(cur_serials) - set(prev_serials))
             self.utils.print_info(f"Successfully Onboarded Simulated Device: {device_model} with Serial Number "
                                   f"{new_serials}")
@@ -4217,27 +4215,29 @@ class Devices:
 
         return 1
 
-    def wait_until_device_reboots(self, device_serial):
+    def wait_until_device_reboots(self, device_serial, retry_duration=30, retry_count=10):
         """
         - This Keyword will wait until device reboots based on device update status message
         - Keyword Usage:
          - `` Wait Until Device Reboots  ${DEVICE_SERIAL}``
 
         :param device_serial: Device Serial Number
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        If the reboot message has a date value, the assumption the device hase finished rebooting
         :return: 1 if Device wait till reboots else -1
         """
 
         count = 0
-        reboot_flag = False
-        self.utils.print_info("Checking for update Configuration Messages")
-        while count < 10:
-            if "Rebooting" in self.get_device_details(device_serial, "UPDATED"):
-                self.utils.print_info("Device is rebooting. Waiting for 30 seconds...")
-                reboot_flag = True
-                sleep(30)
-            else:
-                if reboot_flag:
-                    self.utils.print_info("Device rebooted")
+        self.utils.print_info("Checking to see if the device has completed the reboot action")
+        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        while count < retry_count:
+            reboot_message = self.get_device_details(device_serial, "UPDATED")
+            if "Rebooting" in reboot_message:
+                self.utils.print_info(f"Device is rebooting. Waiting for {retry_duration} seconds...")
+                sleep(retry_duration)
+            elif re.match(date_regex, reboot_message):
+                    self.utils.print_info("Device has finshed rebooting at {}".format(reboot_message))
                     return 1
             count += 1
 
@@ -5264,7 +5264,7 @@ class Devices:
         self.utils.print_info(f"Device still exists in the view. Please check.")
         return -1
 
-    def wait_until_device_managed(self, device_serial, col, retry_duration=30, retry_count=10):
+    def wait_until_device_managed(self, device_serial, col="MANAGED", retry_duration=30, retry_count=10):
         """
         - This keyword waits until the specified column for the specified device contains managed state.
         - This keyword by default loops every 30 seconds for 10 times to check the column data
