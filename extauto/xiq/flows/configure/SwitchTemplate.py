@@ -1661,7 +1661,7 @@ class SwitchTemplate(object):
 
     def add_5520_sw_template(self, nw_policy, sw_model, sw_template_name, save_template=True):
         """
-        - Checks the given STACK switch template present already in the switch Templates Grid
+        - Checks the given switch template present already in the switch Templates Grid
         - If it is not there add to the sw_template
         - This function is working only for stack
         - Keyword Usage
@@ -1737,8 +1737,9 @@ class SwitchTemplate(object):
                     sleep(10)
                     tool_tip_text = tool_tip.tool_tip_text
                     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    sleep(5)
                     for cnt3 in tool_tip_text:
-                        if 'Stack template has been saved successfully.' in cnt3:
+                        if 'template has been saved successfully.' in cnt3:
                             self.utils.print_info("Found successfully message")
                             return 1
                         else:
