@@ -2473,13 +2473,27 @@ class Copilot(CopilotWebElements):
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return adverse_traffic_patterns_summary, buildings, aps
 
-    def display_wifi_capacity_anomaly_ap_row(self, location_name,**kwargs):
+    def click_wifi_capacity_anomaly_location_row(self, location_name,**kwargs):
 
         """
-        - This Keyword will click the AP (ap name) under the Location (location name)
-        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and click it
+        - This Keyword will click the Location (location name) displaying the list of APs
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
         - Keyword Usage:
-         - ``Display Wifi Capacity Anomaly Ap Row  ${LOCATION_NAME}  $AP_NAME}``
+         - ``Click Wifi Capacity Anomaly Location Row ${LOCATION_NAME}``
+
+        :param location_name: Location name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        return_value = self.display_wifi_capacity_anomaly_ap_rows(location_name,**kwargs)
+        return return_value
+
+    def display_wifi_capacity_anomaly_ap_rows(self, location_name,**kwargs):
+
+        """
+        - This Keyword will click the Location (location name) displaying the list of APs
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
+        - Keyword Usage:
+         - ``Display Wifi Capacity Anomaly Ap Rows  ${LOCATION_NAME}``
 
         :param location_name: Location name
         :return: 1 if sucessfully clicking the row else return -1
@@ -2519,6 +2533,7 @@ class Copilot(CopilotWebElements):
         if return_value == -1:
             if searching_for_location_row == 1:
                 fail_message = "Unable to find location : " + location_name
+                self.utils.print_info(fail_message)
             kwargs['fail_msg'] = fail_message
             self.common_validation.validate(-1, 1, **kwargs)
         else:
@@ -2526,62 +2541,85 @@ class Copilot(CopilotWebElements):
             self.common_validation.validate(1, 1, **kwargs)
         return return_value
 
-
-    def display_wifi_capacity_anomaly_ap_row_23(self, location_name):
+    def click_wifi_capacity_anomaly_ap_row(self, ap_name, **kwargs):
 
         """
-        - This Keyword will click the AP (ap name) under the Location (location name)
+        - This Keyword will click the AP (ap name) based on the list of APs under a Location
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and click it
         - Keyword Usage:
-         - ``Display Wifi Capacity Anomaly Ap Row 23 ${LOCATION_NAME}  $AP_NAME}``
+         - ``Click Wifi Capacity Anomaly Ap Row {$AP_NAME}``
 
-        :param location_name: Location name
+        :param ap_name: Ap name
         :return: 1 if sucessfully clicking the row else return -1
         """
-        return_value = -1
-        self.utils.print_info("Navigating to Copilot menu..")
-        if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(CloudDriver().cloud_driver)
-        self.navigator.navigate_to_copilot_menu()
 
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        sleep(5)
-
-        wifi_cap_widget =  self.get_wifi_capacity_widget()
-        if not wifi_cap_widget:
-            self.utils.print_info("Unable to get WIFI capacty widget")
+        self.utils.print_info("Attempting to gather all APs from loacation" )
+        internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
+        if not internal_rows:
+            self.utils.print_info("Unable to get APs from location")
+            kwargs['fail_msg'] = "Unable to get APs from location"
+            self.common_validation.validate(-1, 1, **kwargs)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
         else:
-            location_rows = self.get_wifi_capacity_widget_location_grid_rows_from_widget(wifi_cap_widget)
-            if not location_rows:
-                self.utils.print_info("Unable to get rows from widget")
-            else:
-                self.utils.print_info("Searching for loacation : " + location_name)
-                for row in location_rows:
-
-                    self.utils.print_info("Current location :" + row.text)
-
-                    if location_name in row.text:
-                        self.utils.print_info("Loacation : " + location_name + " found")
-                        self.utils.print_info("Clicking on row")
-                        self.auto_actions.click(row)
-                        sleep(4)
-                        return_value = 1
-
-                        '''internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
-
-                        if not internal_rows:
-                            self.utils.print_info("Unable to get APs from location")
-
-                        for ap_row in internal_rows:
-                            self.utils.print_info("Current location :" + ap_row.text)
-
-                            if ap_name in ap_row.text:
-                                self.utils.print_info("AP name : " + ap_name + " found")
-                                self.utils.print_info("Clicking on row")
-                                self.auto_actions.click(ap_row)
-                                return_value = 1
-                                self.utils.switch_to_default(CloudDriver().cloud_driver)
-                                return return_value'''
-
+            self.utils.print_info("Searching for AP : " + ap_name)
+            for ap_row in internal_rows:
+                self.utils.print_info("Current AP :" + ap_row.text)
+                if ap_name in ap_row.text:
+                    self.utils.print_info("AP name : " + ap_name + " found")
+                    self.utils.print_info("Clicking on row")
+                    self.auto_actions.click(ap_row)
+                    kwargs['pass_msg'] = "Successfully clicked on AP : " + ap_name
+                    self.common_validation.validate(1, 1, **kwargs)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
+                    return  1
+        self.utils.print_info("Unable to find AP : " + ap_name)
+        kwargs['fail_msg'] = "Unable to find AP : " + ap_name
+        self.common_validation.validate(-1, 1, **kwargs)
         self.utils.switch_to_default(CloudDriver().cloud_driver)
-        return return_value
+        return -1
+
+    def is_wifi_capacity_anomaly_ap_i_icon_present(self, ap_name, **kwargs):
+
+        """
+        - This Keyword will check to see if the i icon is present on  the AP (ap name) row
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and see if the i icon is present
+        - Keyword Usage:
+         - ``Is Wifi Capacity Anomaly Ap i ICON Present {$AP_NAME}``
+
+        :param ap_name: Ap name
+        :return: 1 if Icon is present else return -1
+        """
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.utils.print_info("Attempting to gather all APs from loacation")
+        internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
+        if not internal_rows:
+            self.utils.print_info("Unable to get APs from location")
+            kwargs['fail_msg'] = "Unable to get APs from location"
+            self.common_validation.validate(-1, 1, **kwargs)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
+        for ap_row in internal_rows:
+            self.utils.print_info("Current location :" + ap_row.text)
+            if ap_name in ap_row.text:
+               self.utils.print_info("AP name : " + ap_name + " found")
+               self.utils.print_info("Checking for i ICON Presence")
+               if "info"  in ap_row.text:
+                  self.utils.print_info("i ICON Found in AP row")
+                  kwargs['pass_msg'] = "i ICON Found in AP row"
+                  self.common_validation.validate(1, 1, **kwargs)
+                  self.utils.switch_to_default(CloudDriver().cloud_driver)
+                  return 1
+               else:
+                  self.utils.print_info("i ICON NOT Found in AP row")
+                  kwargs['fail_msg'] = "i ICON NOT Found in AP row"
+                  self.common_validation.validate(-1, 1, **kwargs)
+                  self.utils.switch_to_default(CloudDriver().cloud_driver)
+                  return -1
+        self.utils.print_info("Unable to find AP : " + ap_name)
+        kwargs['fail_msg'] = "Unable to find AP : " + ap_name
+        self.common_validation.validate(-1, 1, **kwargs)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        return -1
