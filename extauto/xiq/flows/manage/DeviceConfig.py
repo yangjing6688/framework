@@ -1228,7 +1228,7 @@ class DeviceConfig(DeviceConfigElements):
         else:
             return -1
 
-    def check_config_audit_delta_match(self, serial=''):
+    def check_config_audit_delta_match(self, serial=None, mac=None):
         """
         - This keyword is used to select the check device configuration in Delta in Manage --> Device page
         - Assumes that navigated to the Manage --> Device page
@@ -1236,6 +1236,7 @@ class DeviceConfig(DeviceConfigElements):
          - ``Check Config Audit Delta Match     serials=${DEVICE1_SERIAL} ``
 
         :param serial: device serial number
+        :param mac: device MAC address
         :return: 1 in case of success else -1
         """
 
@@ -1245,7 +1246,12 @@ class DeviceConfig(DeviceConfigElements):
         self.navigator.navigate_to_devices()
         sleep(5)
 
-        device_row = self.devices.get_device_row(serial)
+        device_row = None
+
+        if serial:
+            device_row = self.devices.get_device_row(device_serial=serial)
+        elif mac:
+            device_row = self.devices.get_device_row(device_mac=mac)
 
         if device_row:
             self.utils.print_info("Click on Configuration Audit button")
