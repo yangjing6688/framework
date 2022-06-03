@@ -2809,7 +2809,8 @@ class Devices:
 
         return False
 
-    def get_device_status(self, device_serial='default', device_name='default', device_mac='default', ignore_flag=True):
+    def get_device_status(self, device_serial='default', device_name='default', device_mac='default',
+                          ignore_failure=True):
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
@@ -2820,8 +2821,8 @@ class Devices:
         :param device_serial: device Serial
         :param device_name: device host name
         :param device_mac: device MAC address
-        :param ignore_flag: ignore flag = False, an error will be raised if it was unable to obtain device status for the device row
-                            ignore flag = True, method will only return -1 if it was unable to obtain device status for the device row
+        :param ignore_failure: ignore failure = False, an error will be raised if it was unable to obtain device status
+                              ignore failure = True, method will only return -1 if it was unable to obtain device status
         :return:
         - 'green' if device connected and config audit match
         - 'config audit mismatch' if device connected and config audit mismatch
@@ -2883,12 +2884,13 @@ class Devices:
                 if "device-status-unknown" in device_status:
                     self.utils.print_info("Device Status: Unknown")
                     return 'unknown'
-            elif not ignore_flag:
-                self.robot_built_in.fail('FAIL - Unable to obtain device status for the device row!!')
-            else:
-                return -1
 
-        return -1
+        if not ignore_failure:
+            self.robot_built_in.fail('FAIL - Unable to obtain device status!')
+        else:
+            self.utils.print_info("Unable to obtain device status!")
+            return -1
+
 
     def verify_device_status(self, device_serial='default', device_name='default', device_mac='default',
                              status='default'):
@@ -3964,7 +3966,8 @@ class Devices:
 
         return -1
 
-    def wait_until_device_online(self, device_serial=None, device_mac=None, ignore_flag=True, retry_duration=30, retry_count=10):
+    def wait_until_device_online(self, device_serial=None, device_mac=None, ignore_failure=True, retry_duration=30,
+                                 retry_count=10):
         """
         - This keyword is used to check the device connected status on XIQ.
         - After Configuring the CAPWAP client server in device cli, check the device connected status
@@ -3978,8 +3981,8 @@ class Devices:
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
-        :param ignore_flag: ignore flag = False, an error will be raised if the device is not connected within time
-                            ignore flag = True, method will only return -1 if the device is not connected within time
+        :param ignore_failure:ignore failure = False, an error will be raised if the device is not connected within time
+                            ignore failure = True, method will only return -1 if the device is not connected within time
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if device connected within time else -1
@@ -4028,8 +4031,8 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
 
-        if not ignore_flag:
-            self.robot_built_in.fail('Device failed to come ONLINE!!!')
+        if not ignore_failure:
+            self.robot_built_in.fail('Fail - Device failed to come ONLINE!!!')
         else:
             return -1
 
