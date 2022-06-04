@@ -1233,11 +1233,11 @@ class NetworkPolicy(object):
 
         self.utils.print_info("Click on deploy policy tab")
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_tab())
-        sleep(2)
+        sleep(5)
 
         self.utils.print_info("Click on eligible device button")
         self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
-        sleep(2)
+        sleep(10)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
