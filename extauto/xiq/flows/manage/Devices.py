@@ -2414,7 +2414,11 @@ class Devices:
                     self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
 
                     # Wait until the device is removed from the view
-                    self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
+                    result = self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
+                    # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
+                    if result == 1:
+                        self.utils.print_info("Deleted Device Successfully with Serial: ", device_serial)
+                        return 1
 
                     # Confirm device was deleted successfully
                     if self.search_device_serial(device_serial) == 1:
@@ -2650,7 +2654,9 @@ class Devices:
         - Searches for Device matching Device's Serial Number
 
         :param device_serial: Device Serial Number
-        :return: return 1 if Device found, else -1
+        :return: return 1 if Device found,
+                 false if Device not found
+                 -1 if an error occurs
         """
 
         if not device_serial:
@@ -2672,8 +2678,11 @@ class Devices:
             page_len = int(1)
 
         device_found = False
+        num_pages = page_len
         try:
             while page_len:
+                page_num = num_pages - page_len + 1
+                self.utils.print_debug(f"Searching Page #{page_num} of {num_pages} pages")
                 rows = self.devices_web_elements.get_grid_rows()
                 if rows:
                     self.utils.print_debug(f"Searching {len(rows)} rows")
@@ -2686,10 +2695,14 @@ class Devices:
                             break
                     if device_found:
                         break
-                self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
-                self.utils.print_info("Searching in next page")
-                sleep(5)
+                else:
+                    self.utils.print_debug(f"No rows returned for page #{page_num}")
                 page_len = page_len - 1
+
+                if page_len:
+                    self.utils.print_info("Searching in next page")
+                    self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
+                    sleep(5)
 
             self.utils.print_info(f"Did not find device row with serial {device_serial}")
             return False
