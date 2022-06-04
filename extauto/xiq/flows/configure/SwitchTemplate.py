@@ -446,7 +446,7 @@ class SwitchTemplate(object):
         self.navigator.navigate_to_devices()
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
-        sleep(1)
+        sleep(2)
 
         if "Switch Engine" in model_units:
             var_type="Switch Engine "
@@ -457,11 +457,11 @@ class SwitchTemplate(object):
             self.utils.print_info("Not found the network policy. Make sure that it was created before ")
             return -1
 
-        sleep(2)
+        sleep(5)
 
         self.utils.print_debug("Click on Device Template tab button")
         self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
-        sleep(2)
+        sleep(5)
 
         if self.check_sw_template(sw_template_name):
             self.utils.print_info(
@@ -469,18 +469,18 @@ class SwitchTemplate(object):
             return -1
 
         add_btns = self.sw_template_web_elements.get_sw_template_add_button()
-        sleep(2)
+        sleep(5)
 
         self.utils.print_info("add_btn: ", add_btns)
         for add_btn in add_btns:
             if add_btn.is_displayed():
                 self.utils.print_info("Click on sw Template Add button")
                 self.auto_actions.click(add_btn)
-                sleep(1)
+                sleep(5)
 
                 self.utils.print_info("select the sw: ", sw_model)
                 sw_list_items = self.sw_template_web_elements.get_sw_template_platform_from_drop_down()
-                sleep(2)
+                sleep(5)
                 for el in sw_list_items:
                     self.utils.print_debug("Switch template names: ", el.text.upper())
                     if not el:
@@ -489,18 +489,18 @@ class SwitchTemplate(object):
                         self.auto_actions.click(el)
                         break
                     print(el.text)
-                sleep(3)
+                sleep(5)
 
                 self.utils.print_info("Enter the switch Template Name: ", sw_template_name)
                 self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
                                             sw_template_name)
-                sleep(3)
+                sleep(5)
 
                 add_stack_button = self.sw_template_web_elements.get_sw_template_stack_add_button()
                 if add_stack_button:
                     self.utils.print_info("Press ADD button")
                     self.auto_actions.click(add_stack_button)
-                    sleep(1)
+                    sleep(5)
                 else:
                     self.utils.print_info("ADD button was not find")
                     return -1
@@ -529,7 +529,7 @@ class SwitchTemplate(object):
                         if add_stack_button:
                             self.utils.print_info("Press ADD button")
                             self.auto_actions.click(add_stack_button)
-                            sleep(3)
+                            sleep(5)
                         else:
                             self.utils.print_info("ADD button was not find")
                             return -1
@@ -549,7 +549,7 @@ class SwitchTemplate(object):
                         if save_btn.is_displayed():
                             self.utils.print_info("Click on the save template button")
                             self.auto_actions.click(save_btn)
-                            sleep(10)
+                            sleep(15)
                             tool_tip_text = tool_tip.tool_tip_text
                             self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                             for cnt3 in tool_tip_text:
