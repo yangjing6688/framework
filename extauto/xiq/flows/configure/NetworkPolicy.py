@@ -1229,7 +1229,7 @@ class NetworkPolicy(object):
         else:
             self.utils.print_info("Not inside Network Policy. Navigating...")
             self.navigate_to_np_edit_tab(policy_name)
-        sleep(2)
+        sleep(5)
 
         self.utils.print_info("Click on deploy policy tab")
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_tab())
@@ -1237,24 +1237,24 @@ class NetworkPolicy(object):
 
         self.utils.print_info("Click on eligible device button")
         self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
-        sleep(10)
+        sleep(20)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
         for tip_text in tool_tp_text:
             if "An unknown error has" in tip_text:
                 self.screen.save_screen_shot()
-                sleep(2)
+                sleep(5)
                 self.robot_built_in.fail(f"{tip_text} occurred while assigning nw policy")
 
         if not self._select_device_row(device_mac):
             self.utils.print_info("Device is not available in the deploy policy page")
             return -1
         self.screen.save_screen_shot()
-        sleep(1)
+        sleep(5)
         self.utils.print_info("Click on the policy deploy upload button")
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_upload_button())
-        sleep(1)
+        sleep(5)
         self.screen.save_screen_shot()
         self.utils.print_info("Click on the perform update")
         self.auto_actions.click(self.np_web_elements.get_perform_after_select_update_policy_button())
