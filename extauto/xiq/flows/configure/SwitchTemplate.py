@@ -549,7 +549,8 @@ class SwitchTemplate(object):
                         if save_btn.is_displayed():
                             self.utils.print_info("Click on the save template button")
                             self.auto_actions.click(save_btn)
-                            sleep(15)
+                            sleep(10)
+                            return 1
                             tool_tip_text = tool_tip.tool_tip_text
                             self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                             for cnt3 in tool_tip_text:
