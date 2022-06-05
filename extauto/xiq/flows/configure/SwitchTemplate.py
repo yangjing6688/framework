@@ -549,7 +549,9 @@ class SwitchTemplate(object):
                         if save_btn.is_displayed():
                             self.utils.print_info("Click on the save template button")
                             self.auto_actions.click(save_btn)
-                            sleep(10)
+                            sleep(5)
+                            # Tool tip display time varies , it fails more often. Need to find different solution
+                            # Until then will be skipping the tool tip msg check
                             return 1
                             tool_tip_text = tool_tip.tool_tip_text
                             self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
