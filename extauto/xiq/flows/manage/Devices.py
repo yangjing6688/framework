@@ -9499,10 +9499,10 @@ class Devices:
                self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
                n_time = n_time + 1
                sleep(30)
-               self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " mins")
+               self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
         if not complete:
-            self.utils.print_info("the waited time has reached with " + str(wait_time_in_min) + ' min(s')
+            self.utils.print_info("the waited time has reached with " + str(wait_time_in_min) + ' min(s)')
             return -1
 
         sleep(20)
