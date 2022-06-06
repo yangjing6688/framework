@@ -51,6 +51,30 @@ class Copilot(CopilotWebElements):
             self.utils.print_info("Unable to get Wi-FI Summary")
             return -1
 
+    def get_wifi_capacity_widget_status(self):
+        """
+        - Gets wifi capacity widget status in copilot
+        - Flow : Copilot page -->Wifi Capacity widget
+        - Keyword Usage
+         - ``Get WiFi Capacity Widget Status``
+        :return: returns status of show/hide muted button in wifi capacity widget-1
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.print_info("Getting Wi-Fi capacity widget Summary")
+        self.utils.print_info("Widgets taking more than 10 sec to display, so adding adequate sleep")
+        sleep(15)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.auto_actions.move_to_element(self.get_wifi_capacity_widget())
+        self.screen.save_screen_shot()
+        try:
+            wifi_capacity_status=self.get_wifi_capacity_status()
+            self.utils.print_info("status of muted button in wifi capacity widget:",wifi_capacity_status.text)
+            return wifi_capacity_status.text
+        except Exception as e:
+            self.utils.print_info("Unable to get status of muted button in wifi capacity widget")
+            return -1
+
     def pin_anomaly_for_location_in_wifi_capacity_widget(self, location_name):
         """
         - This Keyword will pin an anomaly at building level in wifi capacity widget
