@@ -351,6 +351,12 @@ class NetworkPolicyWebElementDefinition:
             'wait_for': 2
         }
 
+    yes_after_perform_update_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
+            'wait_for': 2
+        }
+
     additional_settings_classifiermaps = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-ClassifierMaps"]',

@@ -257,6 +257,9 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
     def get_perform_after_select_update_policy_button(self):
         return self.weh.get_element(self.perform_after_select_update_policy_button)
 
+    def get_yes_after_perform_update_button(self):
+        return self.weh.get_element(self.yes_after_perform_update_button)
+
     def get_additional_settings_classifiermaps(self):
         return self.weh.get_element(self.additional_settings_classifiermaps)
 
