@@ -889,7 +889,7 @@ class UserGroups(UserGroupsWebElements):
         :param groups: excluded group names
         :return: 1 if deleted successfully else -1
         """
-        
+
         self.utils.print_info("Navigating to the configure users")
         self.navigator.navigate_to_configure_user_groups()
 
