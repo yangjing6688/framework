@@ -9489,7 +9489,7 @@ class Devices:
         """
         n_time = 0
         self.utils.print_info("Checking all device progress status ")
-        while n_time < wait_time_in_min*2:       # waits for 30s instead of 1 min before the next loop
+        while n_time < int(wait_time_in_min)*2:       # waits for 30s instead of 1 min before the next loop
             self.utils.print_info("N times:  " + str(n_time))
             rows = self.devices_web_elements.get_manage_all_devices_progress_status()
             if rows == None:
