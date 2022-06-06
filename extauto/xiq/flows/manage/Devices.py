@@ -9502,7 +9502,7 @@ class Devices:
                self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " mins")
 
         if not complete:
-            self.utils.print_info("time wating has reached ")
+            self.utils.print_info("the waited time has reached with " + str(wait_time_in_min) + ' min(s')
             return -1
 
         sleep(20)
