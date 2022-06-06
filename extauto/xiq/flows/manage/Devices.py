@@ -2982,7 +2982,7 @@ class Devices:
 
         :param device_serial: device Serial
         :param device_name: device Name
-        :param device_mac: device MAC
+        :param device_mac: device MAC address
 
         :return: returns the row object
         """
@@ -4004,7 +4004,7 @@ class Devices:
             sleep(30)
             retry_time += 30
 
-    def get_device_configuration_audit_status(self, device_serial):
+    def get_device_configuration_audit_status(self, device_serial=None, device_mac=None):
         """
         - This keyword is used to get the device configuration audit status
         - Flow:
@@ -4013,6 +4013,7 @@ class Devices:
          - ``Get Device Configuration Audit Status    ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number to check the device configuration audit status
+        :param device_mac: device MAC address to check the device configuration audit status
         :return:
         - audit match : if configuration audit matched
         - audit mismatch : if configuration audit mismatch
@@ -4023,7 +4024,12 @@ class Devices:
         self.navigator.navigate_to_devices()
         sleep(5)
 
-        device_row = self.get_device_row(device_serial)
+        device_row = None
+
+        if device_serial:
+            device_row = self.get_device_row(device_serial=device_serial)
+        elif device_mac:
+            device_row = self.get_device_row(device_mac=device_mac)
 
         if device_row:
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
@@ -4035,7 +4041,10 @@ class Devices:
                 self.utils.print_info("device configuration audit mismatched")
                 return "audit mismatch"
 
-        self.utils.print_info(f"device with serial:{device_serial} not found in the device grid rows")
+        if device_serial:
+            self.utils.print_info(f"device with serial:{device_serial} not found in the device grid rows")
+        elif device_mac:
+            self.utils.print_info(f"device with mac:{device_mac} not found in the device grid rows")
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -4395,7 +4404,7 @@ class Devices:
                         floor_set = True
                         sleep(5)
 
-    def update_switch_policy_and_configuration(self, serial):
+    def update_switch_policy_and_configuration(self, serial=None, mac=None):
         """
         - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
           check button in the Device Update dialog.
@@ -4404,16 +4413,26 @@ class Devices:
         - Keyword Usage:
          - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
         :param serial: serial number of the switch to update
+        :param mac: MAC address of the switch to update
         :return: 1
         """
         self.utils.print_info("Select Switch row")
-        self.select_device(serial)
+
+        if serial:
+            self.select_device(serial)
+        elif mac:
+            self.select_device(mac)
 
         self._update_switch(update_method="PolicyAndConfig")
 
         self.screen.save_screen_shot()
 
-        return self._check_device_update_status(serial)
+        if serial:
+            return self._check_device_update_status(device_serial=serial)
+        elif mac:
+            return self._check_device_update_status(device_mac=mac)
+
+        return None
 
     def update_switch_iq_engine_and_images(self, serial):
         """
@@ -4601,17 +4620,24 @@ class Devices:
 
         return ret_val
 
-    def _check_device_update_status(self, device_serial):
+    def _check_device_update_status(self, device_serial=None, device_mac=None):
         """
         - This keyword is used to check the status of the device update
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
         :param device_serial: device serial number to check the config push status
+        :param device_mac: device MAC address to check the config push status
         :return: 1 if config push success else -1
         """
         retry_count = 0
         while retry_count <= 300:
-            device_update_status = self.get_device_updated_status(device_serial)
+            device_update_status = None
+
+            if device_serial:
+                device_update_status = self.get_device_updated_status(device_serial=device_serial)
+            elif device_mac:
+                device_update_status = self.get_device_updated_status(device_mac=device_mac)
+
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif device_update_status == "Device Update Failed":
