@@ -9498,7 +9498,9 @@ class Devices:
                n_time = n_time + 1
                sleep(30)
 
-        sleep(10)
+        if n_time > wait_time_in_min * 2:
+            return -1
+
         self.utils.print_info("All devices finish updating ")
         return 1
 
