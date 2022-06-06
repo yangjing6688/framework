@@ -9491,7 +9491,6 @@ class Devices:
         complete = None
         self.utils.print_info("Checking all device progress status ")
         while n_time < int(wait_time_in_min)*2:       # waits for 30s instead of 1 min before the next loop
-            self.utils.print_info("time has waited:  " + str(round(int(n_time)/2,2))) + " mins"
             rows = self.devices_web_elements.get_manage_all_devices_progress_status()
             if rows == None:
                complete = True
@@ -9500,12 +9499,13 @@ class Devices:
                self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
                n_time = n_time + 1
                sleep(30)
+               self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2))) + " mins"
 
-        self.utils.print_info("time completed waiting:  " + str(int(n_time)/2)) + " mins"
         if not complete:
+            self.utils.print_info("time wating has reached ")
             return -1
 
-        sleep(30)
+        sleep(20)
         self.utils.print_info("All devices finish updating ")
         return 1
 
