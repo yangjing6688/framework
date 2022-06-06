@@ -893,10 +893,18 @@ class UserGroups(UserGroupsWebElements):
         self.utils.print_info("Navigating to the configure users")
         self.navigator.navigate_to_configure_user_groups()
 
-        sleep(5)
         self.utils.print_info("Click on full page view")
         if self.get_paze_size_element():
             self.auto_actions.click(self.get_paze_size_element())
+            sleep(5)
+
+            if self._get_total_user_group_rows():
+                if len(self._get_total_user_group_rows) == len(groups):
+                    self.utils.print_info("There are no user groups to delete")
+                    return 1
+                else:
+                    self.utils.print_info("Unable to get an user group list")
+                    return -1
         try:
             self.auto_actions.click(self.get_usr_group_select_all_checkbox())
             for exclusive_group in groups:
@@ -910,3 +918,18 @@ class UserGroups(UserGroupsWebElements):
             return -1
         
         return self._perform_user_group_delete()
+
+
+    def _get_total_user_group_rows(self):
+        """
+        - get a total rows in user group grid rows
+
+        :return: total user groups in Grid
+        """
+
+        row_size = self.get_user_group_grid_rows()
+
+        if row_size == None:
+            return -1
+        else:
+            return len(row_size)
