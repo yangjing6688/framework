@@ -897,9 +897,10 @@ class UserGroups(UserGroupsWebElements):
         if self.get_paze_size_element():
             self.auto_actions.click(self.get_paze_size_element())
             sleep(5)
-
-            if self._get_total_user_group_rows():
-                if len(self._get_total_user_group_rows) == len(groups):
+            total_rows = self._get_total_user_group_rows()
+            if total_rows:
+                self.utils.print_info(" user group row size " + str(len(total_rows)))
+                if len(total_rows) == len(groups):
                     self.utils.print_info("There are no user groups to delete")
                     return 1
                 else:
