@@ -573,4 +573,9 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//span[@data-automation-tag="automation-switch-device-templates-speRemove-btn"]',
             'wait_for': 5
         }
-    
+
+    new_sw_template_add_button = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-switch-device-templates-menu-button"]',
+            'wait_for': 5
+        }

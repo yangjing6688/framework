@@ -188,14 +188,6 @@ class SwitchTemplate(object):
             self.auto_actions.click(tab)
             sleep(2)
 
-        sw_template_add_button = self.sw_template_web_elements.get_sw_template_add_button()
-        if sw_template_add_button:
-            self.utils.print_info("Click on Add button ")
-            self.auto_actions.click(sw_template_add_button)
-        else:
-            self.utils.print_info("Add button not found")
-
-
         row = self.get_sw_template_row(sw_template)
         self.auto_actions.click(row)
         return 1

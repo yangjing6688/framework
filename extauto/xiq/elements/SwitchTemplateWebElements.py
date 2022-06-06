@@ -421,3 +421,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_delete_button(self):
         return self.weh.get_element(self.sw_template_delete_button)
+
+    def get_new_sw_template_add_button(self):
+        return self.weh.get_element(self.new_sw_template_add_button)
