@@ -898,11 +898,11 @@ class UserGroups(UserGroupsWebElements):
             self.auto_actions.click(self.get_paze_size_element())
 
         sleep(5)
-        total_rows = self._get_total_user_group_rows()
+        total_rows = self.get_user_group_grid_rows()
         if total_rows != None:
             self.utils.print_info(" user group row size " + str(len(total_rows)))
             if len(total_rows) == len(groups):
-                self.utils.print_info("There are no user groups to delete")
+                self.utils.print_info("There are no custom user groups to delete")
                 return 1
         else:
             self.utils.print_info("Unable to get an user group list" + str(total_rows))
@@ -921,18 +921,3 @@ class UserGroups(UserGroupsWebElements):
             return -1
         
         return self._perform_user_group_delete()
-
-
-    def _get_total_user_group_rows(self):
-        """
-        - get a total rows in user group grid rows
-
-        :return: total user groups in Grid
-        """
-
-        row_size = self.get_user_group_grid_rows()
-
-        if row_size == None:
-            return -1
-        else:
-            return len(row_size)
