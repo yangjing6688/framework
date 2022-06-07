@@ -161,7 +161,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Switch templates not exists in switch device template page")
             return False
         for row in rows:
-            cells = self.sw_template_web_elements.get_sw_template_row_cell(row, 'field-tmpl')
+            cells = self.sw_template_web_elements.get_sw_template_row_cell(row, 'dgrid-row')
             for cell in cells:
                 if sw_template in cell.text:
                     return cell
@@ -544,7 +544,7 @@ class SwitchTemplate(object):
                 else:
                     self.utils.print_info("Cannot read options from dropdown")
                 if save_template:
-                    save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+                    save_btns = self.sw_template_web_elements.get_sw_template_save_button_bottom()
                     for save_btn in save_btns:
                         if save_btn.is_displayed():
                             self.utils.print_info("Click on the save template button")
