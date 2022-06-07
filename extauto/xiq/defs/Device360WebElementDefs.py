@@ -2276,7 +2276,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_vlan_select_button = \
         {
-            'XPATH': '//span[@data-automation-tag="automation-port-type-vlan-select-btn"]',
+            'XPATH': '//span[@data-automation-tag="automation-port-type-editor-vlan-select-btn"]',
             'wait_for': 5
         }
 
