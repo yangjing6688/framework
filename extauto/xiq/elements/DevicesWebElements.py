@@ -1123,3 +1123,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
+        
+    def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
+        return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
+        

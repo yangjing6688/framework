@@ -1290,6 +1290,13 @@ class NetworkPolicy(object):
         if not uptd.is_selected():
             self.utils.print_info(f" Click on the update configuration checkbox ")
             self.auto_actions.click(uptd)
+            
+        # Uncheck the firmware update checkbox if it is checked 
+        firmware_update = self.devices_web_elements.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
+
+        if firmware_update.is_selected():
+            self.utils.print_info(f" Unchecking the Upgrade IQ engine and extreme network switch images checkbox")
+            self.auto_actions.click(firmware_update)
 
         # Perform the update
         self.screen.save_screen_shot()

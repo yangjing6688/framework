@@ -9131,14 +9131,27 @@ class Devices:
                     self.navigator.navigate_to_device360_page_with_mac(device_mac)
                     sleep(5)
                     self.auto_actions.click(self.device_update.get_update_devices_button_from_d360())
-                    
-                self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-                self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
-                sleep(5)
+                
+                # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
+                config_download_checkbox_status = self.device_update.get_config_download_options_checkbox()
+                if config_download_checkbox_status == "true":
+                	  self.utils.print_info(f"Update Network Policy and Configuration checkbox is already checked - Unchecking")
+                	  self.auto_actions.click(self.device_update.get_config_download_option())
+                else:
+                	  self.utils.print_info("Update Network Policy and Configuration checkbox is already Unchecked")
+                sleep(2)
+                
+                # Check if the Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked                   
+                checkbox_status = self.device_update.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
+                if checkbox_status == "true":
+                	  self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
+                else:
+                	  self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+                	  self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+               	sleep(5)	
                 
                 # Case-1 : This flow is to perform firmware upgrade to a latest version and return the latest version if success else -1
                 if updateTo.lower() == "latest":
-
                     self.utils.print_info("Selecting upgrade to latest version radio button")
                     self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
                     sleep(2)
@@ -9148,10 +9161,15 @@ class Devices:
                     self.utils.print_info("Device Latest Version: ", updateToVersion)
                     sleep(5)
 
+                    # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
                     if forceDownloadImage.lower() == "true":
-                        self.utils.print_info("Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
-                        self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                        sleep(5)
+                        forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox()
+                        if forceDownloadImage_checkbox_status == "true":
+                        	  self.utils.print_info(f"Perform upgrade if the versions are the same or upgrading to same version which includes a patch checkbox is already checked")
+                        else:
+                        	  self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox or upgrading to same version which includes a patch")
+                        	  self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                       	sleep(2)	
                         
                     if saveDefault.lower() == "true":
                         self.utils.print_info("Selecting Save Default button...")
@@ -9191,7 +9209,8 @@ class Devices:
                     self.utils.print_info("Selecting upgrade to specific version radio button")
                     self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
                     sleep(5)
-
+                    
+                    # This is need to get the list from the dropdown
                     self.utils.print_info("Selecting perform upgrade if the versions are the same")
                     self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
                     sleep(5)
@@ -9309,10 +9328,17 @@ class Devices:
                         self.utils.print_info(f"Selected update version from drop down :{updateToVersion}")
                         if saveDefault.lower() == "true":
                             self.utils.print_info("Selecting Save Default button...")
-                        if forceDownloadImage.lower() != "true":
-                            self.utils.print_info("Unselecting perform upgrade if the versions are the same.")
-                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                            sleep(5)
+                        
+                        # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox    
+                        if forceDownloadImage.lower() == "true":
+                            forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox()
+                            if forceDownloadImage_checkbox_status == "true":
+                                self.utils.print_info(f"Perform upgrade if the versions are the same or upgrading to same version which includes a patch checkbox is already checked")
+                            else:
+                                self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox or upgrading to same version which includes a patch")
+                                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                            sleep(2)
+                            
                         if performUpgrade.lower() == "true":
                             self.screen.save_screen_shot()
                             self.utils.print_info("Selecting Perform Update button...")

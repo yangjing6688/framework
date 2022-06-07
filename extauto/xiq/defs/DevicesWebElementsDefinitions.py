@@ -1640,3 +1640,9 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
+
+    upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
+            'wait_for': 5
+        }
