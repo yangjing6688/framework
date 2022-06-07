@@ -504,6 +504,12 @@ class CopilotDefs:
             'index': 1
         }
 
+    devices_by_os_iqagent = \
+        {
+            'XPATH': '//span[text()="IQ ENGINE RELEASE NOTES "]',
+            'wait_for': 5
+        }
+
     copilot_widget = \
         {
             'CSS_SELECTOR': '.license-widget',
