@@ -2864,8 +2864,8 @@ class Devices:
                             return 'green'
                         if "ui-icon-sprite-mismatch" in audit_config_status:
                             # self.utils.print_info("Device Status: Connected, configuration audit status mis matched")
-                            kwargs['fail_msg'] = "Device Status: Connected, configuration audit status mis matched"
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
+                            self.common_validation.validate(1, 1, **kwargs)
                             return "config audit mismatch"
                     else:
                         # self.utils.print_info("Unable to obtain audit config status for the row - returning connection status 'green'")
