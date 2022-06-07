@@ -9481,7 +9481,7 @@ class Devices:
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
              
-    def wait_until_all_devices_update_done(self, wait_time_in_min=10, **kwargs):
+    def wait_until_all_devices_update_done(self, wait_time_in_min=10):
         """
             - This Keyword checks if all devices are done with updating
             - Keyword Usage:
@@ -9505,7 +9505,7 @@ class Devices:
 
         if not complete:
             self.utils.print_info("the waited time has reached with " + str(wait_time_in_min) + ' min(s)')
-            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
 
         sleep(10)
         self.utils.print_info("All devices finish updating ")
