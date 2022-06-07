@@ -402,6 +402,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    actions_assign_network_policy_drop_down2 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
+            'wait_for': 5
+        }
+
     actions_assign_network_policy_drop_down_router = \
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
