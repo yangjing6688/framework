@@ -899,7 +899,7 @@ class UserGroups(UserGroupsWebElements):
 
         sleep(5)
         total_rows = self._get_total_user_group_rows()
-        if total_rows != None
+        if total_rows != None:
             self.utils.print_info(" user group row size " + str(len(total_rows)))
             if len(total_rows) == len(groups):
                 self.utils.print_info("There are no user groups to delete")
