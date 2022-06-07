@@ -896,16 +896,17 @@ class UserGroups(UserGroupsWebElements):
         self.utils.print_info("Click on full page view")
         if self.get_paze_size_element():
             self.auto_actions.click(self.get_paze_size_element())
-            sleep(5)
-            total_rows = self._get_total_user_group_rows()
-            if total_rows != -1:
-                self.utils.print_info(" user group row size " + str(len(total_rows)))
-                if len(total_rows) == len(groups):
-                    self.utils.print_info("There are no user groups to delete")
-                    return 1
-            else:
-                self.utils.print_info("Unable to get an user group list")
-                return -1
+
+        sleep(5)
+        total_rows = self._get_total_user_group_rows()
+        if total_rows:
+            self.utils.print_info(" user group row size " + str(len(total_rows)))
+            if len(total_rows) == len(groups):
+                self.utils.print_info("There are no user groups to delete")
+                return 1
+        else:
+            self.utils.print_info("Unable to get an user group list")
+            return -1
 
         try:
             self.auto_actions.click(self.get_usr_group_select_all_checkbox())
