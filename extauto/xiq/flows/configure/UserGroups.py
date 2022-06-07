@@ -902,7 +902,7 @@ class UserGroups(UserGroupsWebElements):
             self.auto_actions.click(self.get_paze_size_element())
 
         sleep(5)
-        self.utils.print_info("Get a user group total")
+        self.utils.print_info("Get an user group total")
         total_rows = self.get_user_group_grid_rows()
         if total_rows != None:
             if int(len(total_rows)) - 1 == len(groups):
@@ -915,6 +915,7 @@ class UserGroups(UserGroupsWebElements):
         try:
             self.auto_actions.click(self.get_usr_group_select_all_checkbox())
             for exclusive_group in groups:
+                self.utils.print_info(" Group Name: " + str(exclusive_group))
                 if not self._search_user_group(exclusive_group):
                     self.utils.print_info("User group doesn't exists in user group list")
                     continue
