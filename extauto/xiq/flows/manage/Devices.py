@@ -23,7 +23,6 @@ from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
-from extauto.common.CommonValidation import CommonValidation
 
 
 class Devices:
@@ -45,7 +44,6 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
-        self.common_validation = CommonValidation()
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
