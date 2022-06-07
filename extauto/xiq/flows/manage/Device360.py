@@ -5910,8 +5910,9 @@ class Device360(Device360WebElements):
         for key in template_values.keys():
             cnt = cnt +1
             if not template_values[key][1] == None:
+                sleep(5)
                 conf_element = self.get_select_element_port_type_summery(key)
-                print(conf_element)
+                print("For ", key, "we have ", conf_element)
                 if conf_element.text.lower() == template_values[key][1].lower():
                     self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: "
                                           f"{conf_element.text.lower()}")
@@ -5936,8 +5937,10 @@ class Device360(Device360WebElements):
         # tab
         sleep(2)
         if "next_page" in value:
+            sleep(5)
             get_next_button = self.get_select_element_port_type("next_button")
             if get_next_button:
+                sleep(5)
                 self.auto_actions.click(get_next_button)
                 sleep(2)
                 return 1
@@ -5945,50 +5948,66 @@ class Device360(Device360WebElements):
                 self.utils.print_info("get_next_button not found ")
 
         elif "usagePage" in element:
+            sleep(5)
             get_tab_usagePage = self.get_select_element_port_type("usagePage")
             if get_tab_usagePage:
+                sleep(5)
                 self.auto_actions.click(get_tab_usagePage)
                 return 1
 
         elif "trunkVlanPage" in element or "accessVlanPage" in element:
+            sleep(5)
             get_tab_vlan = self.get_select_element_port_type("tab_vlan")
             if get_tab_vlan:
+                sleep(5)
                 self.auto_actions.click(get_tab_vlan)
                 return 1
 
         elif "transmissionSettingsPage" in element:
+            sleep(5)
             get_tab_transmission = self.get_select_element_port_type("transmissionSettingsPage")
             if get_tab_transmission:
+                sleep(5)
                 self.auto_actions.click(get_tab_transmission)
                 return 1
 
         elif "stpPage" in element:
+            sleep(5)
             get_tab_stp = self.get_select_element_port_type("stpPage")
             if get_tab_stp:
+                sleep(5)
                 self.auto_actions.click(get_tab_stp)
                 return 1
 
         elif "stormControlSettingsPage" in element:
+            sleep(5)
             get_storm_control = self.get_select_element_port_type("stormControlSettingsPage")
             if get_storm_control:
+                sleep(5)
                 self.auto_actions.click(get_storm_control)
                 return 1
 
         elif "ELRPSettingsPage" in element:
+            sleep(5)
             get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
             if get_elrp:
+                sleep(5)
                 self.auto_actions.click(get_elrp)
                 return 1
 
         elif "pseSettingsPage" in element:
+            sleep(5)
             get_tab_pse_settings = self.get_select_element_port_type("pseSettingsPage")
             if get_tab_pse_settings:
+                sleep(5)
                 self.auto_actions.click(get_tab_pse_settings)
                 return 1
 
         elif "summaryPage" in element:
+            sleep(5)
             get_tab_summary = self.get_select_element_port_type("summaryPage")
             if get_tab_summary:
+                sleep(5)
                 self.auto_actions.click(get_tab_summary)
                 return 1
         #pag1
