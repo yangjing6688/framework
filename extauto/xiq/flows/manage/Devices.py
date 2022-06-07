@@ -23,6 +23,7 @@ from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Devices:
@@ -44,6 +45,7 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
+        self.common_validation = CommonValidation()
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
@@ -9479,7 +9481,7 @@ class Devices:
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
              
-    def wait_until_all_devices_update_done(self, wait_time_in_min=10):
+    def wait_until_all_devices_update_done(self, wait_time_in_min=10, **kwargs):
         """
             - This Keyword checks if all devices are done with updating
             - Keyword Usage:
@@ -9503,7 +9505,7 @@ class Devices:
 
         if not complete:
             self.utils.print_info("the waited time has reached with " + str(wait_time_in_min) + ' min(s)')
-            return -1
+            self.common_validation.validate(-1, 1, **kwargs)
 
         sleep(10)
         self.utils.print_info("All devices finish updating ")
