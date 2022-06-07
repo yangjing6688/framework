@@ -9488,7 +9488,7 @@ class Devices:
                    :return: 1 if done, -1 if not
         """
         n_time = 0
-        complete = None
+        complete = False
         self.utils.print_info("Checking all device progress status ")
         while n_time < int(wait_time_in_min)*2:       # waits for 30s instead of 1 min before the next loop
             rows = self.devices_web_elements.get_manage_all_devices_progress_status()
@@ -9505,7 +9505,7 @@ class Devices:
             self.utils.print_info("the waited time has reached with " + str(wait_time_in_min) + ' min(s)')
             return -1
 
-        sleep(20)
+        sleep(10)
         self.utils.print_info("All devices finish updating ")
         return 1
 
