@@ -8,6 +8,7 @@ from extauto.xiq.flows.configure.PasswdSettings import PasswdSettings
 from extauto.xiq.flows.configure.ExpirationSettings import ExpirationSettings
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class UserGroups(UserGroupsWebElements):
@@ -19,6 +20,7 @@ class UserGroups(UserGroupsWebElements):
         self.pass_settings = PasswdSettings()
         self.expiration = ExpirationSettings()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
         self.builtin = BuiltIn()
 
@@ -880,7 +882,7 @@ class UserGroups(UserGroupsWebElements):
         self.auto_actions.click(self.get_wireless_usr_profile_select_wind_cancel_button())
         return False
     
-    def delete_all_user_groups(self, *groups):
+    def delete_all_user_groups(self, *groups, **kwargs):
         """
         - Delete all custom user groups form user groups grid
         - Keyword Usage:
@@ -891,22 +893,24 @@ class UserGroups(UserGroupsWebElements):
         """
 
         self.utils.print_info("Navigating to the configure users")
-        self.navigator.navigate_to_configure_user_groups()
+        if not self.navigator.navigate_to_configure_user_groups():
+            self.utils.print_info("User group doesn't exists in user group list")
+            self.common_validation.validate(-1, 1, **kwargs)
 
         self.utils.print_info("Click on full page view")
         if self.get_paze_size_element():
             self.auto_actions.click(self.get_paze_size_element())
 
         sleep(5)
-        self.utils.print_info("Get a total user group size")
+        self.utils.print_info("Get a user group total")
         total_rows = self.get_user_group_grid_rows()
         if total_rows != None:
             if int(len(total_rows)) - 1 == len(groups):
                 self.utils.print_info("There are no custom user groups to delete")
                 return 1
         else:
-            self.utils.print_info("Unable to get a group list")
-            return -1
+            self.utils.print_info("User group doesn't exists in user group list")
+            self.common_validation.validate(-1, 1, **kwargs)
 
         try:
             self.auto_actions.click(self.get_usr_group_select_all_checkbox())
@@ -918,6 +922,6 @@ class UserGroups(UserGroupsWebElements):
                     self._select_user_group_row(exclusive_group)
         except:
             self.utils.print_info("Not able to select an exclusive user group ")
-            return -1
+            self.common_validation.validate(-1, 1, **kwargs)
         
         return self._perform_user_group_delete()
