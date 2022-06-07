@@ -915,7 +915,6 @@ class UserGroups(UserGroupsWebElements):
         try:
             self.auto_actions.click(self.get_usr_group_select_all_checkbox())
             for exclusive_group in groups:
-                self.utils.print_info(" Group Name: " + str(exclusive_group))
                 if not self._search_user_group(exclusive_group):
                     self.utils.print_info("User group doesn't exists in user group list")
                     continue
