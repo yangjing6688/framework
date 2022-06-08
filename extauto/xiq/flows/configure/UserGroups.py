@@ -882,17 +882,19 @@ class UserGroups(UserGroupsWebElements):
         self.auto_actions.click(self.get_wireless_usr_profile_select_wind_cancel_button())
         return False
     
-    def delete_all_user_groups(self, *exclusive_groups, **kwargs):
+    def delete_all_user_groups(self, **kwargs):
         """
         - Delete all custom user groups
         - Keyword Usage:
-        - ``delete_all_user_groups    ${ EXCLUSIVE GROUP_NAME1}   ${EXCLUSIVE GROUP_NAME2}    IRV=True``
+        - ``delete_all_user_groups    IRV=True``
 
         :param groups: exclusive group names
-        :param IRV:    if False, the error or not match will skip, otherwise, error will not skip
+        :param IRV:    if False, the error will skip, otherwise, error will not skip
         :return: 1 if deleted successfully else -1
         """
 
+        exclusive_groups = ['GA-ppsk-user-device', 'GA-ppsk-user-service', 'GA-ppsk-self-reg', 'GA-RADIUS-us']
+        
         self.utils.print_info("Navigating to the configure users")
         if not self.navigator.navigate_to_configure_user_groups():
             kwargs['fail_msg'] = "Unable to navigate to the user group page"
