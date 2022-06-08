@@ -908,7 +908,7 @@ class UserGroups(UserGroupsWebElements):
         if total_rows != None:
             if int(len(total_rows)) - 1 == len(exclusive_groups):
                 self.utils.print_info("There are no custom user groups to delete")
-                self.common_validation.validate(1, 1, **kwargs)
+                return 1
         else:
             kwargs['fail_msg'] = "Could not get an user group list"
             self.common_validation.validate(-1, 1, **kwargs)
