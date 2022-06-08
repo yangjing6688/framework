@@ -9,7 +9,6 @@ class CopilotDefs:
 
     wifi_capacity_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="wifiCapacityWidget"]',
             'XPATH':  '//*[@class="wifi-capacity-widget"]',
             'wait_for': 10
          }
@@ -22,8 +21,6 @@ class CopilotDefs:
 
     wifi_capacity_widget_location_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wifiCapacityWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]',
             'XPATH': '//*[@class="wifi-capacity-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
             'CSS_SELECTOR': '.as-list-item-clickable',
             'wait_for': 5
