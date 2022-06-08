@@ -1,6 +1,6 @@
 
 *.png
-*.xml
+output.xml
 *.pyc
 .idea
 .idea/deployment.xml

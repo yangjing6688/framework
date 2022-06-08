@@ -67,8 +67,7 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         return self.get_dislayed_element(elements)
 
     def get_common_object_confirm_delete_button(self):
-        elements = self.weh.get_elements(self.common_object_confirm_delete_button)
-        return self.get_dislayed_element(elements)
+        return self.weh.get_element(self.common_object_confirm_delete_button)
 
     def get_cwp_self_reg_employee_approval_button(self):
         return self.weh.get_element(self.cwp_self_reg_employee_approval_button)
@@ -82,6 +81,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
             for el in els:
                 if str(page_size) in el.text:
                     return el
+
+    def get_page_numbers(self):
+        return self.weh.get_elements(self.page_numbers)
 
     def get_next_page_element(self, page_size='50'):
         return self.weh.get_elements(self.next_page_element)
@@ -282,6 +284,63 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_wifi1_radio_profile_dropdown(self):
         return self.weh.get_elements(self.common_object_wifi1_radio_profile_dropdown)
 
+    def get_common_object_wifi0_client_mode(self):
+        return self.weh.get_element(self.common_object_wifi0_client_mode)
+
+    def get_common_object_wifi0_add_client_mode_profile(self):
+        return self.weh.get_element(self.common_object_wifi0_add_client_mode_profile)
+
+    def get_common_object_wifi1_add_client_mode_profile(self):
+        return self.weh.get_element(self.common_object_wifi1_add_client_mode_profile)
+
+    def get_common_object_wifi0_1_client_mode_profile_name(self):
+        return self.weh.get_element(self.common_object_wifi0_1_client_mode_profile_name)
+
+    def get_common_object_wifi0_1_cm_local_web_page_checkbox(self):
+        return self.weh.get_element(self.common_object_wifi0_1_cm_local_web_page_checkbox)
+
+    def get_common_object_wifi0_1_cm_local_web_page_add(self):
+        return self.weh.get_element(self.common_object_wifi0_1_cm_local_web_page_add)
+
+    def get_common_object_wifi0_1_cm_local_web_page_ssid_textbox(self):
+        return self.weh.get_element(self.common_object_wifi0_1_cm_local_web_page_ssid_textbox)
+
+    def get_common_object_wifi0_1_cm_local_web_page_password_textbox(self):
+        return self.weh.get_element(self.common_object_wifi0_1_cm_local_web_page_password_textbox)
+
+    def get_common_object_wifi0_1_cm_local_web_page_auth_dropdown(self):
+        return self.weh.get_element(self.common_object_wifi0_1_cm_local_web_page_auth_dropdown)
+
+    def get_common_object_wifi0_1_cm_local_web_page_auth_dropdown_option(self):
+        return self.weh.get_elements(self.common_object_wifi0_1_cm_local_web_page_auth_dropdown_option)
+
+    def get_common_object_wifi0_1_cm_local_web_key_type_dropdown(self):
+        return self.weh.get_element(self.common_object_wifi0_1_cm_local_web_key_type_dropdown)
+
+    def get_common_object_wifi0_1_cm_local_web_key_type_dropdown_option(self):
+        return self.weh.get_elements(self.common_object_wifi0_1_cm_local_web_key_type_dropdown_option)
+
+    def get_common_object_wifi0_1_cm_local_web_page_add_button(self):
+        return self.weh.get_element(self.common_object_wifi0_1_cm_local_web_page_add_button)
+
+    def get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(self):
+        return self.weh.get_element(self.common_object_wifi0_1_client_mode_profile_dhcp_server_scope)
+
+    def get_common_object_wifi0_1_client_mode_profile_save(self):
+        return self.weh.get_element(self.common_object_wifi0_1_client_mode_profile_save)
+
+    def get_common_object_basic_client_mode_profiles_grid_rows_all(self):
+        return self.weh.get_elements(self.common_object_basic_client_mode_profiles_grid_rows_all)
+
+    def get_common_object_basic_client_mode_profiles_selectall(self):
+        return self.weh.get_element(self.common_object_basic_client_mode_profiles_selectall)
+
+    def get_common_object_basic_client_mode_profiles_delete(self):
+        return self.weh.get_element(self.common_object_basic_client_mode_profiles_delete)
+
+    def get_common_object_basic_client_mode_profiles_delete_confirm_ok_button(self):
+        return self.weh.get_element(self.common_object_basic_client_mode_profiles_delete_confirm_ok_button)
+
     def get_common_object_wifi0_client_access(self):
         return self.weh.get_element(self.common_object_wifi0_client_access)
 
@@ -290,6 +349,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_common_object_wifi0_sensor(self):
         return self.weh.get_element(self.common_object_wifi0_sensor)
+
+    def get_common_object_wifi1_client_mode(self):
+        return self.weh.get_element(self.common_object_wifi1_client_mode)
 
     def get_common_object_wifi1_client_access(self):
         return self.weh.get_element(self.common_object_wifi1_client_access)

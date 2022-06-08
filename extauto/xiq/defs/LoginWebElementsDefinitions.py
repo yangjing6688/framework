@@ -19,12 +19,12 @@ class LoginWebElementsDefinitions:
         {
             'DESC': 'Login Page Submit Button',
             'XPATH': "//*[@data-automation-tag='automation-login-page-submit-btn']",
-            'wait_for': 10
+            'wait_for': 5
         }
 
-    login_page_wrong_password_message = {'CSS_SELECTOR': '.wrong-password', 'wait_for': 10}
+    login_page_wrong_password_message = {'CSS_SELECTOR': '.wrong-password', 'wait_for': 3}
 
-    logout_account_info = {'CSS_SELECTOR': '.ah-header-account-info', 'wait_for': 10}
+    logout_account_info = {'CSS_SELECTOR': '.ah-header-account-info', 'wait_for': 5}
 
     logout_user_menu_item = {'CSS_SELECTOR': '.user-list.user-list-acct', 'wait_for': 5}
 
@@ -42,6 +42,19 @@ class LoginWebElementsDefinitions:
         {
             'DESC': 'XIQ Build Version Details',
             'XPATH': "//*[@data-automation-tag='automation-account-menu-build-version']",
+            'wait_for': 5
+        }
+
+    click_about_extreme_cloudiq_link = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-account-menu-about-link']",
+            'wait_for': 2
+        }
+
+    data_center_name = \
+        {
+            'DESC': 'Data Center Name',
+            'XPATH': "//*[@data-dojo-attach-point='dataCenterName']",
             'wait_for': 5
         }
 

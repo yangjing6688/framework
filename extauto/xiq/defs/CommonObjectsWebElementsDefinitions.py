@@ -92,6 +92,16 @@ class CommonObjectsWebElementsDefinitions:
     next_page_element = \
         {
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next',
+            # 'CSS_SELECTOR': '.J-page-item.ui-page-item.ui-page-item',
+            'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            'index': 1,
+            'wait_for': 2
+        }
+
+    page_numbers = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="pagesWrap"]',
+            'index': 1,
             'wait_for': 2
         }
 
@@ -164,7 +174,7 @@ class CommonObjectsWebElementsDefinitions:
     common_object_policy_add_ssid_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-common-object-ssidmanage-ssid-grid"]'
-                     '//span[@class="table-action-icons table-drop-add"]',
+                     '//span[@class="table-action-icons table-add"]',
             'wait_for': 5
         }
 
@@ -256,26 +266,143 @@ class CommonObjectsWebElementsDefinitions:
 
     common_object_wifi0_radio_profile_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="radioProfile2g"]//div[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile2g"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 3
         }
 
     common_object_wifi1_radio_profile_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="radioProfile5g"]//div[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile5g"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 3
         }
 
     common_object_wifi0_radio_profile_dropdown = \
         {
-            'XPATH': '//div[@id="ah_util_Chosen_11_chzn"]//ul[@data-automation-tag="chzn-results-ctn"]//li',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-wirelessporttype2ghz,wirelessporttype5dualghz"]//li',
             'wait_for': 3
         }
 
     common_object_wifi1_radio_profile_dropdown = \
         {
-            'XPATH': '//div[@id="ah_util_Chosen_16_chzn"]//ul[@data-automation-tag="chzn-results-ctn"]//li',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-wirelessporttype5ghz"]//li',
             'wait_for': 3
+        }
+
+    common_object_wifi0_client_mode = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzClientMode"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_add_client_mode_profile = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="addClientModeProfileLink2GHz"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi1_add_client_mode_profile = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="addClientModeProfileLink5GHz"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_client_mode_profile_name = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="nameArea"]//input[@data-dojo-attach-point="name"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_checkbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableLocalWeb"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_add = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ssidListWrap"]//span[@data-tip="Add"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_ssid_textbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_password_textbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="password"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_auth_dropdown = \
+        {
+            'DESC': 'Auth Method click to dropdown',
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]//following::div[@data-automation-tag="automation-chzn-arrow-down"][1]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_auth_dropdown_option = \
+        {
+            'DESC': 'Auth Method Pre-Shared key/Open',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-securitytype"]/li',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_key_type_dropdown = \
+        {
+            'DESC': 'Key Type click to dropdown',
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]//following::div[@data-automation-tag="automation-chzn-arrow-down"][2]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_key_type_dropdown_option = \
+        {
+            'DESC': 'Key Type ASCII/HEX',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-keytype"]/li',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_cm_local_web_page_add_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="addToSsid"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_client_mode_profile_dhcp_server_scope = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="dhcpServerScope"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_1_client_mode_profile_save = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 3
+        }
+    common_object_basic_client_mode_profiles_grid_rows_all = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td[contains(@class, "dgrid-selector")]/../..',
+            'wait_for': 10
+        }
+
+    common_object_basic_client_mode_profiles_selectall = \
+        {
+            'XPATH': '//th[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]/div/input',
+            'wait_for': 5
+        }
+
+    common_object_basic_client_mode_profiles_delete = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="additionalSettingsContentArea"]//span[@class="table-action-icons table-remove"]',
+            'wait_for': 5
+        }
+
+    common_object_basic_client_mode_profiles_delete_confirm_ok_button = \
+        {
+            'XPATH': "//button[@data-dojo-attach-point='yesBtn']",
+            'wait_for': 5
         }
 
     common_object_wifi0_client_access = \
@@ -293,6 +420,12 @@ class CommonObjectsWebElementsDefinitions:
     common_object_wifi0_sensor = \
         {
             'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzSensor"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi1_client_mode = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage5GHzClientMode"]',
             'wait_for': 3
         }
 

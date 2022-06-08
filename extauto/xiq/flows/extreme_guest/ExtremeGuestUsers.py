@@ -1,4 +1,4 @@
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -12,7 +12,7 @@ class ExtremeGuestUsers(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
@@ -111,13 +111,14 @@ class ExtremeGuestUsers(object):
 
         return ret_val
 
-    def create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name=""):
+    def create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
         """
         - This Keyword will create Bulk Vouchers in Eguest users Page
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
          - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
 
+        :param print_users:
         :param number_of_vouchers: No. Of Vouchers Value
         :param access_group: Access Group
         :param location_name: Location tree in a comma-separated list format;
@@ -126,6 +127,46 @@ class ExtremeGuestUsers(object):
         :return: 1 if Users Bulk Vouchers Created Successfully
         """
         self.ext_guest.go_to_configure_users_page()
+        if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
+            return 1
+        return -1
+
+    def create_guest_management_role_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
+        """
+        - This Keyword will create Bulk Vouchers in Guest Mangement Users Page
+        - Flow : Guest Management Users --> Add user--> Create Bulk users Vouchers
+        - Keyword Usage:
+         - ``Create Guest Management Role Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+
+        :param print_users:
+        :param number_of_vouchers: No. Of Vouchers Value
+        :param access_group: Access Group
+        :param location_name: Location tree in a comma-separated list format;
+               e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
+
+        :return: 1 if Users Bulk Vouchers Created Successfully
+        """
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
+            return 1
+        return -1
+
+    def _create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
+        """
+        - This Keyword will create Bulk Vouchers in Eguest users Page
+        - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
+        - Keyword Usage:
+         - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+
+        :param print_users:
+        :param number_of_vouchers: No. Of Vouchers Value
+        :param access_group: Access Group
+        :param location_name: Location tree in a comma-separated list format;
+               e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
+
+        :return: 1 if Users Bulk Vouchers Created Successfully
+        """
+        
         self.utils.print_info("Clicking Add User Button ")
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_add_button())
         sleep(2)
@@ -159,9 +200,14 @@ class ExtremeGuestUsers(object):
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_create_button())
         sleep(2)
 
-        self.utils.print_info("Clicking Close Button")
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
-        sleep(2)
+        if not print_users:
+            self.utils.print_info("Clicking Close Button")
+            self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
+            sleep(2)
+        else:
+            self.utils.print_info("Clicking Print Button")
+            self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_print_button())
+            sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -174,7 +220,11 @@ class ExtremeGuestUsers(object):
         :param search_string:
         :return:
         """
-        self._select_extreme_guest_users_page_user_row(search_string)
+
+        if type(search_string) is dict:
+            search_string = list(search_string.keys())[0]
+        self.auto_actions.click(self._get_extreme_guest_users_page_user_row(search_string))
+        sleep(2)
         self.utils.print_info("Deleting the User")
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_button())
         sleep(2)
@@ -184,6 +234,21 @@ class ExtremeGuestUsers(object):
 
         return 1
 
+    def get_extreme_guest_users_count(self):
+        """
+        Getting the row count in Extreme Guest Users Page
+        - Keyword Usage:
+         - ``Get Extreme Guest Users Count``
+        :param search_string:
+        :return: User Count
+        """
+        count=0
+        self.utils.print_info("Getting user rows")
+        rows = self.user_web_elem.get_extreme_guest_users_grid_rows()
+        if rows:
+            for row in self.user_web_elem.get_extreme_guest_users_grid_rows():
+                count += 1
+        return count
 
     def _get_extreme_guest_users_page_user_row(self, search_string):
         """
@@ -192,13 +257,12 @@ class ExtremeGuestUsers(object):
         :return:
         """
         self.utils.print_info("Getting user rows")
-        self.utils.print_info(self.user_web_elem.get_extreme_guest_users_grid_rows())
         rows = self.user_web_elem.get_extreme_guest_users_grid_rows()
         if rows:
-            for row in rows:
-                if cell := self.user_web_elem.get_extreme_guest_users_grid_row_cells(row):
-                    if search_string in cell.text:
-                        return row
+            for row in self.user_web_elem.get_extreme_guest_users_grid_rows():
+                self.utils.print_info("row calling: " + row.text)
+                if search_string in row.text:
+                    return row
 
     def _select_extreme_guest_users_page_user_row(self, search_string):
         """
@@ -206,9 +270,57 @@ class ExtremeGuestUsers(object):
         :param search_string:
         :return:
         """
-        row = self._get_extreme_guest_users_page_user_row(search_string)
-        self.utils.print_info("Selecting user row")
+        self.utils.print_info("Selecting user")
         self.auto_actions.click(
-            self.user_web_elem.get_extreme_guest_users_grid_row_cells(row, 'x-grid-checkcolumn'))
+            self.user_web_elem.get_extreme_guest_users_grid_row_cells(search_string))
         sleep(2)
         return 1
+
+    def create_bulk_vouchers_client_login(self, number_of_vouchers, access_group="", location_name=""):
+        """
+
+        :param number_of_vouchers:
+        :param access_group:
+        :param location_name:
+        :return:
+        """
+
+        self.create_bulk_vouchers(number_of_vouchers, access_group, location_name, True)
+
+        self.utils.print_info("Switch to New Extreme Guest user print Window")
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[2])
+
+        user_list = self.user_web_elem.get_extreme_guest_users_print_user_cells()
+        password_list = self.user_web_elem.get_extreme_guest_users_print_password_cells()
+
+        if user_list:
+            users = []
+            for user in user_list:
+                users.append(user.text)
+
+        if password_list:
+            passwords = []
+            for password in password_list:
+                passwords.append(password.text)
+
+        credentials = dict(zip(users, passwords))
+
+        self.utils.print_info("Switch to back to Extreme Guest Window")
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
+        sleep(2)
+
+        self.utils.print_info("Clicking Close Button")
+        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
+        sleep(2)
+
+        return credentials
+
+    def get_username_from_vouchers(self, credentials):
+        """
+        - Get first username from the list of credentials
+        - Keyword Usage:
+         - ``Get Username from vouchers   ${CREDENTIALS}``
+        
+        """
+        username = list(credentials.keys())[0]
+        return username

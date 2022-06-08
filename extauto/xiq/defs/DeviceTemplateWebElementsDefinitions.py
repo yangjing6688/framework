@@ -46,8 +46,7 @@ class DeviceTemplateWebElementDefinitions:
 
     device_template_ap_template_wifi1_tab = \
         {
-            'CSS_SELECTOR': '.ui-tab',
-            'index': 5,
+            'XPATH': '//*[@data-automation-tag="automation-ap-template-interface-settings-wifi-1"]',
             'wait_for': 5
         }
 
@@ -92,6 +91,7 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+
     ap_template_radio_usage_wifi1_backhaul_mesh_checkbox = \
         {
             'CSS_SELECTOR': '.radioUsage',
@@ -105,6 +105,23 @@ class DeviceTemplateWebElementDefinitions:
             'index': 7,
             'wait_for': 5
         }
+    ap_template_radio_usage_wifi2_client_access_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzClientAccess"]',
+            'wait_for': 5
+        }
+
+    ap_template_radio_usage_wifi2_backhaul_mesh_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzMeshLink"]',
+            'wait_for': 5
+        }
+
+    ap_template_radio_usage_wifi2_sensor_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzSensor"]',
+            'wait_for': 5
+        }
 
     device_ap_template_items = {'CSS_SELECTOR': '.ui-menu-item', 'wait_for': 5}
 
@@ -114,7 +131,7 @@ class DeviceTemplateWebElementDefinitions:
 
     device_ap_template_add_button = \
         {
-            'XPATH': '//*[@id="ah/util/layout/Menu_6"]/span',
+            'XPATH': '//*[@data-automation-tag="automation-wireless-device-templates-menu-button"]',
             'wait_for': 5
         }
 
@@ -316,5 +333,83 @@ class DeviceTemplateWebElementDefinitions:
     device_template_cancel_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnCtn"]//button[@data-dojo-attach-point="cancelButton"]',
+            'wait_for': 5
+        }
+
+    network_policy_add_button = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@class="table-action-icons table-add"]',
+            'wait_for': 3
+        }
+
+    network_policy_name_text = \
+        {
+            'XPATH': "//input[@data-automation-tag='automation-policy-name']",
+            'wait_for': 5
+        }
+
+    network_policy_save_button = \
+        {
+            'XPATH': "//button[@data-automation-tag='automation-policy-save']",
+            'wait_for': 5
+        }
+
+    select_device_template = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="configwizardNav"]//li[@class="wiz-item wiz-item-2"]',
+            'wait_for': 5
+        }
+
+    ap_template_advanced_settings = \
+        {
+            'XPATH': '//li[@class="ui-nav-sider-item has-cap-advanced nav-configuration-advanced active-result"]',
+            'wait_for': 3
+        }
+
+    ap_template_enable_scli = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enabledControl"]',
+            'wait_for': 3
+        }
+
+    ap_template_scli_config_enter_name = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="name"]',
+            'wait_for': 5
+        }
+
+    ap_template_scli_enter_commands = \
+        {
+            'XPATH': '//textarea[@data-dojo-attach-point="cli"]',
+            'wait_for': 5
+        }
+
+    ap_template_save_template = \
+        {
+            'XPATH': '//fixed-bar[@data-dojo-attach-point="btnCtn"]//button[@class="btn btn-primary"]',
+            'wait_for': 5
+        }
+
+    select_switch_template = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-device-templates-show-switch"]',
+            'wait_for': 5
+        }
+
+    switch_template_add_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="accesspointListArea"]//span[@class="table-action-icons table-filter-drop-add"]',
+            'wait_for': 5
+        }
+
+    switch_template_advanced_settings = \
+        {
+            'XPATH': '//li[@class="ui-nav-sider-item has-cap-advanced nav-configuration-advanced"]',
+            'wait_for': 3
+        }
+
+    switch_template_save_template = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@class="btn btn-primary"]',
             'wait_for': 5
         }

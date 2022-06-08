@@ -1,5 +1,5 @@
 from time import sleep
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -13,7 +13,7 @@ class SplashTemplate(object):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        #self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
@@ -174,7 +174,20 @@ class SplashTemplate(object):
         self.utils.print_info("Entering clone template name  ", template_name)
         self.auto_actions.send_keys(self.splash_web_elem.get_extreme_guest_clone_system_template_name_textbox(),
                                     template_name)
-        sleep(4)
+
+        self.utils.print_info("Adding Login tab")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_icon())
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_login_item())
+        
+        self.utils.print_info("Drag and Drop Layout1 to Login tab")
+        self.auto_actions.drag_and_drop_element(
+            self.splash_web_elem.get_extreme_guest_clone_system_template_theme_layout1(),
+            self.splash_web_elem.get_extreme_guest_clone_system_template_main_droppanel())
+        
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_selectwidget_icon())
+        self.auto_actions.drag_and_drop_element(
+            self.splash_web_elem.get_extreme_guest_clone_system_template_loginform_widget_icon(),
+            self.splash_web_elem.get_extreme_guest_clone_system_template_secondary_droppanel())
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -439,6 +452,50 @@ class SplashTemplate(object):
             network_name)
         sleep(2)
 
+        self.utils.print_info("Clicking Add Button")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_add_button())
+        sleep(2)
+
+        self.utils.print_info("Clicking Apply Button")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_button())
+        sleep(3)
+
+        self.utils.print_info("Clicking OK Button")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_ok_button())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        return 1
+
+    def remove_network_from_user_template(self, template_name=None):
+        """
+        - This keyword will Apply the Network and Location To User Template
+        - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
+                Splash Template--> System Template--> Clone
+        - Keyword Usage:
+            ''Remove Network From User Template	${TEMPLATE_NAME}''
+
+        :param template_name: Name of the user template to be selected
+        :param network_name: Name of the network to be selected
+        :param location : Location Tree in comma format  e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
+        :return: 1 if success
+        """
+        self.go_to_configure_splash_user_template_tab()
+        self.utils.print_info("Clicking on the Apply network the user template icon")
+        web_element_fn = "self.splash_web_elem.get_extreme_guest_user_" + template_name + "_apply_icon()"
+        self.auto_actions.click(eval(web_element_fn))
+        sleep(2)
+
+        if self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_delete_button().is_displayed():
+            self.utils.print_info("Clicking Delete Button")
+            self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_delete_button())
+            sleep(2)
+        else:
+            self.utils.print_info("No policy/location mapping for the template")
+            sleep(2)
+
         self.utils.print_info("Clicking Apply Button")
         self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_button())
         sleep(2)
@@ -465,6 +522,9 @@ class SplashTemplate(object):
         :return: 1 if location is selected, else -1'
         """
         ret_val = -1
+        self.utils.print_info("Clicking Location Drop Down Button in Apply Template")
+        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_location_dropdown())
+        sleep(2)
         if sel_loc:
             try:
                 location_list = sel_loc.split(',')

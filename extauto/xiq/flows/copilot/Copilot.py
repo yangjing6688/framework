@@ -1,4 +1,4 @@
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -11,7 +11,7 @@ import re
 class Copilot(CopilotWebElements):
     def __init__(self):
         super().__init__()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.utils = Utils()
@@ -49,6 +49,30 @@ class Copilot(CopilotWebElements):
                 return -2
         except Exception as e:
             self.utils.print_info("Unable to get Wi-FI Summary")
+            return -1
+
+    def get_wifi_capacity_widget_status(self):
+        """
+        - Gets wifi capacity widget status in copilot
+        - Flow : Copilot page -->Wifi Capacity widget
+        - Keyword Usage
+         - ``Get WiFi Capacity Widget Status``
+        :return: returns status of show/hide muted button in wifi capacity widget-1
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.print_info("Getting Wi-Fi capacity widget Summary")
+        self.utils.print_info("Widgets taking more than 10 sec to display, so adding adequate sleep")
+        sleep(15)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.auto_actions.move_to_element(self.get_wifi_capacity_widget())
+        self.screen.save_screen_shot()
+        try:
+            wifi_capacity_status=self.get_wifi_capacity_status()
+            self.utils.print_info("status of muted button in wifi capacity widget:",wifi_capacity_status.text)
+            return wifi_capacity_status.text
+        except Exception as e:
+            self.utils.print_info("Unable to get status of muted button in wifi capacity widget")
             return -1
 
     def pin_anomaly_for_location_in_wifi_capacity_widget(self, location_name):
@@ -612,19 +636,19 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(url)
                     sleep(10)
 
-                    parent_window = self.driver.window_handles[0]
-                    child_window = self.driver.window_handles[1]
+                    parent_window = CloudDriver().cloud_driver.window_handles[0]
+                    child_window = CloudDriver().cloud_driver.window_handles[1]
 
                     self.utils.print_info("Switch To New Tab")
-                    self.driver.switch_to.window(child_window)
+                    CloudDriver().cloud_driver.switch_to.window(child_window)
                     self.screen.save_screen_shot()
 
-                    loaded_doc_title = self.driver.title
+                    loaded_doc_title = CloudDriver().cloud_driver.title
                     self.utils.print_info(f"Loaded Documentation Link Title Is {loaded_doc_title} ")
-                    self.driver.close()
+                    CloudDriver().cloud_driver.close()
 
                     self.utils.print_info("Switch To Parent")
-                    self.driver.switch_to.window(parent_window)
+                    CloudDriver().cloud_driver.switch_to.window(parent_window)
 
                     if page_title_in_xiq in loaded_doc_title:
                         self.utils.print_info(f"Loaded Documentation Title Is Same As XIQ Page Link Title ")
@@ -671,21 +695,21 @@ class Copilot(CopilotWebElements):
                 self.utils.print_info(f"Validating Youtube Video Link : {video_url} ")
                 if url is not None:
                     self.utils.print_info("Loading Page with URL: ", video_url)
-                    self.driver.execute_script("window.open('');")
-                    self.driver.switch_to.window(self.driver.window_handles[1])
+                    CloudDriver().cloud_driver.execute_script("window.open('');")
+                    CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
                     sleep(3)
 
-                    parent_window = self.driver.window_handles[0]
+                    parent_window = CloudDriver().cloud_driver.window_handles[0]
                     self.screen.save_screen_shot()
 
-                    self.driver.get(video_url)
+                    CloudDriver().cloud_driver.get(video_url)
                     self.screen.save_screen_shot()
-                    loaded_video_title = self.driver.title
+                    loaded_video_title = CloudDriver().cloud_driver.title
                     self.utils.print_info(f"Loaded You Tube Link Title Is :  {loaded_video_title} ")
 
-                    self.driver.close()
+                    CloudDriver().cloud_driver.close()
                     self.utils.print_info("Switch To Parent")
-                    self.driver.switch_to.window(parent_window)
+                    CloudDriver().cloud_driver.switch_to.window(parent_window)
                     if "YOUTUBE" in loaded_video_title.upper():
                         loaded_video_flag = True
                     else:
@@ -1009,12 +1033,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting DFS Recurrence widget Summary")
 
         sleep(10)
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_dfs_recurrence_widget())
         self.screen.save_screen_shot()
@@ -1029,16 +1053,16 @@ class Copilot(CopilotWebElements):
                 aps = summary.group(2)
                 self.utils.print_info("Total Buildings : ", buildings)
                 self.utils.print_info("Total APs : ", aps)
-                self.utils.switch_to_default(self.driver)
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
                 return dfs_recurrence_summary, buildings, aps
             else:
                 self.utils.print_info("No anomalies detected for DFS Recurrence widget")
-                self.utils.switch_to_default(self.driver)
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
                 return -2
         except Exception as e:
             self.utils.print_info("Unable to get DFS Recurrence Summary")
             self.utils.print_info(e)
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
 
     def get_ap_details_from_dfs_recurrence_widget_location(self, location_name):
@@ -1054,12 +1078,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting DFS Recurrence widget Summary")
 
         sleep(10)
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_dfs_recurrence_widget())
         self.screen.save_screen_shot()
@@ -1100,7 +1124,7 @@ class Copilot(CopilotWebElements):
                         anomaly_device_detail_list.append(device_anomaly_pinned_status)
 
                         anomaly_device_details_list.append(anomaly_device_detail_list)
-                        self.utils.switch_to_default(self.driver)
+                        self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return anomaly_device_details_list
                 else:
                     self.utils.print_info("Unable to find the location in the anomaly list")
@@ -1108,7 +1132,7 @@ class Copilot(CopilotWebElements):
         except Exception as e:
             self.utils.print_info("Unable to get DFS Recurrence Summary")
             self.utils.print_info(e)
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
 
     def get_dfs_recurrence_muted_button_status(self):
@@ -1121,19 +1145,19 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting DFS Recurrence widget Summary")
 
         sleep(10)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_dfs_recurrence_widget())
         self.screen.save_screen_shot()
         status = self.get_dfs_recurrence_anomaly_muted().text
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
 
         return status
 
@@ -1148,12 +1172,12 @@ class Copilot(CopilotWebElements):
         #if navigate:
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting DFS Recurrence widget Summary")
 
         sleep(10)
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_dfs_recurrence_widget())
         self.screen.save_screen_shot()
@@ -1166,7 +1190,7 @@ class Copilot(CopilotWebElements):
         status = self.get_dfs_recurrence_anomaly_muted().text
         sleep(1)
         self.screen.save_screen_shot()
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
 
         if 'HIDE MUTED' in status:
             self.utils.print_info("Successfully Clicked button")
@@ -1184,13 +1208,13 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting DFS Recurrence widget Summary")
 
         sleep(10)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_dfs_recurrence_widget())
         self.screen.save_screen_shot()
@@ -1203,7 +1227,7 @@ class Copilot(CopilotWebElements):
         sleep(1)
         self.screen.save_screen_shot()
         status = self.get_dfs_recurrence_anomaly_muted().text
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
 
         if 'SHOW MUTED' in status:
             self.utils.print_info("Successfully Clicked button")
@@ -1226,11 +1250,11 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting DFS Recurrence widget summary")
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(2)
 
         self.auto_actions.move_to_element(self.get_dfs_recurrence_widget())
@@ -1281,7 +1305,7 @@ class Copilot(CopilotWebElements):
 
             self.utils.print_debug("Anomaly List: ", anomaly_list)
 
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
 
             if location_name:
                 for anomaly_element in anomaly_list:
@@ -1308,13 +1332,13 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Account Summary")
 
         sleep(10)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_account_summary_widget())
         self.screen.save_screen_shot()
@@ -1326,7 +1350,7 @@ class Copilot(CopilotWebElements):
             member_since_value = self.get_account_summary_row_value(row).text
             account_summary[member_since] = member_since_value
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.utils.print_info("Account Summary: ", account_summary)
 
         return account_summary
@@ -1341,13 +1365,13 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting ExtremeCloud IQ Applications")
 
         sleep(10)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_extremecloud_iq_applications_widget())
         self.screen.save_screen_shot()
@@ -1363,7 +1387,7 @@ class Copilot(CopilotWebElements):
             if 'Subscribed' in _value:
                 extremecloud_iq_applications[_key] = 'Subscribed'
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.utils.print_info("ExtremeCloud IQ Applications: ", extremecloud_iq_applications)
         return extremecloud_iq_applications
 
@@ -1377,13 +1401,13 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Devices By OS")
 
         sleep(10)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         widget = self.get_devices_by_os_widget()
         self.auto_actions.move_to_element(widget)
         self.screen.save_screen_shot()
@@ -1402,7 +1426,7 @@ class Copilot(CopilotWebElements):
             except Exception as e:
                 pass
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.utils.print_info("Devices by OS: ", devices_by_os)
         return devices_by_os
 
@@ -1416,13 +1440,13 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Devices By Type")
 
         sleep(10)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         widget = self.get_devices_by_type_widget()
         self.auto_actions.move_to_element(widget)
         self.screen.save_screen_shot()
@@ -1438,7 +1462,7 @@ class Copilot(CopilotWebElements):
             except Exception as e:
                 pass
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.utils.print_info("Devices by OS: ", devices_by_type)
         return devices_by_type
 
@@ -1452,13 +1476,13 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting CoPilot Licenses")
 
         sleep(10)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         widget = self.get_copilot_widget()
         self.auto_actions.move_to_element(widget)
         self.screen.save_screen_shot()
@@ -1479,7 +1503,7 @@ class Copilot(CopilotWebElements):
             licenses['consumed'] = list2[0].strip()
             licenses['available'] = list2[1].strip()
             licenses_list.append(licenses)
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.utils.print_info("Licenses List: ", licenses_list)
         return licenses_list
 
@@ -1496,12 +1520,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows on DFS Recurrence Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_dfs_recurrence_widget_location_grid_rows():
@@ -1515,17 +1539,17 @@ class Copilot(CopilotWebElements):
                     self.screen.save_screen_shot()
                     self.utils.print_info(f"Pinned Anomaly successfully for the location : {location_name} "
                                           f"in DFS Recurrence")
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return 1
                 else:
                     self.utils.print_info(f"Already Pinned Anomaly for the location : {location_name} "
                                           f"in DFS Recurrence")
                     self.screen.save_screen_shot()
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return 1
 
         self.utils.print_info(f"Not found Location row with name:{location_name} in DFS Recurrence")
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
     def unpin_anomaly_for_location_in_dfs_recurrence_widget(self, location_name):
@@ -1541,12 +1565,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows on DFS Recurrence Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_dfs_recurrence_widget_location_grid_rows():
@@ -1560,17 +1584,17 @@ class Copilot(CopilotWebElements):
                     self.screen.save_screen_shot()
                     self.utils.print_info(f"Successfully UnPinned Anomaly for the location : {location_name} "
                                           f"in DFS Recurrence")
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return 1
                 else:
                     self.utils.print_info(f"Already UnPinned Anomaly for the location : {location_name} "
                                           f"in DFS Recurrence")
                     self.screen.save_screen_shot()
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return 1
 
         self.utils.print_info(f"Not found Location row with name:{location_name} in DFS Recurrence")
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
     def mute_anomaly_for_location_in_dfs_recurrence_widget(self, location_name):
@@ -1584,12 +1608,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows on DFS Recurrence Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         if self.get_dfs_recurrence_widget_location_grid_muted_rows():
@@ -1598,7 +1622,7 @@ class Copilot(CopilotWebElements):
                     self.utils.print_info(f"Already Mute Anomaly Enabled for the location : {location_name} "
                                           f"in DFS Recurrence Widget")
                     self.screen.save_screen_shot()
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return 1
         else:
             for row in self.get_dfs_recurrence_widget_location_grid_rows():
@@ -1620,11 +1644,11 @@ class Copilot(CopilotWebElements):
                         if location_name in row1.text:
                             self.utils.print_info(f"Muted Anomaly successfully for the location : {location_name} in "
                                                   f"DFS Recurrence Widget")
-                            self.utils.switch_to_default(self.driver)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return 1
 
             self.utils.print_info(f"Not found Location row with name:{location_name} in DFS Recurrence Widget")
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
 
     def unmute_anomaly_for_location_in_dfs_recurrence_widget(self, location_name):
@@ -1640,12 +1664,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows on DFS Recurrence Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         if self.get_dfs_recurrence_widget_location_grid_muted_rows():
@@ -1662,19 +1686,19 @@ class Copilot(CopilotWebElements):
                     for row1 in self.get_dfs_recurrence_widget_location_grid_rows():
                         if location_name in row1.text:
                             self.utils.print_info(f"UnMuted Anomaly successfully for the location : {location_name}")
-                            self.utils.switch_to_default(self.driver)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return 1
 
                     self.screen.save_screen_shot()
                 else:
                     self.utils.print_info(f"Not Found Location row with name:{location_name}")
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return -1
         else:
             self.screen.save_screen_shot()
             self.utils.print_info(f"Unable to find Location {location_name} in DFS Recurrence Widget Muted rows."
                                   f"Location {location_name} already Un Muted")
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             return 1
 
     def dismiss_anomaly_for_location_in_dfs_recurrence_widget(self, location_name, option='yes'):
@@ -1693,12 +1717,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows on DFS Recurrence Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_dfs_recurrence_widget_location_grid_rows():
@@ -1735,17 +1759,17 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Location name : {location_name} in DFS Recurrence Widget Not "
                                                   f"Dismissed Successfully")
                             self.screen.save_screen_shot()
-                            self.utils.switch_to_default(self.driver)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return -1
                         else:
                             self.utils.print_info(f"Location name : {location_name} in DFS Recurrence Widget Dismissed "
                                                   f"Successfully")
                             self.screen.save_screen_shot()
-                            self.utils.switch_to_default(self.driver)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return 1
                 return 1
         self.utils.print_info(f"Anomaly not found for Location :{location_name} in DFS Recurrence Widget")
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
     def pin_individual_ap_for_location_in_dfs_recurrence_widget(self, location_name, ap_name):
@@ -1762,12 +1786,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows in DFS Recurrence Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_dfs_recurrence_widget_location_grid_rows():
@@ -1790,7 +1814,7 @@ class Copilot(CopilotWebElements):
                             sleep(5)
                             self.utils.print_info(f"Pinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
-                            self.utils.switch_to_default(self.driver)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return 1
                         else:
                             self.utils.print_info(f"Already Pinned Anomaly for the AP : {ap_name} in Location "
@@ -1799,11 +1823,11 @@ class Copilot(CopilotWebElements):
                             self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
                             sleep(5)
                             self.screen.save_screen_shot()
-                            self.utils.switch_to_default(self.driver)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return 1
 
         self.utils.print_info(f"Not found AP row {ap_name} with Location:{location_name}")
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
     def unpin_individual_ap_for_location_in_dfs_recurrence_widget(self, location_name, ap_name):
@@ -1820,12 +1844,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows in DFS Recurrence Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_dfs_recurrence_widget_location_grid_rows():
@@ -1848,7 +1872,7 @@ class Copilot(CopilotWebElements):
                             sleep(5)
                             self.utils.print_info(f"UnPinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
-                            self.utils.switch_to_default(self.driver)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return 1
                         else:
                             self.utils.print_info(f"Already Unpinned Anomaly for the AP : {ap_name} in Location "
@@ -1857,11 +1881,11 @@ class Copilot(CopilotWebElements):
                             self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
                             sleep(5)
                             self.screen.save_screen_shot()
-                            self.utils.switch_to_default(self.driver)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return 1
 
         self.utils.print_info(f"Not found AP row {ap_name} with Location:{location_name}")
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
     def verify_copilot_license_widget_manage_link(self):
@@ -1874,12 +1898,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting CoPilot Licenses")
         sleep(30)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         widget = self.get_copilot_widget()
         self.auto_actions.move_to_element(widget)
         self.screen.save_screen_shot()
@@ -1889,7 +1913,7 @@ class Copilot(CopilotWebElements):
         self.auto_actions.click(self.get_copilot_license_mange_link())
         sleep(10)
 
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(10)
 
         license_page_header = self.get_license_page_heading()
@@ -1935,12 +1959,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows in Adverse Traffic Patterns Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
@@ -1963,7 +1987,7 @@ class Copilot(CopilotWebElements):
                     return 1
 
         self.utils.print_info(f"Not found Location row with name:{location_name} in Adverse Traffic Patterns Widget")
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
     def unpin_anomaly_for_location_in_adverse_traffic_patterns_widget(self, location_name):
@@ -1979,12 +2003,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows in Adverse Traffic Patterns Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
@@ -2007,7 +2031,7 @@ class Copilot(CopilotWebElements):
                     return 1
 
         self.utils.print_info(f"Not found Location row with name:{location_name}")
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
     def show_muted_adverse_traffic_patterns_widget_anomalies(self):
@@ -2020,12 +2044,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Adverse Traffic Patterns widget Summary")
 
         sleep(10)
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_adverse_traffic_patterns_widget())
         self.screen.save_screen_shot()
@@ -2038,7 +2062,7 @@ class Copilot(CopilotWebElements):
         status = self.get_adverse_traffic_patterns_widget_anomaly_muted().text
         sleep(1)
         self.screen.save_screen_shot()
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
 
         if 'HIDE MUTED' in status:
             self.utils.print_info("Successfully Clicked button")
@@ -2056,13 +2080,13 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Adverse Traffic Patterns widget Summary")
 
         sleep(10)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.auto_actions.move_to_element(self.get_adverse_traffic_patterns_widget())
         self.screen.save_screen_shot()
@@ -2075,7 +2099,7 @@ class Copilot(CopilotWebElements):
         sleep(1)
         self.screen.save_screen_shot()
         status = self.get_adverse_traffic_patterns_widget_anomaly_muted().text
-        self.utils.switch_to_default(self.driver)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
 
         if 'SHOW MUTED' in status:
             self.utils.print_info("Successfully Clicked button")
@@ -2099,11 +2123,11 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Adverse Traffic Patterns Widget summary")
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(2)
 
         self.auto_actions.move_to_element(self.get_adverse_traffic_patterns_widget())
@@ -2153,7 +2177,7 @@ class Copilot(CopilotWebElements):
 
             self.utils.print_debug("Anomaly List: ", anomaly_list)
 
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
 
             if location_name:
                 for anomaly_element in anomaly_list:
@@ -2186,11 +2210,11 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Adverse Traffic Patterns Widget summary")
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(2)
 
         self.auto_actions.move_to_element(self.get_adverse_traffic_patterns_widget())
@@ -2243,7 +2267,7 @@ class Copilot(CopilotWebElements):
 
                     self.utils.print_debug("Anomaly List: ", anomaly_list)
 
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
 
                     if ap_name:
                         for anomaly_element in anomaly_list:
@@ -2273,7 +2297,7 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         sleep(5)
         self.utils.print_info("Scrolling down...")
@@ -2282,7 +2306,7 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Getting Location Name rows in Adverse Traffic Patterns Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
@@ -2331,7 +2355,7 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         sleep(5)
         self.utils.print_info("Scrolling down...")
@@ -2340,7 +2364,7 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Getting Location Name rows in Adverse Traffic Patterns Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
@@ -2376,12 +2400,12 @@ class Copilot(CopilotWebElements):
         """
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
-            self.utils.switch_to_default(self.driver)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_copilot_menu()
         self.utils.print_info("Getting Location Name rows in Adverse Traffic Patterns Widget")
         sleep(15)
 
-        self.utils.switch_to_iframe(self.driver)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
 
         for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
@@ -2425,3 +2449,48 @@ class Copilot(CopilotWebElements):
         # if code made it here then location was not found
         self.utils.print_info(f"Unable to location : {location_name} " f"in Adverse Traffic Patterns Widget")
         return -1
+
+    def get_adverse_traffic_patterns_widget_summary(self):
+        """
+        - Gets adverse traffic patterns widget summary in copilot Page
+        - Flow : Copilot page --> adverse traffic patterns
+        - Keyword Usage
+         - ``${SUMMARY}  ${BUILDINGS}   ${AP}= Get Adverse Traffic Patterns Widget Summary``
+        :return: returns Buildings and APs count if success else returns -1 or -2
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.print_info("Getting Adverse Traffic Patterns Widget Summary")
+        sleep(15)
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(5)
+
+        adverse_traffic_patterns_summary = -1
+        buildings = -1
+        aps = -1
+
+        try:
+            adverse_traffic_patterns_summary = self.get_adverse_traffic_patterns_widget_content().text
+            self.utils.print_info("Adverse Traffic Patterns widget Summary : ", adverse_traffic_patterns_summary)
+            if re.search(r'(\d+) places in your environment, affecting (\d+) devices.',
+                         adverse_traffic_patterns_summary):
+                summary = re.search(r'(\d+) places in your environment, affecting (\d+) devices',
+                                    adverse_traffic_patterns_summary)
+                buildings = summary.group(1)
+                aps = summary.group(2)
+                self.utils.print_info("Total Buildings : ", buildings)
+                self.utils.print_info("Total APs : ", aps)
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                return adverse_traffic_patterns_summary, buildings, aps
+            else:
+                self.utils.print_info("No anomalies detected for Adverse Traffic Patterns widget Summary")
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                return adverse_traffic_patterns_summary, buildings, aps
+        except Exception as e:
+            self.utils.print_info("Unable to get Adverse Traffic Patterns widget Summary")
+            self.utils.print_info(e)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return adverse_traffic_patterns_summary, buildings, aps

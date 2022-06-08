@@ -42,6 +42,18 @@ class ExtremeGuestOnboardingWebElements(ExtremeGuestOnboardingWebElementsDefs):
     def get_extreme_guest_onboarding_policy_add_group_select_dropdown_items(self):
         return self.weh.get_elements(self.extreme_guest_onboarding_policy_add_group_select_dropdown_items)
 
+    def get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown)
+
+    def get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown_items(self):
+        return self.weh.get_elements(self.extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown_items)
+
+    def get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown)
+
+    def get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown_items(self):
+        return self.weh.get_elements(self.extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown_items)
+
     def get_extreme_guest_onboarding_policy_add_save_button(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_save_button)
 
@@ -84,6 +96,9 @@ class ExtremeGuestOnboardingWebElements(ExtremeGuestOnboardingWebElementsDefs):
 
     def get_extreme_guest_onboarding_rule_add_save_ok_button(self):
         return self.weh.get_element(self.extreme_guest_onboarding_rule_add_save_ok_button)
+
+    def get_extreme_guest_onboarding_rule_add_save_exists_button(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_rule_add_save_exists_button)
 
     def get_extreme_guest_onboarding_rule_add_cancel_button(self):
         return self.weh.get_element(self.extreme_guest_onboarding_rule_add_cancel_button)

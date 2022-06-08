@@ -12,6 +12,9 @@ class CopilotWebElements(CopilotDefs):
     def get_wifi_capacity_content(self):
         return self.weh.get_element(self.wifi_capacity_content)
 
+    def get_wifi_capacity_status(self):
+        return self.weh.get_element(self.wifi_capacity_status)
+
     def get_wifi_capacity_widget_location_grid_rows(self):
         grid_rows = self.weh.get_elements(self.wifi_capacity_widget_location_grid_rows)
         if grid_rows:
@@ -480,3 +483,6 @@ class CopilotWebElements(CopilotDefs):
 
     def get_adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_okay(self, panel):
         return self.weh.get_element(self.adverse_traffic_patterns_widget_location_dismiss_confirm_dialog_okay, panel)
+
+    def get_adverse_traffic_patterns_widget_content(self):
+        return self.weh.get_element(self.adverse_traffic_patterns_widget_content)

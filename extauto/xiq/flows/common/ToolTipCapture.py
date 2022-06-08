@@ -1,6 +1,6 @@
 from time import sleep
 import threading
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 
 
 tool_tip_text = None
@@ -14,11 +14,11 @@ def tool_tip_capture():
     """
     global tool_tip_text
     tool_tip_text = []
-    driver = extauto.common.CloudDriver.cloud_driver
+    # driver = extauto.common.CloudDriver.cloud_driver
     t = threading.current_thread()
     while getattr(t, "do_run", True):
         try:
-            tool_tip_elemnt = driver.find_element_by_css_selector(".ui-tipbox-ctn")
+            tool_tip_elemnt = CloudDriver().cloud_driver.find_element_by_css_selector(".ui-tipbox-ctn")
             if text := tool_tip_elemnt.text:
                 if text not in tool_tip_text:
                     tool_tip_text.append(text)

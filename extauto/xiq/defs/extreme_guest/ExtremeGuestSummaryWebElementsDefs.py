@@ -100,3 +100,27 @@ class ExtremeGuestSummaryWebElementsDefs:
             'XPATH': '//span[contains(@class, "eguest-linkedin-count")]',
             'wait_for': 5
         }
+
+    extreme_guest_summary_total_users_widget = \
+        {
+            'XPATH': '//span[contains(@class, "eguest-totalusers-count")]',
+            'wait_for': 5
+        }
+
+    extreme_guest_summary_online_users_widget = \
+        {
+            'XPATH': '//span[contains(@class, "eguest-onlineusers-count")]',
+            'wait_for': 5
+        }
+
+    extreme_guest_summary_total_clients_widget = \
+        {
+            'XPATH': '//span[contains(@class, "eguest-totalclients-count")]',
+            'wait_for': 5
+        }
+
+    extreme_guest_summary_online_clients_widget = \
+        {
+            'XPATH': '//span[contains(@class, "eguest-onlineclients-count")]',
+            'wait_for': 5
+        }

@@ -9,7 +9,7 @@ from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElemen
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
 from extauto.common.WebElementHandler import WebElementHandler
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 
 
 class DeviceConfig(DeviceConfigElements):
@@ -21,7 +21,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions = AutoActions()
         self.device_common = DeviceCommon()
         self.web = WebElementHandler()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
 
 
@@ -74,6 +74,114 @@ class DeviceConfig(DeviceConfigElements):
         if self.get_wireless_interface_toggle():
             self.auto_actions.click(self.get_wireless_interface_toggle())
             self.utils.print_info("able to click toggle")
+
+    def override_client_mode_in_device_config(self, device_mac='', interface='', **client_mode_profile):
+        """
+        - This keyword is used to modify or override the client mode settings in wireless interface settings page
+        - override wireless interface settings includes client mode options of radio usage
+        - Flow: Manage --> Devices --> Select single device -->  Select interface setting tab --> Wireless Interfaces
+        - Keyword Usage:
+         - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi0   &{client_mode_profile}``
+         - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi1   &{client_mode_profile}``
+
+        :param device_mac:  device mac
+        :param interface: device interface i.e WiFi0/WiFi1
+        :param client_mode_profile: override config dict
+        :return: 1 if interface setting updated success else -1
+        """
+        self.utils.print_info("Navigating to device 360 page")
+        if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+            self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+            return -1
+        self.utils.print_info("click on configuration tab")
+        self.auto_actions.click(self.get_configuration_tab())
+        self.utils.print_info("Click on interface settings tab")
+        self.auto_actions.click(self.get_interface_settings_tab())
+        self._go_to_wireless_interface_settings_page()
+        sleep(3)
+        self.auto_actions.click(self.get_wifi0_interface_tab())
+        self.auto_actions.click(self.get_override_client_access_wifi0_checked())
+        self.auto_actions.click(self.get_override_client_access_wifi0_checked())
+        self.auto_actions.click(self.get_interface_settings_save_button())
+        sleep(3)
+        self._go_to_wireless_interface_settings_page()
+
+        if   interface.lower() == 'wifi0':
+            self.utils.print_info("Click on WiFi0 interface tab")
+            self.auto_actions.click(self.get_wifi0_interface_tab())
+            self.utils.print_info("Click enable Client Mode Checkbox")
+            self.auto_actions.click(self.get_override_client_mode_wifi0_checked())
+            sleep(3)
+            self.auto_actions.scroll_down()
+            self.utils.print_info("Click Add(+)")
+            self.auto_actions.click(self.get_override_add_client_mode_wifi0_profile())
+        elif interface.lower() == 'wifi1':
+            self.utils.print_info("Click on WiFi1 interface tab")
+            self.auto_actions.click(self.get_wifi1_interface_tab())
+            self.utils.print_info("Click enable Client Mode Checkbox")
+            self.auto_actions.click(self.get_override_client_mode_wifi1_checked())
+            sleep(3)
+            self.auto_actions.scroll_down()
+            self.utils.print_info("Click Add(+)")
+            self.auto_actions.click(self.get_override_add_client_mode_wifi1_profile())
+        else:
+            self.utils.print_info(f"Can you specify interface(wifi0 or wifi1)?")
+
+        self._override_client_mode_wifi0_1(**client_mode_profile)
+        sleep(3)
+        self.utils.print_info("Click on interface settings save button")
+        self.auto_actions.click(self.get_interface_settings_save_button())
+        sleep(5)
+        self.screen.save_screen_shot()
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+        self.utils.print_info("Close the device360 page dialog window")
+        self.auto_actions.click(self.get_close_device360_dialog_window())
+
+        if 'Interface Settings were updated successfully.' in tool_tp_text:
+            return 1
+        else:
+            return -1
+
+    def _override_client_mode_wifi0_1(self, **client_mode_profile):
+        """
+        - Get the override client mode wifi0 and 1
+        :return:
+        """
+        client_mode_profile_name = client_mode_profile['client_mode_profile_name']
+        dhcp_server_scope = client_mode_profile['dhcp_server_scope']
+        cm_enable_local_web_page = client_mode_profile.get('local_web_page', 'ENABLE')
+        cm_ssid_name = client_mode_profile.get('ssid_name', 'bk_enterprise')
+        cm_password = client_mode_profile.get('password', 'aerohive')
+        cm_auth_method = client_mode_profile.get('auth_method', 'Pre-Shared Key')
+        cm_key_type = client_mode_profile.get('key_type', 'ASCII')
+
+        self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
+        self.auto_actions.send_keys(self.get_override_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
+        if cm_enable_local_web_page.upper() == 'DISABLE':
+            self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
+            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_checkbox())
+            self.utils.print_info(f"Click Add(+)")
+            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_add())
+            self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
+            self.auto_actions.send_keys(self.get_override_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
+            self.utils.print_info(f"Enter Password: {cm_password}")
+            self.auto_actions.send_keys(self.get_override_wifi0_1_cm_local_web_page_password_textbox(), cm_password)
+            self.utils.print_info(f"Auth Method: {cm_auth_method}")
+            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_auth_dropdown())
+            self.auto_actions.select_drop_down_options(self.get_override_wifi0_1_cm_local_web_page_auth_dropdown_option(), cm_auth_method)
+            self.utils.print_info(f"Key Type: {cm_key_type}")
+            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_key_type_dropdown())
+            self.auto_actions.select_drop_down_options(self.get_override_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
+            self.screen.save_screen_shot()
+            sleep(2)
+            self.utils.print_info(f"Click Add button")
+            self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
+        self.utils.print_info(f"Enter DHCP Server Scope: {dhcp_server_scope}")
+        self.auto_actions.send_keys(self.get_override_wifi0_1_client_mode_profile_dhcp_server_scope(), dhcp_server_scope)
+        self.screen.save_screen_shot()
+        self.utils.print_info("Click Save Client Mode Profile")
+        self.auto_actions.click(self.get_override_wifi0_1_client_mode_profile_save())
 
     def override_psk_ssid_settings(self, device_serials='', **override_args):
         """
@@ -621,6 +729,22 @@ class DeviceConfig(DeviceConfigElements):
             return "ON"
         else:
             return "OFF"
+
+
+    def _check_wifi2_radio_status(self):
+        """
+        - Configure WiFi1 Radio Status on Device Override
+        :return:  WiFi1 Radio status ie ON or OFF
+        """
+        self.utils.print_info("Click WIFI2 Tab")
+        self.auto_actions.click(self.get_wifi2_interface_tab())
+        sleep(2)
+
+        if self.get_device_override_configure_interface_settings_wifi2_radio_status().is_selected():
+            return "ON"
+        else:
+            return "OFF"
+
 
     def check_wifi_radio_status(self, wifi_interface_name, device_mac="", device_name=""):
         """
@@ -1361,12 +1485,12 @@ class DeviceConfig(DeviceConfigElements):
         """
         if transmission_mode == "Auto":
             self.utils.print_info("Enable Transmission Power Mode To Auto")
-            self.driver.execute_script("arguments[0].click();", self.get_wireless_interface_wifi2_transmission_mode_auto())
+            CloudDriver().cloud_driver.execute_script("arguments[0].click();", self.get_wireless_interface_wifi2_transmission_mode_auto())
             sleep(2)
 
         if transmission_mode == "Manual":
             self.utils.print_info("Enable Transmission Power Mode To Manual")
-            self.driver.execute_script("arguments[0].click();", self.get_wireless_interface_wifi2_transmission_mode_manual())
+            CloudDriver().cloud_driver.execute_script("arguments[0].click();", self.get_wireless_interface_wifi2_transmission_mode_manual())
             sleep(2)
 
             if power_value != "default":
@@ -1419,7 +1543,7 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info(" LOCATOR ------ " + str(locator))
             element = self.web.get_element(locator)
             element.click()
-            self.driver.execute_script("arguments[0].click();", element)
+            CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         except:
             self.utils.print_info(" Not able to configure any channel; leaving as default.")
@@ -1488,7 +1612,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click on Clients")
-        self.driver.execute_script("arguments[0].click();", self.get_go_to_clients())
+        CloudDriver().cloud_driver.execute_script("arguments[0].click();", self.get_go_to_clients())
         sleep(3)
 
         total_client_count = self.get_total_client_count().text
@@ -1520,6 +1644,47 @@ class DeviceConfig(DeviceConfigElements):
         client_info["SNR"] = self.get_client_snr().text
 
         return client_info
+
+    def navigate_to_device_config_device_config_dhcp(self, device_mac, dhcp="ENABLE"):
+        """
+        - This keyword will retrieve the all settings in the device configuration interface WiFi2 page
+        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> Device Configuration -->dhcp
+
+        - Keyword Usage:
+         - ``navigate_to_device_config_device   ${DEVICE_MAC}   Enable''
+
+        :param device_mac: device MAC to go to device 360 page
+        :param dhcp: Enable/Disable
+        :return: 1 or -1
+        """
+
+        try:
+            self.utils.print_info("Navigating to device 360 page")
+            if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                return -1
+
+            self.utils.print_info("click on configuration tab")
+            self.auto_actions.click(self.get_configuration_tab())
+            self.utils.print_info("Click on Device Configuration tab")
+            self.auto_actions.click(self.get_device_configuration_tab())
+
+            dhcp_status = self.get_device_configuration_dhcp_checkbox().is_selected()
+            if dhcp.upper() == "ENABLE" and not dhcp_status:
+                self.utils.print_info("Enable -> Use DHCP only to set IP Address")
+                self.auto_actions.click(self.get_device_configuration_dhcp_checkbox())
+            elif dhcp.upper() == "DISABLE" and dhcp_status:
+                self.utils.print_info("Disable -> Use DHCP only to set IP Address")
+                self.auto_actions.click(self.get_device_configuration_dhcp_checkbox())
+            self.auto_actions.click(self.get_device_override_save_device_configuration())
+            sleep(2)
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            sleep(2)
+        except:
+            self.utils.print_info("Not able to navigate to the page")
+
+        return 1
 
     def navigate_to_device_config_interface_wireless(self, device_mac, interface='wifi2'):
         """
@@ -1803,11 +1968,11 @@ class DeviceConfig(DeviceConfigElements):
                 if mode == 'excluded':
                     if enabled_text.find("excluded") == -1:
                         self.utils.print_info(" Click on the channel " + str(channel))
-                        self.driver.execute_script("arguments[0].click();", element)
+                        CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
                 elif mode == 'included':
                     if enabled_text.find("included") == -1:
                         self.utils.print_info(" Click on the channel " + str(channel))
-                        self.driver.execute_script("arguments[0].click();", element)
+                        CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         except:
             self.utils.print_info(" Not able to click on the channel ")
@@ -1936,7 +2101,7 @@ class DeviceConfig(DeviceConfigElements):
             locator = self.get_select_wireless_wifi2_radio_profile(str(profile_name))
             self.auto_actions.click(self.web.get_element(locator))
             element = self.get_default_wireless_wifi2_radio_profile_drop_down()
-            # self.driver.execute_script("arguments[0].click();", element)
+            # CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         elif interface in ['wifi1', 'WIFI1']:
             self.auto_actions.click(self.get_default_wireless_wifi1_radio_profile_drop_down())
@@ -2042,16 +2207,16 @@ class DeviceConfig(DeviceConfigElements):
         if interface in ['wifi2', 'WIFI2']:
             element = self.get_wireless_wifi2_override_channel_exclusion_setting_radio_profile_checkbox()
             if not element.is_selected():
-                self.driver.execute_script("arguments[0].click();", element)
+                CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         elif interface in ['wifi1', 'WIFI1']:
             element = self.get_wireless_wifi1_override_channel_exclusion_setting_radio_profile_checkbox()
             if not element.is_selected():
-                self.driver.execute_script("arguments[0].click();", element)
+                CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
         elif interface in ['wifi0', 'WIFI0']:
             element = self.get_wireless_wifi0_override_channel_exclusion_setting_radio_profile_checkbox()
             if not element.is_selected():
-                self.driver.execute_script("arguments[0].click();", element)
+                CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
         return 1
 
     def _go_to_wired_interface_settings_page(self):

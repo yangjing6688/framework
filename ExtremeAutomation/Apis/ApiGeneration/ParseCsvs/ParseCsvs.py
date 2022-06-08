@@ -115,7 +115,7 @@ class ParseCsvs(object):
                                     feature.capitalize() + "\nThis feature is located in this file: `" + yaml_file_parsed + "` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition)" +\
                                     ". If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: " + \
                                     "/extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory " + \
-                                    "(/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`"
+                                    "(/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` "
                     
                     self.__create_index_file(mappingfilename, header_text, feature.capitalize())
                     self.__create_mapping_file_methods_commands(mappingfilename, header_text, feature.capitalize())
@@ -149,73 +149,74 @@ class ParseCsvs(object):
                             self.__parse_api_items(api_dict[feature][api_method]["apis"][agent], api_method, feature,
                                                    agent, uuid=uuid)
                     
-                    if not parse_api_processing:        
-                        # Doc
+                    if not parse_api_processing:
                         argument_order = ""
                         try:
-                            argument_order = self.keyword_info["arg_order"][feature][api_method]
-                            if argument_order == None:
-                                argument_order = ""
+                            if api_method.split("_")[0] != "show":
+                                argument_order = self.keyword_info["arg_order"][feature][api_method]
+                                if argument_order == None:
+                                    argument_order = ""
                         except Exception:
                             pass
-                        
+
                         if feature not in interface_method_information:
                             interface_method_information[feature] = {}
-            
-                        if api_method not in interface_method_information[feature]:
+
+                        if api_method.split("_")[0] != "show" and api_method not in interface_method_information[feature]:
                             interface_method_information[feature][api_method] = {}
                             if 'description' in api_dict[feature][api_method]:
                                 interface_method_information[feature][api_method]['description'] = api_dict[feature][api_method]["description"]
                             else:
                                 interface_method_information[feature][api_method]['description'] = ""
-                            
+
                             commaAfterDevice = ""
                             if argument_order != "":
                                 commaAfterDevice = ","
                             interface_method_information[feature][api_method]['pytest_command'] =   "\n\n\t\tself.defaultLibrary.apiLowLevelApis."+ feature + "." + feature + "_" + api_method + "(device_name" + commaAfterDevice + " " + "".join(argument_order).replace(",",", ") + ")\n"
-                                                                                                    
+
                             interface_method_information[feature][api_method]['robot_command'] =    "\n\n\t\t" + feature + "_" + api_method + "  device_name  " + "".join(argument_order).replace(",","  ") + "\n"
-                                                                                                    
+
                             interface_method_information[feature][api_method]['uuid'] = uuid
                             interface_method_information[feature][api_method]['api_method'] = api_method
                             interface_method_information[feature][api_method]['command_info'] = {}
                             interface_method_information[feature][api_method]['command_info']['CLI'] = []
                             interface_method_information[feature][api_method]['command_info']['REST'] = []
                             interface_method_information[feature][api_method]['command_info']['SNMP'] = []
-                            
+
                             end_of_command = "\n\n----------------------------------------------\n\n"
-                            
+
                             for agentType in api_dict[feature][api_method]['apis']:
-                                if agentType == 'CLI':
-                                    cli = api_dict[feature][api_method]['apis'][agentType]
-                                    for cli_index in cli:
-                                        file_str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: {0}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: {1}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: {2}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: {3}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:\n\n\t\t{4}{5}".format(  str(cli_index[0]),
-                                                                                                                                str(agentType),
-                                                                                                                                str(cli_index[5]),
-                                                                                                                                str(cli_index[6]),
-                                                                                                                                str(cli_index[4]),
-                                                                                                                                end_of_command)
-                                        interface_method_information[feature][api_method]['command_info']['CLI'].append(file_str)
-                                
-                                elif agentType == 'REST':
-                                    rest = api_dict[feature][api_method]['apis'][agentType]
-                                    for rest_index in rest:
-                                        file_str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: {0}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: {1}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: {2}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: {3}{4}".format( str(rest_index[0]),
-                                                                                                                    str(agentType),
-                                                                                                                    str(rest_index[4]),
-                                                                                                                    str(rest_index[5]),
-                                                                                                                    end_of_command)
-                                        interface_method_information[feature][api_method]['command_info']['REST'].append(file_str)
-                                    
-                                elif agentType == 'SNMP':
-                                    snmp = api_dict[feature][api_method]['apis'][agentType]
-                                    for snmp_index in snmp:
-                                        file_str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: {0}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: {1}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: {2}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: {3}{4}".format( str(snmp_index[0]),
-                                                                                                                    str(agentType),
-                                                                                                                    str(snmp_index[4]),
-                                                                                                                    str(snmp_index[5]),
-                                                                                                                    end_of_command)
-                                        interface_method_information[feature][api_method]['command_info']['SNMP'].append(file_str)
+                                if api_method.split("_")[0] != "show":
+                                    if agentType == 'CLI':
+                                        cli = api_dict[feature][api_method]['apis'][agentType]
+                                        for cli_index in cli:
+                                            file_str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: {0}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: {1}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: {2}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: {3}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:\n\n\t\t{4}{5}".format(  str(cli_index[0]),
+                                                                                                                                    str(agentType),
+                                                                                                                                    str(cli_index[5]),
+                                                                                                                                    str(cli_index[6]),
+                                                                                                                                    str(cli_index[4]),
+                                                                                                                                    end_of_command)
+                                            interface_method_information[feature][api_method]['command_info']['CLI'].append(file_str)
+
+                                    elif agentType == 'REST':
+                                        rest = api_dict[feature][api_method]['apis'][agentType]
+                                        for rest_index in rest:
+                                            file_str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: {0}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: {1}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: {2}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`URL`: {3}{4}".format( str(rest_index[0]),
+                                                                                                                        str(agentType),
+                                                                                                                        str(rest_index[4]),
+                                                                                                                        str(rest_index[5]),
+                                                                                                                        end_of_command)
+                                            interface_method_information[feature][api_method]['command_info']['REST'].append(file_str)
+
+                                    elif agentType == 'SNMP':
+                                        snmp = api_dict[feature][api_method]['apis'][agentType]
+                                        for snmp_index in snmp:
+                                            file_str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: {0}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: {1}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: {2}\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: {3}{4}".format( str(snmp_index[0]),
+                                                                                                                        str(agentType),
+                                                                                                                        str(snmp_index[4]),
+                                                                                                                        str(snmp_index[5]),
+                                                                                                                        end_of_command)
+                                            interface_method_information[feature][api_method]['command_info']['SNMP'].append(file_str)
                 if not parse_api_processing:
                     # Write out the documentation
                     for feature in interface_method_information.keys():
@@ -225,7 +226,7 @@ class ParseCsvs(object):
                             function_header =   "# API Function: " + function + "\n\tPytest API Call: " + command_data['pytest_command'] + "\n\tRobot API Call: " + command_data['robot_command'] + "\nUUID: " + str(command_data['uuid'])
                             self.__add_to_mapping_file_methods_commands(self.keyword_document_generated, function_header, feature.capitalize())
                             for command_group in command_data['command_info']:
-                                file_str = ("## " + str(command_group)) 
+                                file_str = ("## " + str(command_group))
                                 self.__add_to_mapping_file_methods_commands(self.keyword_document_generated, file_str, feature.capitalize())
                                 command_agent_data = command_data['command_info'][command_group]
                                 for command in command_agent_data:

@@ -1626,7 +1626,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.utils.print_debug(f"Column ID for {col_name}: {col_id}")
             col_val = self.get_device_column_value(col_id, device_row)
             if col_val:
-                if col_name == "Archived" or col_name == "XIQ Onboarded":
+                if col_name == "Archived" or col_name == "XIQ Onboarded" or col_name == "Stats":
                     the_value = col_val.get_attribute("data-qtip")
                 else:
                     the_value = col_val.text
@@ -2335,5 +2335,181 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         self.utils.print_info(f"Returning syslog status {ret_val} for device {device_ip}")
         self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_get_device_license(self, device_ip):
+        """
+        - This keyword is used to get the device license for the specified device in the devices table.
+        - It is assumed the Network> Devices> Devices tab is already selected.
+        - Keyword Usage:
+         - ``XIQSE Get Device License    ${DEVICE_IP}``
+
+        :param device_ip: device IP to look for
+        :return: device license for the specified device;  empty string ("") if device license cannot be determined
+        """
+        ret_val = ""
+
+        device_row = self.xiqse_get_device_row(device_ip)
+        if device_row:
+            the_col = self.get_device_column_by_name("License")
+            col_id = self.view_el.get_column_id(the_col)
+            self.utils.print_debug(f"Column ID: {col_id}")
+            if col_id != -1:
+                col_val = self.get_device_column_value(col_id, device_row)
+                if col_val:
+                    status_value = col_val.text
+                    self.utils.print_info(f"Returning Device License {status_value} for device {device_ip}")
+                    ret_val = status_value
+                else:
+                    self.utils.print_info(f"Unable to determine device license for device {device_ip}")
+            else:
+                self.utils.print_info("Unable to find column ID for License column")
+        else:
+            self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
+
+        self.utils.print_info(f"Returning device license {ret_val} for device {device_ip}")
+        self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_wait_until_device_stats_historical(self, device_ip, retry_duration=30, retry_count=10):
+        """
+        - This keyword is used to wait for the device to show it is collecting historical statistics.
+        - This keyword by default loops 10 times every 30 seconds to check if the device is collecting historical statistics.
+        - It is assumed the Network> Devices> Devices tab is already selected.
+        - Keyword Usage:
+         - ``XIQSE Wait Until Device Stats Historical    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+
+        :param device_ip: device IP to check the stats column on
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if device stats within specified time; else -1
+        """
+        ret_val = -1
+        count = 1
+        while count <= retry_count:
+            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+
+            stale_retry = 1
+            while stale_retry <= 10:
+                try:
+                    self.xiqse_table.xiqse_refresh_table()
+
+                    stats_val = self.xiqse_get_device_column_value(device_ip, "Stats")
+                    self.utils.print_info(f"Stats Value: '{stats_val}'")
+                    if stats_val and stats_val == "Collecting Historical":
+                        self.utils.print_info("Device is collecting historical statistics")
+                        return 1
+                    else:
+                        self.utils.print_info(f"Device is not yet collecting historical statistics. Waiting for {retry_duration} seconds...")
+                        sleep(retry_duration)
+
+                    # Break out of the Stale Element Exception loop
+                    break
+                except StaleElementReferenceException:
+                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                    stale_retry = stale_retry + 1
+
+            # Increment retry counter
+            count += 1
+
+        if ret_val == -1:
+            self.utils.print_info(f"Device did not update to collecting historical statistics within allocated time. Please check.")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_wait_until_device_stats_threshold_alarms(self, device_ip, retry_duration=30, retry_count=10):
+        """
+        - This keyword is used to wait for the device to show it is collecting threshold alarms.
+        - This keyword by default loops 10 times every 30 seconds to check if the device is collecting threshold alarms statistics.
+        - It is assumed the Network> Devices> Devices tab is already selected.
+        - Keyword Usage:
+         - ``XIQSE Wait Until Device Stats Threshold Alarms    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+
+        :param device_ip: device IP to check the stats column on
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if device stats within specified time; else -1
+        """
+        ret_val = -1
+        count = 1
+        while count <= retry_count:
+            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+
+            stale_retry = 1
+            while stale_retry <= 10:
+                try:
+                    self.xiqse_table.xiqse_refresh_table()
+
+                    stats_val = self.xiqse_get_device_column_value(device_ip, "Stats")
+                    self.utils.print_info(f"Stats Value: '{stats_val}'")
+                    if stats_val and stats_val == "Collecting Threshold Alarms":
+                        self.utils.print_info("Device is collecting threshold alarms statistics")
+                        return 1
+                    else:
+                        self.utils.print_info(f"Device is not yet collecting threshold alarms statistics. Waiting for {retry_duration} seconds...")
+                        sleep(retry_duration)
+
+                    # Break out of the Stale Element Exception loop
+                    break
+                except StaleElementReferenceException:
+                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                    stale_retry = stale_retry + 1
+
+            # Increment retry counter
+            count += 1
+
+        if ret_val == -1:
+            self.utils.print_info(f"Device did not update to collecting threshold alarms statistics within allocated time. Please check.")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_wait_until_device_stats_not_collecting(self, device_ip, retry_duration=30, retry_count=10):
+        """
+        - This keyword is used to wait for the device to show it is not collecting device statistics.
+        - This keyword by default loops 10 times every 30 seconds to check if the device is not collecting device statistics.
+        - It is assumed the Network> Devices> Devices tab is already selected.
+        - Keyword Usage:
+         - ``XIQSE Wait Until Device Stats Not Collecting    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+
+        :param device_ip: device IP to check the stats column on
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if device stats within specified time; else -1
+        """
+        ret_val = -1
+        count = 1
+        while count <= retry_count:
+            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+
+            stale_retry = 1
+            while stale_retry <= 10:
+                try:
+                    self.xiqse_table.xiqse_refresh_table()
+
+                    stats_val = self.xiqse_get_device_column_value(device_ip, "Stats")
+                    self.utils.print_info(f"Stats Value: '{stats_val}'")
+                    if stats_val and stats_val == "Not Collecting":
+                        self.utils.print_info("Device is not collecting device statistics")
+                        return 1
+                    else:
+                        self.utils.print_info(f"Device is not yet disabled for collecting device statistics. Waiting for {retry_duration} seconds...")
+                        sleep(retry_duration)
+
+                    # Break out of the Stale Element Exception loop
+                    break
+                except StaleElementReferenceException:
+                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                    stale_retry = stale_retry + 1
+
+            # Increment retry counter
+            count += 1
+
+        if ret_val == -1:
+            self.utils.print_info(f"Device did not update to not collecting device statistics within allocated time. Please check.")
+            self.screen.save_screen_shot()
 
         return ret_val
