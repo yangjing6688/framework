@@ -882,13 +882,14 @@ class UserGroups(UserGroupsWebElements):
         self.auto_actions.click(self.get_wireless_usr_profile_select_wind_cancel_button())
         return False
     
-    def delete_all_user_groups(self, *groups, **kwargs):
+    def delete_all_user_groups(self, *exclusive_groups, **kwargs):
         """
-        - Delete all custom user groups form user groups grid
+        - Delete all custom user groups
         - Keyword Usage:
-        - ``delete_all_user_groups    ${ EXCLUSIVE GROUP_NAME1}   ${EXCLUSIVE GROUP_NAME2}``
+        - ``delete_all_user_groups    ${ EXCLUSIVE GROUP_NAME1}   ${EXCLUSIVE GROUP_NAME2}    IRV=True``
 
         :param groups: exclusive group names
+        :param IRV:    if False, the error or not match will skip, otherwise, error will not skip
         :return: 1 if deleted successfully else -1
         """
 
@@ -905,16 +906,16 @@ class UserGroups(UserGroupsWebElements):
         self.utils.print_info("Get an user group total")
         total_rows = self.get_user_group_grid_rows()
         if total_rows != None:
-            if int(len(total_rows)) - 1 == len(groups):
+            if int(len(total_rows)) - 1 == len(exclusive_groups):
                 self.utils.print_info("There are no custom user groups to delete")
-                return 1
+                self.common_validation.validate(1, 1, **kwargs)
         else:
-            kwargs['fail_msg'] = "Could not get the user group list"
+            kwargs['fail_msg'] = "Could not get an user group list"
             self.common_validation.validate(-1, 1, **kwargs)
 
         try:
             self.auto_actions.click(self.get_usr_group_select_all_checkbox())
-            for exclusive_group in groups:
+            for exclusive_group in exclusive_groups:
                 if not self._search_user_group(exclusive_group):
                     self.utils.print_info("User group does not exist in the user group list")
                     kwargs['fail_msg'] = "User group does not exist in the user group list "
@@ -928,3 +929,5 @@ class UserGroups(UserGroupsWebElements):
         if self._perform_user_group_delete() == -1:
             kwargs['fail_msg'] = "Unable to delete all custom users "
             self.common_validation.validate(-1, 1, **kwargs)
+
+        return 1
