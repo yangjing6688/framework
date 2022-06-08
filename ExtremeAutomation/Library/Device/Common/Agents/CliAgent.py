@@ -534,6 +534,9 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
             prompt_re1 = self.prompt_snapshot + ".$"
             prompt_re1 = prompt_re1.replace("\\", "\\\\")
             prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
+        elif self.device.oper_sys in [NetworkElementConstants.OS_HIVE]:
+            prompt_re1 = ".*" + self.prompt_snapshot + ".*"
+            prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
 
         return prompt_list
 
