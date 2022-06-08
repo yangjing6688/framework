@@ -137,3 +137,9 @@ class FilterManageClientDefinitions:
             'XPATH': '//input[@data-name=',
             'wait_for': 5
         }
+
+    filter_client_application_table_list = \
+        {
+            'XPATH': '//div[contains(@id,"dojox_grid__View")]//div/table/tbody/tr',
+            'wait_for': 5
+        }
