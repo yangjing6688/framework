@@ -1862,6 +1862,7 @@ class Devices:
         :return: -5 for error - When onboarding multiple devices, serial numbers must be separated by ", " (Commas).
         :return: -6 for error - The number of MAC Addresses must match the number of Serial Numbers
         :return: -7 for error - Please enter a valid MAC Address
+        :return: -8 for error - Unable to get pop-up menu item
         """
         self.utils.print_info("Onboarding: ", device_make)
 
@@ -1874,7 +1875,24 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
 
         self.utils.print_info("Selecting Quick Add Devices menu")
-        self.auto_actions.move_to_element(self.devices_web_elements.get_quick_add_devices())
+        quick_add_devices_button = ''
+        attempt_count = 3
+        while attempt_count > 0:
+            if attempt_count != 3:
+                self.utils.print_info("Menu selection failed. Making another attempt...")
+                self.utils.print_info("Clicking on ADD button...")
+                self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+                self.utils.print_info("Selecting Quick Add Devices menu")
+                sleep(4)
+            try:
+                quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
+                self.auto_actions.move_to_element(quick_add_devices_button)
+                break
+            except:
+                attempt_count = attempt_count - 1
+        if attempt_count == 0:
+            self.utils.print_info("Unable to get / click the menu option")
+            return -8
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
         self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
@@ -2913,7 +2931,18 @@ class Devices:
 
         if device_row:
             sleep(5)
-            device_status = self.devices_web_elements.get_status_cell(device_row)
+            device_status = ''
+            attempt_count = 3
+            while attempt_count > 1:
+                if attempt_count == 3:
+                    self.utils.print_info("Getting status from cell")
+                else:
+                    self.utils.print_info("Getting status from cell failed...Attempting to get status again")
+                attempt_count = attempt_count - 1
+                device_status = self.devices_web_elements.get_status_cell(device_row)
+                sleep(5)
+                if device_status:
+                    break
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
             self.screen.save_screen_shot()
             sleep(2)
@@ -2951,9 +2980,9 @@ class Devices:
                     return 'unknown'
             else:
                 self.utils.print_info("Unable to obtain device status for the device row")
-                return -1
+                return 'unknown'
 
-        return -1
+        return 'unknown'
 
     def verify_device_status(self, device_serial='default', device_name='default', device_mac='default',
                              status='default'):
