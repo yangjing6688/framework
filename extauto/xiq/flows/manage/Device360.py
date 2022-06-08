@@ -6283,7 +6283,7 @@ class Device360(Device360WebElements):
                 return 1
 
         # pag6 PSE
-        elif element == "pse profile":
+        elif element.lower() == "pse profile":
             sleep(5)
             get_pse_profile = self.get_select_element_port_type(element)
             if get_pse_profile:
@@ -6339,14 +6339,18 @@ class Device360(Device360WebElements):
                         self.utils.print_info("get_pse_profile_add not found ")
             else:
                 self.utils.print_info("get_pse_profile not found ")
-        elif element == "poe status":
+        elif element.lower() == "poe status":
             sleep(5)
             get_poe_status = self.get_select_element_port_type(element,value)
+            print('Found POE_Status button: ', get_poe_status)
             sleep(5)
             if get_poe_status:
                 sleep(5)
                 self.auto_actions.click(get_poe_status)
                 return 1
+            else:
+                print("Could not find POE Status!")
+
         self.utils.print_info(" Error when configure : ", element)
         return -1
 
