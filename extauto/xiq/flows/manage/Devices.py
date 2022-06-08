@@ -9242,7 +9242,7 @@ class Devices:
                     if avilableImagesList == []:
                         self.utils.print_error("Image list from the drop down is empty!")
                         self.screen.save_screen_shot()
-                        sleep(5)
+                        sleep(2)
                         return -1
               
                     # Case-2.1 : Specific version is passed as an argument e.g version = "8.6.1.0" or "31.6.1.2"                  
