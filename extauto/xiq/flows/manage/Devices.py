@@ -3012,7 +3012,7 @@ class Devices:
                 kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
                 self.common_validation.validate(-1, 1, **kwargs)
                 return 'unknown'
-            
+
         kwargs['fail_msg'] = "Unable to obtain device status!"
         self.common_validation.validate(-1, 1, **kwargs)
         return 'unknown'
