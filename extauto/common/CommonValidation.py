@@ -142,6 +142,9 @@ class CommonValidation():
         """
         test_result = False
         ivr_flag = self.get_kwarg(kwargs, "IRV", False)
+
+        self.utils.print_info(" ivr_flag " + str(ivr_flag))
+
         if ivr_flag:
             self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             self.logger.warning("Internal Result Verification is Enabled")

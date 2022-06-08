@@ -925,4 +925,6 @@ class UserGroups(UserGroupsWebElements):
             kwargs['fail_msg'] = "Not able to select an exclusive user group "
             self.common_validation.validate_in_robot(-1, 1, **kwargs)
         
-        return self._perform_user_group_delete()
+        if not self._perform_user_group_delete():
+            kwargs['fail_msg'] = "Unable to delete all custom users "
+            self.common_validation.validate_in_robot(-1, 1, **kwargs)
