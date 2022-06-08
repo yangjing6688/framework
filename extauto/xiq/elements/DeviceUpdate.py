@@ -47,6 +47,9 @@ class DeviceUpdate(DeviceUpdateDefs):
     def get_upgrade_even_if_versions_same_checkbox(self):
         return self.weh.get_element(self.upgrade_even_if_versions_same_checkbox)
 
+    def get_upgrade_even_if_versions_same_checkbox_input(self):
+        return self.weh.get_element(self.upgrade_even_if_versions_same_checkbox_input)
+        
     def get_activate_at_next_reboot_radio(self):
         return self.weh.get_element(self.activate_at_next_reboot_radio)
 
@@ -114,6 +117,13 @@ class DeviceUpdate(DeviceUpdateDefs):
             if upgrade_version in option.text:
                 return option
 
+    def get_upgrade_to_specific_version_dropdown_list(self):
+        try:
+            options = self.weh.get_elements(self.upgrade_to_specific_version_dropdown_options)
+            return options
+        except AttributeError:
+            return -1
+
     def get_device_update_form_error(self, row):
         return self.weh.get_element(self.device_update_form_error, row).get_attribute("title")
 
@@ -124,3 +134,9 @@ class DeviceUpdate(DeviceUpdateDefs):
     def get_update_close_button(self):
         return self.weh.get_element(self.update_close_button)
 
+    def get_update_devices_button_from_d360(self):
+        return self.weh.get_element(self.update_devices_button_from_d360)
+        
+    def get_d360_close_button(self):
+        return self.weh.get_element(self.update_close_button)
+        

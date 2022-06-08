@@ -3,6 +3,7 @@ import os
 import copy
 from time import sleep
 from datetime import datetime
+import datetime as dt
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
@@ -83,6 +84,11 @@ class Devices:
             self.utils.print_info("Device OS: ", device_os)
             if 'Cloud IQ Engine' in device_os:
                 self.utils.print_info("Device OS matched")
+
+        if 'Extreme - Aerohive' in device_make:
+            self.auto_actions.click(self.devices_web_elements.get_device_make_dropdownoption())
+            self.auto_actions.select_drop_down_options(
+                self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
         if location:
             self.utils.print_info("Selecting location")
@@ -434,10 +440,17 @@ class Devices:
         :param ap_mac: AP MAC
         :return: returns the row object
         """
-        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
 
-        if page_size_field and page_number_field.is_displayed():
+        page_size_field_text = ""
+        page_number_field_text = ""
+        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
+        if page_size_field:
+            page_size_field_text = (page_size_field.text).strip()
+        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
+        if page_number_field:
+            page_number_field_text = (page_number_field.text).strip()
+
+        if page_size_field_text and page_number_field_text:
             self.utils.print_info('Getting AP row with Pagination Enabled on Devices Page...')
             if ap_serial != 'default':
                 self.utils.print_info("Getting status of AP with serial: ", ap_serial)
@@ -1010,8 +1023,12 @@ class Devices:
         self.navigator.navigate_to_devices()
 
         try:
-            prev_serials = self.get_device_serial_numbers(device_model)
-            self.utils.print_info("Previously onboarded simulated device serials: ", prev_serials)
+
+            if self.get_device_serial_numbers(device_model):
+                prev_serials = self.get_device_serial_numbers(device_model)
+                self.utils.print_info("Previously onboarded simulated device serials: ", prev_serials)
+            else:
+                prev_serials = []
 
             self.utils.print_info("Clicking on ADD button...")
             self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
@@ -1027,22 +1044,16 @@ class Devices:
 
             self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
 
-            # options = self.devices_web_elements.get_simulated_device_dropdown_options()
-            # get table
             table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
-            # get all rows in table (of APs)
-            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
 
+            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
             for option in options:
                 if device_model in option.text:
                     self.utils.print_info("Simulated device option: ", option.text)
                     self.auto_actions.click(option)
 
-            count -= 1
-            while count:
-                self.auto_actions.click(self.devices_web_elements.get_add_another_device())
-                sleep(2)
-                count -= 1
+            self.utils.print_info(f"Entering Device Count: {count}")
+            self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), count)
 
             if location:
                 self.utils.print_info("Device OS matched")
@@ -1054,7 +1065,7 @@ class Devices:
             sleep(5)
 
             cur_serials = self.get_device_serial_numbers(device_model)
-            self.utils.print_info("prev ", prev_serials, "cur ", cur_serials)
+            self.utils.print_debug("prev ", prev_serials, "cur ", cur_serials)
             new_serials = list(set(cur_serials) - set(prev_serials))
             self.utils.print_info(f"Successfully Onboarded Simulated Device: {device_model} with Serial Number "
                                   f"{new_serials}")
@@ -1071,7 +1082,7 @@ class Devices:
         """
         - gets all existing devices serials with the same device_type
         - Keyword Usage:
-         - Get Device Serial Number   ${DEVICE_TYPE}``
+         - ``Get Device Serial Number   ${DEVICE_TYPE}``
 
         :param device_type: type of device to onboard
         :return: serial number(s) with same device type
@@ -1179,9 +1190,10 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
         sleep(5)
 
+        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
+
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
         sleep(2)
-
         if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
             self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
         else:
@@ -1649,6 +1661,12 @@ class Devices:
             self.auto_actions.click(self.device_update.get_update_devices_button())
             sleep(5)
 
+            uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
+
+            if  uptd.is_selected():
+                self.utils.print_info(f"uncheck the update configuration checkbox ")
+                self.auto_actions.click(uptd)
+
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
             sleep(5)
@@ -1852,16 +1870,13 @@ class Devices:
         if 'Controllers' in device_make or 'XCC' in device_make:
             return self.onboard_wing_ap(device_serial, device_mac, device_make, location)
 
-        if 'Dual Boot' in device_make:
-            return self.onboard_ap(device_serial, device_make, location, device_os)
-
         self.navigator.navigate_to_devices()
 
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
 
         self.utils.print_info("Selecting Quick Add Devices menu")
-        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
+        self.auto_actions.move_to_element(self.devices_web_elements.get_quick_add_devices())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
         self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
@@ -1871,7 +1886,7 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
 
-        self.utils.print_info("Entering Serial Number...")
+        self.utils.print_info("Entering Serial Number...",device_serial)
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
         sleep(5)
 
@@ -2380,7 +2395,7 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-
+        
         if device_serial:
             self.utils.print_info("Deleting device: ", device_serial)
             search_result = self.search_device(device_serial=device_serial)
@@ -2401,7 +2416,11 @@ class Devices:
                     self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
 
                     # Wait until the device is removed from the view
-                    self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
+                    result = self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
+                    # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
+                    if result == 1:
+                        self.utils.print_info("Deleted Device Successfully with Serial: ", device_serial)
+                        return 1
 
                     # Confirm device was deleted successfully
                     if self.search_device_serial(device_serial) == 1:
@@ -2637,12 +2656,14 @@ class Devices:
         - Searches for Device matching Device's Serial Number
 
         :param device_serial: Device Serial Number
-        :return: return 1 if Device found, else -1
+        :return: return 1 if Device found,
+                 false if Device not found
+                 -1 if an error occurs
         """
 
         if not device_serial:
             self.utils.print_info("No serial number provided to search for")
-            return -1
+            return False
         else:
             self.utils.print_info(f"Searching for serial number '{device_serial}'")
 
@@ -2652,10 +2673,18 @@ class Devices:
 
         self.screen.save_screen_shot()
         sleep(2)
+        device_page_numbers = self.devices_web_elements.get_page_numbers()
+        if device_page_numbers.text:
+            page_len = int(max(device_page_numbers.text))
+        else:
+            page_len = int(1)
 
-        stale_retry = 1
-        while stale_retry <= 10:
-            try:
+        device_found = False
+        num_pages = page_len
+        try:
+            while page_len:
+                page_num = num_pages - page_len + 1
+                self.utils.print_debug(f"Searching Page #{page_num} of {num_pages} pages")
                 rows = self.devices_web_elements.get_grid_rows()
                 if rows:
                     self.utils.print_debug(f"Searching {len(rows)} rows")
@@ -2663,16 +2692,24 @@ class Devices:
                         self.utils.print_info("row data: ", self.format_row(row.text))
                         if device_serial in row.text:
                             self.utils.print_info("Found Device Row: ", self.format_row(row.text))
+                            device_found = True
                             return 1
-                    self.utils.print_info(f"Did not find device row with serial {device_serial}")
-                    return -1
+                            break
+                    if device_found:
+                        break
                 else:
-                    self.utils.print_info(f"Did not find device row with serial {device_serial} - no rows present")
-                    return -1
-            except StaleElementReferenceException:
-                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                stale_retry = stale_retry + 1
+                    self.utils.print_debug(f"No rows returned for page #{page_num}")
+                page_len = page_len - 1
 
+                if page_len:
+                    self.utils.print_info("Searching in next page")
+                    self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
+                    sleep(5)
+
+            self.utils.print_info(f"Did not find device row with serial {device_serial}")
+            return False
+        except StaleElementReferenceException:
+            self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
         return -1
 
     def search_device_mac(self, device_mac):
@@ -2682,20 +2719,43 @@ class Devices:
         :param device_mac: device's MAC
         :return: return 1 if device found, else -1
         """
-
         if not device_mac:
             self.utils.print_info("No MAC provided to search for")
             return -1
         else:
             self.utils.print_info(f"Searching for MAC '{device_mac}'")
-
         sleep(2)
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
-
         self.screen.save_screen_shot()
-        sleep(2)
+        sleep(5)
+        rows = self.devices_web_elements.get_grid_rows()
+        device_page_numbers = self.devices_web_elements.get_page_numbers()
+        if device_page_numbers.text:
+            page_len = int(max(device_page_numbers.text))
+        else:
+            page_len = int(1)
 
+        device_found = False
+        while page_len:
+            rows = self.devices_web_elements.get_grid_rows()
+            sleep(5)
+            if rows:
+                self.utils.print_debug(f"Searching {len(rows)} rows")
+                for row in rows:
+                    if device_mac in row.text:
+                        self.utils.print_info("Found device Row1: ", self.format_row(row.text))
+                        device_found = True
+                        return 1
+                        break
+                if device_found:
+                    break
+            self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
+            self.utils.print_info("Searching in next page")
+            sleep(5)
+            page_len = page_len - 1
+        self.utils.print_info(f"Did not find device row with MAC address {device_mac}")
+        sleep(2)
         stale_retry = 1
         while stale_retry <= 10:
             try:
@@ -2714,7 +2774,6 @@ class Devices:
             except StaleElementReferenceException:
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
-
         return -1
 
     def search_device_name(self, device_name):
@@ -2724,20 +2783,42 @@ class Devices:
         :param device_name: device's Name
         :return: return 1 if device found, else -1
         """
-
         if not device_name:
             self.utils.print_info("No device name provided to search for")
             return -1
         else:
             self.utils.print_info(f"Searching for device name '{device_name}'")
-
         sleep(2)
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
-
         self.screen.save_screen_shot()
         sleep(2)
+        device_page_numbers = self.devices_web_elements.get_page_numbers()
+        if device_page_numbers.text:
+            page_len = int(max(device_page_numbers.text))
+        else:
+            page_len = int(1)
 
+        rows = self.devices_web_elements.get_grid_rows()
+        device_found = False
+        while page_len:
+            rows = self.devices_web_elements.get_grid_rows()
+            sleep(5)
+            if rows:
+                self.utils.print_debug(f"Searching {len(rows)} rows")
+                for row in rows:
+                    if device_name in row.text:
+                        self.utils.print_info("Found device Row1: ", self.format_row(row.text))
+                        device_found = True
+                        return 1
+                        break
+                if device_found:
+                    break
+            self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
+            self.utils.print_info("Searching in next page")
+            sleep(5)
+            page_len = page_len - 1
+        self.utils.print_info(f"Did not find device row with name {device_name}")
         stale_retry = 1
         while stale_retry <= 10:
             try:
@@ -2756,7 +2837,6 @@ class Devices:
             except StaleElementReferenceException:
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
-
         return -1
 
     def select_device(self, device_serial=None, device_name=None, device_mac=None):
@@ -3042,10 +3122,11 @@ class Devices:
         sleep(2)
 
         self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
+        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down_router())
         self.auto_actions.scroll_down()
         sleep(2)
-
+        
+        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
         policy_status = False
         for item in network_policy_items:
@@ -3088,22 +3169,34 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
             count = 5
+            tool_tp_text_error=self.devices_web_elements.get_perform_update_tooltip()
+            self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
-            self.utils.print_info(tool_tp_text)
-            for value in tool_tp_text:
-                if "a device mode change is not supported with a delta configuration update" in value.lower():
-                    self.utils.print_info(value)
-                    update_method = "Complete"
+            if tool_tp_text_error:
+               if "a configuration related action is currently in progress for device" in tool_tp_text_error.text.lower():
+                   self.utils.print_info(tool_tp_text_error.text)
+                   return -1
+            if tool_tp_text:
+                for value in tool_tp_text:
+                    if "a device mode change is not supported with a delta configuration update" in value.lower():
+                        self.utils.print_info(value)
+                        update_method = "Complete"
 
         if update_method == "Complete":
             self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            self.screen.save_screen_shot()
+            tool_tp_text = tool_tip.tool_tip_text
+            if tool_tp_text_error:
+                if "a configuration related action is currently in progress for device" in tool_tp_text_error.text.lower():
+                    self.utils.print_info(tool_tp_text_error.text)
+                    return -1
             count = 10
 
         self.screen.save_screen_shot()
         sleep(2)
-
         while count > 0:
             policy_applied = self.get_router_network_policy(router_serial=router_serial)
             if policy_name.upper() == policy_applied.upper():
@@ -3151,7 +3244,9 @@ class Devices:
         :return: 'updated Time' if the device is updated correctly else return updating status message
         """
         device_row = -1
+
         self.refresh_devices_page()
+        sleep(5)
 
         self.utils.print_info('Getting device Updated Status using')
         if device_serial != 'default':
@@ -4161,27 +4256,29 @@ class Devices:
 
         return 1
 
-    def wait_until_device_reboots(self, device_serial):
+    def wait_until_device_reboots(self, device_serial, retry_duration=30, retry_count=10):
         """
         - This Keyword will wait until device reboots based on device update status message
         - Keyword Usage:
          - `` Wait Until Device Reboots  ${DEVICE_SERIAL}``
 
         :param device_serial: Device Serial Number
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        If the reboot message has a date value, the assumption the device hase finished rebooting
         :return: 1 if Device wait till reboots else -1
         """
 
         count = 0
-        reboot_flag = False
-        self.utils.print_info("Checking for update Configuration Messages")
-        while count < 10:
-            if "Rebooting" in self.get_device_details(device_serial, "UPDATED"):
-                self.utils.print_info("Device is rebooting. Waiting for 30 seconds...")
-                reboot_flag = True
-                sleep(30)
-            else:
-                if reboot_flag:
-                    self.utils.print_info("Device rebooted")
+        self.utils.print_info("Checking to see if the device has completed the reboot action")
+        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        while count < retry_count:
+            reboot_message = self.get_device_details(device_serial, "UPDATED")
+            if "Rebooting" in reboot_message:
+                self.utils.print_info(f"Device is rebooting. Waiting for {retry_duration} seconds...")
+                sleep(retry_duration)
+            elif re.match(date_regex, reboot_message):
+                    self.utils.print_info("Device has finshed rebooting at {}".format(reboot_message))
                     return 1
             count += 1
 
@@ -5208,7 +5305,7 @@ class Devices:
         self.utils.print_info(f"Device still exists in the view. Please check.")
         return -1
 
-    def wait_until_device_managed(self, device_serial, col, retry_duration=30, retry_count=10):
+    def wait_until_device_managed(self, device_serial, col="MANAGED", retry_duration=30, retry_count=10):
         """
         - This keyword waits until the specified column for the specified device contains managed state.
         - This keyword by default loops every 30 seconds for 10 times to check the column data
@@ -6133,6 +6230,7 @@ class Devices:
             update_version_items = self.device_update.get_actions_update_version_drop_down_items()
             self.auto_actions.scroll_down()
             sleep(2)
+
             cont_images_found = 0
             if update_version_items:
                 item_count = len(update_version_items)
@@ -6671,7 +6769,7 @@ class Devices:
             return -1
         return 1
 
-    def quick_onboarding_cloud_csv(self, device_make, location, csv_location, policy_name=None):
+    def quick_onboarding_cloud_csv(self, device_make, csv_location, location=None, policy_name=None):
         '''
         This keyword on boards your devices directly to cloud by using new onboarding flow
         Can on boards an aerohive device [AP or Switch], Universal APs , Exos Switch, Exos Stack and Voss devices
@@ -6766,7 +6864,7 @@ class Devices:
             self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
             self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
             return -1
-        if location:
+        if location != None:
             if self.devices_web_elements.get_add_location_button():
                 self.utils.print_info("Click on 'Location'")
                 self.auto_actions.click(self.devices_web_elements.get_add_location_button())
@@ -7327,11 +7425,12 @@ class Devices:
     def perform_search_on_devices_table(self, the_value):
         """
         - Enters the search string value into the Search box on the Manage> Devices page.
-        - Note: currently, search is only supported for Serial Number, MAC Address, or Host Name.
+        - Note: currently, search is only supported for Serial Number, MAC Address, Host Name, or Ip Address.
         - Keyword Usage:
          - ``Perform Search On Devices Table  ${SERIAL}``
          - ``Perform Search On Devices Table  ${HOST_NAME}``
          - ``Perform Search On Devices Table  ${MAC}``
+         - ``Perform Search On Devices Table  ${IP_ADDRESS}``
 
         :param the_value: value to enter in the search box above the Devices table (Serial, MAC Address, or Host Name)
         :return  1 if action was successful, else -1
@@ -8897,3 +8996,525 @@ class Devices:
         else:
             self.utils.print_info("audit_rows was not found ")
             return -1
+
+    def is_delete_button_visible(self):
+        """
+        - This Keyword checks if the delete button is visible
+        - Keyword Usage:
+         - ``Is Delete Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_delete_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_download_button_visible(self):
+        """
+        - This Keyword checks if the download button is visible
+        - Keyword Usage:
+         - ``Is Download Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_download_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_bulk_edit_button_visible(self):
+        """
+        - This Keyword checks if the bulk edit button is visible
+        - Keyword Usage:
+         - ``Is Bulk Edit Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_bulk_edit_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_add_button_visible(self):
+        """
+        - This Keyword checks if the add button is visible
+        - Keyword Usage:
+         - ``Is Add Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_devices_add_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_update_device_button_visible(self):
+        """
+        - This Keyword checks if the device update button is visible
+        - Keyword Usage:
+         - ``Is Update Device Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_update_device_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_actions_button_visible(self):
+        """
+        - This Keyword checks if the actions button is visible
+        - Keyword Usage:
+         - ``Is Actions Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_manage_device_actions_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def is_utilities_button_visible(self):
+        """
+        - This Keyword checks if the utilities button is visible
+        - Keyword Usage:
+         - ``Is Utilities Button Visible``
+        :return: 1 if visible, -1 if not
+        """
+        try:
+            if self.devices_web_elements.get_manage_device_utilities_button().is_displayed():
+                return 1
+
+            return -1
+
+        except Exception as e:
+            return -1
+
+    def update_network_device_firmware(self,device_mac='default',version='default',forceDownloadImage="true",performUpgrade="true",saveDefault="false",updateTo="latest",updatefromD360Page="false",retry_duration=30,retry_count=1200):
+        """
+        - This method update device to latest version or to a specific version from the dropdown
+        - This method needs import datetime as dt
+        - Varibale and it's possible values
+        - updateTo = {"latest"|"anything other than latest"}
+        - saveDefault = {true| false}
+        - performUpgrade = {true| false}                                                    # 'false' will be treated as 'closing' the update window
+        - forceDownloadImage = {true| false}
+        - version = {'default'|'first'|'last'|'latest'|'noncurrent'|'specific version'}     
+        - device_mac = {"mac adress of the device"}
+        - updatefromD360Page= {false|true}                                                  # Update page will be launched from D360 if it is true
+        - The retry_duration and retry_count will check for the firmware upgrade status as per these varibale values
+        - keyword Usage:
+        - Select Version And Upgrade Device To Latest Version    ${DEVICE_MAC}
+        - Select Version And Upgrade Device To Specific Version    ${DEVICE_MAC}   version=${VERSION}   updateTo=${"specific"}
+        
+        
+        :param device_mac: mac address of the device
+        :param version: version to which device should get upgraded. This string should contain into image name . e.g VOSS: "8.3.0.0", EXOS "31.6.1.2"
+        :param updateTo: This will hold either "latest" or anything other than latest will be treated as a "specific version" except NULL
+        :return: updateToVersion if success else -1
+        """
+        
+        device_row = -1
+        updateToVersion = -1
+        initial_timestamp = 0
+        initial_updated_status = ""
+
+        # Get the Updated cell data timestamp to validate the update process 
+        self.utils.print_info("Navigate to Manage --> Devices")
+        self.navigator.navigate_to_devices()        
+        self.refresh_devices_page()
+        sleep(5)
+        self.close_last_refreshed_tooltip()      
+        
+        if device_mac != 'default':
+            self.utils.print_info("Getting Updated Status of Device with MAC: ", device_mac)
+            device_row = self.get_device_row(device_mac)
+        else:
+            self.utils.print_error("Invalid device mac...")
+            return -1
+        if device_row:
+            device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+            self.utils.print_info("Device Updated Status : ", device_updated_status)
+            initial_updated_status = device_updated_status
+            if re.search(r'\d+-\d+-\d+', device_updated_status):
+                initial_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+            os_version = self.get_device_row_values(device_mac, 'OS VERSION')
+            nos_version = str(os_version['OS VERSION'])
+            sleep(10)
+        else:
+            self.utils.print_error(f"Device with mac '{device_mac}' is not found...")
+            return -1            
+
+        try:
+            if self.select_device(device_mac):
+                
+                if updatefromD360Page.lower() == "false":
+                    self.utils.print_info("Selecting Update Devices Button")
+                    self.auto_actions.click(self.device_update.get_update_devices_button())
+                    sleep(5)
+                elif updatefromD360Page.lower() == "true":
+                    self.navigator.navigate_to_device360_page_with_mac(device_mac)
+                    sleep(5)
+                    self.auto_actions.click(self.device_update.get_update_devices_button_from_d360())
+                    
+                self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+                self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+                sleep(5)
+                
+                # Case-1 : This flow is to perform firmware upgrade to a latest version and return the latest version if success else -1
+                if updateTo.lower() == "latest":
+
+                    self.utils.print_info("Selecting upgrade to latest version radio button")
+                    self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
+                    sleep(2)
+
+                    updateToVersion = self.device_update.get_latest_version()
+
+                    self.utils.print_info("Device Latest Version: ", updateToVersion)
+                    sleep(5)
+
+                    if forceDownloadImage.lower() == "true":
+                        self.utils.print_info("Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
+                        self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                        sleep(5)
+                        
+                    if saveDefault.lower() == "true":
+                        self.utils.print_info("Selecting Save Default button...")
+
+                    self.screen.save_screen_shot()
+                    if performUpgrade.lower() == "true":
+                        self.utils.print_info("Selecting Perform Update button...")
+                        self.auto_actions.click(self.device_update.get_perform_update_button())
+                    else:
+                        self.utils.print_info("Selecting Cancel and Close button...")
+                        self.auto_actions.click(self.device_update.get_update_close_button())
+                    sleep(10)
+                        
+                    if updatefromD360Page.lower() == "true":
+                        closebutton = self.device_update.get_d360_close_button()
+                        sleep(2)
+                        if closebutton:
+                            self.auto_actions.click(self.device_update.get_d360_close_button())
+                            self.screen.save_screen_shot()
+                            sleep(5)
+                            self.utils.print_info("Closing the D360 window...")
+                        else:
+                            self.screen.save_screen_shot()
+                            sleep(5)
+                            self.utils.print_error("Unable to close D360 window or is not opened...")
+                            return -1
+                        
+                # Case-2 : This flow is to perform firmware upgrade to a specific version if fails return -1
+                elif updateTo.lower() != "latest":
+
+                    self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
+                    sleep(5)
+                    latest_version = self.device_update.get_latest_version()
+                    self.utils.print_info("Device Latest Version: ", latest_version)
+                    sleep(5)
+                    
+                    self.utils.print_info("Selecting upgrade to specific version radio button")
+                    self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
+                    sleep(5)
+
+                    self.utils.print_info("Selecting perform upgrade if the versions are the same")
+                    self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                    sleep(5)
+
+                    self.utils.print_info("Click on version drop down")
+                    self.auto_actions.click(self.device_update.get_xiq_upgrade_to_specific_version_dropdown())
+                    sleep(5)
+
+                    update_version_items = self.device_update.get_upgrade_to_specific_version_dropdown_list()
+                    self.auto_actions.scroll_down()
+                    sleep(5)
+
+                    avilableImagesList = []
+                    if update_version_items:
+                        self.utils.print_info(f"Total number of images found from the drop down list :{len(update_version_items)}")
+                        for opt in update_version_items:
+                            avilableImagesList.append(opt.text)
+                            self.utils.print_info(f"One of the list image is : '{opt.text}'")
+                    else:
+                        self.utils.print_error(f"Unable to get the list of images from drop down option...")
+                        return -1
+                                                    
+                    if avilableImagesList == []:
+                        self.utils.print_error("Image list from the drop down is empty!")
+                        self.screen.save_screen_shot()
+                        sleep(5)
+                        return -1
+              
+                    # Case-2.1 : Specific version is passed as an argument e.g version = "8.6.1.0" or "31.6.1.2"                  
+                    if re.search(r'\d+.\d+.\d+.\d+', version):
+                        self.utils.print_info("Specific version {} is given ".format(version))
+                        match_count = 0
+                        for opt in avilableImagesList:
+                            if version in opt:
+                                self.utils.print_info("Version {} match the image {} from drop down".format(version, opt))
+                                match_count += 1
+                                updateToVersion = opt
+                            else:
+                                self.utils.print_info("Version {} doesn't match the image {} from drop down".format(version, opt))
+                                
+                        if match_count > 0 and updateToVersion != -1:
+                            # If more than one match then last match will be used to upgrade the image
+                            self.utils.print_info(f"Last successfull match version '{updateToVersion}'")
+                        else:
+                            self.screen.save_screen_shot()
+                            sleep(5)
+                            self.utils.print_info("Image version {} doesn't match the images from drop down.".format(version))
+                            return -1
+
+                    # Case-2.2 : If there is no version specified but opted to upgrade from specific
+                    elif version == '':
+                        self.utils.print_info("Version cannot be empty, specify the version to upgrade.")
+                        return -1
+                        
+                    # Case-2.3 : Specific version is either 'default/first', first version in the list will be used         
+                    elif version == 'default' or version == 'first':
+                        self.utils.print_info("First image version in the specific version drop down will be selected")
+                        updateToVersion = avilableImagesList[0]
+                        self.utils.print_info("Very first version in the image list {}".format(updateToVersion))          
+
+                    # Case-2.4 : Specific version is 'last', last version in the list will be used         
+                    elif version == 'last':
+                        self.utils.print_info("Last image version in the specific version drop down will be selected")
+                        updateToVersion = avilableImagesList[-1]
+                        self.utils.print_info("Last version in the image list {}".format(updateToVersion))    
+                        
+                    # Case-2.5 : Latest version selected from specific,  e.g version="latest"         
+                    elif version == 'latest' and latest_version != "":
+                        self.utils.print_info("Latest version {latest_version} will be selected from the specific version if it is available")
+                        match_count = 0
+                        for opt in avilableImagesList:
+                            if latest_version in opt:
+                                self.utils.print_info("Latest version {} match the image {} from drop down".format(latest_version, opt))
+                                match_count += 1
+                                updateToVersion = opt
+                            else:
+                                self.utils.print_info("Latest version {} doesn't match the image {} from drop down".format(latest_version, opt))
+
+                        if match_count > 0 and updateToVersion != -1:
+                            # If more than one match then last match will be used to upgrade the image
+                            self.utils.print_info(f"Last successfull match version '{updateToVersion}'")
+                        else:
+                            self.screen.save_screen_shot()
+                            sleep(5)
+                            self.utils.print_info("Image version {} doesn't match the images from drop down.".format(version))
+                            return -1  
+                        
+                    # Case-2.6 : Specific version from the list but different from current NOS version e.g version = "noncurrent"         
+                    elif version == 'noncurrent' and nos_version != "":
+                        self.utils.print_info("Specific version from drop down but different from current NOS version will be selected")
+                        match_count = 0
+                        for opt in avilableImagesList:
+                            if nos_version not in opt:
+                                self.utils.print_info("Device version {} match the image {} from drop down".format(nos_version, opt))
+                                match_count += 1
+                                updateToVersion = opt
+                                break
+                            else:
+                                self.utils.print_info("Device version {} match the image {} from drop down".format(nos_version, opt))
+                        
+                        if match_count > 0 and updateToVersion != -1:
+                            # If more than one match then last match will be used to upgrade the image
+                            self.utils.print_info(f"Last successfull match version '{updateToVersion}'")
+                        elif match_count == 0:
+                            updateToVersion = avilableImagesList[0]
+                            self.utils.print_info("First image version in the image list {} is picked since no match found".format(updateToVersion))
+                        else:
+                            self.screen.save_screen_shot()
+                            sleep(5)
+                            self.utils.print_info("Image version {} match the images from drop down.".format(nos_version))
+                            return -1
+                    
+                    # common block to perform upgade for use case 2.x, once the updateToVersion version is obtained
+                    if self.auto_actions.select_drop_down_options(update_version_items, updateToVersion):
+                        self.utils.print_info(f"Selected update version from drop down :{updateToVersion}")
+                        if saveDefault.lower() == "true":
+                            self.utils.print_info("Selecting Save Default button...")
+                        if forceDownloadImage.lower() != "true":
+                            self.utils.print_info("Unselecting perform upgrade if the versions are the same.")
+                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                            sleep(5)
+                        if performUpgrade.lower() == "true":
+                            self.screen.save_screen_shot()
+                            self.utils.print_info("Selecting Perform Update button...")
+                            self.auto_actions.click(self.device_update.get_perform_update_button())
+                        else:
+                            self.utils.print_info("Selecting Close button...")
+                            self.auto_actions.click(self.device_update.get_update_close_button())            
+                        sleep(10)
+
+                        if updatefromD360Page.lower() == "true":
+                            closebutton = self.device_update.get_d360_close_button()
+                            sleep(2)
+                            if closebutton:
+                                self.auto_actions.click(self.device_update.get_d360_close_button())
+                                self.screen.save_screen_shot()
+                                sleep(5)
+                                self.utils.print_info("Closing the D360 window...")
+                            else:
+                                self.screen.save_screen_shot()
+                                sleep(5)
+                                self.utils.print_error("Unable to close D360 window or is not opened...")
+                                return -1
+ 
+                # Case-3 : Invalid option passed to 'updateTo' arg, neither 'latest' nor 'specific'
+                else:
+                    self.utils.print_info(f"Invalid UpdateTo Option '{updateTo}', Unable to perform upgrade operation")
+                    return -1
+                
+            else:
+                self.utils.print_info(f"Unable to find a device with mac '{device_mac}'")
+                self.screen.save_screen_shot()
+                sleep(5)
+                return -1
+                
+        # If there is an exception then this block of code will be executed    
+        except Exception as e:
+            self.utils.print_info(e)
+            self.utils.print_info("Exception occured, unable to perform upgrade operation...")
+            return -1
+            
+        # If there is no exception then this block of code will be executed to get the Upadted cell data 
+        else: 
+            device_updated_status = ""
+            self.utils.print_info("Navigate to Manage --> Devices")
+            self.navigator.navigate_to_devices()
+            self.refresh_devices_page()
+            sleep(5)
+
+            device_row = self.get_device_row(device_mac)
+            device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+            self.utils.print_info("Device Updated Status : ", device_updated_status)
+            
+            # Incase close option is selected then will return 1 
+            if performUpgrade.lower() != "true" and "Firmware Updating" not in device_updated_status:
+                self.utils.print_info("Firmware update is not triggered when clicking the close button...")
+                return 1        # This is where we return the updated status as 1
+            elif performUpgrade.lower() != "true" and "Firmware Updating" in device_updated_status:
+                self.screen.save_screen_shot()
+                sleep(5)
+                self.utils.print_error("Firmware update is trigger for clicking the close button...")
+                return -1
+                
+            if (forceDownloadImage.lower() == "true") or (nos_version not in str(updateToVersion)): 
+                self.utils.print_info("Check for the device updated status when force image download is enabled...")
+                # Checking for the update column to reflect the firmware updating status max timer is 300 seconds
+                count = 0
+                while ("Firmware Updating" not in device_updated_status):
+                    sleep(retry_duration)
+                    count += retry_duration
+                    self.refresh_devices_page()
+                    sleep(5)
+                    device_row = self.get_device_row(device_mac)
+                    device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+                    self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
+                    if ("Device Update Failed" in device_updated_status) or (count > 300):
+                        self.utils.print_error("Firmware Update failed...")
+                        self.screen.save_screen_shot()
+                        sleep(5)
+                        return -1
+                # Checking firmware update status every 30 seconds upto 900 seconds max
+                while ("Firmware Updating" in device_updated_status) or ("Rebooting" in device_updated_status):
+                    sleep(retry_duration)
+                    count += retry_duration
+                    self.refresh_devices_page()
+                    sleep(5)
+                    device_row = self.get_device_row(device_mac)
+                    device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+                    self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
+                    if ("Device Update Failed" in device_updated_status) or (count > retry_count):
+                        self.utils.print_error("Firmware Update failed...")
+                        self.screen.save_screen_shot()
+                        sleep(5)
+                        return -1
+                    elif re.search(r'\d+-\d+-\d+', device_updated_status):
+                        self.utils.print_info("Firmware Update 100% Completed!")
+                        break
+            else:
+                self.utils.print_info("Check for the device updated status when force image download is disabled...")
+                self.utils.print_info("Initial Device Updated Status : ", initial_updated_status)
+                sleep(30)
+                self.refresh_devices_page()
+                sleep(10)
+                device_row = self.get_device_row(device_mac)
+                device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+                self.utils.print_info("Current Device Updated Status : ", device_updated_status)
+                if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
+                    count = 0
+                    while True:
+                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+                        if latest_timestamp > initial_timestamp:
+                            self.utils.print_info(f"Device update is finished by just updating the timestamp to : ", str(dt.datetime.fromtimestamp(latest_timestamp)))
+                            self.screen.save_screen_shot()
+                            sleep(5)
+                            break
+                        elif count > 60:
+                            self.utils.print_error(f"Device Update Failed due to max wait of '{count}' seconds reached...")
+                            self.screen.save_screen_shot()
+                            sleep(5)
+                            return -1
+                        elif ((device_updated_status == "Device Update Failed.") or (not re.search(r'\d+-\d+-\d+', device_updated_status))) and (count > 60):
+                            device_row = self.get_device_row(device_mac)
+                            self.utils.print_error("Device Update Failed due to ", device_updated_status)
+                            self.screen.save_screen_shot()
+                            sleep(5)
+                            return -1
+                        sleep(retry_duration)
+                        count += retry_duration
+                        device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+                        sleep(5)
+                else:
+                    self.utils.print_error("Device Update Failed due to ", device_updated_status)
+                    self.screen.save_screen_shot()
+                    sleep(5)
+                    return -1
+                                              
+            # Comparing the DUT version and XIQ version post successfull upgrade max wait time 300 seconds
+            sleep(5)
+            self.refresh_devices_page()
+            self.utils.print_info("Waiting for page to refresh...")
+            sleep(5)
+            os_version = self.get_device_row_values(device_mac, 'OS VERSION')
+            deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
+            count = 0 
+            while True:
+                self.utils.print_info(f"Time elapsed in comparing the firmware version : {count} seconds ...")
+                if  str(deviceImageVersion) in str(updateToVersion):
+                    self.utils.print_info(f"Device firmware successfully updated to version : '{deviceImageVersion}'")
+                    self.screen.save_screen_shot()
+                    sleep(5)
+                    return deviceImageVersion                           # This is where we return the updated status with updated firmware version
+                elif (count > 600) and (str(deviceImageVersion) not in str(updateToVersion)):
+                    self.utils.print_error(f"Firmware Update Failed..., expected version is '{updateToVersion}' but found '{deviceImageVersion}'")
+                    self.screen.save_screen_shot()
+                    sleep(5)
+                    return -1
+                self.refresh_devices_page()
+                sleep(30)
+                count += 30
+                os_version = self.get_device_row_values(device_mac, 'OS VERSION')
+                deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
+

@@ -51,6 +51,7 @@ class AutoProvisioning:
         sleep(3)
 
         self.auto_actions.scroll_down()
+        sleep(3)
 
         if "AP" in device_function:
             # country_code = auto_provision_profile.get('country_code')
@@ -320,14 +321,17 @@ class AutoProvisioning:
         self.utils.print_info("Clicking on Device Function drop down")
         self.auto_actions.click(self.app_web_elements.get_auto_provisioning_device_function())
         results = self.app_web_elements.get_auto_provisioning_device_function_list()
-        for result in results:
-            if device_function in result.text:
-                self.utils.print_info("Device Function Match Found")
-                self.auto_actions.click(result)
-                self.screen.save_screen_shot()
-                return 1
-        self.screen.save_screen_shot()
-        return -1
+        if results:
+            for result in results:
+                if device_function in result.text:
+                    self.utils.print_info("Device Function Match Found")
+                    self.auto_actions.click(result)
+                    self.screen.save_screen_shot()
+                    return 1
+        else:
+            self.utils.print_info(f" Not able to find auto provision device function dropdown items ")
+            self.screen.save_screen_shot()
+            return -1
 
     def choose_auto_provision_device_model(self, dev_model, device_function):
         """
@@ -352,13 +356,17 @@ class AutoProvisioning:
         sleep(3)
 
         results = self.app_web_elements.get_auto_provisioning_device_model_dropdown_list()
-        for result in results:
-            val = result.text
-            if val == dev_model:
-                self.utils.print_info("Device Model Match Found")
-                self.auto_actions.click(result)
-                self.screen.save_screen_shot()
-                break
+        if results:
+            for result in results:
+                val = result.text
+                if val == dev_model:
+                    self.utils.print_info("Device Model Match Found")
+                    self.auto_actions.click(result)
+                    self.screen.save_screen_shot()
+                    break
+        else:
+            self.utils.print_info(f" Not able to find auto provision device model dropdown items ")
+            return -1
 
     def choose_auto_provision_country_code(self, country_code):
         """
@@ -370,18 +378,22 @@ class AutoProvisioning:
         """
         self.utils.print_info("Clicking on Country Code dropdown")
         self.auto_actions.click(self.app_web_elements.get_auto_provisioning_country_code())
+        self.screen.save_screen_shot()
         sleep(5)
 
         countries = self.app_web_elements.get_auto_provisioning_country_code_list()
-        for country in countries:
-            self.utils.print_debug("country: ", country.text)
-            if country_code in country.text:
-                self.auto_actions.click(country)
-                self.utils.print_info("Selected country: ", country_code)
-                self.screen.save_screen_shot()
-                return 1
-        self.screen.save_screen_shot()
-        return -1
+        if countries:
+            for country in countries:
+                self.utils.print_debug("country: ", country.text)
+                if country_code in country.text:
+                    self.auto_actions.click(country)
+                    self.utils.print_info("Selected country: ", country_code)
+                    self.screen.save_screen_shot()
+                    return 1
+        else:
+            self.utils.print_info(f" Not able to find auto provision country dropdown items ")
+            self.screen.save_screen_shot()
+            return -1
 
     def delete_auto_provisioning_policy(self, policy_name):
         """

@@ -8,6 +8,7 @@ import subprocess
 from platform import system
 from netmiko import ConnectHandler
 from extauto.xiq.configs.device_commands import *
+from robot.libraries.BuiltIn import BuiltIn
 
 from extauto.common.Utils import Utils
 
@@ -22,6 +23,7 @@ class Cli(object):
         self.dut_platform = -1
         self.aerohive_default_password = 'aerohive'
         self.utils = Utils()
+        self.builtin = BuiltIn()
 
     def close_spawn(self, spawn):
         """
@@ -124,13 +126,13 @@ class Cli(object):
         p_count = 0
         while p_count < 3:
             _cmd = "ping -c 2 %s" % str(ip)
-            # self.utils.print_info("CMD: ", _cmd)
+            #self.utils.print_info("CMD: ", _cmd)
             _out =subprocess.check_output([_cmd], shell = True)
             if " 0% packet loss" in str(_out):
                 break
             p_count += 1
 
-        if " 0% packet loss" in str(_out):
+        if " 0.0% packet loss"  or " 0% packet loss"in str(_out):
             self.utils.print_info("Ping received successfully...")
         else:
             self.utils.print_info("Unable to reach the DUT/MU")
@@ -139,7 +141,7 @@ class Cli(object):
         conn_str = 'telnet ' + ip + " " + str(port)
         if (port == '22') or (port == 8554):
             self.utils.print_info("Opening SSH Spawn...")
-            conn_str = 'ssh ' + username + "@" + ip + " -p " + str(port)
+            conn_str = 'ssh ' + username + "@" + ip + " -p " + str(port) + " -o StrictHostKeyChecking=no"
             self.utils.print_info("SSH conn_str: ", conn_str)
             ssh = True
             self.ssh = True
@@ -2103,3 +2105,226 @@ class Cli(object):
             return output2.decode()
         else:
             return output2
+
+    def configure_device_to_connect_to_cloud(self, device_make, ip, port, username, password, platform, server_name,
+                                             vr='VR-Default', retry_count=10):
+        """
+        - This Keyword will configure necessary configuration in the Device to Connect to Cloud
+        - Keyword Usage:
+         - ``Configure Device To Connect To Cloud   ${DEVICE_MAKE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}
+                                                    ${PLATFORM}  ${SERVER_NAME}``
+
+        :param device_make: Device Make
+        :param ip: Console IP Address of the Device
+        :param port: Console Port
+        :param username: username to access console
+        :param password: Password to access console
+        :param platform: device Platform example: aerohive,aerohive-switch,aerohive-fastpath,exos,voss,wing,xiqse etc
+        :param server_name: Cloud Server Name to connect the device
+        :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
+        :param retry_count: Retry count to check device connection status with capwap server
+        :return: 1 id device successfully connected with capwap server else -1
+        """
+        _spawn = self.open_spawn(ip, port, username, password, platform)
+
+        if _spawn != -1:
+            if 'AEROHIVE' in device_make.upper():
+                self.send(_spawn, f'capwap client server name {server_name}')
+                self.send(_spawn, f'capwap client default-server-name {server_name}')
+                self.send(_spawn, f'capwap client server backup name {server_name}')
+                self.send(_spawn, f'no capwap client enable')
+                self.send(_spawn, f'capwap client enable')
+                self.send(_spawn, f'save config')
+                count = 1
+                while count <= retry_count:
+                    self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                    time.sleep(10)
+                    output = self.send(_spawn, f'show capwap client | include "RUN state"')
+
+                    if 'Connected securely to the CAPWAP server' in output:
+                        self.close_spawn(_spawn)
+                        self.utils.print_info(f"Device Successfully Connected to {server_name}")
+                        return 1
+                    count +=1
+
+                self.builtin.fail(msg=f"Device is Not Connected Successfully With CAPWAP Server : {server_name}")
+
+            if 'EXOS' in device_make.upper():
+                self.send(_spawn, f'configure iqagent server ipaddress {server_name}')
+                self.send(_spawn, f'configure iqagent server vr {vr}')
+                count = 1
+                while count <= retry_count:
+                    self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
+                    time.sleep(10)
+                    output = self.send(_spawn, f'show iqagent | include "XIQ Address"')
+                    output1 = self.send(_spawn, f'show iqagent | include "Status"')
+
+                    if server_name in output and 'CONNECTED TO XIQ' in output1:
+                        self.close_spawn(_spawn)
+                        self.utils.print_info(f"Device Successfully Connected to {server_name}")
+                        return 1
+                    count +=1
+
+                self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
+
+            if 'VOSS' in device_make.upper():
+                self.send(_spawn, f'enable')
+                self.send(_spawn, f'configure terminal')
+                self.send(_spawn, f'application')
+                self.send(_spawn, f'no iqagent enable')
+                self.send(_spawn, f'iqagent server {server_name}')
+                self.send(_spawn, f'iqagent enable')
+                self.send(_spawn, f'end')
+
+                count = 1
+                while count <= retry_count:
+                    self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
+                    time.sleep(10)
+
+                    output1 = self.send(_spawn, f'show application iqagent | include "Server Address"')
+                    output2 = self.send(_spawn, f'show application iqagent status | include "Connection Status"')
+
+                    if server_name in output1 and 'Connected' in output2:
+                        self.close_spawn(_spawn)
+                        self.utils.print_info(f"Device Successfully Connected to {server_name}")
+                        return 1
+                    count += 1
+
+                self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
+        else:
+            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+            return -1
+    def downgrade_iqagent_voss(self, ip, port, username, password, platform):
+
+        _spawn = self.open_spawn(ip, port, username, password, platform)
+
+        if _spawn != -1:
+            if 'VOSS' in platform:
+                self.send(_spawn, f'enable')
+                output=self.send(_spawn, f'ls /intflash/rc.0')
+                if '  rc.0 ' in output:
+                    self.utils.print_info("rc.0 file found in the device")
+                else:
+                    self.utils.print_info("Couldn't able to locate rc.0 file")
+                    self.close_spawn(_spawn)
+                    return -1
+                self.send(_spawn, f'dbg enable')
+                self.send(_spawn, f'config t')
+                self.send(_spawn, f'application')
+                output_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
+                self.send(_spawn, f'no iqagent enable')
+                self.send(_spawn, f'software iqagent reinstall')
+                self.send(_spawn, f'iqagent enable')
+                output_new_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
+                self.close_spawn(_spawn)
+
+    def  downgrade_iqagent_exos(self, ip, port, username, password, platform,url_image):
+
+        _spawn = self.open_spawn(ip, port, username, password, platform)
+
+        if _spawn != -1:
+            if 'EXOS' in platform:
+                self.send(_spawn, f'show iqagent | include Version')
+                self.send(_spawn, url_image, expect_match='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)')
+                self.send(_spawn, f'yes')
+                time.sleep(10)
+                self.send(_spawn, f'show iqagent | include Version')
+                self.close_spawn(_spawn)
+
+
+        else:
+            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+            return -1
+
+    def disconnect_device_from_cloud(self, device_make, ip, port, username, password, platform, retry_count=10):
+        """
+        - This Keyword Disconnect Device From Cloud
+        - Keyword Usage:
+         - ``Configure Device To Connect To Cloud   ${DEVICE_MAKE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}
+                                                    ${PLATFORM}``
+
+        :param device_make: Device Make
+        :param ip: Console IP Address of the Device
+        :param port: Console Port
+        :param username: username to access console
+        :param password: Password to access console
+        :param platform: device Platform example: aerohive,aerohive-switch,aerohive-fastpath,exos,voss,wing,xiqse etc
+        :param retry_count: Retry count to check device connection status with Cloud server
+        :return: 1 id device successfully disconnected with cloud server else -1
+        """
+        _spawn = self.open_spawn(ip, port, username, password, platform)
+
+        if _spawn != -1:
+            if 'AEROHIVE' in device_make.upper():
+                self.send(_spawn, f'no capwap client server name')
+                self.send(_spawn, f'no capwap client default-server-name')
+                self.send(_spawn, f'no capwap client server backup name')
+                self.send(_spawn, f'no capwap client enable')
+                self.send(_spawn, f'save config')
+                count = 1
+                while count <= retry_count:
+                    self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                    time.sleep(10)
+                    output = self.send(_spawn, f'show capwap client | include "RUN state"')
+
+                    if 'Connected securely to the CAPWAP server' not in output:
+                        self.close_spawn(_spawn)
+                        self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
+                        return 1
+                    count += 1
+
+                self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
+
+            if 'EXOS' in device_make.upper():
+                self.send(_spawn, f'disable iqagent', expect_match='Do you want to continue? (y/N)')
+                self.send(_spawn, f'yes')
+                count = 1
+                while count <= retry_count:
+                    self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
+                    time.sleep(10)
+                    output = self.send(_spawn, f'show iqagent | include "Status"')
+
+                    if 'CONNECTED TO XIQ' not in output:
+                        self.close_spawn(_spawn)
+                        self.utils.print_info(f"Device Successfully Disconnected From Cloud server")
+                        return 1
+                    count += 1
+
+                self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
+
+            if 'VOSS' in device_make.upper():
+                self.send(_spawn, f'enable')
+                self.send(_spawn, f'configure terminal')
+                self.send(_spawn, f'application')
+                self.send(_spawn, f'no iqagent enable')
+                self.send(_spawn, f'no iqagent server')
+                self.send(_spawn, f'end')
+
+                count = 1
+                while count <= retry_count:
+                    self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
+                    time.sleep(10)
+
+                    output = self.send(_spawn, f'show application iqagent status | include "Connection Status"')
+
+                    if 'Disconnected' in output:
+                        self.close_spawn(_spawn)
+                        self.utils.print_info(f"Device Successfully Disconnected from Cloud server")
+                        return 1
+                    count += 1
+
+                self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
+        else:
+            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+            return -1
+
+if __name__ == '__main__':
+    from pytest_testconfig import *
+    config['${TEST_NAME}'] = 'bob'
+    tCli = Cli()
+    #sID = tCli.open_pxssh_spawn('10.69.61.101', 'extreme', 'extreme', 22, prompt_reset=False,
+    #                     disable_strict_host_key_checking=False, sync_multiplier=5)
+    conn_str = "ssh extreme@10.69.61.101"
+    username = 'extreme'
+    password = 'extreme'
+    sID = tCli.open_windows_spawn(conn_str, username, password)

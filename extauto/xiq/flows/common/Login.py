@@ -1,7 +1,6 @@
 import threading
-import pycurl
+import requests
 import re
-from io import StringIO
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
@@ -16,6 +15,7 @@ import extauto.xiq.flows.common.ToolTipCapture
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+
 
 class Login:
 
@@ -41,10 +41,10 @@ class Login:
         if CloudDriver().cloud_driver == None:
             self.utils.print_info("Creating new cloud driver")
             CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
+            self.window_index = 0
         else:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
             self.window_index = CloudDriver().open_window(url)
-
 
     def get_page_title(self):
         """
@@ -83,7 +83,8 @@ class Login:
 
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, **kwargs):
+                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   **kwargs):
         """
         - Login to Xiq account with username and password
         - By default url will load from the topology file
@@ -102,6 +103,9 @@ class Login:
         :param entitlement_key: Entitlement Key
         :param salesforce_username: Salesforce Username
         :param salesforce_password: Salesforce Password
+        :param saleforce_shared_cuid: Salesforce Shared CUID
+        :param quick: Quick login without more sleep time while loading url
+        :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
         :return: 1 if login successful else -1
         """
         if url == "default":
@@ -137,7 +141,7 @@ class Login:
         if quick:
             sleep(2)
         else:
-            sleep(10)
+            sleep(5)
 
         self.utils.print_info("Check for wrong credentials..")
         credential_warnings = self.login_web_elements.get_credentials_error_message()
@@ -145,7 +149,7 @@ class Login:
         if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
             # self.utils.print_info("Wrong Credentials. Try Again")
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            self.common_validation.validate(-1,1, **kwargs)
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
@@ -154,35 +158,36 @@ class Login:
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
-        self.utils.print_info("Check for Warning Messages..")
-        if self.login_web_elements.get_dialog_message():
-            self.utils.print_info("Clicking Close button")
-            self.auto_actions.click(self.login_web_elements.get_dialog_box_close_button())
-
-        self.utils.print_info("Check for WIPS Warning Messages..")
-        wips_warnings = self.login_web_elements.get_wips_dialog_message()
-        self.utils.print_info("Check for WIPS Warning Message is : ", wips_warnings)
-        if self.login_web_elements.get_wips_dialog_message():
-            if "Please update existing WIPS policies" in wips_warnings:
-                self.utils.print_info("Clicking Dont show again Checkbox")
-                self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox())
-                sleep(2)
-
-                self.utils.print_info("Clicking Close button")
-                self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_close_button())
-                sleep(2)
-
-        self.utils.print_info("Check for Advance Onboard Popup page after login..")
         if quick:
             sleep(2)
         else:
             sleep(10)
 
-        try:
-            if self.login_web_elements.get_drawer_content().is_displayed():
-                self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
-        except Exception as e:
-            pass
+        if check_warning_msg:
+            self.utils.print_info("Check for Warning Messages..")
+            if self.login_web_elements.get_dialog_message():
+                self.utils.print_info("Clicking Close button")
+                self.auto_actions.click(self.login_web_elements.get_dialog_box_close_button())
+
+            self.utils.print_info("Check for WIPS Warning Messages..")
+            wips_warnings = self.login_web_elements.get_wips_dialog_message()
+            self.utils.print_info("Check for WIPS Warning Message is : ", wips_warnings)
+            if self.login_web_elements.get_wips_dialog_message():
+                if "Please update existing WIPS policies" in wips_warnings:
+                    self.utils.print_info("Clicking Don't show again Checkbox")
+                    self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox())
+                    sleep(2)
+
+                    self.utils.print_info("Clicking Close button")
+                    self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_close_button())
+                    sleep(2)
+
+            self.utils.print_info("Check for Advance Onboard Popup page after login..")
+            try:
+                if self.login_web_elements.get_drawer_content().is_displayed():
+                    self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+            except Exception as e:
+                pass
 
         if co_pilot_status:
             url = BuiltIn().get_variable_value("${TEST_URL}")
@@ -282,22 +287,25 @@ class Login:
             self._post_url(stop_record_url)
 
     def _post_url(self, url):
+        """
+        - This method is used to call the API requests using requests
+
+        :param url: api complete url
+        :return: response_code, json_response, total_time
+        """
         self.utils.print_info("URL: ", url)
-        buf = StringIO()
-        c = pycurl.Curl()
-        c.setopt(pycurl.URL, url)
-        c.setopt(pycurl.VERBOSE, True)
-        c.perform()
 
         try:
-            json_response = buf.getvalue()
-        except ValueError:
+            r = requests.post(url)
+
+            json_response = r.text
+            response_code = r.status_code
+            total_time = r.elapsed.total_seconds()
+        except requests.exceptions.RequestException: # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions
             json_response = "No Output"
+            response_code = None
+            total_time = None
 
-        response_code = c.getinfo(pycurl.RESPONSE_CODE)
-        total_time = c.getinfo(pycurl.TOTAL_TIME)
-
-        c.close()
 
         self.utils.print_info("HTTP Status Code: ", response_code)
         self.utils.print_info("Response : ", json_response)
@@ -419,6 +427,31 @@ class Login:
         self.utils.print_info("Unable to find the reset message")
         return -1
 
+    def _capture_data_center_name(self):
+        """
+        - Get XIQ Data Center Name
+
+        :return: data_center_name
+        """
+        self.utils.print_info("Clicking on About ExtremecloudIQ link")
+        self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
+        sleep(2)
+        self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
+        sleep(2)
+
+        data_center_name = self.login_web_elements.get_data_center_name()
+        self.utils.print_info("XIQ Data Center Name Is: ", data_center_name)
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Close About ExtremecloudIQ Link Dialogue Page")
+        self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
+
+        return data_center_name
+
+
     def _capture_xiq_version(self):
         """
         - Get XIQ Build version details
@@ -534,6 +567,14 @@ class Login:
         except:
             return -1, "Could not select the option of 90 days trial "
         return str(1), None
+
+    def get_data_center_name(self):
+        """
+        - Get XIQ Data Center Name
+
+        :return: data_center_name
+        """
+        return self._capture_data_center_name()
 
     def get_xiq_version(self):
         """
@@ -698,7 +739,7 @@ class Login:
         self.utils.print_info("Check for WIPS Warning Message is : ", wips_warnings)
         if self.login_web_elements.get_wips_dialog_message():
             if "Please update existing WIPS policies" in wips_warnings:
-                self.utils.print_info("Clicking Dont show again Checkbox")
+                self.utils.print_info("Clicking Don't show again Checkbox")
                 self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox())
                 sleep(2)
 
@@ -719,113 +760,113 @@ class Login:
         return 1
 
     def select_welcome_page_option(self, login_option, ekey, sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid):
-            """
-                - This keyword selects login option on welcome page as indicated by login_option
-            :return: None
-            """
-            if login_option is not None:
-                self.utils.print_info("Login type is: ", login_option)
-                sleep(5)
-                try:
-                    ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
-                    if ekpopup.is_displayed():
-                        self.utils.print_info("Dismiss legacy ek popup...")
-                        self.auto_actions.click(self.login_web_elements.get_legacy_ek_popup_no_btn())
-                except Exception as e:
-                    pass
-                if login_option.lower() == 'trial':
-                    to = self.login_web_elements.get_30_days_trial_txt()
-                    if to.is_displayed():
-                        self.utils.print_info("trial option is displayed")
-                        self.auto_actions.click(self.login_web_elements.get_option_30_days_trial())
-                        sleep(5)
-                        self.utils.print_info("trial option is selected.")
-                    else:
-                        return -2
-
-                elif login_option.lower() == 'extremecloudiqlicense':
-                    ec = self.login_web_elements.get_extr_license_txt()
-                    if ec.is_displayed():
-                        self.auto_actions.click(self.login_web_elements.get_option_extr_cloudiq_license())
-                        sleep(5)
-                        try:
-                            ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
-                            if ekpopup.is_displayed():
-                                self.auto_actions.click(self.login_web_elements.get_legacy_ek_popup_no_btn())
-                        except Exception as e:
-                            pass
-                        tp = self.login_web_elements.get_extr_license_tooltip()
-                        if tp.is_displayed():
-                            self.utils.print_info("ExtremeCloud IQ License option is selected.")
-                        else:
-                            return -2
-
-                elif login_option.lower() == 'legacylicense':
-                    ll = self.login_web_elements.get_legacy_license_txt()
-                    if ll.is_displayed():
-                        self.auto_actions.click(self.login_web_elements.get_option_legacy_license())
-                        sleep(2)
-                        self.utils.print_info("Legacy License option is selected.")
-                        # legacy_ek_in = self.login_web_elements.get_legacy_ek_input_box
-                        self.auto_actions.send_keys(self.login_web_elements.get_legacy_ek_input_box(), ekey)
-                        sleep(5)
-                    else:
-                        return -2
-
-                elif login_option.lower() == 'connect':
-                    conn = self.login_web_elements.get_extr_connect_txt()
-                    if conn.is_displayed():
-                        self.utils.print_info("connect option is displayed...")
-                        self.auto_actions.click(self.login_web_elements.get_option_extr_connect())
-                        self.utils.print_info("Extreme Connect option is selected.")
-                        sleep(5)
-                    else:
-                        return -2
+        """
+            - This keyword selects login option on welcome page as indicated by login_option
+        :return: None
+        """
+        if login_option is not None:
+            self.utils.print_info("Login type is: ", login_option)
+            sleep(5)
+            try:
+                ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
+                if ekpopup.is_displayed():
+                    self.utils.print_info("Dismiss legacy ek popup...")
+                    self.auto_actions.click(self.login_web_elements.get_legacy_ek_popup_no_btn())
+            except Exception as e:
+                pass
+            if login_option.lower() == 'trial':
+                to = self.login_web_elements.get_30_days_trial_txt()
+                if to.is_displayed():
+                    self.utils.print_info("trial option is displayed")
+                    self.auto_actions.click(self.login_web_elements.get_option_30_days_trial())
+                    sleep(5)
+                    self.utils.print_info("trial option is selected.")
                 else:
-                    self.utils.print_info("Not a valid login option.")
-                    return -1
+                    return -2
 
-                gs_btn = self.login_web_elements.get_get_started_button()
-                if gs_btn is not None:
-                    self.utils.print_info("Clicking on Get Started....")
-                    self.auto_actions.click(self.login_web_elements.get_get_started_button())
-
-                if login_option.lower() == 'extremecloudiqlicense':
-                    sleep(10)
-                    self.utils.print_info("Redirected to Extreme SFDC for OAuth.")
-                    self.link_xiq_to_extreme_portal(sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid)
-
-                if login_option.lower() == 'legacylicense':
+            elif login_option.lower() == 'extremecloudiqlicense':
+                ec = self.login_web_elements.get_extr_license_txt()
+                if ec.is_displayed():
+                    self.auto_actions.click(self.login_web_elements.get_option_extr_cloudiq_license())
+                    sleep(5)
                     try:
-                        ek_invalid = self.login_web_elements.get_legacy_ek_invalid_err()
-                        if ek_invalid.is_displayed():
-                            self.utils.print_info("License Error has occurred...")
-                            ek_err = self.login_web_elements.get_legacy_ek_invalid_err().text
-                            self.utils.print_info(str(ek_err))
-                            return -1
+                        ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
+                        if ekpopup.is_displayed():
+                            self.auto_actions.click(self.login_web_elements.get_legacy_ek_popup_no_btn())
                     except Exception as e:
                         pass
+                    tp = self.login_web_elements.get_extr_license_tooltip()
+                    if tp.is_displayed():
+                        self.utils.print_info("ExtremeCloud IQ License option is selected.")
+                    else:
+                        return -2
 
-                try:
-                    agchk = self.login_web_elements.get_cloud_tos_agree()
-                    if agchk is not None:
-                        self.utils.print_info("Click on I Agree and Submit on First TOS...")
-                        self.auto_actions.click(self.login_web_elements.get_cloud_tos_agree())
-                        sleep(2)
-                        self.auto_actions.click(self.login_web_elements.get_cloud_tos_submit())
-                        sleep(5)
-                    if agchk is not None:
-                        self.utils.print_info("Click on I Agree and Submit on Seond TOS...")
-                        self.auto_actions.click(self.login_web_elements.get_cloud_tos_agree())
-                        self.auto_actions.click(self.login_web_elements.get_cloud_tos_submit())
-                    return 1
-                except Exception as e:
-                    pass
-                self.utils.print_info(login_option + " login is successful.")
-                return 1
+            elif login_option.lower() == 'legacylicense':
+                ll = self.login_web_elements.get_legacy_license_txt()
+                if ll.is_displayed():
+                    self.auto_actions.click(self.login_web_elements.get_option_legacy_license())
+                    sleep(2)
+                    self.utils.print_info("Legacy License option is selected.")
+                    # legacy_ek_in = self.login_web_elements.get_legacy_ek_input_box
+                    self.auto_actions.send_keys(self.login_web_elements.get_legacy_ek_input_box(), ekey)
+                    sleep(5)
+                else:
+                    return -2
+
+            elif login_option.lower() == 'connect':
+                conn = self.login_web_elements.get_extr_connect_txt()
+                if conn.is_displayed():
+                    self.utils.print_info("connect option is displayed...")
+                    self.auto_actions.click(self.login_web_elements.get_option_extr_connect())
+                    self.utils.print_info("Extreme Connect option is selected.")
+                    sleep(5)
+                else:
+                    return -2
             else:
                 self.utils.print_info("Not a valid login option.")
                 return -1
+
+            gs_btn = self.login_web_elements.get_get_started_button()
+            if gs_btn is not None:
+                self.utils.print_info("Clicking on Get Started....")
+                self.auto_actions.click(self.login_web_elements.get_get_started_button())
+
+            if login_option.lower() == 'extremecloudiqlicense':
+                sleep(10)
+                self.utils.print_info("Redirected to Extreme SFDC for OAuth.")
+                self.link_xiq_to_extreme_portal(sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid)
+
+            if login_option.lower() == 'legacylicense':
+                try:
+                    ek_invalid = self.login_web_elements.get_legacy_ek_invalid_err()
+                    if ek_invalid.is_displayed():
+                        self.utils.print_info("License Error has occurred...")
+                        ek_err = self.login_web_elements.get_legacy_ek_invalid_err().text
+                        self.utils.print_info(str(ek_err))
+                        return -1
+                except Exception as e:
+                    pass
+
+            try:
+                agchk = self.login_web_elements.get_cloud_tos_agree()
+                if agchk is not None:
+                    self.utils.print_info("Click on I Agree and Submit on First TOS...")
+                    self.auto_actions.click(self.login_web_elements.get_cloud_tos_agree())
+                    sleep(2)
+                    self.auto_actions.click(self.login_web_elements.get_cloud_tos_submit())
+                    sleep(5)
+                if agchk is not None:
+                    self.utils.print_info("Click on I Agree and Submit on Second TOS...")
+                    self.auto_actions.click(self.login_web_elements.get_cloud_tos_agree())
+                    self.auto_actions.click(self.login_web_elements.get_cloud_tos_submit())
+                return 1
+            except Exception as e:
+                pass
+            self.utils.print_info(login_option + " login is successful.")
+            return 1
+        else:
+            self.utils.print_info("Not a valid login option.")
+            return -1
 
     def verify_upgrade_option_for_connect_user(self):
         """
@@ -1026,7 +1067,7 @@ class Login:
             self.screen.save_screen_shot()
 
             self._agree_cloud_terms_and_conditions()
-            sleep (5)
+            sleep(5)
 
             self._agree_data_privacy_and_protection()
             sleep(5)
@@ -1085,7 +1126,7 @@ class Login:
             self.utils.print_info("shared cuid dialog is not displayed ")
 
         self._agree_cloud_terms_and_conditions()
-        sleep (5)
+        sleep(5)
 
         self._agree_data_privacy_and_protection()
         sleep(5)
@@ -1128,7 +1169,7 @@ class Login:
         self.screen.save_screen_shot()
 
         self._agree_cloud_terms_and_conditions()
-        sleep (5)
+        sleep(5)
         self._agree_data_privacy_and_protection()
         sleep(5)
         return 1

@@ -12,6 +12,9 @@ class CopilotWebElements(CopilotDefs):
     def get_wifi_capacity_content(self):
         return self.weh.get_element(self.wifi_capacity_content)
 
+    def get_wifi_capacity_status(self):
+        return self.weh.get_element(self.wifi_capacity_status)
+
     def get_wifi_capacity_widget_location_grid_rows(self):
         grid_rows = self.weh.get_elements(self.wifi_capacity_widget_location_grid_rows)
         if grid_rows:
