@@ -1273,7 +1273,6 @@ class Device360WebElementDefs:
     sw_template_stack_add_items = \
         {
             'XPATH': '//div[@id="switchesMenu"]//ul/li/a',
-
             'wait_for': 5
         }
 
