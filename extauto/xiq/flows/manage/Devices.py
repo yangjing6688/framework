@@ -9162,14 +9162,20 @@ class Devices:
                     sleep(5)
 
                     # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
+                    forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox()
                     if forceDownloadImage.lower() == "true":
-                        forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox()
                         if forceDownloadImage_checkbox_status == "true":
-                        	  self.utils.print_info(f"Perform upgrade if the versions are the same or upgrading to same version which includes a patch checkbox is already checked")
+                            self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked")
                         else:
-                        	  self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox or upgrading to same version which includes a patch")
-                        	  self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                       	sleep(2)	
+                            self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
+                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                    else:
+                        if forceDownloadImage_checkbox_status == "true":
+                            self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked - Unchecking")
+                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                        else:
+                            self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
+                    sleep(2)	
                         
                     if saveDefault.lower() == "true":
                         self.utils.print_info("Selecting Save Default button...")
@@ -9210,7 +9216,7 @@ class Devices:
                     self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
                     sleep(5)
                     
-                    # This is need to get the list from the dropdown
+                    # This is needed to get the list from the dropdown box
                     self.utils.print_info("Selecting perform upgrade if the versions are the same")
                     self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
                     sleep(5)
@@ -9329,15 +9335,21 @@ class Devices:
                         if saveDefault.lower() == "true":
                             self.utils.print_info("Selecting Save Default button...")
                         
-                        # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox    
+                        # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
+                        forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox()
                         if forceDownloadImage.lower() == "true":
-                            forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox()
                             if forceDownloadImage_checkbox_status == "true":
-                                self.utils.print_info(f"Perform upgrade if the versions are the same or upgrading to same version which includes a patch checkbox is already checked")
+                                self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked")
                             else:
-                                self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox or upgrading to same version which includes a patch")
+                                self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
                                 self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                            sleep(2)
+                        else:
+                            if forceDownloadImage_checkbox_status == "true":
+                                self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked - Unchecking")
+                                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                            else:
+                                self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
+                        sleep(2)
                             
                         if performUpgrade.lower() == "true":
                             self.screen.save_screen_shot()
