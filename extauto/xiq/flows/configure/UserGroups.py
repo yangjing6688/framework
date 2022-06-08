@@ -909,7 +909,7 @@ class UserGroups(UserGroupsWebElements):
                 self.utils.print_info("There are no custom user groups to delete")
                 return 1
         else:
-            kwargs['fail_msg'] = "User group doesn't exist in user group list"
+            kwargs['fail_msg'] = "User group list is empty"
             self.common_validation.validate_in_robot(-1, 1, **kwargs)
 
         try:
@@ -917,13 +917,14 @@ class UserGroups(UserGroupsWebElements):
             for exclusive_group in groups:
                 if not self._search_user_group(exclusive_group):
                     self.utils.print_info("User group doesn't exist in user group list")
-                    continue
+                    self.common_validation.validate_in_robot(-1, 1, **kwargs)
+                    #continue
                 else:
                     self._select_user_group_row(exclusive_group)
         except:
             kwargs['fail_msg'] = "Not able to select an exclusive user group "
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.validate_in_robot(-1, 1, **kwargs)
         
         if not self._perform_user_group_delete():
             kwargs['fail_msg'] = "Unable to delete all custom users "
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.validate_in_robot(-1, 1, **kwargs)
