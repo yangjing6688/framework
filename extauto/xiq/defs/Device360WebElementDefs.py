@@ -2196,7 +2196,7 @@ class Device360WebElementDefs:
 
     device360_aggregate_add_button = \
         {
-            'XPATH': '//*[@data-automation-tag="lag-add-port-button"]',
+            'XPATH': '//*[@data-dojo-attach-point="addButton"]',
             'wait_for': 5
         }
 
