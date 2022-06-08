@@ -892,7 +892,6 @@ class UserGroups(UserGroupsWebElements):
         :return: 1 if deleted successfully else -1
         """
 
-        kwargs['exe_mode'] = 'robot'
         self.utils.print_info("Navigating to the configure users")
         if not self.navigator.navigate_to_configure_user_groups():
             kwargs['fail_msg'] = "User group doesn't exist in user group list"
@@ -910,26 +909,21 @@ class UserGroups(UserGroupsWebElements):
                 self.utils.print_info("There are no custom user groups to delete")
                 return 1
         else:
-            self.utils.print_info("AAAAAAAAA")
             kwargs['fail_msg'] = "User group doesn't exist in user group list"
             self.common_validation.validate_in_robot(-1, 1, **kwargs)
-            self.utils.print_info("BBBBBBBBB")
 
         try:
-            self.utils.print_info("CCCCCAAAAAAAAA")
             self.auto_actions.click(self.get_usr_group_select_all_checkbox())
             for exclusive_group in groups:
                 if not self._search_user_group(exclusive_group):
                     self.utils.print_info("User group doesn't exist in user group list")
-                    self.utils.print_info("DDDDDDAAAAAAAAA")
-                    kwargs['fail_msg'] = "User group doesn't exist in user group list"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    continue
                 else:
                     self._select_user_group_row(exclusive_group)
         except:
             kwargs['fail_msg'] = "Not able to select an exclusive user group "
-            self.common_validation.validate_in_robot(-1, 1, **kwargs)
+            self.common_validation.validate(-1, 1, **kwargs)
         
         if not self._perform_user_group_delete():
             kwargs['fail_msg'] = "Unable to delete all custom users "
-            self.common_validation.validate_in_robot(-1, 1, **kwargs)
+            self.common_validation.validate(-1, 1, **kwargs)
