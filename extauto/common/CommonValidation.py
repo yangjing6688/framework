@@ -127,4 +127,81 @@ class CommonValidation():
             boolean = default
 
         return boolean
+
+    def validate_in_robot(self, value, expectedValue, **kwargs):
+        """
+        Description: Validate the input values for framework
+
+        kwargs:
+            IRV = Internal Result verification flag, will be set to false by default
+            fail_msg = The message to print on failure
+            pass_msg = The message to print on success
+            ignore_cli_feedback = which ignores any errors or output from the keyword
+            expect_error = verifies that an error was returned by the keyword
+            exe_mode = pytest or robot
+        """
+        test_result = False
+        ivr_flag = self.get_kwarg(kwargs, "IRV", False)
+        if ivr_flag:
+            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.logger.warning("Internal Result Verification is Enabled")
+            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            default_fail_msg = "The keyword had a result of fail"
+            fail_msg = self.get_kwarg(kwargs, "fail_msg", default_fail_msg)
+            pass_msg = self.get_kwarg(kwargs, "pass_msg")
+
+            # If the keyword is supported check for the existence of two kwargs.
+            # ignore_cli_feedback, which ignores any errors or output from the keyword when
+            # determining keyword pass/fail. expect_error, which verifies that an error
+            # was returned by the keyword.
+            ignore_cli = self.get_kwarg_bool(kwargs, "ignore_cli_feedback", False)
+            expect_error = self.get_kwarg_bool(kwargs, "expect_error", False)
+            execution_mode = str(self.get_kwarg_bool(kwargs, "exe_mode", False))
+            self.utils.print_info( "EXECUTION MODE " + str(execution_mode))
+
+            # Get the expected value test result
+            if value == expectedValue:
+                test_result = True
+
+            # If we are enabling both of this options that isn't allowed!
+            if ignore_cli and expect_error:
+                raise ValueError("Both ignore_cli_feedback and expect_error cannot be enabled.")
+
+            # First check if there was a cli error.
+            if not test_result and ignore_cli:
+                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.warning("kwarg - ignore_cli is Enabled return True")
+                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                test_result = True
+
+            if expect_error and not test_result:
+                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.warning("kwarg - expect_error is Enabled return True")
+                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                test_result = True
+            elif expect_error and test_result:
+                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.warning("kwarg - expect_error is Enabled return False")
+                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                test_result = False
+
+            # print the output
+            if execution_mode.lower() == 'robot':
+                if test_result:
+                    self.utils.print_info(pass_msg)
+                else:
+                    # Print the error message
+                    full_error_msg = fail_msg + " Expected Value: " + str(expectedValue) + " Value: " + str(value)
+                    assert  value == expectedValue, full_error_msg
+            else:
+                if test_result:
+                    self.utils.print_info(pass_msg)
+                else:
+                    # Print the error message
+                    full_error_msg = fail_msg + " Expected Value: " + str(expectedValue) + " Value: " + str(value)
+                    pytest.fail(full_error_msg, pytrace=False)
+        else:
+            test_result = True
+
+        return test_result
                 
