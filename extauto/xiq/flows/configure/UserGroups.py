@@ -917,13 +917,14 @@ class UserGroups(UserGroupsWebElements):
             for exclusive_group in groups:
                 if not self._search_user_group(exclusive_group):
                     self.utils.print_info("User group does not exist in the user group list")
-                    continue
+                    kwargs['fail_msg'] = "User group does not exist in the user group list "
+                    self.common_validation.validate(-1, 1, **kwargs)
                 else:
                     self._select_user_group_row(exclusive_group)
         except:
             kwargs['fail_msg'] = "Not able to select the exclusive user group "
             self.common_validation.validate(-1, 1, **kwargs)
         
-        if not self._perform_user_group_delete():
+        if self._perform_user_group_delete() == -1:
             kwargs['fail_msg'] = "Unable to delete all custom users "
             self.common_validation.validate(-1, 1, **kwargs)
