@@ -84,6 +84,7 @@ class CommonValidation():
                 # Print the error message
                 full_error_msg = fail_msg + " Expected Value: " + str(expectedValue) + " Value: " + str(value)
                 pytest.fail(full_error_msg, pytrace=False)
+                assert value == expectedValue, full_error_msg
         else:
             test_result = True
 
