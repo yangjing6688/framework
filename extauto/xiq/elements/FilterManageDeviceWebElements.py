@@ -302,3 +302,54 @@ class FilterManageDeviceWebElements(FilterManageDeviceDefinitions):
 
     def get_filter_by_title(self):
         return self.weh.get_element(self.filter_by_title)
+
+    def get_saved_filter_name(self, filter_name):
+        item = {}
+        item['XPATH'] = self.saved_filter_name['XPATH'] + '"' + filter_name + '"' + ']'
+        item['wait_for'] = 3
+        return item
+
+    def get_device_type_filter_list(self):
+        return self.weh.get_elements(self.device_type_filter_list)
+
+    def get_col_filter_pkr_link(self):
+        return self.weh.get_element(self.col_filter_pk_link)
+
+    def get_clear_filter_button(self):
+        return self.weh.get_element(self.clear_filter_button)
+
+    def get_save_filter_list(self):
+        return self.weh.get_elements(self.device_save_filter_list)
+
+    def get_save_filter_scroll_bar(self):
+        return  self.weh.get_element(self.save_filter_scroll_bar)
+
+    def get_applied_filter_del_x_button(self):
+        return  self.weh.get_element(self.applied_filter_del_x_button)
+
+    def get_applied_filter_more_link(self):
+        return self.weh.get_element(self.applied_filter_more_link)
+
+    def get_locations_link(self):
+        return self.weh.get_element(self.locations_filter_link)
+
+    def get_location_search_input(self):
+        return self.weh.get_element(self.location_search_input)
+
+    def get_locations_filter(self, location):
+        item = {}
+        item['XPATH'] = self.location_filter_checkbox['XPATH'] + '"' + location + '"' + ']'
+        item['wait_for'] = 3
+        return item
+
+    def get_locations_name(self, location):
+        item = {}
+        item['XPATH'] = self.location_filter_name ['XPATH'] + '"' + location + '"' + ']'
+        item['wait_for'] = 3
+        return item
+
+    def get_location_clear_icon(self):
+        return self.weh.get_element(self.location_clear_icon)
+
+    def get_apply_filter_button(self):
+        return  self.weh.get_element(self.apply_filters_button)

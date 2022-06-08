@@ -98,3 +98,6 @@ class FilterManageClientWebElements(FilterManageClientDefinitions):
         :return:  get client device wired connection link
         """
         return self.weh.get_element(self.filter_client_os_type_link)
+
+    def get_application_connect_table_list(self):
+        return self.weh.get_elements(self.filter_client_application_table_list)

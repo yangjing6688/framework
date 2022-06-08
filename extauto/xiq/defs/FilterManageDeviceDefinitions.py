@@ -31,7 +31,7 @@ class FilterManageDeviceDefinitions:
 
     device_policy_list = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-manage-device-list"]/descendant::td[contains(@class,"networkPolicyName")]/span',
+            'XPATH': '//a[@class="go-to-policy"]',
             'wait_for': 5
         }
 
@@ -558,5 +558,92 @@ class FilterManageDeviceDefinitions:
     filter_by_title = \
         {
             'XPATH': '//span[@data-dojo-attach-point="titleNode" and contains(text(),"Filter By")]',
+            'wait_for': 5
+        }
+
+    col_filter_pk_link = \
+        {
+            'XPATH': '//button[@class="ui-icon dgrid-hider-toggle show"]',
+            'wait_for': 5
+        }
+
+    clear_filter_button = \
+        {
+            'XPATH': '//button[@class="btn btn-small btn-primary"]',
+            'wait_for': 5
+        }
+
+    applied_filter_del_x_button = \
+        {
+            'XPATH': '//div[contains(@id,"HcTitlePane_0_pane")]/span',
+            'wait_for': 5
+        }
+
+    saved_filter_name = \
+        {
+            'XPATH': '//span[@title=',
+            'wait_for': 5
+        }
+
+    device_type_filter_list = \
+        {'XPATH': '//div[contains(@id,"HcTreeNode_66")]//div/span',
+         'wait_for': 5
+         }
+
+    device_save_filter_list = \
+        {'XPATH': '//li[@class="saved-filter-item"]',
+         'wait_for': 5
+         }
+
+    save_filter_scroll_bar = \
+        {'XPATH': '//div[contains(@id,"HcTitlePane_1_pane")]',
+         'wait_for': 5
+         }
+
+    save_filter_list_index = \
+        {'XPATH': '//div[contains(@id,"HcTitlePane_60_pane")]/ul/li[1]/label/input',
+         'wait_for': 5
+         }
+
+    applied_filter_more_link = \
+        {
+            'XPATH': '//a[@data-dojo-attach-point="chipControlMore"]',
+            'wait_for': 5
+        }
+
+    locations_filter_link = \
+        {
+            'XPATH': '//span[contains(text(),"Location") and @data-dojo-attach-point="titleNode"]',
+            'wait_for': 5
+        }
+
+    location_search_input = \
+        {
+            'XPATH': '//input[@placeholder="Search Locations"]',
+            'wait_for': 5
+        }
+
+    location_filter_checkbox = \
+        {
+            'XPATH': '//input[@data-name=',
+            # 'XPATH': '//span[@title=',
+            'wait_for': 5
+        }
+
+    location_filter_name = \
+        {
+            'XPATH': '//span[@title=',
+            'wait_for': 5
+        }
+
+    location_clear_icon = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="clearSearch"]',
+            'wait_for': 5
+        }
+
+    apply_filters_button = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="applyFilterBtn"]',
             'wait_for': 5
         }
