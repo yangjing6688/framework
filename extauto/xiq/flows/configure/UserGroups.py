@@ -894,7 +894,7 @@ class UserGroups(UserGroupsWebElements):
 
         self.utils.print_info("Navigating to the configure users")
         if not self.navigator.navigate_to_configure_user_groups():
-            kwargs['fail_msg'] = "User group doesn't exist in user group list"
+            kwargs['fail_msg'] = "Unable to navigate to the user group page"
             self.common_validation.validate(-1, 1, **kwargs)
 
         self.utils.print_info("Click on full page view")
@@ -909,20 +909,19 @@ class UserGroups(UserGroupsWebElements):
                 self.utils.print_info("There are no custom user groups to delete")
                 return 1
         else:
-            kwargs['fail_msg'] = "User group list is empty"
+            kwargs['fail_msg'] = "Could not get the user group list"
             self.common_validation.validate(-1, 1, **kwargs)
 
         try:
             self.auto_actions.click(self.get_usr_group_select_all_checkbox())
             for exclusive_group in groups:
                 if not self._search_user_group(exclusive_group):
-                    self.utils.print_info("User group doesn't exist in user group list")
-                    self.common_validation.validate(-1, 1, **kwargs)
-                    #continue
+                    self.utils.print_info("User group does not exist in the user group list")
+                    continue
                 else:
                     self._select_user_group_row(exclusive_group)
         except:
-            kwargs['fail_msg'] = "Not able to select an exclusive user group "
+            kwargs['fail_msg'] = "Not able to select the exclusive user group "
             self.common_validation.validate(-1, 1, **kwargs)
         
         if not self._perform_user_group_delete():

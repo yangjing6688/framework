@@ -23,6 +23,7 @@ from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Devices:
@@ -33,6 +34,7 @@ class Devices:
         self.dialogue_web_elements = DialogWebElements()
         self.switch_web_elements = SwitchWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
+        self.common_validation = CommonValidation()
 
         self.navigator = Navigator()
         self.device_actions = DeviceActions()
@@ -9479,7 +9481,7 @@ class Devices:
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
              
-    def wait_until_all_devices_update_done(self, wait_time_in_min=10):
+    def wait_until_all_devices_update_done(self, wait_time_in_min, **kwargs):
         """
             - This Keyword checks if all devices are done with updating
             - Keyword Usage:
@@ -9502,10 +9504,9 @@ class Devices:
                self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
         if not complete:
-            self.utils.print_info("the waited time has reached with " + str(wait_time_in_min) + ' min(s)')
-            return -1
+            kwargs['fail_msg'] = "the waited time has reached with " + str(wait_time_in_min) + ' min(s)'
+            self.common_validation.validate(-1, 1, **kwargs)
 
         sleep(10)
         self.utils.print_info("All devices finish updating ")
         return 1
-
