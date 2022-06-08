@@ -383,13 +383,13 @@ class SwitchTemplateWebElementDefinitions:
 
     aggr_ports_across_stack_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-aggregate-for-stack"]',
+            'XPATH': '//*[@data-automation-tag="switch-template-aggregate-for-stack"]',
             'wait_for': 5
         }
 
     aggr_ports_standalone_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-aggregate-for-exos"]',
+            'XPATH': '//*[@data-automation-tag="switch-template-aggregate-for-exos"]',
             'wait_for': 5
         }
 
@@ -582,19 +582,19 @@ class SwitchTemplateWebElementDefinitions:
 
     lacp_toggle_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-lacp-toggle"]',
+            'XPATH': '//*[@data-automation-tag="lag-lacp-toggle"]',
             'wait_for': 2
         }
 
     lag_remove_port_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-remove-port-button"]',
+            'XPATH': '//*[@data-automation-tag="lag-remove-port-button"]',
             'wait_for': 2
         }
 
     lag_add_port_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-add-port-button"]',
+            'XPATH': '//*[@data-automation-tag="lag-add-port-button"]',
             'wait_for': 2
         }
 
@@ -606,13 +606,13 @@ class SwitchTemplateWebElementDefinitions:
 
     cancel_button = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-lag-cancel-button"]',
+            'XPATH': '//button[@data-automation-tag="lag-cancel-button"]',
             'wait_for': 5
         }
 
     save_port_type_button = \
         {
-            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-automation-tag="automation-lag-save-button"]',
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-automation-tag="lag-save-button"]',
             'wait_for': 5
         }
 
@@ -625,19 +625,19 @@ class SwitchTemplateWebElementDefinitions:
 
     lag_span = \
         {
-            'XPATH': '//a[@data-automation-tag="automation-lag-edit-lag-${lag}"]',
+            'XPATH': '//a[@data-automation-tag="lag-edit-lag-${lag}"]',
             'wait_for': 5
         }
 
     available_port = \
         {
-            'XPATH': '//option[@data-automation-tag="automation-lag-available-port-${port}"]',
+            'XPATH': '//option[@data-automation-tag="lag-available-port-${port}"]',
             'wait_for': 5
         }
 
     selected_port = \
         {
-            'XPATH': '//option[@data-automation-tag="automation-lag-selected-port-${port}"]',
+            'XPATH': '//option[@data-automation-tag="lag-selected-port-${port}"]',
             'wait_for': 5
         }
 
@@ -649,7 +649,7 @@ class SwitchTemplateWebElementDefinitions:
 
     available_slot = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-slots-available"]//option[@value="${slot}"]',
+            'XPATH': '//*[@data-automation-tag="lag-slots-available"]//option[@value="${slot}"]',
             'wait_for': 5
         }
 

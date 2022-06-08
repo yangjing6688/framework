@@ -2154,7 +2154,7 @@ class Device360WebElementDefs:
 
     device360_aggregate_selected_ports_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-port-settings-aggregate"]',
+            'XPATH': '//*[@data-automation-tag="port-settings-aggregate"]',
             'wait_for': 5
         }
 
@@ -2184,7 +2184,7 @@ class Device360WebElementDefs:
 
     device360_port_from_aggregation_list = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-selected-port-${port}"]',
+            'XPATH': '//*[@data-automation-tag="lag-selected-port-${port}"]',
             'wait_for': 5
         }
 
@@ -2196,7 +2196,7 @@ class Device360WebElementDefs:
 
     device360_aggregate_add_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-add-port-button"]',
+            'XPATH': '//*[@data-automation-tag="lag-add-port-button"]',
             'wait_for': 5
         }
 
@@ -2221,17 +2221,17 @@ class Device360WebElementDefs:
 
     device360_aggregate_choose_slot = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-available-slot-${unit}"]',
+            'XPATH': '//*[@data-automation-tag="lag-available-slot-${unit}"]',
             'wait_for': 5
         }
 
     device360_aggregate_available_port = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-available-port-${port}"]',
+            'XPATH': '//*[@data-automation-tag="lag-available-port-${port}"]',
             'wait_for': 5
         }
     device360_aggregate_selected_port = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-selected-port-${port}"]',
+            'XPATH': '//*[@data-automation-tag="lag-selected-port-${port}"]',
             'wait_for': 5
         }
