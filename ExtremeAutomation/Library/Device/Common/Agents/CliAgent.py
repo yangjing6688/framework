@@ -453,6 +453,8 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
             if self.device.oper_sys in [NetworkElementConstants.OS_LINUX,
                                         NetworkElementConstants.OS_SNAP_ROUTE]:
                 prompt_list = ["#", "$"]
+            elif self.device.oper_sys == NetworkElementConstants.OS_AH_SWITCH:
+                prompt_list = ["#",">"]
             else:
                 prompt_list = [self.device.main_prompt]
 
@@ -536,6 +538,9 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
             prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
         elif self.device.oper_sys in [NetworkElementConstants.OS_HIVE]:
             prompt_re1 = ".*" + self.prompt_snapshot + ".*"
+            prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
+        elif self.device.oper_sys in [NetworkElementConstants.OS_AH_SWITCH]:
+            prompt_re1 = ".*#.*"
             prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
 
         return prompt_list
