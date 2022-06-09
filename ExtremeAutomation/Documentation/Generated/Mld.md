@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Mld
-This feature is located in this file: `mld.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `mld.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_enable_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_enable_vlan(device_name )
 
 	Robot API Call: 
 
@@ -62,7 +62,7 @@ UUID: fdf9ef13-b6e0-4e40-9778-b37009e57b73
 # API Function: disable_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_disable_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_disable_vlan(device_name )
 
 	Robot API Call: 
 
@@ -120,7 +120,7 @@ UUID: ac01e9f9-216e-4148-b8d9-9c814f561fca
 # API Function: set_version
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_set_version(device_name, version, vlan, vlan_name)
+		self.defaultLibrary.apiLowLevelApis.mld.mld_set_version(device_name, version, vlan, vlan_name)
 
 	Robot API Call: 
 
@@ -163,7 +163,7 @@ UUID: c5dafbcc-5015-4322-9fd1-6a56cadbedde
 # API Function: enable_snooping
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_enable_snooping(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_enable_snooping(device_name )
 
 	Robot API Call: 
 
@@ -206,7 +206,7 @@ UUID: 2dbb6f6e-5680-4f48-b9e2-0c1f898c96a4
 # API Function: disable_snooping
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_disable_snooping(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_disable_snooping(device_name )
 
 	Robot API Call: 
 
@@ -249,7 +249,7 @@ UUID: 2b2e306b-3c94-498b-b9c2-13b8c0ae10b0
 # API Function: enable_snooping_querier
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_enable_snooping_querier(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_enable_snooping_querier(device_name )
 
 	Robot API Call: 
 
@@ -277,7 +277,7 @@ UUID: 65b02f61-2516-4d37-9afa-13a16a609a97
 # API Function: disable_snooping_querier
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_disable_snooping_querier(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_disable_snooping_querier(device_name )
 
 	Robot API Call: 
 
@@ -305,7 +305,7 @@ UUID: 3a36fffa-9295-490b-80bf-e000d805714a
 # API Function: set_snooping_fast_leave
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_set_snooping_fast_leave(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_set_snooping_fast_leave(device_name )
 
 	Robot API Call: 
 
@@ -333,7 +333,7 @@ UUID: f9b1733d-6159-4597-826d-dff13ad888da
 # API Function: clear_snooping_fast_leave
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_clear_snooping_fast_leave(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_clear_snooping_fast_leave(device_name )
 
 	Robot API Call: 
 
@@ -361,7 +361,7 @@ UUID: b732ffd3-870e-40fe-87cb-572820e35061
 # API Function: set_snooping_last_member_query_count
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_set_snooping_last_member_query_count(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_set_snooping_last_member_query_count(device_name )
 
 	Robot API Call: 
 
@@ -389,7 +389,7 @@ UUID: 30168a49-720f-488b-add4-79faa0e1ec88
 # API Function: clear_snooping_last_member_query_count
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_clear_snooping_last_member_query_count(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_clear_snooping_last_member_query_count(device_name )
 
 	Robot API Call: 
 
@@ -417,7 +417,7 @@ UUID: 01ea4117-bcb2-4926-a0f9-157ff3ed1142
 # API Function: set_snooping_last_member_query_interval
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_set_snooping_last_member_query_interval(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_set_snooping_last_member_query_interval(device_name )
 
 	Robot API Call: 
 
@@ -445,7 +445,7 @@ UUID: 058cc38d-7123-4aa2-8967-17944d9f34f5
 # API Function: clear_snooping_last_member_query_interval
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_clear_snooping_last_member_query_interval(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_clear_snooping_last_member_query_interval(device_name )
 
 	Robot API Call: 
 
@@ -473,7 +473,7 @@ UUID: 40827e1e-d06b-47f3-909e-e50b18aa9f1b
 # API Function: set_snooping_robustness_variable
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_set_snooping_robustness_variable(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_set_snooping_robustness_variable(device_name )
 
 	Robot API Call: 
 
@@ -501,7 +501,7 @@ UUID: 2144237d-6c46-4bbc-9948-e4bb1b274f7a
 # API Function: clear_snooping_robustness_variable
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_clear_snooping_robustness_variable(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_clear_snooping_robustness_variable(device_name )
 
 	Robot API Call: 
 
@@ -529,7 +529,7 @@ UUID: e2caa83e-dcfc-4081-acfc-c2528eddc8aa
 # API Function: set_snooping_startup_query_count
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_set_snooping_startup_query_count(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_set_snooping_startup_query_count(device_name )
 
 	Robot API Call: 
 
@@ -557,7 +557,7 @@ UUID: d9564fc5-60cc-44b0-8cfe-840bc9a4ec63
 # API Function: clear_snooping_startup_query_count
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_clear_snooping_startup_query_count(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_clear_snooping_startup_query_count(device_name )
 
 	Robot API Call: 
 
@@ -585,7 +585,7 @@ UUID: 379c3a65-3448-4bc5-be33-c6d03c954d2a
 # API Function: set_snooping_startup_query_interval
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_set_snooping_startup_query_interval(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_set_snooping_startup_query_interval(device_name )
 
 	Robot API Call: 
 
@@ -613,7 +613,7 @@ UUID: 92e59bff-c3f0-40a2-ac3b-2d7380251cbf
 # API Function: clear_snooping_startup_query_interval
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_clear_snooping_startup_query_interval(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_clear_snooping_startup_query_interval(device_name )
 
 	Robot API Call: 
 
@@ -641,7 +641,7 @@ UUID: c2051e4c-d158-4d14-9ba3-a0564a05a79c
 # API Function: set_snooping_mrouter
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_set_snooping_mrouter(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_set_snooping_mrouter(device_name )
 
 	Robot API Call: 
 
@@ -669,7 +669,7 @@ UUID: 2ced3098-8888-4ef5-8cc9-783664497def
 # API Function: clear_snooping_mrouter
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_clear_snooping_mrouter(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_clear_snooping_mrouter(device_name )
 
 	Robot API Call: 
 
@@ -694,147 +694,48 @@ UUID: 0bbca321-7d96-4f9e-a96a-2a0256e5ee8e
 
 ## REST
 ## SNMP
-# API Function: show_vlan
+# API Function: mld_verify_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_show_vlan(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		mld_show_vlan  device_name  
+		mld_verify_enabled_on_vlan  device_name  vlan
 
-UUID: 5a011cd7-4ac2-4c80-83a3-77739dfe7063
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mld config
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mld
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 mld snooping vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_version
+# API Function: mld_verify_disabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_show_version(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_disabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		mld_show_version  device_name  
+		mld_verify_disabled_on_vlan  device_name  vlan
 
-UUID: f2376d5c-ee82-4fb3-83a4-00b9492c2c03
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mld config {vlan}
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show mld
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show ipv6 mld snooping vlan {vlan}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_statistics
+# API Function: mld_verify_snooping_enabled_on_vlan
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementMldGenKeywords.mld_show_statistics(device_name )
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_snooping_enabled_on_vlan(device_name, vlan)
 
 	Robot API Call: 
 
-		mld_show_statistics  device_name  
+		mld_verify_snooping_enabled_on_vlan  device_name  vlan
 
-UUID: 2f96ab47-c496-4ac7-b953-b2f65d27ed32
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: SLX
+# API Function: mld_verify_snooping_disabled_on_vlan
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_snooping_disabled_on_vlan(device_name, vlan)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		mld_verify_snooping_disabled_on_vlan  device_name  vlan
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: mld_verify_version
+	Pytest API Call: 
 
-		show ipv6 mld statistics vlan {vlan}
+		self.defaultLibrary.apiLowLevelApis.mld.mld_verify_version(device_name, vlan, version)
 
-----------------------------------------------
+	Robot API Call: 
 
+		mld_verify_version  device_name  vlan  version
 
-## REST
-## SNMP

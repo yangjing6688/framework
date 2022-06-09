@@ -129,3 +129,29 @@ class AdminBackupRestoreWebElements(AdminBackupRestoreWebElementsDefinitions):
         :return: 'No' button to cancel restore of initial database on Confirmation dialog
         """
         return self.weh.get_element(self.restore_initial_database_confirmation_no_button)
+
+    def get_restore_initial_database_dialog(self):
+        """
+        :return: 'Restore Initial Database' dialog to confirm function of database reinitialization
+        """
+        return self.weh.get_element(self.restore_initial_database_dialog)
+
+    def get_restore_initial_database_load_mask(self):
+        """
+        :return: load 'Restoring Initial Database' refresh mask if displayed, else None
+        """
+        elements = self.weh.get_elements(self.restore_initial_database_load_mask)
+        return self.weh.get_displayed_element(elements)
+
+    def get_connection_to_server_lost_dialog(self):
+        """
+        :return: 'Connection to server lost' dialog when server restarts after restoring database
+        """
+        return self.weh.get_element(self.connection_to_server_lost_dialog)
+
+    def get_connection_to_server_lost_ok_button(self):
+        """
+        :return: 'OK' button to close 'Connection to server lost' dialog
+        """
+        return self.weh.get_element(self.connection_to_server_lost_ok_button)
+

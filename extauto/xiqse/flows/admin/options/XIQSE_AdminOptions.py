@@ -408,9 +408,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
             label_text = the_label.text
             if label_text:
                 self.utils.print_info(f"Label text is {label_text}")
-
                 # Split the string to get the serial number component
-                prefix, serial_number = label_text.split(":")
+                text_lines = label_text.splitlines()
+                prefix, serial_number = text_lines[0].split(":")
                 self.utils.print_debug(f"Prefix is '{prefix}'")
                 self.utils.print_info(f"Serial Number is '{serial_number.strip()}'")
                 ret_val = serial_number.strip()

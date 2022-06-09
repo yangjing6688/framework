@@ -26,6 +26,60 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_wifi2_interface_tab(self):
         return self.weh.get_element(self.wifi2_interface_tab)
 
+    def get_override_client_mode_wifi0_checked(self):
+        return self.weh.get_element(self.override_client_mode_wifi0_checked)
+
+    def get_override_client_mode_wifi1_checked(self):
+        return self.weh.get_element(self.override_client_mode_wifi1_checked)
+
+    def get_override_client_access_wifi0_checked(self):
+        return self.weh.get_element(self.override_client_access_wifi0_checked)
+
+    def get_override_client_access_wifi1_checked(self):
+        return self.weh.get_element(self.override_client_access_wifi1_checked)
+
+    def get_override_add_client_mode_wifi0_profile(self):
+        return self.weh.get_element(self.override_add_client_mode_wifi0_profile)
+
+    def get_override_add_client_mode_wifi1_profile(self):
+        return self.weh.get_element(self.override_add_client_mode_wifi1_profile)
+
+    def get_override_wifi0_1_client_mode_profile_name(self):
+        return self.weh.get_element(self.override_wifi0_1_client_mode_profile_name)
+
+    def get_override_wifi0_1_cm_local_web_page_checkbox(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_checkbox)
+
+    def get_override_wifi0_1_cm_local_web_page_add(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_add)
+
+    def get_override_wifi0_1_cm_local_web_page_ssid_textbox(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_ssid_textbox)
+
+    def get_override_wifi0_1_cm_local_web_page_password_textbox(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_password_textbox)
+
+    def get_override_wifi0_1_cm_local_web_page_auth_dropdown(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_auth_dropdown)
+
+    def get_override_wifi0_1_cm_local_web_page_auth_dropdown_option(self):
+        return self.weh.get_elements(self.override_wifi0_1_cm_local_web_page_auth_dropdown_option)
+
+    def get_override_wifi0_1_cm_local_web_key_type_dropdown(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_key_type_dropdown)
+
+    def get_override_wifi0_1_cm_local_web_key_type_dropdown_option(self):
+        return self.weh.get_elements(self.override_wifi0_1_cm_local_web_key_type_dropdown_option)
+
+    def get_override_wifi0_1_cm_local_web_page_add_button(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_add_button)
+
+    def get_override_wifi0_1_client_mode_profile_dhcp_server_scope(self):
+        return self.weh.get_element(self.override_wifi0_1_client_mode_profile_dhcp_server_scope)
+
+    def get_override_wifi0_1_client_mode_profile_save(self):
+        return self.weh.get_element(self.override_wifi0_1_client_mode_profile_save)
+
     def get_override_wifi0_ssid_broadcast_ssid_field(self):
         return self.weh.get_element(self.override_wifi0_ssid_broadcast_ssid_field)
 
@@ -33,10 +87,16 @@ class DeviceConfigElements(DeviceConfigDefs):
         return self.weh.get_element(self.override_wifi0_psk_password)
 
     def get_interface_settings_save_button(self):
-        return self.weh.get_element(self.interface_settings_save_btuuton)
+        return self.weh.get_element(self.interface_settings_save_button)
 
     def get_configuration_tab(self):
         return self.weh.get_element(self.configuration_tab)
+
+    def get_device_configuration_tab(self):
+        return self.weh.get_element(self.device_configuration_tab)
+
+    def get_device_configuration_dhcp_checkbox(self):
+        return self.weh.get_element(self.device_configuration_dhcp_checkbox)
 
     def get_close_device360_dialog_window(self):
         return self.weh.get_element(self.close_device360_dialog_window)
@@ -543,3 +603,57 @@ class DeviceConfigElements(DeviceConfigDefs):
 
     def get_imago_tag_add_profile_add_button(self):
         return self.weh.get_element(self.imago_tag_add_profile_add_button)
+
+    def get_wired_client_connection_type(self):
+        return self.weh.get_element(self.wired_client_connection_type)
+
+    def get_wired_client_os_type(self):
+        return self.weh.get_element(self.wired_client_os_type)
+
+    def get_wired_client_connection_status(self):
+        return self.weh.get_element(self.wired_client_connection_status)
+
+    def get_wired_client_hostname(self):
+        return self.weh.get_element(self.wired_client_hostname)
+
+    def get_wired_client_mac(self):
+        return self.weh.get_element(self.wired_client_mac)
+
+    def get_wired_client_IPv4(self):
+        return self.weh.get_element(self.wired_client_IPv4)
+
+    def get_wired_client_IPv6(self):
+        return self.weh.get_element(self.wired_client_IPv6)
+
+    def get_wired_client_user_name(self):
+        return self.weh.get_element(self.wired_client_user_name)
+
+    def get_wired_client_vlan(self):
+        return self.weh.get_element(self.wired_client_vlan)
+
+    def get_wired_client_connected_via(self):
+        return self.weh.get_element(self.wired_client_connected_via)
+
+    def get_wired_client_popup_mac(self):
+        return self.weh.get_element(self.wired_client_popup_mac)
+
+    def get_wired_client_popup_IPv4(self):
+        return self.weh.get_element(self.wired_client_popup_ipv4)
+
+    def get_wired_client_popup_portSpeed(self):
+        return self.weh.get_element(self.wired_client_popup_portSpeed)
+
+    def get_wired_client_popup_negotiatedspeed(self):
+        return self.weh.get_element(self.wired_client_popup_negotiatedspeed)
+
+    def get_wired_client_popup_portMode(self):
+        return self.weh.get_element(self.wired_client_popup_portMode)
+
+    def get_wired_client_popup_vlan(self):
+        return self.weh.get_element(self.wired_client_popup_vlan)
+
+    def get_wired_client_popup_portNumber(self):
+        return self.weh.get_element(self.wired_client_popup_portNumber)
+
+    def get_client360_page_confirmation(self):
+        return self.weh.get_element(self.wired_client_popup_confirmation)

@@ -8,7 +8,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.RadioProfileWebElements import RadioProfileWebElements
 
 from extauto.common.WebElementHandler import WebElementHandler
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 
 class RadioProfile (RadioProfileWebElements):
 
@@ -20,7 +20,7 @@ class RadioProfile (RadioProfileWebElements):
         self.navigator = Navigator()
         self.radprof_web_elements = RadioProfileWebElements()
         self.web = WebElementHandler()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def add_radio_profile(self, radio_profile_name):
         """
@@ -438,7 +438,7 @@ class RadioProfile (RadioProfileWebElements):
                 if enabled_text.find("enabled") == -1 :
                     self.utils.print_info(" channel is not by default: ", channel)
                     return -1
-            elif mode == 'disable':
+            elif mode == 'disabled':
                 if enabled_text.find("disabled") == -1 :
                     self.utils.print_info(" channel is by default: ", channel)
                     return -1
@@ -585,38 +585,136 @@ class RadioProfile (RadioProfileWebElements):
         return radio_profile_info
 
 
-    def verify_uni_group_exclusded_channels(self, channels, group_channel='default', mode='excluded'):
+    def verify_uni_group_channels(self, channels, group_channel, mode='excluded', radio_modes='5GHz',
+                                            channel_width='20MHZ'):
         """
             - This keyword verifies a excluded channels group of Uni for the 80 Mhz, 40 Mhz and 20 MHz
             - Keyword Usage:
                 - ``verify_uni_group_exclusded_channels  [5,12,5,6]  group_channel=uni-1   mode=excluded  ''
             :param  channels: list of channels in Uni group
             :param  group_channel: either uni-1, uni-2, uni-3, uni-4, uni-5, uni-6, uni-7, uni-8
-            :param  mode: excluded or included
+            :param  mode: excluded or included, disabled, enabled
+            :param  radio_modes: either 5GHz or 6GHz
+            :param  channel_width: either 20, 40, 80 MHz
         """
 
         self.utils.print_info("Group Channel Not able to click " + str(group_channel))
         try:
-            if group_channel == 'uni-1':
-                self.get_channel_width_exclusions_uni_1().click()
-            elif group_channel == 'uni-2':
-                self.get_channel_width_exclusions_uni_2().click()
-            elif group_channel == 'uni-3':
-                self.get_channel_width_exclusions_uni_3().click()
+            if radio_modes.lower() in ['5ghz', '6ghz'] and channel_width.lower() in ['20mhz']:
+                self.get_radio_profile_Mega_20_Hert().click()
 
-            elif group_channel == 'uni-2-extended':
-                self.get_channel_width_exclusions_unii_2_extended().click()
-            elif group_channel == 'uni-5':
+            elif radio_modes.lower() in ['5ghz', '6ghz'] and channel_width.lower() in ['40mhz']:
+                self.get_radio_profile_Mega_40_Hert().click()
+
+            elif radio_modes.lower() in ['5ghz', '6ghz'] and channel_width.lower() in ['80mhz']:
+                self.get_radio_profile_Mega_80_Hert().click()
+
+            if group_channel.lower() == 'uni-1':
+                self.get_channel_width_exclusions_uni_1().click()
+            elif group_channel.lower() == 'uni-3':
+                self.get_channel_width_exclusions_uni_3().click()
+            elif group_channel.lower() == 'uni-5':
                 self.get_channel_width_exclusions_unii_5().click()
-            elif group_channel == 'uni-6':
+            elif group_channel.lower() == 'uni-6':
                 self.get_channel_width_exclusions_unii_6().click()
-            elif group_channel == 'uni-7':
+            elif group_channel.lower() == 'uni-7':
                 self.get_channel_width_exclusions_unii_7().click()
-            elif group_channel == 'uni-8':
+            elif group_channel.lower() == 'uni-8':
                 self.get_channel_width_exclusions_unii_8().click()
+
 
         except:
             self.utils.print_info("Not able to click " + str(group_channel))
             return -1
 
         return self.verify_radio_profile_channel_width_and_channels(channels, mode=mode)
+
+    def delete_radio_profile(self, profile_name='default'):
+        """
+            - This keyword deletes a radio profile in radio profile table
+            - Keyword Usage:
+             - ``delete_radio_profile   profile_name=abc_20MHz``
+            :param  profile_name: radio profile name
+            :return: 1
+        """
+
+        radio_profile_table_header = self.get_radio_profile_table_header()
+        page_size_100_link = self.get_radio_profile_page_size_100_link()
+
+        if page_size_100_link:
+            self.utils.print_info(" Click on page size 100 ")
+            self.auto_actions.click(page_size_100_link)
+            sleep(5)
+
+        cells = self.get_radio_profile_table_cells()
+        if not cells:
+            self.utils.print_info(" Radio Profile table is empty ")
+            return -1
+
+        row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
+        if not row:
+            self.utils.print_info(" Not able to find the radio profile in table " + profile_name)
+            return -1
+
+        self.utils.print_info(" Select a radio profile ")
+        self.auto_actions.click(row)
+
+        self.auto_actions.scroll_up()
+        self.utils.print_info(" Click on delete button ")
+        self.auto_actions.click(self.get_radio_profile_delete_button())
+
+        sleep(3)
+        diag_yes_button = self.get_radio_profile_dialog_yes_button()
+        if diag_yes_button:
+            self.utils.print_info(" Click on Yes button ")
+            self.auto_actions.click(self.get_radio_profile_dialog_yes_button())
+
+        sleep(3)
+        cells = self.get_radio_profile_table_cells()
+        row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
+        if row:
+            self.utils.print_info(" Not able to delete the radio profile " + profile_name)
+            return -1
+
+        return 1
+
+    def _search_radio_profile_in_table(self, no_columns_per_row, cells, radio_profile):
+
+        """
+        - This private function searches a radio profile in the radio profile table
+        :param  header_length: number column headers of the radio profile tables
+        :param  cells: all columns
+        :param  radio_profile: profile name
+        :return: row or -1
+        """
+        row_text = []
+        cnt = 0
+        found = False
+        check_box = None
+
+        self.utils.print_info("Search for the value " + str(radio_profile))
+        for cell in cells:
+            row_text.append(cell.text)
+            cnt = cnt + 1
+
+            if cnt == 1:
+                check_box = cell
+
+            if cnt == no_columns_per_row:
+                if radio_profile in str(row_text):
+                    found = True
+                    self.utils.print_info("Able to locate the radio in the radio profile table " + str(row_text))
+                    return check_box
+                else:
+                    found = False
+                    self.utils.print_info(str(row_text))
+
+                row_text = []
+                cnt = 0
+                check_box = None
+
+        if not found:
+            self.utils.print_info(" Not able to find the profile in table ")
+            return -1
+
+        return 1

@@ -565,7 +565,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         if guest_essential and guest_essential.upper() == "ENABLE":
             self.auto_actions.enable_radio_button(self.get_enable_extreme_guest_essentials_slide_button())
             sleep(2)
-            if cwp_profile['wall_garden_profile']:
+            if 'wall_garden_profile' in cwp_profile.keys():
                 self.create_cloud_social_login_ege(**cwp_profile)
             return 1
 

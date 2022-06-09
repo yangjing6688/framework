@@ -453,39 +453,53 @@ class GlobalSetting(GlobalSettingWebElements):
     def enable_ssh_availability(self):
         """
         - Enabling SSH availability in Global Settings Page
-        - Flow : User account icon-->Global Settings--> SSH availability
-        - Keyword Usage:
-         - `` Enable SSH Availability ``
+        - Flow : User account icon-->Global Settings--> VIQ Management
+        - Keyword Usage
+         - ``Enable SSH Availability``
         :return: 1 after successfully enabling SSH
         """
-        self.utils.print_info("Clicking on Account icon")
-        sleep(5)
 
-        self.auto_actions.click(self.get_account_icon())
-        self.utils.print_info("Click on Global Settings")
-        sleep(5)
-
-        self.auto_actions.click(self.get_global_settings())
-        self.utils.print_info("Clicking on SSH availability")
+        self.navigate.navigate_to_viq_management_page()
         sleep(2)
 
-        self.auto_actions.click(self.get_ssh_availability())
-        self.utils.print_info("Getting SSH Availability status")
-        sleep(2)
-
-        self.utils.print_info("printing ssh enable tag values : ")
-        value = self.get_enable_ssh()
-        self.utils.print_info(value)
-        self.utils.print_info(value.get_attribute("type"))
-
-        ans = value.get_attribute("checked")
-        if ans == "true":
-            self.utils.print_info("SSH enable box is already checked")
-        else:
-            self.utils.print_info("SSH is not enabled. Enabling...")
-            self.auto_actions.click(self.get_enable_ssh())
-
+        self.utils.print_info("Now checking for SSH availability")
         self.screen.save_screen_shot()
+        if not self.get_ssh_availability_option_status().is_selected():
+            self.utils.print_info("Enabling SSH Availability..")
+            self.auto_actions.click(self.get_ssh_availability_option_status())
+            sleep(1)
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("SSH Availability Button already enabled...")
+            sleep(2)
+            self.screen.save_screen_shot()
+
+        return 1
+
+    def disable_ssh_availability(self):
+        """
+        - Disabling SSH availability in Global Settings Page
+        - Flow : User account icon-->Global Settings--> VIQ Management
+        - Keyword Usage
+         - ``Disable SSH Availability``
+        :return: 1 after successfully disabling SSH
+        """
+
+        self.navigate.navigate_to_viq_management_page()
+        sleep(2)
+
+        self.utils.print_info("Now checking for SSH availability")
+
+        if self.get_ssh_availability_option_status().is_selected():
+            self.utils.print_info("Disabling SSH Availability..")
+            self.auto_actions.click(self.get_ssh_availability_option_status())
+            sleep(1)
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("SSH Availability Button already disabled...")
+            sleep(2)
+            self.screen.save_screen_shot()
+
         return 1
 
     def get_api_access_token_details(self, search_string):
@@ -621,7 +635,7 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Reset VIQ Confirm Button")
-        self.auto_actions.click(self.get_viq_backup_confirm_button())
+        self.auto_actions.click(self.get_reset_viq_confirm_button())
         sleep(2)
         
         """

@@ -9,12 +9,12 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import ElementNotInteractableException
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 
 
 class AutoActions:
     def __init__(self):
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.retries = 5
         self.utils = Utils()
         self.screen = Screen()
@@ -53,12 +53,16 @@ class AutoActions:
                     # due to Xiq Application limitation we need to scroll the el into view, which is not visible on the page
                     # If scroll the el into view is not working will scroll down to the end of the page.
                     if count < 2:
-                        self.utils.print_info("Scroll element into view")
-                        self.driver.execute_script("arguments[0].scrollIntoView(true); ", element)
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view")
+                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView(true); ", element)
                         sleep(2)
-                    elif 2 < count < 5:
+                    elif 2 < count < 4:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll down to page")
                         self.scroll_down()
-                        self.utils.print_info("Scroll down to page")
+                        sleep(2)
+                    elif count == 4:
+                        self.utils.print_info("'Element Click Intercepted Exception': trying javascript click().")
+                        CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
                         sleep(2)
                     count += 1
 
@@ -88,7 +92,7 @@ class AutoActions:
         :param element: Web Element to Move the Mouse Cursor on Web Page
         :return: None
         """
-        action = ActionChains(self.driver)
+        action = ActionChains(CloudDriver().cloud_driver)
         sleep(2)
 
         action.move_to_element(element)
@@ -151,7 +155,17 @@ class AutoActions:
 
         :return: None
         """
-        self.driver.execute_script("javascript:window.scrollBy(0,250)")
+        CloudDriver().cloud_driver.execute_script("javascript:window.scrollBy(0,250)")
+
+    def scroll_by_horizontal(self, element):
+        """
+        - This Keyword Uses to Scroll the page ro end in x-coordinate
+
+        :return: None
+        """
+        self.utils.print_info("Scrolling horizontal bar to end")
+        coordinates = element.location_once_scrolled_into_view  # returns dict of X, Y coordinates
+        CloudDriver().cloud_driver.execute_script('window.scrollTo({}, {});'.format(coordinates['x'], coordinates['y']))
 
     def scroll_down(self):
         """
@@ -159,7 +173,7 @@ class AutoActions:
 
         :return: None
         """
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
 
     def scroll_up(self):
         """
@@ -167,12 +181,12 @@ class AutoActions:
 
         :return: None
         """
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
 
     def click_image(self, position):
-        actions = ActionChains(self.driver)
+        actions = ActionChains(CloudDriver().cloud_driver)
         (x, y) = position
-        actions.move_to_element_with_offset(self.driver.find_element_by_tag_name('body'), 0, 0)
+        actions.move_to_element_with_offset(CloudDriver().cloud_driver.find_element_by_tag_name('body'), 0, 0)
         sleep(5)
         actions.move_by_offset(x, y).click().perform()
         return
@@ -183,11 +197,11 @@ class AutoActions:
         :return:
         """
         desired_y = (element.size['height'] / 2) + element.location['y']
-        window_h = self.driver.execute_script('return window.innerHeight')
-        window_y = self.driver.execute_script('return window.pageYOffset')
+        window_h = CloudDriver().cloud_driver.execute_script('return window.innerHeight')
+        window_y = CloudDriver().cloud_driver.execute_script('return window.pageYOffset')
         current_y = (window_h / 2) + window_y
         scroll_y_by = desired_y - current_y
-        self.driver.execute_script("window.scrollBy(0, arguments[0]);", scroll_y_by)
+        CloudDriver().cloud_driver.execute_script("window.scrollBy(0, arguments[0]);", scroll_y_by)
 
     def select_options(self, element, item, by='value'):
         """
@@ -288,7 +302,7 @@ class AutoActions:
         :return:1 if Element Drag and Drag successful else -1
         """
         try:
-            actions = ActionChains(self.driver)
+            actions = ActionChains(CloudDriver().cloud_driver)
             actions.drag_and_drop(source_el, target_el).perform()
             sleep(2)
             return 1
@@ -305,7 +319,7 @@ class AutoActions:
         :return:if Element Click and Hold successful else -1
         """
         try:
-            actions = ActionChains(self.driver)
+            actions = ActionChains(CloudDriver().cloud_driver)
             actions.click_and_hold(source_el).move_by_offset(offset_value, 0).release().perform()
             sleep(2)
             return 1
@@ -322,7 +336,7 @@ class AutoActions:
         :return:  1 if action was successful, else -1
         """
         try:
-            actions = ActionChains(self.driver)
+            actions = ActionChains(CloudDriver().cloud_driver)
             actions.click(start_row).key_down(Keys.SHIFT).click(end_row).key_up(Keys.SHIFT).perform()
             sleep(2)
             return 1
@@ -363,7 +377,7 @@ class AutoActions:
             return -1
         else:
             try:
-                actions = ActionChains(self.driver)
+                actions = ActionChains(CloudDriver().cloud_driver)
                 actions.context_click(source_el).perform()
                 sleep(2)
                 return 1
@@ -379,7 +393,7 @@ class AutoActions:
         :return: 1 if action was successful, else -1
         """
         try:
-            actions = ActionChains(self.driver)
+            actions = ActionChains(CloudDriver().cloud_driver)
             actions.double_click(source_el).perform()
             sleep(2)
             return 1
@@ -395,7 +409,7 @@ class AutoActions:
         :return:  1 if action was successful, else -1
         """
         try:
-            actions = ActionChains(self.driver)
+            actions = ActionChains(CloudDriver().cloud_driver)
             actions.key_down(Keys.SHIFT).click(source_el).key_up(Keys.SHIFT).perform()
             sleep(2)
             return 1

@@ -1,7 +1,7 @@
 import re
 from time import sleep
 
-import extauto.common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -10,7 +10,6 @@ from extauto.xiq.flows.common.Login import Login
 from extauto.xiq.elements.LicenseManagementWebElements import LicenseManagementWebElements
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
-from extauto.common.CloudDriver import *
 
 
 class LicenseManagement(LicenseManagementWebElements):
@@ -24,7 +23,7 @@ class LicenseManagement(LicenseManagementWebElements):
         self.lic_mgt_web_elements = LicenseManagementWebElements()
         self.login_web_elements = LoginWebElements()
         self.nav_web_elements = NavigatorWebElements()
-        self.driver = extauto.common.CloudDriver.cloud_driver
+        # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def open_license_management_page(self):
         """
@@ -121,7 +120,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 :return: 1 if ek exists , else -1
         """
         if ekey is not None:
-            self.utils.switch_to_iframe_with_attr(self.driver,'@id="iframeIdForLicenseInfo"')
+            self.utils.switch_to_iframe_with_attr(CloudDriver().cloud_driver,'@id="iframeIdForLicenseInfo"')
             legacy_ek_elems = self.lic_mgt_web_elements.get_legacy_ek_data()
             self.utils.print_info(legacy_ek_elems)
             for ele in legacy_ek_elems:
@@ -129,7 +128,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.utils.print_info(ek)
                 if re.search(ekey, ek):
                     self.utils.print_info("Legacy EK exists in the legacy ek table.")
-                    self.utils.switch_to_default(self.driver)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return 1
                 else:
                     self.utils.print_info("Legacy EK not found the the table.")
@@ -501,7 +500,7 @@ class LicenseManagement(LicenseManagementWebElements):
         return activated_count
 
     def wait_until_entitlement_counts_for_feature_matches(self, feature, expected_available, expected_activated, expected_devices,
-                                                          retry_duration=30, retry_count=20):
+                                                          retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the entitlement counts (Available, Activated, Devices) for the specified
         - feature match the expected value.
@@ -565,7 +564,7 @@ class LicenseManagement(LicenseManagementWebElements):
         return -1
 
     def wait_until_entitlement_device_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                retry_duration=30, retry_count=20):
+                                                                retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the device count for the specified license entitlement matches the
         - expected value.
@@ -612,7 +611,7 @@ class LicenseManagement(LicenseManagementWebElements):
         return -1
 
     def wait_until_entitlement_available_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                   retry_duration=30, retry_count=20):
+                                                                   retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the available count for the specified license entitlement matches the
         - expected value.
@@ -659,7 +658,7 @@ class LicenseManagement(LicenseManagementWebElements):
         return -1
 
     def wait_until_entitlement_activated_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                   retry_duration=30, retry_count=20):
+                                                                   retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the activated count for the specified license entitlement matches the
         - expected value.
@@ -705,7 +704,7 @@ class LicenseManagement(LicenseManagementWebElements):
 
         return -1
 
-    def wait_until_entitlements_table_empty(self, retry_duration=30, retry_count=20):
+    def wait_until_entitlements_table_empty(self, retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the Entitlements table is empty.
         -

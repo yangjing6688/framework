@@ -38,6 +38,13 @@ class CommonOperationsPanelWebElements(CommonOperationsPanelWebElementsDefinitio
         """
         return self.weh.get_template_element(self.operations_table_group_data_row, element_id=value)
 
+    def get_operations_table_group_data_rows(self, value):
+        """
+        :param value:  Name of the data to get the table rows for
+        :return: Gets the specified table rows for the expanded group in the Operations panel
+        """
+        return self.weh.get_template_elements(self.operations_table_group_data_row, element_id=value)
+
     def get_operations_table_data_row_progress(self, row):
         """
         :param row: row to return the information for

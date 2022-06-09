@@ -491,3 +491,53 @@ class XIQSE_NetworkDevicesSite(NetworkDevicesSiteWebElements):
             ret_val = -1
 
         return ret_val
+
+    def xiqse_site_perform_seed_discovery(self, seed_address, profile_names, auto_add="true", trap="false", syslog="false", archive="false"):
+        """
+         - This keyword configures and performs a seed discovery.
+         - It is assumed the view is already navigated to the Site tab.
+         - Keyword Usage
+          - ``XIQSE Site Perform Seed Discovery  1.1.1.1  public_v1_Profile  true  true  true  true``
+          - ``XIQSE Site Perform Seed Discovery  2.2.2.1  public_v1_Profile,public_v2_Profile''
+
+        :param seed_address:   IP address to use in the discovery
+        :param profile_names:  comma-separated list of profile names to use in the discovery
+        :param auto_add:       specifies value of Automatically Add Devices checkbox on the Actions tab  (true/false)
+        :param trap:           specifies value of Add Trap Receiver checkbox on the Actions tab  (true/false)
+        :param syslog:         specifies value of Add Syslog Receiver checkbox on the Actions tab  (true/false)
+        :param archive:        specifies value of Add to Archive checkbox on the Actions tab  (true/false)
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+
+        if self.xiqse_site_select_actions_tab():
+            # Configure the Actions tab
+            self.site_actions.xiqse_actions_set_automatically_add_devices(auto_add)
+            self.site_actions.xiqse_actions_set_add_trap_receiver(trap)
+            self.site_actions.xiqse_actions_set_add_syslog_receiver(syslog)
+            self.site_actions.xiqse_actions_set_add_to_archive(archive)
+            self.xiqse_site_click_save()
+
+            # Configure the Discover tab
+            if self.xiqse_site_select_discover_tab():
+                error_occurred = False
+                if self.site_discover.xiqse_discover_addresses_add_seed_address(seed_address) == -1:
+                    error_occurred = True
+
+                self.site_discover.xiqse_discover_clear_all_profile_selections()
+                profile_list = profile_names.split(',')
+                for profile in profile_list:
+                    if self.site_discover.xiqse_discover_set_accept_profile(profile) == -1:
+                        error_occurred = True
+                        break
+
+                # Perform the discovery
+                if not error_occurred:
+                    if self.xiqse_site_click_save() != -1:
+                        ret_val = self.xiqse_site_click_discover()
+
+        if ret_val == -1:
+            self.screen.save_screen_shot()
+
+        return ret_val
+

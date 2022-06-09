@@ -84,7 +84,7 @@ class AdvanceOnboardingDefinitions:
 
     device_make_aerohive_dropdown = \
         {
-            'XPATH': '//*[@class="chzn-container chzn-container-single"]//span[contains(text(), "Extreme - Aerohive")]',
+            'XPATH': '//div[@data-dojo-attach-point="manualDeviceMakeCtn"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 5
         }
 
@@ -96,7 +96,7 @@ class AdvanceOnboardingDefinitions:
 
     device_make_drop_down_options = \
         {
-            'XPATH': '//div[@data-automation-tag="chzn-drop-ctn"]'
+            'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]'
                      '//ul[@class="chzn-results qa-chzn-results-manualdevicemake"]//li',
             'wait_for': 5
         }

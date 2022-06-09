@@ -1,7 +1,7 @@
 class DeviceConfigDefs:
     interface_settings_tab = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-sider-list-interfaceSettings"]//a',
+            'XPATH': '//li[@data-automation-tag="device-entity-nav-menu-interface-settings"]',
             'wait_for': 5
         }
 
@@ -35,6 +35,118 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    override_client_mode_wifi0_checked = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzClientMode"]',
+            'wait_for': 5
+        }
+
+    override_client_mode_wifi1_checked = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage5GHzClientMode"]',
+            'wait_for': 5
+        }
+
+    override_client_access_wifi0_checked = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzClientAccess"]',
+            'wait_for': 5
+        }
+
+    override_client_access_wifi1_checked = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage5GHzClientAccess"]',
+            'wait_for': 5
+        }
+
+    override_add_client_mode_wifi0_profile = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="addClientModeProfileLink2GHz"]',
+            'wait_for': 5
+        }
+
+    override_add_client_mode_wifi1_profile = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="addClientModeProfileLink5GHz"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_client_mode_profile_name = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="nameArea"]//input[@data-dojo-attach-point="name"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_checkbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableLocalWeb"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_add = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="ssidListWrap"]//span[@data-tip="Add"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_ssid_textbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_password_textbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="password"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_auth_dropdown = \
+        {
+            'DESC': 'Auth Method click to dropdown',
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]//following::div[@data-automation-tag="automation-chzn-arrow-down"][1]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_auth_dropdown_option = \
+        {
+            'DESC': 'Auth Method Pre-Shared key/Open',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-securitytype"]/li',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_key_type_dropdown = \
+        {
+            'DESC': 'Key Type click to dropdown',
+            'XPATH': '//input[@data-dojo-attach-point="ssid"]//following::div[@data-automation-tag="automation-chzn-arrow-down"][2]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_key_type_dropdown_option = \
+        {
+            'DESC': 'Key Type ASCII/HEX',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-keytype"]/li',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_cm_local_web_page_add_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="addToSsid"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_client_mode_profile_dhcp_server_scope = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="dhcpServerScope"]',
+            'wait_for': 5
+        }
+
+    override_wifi0_1_client_mode_profile_save = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
     override_wifi0_ssid_broadcast_ssid_field = \
         {
             'XPATH': '//tbody[@data-dojo-attach-point="wifi0_SsidAreaContents"]//input[@name="SsidBroadcastName"]',
@@ -47,16 +159,27 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
-    interface_settings_save_btuuton = \
+    interface_settings_save_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="interfaceSettingsContainer"]'
-                     '//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//div[@data-dojo-attach-point="interfaceSettingsContainer"]//button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
     configuration_tab = \
         {
             'XPATH': '//li[@data-dojo-attach-point="configureViewSelect"]/a',
+            'wait_for': 5
+        }
+
+    device_configuration_tab = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="deviceConfigurationTab"]',
+            'wait_for': 5
+        }
+
+    device_configuration_dhcp_checkbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="dhcpAddressOnly"]',
             'wait_for': 5
         }
 
@@ -923,19 +1046,19 @@ class DeviceConfigDefs:
 
     wireless_wifi2_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
     wireless_wifi1_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
     wireless_wifi0_radio_profile_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi0-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi0-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
@@ -1056,5 +1179,104 @@ class DeviceConfigDefs:
     imago_tag_add_profile_add_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="imagotagAdd"]',
+            'wait_for': 5
+        }
+    wired_client_connection_type = \
+        {
+            'XPATH': '//td',
+            'wait_for': 5
+        }
+
+    wired_client_os_type = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-0 field-connectionType w70"]',
+            'wait_for': 5
+        }
+
+    wired_client_connection_status = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-1 field-osType w80 fn-ellipsis"]',
+            'wait_for': 5
+        }
+
+    wired_client_hostname = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-4 field-hostName w100 fn-ellipsis"]',
+            'wait_for': 5
+        }
+
+    wired_client_mac = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-3 field-clientMac w110 fn-ellipsis"]',
+            'wait_for': 5
+        }
+
+    wired_client_IPv4 = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-6 field-ipAddress w100"]',
+            'wait_for': 5
+        }
+
+    wired_client_IPv6 = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-7 field-ipv6Address w300"]',
+            'wait_for': 5
+        }
+
+    wired_client_user_name = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-8 field-userName w75 fn-ellipsis"]',
+            'wait_for': 5
+        }
+
+    wired_client_vlan = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-9 field-vlan w100"]',
+            'wait_for': 5
+        }
+
+    wired_client_connected_via = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-5 field-port w110 fn-ellipsis"]',
+            'wait_for': 5
+        }
+    wired_client_popup_mac = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientMac"]',
+            'wait_for': 5
+        }
+    wired_client_popup_ipv4 = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="switchIp"]',
+            'wait_for': 5
+        }
+    wired_client_popup_portSpeed = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portSpeed"]',
+            'wait_for': 5
+        }
+    wired_client_popup_negotiatedspeed = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="negotiatedSpeed"]',
+            'wait_for': 5
+        }
+    wired_client_popup_portMode = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portMode"]',
+            'wait_for': 5
+        }
+    wired_client_popup_vlan = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="vlan"]',
+            'wait_for': 5
+        }
+    wired_client_popup_portNumber = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portNumber"]',
+            'wait_for': 5
+        }
+    wired_client_popup_confirmation = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point=""]',
             'wait_for': 5
         }

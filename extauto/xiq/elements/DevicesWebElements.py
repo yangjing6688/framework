@@ -23,6 +23,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return False
 
+    def get_grid_rows_next(self):
+        grid_rows = self.weh.get_elements(self.devices_page_grid_rows_next)
+        if grid_rows:
+            return grid_rows
+        else:
+            return False
+
+    def get_page_numbers(self):
+        page_numbers = self.weh.get_elements(self.devices_page_numbers)
+        if page_numbers:
+            return page_numbers
+        else:
+            return False
+
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
         return refresh_icon
@@ -48,6 +62,16 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         el = self.weh.get_element(self.device_stack_status, row)
         if el:
             return el.get_attribute("class")
+        else:
+            return None
+
+    def get_stack_status_cell_icon(self, row):
+        blue = self.weh.get_element(self.device_stack_status, row)
+        red = self.weh.get_element(self.device_stack_status_warning, row)
+        if blue:
+            return blue.get_attribute("class")
+        elif red:
+            return red.get_attribute("Class")
         else:
             return None
 
@@ -96,6 +120,18 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: device delete button
         """
         return self.weh.get_element(self.device_delete_button)
+
+    def get_download_button(self):
+        """
+        :return: device download button
+        """
+        return self.weh.get_element(self.device_download_button)
+
+    def get_bulk_edit_button(self):
+        """
+        :return: device bulk edit button
+        """
+        return self.weh.get_element(self.device_bulk_edit_button)
 
     def get_action_button(self):
         """
@@ -229,22 +265,35 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_actions_button(self):
         return self.weh.get_element(self.manage_device_actions_button)
 
+    def get_manage_device_utilities_button(self):
+        return self.weh.get_element(self.manage_device_utilities_button)
+
     def get_actions_assign_network_policy_combo(self):
         elements = self.weh.get_elements(self.actions_assign_network_policy)
         return self.get_dislayed_element(elements)
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
+    
+    def get_nw_policy_drop(self):
+        return self.weh.get_element(self.nw_policy_drop)
 
     def get_actions_assign_network_policy_drop_down(self):
         dialog = self.get_action_assign_network_policy_dialog()
         return self.weh.get_element(self.actions_assign_network_policy_drop_down, parent=dialog)
+
+    def get_actions_assign_network_policy_drop_down_router(self):
+        dialog = self.get_action_assign_network_policy_dialog()
+        return self.weh.get_element(self.actions_assign_network_policy_drop_down_router, parent=dialog)
 
     def get_actions_network_policy_drop_down_items(self):
         return self.weh.get_elements(self.actions_network_policy_drop_down_items)
 
     def get_actions_network_policy_assign_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_button)
+    
+    def get_perform_update_tooltip(self):
+        return self.weh.get_element(self.perform_update_tooltip)
 
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
@@ -313,6 +362,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_network_policy_close_button(self):
         return self.weh.get_element(self.assign_policy_close_btn)
+
+    def get_actions_network_policy_close_button_md(self):
+        return self.weh.get_elements(self.assign_policy_close_btn)
 
     def get_device_select_checkbox(self, row):
         return self.weh.get_element(self.device_select_check_box, parent=row)
@@ -927,6 +979,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_devices_grid_column_headers(self):
         return self.weh.get_elements(self.devices_grid_column_headers)
 
+    def get_devices_page_horizontal_end(self):
+        return self.weh.get_element(self.devices_page_horizontal_end)
+
     def get_all_messages_banner(self):
         return self.weh.get_elements(self.all_messages_banner)
 
@@ -1065,3 +1120,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_simulated_device_dropdown_table_rows(self, table):
         return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
+
+    def get_manage_devices_table_load_mask(self):
+        return self.weh.get_element(self.manage_devices_table_load_mask)
+
+    def get_simulation_device_count_input_field(self):
+        return self.weh.get_element(self.simulation_device_count_input_field)

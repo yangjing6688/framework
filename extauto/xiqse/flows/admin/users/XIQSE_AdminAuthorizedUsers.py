@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------
-# Copyright (C) 2021... 2021 Extreme Networks Inc.
+# Copyright (C) 2021... 2022 Extreme Networks Inc.
 # This software is copyright protected and may not be reproduced in any
 # form or fashion without the written consent of Extreme Networks Inc.
 # ----------------------------------------------------------------------
@@ -36,11 +36,8 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
         """
         ret_val = -1
 
-        if ignore_case:
-            name = name.lower()
-
         if self.xiqse_nav.xiqse_navigate_to_admin_users_tab():
-            ret_val = self.xiqse_select_authorized_user(name)
+            ret_val = self.xiqse_select_authorized_user(name, ignore_case)
 
         return ret_val
 
@@ -56,11 +53,8 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
         """
         ret_val = -1
 
-        if ignore_case:
-            name = name.lower()
-
         if self.xiqse_nav.xiqse_navigate_to_admin_users_tab():
-            ret_val = self.xiqse_delete_authorized_user(name)
+            ret_val = self.xiqse_delete_authorized_user(name, ignore_case)
 
         return ret_val
 
@@ -77,10 +71,7 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
         """
         ret_val = -1
 
-        if ignore_case:
-            name = name.lower()
-
-        if self.xiqse_select_authorized_user(name):
+        if self.xiqse_select_authorized_user(name, ignore_case):
             delete_btn = self.get_delete_authorized_user_button()
             if delete_btn:
                 btn_disabled = delete_btn.get_attribute("aria-disabled")
@@ -112,13 +103,18 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
         """
         ret_val = -1
 
-        if ignore_case:
-            name = name.lower()
-
         sleep(2)
         rows = self.get_authorized_user_table_rows()
         for row in rows:
-            if name in row.text:
+            self.utils.print_info(f"Username: {name}  ||  Ignore Case: {ignore_case}  ||  Row Data: {row.text}")
+            if ignore_case:
+                if name.lower() in row.text.lower():
+                    ret_val = 1
+            else:
+                if name in row.text:
+                    ret_val = 1
+
+            if ret_val == 1:
                 self.utils.print_debug(f"Found user {name} in row {self.xiqse_table.format_table_row(row.text)}")
                 row_selected = row.get_attribute("aria-selected")
                 if row_selected and row_selected == "true":
@@ -126,8 +122,8 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
                 else:
                     self.utils.print_info(f"Selecting user {name}")
                     self.auto_actions.click(row)
-                ret_val = 1
                 break
+
         if ret_val == -1:
             self.utils.print_info(f"Unable to select user {name}")
             self.screen.save_screen_shot()
@@ -148,18 +144,21 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
 
         ret_val = -1
 
-        if ignore_case:
-            name = name.lower()
-
         rows = self.get_authorized_user_table_rows()
         if rows:
             self.utils.print_debug(f"Authorized Users row count: {len(rows)}")
             for row in rows:
                 self.utils.print_debug(f"Row data: {self.xiqse_table.format_table_row(row.text)}")
-                if name in row.text:
-                    self.utils.print_info(f"Found row for Authorized User with name {name}")
-                    ret_val = 1
-                    break
+                if ignore_case:
+                    if name.lower() in row.text.lower():
+                        self.utils.print_info(f"Found row for Authorized User with name {name}")
+                        ret_val = 1
+                        break
+                else:
+                    if name in row.text:
+                        self.utils.print_info(f"Found row for Authorized User with name {name}")
+                        ret_val = 1
+                        break
             if ret_val == -1:
                 self.utils.print_info(f"Did not find row for Authorized User with name {name}")
                 self.screen.save_screen_shot()

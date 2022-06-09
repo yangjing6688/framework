@@ -6,7 +6,7 @@ from xiqse.flows.common.XIQSE_CommonTable import XIQSE_CommonTable
 from xiqse.flows.network.discovered.XIQSE_NetworkDiscoveredAddDevices import XIQSE_NetworkDiscoveredAddDevices
 from xiqse.elements.network.discovered.NetworkDiscoveredWebElements import NetworkDiscoveredWebElements
 from xiqse.elements.common.CommonViewWebElements import CommonViewWebElements
-
+from selenium.common.exceptions import StaleElementReferenceException
 
 class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
     def __init__(self):
@@ -210,12 +210,19 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         :return:   returns the row object if found, else None
         """
         self.utils.print_info(f'Getting row for IP address {ip}')
-        rows = self.get_table_rows()
-        if rows:
-            for row in rows:
-                if ip in row.text:
-                    self.utils.print_info(f"Found row for IP address {ip}: {self.xiqse_table.format_table_row(row.text)}")
-                    return row
+        stale_retry = 1
+        while stale_retry <= 10:
+            try:
+                rows = self.get_table_rows()
+                if rows:
+                    for row in rows:
+                        if ip in row.text:
+                            self.utils.print_info(f"Found row for IP address {ip}: {self.xiqse_table.format_table_row(row.text)}")
+                            return row
+                break
+            except StaleElementReferenceException:
+                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                stale_retry = stale_retry + 1
 
         self.utils.print_info(f"Unable to find row for IP address {ip}")
         self.screen.save_screen_shot()
@@ -296,7 +303,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         """
          - This keyword clears the row matching the specified IP address.
          - Keyword Usage
-          - ``XIQSE Discovered Clear By IP    ${DEVICE_IP}``
+          - ``XIQSE Discovered Clear Row By IP    ${DEVICE_IP}``
 
         :param ip: IP Address of the row to clear
         :return:   1 if action was successful, else -1

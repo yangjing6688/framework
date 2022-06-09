@@ -102,6 +102,36 @@ class ExtremeGuestSplashTemplateWebElementsDefs:
             'wait_for': 5
         }
 
+    extreme_guest_clone_system_template_selectwidget_icon = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-splash-edittemplate-selectwidget-btn")]//span[contains(@class, "fa-widget")])[3]',
+            'wait_for': 5
+        }
+
+    extreme_guest_clone_system_template_main_droppanel = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-splash-edittemplate-droppanel-tab")])[3]',
+            'wait_for': 5
+        }
+
+    extreme_guest_clone_system_template_secondary_droppanel = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-splash-edittemplate-droppanel-tab")])[3]//div[contains(@data-automation-tag, "eguest-splash-edittemplate-droppanel-tab")]',
+            'wait_for': 5
+        }
+
+    extreme_guest_clone_system_template_theme_layout1 = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-splash-edittemplate-theme-layout1")])[3]',
+            'wait_for': 5
+        }
+
+    extreme_guest_clone_system_template_loginform_widget_icon = \
+        {
+            'XPATH': '//div[contains(@data-automation-tag, "eguest-splash-edittemplate-loginform-widget-btn")]',
+            'wait_for': 5
+        }
+
     extreme_guest_clone_system_template_widget_icon = \
         {
             'XPATH': '//span[contains(@class, "x-btn-text")]/span[contains(@class, "fa-widget")]',
@@ -189,7 +219,7 @@ class ExtremeGuestSplashTemplateWebElementsDefs:
 
     extreme_guest_user_test_template_apply_network_dropdown = \
         {
-            'XPATH': '(//div[contains(@class, "x-form-arrow-trigger")])[2]',
+            'XPATH': '(//div[contains(@class, "x-form-arrow-trigger")])[3]',
             'wait_for': 5
         }
 
@@ -213,14 +243,27 @@ class ExtremeGuestSplashTemplateWebElementsDefs:
 
     extreme_guest_user_test_template_apply_location_dropdown = \
         {
-            'XPATH': '//td[contains(@data-qtip, "Extreme Networks")]//div[contains(@class, "x-tree-expander")]',
+            'XPATH': '//*[@data-automation-tag="eguest-splash-applytemplate-location-tree"]//div[contains(@class, '
+                     '"x-form-arrow-trigger")]',
             'wait_for': 5
         }
 
     extreme_guest_user_test_template_apply_location_dropdown_item = \
         {
-            'XPATH': '//td[contains(@data-qtip, "Extreme Networks")]//div[contains(@class, '
-                     '"x-tree-expander")]/ancestor::table/following::span',
+            'XPATH': '//*[@data-automation-tag="eguest-splash-applytemplate-location-tree"]//div[contains(@class, '
+                     '"x-form-arrow-trigger")]',
+            'wait_for': 5
+        }
+
+    extreme_guest_user_test_template_apply_network_add_button = \
+        {
+            'XPATH': '//span[text()="Add"]',
+            'wait_for': 5
+        }
+
+    extreme_guest_user_test_template_apply_network_delete_button = \
+        {
+            'XPATH': '//div[@data-qtip="Delete"]',
             'wait_for': 5
         }
 
@@ -232,48 +275,51 @@ class ExtremeGuestSplashTemplateWebElementsDefs:
 
     extreme_guest_user_test_template_apply_network_apply_ok_button = \
         {
-            'XPATH': '//span[text()="OK"]',
+            'XPATH': '//div[text()="Successfully applied the template"]/ancestor::div//span[text()="OK"]',
             'wait_for': 5
         }
 
     extreme_guest_apply_user_template_locations_root_name = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-0")]/ancestor::tr',
+            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-1")]/ancestor::tr',
             'wait_for': 5
         }
 
     extreme_guest_apply_user_template_locations_root_expand_button = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-0")]//*[@class="fa"]',
+            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-1")]/preceding-sibling::div[contains('
+                     '@class, "x-tree-expander")]',
             'wait_for': 5
         }
 
     extreme_guest_apply_user_template_locations_city_name = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-1")]/ancestor::tr',
+            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-2")]/ancestor::tr',
             'wait_for': 5
         }
 
     extreme_guest_apply_user_template_locations_city_expand_button = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-1")]//*[@class="fa"]',
+            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-2")]'
+                     '/preceding-sibling::div[contains(@class, "x-tree-expander")]',
             'wait_for': 5
         }
 
     extreme_guest_apply_user_template_locations_building_name = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-2")]/ancestor::tr',
+            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-3")]/ancestor::tr',
             'wait_for': 5
         }
 
     extreme_guest_apply_user_template_locations_building_expand_button = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-2")]//*[@class="fa"]',
+            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-3")]'
+                     '/preceding-sibling::div[contains(@class, "x-tree-expander")]',
             'wait_for': 5
         }
 
     extreme_guest_apply_user_template_locations_floor_name = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-3")]/ancestor::tr',
+            'XPATH': '//*[contains(@data-automation-tag, "eguest-tree-node-4")]/ancestor::tr',
             'wait_for': 5
         }

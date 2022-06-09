@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Radius
-This feature is located in this file: `radius.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `radius.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_enable_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_enable_global(device_name )
 
 	Robot API Call: 
 
@@ -73,7 +73,7 @@ UUID: 6a794411-17ce-44a1-b80f-5f467d25a8d6
 # API Function: enable_acct
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_enable_acct(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_enable_acct(device_name )
 
 	Robot API Call: 
 
@@ -142,7 +142,7 @@ UUID: d2154d3e-5129-4551-8e84-21fe67976ba5
 # API Function: disable_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_disable_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_disable_global(device_name )
 
 	Robot API Call: 
 
@@ -211,7 +211,7 @@ UUID: 9f41adce-7e97-45c2-addc-1b3b23dcdd4c
 # API Function: disable_acct
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_disable_acct(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_disable_acct(device_name )
 
 	Robot API Call: 
 
@@ -280,7 +280,7 @@ UUID: 55596503-345c-4584-9438-65aff18f58ea
 # API Function: set_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_server(device_name, addr, secret, index, port, client_ip, vr)
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_server(device_name, addr, secret, index, port, client_ip, vr)
 
 	Robot API Call: 
 
@@ -338,7 +338,7 @@ UUID: 714d2b1e-d4bc-436a-8691-dbd3ac8209b6
 # API Function: set_acct_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_acct_server(device_name, addr, index, port, secret, client_ip, vr)
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_acct_server(device_name, addr, index, port, secret, client_ip, vr)
 
 	Robot API Call: 
 
@@ -381,7 +381,7 @@ UUID: c26d9e66-84f7-43c4-b51c-6b4a215fac5d
 # API Function: set_retries_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_retries_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_retries_global(device_name )
 
 	Robot API Call: 
 
@@ -424,7 +424,7 @@ UUID: 37ec7b4e-7453-456d-8567-6dc1c07c3813
 # API Function: set_timeout_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_timeout_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_timeout_global(device_name )
 
 	Robot API Call: 
 
@@ -467,7 +467,7 @@ UUID: 3c29d965-525b-4e5b-82c0-ae90f35ac1d1
 # API Function: set_algorithm_global_std
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_algorithm_global_std(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_algorithm_global_std(device_name )
 
 	Robot API Call: 
 
@@ -510,7 +510,7 @@ UUID: 9bc592d8-0738-4dc3-8ac2-0ad11d54feec
 # API Function: set_algorithm_global_rr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_algorithm_global_rr(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_algorithm_global_rr(device_name )
 
 	Robot API Call: 
 
@@ -553,7 +553,7 @@ UUID: 9236cb3d-b0ef-46c2-9813-d3d209c31920
 # API Function: set_algorithm_global_srr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_algorithm_global_srr(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_algorithm_global_srr(device_name )
 
 	Robot API Call: 
 
@@ -581,7 +581,7 @@ UUID: cceb1fc6-b521-41dc-ae71-702da2578716
 # API Function: set_accounting_retries_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_accounting_retries_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_accounting_retries_global(device_name )
 
 	Robot API Call: 
 
@@ -609,7 +609,7 @@ UUID: 6b4efe4d-560b-478d-a8fd-3ded6d09ffbd
 # API Function: set_accounting_timeout_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_accounting_timeout_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_accounting_timeout_global(device_name )
 
 	Robot API Call: 
 
@@ -637,7 +637,7 @@ UUID: 920d5343-c390-4865-b011-2a89384d6301
 # API Function: clear_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_server(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_server(device_name )
 
 	Robot API Call: 
 
@@ -717,7 +717,7 @@ UUID: 51c0947e-5037-40a8-b4da-20d97ff27f12
 # API Function: clear_acct_server
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_acct_server(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_acct_server(device_name )
 
 	Robot API Call: 
 
@@ -760,7 +760,7 @@ UUID: c1229a43-8988-4884-88a3-59da0add71a3
 # API Function: clear_acct_server_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_acct_server_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_acct_server_global(device_name )
 
 	Robot API Call: 
 
@@ -803,7 +803,7 @@ UUID: 605ebf72-b989-4a7e-bb47-5a3c5f477542
 # API Function: clear_algorithm_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_algorithm_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_algorithm_global(device_name )
 
 	Robot API Call: 
 
@@ -846,7 +846,7 @@ UUID: 89723391-2765-4306-872f-e3007199182e
 # API Function: clear_retries_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_retries_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_retries_global(device_name )
 
 	Robot API Call: 
 
@@ -889,7 +889,7 @@ UUID: f9a7b472-ee89-45b6-8260-e890d5a8b4c5
 # API Function: clear_timeout_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_timeout_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_timeout_global(device_name )
 
 	Robot API Call: 
 
@@ -932,7 +932,7 @@ UUID: 2a17d732-4379-4e7c-83b7-7d1b6a4189c2
 # API Function: clear_state
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_state(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_state(device_name )
 
 	Robot API Call: 
 
@@ -960,7 +960,7 @@ UUID: a6ad0a18-a989-4afc-a647-2188555afbd7
 # API Function: enable_mgmt
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_enable_mgmt(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_enable_mgmt(device_name )
 
 	Robot API Call: 
 
@@ -988,7 +988,7 @@ UUID: 9057e14d-ac0c-4761-b94b-f3a2b910e18a
 # API Function: enable_netlogin
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_enable_netlogin(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_enable_netlogin(device_name )
 
 	Robot API Call: 
 
@@ -1016,7 +1016,7 @@ UUID: aee135e5-1ef4-44a7-9aa7-f08e6e866480
 # API Function: disable_mgmt
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_disable_mgmt(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_disable_mgmt(device_name )
 
 	Robot API Call: 
 
@@ -1044,7 +1044,7 @@ UUID: 8c1a1e0b-4474-4ed2-b0ba-5ca0719b65e1
 # API Function: disable_netlogin
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_disable_netlogin(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_disable_netlogin(device_name )
 
 	Robot API Call: 
 
@@ -1072,7 +1072,7 @@ UUID: 614343be-6e31-45ba-8e49-95f100ad7dde
 # API Function: enable_include_cli_cmds
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_enable_include_cli_cmds(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_enable_include_cli_cmds(device_name )
 
 	Robot API Call: 
 
@@ -1111,7 +1111,7 @@ UUID: 47365281-4cf9-4edc-a300-c605dba1b82b
 # API Function: enable_cli_profile
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_enable_cli_profile(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_enable_cli_profile(device_name )
 
 	Robot API Call: 
 
@@ -1150,7 +1150,7 @@ UUID: 174bcffc-fd8c-44e0-8819-b6467e53fcca
 # API Function: enable_src_ip_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_enable_src_ip_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_enable_src_ip_flag(device_name )
 
 	Robot API Call: 
 
@@ -1189,7 +1189,7 @@ UUID: 65f9bf8e-afc4-4ba9-9524-2f6cba1014e4
 # API Function: disable_include_cli_cmds
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_disable_include_cli_cmds(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_disable_include_cli_cmds(device_name )
 
 	Robot API Call: 
 
@@ -1228,7 +1228,7 @@ UUID: cdf8d306-4ecc-46a2-bb3c-c54e9e7e4bde
 # API Function: disable_cli_profile
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_disable_cli_profile(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_disable_cli_profile(device_name )
 
 	Robot API Call: 
 
@@ -1267,7 +1267,7 @@ UUID: d9ca9238-85ed-485a-a939-7687362b38d4
 # API Function: disable_src_ip_flag
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_disable_src_ip_flag(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_disable_src_ip_flag(device_name )
 
 	Robot API Call: 
 
@@ -1306,7 +1306,7 @@ UUID: 057b5f5e-0951-4e7d-8753-4bc8c689994d
 # API Function: set_max_servers
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_max_servers(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_max_servers(device_name )
 
 	Robot API Call: 
 
@@ -1345,7 +1345,7 @@ UUID: 165af531-1f1e-4519-9f91-6c59f50e0cb5
 # API Function: set_access_priority
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_access_priority(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_access_priority(device_name )
 
 	Robot API Call: 
 
@@ -1384,7 +1384,7 @@ UUID: 69907b5f-f591-4374-830f-9db39180b440
 # API Function: set_acct_attr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_acct_attr(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_acct_attr(device_name )
 
 	Robot API Call: 
 
@@ -1423,7 +1423,7 @@ UUID: ff4888ac-a8c7-4635-97e9-c714020980d9
 # API Function: set_mcast_addr_attr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_mcast_addr_attr(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_mcast_addr_attr(device_name )
 
 	Robot API Call: 
 
@@ -1462,7 +1462,7 @@ UUID: 3d1d1fbe-ba8d-4b2d-841f-5cc71b44a6ec
 # API Function: set_auth_info_attr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_auth_info_attr(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_auth_info_attr(device_name )
 
 	Robot API Call: 
 
@@ -1501,7 +1501,7 @@ UUID: 2acf12a1-fa88-431e-ae57-05a286cbf7e4
 # API Function: set_cmd_access_attr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_cmd_access_attr(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_cmd_access_attr(device_name )
 
 	Robot API Call: 
 
@@ -1540,7 +1540,7 @@ UUID: 475ba50d-f042-41a2-a03f-e24928eb9aef
 # API Function: set_cli_cmd_attr
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_cli_cmd_attr(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_cli_cmd_attr(device_name )
 
 	Robot API Call: 
 
@@ -1579,7 +1579,7 @@ UUID: f2d03fd9-f2ac-4668-a737-26e2448a57fc
 # API Function: set_cli_cmd_count
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_cli_cmd_count(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_cli_cmd_count(device_name )
 
 	Robot API Call: 
 
@@ -1618,7 +1618,7 @@ UUID: 3a3728fc-4684-4532-87b3-7290b2a51fe0
 # API Function: set_server_for_cli
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_set_server_for_cli(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_set_server_for_cli(device_name )
 
 	Robot API Call: 
 
@@ -1657,7 +1657,7 @@ UUID: 80b929b7-de43-4258-a2ac-e1276374cc12
 # API Function: clear_server_for_cli
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_server_for_cli(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_server_for_cli(device_name )
 
 	Robot API Call: 
 
@@ -1696,7 +1696,7 @@ UUID: 93acf6fd-8d47-4be8-90fb-ca762a0da238
 # API Function: clear_stats_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_clear_stats_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_clear_stats_global(device_name )
 
 	Robot API Call: 
 
@@ -1732,545 +1732,417 @@ UUID: d5301bc9-f275-4b44-904d-62d24a4da49e
 ----------------------------------------------
 
 
-# API Function: show_global
+# API Function: radius_verify_server_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_exists(device_name, index, addr)
 
 	Robot API Call: 
 
-		radius_show_global  device_name  
+		radius_verify_server_exists  device_name  index  addr
 
-UUID: dc7a3e85-b914-4749-9bf6-145d7123d568
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius||show radius snmp||show radius-server
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.29
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.5624.1.2.4.
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.5624.1.2.4.
-
-----------------------------------------------
-
-
-# API Function: show_state
+# API Function: radius_verify_server_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_state(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_does_not_exist(device_name, index, addr)
 
 	Robot API Call: 
 
-		radius_show_state  device_name  
+		radius_verify_server_does_not_exist  device_name  index  addr
 
-UUID: e4f281eb-c13f-4aaa-a1d7-a1e9a7295195
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius state
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.29.1.1.0
-
-----------------------------------------------
-
-
-# API Function: show_acct_state
+# API Function: radius_verify_server_active
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_acct_state(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_active(device_name, index, addr)
 
 	Robot API Call: 
 
-		radius_show_acct_state  device_name  
+		radius_verify_server_active  device_name  index  addr
 
-UUID: 0c4f711c-7595-43eb-921d-9d1864619ac6
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius accounting state
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius-accounting
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.29.1.5.0
-
-----------------------------------------------
-
-
-# API Function: show_acct_global
+# API Function: radius_verify_server_inactive
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_acct_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_inactive(device_name, index, addr)
 
 	Robot API Call: 
 
-		radius_show_acct_global  device_name  
+		radius_verify_server_inactive  device_name  index  addr
 
-UUID: e6d35d83-9e33-4903-9aad-65391638b386
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius accounting
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius-accounting
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_retries_global
+# API Function: radius_verify_accounting_server_exists
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_retries_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_accounting_server_exists(device_name, index, addr)
 
 	Robot API Call: 
 
-		radius_show_retries_global  device_name  
+		radius_verify_accounting_server_exists  device_name  index  addr
 
-UUID: d69e3d97-db6c-49ed-8a28-849bf0694f5a
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius retries
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_timeout_global
+# API Function: radius_verify_accounting_server_does_not_exist
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_timeout_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_accounting_server_does_not_exist(device_name, index, addr)
 
 	Robot API Call: 
 
-		radius_show_timeout_global  device_name  
+		radius_verify_accounting_server_does_not_exist  device_name  index  addr
 
-UUID: 24bfdc5f-8fac-442c-b6b6-8cbccc2944d1
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius timeout
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_algorithm
+# API Function: radius_verify_state_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_algorithm(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_state_enabled(device_name)
 
 	Robot API Call: 
 
-		radius_show_algorithm  device_name  
+		radius_verify_state_enabled  device_name
 
-UUID: f45aa084-6873-4729-add8-568ef037dc4f
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius algorithm
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_servers
+# API Function: radius_verify_accounting_state_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_servers(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_accounting_state_enabled(device_name)
 
 	Robot API Call: 
 
-		radius_show_servers  device_name  
+		radius_verify_accounting_state_enabled  device_name
 
-UUID: b0fd163c-1b3e-479e-9f7c-350cdfbfaed8
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius-server
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.29.5
-
-----------------------------------------------
-
-
-# API Function: show_global_scalars
+# API Function: radius_verify_state_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_global_scalars(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_state_disabled(device_name)
 
 	Robot API Call: 
 
-		radius_show_global_scalars  device_name  
+		radius_verify_state_disabled  device_name
 
-UUID: 2d66e027-471a-414e-b120-72958acb1e79
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.29.1
-
-----------------------------------------------
-
-
-# API Function: show_global_snmp_scalars
+# API Function: radius_verify_accounting_state_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_global_snmp_scalars(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_accounting_state_disabled(device_name)
 
 	Robot API Call: 
 
-		radius_show_global_snmp_scalars  device_name  
+		radius_verify_accounting_state_disabled  device_name
 
-UUID: 05528f95-bf92-4607-a656-841611cf718c
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show radius snmp
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: walk
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.29.4
-
-----------------------------------------------
-
-
-# API Function: show_global_auth_invalid_srv_addrs
+# API Function: radius_verify_retries
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementRadiusGenKeywords.radius_show_global_auth_invalid_srv_addrs(device_name )
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_retries(device_name, num)
 
 	Robot API Call: 
 
-		radius_show_global_auth_invalid_srv_addrs  device_name  
+		radius_verify_retries  device_name  num
 
-UUID: bf9fda04-c56a-408b-a0ed-759f2c38be36
-## CLI
-## REST
-## SNMP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+# API Function: radius_verify_retries_set_to_default
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: SNMP
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_retries_set_to_default(device_name)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Action`: get
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OID`: 1.3.6.1.4.1.2272.1.29.1.15.0
+		radius_verify_retries_set_to_default  device_name
 
-----------------------------------------------
+# API Function: radius_verify_timeout
+	Pytest API Call: 
 
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_timeout(device_name, sec)
+
+	Robot API Call: 
+
+		radius_verify_timeout  device_name  sec
+
+# API Function: radius_verify_timeout_set_to_default
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_timeout_set_to_default(device_name)
+
+	Robot API Call: 
+
+		radius_verify_timeout_set_to_default  device_name
+
+# API Function: radius_verify_algorithm_type_standard
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_algorithm_type_standard(device_name)
+
+	Robot API Call: 
+
+		radius_verify_algorithm_type_standard  device_name
+
+# API Function: radius_verify_algorithm_type_round_robin
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_algorithm_type_round_robin(device_name)
+
+	Robot API Call: 
+
+		radius_verify_algorithm_type_round_robin  device_name
+
+# API Function: radius_verify_algorithm_type_sticky_round_robin
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_algorithm_type_sticky_round_robin(device_name)
+
+	Robot API Call: 
+
+		radius_verify_algorithm_type_sticky_round_robin  device_name
+
+# API Function: radius_verify_algorithm_set_to_default
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_algorithm_set_to_default(device_name)
+
+	Robot API Call: 
+
+		radius_verify_algorithm_set_to_default  device_name
+
+# API Function: radius_verify_enabled_for_management
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_enabled_for_management(device_name)
+
+	Robot API Call: 
+
+		radius_verify_enabled_for_management  device_name
+
+# API Function: radius_verify_disabled_for_management
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_disabled_for_management(device_name)
+
+	Robot API Call: 
+
+		radius_verify_disabled_for_management  device_name
+
+# API Function: radius_verify_enabled_for_multiauth
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_enabled_for_multiauth(device_name)
+
+	Robot API Call: 
+
+		radius_verify_enabled_for_multiauth  device_name
+
+# API Function: radius_verify_disabled_for_multiauth
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_disabled_for_multiauth(device_name)
+
+	Robot API Call: 
+
+		radius_verify_disabled_for_multiauth  device_name
+
+# API Function: radius_verify_max_servers
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_max_servers(device_name, max_servers)
+
+	Robot API Call: 
+
+		radius_verify_max_servers  device_name  max_servers
+
+# API Function: radius_verify_access_priority
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_access_priority(device_name, attr_value)
+
+	Robot API Call: 
+
+		radius_verify_access_priority  device_name  attr_value
+
+# API Function: radius_verify_accounting_attribute
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_accounting_attribute(device_name, attr_value)
+
+	Robot API Call: 
+
+		radius_verify_accounting_attribute  device_name  attr_value
+
+# API Function: radius_verify_include_cli_cmds_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_include_cli_cmds_enabled(device_name)
+
+	Robot API Call: 
+
+		radius_verify_include_cli_cmds_enabled  device_name
+
+# API Function: radius_verify_include_cli_cmds_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_include_cli_cmds_disabled(device_name)
+
+	Robot API Call: 
+
+		radius_verify_include_cli_cmds_disabled  device_name
+
+# API Function: radius_verify_multicast_address_attribute
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_multicast_address_attribute(device_name, attr_value)
+
+	Robot API Call: 
+
+		radius_verify_multicast_address_attribute  device_name  attr_value
+
+# API Function: radius_verify_authentication_information_attribute
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_authentication_information_attribute(device_name, attr_value)
+
+	Robot API Call: 
+
+		radius_verify_authentication_information_attribute  device_name  attr_value
+
+# API Function: radius_verify_command_access_attribute
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_command_access_attribute(device_name, attr_value)
+
+	Robot API Call: 
+
+		radius_verify_command_access_attribute  device_name  attr_value
+
+# API Function: radius_verify_command_attribute
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_command_attribute(device_name, attr_value)
+
+	Robot API Call: 
+
+		radius_verify_command_attribute  device_name  attr_value
+
+# API Function: radius_verify_profiling_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_profiling_enabled(device_name)
+
+	Robot API Call: 
+
+		radius_verify_profiling_enabled  device_name
+
+# API Function: radius_verify_profiling_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_profiling_disabled(device_name)
+
+	Robot API Call: 
+
+		radius_verify_profiling_disabled  device_name
+
+# API Function: radius_verify_source_ip_flag_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_source_ip_flag_enabled(device_name)
+
+	Robot API Call: 
+
+		radius_verify_source_ip_flag_enabled  device_name
+
+# API Function: radius_verify_source_ip_flag_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_source_ip_flag_disabled(device_name)
+
+	Robot API Call: 
+
+		radius_verify_source_ip_flag_disabled  device_name
+
+# API Function: radius_verify_command_count
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_command_count(device_name, value)
+
+	Robot API Call: 
+
+		radius_verify_command_count  device_name  value
+
+# API Function: radius_verify_server_host_priority
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_priority(device_name, addr, priority)
+
+	Robot API Call: 
+
+		radius_verify_server_host_priority  device_name  addr  priority
+
+# API Function: radius_verify_server_host_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_timeout(device_name, addr, timeout)
+
+	Robot API Call: 
+
+		radius_verify_server_host_timeout  device_name  addr  timeout
+
+# API Function: radius_verify_server_host_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_enabled(device_name, addr)
+
+	Robot API Call: 
+
+		radius_verify_server_host_enabled  device_name  addr
+
+# API Function: radius_verify_server_host_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_disabled(device_name, addr)
+
+	Robot API Call: 
+
+		radius_verify_server_host_disabled  device_name  addr
+
+# API Function: radius_verify_server_host_retries
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_retries(device_name, addr, max_retries)
+
+	Robot API Call: 
+
+		radius_verify_server_host_retries  device_name  addr  max_retries
+
+# API Function: radius_verify_server_host_auth_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_auth_port(device_name, addr, auth_port)
+
+	Robot API Call: 
+
+		radius_verify_server_host_auth_port  device_name  addr  auth_port
+
+# API Function: radius_verify_server_host_accounting_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_accounting_enabled(device_name, addr)
+
+	Robot API Call: 
+
+		radius_verify_server_host_accounting_enabled  device_name  addr
+
+# API Function: radius_verify_server_host_accounting_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_accounting_disabled(device_name, addr)
+
+	Robot API Call: 
+
+		radius_verify_server_host_accounting_disabled  device_name  addr
+
+# API Function: radius_verify_server_host_accounting_port
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_accounting_port(device_name, addr, acct_port)
+
+	Robot API Call: 
+
+		radius_verify_server_host_accounting_port  device_name  addr  acct_port
+
+# API Function: radius_verify_server_host_source_ip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.radius.radius_verify_server_host_source_ip(device_name, addr, source_ip)
+
+	Robot API Call: 
+
+		radius_verify_server_host_source_ip  device_name  addr  source_ip
 

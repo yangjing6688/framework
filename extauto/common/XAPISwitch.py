@@ -16,7 +16,8 @@ class XAPISwitch:
         self.cliCommandSet={}
         self.buildCLICommandSet()
 
-    def extract_by_device_type(self, deviceList, device_type='EXOS', device_model='5520'):
+    def extract_by_device_type(self, deviceList, device_type='EXOS',
+            device_model='5520',stack_mac='null'):
         """
         - The keyword is used to extract a device ID of the specified type from the List
         :param deviceList:  - List of all devices
@@ -29,20 +30,21 @@ class XAPISwitch:
         """
         device_type = device_type.upper()
 
+
         if device_type == 'VOSS':
             if device_model == '5520':
-                searchStr = "VSP_5520"
+                searchStr = "FabricEngine_5520"
             else:
-                searchStr = "VSP_5420"
+                searchStr = "FabricEngine_5420"
         else:
             if device_model == '5520':
-                searchStr = "EXOS_5520"
+                searchStr = "SwitchEngine_5520"
             else:
-                searchStr = "EXOS_5420"
+                searchStr = "SwitchEngine_5420"
 
         for device in deviceList:
             if device_type == 'STACK':
-                if searchStr in device["product_type"] and "Stack" in device["hostname"]:
+                if searchStr in device["product_type"] and "Stack" in device["hostname"]  and stack_mac in device["mac_address"]:
                     return device["id"]
             else:
                 if searchStr in device["product_type"] and "Stack" not in device["hostname"]:
@@ -290,3 +292,17 @@ class XAPISwitch:
 
 
 
+    def extract_by_device_mac(self, deviceList, deviceMac):
+        '''
+        :param deviceList: List of devices
+        :param deviceMac: Mac Address to be searched for
+        :return: Device ID of the device
+        '''
+
+        for device in deviceList:
+            self.utils.print_info(device)
+            self.utils.print_info(deviceMac)
+            if deviceMac in device["mac_address"] :
+                return device["id"]
+
+        return -1

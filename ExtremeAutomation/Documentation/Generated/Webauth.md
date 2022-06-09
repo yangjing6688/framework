@@ -1,10 +1,10 @@
 # Keyword Library Documentation for Webauth
-This feature is located in this file: `webauth.yaml` (in this directory: econ-automation-framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /econ-automation-framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/econ-automation-framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py`
+This feature is located in this file: `webauth.yaml` (in this directory: extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition). If any low level keywords are missing they can be added to this file and the APIs can be generated with the following python script located here: /extreme_automation_framework/ExtremeAutomation/Apis/GenerateApisFromDefinitionFiles.py. To execute the script. CD to the repository directory (/extreme_automation_framework/ExtremeAutomation/Apis/) and type: `python GenerateApisFromDefinitionFiles.py` 
 
 # API Function: enable_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_enable_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_enable_global(device_name )
 
 	Robot API Call: 
 
@@ -47,7 +47,7 @@ UUID: 8605577b-fe15-4664-baa7-6e84ac4421c1
 # API Function: disable_global
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_disable_global(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_disable_global(device_name )
 
 	Robot API Call: 
 
@@ -90,7 +90,7 @@ UUID: 58c01afb-4532-4b08-bbe8-f44f0e54bda6
 # API Function: enable_control_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_enable_control_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_enable_control_port(device_name )
 
 	Robot API Call: 
 
@@ -133,7 +133,7 @@ UUID: 475f2a85-c938-46de-b2b1-da36b8114e43
 # API Function: disable_control_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_disable_control_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_disable_control_port(device_name )
 
 	Robot API Call: 
 
@@ -176,7 +176,7 @@ UUID: 93383c86-d287-4126-b217-16b639fa2b52
 # API Function: enable_redirect_page
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_enable_redirect_page(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_enable_redirect_page(device_name )
 
 	Robot API Call: 
 
@@ -204,7 +204,7 @@ UUID: ee9523ba-ceb5-433c-b27b-932152cb4fdb
 # API Function: disable_redirect_page
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_disable_redirect_page(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_disable_redirect_page(device_name )
 
 	Robot API Call: 
 
@@ -232,7 +232,7 @@ UUID: f82a024e-faaf-483a-81eb-aa56eebaa87f
 # API Function: enable_logout_page
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_enable_logout_page(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_enable_logout_page(device_name )
 
 	Robot API Call: 
 
@@ -260,7 +260,7 @@ UUID: 0157c81a-3fdf-4044-86b1-bbfb86d4ab48
 # API Function: disable_logout_page
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_disable_logout_page(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_disable_logout_page(device_name )
 
 	Robot API Call: 
 
@@ -288,7 +288,7 @@ UUID: c5a90167-b800-4730-9599-8eedbb64671d
 # API Function: enable_session_refresh
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_enable_session_refresh(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_enable_session_refresh(device_name )
 
 	Robot API Call: 
 
@@ -316,7 +316,7 @@ UUID: eb5e5732-eb51-4387-8349-5b520c99af74
 # API Function: disable_session_refresh
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_disable_session_refresh(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_disable_session_refresh(device_name )
 
 	Robot API Call: 
 
@@ -344,7 +344,7 @@ UUID: 17fcbd87-7b7b-4027-992b-072260cf8179
 # API Function: enable_reauthentication_on_refresh
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_enable_reauthentication_on_refresh(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_enable_reauthentication_on_refresh(device_name )
 
 	Robot API Call: 
 
@@ -372,7 +372,7 @@ UUID: 4d2f44e4-954c-4e88-be77-9c232aaa442e
 # API Function: disable_reauthentication_on_refresh
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_disable_reauthentication_on_refresh(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_disable_reauthentication_on_refresh(device_name )
 
 	Robot API Call: 
 
@@ -400,7 +400,7 @@ UUID: 276c579b-ed6c-43eb-8fbd-c03b4306afd9
 # API Function: set_hostname
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_hostname(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_hostname(device_name )
 
 	Robot API Call: 
 
@@ -443,7 +443,7 @@ UUID: d8f21304-c087-4894-ab2f-8b00b90f21a6
 # API Function: set_init_mac_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_init_mac_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_init_mac_port(device_name )
 
 	Robot API Call: 
 
@@ -471,7 +471,7 @@ UUID: 19ce2e26-de9c-4974-af06-726750d8daaf
 # API Function: set_init_port
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_init_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_init_port(device_name )
 
 	Robot API Call: 
 
@@ -514,7 +514,7 @@ UUID: 9155b2cb-6093-4f7d-b82b-32858ddf63b5
 # API Function: set_init_mac
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_init_mac(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_init_mac(device_name )
 
 	Robot API Call: 
 
@@ -542,7 +542,7 @@ UUID: 12cbca5e-67a7-4b96-8834-6fc0790a0fb5
 # API Function: set_init_all
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_init_all(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_init_all(device_name )
 
 	Robot API Call: 
 
@@ -570,7 +570,7 @@ UUID: 909e163d-aa1c-4e10-b95d-c69fc92fae88
 # API Function: set_redirect_page
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_redirect_page(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_redirect_page(device_name )
 
 	Robot API Call: 
 
@@ -613,7 +613,7 @@ UUID: ee1a4441-587d-48da-aa1e-edb66bc1dd88
 # API Function: set_session_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_session_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_session_timeout(device_name )
 
 	Robot API Call: 
 
@@ -641,7 +641,7 @@ UUID: 3919fec3-b919-40ee-9266-3ffff001771d
 # API Function: set_idle_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_idle_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_idle_timeout(device_name )
 
 	Robot API Call: 
 
@@ -669,7 +669,7 @@ UUID: 1a0f1eb2-33a4-431f-818f-8ae0b4c748e5
 # API Function: set_lease_time
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_lease_time(device_name, vlan_name, lease_time)
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_lease_time(device_name, vlan_name, lease_time)
 
 	Robot API Call: 
 
@@ -697,7 +697,7 @@ UUID: d8f32a89-1e25-4f90-8cd9-c504da005213
 # API Function: set_session_refresh
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_session_refresh(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_session_refresh(device_name )
 
 	Robot API Call: 
 
@@ -725,7 +725,7 @@ UUID: 73c3d442-1863-446e-ad0f-a6bb6639b7d2
 # API Function: set_allowed_refresh_failures
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_allowed_refresh_failures(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_allowed_refresh_failures(device_name )
 
 	Robot API Call: 
 
@@ -753,7 +753,7 @@ UUID: aa8fac1c-6e03-4357-ae88-11d5f22f7d8b
 # API Function: set_protocol_order
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_protocol_order(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_protocol_order(device_name )
 
 	Robot API Call: 
 
@@ -781,7 +781,7 @@ UUID: 85cc0d41-59fc-4685-aaaa-759bac2dae56
 # API Function: set_protocol_order_web_dot1x_mac
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_protocol_order_web_dot1x_mac(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_protocol_order_web_dot1x_mac(device_name )
 
 	Robot API Call: 
 
@@ -809,7 +809,7 @@ UUID: 5fed7b5a-4fc1-4dab-bcc8-7a65461e6192
 # API Function: set_protocol_order_web_mac_dot1x
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_protocol_order_web_mac_dot1x(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_protocol_order_web_mac_dot1x(device_name )
 
 	Robot API Call: 
 
@@ -837,7 +837,7 @@ UUID: 884b221f-c28a-4e50-acbe-c0b5fdd0f739
 # API Function: set_db_order_local
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_db_order_local(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_db_order_local(device_name )
 
 	Robot API Call: 
 
@@ -865,7 +865,7 @@ UUID: 73697d07-91d5-4fe4-a6d5-4a870269eed7
 # API Function: set_db_order_local_radius
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_db_order_local_radius(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_db_order_local_radius(device_name )
 
 	Robot API Call: 
 
@@ -893,7 +893,7 @@ UUID: 15afc978-0a35-408e-945c-648561a2db2c
 # API Function: set_db_order_radius
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_db_order_radius(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_db_order_radius(device_name )
 
 	Robot API Call: 
 
@@ -921,7 +921,7 @@ UUID: a766710f-c829-4315-bf44-a3851e3d4e89
 # API Function: set_db_order_radius_local
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_set_db_order_radius_local(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_set_db_order_radius_local(device_name )
 
 	Robot API Call: 
 
@@ -949,7 +949,7 @@ UUID: beaebe2c-ab03-460b-bb97-8021cec0db01
 # API Function: clear_hostname
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_hostname(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_hostname(device_name )
 
 	Robot API Call: 
 
@@ -992,7 +992,7 @@ UUID: dba32dfa-85b2-4888-b3b4-ef9e48548c64
 # API Function: clear_redirect_page
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_redirect_page(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_redirect_page(device_name )
 
 	Robot API Call: 
 
@@ -1035,7 +1035,7 @@ UUID: 671068c9-e516-4210-a488-8a63011c75d5
 # API Function: clear_session_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_session_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_session_timeout(device_name )
 
 	Robot API Call: 
 
@@ -1063,7 +1063,7 @@ UUID: 8b536a06-86f6-4753-b7ed-7ba1f265128d
 # API Function: clear_idle_timeout
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_idle_timeout(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_idle_timeout(device_name )
 
 	Robot API Call: 
 
@@ -1091,7 +1091,7 @@ UUID: b2827e2d-a25a-4580-8442-d1dd78585451
 # API Function: clear_lease_time
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_lease_time(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_lease_time(device_name )
 
 	Robot API Call: 
 
@@ -1119,7 +1119,7 @@ UUID: 49537bd8-9618-4d7d-918f-b0bbbafacc40
 # API Function: clear_session_refresh
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_session_refresh(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_session_refresh(device_name )
 
 	Robot API Call: 
 
@@ -1147,7 +1147,7 @@ UUID: 5317e740-0148-4c5d-882c-154533d14dd6
 # API Function: clear_allowed_refresh_failures
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_allowed_refresh_failures(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_allowed_refresh_failures(device_name )
 
 	Robot API Call: 
 
@@ -1175,7 +1175,7 @@ UUID: 3d21c5c4-0cc0-4504-8eae-d8f1c75b4809
 # API Function: clear_protocol_order
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_protocol_order(device_name, mac)
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_protocol_order(device_name, mac)
 
 	Robot API Call: 
 
@@ -1203,7 +1203,7 @@ UUID: af54254b-7d49-4107-91c9-2b8df0ad5b39
 # API Function: clear_db_order
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_clear_db_order(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_clear_db_order(device_name )
 
 	Robot API Call: 
 
@@ -1228,145 +1228,327 @@ UUID: 4aaa8f88-5d2c-47cc-9f8f-df2a90073548
 
 ## REST
 ## SNMP
-# API Function: show_summary_snapshot
+# API Function: webauth_verify_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_show_summary_snapshot(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_enabled(device_name)
 
 	Robot API Call: 
 
-		webauth_show_summary_snapshot  device_name  
+		webauth_verify_enabled  device_name
 
-UUID: 8db45701-652b-4f75-98ca-7b54283fe547
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin web-based
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pwa summary
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_port
+# API Function: webauth_verify_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_show_port(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_disabled(device_name)
 
 	Robot API Call: 
 
-		webauth_show_port  device_name  
+		webauth_verify_disabled  device_name
 
-UUID: 3766b43d-58cc-40f6-9aaf-047508966934
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show config netlogin
-
-----------------------------------------------
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show pwa {port}
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_timeout_values
+# API Function: webauth_verify_port_enabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_show_timeout_values(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_port_enabled(device_name, port)
 
 	Robot API Call: 
 
-		webauth_show_timeout_values  device_name  
+		webauth_verify_port_enabled  device_name  port
 
-UUID: a7f16361-3c51-4921-b455-e968cf552be5
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
-
-		show netlogin timeout
-
-----------------------------------------------
-
-
-## REST
-## SNMP
-# API Function: show_vlan_dhcp_netlogin_lease_time
+# API Function: webauth_verify_port_disabled
 	Pytest API Call: 
 
-		self.defaultLibrary.apiLowLevelApis.NetworkElementWebauthGenKeywords.webauth_show_vlan_dhcp_netlogin_lease_time(device_name )
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_port_disabled(device_name, port)
 
 	Robot API Call: 
 
-		webauth_show_vlan_dhcp_netlogin_lease_time  device_name  
+		webauth_verify_port_disabled  device_name  port
 
-UUID: fb1e7e20-6f69-41ff-b98d-cc42809314f8
-## CLI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: EXOS
+# API Function: webauth_verify_url_name
+	Pytest API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_url_name(device_name, base_url)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+	Robot API Call: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+		webauth_verify_url_name  device_name  base_url
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+# API Function: webauth_verify_url_name_default
+	Pytest API Call: 
 
-		show vlan {vlan_name} dhcp-config
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_url_name_default(device_name, base_url)
 
-----------------------------------------------
+	Robot API Call: 
 
+		webauth_verify_url_name_default  device_name  base_url
 
-## REST
-## SNMP
+# API Function: webauth_verify_lease_time
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_lease_time(device_name, vlan, lease_time)
+
+	Robot API Call: 
+
+		webauth_verify_lease_time  device_name  vlan  lease_time
+
+# API Function: webauth_verify_redirect_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_redirect_enabled(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_redirect_enabled  device_name
+
+# API Function: webauth_verify_redirect_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_redirect_disabled(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_redirect_disabled  device_name
+
+# API Function: webauth_verify_session_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_session_timeout(device_name, session_timeout)
+
+	Robot API Call: 
+
+		webauth_verify_session_timeout  device_name  session_timeout
+
+# API Function: webauth_verify_session_timeout_default
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_session_timeout_default(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_session_timeout_default  device_name
+
+# API Function: webauth_verify_idle_timeout
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_idle_timeout(device_name, idle_timeout)
+
+	Robot API Call: 
+
+		webauth_verify_idle_timeout  device_name  idle_timeout
+
+# API Function: webauth_verify_idle_timeout_default
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_idle_timeout_default(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_idle_timeout_default  device_name
+
+# API Function: webauth_verify_user_authenticated
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_user_authenticated(device_name, mac_or_ip_or_user)
+
+	Robot API Call: 
+
+		webauth_verify_user_authenticated  device_name  mac_or_ip_or_user
+
+# API Function: webauth_verify_user_unauthenticated
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_user_unauthenticated(device_name, mac_or_ip_or_user)
+
+	Robot API Call: 
+
+		webauth_verify_user_unauthenticated  device_name  mac_or_ip_or_user
+
+# API Function: webauth_verify_user_authenticated_by_radius
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_user_authenticated_by_radius(device_name, mac_or_ip_or_user)
+
+	Robot API Call: 
+
+		webauth_verify_user_authenticated_by_radius  device_name  mac_or_ip_or_user
+
+# API Function: webauth_verify_user_login_name
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_user_login_name(device_name, mac_or_ip_or_user, login_name)
+
+	Robot API Call: 
+
+		webauth_verify_user_login_name  device_name  mac_or_ip_or_user  login_name
+
+# API Function: webauth_verify_user_ip
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_user_ip(device_name, mac_or_ip_or_user, ip)
+
+	Robot API Call: 
+
+		webauth_verify_user_ip  device_name  mac_or_ip_or_user  ip
+
+# API Function: webauth_verify_user_auth_type
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_user_auth_type(device_name, mac_or_ip_or_user, auth_type)
+
+	Robot API Call: 
+
+		webauth_verify_user_auth_type  device_name  mac_or_ip_or_user  auth_type
+
+# API Function: webauth_verify_database_order_radius
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_database_order_radius(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_database_order_radius  device_name
+
+# API Function: webauth_verify_database_order_radius_local
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_database_order_radius_local(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_database_order_radius_local  device_name
+
+# API Function: webauth_verify_database_order_local
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_database_order_local(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_database_order_local  device_name
+
+# API Function: webauth_verify_database_order_local_radius
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_database_order_local_radius(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_database_order_local_radius  device_name
+
+# API Function: webauth_verify_protocol_order
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_protocol_order(device_name, order)
+
+	Robot API Call: 
+
+		webauth_verify_protocol_order  device_name  order
+
+# API Function: webauth_verify_redirect_page_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_redirect_page_enabled(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_redirect_page_enabled  device_name
+
+# API Function: webauth_verify_redirect_page_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_redirect_page_disabled(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_redirect_page_disabled  device_name
+
+# API Function: webauth_verify_redirect_page
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_redirect_page(device_name, address)
+
+	Robot API Call: 
+
+		webauth_verify_redirect_page  device_name  address
+
+# API Function: webauth_verify_redirect_page_default
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_redirect_page_default(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_redirect_page_default  device_name
+
+# API Function: webauth_verify_reauthenticate_on_refresh_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_reauthenticate_on_refresh_enabled(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_reauthenticate_on_refresh_enabled  device_name
+
+# API Function: webauth_verify_reauthenticate_on_refresh_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_reauthenticate_on_refresh_disabled(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_reauthenticate_on_refresh_disabled  device_name
+
+# API Function: webauth_verify_session_refresh_enabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_session_refresh_enabled(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_session_refresh_enabled  device_name
+
+# API Function: webauth_verify_session_refresh_disabled
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_session_refresh_disabled(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_session_refresh_disabled  device_name
+
+# API Function: webauth_verify_session_refresh_interval
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_session_refresh_interval(device_name, refresh_interval)
+
+	Robot API Call: 
+
+		webauth_verify_session_refresh_interval  device_name  refresh_interval
+
+# API Function: webauth_verify_allowed_refresh_failures
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_allowed_refresh_failures(device_name, num_failures)
+
+	Robot API Call: 
+
+		webauth_verify_allowed_refresh_failures  device_name  num_failures
+
+# API Function: webauth_verify_allowed_refresh_failures_default
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_allowed_refresh_failures_default(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_allowed_refresh_failures_default  device_name
+
+# API Function: webauth_verify_session_refresh_default
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.webauth.webauth_verify_session_refresh_default(device_name)
+
+	Robot API Call: 
+
+		webauth_verify_session_refresh_default  device_name
+

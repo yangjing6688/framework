@@ -24,6 +24,9 @@ class SysinfoConstants(ApiConstants):
         self.CHECK_FOR_CORES_DIR = {"constant": "check_for_cores_dir",
                                     "tags": ["PARSE_CLI"],
                                     "link": self.link.check_for_cores_dir}
+        self.CHECK_FOR_SYSTEM_TYPE = {"constant": "check_for_system_type",
+                                      "tags": ["PARSE_CLI"],
+                                      "link": self.link.check_for_system_type}
         self.CHECK_INSTALLED_XMODS = {"constant": "check_installed_xmods",
                                       "tags": ["PARSE_CLI", "PARSE_REST"],
                                       "link": self.link.check_installed_xmods}
