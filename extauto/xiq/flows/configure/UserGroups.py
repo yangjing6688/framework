@@ -21,7 +21,7 @@ class UserGroups(UserGroupsWebElements):
         self.expiration = ExpirationSettings()
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
-        self.kwargs['IRV'] = True
+        self.common_validation.kwargs['IRV'] = True
         self.builtin = BuiltIn()
 
     def _select_password_db_loc_type(self, password_db_loc, password_type):
