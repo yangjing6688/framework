@@ -468,9 +468,17 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item15)
 
-
     def get_sw_template_device_sett_forward_delay_drop_down_items(self):
+
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_items)
+
+    def get_sw_template_adv_settings_download_specific_firmware_drop_down_button(self):
+
+        return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_button)
+
+    def get_sw_template_adv_settings_download_specific_firmware_drop_down_items(self):
+
+        return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_items)
 
 
 

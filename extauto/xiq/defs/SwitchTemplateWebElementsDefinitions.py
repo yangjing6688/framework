@@ -605,7 +605,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_adv_settings_upgr_firm_latest_button = \
         {
-            'XPATH': '//input[@dojo-attach-point="downloadFirmwareOption-latest"]',
+            'XPATH': '//input[@data-dojo-attach-point="downloadFirmwareOption-latest"]',
             'wait_for': 2
         }
 
@@ -642,6 +642,18 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_device_sett_forward_delay_drop_down_item15 = \
         {
             'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-15"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_download_specific_firmware_drop_down_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="importImageArea"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    sw_template_adv_settings_download_specific_firmware_drop_down_items = \
+        {
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-deviceimagemetadata"]//li[contains(@class,"active-result")]',
             'wait_for': 2
         }
 
