@@ -615,4 +615,39 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 2
         }
 
+    sw_template_device_sett_forward_delay_drop_down = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-container-ctn"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_items = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-drop-ctn"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_item16 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-16"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_item15 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-15"]',
+            'wait_for': 2
+        }
+
+
+
+
+
+
 
