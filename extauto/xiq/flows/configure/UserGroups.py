@@ -12,7 +12,7 @@ from extauto.common.CommonValidation import CommonValidation
 
 
 class UserGroups(UserGroupsWebElements):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
         self.utils = Utils()
         self.navigator = Navigator()
@@ -21,8 +21,8 @@ class UserGroups(UserGroupsWebElements):
         self.expiration = ExpirationSettings()
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
-        self.common_validation.kwargs['IRV'] = True
         self.builtin = BuiltIn()
+        kwargs['IRV'] = True
 
     def _select_password_db_loc_type(self, password_db_loc, password_type):
         """
