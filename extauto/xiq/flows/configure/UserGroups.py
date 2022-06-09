@@ -21,7 +21,7 @@ class UserGroups(UserGroupsWebElements):
         self.expiration = ExpirationSettings()
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
-
+        self.kwargs['IRV'] = True
         self.builtin = BuiltIn()
 
     def _select_password_db_loc_type(self, password_db_loc, password_type):
@@ -894,7 +894,8 @@ class UserGroups(UserGroupsWebElements):
         """
 
         exclusive_groups = ['GA-ppsk-user-device', 'GA-ppsk-user-service', 'GA-ppsk-self-reg', 'GA-RADIUS-us']
-        
+
+        self.utils.print_info("KRV " + str(kwargs['KRV']))
         self.utils.print_info("Navigating to the configure users")
         if not self.navigator.navigate_to_configure_user_groups():
             kwargs['fail_msg'] = "Unable to navigate to the user group page"

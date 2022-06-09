@@ -211,6 +211,7 @@ class CommonObjects(object):
         :param exclude_list: list of SSIDs to exclude from delete
         :return: 1 if deleted else -1
         """
+        exclude_list = 'ssid0'
         self.navigator.navigate_to_ssids()
 
         self.utils.print_info("Click on full page view")
