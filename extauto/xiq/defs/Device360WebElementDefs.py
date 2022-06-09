@@ -1742,6 +1742,18 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    d360_wireframe_sfp28_port = \
+        {
+            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-qsfp28")]',
+            'wait_for': 5
+        }
+
+    d360_wireframe_ether_port = \
+        {
+            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-white")]',
+            'wait_for': 5
+        }
+
     d360_port_leftclick_interface_name = \
         {
             'XPATH': '//div[@class="port-info interface-name"]',

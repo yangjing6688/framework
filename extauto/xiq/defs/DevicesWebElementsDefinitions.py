@@ -430,7 +430,7 @@ class DevicesWebElementsDefinitions:
 
     nw_policy_drop_v2 = \
         {
-            'XPATH':  '//div[contains(@class, "dijitReset dijitInputField dijitButtonText") and @data-dojo-attach-point="containerNode,textDirNode"]',
+            'XPATH':  '//div[contains(@class, "dijitReset dijitInputField dijitButtonText") and @data-dojo-attach-point="containerNode,textDirNode"]/span[text()="--Select--"]',
             'wait_for': 2,
         }
 
