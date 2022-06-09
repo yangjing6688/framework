@@ -1430,6 +1430,44 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Devices by OS: ", devices_by_os)
         return devices_by_os
 
+    def get_devices_by_os_iqagent_notes(self):
+        """
+        - Returns Get Devices By OS as a dictionary
+        - Flow : Copilot page -->  Get Devices By OS
+        - Keyword Usage
+         - ``Get Devices By OS``
+        :return: Returns Get Devices By OS as a dictionary, -1 in case of any errors
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.print_info("Getting Devices By OS")
+        sleep(25)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        widget = self.get_devices_by_os_widget()
+        self.screen.save_screen_shot()
+
+        sleep(2)
+        self.auto_actions.click(self.get_devices_by_os_iqagent())
+        parent_window = CloudDriver().cloud_driver.window_handles[0]
+        child_window = CloudDriver().cloud_driver.window_handles[1]
+
+        self.utils.print_info("Switch To New Tab")
+        CloudDriver().cloud_driver.switch_to.window(child_window)
+        self.screen.save_screen_shot()
+        loaded_doc_title = CloudDriver().cloud_driver
+        sleep(15)
+        if "Learning What's New" in loaded_doc_title.title:
+            self.utils.print_info(f"IQ ENGINE RELEASE NOTES page loaded successfully ")
+            return 1
+        else:
+            self.utils.print_info(f"IQ ENGINE RELEASE NOTES page not loaded successfully ")
+            return -1
+        CloudDriver().cloud_driver.close()
+        self.utils.print_info("Closing the browser")
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+
     def get_devices_by_type(self):
         """
         - Returns Get Devices By Type as a dictionary
