@@ -891,7 +891,7 @@ class UserGroups(UserGroupsWebElements):
         :return: 1 if deleted successfully else -1
         """
 
-        exclusive_groups = ['GA-ppsk-user-devicexxxx', 'GA-ppsk-user-service', 'GA-ppsk-self-reg', 'GA-RADIUS-us']
+        exclusive_groups = ['GA-ppsk-user-device', 'GA-ppsk-user-service', 'GA-ppsk-self-reg', 'GA-RADIUS-us']
 
         self.utils.print_info("Navigating to the configure users")
         if not self.navigator.navigate_to_configure_user_groups():
