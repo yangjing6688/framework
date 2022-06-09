@@ -887,7 +887,6 @@ class UserGroups(UserGroupsWebElements):
         - Keyword Usage:
         - ``delete_all_user_groups    IRV=True``
 
-        :param groups: exclusive group names
         :param IRV:    if False, the error will skip, otherwise, error will not skip
         :return: 1 if deleted successfully else -1
         """
