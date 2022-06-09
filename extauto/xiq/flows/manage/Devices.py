@@ -9518,3 +9518,27 @@ class Devices:
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
 
+
+    def  wait_until_device_update_done(self, device_serial=None, device_name=None, device_mac=None):
+            """
+            - Get Management IP Assigned to the AP
+            - Keyword Usage:
+             - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
+             - ``wait_until_device_update_done   device_name=${AP_NAME}``
+             - ``wait_until_device_update_done   device_mac=${AP_MAC}``
+
+            :param device_serial: Serial number of AP Ex:11301810220048
+            :param device_name: device name Ex: AP1130
+            :param device_mac: device mac Ex: F09CE9F89600
+            :return: device Management IP Address
+            """
+            self.navigator.navigate_to_manage_tab()
+            sleep(5)
+            self.refresh_devices_page()
+            sleep(2)
+
+            search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
+            management_ip = self.get_device_details(search_string, 'MGT IP ADDRESS')
+            if management_ip:
+                return management_ip
+
