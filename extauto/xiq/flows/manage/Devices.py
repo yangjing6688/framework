@@ -3103,7 +3103,7 @@ class Devices:
         :param update_method: Perform Complete update or delta update
         :return: 1 if policy updated else -1
         """
-        self.utils.print_info("Navigate to Manage-->Devices")
+z        self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         sleep(5)
 
