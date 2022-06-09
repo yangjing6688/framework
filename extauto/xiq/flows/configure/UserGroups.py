@@ -22,7 +22,6 @@ class UserGroups(UserGroupsWebElements):
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
         self.builtin = BuiltIn()
-        kwargs['IRV'] = True
 
     def _select_password_db_loc_type(self, password_db_loc, password_type):
         """

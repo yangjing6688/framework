@@ -35,7 +35,7 @@ class CommonValidation():
             expect_error = verifies that an error was returned by the keyword
         """
         test_result = False
-        ivr_flag = self.get_kwarg(kwargs, "IRV", False)
+        ivr_flag = self.get_kwarg(kwargs, "IRV", True)
         if ivr_flag:
             self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             self.logger.warning("Internal Result Verification is Enabled")
