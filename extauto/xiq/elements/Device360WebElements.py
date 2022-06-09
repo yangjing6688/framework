@@ -1347,3 +1347,7 @@ class Device360WebElements(Device360WebElementDefs):
                 return el
         else:
             return False
+
+    def get_device360_event(self):
+        return self.weh.get_element(self.device360_event)
+

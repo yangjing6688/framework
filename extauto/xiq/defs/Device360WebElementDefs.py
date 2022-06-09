@@ -2138,3 +2138,10 @@ class Device360WebElementDefs:
             'XPATH': '//*[@class="ui-icon dgrid-hider-toggle"]',
             'wait_for': 5
         }
+
+    device360_event = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-events"]',
+            'wait_for': 5
+        }
+
