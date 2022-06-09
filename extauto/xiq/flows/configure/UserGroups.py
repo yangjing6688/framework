@@ -895,7 +895,7 @@ class UserGroups(UserGroupsWebElements):
 
         exclusive_groups = ['GA-ppsk-user-device', 'GA-ppsk-user-service', 'GA-ppsk-self-reg', 'GA-RADIUS-us']
 
-        self.utils.print_info("KRV " + str(kwargs['KRV']))
+        self.utils.print_info("IRV " + str(kwargs['IRV']))
         self.utils.print_info("Navigating to the configure users")
         if not self.navigator.navigate_to_configure_user_groups():
             kwargs['fail_msg'] = "Unable to navigate to the user group page"
