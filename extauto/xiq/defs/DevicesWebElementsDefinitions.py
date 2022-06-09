@@ -404,7 +404,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down2 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
+            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]//tbody',
             'wait_for': 5
         }
 
