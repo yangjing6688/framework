@@ -2949,7 +2949,7 @@ class Devices:
             sleep(5)
             device_status = ''
             attempt_count = 3
-            while attempt_count > 1:
+            while attempt_count > 0:
                 if attempt_count == 3:
                     self.utils.print_info("Getting status from cell")
                 else:
@@ -3011,11 +3011,11 @@ class Devices:
                 # self.utils.print_info("Unable to obtain device status for the device row")
                 kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
                 self.common_validation.validate(-1, 1, **kwargs)
-                return 'unknown'
+                return -1
 
         kwargs['fail_msg'] = "Unable to obtain device status!"
         self.common_validation.validate(-1, 1, **kwargs)
-        return 'unknown'
+        return -1
 
     def verify_device_status(self, device_serial='default', device_name='default', device_mac='default',
                              status='default'):
