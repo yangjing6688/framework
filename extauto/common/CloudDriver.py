@@ -65,6 +65,9 @@ class CloudDriver():
             element_identify_value_xpath = "//*[@class='success_text']"
             element_identify = "xpath"
             utils.print_info("Approval")
+        elif program == 'a3':
+            element_identify = "id"
+            element_identify_value_id = "username"
         elif program == 'adsp':
             element_identify_value_name = "j_username"
             element_identify = "name"
