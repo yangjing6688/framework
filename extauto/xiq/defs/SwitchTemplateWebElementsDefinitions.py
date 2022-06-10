@@ -582,7 +582,7 @@ class SwitchTemplateWebElementDefinitions:
 
     lacp_toggle_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-lacp-toggle"]',
+            'XPATH': '//*[contains(@data-automation-tag,"lag-lacp-toggle")]',
             'wait_for': 2
         }
 
