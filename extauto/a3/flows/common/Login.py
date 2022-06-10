@@ -2,7 +2,9 @@ import threading
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-import common.CloudDriver
+#import common.CloudDriver
+from extauto.common.CloudDriver import CloudDriver
+
 from common.Screen import Screen
 from common.Utils import Utils
 from common.AutoActions import AutoActions
@@ -18,6 +20,11 @@ class Login:
     def __init__(self):
         self.record = False
         self.t1 = None
+        self.utils = Utils()
+        self.login_web_elements = LoginWebElements()
+        self.pw_web_elements = PasswordResetWebElements()
+        self.auto_actions = AutoActions()
+        self.screen = Screen()
         pass
 
     def _init(self, url="default", incognito_mode="False"):
@@ -27,20 +34,25 @@ class Login:
         :return: returns driver object
         """
         global driver
-        self.utils = Utils()
-        if common.CloudDriver.cloud_driver == -1:
+        #self.utils = Utils()
+        '''if common.CloudDriver.cloud_driver == -1:
             self.utils.print_info("Creating new cloud driver")
             common.CloudDriver.load_browser(url, incognito_mode=incognito_mode)
+            self.window_index = 0'''
+
+        if CloudDriver().cloud_driver == None:
+            self.utils.print_info("Creating new cloud driver")
+            CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
             self.window_index = 0
         else:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
             self.window_index = common.CloudDriver.open_window(url)
         self.utils.print_info(f"Window Handle Index is {self.window_index}")
         self.driver = common.CloudDriver.cloud_driver
-        self.login_web_elements = LoginWebElements()
+        '''self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
         self.auto_actions = AutoActions()
-        self.screen = Screen()
+        self.screen = Screen()'''
         return self.driver
 
     def get_page_title(self):
