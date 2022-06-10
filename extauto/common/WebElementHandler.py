@@ -55,13 +55,15 @@ class WebElementHandler:
             else:
                 continue
             try:
-                if 'True' in self.el_info:
-                    self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
-                                          .format(key, value, _index, _delay, _desc))
-                if type(value) is list:
-                    self.utils.print_info("Element has multiple definitions: ", value)
+                if self.el_info:
+                    if 'True' in self.el_info:
+                        self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
+                                                .format(key, value, _index, _delay, _desc))
+                if list:
+                    if type(value) is list:
+                        self.utils.print_info("Element has multiple definitions: ", value)
 
-                if type(_index) is list:
+                if list and type(_index) is list:
                     handles_list = []
                     self.utils.print_info("Index is an array: ", _index)
                     for each_index in _index:

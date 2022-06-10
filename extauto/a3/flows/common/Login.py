@@ -2,7 +2,6 @@ import threading
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-#import common.CloudDriver
 from extauto.common.CloudDriver import CloudDriver
 
 from common.Screen import Screen
@@ -34,28 +33,14 @@ class Login:
         :return: returns driver object
         """
         global driver
-        #self.utils = Utils()
-        '''if common.CloudDriver.cloud_driver == -1:
-            self.utils.print_info("Creating new cloud driver")
-            common.CloudDriver.load_browser(url, incognito_mode=incognito_mode)
-            self.window_index = 0'''
 
         if CloudDriver().cloud_driver == None:
             self.utils.print_info("Creating new cloud driver")
             CloudDriver().start_browser(url=url, program="a3", incognito_mode=incognito_mode)
             self.window_index = 0
         else:
-            # self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-            # self.window_index = common.CloudDriver.open_window(url)
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
             self.window_index = CloudDriver().open_window(url)
-        '''self.utils.print_info(f"Window Handle Index is {self.window_index}")
-        self.driver = common.CloudDriver.cloud_driver
-        self.login_web_elements = LoginWebElements()
-        self.pw_web_elements = PasswordResetWebElements()
-        self.auto_actions = AutoActions()
-        self.screen = Screen()'''
-        # return self.driver
         self.driver = CloudDriver().cloud_driver
 
     def get_page_title(self):
@@ -104,8 +89,7 @@ class Login:
         self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
 
         self.utils.print_info("Entering Username...")
-        user_fld = self.login_web_elements.get_login_page_username_text()
-        self.auto_actions.send_keys(user_fld, username)
+        self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
 
         self.utils.print_info("Entering Password...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_password_text(), password)
