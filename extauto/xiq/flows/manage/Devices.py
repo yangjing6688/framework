@@ -9506,6 +9506,7 @@ class Devices:
         if not complete:
             kwargs['fail_msg'] = "the waited time has reached with " + str(wait_time_in_min) + ' min(s)'
             self.common_validation.validate(-1, 1, **kwargs)
+            return -1
 
         sleep(10)
         self.utils.print_info("All devices finish updating ")
