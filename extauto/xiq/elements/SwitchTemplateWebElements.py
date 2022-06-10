@@ -472,3 +472,9 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_template_link(self, template):
         return self.weh.get_template_element(self.template_link, template=template)
+
+    def get_template_slot(self, slot):
+        return self.weh.get_template_element(self.template_slot, slot=slot)
+
+    def get_aggregated_ports(self):
+        return self.weh.get_template_element(self.aggregated_ports)

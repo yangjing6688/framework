@@ -582,7 +582,7 @@ class SwitchTemplateWebElementDefinitions:
 
     lacp_toggle_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-lacp-toggle"]',
+            'XPATH': '//*[contains(@data-automation-tag, "lag-lacp-toggle")]',
             'wait_for': 2
         }
 
@@ -641,6 +641,12 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    aggregated_ports = \
+        {
+            'XPATH': '//select[@data-automation-tag="lag-aggregated-ports"]//option',
+            'wait_for': 5
+        }
+
     port_settings_tab = \
         {
             'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-settings"]',
@@ -650,6 +656,13 @@ class SwitchTemplateWebElementDefinitions:
     available_slot = \
         {
             'XPATH': '//*[@data-automation-tag="lag-slots-available"]//option[@value="${slot}"]',
+            'wait_for': 5
+        }
+
+    template_slot = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
+            # 'XPATH': '//*[@data-dojo-attach-point="templateElements"]//li[@data-ah-stack-template-index="${slot}"]',
             'wait_for': 5
         }
 
