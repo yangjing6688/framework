@@ -655,9 +655,8 @@ class SwitchTemplateWebElementDefinitions:
 
     error_message = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'XPATH': '//*[contains(@class, "ui-tipbox-error")]//*[@data-dojo-attach-point="textEl"]',
             'wait_for': 1,
-            'index': 2
         }
 
     template_link = \
