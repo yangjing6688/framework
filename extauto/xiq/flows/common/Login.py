@@ -766,7 +766,7 @@ class Login:
         """
         if login_option is not None:
             self.utils.print_info("Login type is: ", login_option)
-            sleep(5)
+            sleep(10)
             try:
                 ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
                 if ekpopup.is_displayed():
