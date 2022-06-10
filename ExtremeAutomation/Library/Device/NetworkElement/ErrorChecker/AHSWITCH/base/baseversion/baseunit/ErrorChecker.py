@@ -10,10 +10,8 @@ class ErrorChecker(BaseErrorChecker):
         self.gen_errors.append('Error')
         self.gen_errors.append('ERROR')
         self.gen_errors.append('Invalid IP')
-        self.gen_errors.append(' ^-- unknown keyword or invalid input')
-        self.gen_errors.append('Unrecognized command')
-        self.gen_errors.append('Invalid slot number detected')
-        self.gen_errors.append('Incomplete command')
+        self.gen_errors.append("% Invalid input detected at '^' marker.")
+        self.gen_errors.append('Command not found / Incomplete command. Use ? to list commands.')
 
     def init_protocol_specific_errors(self):
         """

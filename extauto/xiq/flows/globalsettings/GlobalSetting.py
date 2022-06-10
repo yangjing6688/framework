@@ -463,7 +463,7 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Now checking for SSH availability")
-
+        self.screen.save_screen_shot()
         if not self.get_ssh_availability_option_status().is_selected():
             self.utils.print_info("Enabling SSH Availability..")
             self.auto_actions.click(self.get_ssh_availability_option_status())

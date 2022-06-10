@@ -2,35 +2,46 @@ class CopilotDefs:
 
     wifi_capacity_content = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="wifiCapacityWidget"]'
-                     '//*[@data-dojo-attach-point="anomalySummary"]',
-            'index': 0,
+            'XPATH': '//*[@class="wifi-capacity-widget"]'
+                     '//*[@class="nui-auto-copilot-wifi-capacity-summary-description"]',
             'wait_for': 10
          }
 
     wifi_capacity_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="wifiCapacityWidget"]',
+            'XPATH':  '//*[@class="wifi-capacity-widget"]',
             'wait_for': 10
          }
+    wifi_capacity_status = \
+        {
+            'XPATH': '//button[contains(@class,"mat-focus-indicator secondary-button-color")]',
+            'index': 1,
+            'wait_for': 10
+        }
 
     wifi_capacity_widget_location_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wifiCapacityWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]',
+            'XPATH': '//*[@class="wifi-capacity-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
+            'CSS_SELECTOR': '.as-list-item-clickable',
             'wait_for': 5
          }
 
+    wifi_capacity_widget_location_grid_internal_rows = \
+        {
+            'CSS_SELECTOR': '.as-ah-row',
+            'wait_for': 5
+        }
+
     wifi_capacity_widget_location_grid_pin_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wifiCapacityWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]//i[@data-dojo-attach-point="pinItem"]',
+            'XPATH': '//*[@class="wifi-capacity-widget"]//*[contains(@class, "list-item ng-star-inserted")]'
+                     '//*[contains(@class, "pinned-item")]',
             'wait_for': 5
          }
 
     wifi_capacity_widget_location_pin_button = \
         {
-            'CSS_SELECTOR':'.material-icons.pin-anomaly-cls',
+            'CSS_SELECTOR':'.material-icons.nui-auto-copilot-wifi-capacity-summary-pin',
             'wait_for': 5
         }
 
@@ -42,20 +53,19 @@ class CopilotDefs:
 
     wifi_capacity_widget_location_more_options_button = \
         {
-            'CSS_SELECTOR':'.alarm-actions.as-dropdown-src',
+            'CSS_SELECTOR':'.nui-auto-copilot-wifi-capacity-summary-more-options',
             'wait_for': 5
         }
 
     wifi_capacity_widget_location_more_options_mute_button = \
         {
-            'CSS_SELECTOR':'.mdc-list-item.list-item',
+            'CSS_SELECTOR': '.mat-focus-indicator.mat-menu-item',
             'wait_for': 5
         }
 
     wifi_capacity_widget_location_grid_muted_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wifiCapacityWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]//div[@class="as-list-item-wrapper as-list-muted"]',
+            'XPATH': '//*[@class="wifi-capacity-widget"]//*[@class="as-list-item-wrapper as-list-muted"]',
             'wait_for': 5
          }
 
@@ -73,33 +83,34 @@ class CopilotDefs:
 
     wifi_capacity_more_options_btn = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-wifi-capacity-summary-more-options"]',
+            'CSS_SELECTOR':'.nui-auto-copilot-wifi-capacity-summary-more-options',
             'wait_for': 5
         }
 
     wifi_capacity_dismiss_option = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-automation-wifi-capacity-summary-Dismissed"]',
+            'CSS_SELECTOR': '.mat-focus-indicator.mat-menu-item',
+            'index': 1,
             'wait_for': 5
         }
 
     wifi_capacity_dismiss_warning = \
         {
-            'CSS_SELECTOR': '.ui-tipbox-plain.ui-tipbox-warning',
-            'XPATH': '//*[@data-dojo-attach-point="msgEl"]',
+            'CSS_SELECTOR': '.mat-dialog-content',
             'wait_for': 5
         }
 
     wifi_capacity_dismiss_no_option = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="noBtn"]',
+            'XPATH': '//*[@class="mat-dialog-actions"]'
+                     '//*[@class="mat-focus-indicator secondary-button-color mat-button mat-button-base"]',
             'wait_for': 5
         }
 
     wifi_capacity_dismiss_yes_option = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
-            'index': 0,
+            'XPATH': '//*[@class="mat-dialog-actions"]//*[@class="mat-focus-indicator primary-button-color '
+                     'mat-raised-button mat-button-base mat-primary"]',
             'wait_for': 5
         }
 
@@ -123,7 +134,7 @@ class CopilotDefs:
 
     wifi_capacity_widget_location_detailed_view_close_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-wifi-capacity-detail-close-button"]',
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-close-btn',
             'wait_for': 5
         }
     
@@ -141,21 +152,19 @@ class CopilotDefs:
 
     assurance_scan_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="assuranceScanWidget"]',
+            'XPATH': '//*[@class="assurance-scan-widget"]',
             'wait_for': 10
         }
 
     assurance_total_scan_count = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="assuranceScanWidget"]'
-                     '//*[@data-dojo-attach-point="totalAssuranceScanValue"]',
+            'CSS_SELECTOR': '.nui-auto-copilot-assurance-scanheader-text',
             'wait_for': 10
         }
 
     show_or_hide_muted_button_in_wifi_capacity_widget = \
         {
-            'XPATH': '//div[@class="copilot-card copilot-wifi-capacity-card"]'
-                     '//button[@data-dojo-attach-point="toggleMuteAnomalyButton"]',
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-summary-toggle-muted-btn',
             'wait_for': 10
         }
 
@@ -167,7 +176,7 @@ class CopilotDefs:
 
     wifi_capacity_video_help_icon = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wifiCapacityWidget"]//span[@class="video-help-icon"]',
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-summary-help-btn',
             'wait_for': 5
          }
 
@@ -211,21 +220,20 @@ class CopilotDefs:
 
     wifi_efficiency_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="wifiEfficiencyWidget"]',
+            'XPATH': '//*[@class="wifi-efficiency-widget"]',
             'wait_for': 5
          }
 
     wifi_efficiency_widget_content = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-wifi-efficiency-overall-summary"]',
-            'index': 0,
+            'XPATH': '//*[@class="wifi-efficiency-widget"]'
+                     '//*[@class="nui-auto-copilot-wifi-efficiency-summary-description"]',
             'wait_for': 5
         }
 
     wifi_efficiency_widget_location_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wifiEfficiencyWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]',
+            'XPATH': '//*[@class="wifi-efficiency-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
             'wait_for': 5
          }
 
@@ -501,6 +509,12 @@ class CopilotDefs:
             'TAG_NAME': 'span',
             'wait_for': 5,
             'index': 1
+        }
+
+    devices_by_os_iqagent = \
+        {
+            'XPATH': '//span[text()="IQ ENGINE RELEASE NOTES "]',
+            'wait_for': 5
         }
 
     copilot_widget = \
