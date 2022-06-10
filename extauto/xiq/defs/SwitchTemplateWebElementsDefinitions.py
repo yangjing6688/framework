@@ -582,7 +582,7 @@ class SwitchTemplateWebElementDefinitions:
 
     lacp_toggle_button = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "lag-lacp-toggle")]',
+            'XPATH': '//*[contains(@data-automation-tag,"lag-lacp-toggle")]',
             'wait_for': 2
         }
 
@@ -641,12 +641,6 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    aggregated_ports = \
-        {
-            'XPATH': '//select[@data-automation-tag="lag-aggregated-ports"]//option',
-            'wait_for': 5
-        }
-
     port_settings_tab = \
         {
             'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-settings"]',
@@ -659,18 +653,10 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    template_slot = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
-            # 'XPATH': '//*[@data-dojo-attach-point="templateElements"]//li[@data-ah-stack-template-index="${slot}"]',
-            'wait_for': 5
-        }
-
     error_message = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'XPATH': '//*[contains(@class, "ui-tipbox-error")]//*[@data-dojo-attach-point="textEl"]',
             'wait_for': 1,
-            'index': 2
         }
 
     template_link = \
