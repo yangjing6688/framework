@@ -664,3 +664,9 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//a[text()="${template}"]',
             'wait_for': 5
         }
+
+    template_slot = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
+            'wait_for': 5
+        }
