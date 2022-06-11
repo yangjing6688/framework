@@ -1300,7 +1300,7 @@ class NetworkPolicy(object):
         else:
             return -1
 
-    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name):
+    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name, firmwareUpdate = "false"):
         """
         - Deploy the network policy to the particular device
         - By default it will do delta config push
@@ -1347,8 +1347,6 @@ class NetworkPolicy(object):
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_upload_button())
         sleep(5)
         self.screen.save_screen_shot()
-        self.utils.print_info("Click on the perform update")
-        self.auto_actions.click(self.np_web_elements.get_perform_after_select_update_policy_button())
 
         # Select from dropdown
         if sw_template_name is not None:
@@ -1384,36 +1382,50 @@ class NetworkPolicy(object):
             
         # Uncheck the firmware update checkbox if it is checked 
         firmware_update = self.devices_web_elements.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
-
-        if firmware_update.is_selected():
-            self.utils.print_info(f" Unchecking the Upgrade IQ engine and extreme network switch images checkbox")
-            self.auto_actions.click(firmware_update)
+        if firmwareUpdate == "false":
+            if firmware_update.is_selected():
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked - Unchecking")
+                self.auto_actions.click(firmware_update)
+            else:
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already unchecked")
+        else:
+            if firmware_update.is_selected():
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")  
+            else:
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is not already checked - Checking")
+                self.auto_actions.click(firmware_update)
 
         # Perform the update
         self.screen.save_screen_shot()
         sleep(5)
+        
+        # Captute tool tip msg before pressing the perform update button
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
+        
+        # Press perform update button
+        self.utils.print_info("Click on perform update button ")
         if self.np_web_elements.get_perform_update_policy_button():
             self.utils.print_info("Click on update policy button ")
             self.auto_actions.click(self.np_web_elements.get_perform_update_policy_button())
         else:
             self.utils.print_info("The update policy button was not found")
+            return -1
 
         self.screen.save_screen_shot()
         sleep(5)
+        
+        # Capture the tool tip after pressing the perform update button
         tool_tp_text_after = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_after)
-
-        self.utils.print_info("close the device update button ##################")
-        x=self.devices_web_elements.get_actions_network_policy_close_button_md()
-        self.auto_actions.click(x[-1])
-
+       
+        # Print and return the displayed tool tip msg if any 
+        tool_tp_text_before = []
         for item_after in tool_tp_text_after:
             if item_after in tool_tp_text_before:
                 pass
             else:
-                self.utils.print_info(" Below error message is displayed after press update button")
+                self.utils.print_info("Below message is displayed after pressing the perform update button")
                 self.utils.print_info(item_after)
                 return item_after
         return 1
