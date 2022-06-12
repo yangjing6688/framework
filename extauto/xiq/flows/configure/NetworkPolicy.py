@@ -1397,19 +1397,19 @@ class NetworkPolicy(object):
 
         # Perform the update
         self.screen.save_screen_shot()
-        sleep(5)
+        sleep(2)
         
         # Captute tool tip msg before pressing the perform update button
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
         
         # Press perform update button
-        self.utils.print_info("Click on perform update button ")
+        self.utils.print_info("Checking for the perform update button presence")
         if self.np_web_elements.get_perform_update_policy_button():
-            self.utils.print_info("Click on update policy button ")
+            self.utils.print_info("Click on perform update button ")
             self.auto_actions.click(self.np_web_elements.get_perform_update_policy_button())
         else:
-            self.utils.print_info("The update policy button was not found")
+            self.utils.print_info("The perform update button was not found")
             return -1
 
         self.screen.save_screen_shot()
@@ -1420,7 +1420,6 @@ class NetworkPolicy(object):
         self.utils.print_info(tool_tp_text_after)
        
         # Print and return the displayed tool tip msg if any 
-        tool_tp_text_before = []
         for item_after in tool_tp_text_after:
             if item_after in tool_tp_text_before:
                 pass
