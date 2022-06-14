@@ -9519,7 +9519,8 @@ class Devices:
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
 
 
-    def  wait_until_device_update_done(self, device_serial=None, device_name=None, device_mac=None):
+    def  wait_until_device_update_done(self, device_serial=None, device_name=None, device_mac=None, wait_time_in_min=10):
+
             """
             - Get Management IP Assigned to the AP
             - Keyword Usage:
@@ -9530,15 +9531,21 @@ class Devices:
             :param device_serial: Serial number of AP Ex:11301810220048
             :param device_name: device name Ex: AP1130
             :param device_mac: device mac Ex: F09CE9F89600
-            :return: device Management IP Address
+            :return:
             """
-            self.navigator.navigate_to_manage_tab()
-            sleep(5)
-            self.refresh_devices_page()
-            sleep(2)
 
-            search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
-            management_ip = self.get_device_details(search_string, 'MGT IP ADDRESS')
-            if management_ip:
-                return management_ip
+            self.navigator.navigate_to_manage_tab()
+            self.refresh_devices_page()
+            sleep(5)
+
+            complete = False
+            n_time = 0
+            while n_time <= wait_time_in_min*2:
+                search_string = [value for value in [device_serial, device_mac, device_name] if value][0]
+                update_status= self.get_device_details(search_string, 'UPDATED')
+                self.utils.print_error(f"updated status...," + str(update_status))
+                sleep(30)
+
+            return 1
+
 
