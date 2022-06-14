@@ -9545,6 +9545,9 @@ class Devices:
                 update_status= self.get_device_details(search_string, 'UPDATED')
                 self.utils.print_error(f"updated status...," + str(update_status))
                 sleep(30)
+                if update_status == '':
+                     break
+                n_time= n_time + 1
 
             return 1
 
