@@ -9541,13 +9541,14 @@ class Devices:
             complete = False
             n_time = 0
             while n_time <= wait_time_in_min*2:
+                n_time = n_time + 1
                 search_string = [value for value in [device_serial, device_mac, device_name] if value][0]
                 update_status= self.get_device_details(search_string, 'UPDATED')
                 self.utils.print_error(f"updated status...," + str(update_status))
                 sleep(30)
                 if update_status == '':
                      break
-                n_time= n_time + 1
+
 
             return 1
 
