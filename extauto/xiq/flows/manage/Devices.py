@@ -6159,6 +6159,7 @@ class Devices:
         :return: 1 if success else -1
         """
         if self.select_device(device_serial):
+            sleep(5)
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click(self.device_update.get_update_devices_button())
             sleep(5)
