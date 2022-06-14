@@ -168,7 +168,7 @@ class WirelessNetworks:
         :param auth_type: Type of the authentication
         :return: 1 is selected else -1
         """
-        self.utils.print_info("selecting Authentication type for wireless network:{}".format(auth_type))
+        self.utils.print_info("selecting Authentication type for wireless network: {}".format(auth_type))
         if auth_type.upper() == "OPEN":
             self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_open())
             return 1
@@ -181,8 +181,8 @@ class WirelessNetworks:
         elif auth_type.upper() == "PPSK":
             self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_ppsk())
             return 1
-        elif auth_type.upper() == "WEP":
-            self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_wep())
+        elif auth_type.upper() == "ENHANCED":
+            self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_enhanced())
             return 1
         else:
             return -1
@@ -452,13 +452,38 @@ class WirelessNetworks:
         self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
         return 1
 
-    def _config_wep_wireless_network(self, **kwargs):
+    def _config_enhanced_open_wireless_network(self, **auth_profile):
         """
-
-        :param kwargs:
+        - Configure Enhanced Open SSID Authentication Wireless Network
+        :param auth_profile: transition_mode
+        :return: 1 if there is no error
+        :param auth_profile:
         :return:
         """
-        pass
+        self.utils.print_info(60 * '*')
+        self.utils.print_info("Configuration parameters for enhanced open network")
+        for key, value in auth_profile.items():
+            self.utils.print_info("{}: {}".format(key, value))
+        self.utils.print_info(60 * '*')
+
+        transition_mode = auth_profile.get('transition_mode', 'Disable')
+        self.utils.print_info("Select Enhanced Open SSID Authentication tab.")
+        self._select_wireless_network_auth_type(auth_profile['auth_type'])
+
+        if transition_mode.upper() == "DISABLE":
+            self.utils.print_info("Disable Transition Mode for 2.4Ghz and 5Ghz.")
+            self.auto_actions.disable_radio_button(self.wireless_web_elements.get_transition_mode_for_2ghz_and_5ghz())
+        elif transition_mode.upper() == "ENABLE":
+            self.utils.print_info("Enable Transition Mode for 2.4Ghz and 5Ghz.")
+            self.auto_actions.select_radio_button(self.wireless_web_elements.get_transition_mode_for_2ghz_and_5ghz())
+            self.screen.save_screen_shot()
+            sleep(2)
+        else:
+            return -1
+
+        self.utils.print_info("Click on wireless network save button.")
+        self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
+        return 1
 
     def _config_standard_wireless_network(self, **kwargs):
         """
@@ -481,7 +506,7 @@ class WirelessNetworks:
         auth_method_config = {'OPEN': self._config_open_wireless_network,
                               'PSK': self._config_personal_wireless_network,
                               'PPSK': self._config_private_pre_shared_key_wireless_network,
-                              'WEP': self._config_wep_wireless_network,
+                              'ENHANCED': self._config_enhanced_open_wireless_network,
                               'ENTERPRISE': self._config_enterprise_wireless_network
                               }
 
@@ -672,12 +697,12 @@ class WirelessNetworks:
         :param status: (str) status is either enable or disable
         :return: True if Enable, False if Disable
         """
-        if status == "DISABLE":
+        if status.upper() == "DISABLE":
             if self.wireless_web_elements.get_transition_mode_button().is_selected():
                 self.auto_actions.click(self.wireless_web_elements.get_transition_mode_button())
                 sleep(2)
             return False
-        if status == "ENABLE":
+        if status.upper() == "ENABLE":
             self.utils.print_info("Enable Transition Mode Button")
             if not self.wireless_web_elements.get_transition_mode_button().is_selected():
                 self.auto_actions.click(self.wireless_web_elements.get_transition_mode_button())

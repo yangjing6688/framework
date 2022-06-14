@@ -74,11 +74,17 @@ class WirelessNetworksDefinitions:
             'wait_for': 1
         }
 
-    wireless_select_wep_ssid_auth = \
+    wireless_select_enhanced_ssid_auth = \
         {
             'CLASS_NAME': 'ui-select-card-title',
-            'index': 3,
+            'index': 4,
             'wait_for': 1
+        }
+
+    transition_mode_for_2ghz_and_5ghz = \
+        {
+            'XPATH': '//input[@data-automation-tag="ssid-details-access-security-owe-transition-mode"]',
+            'wait_for': 5
         }
 
     wireless_select_open_ssid_auth = \
@@ -219,9 +225,14 @@ class WirelessNetworksDefinitions:
 
     sae_group_drop_down = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="open-access"]//div[@data-automation-tag="chzn-container-ctn"]/a',
+            'XPATH': '//div[@data-automation-tag="automation-ssid-details-access-security-sae-group-chzn-arrow-down"]',
             'wait_for': 5,
-            'index': 3
+        }
+
+    sae_group_options = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-ssid-details-access-security-sae-group-chzn-results-ctn"]//li',
+            'wait_for': 5,
         }
 
     transition_mode_button = \
@@ -232,7 +243,7 @@ class WirelessNetworksDefinitions:
 
     personal_wpa3_key_value_input_field = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wpa3KeyValueArea"]//input[@data-validid="wpa3KeyValue.norEl"]',
+            'XPATH': '//div[@data-dojo-attach-point="wpa3KeyValueArea"]//input[@data-dojo-attach-point="norEl"]',
             'wait_for': 5
         }
 

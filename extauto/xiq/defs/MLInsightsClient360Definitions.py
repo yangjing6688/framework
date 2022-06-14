@@ -149,3 +149,81 @@ class MLInsightsClient360Definitions:
             'CSS_SELECTOR': '.status-ico',
             'wait_for': 5
         }
+
+    client360_cells_href = \
+        {
+            'TAG_NAME': 'a',
+            'wait_for': 5
+        }
+
+    client_360_status_ostype = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientOSType"]',
+            'wait_for': 5
+        }
+
+    client_360_status_ipaddress = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ip"]',
+            'wait_for': 5
+        }
+
+    client_360_status_macaddress = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientMac"]',
+            'wait_for': 5
+        }
+
+    client_360_status_user = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="userName"]',
+            'wait_for': 5
+        }
+
+    client_360_status_connectto = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientDeviceName"]',
+            'wait_for': 5
+        }
+
+    client_360_status_connecttime = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="connectedTime"]',
+            'wait_for': 5
+        }
+
+    client_360_status_vlan = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="vlan"]',
+            'wait_for': 5
+        }
+
+    client_360_status_cwp = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="cwpUsed"]',
+            'wait_for': 5
+        }
+
+    client_360_status_userprofile = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="userProfile"]',
+            'wait_for': 5
+        }
+
+    client_360_status_ssid = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ssid"]',
+            'wait_for': 5
+        }
+
+    client_360_status_radio = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="macProtocol"]',
+            'wait_for': 5
+        }
+
+    client_36_status_channel = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="channel"]',
+            'wait_for': 5
+        }

@@ -295,6 +295,36 @@ class CommonObjects(object):
                 return 1
         return -1
 
+    def delete_all_captive_web_portals(self, exclude_list=''):
+        """
+        - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
+        - Delete captive web portals from the grid
+        - Keyword Usage:
+         - ``Delete All Captive Web Portals   exclude_list=${cwp1},${cwp2}``
+        :param exclude_list: list of cwps to exclude from delete
+        :return: 1 deleted
+                -1 cannot be removed because it is used by another object
+        """
+        exclude_list = exclude_list.split(",")
+        np_list = []
+
+        self.navigator.navigate_to_captive_web_portal()
+        self.utils.print_info("Click on 50 page size")
+
+        if self.cobj_web_elements.get_paze_size_element():
+            self.auto_actions.click(self.cobj_web_elements.get_paze_size_element())
+            sleep(3)
+
+        for row in self.cobj_web_elements.get_common_object_grid_rows():
+            if cell := self.cobj_web_elements.get_common_object_grid_row_cells(row):
+                np_list.append(cell.text)
+
+        delete_cwp_list = [np for np in np_list if np not in exclude_list]
+        self.utils.print_info(f"Deleting Captive Web Portal list: {delete_cwp_list}")
+        self.navigator.navigate_to_ssids()
+
+        return self.delete_captive_web_portals(*delete_cwp_list)
+
     def delete_external_radius_server(self, radius_server):
         """
         - Flow: Configure --> Common Objects --> Authentication --> External radius server
