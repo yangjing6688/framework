@@ -3335,6 +3335,10 @@ class Devices:
         """
         ret_val = 1
 
+        # To extract the list of columns if 'columns' arg vaule is ist or tuple 
+        if isinstance(columns, tuple) and ( isinstance(columns[0], list) or isinstance(columns[0], tuple) ):
+            columns = columns[0]
+
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
@@ -3380,7 +3384,11 @@ class Devices:
         :return: returns 1 if successful
         """
         ret_val = 1
-
+        
+        # To extract the list of columns if 'columns' arg vaule is ist or tuple 
+        if isinstance(columns, tuple) and ( isinstance(columns[0], list) or isinstance(columns[0], tuple) ):
+            columns = columns[0]
+        
         self.utils.print_info("Clicking on Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
