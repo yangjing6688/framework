@@ -24,10 +24,12 @@ from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 
+from extauto.common.CommonValidation import CommonValidation
 
 class Devices:
     def __init__(self):
         self.utils = Utils()
+        self.common_validation = CommonValidation()
         self.auto_actions = AutoActions()
         self.devices_web_elements = DevicesWebElements()
         self.dialogue_web_elements = DialogWebElements()
@@ -1862,6 +1864,7 @@ class Devices:
         :return: -5 for error - When onboarding multiple devices, serial numbers must be separated by ", " (Commas).
         :return: -6 for error - The number of MAC Addresses must match the number of Serial Numbers
         :return: -7 for error - Please enter a valid MAC Address
+        :return: -8 for error - Unable to get pop-up menu item
         """
         self.utils.print_info("Onboarding: ", device_make)
 
@@ -1874,7 +1877,24 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
 
         self.utils.print_info("Selecting Quick Add Devices menu")
-        self.auto_actions.move_to_element(self.devices_web_elements.get_quick_add_devices())
+        quick_add_devices_button = ''
+        attempt_count = 3
+        while attempt_count > 0:
+            if attempt_count != 3:
+                self.utils.print_info("Menu selection failed. Making another attempt...")
+                self.utils.print_info("Clicking on ADD button...")
+                self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+                self.utils.print_info("Selecting Quick Add Devices menu")
+                sleep(4)
+            try:
+                quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
+                self.auto_actions.move_to_element(quick_add_devices_button)
+                break
+            except:
+                attempt_count = attempt_count - 1
+        if attempt_count == 0:
+            self.utils.print_info("Unable to get / click the menu option")
+            return -8
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
         self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
@@ -2414,7 +2434,11 @@ class Devices:
                     self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
 
                     # Wait until the device is removed from the view
-                    self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
+                    result = self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
+                    # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
+                    if result == 1:
+                        self.utils.print_info("Deleted Device Successfully with Serial: ", device_serial)
+                        return 1
 
                     # Confirm device was deleted successfully
                     if self.search_device_serial(device_serial) == 1:
@@ -2650,7 +2674,9 @@ class Devices:
         - Searches for Device matching Device's Serial Number
 
         :param device_serial: Device Serial Number
-        :return: return 1 if Device found, else -1
+        :return: return 1 if Device found,
+                 false if Device not found
+                 -1 if an error occurs
         """
 
         if not device_serial:
@@ -2672,8 +2698,11 @@ class Devices:
             page_len = int(1)
 
         device_found = False
+        num_pages = page_len
         try:
             while page_len:
+                page_num = num_pages - page_len + 1
+                self.utils.print_debug(f"Searching Page #{page_num} of {num_pages} pages")
                 rows = self.devices_web_elements.get_grid_rows()
                 if rows:
                     self.utils.print_debug(f"Searching {len(rows)} rows")
@@ -2686,10 +2715,14 @@ class Devices:
                             break
                     if device_found:
                         break
-                self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
-                self.utils.print_info("Searching in next page")
-                sleep(5)
+                else:
+                    self.utils.print_debug(f"No rows returned for page #{page_num}")
                 page_len = page_len - 1
+
+                if page_len:
+                    self.utils.print_info("Searching in next page")
+                    self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
+                    sleep(5)
 
             self.utils.print_info(f"Did not find device row with serial {device_serial}")
             return False
@@ -2876,7 +2909,7 @@ class Devices:
 
         return False
 
-    def get_device_status(self, device_serial='default', device_name='default', device_mac='default'):
+    def get_device_status(self, device_serial='default', device_name='default', device_mac='default', **kwargs):
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
@@ -2887,7 +2920,6 @@ class Devices:
         :param device_serial: device Serial
         :param device_name: device host name
         :param device_mac: device MAC address
-
         :return:
         - 'green' if device connected and config audit match
         - 'config audit mismatch' if device connected and config audit mismatch
@@ -2895,6 +2927,8 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
+        # IRV - Internal Result verification flag - is set to True to raise an error when a failure occurs
+        kwargs['IRV'] = True
         device_row = -1
         self.refresh_devices_page()
 
@@ -2913,7 +2947,18 @@ class Devices:
 
         if device_row:
             sleep(5)
-            device_status = self.devices_web_elements.get_status_cell(device_row)
+            device_status = ''
+            attempt_count = 3
+            while attempt_count > 0:
+                if attempt_count == 3:
+                    self.utils.print_info("Getting status from cell")
+                else:
+                    self.utils.print_info("Getting status from cell failed...Attempting to get status again")
+                attempt_count = attempt_count - 1
+                device_status = self.devices_web_elements.get_status_cell(device_row)
+                sleep(5)
+                if device_status:
+                    break
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
             self.screen.save_screen_shot()
             sleep(2)
@@ -2922,37 +2967,54 @@ class Devices:
                 if "hive-status-true" in device_status:
                     if audit_config_status:
                         if "ui-icon-sprite-match" in audit_config_status:
-                            self.utils.print_info("Device Status: Connected, audit status matched")
+                            # self.utils.print_info("Device Status: Connected, audit status matched")
+                            kwargs['pass_msg'] = "Device Status: Connected, audit status matched"
+                            self.common_validation.validate(1, 1, **kwargs)
                             return 'green'
                         if "ui-icon-sprite-mismatch" in audit_config_status:
-                            self.utils.print_info("Device Status: Connected, configuration audit status mis matched")
+                            # self.utils.print_info("Device Status: Connected, configuration audit status mis matched")
+                            kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
+                            self.common_validation.validate(1, 1, **kwargs)
                             return "config audit mismatch"
                     else:
-                        self.utils.print_info(
-                            "Unable to obtain audit config status for the row - returning connection status 'green'")
+                        # self.utils.print_info("Unable to obtain audit config status for the row - returning connection status 'green'")
+                        kwargs['pass_msg'] = "Unable to obtain audit config status for the row - returning connection status 'green'"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 'green'
 
                 if "local-managed-icon" in device_status:
-                    self.utils.print_info("Device Status: Connected, locally managed")
+                    # self.utils.print_info("Device Status: Connected, locally managed")
+                    kwargs['pass_msg'] = "Device Status: Connected, locally managed"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 'green'
 
                 if "hive-status-false" in device_status:
                     if self.devices_web_elements.get_device_conn_status_after_ten_min(device_row):
-                        self.utils.print_info("Device has not yet established connection after 10 minutes")
+                        # self.utils.print_info("Device has not yet established connection after 10 minutes")
+                        kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return "disconnected"
                     return "disconnected"
 
                 if "local-icon" in device_status:
-                    self.utils.print_info("Device Status: Disconnected, locally managed")
+                    # self.utils.print_info("Device Status: Disconnected, locally managed")
+                    kwargs['pass_msg'] = "Device Status: Disconnected, locally managed"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 'disconnected'
 
                 if "device-status-unknown" in device_status:
-                    self.utils.print_info("Device Status: Unknown")
+                    # self.utils.print_info("Device Status: Unknown")
+                    kwargs['pass_msg'] = "Device Status: Unknown"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 'unknown'
             else:
-                self.utils.print_info("Unable to obtain device status for the device row")
+                # self.utils.print_info("Unable to obtain device status for the device row")
+                kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
+        kwargs['fail_msg'] = "Unable to obtain device status!"
+        self.common_validation.validate(-1, 1, **kwargs)
         return -1
 
     def verify_device_status(self, device_serial='default', device_name='default', device_mac='default',
@@ -4044,7 +4106,7 @@ class Devices:
 
         return -1
 
-    def wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10):
+    def wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword is used to check the device connected status on XIQ.
         - After Configuring the CAPWAP client server in device cli, check the device connected status
@@ -4062,6 +4124,10 @@ class Devices:
         :param retry_count: retry count
         :return: 1 if device connected within time else -1
         """
+
+       # IRV - Internal Result verification flag - is set to True to raise an error when a failure occurs
+        kwargs['IRV'] = True
+
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
@@ -4084,10 +4150,14 @@ class Devices:
 
                     if device_row and device_row != -1:
                         if "hive-status-true" in self.devices_web_elements.get_status_cell(device_row):
-                            self.utils.print_info("Device status is connected")
+                            # self.utils.print_info("Device status is connected")
+                            kwargs['pass_msg'] = "Device status is connected!"
+                            self.common_validation.validate(1, 1, **kwargs)
                             return 1
                         elif "local-managed-icon" in self.devices_web_elements.get_status_cell(device_row):
-                            self.utils.print_info("Device status is connected - locally managed")
+                            # self.utils.print_info("Device status is connected - locally managed")
+                            kwargs['pass_msg'] = "Device status is connected - locally managed"
+                            self.common_validation.validate(1, 1, **kwargs)
                             return 1
                         else:
                             self.utils.print_info(
@@ -4102,10 +4172,10 @@ class Devices:
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        self.utils.print_info(f"Device failed to come ONLINE. Please check.")
+        # self.utils.print_info(f"Device failed to come ONLINE. Please check.")
+        kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
         self.screen.save_screen_shot()
-        sleep(2)
-
+        self.common_validation.validate(-1, 1, **kwargs)
         return -1
 
     def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10):
