@@ -364,6 +364,9 @@ class RouterTemplate(RouterTemplateWebElements):
         self.auto_actions.click(self.get_router_allocation_new_vlan_save_button())
         sleep(5)
 
+        self.utils.print_info("Saving Network Allocation Configuration")
+        self.auto_actions.click(self.get_save_network_allocation_button())
+
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -401,9 +404,6 @@ class RouterTemplate(RouterTemplateWebElements):
 
         if advance_config != 'None':
             self.configure_advanced_subnetwork_section(**advance_config)
-
-        self.utils.print_info("Saving Network Allocation Configuration")
-        self.auto_actions.click(self.get_save_network_allocation_button())
 
         self.screen.save_screen_shot()
         sleep(2)
