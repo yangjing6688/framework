@@ -85,6 +85,8 @@ class PytestConfigHelper():
             self.dut1_username = config['netelem1']['username']
             self.dut1_password = config['netelem1']['password']
             self.dut1_connection_method = config['netelem1']['connection_method']
+            self.dut1_ip = config['netelem1']['ip']
+            self.dut1_port = config['netelem1']['port']
             self.dut1_console_ip = config['netelem1']['console_ip']
             self.dut1_console_port = config['netelem1']['console_port']
             self.dut1_serial = config['netelem1']['serial']
