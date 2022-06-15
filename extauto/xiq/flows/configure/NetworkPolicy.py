@@ -1300,7 +1300,7 @@ class NetworkPolicy(object):
         else:
             return -1
 
-    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name, firmwareUpdate = "false"):
+    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name, firmwareUpdate = False):
         """
         - Deploy the network policy to the particular device
         - By default it will do delta config push
@@ -1377,14 +1377,14 @@ class NetworkPolicy(object):
         uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
 
         if not uptd.is_selected():
-            self.utils.print_info(f" Click on the update configuration checkbox ")
+            self.utils.print_info(f"Click on the update configuration checkbox")
             self.auto_actions.click(uptd)
             
         # Uncheck the firmware update checkbox if it is checked 
         firmware_update = self.devices_web_elements.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
-        if firmwareUpdate == "false":
+        if not firmwareUpdate:
             if firmware_update.is_selected():
-                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked - Unchecking")
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is checked - Unchecking")
                 self.auto_actions.click(firmware_update)
             else:
                 self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already unchecked")
@@ -1392,7 +1392,7 @@ class NetworkPolicy(object):
             if firmware_update.is_selected():
                 self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")  
             else:
-                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is not already checked - Checking")
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is not checked - Checking")
                 self.auto_actions.click(firmware_update)
 
         # Perform the update

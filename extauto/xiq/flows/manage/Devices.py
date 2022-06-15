@@ -9218,17 +9218,16 @@ class Devices:
                     self.auto_actions.click(self.device_update.get_update_devices_button_from_d360())
                 
                 # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
-                config_download_checkbox_status = self.device_update.get_config_download_options_checkbox()
-                if config_download_checkbox_status == "true":
-                	  self.utils.print_info(f"Update Network Policy and Configuration checkbox is already checked - Unchecking")
-                	  self.auto_actions.click(self.device_update.get_config_download_option())
+                config_download_checkbox = self.device_update.get_config_download_options_checkbox()
+                if config_download_checkbox.is_selected(): # Is selected method will return bool True or False depending upon the selection of the checkbox
+                	  self.utils.print_info(f"Update Network Policy and Configuration checkbox is checked - Unchecking")
+                	  self.auto_actions.click(config_download_checkbox)
                 else:
-                	  self.utils.print_info("Update Network Policy and Configuration checkbox is already Unchecked")
-                sleep(2)
+                	  self.utils.print_info("Update Network Policy and Configuration checkbox is already unchecked")
                 
                 # Check if the Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked                   
-                checkbox_status = self.device_update.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
-                if checkbox_status == "true":
+                checkbox_status = self.device_update.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
+                if checkbox_status == "true":  # If checkbox is selected we get string "true" otherwise we get None
                 	  self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
                 else:
                 	  self.utils.print_info("Selecting upgrade IQ Engine checkbox")
@@ -9247,16 +9246,16 @@ class Devices:
                     sleep(5)
 
                     # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
-                    forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox()
+                    forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox_status()
                     if forceDownloadImage.lower() == "true":
-                        if forceDownloadImage_checkbox_status == "true":
+                        if forceDownloadImage_checkbox_status is not None:   # If checkbox is selected we get string "true" otherwise we get None
                             self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked")
                         else:
                             self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
                             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
                     else:
-                        if forceDownloadImage_checkbox_status == "true":
-                            self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked - Unchecking")
+                        if forceDownloadImage_checkbox_status is not None: 
+                            self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
                             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
                         else:
                             self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
@@ -9391,7 +9390,7 @@ class Devices:
                         
                     # Case-2.6 : Specific version from the list but different from current NOS version e.g version = "noncurrent"         
                     elif version == 'noncurrent' and nos_version != "":
-                        self.utils.print_info("Specific version from drop down but different from current NOS version will be selected")
+                        self.utils.print_info("Specific version from drop down but different from the current NOS version will be selected")
                         match_count = 0
                         for opt in avilableImagesList:
                             if nos_version not in opt:
@@ -9421,20 +9420,19 @@ class Devices:
                             self.utils.print_info("Selecting Save Default button...")
                         
                         # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
-                        forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox()
+                        forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox_status()
                         if forceDownloadImage.lower() == "true":
-                            if forceDownloadImage_checkbox_status == "true":
+                            if forceDownloadImage_checkbox_status is not None:
                                 self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked")
                             else:
                                 self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
                                 self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
                         else:
-                            if forceDownloadImage_checkbox_status == "true":
-                                self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked - Unchecking")
+                            if forceDownloadImage_checkbox_status is not None:
+                                self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
                                 self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
                             else:
                                 self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
-                        sleep(2)
                             
                         if performUpgrade.lower() == "true":
                             self.screen.save_screen_shot()
