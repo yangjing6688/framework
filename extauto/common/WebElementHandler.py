@@ -55,13 +55,15 @@ class WebElementHandler:
             else:
                 continue
             try:
-                if 'True' in self.el_info:
-                    self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
-                                          .format(key, value, _index, _delay, _desc))
-                if type(value) is list:
-                    self.utils.print_info("Element has multiple definitions: ", value)
+                if self.el_info:
+                    if 'True' in self.el_info:
+                        self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
+                                                .format(key, value, _index, _delay, _desc))
+                if list:
+                    if type(value) is list:
+                        self.utils.print_info("Element has multiple definitions: ", value)
 
-                if type(_index) is list:
+                if list and type(_index) is list:
                     handles_list = []
                     self.utils.print_info("Index is an array: ", _index)
                     for each_index in _index:
@@ -126,7 +128,6 @@ class WebElementHandler:
     def get_displayed_element(self, elements):
         """
         From the list of elements get the displayed element on web page
-
         :param elements: (list)  list of elements
         :return: (obj) displayed element
         """
@@ -150,10 +151,8 @@ class WebElementHandler:
     def get_template_element(self, key_val_template, parent='default', **kwargs):
         """
         Get element based on key, value pairs defined in key_val_template dictionary.
-
         Replaces kwarg names enclosed in ${} with kwarg values in each string
         value defined in the key_val_template dictionary.
-
         For example,
             Suppose the following key value dictionary definition
             template_example = \
@@ -162,7 +161,6 @@ class WebElementHandler:
                     'XPATH': '//div[contains(@id, "panel-title") and text()="${title}"]',
                     'wait_for': 10
                 }
-
             self.weh.get_template_element(template_example, title="Devices")
             self.weh.get_template_element(template_example, title="Policy")
         :param key_val_template: (dict) containing the locator:value ex: 'CSS_SELECTOR': '.btn.btn-primary-2.btn-dim'
@@ -176,10 +174,8 @@ class WebElementHandler:
     def get_template_elements(self, key_val_template, parent='default', **kwargs):
         """
         Get elements based on key, value pairs defined in key_val_template dictionary.
-
         Replaces kwarg names enclosed in ${} with kwarg values in each string
         value defined in the key_val_template dictionary.
-
         For example,
             Suppose the following key value dictionary definition:
             list_dropdown_items = \
@@ -188,10 +184,8 @@ class WebElementHandler:
                 'XPATH': '//div[contains(@id, "${element_id}") and contains(@id, "-picker-listWrap")]/ul/li',
                 'wait_for': 10
             }
-
             You would then get the elements by passing in the element ID:
             self.weh.get_template_elements(list_dropdown_items, element_id="combo-id")
-
         :param key_val_template: (dict) containing the locator:value ex: 'CSS_SELECTOR': '.btn.btn-primary-2.btn-dim'
         :param parent: (str)
         :param kwargs: (dict) containing key value pairs to replace in key_val_template string values
