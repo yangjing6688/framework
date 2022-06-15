@@ -142,12 +142,12 @@ class RouterTemplate(RouterTemplateWebElements):
         self.auto_actions.click(self.get_router_allocation_add_button())
         sleep(5)
 
-        self.utils.print_info("Configure Network Vlan Object")
-        self.configure_network_allocation_vlan(**network_vlan_settings)
-        sleep(2)
-
         self.utils.print_info("Configure Sub Network Section")
         self.configure_network_allocation_sub_network(**sub_network_settings)
+        sleep(2)
+
+        self.utils.print_info("Configure Network Vlan Object")
+        self.configure_network_allocation_vlan(**network_vlan_settings)
         sleep(2)
 
         return 1
