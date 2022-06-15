@@ -9,15 +9,28 @@ class CopilotDefs:
 
     wifi_capacity_widget = \
         {
-            'XPATH': '//*[@class="wifi-capacity-widget"]',
+            'XPATH':  '//*[@class="wifi-capacity-widget"]',
             'wait_for': 10
          }
+    wifi_capacity_status = \
+        {
+            'XPATH': '//button[contains(@class,"mat-focus-indicator secondary-button-color")]',
+            'index': 1,
+            'wait_for': 10
+        }
 
     wifi_capacity_widget_location_grid_rows = \
         {
             'XPATH': '//*[@class="wifi-capacity-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
+            'CSS_SELECTOR': '.as-list-item-clickable',
             'wait_for': 5
          }
+
+    wifi_capacity_widget_location_grid_internal_rows = \
+        {
+            'CSS_SELECTOR': '.as-ah-row',
+            'wait_for': 5
+        }
 
     wifi_capacity_widget_location_grid_pin_rows = \
         {
@@ -496,6 +509,12 @@ class CopilotDefs:
             'TAG_NAME': 'span',
             'wait_for': 5,
             'index': 1
+        }
+
+    devices_by_os_iqagent = \
+        {
+            'XPATH': '//span[text()="IQ ENGINE RELEASE NOTES "]',
+            'wait_for': 5
         }
 
     copilot_widget = \
