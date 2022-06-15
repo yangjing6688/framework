@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import *
 from robot.libraries.BuiltIn import BuiltIn
+import json
 
 
 class WebElementHandler:
@@ -74,6 +75,8 @@ class WebElementHandler:
                         except Exception as e:
                             self.utils.print_info("Unable to find element with Index: ", each_index)
                     self.utils.print_info("Handles List: ", handles_list)
+                    if handles_list.length == 0:
+                        raise Exception('Unable to find web element ' + json.dumps(key_val))
                     return handles_list
                 if _index == 0:
                     return WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
@@ -85,6 +88,9 @@ class WebElementHandler:
             except Exception as e:
                 if 'True' in self.el_info:
                     self.utils.print_info("Unable to find the element handle with: ", key, ' -- ', value)
+                # We should fail the test as soon as possible in order to let the user know what happened
+                raise Exception('Unable to find web element ' + json.dumps(key_val))
+
         return None
 
     def get_elements(self, key_val, parent='default'):
