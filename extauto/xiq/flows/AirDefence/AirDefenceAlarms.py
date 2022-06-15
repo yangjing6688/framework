@@ -395,7 +395,6 @@ class AirDefenceAlarms(AdspWebElements):
         else:
              self.utils.print_info("Message does not match")
 
-
     def subscribe_adess_essentials(self):
         """
         -This keyword Will Subscribe ADESS essentials, In wips policy the "enable Airdefense essentials" button should be ON
