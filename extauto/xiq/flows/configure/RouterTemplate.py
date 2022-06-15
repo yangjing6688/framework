@@ -364,6 +364,7 @@ class RouterTemplate(RouterTemplateWebElements):
         self.auto_actions.click(self.get_router_allocation_new_vlan_save_button())
         sleep(5)
 
+        self.utils.print_info("Scrolling UP the Page")
         self.auto_actions.scroll_up()
         sleep(2)
 
