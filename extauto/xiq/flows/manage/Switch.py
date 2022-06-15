@@ -119,7 +119,7 @@ class Switch(SwitchWebElements):
                 self.utils.print_error(f"Switch with serial no. {switch_serial} is not successfully onboarded...")
                 return -1
 
-    def onboard_switch_with_policy(self, switch_serial, switch_make="default", device_os="default", location=None, switch_type="Real", entry_type="Manual", policy_name=""):
+    def onboard_switch_with_policy(self, switch_serial, switch_make="default", device_os="default", location=None, policy_name=""):
         """
         - This keyword onboards an Switch Device based on Switch Type(ie Exos) using Quick onboard flow.
         - Flow  Manage--> Devices--> Add --> Quick Add Devices--> Select Device Make --> Serial Number--> Add Devices
@@ -130,8 +130,6 @@ class Switch(SwitchWebElements):
         :param switch_make: Switch Make
         :param device_os: Switch OS
         :param location: switch location
-        :param switch_type: Device Type ie Real or Simulated
-        :param entry_type: Device Entry Type ie Manual or CSV
         :return: 1 if Switch OnBoarding is Successful without Error Message
         """
         if self.search_switch_serial(switch_serial) == 1:
