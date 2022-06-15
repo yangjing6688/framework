@@ -6394,20 +6394,15 @@ class Devices:
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
 
-        if page_size_field and page_number_field.is_displayed():
-            self.utils.print_info("Searching Device Entry with AP Serial : ", ap_serial)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_serial)
-            self.screen.save_screen_shot()
-            sleep(5)
-
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
                 self.utils.print_info("row data: ", self.format_row(row.text))
-                if not ap_serial in row.text:
-                    self.utils.print_info("Did not Find AP Row: ", self.format_row(row.text))
+                if ap_serial in row.text:
+                    self.utils.print_info("Found AP Row: ", self.format_row(row.text))
                     return 1
-            self.utils.print_info("Did not find AP")
+                else:
+                    self.utils.print_info("Did not find AP")
         else:
             self.utils.print_info("No rows present")
         return False
