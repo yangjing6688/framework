@@ -119,6 +119,106 @@ class Switch(SwitchWebElements):
                 self.utils.print_error(f"Switch with serial no. {switch_serial} is not successfully onboarded...")
                 return -1
 
+    def onboard_switch_with_policy(self, switch_serial, switch_make="default", device_os="default", location=None, switch_type="Real", entry_type="Manual", policy_name=""):
+        """
+        - This keyword onboards an Switch Device based on Switch Type(ie Exos) using Quick onboard flow.
+        - Flow  Manage--> Devices--> Add --> Quick Add Devices--> Select Device Make --> Serial Number--> Add Devices
+        - Keyword Usage
+         - ``Onboard Switch    ${SWITCH_SERIAL}  ${SWITCH_MAKE_TYPE}``
+
+        :param switch_serial: serial number of Switch
+        :param switch_make: Switch Make
+        :param device_os: Switch OS
+        :param location: switch location
+        :param switch_type: Device Type ie Real or Simulated
+        :param entry_type: Device Entry Type ie Manual or CSV
+        :return: 1 if Switch OnBoarding is Successful without Error Message
+        """
+        if self.search_switch_serial(switch_serial) == 1:
+            self.utils.print_info(f"Switch with {switch_serial} serial number already onboarded")
+            return 1
+
+        self.utils.print_info("Clicking on ADD button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+
+        self.utils.print_info("Selecting Quick Add Devices menu")
+        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
+
+        self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
+        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+
+        self.utils.print_info("Entering Serial Number...")
+        self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), switch_serial)
+        sleep(5)
+
+        if "VOSS" in device_os.upper() or "VOSS" in switch_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
+            try:
+                self.auto_actions.click(self.get_switch_make_drop_down())
+                sleep(2)
+                self.select_drop_down_options(self.get_switch_make_drop_down_options(), "VOSS")
+
+            except Exception as e:
+                self.utils.print_debug("Exception: ", e)
+                self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+
+        if "EXOS" in device_os.upper() or "EXOS" in switch_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
+            try:
+                self.auto_actions.click(self.get_switch_make_drop_down())
+                sleep(2)
+                self.select_drop_down_options(self.get_switch_make_drop_down_options(), "EXOS")
+            except Exception as e:
+                self.utils.print_debug("Exception: ", e)
+                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+
+        sleep(2)
+        if location:
+            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self.devices._select_location(location)
+
+        if policy_name != None and policy_name != '':
+            self.utils.print_info("Selecting policy '" + policy_name + "'")
+            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down())
+            sleep(2)
+            self.screen.save_screen_shot()
+            self.auto_actions.select_drop_down_options(self.devices_web_elements.
+                                                       get_devices_quick_add_policy_drop_down_items(), policy_name)
+            sleep(2)
+
+        self.utils.print_info("Clicking on ADD DEVICES button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+
+        self.utils.print_info("Checking for Errors...")
+        dialog_message = self.dialogue_web_elements.get_dialog_message()
+        self.utils.print_info("Dialog Message: ", dialog_message)
+        if dialog_message:
+            if switch_serial + BuiltIn().get_variable_value('${MSG_DUPLICATE_DEVICE}') in dialog_message:
+                self.utils.print_info("Error: ", dialog_message)
+                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                return -1
+
+        self.utils.print_info("Clicking on DEVICES REFRESH Page button...")
+        self.auto_actions.click(self.get_devices_refresh_button())
+        sleep(5)
+
+        if "," in switch_serial:
+            switch_serial_list = switch_serial.split(",")
+            for serial in switch_serial_list:
+                if self.devices.search_device(device_serial=serial):
+                    self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {serial}")
+                else:
+                    self.utils.print_error(f"Switch with serial no. {serial} is not successfully onboarded...")
+                    return -1
+            return 1
+        else:
+            if self.devices.search_device(device_serial=switch_serial):
+                self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {switch_serial}")
+                return 1
+            else:
+                self.utils.print_error(f"Switch with serial no. {switch_serial} is not successfully onboarded...")
+                return -1
 
     def onboard_aerohive_switch(self, switch_serial, switch_type):
         """
