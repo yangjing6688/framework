@@ -364,9 +364,6 @@ class RouterTemplate(RouterTemplateWebElements):
         self.auto_actions.click(self.get_router_allocation_new_vlan_save_button())
         sleep(5)
 
-        import sys, pdb;
-        pdb.Pdb(stdout=sys.__stdout__).set_trace()
-
         self.screen.save_screen_shot()
         sleep(2)
 
