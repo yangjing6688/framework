@@ -8,7 +8,7 @@ from pathlib import Path
 from robot.api.parsing import ModelVisitor
 import glob
 
-qTestMarker  = re.compile(r'TC[A-Z]{0,3}[\-_][0-9]+', flags=re.IGNORECASE)
+qtest_marker_re  = re.compile(r'TC[A-Z]{0,3}[\-_][0-9]+', flags=re.IGNORECASE)
 fallback_testbed_names = ['testbed_1_node', 'testbed_2_node', 'testbed_3_node', 'testbed_4_node', 'testbed_5_node', 'testbed_adsp', 'testbed_none', 'testbed_not_required']
 reserved_tags_re = re.compile(r'production|regression|nightly|sanity|p[1-5]')
 PYTESTINI_PATH = 'pytest.ini'
@@ -108,7 +108,7 @@ class RobotTestData(ModelVisitor):
             for tag in self.tests[test_name]['tags']:
                 if tag in self.testbed_tags:
                     testbed_tag_exists = True
-                if qTestMarker.match(tag):
+                if qtest_marker_re.match(tag):
                     qTestOK = True
                 if not tag.islower():
                     uppercase_check = False
@@ -119,6 +119,7 @@ class RobotTestData(ModelVisitor):
                 "all_tags_lower_case": uppercase_check,
                 "contains_development": dev_exists,
                 "valid_qtest_tag": qTestOK,
+                "qtest_tags": self.qTestTags,
                 "valid_test_name": nameOK,
                 "contains_testbed_tag": testbed_tag_exists,
                 "contains_reserved_tag": reserved_tags_check,
@@ -135,7 +136,7 @@ class RobotTestData(ModelVisitor):
 
     def addTag(self, inTag):
         # filter qTest tags
-        if qTestMarker.search(inTag):
+        if qtest_marker_re.search(inTag):
             self.qTestTags.add(inTag)
         # add tag to set
         self.tags[self.suite_file].add(inTag)
@@ -184,7 +185,7 @@ class PytestItems():
                             if marker.endswith('node'):
                                 caseNodes = int(marker.split('_')[1])
                             testbed_tag_exists = True
-                        if qTestMarker.match(marker):
+                        if qtest_marker_re.match(marker):
                             qTestOK = True
                         if not marker.islower():
                             uppercase_check = False
@@ -201,6 +202,7 @@ class PytestItems():
                     "all_tags_lower_case": uppercase_check,
                     "contains_development": dev_exists,
                     "valid_qtest_tag": qTestOK,
+                    "qtest_tags": self.qTestTags,
                     "valid_test_name": nameOK,
                     "contains_testbed_tag": testbed_tag_exists,
                     "contains_reserved_tag": reserved_tags_check,
