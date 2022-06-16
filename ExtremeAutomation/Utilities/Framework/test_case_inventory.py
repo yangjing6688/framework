@@ -101,15 +101,18 @@ class RobotTestData(ModelVisitor):
             nameOK = True if goodCaseName.match(test_name) else False
             dev_exists = True if 'development' in self.tests[test_name]['tags'] else False
 
-            qTestOK = False
+            qtest_tags = []
+            qtest_pass = False
             uppercase_check = True    # True = all tags lowercase, False = atleast one tag with uppercase letters
             reserved_tags_check = False  # True = atleast one reserved tag found, False = no reserved tags used
             testbed_tag_exists = False
             for tag in self.tests[test_name]['tags']:
                 if tag in self.testbed_tags:
                     testbed_tag_exists = True
-                if qtest_marker_re.match(tag):
-                    qTestOK = True
+                qtest_match = qtest_marker_re.match(tag)
+                if qtest_match:
+                    qtest_tags.append(qtest_match[0])
+                    qtest_pass = True
                 if not tag.islower():
                     uppercase_check = False
                 if reserved_tags_re.fullmatch(tag):
@@ -118,8 +121,8 @@ class RobotTestData(ModelVisitor):
             testcase_info = {
                 "all_tags_lower_case": uppercase_check,
                 "contains_development": dev_exists,
-                "valid_qtest_tag": qTestOK,
-                "qtest_tags": self.qTestTags,
+                "valid_qtest_tag": qtest_pass,
+                "qtest_tags": qtest_tags,
                 "valid_test_name": nameOK,
                 "contains_testbed_tag": testbed_tag_exists,
                 "contains_reserved_tag": reserved_tags_check,
@@ -171,7 +174,8 @@ class PytestItems():
                 ignore_markers = re.compile(r"true|false|[0-9]+\-[0-9]+|TRUE|FALSE|True|False|pytestmark|parametrize")
 
                 # make list of user created markers
-                qTestOK = False
+                qtest_tags = []
+                qtest_pass = False
                 uppercase_check = True    # True = all tags lowercase, False = atleast one tag with uppercase letters
                 reserved_tags_check = False  # True = atleast one reserved tag found, False = no reserved tags used
                 testbed_tag_exists = False
@@ -185,8 +189,10 @@ class PytestItems():
                             if marker.endswith('node'):
                                 caseNodes = int(marker.split('_')[1])
                             testbed_tag_exists = True
-                        if qtest_marker_re.match(marker):
-                            qTestOK = True
+                        qtest_match = qtest_marker_re.match(marker)
+                        if qtest_match:
+                            qtest_tags.append(qtest_match[0])
+                            qtest_pass = True
                         if not marker.islower():
                             uppercase_check = False
                         if reserved_tags_re.fullmatch(marker):
@@ -201,8 +207,8 @@ class PytestItems():
                 testcase_info = {
                     "all_tags_lower_case": uppercase_check,
                     "contains_development": dev_exists,
-                    "valid_qtest_tag": qTestOK,
-                    "qtest_tags": self.qTestTags,
+                    "valid_qtest_tag": qtest_pass,
+                    "qtest_tags": qtest_tags,
                     "valid_test_name": nameOK,
                     "contains_testbed_tag": testbed_tag_exists,
                     "contains_reserved_tag": reserved_tags_check,
