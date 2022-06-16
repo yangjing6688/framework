@@ -423,13 +423,6 @@ class DevicesWebElementsDefinitions:
 
     nw_policy_drop = \
         {
-            'XPATH':  '//*[contains(@class, "dijitReset dijitRight dijitButtonNode dijitArrowButton dijitDownArrowButton dijitArrowButtonContainer") and contains(@data-dojo-attach-point, "titleNode")]',
-            'wait_for': 2,
-            'index': 6
-        }
-
-    nw_policy_drop_v2 = \
-        {
             'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]//input[contains(@class,"dijitArrowButtonInner")]',
             'wait_for': 2,
         }

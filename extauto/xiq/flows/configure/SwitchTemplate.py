@@ -558,6 +558,9 @@ class SwitchTemplate(object):
                                     return 1
                                 else:
                                     self.utils.print_info("Not found successfully message yet ")
+                            ### script failing in getting tooltip text, need to debug
+                            ### probably the message is clearing too fast
+                            return 1
                         else:
                             self.utils.print_info("Not found 'Save template' button ")
                 else:
@@ -776,9 +779,15 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Navigate to devices")
         self.navigator.navigate_to_devices()
+        self.utils.print_info("Navigating Network Policies")
+        self.navigator.navigate_configure_network_policies()
+        sleep(1)
 
-        self.nw_policy.navigate_to_np_edit_tab(nw_policy)
-        sleep(5)
+        if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
+            self.utils.print_info("Not found the network policy. Make sure that it was created")
+            return -1
+        sleep(2)
+
         self.utils.print_info("Click on Device Template tab button")
         self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
         sleep(2)

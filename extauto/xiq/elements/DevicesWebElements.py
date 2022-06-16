@@ -281,9 +281,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_nw_policy_drop(self):
         return self.weh.get_element(self.nw_policy_drop)
 
-    def get_nw_policy_drop_v2(self):
-        return self.weh.get_elements(self.nw_policy_drop_v2)
-
     def get_actions_assign_network_policy_drop_down(self):
         dialog = self.get_action_assign_network_policy_dialog()
         return self.weh.get_element(self.actions_assign_network_policy_drop_down, parent=dialog)

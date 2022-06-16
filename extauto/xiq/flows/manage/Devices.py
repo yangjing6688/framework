@@ -4492,7 +4492,7 @@ class Devices:
         sleep(4)
 
         self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop_v2())
+        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
         sleep(5)
 
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
@@ -6045,14 +6045,17 @@ class Devices:
             if item_after in tool_tp_text_before:
                 pass
             else:
-                self.utils.print_info(" Below error message is displayed after press update button")
-                self.utils.print_info(item_after)
-                if self.devices_web_elements.get_devices_close_button_update():
-                    self.utils.print_info("Click on exit button")
-                    self.auto_actions.click(self.devices_web_elements.get_devices_close_button_update())
+                if item_after in 'Deployed devices successfully.':
+                    pass
                 else:
-                    self.utils.print_info("The exit button was not found")
-                return item_after
+                    self.utils.print_info(" Below error message is displayed after press update button")
+                    self.utils.print_info(item_after)
+                    if self.devices_web_elements.get_devices_close_button_update():
+                        self.utils.print_info("Click on exit button")
+                        self.auto_actions.click(self.devices_web_elements.get_devices_close_button_update())
+                    else:
+                        self.utils.print_info("The exit button was not found")
+                    return item_after
         return self.check_device_update_status_by_using_mac(device_mac)
 
     def check_device_update_status_by_using_mac(self, device_mac):
