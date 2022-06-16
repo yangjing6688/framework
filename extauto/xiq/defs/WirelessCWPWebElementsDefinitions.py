@@ -112,7 +112,7 @@ class WirelessCWPWebElementsDefinitions:
     default_select_window_cwp_rows = \
         {
             'XPATH': '//div[@data-automation-tag="automation-reusable-grid"]//table[@class="dojoxGridRowTable"]',
-            'wait_for': 10
+            
         }
 
     default_cwp_select_window_select_button = \
@@ -265,19 +265,19 @@ class WirelessCWPWebElementsDefinitions:
     approve_email_domain_list_cells = \
         {
             'CSS_SELECTOR': '.dgrid-cell',
-            'wait_for': 10
+            
         }
 
     approve_email_domain_list_add_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="domainCtn"]//span[@class="table-action-icons table-add"]',
-            'wait_for': 10
+            
         }
 
     approve_email_domain_list_delete_button = \
         {
             'CSS_SELECTOR': '.table-action-icons.table-remove',
-            'wait_for': 10
+            
         }
 
     approve_email_domain_list_domain_name = \
@@ -304,14 +304,14 @@ class WirelessCWPWebElementsDefinitions:
         {
             'XPATH': '//div[@data-dojo-attach-point="cloudCwpContainerRqPinFinal"]'
                      '//div[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 10,
+            
             'index': 0
         }
 
     valid_pin_time_drop_down_options = \
         {
             'XPATH': '//ul[contains(@class, "qa-chzn-results-pinvalidtime")]//li',
-            'wait_for': 10
+            
         }
 
     email_address_daily_report_field = \
@@ -331,7 +331,7 @@ class WirelessCWPWebElementsDefinitions:
     daily_report_delivery_time_hour_options = \
         {
             'XPATH': '//ul[contains(@class, "qa-chzn-results-dailyreportdeliverytimehour")]//li',
-            'wait_for': 10
+            
         }
 
     daily_report_delivery_time_minutes = \
@@ -345,7 +345,7 @@ class WirelessCWPWebElementsDefinitions:
     daily_report_delivery_time_minutes_options = \
         {
             'XPATH': '//ul[contains(@class, "qa-chzn-results-dailyreportdeliverytimeminute")]//li',
-            'wait_for': 10
+            
         }
 
     customise_cwp_setting = \
@@ -399,7 +399,7 @@ class WirelessCWPWebElementsDefinitions:
     web_file_directory_drop_down_options = \
         {
             'XPATH': '//ul[contains(@class, "qa-chzn-results-webfiledirectory")]//li',
-            'wait_for': 10
+            
         }
 
     manage_upload_remove_files_button = \
@@ -435,7 +435,7 @@ class WirelessCWPWebElementsDefinitions:
     customise_login_page_drop_down_option = \
         {
             'XPATH': '//ul[contains(@class, "qa-chzn-results-loginpageselect")]//li',
-            'wait_for': 10
+            
         }
 
     customise_success_page_drop_down = \

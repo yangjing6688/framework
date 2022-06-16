@@ -33,7 +33,7 @@ class AdspWebElementsDefinitions:
     adsp_alarm_grid_rows = \
         {
             'CSS_SELECTOR': '.table-row',
-            'wait_for': 10
+            
         }
 
     adsp_alarms_grid_row_cells = \
@@ -143,7 +143,7 @@ class AdspWebElementsDefinitions:
     adsp_page_wips_policy_grid_rows1 = \
         {
             'CSS_SELECTOR': '.mat-row.cdk-row.table-row',
-            'wait_for': 10
+            
          }
 
     adsp_wireless_thread_detection_button = \

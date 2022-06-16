@@ -4,19 +4,19 @@ class CopilotDefs:
         {
             'XPATH': '//*[@class="wifi-capacity-widget"]'
                      '//*[@class="nui-auto-copilot-wifi-capacity-summary-description"]',
-            'wait_for': 10
+            
          }
 
     wifi_capacity_widget = \
         {
             'XPATH':  '//*[@class="wifi-capacity-widget"]',
-            'wait_for': 10
+            
          }
     wifi_capacity_status = \
         {
             'XPATH': '//button[contains(@class,"mat-focus-indicator secondary-button-color")]',
             'index': 1,
-            'wait_for': 10
+            
         }
 
     wifi_capacity_widget_location_grid_rows = \
@@ -72,7 +72,7 @@ class CopilotDefs:
     total_anomalies_detected_from_icon = \
         {
             'XPATH': '//*[@data-dojo-attach-point="headAnomalyRingNum"]',
-            'wait_for': 10
+            
          }
 
     anomalies_detected_grid_rows = \
@@ -153,19 +153,19 @@ class CopilotDefs:
     assurance_scan_widget = \
         {
             'XPATH': '//*[@class="assurance-scan-widget"]',
-            'wait_for': 10
+            
         }
 
     assurance_total_scan_count = \
         {
             'CSS_SELECTOR': '.nui-auto-copilot-assurance-scanheader-text',
-            'wait_for': 10
+            
         }
 
     show_or_hide_muted_button_in_wifi_capacity_widget = \
         {
             'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-summary-toggle-muted-btn',
-            'wait_for': 10
+            
         }
 
     anomaly_notification_grid_rows = \
@@ -252,14 +252,14 @@ class CopilotDefs:
     poe_stability_widget = \
         {
             'XPATH': '//*[@data-dojo-attach-point="poeStabilityWidget"]',
-            'wait_for': 10
+            
          }
 
     poe_stability_content = \
         {
             'XPATH': '//*[@data-dojo-attach-point="poeStabilityWidget"]'
                      '//*[@data-dojo-attach-point="anomalySummary"]',
-            'wait_for': 10
+            
          }
 
     poe_stability_widget_location_grid_rows = \
@@ -291,14 +291,14 @@ class CopilotDefs:
     port_efficiency_widget = \
         {
             'XPATH': '//*[@data-dojo-attach-point="uplinkEfficiencyWidget"]',
-            'wait_for': 10
+            
         }
 
     port_efficiency_widget_details = \
         {
             'XPATH': '//*[@data-dojo-attach-point="uplinkEfficiencyWidget"]'
                      '//*[@data-dojo-attach-point="anomalySummary"]',
-            'wait_for': 10
+            
         }
 
     port_efficiency_widget_location_grid_rows = \
@@ -653,7 +653,7 @@ class CopilotDefs:
     license_page_heading = \
         {
             'XPATH': '//*[@data-dojo-attach-point="licenseCtn"]',
-            'wait_for': 10
+            
         }
 
     copilot_license_mange_link = \

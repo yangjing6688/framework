@@ -523,24 +523,24 @@ class Device360WebElementDefs:
     device360_events_grid_cells = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td',
-            'wait_for': 10
+            
          }
 
     device360_event_timestamp = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-timestamp")]',
-            'wait_for': 10
+            
          }
 
     device360_event_description = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-description")]',
-            'wait_for': 10
+            
          }
     device360_event_severity = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-severity")]',
-            'wait_for': 10
+            
          }
     device360_alarms_link = \
         {
@@ -563,21 +563,21 @@ class Device360WebElementDefs:
     device360_alarms_grid_cells = \
         {
             'XPATH': 'td',
-            'wait_for': 10
+            
          }
 
     device360_alarm_timestamp = \
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//td[contains(@class, "field-timestamp")]',
             'index': 0,
-            'wait_for': 10
+            
          }
 
     device360_alarm_category = \
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//td[contains(@class, "field-category")]',
             'index': 0,
-            'wait_for': 10
+            
          }
 
     device360_configure_port_list = \
@@ -1580,7 +1580,7 @@ class Device360WebElementDefs:
     d360_switch_ports_table_grid_rows = \
         {
             'XPATH': '//*[@data-dojo-attach-point="portGridNode"]//*[@class="dgrid-row-table"]',
-            'wait_for': 10
+            
          }
 
     device360_switch_port_table_port_name = \
@@ -1715,7 +1715,7 @@ class Device360WebElementDefs:
     d360_monitor_port_name = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-ifName")]',
-            'wait_for': 10
+            
         }
 
     d360_monitor_interface_name = \

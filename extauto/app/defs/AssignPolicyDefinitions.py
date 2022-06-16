@@ -4,7 +4,7 @@ class AssignPolicyDefinitions:
         {
             'DESC': 'click on assign policy',
             'ID': "com.extremenetworks.xiqmobileapp:id/btn_assign_pol",
-            'wait_for': 10
+            
         }
 
     assign_policy_yes_button_id = \
