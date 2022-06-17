@@ -69,6 +69,18 @@ class CopilotDefs:
             'wait_for': 5
          }
 
+    wifi_capacity_anomaly_ap_issue_details = \
+        {
+            'CSS_SELECTOR': '.eff-aly-desc',
+            'wait_for': 5
+        }
+
+    wifi_capacity_anomaly_ap_recommended_actions_details = \
+        {
+            'XPATH': '//div[@class="eff-rec-desc nui-auto-copilot-wifi-capacity-detail-recommend-action-desc"]',
+            'wait_for': 5
+        }
+
     total_anomalies_detected_from_icon = \
         {
             'XPATH': '//*[@data-dojo-attach-point="headAnomalyRingNum"]',
