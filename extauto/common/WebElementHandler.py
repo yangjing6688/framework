@@ -36,7 +36,7 @@ class WebElementHandler:
         while True:
             x = driver.execute_script("return document.readyState")
             self.utils.print_info("Page returned: " + str(x))
-            if x == "complete":
+            if str(x).lower() == "complete" or str(x).lower() == "interactive":
                 return True
             else:
                 yield False
