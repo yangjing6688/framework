@@ -65,6 +65,7 @@ class Client:
         self.screen.save_screen_shot()
         sleep(2)
 
+        #Commenting this section of page 100 as ML-Insights->Client360 page does not have option to select pages, commenting to keep code safe for future uses
         #self.utils.print_info('Click on Page Size 100 if page exists')
         #element = self.client_web_elements.get_client_page_size_100()
         #if element != None and element.is_displayed():
