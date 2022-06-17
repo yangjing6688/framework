@@ -1946,15 +1946,11 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        # self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        # self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                         kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
                         self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
-                    # self.utils.print_info(">>> CSV file was not specified")
-                    # self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
                     self.common_validation.validate(-1, 1, **kwargs)
@@ -1977,15 +1973,11 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for EXOS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        # self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        # self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                         kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
                         self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
-                    # self.utils.print_info(">>> CSV file was not specified")
-                    # self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
                     self.common_validation.validate(-1, 1, **kwargs)
@@ -2065,7 +2057,6 @@ class Devices:
 
         for serial in serials:
             if self.search_device_serial(serial) == 1:
-                # self.utils.print_info(f"Successfully Onboarded {device_make} Device(s) with {serials}")
                 kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
