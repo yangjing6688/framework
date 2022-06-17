@@ -95,7 +95,6 @@ class PytestConfigHelper():
             self.dut1_os = config['netelem1']['os']
             self.dut1_platform = config['netelem1']['platform']
             self.dut1_make = config['netelem1']['make']
-            self.dut1_model = config['netelem1']['model']
             self.dut_list.append('dut1')
         except:
             pass
