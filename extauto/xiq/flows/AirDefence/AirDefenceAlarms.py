@@ -36,7 +36,7 @@ class AirDefenceAlarms(AdspWebElements):
         self.navigator.navigate_to_extreme_airdefence()
 
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        sleep(5)
+        sleep(15)
 
         self.utils.print_info("Click More Insights button")
         self.auto_actions.click(self.get_adsp_more_insights_button())
@@ -109,7 +109,7 @@ class AirDefenceAlarms(AdspWebElements):
             self.utils.print_info("User already subscribed ADSP page")
 
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        sleep(5)
+        sleep(15)
 
         self.utils.print_info("Click More Insights button")
         self.auto_actions.click(self.get_adsp_more_insights_button())
