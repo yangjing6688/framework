@@ -265,6 +265,24 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_actions_button(self):
         return self.weh.get_element(self.manage_device_actions_button)
 
+    def get_manage_device_actions_change_management_status(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status)
+
+    def get_manage_device_actions_change_management_status_manage(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_manage)
+
+    def get_manage_device_actions_change_management_status_unmanage(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_unmanage)
+
+    def get_manage_device_actions_change_management_status_yes_button(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_yes_button)
+
+    def get_manage_device_actions_change_management_status_no_button(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_no_button)
+
+    def get_manage_device_actions_change_management_status_close_dialog(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_close_dialog)
+
     def get_manage_device_utilities_button(self):
         return self.weh.get_element(self.manage_device_utilities_button)
 

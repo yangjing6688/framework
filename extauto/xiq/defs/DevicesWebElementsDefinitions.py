@@ -384,6 +384,42 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    manage_device_actions_change_management_status = \
+        {
+            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_manage = \
+        {
+            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]/ul[1]/li[1]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_unmanage = \
+        {
+            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]/ul[1]/li[2]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_yes_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-no-button"]/following-sibling::button[1]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_no_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="noBtn"]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_close_dialog = \
+        {
+            'XPATH': '//span[@class="device-utilities-icons device-utilities-close"]',
+            'wait_for': 5
+        }
+
     manage_device_utilities_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-button"]',
