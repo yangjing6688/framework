@@ -480,6 +480,13 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
         return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_items)
 
+    def get_sw_template_row_cells(self, row):
+        cells = self.weh.get_elements(self.sw_template_row_cells, row)
+        return cells
+
+    def get_sw_template_row_cells_hyperlink(self, cell):
+        value = self.weh.get_elements(self.sw_template_row_cells_hyperlink, cell)
+        return value
 
 
 

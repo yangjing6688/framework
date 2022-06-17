@@ -657,7 +657,11 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 2
         }
 
-
+    sw_template_row_cells_hyperlink = \
+        {
+            'CSS_SELECTOR': '.J-tmplName',
+            'wait_for': 10
+        }
 
 
 
