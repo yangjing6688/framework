@@ -109,7 +109,7 @@ class RobotTestData(ModelVisitor):
             for tag in self.tests[test_name]['tags']:
                 if tag in self.testbed_tags:
                     testbed_tag_exists = True
-                qtest_match = qtest_marker_re.match(tag)
+                qtest_match = qtest_marker_re.fullmatch(tag)
                 if qtest_match:
                     qtest_tags.append(qtest_match[0])
                     qtest_pass = True
@@ -189,7 +189,7 @@ class PytestItems():
                             if marker.endswith('node'):
                                 caseNodes = int(marker.split('_')[1])
                             testbed_tag_exists = True
-                        qtest_match = qtest_marker_re.match(marker)
+                        qtest_match = qtest_marker_re.fullmatch(marker)
                         if qtest_match:
                             qtest_tags.append(qtest_match[0])
                             qtest_pass = True
