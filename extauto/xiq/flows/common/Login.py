@@ -1259,9 +1259,10 @@ class Login:
 
     def click_advanced_onboard_popup(self):
            """
-           This keyword refreshes the current page
-           :param refresh_delay: delay needed to reload the page
-           :return: None
+           This keyword just clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
+           - Keyword Usage:
+         - ` click advanced popup`
+            :return: None
            """
            self.utils.print_info("Check for Advance Onboard Popup page after login..")
            try:
