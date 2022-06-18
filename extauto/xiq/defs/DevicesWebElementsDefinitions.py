@@ -380,25 +380,25 @@ class DevicesWebElementsDefinitions:
 
     manage_device_actions_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 5
         }
 
     manage_device_actions_change_management_status = \
         {
-            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]a[1]',
+            'XPATH': '//li[6]//a[@data-automation-tag="automation-manage-device-actions-changemanagementstatus"]',
             'wait_for': 5
         }
 
     manage_device_actions_change_management_status_manage = \
         {
-            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]/ul[1]/li[1]/a[1]',
+            'XPATH': '//li[6]//a[@data-automation-tag="automation-manage-device-actions-switch-manage-device"]',
             'wait_for': 5
         }
 
     manage_device_actions_change_management_status_unmanage = \
         {
-            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]/ul[1]/li[2]/a[1]',
+            'XPATH': '//li[6]//a[@data-automation-tag="automation-manage-device-actions-switch-unmanage-device"]',
             'wait_for': 5
         }
 
@@ -797,7 +797,7 @@ class DevicesWebElementsDefinitions:
 
     devices_quick_add_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-policy-select"]',
+            'XPATH': '//table[@data-automation-tag="automation-quick-add-onboard-policy-select"]//tbody//tr//td[2]',
             'CSS_SELECTOR': 'div[class="policy-list-el"][data-dojo-attach-point="networkPolicyListCtn"]',
             'wait_for': 1
          }
