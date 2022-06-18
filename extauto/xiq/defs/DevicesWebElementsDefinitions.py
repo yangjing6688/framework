@@ -386,19 +386,19 @@ class DevicesWebElementsDefinitions:
 
     manage_device_actions_change_management_status = \
         {
-            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]',
+            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]a[1]',
             'wait_for': 5
         }
 
     manage_device_actions_change_management_status_manage = \
         {
-            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]/ul[1]/li[1]',
+            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]/ul[1]/li[1]/a[1]',
             'wait_for': 5
         }
 
     manage_device_actions_change_management_status_unmanage = \
         {
-            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]/ul[1]/li[2]',
+            'XPATH': '//div[@id="ah/util/layout/Menu_1"]/ul[5]/li[6]/ul[1]/li[2]/a[1]',
             'wait_for': 5
         }
 
