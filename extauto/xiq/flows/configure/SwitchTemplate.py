@@ -1649,4 +1649,25 @@ class SwitchTemplate(object):
                 self.utils.print_info("Not found 'Save template' button ")
         return -1
 
+    def get_sw_template_row_hyperlink(self, sw_template):
+        """
+        - Get the switch template row element on Network Policy's Switch Templates Grid
+        - Keyword Usage
+         - ``Get SW Template Row  ${SW_TEMPLATE_NAME}``
+
+        :param sw_template: name of the sw_template
+        :return: Switch Template Cell present on row
+        """
+        self.utils.print_info("Getting the switch template rows")
+
+        rows = self.sw_template_web_elements.get_sw_template_rows()
+        if not rows:
+            self.utils.print_info("Switch templates not exists in switch device template page")
+            return False
+        for row in rows:
+            cells = self.sw_template_web_elements.get_sw_template_row_cells(row)
+            template_cell = cells[2]
+            if sw_template in template_cell.text:
+                hyperlink = self.sw_template_web_elements.get_sw_template_row_cells_hyperlink(template_cell)
+                return hyperlink
 
