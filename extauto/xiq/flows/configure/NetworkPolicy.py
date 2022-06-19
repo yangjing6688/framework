@@ -1,6 +1,7 @@
 from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 import re
+from wait_for import wait_for
 from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
@@ -1320,32 +1321,39 @@ class NetworkPolicy(object):
         else:
             self.utils.print_info("Not inside Network Policy. Navigating...")
             self.navigate_to_np_edit_tab(policy_name)
-        sleep(5)
+        sleep(2)
 
         self.utils.print_info("Click on deploy policy tab")
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_tab())
-        sleep(5)
+        sleep(2)
 
-        self.utils.print_info("Click on eligible device button")
-        self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
-        sleep(20)
+        def _click_eligible():
+            self.utils.print_info("Click on eligible device button")
+            self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
+            return "Green"
+        _click_eligible()
+        
+        def _check_device_rows():
+            return self._get_device_rows(device_mac)
+        self.tools.wait_till(_check_device_rows, delay=0.2, is_logging_enabled=True, silent_failure=False)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
         for tip_text in tool_tp_text:
             if "An unknown error has" in tip_text:
                 self.screen.save_screen_shot()
-                sleep(5)
+                sleep(2)
                 self.robot_built_in.fail(f"{tip_text} occurred while assigning nw policy")
-
+        
         if not self._select_device_row(device_mac):
             self.utils.print_info("Device is not available in the deploy policy page")
             return -1
+
         self.screen.save_screen_shot()
-        sleep(5)
+        sleep(1)
         self.utils.print_info("Click on the policy deploy upload button")
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_upload_button())
-        sleep(5)
+        sleep(1)
         self.screen.save_screen_shot()
 
         # Select from dropdown
@@ -1397,7 +1405,7 @@ class NetworkPolicy(object):
 
         # Perform the update
         self.screen.save_screen_shot()
-        sleep(2)
+        sleep(5)
         
         # Captute tool tip msg before pressing the perform update button
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
@@ -1912,3 +1920,4 @@ class NetworkPolicy(object):
         else:
             self.utils.print_info("Unable to locate management options on/off button")
             return -1
+

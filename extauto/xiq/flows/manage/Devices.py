@@ -9203,10 +9203,8 @@ class Devices:
 
         try:
             if self.select_device(device_mac):
-                sleep(2)
                 self.close_last_refreshed_tooltip()
                 self.utils.print_info("Closing the last refreshed tool tip")
-                sleep(2)
 
                 if updatefromD360Page.lower() == "false":
                     self.utils.print_info("Selecting Update Devices Button")
@@ -9232,7 +9230,6 @@ class Devices:
                 else:
                 	  self.utils.print_info("Selecting upgrade IQ Engine checkbox")
                 	  self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
-               	sleep(5)	
                 
                 # Case-1 : This flow is to perform firmware upgrade to a latest version and return the latest version if success else -1
                 if updateTo.lower() == "latest":
