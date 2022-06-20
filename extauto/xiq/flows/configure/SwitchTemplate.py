@@ -130,11 +130,13 @@ class SwitchTemplate(object):
                     if save_btn.is_displayed():
                         self.utils.print_info("Click on the save template button")
                         self.auto_actions.click(save_btn)
+                        self.screen.save_screen_shot()
                         
                         def _tooltip_displayed():
                             return tool_tip.tool_tip_text
-                        tool_tip_text, et = self.tools.wait_till(_tooltip_displayed, delay=0.2, is_logging_enabled=True, silent_failure=False, msg="Checking for the Template Save tool tip message...")
+                        tool_tip_text, et = self.tools.wait_till(_tooltip_displayed, delay=1, is_logging_enabled=True, silent_failure=False, msg="Checking for the Template Save tool tip message...")
                         
+                        self.screen.save_screen_shot()
                         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                         if "Switch template has been saved successfully." in tool_tip_text:
                             rc = 1
@@ -553,11 +555,13 @@ class SwitchTemplate(object):
                         if save_btn.is_displayed():
                             self.utils.print_info("Click on the save template button")
                             self.auto_actions.click(save_btn)
+                            self.screen.save_screen_shot()
                             
                             def _tooltip_displayed():
                                 return tool_tip.tool_tip_text    
-                            tool_tip_text, et = self.tools.wait_till(_tooltip_displayed, delay=0.2, is_logging_enabled=True, silent_failure=False, msg="Checking for the Template Save tool tip message...")
-
+                            tool_tip_text, et = self.tools.wait_till(_tooltip_displayed, delay=1, is_logging_enabled=True, silent_failure=False, msg="Checking for the Template Save tool tip message...")
+                            
+                            self.screen.save_screen_shot()
                             self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                             for cnt3 in tool_tip_text:
                                 if 'Stack template has been saved successfully.' in cnt3:
