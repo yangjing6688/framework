@@ -1,7 +1,6 @@
 from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 import re
-from wait_for import wait_for
 from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
