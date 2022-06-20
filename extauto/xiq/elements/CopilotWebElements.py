@@ -63,6 +63,12 @@ class CopilotWebElements(CopilotDefs):
         elements = self.weh.get_elements(self.wifi_capacity_widget_location_more_options_mute_button)
         return self.get_dislayed_element(elements)
 
+    def get_wifi_capacity_anomaly_ap_issue_details(self):
+        return self.weh.get_element(self.wifi_capacity_anomaly_ap_issue_details)
+
+    def get_wifi_capacity_anomaly_ap_recommended_actions_details(self):
+        return self.weh.get_element(self.wifi_capacity_anomaly_ap_recommended_actions_details)
+
     def get_total_anomalies_detected_from_icon(self):
         return self.weh.get_element(self.total_anomalies_detected_from_icon)
 
