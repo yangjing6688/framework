@@ -1721,6 +1721,7 @@ class SwitchTemplate(object):
                                         sw_template_name)
             sleep(3)
         if save_template:
+            sleep(5)
             save_btns = self.sw_template_web_elements.get_sw_template_save_button()
             for save_btn in save_btns:
                 if save_btn.is_displayed():
@@ -1729,9 +1730,9 @@ class SwitchTemplate(object):
                     sleep(10)
                     tool_tip_text = tool_tip.tool_tip_text
                     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    sleep(5)
+                    sleep(15)
                     for cnt3 in tool_tip_text:
-                        if 'template has been saved successfully.' in cnt3:
+                        if 'successfully' in cnt3:
                             self.utils.print_info("Found successfully message")
                             return 1
                         else:
