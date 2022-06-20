@@ -1842,7 +1842,7 @@ class Devices:
         return -1
 
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
-                       csv_file_name='', device_os=False, location=False, service_tag=False):
+                       csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
@@ -1866,6 +1866,7 @@ class Devices:
         :return: -7 for error - Please enter a valid MAC Address
         :return: -8 for error - Unable to get pop-up menu item
         """
+        kwargs['IRV'] = True
         self.utils.print_info("Onboarding: ", device_make)
 
         if 'Controllers' in device_make or 'XCC' in device_make:
@@ -1926,7 +1927,6 @@ class Devices:
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
-
         # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
         if "VOSS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
@@ -1946,14 +1946,14 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
-                    self.utils.print_info(">>> CSV file was not specified")
-                    self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
 
         if "EXOS" in device_make.upper():
@@ -1973,14 +1973,14 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for EXOS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
-                    self.utils.print_info(">>> CSV file was not specified")
-                    self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
             else:
                 _errors = self.check_negative_combinations()
@@ -2046,6 +2046,8 @@ class Devices:
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
+            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
         else:
             self.utils.print_info("No Dialog box")
@@ -2055,9 +2057,12 @@ class Devices:
 
         for serial in serials:
             if self.search_device_serial(serial) == 1:
-                self.utils.print_info(f"Successfully Onboarded {device_make} Device(s) with {serials}")
+                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
             else:
+                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
