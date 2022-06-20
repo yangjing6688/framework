@@ -119,6 +119,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_100_elements_display_on_page = \
+        {
+            'XPATH': '//a[@data-size="100"]',
+            'wait_for': 5
+        }
+
     actions_adv_cli_access_cmd_input = \
         {
             'XPATH': '//*[@data-dojo-attach-point="cli"]',

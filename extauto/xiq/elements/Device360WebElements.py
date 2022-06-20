@@ -67,6 +67,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_close_dialog(self):
         return self.weh.get_element(self.close_dialog)
 
+    def get_select_100_elements_display_on_page(self):
+        return self.weh.get_element(self.select_100_elements_display_on_page)
+
     def get_actions_adv_cli_access_cmd_input(self):
         return self.weh.get_element(self.actions_adv_cli_access_cmd_input)
 
