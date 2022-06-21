@@ -137,7 +137,21 @@ class CopilotDefs:
             'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-close-btn',
             'wait_for': 5
         }
-    
+
+    wifi_capacity_widget_location_ap_like = \
+        {
+            #'CSS_SELECTOR': '.mat-tooltip-trigger nui-auto-copilot-wifi-capacity-detail-upvote material-icons-outlined vote-thumb-down user-vote',
+            'XPATH': '//span[text()="thumb_up"]',
+            'wait_for': 5
+        }
+
+    wifi_capacity_widget_location_ap_like_tooltip = \
+        {
+            #'CSS_SELECTOR': '.mat-simple-snackbar ng-star-inserted',
+            'TAG_NAME': 'simple-snack-bar',
+            'wait_for': 5
+        }
+
     anomalies_view_all_btn = \
         {
             'XPATH': '//*[@data-dojo-attach-point="activeAlarmLink"]',

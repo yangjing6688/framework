@@ -2642,6 +2642,27 @@ class Copilot(CopilotWebElements):
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
+    def wifi_capacity_anomaly_ap_like_button(self, location_name, ap_name):
+
+        """
+        - This Keyword will get details of issue and recommended actions from individual aps APs
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
+        - Keyword Usage:
+        - ``Wifi Capacity Anomaly Ap Individual Details``
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        self.click_wifi_capacity_anomaly_location_row(location_name)
+        self.click_wifi_capacity_anomaly_ap_row(ap_name)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_like())
+        #sleep(2)
+        like_tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip()
+
+        self.utils.print_info("Issue :", like_tooltip.text)
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+
+
     def is_wifi_capacity_anomaly_ap_i_icon_present(self, ap_name, **kwargs):
 
         """
