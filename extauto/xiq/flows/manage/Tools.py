@@ -748,12 +748,12 @@ class Tools:
             time.sleep(delay)
             timeout = timeout - delay
 
-            # function call to callback, based on the is_func_ref is true/false
+            # function call to callback
             callback_response = func()
             
             # if is_logging_enabled is True then callback response and time left in seconds will be printed
             if is_logging_enabled:
-                self.utils.print_info(f"Callback function response '{callback_response}', time left '{timeout}s' ")
+                self.utils.print_info(f"Actual callback function response is '{callback_response}', time left '{timeout}s' ")
 
             # callback function response is converted to bool type
             callback_response_bool = to_bool(callback_response)
@@ -771,7 +771,7 @@ class Tools:
             if len(custom_response_list) > 0 :
                 if callback_response_lower in custom_response_list:
                     if is_logging_enabled:
-                        self.utils.print_info(f"Wail_till is success, callback function response '{callback_response}'")
+                        self.utils.print_info(f"Wail_till is success, callback response is '{callback_response}'")
                         self.utils.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
                     return callback_response,elapsed_time_hms
                 else:
@@ -779,7 +779,7 @@ class Tools:
             # This block checks callback response matches with expected response and or custom_response, if so returns the func() response
             elif callback_response_bool == exp_func_resp:
                 if is_logging_enabled:
-                    self.utils.print_info(f"Wail_till is success, callback function response '{callback_response}'")
+                    self.utils.print_info(f"Wail_till is success, callback response is '{callback_response_bool}'")
                     self.utils.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
                 return callback_response,elapsed_time_hms
             
@@ -798,6 +798,6 @@ class Tools:
         if silent_failure:
             return callback_response,elapsed_time_hms
         
-        # if silent failure is false the will raise the timeout exception
+        # Raise timeout exception if silent_failure is set as false
         raise Exception("Request Timedout")
         
