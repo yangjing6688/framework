@@ -1640,6 +1640,19 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
+    
+    manage_devices_progress_status = \
+        {
+            'DESC': 'Manage > Devices "devices progress status',
+            'XPATH': '//div[contains(@id,"updatedOn")]//div[@class="progress-message"]',
+            'wait_for': 10
+        }
+    
+    device_page_size_100 = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottom"]/div/a[@data-size="100"]',
+            'wait_for': 3
+        }
 
     simulation_device_count_input_field = \
         {
@@ -1647,4 +1660,3 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="numOfDevices"]',
             'wait_for': 5
         }
-

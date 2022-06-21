@@ -23,6 +23,7 @@ from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.common.CommonValidation import CommonValidation
 
@@ -35,6 +36,7 @@ class Devices:
         self.dialogue_web_elements = DialogWebElements()
         self.switch_web_elements = SwitchWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
+        self.common_validation = CommonValidation()
 
         self.navigator = Navigator()
         self.device_actions = DeviceActions()
@@ -3453,15 +3455,18 @@ class Devices:
         self.utils.print_info(f"Country Code of AP:{country_code}")
         return country_code
 
-    def delete_all_aps(self):
+    def delete_all_devices(self):
         """
         - This Keyword will Delete All the Devices in the Manage--> Devices Grid
         - Keyword Usage:
-         - ``Delete All Aps``
+         - ``Delete All devices``
 
         :return: 1 if Devices Deleted Successfully else -1
         """
 
+        if self.devices_web_elements.get_device_page_size_100() != None:
+            self.auto_actions.click(self.devices_web_elements.get_device_page_size_100())
+            
         if self.get_device_count() == 0:
             self.utils.print_info("No devices present in the Devices grid")
             return 1
@@ -3471,14 +3476,15 @@ class Devices:
                 sleep(20)
 
                 # grid = self.devices_web_elements.get_grid()
+                
                 self.utils.print_info("Selecting Device grid checkbox...")
                 # self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(grid))
                 self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Clicking Delete button")
                 self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Confirming delete...")
                 self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
@@ -9546,4 +9552,34 @@ class Devices:
                 count += 30
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
+             
+    def wait_until_all_devices_update_done(self, wait_time_in_min, **kwargs):
+        """
+            - This Keyword checks if all devices are done with updating
+            - Keyword Usage:
+            - ``wait_until_all_devices_update_done``
+                   :param  wai_time_in_min: time to wait
+                   :return: 1 if done, -1 if not
+        """
+        n_time = 0
+        complete = False
+        self.utils.print_info("Checking all device progress status ")
+        while n_time < int(wait_time_in_min)*2:       # waits for 30s instead of 1 min before the next loop
+            rows = self.devices_web_elements.get_manage_all_devices_progress_status()
+            if rows == None:
+               complete = True
+               break
+            else:
+               self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
+               n_time = n_time + 1
+               sleep(30)
+               self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
+        if not complete:
+            kwargs['fail_msg'] = "the waited time has reached with " + str(wait_time_in_min) + ' min(s)'
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        sleep(10)
+        self.utils.print_info("All devices finish updating ")
+        return 1

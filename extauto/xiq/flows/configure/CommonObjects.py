@@ -201,16 +201,16 @@ class CommonObjects(object):
                 return 1
         return -1
 
-    def delete_all_ssids(self, exclude_list=''):
+    def delete_all_ssids(self):
         """
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete all SSIDs from the grid expect exclude_list SSIDs
         - Keyword Usage:
-         - ``Delete All ssids   exclude_list=${SSID1},${SSID2}``
+         - ``Delete All ssids   `
 
-        :param exclude_list: list of SSIDs to exclude from delete
         :return: 1 if deleted else -1
         """
+        exclude_list = 'ssid0'
         self.navigator.navigate_to_ssids()
 
         self.utils.print_info("Click on full page view")
