@@ -558,20 +558,19 @@ class SwitchTemplate(object):
                             self.screen.save_screen_shot()
                             tool_tip_text = tool_tip.tool_tip_text
                             self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                            
-                            def _is_sw_template_available():
-                                return self.get_sw_template_row(sw_template_name)
-                            self.tools.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
-                            
-                            self.screen.save_screen_shot()
-                            tool_tip_text=tool_tip.tool_tip_text                            
-                            self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                             for cnt3 in tool_tip_text:
                                 if 'Stack template has been saved successfully.' in cnt3:
                                     self.utils.print_info("Found successfully message")
                                     return 1
                                 else:
                                     self.utils.print_info("Not found successfully message yet ")
+                            
+                            def _is_sw_template_available():
+                                return self.get_sw_template_row(sw_template_name)
+                            self.tools.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)                            
+                            self.screen.save_screen_shot()
+                            return 1
+
                         else:
                             self.utils.print_info("Not found 'Save template' button ")
                 else:
