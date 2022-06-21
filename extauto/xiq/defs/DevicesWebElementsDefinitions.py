@@ -1660,3 +1660,9 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="numOfDevices"]',
             'wait_for': 5
         }
+    
+    upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
+            'wait_for': 5
+        }
