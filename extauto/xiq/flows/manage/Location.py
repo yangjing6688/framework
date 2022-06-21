@@ -281,7 +281,7 @@ class Location:
         else:
             self.utils.print_info("Button not found")
             return -1
-        sleep(3)
+        sleep(6)
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_plan_add_global_view())
 
         sleep(3)
@@ -527,7 +527,7 @@ class Location:
         else:
             self.utils.print_info("Save button not found")
             return -1
-        sleep(3)
+        sleep(6)
         if self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_click_x_button()):
             self.utils.print_info("Click on close button Floor Plan")
         else:
