@@ -2688,7 +2688,7 @@ class Devices:
 
         if not device_serial:
             self.utils.print_info("No serial number provided to search for")
-            return False
+            return -1
         else:
             self.utils.print_info(f"Searching for serial number '{device_serial}'")
 
@@ -2732,7 +2732,7 @@ class Devices:
                     sleep(5)
 
             self.utils.print_info(f"Did not find device row with serial {device_serial}")
-            return False
+            return -1
         except StaleElementReferenceException:
             self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
         return -1
