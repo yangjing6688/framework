@@ -316,7 +316,8 @@ class RouterTemplateWebElementsDefinitions:
 
     port_new_vlan_select_new_button = \
         {
-            'XPATH': '//div[contains(@id,"ah/util/form/objects")]//a[@class="item-new"]',
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//*[@class="ui-ip-list-item"]'
+                     '//a[@data-type="vlan-profile"]',
             'wait_for': 5
         }
 

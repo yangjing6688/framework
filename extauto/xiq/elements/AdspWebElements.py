@@ -87,3 +87,5 @@ class AdspWebElements(AdspWebElementsDefinitions):
 
 
 
+    def get_adsp_user_role_not_supported(self):
+        return self.weh.get_elements(self.adsp_user_role_not_supported)

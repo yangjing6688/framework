@@ -35,7 +35,7 @@ class CommonValidation():
             expect_error = verifies that an error was returned by the keyword
         """
         test_result = False
-        ivr_flag = self.get_kwarg(kwargs, "IRV", False)
+        ivr_flag = self.get_kwarg(kwargs, "IRV", True)
         if ivr_flag:
             self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             self.logger.warning("Internal Result Verification is Enabled")
@@ -84,6 +84,7 @@ class CommonValidation():
                 # Print the error message
                 full_error_msg = fail_msg + " Expected Value: " + str(expectedValue) + " Value: " + str(value)
                 pytest.fail(full_error_msg, pytrace=False)
+                assert value == expectedValue, full_error_msg
         else:
             test_result = True
 
@@ -127,4 +128,3 @@ class CommonValidation():
             boolean = default
 
         return boolean
-                

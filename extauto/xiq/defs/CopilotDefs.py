@@ -69,6 +69,18 @@ class CopilotDefs:
             'wait_for': 5
          }
 
+    wifi_capacity_anomaly_ap_issue_details = \
+        {
+            'CSS_SELECTOR': '.eff-aly-desc',
+            'wait_for': 5
+        }
+
+    wifi_capacity_anomaly_ap_recommended_actions_details = \
+        {
+            'XPATH': '//div[@class="eff-rec-desc nui-auto-copilot-wifi-capacity-detail-recommend-action-desc"]',
+            'wait_for': 5
+        }
+
     total_anomalies_detected_from_icon = \
         {
             'XPATH': '//*[@data-dojo-attach-point="headAnomalyRingNum"]',
@@ -176,7 +188,7 @@ class CopilotDefs:
 
     wifi_capacity_video_help_icon = \
         {
-            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-summary-help-btn',
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-efficiency-summary-help-btn',
             'wait_for': 5
          }
 
@@ -194,7 +206,7 @@ class CopilotDefs:
 
     wifi_capacity_additional_resources_close_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="closeBtn"]',
+            'CSS_SELECTOR': '.nui-auto-wifi-efficiency-help-dialog-close-btn',
             'wait_for': 5
          }
 
@@ -251,34 +263,34 @@ class CopilotDefs:
 
     poe_stability_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="poeStabilityWidget"]',
-            'wait_for': 10
+                'XPATH': '//*[@class="poe-stability-widget"]',
+                'wait_for': 10
          }
 
     poe_stability_content = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="poeStabilityWidget"]'
-                     '//*[@data-dojo-attach-point="anomalySummary"]',
+            'XPATH': '//*[@class="poe-stability-widget"]'
+                     '//*[@class="nui-auto-copilot-poe-stability-summary-description"]',
             'wait_for': 10
          }
 
     poe_stability_widget_location_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="poeStabilityWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]',
-            'wait_for': 5
+            'XPATH': '//*[@class="poe-stability-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
+            'CSS_SELECTOR': '.as-list-item-clickable',
+            'wait_for': 10
          }
 
     poe_stability_widget_location_grid_pin_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="poeStabilityWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]//i[@data-dojo-attach-point="pinItem"]',
+            'XPATH': '//*[@class="poe-stability-widget"]//*[contains(@class, "list-item ng-star-inserted")]'
+                     '//*[contains(@class, "pinned-item")]',
             'wait_for': 5
          }
 
     poe_stability_widget_location_pin_button = \
         {
-            'CSS_SELECTOR':'.material-icons.pin-anomaly-cls',
+            'CSS_SELECTOR':'.material-icons.nui-auto-copilot-poe-stability-summary-pin',
             'wait_for': 5
         }
 
@@ -290,34 +302,34 @@ class CopilotDefs:
 
     port_efficiency_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="uplinkEfficiencyWidget"]',
-            'wait_for': 10
+            'XPATH':  '//*[@class="uplink-efficiency-widget"]',
+            'wait_for': 1
         }
 
     port_efficiency_widget_details = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="uplinkEfficiencyWidget"]'
-                     '//*[@data-dojo-attach-point="anomalySummary"]',
+            'XPATH': '//*[@class="uplink-efficiency-widget"]'
+                     '//*[@class="nui-auto-copilot-uplink-efficiency-summary-description"]',
             'wait_for': 10
         }
 
     port_efficiency_widget_location_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="uplinkEfficiencyWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]',
-            'wait_for': 5
+            'XPATH': '//*[@class="uplink-efficiency-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
+            'CSS_SELECTOR': '.as-list-item-clickable',
+            'wait_for': 10
          }
 
     port_efficiency_widget_location_grid_pin_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="uplinkEfficiencyWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]//i[@data-dojo-attach-point="pinItem"]',
-            'wait_for': 5
+            'XPATH': '//*[@class="uplink-efficiency-widget"]//*[contains(@class, "list-item ng-star-inserted")]'
+                     '//*[contains(@class, "pinned-item")]',
+            'wait_for': 10
          }
 
     port_efficiency_widget_location_pin_button = \
         {
-            'CSS_SELECTOR':'.material-icons.pin-anomaly-cls',
+            'CSS_SELECTOR':'.material-icons.nui-auto-copilot-uplink-efficiency-summary-pin',
             'wait_for': 5
         }
 

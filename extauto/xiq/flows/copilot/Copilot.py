@@ -2549,6 +2549,30 @@ class Copilot(CopilotWebElements):
         return_value = self.display_wifi_capacity_anomaly_ap_rows(location_name,**kwargs)
         return return_value
 
+    def wifi_capacity_anomaly_ap_individual_details(self, location_name, ap_name):
+
+        """
+        - This Keyword will get details of issue and recommended actions from individual aps APs
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
+        - Keyword Usage:
+        - ``Wifi Capacity Anomaly Ap Individual Details``
+
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        self.click_wifi_capacity_anomaly_location_row(location_name)
+        self.click_wifi_capacity_anomaly_ap_row(ap_name)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        issue_details = self.get_wifi_capacity_anomaly_ap_issue_details()
+        recommended_actions_details = self.get_wifi_capacity_anomaly_ap_recommended_actions_details()
+        if issue_details and recommended_actions_details:
+            self.utils.print_info("Issue :", issue_details.text)
+            self.utils.print_info("Recommended Actions :", recommended_actions_details.text)
+            return issue_details.text,recommended_actions_details.text
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        else:
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
+
     def display_wifi_capacity_anomaly_ap_rows(self, location_name,**kwargs):
 
         """

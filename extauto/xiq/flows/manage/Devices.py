@@ -23,6 +23,7 @@ from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.common.CommonValidation import CommonValidation
 
@@ -35,6 +36,7 @@ class Devices:
         self.dialogue_web_elements = DialogWebElements()
         self.switch_web_elements = SwitchWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
+        self.common_validation = CommonValidation()
 
         self.navigator = Navigator()
         self.device_actions = DeviceActions()
@@ -1842,7 +1844,7 @@ class Devices:
         return -1
 
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
-                       csv_file_name='', device_os=False, location=False, service_tag=False):
+                       csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
@@ -1866,6 +1868,7 @@ class Devices:
         :return: -7 for error - Please enter a valid MAC Address
         :return: -8 for error - Unable to get pop-up menu item
         """
+        kwargs['IRV'] = True
         self.utils.print_info("Onboarding: ", device_make)
 
         if 'Controllers' in device_make or 'XCC' in device_make:
@@ -1926,7 +1929,6 @@ class Devices:
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
-
         # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
         if "VOSS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
@@ -1946,14 +1948,14 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
-                    self.utils.print_info(">>> CSV file was not specified")
-                    self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
 
         if "EXOS" in device_make.upper():
@@ -1973,14 +1975,14 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for EXOS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
-                    self.utils.print_info(">>> CSV file was not specified")
-                    self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
             else:
                 _errors = self.check_negative_combinations()
@@ -2046,6 +2048,8 @@ class Devices:
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
+            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
         else:
             self.utils.print_info("No Dialog box")
@@ -2055,9 +2059,12 @@ class Devices:
 
         for serial in serials:
             if self.search_device_serial(serial) == 1:
-                self.utils.print_info(f"Successfully Onboarded {device_make} Device(s) with {serials}")
+                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
             else:
+                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
@@ -3456,15 +3463,18 @@ class Devices:
         self.utils.print_info(f"Country Code of AP:{country_code}")
         return country_code
 
-    def delete_all_aps(self):
+    def delete_all_devices(self):
         """
         - This Keyword will Delete All the Devices in the Manage--> Devices Grid
         - Keyword Usage:
-         - ``Delete All Aps``
+         - ``Delete All devices``
 
         :return: 1 if Devices Deleted Successfully else -1
         """
 
+        if self.devices_web_elements.get_device_page_size_100() != None:
+            self.auto_actions.click(self.devices_web_elements.get_device_page_size_100())
+            
         if self.get_device_count() == 0:
             self.utils.print_info("No devices present in the Devices grid")
             return 1
@@ -3474,14 +3484,15 @@ class Devices:
                 sleep(20)
 
                 # grid = self.devices_web_elements.get_grid()
+                
                 self.utils.print_info("Selecting Device grid checkbox...")
                 # self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(grid))
                 self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Clicking Delete button")
                 self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Confirming delete...")
                 self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
@@ -6402,20 +6413,15 @@ class Devices:
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
 
-        if page_size_field and page_number_field.is_displayed():
-            self.utils.print_info("Searching Device Entry with AP Serial : ", ap_serial)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_serial)
-            self.screen.save_screen_shot()
-            sleep(5)
-
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
                 self.utils.print_info("row data: ", self.format_row(row.text))
-                if not ap_serial in row.text:
-                    self.utils.print_info("Did not Find AP Row: ", self.format_row(row.text))
+                if ap_serial in row.text:
+                    self.utils.print_info("Found AP Row: ", self.format_row(row.text))
                     return 1
-            self.utils.print_info("Did not find AP")
+                else:
+                    self.utils.print_info("Did not find AP")
         else:
             self.utils.print_info("No rows present")
         return False
@@ -9591,4 +9597,34 @@ class Devices:
                 count += 30
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
+             
+    def wait_until_all_devices_update_done(self, wait_time_in_min, **kwargs):
+        """
+            - This Keyword checks if all devices are done with updating
+            - Keyword Usage:
+            - ``wait_until_all_devices_update_done``
+                   :param  wai_time_in_min: time to wait
+                   :return: 1 if done, -1 if not
+        """
+        n_time = 0
+        complete = False
+        self.utils.print_info("Checking all device progress status ")
+        while n_time < int(wait_time_in_min)*2:       # waits for 30s instead of 1 min before the next loop
+            rows = self.devices_web_elements.get_manage_all_devices_progress_status()
+            if rows == None:
+               complete = True
+               break
+            else:
+               self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
+               n_time = n_time + 1
+               sleep(30)
+               self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
+        if not complete:
+            kwargs['fail_msg'] = "the waited time has reached with " + str(wait_time_in_min) + ' min(s)'
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        sleep(10)
+        self.utils.print_info("All devices finish updating ")
+        return 1
