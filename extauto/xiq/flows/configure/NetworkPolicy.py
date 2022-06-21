@@ -1329,7 +1329,6 @@ class NetworkPolicy(object):
         def _click_eligible():
             self.utils.print_info("Click on eligible device button")
             self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
-            return "Green"
         _click_eligible()
         
         def _check_device_rows():

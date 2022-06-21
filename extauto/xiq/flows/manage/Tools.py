@@ -663,6 +663,7 @@ class Tools:
             :return: raise timeout exception incase max timed out else resturns the calback function's response
         usages:
             self.tools.wait_till()
+            self.tools.wait_till(_check_device_rows)
             self.tools.wait_till(_check_device_rows, timeout=5, delay=0.25)
             self.tools.wait_till(_check_device_rows, _click_eligible, is_logging_enabled=True, silent_failure=False)
             out, et = self.tools.wait_till(_check_device_rows, exp_func_resp=False, silent_failure=False, custom_response=["Green", "Managed"])
@@ -747,7 +748,7 @@ class Tools:
             time.sleep(delay)
             timeout = timeout - delay
 
-            # function call to callback
+            # function call to callback, based on the is_func_ref is true/false
             callback_response = func()
             
             # if is_logging_enabled is True then callback response and time left in seconds will be printed
@@ -796,6 +797,7 @@ class Tools:
         # silent failure is True then this function will not raise timeout exception but returns the func() response
         if silent_failure:
             return callback_response,elapsed_time_hms
-
+        
+        # if silent failure is false the will raise the timeout exception
         raise Exception("Request Timedout")
         
