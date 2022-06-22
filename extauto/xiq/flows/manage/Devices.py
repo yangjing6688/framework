@@ -9540,10 +9540,11 @@ class Devices:
             n_time = 0
             kwargs = {}
             date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+
             if IRV != None:
                 kwargs["IRV"] = IRV
             while n_time <= int(wait_time_in_min*4):
-                n_time = n_time + Ω
+                n_time = n_time + 1
                 update_status= self.get_device_details(device_serial, 'UPDATED')
                 self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
                 if (update_status == '') or (re.match(date_regex, update_status)):
