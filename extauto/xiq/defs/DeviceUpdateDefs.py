@@ -200,6 +200,30 @@ class DeviceUpdateDefs:
             'wait_for': 2
         }
 
+    upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
+            'wait_for': 5
+        }
+
+    perform_upgrade_if_the_versions_are_the_same_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="forceDownloadImage"]',
+            'wait_for': 5
+        }
+
+    config_download_options_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-checkbox-network-policy-configuration"]',
+            'wait_for': 5
+        }
+
+    config_download_options_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-checkbox-network-policy-configuration"]',
+            'wait_for': 5
+        }
+
     upgrade_specific_firmware_drop_down_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="importImageArea"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
@@ -211,4 +235,3 @@ class DeviceUpdateDefs:
             'XPATH': '//ul[@class="chzn-results "]//li[contains(@class,"active-result")]',
             'wait_for': 2
         }
-        

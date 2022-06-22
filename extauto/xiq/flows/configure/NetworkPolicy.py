@@ -854,6 +854,97 @@ class NetworkPolicy(object):
         self.utils.print_info(" Error : Unable to delete all SSIDs")
         return -1
 
+    def delete_single_ssid_in_policy(self, policy, ssid_name):
+        """ delete all ssids in the policy
+            :param: policy: name of the policy
+            :return 1 if deletion of ssids is success
+        """
+        self.utils.print_info(" Delete all ssids in the policy  " + str(policy))
+        self.auto_actions.scroll_up()
+        self.navigate_to_np_edit_tab(policy)
+
+        self.utils.print_info(" Click on the wireless network tab")
+        self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
+        self.tools.wait_til_elements_avail(self.wireless_element.wireless_nw_add_button, 60, False)
+        self.utils.print_info(" Get all ssids in the policy")
+        ssids = self.wireless_element.get_ssid_list()
+        if not ssids:
+            self.utils.print_info(" There are no SSIDs configured on policy  " + str(policy))
+            return 1
+        else:
+            self.utils.print_info(" Select the SSID to be deleted")
+            for ssid in ssids:
+                if ssid_name in ssid.text:
+                    check_box = self.wireless_element.get_ssid_chkbox(ssid)
+                    if check_box:
+                        self.auto_actions.click(check_box)
+                    else:
+                        self.utils.print_info(" Unable to select row")
+                        return -1
+
+            delete_button = self.wireless_element.get_wireless_delete_button()
+            if delete_button:
+                self.auto_actions.click(delete_button)
+                sleep(5)
+                confirm_yes = self.wireless_element.get_confirm_dialog_yes_button()
+                if confirm_yes:
+                    self.auto_actions.click(confirm_yes)
+                    sleep(5)
+                    reuse_button = self.wireless_element.get_wireless_re_use_button()
+                    if reuse_button:
+                        self.auto_actions.click(reuse_button)
+                        sleep(5)
+                        all_reusable_rows = self.wireless_element.get_wireless_ssid_select_window_rows()
+                        if all_reusable_rows:
+                            for ssid_row in all_reusable_rows:
+                                if ssid_row.text != 'ssid0' and ssid_row.text != 'Name':
+                                    if ssid_name in ssid_row.text:
+                                        self.utils.print_info(" Selecting  ssid : " + ssid_row.text + " from SSID list")
+                                        check_box_reusable = self.wireless_element.get_wireless_select_ssid_row_check_box(ssid_row)
+                                        if check_box_reusable:
+                                            self.auto_actions.click(check_box_reusable)
+                                        else:
+                                            self.utils.print_info(" Unable to select SSID ")
+                                            return -1
+                            self.utils.print_info(" Clicking  delete button ")
+                            re_use_delete_button = self.wireless_element.get_wireless_re_use_delete_button()
+                            if re_use_delete_button:
+                                self.auto_actions.click(re_use_delete_button)
+                                sleep(5)
+                                confirm_yes_re_usable = self.wireless_element.get_confirm_dialog_yes_button()
+                                if confirm_yes_re_usable:
+                                    self.auto_actions.click(confirm_yes_re_usable)
+                                    tool_tp_text = tool_tip.tool_tip_text
+                                    self.utils.print_info(tool_tp_text)
+                                    self.utils.print_info(" Closing SSID pop-up window ")
+                                    self.auto_actions.click(self.wireless_element.get_wireless_re_use_cancel_button())
+                                    if "deleted successfully" in str(tool_tp_text):
+                                        self.utils.print_info(" SSIDs were successfully deleted ")
+                                        return 1
+                                    else:
+                                        self.utils.print_info(" SSIDs were NOT successfully deleted ")
+                                        return -1
+                                else:
+                                    self.utils.print_info(" Unable to click on confirm yes button ")
+                                    return -1
+                            else:
+                                self.utils.print_info(" Unable to click the delete button ")
+                                return -1
+                        else:
+                            self.utils.print_info(" Unable to gather SSID rows ")
+                            return -1
+                    else:
+                        self.utils.print_info(" Unable click the reusable [select] button")
+                        return -1
+                else:
+                    self.utils.print_info(" Unable click the corfirm Yes button")
+                    return -1
+            else:
+                 self.utils.print_info(" Unable to click the Delete button")
+                 return -1
+        self.utils.print_info(" Error : Unable to delete all SSIDs")
+        return -1
+
     def enable_nw_presence_analytics(self, nw_policy):
         """
         - This keyword is used to enable the presence analytics
@@ -1209,7 +1300,7 @@ class NetworkPolicy(object):
         else:
             return -1
 
-    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name):
+    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name, firmwareUpdate = False):
         """
         - Deploy the network policy to the particular device
         - By default it will do delta config push
@@ -1235,9 +1326,14 @@ class NetworkPolicy(object):
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_tab())
         sleep(2)
 
-        self.utils.print_info("Click on eligible device button")
-        self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
-        sleep(2)
+        def _click_eligible():
+            self.utils.print_info("Click on eligible device button")
+            self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
+        _click_eligible()
+        
+        def _check_device_rows():
+            return self._get_device_rows(device_mac)
+        self.tools.wait_till(_check_device_rows, delay=0.2, is_logging_enabled=True, silent_failure=False)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -1246,18 +1342,17 @@ class NetworkPolicy(object):
                 self.screen.save_screen_shot()
                 sleep(2)
                 self.robot_built_in.fail(f"{tip_text} occurred while assigning nw policy")
-
+        
         if not self._select_device_row(device_mac):
             self.utils.print_info("Device is not available in the deploy policy page")
             return -1
+
         self.screen.save_screen_shot()
         sleep(1)
         self.utils.print_info("Click on the policy deploy upload button")
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_upload_button())
         sleep(1)
         self.screen.save_screen_shot()
-        self.utils.print_info("Click on the perform update")
-        self.auto_actions.click(self.np_web_elements.get_perform_after_select_update_policy_button())
 
         # Select from dropdown
         if sw_template_name is not None:
@@ -1288,34 +1383,54 @@ class NetworkPolicy(object):
         uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
 
         if not uptd.is_selected():
-            self.utils.print_info(f" Click on the update configuration checkbox ")
+            self.utils.print_info(f"Click on the update configuration checkbox")
             self.auto_actions.click(uptd)
+            
+        # Uncheck the firmware update checkbox if it is checked 
+        firmware_update = self.devices_web_elements.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
+        if not firmwareUpdate:
+            if firmware_update.is_selected():
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is checked - Unchecking")
+                self.auto_actions.click(firmware_update)
+            else:
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already unchecked")
+        else:
+            if firmware_update.is_selected():
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")  
+            else:
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is not checked - Checking")
+                self.auto_actions.click(firmware_update)
 
         # Perform the update
         self.screen.save_screen_shot()
         sleep(5)
+        
+        # Captute tool tip msg before pressing the perform update button
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
+        
+        # Press perform update button
+        self.utils.print_info("Checking for the perform update button presence")
         if self.np_web_elements.get_perform_update_policy_button():
-            self.utils.print_info("Click on update policy button ")
+            self.utils.print_info("Click on perform update button ")
             self.auto_actions.click(self.np_web_elements.get_perform_update_policy_button())
         else:
-            self.utils.print_info("The update policy button was not found")
+            self.utils.print_info("The perform update button was not found")
+            return -1
 
         self.screen.save_screen_shot()
         sleep(5)
+        
+        # Capture the tool tip after pressing the perform update button
         tool_tp_text_after = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_after)
-
-        self.utils.print_info("close the device update button ##################")
-        x=self.devices_web_elements.get_actions_network_policy_close_button_md()
-        self.auto_actions.click(x[-1])
-
+       
+        # Print and return the displayed tool tip msg if any 
         for item_after in tool_tp_text_after:
             if item_after in tool_tp_text_before:
                 pass
             else:
-                self.utils.print_info(" Below error message is displayed after press update button")
+                self.utils.print_info("Below message is displayed after pressing the perform update button")
                 self.utils.print_info(item_after)
                 return item_after
         return 1
@@ -1803,3 +1918,4 @@ class NetworkPolicy(object):
         else:
             self.utils.print_info("Unable to locate management options on/off button")
             return -1
+

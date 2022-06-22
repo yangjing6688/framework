@@ -150,8 +150,6 @@ class DevicesWebElementsDefinitions:
 
     devices_add_devices_button = \
         {
-            # 'XPATH': '//*[@data-dojo-attach-point="quickAddBtn"]',
-            # 'has_text': 'Add Devices',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-add-button"]',
             'wait_for': 5
          }
@@ -465,9 +463,8 @@ class DevicesWebElementsDefinitions:
 
     nw_policy_drop = \
         {
-            'XPATH':  '//*[contains(@class, "dijitReset dijitRight dijitButtonNode dijitArrowButton dijitDownArrowButton dijitArrowButtonContainer") and contains(@data-dojo-attach-point, "titleNode")]',
+            'XPATH':  '//table[@data-automation-tag="automation-assign-policy-select"]//td[@data-dojo-attach-point="titleNode"]',
             'wait_for': 2,
-            'index': 6
         }
 
     actions_network_policy_assign_button = \
@@ -540,7 +537,7 @@ class DevicesWebElementsDefinitions:
         {
             # The identifier differs depending on which type of device is selected (ap, switch, etc.),
             # so need to get all partial matches and select the displayed element
-            'XPATH': '//li[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-reboot")]',
+            'XPATH': '//a[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-reboot")]',
             'wait_for': 5
         }
 
@@ -589,9 +586,10 @@ class DevicesWebElementsDefinitions:
     simulated_device_dropdown = \
         {
             #'XPATH': '//*[@data-automation-tag="chzn-container-ctn"]//span[contains(text(), "ATOM")]',
-            #'XPATH': '//*[@data-dojo-attach-point=_buttonNode,tableNode,focusNode,_popupStateNode"]',
-            "CSS_SELECTOR": ".dijit.dijitReset.dijitInline.dijitLeft.dijitDownArrowButton.honeycomb-ui-form-select",
-            "index": 1,
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-simulated-device-control"]'
+                     '//*[@data-dojo-attach-point="_buttonNode,tableNode,focusNode,_popupStateNode"]',
+            # "CSS_SELECTOR": ".dijit.dijitReset.dijitInline.dijitLeft.dijitDownArrowButton.honeycomb-ui-form-select",
+            # "index": 1,
             'wait_for': 5
         }
 
@@ -1014,13 +1012,15 @@ class DevicesWebElementsDefinitions:
     devices_display_count_per_page_buttons = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottom"]//div[@data-dojo-attach-point="gridBottomLeft"]',
-            'wait_for': 10
+            'wait_for': 10,
+            'index': 1
          }
 
     devices_pagination_buttons = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottom"]//div[@data-dojo-attach-point="gridBottomRight"]',
-            'wait_for': 3
+            'wait_for': 3,
+            'index' : 1
         }
 
     manage_device_search_clear_button = \
@@ -1161,7 +1161,8 @@ class DevicesWebElementsDefinitions:
 
     quick_add_devices = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="actionLeft"]//a[@type="quickAdd"]',
+            'XPATH': '//*[@class="ui-menu-list"]'
+                     '//*[@data-automation-tag="automation-device-list-menu-quick-add-devices"]',
             'wait_for': 3
         }
 
@@ -1203,7 +1204,7 @@ class DevicesWebElementsDefinitions:
 
     add_devices_button = \
         {
-            'XPATH': '//*[@class="dijit dijitReset dijitInline primary honeycomb-ui-form-button"]',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-add-button"]',
             'wait_for': 5
         }
 
@@ -1679,5 +1680,31 @@ class DevicesWebElementsDefinitions:
         {
             'DESC': 'Manage > Devices "load" mask',
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
+            'wait_for': 5
+        }
+    
+    manage_devices_progress_status = \
+        {
+            'DESC': 'Manage > Devices "devices progress status',
+            'XPATH': '//div[contains(@id,"updatedOn")]//div[@class="progress-message"]',
+            'wait_for': 10
+        }
+    
+    device_page_size_100 = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottom"]/div/a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    simulation_device_count_input_field = \
+        {
+            'DESC': 'Manage > Devices "load" mask',
+            'XPATH': '//*[@data-dojo-attach-point="numOfDevices"]',
+            'wait_for': 5
+        }
+    
+    upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
             'wait_for': 5
         }
