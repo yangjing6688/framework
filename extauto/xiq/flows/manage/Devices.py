@@ -9540,15 +9540,17 @@ class Devices:
 
             complete = False
             n_time = 0
+            date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
             while n_time <= wait_time_in_min*2:
                 n_time = n_time + 1
                 search_string = [value for value in [device_serial, device_mac, device_name] if value][0]
                 update_status= self.get_device_details(search_string, 'UPDATED')
                 self.utils.print_error(f"updated status...," + str(update_status))
+                if (update_status == '') or (re.match(date_regex, update_status)):
+                    self.utils.print_info("Device has finshed updating at {}".format(update_status))
+                    complete = True
+                    break
                 sleep(30)
-                if update_status == '':
-                     break
-
 
             return 1
 
