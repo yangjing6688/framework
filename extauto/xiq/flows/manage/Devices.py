@@ -9519,7 +9519,7 @@ class Devices:
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
 
 
-    def  wait_until_device_update_done(self, device_serial=None, wait_time_in_min=10, IRV=None):
+    def  wait_until_device_update_done(self, device_serial=None, wait_time_in_min=15, IRV=None):
 
             """
             - This keyword checks if the expected device is done with updating
