@@ -9519,19 +9519,17 @@ class Devices:
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
 
 
-    def  wait_until_device_update_done(self, device_serial=None, device_name=None, device_mac=None, wait_time_in_min=10, **kwargs):
+    def  wait_until_device_update_done(self, device_serial=None, wait_time_in_min=10, IRV=None):
 
             """
-            - Get Management IP Assigned to the AP
+            - This keyword checks if the expected device is done with updating
             - Keyword Usage:
              - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
-             - ``wait_until_device_update_done   device_name=${AP_NAME}``
-             - ``wait_until_device_update_done   device_mac=${AP_MAC}``
 
             :param device_serial: Serial number of AP Ex:11301810220048
-            :param device_name: device name Ex: AP1130
-            :param device_mac: device mac Ex: F09CE9F89600
-            :return:
+            :param wai_time_in_min: time to wait in mins
+            :param IRV: True or False
+            :return: 1 if done, -1 if not
             """
 
             self.navigator.navigate_to_manage_tab()
@@ -9540,21 +9538,23 @@ class Devices:
 
             complete = False
             n_time = 0
+            kwargs = {}
             date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
-            while n_time <= int(wait_time_in_min*2):
-                n_time = n_time + 1
-                search_string = [value for value in [device_serial, device_mac, device_name] if value][0]
-                update_status= self.get_device_details(search_string, 'UPDATED')
-                self.utils.print_info(f"updated status...," + str(search_string) + " " + str(update_status))
+            if IRV != None:
+                kwargs["IRV"] = IRV
+            while n_time <= int(wait_time_in_min*4):
+                n_time = n_time + Ω
+                update_status= self.get_device_details(device_serial, 'UPDATED')
+                self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
                 if (update_status == '') or (re.match(date_regex, update_status)):
                     self.utils.print_info("Device has finshed updating at {}".format(update_status))
                     complete = True
                     break
-                sleep(30)
+                sleep(15)
 
             if not complete:
                 kwargs['fail_msg'] = "Device has not finshed updating "
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.validate(-1, 1, kwargs)
                 return -1
 
             return 1
