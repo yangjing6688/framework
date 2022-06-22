@@ -2654,12 +2654,24 @@ class Copilot(CopilotWebElements):
         self.click_wifi_capacity_anomaly_location_row(location_name)
         self.click_wifi_capacity_anomaly_ap_row(ap_name)
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.screen.save_screen_shot()
+        self.utils.print_info(f"Clicking like Button for the Location {location_name} and AP {ap_name}")
         self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_like())
-        #sleep(2)
+        self.screen.save_screen_shot()
+
         like_tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip()
+        self.utils.print_info("Tooltip Message displayed on UI is :", like_tooltip.text)
+        self.screen.save_screen_shot()
+        sleep(2)
+        if "Feedback saved successfully" in like_tooltip.text:
+            self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
+                                  f"for the ap {ap_name}")
+            return 1
+        else:
+            self.utils.print_info(f"Unable to click like button for the Wi-Fi capacity widget location "
+                                  f"{location_name} with ap {ap_name}")
 
-        self.utils.print_info("Issue :", like_tooltip.text)
-
+            return -1
         self.utils.switch_to_default(CloudDriver().cloud_driver)
 
 
