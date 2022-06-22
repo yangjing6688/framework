@@ -9548,7 +9548,8 @@ class Devices:
                 update_status= self.get_device_details(device_serial, 'UPDATED')
                 self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
                 if (update_status == '') or (re.match(date_regex, update_status)):
-                    self.utils.print_info("Device has finshed updating at {}".format(update_status))
+                    kwargs['pass_msg'] = "Device has finshed updating "
+                    self.common_validation.validate(1, 1, **kwargs)
                     complete = True
                     break
                 sleep(15)
