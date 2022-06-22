@@ -9519,7 +9519,7 @@ class Devices:
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
 
 
-    def  wait_until_device_update_done(self, device_serial=None, device_name=None, device_mac=None, wait_time_in_min=10):
+    def  wait_until_device_update_done(self, device_serial=None, device_name=None, device_mac=None, wait_time_in_min=10, **kwargs):
 
             """
             - Get Management IP Assigned to the AP
@@ -9545,7 +9545,7 @@ class Devices:
                 n_time = n_time + 1
                 search_string = [value for value in [device_serial, device_mac, device_name] if value][0]
                 update_status= self.get_device_details(search_string, 'UPDATED')
-                self.utils.print_info(f"updated status...," + str(update_status))
+                self.utils.print_info(f"updated status...," + str(search_string) + " " + str(update_status))
                 if (update_status == '') or (re.match(date_regex, update_status)):
                     self.utils.print_info("Device has finshed updating at {}".format(update_status))
                     complete = True
@@ -9553,7 +9553,9 @@ class Devices:
                 sleep(30)
 
             if not complete:
-                self.utils.print_info("Device has not finshed updating ")
+                kwargs['fail_msg'] = "Device has not finshed updating "
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
 
             return 1
 
