@@ -2682,8 +2682,7 @@ class Devices:
 
         :param device_serial: Device Serial Number
         :return: return 1 if Device found,
-                 false if Device not found
-                 -1 if an error occurs
+                 return -1 if Device not found or if an error occurs
         """
 
         if not device_serial:
