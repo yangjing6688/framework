@@ -10,7 +10,7 @@ class CopilotDefs:
     wifi_capacity_widget = \
         {
             'XPATH':  '//*[@class="wifi-capacity-widget"]',
-            'wait_for': 10
+            'wait_for': 20
          }
     wifi_capacity_status = \
         {
@@ -888,3 +888,35 @@ class CopilotDefs:
             'CSS_SELECTOR': '.nui-auto-copilot-high-mbcast-summary-description',
             'wait_for': 5,
          }
+
+    wifi_capacity_widget_location_ap_dislike = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-downvote',
+            'XPATH': '//span[text()="thumb_down"]',
+            'wait_for': 10
+        }
+
+    wifi_capacity_widget_location_ap_dislike_send_feedback_button = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-send-feedback',
+            'XPATH': '//span[text()="send"]',
+            'wait_for': 10
+        }
+
+    wifi_capacity_widget_location_ap_dislike_send_feedback_textfield = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-send-feedback-input',
+            'wait_for': 10
+        }
+
+    wifi_capacity_widget_location_ap_like_tooltip = \
+        {
+            'TAG_NAME': 'simple-snack-bar',
+            'wait_for': 10
+        }
+
+    wifi_capacity_widget_location_ap_dislike_button_enabled_status = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-downvote.material-icons.vote-thumb-down.user-vote',
+            'wait_for': 10
+        }
