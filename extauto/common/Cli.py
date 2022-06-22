@@ -126,20 +126,20 @@ class Cli(object):
         p_count = 0
         while p_count < 3:
             _cmd = "ping -c 2 %s" % str(ip)
-            # self.utils.print_info("CMD: ", _cmd)
+            #self.utils.print_info("CMD: ", _cmd)
             _out =subprocess.check_output([_cmd], shell = True)
             if " 0% packet loss" in str(_out):
                 break
             p_count += 1
 
-        if " 0% packet loss" in str(_out):
+        if " 0.0% packet loss"  or " 0% packet loss"in str(_out):
             self.utils.print_info("Ping received successfully...")
         else:
             self.utils.print_info("Unable to reach the DUT/MU")
             return -1
 
         conn_str = 'telnet ' + ip + " " + str(port)
-        if (port == '22') or (port == 8554):
+        if (str(port) == '22') or (str(port) == '8554'):
             self.utils.print_info("Opening SSH Spawn...")
             conn_str = 'ssh ' + username + "@" + ip + " -p " + str(port) + " -o StrictHostKeyChecking=no"
             self.utils.print_info("SSH conn_str: ", conn_str)
@@ -1547,9 +1547,9 @@ class Cli(object):
         self.send_paramiko_cmd(self.conn, TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' ON', 30)
 
         cnt = -1
-        for i in range(1, 5):
+        for i in range(1, 6):
             self.utils.print_info( " ***** Number of attempts ", str(i))
-            time.sleep(20)
+            time.sleep(30)
             listSSIDs = str(self.send_paramiko_cmd(self.conn, SCAN_FOR_LIST_WIFI, 300))
             cnt = self.utils.check_match(listSSIDs, ssid)
             if cnt == 1:
@@ -2194,7 +2194,48 @@ class Cli(object):
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
             return -1
-        
+    def downgrade_iqagent_voss(self, ip, port, username, password, platform):
+
+        _spawn = self.open_spawn(ip, port, username, password, platform)
+
+        if _spawn != -1:
+            if 'VOSS' in platform:
+                self.send(_spawn, f'enable')
+                output=self.send(_spawn, f'ls /intflash/rc.0')
+                if '  rc.0 ' in output:
+                    self.utils.print_info("rc.0 file found in the device")
+                else:
+                    self.utils.print_info("Couldn't able to locate rc.0 file")
+                    self.close_spawn(_spawn)
+                    return -1
+                self.send(_spawn, f'dbg enable')
+                self.send(_spawn, f'config t')
+                self.send(_spawn, f'application')
+                output_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
+                self.send(_spawn, f'no iqagent enable')
+                self.send(_spawn, f'software iqagent reinstall')
+                self.send(_spawn, f'iqagent enable')
+                output_new_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
+                self.close_spawn(_spawn)
+
+    def  downgrade_iqagent_exos(self, ip, port, username, password, platform,url_image):
+
+        _spawn = self.open_spawn(ip, port, username, password, platform)
+
+        if _spawn != -1:
+            if 'EXOS' in platform:
+                self.send(_spawn, f'show iqagent | include Version')
+                self.send(_spawn, url_image, expect_match='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)')
+                self.send(_spawn, f'yes')
+                time.sleep(10)
+                self.send(_spawn, f'show iqagent | include Version')
+                self.close_spawn(_spawn)
+
+
+        else:
+            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+            return -1
+
     def disconnect_device_from_cloud(self, device_make, ip, port, username, password, platform, retry_count=10):
         """
         - This Keyword Disconnect Device From Cloud

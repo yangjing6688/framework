@@ -7,6 +7,7 @@ from extauto.common.Screen import Screen
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.manage.Tools import Tools
 
 from selenium.webdriver.common.keys import Keys
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
@@ -31,6 +32,7 @@ class SwitchTemplate(object):
         self.dev360 = Device360WebElements()
         self.alarm = AlarmsWebElements()
         self.screen = Screen()
+        self.tools = Tools()
 
     def check_sw_template(self, sw_template):
         """
@@ -88,7 +90,7 @@ class SwitchTemplate(object):
         if self.check_sw_template(sw_model):
             self.utils.print_info("Template Already present in the template grid")
             return 1
-
+       
         add_btns = self.sw_template_web_elements.get_sw_template_add_button()
         sleep(2)
 
@@ -122,18 +124,22 @@ class SwitchTemplate(object):
                 sleep(1)
                 self.utils.print_info("Get Template Save Button")
                 save_btns = self.sw_template_web_elements.get_sw_template_save_button()
-
+        
                 rc = -1
                 for save_btn in save_btns:
                     if save_btn.is_displayed():
                         self.utils.print_info("Click on the save template button")
                         self.auto_actions.click(save_btn)
-                        sleep(10)
-                        ### script failing in getting tooltip text, need to debug
+                        self.screen.save_screen_shot()
                         tool_tip_text = tool_tip.tool_tip_text
                         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                        if "Switch template has been saved successfully." in tool_tip_text:
-                            rc = 1
+                        
+                        def _is_sw_template_available():
+                            return self.get_sw_template_row(sw_template_name)
+                        self.tools.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
+                        
+                        self.screen.save_screen_shot()
+                        rc = 1
                         break;
 
                 self.utils.print_info("Click on network policy exit button")
@@ -549,7 +555,7 @@ class SwitchTemplate(object):
                         if save_btn.is_displayed():
                             self.utils.print_info("Click on the save template button")
                             self.auto_actions.click(save_btn)
-                            sleep(10)
+                            self.screen.save_screen_shot()
                             tool_tip_text = tool_tip.tool_tip_text
                             self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                             for cnt3 in tool_tip_text:
@@ -558,6 +564,13 @@ class SwitchTemplate(object):
                                     return 1
                                 else:
                                     self.utils.print_info("Not found successfully message yet ")
+                            
+                            def _is_sw_template_available():
+                                return self.get_sw_template_row(sw_template_name)
+                            self.tools.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)                            
+                            self.screen.save_screen_shot()
+                            return 1
+
                         else:
                             self.utils.print_info("Not found 'Save template' button ")
                 else:

@@ -23,6 +23,7 @@ class NetworkElementConstants(Constants):
     OS_ICX = 'ICX'  # brocade
     OS_HIVE = 'HIVE'  # AP
     OS_WING = 'WING'  # AP
+    OS_AH_SWITCH = 'AHSWITCH'  # AEROHIVE Switch
 
     # Unit Constants
     UNIT_BASE = "baseunit"
@@ -35,6 +36,7 @@ class NetworkElementConstants(Constants):
     PLATFORM_EOS_BASE = "base"
     PLATFORM_BOSS_BASE = "base"
     PLATFORM_HIVE_BASE = "base"
+    PLATFORM_AH_SW_BASE = "base"
     PLATFORM_WING_BASE = "base"
     PLATFORM_ECOS_BASE = "base"
     PLATFORM_EOS_TOR = "TOR"
