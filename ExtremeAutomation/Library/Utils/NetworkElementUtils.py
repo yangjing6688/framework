@@ -111,24 +111,24 @@ class NetworkElementUtils(object):
             login_prompt = "Username:"
             pass_prompt = "Password:"
             main_prompt = "#"
-        elif formatted_dev_os == NetworkElementConstants.OS_HIVE:
-            device_os = NetworkElementConstants.OS_HIVE
-            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_HIVE_BASE
+        elif formatted_dev_os == NetworkElementConstants.OS_AHFASTPATH:
+            device_os = NetworkElementConstants.OS_AHFASTPATH
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_FASTPATH_BASE
             login_prompt = "Username:"
             pass_prompt = "Password:"
             main_prompt = "#"
-        elif formatted_dev_os == NetworkElementConstants.OS_AH_SWITCH:
-            device_os = NetworkElementConstants.OS_AH_SWITCH
-            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_SW_BASE
+        elif formatted_dev_os == NetworkElementConstants.OS_AHAP:
+            device_os = NetworkElementConstants.OS_AHAP
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_AP_BASE
             login_prompt = "username:"
             pass_prompt = "password:"
-            main_prompt = ">"
+            main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_WING:
             device_os = NetworkElementConstants.OS_WING
-            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_WING_BASE
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_WING_AP_BASE
             login_prompt = "Username:"
             pass_prompt = "Password:"
-            main_prompt = "#"
+            main_prompt = ">"
         else:
             logger = Logger()
 

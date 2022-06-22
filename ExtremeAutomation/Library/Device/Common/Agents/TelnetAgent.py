@@ -244,9 +244,9 @@ class TelnetAgent(CliAgent):
             self.debug_print(self.send_command("disable clipaging"))
         elif self.device.oper_sys == NetworkElementConstants.OS_VOSS:
             self.debug_print(self.send_command("terminal more disable"))
-        elif self.device.oper_sys == NetworkElementConstants.OS_HIVE:
+        elif self.device.oper_sys == NetworkElementConstants.OS_AHAP:
             self.debug_print(self.send_command("console page 0"))
-        elif self.device.oper_sys == NetworkElementConstants.OS_AH_SWITCH:
+        elif self.device.oper_sys == NetworkElementConstants.OS_AHFASTPATH:
             self.debug_print(self.send_command("enable"))
             self.debug_print(self.send_command("configure"))
             self.debug_print(self.send_command("do terminal length 0"))

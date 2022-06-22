@@ -5,10 +5,14 @@ import shlex
 import pexpect
 import paramiko
 import subprocess
+import uuid
 from platform import system
 from netmiko import ConnectHandler
 from extauto.xiq.configs.device_commands import *
 from robot.libraries.BuiltIn import BuiltIn
+from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
+from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
+from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 
 from extauto.common.Utils import Utils
 
@@ -24,8 +28,14 @@ class Cli(object):
         self.aerohive_default_password = 'aerohive'
         self.utils = Utils()
         self.builtin = BuiltIn()
+        self.networkElementConnectionManager = NetworkElementConnectionManager()
+        self.networkElementCliSend = NetworkElementCliSend()
+        self.endsystemConnectionManager = EndsystemConnectionManager()
 
-    def close_spawn(self, spawn):
+        self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP']
+        self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-MAC', 'A3']
+
+    def close_spawn(self, spawn, **kwargs):
         """
         - Closes a device spawn
         - Keyword Usage:
@@ -34,22 +44,28 @@ class Cli(object):
         :param spawn: device spawn
         :return: 1 if device spawn closed successfully else -1
         """
-        if spawn == -9:
-            return -9
 
-        if spawn == -1:
-            self.utils.print_info("Device Spawn is not Opened Successfully. So Unable to Close the Spawn.")
-            return -1
+        if spawn.split('_')[1].upper() in self.net_element_types:
+            self.networkElementConnectionManager.close_connection_to_network_element(spawn)
+        elif spawn.split('_')[1].upper() in self.end_system_types:
+            self.endsystemConnectionManager.close_connection_to_endsystem_element(spawn)
 
-        self.utils.print_info("\nClosing Connection...")
-        try:
-            spawn.close()
-            return 1
-        except Exception as e:
-            self.utils.print_info(e)
-            return -1
 
-    def set_platform(self, platform):
+
+    def set_platform(self, platform):  # if spawn == -9:
+        #     return -9
+        #
+        # if spawn == -1:
+        #     self.utils.print_info("Device Spawn is not Opened Successfully. So Unable to Close the Spawn.")
+        #     return -1
+        #
+        # self.utils.print_info("\nClosing Connection...")
+        # try:
+        #     spawn.close()
+        #     return 1
+        # except Exception as e:
+        #     self.utils.print_info(e)
+        #     return -1
         """
         - Sets the self.dut_platform with platform
         - Keyword Usage:
@@ -92,11 +108,22 @@ class Cli(object):
             self.utils.print_info("SSH Port:", port)
             return self.open_pxssh_spawn(ip, username, password, _port=int(port))
 
-    def open_spawn(self, ip, port, username, password, platform):
+    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh'):
         """
         - This Keyword used to access device/host Prompt Using IP Address,port number, username,password and Platform
+        # Device type:
+            - VOSS
+            - EXOS
+            - WING-AP
+            - AH-FASTPATH
+            - AH-AP
+        # Endsystem:
+            - MU-WINDOWS
+            - MU-MAC
+            - MU-LINUX
+            - A3
         - Keyword Usage:
-         - ``Open Spawn     ${IP}   ${PORT}  ${USERNAME}  ${PASSWORD}   ${PLATFORM}``
+         - ``Open Spawn     ${IP}   ${PORT}  ${USERNAME}  ${PASSWORD}   ${cli_type}``
 
         :param ip: Device IP address
         :param port: port number for spawn access
@@ -111,344 +138,355 @@ class Cli(object):
         self.utils.print_info("PORT: ", port)
         self.utils.print_info("Username: ", username)
         self.utils.print_info("Password: ", password)
-        self.utils.print_info("Platform: ", platform)
+        self.utils.print_info("Cli Type: ", cli_type)
         self.utils.print_info("=================================")
 
-        _out = -1
-        ssh = False
-        if port == '-1':
-            return -9
+        # Generate UUID
+        device_uuid = str(uuid.uuid4()) + "_" + cli_type
+        if cli_type.upper() in self.net_element_types:
+            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)
+        elif cli_type.upper() in self.end_system_types:
+            self.endsystemConnectionManager.connect_to_endsystem_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)
+        # The calls to the connect_to_<device> will check the cli_type to ensure that the correct type value was passed in and will error out in the case that
+        # an unknown value was passed in.
+        return device_uuid
 
-        self.set_platform(platform)
-        self.utils.print_info("Pinging the IP : ", ip)
 
-        # try to ping to destination
-        p_count = 0
-        while p_count < 3:
-            _cmd = "ping -c 2 %s" % str(ip)
-            #self.utils.print_info("CMD: ", _cmd)
-            _out =subprocess.check_output([_cmd], shell = True)
-            if " 0% packet loss" in str(_out):
-                break
-            p_count += 1
-
-        if " 0.0% packet loss"  or " 0% packet loss"in str(_out):
-            self.utils.print_info("Ping received successfully...")
-        else:
-            self.utils.print_info("Unable to reach the DUT/MU")
-            return -1
-
-        conn_str = 'telnet ' + ip + " " + str(port)
-        if (str(port) == '22') or (str(port) == '8554'):
-            self.utils.print_info("Opening SSH Spawn...")
-            conn_str = 'ssh ' + username + "@" + ip + " -p " + str(port) + " -o StrictHostKeyChecking=no"
-            self.utils.print_info("SSH conn_str: ", conn_str)
-            ssh = True
-            self.ssh = True
-        password_default = "admin123"
-        password_cloud_default = "symbol123"
-
-        if platform == "win":
-            return self.open_windows_spawn(conn_str, username, password)
-
-        elif platform == "linux":
-            retry_count = 0
-            spawn = pexpect.spawnu(conn_str)
-            spawn.logfile = sys.stdout
-            self.utils.print_info("Connecting to Linux Host")
-
-            while retry_count < 10:
-                self.utils.print_info("Loop: ", retry_count)
-                i = spawn.expect(['login:',
-                                  'assword:',
-                                  'yes/no',
-                                  '#',
-                                  'Login incorrect',
-                                  '>',
-                                  pexpect.TIMEOUT,
-                                  pexpect.EOF], timeout=90)
-                if i == 0:
-                    self.utils.print_info("Sending Username: ", username)
-                    spawn.sendline(username)
-                    time.sleep(2)
-                    spawn.expect('assword:', timeout=30)
-                    time.sleep(2)
-                    spawn.sendline(password)
-                    time.sleep(10)
-                    j = spawn.expect('#', timeout=60)
-                    if j == 0:
-                        return spawn
-                    if j == 1:
-                        self.utils.print_info("Timeout Exiting...")
-                        continue
-
-                if i == 1:
-                    self.utils.print_info("SSH Detected...")
-                    spawn.sendline(password)
-                    time.sleep(5)
-                    j = spawn.expect(['#', '>'], timeout=60)
-                    if j == 0:
-                        self.utils.print_info("Got Prompt. Returning Spawn...")
-                        return spawn
-
-                    if j == 1:
-                        self.utils.print_info("Got Prompt. Returning Spawn...")
-                        return spawn
-
-                    if j == 2:
-                        self.utils.print_info("Timeout Exiting...")
-                        continue
-
-                if i == 2:
-                    time.sleep(1)
-                    spawn.sendline("yes")
-                    continue
-
-                if i == 3:
-                    time.sleep(1)
-                    return spawn
-
-                if i == 4:
-                    time.sleep(5)
-
-                if i == 5:
-                    time.sleep(5)
-
-                if i == 6:
-                    time.sleep(5)
-                    self.utils.print_info("pexpect.EOF, Retrying...")
-                    retry_count += 1
-                    continue
-
-                if i == 7:
-                    time.sleep(5)
-                    self.utils.print_info("Timeout, Retrying...")
-                    retry_count += 1
-                    continue
-
-                if retry_count == 10:
-                    self.utils.print_info("Unable To Access Device Console.There Is a Problem to access console port")
-                    self.screen.save_screen_shot()
-                    return -1
-
-        elif platform == "aerohive":
-            return self.open_aerohive_ap_spawn(ip, port, username, password, ssh, conn_str)
-
-        elif platform == "aerohive-switch":
-            return self.open_aerohive_switch_spawn(conn_str, username, password)
-
-        elif platform == "aerohive-fastpath":
-            return self.open_fastpath_switch_spawn(conn_str, username, password)
-
-        elif platform.lower() == "voss":
-            return self.open_voss_spawn(conn_str, username, password)
-
-        elif platform == 'wing':
-            return self.open_wing_ap_spawn(conn_str, username, password, ssh)
-
-        elif platform.lower() == "exos":
-            return self.open_exos_switch_spawn(conn_str, username, password, ssh)
-
-        elif platform == "xiqse":
-            return self.open_xiqse_spawn(conn_str, username, password)
-
-        else:
-            spawn = pexpect.spawn(conn_str, timeout=90)
-            retry_count = 0
-            self.utils.print_info("Connecting to Platform: ", platform)
-            while retry_count < 10:
-                self.utils.print_info("Loop : ", retry_count)
-                if platform == "identifi":
-                    spawn.logfile = sys.stdout
-                    spawn.sendline("\r")
-                else:
-                    spawn.sendline("\r")
-
-                """ pattern matches """
-                i = spawn.expect(['## Booting',
-                                  'Welcome.',
-                                  'Please press Enter to activate this console.',
-                                  'Login incorrect',
-                                  'login:',
-                                  ' #'
-                                  '#',
-                                  '\>',
-                                  pexpect.TIMEOUT], timeout=60)
-
-                if i == 0:
-                    retry_count += 1
-                    self.utils.print_info("Booting...")
-                    time.sleep(5)
-
-                elif i == 1:
-                    retry_count += 1
-                    self.utils.print_info("Got Welcome... DUT is still booting")
-                    time.sleep(10)
-
-                elif i == 2:
-                    retry_count += 1
-                    self.utils.print_info("Continue")
-
-                elif i == 3:
-                    retry_count += 1
-                    time.sleep(65)
-                    self.utils.print_info("Continue")
-
-                elif i == 4:
-                    retry_count += 1
-                    self.utils.print_info("Got login: prompt..")
-                    self.utils.print_info("Sending Username : ", username)
-                    spawn.sendline(username)
-                    spawn.expect("Password:")
-                    time.sleep(1)
-                    self.utils.print_info("Sending Password: ", password)
-                    if password == "none":
-                        self.utils.print_info("No Password. Sending a CR: ")
-                        spawn.sendline("\r")
-                    else:
-                        spawn.sendline(password)
-
-                    j = spawn.expect(["System is currently using the factory default login credentials",
-                                      "Login incorrect",
-                                      "\>",
-                                      "\#"
-                                      ], timeout=60)
-                    """ i = spawn.expect(["Enter new password:","Login incorrect", "failed", ], timeout=60) """
-                    if j == 0:
-                        self.utils.print_info("Sending Cloud Default Password : ", password_cloud_default)
-                        spawn.sendline(password_cloud_default)
-                        spawn.expect('Confirm new password:')
-
-                        self.utils.print_info("Confirming Cloud Default Password : ", password_cloud_default)
-                        spawn.sendline(password_cloud_default)
-                        spawn.expect('>')
-                        spawn.sendline('en')
-                        spawn.expect('#')
-                    if j == 1:
-                        spawn.sendline(username)
-                        spawn.expect("assword:")
-                        self.utils.print_info("Sending Factory Default Password : ", password_default)
-
-                        if password_default != -1:
-                            spawn.sendline(password_default)
-                        else:
-                            spawn.sendline(password)
-
-                        k = spawn.expect(["Enter new password:",
-                                          "Login incorrect", '>'])
-                        if k == 0:
-                            self.utils.print_info("Sending Cloud Default Password : ", password_cloud_default)
-                            spawn.sendline(password_cloud_default)
-                            spawn.expect('Confirm new password:')
-
-                            self.utils.print_info("Sending Cloud Default Password : ", password_cloud_default)
-                            spawn.sendline(password_cloud_default)
-                            spawn.expect('>')
-                            spawn.sendline('en')
-                            spawn.expect('#')
-                        if k == 1:
-                            self.utils.print_info("\n\nPlease try with valid login credentials...Exiting")
-                            return -2
-                        if k == 2:
-                            self.utils.print_info("\n\nDefault password got changed... Please check")
-                            exit(0)
-                    if j == 2:
-                        spawn.sendline('en')
-                        m = spawn.expect(["\#", "\:"], timeout=30)
-                        if m == 1:
-                            self.utils.print_info("Wrong > found.. Continuing..")
-                            password_default = -1
-                            continue
-                        if m == 0:
-                            self.utils.print_info("Found the prompt...")
-                            break
-                    if j == 3:
-                        pass
-
-                elif i == 6:
-                    retry_count += 1
-                    self.utils.print_info("Already Logged in")
-                    spawn.sendline('\r')
-
-                    spawn.sendline('show version')
-                    time.sleep(2)
-                    break
-
-                elif i == 5:
-                    pass
-
-                elif i == 7:
-                    spawn.sendline('en')
-                    n = spawn.expect(["\#", "\:"], timeout=30)
-                    if n == 1:
-                        self.utils.print_info("Wrong > found.. Continuing..")
-                        password_default = -1
-                        continue
-                    if n == 0:
-                        self.utils.print_info("Found the prompt...")
-                        break
-                elif i == 8:
-                    self.utils.print_info("Killing the Lantronix Port...")
-                    lantronix_ip = 'telnet ' + ip
-                    lspawn = pexpect.spawn(lantronix_ip)
-
-                    lspawn.logfile = sys.stdout
-                    retry_count = 0
-                    m = lspawn.expect(["ETS8P", "\>"], timeout=30)
-                    if m == 0:
-                        self.utils.print_info("OLD Lantronix")
-                        self.utils.print_info("Killing the tunnel on port : ", port)
-                        lspawn.sendline("su" + '\r')
-                        time.sleep(2)
-                        lspawn.expect(">")
-
-                        lspawn.sendline("su" + '\r')
-                        time.sleep(2)
-                        lspawn.expect(">")
-
-                        lspawn.sendline("system" + '\r')
-                        time.sleep(2)
-                        lspawn.expect(">>")
-
-                        lspawn.sendline("lo po " + str(int(port) % 2000) + '\r')
-                        time.sleep(2)
-                        lspawn.expect(">>")
-
-                        lspawn.close()
-                        retry_count = 0
-
-                    if m == 1:
-                        self.utils.print_info("NEW Lantronix")
-                        self.utils.print_info("Killing the tunnel on port : ", port)
-                        lspawn.sendline("enable" + '\r')
-                        time.sleep(2)
-                        lspawn.expect("#")
-
-                        lspawn.sendline("tunnel " + str(int(port) % 10000) + '\r')
-                        time.sleep(2)
-                        lspawn.expect("#")
-
-                        lspawn.sendline("accept" + '\r')
-                        time.sleep(2)
-                        lspawn.expect("#")
-
-                        lspawn.sendline("kill connection" + '\r')
-                        time.sleep(2)
-                        lspawn.expect("#")
-
-                        lspawn.close()
-
-                        self.utils.print_info("Re-opening the spawn")
-                        spawn = pexpect.spawn(conn_str)
-                        spawn.logfile = sys.stdout
-                        retry_count = 0
-                    continue
-                else:
-                    self.utils.print_info("Retrying...")
-                retry_count += 1
-
-        self.utils.print_info("Returning spawn...")
-        return spawn
+        # _out = -1
+        # ssh = False
+        # if port == '-1':
+        #     return -9
+        #
+        # self.set_platform(platform)
+        # self.utils.print_info("Pinging the IP : ", ip)
+        #
+        # # try to ping to destination
+        # p_count = 0
+        # while p_count < 3:
+        #     _cmd = "ping -c 2 %s" % str(ip)
+        #     #self.utils.print_info("CMD: ", _cmd)
+        #     _out =subprocess.check_output([_cmd], shell = True)
+        #     if " 0% packet loss" in str(_out):
+        #         break
+        #     p_count += 1
+        #
+        # if " 0.0% packet loss"  or " 0% packet loss"in str(_out):
+        #     self.utils.print_info("Ping received successfully...")
+        # else:
+        #     self.utils.print_info("Unable to reach the DUT/MU")
+        #     return -1
+        #
+        # conn_str = 'telnet ' + ip + " " + str(port)
+        # if (str(port) == '22') or (str(port) == '8554'):
+        #     self.utils.print_info("Opening SSH Spawn...")
+        #     conn_str = 'ssh ' + username + "@" + ip + " -p " + str(port) + " -o StrictHostKeyChecking=no"
+        #     self.utils.print_info("SSH conn_str: ", conn_str)
+        #     ssh = True
+        #     self.ssh = True
+        # password_default = "admin123"
+        # password_cloud_default = "symbol123"
+        #
+        # if platform == "win":
+        #     return self.open_windows_spawn(conn_str, username, password)
+        #
+        # elif platform == "linux":
+        #     retry_count = 0
+        #     spawn = pexpect.spawnu(conn_str)
+        #     spawn.logfile = sys.stdout
+        #     self.utils.print_info("Connecting to Linux Host")
+        #
+        #     while retry_count < 10:
+        #         self.utils.print_info("Loop: ", retry_count)
+        #         i = spawn.expect(['login:',
+        #                           'assword:',
+        #                           'yes/no',
+        #                           '#',
+        #                           'Login incorrect',
+        #                           '>',
+        #                           pexpect.TIMEOUT,
+        #                           pexpect.EOF], timeout=90)
+        #         if i == 0:
+        #             self.utils.print_info("Sending Username: ", username)
+        #             spawn.sendline(username)
+        #             time.sleep(2)
+        #             spawn.expect('assword:', timeout=30)
+        #             time.sleep(2)
+        #             spawn.sendline(password)
+        #             time.sleep(10)
+        #             j = spawn.expect('#', timeout=60)
+        #             if j == 0:
+        #                 return spawn
+        #             if j == 1:
+        #                 self.utils.print_info("Timeout Exiting...")
+        #                 continue
+        #
+        #         if i == 1:
+        #             self.utils.print_info("SSH Detected...")
+        #             spawn.sendline(password)
+        #             time.sleep(5)
+        #             j = spawn.expect(['#', '>'], timeout=60)
+        #             if j == 0:
+        #                 self.utils.print_info("Got Prompt. Returning Spawn...")
+        #                 return spawn
+        #
+        #             if j == 1:
+        #                 self.utils.print_info("Got Prompt. Returning Spawn...")
+        #                 return spawn
+        #
+        #             if j == 2:
+        #                 self.utils.print_info("Timeout Exiting...")
+        #                 continue
+        #
+        #         if i == 2:
+        #             time.sleep(1)
+        #             spawn.sendline("yes")
+        #             continue
+        #
+        #         if i == 3:
+        #             time.sleep(1)
+        #             return spawn
+        #
+        #         if i == 4:
+        #             time.sleep(5)
+        #
+        #         if i == 5:
+        #             time.sleep(5)
+        #
+        #         if i == 6:
+        #             time.sleep(5)
+        #             self.utils.print_info("pexpect.EOF, Retrying...")
+        #             retry_count += 1
+        #             continue
+        #
+        #         if i == 7:
+        #             time.sleep(5)
+        #             self.utils.print_info("Timeout, Retrying...")
+        #             retry_count += 1
+        #             continue
+        #
+        #         if retry_count == 10:
+        #             self.utils.print_info("Unable To Access Device Console.There Is a Problem to access console port")
+        #             self.screen.save_screen_shot()
+        #             return -1
+        #
+        # elif platform == "aerohive":
+        #     return self.open_aerohive_ap_spawn(ip, port, username, password, ssh, conn_str)
+        #
+        # elif platform == "aerohive-switch":
+        #     return self.open_aerohive_switch_spawn(conn_str, username, password)
+        #
+        # elif platform == "aerohive-fastpath":
+        #     return self.open_fastpath_switch_spawn(conn_str, username, password)
+        #
+        # elif platform.lower() == "voss":
+        #     return self.open_voss_spawn(conn_str, username, password)
+        #
+        # elif platform == 'wing':
+        #     return self.open_wing_ap_spawn(conn_str, username, password, ssh)
+        #
+        # elif platform.lower() == "exos":
+        #     return self.open_exos_switch_spawn(conn_str, username, password, ssh)
+        #
+        # elif platform == "xiqse":
+        #     return self.open_xiqse_spawn(conn_str, username, password)
+        #
+        # else:
+        #     spawn = pexpect.spawn(conn_str, timeout=90)
+        #     retry_count = 0
+        #     self.utils.print_info("Connecting to Platform: ", platform)
+        #     while retry_count < 10:
+        #         self.utils.print_info("Loop : ", retry_count)
+        #         if platform == "identifi":
+        #             spawn.logfile = sys.stdout
+        #             spawn.sendline("\r")
+        #         else:
+        #             spawn.sendline("\r")
+        #
+        #         """ pattern matches """
+        #         i = spawn.expect(['## Booting',
+        #                           'Welcome.',
+        #                           'Please press Enter to activate this console.',
+        #                           'Login incorrect',
+        #                           'login:',
+        #                           ' #'
+        #                           '#',
+        #                           '\>',
+        #                           pexpect.TIMEOUT], timeout=60)
+        #
+        #         if i == 0:
+        #             retry_count += 1
+        #             self.utils.print_info("Booting...")
+        #             time.sleep(5)
+        #
+        #         elif i == 1:
+        #             retry_count += 1
+        #             self.utils.print_info("Got Welcome... DUT is still booting")
+        #             time.sleep(10)
+        #
+        #         elif i == 2:
+        #             retry_count += 1
+        #             self.utils.print_info("Continue")
+        #
+        #         elif i == 3:
+        #             retry_count += 1
+        #             time.sleep(65)
+        #             self.utils.print_info("Continue")
+        #
+        #         elif i == 4:
+        #             retry_count += 1
+        #             self.utils.print_info("Got login: prompt..")
+        #             self.utils.print_info("Sending Username : ", username)
+        #             spawn.sendline(username)
+        #             spawn.expect("Password:")
+        #             time.sleep(1)
+        #             self.utils.print_info("Sending Password: ", password)
+        #             if password == "none":
+        #                 self.utils.print_info("No Password. Sending a CR: ")
+        #                 spawn.sendline("\r")
+        #             else:
+        #                 spawn.sendline(password)
+        #
+        #             j = spawn.expect(["System is currently using the factory default login credentials",
+        #                               "Login incorrect",
+        #                               "\>",
+        #                               "\#"
+        #                               ], timeout=60)
+        #             """ i = spawn.expect(["Enter new password:","Login incorrect", "failed", ], timeout=60) """
+        #             if j == 0:
+        #                 self.utils.print_info("Sending Cloud Default Password : ", password_cloud_default)
+        #                 spawn.sendline(password_cloud_default)
+        #                 spawn.expect('Confirm new password:')
+        #
+        #                 self.utils.print_info("Confirming Cloud Default Password : ", password_cloud_default)
+        #                 spawn.sendline(password_cloud_default)
+        #                 spawn.expect('>')
+        #                 spawn.sendline('en')
+        #                 spawn.expect('#')
+        #             if j == 1:
+        #                 spawn.sendline(username)
+        #                 spawn.expect("assword:")
+        #                 self.utils.print_info("Sending Factory Default Password : ", password_default)
+        #
+        #                 if password_default != -1:
+        #                     spawn.sendline(password_default)
+        #                 else:
+        #                     spawn.sendline(password)
+        #
+        #                 k = spawn.expect(["Enter new password:",
+        #                                   "Login incorrect", '>'])
+        #                 if k == 0:
+        #                     self.utils.print_info("Sending Cloud Default Password : ", password_cloud_default)
+        #                     spawn.sendline(password_cloud_default)
+        #                     spawn.expect('Confirm new password:')
+        #
+        #                     self.utils.print_info("Sending Cloud Default Password : ", password_cloud_default)
+        #                     spawn.sendline(password_cloud_default)
+        #                     spawn.expect('>')
+        #                     spawn.sendline('en')
+        #                     spawn.expect('#')
+        #                 if k == 1:
+        #                     self.utils.print_info("\n\nPlease try with valid login credentials...Exiting")
+        #                     return -2
+        #                 if k == 2:
+        #                     self.utils.print_info("\n\nDefault password got changed... Please check")
+        #                     exit(0)
+        #             if j == 2:
+        #                 spawn.sendline('en')
+        #                 m = spawn.expect(["\#", "\:"], timeout=30)
+        #                 if m == 1:
+        #                     self.utils.print_info("Wrong > found.. Continuing..")
+        #                     password_default = -1
+        #                     continue
+        #                 if m == 0:
+        #                     self.utils.print_info("Found the prompt...")
+        #                     break
+        #             if j == 3:
+        #                 pass
+        #
+        #         elif i == 6:
+        #             retry_count += 1
+        #             self.utils.print_info("Already Logged in")
+        #             spawn.sendline('\r')
+        #
+        #             spawn.sendline('show version')
+        #             time.sleep(2)
+        #             break
+        #
+        #         elif i == 5:
+        #             pass
+        #
+        #         elif i == 7:
+        #             spawn.sendline('en')
+        #             n = spawn.expect(["\#", "\:"], timeout=30)
+        #             if n == 1:
+        #                 self.utils.print_info("Wrong > found.. Continuing..")
+        #                 password_default = -1
+        #                 continue
+        #             if n == 0:
+        #                 self.utils.print_info("Found the prompt...")
+        #                 break
+        #         elif i == 8:
+        #             self.utils.print_info("Killing the Lantronix Port...")
+        #             lantronix_ip = 'telnet ' + ip
+        #             lspawn = pexpect.spawn(lantronix_ip)
+        #
+        #             lspawn.logfile = sys.stdout
+        #             retry_count = 0
+        #             m = lspawn.expect(["ETS8P", "\>"], timeout=30)
+        #             if m == 0:
+        #                 self.utils.print_info("OLD Lantronix")
+        #                 self.utils.print_info("Killing the tunnel on port : ", port)
+        #                 lspawn.sendline("su" + '\r')
+        #                 time.sleep(2)
+        #                 lspawn.expect(">")
+        #
+        #                 lspawn.sendline("su" + '\r')
+        #                 time.sleep(2)
+        #                 lspawn.expect(">")
+        #
+        #                 lspawn.sendline("system" + '\r')
+        #                 time.sleep(2)
+        #                 lspawn.expect(">>")
+        #
+        #                 lspawn.sendline("lo po " + str(int(port) % 2000) + '\r')
+        #                 time.sleep(2)
+        #                 lspawn.expect(">>")
+        #
+        #                 lspawn.close()
+        #                 retry_count = 0
+        #
+        #             if m == 1:
+        #                 self.utils.print_info("NEW Lantronix")
+        #                 self.utils.print_info("Killing the tunnel on port : ", port)
+        #                 lspawn.sendline("enable" + '\r')
+        #                 time.sleep(2)
+        #                 lspawn.expect("#")
+        #
+        #                 lspawn.sendline("tunnel " + str(int(port) % 10000) + '\r')
+        #                 time.sleep(2)
+        #                 lspawn.expect("#")
+        #
+        #                 lspawn.sendline("accept" + '\r')
+        #                 time.sleep(2)
+        #                 lspawn.expect("#")
+        #
+        #                 lspawn.sendline("kill connection" + '\r')
+        #                 time.sleep(2)
+        #                 lspawn.expect("#")
+        #
+        #                 lspawn.close()
+        #
+        #                 self.utils.print_info("Re-opening the spawn")
+        #                 spawn = pexpect.spawn(conn_str)
+        #                 spawn.logfile = sys.stdout
+        #                 retry_count = 0
+        #             continue
+        #         else:
+        #             self.utils.print_info("Retrying...")
+        #         retry_count += 1
+        #
+        # self.utils.print_info("Returning spawn...")
+        # return spawn
 
     def open_aerohive_switch_spawn(self, conn_str, username, password):
         """
@@ -930,7 +968,7 @@ class Cli(object):
             self.close_spawn(_spawn)
             return output
 
-    def send(self, spawn, line, expect_match="default", time_out="default", platform="default"):
+    def send(self, spawn, line, expect_match="default", time_out="default", platform="default", **kwargs):
         """
         - This Keyword used to send CLI command to AP1 of Topology used to configure or Monitor
         - Default timeout is 90 seconds
@@ -941,93 +979,138 @@ class Cli(object):
         :param line: CLI command to be execute
         :param expect_match: Expected Prompt Match
         :param time_out: Timeout value
-        :param platform: Device/Host Platform
+        :param platform: Device/Host Platform (Not needed anymore)
+        Optional Arguments (kwargs):
+        :param wait_for_prompt: If set to True, keyword will move on without waiting for the device prompt to return. This is often used in cli commands that have follow-up questions or outputs that do not contain the prompt. Default is False.
+        :param check_initial_prompt: If set to False, keyword will not check for prompt before issuing a command to agent. Default is True.
+        :param expect_error: This will cause a keyword to fail unless an error is seen in the commands output. This is disabled by default.
+        :param wait_for and interval: This function executes a wait for validation. It checks the result of the passed parse function every (The time in seconds between each status check of the keyword function) until it matches the expected result or <max_wait> seconds have passed.
+        :param max_wait: The amount of time in seconds the keyword should wait before it is considered a failure.
+        :param ignore_error: This adds errors to the devices error checker to ignore for the given keyword.
+        :param ignore_cli_feedback: If set to True CLI feedback is ignored. This is set to False by default. This will ignore any errors that may be returned from running this keyword. This could be used to make sure the device is in a clean state before a test will begin. In some cases the keyword would execute with and without errors but the user doesn't want to report on the errors that may be returned.
+        :param prompt:  This accepts a prompt constant (which can be found in NetworkElementConstants).
+                        It tells the device which prompt it should sent the command from.
+        :param prompt_args:  This accepts either a string or list of strings which should contain
+                             any arguments required by the prompt handler to change prompt.
+        :param confirmation_phrases:  This accepts either a string or list of strings which contain any
+                                      outputs that require a response.
+        :param confirmation_args:  This accepts a string or list of strings to send in response to the
+                                   received confirmation phrase.
         :return: CLI Command Output
         """
-        if spawn == -9:
-            return -9
 
+        # Speical prompts
         prompt = "#"
         if platform == 'adsp':
-            prompt = "$"
+            kwargs['prompt'] = "$"
             self.utils.print_info("Prompt set to $")
         if platform == "win":
-            prompt = ">"
+            kwargs['prompt'] = ">"
             self.utils.print_info("Prompt set to >")
         if platform == 'xiqse':
-            prompt = "$"
+            kwargs['prompt'] = "$"
             self.utils.print_info("Prompt set to $")
 
-        if spawn == -1:
-           self.utils.print_info("Device Spawn is not Opened Successfully. So Unable to Send Command.")
-           return -1
-
-
-        self.utils.print_info("Sending Command : " + "\n======================================\n" + line)
-        if expect_match == "default":
-            self.utils.print_debug("Expected Match: default")
-            line = line.strip()
-            spawn.sendline(line)
-            # self.utils.print_info("----------------")
-            # self.utils.print_info(spawn.before + spawn.after)
-            # self.utils.print_info("----------------")
-            if self.dut_platform == "win":
-                spawn.sendline("\r\n")
-                prompt = ">"
-                self.utils.print_info("Prompt set to >")
-
-            time.sleep(5)
-            output1 = ""
-            output2 = spawn.read_nonblocking(size=10000)
-            if line == "exit":
-                return output1 + output2
-
-            if time_out == "default":
-                self.utils.print_debug("Time Out: default")
-                retry_count = 0
-                while retry_count < 6:
-                    self.utils.print_info("Loop: ", retry_count)
-                    spawn.sendline("\r")
-                    i = spawn.expect([prompt, pexpect.EOF, pexpect.TIMEOUT], timeout=90)
-                    if i == 0:
-                        self.utils.print_info("Breaking the Loop")
-                        break
-                    if i == 2:
-                        output = str(spawn.before) + str(spawn.after)
-                        self.utils.print_info("OUTPUT : ", output)
-                        self.utils.print_info("Timeout... Retrying")
-                        time.sleep(5)
-                    if i == 3:
-                        break
-                    else:
-                        retry_count += 1
-            else:
-                self.utils.print_info("Expecting prompt in : ", int(time_out))
-                spawn.expect("#", timeout=int(time_out))
-                output1 = str(spawn.before) + str(spawn.after)
-        else:
-            spawn.sendline(line)
-            if platform == "win":
-                spawn.sendline("\r\n")
-            time.sleep(2)
-            output1 = ''
-            output2 = spawn.read_nonblocking(size=5000)
-            self.utils.print_info("EXPECTING MATCH : ", expect_match)
-            # if time_out == "default":
-            #    spawn.expect(expect_match)
-            # else:
-            #    spawn.expect(expect_match, timeout=int(time_out))
-            #    output1 = str(spawn.before) + str(spawn.after)
-
-        self.utils.print_info("OUTPUT :\n======================================")
-
+        # Args
+        output = ''
+        if expect_match != 'default':
+            kwargs['expect_error'] = True
+        if time_out != 'default':
+            kwargs['max_wait'] = time_out
+        result = self.networkElementCliSend.send_cmd(spawn, line, **kwargs)
         try:
-            cli_output = str(output1) + str(output2)
-            self.utils.print_info("", cli_output)
-            return cli_output
-        except TypeError:
-            self.utils.print_info("", str(output1))
-            self.utils.print_info("", str(output2))
+            output = str(result[0].return_text)
+        except Exception as e:
+            self.utils.print_info("Keyword had an error: " + str(e))
+        return output
+
+
+
+
+        # if spawn == -9:
+        #     return -9
+        #
+        # prompt = "#"
+        # if platform == 'adsp':
+        #     prompt = "$"
+        #     self.utils.print_info("Prompt set to $")
+        # if platform == "win":
+        #     prompt = ">"
+        #     self.utils.print_info("Prompt set to >")
+        # if platform == 'xiqse':
+        #     prompt = "$"
+        #     self.utils.print_info("Prompt set to $")
+        #
+        # if spawn == -1:
+        #    self.utils.print_info("Device Spawn is not Opened Successfully. So Unable to Send Command.")
+        #    return -1
+        #
+        #
+        # self.utils.print_info("Sending Command : " + "\n======================================\n" + line)
+        # if expect_match == "default":
+        #     self.utils.print_debug("Expected Match: default")
+        #     line = line.strip()
+        #     spawn.sendline(line)
+        #     # self.utils.print_info("----------------")
+        #     # self.utils.print_info(spawn.before + spawn.after)
+        #     # self.utils.print_info("----------------")
+        #     if self.dut_platform == "win":
+        #         spawn.sendline("\r\n")
+        #         prompt = ">"
+        #         self.utils.print_info("Prompt set to >")
+        #
+        #     time.sleep(5)
+        #     output1 = ""
+        #     output2 = spawn.read_nonblocking(size=10000)
+        #     if line == "exit":
+        #         return output1 + output2
+        #
+        #     if time_out == "default":
+        #         self.utils.print_debug("Time Out: default")
+        #         retry_count = 0
+        #         while retry_count < 6:
+        #             self.utils.print_info("Loop: ", retry_count)
+        #             spawn.sendline("\r")
+        #             i = spawn.expect([prompt, pexpect.EOF, pexpect.TIMEOUT], timeout=90)
+        #             if i == 0:
+        #                 self.utils.print_info("Breaking the Loop")
+        #                 break
+        #             if i == 2:
+        #                 output = str(spawn.before) + str(spawn.after)
+        #                 self.utils.print_info("OUTPUT : ", output)
+        #                 self.utils.print_info("Timeout... Retrying")
+        #                 time.sleep(5)
+        #             if i == 3:
+        #                 break
+        #             else:
+        #                 retry_count += 1
+        #     else:
+        #         self.utils.print_info("Expecting prompt in : ", int(time_out))
+        #         spawn.expect("#", timeout=int(time_out))
+        #         output1 = str(spawn.before) + str(spawn.after)
+        # else:
+        #     spawn.sendline(line)
+        #     if platform == "win":
+        #         spawn.sendline("\r\n")
+        #     time.sleep(2)
+        #     output1 = ''
+        #     output2 = spawn.read_nonblocking(size=5000)
+        #     self.utils.print_info("EXPECTING MATCH : ", expect_match)
+        #     # if time_out == "default":
+        #     #    spawn.expect(expect_match)
+        #     # else:
+        #     #    spawn.expect(expect_match, timeout=int(time_out))
+        #     #    output1 = str(spawn.before) + str(spawn.after)
+        #
+        # self.utils.print_info("OUTPUT :\n======================================")
+        #
+        # try:
+        #     cli_output = str(output1) + str(output2)
+        #     self.utils.print_info("", cli_output)
+        #     return cli_output
+        # except TypeError:
+        #     self.utils.print_info("", str(output1))
+        #     self.utils.print_info("", str(output2))
 
     def ping_from(self, destination, count=3):
         """

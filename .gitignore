@@ -24,3 +24,8 @@ venv
 *.libspecs
 /.pytest_cache/
 /PytestPlugins
+**report.html**
+**log.html**
+**output.xml**
+**allure_output**
+

@@ -107,7 +107,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_user = netelem_dict[netelem_name]["netelem_user"]
                 netelem_pass = netelem_dict[netelem_name]["netelem_pass"]
                 netelem_con_method = netelem_dict[netelem_name]["netelem_con_method"]
-                netelem_os = netelem_dict[netelem_name]["netelem_os"]
+                netelem_cli_type = netelem_dict[netelem_name]["netelem_cli_type"]
                 netelem_port = netelem_dict[netelem_name]["netelem_port"]
                 netelem_platform = netelem_dict[netelem_name]["netelem_platform"]
                 netelem_version = netelem_dict[netelem_name]["netelem_version"]
@@ -119,7 +119,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 verify_cert = netelem_dict[netelem_name]["verify_cert"]
 
                 self.connect_to_network_element(netelem_name, netelem_ip, netelem_user, netelem_pass,
-                                                netelem_con_method, netelem_os, netelem_port, netelem_platform,
+                                                netelem_con_method, netelem_cli_type, netelem_port, netelem_platform,
                                                 netelem_version, netelem_unit, netelem_console_ip=netelem_console_ip,
                                                 netelem_console_port=netelem_console_port, snmp_info=snmp_info,
                                                 auth_mode=auth_mode, verify_cert=verify_cert, **kwargs)
@@ -138,7 +138,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             netelem_user = netelem_dict[device_name]["netelem_user"]
             netelem_pass = netelem_dict[device_name]["netelem_pass"]
             netelem_con_method = netelem_dict[device_name]["netelem_con_method"]
-            netelem_os = netelem_dict[device_name]["netelem_os"]
+            netelem_cli_type = netelem_dict[device_name]["netelem_cli_type"]
             netelem_port = netelem_dict[device_name]["netelem_port"]
             netelem_platform = netelem_dict[device_name]["netelem_platform"]
             netelem_version = netelem_dict[device_name]["netelem_version"]
@@ -170,7 +170,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_user = netelem_dict[netelem_name]["netelem_user"]
                 netelem_pass = netelem_dict[netelem_name]["netelem_pass"]
                 netelem_con_method = netelem_dict[netelem_name]["netelem_con_method"]
-                netelem_os = netelem_dict[netelem_name]["netelem_os"]
+                netelem_cli_type = netelem_dict[netelem_name]["netelem_cli_type"]
                 netelem_port = netelem_dict[netelem_name]["netelem_port"]
                 netelem_platform = netelem_dict[netelem_name]["netelem_platform"]
                 netelem_version = netelem_dict[netelem_name]["netelem_version"]
@@ -376,9 +376,15 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         netelems = NetworkElementUtils.get_device_names_from_variables(variables, "netelem")
         # We consider AP as an netelem
         ap = NetworkElementUtils.get_device_names_from_variables(variables, "ap")
+        # We consider aerohive_sw as an netelem
+        aerohive_sw = NetworkElementUtils.get_device_names_from_variables(variables, "aerohive_sw")
+        # We consider router as an netelem
+        router = NetworkElementUtils.get_device_names_from_variables(variables, "router")
 
         # Add the results together
         netelems.extend(ap)
+        netelems.extend(aerohive_sw)
+        netelems.extend(router)
         netelem_dict = {}
         for netelem in netelems:
             netelem_id = netelem
@@ -397,7 +403,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_user = variables[netelem]["username"]
                 netelem_pass = variables[netelem]["password"]
                 netelem_con_method = variables[netelem]["connection_method"]
-                netelem_os = variables[netelem]["os"]
+                netelem_cli_type = variables[netelem]["cli_type"]
                 netelem_port = variables[netelem]["port"]
             except KeyError:
                 if netelem_name is None:
@@ -415,8 +421,8 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 if netelem_con_method is None:
                     self.logger.log_error("${" + netelem + ".connection_method} variable not present in testbed " +
                                           "resource file.")
-                if netelem_os is None:
-                    self.logger.log_error("${" + netelem + ".os} variable not present in testbed resource file.")
+                if netelem_cli_type is None:
+                    self.logger.log_error("${" + netelem + ".cli_type} variable not present in testbed resource file.")
 
             netelem_console_ip = variables[netelem]["console_ip"] if "console_ip" in variables[netelem] else None
             netelem_console_port = variables[netelem]["console_port"] if "console_port" in variables[netelem] else None
@@ -458,7 +464,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                                           "netelem_pass": netelem_pass,
                                           "netelem_con_method": netelem_con_method,
                                           "netelem_port": netelem_port,
-                                          "netelem_os": netelem_os,
+                                          "netelem_cli_type": netelem_cli_type,
                                           "netelem_platform": netelem_platform,
                                           "netelem_version": netelem_version,
                                           "netelem_unit": netelem_unit,
