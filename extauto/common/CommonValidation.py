@@ -28,7 +28,7 @@ class CommonValidation():
         Description: Validate the input values for framework
         
         kwargs:
-            IRV = Internal Result verification flag, will be set to false by default
+            IRV = Internal Result verification flag, will be set to true by default
             fail_msg = The message to print on failure
             pass_msg = The message to print on success
             ignore_cli_feedback = which ignores any errors or output from the keyword
