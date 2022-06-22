@@ -8,7 +8,7 @@ from pathlib import Path
 from robot.api.parsing import ModelVisitor
 import glob
 
-qTestMarker  = re.compile(r'TC[A-Z]{0,3}[\-_][0-9]+', flags=re.IGNORECASE)
+qtest_marker_re  = re.compile(r'TC[A-Z]{0,3}[\-_][0-9]+', flags=re.IGNORECASE)
 fallback_testbed_names = ['testbed_1_node', 'testbed_2_node', 'testbed_3_node', 'testbed_4_node', 'testbed_5_node', 'testbed_adsp', 'testbed_none', 'testbed_not_required']
 reserved_tags_re = re.compile(r'production|regression|nightly|sanity|p[1-5]')
 PYTESTINI_PATH = 'pytest.ini'
@@ -101,15 +101,18 @@ class RobotTestData(ModelVisitor):
             nameOK = True if goodCaseName.match(test_name) else False
             dev_exists = True if 'development' in self.tests[test_name]['tags'] else False
 
-            qTestOK = False
+            qtest_tags = []
+            qtest_pass = False
             uppercase_check = True    # True = all tags lowercase, False = atleast one tag with uppercase letters
             reserved_tags_check = False  # True = atleast one reserved tag found, False = no reserved tags used
             testbed_tag_exists = False
             for tag in self.tests[test_name]['tags']:
                 if tag in self.testbed_tags:
                     testbed_tag_exists = True
-                if qTestMarker.match(tag):
-                    qTestOK = True
+                qtest_match = qtest_marker_re.fullmatch(tag)
+                if qtest_match:
+                    qtest_tags.append(qtest_match[0])
+                    qtest_pass = True
                 if not tag.islower():
                     uppercase_check = False
                 if reserved_tags_re.fullmatch(tag):
@@ -118,7 +121,8 @@ class RobotTestData(ModelVisitor):
             testcase_info = {
                 "all_tags_lower_case": uppercase_check,
                 "contains_development": dev_exists,
-                "valid_qtest_tag": qTestOK,
+                "valid_qtest_tag": qtest_pass,
+                "qtest_tags": qtest_tags,
                 "valid_test_name": nameOK,
                 "contains_testbed_tag": testbed_tag_exists,
                 "contains_reserved_tag": reserved_tags_check,
@@ -135,7 +139,7 @@ class RobotTestData(ModelVisitor):
 
     def addTag(self, inTag):
         # filter qTest tags
-        if qTestMarker.search(inTag):
+        if qtest_marker_re.search(inTag):
             self.qTestTags.add(inTag)
         # add tag to set
         self.tags[self.suite_file].add(inTag)
@@ -170,7 +174,8 @@ class PytestItems():
                 ignore_markers = re.compile(r"true|false|[0-9]+\-[0-9]+|TRUE|FALSE|True|False|pytestmark|parametrize")
 
                 # make list of user created markers
-                qTestOK = False
+                qtest_tags = []
+                qtest_pass = False
                 uppercase_check = True    # True = all tags lowercase, False = atleast one tag with uppercase letters
                 reserved_tags_check = False  # True = atleast one reserved tag found, False = no reserved tags used
                 testbed_tag_exists = False
@@ -184,8 +189,10 @@ class PytestItems():
                             if marker.endswith('node'):
                                 caseNodes = int(marker.split('_')[1])
                             testbed_tag_exists = True
-                        if qTestMarker.match(marker):
-                            qTestOK = True
+                        qtest_match = qtest_marker_re.fullmatch(marker)
+                        if qtest_match:
+                            qtest_tags.append(qtest_match[0])
+                            qtest_pass = True
                         if not marker.islower():
                             uppercase_check = False
                         if reserved_tags_re.fullmatch(marker):
@@ -200,7 +207,8 @@ class PytestItems():
                 testcase_info = {
                     "all_tags_lower_case": uppercase_check,
                     "contains_development": dev_exists,
-                    "valid_qtest_tag": qTestOK,
+                    "valid_qtest_tag": qtest_pass,
+                    "qtest_tags": qtest_tags,
                     "valid_test_name": nameOK,
                     "contains_testbed_tag": testbed_tag_exists,
                     "contains_reserved_tag": reserved_tags_check,

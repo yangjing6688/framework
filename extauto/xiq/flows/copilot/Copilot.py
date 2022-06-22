@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.CopilotWebElements import CopilotWebElements
 import re
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Copilot(CopilotWebElements):
@@ -16,6 +17,7 @@ class Copilot(CopilotWebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
     def get_wifi_capacity_widget_summary(self):
         """
@@ -1430,6 +1432,44 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Devices by OS: ", devices_by_os)
         return devices_by_os
 
+    def get_devices_by_os_iqagent_notes(self):
+        """
+        - Returns Get Devices By OS as a dictionary
+        - Flow : Copilot page -->  Get Devices By OS
+        - Keyword Usage
+         - ``Get Devices By OS``
+        :return: Returns Get Devices By OS as a dictionary, -1 in case of any errors
+        """
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.print_info("Getting Devices By OS")
+        sleep(25)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        widget = self.get_devices_by_os_widget()
+        self.screen.save_screen_shot()
+
+        sleep(2)
+        self.auto_actions.click(self.get_devices_by_os_iqagent())
+        parent_window = CloudDriver().cloud_driver.window_handles[0]
+        child_window = CloudDriver().cloud_driver.window_handles[1]
+
+        self.utils.print_info("Switch To New Tab")
+        CloudDriver().cloud_driver.switch_to.window(child_window)
+        self.screen.save_screen_shot()
+        loaded_doc_title = CloudDriver().cloud_driver
+        sleep(15)
+        if "Learning What's New" in loaded_doc_title.title:
+            self.utils.print_info(f"IQ ENGINE RELEASE NOTES page loaded successfully ")
+            return 1
+        else:
+            self.utils.print_info(f"IQ ENGINE RELEASE NOTES page not loaded successfully ")
+            return -1
+        CloudDriver().cloud_driver.close()
+        self.utils.print_info("Closing the browser")
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+
     def get_devices_by_type(self):
         """
         - Returns Get Devices By Type as a dictionary
@@ -2494,3 +2534,229 @@ class Copilot(CopilotWebElements):
             self.utils.print_info(e)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return adverse_traffic_patterns_summary, buildings, aps
+
+    def click_wifi_capacity_anomaly_location_row(self, location_name,**kwargs):
+
+        """
+        - This Keyword will click the Location (location name) displaying the list of APs
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
+        - Keyword Usage:
+         - ``Click Wifi Capacity Anomaly Location Row ${LOCATION_NAME}``
+
+        :param location_name: Location name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        return_value = self.display_wifi_capacity_anomaly_ap_rows(location_name,**kwargs)
+        return return_value
+
+    def wifi_capacity_anomaly_ap_individual_details(self, location_name, ap_name):
+
+        """
+        - This Keyword will get details of issue and recommended actions from individual aps APs
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
+        - Keyword Usage:
+        - ``Wifi Capacity Anomaly Ap Individual Details``
+
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        self.click_wifi_capacity_anomaly_location_row(location_name)
+        self.click_wifi_capacity_anomaly_ap_row(ap_name)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        issue_details = self.get_wifi_capacity_anomaly_ap_issue_details()
+        recommended_actions_details = self.get_wifi_capacity_anomaly_ap_recommended_actions_details()
+        if issue_details and recommended_actions_details:
+            self.utils.print_info("Issue :", issue_details.text)
+            self.utils.print_info("Recommended Actions :", recommended_actions_details.text)
+            return issue_details.text,recommended_actions_details.text
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        else:
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
+
+    def display_wifi_capacity_anomaly_ap_rows(self, location_name,**kwargs):
+
+        """
+        - This Keyword will click the Location (location name) displaying the list of APs
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
+        - Keyword Usage:
+         - ``Display Wifi Capacity Anomaly Ap Rows  ${LOCATION_NAME}``
+
+        :param location_name: Location name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        return_value = -1
+        searching_for_location_row = -1
+        fail_message = ""
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(5)
+        wifi_cap_widget =  self.get_wifi_capacity_widget()
+        if not wifi_cap_widget:
+            self.utils.print_info("Unable to get WIFI capacty widget")
+            fail_message = "Unable to get WIFI capacty widget"
+            self.common_validation.validate(-1, 1, **kwargs)
+        else:
+            location_rows = self.get_wifi_capacity_widget_location_grid_rows_from_widget(wifi_cap_widget)
+            if not location_rows:
+                self.utils.print_info("Unable to get rows from widget")
+                fail_message = "Unable to get rows from widget"
+                self.common_validation.validate(-1, 1, **kwargs)
+            else:
+                self.utils.print_info("Searching for loacation : " + location_name)
+                searching_for_location_row = 1
+                for row in location_rows:
+                    self.utils.print_info("Current location :" + row.text)
+                    if location_name in row.text:
+                        self.utils.print_info("Location : " + location_name + " found")
+                        self.utils.print_info("Clicking on row")
+                        self.auto_actions.click(row)
+                        sleep(4)
+                        return_value = 1
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        if return_value == -1:
+            if searching_for_location_row == 1:
+                fail_message = "Unable to find location : " + location_name
+                self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.validate(-1, 1, **kwargs)
+        else:
+            kwargs['pass_msg'] = "Location successfully clicked to display AP list"
+            self.common_validation.validate(1, 1, **kwargs)
+        return return_value
+
+    def click_wifi_capacity_anomaly_ap_row(self, ap_name, **kwargs):
+
+        """
+        - This Keyword will click the AP (ap name) based on the list of APs under a Location
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and click it
+        - Keyword Usage:
+         - ``Click Wifi Capacity Anomaly Ap Row {$AP_NAME}``
+
+        :param ap_name: Ap name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.utils.print_info("Attempting to gather all APs from loacation" )
+        internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
+        if not internal_rows:
+            self.utils.print_info("Unable to get APs from location")
+            kwargs['fail_msg'] = "Unable to get APs from location"
+            self.common_validation.validate(-1, 1, **kwargs)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
+        else:
+            self.utils.print_info("Searching for AP : " + ap_name)
+            for ap_row in internal_rows:
+                self.utils.print_info("Current AP :" + ap_row.text)
+                if ap_name in ap_row.text:
+                    self.utils.print_info("AP name : " + ap_name + " found")
+                    self.utils.print_info("Clicking on row")
+                    self.auto_actions.click(ap_row)
+                    kwargs['pass_msg'] = "Successfully clicked on AP : " + ap_name
+                    self.common_validation.validate(1, 1, **kwargs)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
+                    return  1
+        self.utils.print_info("Unable to find AP : " + ap_name)
+        kwargs['fail_msg'] = "Unable to find AP : " + ap_name
+        self.common_validation.validate(-1, 1, **kwargs)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        return -1
+
+    def is_wifi_capacity_anomaly_ap_i_icon_present(self, ap_name, **kwargs):
+
+        """
+        - This Keyword will check to see if the i icon is present on  the AP (ap name) row
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and see if the i icon is present
+        - Keyword Usage:
+         - ``Is Wifi Capacity Anomaly Ap i ICON Present {$AP_NAME}``
+
+        :param ap_name: Ap name
+        :return: 1 if Icon is present else return -1
+        """
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.utils.print_info("Attempting to gather all APs from loacation")
+        internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
+        if not internal_rows:
+            self.utils.print_info("Unable to get APs from location")
+            kwargs['fail_msg'] = "Unable to get APs from location"
+            self.common_validation.validate(-1, 1, **kwargs)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
+        for ap_row in internal_rows:
+            self.utils.print_info("Current location :" + ap_row.text)
+            if ap_name in ap_row.text:
+               self.utils.print_info("AP name : " + ap_name + " found")
+               self.utils.print_info("Checking for i ICON Presence")
+               if "info"  in ap_row.text:
+                  self.utils.print_info("i ICON Found in AP row")
+                  kwargs['pass_msg'] = "i ICON Found in AP row"
+                  self.common_validation.validate(1, 1, **kwargs)
+                  self.utils.switch_to_default(CloudDriver().cloud_driver)
+                  return 1
+               else:
+                  self.utils.print_info("i ICON NOT Found in AP row")
+                  kwargs['fail_msg'] = "i ICON NOT Found in AP row"
+                  self.common_validation.validate(-1, 1, **kwargs)
+                  self.utils.switch_to_default(CloudDriver().cloud_driver)
+                  return -1
+        self.utils.print_info("Unable to find AP : " + ap_name)
+        kwargs['fail_msg'] = "Unable to find AP : " + ap_name
+        self.common_validation.validate(-1, 1, **kwargs)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        return -1
+
+    def dislike_wifi_capacity_anomaly_location_ap(self, location_name, ap_name, feedback="Need improvement"):
+        """
+        - This Keyword will click dislike button in WiFi Capacity widget specific location and access point.
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click Dislike Button
+        - Keyword Usage:
+         - ``Dislike WiFi Capacity Anomaly Location AP   {LOCATION_NAME}   {AP_NAME}``
+         - ``Dislike WiFi Capacity Anomaly Location AP   {LOCATION_NAME}   {AP_NAME}  feedback={MSG}``
+
+        :return: 1 if successfully clicked Dislike Button for specific Location and ap the else return -1
+        """
+        self.utils.print_info("Getting Location Name rows on Wi-Fi capacity")
+        self.click_wifi_capacity_anomaly_location_row(location_name)
+        self.screen.save_screen_shot()
+
+        self.utils.print_info(f"Getting AP Name rows on Wi-Fi capacity Location {location_name}")
+        self.click_wifi_capacity_anomaly_ap_row(ap_name)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.screen.save_screen_shot()
+
+        self.utils.print_info(f"Clicking Dislike Button for the Location {location_name} and AP {ap_name}")
+        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_dislike())
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Entering feedback text")
+        self.auto_actions.send_keys(self.get_wifi_capacity_widget_location_ap_dislike_send_feedback_textfield(),
+                                    feedback)
+        self.screen.save_screen_shot()
+
+        self.utils.print_info(f"Clicking Dislike Feedback Button for the Location {location_name} and AP {ap_name}")
+        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_dislike_send_feedback_button())
+        self.screen.save_screen_shot()
+
+        tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip().text
+        self.utils.print_info("Tooltip Message displayed on UI is :", tooltip)
+        self.screen.save_screen_shot()
+
+        if "Feedback saved successfully" in tooltip:
+            if self.get_wifi_capacity_widget_location_ap_dislike_button_enabled_status():
+                self.utils.print_info(f"successfully Disliked the Wi-Fi capacity widget location {location_name} "
+                                      f"for the ap {ap_name}")
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                return 1
+            else:
+                self.utils.print_info(f"Dislike button is not clicked successfully")
+                return -1
+        else:
+
+            self.utils.print_info(f"Unable to click Dislike button for the Wi-Fi capacity widget location "
+                                  f"{location_name} with ap {ap_name}")
+            return -1
