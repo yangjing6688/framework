@@ -9545,7 +9545,7 @@ class Devices:
                 n_time = n_time + 1
                 search_string = [value for value in [device_serial, device_mac, device_name] if value][0]
                 update_status= self.get_device_details(search_string, 'UPDATED')
-                self.utils.print_error(f"updated status...," + str(update_status))
+                self.utils.print_info(f"updated status...," + str(update_status))
                 if (update_status == '') or (re.match(date_regex, update_status)):
                     self.utils.print_info("Device has finshed updating at {}".format(update_status))
                     complete = True
