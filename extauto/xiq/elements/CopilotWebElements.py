@@ -516,4 +516,3 @@ class CopilotWebElements(CopilotDefs):
 
     def get_wifi_capacity_widget_location_ap_dislike_button_enabled_status(self):
         return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike_button_enabled_status)
-    
