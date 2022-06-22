@@ -478,3 +478,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_aggregated_ports(self):
         return self.weh.get_template_element(self.aggregated_ports)
+
+    def get_port_in_agg(self):
+        return self.weh.get_template_elements(self.port_in_agg)

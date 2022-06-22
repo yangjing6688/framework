@@ -670,3 +670,9 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
             'wait_for': 5
         }
+
+    port_in_agg = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portsInAgg"]//option',
+            'wait_for': 5
+        }
