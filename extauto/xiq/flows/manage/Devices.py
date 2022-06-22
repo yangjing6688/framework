@@ -9555,7 +9555,7 @@ class Devices:
 
             if not complete:
                 kwargs['fail_msg'] = "Device has not finshed updating "
-                self.common_validation.validate(-1, 1, kwargs)
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
             return 1
