@@ -112,7 +112,7 @@ class Cli(object):
 
     def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh'):
         """
-        - This Keyword used to access device/host Prompt Using IP Address,port number, username,password and Platform
+        - This Keyword used to access device/host Prompt Using IP Address,port number, username,password and cli_type
         # Device type:
             - VOSS
             - EXOS
@@ -132,7 +132,8 @@ class Cli(object):
         :param port: port number for spawn access
         :param username: User Name for spawn access
         :param password: Password for spawn access
-        :param platform: Device/Host Platform ie Win,Linux,aerohive,wing etc
+        :param cli_type: Device Cli Type
+        :param connection_method: The connection type, will default to ssh. (ssh, telnet, console)
 
         :return: Device Prompt
         """
