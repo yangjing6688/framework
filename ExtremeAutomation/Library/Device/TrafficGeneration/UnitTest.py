@@ -848,7 +848,7 @@ class TestStringMethods(unittest.TestCase):
         print("Testing Telnet")
         # create a device
         dev = NetworkElement(NetworkElementConstants.OS_EXOS, NetworkElementConstants.PLATFORM_EXOS_BASE,
-                             NetworkElementConstants.UNIT_BASE, NetworkElementConstants.VERSION_BASE, NetworkElementConstants.VERSION_BASE, NetworkElementConstants.OS_EXOS)
+                             NetworkElementConstants.UNIT_BASE, NetworkElementConstants.VERSION_BASE)
         dev.hostname = ip_address  # this is the host that the current agent will use.
         dev.port = AgentConstants.TELNET_PORT  # this is the port that the current agent will use. no need to
         # set for telnet. defaults to 23.
