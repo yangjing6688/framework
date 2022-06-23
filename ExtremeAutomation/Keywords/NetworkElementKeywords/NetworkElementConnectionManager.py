@@ -20,7 +20,7 @@ logger.setLevel(logging.INFO)
 logging.basicConfig(format='[%(asctime)s] %(levelname)s: [%(filename)s %(name)s %(funcName)s (Line#%(lineno)d)]: %(message)s')
 
 class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
-    def connect_to_network_element(self, net_elem_name, ip, username, password, connection_method, device_os, port=None,
+    def connect_to_network_element(self, net_elem_name, ip, username, password, connection_method, device_cli_type, port=None,
                                    device_platform=None, device_version=None, device_unit=None, debug_password=None,
                                    max_wait="60", session_key="default", **kwargs):
         """
@@ -31,7 +31,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         [password] - The password needed to log into the device.
         [connection_method] - The protocol used to connect to the device. Current options are
                               "telnet", "ssh" and "json".
-        [device_os] - The OS of device that will be connected to.
+        [device_cli_type] - The Cli Type of device that will be connected to.
         [port] - The port used to connect to the device. If no port is provided the protocols default will be used.
         [device_platform] - The platform of the device being connected to.
         [device_version] - The version of FW that the device being connected to is running.
@@ -55,7 +55,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             ip = cons_ip
             port = cons_port
 
-        self.__base_connect_to_network_element(net_elem_name, ip, username, password, connection_method, device_os,
+        self.__base_connect_to_network_element(net_elem_name, ip, username, password, connection_method, device_cli_type,
                                                port, device_platform, device_version, device_unit, debug_password,
                                                **kwargs)
 
@@ -150,7 +150,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             verify_cert = netelem_dict[device_name]["verify_cert"]
 
             self.connect_to_network_element(device_name, netelem_ip, netelem_user, netelem_pass,
-                                            netelem_con_method, netelem_os, netelem_port, netelem_platform,
+                                            netelem_con_method, netelem_cli_type, netelem_port, netelem_platform,
                                             netelem_version, netelem_unit, netelem_console_ip=netelem_console_ip,
                                             netelem_console_port=netelem_console_port, snmp_info=snmp_info,
                                             auth_mode=auth_mode, verify_cert=verify_cert, **kwargs)

@@ -28,12 +28,12 @@ class DefaultTests:
         except Exception :
             cls.executionHelper.setSetupFailure(True)
 
-    @mark.p1  # Marked as a P1 test case
-    def test_01_log_all_generic_devices(self):
-        """ Log into All Device Types """
-        self.executionHelper.testSkipCheck()
-        self.defaultLibrary.apiUdks.setupTeardownUdks.Base_Test_Suite_Setup()
-        self.defaultLibrary.apiUdks.setupTeardownUdks.Base_Test_Suite_Cleanup()
+    # @mark.p1  # Marked as a P1 test case
+    # def test_01_log_all_generic_devices(self):
+    #     """ Log into All Device Types """
+    #     self.executionHelper.testSkipCheck()
+    #     self.defaultLibrary.apiUdks.setupTeardownUdks.Base_Test_Suite_Setup()
+    #     self.defaultLibrary.apiUdks.setupTeardownUdks.Base_Test_Suite_Cleanup()
 
     @mark.p1  # Marked as a P1 test case
     def test_02_log_into_exos(self):
@@ -46,6 +46,8 @@ class DefaultTests:
                                     self.tb.config.netelem1.cli_type)
         cmd_ret = self.cli.send(spawn, 'show version')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
@@ -59,6 +61,8 @@ class DefaultTests:
                                     self.tb.config.netelem2.cli_type)
         cmd_ret = self.cli.send(spawn, 'show sys-info uboot')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
@@ -72,6 +76,8 @@ class DefaultTests:
                                     self.tb.config.wing1.cli_type)
         cmd_ret = self.cli.send(spawn, 'show boot')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
@@ -85,6 +91,8 @@ class DefaultTests:
                                     self.tb.config.aerohive_sw1.cli_type)
         cmd_ret = self.cli.send(spawn, 'show sysinfo')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
@@ -99,6 +107,8 @@ class DefaultTests:
                                     connection_method = self.tb.config.router1.connection_method)
         cmd_ret = self.cli.send(spawn, 'show system disk-info')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
 
@@ -113,6 +123,8 @@ class DefaultTests:
                                     self.tb.config.ap1.cli_type)
         cmd_ret = self.cli.send(spawn, 'show version')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
@@ -126,6 +138,8 @@ class DefaultTests:
                                     self.tb.config.mu1.cli_type)
         cmd_ret = self.cli.send(spawn, 'dir')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
@@ -139,6 +153,8 @@ class DefaultTests:
                                     self.tb.config.mu2.cli_type)
         cmd_ret = self.cli.send(spawn, 'ls -al')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
@@ -152,5 +168,7 @@ class DefaultTests:
                                     self.tb.config.a3.cli_type)
         cmd_ret = self.cli.send(spawn, 'ls -al')
         print(cmd_ret)
+        except_error = self.cli.send(spawn, 'error commmand isssued', expect_error=True)
+        print(except_error)
         self.cli.close_spawn(spawn)
 
