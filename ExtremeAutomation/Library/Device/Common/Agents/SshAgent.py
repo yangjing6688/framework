@@ -71,7 +71,8 @@ class SshAgent(CliAgent):
                     client.read_channel()
                     client.set_base_prompt()
                     client.send_command("console page 0", strip_prompt=False, auto_find_prompt=False)
-                if self.device.oper_sys == NetworkElementConstants.OS_AHFASTPATH:
+                if self.device.oper_sys in [NetworkElementConstants.OS_AHFASTPATH,
+                                            NetworkElementConstants.OS_AHXR]:
                     # client._test_channel_read()  # Re-enable this if read_channel() doesn't work.
                     client.read_channel()
                     client.send_command("enable", strip_prompt=False, auto_find_prompt=False)

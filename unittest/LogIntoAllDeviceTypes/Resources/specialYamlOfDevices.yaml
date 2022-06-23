@@ -84,8 +84,8 @@ aerohive_sw1:
 router1:
   name:                     bui-flo-0393
   model:                    XR600P
-  connection_method:  "telnet"
-  cli_type:                 "AH-FASTPATH"
+  connection_method:        "console"
+  cli_type:                 "AH-XR"
   device_template:          XR600P_test_automation
   serial:                   "60018082400393"
   ip:                       10.16.171.37

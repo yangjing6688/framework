@@ -32,8 +32,8 @@ class Cli(object):
         self.networkElementCliSend = NetworkElementCliSend()
         self.endsystemConnectionManager = EndsystemConnectionManager()
 
-        self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP']
-        self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-MAC', 'A3']
+        self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP', 'AH-XR']
+        self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
 
     def close_spawn(self, spawn, **kwargs):
         """
@@ -49,6 +49,8 @@ class Cli(object):
             self.networkElementConnectionManager.close_connection_to_network_element(spawn)
         elif spawn.split('_')[1].upper() in self.end_system_types:
             self.endsystemConnectionManager.close_connection_to_endsystem_element(spawn)
+        else:
+            raise Exception("Cli_Type was not found, please use on of the following type: \n" + '\n'.join(self.net_element_types) + '\n' + '\n'.join(self.end_system_types))
 
 
 
@@ -147,6 +149,9 @@ class Cli(object):
             self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)
         elif cli_type.upper() in self.end_system_types:
             self.endsystemConnectionManager.connect_to_endsystem_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)
+        else:
+            raise Exception("Cli_Type was not found, please use on of the following type: \n" +  '\n'.join(
+                self.net_element_types) + '\n' + '\n'.join(self.end_system_types))
         # The calls to the connect_to_<device> will check the cli_type to ensure that the correct type value was passed in and will error out in the case that
         # an unknown value was passed in.
         return device_uuid

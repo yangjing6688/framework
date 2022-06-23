@@ -24,6 +24,7 @@ class NetworkElementConstants(Constants):
     OS_AHFASTPATH = 'AH-FASTPATH'    # AH Fastpath
     OS_WING = 'WING-AP'              # WING AP
     OS_AHAP = 'AH-AP'                # AEROHIVE Switch
+    OS_AHXR = 'AH-XR'                # XR Switch
 
     # Unit Constants
     UNIT_BASE = "baseunit"
@@ -50,6 +51,7 @@ class NetworkElementConstants(Constants):
     PLATFORM_AH_AP_BASE = "base"
     PLATFORM_AH_FASTPATH_BASE = "base"
     PLATFORM_WING_AP_BASE = "base"
+    PLATFORM_AH_XR_BASE = "base"
 
     # CLI Prompts
     PROMPT_FORCE_ROUTER_CONFIG = "forceRouterConfigPrompt"

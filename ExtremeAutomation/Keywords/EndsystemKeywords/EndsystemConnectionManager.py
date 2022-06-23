@@ -1,4 +1,5 @@
 import time
+from ExtremeAutomation.Library.Utils.RobotUtils import RobotUtils
 from ExtremeAutomation.Library.Utils.NetworkElementUtils import NetworkElementUtils
 from ExtremeAutomation.Library.Utils.EndsystemElementUtils import EndsystemElementUtils
 from ExtremeAutomation.Library.Device.EndsystemElement.EndsystemElement import EndsystemElement
@@ -48,7 +49,7 @@ class EndsystemConnectionManager(EndsystemKeywordBaseClass):
         This function parses the current robot variables dictionary and connects to all end
         system elements present.
         """
-        variables = BuiltIn().get_variables(no_decoration=True)
+        variables = RobotUtils.get_variables(no_decoration=True)
         end_systems = NetworkElementUtils.get_device_names_from_variables(variables, "endsys")
 
         for end_system in end_systems:
@@ -107,7 +108,7 @@ class EndsystemConnectionManager(EndsystemKeywordBaseClass):
         """
         Closes the connection to all end system elements present in the extended environment file.
         """
-        variables = BuiltIn().get_variables(no_decoration=True)
+        variables = RobotUtils.get_variables(no_decoration=True)
         end_systems = NetworkElementUtils.get_device_names_from_variables(variables, "endsys")
 
         for end_system in end_systems:
