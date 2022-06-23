@@ -16,6 +16,9 @@ class NetworkElementUtils(object):
         """
         end_of_line = '\n'
 
+        if not dev_os:
+            raise Exception("The CLI_TYPE for the device was None, please check your yaml file to ensure that the cli_type is added to all of the devices")
+
         formatted_dev_os = dev_os.replace("_", "").upper()
 
         if formatted_dev_os == NetworkElementConstants.OS_EOS:
