@@ -23,8 +23,8 @@ from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
-
 from extauto.common.CommonValidation import CommonValidation
+
 
 class Devices:
     def __init__(self):
@@ -35,6 +35,7 @@ class Devices:
         self.dialogue_web_elements = DialogWebElements()
         self.switch_web_elements = SwitchWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
+        self.common_validation = CommonValidation()
 
         self.navigator = Navigator()
         self.device_actions = DeviceActions()
@@ -46,7 +47,6 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
-
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
@@ -1789,7 +1789,7 @@ class Devices:
 
         return specific_version
 
-    def refresh_devices_page(self):
+    def refresh_devices_page(self, **kwargs):
         """
         - This Keyword will Refresh the Devices Page
         - keyword Usage:
@@ -1804,10 +1804,13 @@ class Devices:
             self.clear_search_field()
             self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
             sleep(5)
+            kwargs['pass_msg'] = "Device page refreshed successfully"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
         except Exception as e:
-            self.utils.print_info("Unable to refresh devices page. Capturing screenshot")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to refresh devices page. Capturing screenshot"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def edit_ap_description(self, ap_desc, ap_serial=None, ap_name=None, ap_mac=None):
@@ -1842,7 +1845,7 @@ class Devices:
         return -1
 
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
-                       csv_file_name='', device_os=False, location=False, service_tag=False):
+                       csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
@@ -1866,6 +1869,7 @@ class Devices:
         :return: -7 for error - Please enter a valid MAC Address
         :return: -8 for error - Unable to get pop-up menu item
         """
+        kwargs['IRV'] = True
         self.utils.print_info("Onboarding: ", device_make)
 
         if 'Controllers' in device_make or 'XCC' in device_make:
@@ -1926,7 +1930,6 @@ class Devices:
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
-
         # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
         if "VOSS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
@@ -1946,14 +1949,14 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
-                    self.utils.print_info(">>> CSV file was not specified")
-                    self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
 
         if "EXOS" in device_make.upper():
@@ -1973,14 +1976,14 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for EXOS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
-                    self.utils.print_info(">>> CSV file was not specified")
-                    self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
             else:
                 _errors = self.check_negative_combinations()
@@ -2046,6 +2049,8 @@ class Devices:
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
+            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
         else:
             self.utils.print_info("No Dialog box")
@@ -2055,9 +2060,12 @@ class Devices:
 
         for serial in serials:
             if self.search_device_serial(serial) == 1:
-                self.utils.print_info(f"Successfully Onboarded {device_make} Device(s) with {serials}")
+                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
             else:
+                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
@@ -2402,7 +2410,7 @@ class Devices:
                 ret_val = -1
         return ret_val
 
-    def delete_device(self, device_serial=None, device_name=None, device_mac=None):
+    def delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - Deletes Device matching either any of either one of serial, name, MAC
         - Keyword Usage:
@@ -2413,11 +2421,10 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-        
+
         if device_serial:
             self.utils.print_info("Deleting device: ", device_serial)
             search_result = self.search_device(device_serial=device_serial)
-
             if search_result != -1:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click delete button")
@@ -2437,18 +2444,22 @@ class Devices:
                     result = self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
                     # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
                     if result == 1:
-                        self.utils.print_info("Deleted Device Successfully with Serial: ", device_serial)
+                        kwargs['pass_msg'] = f"Deleted Device Successfully with Serial: {device_serial}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
 
                     # Confirm device was deleted successfully
                     if self.search_device_serial(device_serial) == 1:
-                        self.utils.print_info("Unable to delete the device")
+                        kwargs['fail_msg'] = "Unable to delete the device"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Deleted Device Successfully with Serial: ", device_serial)
+                        kwargs['pass_msg'] = f"Deleted Device Successfully with Serial: {device_serial}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
             else:
-                self.utils.print_info(f"Device with serial {device_serial} does not exist / is already deleted")
+                kwargs['pass_msg'] = f"Device with serial {device_serial} does not exist / is already deleted"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
         if device_name:
@@ -2474,13 +2485,16 @@ class Devices:
 
                     # Confirm device was deleted successfully
                     if self.search_device_name(device_name) == 1:
-                        self.utils.print_info("Unable to delete the device")
+                        kwargs['fail_msg'] = "Unable to delete the device"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Deleted Device Successfully with Name: ", device_name)
+                        kwargs['pass_msg'] = f"Deleted Device Successfully with Name: {device_name}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
             else:
-                self.utils.print_info(f"Device with name {device_name} does not exist / is already deleted")
+                kwargs['pass_msg'] = f"Device with name {device_name} does not exist / is already deleted"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
         if device_mac:
@@ -2506,16 +2520,20 @@ class Devices:
 
                     # Confirm device was deleted successfully
                     if self.search_device_mac(device_mac) == 1:
-                        self.utils.print_info("Unable to delete the device")
+                        kwargs['fail_msg'] = "Unable to delete the device"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Deleted Device Successfully with Mac: ", device_mac)
+                        kwargs['pass_msg'] = f"Deleted Device Successfully with Mac: {device_mac}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
             else:
-                self.utils.print_info(f"Device with MAC {device_mac} does not exist / is already deleted")
+                kwargs['pass_msg'] = f"Device with MAC {device_mac} does not exist / is already deleted"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
-        self.utils.print_info("Device was not deleted.  Make sure to specify a serial, name, or MAC")
+        kwargs['fail_msg'] = "Device was not deleted.  Make sure to specify a serial, name, or MAC"
+        self.common_validation.validate(-1, 1, **kwargs)
         return -1
 
     def delete_devices(self, *device_list):
@@ -2675,13 +2693,11 @@ class Devices:
 
         :param device_serial: Device Serial Number
         :return: return 1 if Device found,
-                 false if Device not found
-                 -1 if an error occurs
+                 return -1 if Device not found or if an error occurs
         """
-
         if not device_serial:
             self.utils.print_info("No serial number provided to search for")
-            return False
+            return -1
         else:
             self.utils.print_info(f"Searching for serial number '{device_serial}'")
 
@@ -2725,7 +2741,7 @@ class Devices:
                     sleep(5)
 
             self.utils.print_info(f"Did not find device row with serial {device_serial}")
-            return False
+            return -1
         except StaleElementReferenceException:
             self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
         return -1
@@ -3335,6 +3351,10 @@ class Devices:
         """
         ret_val = 1
 
+        # To extract the list of columns if 'columns' arg vaule is ist or tuple 
+        if isinstance(columns, tuple) and ( isinstance(columns[0], list) or isinstance(columns[0], tuple) ):
+            columns = columns[0]
+
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
@@ -3380,7 +3400,11 @@ class Devices:
         :return: returns 1 if successful
         """
         ret_val = 1
-
+        
+        # To extract the list of columns if 'columns' arg vaule is ist or tuple 
+        if isinstance(columns, tuple) and ( isinstance(columns[0], list) or isinstance(columns[0], tuple) ):
+            columns = columns[0]
+        
         self.utils.print_info("Clicking on Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
@@ -3448,15 +3472,18 @@ class Devices:
         self.utils.print_info(f"Country Code of AP:{country_code}")
         return country_code
 
-    def delete_all_aps(self):
+    def delete_all_devices(self):
         """
         - This Keyword will Delete All the Devices in the Manage--> Devices Grid
         - Keyword Usage:
-         - ``Delete All Aps``
+         - ``Delete All devices``
 
         :return: 1 if Devices Deleted Successfully else -1
         """
 
+        if self.devices_web_elements.get_device_page_size_100() != None:
+            self.auto_actions.click(self.devices_web_elements.get_device_page_size_100())
+            
         if self.get_device_count() == 0:
             self.utils.print_info("No devices present in the Devices grid")
             return 1
@@ -3466,14 +3493,15 @@ class Devices:
                 sleep(20)
 
                 # grid = self.devices_web_elements.get_grid()
+                
                 self.utils.print_info("Selecting Device grid checkbox...")
                 # self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(grid))
                 self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Clicking Delete button")
                 self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                sleep(2)
+                sleep(5)
 
                 self.utils.print_info("Confirming delete...")
                 self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
@@ -6394,20 +6422,15 @@ class Devices:
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
 
-        if page_size_field and page_number_field.is_displayed():
-            self.utils.print_info("Searching Device Entry with AP Serial : ", ap_serial)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_serial)
-            self.screen.save_screen_shot()
-            sleep(5)
-
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
                 self.utils.print_info("row data: ", self.format_row(row.text))
-                if not ap_serial in row.text:
-                    self.utils.print_info("Did not Find AP Row: ", self.format_row(row.text))
+                if ap_serial in row.text:
+                    self.utils.print_info("Found AP Row: ", self.format_row(row.text))
                     return 1
-            self.utils.print_info("Did not find AP")
+                else:
+                    self.utils.print_info("Did not find AP")
         else:
             self.utils.print_info("No rows present")
         return False
@@ -9195,7 +9218,9 @@ class Devices:
 
         try:
             if self.select_device(device_mac):
-                
+                self.close_last_refreshed_tooltip()
+                self.utils.print_info("Closing the last refreshed tool tip")
+
                 if updatefromD360Page.lower() == "false":
                     self.utils.print_info("Selecting Update Devices Button")
                     self.auto_actions.click(self.device_update.get_update_devices_button())
@@ -9204,14 +9229,25 @@ class Devices:
                     self.navigator.navigate_to_device360_page_with_mac(device_mac)
                     sleep(5)
                     self.auto_actions.click(self.device_update.get_update_devices_button_from_d360())
-                    
-                self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-                self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
-                sleep(5)
+                
+                # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
+                config_download_checkbox = self.device_update.get_config_download_options_checkbox()
+                if config_download_checkbox.is_selected(): # Is selected method will return bool True or False depending upon the selection of the checkbox
+                	  self.utils.print_info(f"Update Network Policy and Configuration checkbox is checked - Unchecking")
+                	  self.auto_actions.click(config_download_checkbox)
+                else:
+                	  self.utils.print_info("Update Network Policy and Configuration checkbox is already unchecked")
+                
+                # Check if the Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked                   
+                checkbox_status = self.device_update.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
+                if checkbox_status == "true":  # If checkbox is selected we get string "true" otherwise we get None
+                	  self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
+                else:
+                	  self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+                	  self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
                 
                 # Case-1 : This flow is to perform firmware upgrade to a latest version and return the latest version if success else -1
                 if updateTo.lower() == "latest":
-
                     self.utils.print_info("Selecting upgrade to latest version radio button")
                     self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
                     sleep(2)
@@ -9221,10 +9257,21 @@ class Devices:
                     self.utils.print_info("Device Latest Version: ", updateToVersion)
                     sleep(5)
 
+                    # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
+                    forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox_status()
                     if forceDownloadImage.lower() == "true":
-                        self.utils.print_info("Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
-                        self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                        sleep(5)
+                        if forceDownloadImage_checkbox_status is not None:   # If checkbox is selected we get string "true" otherwise we get None
+                            self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked")
+                        else:
+                            self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
+                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                    else:
+                        if forceDownloadImage_checkbox_status is not None: 
+                            self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
+                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                        else:
+                            self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
+                    sleep(2)	
                         
                     if saveDefault.lower() == "true":
                         self.utils.print_info("Selecting Save Default button...")
@@ -9264,7 +9311,8 @@ class Devices:
                     self.utils.print_info("Selecting upgrade to specific version radio button")
                     self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
                     sleep(5)
-
+                    
+                    # This is needed to get the list from the dropdown box
                     self.utils.print_info("Selecting perform upgrade if the versions are the same")
                     self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
                     sleep(5)
@@ -9290,7 +9338,7 @@ class Devices:
                     if avilableImagesList == []:
                         self.utils.print_error("Image list from the drop down is empty!")
                         self.screen.save_screen_shot()
-                        sleep(5)
+                        sleep(2)
                         return -1
               
                     # Case-2.1 : Specific version is passed as an argument e.g version = "8.6.1.0" or "31.6.1.2"                  
@@ -9354,7 +9402,7 @@ class Devices:
                         
                     # Case-2.6 : Specific version from the list but different from current NOS version e.g version = "noncurrent"         
                     elif version == 'noncurrent' and nos_version != "":
-                        self.utils.print_info("Specific version from drop down but different from current NOS version will be selected")
+                        self.utils.print_info("Specific version from drop down but different from the current NOS version will be selected")
                         match_count = 0
                         for opt in avilableImagesList:
                             if nos_version not in opt:
@@ -9382,10 +9430,22 @@ class Devices:
                         self.utils.print_info(f"Selected update version from drop down :{updateToVersion}")
                         if saveDefault.lower() == "true":
                             self.utils.print_info("Selecting Save Default button...")
-                        if forceDownloadImage.lower() != "true":
-                            self.utils.print_info("Unselecting perform upgrade if the versions are the same.")
-                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                            sleep(5)
+                        
+                        # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
+                        forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox_status()
+                        if forceDownloadImage.lower() == "true":
+                            if forceDownloadImage_checkbox_status is not None:
+                                self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked")
+                            else:
+                                self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
+                                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                        else:
+                            if forceDownloadImage_checkbox_status is not None:
+                                self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
+                                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                            else:
+                                self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
+                            
                         if performUpgrade.lower() == "true":
                             self.screen.save_screen_shot()
                             self.utils.print_info("Selecting Perform Update button...")
@@ -9546,4 +9606,34 @@ class Devices:
                 count += 30
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
+             
+    def wait_until_all_devices_update_done(self, wait_time_in_min, **kwargs):
+        """
+            - This Keyword checks if all devices are done with updating
+            - Keyword Usage:
+            - ``wait_until_all_devices_update_done``
+                   :param  wai_time_in_min: time to wait
+                   :return: 1 if done, -1 if not
+        """
+        n_time = 0
+        complete = False
+        self.utils.print_info("Checking all device progress status ")
+        while n_time < int(wait_time_in_min)*2:       # waits for 30s instead of 1 min before the next loop
+            rows = self.devices_web_elements.get_manage_all_devices_progress_status()
+            if rows == None:
+               complete = True
+               break
+            else:
+               self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
+               n_time = n_time + 1
+               sleep(30)
+               self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
+        if not complete:
+            kwargs['fail_msg'] = "the waited time has reached with " + str(wait_time_in_min) + ' min(s)'
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        sleep(10)
+        self.utils.print_info("All devices finish updating ")
+        return 1

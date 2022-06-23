@@ -181,4 +181,9 @@ class AdspWebElementsDefinitions:
             'CSS_SELECTOR': '.onoffswitch-checkbox',
             'wait_for': 5
         }
+    adsp_user_role_not_supported = \
+        {
+             'CSS_SELECTOR': '.centerCls.titleCls',
+            'wait_for': 5
+        }
 

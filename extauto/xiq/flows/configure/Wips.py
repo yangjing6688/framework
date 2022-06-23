@@ -876,6 +876,7 @@ class Wips(WipsWebElements):
         self.utils.print_info("Click on Additional Settings tab button")
         self.auto_actions.click(self.get_network_policy_additional_settings_tab())
         sleep(5)
+
         if status.upper() == "ENABLE":
             if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
                 self.utils.print_info("Click WIPS Menu On Security Tab")
@@ -886,17 +887,6 @@ class Wips(WipsWebElements):
                 sleep(2)
                 self.utils.print_info("Click WIPS Menu")
                 self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
-
-
-            self.utils.print_info("Click on Enable WIPS button")
-            sleep(2)
-            self.auto_actions.click(self.get_network_policy_additional_settings_enable_wips_button())
-            sleep(3)
-
-            self.utils.print_info("Enter WIPS Name")
-            self.auto_actions.send_keys(self.get_network_policy_additional_settings_wips_name_field(), wips_policy)
-            sleep(3)
-
             self.utils.print_info("Enable on-prem Airdefense Configuration toggle button")
             if not self.get_wips_enable_OnPrem_Airdefense_button().is_selected():
                 self.auto_actions.click(self.get_wips_enable_OnPrem_Airdefense_button())
