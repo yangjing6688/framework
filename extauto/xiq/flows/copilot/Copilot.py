@@ -2667,14 +2667,14 @@ class Copilot(CopilotWebElements):
         if "Feedback saved successfully" in like_tooltip.text:
             self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
                                   f"for the ap {ap_name}")
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             return 1
         else:
             self.utils.print_info(f"Unable to click like button for the Wi-Fi capacity widget location "
                                   f"{location_name} with ap {ap_name}")
-
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
-        self.utils.switch_to_default(CloudDriver().cloud_driver)
-
+        
 
     def is_wifi_capacity_anomaly_ap_i_icon_present(self, ap_name, **kwargs):
 
