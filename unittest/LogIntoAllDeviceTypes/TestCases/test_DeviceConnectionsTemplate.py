@@ -52,12 +52,12 @@ class DefaultTests:
             pytest.fail("Device [" + str(spawn) + "] took too long to send command: " + str(cmd))
         print(cmd_ret)
 
-    @mark.p1  # Marked as a P1 test case
-    def test_01_log_all_generic_devices(self):
-        """ Log into All Device Types """
-        self.executionHelper.testSkipCheck()
-        self.defaultLibrary.apiUdks.setupTeardownUdks.Base_Test_Suite_Setup()
-        self.defaultLibrary.apiUdks.setupTeardownUdks.Base_Test_Suite_Cleanup()
+    # @mark.p1  # Marked as a P1 test case
+    # def test_01_log_all_generic_devices(self):
+    #     """ Log into All Device Types """
+    #     self.executionHelper.testSkipCheck()
+    #     self.defaultLibrary.apiUdks.setupTeardownUdks.Base_Test_Suite_Setup()
+    #     self.defaultLibrary.apiUdks.setupTeardownUdks.Base_Test_Suite_Cleanup()
 
     @mark.p1  # Marked as a P1 test case
     def test_02_log_into_exos(self):

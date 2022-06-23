@@ -114,7 +114,7 @@ class NetworkElementUtils(object):
         elif formatted_dev_os == NetworkElementConstants.OS_AHFASTPATH:
             device_os = NetworkElementConstants.OS_AHFASTPATH
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_FASTPATH_BASE
-            login_prompt = "Username:"
+            login_prompt = "login as:"
             pass_prompt = "Password:"
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_AHXR:
