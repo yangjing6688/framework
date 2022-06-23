@@ -1471,8 +1471,6 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_pse_profile_add)
         elif element == "pse_profile_name":
             return self.weh.get_element(self.select_element_port_type_pse_profile_name)
-        elif element == "pse_profile_power_mode":
-            return self.weh.get_element(self.select_element_port_type_pse_profile_power_mode)
         elif element == "pse_profile_power_mode_items":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_power_mode_items)
         elif element == "pse_profile_priority":

@@ -2461,15 +2461,9 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    select_element_port_type_pse_profile_power_mode = \
-        {
-            'XPATH': '',
-            'wait_for': 5
-        }
-
     select_element_port_type_pse_profile_power_mode_items = \
         {
-            'XPATH': '',
+            'XPATH': '.J-ip-item',
             'wait_for': 5
         }
 
