@@ -124,8 +124,7 @@ class ClassificationRule(object):
         self.auto_actions.send_keys(self.classification_rule_web_elements.get_classification_rule_name_text(), name)
 
         self.utils.print_info("Enter the Classification Rule description:{}".format(description))
-        self.auto_actions.send_keys(
-            self.classification_rule_web_elements.get_classification_rule_description_text(), description)
+        self.auto_actions.send_keys(self.classification_rule_web_elements.get_classification_rule_description_text(), description)
 
         self.utils.print_info("Clicking on Classification Rule Option Button")
         self.auto_actions.click(self.classification_rule_web_elements.get_classification_option_add_button())

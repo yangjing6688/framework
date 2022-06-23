@@ -2256,9 +2256,9 @@ class CommonObjects(object):
             - ``Add IP Object Hostname With IP Network    ${name}     ${type}     ${global_network}     ${netmask}    @{classify_network}``
         :param name: The profile name
         :param type: "Network", or "Wildcard"
-        :param network:   Unclassified Network, or unclassified Wildcard network
+        :param global_network:   Unclassified Network, or unclassified Wildcard network
         :param netmask:  Netmask
-        :param object_*classify_network:    Classified network list, or classified wildcard network list
+        :param classify_network:    Classified network list, or classified wildcard network list
         :return: success return 1
         """
 
@@ -2279,8 +2279,7 @@ class CommonObjects(object):
             self.utils.print_info(f"Add ip object name: {name} ...")
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
             self.utils.print_info(f"Input IP Network: {global_network} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield(),
-                                        global_network)
+            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield(), global_network)
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_netmask_textfield(), netmask)
             self._ip_object_hostname_add_objects(type, netmask, *classify_network)
             return 1
@@ -2361,7 +2360,7 @@ class CommonObjects(object):
         """
         add_items_result = self._ip_object_hostname_add_objects_sub_add_blank_row(*classified_items_list)
         if add_items_result:
-            ## Input IP address and select classification rules
+            # Input IP address and select classification rules
             row_loop_num = 0
             blank_row_loop_num = 0
             for row in self.cobj_web_elements.get_ip_object_object_rows():
@@ -2416,14 +2415,14 @@ class CommonObjects(object):
         """
         add_items_result = self._ip_object_hostname_add_objects_sub_add_blank_row(*classify_range_start)
         if add_items_result:
-            ## Input IP address and select classification rules
+            # Input IP address and select classification rules
             row_loop_num = 0
             blank_row_loop_num = 0
             for row in self.cobj_web_elements.get_ip_object_object_rows():
                 # self.utils.print_info(f"Here are the rows: {row}")
                 # self.utils.print_info(f"Row TEXT: {self.cobj_web_elements.get_ip_object_object_item_type(row).text}")
                 if self.cobj_web_elements.get_ip_object_object_item_type(row).text != "Global":
-                    fillin_ip = self._ip_object_hostname_add_objects_sub_fillin_ip_range(row_loop_num,blank_row_loop_num, row ,ip_range_gap, *classify_range_start)
+                    fillin_ip = self._ip_object_hostname_add_objects_sub_fillin_ip_range(row_loop_num, blank_row_loop_num, row, ip_range_gap, *classify_range_start)
                     if fillin_ip == 1:
                         blank_row_loop_num += 1
                     else:
@@ -2539,7 +2538,6 @@ class CommonObjects(object):
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield_row(row), classified_network_list[blank_row_loop_num])
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_netmask_textfield_row(row), netmask)
             self._ip_object_hostname_add_objects_sub_select_cls_rule(row_loop_num, row)
-
             return 1
         else:
             return -1
@@ -2571,14 +2569,11 @@ class CommonObjects(object):
     def _ip_object_hostname_add_objects_sub_select_cls_rule(self, row_loop_num, row):
         """
         - It is internal function select classification rule
-        row_loop_num
         :param row_loop_num: For row loop to loop all items in the profile
         :param row: Row in profile
         """
-
         self.utils.print_info(f"Click select the button of classification rule for Row{row_loop_num + 2} ... ")
         self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_select_cls_rule_button(row))
-        sleep(3)
         self._ip_object_hostname_find_cls_rules(row_loop_num)
         self.utils.print_info(f"Click LINK button {row_loop_num + 1} times ...")
         self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_link_button())
@@ -2590,7 +2585,6 @@ class CommonObjects(object):
             self.utils.print_info(f"Click LINK button {row_loop_num + 1} times ...")
             self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_link_button())
 
-
     def _ip_object_hostname_find_cls_rules(self, row_loop_num):
         """
         - It is a internal function to find classification rule
@@ -2598,15 +2592,21 @@ class CommonObjects(object):
         """
         if self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_size_100():
             self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_size_100())
-
+        sleep(2)
         cls_rules = []
         for rule in self.cobj_web_elements.get_ip_object_hostname_classification_rules():
             cls_rules.append(rule)
             # self.utils.print_info(f"Rules Name: {rule.text}")
             # self.utils.print_info(f"Rules list: {cls_rules}")
-        self.utils.print_info(f"Rule{row_loop_num} is : {cls_rules[row_loop_num]}")
-        self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_name(cls_rules[row_loop_num]))
-
+        sleep(3)
+        # self.utils.print_info(f"Rule{row_loop_num} is : {cls_rules[row_loop_num]}")
+        i = 0
+        while i <= 3:
+            self.utils.print_info("Click classification rule ...")
+            click = self.auto_actions.click(cls_rules[row_loop_num])
+            if click == 1:
+                break
+            i += 1
 
     def _ip_object_hostname_find_object_profile(self, ip_object_profile_name):
         """
@@ -2617,7 +2617,6 @@ class CommonObjects(object):
         """
         if self.cobj_web_elements.get_ip_object_hostname_object_page_size_100():
             self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_object_page_size_100())
-
         for ip_object_row in self.cobj_web_elements.get_ip_object_hostname_existed_object_list_per_page():
             self.utils.print_info(f"The IP Object Profile name is {self.cobj_web_elements.get_ip_object_hostname_existed_object_name(ip_object_row).text}")
             if self.cobj_web_elements.get_ip_object_hostname_existed_object_name(ip_object_row).text == ip_object_profile_name:
@@ -2658,7 +2657,7 @@ class CommonObjects(object):
             - ``IP Object Hostname Delete Object Profile    ${ip_object_profile_name}``
         :param ip_object_profile_name: IP Object profile name
         :param netmask: Netmask, for the profile with typr IP address and Hostname related, the netmask is None, for Network and Wildcard Network, the netmask is needed
-        :param *classified_items_list_1: The new items list for update profile, named it as *classified_items_list_1 to be different with *classified_items_list
+        :param classified_items_list_1: The new items list for update profile, named it as *classified_items_list_1 to be different with *classified_items_list
         :return: Find and delete successfully return 1 else return -1
         """
 
