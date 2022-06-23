@@ -113,7 +113,7 @@ class ClassificationRule(object):
         """
 
         self.navigator.navigate_to_classification_rule()
-        sleep(6)
+        sleep(3)
 
         self.utils.print_info(f"Adding Classification Rule with name:{name}")
         self.utils.print_info("Clicking on Classification Rule Add Button")
@@ -312,7 +312,6 @@ class ClassificationRule(object):
          :return: 1 if created else return -1
          """
         self.navigator.navigate_to_classification_rule()
-        sleep(3)
 
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
