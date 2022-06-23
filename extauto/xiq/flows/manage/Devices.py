@@ -9527,14 +9527,13 @@ class Devices:
              - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
 
             :param device_serial: Serial number of AP Ex:11301810220048
-            :param wai_time_in_min: time to wait in mins
+            :param wait_time_in_min: time to wait in mins
             :param IRV: True or False
             :return: 1 if done, -1 if not
             """
 
             self.navigator.navigate_to_manage_tab()
             self.refresh_devices_page()
-            sleep(5)
 
             complete = False
             n_time = 0
@@ -9543,6 +9542,7 @@ class Devices:
 
             if IRV != None:
                 kwargs["IRV"] = IRV
+                
             while n_time <= int(wait_time_in_min*4):
                 n_time = n_time + 1
                 update_status= self.get_device_details(device_serial, 'UPDATED')
