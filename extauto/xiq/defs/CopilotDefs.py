@@ -912,7 +912,7 @@ class CopilotDefs:
     wifi_capacity_widget_location_ap_like_tooltip = \
         {
             'TAG_NAME': 'simple-snack-bar',
-            'wait_for': 10
+            'wait_for': 20
         }
 
     wifi_capacity_widget_location_ap_dislike_button_enabled_status = \
