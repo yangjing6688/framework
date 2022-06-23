@@ -2645,11 +2645,12 @@ class Copilot(CopilotWebElements):
     def wifi_capacity_anomaly_ap_like_button(self, location_name, ap_name):
 
         """
-        - This Keyword will get details of issue and recommended actions from individual aps APs
-        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
+        - This Keyword will click like button in WiFi Capacity widget specific location and access point.
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click like Button
         - Keyword Usage:
-        - ``Wifi Capacity Anomaly Ap Individual Details``
-        :return: 1 if sucessfully clicking the row else return -1
+         - ``Wifi Capacity Anomaly Ap Like Button   {LOCATION_NAME}   {AP_NAME}``
+        :return: 1 if successfully clicked like Button for specific Location and ap the else return -1
+        """
         """
         self.click_wifi_capacity_anomaly_location_row(location_name)
         self.click_wifi_capacity_anomaly_ap_row(ap_name)
