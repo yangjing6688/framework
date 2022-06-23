@@ -119,6 +119,7 @@ class Cli(object):
             - WING-AP
             - AH-FASTPATH
             - AH-AP
+            - AH-XR
         # Endsystem:
             - MU-WINDOWS
             - MU-MAC
