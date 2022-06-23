@@ -2193,10 +2193,10 @@ class CommonObjects(object):
         - Keyword Usage:
             - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_ip}    @{classify_ip}``
 
-        :param object_name: The profile name
-        :param object_type: "IP Address", or "Host Name", or "Wildcard Host Name"
-        :param object_global_ip:   Unclassified IP address, or unclassified Hostname, or unclassified wildcard hostname
-        :param object_*classify_ip:    Classified IP address list, or classified Hostname list, or classified wildcard hostname list
+        :param name: The profile name
+        :param type: "IP Address", or "Host Name", or "Wildcard Host Name"
+        :param global_ip:   Unclassified IP address, or unclassified Hostname, or unclassified wildcard hostname
+        :param *classify_ip:    Classified IP address list, or classified Hostname list, or classified wildcard hostname list
         :return: success return 1
         """
         self.navigate_to_basic_ip_object_hostname()
@@ -2217,7 +2217,7 @@ class CommonObjects(object):
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
             self.utils.print_info(f"Input IP address: {global_ip} ...")
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_address_textfield(), global_ip)
-            self.utils.print_info(f'The length of more_items_list the list is {classify_ip}')
+            self.utils.print_info(f'The length of classify_ip list the list is {classify_ip}')
             self._ip_object_hostname_add_objects(type, None, *classify_ip)
             return 1
 
@@ -2444,7 +2444,7 @@ class CommonObjects(object):
         """
         if classified_items_list is not None:
             more_items_list_len = len(classified_items_list)
-            self.utils.print_info(f'The length of more_items_list {more_items_list_len}, and the list is {classified_items_list}')
+            self.utils.print_info(f'The length of classified_items_list {more_items_list_len}, and the list is {classified_items_list}')
 
             for i in range(more_items_list_len):
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_add_new_object())
