@@ -10,15 +10,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import *
 from robot.libraries.BuiltIn import BuiltIn
+import json
 
 
 class WebElementHandler:
     def __init__(self):
         self.el_info = BuiltIn().get_variable_value('${ELEMENT_INFO}')
         self.utils = Utils()
-        self.delay = BuiltIn().get_variable_value('${ELEMENT_DELAY}')
+        self.delay = 10 # BuiltIn().get_variable_value('${ELEMENT_DELAY}')
         self.desc = None
-        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.image_handler = ImageHandler()
         self.locator = {"CSS_SELECTOR": By.CSS_SELECTOR,
                          "XPATH": By.XPATH,
@@ -32,6 +32,15 @@ class WebElementHandler:
                                    ElementNotSelectableException,
                                    ElementNotInteractableException]
 
+    def check_for_page_is_loading(self, driver):
+        while True:
+            x = driver.execute_script("return document.readyState")
+            self.utils.print_info("Page returned: " + str(x))
+            if str(x).lower() == "complete" or str(x).lower() == "interactive":
+                return True
+            else:
+                yield False
+
     def get_element(self, key_val, parent='default'):
         """
         get the web element based on the locators provided in key_val dictionary
@@ -43,6 +52,11 @@ class WebElementHandler:
         _delay = key_val.get('wait_for', self.delay)  # Explicit delay
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
         _driver = CloudDriver().cloud_driver if parent == "default" else parent
+
+        self.utils.print_info("Waiting for page to complete loading")
+        while not self.check_for_page_is_loading(_driver):
+            continue
+        self.utils.print_info("Page completed loading")
 
         for key, value in key_val.items():
             if 'IMAGE' in key:
@@ -74,6 +88,8 @@ class WebElementHandler:
                         except Exception as e:
                             self.utils.print_info("Unable to find element with Index: ", each_index)
                     self.utils.print_info("Handles List: ", handles_list)
+                    if handles_list.length == 0:
+                        self.utils.print_info('Unable to find web element ', json.dumps(key_val))
                     return handles_list
                 if _index == 0:
                     return WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
@@ -85,6 +101,8 @@ class WebElementHandler:
             except Exception as e:
                 if 'True' in self.el_info:
                     self.utils.print_info("Unable to find the element handle with: ", key, ' -- ', value)
+                    self.utils.print_info('Unable to find web element ', json.dumps(key_val))
+
         return None
 
     def get_elements(self, key_val, parent='default'):

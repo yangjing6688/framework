@@ -452,3 +452,9 @@ class UserGroupsWebElementsDefinitions:
             'XPATH': '//div[@componentpath="SelectUserProfiles"]//button[@data-dojo-attach-point="cancelButton"]',
             'wait_for': 5
         }
+
+    usr_group_select_all_checkbox = \
+        {
+            'XPATH': '//*[contains(@id,"dgrid")]//tr//th//input',
+            'wait_for': 5
+        }
