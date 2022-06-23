@@ -45,7 +45,7 @@ test_05_log_into_sr_router_ap
 test_06_log_into_xr_router_ap
     [Documentation]     Log into XR Router
 
-    ${SPAWN}=        Open Spawn          ${router1.ip}   ${router1.port}      ${router1.username}       ${router1.password}        ${router1.cli_type}
+    ${SPAWN}=        Open Spawn          ${router1.ip}   ${router1.port}      ${router1.username}       ${router1.password}        ${router1.cli_type}      connection_method=console
     send   ${SPAWN}   show system disk-info
     send   ${SPAWN}   error commmand isssued   expect_error=true
     Close Spawn     ${SPAWN}
