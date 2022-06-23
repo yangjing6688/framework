@@ -1,6 +1,7 @@
 from extauto.xiq.flows.manage.Devices import *
 from extauto.xiq.flows.common.Navigator import *
 from extauto.xiq.elements.AutoprovisionWebElements import *
+from extauto.common.CommonValidation import CommonValidation
 
 
 class AutoProvisioning:
@@ -11,6 +12,7 @@ class AutoProvisioning:
         self.devices = Devices()
         self.app_web_elements = AutoprovisionWebElements()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
 
     def auto_provision_basic_settings(self, policy_name, country_code=None, **auto_provision_profile):
         """
@@ -430,7 +432,7 @@ class AutoProvisioning:
             self.utils.print_info("Unable to delete Auto Provisioning Policy: ", policy_name)
             return -1
 
-    def delete_all_auto_provision_policies(self):
+    def delete_all_auto_provision_policies(self, **kwargs):
         """
         - Delete all Auto Provisioning Policies
         - Keyword Usage
@@ -438,12 +440,14 @@ class AutoProvisioning:
 
         :return: 1 if successfully deleted All Auto Provisioning Policies else -1
         """
+
         self.navigator.navigate_to_auto_provision()
         sleep(3)
 
         cur_count = self.get_auto_provision_policy_count()
         if cur_count == 0:
-            self.utils.print_info("No Auto Provision Policy is present")
+            kwargs['pass_msg'] = "No Auto Provision Policy is present"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         header = self.app_web_elements.get_auto_provisioning_grid_header()
@@ -462,10 +466,12 @@ class AutoProvisioning:
 
         new_count = self.get_auto_provision_policy_count()
         if new_count == 0:
-            self.utils.print_info("Successfully Deleted all the Policies")
+            kwargs['pass_msg'] = "Successfully Deleted all the Policies"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to Deleted all the Policies")
+            kwargs['fail_msg'] = "Unable to Deleted all the Policies"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def search_auto_provisioning_policy(self, policy_name):

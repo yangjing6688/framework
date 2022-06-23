@@ -125,7 +125,7 @@ To get started please follow these instructions:
 
 1. **Linux Only**: Create a local user with id 1202 change ownership of all the files and directories to that user then log in as the new user.  This steps allows you to modify the repository files from within the container.
 
-        sudo adduser -c "Local Automation User for automation docker containers" -u 1202 -M -s "/bin/bash" seluser
+        sudo adduser -c "Local Automation User for automation docker containers" -u 1202 --shell "/bin/bash" seluser
         cd $AUTO_DIR
         sudo chown -R seluser:seluser *
         

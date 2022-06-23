@@ -1719,13 +1719,6 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Manage Tab...")
         try:
-            sleep(5)
-            manage_element = self.weh.get_element(self.manage_nav)
-            self.auto_actions.click(manage_element)
-            self.utils.print_info("Clicking on Application Tab..")
-            sleep(5)
-            # application_element = self.weh.get_element(self.get_manage_applications_menu_item)
-            self.auto_actions.click(self.get_manage_applications_menu_item())
             if self.get_manage_tab().is_displayed():
                 self.auto_actions.click(self.get_manage_tab())
             else:
@@ -2024,10 +2017,13 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation is not Successful to Extreme AirDefence Menu
         """
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
-        if not self.auto_actions.click(self.get_air_defence_menu()):
+        if self.auto_actions.click(self.get_essentials_menu()):
+            self.utils.print_info("Clicked Extreme Airdefense Menu")
+            return -1
+        else:
             self.utils.print_info("Did not find Extreme AirDefence Menu...")
             sleep(5)
-        return 1
+            return 1
 
     def navigate_to_configure_users_subtab_users(self):
         """
