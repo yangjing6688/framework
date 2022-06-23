@@ -158,6 +158,17 @@ mu2:
   mac_wifi_port:  en1
   wifi_mac:       F018988B2B5D
 
+mu3:
+  cli_type: "MU-LINUX"
+  connection_method: "ssh"
+  ip:             10.148.35.200
+  port:           22
+  username:       root
+  password:       PASprt86
+  platform:       linux
+  mac_wifi_port:  en1
+  wifi_mac:       F018988B2B5D
+
 a3:
   version: 4.0
   ip: 10.234.188.108

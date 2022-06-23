@@ -94,7 +94,7 @@ class DefaultTests:
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
-    def test_03_log_into_wing_ap(self):
+    def test_04_log_into_wing_ap(self):
         """ Log into Wing-ap """
         self.executionHelper.testSkipCheck()
         # Login
@@ -111,7 +111,7 @@ class DefaultTests:
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
-    def test_03_log_into_sr_router_ap(self):
+    def test_05_log_into_sr_router_ap(self):
         """ Log into sr router """
         self.executionHelper.testSkipCheck()
         # Login
@@ -128,7 +128,7 @@ class DefaultTests:
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
-    def test_03_log_into_xr_router_ap(self):
+    def test_06_log_into_xr_router_ap(self):
         """ Log into xr router """
         self.executionHelper.testSkipCheck()
         # Login
@@ -147,7 +147,7 @@ class DefaultTests:
 
 
     @mark.p1  # Marked as a P1 test case
-    def test_03_log_into_ap(self):
+    def test_07_log_into_ap(self):
         """ Log into ap """
         self.executionHelper.testSkipCheck()
         # Login
@@ -164,7 +164,7 @@ class DefaultTests:
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
-    def test_03_log_into_win_mu(self):
+    def test_08_log_into_win_mu(self):
         """ Log into Win MU """
         self.executionHelper.testSkipCheck()
         # Login
@@ -181,7 +181,7 @@ class DefaultTests:
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
-    def test_03_log_into_mac_mu(self):
+    def test_09_log_into_mac_mu(self):
         """ Log into MAC MU """
         self.executionHelper.testSkipCheck()
         # Login
@@ -198,7 +198,7 @@ class DefaultTests:
         self.cli.close_spawn(spawn)
 
     @mark.p1  # Marked as a P1 test case
-    def test_03_log_into_a3(self):
+    def test_10_log_into_a3(self):
         """ Log into A3 """
         self.executionHelper.testSkipCheck()
         # Login
@@ -210,6 +210,23 @@ class DefaultTests:
         # Send good command
         self.helper_send_command(spawn, 'ls -al')
         # Send Bad command
+        self.helper_send_command(spawn, 'error commmand isssued', expect_error=True)
+        # Close spawn
+        self.cli.close_spawn(spawn)
+
+    @mark.p1  # Marked as a P1 test case
+    def test_11_log_into_linux(self):
+        """ Log into Linux MU """
+        self.executionHelper.testSkipCheck()
+        # Login
+        spawn = self.helper_login(self.tb.config.mu3.ip,
+                                  self.tb.config.mu3.port,
+                                  self.tb.config.mu3.username,
+                                  self.tb.config.mu3.password,
+                                  self.tb.config.mu3.cli_type)
+        # Send good command
+        self.helper_send_command(spawn, 'ls -al')
+        # Send bad command
         self.helper_send_command(spawn, 'error commmand isssued', expect_error=True)
         # Close spawn
         self.cli.close_spawn(spawn)
