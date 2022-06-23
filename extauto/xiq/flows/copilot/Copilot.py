@@ -2642,7 +2642,7 @@ class Copilot(CopilotWebElements):
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
-    def wifi_capacity_anomaly_ap_like_button(self, location_name, ap_name):
+    def wifi_capacity_anomaly_ap_like_button(self, location_name, ap_name, **kwargs):
 
         """
         - This Keyword will click like button in WiFi Capacity widget specific location and access point.
@@ -2650,7 +2650,6 @@ class Copilot(CopilotWebElements):
         - Keyword Usage:
          - ``Wifi Capacity Anomaly Ap Like Button   {LOCATION_NAME}   {AP_NAME}``
         :return: 1 if successfully clicked like Button for specific Location and ap the else return -1
-        """
         """
         self.click_wifi_capacity_anomaly_location_row(location_name)
         self.click_wifi_capacity_anomaly_ap_row(ap_name)
@@ -2663,15 +2662,20 @@ class Copilot(CopilotWebElements):
         like_tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip()
         self.utils.print_info("Tooltip Message displayed on UI is :", like_tooltip.text)
         self.screen.save_screen_shot()
-        sleep(2)
         if "Feedback saved successfully" in like_tooltip.text:
             self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
                                   f"for the ap {ap_name}")
+            kwargs['pass_msg'] = "successfully liked the Wi-Fi capacity widget location"
+            self.common_validation.validate(1, 1, **kwargs)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return 1
         else:
             self.utils.print_info(f"Unable to click like button for the Wi-Fi capacity widget location "
                                   f"{location_name} with ap {ap_name}")
+            self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
+                                  f"for the ap {ap_name}")
+            kwargs['fail_msg'] = "Unable to click like button for the Wi-Fi capacity widget location "
+            self.common_validation.validate(1, 1, **kwargs)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
         
