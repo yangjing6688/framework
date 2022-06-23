@@ -2017,10 +2017,13 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation is not Successful to Extreme AirDefence Menu
         """
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
-        if not self.auto_actions.click(self.get_air_defence_menu()):
+        if self.auto_actions.click(self.get_essentials_menu()):
+            self.utils.print_info("Clicked Extreme Airdefense Menu")
+            return -1
+        else:
             self.utils.print_info("Did not find Extreme AirDefence Menu...")
             sleep(5)
-        return 1
+            return 1
 
     def navigate_to_configure_users_subtab_users(self):
         """

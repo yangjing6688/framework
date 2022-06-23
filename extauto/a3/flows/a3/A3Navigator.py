@@ -9,7 +9,7 @@ from common.CloudDriver import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Navigator(NavigatorWebElements):
@@ -21,6 +21,7 @@ class Navigator(NavigatorWebElements):
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.a3_web_elements = WebElements()
+        self.common_validation = CommonValidation()
        # self.driver = common.CloudDriver.cloud_driver
 
 
@@ -116,7 +117,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click(self.get_auto_provisioning_option())
         sleep(2)
 
-    def navigate_to_devices(self):
+    def navigate_to_devices(self, **kwargs):
         """
          - This keyword Navigates to Devices on Manage Menu
          - Flow Manage--> Devices
@@ -129,10 +130,13 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Devices Tab...")
             if self.auto_actions.click(self.get_devices_nav()) == 1:
                 sleep(2)
+                kwargs['pass_msg'] = "Navigation Successful to Devices tab"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
             else:
-                self.utils.print_info("Unable to navigate to Devices tab")
                 self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Unable to navigate to Devices tab"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
     def navigate_to_ssids(self):

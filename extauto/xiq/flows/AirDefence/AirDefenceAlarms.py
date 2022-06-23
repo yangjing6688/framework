@@ -304,6 +304,9 @@ class AirDefenceAlarms(AdspWebElements):
                     self.utils.print_info("Configuring Wireless Thread Detection Status1: ", status)
                     if not self.get_adsp_wireless_thread_detection_button(row).is_selected():
                         self.auto_actions.click(self.get_adsp_wireless_thread_detection_button(row))
+                        self.utils.print_info("Status turned OFF")
+                        self.auto_actions.click(self.get_adsp_wireless_thread_detection_button(row))
+                        self.utils.print_info("Status again turned ON")
                         sleep(2)
 
                         self.screen.save_screen_shot()
@@ -372,6 +375,26 @@ class AirDefenceAlarms(AdspWebElements):
         self.utils.print_info(f"Total ADSP Alarms Count : {alarm_count}")
         return str(alarm_count).strip()
 
+    def adsp_user_role_not_supported_page(self):
+        """
+          - This Keyword Will Get "User role not supported message" for helpdesk user
+             after launching the adess url directly.
+          - Flow: Extreme AirDefense
+          - Keyword Usage:
+                  - ``ADSP USER ROLE NOT SUPPORTED PAGE ``
+          :return: USER ROLE NOT SUPPORTED PAGE
+       """
+
+        adsp_msg = self.get_adsp_user_role_not_supported()
+        adsp_msg = adsp_msg[0].text
+        self.utils.print_info(f"Message contains : {adsp_msg}")
+#        return str(adsp_msg).strip()
+        msg = "User role not supported"
+        if msg == adsp_msg:
+             self.utils.print_info("Message matches")
+        else:
+             self.utils.print_info("Message does not match")
+
     def subscribe_adess_essentials(self):
         """
         -This keyword Will Subscribe ADESS essentials, In wips policy the "enable Airdefense essentials" button should be ON
@@ -405,3 +428,33 @@ class AirDefenceAlarms(AdspWebElements):
         else:
             self.utils.print_info("User Already Subscribed ADESS Page")
         return 1
+
+    def check_subscription_of_ADEssentials_page(self):
+        """
+        -This keyword Will Check Extreme AD Essentials Page is Subscribed or Not after Reset VIQ
+        - Flow: Login to XIQ -> Click Extreme Airdefense Icon -> Check Subscription Status
+
+        :return: 1 if not subscribed
+        """
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        sleep(5)
+        self.navigator.navigate_to_extreme_airdefence()
+        sleep(15)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        if self.get_adsp_subscribe_page().is_displayed():
+            self.utils.print_info("AD Essentials Subscription Page is Visible")
+            sleep(3)
+
+            self.screen.save_screen_shot()
+            sleep(2)
+            return 1
+        else:
+            self.utils.print_info("Check for Auth Error or User Already Subscribed to Extreme AD Essentials")
+            sleep(3)
+
+            self.screen.save_screen_shot()
+            sleep(2)
+            return -1

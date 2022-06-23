@@ -1123,6 +1123,16 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
+    
+    def get_manage_all_devices_progress_status(self):
+        return self.weh.get_elements(self.manage_devices_progress_status)
+    
+    def get_device_page_size_100(self):
+        return self.weh.get_element(self.device_page_size_100)
 
     def get_simulation_device_count_input_field(self):
         return self.weh.get_element(self.simulation_device_count_input_field)
+      
+    def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
+        return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
+      
