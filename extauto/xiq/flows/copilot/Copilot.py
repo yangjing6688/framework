@@ -2852,4 +2852,3 @@ class Copilot(CopilotWebElements):
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
-        
