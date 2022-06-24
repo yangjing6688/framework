@@ -2278,7 +2278,18 @@ class Cli(object):
             return -1
 
     def enable_debug_mode_iqagent(self, ip, port, username, password, platform):
-
+        """
+        - This Keyword enables debug mode for IQagent for VOSS/EXOS
+        - Keyword Usage:
+         - ``Enable Debug Mode Iqagent   ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}
+                                                    ${PLATFORM}``
+        :param ip: Console IP Address of the Device
+        :param port: Console Port
+        :param username: username to access console
+        :param password: Password to access console
+        :param platform: device Platform example: exos,voss
+        :return: _spawn Device Prompt without '#'
+        """
         _spawn = self.open_spawn(ip, port, username, password, platform)
 
         if _spawn != -1:
