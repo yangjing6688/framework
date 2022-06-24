@@ -39,6 +39,9 @@ class AdspWebElements(AdspWebElementsDefinitions):
     def get_device_location_from_adsp(self):
         return self.weh.get_element(self.device_location_from_adsp)
 
+    def get_ap_serial_from_adsp(self):
+        return self.weh.get_element(self.ap_serial_from_adsp)
+
     def get_adsp_alarm_search_text_field(self):
         return self.weh.get_element(self.adsp_alarm_search_text_field)
 

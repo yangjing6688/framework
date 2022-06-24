@@ -90,6 +90,12 @@ class AdspWebElementsDefinitions:
             'wait_for': 5
         }
 
+    ap_serial_from_adsp =  \
+        {
+            'XPATH': '//td[contains(@class, "mat-column-serial_num")]//div[contains(@class, "ng-star-inserted")]',
+            'wait_for': 5
+        }
+
     adsp_alarm_search_text_field = \
         {
             'CSS_SELECTOR': '.alarm-search-txt',
