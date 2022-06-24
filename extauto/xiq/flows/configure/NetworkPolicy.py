@@ -5,6 +5,7 @@ from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.manage.Tools import Tools
@@ -37,6 +38,7 @@ class NetworkPolicy(object):
         self.filter_element = FilterManageDeviceWebElements()
         self.robot_built_in = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
@@ -88,11 +90,12 @@ class NetworkPolicy(object):
             self.utils.print_info(f"Network policy {policy} exists in the network policy list")
             return 1
 
-    def _perform_np_delete(self):
+    def _perform_np_delete(self, **kwargs):
         """
         clicking on the network policy delete button
         :return:
         """
+
         self.utils.print_info("Click on network policy delete button")
         self.auto_actions.click(self.np_web_elements.get_np_delete_button())
 
@@ -107,14 +110,20 @@ class NetworkPolicy(object):
         sleep(2)
         for value in tool_tp_text:
             if "Network policy was deleted successfully" in value:
+                kwargs['pass_msg'] = "Network policy was deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
             elif "The Network Policy cannot be removed " in value:
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
             elif "An unknown error has occurred" in value:
-                self.utils.print_info("Unable to delete the network policy")
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -2
+
+        kwargs['fail_msg'] = "Unable to perform the delete"
+        self.common_validation.validate(-1, 1, **kwargs)
         return -1
 
     def create_network_policy(self, policy, **wireless_profile):
@@ -198,7 +207,7 @@ class NetworkPolicy(object):
 
         return self._perform_np_delete()
 
-    def delete_network_polices(self, *policies):
+    def delete_network_polices(self, *policies, **kwargs):
         """
         - Deleting the network policies based on the passed list of policies
         - Keyword Usage:
@@ -207,7 +216,10 @@ class NetworkPolicy(object):
         :param policies: list of network polices to delete
         :return: 1 if deleted successfully else -1
         """
+
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+            kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -2
 
         select_flag = None
@@ -222,6 +234,9 @@ class NetworkPolicy(object):
 
         if select_flag:
             return self._perform_np_delete()
+
+        kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
+        self.common_validation.validate(1, 1, **kwargs)
         return 1
 
     def delete_all_network_policies(self, exclude_list=''):

@@ -501,3 +501,18 @@ class CopilotWebElements(CopilotDefs):
 
     def get_adverse_traffic_patterns_widget_content(self):
         return self.weh.get_element(self.adverse_traffic_patterns_widget_content)
+
+    def get_wifi_capacity_widget_location_ap_dislike(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike)
+
+    def get_wifi_capacity_widget_location_ap_dislike_send_feedback_textfield(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike_send_feedback_textfield)
+
+    def get_wifi_capacity_widget_location_ap_dislike_send_feedback_button(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike_send_feedback_button)
+
+    def get_wifi_capacity_widget_location_ap_like_tooltip(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_like_tooltip)
+
+    def get_wifi_capacity_widget_location_ap_dislike_button_enabled_status(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike_button_enabled_status)

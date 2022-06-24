@@ -3,6 +3,7 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
@@ -25,7 +26,7 @@ class CommonObjects(object):
         self.wireless_web_elements = WirelessWebElements()
         self.network_management_options_elements = NetworkManagementOptionsElements()
         self.user_profile_web_elements = UserProfileWebElements()
-
+        self.common_validation = CommonValidation()
 
     def navigate_to_basic_ip_object_hostname(self):
         """
@@ -160,7 +161,7 @@ class CommonObjects(object):
                 return 1
         return -1
 
-    def delete_ssids(self, *ssids):
+    def delete_ssids(self, *ssids, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete ssid's from ssid grid
@@ -170,6 +171,7 @@ class CommonObjects(object):
         :param ssids: (list) list of ssid's to delete
         :return: 1 if deleted else -1
         """
+
         self.navigator.navigate_to_ssids()
         sleep(5)
 
@@ -187,6 +189,8 @@ class CommonObjects(object):
                 self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
 
         if not select_ssid_flag:
+            kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
         self._delete_common_objects()
 
@@ -194,11 +198,16 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
-                self.utils.print_info(f"Successfully deleted SSIDs")
+                kwargs['pass_msg'] = "Successfully deleted SSIDs"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
+
+        kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
+        self.common_validation.validate(-1, 1)
         return -1
 
     def delete_all_ssids(self):

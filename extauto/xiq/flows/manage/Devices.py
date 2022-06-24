@@ -25,7 +25,6 @@ from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 
-from extauto.common.CommonValidation import CommonValidation
 
 class Devices:
     def __init__(self):
@@ -48,7 +47,6 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
-
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
@@ -1791,7 +1789,7 @@ class Devices:
 
         return specific_version
 
-    def refresh_devices_page(self):
+    def refresh_devices_page(self, **kwargs):
         """
         - This Keyword will Refresh the Devices Page
         - keyword Usage:
@@ -1806,10 +1804,13 @@ class Devices:
             self.clear_search_field()
             self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
             sleep(5)
+            kwargs['pass_msg'] = "Device page refreshed successfully"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
         except Exception as e:
-            self.utils.print_info("Unable to refresh devices page. Capturing screenshot")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to refresh devices page. Capturing screenshot"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def edit_ap_description(self, ap_desc, ap_serial=None, ap_name=None, ap_mac=None):
@@ -2409,7 +2410,7 @@ class Devices:
                 ret_val = -1
         return ret_val
 
-    def delete_device(self, device_serial=None, device_name=None, device_mac=None):
+    def delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - Deletes Device matching either any of either one of serial, name, MAC
         - Keyword Usage:
@@ -2420,11 +2421,10 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-        
+
         if device_serial:
             self.utils.print_info("Deleting device: ", device_serial)
             search_result = self.search_device(device_serial=device_serial)
-
             if search_result != -1:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click delete button")
@@ -2444,18 +2444,22 @@ class Devices:
                     result = self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
                     # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
                     if result == 1:
-                        self.utils.print_info("Deleted Device Successfully with Serial: ", device_serial)
+                        kwargs['pass_msg'] = f"Deleted Device Successfully with Serial: {device_serial}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
 
                     # Confirm device was deleted successfully
                     if self.search_device_serial(device_serial) == 1:
-                        self.utils.print_info("Unable to delete the device")
+                        kwargs['fail_msg'] = "Unable to delete the device"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Deleted Device Successfully with Serial: ", device_serial)
+                        kwargs['pass_msg'] = f"Deleted Device Successfully with Serial: {device_serial}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
             else:
-                self.utils.print_info(f"Device with serial {device_serial} does not exist / is already deleted")
+                kwargs['pass_msg'] = f"Device with serial {device_serial} does not exist / is already deleted"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
         if device_name:
@@ -2481,13 +2485,16 @@ class Devices:
 
                     # Confirm device was deleted successfully
                     if self.search_device_name(device_name) == 1:
-                        self.utils.print_info("Unable to delete the device")
+                        kwargs['fail_msg'] = "Unable to delete the device"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Deleted Device Successfully with Name: ", device_name)
+                        kwargs['pass_msg'] = f"Deleted Device Successfully with Name: {device_name}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
             else:
-                self.utils.print_info(f"Device with name {device_name} does not exist / is already deleted")
+                kwargs['pass_msg'] = f"Device with name {device_name} does not exist / is already deleted"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
         if device_mac:
@@ -2513,16 +2520,20 @@ class Devices:
 
                     # Confirm device was deleted successfully
                     if self.search_device_mac(device_mac) == 1:
-                        self.utils.print_info("Unable to delete the device")
+                        kwargs['fail_msg'] = "Unable to delete the device"
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Deleted Device Successfully with Mac: ", device_mac)
+                        kwargs['pass_msg'] = f"Deleted Device Successfully with Mac: {device_mac}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
             else:
-                self.utils.print_info(f"Device with MAC {device_mac} does not exist / is already deleted")
+                kwargs['pass_msg'] = f"Device with MAC {device_mac} does not exist / is already deleted"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
-        self.utils.print_info("Device was not deleted.  Make sure to specify a serial, name, or MAC")
+        kwargs['fail_msg'] = "Device was not deleted.  Make sure to specify a serial, name, or MAC"
+        self.common_validation.validate(-1, 1, **kwargs)
         return -1
 
     def delete_devices(self, *device_list):
@@ -2682,10 +2693,8 @@ class Devices:
 
         :param device_serial: Device Serial Number
         :return: return 1 if Device found,
-                 false if Device not found
-                 -1 if an error occurs
+                 return -1 if Device not found or if an error occurs
         """
-
         if not device_serial:
             self.utils.print_info("No serial number provided to search for")
             return -1
@@ -9621,11 +9630,44 @@ class Devices:
                sleep(30)
                self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
-        if not complete:
-            kwargs['fail_msg'] = "the waited time has reached with " + str(wait_time_in_min) + ' min(s)'
-            self.common_validation.validate(-1, 1, **kwargs)
-            return -1
+    def  wait_until_device_update_done(self, device_serial=None, wait_time_in_min=15, IRV=None):
 
-        sleep(10)
-        self.utils.print_info("All devices finish updating ")
-        return 1
+            """
+            - This keyword checks if the expected device is done with updating
+            - Keyword Usage:
+             - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
+
+            :param device_serial: Serial number of AP Ex:11301810220048
+            :param wait_time_in_min: time to wait in mins
+            :param IRV: True or False
+            :return: 1 if done, -1 if not
+            """
+
+            self.navigator.navigate_to_manage_tab()
+            self.refresh_devices_page()
+
+            complete = False
+            n_time = 0
+            kwargs = {}
+            date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+
+            if IRV != None:
+                kwargs["IRV"] = IRV
+                
+            while n_time <= int(wait_time_in_min*4):
+                n_time = n_time + 1
+                update_status= self.get_device_details(device_serial, 'UPDATED')
+                self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
+                if (update_status == '') or (re.match(date_regex, update_status)):
+                    kwargs['pass_msg'] = "Device has finshed updating "
+                    self.common_validation.validate(1, 1, **kwargs)
+                    complete = True
+                    break
+                sleep(15)
+
+            if not complete:
+                kwargs['fail_msg'] = "Device has not finshed updating "
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+
+            return 1
