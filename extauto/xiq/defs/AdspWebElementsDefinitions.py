@@ -3,7 +3,7 @@ class AdspWebElementsDefinitions:
         {
             'CSS_SELECTOR': '.mat-button-wrapper',
             'index': 5,
-            'wait_for': 3
+            'wait_for': 5
         }
 
     adsp_more_insights_auth_failure_page_text = \

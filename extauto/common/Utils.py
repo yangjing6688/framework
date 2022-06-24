@@ -670,8 +670,10 @@ class Utils:
         -This keyword Will Switch to default frame
         """
         self.print_info("<<<Switching to Default>>>")
+        time.sleep(5)
         try:
             driver.find_element_by_tag_name('iframe')
+            time.sleep(5)
             self.print_info("||| No Need to Switch |||")
         except NoSuchElementException:
             driver.switch_to.default_content()
@@ -683,10 +685,12 @@ class Utils:
         -This keyword Will Switch to iframe
         """
         self.print_info("*>>> Switching to IFrame <<<")
+        time.sleep(5)
         try:
             iframe = driver.find_element_by_tag_name('iframe')
             # driver.switch_to_frame(iframe)
             driver.switch_to.frame(iframe)
+            time.sleep(5)
             self.print_info(">>> Switching to IFrame Completed <<<")
         except Exception as e:
             self.print_info("Error: ", e)

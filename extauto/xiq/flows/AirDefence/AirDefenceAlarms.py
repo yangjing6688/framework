@@ -83,22 +83,17 @@ class AirDefenceAlarms(AdspWebElements):
         self.location.assign_location_with_device_actions(device_serial, dev_location)
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
-        sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
 
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        sleep(5)
 
         self.utils.print_info("Click More Insights button")
         self.auto_actions.click(self.get_adsp_more_insights_button())
-        sleep(5)
 
         self.utils.print_info("Switch to new ADSP tab")
         CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
-        sleep(2)
 
         self.screen.save_screen_shot()
-        sleep(2)
 
         self.utils.print_info("Navigating to ADSP Sensor page")
         self.auto_actions.click(self.go_to_adsp_sensor_page())
