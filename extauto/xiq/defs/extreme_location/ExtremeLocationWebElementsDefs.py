@@ -45,21 +45,21 @@ class ExtremeLocationWebElementsDefs:
 
     host_to_xloc_ap_page = \
         {
-            'XPATH': '//div[contains(@class,"xloc-ap-summary-grid-search")]',
+            'XPATH': '//div[contains(@class,"xloc-ap-summary-grid-search")]//input[contains(@id,"allcolumnssearch")]',
             'wait_for': 5
         }
 
     device_building_from_xloc = \
         {
             'XPATH': '//div[contains(@id,"ApSummaryGrid")]//table[contains(@id,"gridview")]//td[contains(@class,"x-grid-cell")]//div[contains(@class,"x-grid-cell-inner ")]',
-            'index': 5,
+            'index': 4,
             'wait_for': 5
         }
 
     device_floor_from_xloc = \
         {
             'XPATH': '//div[contains(@id,"ApSummaryGrid")]//table[contains(@id,"gridview")]//td[contains(@class,"x-grid-cell")]//div[contains(@class,"x-grid-cell-inner ")]',
-            'index': 6,
+            'index': 5,
             'wait_for': 5
         }
 
