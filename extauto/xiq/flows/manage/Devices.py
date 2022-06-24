@@ -7999,7 +7999,7 @@ class Devices:
         else:
             self.utils.print_info("Double verification doesn't appear")
             return -1
-#de aici incep update
+
     def change_device_onboarding_date(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days, serial_number, owner_id, sw_connection_host):
         '''
         This function change the onboarding date with specific number of days behind
