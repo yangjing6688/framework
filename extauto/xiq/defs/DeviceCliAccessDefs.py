@@ -13,7 +13,7 @@ class DeviceCliAccessDefs:
 
     cli_cmd_output_field = \
         {
-            'XPATH': '//*[@class="cli-command-result-pre"]',
+            'XPATH': '//*[@class="cli-command-result"]',
             'wait_for': 5
         }
 

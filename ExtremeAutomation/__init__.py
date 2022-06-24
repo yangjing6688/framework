@@ -7,7 +7,7 @@ importlib.import_module("robot.api")
 importlib.import_module("robot")
 
 # pytest only
-if "pytest" in sys.modules and "pytest.collect" in sys.modules:
+if ("pytest" in sys.modules and "pytest.collect" in sys.modules) or os.getenv('PYTESTBUILTIN'):
     print("REMOVE ROBOT SITE-PACKAGES")
     c=0
     nPath = None

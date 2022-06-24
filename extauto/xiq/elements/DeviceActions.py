@@ -93,6 +93,9 @@ class DeviceActions(DeviceActionsDefs):
     def get_multiple_device_reset_button(self):
         return self.weh.get_element(self.multiple_device_reset_button)
 
+    def get_reset_devices_to_default(self):
+        return self.weh.get_element(self.reset_devices_to_default)
+
     def get_single_device_reset_button(self):
         return self.weh.get_element(self.single_device_reset_button)
 

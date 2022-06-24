@@ -1,12 +1,6 @@
 import json
 import time
-
-import pycurl
-import base64
 import subprocess
-
-from io import BytesIO
-from io import StringIO
 import re
 
 from extauto.common.Utils import Utils
@@ -630,7 +624,7 @@ class Iapi:
                                                         dutSpeed_sorted[i]["supportedModeCount"],
                                                         xiqSpeed_sorted[i]["supportedModeCount"]))
         return match
-      
+
     def get_negotiated_speed_of_port(self,nos: str,dutip,portnumber):
         """
         Returns the current speed of a port in DUT

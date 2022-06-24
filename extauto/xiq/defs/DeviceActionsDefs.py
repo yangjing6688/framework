@@ -122,6 +122,12 @@ class DeviceActionsDefs:
             'wait_for': 5
         }
 
+    reset_devices_to_default = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-utilities-reset-device-to-default"]',
+            'wait_for': 5
+        }
+
     single_device_reset_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-resetDevicetoDefault"]',

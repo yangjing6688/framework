@@ -102,6 +102,36 @@ class ExtremeGuestSplashTemplateWebElementsDefs:
             'wait_for': 5
         }
 
+    extreme_guest_clone_system_template_selectwidget_icon = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-splash-edittemplate-selectwidget-btn")]//span[contains(@class, "fa-widget")])[3]',
+            'wait_for': 5
+        }
+
+    extreme_guest_clone_system_template_main_droppanel = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-splash-edittemplate-droppanel-tab")])[3]',
+            'wait_for': 5
+        }
+
+    extreme_guest_clone_system_template_secondary_droppanel = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-splash-edittemplate-droppanel-tab")])[3]//div[contains(@data-automation-tag, "eguest-splash-edittemplate-droppanel-tab")]',
+            'wait_for': 5
+        }
+
+    extreme_guest_clone_system_template_theme_layout1 = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-splash-edittemplate-theme-layout1")])[3]',
+            'wait_for': 5
+        }
+
+    extreme_guest_clone_system_template_loginform_widget_icon = \
+        {
+            'XPATH': '//div[contains(@data-automation-tag, "eguest-splash-edittemplate-loginform-widget-btn")]',
+            'wait_for': 5
+        }
+
     extreme_guest_clone_system_template_widget_icon = \
         {
             'XPATH': '//span[contains(@class, "x-btn-text")]/span[contains(@class, "fa-widget")]',

@@ -63,7 +63,7 @@ class SwTemplateLegacyPortTypeWebElements(SwTemplateLegacyPortTypeWebElementDefi
         return self.weh.get_elements(self.client_reporting)
 
     def get_stp_status(self):
-        return self.weh.get_elements(self.stp_status)
+        return self.weh.get_element(self.stp_status)
 
     def get_edge_port(self):
         return self.weh.get_elements(self.edge_port)

@@ -50,7 +50,7 @@ class Communications(CommunicationsWebElements):
             self.utils.print_info("Unable to get Communications page header. Please check")
             return -1
 
-        if "ExtremeCloud IQ" in comm_txt:
+        if "ExtremeCloud IQ" or "NOTIFICATIONS" in comm_txt:
             self.utils.print_info("Communications page found.")
             return 1
         else:

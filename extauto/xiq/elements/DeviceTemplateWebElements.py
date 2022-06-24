@@ -211,3 +211,45 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
 
     def get_device_template_cancel_button(self):
         return self.weh.get_element(self.device_template_cancel_button)
+
+    def get_network_policy_add_button(self):
+        return self.weh.get_element(self.network_policy_add_button)
+
+    def get_network_policy_name_text(self):
+        return self.weh.get_element(self.network_policy_name_text)
+
+    def get_network_policy_save_button(self):
+        return self.weh.get_element(self.network_policy_save_button)
+
+    def get_select_device_template(self):
+        return self.weh.get_element(self.select_device_template)
+
+    def get_select_ap_template(self):
+        return self.weh.get_element(self.select_ap_template)
+
+    def get_ap_template_advanced_settings(self):
+        return self.weh.get_element(self.ap_template_advanced_settings)
+
+    def get_ap_template_enable_scli(self):
+        return self.weh.get_element(self.ap_template_enable_scli)
+
+    def get_ap_template_scli_config_enter_name(self):
+        return self.weh.get_element(self.ap_template_scli_config_enter_name)
+
+    def get_ap_template_scli_enter_commands(self):
+        return self.weh.get_element(self.ap_template_scli_enter_commands)
+
+    def get_ap_template_save_template(self):
+        return self.weh.get_element(self.ap_template_save_template)
+
+    def get_select_switch_template(self):
+        return self.weh.get_element(self.select_switch_template)
+
+    def get_switch_template_add_button(self):
+        return self.weh.get_element(self.switch_template_add_button)
+
+    def get_switch_template_advanced_settings(self):
+        return self.weh.get_element(self.switch_template_advanced_settings)
+
+    def get_switch_template_save_template(self):
+        return self.weh.get_element(self.switch_template_save_template)
