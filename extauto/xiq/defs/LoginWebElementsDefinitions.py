@@ -462,7 +462,7 @@ class LoginWebElementsDefinitions:
             'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 3,
         }
-#ultima functie din main
+
     login_portal_page_username_text = \
         {
             'XPATH': '//input[@name="username"]',

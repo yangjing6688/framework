@@ -269,7 +269,7 @@ class DeviceActionsDefs:
             'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
             'wait_for': 2
         }
-    #ultima functie din main
+
     device_actions_change_management_status = \
         {
             'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-changemanagementstatus"]',

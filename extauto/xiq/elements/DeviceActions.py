@@ -159,7 +159,6 @@ class DeviceActions(DeviceActionsDefs):
     def get_confirm_msg_yes(self):
         return self.weh.get_element(self.confirm_msg_yes)
 
-#ultima functie din main
     def get_device_actions_change_manage_status(self):
         elements = self.weh.get_elements(self.device_actions_change_management_status)
         for el in elements:

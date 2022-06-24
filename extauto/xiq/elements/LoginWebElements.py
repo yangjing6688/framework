@@ -296,7 +296,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_check_error_shared_cuid(self):
         return self.weh.get_element(self.check_error_shared_cuid)
-#ultima functie din main
+
     def get_login_portal_page_username_text(self):
         return self.weh.get_element(self.login_portal_page_username_text)
 
