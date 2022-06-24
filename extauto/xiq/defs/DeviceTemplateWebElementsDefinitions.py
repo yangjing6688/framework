@@ -360,6 +360,13 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    select_ap_template = \
+        {
+            'XPATH': '//*[contains(@data-automation-tag, "wireless-device-templates-cell")]',
+            'index': 3,
+            'wait_for': 5
+        }
+
     ap_template_advanced_settings = \
         {
             'XPATH': '//li[@class="ui-nav-sider-item has-cap-advanced nav-configuration-advanced active-result"]',
