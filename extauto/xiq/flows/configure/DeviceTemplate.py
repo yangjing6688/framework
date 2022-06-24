@@ -138,40 +138,31 @@ class DeviceTemplate(object):
         """
 
         self.network_policy.navigate_to_np_edit_tab(policy_name)
-        sleep(5)
 
         self.utils.print_info("Click on Device Template tab")
         self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
-        sleep(5)
 
         self.utils.print_info("Click on AP Template")
         self.auto_actions.click(self.device_template_web_elements.get_select_ap_template())
-        sleep(5)
 
         self.utils.print_info("Click on WiFi2 Tab on AP Template page")
         self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab())
-        sleep(5)
 
-        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
-        sleep(2)
+        self.auto_actions.scroll_down()
 
         self.utils.print_info("Disable Radio Status on WiFi2 Interface")
         if self.device_template_web_elements.get_wifi2_radio_status_button().is_selected():
             self.auto_actions.click(self.device_template_web_elements.get_wifi2_radio_status_button())
-            sleep(5)
 
             self.screen.save_screen_shot()
-            sleep(2)
 
-        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
+        self.auto_actions.scroll_up()
 
         self.utils.print_info("Click on the save template button")
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
-        sleep(3)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.screen.save_screen_shot()
-        sleep(2)
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         sub_string = "template"
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
