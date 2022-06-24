@@ -9629,11 +9629,44 @@ class Devices:
                sleep(30)
                self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
-        if not complete:
-            kwargs['fail_msg'] = "the waited time has reached with " + str(wait_time_in_min) + ' min(s)'
-            self.common_validation.validate(-1, 1, **kwargs)
-            return -1
+    def  wait_until_device_update_done(self, device_serial=None, wait_time_in_min=15, IRV=None):
 
-        sleep(10)
-        self.utils.print_info("All devices finish updating ")
-        return 1
+            """
+            - This keyword checks if the expected device is done with updating
+            - Keyword Usage:
+             - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
+
+            :param device_serial: Serial number of AP Ex:11301810220048
+            :param wait_time_in_min: time to wait in mins
+            :param IRV: True or False
+            :return: 1 if done, -1 if not
+            """
+
+            self.navigator.navigate_to_manage_tab()
+            self.refresh_devices_page()
+
+            complete = False
+            n_time = 0
+            kwargs = {}
+            date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+
+            if IRV != None:
+                kwargs["IRV"] = IRV
+                
+            while n_time <= int(wait_time_in_min*4):
+                n_time = n_time + 1
+                update_status= self.get_device_details(device_serial, 'UPDATED')
+                self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
+                if (update_status == '') or (re.match(date_regex, update_status)):
+                    kwargs['pass_msg'] = "Device has finshed updating "
+                    self.common_validation.validate(1, 1, **kwargs)
+                    complete = True
+                    break
+                sleep(15)
+
+            if not complete:
+                kwargs['fail_msg'] = "Device has not finshed updating "
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+
+            return 1

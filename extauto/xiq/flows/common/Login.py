@@ -1256,3 +1256,17 @@ class Login:
         except Exception as e:
             self.utils.print_info("Unable to refresh the page...")
             self.utils.print_info(e)
+
+    def click_advanced_onboard_popup(self):
+           """
+           This keyword just clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
+           - Keyword Usage:
+         - ` click advanced popup`
+            :return: None
+           """
+           self.utils.print_info("Check for Advance Onboard Popup page after login..")
+           try:
+               if self.login_web_elements.get_drawer_content().is_displayed():
+                   self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+           except Exception as e:
+               pass
