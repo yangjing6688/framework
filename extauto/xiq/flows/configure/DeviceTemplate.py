@@ -126,7 +126,16 @@ class DeviceTemplate(object):
         else:
             return -1
 
-    def edit_ap_net_policy_template_wifi2(self, policy_name, ):
+    def edit_ap_net_policy_template_wifi2(self, policy_name):
+        """
+        - Selects the given network policy and edit, selects the AP Template and edit wifi2 and disable
+        - Keyword Usage
+         - ``Edit AP Net Policy Template Wifi2   ${POLICY_NAME}``
+
+        :param policy_name: Network Policy Name
+        :param ap_template: Ap Template Name ie AP630,AP410C
+        :return: 1 if Editing is successful on AP Template or else -1
+        """
 
         self.network_policy.navigate_to_np_edit_tab(policy_name)
         sleep(5)
