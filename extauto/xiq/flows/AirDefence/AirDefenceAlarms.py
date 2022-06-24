@@ -3,7 +3,6 @@ from time import sleep
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from extauto.xiq.flows.manage.Location import Location
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.AdspWebElements import AdspWebElements
@@ -16,7 +15,6 @@ class AirDefenceAlarms(AdspWebElements):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
-        self.location = Location()
         self.auto_actions = AutoActions()
 
     def get_adsp_alarm_details(self, search_string, page_size=250):
@@ -70,8 +68,8 @@ class AirDefenceAlarms(AdspWebElements):
 
     def check_location_assigned_to_ap_in_adess(self, device_serial, dev_location):
         """
-        - This Keyword Will Assign new location to AP and verify in ADESS Sensor page
-        - Flow: XIQ--> Change Location--> Extreme AirDefense--> More Insights--> Sensor page
+        - This Keyword Will check new location assigned to AP in ADESS Sensor page
+        - Flow: Extreme AirDefense--> More Insights--> Sensor page--> New location assgined to AP
         - Keyword Usage:
          - ``Check Location Assigned to AP in ADESS     ${AP1_SERIAL}       ${NEW_LOCATION}``
 
@@ -79,8 +77,6 @@ class AirDefenceAlarms(AdspWebElements):
         :param dev_location: location hierarchy in terms of location, building, floor
         :return: 1 if edited location is successfully seen in ADSP Sensor page else -1
         """
-
-        self.location.assign_location_with_device_actions(device_serial, dev_location)
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.navigator.navigate_to_extreme_airdefence()
@@ -105,7 +101,7 @@ class AirDefenceAlarms(AdspWebElements):
         self.auto_actions.send_keys(self.get_serial_to_adsp_sensor_page(), device_serial)
 
         location_list = dev_location.split(',')
-        expected_location = " >>".join(location_list)
+        expected_location = ">>".join(location_list)
         observed_location = self.get_device_location_from_adsp().text
         self.utils.print_info("Expected location string: ", expected_location)
         self.utils.print_info("Device location from ADSP Sensor page: ", observed_location)
