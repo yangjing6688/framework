@@ -155,7 +155,6 @@ class DeviceTemplate(object):
             self.auto_actions.click(self.device_template_web_elements.get_wifi2_radio_status_button())
 
             self.screen.save_screen_shot()
-            sleep(2)
 
         self.auto_actions.scroll_up()
 
@@ -164,7 +163,6 @@ class DeviceTemplate(object):
 
         tool_tip_text = tool_tip.tool_tip_text
         self.screen.save_screen_shot()
-        sleep(2)
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         sub_string = "template"
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
