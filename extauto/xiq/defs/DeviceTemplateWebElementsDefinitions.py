@@ -362,8 +362,7 @@ class DeviceTemplateWebElementDefinitions:
 
     select_ap_template = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "wireless-device-templates-cell")]',
-            'index': 3,
+            'XPATH': '//*[contains(@data-automation-tag, "wireless-device-templates-cell")]//*[@class="J-tmplName"]',
             'wait_for': 5
         }
 
