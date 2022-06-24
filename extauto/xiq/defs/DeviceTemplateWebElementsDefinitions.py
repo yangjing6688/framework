@@ -150,7 +150,7 @@ class DeviceTemplateWebElementDefinitions:
     ap_template_save_button = \
         {
             'XPATH': '//*[@id="ah/comp/configuration/deviceTemplate/APTemplate_0"]/div[2]/fixed-bar/button[2]',
-            'wait_for': 2
+            'wait_for': 5
         }
 
     device_template_page_next_button = \
