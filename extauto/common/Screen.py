@@ -29,9 +29,11 @@ class Screen:
         if _driver:
             _driver.get_screenshot_as_file(file_path)
             self.add_screen_shot_to_allure(file_name, _driver)
+            time.sleep(2)
         else:
             CloudDriver().cloud_driver.get_screenshot_as_file(file_path)
             self.add_screen_shot_to_allure(file_name, CloudDriver().cloud_driver)
+            time.sleep(2)
         print(
             "*HTML* <a href=" + file_name + "> <img src=" + file_name + " width=\"600px\" style=\"border:5px solid red\"></a>")
         return file_name
