@@ -9297,9 +9297,6 @@ class Devices:
             self.utils.print_info("audit_rows was not found ")
             self.screen.save_screen_shot()
             return -1
-#ultima functie
-  
-=======
 
     def is_delete_button_visible(self):
         """
