@@ -3,6 +3,7 @@ from time import sleep
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
+from extauto.xiq.flows.manage.Location import Location
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.AdspWebElements import AdspWebElements
@@ -15,6 +16,7 @@ class AirDefenceAlarms(AdspWebElements):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
+        self.location = Location()
         self.auto_actions = AutoActions()
 
     def get_adsp_alarm_details(self, search_string, page_size=250):
@@ -65,6 +67,60 @@ class AirDefenceAlarms(AdspWebElements):
                     alarm_details[label] = cell.text
             self.utils.print_info(alarm_details)
             return alarm_details
+
+    def check_location_assigned_to_ap_in_adess(self, device_serial, dev_location):
+        """
+        - This Keyword Will Assign new location to AP and verify in ADESS Sensor page
+        - Flow: XIQ--> Change Location--> Extreme AirDefense--> More Insights--> Sensor page
+        - Keyword Usage:
+         - ``Check Location Assigned to AP in ADESS     ${AP1_SERIAL}       ${NEW_LOCATION}``
+
+        :param device_serial: serial number of access point
+        :param dev_location: location hierarchy in terms of location, building, floor
+        :return: 1 if edited location is successfully seen in ADSP Sensor page else -1
+        """
+
+        self.location.assign_location_with_device_actions(device_serial, dev_location)
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        sleep(5)
+        self.navigator.navigate_to_extreme_airdefence()
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(5)
+
+        self.utils.print_info("Click More Insights button")
+        self.auto_actions.click(self.get_adsp_more_insights_button())
+        sleep(5)
+
+        self.utils.print_info("Switch to new ADSP tab")
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Navigating to ADSP Sensor page")
+        self.auto_actions.click(self.go_to_adsp_sensor_page())
+
+        self.utils.print_info("Clicking search button on adsp sensor page")
+        self.auto_actions.click(self.get_search_adsp_sensor_page())
+
+        self.utils.print_info("Seraching serial number in ADSP Sensor page")
+        self.auto_actions.send_keys(self.get_serial_to_adsp_sensor_page(), device_serial)
+
+        location_list = dev_location.split(',')
+        expected_location = " >>".join(location_list)
+        observed_location = self.get_device_location_from_adsp().text
+        self.utils.print_info("Expected location string: ", expected_location)
+        self.utils.print_info("Device location from ADSP Sensor page: ", observed_location)
+
+        if expected_location.strip() in observed_location:
+            self.utils.print_info("Edited/Assigned Location is successfully seen in ADSP Sensor page")
+            return 1
+        else:
+            self.utils.print_info("Edited/Assigned Location cannot be seen in ADSP Sensor page")
+            return -1
 
     def get_adsp_alarm_grid_row(self, search_string):
         """

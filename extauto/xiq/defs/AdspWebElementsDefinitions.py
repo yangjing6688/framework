@@ -66,6 +66,30 @@ class AdspWebElementsDefinitions:
             'wait_for': 5
         }
 
+    to_adsp_sensor_page = \
+        {
+            'XPATH': '//*[contains(@class, "SENSORS-navlist-tab")]',
+            'wait_for': 5
+        }
+
+    search_adsp_sensor_page = \
+        {
+            'XPATH': '//*[contains(@class, "sensor-search-btn")]',
+            'wait_for': 5
+        }
+
+    serial_to_adsp_sensor_page = \
+        {
+            'XPATH': '//*[contains(@class, "sensor-search-txt")]',
+            'wait_for': 5
+        }
+
+    device_location_from_adsp = \
+        {
+            'XPATH': '//td[contains(@class, "mat-column-location")]//div[contains(@class, "ng-star-inserted")]',
+            'wait_for': 5
+        }
+
     adsp_alarm_search_text_field = \
         {
             'CSS_SELECTOR': '.alarm-search-txt',
