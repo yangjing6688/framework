@@ -221,7 +221,6 @@ class TelnetAgent(CliAgent):
 
     def __post_login_commands(self, output):
         if self.device.oper_sys == NetworkElementConstants.OS_VOSS:
-            self.debug_print(self.send_command("en"))
             self.write_encode_ln("")
             output += self.wait_no_parse(250, 5)
         else:
