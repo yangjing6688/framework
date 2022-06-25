@@ -96,6 +96,12 @@ class AdspWebElementsDefinitions:
             'wait_for': 5
         }
 
+    auth_error_from_adess = \
+        {
+            'XPATH': '//app-auth-failure//div[contains(@class,"centerCls titleCls")]//span',
+            'wait_for': 5
+        }
+
     adsp_alarm_search_text_field = \
         {
             'CSS_SELECTOR': '.alarm-search-txt',
