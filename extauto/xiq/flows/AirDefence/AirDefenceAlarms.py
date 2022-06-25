@@ -124,6 +124,50 @@ class AirDefenceAlarms(AdspWebElements):
             if search_string in row.text:
                 return row
 
+    def check_ap_in_adess_device_view_page(self, device_serial):
+        """
+        - This Keyword Will check new location assigned to AP in ADESS Sensor page
+        - Flow: Extreme AirDefense--> More Insights--> Sensor page--> New location assgined to AP
+        - Keyword Usage:
+         - ``Check AP in ADESS Device View Page     ${AP1_SERIAL}``
+
+        :param device_serial: serial number of access point
+        :return: 1 if serial number of AP is successfully seen in ADESS Sensor page else -1
+        """
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_extreme_airdefence()
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+
+        self.utils.print_info("Click More Insights button")
+        self.auto_actions.click(self.get_adsp_more_insights_button())
+
+        self.utils.print_info("Switch to new ADSP tab")
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
+
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Navigating to ADSP Sensor page")
+        self.auto_actions.click(self.go_to_adsp_sensor_page())
+
+        self.utils.print_info("Clicking search button on adsp sensor page")
+        self.auto_actions.click(self.get_search_adsp_sensor_page())
+
+        self.utils.print_info("Seraching serial number in ADSP Sensor page")
+        self.auto_actions.send_keys(self.get_serial_to_adsp_sensor_page(), device_serial)
+
+        observed_ap_serial = self.get_ap_serial_from_adsp().text
+        self.utils.print_info("Expected serial number string: ", device_serial)
+        self.utils.print_info("Observed serial number from ADSP Sensor page: ", observed_ap_serial)
+
+        if observed_ap_serial.strip() in device_serial:
+            self.utils.print_info("AP is successfully seen in ADSP Sensor page")
+            return 1
+        else:
+            self.utils.print_info("AP cannot be seen in ADSP Sensor page")
+            return -1
+
     def _go_to_adsp_alarm_page(self):
         """
         -This keyword Will Navigate to Extreme AirDefence Alarm page
