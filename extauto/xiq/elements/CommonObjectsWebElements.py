@@ -67,8 +67,8 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_ip_object_hostname_delete_button(self):
         return self.weh.get_element(self.ip_object_hostname_delete_button)
 
-    def get_ip_object_hostname_object_checkbox_checked(self):
-        return self.weh.get_element(self.ip_object_hostname_object_checkbox_checked)
+    def get_ip_object_hostname_object_checkbox_checked(self, ip_object_row):
+        return self.weh.get_element(self.ip_object_hostname_object_checkbox_checked, ip_object_row)
 
     def get_ip_object_hostname_delete_confirm_win(self):
         return self.weh.get_element(self.ip_object_hostname_delete_confirm_win)

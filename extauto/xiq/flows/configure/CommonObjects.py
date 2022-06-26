@@ -2186,20 +2186,23 @@ class CommonObjects(object):
             self.utils.print_info(f"Unable to Delete IP Firewall Policy {ip_firewall_policy_name}")
             return -1
 
-    def add_ip_object_hostname_with_ip_or_hostname(self, name, type, global_ip, *classify_ip):
+    def add_ip_object_hostname_with_ip_or_hostname(self, name, type, global_item, *classify_items):
         """
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with IP Address
         - Create ip object profile with ip address
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_ip}    @{classify_ip}``
-
+            - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_item}    @{classify_items}``
         :param name: The profile name
         :param type: "IP Address", or "Host Name", or "Wildcard Host Name"
-        :param global_ip:   Unclassified IP address, or unclassified Hostname, or unclassified wildcard hostname
-        :param *classify_ip:    Classified IP address list, or classified Hostname list, or classified wildcard hostname list
-        :return: success return 1
+        :param global_item:   Unclassified IP address, or unclassified Hostname, or unclassified wildcard hostname
+        :param *classify_items:    Classified IP address list, or classified Hostname list, or classified wildcard hostname list
+        :return: success return 1 else return -1
         """
-        self.navigate_to_basic_ip_object_hostname()
+        if not self.cobj_web_elements.get_ip_object_hostname_page():
+            self.utils.print_info("Not in IP Object mangement page, need navigate to the page first.")
+            self.navigate_to_basic_ip_object_hostname()
+        else:
+            self.utils.print_info("Already in IP Object management page, go ahead for next steps ...")
         self.utils.print_info("Check the IP object profile if it exists ...")
         find_ipobject_result = self._ip_object_hostname_find_object_profile(name)
         if find_ipobject_result == 1:
@@ -2209,44 +2212,50 @@ class CommonObjects(object):
         else:
             self.utils.print_info(f"Network Object {name} is NOT found, go ahead for next step...")
         self.utils.print_info("click + to add an new object profile ...")
-        self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_add_button())
-
-        if type == "IP Address":
-            self._ip_object_hostname_choose_type(type)
-            self.utils.print_info(f"Add ip object name: {name} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
-            self.utils.print_info(f"Input IP address: {global_ip} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_address_textfield(), global_ip)
-            self.utils.print_info(f'The length of classify_ip list the list is {classify_ip}')
-            self._ip_object_hostname_add_objects(type, None, *classify_ip)
-            return 1
-
-        if type == "Host Name":
-            self._ip_object_hostname_choose_type(type)
-
-            self.utils.print_info(f"Add ip object name: {name} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
-
-            self.utils.print_info(f"Input Host Name: {global_ip} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_textfield(), global_ip)
-
-            self.utils.print_info(
-                f'The length of the classified list is {classify_ip}')
-            self._ip_object_hostname_add_objects(type, None, *classify_ip)
-            return 1
-
-        if type == "Wildcard Host Name":
-            self._ip_object_hostname_choose_type(type)
-
-            self.utils.print_info(f"Add ip object name: {name} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
-
-            self.utils.print_info(f"Input Wildcard Host Name: {global_ip} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_wildcard_hostname_textfield(), global_ip)
-
-            self.utils.print_info(f'The length of the classified list is {classify_ip}')
-            self._ip_object_hostname_add_objects(type, None, *classify_ip)
-            return 1
+        add_button = self.cobj_web_elements.get_ip_object_hostname_add_button()
+        if add_button:
+            self.auto_actions.click(add_button)
+            if type == "IP Address":
+                self._ip_object_hostname_choose_type(type)
+                self.utils.print_info(f"Add ip object name: {name} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
+                self.utils.print_info(f"Input IP address: {global_item} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_address_textfield(), global_item)
+                self.utils.print_info(f'The length of classify_items list the list is {classify_items}')
+                classified_items = self._ip_object_hostname_add_objects(type, None, *classify_items)
+                if classified_items == -1:
+                    self.utils.print_info("Click SAVE button to save IP Object profile ...")
+                    self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+                return 1
+            elif type == "Host Name":
+                self._ip_object_hostname_choose_type(type)
+                self.utils.print_info(f"Add ip object name: {name} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
+                self.utils.print_info(f"Input Host Name: {global_item} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_textfield(), global_item)
+                self.utils.print_info(
+                    f'The length of the classified list is {classify_items}')
+                classified_items = self._ip_object_hostname_add_objects(type, None, *classify_items)
+                if classified_items == -1:
+                    self.utils.print_info("Click SAVE button to save IP Object profile ...")
+                    self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+                return 1
+            elif type == "Wildcard Host Name":
+                self._ip_object_hostname_choose_type(type)
+                self.utils.print_info(f"Add ip object name: {name} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
+                self.utils.print_info(f"Input Wildcard Host Name: {global_item} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_wildcard_hostname_textfield(), global_item)
+                self.utils.print_info(f'The length of the classified list is {classify_items}')
+                classified_items = self._ip_object_hostname_add_objects(type, None, *classify_items)
+                if classified_items == -1:
+                    self.utils.print_info("Click SAVE button to save IP Object profile ...")
+                    self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+                return 1
+            else:
+                return -1
+        else:
+            return -1
 
     def add_ip_object_hostname_with_ip_network(self, name, type, global_network, netmask, *classify_network):
         """
@@ -2258,11 +2267,14 @@ class CommonObjects(object):
         :param type: "Network", or "Wildcard"
         :param global_network:   Unclassified Network, or unclassified Wildcard network
         :param netmask:  Netmask
-        :param classify_network:    Classified network list, or classified wildcard network list
+        :param *classify_network:    Classified network list, or classified wildcard network list
         :return: success return 1
         """
-
-        self.navigate_to_basic_ip_object_hostname()
+        if not self.cobj_web_elements.get_ip_object_hostname_page():
+            self.utils.print_info("Not in IP Object mangement page, need navigate to the page first.")
+            self.navigate_to_basic_ip_object_hostname()
+        else:
+            self.utils.print_info("Already in IP Object management page, go ahead for next steps ...")
         self.utils.print_info("Check the IP object profile if it exists ...")
         find_ipobject_result = self._ip_object_hostname_find_object_profile(name)
         if find_ipobject_result == 1:
@@ -2271,28 +2283,38 @@ class CommonObjects(object):
             self.utils.print_info(f"Network Object {name} is deleted successfully...")
         else:
             self.utils.print_info(f"Network Object {name} is NOT found, go ahead for next step...")
-
         self.utils.print_info("click + to add an new object profile ...")
-        self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_add_button())
-        if type == "Network":
-            self._ip_object_hostname_choose_type(type)
-            self.utils.print_info(f"Add ip object name: {name} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
-            self.utils.print_info(f"Input IP Network: {global_network} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield(), global_network)
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_netmask_textfield(), netmask)
-            self._ip_object_hostname_add_objects(type, netmask, *classify_network)
-            return 1
-
-        if type == "Wildcard":
-            self._ip_object_hostname_choose_type(type)
-            self.utils.print_info(f"Add ip object name: {name} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
-            self.utils.print_info(f"Input Wildcard Network: {global_network} ...")
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_wildcard_ip_textfield(), global_network)
-            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_wildcard_mask_textfield(), netmask)
-            self._ip_object_hostname_add_objects(type, netmask, *classify_network)
-            return 1
+        add_button = self.cobj_web_elements.get_ip_object_hostname_add_button()
+        if add_button:
+            self.auto_actions.click(add_button)
+            if type == "Network":
+                self._ip_object_hostname_choose_type(type)
+                self.utils.print_info(f"Add ip object name: {name} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
+                self.utils.print_info(f"Input IP Network: {global_network} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield(), global_network)
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_network_netmask_textfield(), netmask)
+                classified_items = self._ip_object_hostname_add_objects(type, netmask, *classify_network)
+                if classified_items == -1:
+                    self.utils.print_info("Click SAVE button to save IP Object profile ...")
+                    self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+                return 1
+            elif type == "Wildcard":
+                self._ip_object_hostname_choose_type(type)
+                self.utils.print_info(f"Add ip object name: {name} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
+                self.utils.print_info(f"Input Wildcard Network: {global_network} ...")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_wildcard_ip_textfield(), global_network)
+                self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_wildcard_mask_textfield(), netmask)
+                classified_items = self._ip_object_hostname_add_objects(type, netmask, *classify_network)
+                if classified_items == -1:
+                    self.utils.print_info("Click SAVE button to save IP Object profile ...")
+                    self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+                return 1
+            else:
+                return -1
+        else:
+            return -1
 
     def add_ip_object_hostname_with_ip_range(self, name, global_range_start, ip_range_gap, *classify_range_start):
         """
@@ -2311,9 +2333,10 @@ class CommonObjects(object):
         :param classify_range_start:    Classified start IP list
         :return: success return 1
         """
-
-        self.navigate_to_basic_ip_object_hostname()
-        sleep(2)
+        if not self.cobj_web_elements.get_ip_object_hostname_page():
+            self.navigate_to_basic_ip_object_hostname()
+        else:
+            self.utils.print_info("Already in IP Object management page...")
         self.utils.print_info("Check the IP object profile if it exists ...")
         find_ipobject_result = self._ip_object_hostname_find_object_profile(name)
         if find_ipobject_result == 1:
@@ -2324,36 +2347,48 @@ class CommonObjects(object):
             self.utils.print_info(f"Network Object {name} is NOT found, go ahead for next step...")
 
         self.utils.print_info("click + to add an new object profile ...")
-        self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_add_button())
-        self._ip_object_hostname_choose_type("IP Range")
-        self.utils.print_info(f"Add ip object name: {name} ...")
-        self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
-        self.utils.print_info(f"Input Global IP Range Start: {global_range_start} ...")
-        self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_range_start_textfield(), global_range_start)
-        self.utils.print_info(f"Input Global IP Range End:", global_range_start + ip_range_gap)
-        self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_range_end_textfield(), global_range_start + ip_range_gap)
-        self._ip_object_hostname_add_objects_for_ip_range(ip_range_gap, *classify_range_start)
-        return 1
+        add_button = self.cobj_web_elements.get_ip_object_hostname_add_button()
+        if add_button:
+            self.auto_actions.click(add_button)
+            self._ip_object_hostname_choose_type("IP Range")
+            self.utils.print_info(f"Add ip object name: {name} ...")
+            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
+            self.utils.print_info(f"Input Global IP Range Start: {global_range_start} ...")
+            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_range_start_textfield(), global_range_start)
+            self.utils.print_info(f"Input Global IP Range End:", global_range_start + ip_range_gap)
+            self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_range_end_textfield(), global_range_start + ip_range_gap)
+            classified_items = self._ip_object_hostname_add_objects_for_ip_range(ip_range_gap, *classify_range_start)
+            if classified_items == -1:
+                self.utils.print_info("Click SAVE button to save IP Object profile ...")
+                self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+            return 1
+        else:
+            return -1
 
     def _ip_object_hostname_choose_type(self, object_type):
         """
         - It is internal function for choose object type
         - Flow: IP Object creating page --> Click drop down of object type --> Select the type
         :param object_type: The tyoe of IP Object profile
+        :return: success return 1 else return -1
         """
         self.utils.print_info("Click on ip object type drop down")
         self.auto_actions.click(self.cobj_web_elements.get_ip_object_type_drop_down())
         object_types = self.cobj_web_elements.get_ip_object_type_options()
         self.utils.print_info(f"The object type is: {object_type} ...")
-        self.auto_actions.select_drop_down_options(object_types, object_type)
+        type_choose_result = self.auto_actions.select_drop_down_options(object_types, object_type)
+        if type_choose_result:
+            return 1
+        else:
+            return -1
 
     def _ip_object_hostname_add_objects(self, object_type=None, netmask=None, *classified_items_list):
         """
         - It is internal function for add classified objects except for IP Range object
         - Add more objects in the same profile, based on how many values in the more_items_list list, and then select classification rules for them
         - Flow:
-        -- If *classify_ip is none, not execute this function
-        -- Else: Add objects based on *classify_ip --> Fillin values in blank area without value --> Select classification rule for each object --> Save object profile
+        -- If *classify_items_list is none, not execute this function
+        -- Else: Add objects based on *classify_items_list --> Fillin values in blank area without value --> Select classification rule for each object --> Save object profile
         :param object_type: The tyoe of IP Object profile
         :param netmask: Netmask
         :param  *classified_items_list: The classified items(it is a common list for all types items) list
@@ -2553,8 +2588,7 @@ class CommonObjects(object):
         :return: success return 1 else return -1
         """
         # self.utils.print_info(f"The row loop num: {row_loop_num}. The Row is that : {self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield_row(row)}")
-        self.utils.print_info(
-            f"Subnet value: {self.cobj_web_elements.get_ip_object_ip_range_start_textfield_row(row).get_dom_attribute('value')}")
+        self.utils.print_info(f"Subnet value: {self.cobj_web_elements.get_ip_object_ip_range_start_textfield_row(row).get_dom_attribute('value')}")
         if not self.cobj_web_elements.get_ip_object_ip_range_start_textfield_row(row).get_dom_attribute('value'):
             self.utils.print_info(f"Input Subnet{blank_row_loop_num} : {classify_range_start[blank_row_loop_num]}")
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_range_start_textfield_row(row), classify_range_start[blank_row_loop_num])
@@ -2574,55 +2608,71 @@ class CommonObjects(object):
         """
         self.utils.print_info(f"Click select the button of classification rule for Row{row_loop_num + 2} ... ")
         self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_select_cls_rule_button(row))
-        self._ip_object_hostname_find_cls_rules(row_loop_num)
-        self.utils.print_info(f"Click LINK button {row_loop_num + 1} times ...")
-        self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_link_button())
-        while self.cobj_web_elements.get_ip_object_hostname_classification_rule_used_error():
-            self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_used_error_close())
-            row_loop_num += 1
-            self.utils.print_info(f"Choose another classification rule ...")
-            self._ip_object_hostname_find_cls_rules(row_loop_num)
+        max_cls_rules = self._ip_object_hostname_find_cls_rules(row_loop_num)
+        if max_cls_rules != -1:
             self.utils.print_info(f"Click LINK button {row_loop_num + 1} times ...")
             self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_link_button())
+            while self.cobj_web_elements.get_ip_object_hostname_classification_rule_used_error():
+                self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_used_error_close())
+                row_loop_num += 1
+                self.utils.print_info(f"Choose another classification rule ...")
+                self._ip_object_hostname_find_cls_rules(row_loop_num)
+                self.utils.print_info(f"Click LINK button {row_loop_num + 1} times ...")
+                self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_link_button())
+                if row_loop_num > max_cls_rules:
+                    self.utils.print_info("There is no any more classified rule can be selected...")
+                    return -1
+            return 1
+        else:
+            return -1
 
     def _ip_object_hostname_find_cls_rules(self, row_loop_num):
         """
         - It is a internal function to find classification rule
         :param row_loop_num: For row loop to find classification rules
+        :return: success return classification rule amount else return -1
         """
         if self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_size_100():
             self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_size_100())
-        sleep(2)
+        sleep(2)    # This line must have, or any classification rule can NOT be picked up after above operation
         cls_rules = []
         for rule in self.cobj_web_elements.get_ip_object_hostname_classification_rules():
             cls_rules.append(rule)
-            # self.utils.print_info(f"Rules Name: {rule.text}")
-            # self.utils.print_info(f"Rules list: {cls_rules}")
-        sleep(3)
-        # self.utils.print_info(f"Rule{row_loop_num} is : {cls_rules[row_loop_num]}")
-        i = 0
-        while i <= 3:
-            self.utils.print_info("Click classification rule ...")
-            click = self.auto_actions.click(cls_rules[row_loop_num])
-            if click == 1:
-                break
-            i += 1
+        click = self.auto_actions.click(cls_rules[row_loop_num])
+        if click:
+            return len(cls_rules)
+        else:
+            return -1
 
     def _ip_object_hostname_find_object_profile(self, ip_object_profile_name):
         """
         - It is a internal function to find object profile and check it
         - Flow: IP object Management page --> Click 100 objects per page --> Find object with name --> Check the object
         :param ip_object_profile_name:
-        :return: success return 1
+        :return: success return 1 else return -1
         """
+        find_result = False
         if self.cobj_web_elements.get_ip_object_hostname_object_page_size_100():
             self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_object_page_size_100())
-        for ip_object_row in self.cobj_web_elements.get_ip_object_hostname_existed_object_list_per_page():
-            self.utils.print_info(f"The IP Object Profile name is {self.cobj_web_elements.get_ip_object_hostname_existed_object_name(ip_object_row).text}")
-            if self.cobj_web_elements.get_ip_object_hostname_existed_object_name(ip_object_row).text == ip_object_profile_name:
+        sleep(2)    # This line must have, or IP Object profile can NOT be picked up after above operation
+        self.utils.print_info(f"Try to find the IP Object profile {ip_object_profile_name} ...")
+        ip_object_rows = self.cobj_web_elements.get_ip_object_hostname_existed_object_list_per_page()
+        for ip_object_row in ip_object_rows:
+            row_name = self.cobj_web_elements.get_ip_object_hostname_existed_object_name(ip_object_row).text
+            self.utils.print_info(f"The IP Object Profile name is {row_name}")
+            if row_name == ip_object_profile_name:
                 self.utils.print_info(f"The IP object profile {ip_object_profile_name} is  found")
                 self.auto_actions.click(ip_object_row)
-                return 1
+                if self.cobj_web_elements.get_ip_object_hostname_object_checkbox_checked(ip_object_row) is None:
+                    self.utils.print_info(f"The IP object profile {ip_object_profile_name} is NOT Selected...")
+                    return -1
+                else:
+                    find_result = True
+        if find_result:
+            return 1
+        else:
+            self.utils.print_info(f"The IP object profile {ip_object_profile_name} is NOT found or NOT Selected...")
+            return -1
 
     def ip_object_hostname_delete_object_profile(self, ip_object_profile_name):
         """
@@ -2638,26 +2688,30 @@ class CommonObjects(object):
             self.navigate_to_basic_ip_object_hostname()
         else:
             self.utils.print_info("Already in IP Object management page, go ahead for next steps ...")
-        self._ip_object_hostname_find_object_profile(ip_object_profile_name)
-        if self.cobj_web_elements.get_ip_object_hostname_object_checkbox_checked():
+        find_ipobject_result = self._ip_object_hostname_find_object_profile(ip_object_profile_name)
+        if find_ipobject_result == 1:
             self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
             if self.cobj_web_elements.get_ip_object_hostname_delete_confirm_win():
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_delete_confirm_win_yes())
                 self.utils.print_info(f"{ip_object_profile_name} is already deleted")
                 return 1
+            else:
+                self.utils.print_info("Select NO button to cancel the deleting operation")
+                return -1
         else:
             self.utils.print_info("There is no IP object profile finding")
             return -1
 
-    def ip_object_hostname_update_object_profile(self, ip_object_profile_name, netmask=None, *classified_items_list_1):
-        """
+    def ip_object_hostname_update_object_profile(self, ip_object_profile_name, netmask=None, ip_range_gap=None, *classified_items_list_1):
+        f"""
         - Edit and Add new items for existed IP Object profile
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Edit it and Add new items
         - Keyword Usage:
-            - ``IP Object Hostname Delete Object Profile    ${ip_object_profile_name}``
+            - ``IP Object Hostname Update Object Profile    ${ip_object_profile_name}    ${netmask}    ${ip_range_gap}      ${classified_items_list_1}``
         :param ip_object_profile_name: IP Object profile name
-        :param netmask: Netmask, for the profile with typr IP address and Hostname related, the netmask is None, for Network and Wildcard Network, the netmask is needed
-        :param classified_items_list_1: The new items list for update profile, named it as *classified_items_list_1 to be different with *classified_items_list
+        :param netmask: Netmask, for the profile with type IP address and Hostname related, the netmask is None, for Network and Wildcard Network, the netmask is needed
+        :param ip_range_gap: Only for IP Range, keep it as None value if NOT IP Range
+        :param *classified_items_list_1: The new items list for update profile, named it as *classified_items_list_1 to be different with *classified_items_list
         :return: Find and delete successfully return 1 else return -1
         """
 
@@ -2666,7 +2720,6 @@ class CommonObjects(object):
             self.navigate_to_basic_ip_object_hostname()
         else:
             self.utils.print_info("Already in IP Object management page, go ahead for next steps ...")
-
         find_ipobject_result = self._ip_object_hostname_find_object_profile(ip_object_profile_name)
         if find_ipobject_result == 1:
             self.utils.print_info(f"Network Object {ip_object_profile_name} is found, next to Edit it...")
@@ -2675,10 +2728,13 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_profile_objects_list_last_page())
                 # self.auto_actions.click(self.cobj_web_elements.get_ip_object_add_new_object())
             object_type = self.cobj_web_elements.get_ip_object_type().text
-            self.utils.print_info(f"The updated object list: {classified_items_list_1}")
-            self._ip_object_hostname_add_objects(object_type, netmask, *classified_items_list_1)
-            return 1
-
+            if object_type == "IP Range":
+                self.utils.print_info(f"The updated object list: {classified_items_list_1}")
+                self._ip_object_hostname_add_objects_for_ip_range(ip_range_gap, *classified_items_list_1)
+            else:
+                self.utils.print_info(f"The updated object list: {classified_items_list_1}")
+                self._ip_object_hostname_add_objects(object_type, netmask, *classified_items_list_1)
+                return 1
         else:
             return -1
 
@@ -2689,33 +2745,35 @@ class CommonObjects(object):
         - Keyword Usage:
             - ``IP Object Hostname List All Objects In Profile    ${ip_object_profile_name}``
         :param ip_object_profile_name: IP Object profile name
-        :return: return a list
+        :return: success return a list else return -1
         """
         if not self.cobj_web_elements.get_ip_object_hostname_page():
             self.utils.print_info("Not in IP Object mangement page, need navigate to the page first.")
             self.navigate_to_basic_ip_object_hostname()
         else:
             self.utils.print_info("Already in IP Object management page, go ahead for next steps ...")
-        self._ip_object_hostname_find_object_profile(ip_object_profile_name)
-        self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_edit_button())
-        if self.cobj_web_elements.get_ip_object_hostname_object_items_page_size_100():
-            self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_object_items_page_size_100())
-        object_type = self.cobj_web_elements.get_ip_object_type().text
-        object_items_list = []
-        for row in self.cobj_web_elements.get_ip_object_object_rows():
-            if object_type == "IP Address":
-                object_items_list.append(self.cobj_web_elements.get_ip_object_ip_address_textfield_row(row).get_dom_attribute('value'))
-            if object_type == "Network":
-                object_items_list.append(self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield_row(row).get_dom_attribute('value'))
-            if object_type == "Host Name":
-                object_items_list.append(self.cobj_web_elements.get_ip_object_hostname_textfield_row(row).get_dom_attribute('value'))
-            if object_type == "Wildcard Host Name":
-                object_items_list.append(self.cobj_web_elements.get_ip_object_wildcard_hostname_textfield_row(row).get_dom_attribute('value'))
-            if object_type == "Wildcard":
-                object_items_list.append(self.cobj_web_elements.get_ip_object_wildcard_ip_textfield_row(row).get_dom_attribute('value'))
-            if object_type == "IP Range":
-                object_items_list.append(self.cobj_web_elements.get_ip_object_ip_range_start_textfield_row(row).get_dom_attribute('value'))
-
-        self.auto_actions.click(self.cobj_web_elements.get_ip_object_cancel_button())
-        self.utils.print_info(f"The items list of object profile: {object_items_list}")
-        return object_items_list
+        if self._ip_object_hostname_find_object_profile(ip_object_profile_name) == 1:
+            self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_edit_button())
+            if self.cobj_web_elements.get_ip_object_hostname_object_items_page_size_100():
+                self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_object_items_page_size_100())
+            object_type = self.cobj_web_elements.get_ip_object_type().text
+            object_items_list = []
+            for row in self.cobj_web_elements.get_ip_object_object_rows():
+                if object_type == "IP Address":
+                    object_items_list.append(self.cobj_web_elements.get_ip_object_ip_address_textfield_row(row).get_dom_attribute('value'))
+                if object_type == "Network":
+                    object_items_list.append(self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield_row(row).get_dom_attribute('value'))
+                if object_type == "Host Name":
+                    object_items_list.append(self.cobj_web_elements.get_ip_object_hostname_textfield_row(row).get_dom_attribute('value'))
+                if object_type == "Wildcard Host Name":
+                    object_items_list.append(self.cobj_web_elements.get_ip_object_wildcard_hostname_textfield_row(row).get_dom_attribute('value'))
+                if object_type == "Wildcard":
+                    object_items_list.append(self.cobj_web_elements.get_ip_object_wildcard_ip_textfield_row(row).get_dom_attribute('value'))
+                if object_type == "IP Range":
+                    object_items_list.append(self.cobj_web_elements.get_ip_object_ip_range_start_textfield_row(row).get_dom_attribute('value'))
+            self.auto_actions.click(self.cobj_web_elements.get_ip_object_cancel_button())
+            self.utils.print_info(f"The items list of object profile: {object_items_list}")
+            return object_items_list
+        else:
+            self.utils.print_info(f"The IP Object profile {ip_object_profile_name} is NOT found, can NOT list the items")
+            return -1
