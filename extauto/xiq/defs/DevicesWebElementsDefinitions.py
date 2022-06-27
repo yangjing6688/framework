@@ -1414,7 +1414,7 @@ class DevicesWebElementsDefinitions:
 
     pilot_lic_inventory = \
         {
-            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]',
+            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]//div',
             'wait_for': 5
         }
 
@@ -1640,7 +1640,7 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
-    
+
     manage_devices_progress_status = \
         {
             'DESC': 'Manage > Devices "devices progress status',
@@ -1664,5 +1664,17 @@ class DevicesWebElementsDefinitions:
     upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
         {
             'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
+            'wait_for': 5
+        }
+  
+    license_mgmt = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-licenseMng"]',
+            'wait_for': 5
+        }
+
+    license_unmanage_box = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="unmanage"]',
             'wait_for': 5
         }

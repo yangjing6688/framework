@@ -21,6 +21,18 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
     def get_devices_wireless_devices_sites_dropdown_items(self):
         return self.weh.get_elements(self.devices_wireless_devices_sites_dropdown_items)
 
+    def get_search_xloc_ap_page(self):
+        return self.weh.get_element(self.search_xloc_ap_page)
+
+    def get_host_to_xloc_ap_page(self):
+        return self.weh.get_element(self.host_to_xloc_ap_page)
+
+    def get_device_building_from_xloc(self):
+        return self.weh.get_element(self.device_building_from_xloc)
+
+    def get_device_floor_from_xloc(self):
+        return self.weh.get_element(self.device_floor_from_xloc)
+
     def get_devices_wireless_devices_sites_dropdown_button(self):
         return self.weh.get_element(self.extreme_location_devices_wireless_devices_sites_dropdown)
 
