@@ -2665,25 +2665,25 @@ class Copilot(CopilotWebElements):
         if "Feedback saved successfully" in like_tooltip.text:
             self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
                                   f"for the ap {ap_name}")
-            kwargs['pass_msg'] = "successfully liked the Wi-Fi capacity widget location"
-            self.common_validation.validate(1, 1, **kwargs)
+            kwargs['pass_msg'] = "successfully liked the Wi-Fi capacity widget location"        
             self.utils.print_info(f"Closing Detailed view")
             self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
             self.screen.save_screen_shot()
 
             self.utils.switch_to_default(CloudDriver().cloud_driver)
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
         else:
             self.utils.print_info(f"Unable to click like button for the Wi-Fi capacity widget location "
                                   f"{location_name} with ap {ap_name}")
             self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
                                   f"for the ap {ap_name}")
-            kwargs['fail_msg'] = "Unable to click like button for the Wi-Fi capacity widget location "
-            self.common_validation.validate(-1, 1, **kwargs)
+            kwargs['fail_msg'] = "Unable to click like button for the Wi-Fi capacity widget location  
             self.utils.print_info(f"Closing Detailed view")
             self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
         
 
