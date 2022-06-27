@@ -1,8 +1,11 @@
 import threading
 import requests
 import re
+import random
+from io import StringIO
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
+from robot.libraries.String import String
 
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
@@ -30,6 +33,7 @@ class Login:
         self.nav_web_elements = NavigatorWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
+        self.string = String()
         pass
 
     def _init(self, url="default", incognito_mode="False"):
@@ -128,7 +132,26 @@ class Login:
             self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['browserVersion'])
 
         self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
-
+        if 'portal' in url:
+            self.screen.save_screen_shot()
+            self.utils.print_info("Entering Username...")
+            self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_username_text(), username)
+            sleep(3)
+            self.utils.print_info("Entering Password...")
+            self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_password_text(), password)
+            sleep(3)
+            self.utils.print_info("Clicking on Sign In button")
+            self.auto_actions.click(self.login_web_elements.get_login_portal_page_login_button())
+            sleep(2)
+            self.screen.save_screen_shot()
+            check_error = self.login_web_elements.get_login_portal_check_error()
+            if check_error:
+                self.utils.print_info("Error is displayed at loging : ", check_error.text)
+                return -1
+            else:
+                pass
+            sleep(5)
+            return 1
         self.utils.print_info("Entering Username...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
 
@@ -515,6 +538,7 @@ class Login:
 
         :return: viq id
         """
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking on About Extreme cloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
@@ -1270,3 +1294,358 @@ class Login:
                    self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
            except Exception as e:
                pass
+
+    def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_password,
+                               sw_connection_host):
+        """
+        Creates a fresh new user in portal
+        :param customer_name: the name of the customer, written as an email
+        :param admin_first_name: first name of the admin
+        :param admin_last_name: last name of the admin
+        :param admin_email: admin email, the email that is used to log in into xiq cloud
+        :param admin_password: the password chosen to log in into xiq cloud
+        :param sw_connection_host: the url of the RDC
+        :return: returns 1 if the account was created succesfully or -1 if otherwise
+        """
+        cnt = 0
+        while cnt < 3:
+            random_nr = random.randrange(1, 10000)
+            user = customer_name + "_" + str(random_nr) + "@gmail.com"
+            self.utils.print_info("user:", user)
+            check = self.check_if_xiq_user_exists(user)
+            if check == 1:
+                break
+            elif check == -1:
+                if cnt == 2:
+                    self.utils.print_info("the users already existed")
+                    return -1
+                else:
+                    self.utils.print_info("the user already existed . Try again")
+            else:
+                if cnt == 2:
+                    self.utils.print_info("Error")
+                    return -1
+                else:
+                    pass
+            cnt = cnt + 1
+
+        self.screen.save_screen_shot()
+        self.utils.print_info("Creating new user...")
+        self.utils.print_info("Clicking on add button...")
+        sleep(10)
+        found_page = False
+        cnt = 0
+        while cnt < 4:
+            add_button = self.login_web_elements.get_add_button_portal()
+            if add_button:
+                self.utils.print_info("Found add button!")
+                self.auto_actions.click(add_button)
+                found_page = True
+                break
+            else:
+                self.utils.print_info("Unable to find the add button.Try again:", cnt)
+            sleep(20)
+        if not found_page:
+            self.utils.print_info("ADD BUTTON NOT FOUND")
+            return -1
+        sleep(5)
+        self.screen.save_screen_shot()
+        self.utils.print_info("Inserting customer name in the field...")
+        customer_name_field = self.login_web_elements.get_customer_name_field()
+        if customer_name_field:
+            self.utils.print_info("Found customer name field!")
+            self.utils.print_info("Inserting customer name: " + user)
+            self.auto_actions.send_keys(customer_name_field, user)
+        else:
+            self.utils.print_info("Unable to find customer name field.")
+            self.screen.save_screen_shot()
+            return -1
+        sleep(5)
+        self.utils.print_info("Inserting admin first name in the field...")
+        first_name_field = self.login_web_elements.get_admin_first_name_field()
+        if first_name_field:
+            self.utils.print_info("Found admin first name field!")
+            self.utils.print_info("Inserting admin first name: " + admin_first_name)
+            self.auto_actions.send_keys(first_name_field, admin_first_name)
+        else:
+            self.utils.print_info("Unable to find admin first name field.")
+            self.screen.save_screen_shot()
+            return -1
+        sleep(5)
+        self.utils.print_info("Inserting admin last name in the field...")
+        last_name_field = self.login_web_elements.get_admin_last_name_field()
+        if last_name_field:
+            self.utils.print_info("Found admin last name field!")
+            self.utils.print_info("Inserting admin last name: " + admin_last_name)
+            self.auto_actions.send_keys(last_name_field, admin_last_name)
+        else:
+            self.utils.print_info("Unable to find admin last name field.")
+            self.screen.save_screen_shot()
+            return -1
+        sleep(5)
+        self.utils.print_info("Inserting admin email in the field...")
+        admin_email_field = self.login_web_elements.get_admin_email_field()
+        if admin_email_field:
+            self.utils.print_info("Found admin email field!")
+            self.utils.print_info("Inserting admin email: " + user)
+            self.auto_actions.send_keys(admin_email_field, user)
+        else:
+            self.utils.print_info("Unable to find admin email field.")
+            self.screen.save_screen_shot()
+            return -1
+        sleep(5)
+        self.utils.print_info("Inserting admin password in the field...")
+        admin_password_field = self.login_web_elements.get_admin_password_field()
+        if admin_password_field:
+            self.utils.print_info("Found admin password field!")
+            self.utils.print_info("Inserting admin password: " + admin_password)
+            self.auto_actions.send_keys(admin_password_field, admin_password)
+        else:
+            self.utils.print_info("Unable to find admin password field.")
+            self.screen.save_screen_shot()
+            return -1
+        sleep(5)
+        self.utils.print_info("Clicking on Data Center dropdown...")
+        self.screen.save_screen_shot()
+        data_center_dropdown = self.login_web_elements.get_data_center_dropdown()
+        if data_center_dropdown:
+            self.utils.print_info("Found the data center dropwdown!")
+            sleep(2)
+            self.auto_actions.click(data_center_dropdown)
+            data_center_dropdown_options = self.login_web_elements.get_data_center_dropdown_options()
+            if data_center_dropdown_options:
+                self.utils.print_info("Found dropdown options!")
+                sleep(2)
+                pattern1 = "(\\w+)."
+                gdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+                self.utils.print_info("RDC is : ", gdc[0])
+                flag = False
+                for option in data_center_dropdown_options:
+                    if gdc[0] in option.text:
+                        flag = True
+                        self.auto_actions.click(option)
+                        self.utils.print_info(option.text)
+                        break
+                if flag:
+                    self.utils.print_info("Found the required datacenter: " + gdc[0])
+                else:
+                    self.utils.print_info("Unable to find the required datacenter.")
+                    self.utils.print_info("Clicking on Cancel button...")
+                    cancel_button = self.login_web_elements.get_cancel_button()
+                    if cancel_button:
+                        self.utils.print_info("Found Cancel button!")
+                        self.auto_actions.click(cancel_button)
+                        return -1
+                    else:
+                        self.utils.print_info("Unable to find the cancel button.")
+                        return -1
+            else:
+                self.utils.print_info("Unable to find dropdown options.")
+                return -1
+        else:
+            self.utils.print_info("Unable to find the dropdown menu.")
+            return -1
+        self.utils.print_info("Clicking on submit button...")
+        self.screen.save_screen_shot()
+        submit_button = self.login_web_elements.get_submit_button()
+        if submit_button:
+            self.utils.print_info("Found submit button!")
+            sleep(2)
+            self.auto_actions.click(submit_button)
+            self.screen.save_screen_shot()
+            return user
+        else:
+            self.utils.print_info("Unable to find submit button.")
+            return -1
+
+    def delete_user_portal(self, customer_name, check_delete_devices=-1):
+        '''
+        This function deletes the account created in portal
+        :param customer_name:   the name of the customer under which the account was created
+        :return: returns 1 if the account was deleted or -1 if otherwise
+        '''
+        sleep(20)
+        if check_delete_devices == -1:
+            print("There are still devices on this account!!!!")
+            self.screen.save_screen_shot()
+            return -1
+        self.screen.save_screen_shot()
+        self.utils.print_info("Clicking on name cell menu button ...")
+        cell_menu_button = self.login_web_elements.get_cell_menu_button_name_section()
+        if cell_menu_button:
+            self.utils.print_info("Cell menu button found!")
+            self.auto_actions.click(cell_menu_button)
+            self.utils.print_info("Clicking on filter type dropdown")
+            filter_type_dropdown = self.login_web_elements.get_filter_type_dropdown()
+            if filter_type_dropdown:
+                self.utils.print_info("Found the filter type dropdown!")
+                self.auto_actions.click(filter_type_dropdown)
+                sleep(2)
+                filter_dropdown_option_equals = self.login_web_elements.get_filter_dropdown_option_equals()
+                if filter_dropdown_option_equals:
+                    self.utils.print_info("Found filter dropdown option: Equals")
+                    self.auto_actions.click(filter_dropdown_option_equals)
+                else:
+                    self.utils.print_info("Unable to find dropdown option: Equals")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                self.utils.print_info("Unable to click filter type dropdown.")
+                self.screen.save_screen_shot()
+                return -1
+            filter_text_box = self.login_web_elements.get_filter_text_box()
+            if filter_text_box:
+                self.utils.print_info("Found the filter text box!")
+                self.auto_actions.send_keys(filter_text_box, customer_name)
+            else:
+                self.utils.print_info("Unable to find the filter text box!")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info("Unable to find cell menu button.")
+            self.screen.save_screen_shot()
+            return -1
+        sleep(3)
+        user_found = self.login_web_elements.get_user_found()
+        if user_found:
+            if len(user_found) == 1:
+                self.utils.print_info(user_found[0].text)
+                sleep(5)
+                self.utils.print_info("Found user!")
+                self.utils.print_info("Deleting user...")
+                self.auto_actions.click(user_found[0])
+            else:
+                self.utils.print_info("Multiple users were found ")
+                self.screen.save_screen_shot()
+                return -1
+            delete_button = self.login_web_elements.get_delete_button()
+            if delete_button:
+                self.utils.print_info("Found delete button!")
+                sleep(2)
+                self.auto_actions.click(delete_button)
+                sleep(2)
+                self.screen.save_screen_shot()
+                confirmation_option_yes = self.login_web_elements.get_confirmation_option_yes()
+                if confirmation_option_yes:
+                    self.utils.print_info("Found the confirmation option!")
+                    self.auto_actions.click(confirmation_option_yes)
+                else:
+                    self.utils.print_info("Unable to find confirmation option!")
+                    return -1
+                sleep(5)
+                self.screen.save_screen_shot()
+                delete_confirmation = self.login_web_elements.get_delete_confirmation()
+                if delete_confirmation:
+                    self.utils.print_info("Delete confirmation has been found!")
+                    self.utils.print_info(delete_confirmation.text)
+                    return 1
+                else:
+                    self.utils.print_info("Confirmation hasn't been found!")
+            else:
+                self.utils.print_info("Unable to find delete button.")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info("The user has already been deleted or it hasn't been created.")
+            self.screen.save_screen_shot()
+            return 1
+        return 1
+
+    def log_out_portal(self):
+        '''
+        This function logs out from portal
+        :return: returns 1 if logging out was succesfull or -1 if otherwise
+        '''
+        self.screen.save_screen_shot()
+        self.utils.print_info("Clicking LOGOUT button...")
+        log_out_button_portal = self.login_web_elements.get_log_out_button_portal()
+        if log_out_button_portal:
+            self.utils.print_info("Found LOGOUT button!")
+            self.auto_actions.click(log_out_button_portal)
+            self.utils.print_info("Succesfully logged out!")
+            return 1
+        else:
+            self.utils.print_info("Unable to find LOGOUT button.")
+            return -1
+
+    def get_portal_url(self, sw_connection_host):
+        '''
+
+        :param sw_connection_host: the url of the RDC
+        :return: the url of portal page ; else -1 
+        '''
+
+        pattern1 = "(\\w+)r\\d+."
+        gdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        self.utils.print_info("GDC is : ", gdc[0])
+        if isinstance(gdc,list):
+            if isinstance(gdc[0],str):
+                url = "https://" + gdc[0] + "-portal.qa.xcloudiq.com/portal/"
+                self.utils.print_info("url is : ", url)
+                return url
+            else:
+                return -1
+        else:
+            return -1
+        return -1
+
+    def check_if_xiq_user_exists(self, customer_name):
+        '''
+        This function check if the XIQ user exists into portal page
+        :param customer_name:   the name of the customer under which the account was created
+        :return: returns 1 if the account user doesn't exist; else -1
+        '''
+
+        self.screen.save_screen_shot()
+        self.utils.print_info("Clicking on name cell menu button ...")
+        cell_menu_button = self.login_web_elements.get_cell_menu_button_name_section()
+        if cell_menu_button:
+            self.utils.print_info("Cell menu button found!")
+            self.auto_actions.click(cell_menu_button)
+            self.utils.print_info("Clicking on filter type dropdown")
+            filter_type_dropdown = self.login_web_elements.get_filter_type_dropdown()
+            if filter_type_dropdown:
+                self.utils.print_info("Found the filter type dropdown!")
+                self.auto_actions.click(filter_type_dropdown)
+                sleep(2)
+                filter_dropdown_option_equals = self.login_web_elements.get_filter_dropdown_option_equals()
+                if filter_dropdown_option_equals:
+                    self.utils.print_info("Found filter dropdown option: Equals")
+                    self.auto_actions.click(filter_dropdown_option_equals)
+                else:
+                    self.utils.print_info("Unable to find dropdown option: Equals")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                self.utils.print_info("Unable to click filter type dropdown.")
+                self.screen.save_screen_shot()
+                return -1
+            filter_text_box = self.login_web_elements.get_filter_text_box()
+            if filter_text_box:
+                self.utils.print_info("Found the filter text box!")
+                self.auto_actions.send_keys(filter_text_box, customer_name)
+            else:
+                self.utils.print_info("Unable to find the filter text box!")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info("Unable to find cell menu button.")
+            self.screen.save_screen_shot()
+            return -1
+        sleep(3)
+        user_found = self.login_web_elements.get_user_found()
+        if user_found:
+            if len(user_found) == 1:
+                self.utils.print_info(user_found[0].text)
+                sleep(5)
+                self.utils.print_info("Found user!")
+                return -1
+            else:
+                self.utils.print_info("Multiple users were found ")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info("The user has already been deleted or it hasn't been created.")
+            self.screen.save_screen_shot()
+            return 1
+        return 1
