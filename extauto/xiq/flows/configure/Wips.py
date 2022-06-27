@@ -878,15 +878,17 @@ class Wips(WipsWebElements):
         sleep(5)
 
         if status.upper() == "ENABLE":
-            if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
-                self.utils.print_info("Click WIPS Menu On Security Tab")
-                self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
-            else:
-                self.utils.print_info("Click Security Tab")
-                self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
-                sleep(2)
-                self.utils.print_info("Click WIPS Menu")
-                self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            #Commenting the code, as we have wips_policy as parameter for this keyword, we need to select the wips policy and configure adsp onprem server with the help of existing keyword reuse wips policy
+            #if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
+                #self.utils.print_info("Click WIPS Menu On Security Tab")
+                #self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            #else:
+                #self.utils.print_info("Click Security Tab")
+                #self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+                #sleep(2)
+                #self.utils.print_info("Click WIPS Menu")
+                #self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.configure_reuse_wips_policy_on_network_policy(nw_policy, wips_policy)
             self.utils.print_info("Enable on-prem Airdefense Configuration toggle button")
             if not self.get_wips_enable_OnPrem_Airdefense_button().is_selected():
                 self.auto_actions.click(self.get_wips_enable_OnPrem_Airdefense_button())
@@ -908,15 +910,17 @@ class Wips(WipsWebElements):
             sleep(2)
 
         elif status.upper() == "DISABLE":
-            if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
-                self.utils.print_info("Click WIPS Menu On Security Tab")
-                self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
-            else:
-                self.utils.print_info("Click Security Tab")
-                self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
-                sleep(2)
-            self.utils.print_info("Click WIPS Menu")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            #Commenting the code, as we have wips_policy as parameter for this keyword, we need to select the wips policy and configure adsp onprem server with the help of existing keyword reuse wips policy
+            #if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
+                #self.utils.print_info("Click WIPS Menu On Security Tab")
+                #self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            #else:
+                #self.utils.print_info("Click Security Tab")
+                #self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+                #sleep(2)
+            #self.utils.print_info("Click WIPS Menu")
+            #self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.configure_reuse_wips_policy_on_network_policy(nw_policy, wips_policy)
             self.utils.print_info("Disable on-prem Airdefense Configuration toggle button")
             sleep(3)
             if self.get_wips_enable_OnPrem_Airdefense_button().is_selected():

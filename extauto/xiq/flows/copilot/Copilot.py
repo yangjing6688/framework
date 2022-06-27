@@ -2549,6 +2549,30 @@ class Copilot(CopilotWebElements):
         return_value = self.display_wifi_capacity_anomaly_ap_rows(location_name,**kwargs)
         return return_value
 
+    def wifi_capacity_anomaly_ap_individual_details(self, location_name, ap_name):
+
+        """
+        - This Keyword will get details of issue and recommended actions from individual aps APs
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
+        - Keyword Usage:
+        - ``Wifi Capacity Anomaly Ap Individual Details``
+
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+        self.click_wifi_capacity_anomaly_location_row(location_name)
+        self.click_wifi_capacity_anomaly_ap_row(ap_name)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        issue_details = self.get_wifi_capacity_anomaly_ap_issue_details()
+        recommended_actions_details = self.get_wifi_capacity_anomaly_ap_recommended_actions_details()
+        if issue_details and recommended_actions_details:
+            self.utils.print_info("Issue :", issue_details.text)
+            self.utils.print_info("Recommended Actions :", recommended_actions_details.text)
+            return issue_details.text,recommended_actions_details.text
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        else:
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
+
     def display_wifi_capacity_anomaly_ap_rows(self, location_name,**kwargs):
 
         """
@@ -2586,7 +2610,7 @@ class Copilot(CopilotWebElements):
                 for row in location_rows:
                     self.utils.print_info("Current location :" + row.text)
                     if location_name in row.text:
-                        self.utils.print_info("Loacation : " + location_name + " found")
+                        self.utils.print_info("Location : " + location_name + " found")
                         self.utils.print_info("Clicking on row")
                         self.auto_actions.click(row)
                         sleep(4)
@@ -2642,6 +2666,51 @@ class Copilot(CopilotWebElements):
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
+    def wifi_capacity_anomaly_ap_like_button(self, location_name, ap_name, **kwargs):
+
+        """
+        - This Keyword will click like button in WiFi Capacity widget specific location and access point.
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click like Button
+        - Keyword Usage:
+         - ``Wifi Capacity Anomaly Ap Like Button   {LOCATION_NAME}   {AP_NAME}``
+        :return: 1 if successfully clicked like Button for specific Location and ap the else return -1
+        """
+        self.click_wifi_capacity_anomaly_location_row(location_name)
+        self.click_wifi_capacity_anomaly_ap_row(ap_name)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.screen.save_screen_shot()
+        self.utils.print_info(f"Clicking like Button for the Location {location_name} and AP {ap_name}")
+        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_like())
+        self.screen.save_screen_shot()
+
+        like_tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip()
+        self.utils.print_info("Tooltip Message displayed on UI is :", like_tooltip.text)
+        self.screen.save_screen_shot()
+        if "Feedback saved successfully" in like_tooltip.text:
+            self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
+                                  f"for the ap {ap_name}")
+            kwargs['pass_msg'] = "successfully liked the Wi-Fi capacity widget location"        
+            self.utils.print_info(f"Closing Detailed view")
+            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.screen.save_screen_shot()
+
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
+        else:
+            self.utils.print_info(f"Unable to click like button for the Wi-Fi capacity widget location "
+                                  f"{location_name} with ap {ap_name}")
+            self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
+                                  f"for the ap {ap_name}")
+            kwargs['fail_msg'] = "Unable to click like button for the Wi-Fi capacity widget location"  
+            self.utils.print_info(f"Closing Detailed view")
+            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.screen.save_screen_shot()
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        
+
     def is_wifi_capacity_anomaly_ap_i_icon_present(self, ap_name, **kwargs):
 
         """
@@ -2685,3 +2754,74 @@ class Copilot(CopilotWebElements):
         self.common_validation.validate(-1, 1, **kwargs)
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
+
+    def dislike_wifi_capacity_anomaly_location_ap(self, location_name, ap_name, feedback="Need improvement", **kwargs):
+        """
+        - This Keyword will click dislike button in WiFi Capacity widget specific location and access point.
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click Dislike Button
+        - Keyword Usage:
+         - ``Dislike WiFi Capacity Anomaly Location AP   {LOCATION_NAME}   {AP_NAME}``
+         - ``Dislike WiFi Capacity Anomaly Location AP   {LOCATION_NAME}   {AP_NAME}  feedback={MSG}``
+
+        :return: 1 if successfully clicked Dislike Button for specific Location and ap the else return -1
+        """
+        self.utils.print_info("Getting Location Name rows on Wi-Fi capacity")
+        self.click_wifi_capacity_anomaly_location_row(location_name)
+        self.screen.save_screen_shot()
+
+        self.utils.print_info(f"Getting AP Name rows on Wi-Fi capacity Location {location_name}")
+        self.click_wifi_capacity_anomaly_ap_row(ap_name)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.screen.save_screen_shot()
+
+        self.utils.print_info(f"Clicking Dislike Button for the Location {location_name} and AP {ap_name}")
+        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_dislike())
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Entering feedback text")
+        self.auto_actions.send_keys(self.get_wifi_capacity_widget_location_ap_dislike_send_feedback_textfield(),
+                                    feedback)
+        self.screen.save_screen_shot()
+
+        self.utils.print_info(f"Clicking Dislike Feedback Button for the Location {location_name} and AP {ap_name}")
+        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_dislike_send_feedback_button())
+        self.screen.save_screen_shot()
+
+        tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip().text
+        self.utils.print_info("Tooltip Message displayed on UI is :", tooltip)
+        self.screen.save_screen_shot()
+
+        if "Feedback saved successfully" in tooltip:
+            if self.get_wifi_capacity_widget_location_ap_dislike_button_enabled_status():
+                self.utils.print_info(f"successfully Disliked the Wi-Fi capacity widget location {location_name} "
+                                      f"for the ap {ap_name}")
+                kwargs['pass_msg'] = f"successfully Disliked the Wi-Fi capacity widget location {location_name} " \
+                                     f"for the ap {ap_name}"
+                self.common_validation.validate(1, 1, **kwargs)
+
+                self.utils.print_info(f"Closing Detailed view")
+                self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                self.screen.save_screen_shot()
+
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                return 1
+            else:
+                self.utils.print_info(f"Unable to Click Dislike button Icon")
+                kwargs['fail_msg'] = "Unable to Click Dislike button Icon"
+                self.common_validation.validate(-1, 1, **kwargs)
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                self.utils.print_info(f"Closing Detailed view")
+                self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info(f"Unable to click Dislike button for the Wi-Fi capacity widget location "
+                                  f"{location_name} with ap {ap_name}")
+            kwargs['fail_msg'] = f"Unable to click Dislike button for the Wi-Fi capacity widget location " \
+                                 f"{location_name} with ap {ap_name}"
+            self.common_validation.validate(-1, 1, **kwargs)
+            self.utils.print_info(f"Closing Detailed view")
+            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.screen.save_screen_shot()
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
