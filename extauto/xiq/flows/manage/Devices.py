@@ -3475,7 +3475,7 @@ class Devices:
         self.utils.print_info(f"Country Code of AP:{country_code}")
         return country_code
 
-    def delete_all_devices(self):
+    def delete_all_aps(self):
         """
         - This Keyword will Delete All the Devices in the Manage--> Devices Grid
         - Keyword Usage:
