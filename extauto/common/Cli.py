@@ -735,7 +735,7 @@ class Cli(object):
         """
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
 
-        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() || \
+        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(_spawn, f'Hivemanager address {server_name}')
             self.send(_spawn, f'Application stop hiveagent')
@@ -848,7 +848,7 @@ class Cli(object):
         if NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(_spawn, f'show iqagent | include Version')
             self.send(_spawn, url_image, \
-                      confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)' \
+                      confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                       confirmation_args='yes')
             time.sleep(10)
             self.send(_spawn, f'show iqagent | include Version')
@@ -873,7 +873,7 @@ class Cli(object):
         """
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
 
-        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() || \
+        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(_spawn, f'no Hivemanager address {server_name}')
             self.send(_spawn, f'Application stop hiveagent')
