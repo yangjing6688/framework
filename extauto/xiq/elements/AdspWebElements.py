@@ -42,6 +42,9 @@ class AdspWebElements(AdspWebElementsDefinitions):
     def get_ap_serial_from_adsp(self):
         return self.weh.get_element(self.ap_serial_from_adsp)
 
+    def get_auth_error_from_adess(self):
+        return  self.weh.get_element(self.auth_error_from_adess)
+
     def get_adsp_alarm_search_text_field(self):
         return self.weh.get_element(self.adsp_alarm_search_text_field)
 
