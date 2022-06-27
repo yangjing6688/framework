@@ -1547,9 +1547,9 @@ class Cli(object):
         self.send_paramiko_cmd(self.conn, TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' ON', 30)
 
         cnt = -1
-        for i in range(1, 5):
+        for i in range(1, 6):
             self.utils.print_info( " ***** Number of attempts ", str(i))
-            time.sleep(20)
+            time.sleep(30)
             listSSIDs = str(self.send_paramiko_cmd(self.conn, SCAN_FOR_LIST_WIFI, 300))
             cnt = self.utils.check_match(listSSIDs, ssid)
             if cnt == 1:

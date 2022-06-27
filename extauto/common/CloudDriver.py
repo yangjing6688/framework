@@ -404,6 +404,11 @@ class CloudDriver():
         element_locator = "name"
         element_identify = "name"
         element_identify_value_name = "username"
+        element_identify_value_xpath = "//app-auth-failure"
+
+        if "airdefense" in url:
+            element_identify = "xpath"
+            element_identify_value_xpath = "//app-auth-failure"
 
         if program == 'adsp':
             element_identify_value_name = "j_username"
@@ -449,6 +454,10 @@ class CloudDriver():
         if element_identify == "name":
             WebDriverWait(self.cloud_driver, 60).until(
                 ec.presence_of_element_located((By.NAME, element_identify_value_name)))
+
+        if element_identify == "xpath":
+            WebDriverWait(self.cloud_driver, 60).until(
+                ec.presence_of_element_located((By.XPATH, element_identify_value_xpath)))
 
         if element_identify == "id":
             WebDriverWait(self.cloud_driver, 60).until(
