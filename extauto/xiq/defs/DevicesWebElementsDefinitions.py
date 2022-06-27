@@ -1414,7 +1414,7 @@ class DevicesWebElementsDefinitions:
 
     pilot_lic_inventory = \
         {
-            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]',
+            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]//div',
             'wait_for': 5
         }
 
@@ -1641,10 +1641,40 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    manage_devices_progress_status = \
+        {
+            'DESC': 'Manage > Devices "devices progress status',
+            'XPATH': '//div[contains(@id,"updatedOn")]//div[@class="progress-message"]',
+            'wait_for': 10
+        }
+    
+    device_page_size_100 = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottom"]/div/a[@data-size="100"]',
+            'wait_for': 3
+        }
+
     simulation_device_count_input_field = \
         {
             'DESC': 'Manage > Devices "load" mask',
             'XPATH': '//*[@data-dojo-attach-point="numOfDevices"]',
             'wait_for': 5
         }
+    
+    upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
+            'wait_for': 5
+        }
+  
+    license_mgmt = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-licenseMng"]',
+            'wait_for': 5
+        }
 
+    license_unmanage_box = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="unmanage"]',
+            'wait_for': 5
+        }
