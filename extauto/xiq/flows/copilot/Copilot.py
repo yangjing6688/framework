@@ -2666,7 +2666,7 @@ class Copilot(CopilotWebElements):
             self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
                                   f"for the ap {ap_name}")
             kwargs['pass_msg'] = "successfully liked the Wi-Fi capacity widget location"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.validate(1, 1, **kwargs)
             self.utils.print_info(f"Closing Detailed view")
             self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
             self.screen.save_screen_shot()
@@ -2679,7 +2679,7 @@ class Copilot(CopilotWebElements):
             self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
                                   f"for the ap {ap_name}")
             kwargs['fail_msg'] = "Unable to click like button for the Wi-Fi capacity widget location "
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.validate(-1, 1, **kwargs)
             self.utils.print_info(f"Closing Detailed view")
             self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
             self.screen.save_screen_shot()
