@@ -37,6 +37,32 @@ class ExtremeLocationWebElementsDefs:
             'wait_for': 5
         }
 
+    search_xloc_ap_page = \
+        {
+            'XPATH': '//div[contains(@class,"xloc-ap-summary-grid-search")]//div[contains(@class,"x-form-search-trigger")]',
+            'wait_for': 5
+        }
+
+    host_to_xloc_ap_page = \
+        {
+            'XPATH': '//div[contains(@class,"xloc-ap-summary-grid-search")]//input[contains(@id,"allcolumnssearch")]',
+            'wait_for': 5
+        }
+
+    device_building_from_xloc = \
+        {
+            'XPATH': '//div[contains(@id,"ApSummaryGrid")]//table[contains(@id,"gridview")]//td[contains(@class,"x-grid-cell")]//div[contains(@class,"x-grid-cell-inner ")]',
+            'index': 4,
+            'wait_for': 5
+        }
+
+    device_floor_from_xloc = \
+        {
+            'XPATH': '//div[contains(@id,"ApSummaryGrid")]//table[contains(@id,"gridview")]//td[contains(@class,"x-grid-cell")]//div[contains(@class,"x-grid-cell-inner ")]',
+            'index': 5,
+            'wait_for': 5
+        }
+
     devices_wireless_devices_search_textfield = \
         {
             'XPATH': '//*[contains(@class, "xloc-wireless-devices-grid-search-txt")]'
