@@ -61,6 +61,18 @@ class SshAgent(CliAgent):
                     client.read_channel()
                     client.set_base_prompt()
                     client.send_command("enable", strip_prompt=False, auto_find_prompt=False)
+                if self.device.oper_sys == NetworkElementConstants.OS_HIVE:
+                    # client._test_channel_read()  # Re-enable this if read_channel() doesn't work.
+                    client.read_channel()
+                    client.set_base_prompt()
+                    client.send_command("console page 0", strip_prompt=False, auto_find_prompt=False)
+                if self.device.oper_sys == NetworkElementConstants.OS_AH_SWITCH:
+                    # client._test_channel_read()  # Re-enable this if read_channel() doesn't work.
+                    client.read_channel()
+                    client.send_command("enable", strip_prompt=False, auto_find_prompt=False)
+                    client.send_command("configure", strip_prompt=False, auto_find_prompt=False)
+                    client.set_base_prompt()
+                    client.send_command("do terminal length 0", strip_prompt=False, auto_find_prompt=False)
                 self.main_session = client
                 self.debug_print("SSH connected.")
                 self.connected = True

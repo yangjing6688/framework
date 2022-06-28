@@ -375,3 +375,28 @@ class ExtremeGuest(object):
         sleep(2)
 
         return 1
+    
+    def check_guest_subscription(self):
+        """
+        -This keyword Will Navigate to Extreme Guest Subscription Page
+        - Flow: Extreme Guest--> Subscribe--> Page
+        - Keyword Usage:
+            ''Check Guest Subscription''
+
+        :return: 1 if guest is not subscribed
+        """
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        sleep(5)
+        self.navigator.navigate_to_extreme_guest_menu()
+        sleep(10)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        if self.guest_web_elem.get_extreme_guest_subscription_page().is_displayed():
+            self.screen.save_screen_shot()
+            sleep(2)
+            return 1
+        else:
+            self.utils.print_info("User Already Subscribed Extreme Guest Page")
+            return -1

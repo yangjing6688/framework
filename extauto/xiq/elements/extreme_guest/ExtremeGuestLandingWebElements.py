@@ -23,3 +23,21 @@ class ExtremeGuestLandingWebElements(ExtremeGuestLandingWebElementsDefs):
 
     def get_extreme_guest_landing_client_distribution_widget(self):
         return self.weh.get_element(self.extreme_guest_landing_client_distribution_widget)
+
+    def get_extreme_guest_map_location_marker(self):
+        return self.weh.get_element(self.extreme_guest_map_location_marker)
+
+    def get_extreme_guest_map_location_marker_header(self):
+        return self.weh.get_element(self.extreme_guest_map_location_marker_header)
+
+    def get_extreme_guest_map_location_marker_online_users_count(self):
+        return self.weh.get_element(self.extreme_guest_map_location_marker_online_users_count)
+
+    def get_extreme_guest_map_location_marker_total_users_count(self):
+        return self.weh.get_element(self.extreme_guest_map_location_marker_total_users_count)
+
+    def get_extreme_guest_map_location_marker_online_table_rows_today(self, row_title):
+        return self.weh.get_template_element(self.extreme_guest_map_location_marker_online_table_rows_today, row=row_title)
+
+    def get_extreme_guest_map_location_marker_online_table_rows_yesterday(self, row_title):
+        return self.weh.get_template_element(self.extreme_guest_map_location_marker_online_table_rows_yesterday, row=row_title)

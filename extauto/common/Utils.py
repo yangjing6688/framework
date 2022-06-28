@@ -62,7 +62,7 @@ class Utils:
             length = 10
         return ''.join(random.choice(string.ascii_lowercase) for _ in range(int(length)))
 
-    def get_random_integer(self, length="default", lower_limit="default", upper_limit="default"):
+    def get_random_integer(self, length=10, lower_limit=9999, upper_limit=999999999):
         """
         - Get the random integer in specified upper and lower limit
         - Keyword Usage:
@@ -73,12 +73,6 @@ class Utils:
         :param upper_limit: upper limit to generate the integer
         :return: generated random integer
         """
-        if upper_limit == "default":
-            upper_limit = 999999999
-        if lower_limit == "default":
-            lower_limit = 9999
-        if length == "default":
-            length = 10
         return random.randrange(lower_limit, upper_limit, length)
 
     def get_random_mac(self, delimiter="default"):
@@ -676,12 +670,12 @@ class Utils:
         -This keyword Will Switch to default frame
         """
         self.print_info("<<<Switching to Default>>>")
+        time.sleep(5)
         try:
             driver.find_element_by_tag_name('iframe')
             self.print_info("||| No Need to Switch |||")
         except NoSuchElementException:
             driver.switch_to.default_content()
-            time.sleep(5)
             self.print_info("<<< Switching to Default Completed >>>")
 
     def switch_to_iframe(self, driver):
@@ -879,7 +873,7 @@ class Utils:
         row = self.get_regexp_matches(str, pattern, 1)
         date = datetime(row[0], row[1], row[2], row[3], row[4], row[5])
         return date
-    
+
     def get_regexp_matches(self, string, pattern, *groups):
         """Returns a list of all non-overlapping matches in the given string.
 
