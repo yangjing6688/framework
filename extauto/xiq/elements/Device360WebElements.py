@@ -1381,6 +1381,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_lacp_toggle(self):
         return self.weh.get_element(self.device360_lacp_toggle)
 
+    def get_device360_lag_cancel_button(self):
+        return self.weh.get_element(self.device360_lag_cancel_button)
+
     def get_device360_lag_save_button(self):
         return self.weh.get_element(self.device360_lag_save_button)
 

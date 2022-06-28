@@ -2176,6 +2176,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_lag_cancel_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-lag-cancel-button"]',
+            'wait_for': 5
+        }
+
     device360_lag_save_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-lag-save-button"]',
