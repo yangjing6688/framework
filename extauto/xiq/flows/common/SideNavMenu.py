@@ -48,147 +48,151 @@ class SideNavMenu(NavigatorWebElements):
         :param tag: automation tag for the nav menu item
         :return: 1 if visible, -1 if not
         """
-        if tag == "automation-header-copilotdash":
-            if self.get_copilot_tab().is_displayed():
-                return 1
+        try:
+            if tag == "automation-header-copilotdash":
+                if self.get_copilot_tab().is_displayed():
+                    return 1
 
-        if tag == 'automation-header-configure':
-            if self.get_configure_tab().is_displayed():
-                return 1
+            if tag == 'automation-header-configure':
+                if self.get_configure_tab().is_displayed():
+                    return 1
 
-        if tag == 'automation-header-manage':
-            if self.get_manage_tab().is_displayed():
-                return 1
+            if tag == 'automation-header-manage':
+                if self.get_manage_tab().is_displayed():
+                    return 1
 
-        if tag == 'automation-header-n360':
-            if self.get_ml_insight_tab().is_displayed():
-                return 1
+            if tag == 'automation-header-n360':
+                if self.get_ml_insight_tab().is_displayed():
+                    return 1
 
-        if tag == 'automation-header-essentials':
-            if self.get_essentials_menu().is_displayed():
-                return 1
+            if tag == 'automation-header-essentials':
+                if self.get_essentials_menu().is_displayed():
+                    return 1
 
-        if tag == 'automation-header-a3':
-            if self.get_a3_tab().is_displayed():
-                return 1
+            if tag == 'automation-header-a3':
+                if self.get_a3_tab().is_displayed():
+                    return 1
 
-        if tag == "automation-header-iot-essentials":
-            if self.get_extreme_iot_essentials_menu().is_displayed():
-                return 1
+            if tag == "automation-header-iot-essentials":
+                if self.get_extreme_iot_essentials_menu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-airdefense-essentials":
-            if self.get_air_defence_menu().is_displayed():
-                return 1
+            if tag == "automation-header-airdefense-essentials":
+                if self.get_air_defence_menu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-guest-essentials":
-            if self.get_extreme_guest_menu().is_displayed():
-                return 1
+            if tag == "automation-header-guest-essentials":
+                if self.get_extreme_guest_menu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-location-essentials":
-            if self.get_extreme_location_menu().is_displayed():
-                return 1
+            if tag == "automation-header-location-essentials":
+                if self.get_extreme_location_menu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-location-essentials":
-            if self.get_extreme_location_menu().is_displayed():
-                return 1
+            if tag == "automation-header-location-essentials":
+                if self.get_extreme_location_menu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-iot-essentials-dashboard":
-            if self.get_extreme_iot_essentials_dashboard_submenu().is_displayed():
-                return 1
+            if tag == "automation-header-iot-essentials-dashboard":
+                if self.get_extreme_iot_essentials_dashboard_submenu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-iot-essentials-devices":
-            if self.get_extreme_iot_essentials_devices_submenu().is_displayed():
-                return 1
+            if tag == "automation-header-iot-essentials-devices":
+                if self.get_extreme_iot_essentials_devices_submenu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-iot-essentials-clients":
-            if self.get_extreme_iot_essentials_clients_submenu().is_displayed():
-                return 1
+            if tag == "automation-header-iot-essentials-clients":
+                if self.get_extreme_iot_essentials_clients_submenu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-iot-essentials-userProfile":
-            if self.get_extreme_iot_essentials_user_profiles_submenu().is_displayed():
-                return 1
+            if tag == "automation-header-iot-essentials-userProfile":
+                if self.get_extreme_iot_essentials_user_profiles_submenu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-iot-essentials-groups":
-            if self.get_extreme_iot_essentials_policy_groups_submenu().is_displayed():
-                return 1
+            if tag == "automation-header-iot-essentials-groups":
+                if self.get_extreme_iot_essentials_policy_groups_submenu().is_displayed():
+                    return 1
 
-        if tag == "automation-header-a3-inventory":
-            if self.get_a3_inventory_tab().is_displayed():
-                return 1
+            if tag == "automation-header-a3-inventory":
+                if self.get_a3_inventory_tab().is_displayed():
+                    return 1
 
-        if tag == "automation-header-a3-reporting":
-            if self.get_a3_reporting_tab().is_displayed():
-                return 1
+            if tag == "automation-header-a3-reporting":
+                if self.get_a3_reporting_tab().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-tracker":
-            if self.get_ml_insight_network360monitor().is_displayed():
-                return 1
+            if tag == "automation-header-nav-tracker":
+                if self.get_ml_insight_network360monitor().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-scorecard":
-            if self.get_ml_insight_network_scorecard().is_displayed():
-                return 1
+            if tag == "automation-header-nav-scorecard":
+                if self.get_ml_insight_network_scorecard().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-clientsoverview":
-            if self.get_ml_insight_client360().is_displayed():
-                return 1
+            if tag == "automation-header-nav-clientsoverview":
+                if self.get_ml_insight_client360().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-clientmonitor-Diagnosis":
-            if self.get_client_monitor_diagnosis_tab().is_displayed():
-                return 1
+            if tag == "automation-header-nav-clientmonitor-Diagnosis":
+                if self.get_client_monitor_diagnosis_tab().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-retail":
-            if self.get_ml_insight_retail().is_displayed():
-                return 1
+            if tag == "automation-header-nav-retail":
+                if self.get_ml_insight_retail().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-summary":
-            if self.get_manage_summary_menu_item().is_displayed():
-                return 1
+            if tag == "automation-header-nav-summary":
+                if self.get_manage_summary_menu_item().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-plan":
-            if self.get_ml_insight_network360plan().is_displayed():
-                return 1
+            if tag == "automation-header-nav-plan":
+                if self.get_ml_insight_network360plan().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-devices":
-            if self.get_devices_nav().is_displayed():
-                return 1
+            if tag == "automation-header-nav-devices":
+                if self.get_devices_nav().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-clients":
-            if self.get_clients_sub_tab().is_displayed():
-                return 1
+            if tag == "automation-header-nav-clients":
+                if self.get_clients_sub_tab().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-manage-clients":
-            if self.get_manage_users_menu_item().is_displayed():
-                return 1
+            if tag == "automation-header-nav-manage-clients":
+                if self.get_manage_users_menu_item().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-events":
-            if self.get_manage_events_menu_item().is_displayed():
-                return 1
+            if tag == "automation-header-nav-events":
+                if self.get_manage_events_menu_item().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-alarms":
-            if self.get_manage_alarms_nav().is_displayed():
-                return 1
+            if tag == "automation-header-nav-alarms":
+                if self.get_manage_alarms_nav().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-reports":
-            if self.get_manage_reports_nav().is_displayed():
-                return 1
+            if tag == "automation-header-nav-reports":
+                if self.get_manage_reports_nav().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-apps":
-            if self.get_manage_applications_menu_item().is_displayed():
-                return 1
+            if tag == "automation-header-nav-apps":
+                if self.get_manage_applications_menu_item().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-security":
-            if self.get_manage_security_nav().is_displayed():
-                return 1
+            if tag == "automation-header-nav-security":
+                if self.get_manage_security_nav().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-policy":
-            if self.get_network_policies_sub_tab().is_displayed():
-                return 1
+            if tag == "automation-header-nav-policy":
+                if self.get_network_policies_sub_tab().is_displayed():
+                    return 1
 
-        if tag == "automation-header-nav-configure-guest-essentials-users":
-            if self.get_configure_guest_essentials_users_menu_item().is_displayed():
-                return 1
+            if tag == "automation-header-nav-configure-guest-essentials-users":
+                if self.get_configure_guest_essentials_users_menu_item().is_displayed():
+                    return 1
 
-        return -1
+            return -1
+
+        except Exception as e:
+            return -1
 
     def is_nav_menu_item_enabled(self, tag):
         """

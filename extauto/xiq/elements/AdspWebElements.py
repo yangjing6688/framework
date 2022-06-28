@@ -27,6 +27,24 @@ class AdspWebElements(AdspWebElementsDefinitions):
     def get_adsp_alarm_search_button(self):
         return self.weh.get_element(self.adsp_alarm_search_button)
 
+    def go_to_adsp_sensor_page(self):
+        return self.weh.get_element(self.to_adsp_sensor_page)
+
+    def get_search_adsp_sensor_page(self):
+        return self.weh.get_element(self.search_adsp_sensor_page)
+
+    def get_serial_to_adsp_sensor_page(self):
+        return self.weh.get_element(self.serial_to_adsp_sensor_page)
+
+    def get_device_location_from_adsp(self):
+        return self.weh.get_element(self.device_location_from_adsp)
+
+    def get_ap_serial_from_adsp(self):
+        return self.weh.get_element(self.ap_serial_from_adsp)
+
+    def get_auth_error_from_adess(self):
+        return  self.weh.get_element(self.auth_error_from_adess)
+
     def get_adsp_alarm_search_text_field(self):
         return self.weh.get_element(self.adsp_alarm_search_text_field)
 
@@ -87,3 +105,5 @@ class AdspWebElements(AdspWebElementsDefinitions):
 
 
 
+    def get_adsp_user_role_not_supported(self):
+        return self.weh.get_elements(self.adsp_user_role_not_supported)

@@ -7,6 +7,7 @@ from extauto.common.Screen import Screen
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.manage.Tools import Tools
 
 from selenium.webdriver.common.keys import Keys
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
@@ -31,6 +32,7 @@ class SwitchTemplate(object):
         self.dev360 = Device360WebElements()
         self.alarm = AlarmsWebElements()
         self.screen = Screen()
+        self.tools = Tools()
 
     def check_sw_template(self, sw_template):
         """
@@ -88,7 +90,7 @@ class SwitchTemplate(object):
         if self.check_sw_template(sw_model):
             self.utils.print_info("Template Already present in the template grid")
             return 1
-
+       
         add_btns = self.sw_template_web_elements.get_sw_template_add_button()
         sleep(2)
 
@@ -122,18 +124,22 @@ class SwitchTemplate(object):
                 sleep(1)
                 self.utils.print_info("Get Template Save Button")
                 save_btns = self.sw_template_web_elements.get_sw_template_save_button()
-
+        
                 rc = -1
                 for save_btn in save_btns:
                     if save_btn.is_displayed():
                         self.utils.print_info("Click on the save template button")
                         self.auto_actions.click(save_btn)
-                        sleep(10)
-                        ### script failing in getting tooltip text, need to debug
+                        self.screen.save_screen_shot()
                         tool_tip_text = tool_tip.tool_tip_text
                         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                        if "Switch template has been saved successfully." in tool_tip_text:
-                            rc = 1
+                        
+                        def _is_sw_template_available():
+                            return self.get_sw_template_row(sw_template_name)
+                        self.tools.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
+                        
+                        self.screen.save_screen_shot()
+                        rc = 1
                         break;
 
                 self.utils.print_info("Click on network policy exit button")
@@ -448,6 +454,11 @@ class SwitchTemplate(object):
         self.navigator.navigate_configure_network_policies()
         sleep(1)
 
+        if "Switch Engine" in model_units:
+            var_type="Switch Engine "
+        else:
+            var_type="X440-G2-"
+
         if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created before ")
             return -1
@@ -510,10 +521,10 @@ class SwitchTemplate(object):
                 self.utils.print_info("The models from CLI are : ", model_units_list)
                 model_units_list2 = []
                 for cnt2 in model_units_list:
-                    if "-EXOS" in cnt2:
-                        model_units_list2.append(cnt2.replace('-EXOS', ''))
+                    if var_type in cnt2:
+                        model_units_list2.append(cnt2.replace(var_type, ''))
                     else:
-                        self.utils.print_info("The model doesn't contain '-EXOS' ")
+                        self.utils.print_info("The model doesn't contain ",var_type)
                         return -1
                 self.utils.print_info("The new models from CLI are : ", model_units_list2)
                 item_count1 = len(model_units_list2)
@@ -528,12 +539,12 @@ class SwitchTemplate(object):
                         else:
                             self.utils.print_info("ADD button was not find")
                             return -1
-                        if self.auto_actions.select_drop_down_options(policy_unit_items, 'EXOS ' + unit):
-                            self.utils.print_info("Unit was added  :", 'EXOS ' + unit)
+                        if self.auto_actions.select_drop_down_options(policy_unit_items, var_type + unit):
+                            self.utils.print_info("Unit was added  :", var_type + unit)
                             sleep(20)
                             self.auto_actions.click(self.sw_template_web_elements.get_sw_template_name_textfield())
                         else:
-                            self.utils.print_info("Unit was not added  :", 'EXOS ' + unit)
+                            self.utils.print_info("Unit was not added  :", var_type + unit)
                             self.auto_actions.click(self.sw_template_web_elements.get_sw_template_name_textfield())
                             return -1
                 else:
@@ -544,7 +555,7 @@ class SwitchTemplate(object):
                         if save_btn.is_displayed():
                             self.utils.print_info("Click on the save template button")
                             self.auto_actions.click(save_btn)
-                            sleep(10)
+                            self.screen.save_screen_shot()
                             tool_tip_text = tool_tip.tool_tip_text
                             self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                             for cnt3 in tool_tip_text:
@@ -553,6 +564,13 @@ class SwitchTemplate(object):
                                     return 1
                                 else:
                                     self.utils.print_info("Not found successfully message yet ")
+                            
+                            def _is_sw_template_available():
+                                return self.get_sw_template_row(sw_template_name)
+                            self.tools.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)                            
+                            self.screen.save_screen_shot()
+                            return 1
+
                         else:
                             self.utils.print_info("Not found 'Save template' button ")
                 else:
@@ -869,7 +887,7 @@ class SwitchTemplate(object):
             return -1
         return 1
 
-    def create_vlan_in_template(self, policy_name, template_name, port, vlan, port_type_name):
+    def create_vlan_in_template(self, policy_name, template_name, port, vlan, port_type_name,stp_disable='false'):
         """
         - Create Vlan In Template
         - Keyword Usage:
@@ -883,9 +901,9 @@ class SwitchTemplate(object):
         """
         self.select_sw_template(policy_name,  template_name)
         self.go_to_port_configuration()
-        return self.config_vlan_in_template(port, vlan, port_type_name)
+        return self.config_vlan_in_template(port, vlan, port_type_name,stp_disable)
 
-    def create_vlan_in_stacked_template(self, nw_policy, sw_template_name, slot, port, vlan, port_type_name):
+    def create_vlan_in_stacked_template(self, nw_policy, sw_template_name, slot, port, vlan, port_type_name,stp_disable='false'):
         """
         - Create Vlan In Stacked Template
         - Keyword Usage:
@@ -917,7 +935,7 @@ class SwitchTemplate(object):
                 slot_index = slot_index + 1
             if slot_found:
                 port_string = str(slot) + ':' + str(port)
-                return self.config_vlan_in_template(port_string, vlan, port_type_name)
+                return self.config_vlan_in_template(port_string, vlan, port_type_name,stp_disable)
             else:
                 self.utils.print_info("Unable to locate the correct slot")
                 return -1
@@ -926,7 +944,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
 
-    def config_vlan_in_template(self, port_string, vlan_number, port_type_name):
+    def config_vlan_in_template(self, port_string, vlan_number, port_type_name,stp_disable='false'):
         vlan_already_exists = False
         self.auto_actions.scroll_down()
         sleep(5)
@@ -1001,6 +1019,16 @@ class SwitchTemplate(object):
                                     else:
                                         self.utils.print_info("Unable to locate the Vlan Add Button")
                                         return -1
+
+                                if stp_disable:
+                                    stp_status=self.legacy_port_type_editor.get_stp_status()
+                                    if stp_status:
+                                        self.auto_actions.disable_check_box(stp_status)
+                                    else:
+                                        self.utils.print_info(f"Unable to find check box to disable STP for port")
+                                        self.screen.save_screen_shot()
+                                        return -1
+
                                 self.utils.print_info("Attempting to locate Port Type Save Button")
                                 port_type_save_button = self.sw_template_web_elements.get_port_type_save_button()
                                 if port_type_save_button:
@@ -1584,3 +1612,54 @@ class SwitchTemplate(object):
                 else:
                     pass
         return -1
+
+    def configure_oob_mgmt_int(self, nw_policy, sw_template_name, mgmtVlan="4092"):
+        """
+        - Checks able to configure OOB Mgmt interface
+        - This function is working only if switch template already created
+        - Keyword Usage
+         - ``  ${NW_POLICY}  ${SW_TEMPLATE_NAME} ${MGMTVLAN}
+         - e.g. configure_oob_mgmt_int bgd2 politicamea 4092
+        :param nw_policy: network policy
+        :param sw_template_name: Switch Template Name e.g mypolicy
+        :param mgmtVlan: 4092 -vlan range need to be (1-4093)
+
+        :return: 1 if Switch Template OOB mgmt interface Configured Successfully else -1
+        """
+
+        self.select_sw_template(nw_policy, sw_template_name)
+
+        mgmt_int = self.sw_template_web_elements.get_mgmt_toggle_check_box()
+        if mgmt_int:
+            self.auto_actions.enable_check_box(mgmt_int)
+            mgmt_vlan_field = self.sw_template_web_elements.get_mgmt_vlan_text_field()
+            if mgmt_vlan_field:
+                self.auto_actions.send_keys(mgmt_vlan_field, mgmtVlan)
+            else:
+                self.utils.print_info(f"Unable to find field to enter MGMT Vlan field.")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info(f"Unable to find check box to enable OOB mgmt connectivity")
+            self.screen.save_screen_shot()
+            return -1
+
+        save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+        for save_btn in save_btns:
+            if save_btn.is_displayed():
+                self.utils.print_info("Click on the save template button")
+                self.auto_actions.click(save_btn)
+                sleep(10)
+                tool_tip_text = tool_tip.tool_tip_text
+                self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                for cnt3 in tool_tip_text:
+                    if 'Stack template has been saved successfully.' in cnt3:
+                        self.utils.print_info("Found successfully message")
+                        return 1
+                    else:
+                        self.utils.print_info("Not found successfully message yet ")
+            else:
+                self.utils.print_info("Not found 'Save template' button ")
+        return -1
+
+

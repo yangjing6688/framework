@@ -235,3 +235,7 @@ class UserGroupsWebElements(UserGroupsWebElementsDefinitions):
 
     def get_wireless_usr_profile_select_wind_cancel_button(self):
         return self.weh.get_element(self.wireless_usr_profile_select_wind_cancel_button)
+    
+    def get_usr_group_select_all_checkbox(self):
+        return self.weh.get_element(self.usr_group_select_all_checkbox)
+    

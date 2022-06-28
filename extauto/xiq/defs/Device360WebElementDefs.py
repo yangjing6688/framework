@@ -1117,13 +1117,13 @@ class Device360WebElementDefs:
 
     device360_switch_sidebar_active_alarms = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="alarmsNum"]',
+            'XPATH': '//*[@data-automation-tag="device-entity-active-alarms-number"]',
             'wait_for': 5
         }
 
     device360_switch_sidebar_unique_clients = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="clientsNum"]',
+            'XPATH': '//*[@data-automation-tag="device-entity-unique-clients-number"]',
             'wait_for': 5
         }
 
@@ -2044,12 +2044,6 @@ class Device360WebElementDefs:
         {
             #'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
             'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
-            'wait_for': 5
-        }
-
-    device360_device_configuration_button = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-device-entity-device-configuration-tab"]',
             'wait_for': 5
         }
 

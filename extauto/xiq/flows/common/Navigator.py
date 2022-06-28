@@ -256,6 +256,21 @@ class Navigator(NavigatorWebElements):
         else:
             return -1
 
+    def navigate_to_client_mode_profiles(self):
+        """
+        - This Keyword Navigate to Client Mode Profile on Common Objects
+        - Flow: CONFIGURE-->COMMON OBJECTS-->Basic-->Client Mode Profiles
+        - Keyword Usage:
+         - ``Navigate To Client Mode Profiles``
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_configure_common_objects()
+        self.utils.print_info("Click on Basic tab")
+        self.navigate_to_common_object_basic_tab()
+        self.utils.print_info("Click on Client Mode Profiles...")
+        self.auto_actions.click(self.get_common_object_basic_client_mode_profiles())
+        return 1
+
     def navigate_to_user_account(self):
         """
         - This keyword Navigates to User Account Menu
@@ -977,6 +992,33 @@ class Navigator(NavigatorWebElements):
             sleep(5)
         return 1
 
+    def navigate_to_device_utilities_status(self):
+        """
+        - This keyword is used to navigate to utilities status menu
+        - Assumes that already navigated to the Manage --> Device page
+        - Keyword Usage:
+         - ``Navigate To Device Utilities Status``
+        :return: 1 if Navigation Successful else -1
+        """
+        if not self.get_device_utilities_status_menu_item().is_displayed():
+            self.utils.print_info("Clicking on Utilities Button")
+            if self.get_device_utilities_button().is_enabled():
+                self.auto_actions.click(self.get_device_utilities_button())
+                sleep(2)
+            else:
+                self.utils.print_info("Unable to click on Utilities Button due to being disabled")
+                return -1
+
+        self.utils.print_info("Hovering over Status Menu Item")
+        if self.get_device_utilities_status_menu_item().is_displayed():
+            self.auto_actions.move_to_element(self.get_device_utilities_status_menu_item())
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to hover over Status Menu Item due to not being displayed")
+            return -1
+
+        return 1
+
     def navigate_to_status_interface(self, device_serial=''):
         """
         - This Keyword navigates to device Status Interface window
@@ -992,14 +1034,8 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         self.device_common.select_device_row(device_serial)
 
-        self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
-        sleep(2)
-
-        self.utils.print_info("Hovering over Status button")
-        status_element = self.weh.get_element(self.device_utilities_status)
-        self.auto_actions.move_to_element(status_element)
-        sleep(5)
+        if self.navigate_to_device_utilities_status() == -1:
+            return -1
 
         self.utils.print_info("Clicking on Interface")
         interface_access = self.weh.get_element(self.utilities_status_interface)
@@ -1022,14 +1058,8 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         self.device_common.select_device_row(device_serial)
 
-        self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
-        sleep(2)
-
-        self.utils.print_info("Hovering over Status button")
-        status_element = self.weh.get_element(self.device_utilities_status)
-        self.auto_actions.move_to_element(status_element)
-        sleep(5)
+        if self.navigate_to_device_utilities_status() == -1:
+            return -1
 
         self.utils.print_info("Clicking on Advance Channel Selection")
         adv_channel = self.weh.get_element(self.utilities_status_adv_channel_sel)
@@ -1052,14 +1082,8 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         self.device_common.select_device_row(device_serial)
 
-        self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
-        sleep(2)
-
-        self.utils.print_info("Hovering over Status button")
-        status_element = self.weh.get_element(self.device_utilities_status)
-        self.auto_actions.move_to_element(status_element)
-        sleep(5)
+        if self.navigate_to_device_utilities_status() == -1:
+            return -1
 
         self.utils.print_info("Clicking on Wifi Status Summary")
         wifi = self.weh.get_element(self.utilities_status_wifi_status_summary)
@@ -1993,10 +2017,13 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation is not Successful to Extreme AirDefence Menu
         """
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
-        if not self.auto_actions.click(self.get_air_defence_menu()):
+        if self.auto_actions.click(self.get_essentials_menu()):
+            self.utils.print_info("Clicked Extreme Airdefense Menu")
+            return -1
+        else:
             self.utils.print_info("Did not find Extreme AirDefence Menu...")
             sleep(5)
-        return 1
+            return 1
 
     def navigate_to_configure_users_subtab_users(self):
         """
@@ -2145,13 +2172,14 @@ class Navigator(NavigatorWebElements):
          - ``Navigate To Device Utilities Tools``
         :return: 1 if Navigation Successful else -1
         """
-        self.utils.print_info("Clicking on Utilities Button")
-        if self.get_device_utilities_button().is_enabled():
-            self.auto_actions.click(self.get_device_utilities_button())
-            sleep(2)
-        else:
-            self.utils.print_info("Unable to click on Utilities Button due to being disabled")
-            return -1
+        if not self.get_device_tools_menu_item().is_displayed():
+            self.utils.print_info("Clicking on Utilities Button")
+            if self.get_device_utilities_button().is_enabled():
+                self.auto_actions.click(self.get_device_utilities_button())
+                sleep(2)
+            else:
+                self.utils.print_info("Unable to click on Utilities Button due to being disabled")
+                return -1
 
         self.utils.print_info("Hovering over Tools Menu Item")
         if self.get_device_tools_menu_item().is_displayed():
@@ -2832,12 +2860,12 @@ class Navigator(NavigatorWebElements):
     def navigate_to_client_monitor_and_diagnosis_tab(self):
         """"
         - This Keyword Navigate to Client Monitor and Diagnosis Page
-        - Flow: ML Insights --> Client Monitor & Diagnosis
+        - Flow: Manage --> Client Monitor & Diagnosis
         - Keyword Usage:
           - 'Navigate To Client Monitor And Diagnosis Tab'
         :return: 1 if Navigation Successful
         """
-        self.navigate_to_ml_insight_tab()
+        self.navigate_to_manage_tab()
         sleep(5)
 
         self.utils.print_info("Click on Client Monitor & Diagnosis Page")
@@ -2847,6 +2875,63 @@ class Navigator(NavigatorWebElements):
             return 1
         else:
             self.utils.print_info("Unable to navigate to Client Monitor & Diagnosis Page")
+            self.screen.save_screen_shot()
+            return -2
+
+    def navigate_configure_alert(self):
+        """
+         - This keyword Navigates to Alert On Configure Menu
+         - Flow Configure--> Alert
+         - Keyword Usage
+          - ``Navigate Configure Alert``
+
+        :return: 1 if Navigation Successful to Alert On Configure Menu else return -1
+        """
+        self.utils.print_info("Selecting Configure tab...")
+        if self.get_configure_tab().is_displayed():
+            self.navigate_to_configure_tab()
+            sleep(2)
+        else:
+            return -2
+
+        return self.navigate_to_alert_tab()
+
+    def navigate_to_alert_tab(self):
+        """
+         - This keyword Navigates to Alert
+         - Keyword Usage
+          - ``Navigate To Alert Tab``
+
+        :return: 1 if Navigation Successful to Alert On Configure Menu else return -1
+        """
+        self.utils.print_info("Selecting Alert Tab...")
+        if self.get_alert_sub_tab():
+            self.auto_actions.click(self.get_alert_sub_tab())
+            sleep(10)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Alert tab")
+            self.screen.save_screen_shot()
+            return -1
+
+    def navigate_to_applications_tab(self):
+        """"
+        - This Keyword Navigate to Applications Page
+        - Flow: Manage --> Applications
+        - Keyword Usage:
+          - 'Navigate to Applications page'
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_manage_tab()
+        sleep(5)
+
+        self.utils.print_info("Click on Applications Page")
+        applications_page_ele = self.weh.get_element(self.applications_tab)
+        if applications_page_ele.is_displayed():
+            self.auto_actions.click(applications_page_ele)
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to Applications Page")
             self.screen.save_screen_shot()
             return -2
 
@@ -2911,4 +2996,42 @@ class Navigator(NavigatorWebElements):
                 self.screen.save_screen_shot()
                 return -1
         else:
+            return -1
+
+    def navigate_to_vpn_services_tab(self):
+        """"
+        - This Keyword Navigate to VPN Services Page
+        - Flow: Manage --> VPN Services
+        - Keyword Usage:
+          - 'Navigate to VPN Services Tab'
+        :return: 1 if Navigation Successful, else -1
+        """
+        self.navigate_to_manage_tab()
+        sleep(5)
+
+        self.utils.print_info("Click on VPN Services Tab")
+        if self.get_vpn_services_tab().is_displayed():
+            self.auto_actions.click(self.get_vpn_services_tab())
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to VPN Services Page")
+            self.screen.save_screen_shot()
+            return -1
+
+    def point_client_hyperlink_to_client360(self):
+        """"
+        - This Keyword point client hyperlink to Client 360 page in ML Insights
+        - Flow: Client Hyperlink --> ML Insights --> Client 360
+        - Keyword Usage:
+          - 'Point Client Hyperlink To Client360'
+        :return: 1 if Navigation Successful, else -1
+        """
+
+        self.utils.print_info("Click on Clients Hyperlink")
+        if self.get_clients_hyperlink().is_displayed():
+            self.auto_actions.click(self.get_clients_hyperlink())
+            return 1
+        else:
+            self.utils.print_info("Unable to open clients hyperlink page")
+            self.screen.save_screen_shot()
             return -1

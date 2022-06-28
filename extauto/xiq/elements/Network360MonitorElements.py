@@ -36,6 +36,9 @@ class Network360MonitorElements(Network360MonitorDefinitions):
     def get_n360_monitor_devices_card(self):
         return self.weh.get_element(self.n360_monitor_devices_card)
 
+    def get_n360_monitor_clients_card(self):
+        return self.weh.get_element(self.n360_monitor_clients_card)
+
     def get_device_health_overal_score_availability_score(self):
         return self.weh.get_element(self.device_health_overal_score_availability_score)
 
@@ -48,3 +51,11 @@ class Network360MonitorElements(Network360MonitorDefinitions):
     def get_n360_monitor_map(self):
         return self.weh.get_element(self.n360_monitor_map)
 
+    def get_client_health_clients_widget_count_2G(self):
+        return self.weh.get_element(self.client_health_clients_widget_count_2G)
+
+    def get_client_health_clients_widget_count_5G(self):
+        return self.weh.get_element(self.client_health_clients_widget_count_5G)
+
+    def get_client_health_clients_widget_count_6G(self):
+        return self.weh.get_element(self.client_health_clients_widget_count_6G)

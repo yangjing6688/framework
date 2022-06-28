@@ -10,6 +10,7 @@ from robot.libraries.BuiltIn import BuiltIn
 from urllib3.exceptions import MaxRetryError
 from extauto.common.Utils import Utils
 
+
 class CloudDriver():
     __instance = None
 
@@ -40,7 +41,6 @@ class CloudDriver():
         - Keyword Usge:
              - ``Load Browser  url=${URL}``
              - ``Load Browser  url=${URL}   program=${PROGRAM}   incognito_mode=${INCOGNITO_MODE}``
-
         :param url: URL to Load on Browser
         :param program: cloud url by default othewise adsp,xiqse etc
         :param incognito_mode: Incognito Mode flag to open the browser
@@ -64,11 +64,14 @@ class CloudDriver():
         if program == 'approval':
             element_identify_value_xpath = "//*[@class='success_text']"
             element_identify = "xpath"
-            utils.print_info("Approval")        
+            utils.print_info("Approval")
+        elif program == 'a3':
+            element_identify = "id"
+            element_identify_value_id = "username"
         elif program == 'adsp':
             element_identify_value_name = "j_username"
             element_identify = "name"
-        elif program == 'xiqse': 
+        elif program == 'xiqse':
             if "xiqLicenseSetup.jsp" in url:
                 xiqse_version = BuiltIn().get_variable_value("${XIQSE_OS_VERSION}")
                 if xiqse_version:
@@ -215,7 +218,8 @@ class CloudDriver():
             if incognito_mode == "True":
                 utils.print_info("Adding incognito mode to chromeOptions")
                 webdriver.DesiredCapabilities.CHROME['chromeOptions'] = {
-                    "args": ["--disable-extensions", "--ignore-certificate-errors", "--incognito", "--disable-geolocation"]
+                    "args": ["--disable-extensions", "--ignore-certificate-errors", "--incognito",
+                             "--disable-geolocation"]
                 }
             else:
                 webdriver.DesiredCapabilities.CHROME['chromeOptions'] = {
@@ -231,8 +235,8 @@ class CloudDriver():
 
                 if mode == "remote":
                     try:
-                        utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":",
-                                         webdriver_port, "/wd/hub")
+                        utils.print_info(f"Redirecting to Remote WebDriver at http://", str(webdriver_ip), ":",
+                                         str(webdriver_port), "/wd/hub")
                         host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                         cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.CHROME)
                     except (MaxRetryError, WebDriverException) as err:
@@ -272,7 +276,8 @@ class CloudDriver():
                 cloud_driver = webdriver.Firefox(firefox_profile=ff_profile)
 
             if mode == "remote":
-                utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":", webdriver_port, "/wd/hub")
+                utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":", webdriver_port,
+                                 "/wd/hub")
                 host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                 cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.FIREFOX)
 
@@ -296,7 +301,8 @@ class CloudDriver():
                 cloud_driver = webdriver.Safari()
 
             if mode == "remote":
-                utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":", webdriver_port, "/wd/hub")
+                utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":", webdriver_port,
+                                 "/wd/hub")
                 host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                 cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.SAFARI)
 
@@ -323,7 +329,8 @@ class CloudDriver():
                 cloud_driver = webdriver.Ie()
 
             if mode == "remote":
-                utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":", webdriver_port, "/wd/hub")
+                utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":", webdriver_port,
+                                 "/wd/hub")
                 host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                 cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.INTERNETEXPLORER)
 
@@ -349,7 +356,8 @@ class CloudDriver():
                 cloud_driver = webdriver.Edge()
 
             if mode == "remote":
-                utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":", webdriver_port, "/wd/hub")
+                utils.print_info("Redirecting to Remote WebDriver at http://", webdriver_ip, ":", webdriver_port,
+                                 "/wd/hub")
                 host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                 cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.EDGE)
 
@@ -359,7 +367,8 @@ class CloudDriver():
         utils.print_info(f"Waiting for {url} page to load...")
 
         if element_identify == "name":
-            WebDriverWait(cloud_driver, 60).until(ec.presence_of_element_located((By.NAME, element_identify_value_name)))
+            WebDriverWait(cloud_driver, 60).until(
+                ec.presence_of_element_located((By.NAME, element_identify_value_name)))
 
         if element_identify == "id":
             WebDriverWait(cloud_driver, 60).until(ec.presence_of_element_located((By.ID, element_identify_value_id)))
@@ -376,14 +385,12 @@ class CloudDriver():
 
         return cloud_driver
 
-
     def open_window(self, url="default", program="default"):
         """
         - This keyword will Load the default Test URL mentioned in topology file on new windows handles
          - Keyword Usage:
             - ``Open Window  url=${URL}``
             - ``Open Window  url=${URL}   program=${PROGRAM}``
-
         :param url: URL to Load on Browser
         :param program: cloud url by default othewise adsp,xiqse etc
         :return: Windows Index
@@ -397,6 +404,11 @@ class CloudDriver():
         element_locator = "name"
         element_identify = "name"
         element_identify_value_name = "username"
+        element_identify_value_xpath = "//app-auth-failure"
+
+        if "airdefense" in url:
+            element_identify = "xpath"
+            element_identify_value_xpath = "//app-auth-failure"
 
         if program == 'adsp':
             element_identify_value_name = "j_username"
@@ -440,10 +452,16 @@ class CloudDriver():
         utils.print_info("Waiting for login page to load...")
 
         if element_identify == "name":
-            WebDriverWait(self.cloud_driver, 60).until(ec.presence_of_element_located((By.NAME, element_identify_value_name)))
+            WebDriverWait(self.cloud_driver, 60).until(
+                ec.presence_of_element_located((By.NAME, element_identify_value_name)))
+
+        if element_identify == "xpath":
+            WebDriverWait(self.cloud_driver, 60).until(
+                ec.presence_of_element_located((By.XPATH, element_identify_value_xpath)))
 
         if element_identify == "id":
-            WebDriverWait(self.cloud_driver, 60).until(ec.presence_of_element_located((By.ID, element_identify_value_id)))
+            WebDriverWait(self.cloud_driver, 60).until(
+                ec.presence_of_element_located((By.ID, element_identify_value_id)))
 
         if element_identify == "class-name":
             WebDriverWait(self.cloud_driver, 60).until(
@@ -454,7 +472,6 @@ class CloudDriver():
         utils.print_debug(f"Returning Window Index {window_index}")
         return window_index
 
-
     def switch_to_window(self, win_index=0):
         """
         - This keyword will switch to Windows handles based on windows index value
@@ -462,7 +479,6 @@ class CloudDriver():
         - Keyword Usage:
           - ``Switch To Window``
           - ``Switch To Window  win_index=${INDEX_VALUE}``
-
         :param win_index: windows index value
         :return:None
         """
@@ -476,7 +492,6 @@ class CloudDriver():
         else:
             utils.print_info(f"Window Index {win_index} out of range ({win_count})")
 
-
     def close_window(self, win_index=0):
         """
         - This keyword will close Windows handles based on windows index value
@@ -484,7 +499,6 @@ class CloudDriver():
         - Keyword Usage:
           - ``Close Window``
           - ``Close Window  win_index=${INDEX_VALUE}``
-
         :param win_index: windows index value
         :return:None
         """
@@ -501,7 +515,6 @@ class CloudDriver():
                 self.cloud_driver = -1
         else:
             utils.print_info(f"Window Index {win_index} out of range ({win_count})")
-
 
     def get_child_window_list(self, win_index=0):
         """
@@ -530,7 +543,6 @@ class CloudDriver():
             window_list.sort(reverse=True)
 
         return window_list
-
 
     def refresh_page(self):
         utils = Utils()

@@ -3,6 +3,7 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
@@ -25,7 +26,7 @@ class CommonObjects(object):
         self.wireless_web_elements = WirelessWebElements()
         self.network_management_options_elements = NetworkManagementOptionsElements()
         self.user_profile_web_elements = UserProfileWebElements()
-
+        self.common_validation = CommonValidation()
 
     def navigate_to_basic_ip_object_hostname(self):
         """
@@ -160,7 +161,7 @@ class CommonObjects(object):
                 return 1
         return -1
 
-    def delete_ssids(self, *ssids):
+    def delete_ssids(self, *ssids, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete ssid's from ssid grid
@@ -170,6 +171,7 @@ class CommonObjects(object):
         :param ssids: (list) list of ssid's to delete
         :return: 1 if deleted else -1
         """
+
         self.navigator.navigate_to_ssids()
         sleep(5)
 
@@ -187,6 +189,8 @@ class CommonObjects(object):
                 self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
 
         if not select_ssid_flag:
+            kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
         self._delete_common_objects()
 
@@ -194,23 +198,28 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
-                self.utils.print_info(f"Successfully deleted SSIDs")
+                kwargs['pass_msg'] = "Successfully deleted SSIDs"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
+
+        kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
+        self.common_validation.validate(-1, 1)
         return -1
 
-    def delete_all_ssids(self, exclude_list=''):
+    def delete_all_ssids(self):
         """
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete all SSIDs from the grid expect exclude_list SSIDs
         - Keyword Usage:
-         - ``Delete All ssids   exclude_list=${SSID1},${SSID2}``
+         - ``Delete All ssids   `
 
-        :param exclude_list: list of SSIDs to exclude from delete
         :return: 1 if deleted else -1
         """
+        exclude_list = 'ssid0'
         self.navigator.navigate_to_ssids()
 
         self.utils.print_info("Click on full page view")
@@ -796,9 +805,13 @@ class CommonObjects(object):
             self.utils.print_info("Switch Template doesn't exist on first page")
             next_page_el = self.cobj_web_elements.get_next_page_element()
             if next_page_el:
-                self.utils.print_info("  -- clicking next page")
-                self.auto_actions.click(next_page_el)
-                sleep(2)
+                device_page_numbers = self.cobj_web_elements.get_page_numbers()
+                page_len = int(max(device_page_numbers.text))
+                while page_len:
+                    self.utils.print_info("  -- clicking next page")
+                    self.auto_actions.click(next_page_el)
+                    sleep(2)
+                    page_len = page_len - 1
             if not self._search_switch_template(template_name):
                 self.utils.print_info("Switch Template doesn't exist in the list")
                 return 1
@@ -1161,7 +1174,7 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
 
                 wifi0_client_mode_profile = wifi0_profile['client_mode_profile']
-                client_mode_profile_name  = wifi0_client_mode_profile.get('client_mode_profice_name', 'wifi0')
+                client_mode_profile_name  = wifi0_client_mode_profile.get('client_mode_profile_name', 'wifi0')
                 client_mode_profile_dhcp  = wifi0_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
                 cm_enable_local_web_page  = wifi0_client_mode_profile.get('local_web_page', 'ENABLE')
                 cm_ssid_name              = wifi0_client_mode_profile.get('ssid_name', 'bk_enterprise')
@@ -1287,7 +1300,7 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
 
                 wifi1_client_mode_profile = wifi1_profile['client_mode_profile']
-                client_mode_profile_name  = wifi1_client_mode_profile.get('client_mode_profice_name', 'wifi1')
+                client_mode_profile_name  = wifi1_client_mode_profile.get('client_mode_profile_name', 'wifi1')
                 client_mode_profile_dhcp  = wifi1_client_mode_profile.get('dhcp_server_scope', '192.168.150.1')
                 cm_enable_local_web_page  = wifi1_client_mode_profile.get('local_web_page', 'ENABLE')
                 cm_ssid_name              = wifi1_client_mode_profile.get('ssid_name', 'bk_enterprise')
@@ -1298,8 +1311,6 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_add_client_mode_profile())
                 self.utils.print_info(f"Enter Client Mode Profile Name: {client_mode_profile_name}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
-                self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
-                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
                 if cm_enable_local_web_page.upper() == 'DISABLE':
                     self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_checkbox())
@@ -1319,6 +1330,8 @@ class CommonObjects(object):
                     sleep(2)
                     self.utils.print_info(f"Click Add button")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
+                self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
+                self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Click Save Client Mode Profile")
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_save())
@@ -1547,6 +1560,79 @@ class CommonObjects(object):
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
             return -1
         return -2
+
+    def delete_all_ap_templates(self):
+        """
+        - Flow: Configure --> Common Objects --> Policy --> AP Templates
+        - Delete All ap templates except default template from Template grid
+        - Keyword Usage:
+         - ``Delete All AP Templates``
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to Configure->Common Objects->Policy->AP Template.")
+        self.navigator.navigate_to_policy_ap_template()
+        if self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages():
+            self.utils.print_info("Click Full pages button")
+            self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages())
+
+        self.utils.print_info("Getting common object rows")
+        rows = self.cobj_web_elements.get_common_object_grid_rows()
+        if not rows:
+            self.utils.print_info("row(s) not present in the grid")
+            return 1
+
+        select_template_flag = None
+        for row in rows:
+            cell = self.cobj_web_elements.get_common_object_template_grid_row_cells(row)
+            if not cell:
+                pass
+            elif 'default-template' not in cell.text:
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_grid_row_cells(row, 'dgrid-selector'))
+                select_template_flag = True
+
+        if not select_template_flag:
+            return 1
+        self.screen.save_screen_shot()
+        self._delete_common_objects()
+        self.screen.save_screen_shot()
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+        if 'Template was successfully removed from policy.' in tool_tp_text:
+            return 1
+        else:
+            return -1
+
+    def delete_all_client_mode_profiles(self):
+        """
+        - Flow: Configure --> Common Objects --> Basic --> Client Mode Profiles
+        - Delete all client mode profiles from Client Mode Profiles grid
+        - Keyword Usage:
+         - ``Delete All Client Mode Profiles``
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to Configure->Common Objects-> Basic->Client Mode Profiles.")
+        self.navigator.navigate_to_client_mode_profiles()
+        rows = self.cobj_web_elements.get_common_object_basic_client_mode_profiles_grid_rows_all()
+        if not rows:
+            self.utils.print_info("Client Mode Profile(s) not present in the grid")
+            return 1
+        else:
+            try:
+                self.utils.print_info(len(rows), " row(s) of client mode profile(s).")
+                self.utils.print_info("Selecting Device grid checkbox Icon.")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_basic_client_mode_profiles_selectall())
+                self.utils.print_info("Selecting Delete Icon.")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_basic_client_mode_profiles_delete())
+                self.utils.print_info("Confirming delete...")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_basic_client_mode_profiles_delete_confirm_ok_button())
+                sleep(2)
+                self.screen.save_screen_shot()
+
+                return 1
+            except Exception as e:
+                self.screen.save_screen_shot()
+                self.utils.print_info("Unable to delete Client Mode Profiles")
+                return -1
 
     def radio_phy_mode_fiveghz(self, model):
             """
