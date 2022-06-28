@@ -117,6 +117,12 @@ class NetworkElementUtils(object):
             login_prompt = "Username:"
             pass_prompt = "Password:"
             main_prompt = "#"
+        elif formatted_dev_os == NetworkElementConstants.OS_AH_SWITCH:
+            device_os = NetworkElementConstants.OS_AH_SWITCH
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_SW_BASE
+            login_prompt = "username:"
+            pass_prompt = "password:"
+            main_prompt = ">"
         elif formatted_dev_os == NetworkElementConstants.OS_WING:
             device_os = NetworkElementConstants.OS_WING
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_WING_BASE

@@ -10,15 +10,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import *
 from robot.libraries.BuiltIn import BuiltIn
+import json
 
 
 class WebElementHandler:
     def __init__(self):
         self.el_info = BuiltIn().get_variable_value('${ELEMENT_INFO}')
         self.utils = Utils()
-        self.delay = BuiltIn().get_variable_value('${ELEMENT_DELAY}')
+        self.delay = 10 # BuiltIn().get_variable_value('${ELEMENT_DELAY}')
         self.desc = None
-        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.image_handler = ImageHandler()
         self.locator = {"CSS_SELECTOR": By.CSS_SELECTOR,
                          "XPATH": By.XPATH,
@@ -32,6 +32,15 @@ class WebElementHandler:
                                    ElementNotSelectableException,
                                    ElementNotInteractableException]
 
+    def check_for_page_is_loading(self, driver):
+        while True:
+            x = driver.execute_script("return document.readyState")
+            self.utils.print_info("Page returned: " + str(x))
+            if str(x).lower() == "complete" or str(x).lower() == "interactive":
+                return True
+            else:
+                yield False
+
     def get_element(self, key_val, parent='default'):
         """
         get the web element based on the locators provided in key_val dictionary
@@ -44,6 +53,11 @@ class WebElementHandler:
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
         _driver = CloudDriver().cloud_driver if parent == "default" else parent
 
+        self.utils.print_info("Waiting for page to complete loading")
+        while not self.check_for_page_is_loading(_driver):
+            continue
+        self.utils.print_info("Page completed loading")
+
         for key, value in key_val.items():
             if 'IMAGE' in key:
                 icon_path = os.getenv('FRAMEWORK_PATH') + "/xiq/defs/images/" + value
@@ -55,13 +69,15 @@ class WebElementHandler:
             else:
                 continue
             try:
-                if 'True' in self.el_info:
-                    self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
-                                          .format(key, value, _index, _delay, _desc))
-                if type(value) is list:
-                    self.utils.print_info("Element has multiple definitions: ", value)
+                if self.el_info:
+                    if 'True' in self.el_info:
+                        self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
+                                                .format(key, value, _index, _delay, _desc))
+                if list:
+                    if type(value) is list:
+                        self.utils.print_info("Element has multiple definitions: ", value)
 
-                if type(_index) is list:
+                if list and type(_index) is list:
                     handles_list = []
                     self.utils.print_info("Index is an array: ", _index)
                     for each_index in _index:
@@ -72,6 +88,8 @@ class WebElementHandler:
                         except Exception as e:
                             self.utils.print_info("Unable to find element with Index: ", each_index)
                     self.utils.print_info("Handles List: ", handles_list)
+                    if handles_list.length == 0:
+                        self.utils.print_info('Unable to find web element ', json.dumps(key_val))
                     return handles_list
                 if _index == 0:
                     return WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
@@ -83,6 +101,8 @@ class WebElementHandler:
             except Exception as e:
                 if 'True' in self.el_info:
                     self.utils.print_info("Unable to find the element handle with: ", key, ' -- ', value)
+                    self.utils.print_info('Unable to find web element ', json.dumps(key_val))
+
         return None
 
     def get_elements(self, key_val, parent='default'):
@@ -126,7 +146,6 @@ class WebElementHandler:
     def get_displayed_element(self, elements):
         """
         From the list of elements get the displayed element on web page
-
         :param elements: (list)  list of elements
         :return: (obj) displayed element
         """
@@ -150,10 +169,8 @@ class WebElementHandler:
     def get_template_element(self, key_val_template, parent='default', **kwargs):
         """
         Get element based on key, value pairs defined in key_val_template dictionary.
-
         Replaces kwarg names enclosed in ${} with kwarg values in each string
         value defined in the key_val_template dictionary.
-
         For example,
             Suppose the following key value dictionary definition
             template_example = \
@@ -162,7 +179,6 @@ class WebElementHandler:
                     'XPATH': '//div[contains(@id, "panel-title") and text()="${title}"]',
                     'wait_for': 10
                 }
-
             self.weh.get_template_element(template_example, title="Devices")
             self.weh.get_template_element(template_example, title="Policy")
         :param key_val_template: (dict) containing the locator:value ex: 'CSS_SELECTOR': '.btn.btn-primary-2.btn-dim'
@@ -176,10 +192,8 @@ class WebElementHandler:
     def get_template_elements(self, key_val_template, parent='default', **kwargs):
         """
         Get elements based on key, value pairs defined in key_val_template dictionary.
-
         Replaces kwarg names enclosed in ${} with kwarg values in each string
         value defined in the key_val_template dictionary.
-
         For example,
             Suppose the following key value dictionary definition:
             list_dropdown_items = \
@@ -188,10 +202,8 @@ class WebElementHandler:
                 'XPATH': '//div[contains(@id, "${element_id}") and contains(@id, "-picker-listWrap")]/ul/li',
                 'wait_for': 10
             }
-
             You would then get the elements by passing in the element ID:
             self.weh.get_template_elements(list_dropdown_items, element_id="combo-id")
-
         :param key_val_template: (dict) containing the locator:value ex: 'CSS_SELECTOR': '.btn.btn-primary-2.btn-dim'
         :param parent: (str)
         :param kwargs: (dict) containing key value pairs to replace in key_val_template string values
