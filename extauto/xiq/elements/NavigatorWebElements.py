@@ -662,8 +662,8 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
                 return order_number
         return -1
 
-    def get_vpn_services_tab(self):
-        return self.weh.get_element(self.vpn_services_tab)
+    def get_vpn_management_tab(self):
+        return self.weh.get_element(self.vpn_management_tab)
 
     def get_clients_hyperlink(self):
         return self.weh.get_element(self.clients_hyperlink)
