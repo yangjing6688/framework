@@ -429,55 +429,42 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.confirm_message_yes_button)
 
     def get_sw_template_adv_settings_upgrade_device_text(self):
-
         return self.weh.get_element(self.sw_template_adv_settings_upgrade_device_text)
 
     def get_sw_template_adv_settings_upgrade_device_on_off_button(self):
-
         return self.weh.get_element(self.sw_template_adv_settings_upgrade_device_on_off_button)
 
     def get_sw_template_adv_settings_upload_config_text(self):
-
         return self.weh.get_element(self.sw_template_adv_settings_upload_config_text)
 
     def get_sw_template_adv_settings_upload_configuration_on_off_button(self):
-
         return self.weh.get_element(self.sw_template_adv_settings_upload_configuration_on_off_button)
 
     def get_sw_template_adv_settings_upgr_firm_latest_button(self):
-
         return self.weh.get_element(self.sw_template_adv_settings_upgr_firm_latest_button)
 
     def get_sw_template_adv_settings_upgr_firm_specific_button(self):
-
         return self.weh.get_element(self.sw_template_adv_settings_upgr_firm_specific_button)
 
     def get_sw_template_device_sett_forward_delay_drop_down(self):
-
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down)
 
     def get_sw_template_device_sett_forward_delay_drop_down_container(self):
-
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_container)
 
     def get_sw_template_device_sett_forward_delay_drop_down_item16(self):
-
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item16)
 
     def get_sw_template_device_sett_forward_delay_drop_down_item15(self):
-
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item15)
 
     def get_sw_template_device_sett_forward_delay_drop_down_items(self):
-
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_items)
 
     def get_sw_template_adv_settings_download_specific_firmware_drop_down_button(self):
-
         return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_button)
 
     def get_sw_template_adv_settings_download_specific_firmware_drop_down_items(self):
-
         return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_items)
 
     def get_sw_template_row_cells(self, row):
@@ -487,13 +474,3 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_row_cells_hyperlink(self, cell):
         value = self.weh.get_elements(self.sw_template_row_cells_hyperlink, cell)
         return value
-
-
-
-
-
-
-
-
-
-
