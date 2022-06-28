@@ -3475,7 +3475,7 @@ class Devices:
         self.utils.print_info(f"Country Code of AP:{country_code}")
         return country_code
 
-    def delete_all_aps(self):
+    def delete_all_devices(self):
         """
         - This Keyword will Delete All the Devices in the Manage--> Devices Grid
         - Keyword Usage:
@@ -3483,6 +3483,20 @@ class Devices:
 
         :return: 1 if Devices Deleted Successfully else -1
         """
+
+        check_page = self.devices_web_elements.get_delete_button()
+        if check_page:
+            if check_page.is_displayed():
+                self.utils.print_info("this is the device page ")
+                self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("the page is not device page ")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info("the page is not device page ")
+            self.screen.save_screen_shot()
+            return -1
 
         if self.devices_web_elements.get_device_page_size_100() != None:
             self.auto_actions.click(self.devices_web_elements.get_device_page_size_100())
@@ -10405,64 +10419,6 @@ class Devices:
         self.cli.close_spawn(spawn)
         return viq_id[0],system_cuid[0]
 
-    def delete_all_devices(self):
-        '''
-        This function select all boxes from device manage page and then delete them
-        :return: 1 if all devices was deleted or devices are already deleted; else -1
-        '''
-        check_page = self.devices_web_elements.get_delete_button()
-        if check_page:
-            if check_page.is_displayed():
-                self.utils.print_info("this is the device page ")
-                self.screen.save_screen_shot()
-            else:
-                self.utils.print_info("the page is not device page ")
-                self.screen.save_screen_shot()
-                return -1
-        else:
-            self.utils.print_info("the page is not device page ")
-            self.screen.save_screen_shot()
-            return -1
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                self.utils.print_debug("Found device Row: ", self.format_row(row.text))
-                click_checkbox = self.devices_web_elements.get_device_select_checkbox(row)
-                if click_checkbox:
-                    self.auto_actions.click(click_checkbox)
-                else:
-                    pass
-                self.screen.save_screen_shot()
-                sleep(2)
-
-            self.utils.print_info("Click delete button")
-            sleep(2)
-            delete_button = self.devices_web_elements.get_delete_button()
-            if delete_button:
-                self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                sleep(2)
-            else:
-                return -1
-
-            self.utils.print_info("Click confirmation Yes Button")
-            confirm_yes_button = self.dialogue_web_elements.get_confirm_yes_button()
-            if confirm_yes_button:
-                self.auto_actions.click(confirm_yes_button)
-                sleep(2)
-                self.screen.save_screen_shot()
-            else:
-                self.screen.save_screen_shot()
-                return -1
-
-            rows = self.devices_web_elements.get_grid_rows()
-            if rows:
-                self.screen.save_screen_shot()
-                return -1
-        else:
-            self.screen.save_screen_shot()
-            return 1
-        return 1
-
     def unmanage_device_when_license_expired(self,device_sn):
         '''
         This function unmanage a device when unmanage box is displayed
@@ -10664,3 +10620,10 @@ class Devices:
                 sleep(20)
         self.screen.save_screen_shot()
         return [available, activated]
+
+    def delete_all_aps(self):
+        '''
+        This function is deprecated. This Keyword will Delete All the Devices in the Manage--> Devices Grid
+        :return: 1 if Devices Deleted Successfully else -1
+        '''
+        return self.delete_all_devices()
