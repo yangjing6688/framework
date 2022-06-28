@@ -149,7 +149,19 @@ class CopilotDefs:
             'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-close-btn',
             'wait_for': 5
         }
-    
+
+    wifi_capacity_widget_location_ap_like = \
+        {
+            'XPATH': '//span[text()="thumb_up"]',
+            'wait_for': 5
+        }
+
+    wifi_capacity_widget_location_ap_like_tooltip = \
+        {
+            'TAG_NAME': 'simple-snack-bar',
+            'wait_for': 5
+        }
+
     anomalies_view_all_btn = \
         {
             'XPATH': '//*[@data-dojo-attach-point="activeAlarmLink"]',

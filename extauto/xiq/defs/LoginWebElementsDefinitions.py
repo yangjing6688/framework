@@ -463,3 +463,140 @@ class LoginWebElementsDefinitions:
             'wait_for': 3,
         }
 
+    login_portal_page_username_text = \
+        {
+            'XPATH': '//input[@name="username"]',
+            'wait_for': 3,
+        }
+
+    login_portal_page_password_text = \
+        {
+            'XPATH': '//input[@name="password"]',
+            'wait_for': 3,
+        }
+
+    login_portal_page_login_button = \
+        {
+            'XPATH': '//button[@type="submit"]',
+            'wait_for': 3,
+        }
+
+    login_portal_check_error = \
+        {
+            'XPATH': '//span[@class="validation-error"]',
+            'wait_for': 3,
+        }
+
+    add_button_portal = \
+        {
+            'XPATH': '//button[contains(text(),"Add")]',
+            'wait_for': 3,
+        }
+
+    customer_name_field = \
+        {
+            'XPATH': '//input[@id="customerName"]',
+            'wait_for': 3,
+        }
+
+    admin_first_name_field = \
+        {
+            'XPATH': '//input[@id="firstName"]',
+            'wait_for': 3,
+        }
+
+    admin_last_name_field = \
+        {
+            'XPATH': '//input[@id="lastName"]',
+            'wait_for': 3,
+        }
+
+    admin_email_field = \
+        {
+            'XPATH': '//input[@id="email"]',
+            'wait_for': 3,
+        }
+
+    admin_password_field = \
+        {
+            'XPATH': '//input[@id="password"]',
+            'wait_for': 3,
+        }
+
+    data_center_dropdown = \
+        {
+            'XPATH': '//select[@id="dataCenter"]',
+            'wait_for': 3,
+        }
+
+    data_center_dropdown_options = \
+        {
+            'XPATH': '//select[@id="dataCenter"]//option',
+            'wait_for': 3,
+        }
+
+    submit_button = \
+        {
+            'XPATH': '//span[contains(text(),"Submit")]',
+            'wait_for': 3,
+        }
+
+    cell_menu_button_name_section = \
+        {
+            'XPATH': '//div[@colid="name"]//span[@ref="eMenu"]',
+            'wait_for': 3,
+        }
+
+    filter_type_dropdown = \
+        {
+            'XPATH': '//select[@id="filterType"]',
+            'wait_for': 3,
+        }
+
+    filter_dropdown_option_equals = \
+        {
+            'XPATH': '//option[contains(text(),"Equals")]',
+            'wait_for': 3,
+        }
+
+    filter_text_box = \
+        {
+            'XPATH': '//input[@id="filterText"]',
+            'wait_for': 3,
+        }
+
+    user_found = \
+        {
+            'XPATH': '//div[@class="ag-body-container"]//div[contains(@class,"ag-row")]',
+            'wait_for': 3,
+        }
+
+    delete_button = \
+        {
+            'XPATH': '//button[contains(text(),"Delete")]',
+            'wait_for': 3,
+        }
+
+    confirmation_option_yes = \
+        {
+            'XPATH': '//a[contains(text(),"Yes")]',
+            'wait_for': 3,
+        }
+
+    delete_confirmation = \
+        {
+            'XPATH': '//div[@class="notification notification-success truncate"]',
+            'wait_for': 3,
+        }
+
+    log_out_button_portal = \
+        {
+            'XPATH': '//a[contains(text(),"Logout")]',
+            'wait_for': 3,
+        }
+
+    cancel_button = \
+        {
+            'XPATH': '//button[@class="button-grey"]',
+            'wait_for': 3,
+        }
