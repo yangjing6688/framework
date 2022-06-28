@@ -1683,4 +1683,4 @@ class SwitchTemplate(object):
             if sw_template in template_cell.text:
                 hyperlink = self.sw_template_web_elements.get_sw_template_row_cells_hyperlink(template_cell)
                 return hyperlink
-
+        return False
