@@ -502,7 +502,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Closing device360 Dialogue Window.")
         self.auto_actions.click(self.dev360.get_close_dialog())
-        sleep(2)
+        self.screen.save_screen_shot()
 
         return device360_info
 
@@ -524,6 +524,7 @@ class Device360(Device360WebElements):
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
+                self.screen.save_screen_shot()
                 exos_info = self.get_exos_information()
                 return exos_info
 
@@ -533,6 +534,7 @@ class Device360(Device360WebElements):
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
+                self.screen.save_screen_shot()
                 exos_info = self.get_exos_information()
                 return exos_info
 
