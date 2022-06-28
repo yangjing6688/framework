@@ -1730,6 +1730,18 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_stack_slot_vim_ports = \
+        {
+            'XPATH': '//ul[@data-dojo-attach-point="utilPortWrap"]//*[starts-with(@data-automation-tag,"automation-port-${slot}:")]',
+            'wait_for': 5
+        }
+
+    device360_get_ports_by_type_slot = \
+        {
+            'XPATH': '//div[contains(@class, "${type}") and starts-with(@data-automation-tag,"automation-port-${slot}:")]',
+            'wait_for': 5
+        }
+
     d360_vim_ports = \
         {
             'XPATH': '//ul[@data-dojo-attach-point="utilPortWrap"]//span[contains(@class,"port-desc")]',
