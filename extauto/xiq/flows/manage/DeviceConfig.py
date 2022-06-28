@@ -10,7 +10,10 @@ from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.CloudDriver import CloudDriver
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from extauto.common.CloudDriver import CloudDriver
 
 class DeviceConfig(DeviceConfigElements):
     def __init__(self):
@@ -2347,6 +2350,21 @@ class DeviceConfig(DeviceConfigElements):
 
             return -1
 
+    def wait_function_load(self):
+        max_time = 30
+
+        for attempt_index in range(max_time):
+            # Note we are sleeping for 1 second on each loop through until jQuery is no
+            # longer active.  The first sleep before checking jQuery status is needed
+            # because we need to have time for jQuery to activate after clicking the refresh
+            # button.
+            _driver = CloudDriver().cloud_driver
+            sleep(1)
+            jQueryActiveState = _driver.execute_script("return jQuery.active")
+            print("jQueryActive= ",jQueryActiveState)
+            if jQueryActiveState == 0:
+                return
+
     def get_device_config_audit_delta(self, device_mac):
         """
         - This keyword will get the delta cli configuration
@@ -2380,7 +2398,7 @@ class DeviceConfig(DeviceConfigElements):
                         else:
                             self.utils.print_info("Did not find the delta view...")
                             return -1
-                        sleep(15)
+                        self.wait_function_load()
                         self.utils.print_info("Attempting to locate the delta config content...")
                         if self.get_device_config_audit_delta_view_content():
                             self.utils.print_info("Get the Config content from Device Config Audit Delta View")

@@ -29,6 +29,7 @@ class Device360(Device360WebElements):
         self.wireless_web_elements = WirelessWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
+        self.common_validation = CommonValidation()
 
     def get_system_info(self):
         """
@@ -6373,7 +6374,7 @@ class Device360(Device360WebElements):
             return -1
 
     def device360_configure_ports_trunk_stack(self, port_numbers="", trunk_native_vlan="", trunk_vlan_id="", slot = "",
-                                              port_type="Trunk Port"):
+                                              port_type="Trunk Port", **kwargs):
         """
         - This keyword will configure multiple ports to Port Type: Trunk and assign a vlan value for a slot
         - Flow: Device 360 Window --> Configure --> Port Configuration--> interface --> Ports Usage and Vlan Range
@@ -6386,6 +6387,7 @@ class Device360(Device360WebElements):
         :param slot: The current slot of the stack
         :return: 1 if Ports Usage Trunk and Vlan range Successfully configured else -1
         """
+        kwargs['IRV'] = True
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -6430,31 +6432,41 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Close Dialogue Window")
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "Port Row was not found"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
             if save_btn:
                 self.utils.print_info("Clicking 'Save Port Configuration' button'")
                 self.auto_actions.click(save_btn)
-                tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
+                sleep(4)
+                tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if "Interface settings were updated successfully." in tool_tip_text:
+                if 'Stack Port Configuration Saved' in tool_tip_text or 'Switch Port Configuration Saved' in tool_tip_text:
+                    kwargs['pass_msg'] = "Port Configuration Saved"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 else:
+                    kwargs['fail_msg'] = "Failed to save port configuration."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click(self.get_close_dialog())
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def device360_configure_ports_access_vlan(self, device_mac="", device_name="", port_numbers="", access_vlan_id="",
-                                              port_type="Access Port"):
+                                              port_type="Access Port", **kwargs):
         """
         - This keyword will configure multiple ports to the port type "Access Port"
         - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> interface -->
@@ -6467,6 +6479,7 @@ class Device360(Device360WebElements):
         :param  port_type:  Access Port
         :return: 1 if Ports Usage Access and Vlan Successfully configured else -1
         """
+        kwargs['IRV'] = True
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
@@ -6517,32 +6530,41 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Close Dialogue Window")
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "Port Row was not found"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
             if save_btn:
                 self.utils.print_info("Clicking 'Save Port Configuration' button'")
                 self.auto_actions.click(save_btn)
-
-                tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
+                sleep(4)
+                tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if "Interface settings were updated successfully." in tool_tip_text:
+                if 'Stack Port Configuration Saved' in tool_tip_text or 'Switch Port Configuration Saved' in tool_tip_text:
+                    kwargs['pass_msg'] = "Port Configuration Saved"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 else:
+                    kwargs['fail_msg'] = "Failed to save port configuration."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click(self.get_close_dialog())
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def device360_configure_ports_access_vlan_stack(self, port_numbers="", access_vlan_id="1", slot="",
-                                                    port_type="Access Port"):
+                                                    port_type="Access Port", **kwargs):
         """
         - This keyword will configure multiple ports to the port type "Access Port"
         - Assume that already in Device 360 Window
@@ -6556,7 +6578,7 @@ class Device360(Device360WebElements):
         :param slot: The slot of the stack
         :return: 1 if Ports Usage Access and Vlan Successfully configured else -1
         """
-
+        kwargs['IRV'] = True
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
             self.auto_actions.click(self.get_device360_configure_button())
@@ -6591,30 +6613,41 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Close Dialogue Window")
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "Port Row was not found"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
             if save_btn:
                 self.utils.print_info("Clicking 'Save Port Configuration' button'")
                 self.auto_actions.click(save_btn)
-                tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
+                sleep(4)
+                tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if "Interface settings were updated successfully." in tool_tip_text:
+                if 'Stack Port Configuration Saved' in tool_tip_text or 'Switch Port Configuration Saved' in tool_tip_text:
+                    kwargs['pass_msg'] = "Port Configuration Saved"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 else:
+                    kwargs['fail_msg'] = "Failed to save port configuration."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click(self.get_close_dialog())
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
-    def select_stack_unit(self, slot):
+    def select_stack_unit(self, slot, **kwargs):
+        kwargs['IRV'] = True
         self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
@@ -6627,12 +6660,19 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
+                    kwargs['pass_msg'] = f"Selected the slot {str(slot)} successfully"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 slot_index = slot_index + 1
             if not slot_found:
-                self.utils.print_info("Unable to locate the correct slot")
+                self.utils.print_info(f"Unable to locate slot {str(slot)}")
+                kwargs['fail_msg'] = f"Unable to locate slot {str(slot)}"
+                self.screen.save_screen_shot()
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
-            return -1
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
+            kwargs['fail_msg'] = "Unable to gather the list of the devices in the stack"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
