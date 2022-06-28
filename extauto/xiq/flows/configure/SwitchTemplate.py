@@ -17,6 +17,7 @@ from extauto.xiq.elements.SwTemplateLegacyPortTypeWebElements import SwTemplateL
 
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 class SwitchTemplate(object):
 
@@ -33,6 +34,7 @@ class SwitchTemplate(object):
         self.alarm = AlarmsWebElements()
         self.screen = Screen()
         self.tools = Tools()
+        self.common_validation = CommonValidation()
 
     def check_sw_template(self, sw_template):
         """
@@ -1662,7 +1664,7 @@ class SwitchTemplate(object):
                 self.utils.print_info("Not found 'Save template' button ")
         return -1
 
-    def template_assign_ports_to_an_existing_port_type(self, ports, port_type_name):
+    def template_assign_ports_to_an_existing_port_type(self, ports, port_type_name, **kwargs):
         """
         - This keyword will assign multiple ports in a template to an existing port type
         - Assumes That Already in Device Template Port Configuration
@@ -1674,6 +1676,7 @@ class SwitchTemplate(object):
         :return: returns 1 if the ports have been assigned the existing port type
                  returns -1 if otherwise
         """
+        kwargs['IRV'] = True
         self.select_wireframe_net_ports(ports)
         assign_button = self.sw_template_web_elements.get_sw_template_assign_button()
         if assign_button:
@@ -1710,6 +1713,9 @@ class SwitchTemplate(object):
                                     self.utils.print_info("Saved")
                                 else:
                                     self.utils.print_info("Unable to find the 'Save' button in this section!")
+                                    kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
+                                    self.screen.save_screen_shot()
+                                    self.common_validation.validate(-1, 1, **kwargs)
                                     return -1
                             else:
                                 pass
@@ -1720,17 +1726,27 @@ class SwitchTemplate(object):
                                 if save_btn.is_displayed():
                                     self.utils.print_info("Click on the save template button")
                                     self.auto_actions.click(save_btn)
+                                    sleep(2)
                                     tool_tip_text = tool_tip.tool_tip_text
                                     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                                    if "Switch template has been saved successfully." in tool_tip_text:
+                                    if "Stack template has been saved successfully." in tool_tip_text or \
+                                            'Switch template has been saved successfully.' in tool_tip_text:
                                         rc = 1
+                                        kwargs['pass_msg'] = "Stack template has been saved successfully."
+                                        self.common_validation.validate(1, 1, **kwargs)
                                     break
                             return rc
                         else:
                             self.utils.print_info("Did not find the save button!")
+                            kwargs['fail_msg'] = "Did not find the save button!"
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
                             return -1
         else:
             self.utils.print_info("Could not find the assign button!")
+            kwargs['fail_msg'] = "Could not find the assign button!"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def delete_switch_template(self, nw_policy, sw_template_name):

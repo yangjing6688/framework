@@ -6299,7 +6299,7 @@ class Device360(Device360WebElements):
             return -1
 
     def device360_configure_ports_trunk_vlan(self, port_numbers="", trunk_native_vlan="", trunk_vlan_id="",
-                                                   port_type="Trunk Port"):
+                                                   port_type="Trunk Port", **kwargs):
         """
         - This keyword will configure multiple ports to Port Type: Trunk and assign a vlan value
         - Assume that already in device360 window
@@ -6312,7 +6312,7 @@ class Device360(Device360WebElements):
         :param  port_type:  Trunk Port
         :return: 1 if Ports Usage Trunk and Vlan range Successfully configured else -1
         """
-
+        kwargs['IRV'] = True
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -6350,27 +6350,37 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Close Dialogue Window")
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
-                    return -1
+                    kwargs['fail_msg'] = "Port Row Not Found"
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
             if save_btn:
                 self.utils.print_info("Clicking 'Save Port Configuration' button'")
                 self.auto_actions.click(save_btn)
-                tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
+                sleep(4)
+                tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if "Interface settings were updated successfully." in tool_tip_text:
+                if 'Stack Port Configuration Saved' in tool_tip_text or 'Switch Port Configuration Saved' in tool_tip_text:
+                    kwargs['pass_msg'] = "Port Configuration Saved"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 else:
+                    kwargs['fail_msg'] = "Failed to save port configuration."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click(self.get_close_dialog())
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def device360_configure_ports_trunk_stack(self, port_numbers="", trunk_native_vlan="", trunk_vlan_id="", slot = "",
