@@ -6319,43 +6319,31 @@ class Device360(Device360WebElements):
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
                     self.utils.print_info("click Port Usage drop down")
-                    sleep(2)
                     drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
                     self.auto_actions.click(drop_down_button)
-                    sleep(2)
                     if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
                         pass
                     else:
-                        sleep(3)
                         self.auto_actions.click(drop_down_button)
                     self.utils.print_info("Selecting Port Usage")
-                    sleep(2)
                     self.auto_actions.select_drop_down_options(
                         self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
-                    sleep(2)
                     self.utils.print_info("Entering Trunk Native Vlan TextField...")
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                                                 Keys.CONTROL + "a")
-                    sleep(2)
                     self.utils.print_info("Deleting the selected values in port..")
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                                                 Keys.BACK_SPACE)
-                    sleep(2)
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                                                 trunk_native_vlan)
-                    sleep(4)
                     self.utils.print_info("Entering Trunk Allowed Vlan IDs TextField...")
-                    sleep(2)
                     self.utils.print_info("Deleting the selected values in port trunk textfield..")
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_vlan_textfield(port_row),
                                                 Keys.CONTROL + "a")
-                    sleep(2)
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_vlan_textfield(port_row),
                                                 Keys.BACK_SPACE)
-                    sleep(2)
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_vlan_textfield(port_row),
                                                 trunk_vlan_id)
-                    sleep(2)
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
@@ -6365,18 +6353,13 @@ class Device360(Device360WebElements):
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
             if save_btn:
-                sleep(5)
                 self.utils.print_info("Clicking 'Save Port Configuration' button'")
                 self.auto_actions.click(save_btn)
                 tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
-                sleep(10)
-
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
                 self.screen.save_screen_shot()
-                sleep(2)
-
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                 if "Interface settings were updated successfully." in tool_tip_text:
                     return 1
@@ -6410,72 +6393,54 @@ class Device360(Device360WebElements):
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
                     self.utils.print_info("Click Port Usage drop down")
-                    sleep(3)
                     drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
                     self.auto_actions.click(drop_down_button)
-                    sleep(3)
-
                     if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
                         pass
                     else:
-                        sleep(3)
                         self.auto_actions.click(drop_down_button)
 
                     self.auto_actions.select_drop_down_options(
                         self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
-
-                    sleep(3)
                     self.utils.print_info("Entering Trunk Native Vlan TextField...")
                     self.auto_actions.send_keys(
                         self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                         Keys.CONTROL + "a")
                     self.utils.print_info("Deleting the selected values in port..")
-                    sleep(3)
                     self.auto_actions.send_keys(
                         self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                         Keys.BACK_SPACE)
                     self.utils.print_info(f"Inserting native vlan value: {trunk_native_vlan} ...")
-                    sleep(3)
                     self.auto_actions.send_keys(
                         self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                         trunk_native_vlan)
                     self.utils.print_info("Selecting the actual allowed vlans values...")
-                    sleep(3)
                     self.auto_actions.send_keys(
                         self.get_device360_configure_port_trunk_vlan_textfield(port_row),
                         Keys.CONTROL + "a")
                     self.utils.print_info("Deleting the actual allowed vlans values...")
-                    sleep(3)
                     self.auto_actions.send_keys(
                         self.get_device360_configure_port_trunk_vlan_textfield(port_row),
                         Keys.BACK_SPACE)
                     self.utils.print_info("Entering allowed vlans values in allowed vlans textfield...")
-                    sleep(3)
                     element = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
                     element.send_keys(trunk_vlan_id)
-                    sleep(3)
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
                     return -1
-            sleep(5)
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
             if save_btn:
                 self.utils.print_info("Clicking 'Save Port Configuration' button'")
                 self.auto_actions.click(save_btn)
-
                 tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
-                sleep(2)
-
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
                 self.screen.save_screen_shot()
-                sleep(2)
-
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                 if "Interface settings were updated successfully." in tool_tip_text:
                     return 1
@@ -6508,24 +6473,19 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
             self.auto_actions.click(self.get_device360_configure_button())
-        sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
-        sleep(2)
-
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -6533,22 +6493,16 @@ class Device360(Device360WebElements):
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
                     self.utils.print_info("click Port Usage drop down")
-                    # self.auto_actions.click(self.get_device360_configure_port_usage_drop_down_button(port_row))
-                    # sleep(2)
                     drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
                     self.auto_actions.click(drop_down_button)
-                    sleep(2)
                     if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
                         pass
                     else:
-                        sleep(3)
                         self.auto_actions.click(drop_down_button)
 
                     self.utils.print_info("Selecting Port Usage")
                     self.auto_actions.select_drop_down_options(
                         self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
-                    sleep(2)
-
                     self.utils.print_info("Entering Search String...")
                     self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
                                                 Keys.CONTROL + "a")
@@ -6558,8 +6512,6 @@ class Device360(Device360WebElements):
                     self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
                                                 access_vlan_id)
                     self.screen.save_screen_shot()
-                    sleep(2)
-
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
@@ -6574,13 +6526,9 @@ class Device360(Device360WebElements):
 
                 tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
-                sleep(2)
-
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
                 self.screen.save_screen_shot()
-                sleep(2)
-
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                 if "Interface settings were updated successfully." in tool_tip_text:
                     return 1
@@ -6612,12 +6560,8 @@ class Device360(Device360WebElements):
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
             self.auto_actions.click(self.get_device360_configure_button())
-        sleep(4)
-
         self.utils.print_info("Click PortConfiguration Button")
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
-        sleep(2)
-
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -6625,20 +6569,14 @@ class Device360(Device360WebElements):
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
                     self.utils.print_info("Click Port Usage drop down")
-                    sleep(3)
                     drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
                     self.auto_actions.click(drop_down_button)
-                    sleep(3)
-
                     if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
                         pass
                     else:
-                        sleep(3)
                         self.auto_actions.click(drop_down_button)
-
                     self.auto_actions.select_drop_down_options(
                         self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
-
                     self.utils.print_info("Entering Search String...")
                     self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
                                                 Keys.CONTROL + "a")
@@ -6648,8 +6586,6 @@ class Device360(Device360WebElements):
                     self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
                                                 access_vlan_id)
                     self.screen.save_screen_shot()
-                    sleep(2)
-
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
@@ -6661,16 +6597,11 @@ class Device360(Device360WebElements):
             if save_btn:
                 self.utils.print_info("Clicking 'Save Port Configuration' button'")
                 self.auto_actions.click(save_btn)
-
                 tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
-                sleep(2)
-
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
                 self.screen.save_screen_shot()
-                sleep(2)
-
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                 if "Interface settings were updated successfully." in tool_tip_text:
                     return 1
@@ -6696,7 +6627,7 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
-                    break
+                    return 1
                 slot_index = slot_index + 1
             if not slot_found:
                 self.utils.print_info("Unable to locate the correct slot")

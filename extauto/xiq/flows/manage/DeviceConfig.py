@@ -2363,7 +2363,6 @@ class DeviceConfig(DeviceConfigElements):
                     if device_mac in row.text:
                         device_found = 1
                         self.utils.print_debug("Found device!")
-
                         self.utils.print_info("Attempting to click audit delta view button...")
                         audit_delta_view_button = self.get_config_audit_delta_view_button(row)
                         if audit_delta_view_button:
@@ -2373,8 +2372,6 @@ class DeviceConfig(DeviceConfigElements):
                         else:
                             self.utils.print_info("Did not find the delta view button")
                             return -1
-                        sleep(5)
-
                         delta_view = self.get_device_config_audit_delta_view()
                         self.utils.print_info("Attempting to locate delta view...")
                         if delta_view:

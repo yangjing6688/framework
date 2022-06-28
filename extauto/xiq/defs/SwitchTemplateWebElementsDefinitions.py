@@ -563,8 +563,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_check_box_row = \
         {
-            'XPATH': '//tr//input[@type="checkbox"]',
-            'index': 1,
+            'CSS_SELECTOR': '.dgrid-cell',
             'wait_for': 5
         }
 

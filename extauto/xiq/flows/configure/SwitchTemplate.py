@@ -1675,35 +1675,27 @@ class SwitchTemplate(object):
                  returns -1 if otherwise
         """
         self.select_wireframe_net_ports(ports)
-
         assign_button = self.sw_template_web_elements.get_sw_template_assign_button()
         if assign_button:
             self.utils.print_info("Clicking on the Assign button...")
             self.auto_actions.click(assign_button)
-            sleep(3)
-
             self.utils.print_info("Clicking on Choose Existing button...")
             choose_existing_port_type = self.sw_template_web_elements.existing_port_type_button()
             if choose_existing_port_type:
                 self.auto_actions.click(choose_existing_port_type)
-
             existing_port_type_list = self.sw_template_web_elements.port_type_list()
-            sleep(3)
             if existing_port_type_list:
                 self.utils.print_info("Found the port type list!")
                 for item in existing_port_type_list:
                     self.utils.print_info(item.text)
                     if port_type_name == item.text:
                         self.utils.print_info(f"Searching for the Port type option: {port_type_name}")
-                        sleep(3)
                         self.auto_actions.click(item)
                         self.utils.print_info("Clicking on Save Existing Port Type")
-                        sleep(3)
                         save_btn_existing_port_type = self.sw_template_web_elements.save_btn_existing_port()
                         if save_btn_existing_port_type:
                             self.auto_actions.click(save_btn_existing_port_type)
                             self.utils.print_info("Saved")
-                            sleep(3)
                             dialog_trunk_choice = self.sw_template_web_elements.\
                                 get_sw_template_assign_choose_existing_trunk_choice_second_dialog_box()
 
@@ -1721,16 +1713,13 @@ class SwitchTemplate(object):
                                     return -1
                             else:
                                 pass
-
                             self.utils.print_info("Attempting to locate Save Template Button")
-                            sleep(10)
                             save_btns = self.sw_template_web_elements.get_sw_template_save_button()
                             rc = -1
                             for save_btn in save_btns:
                                 if save_btn.is_displayed():
                                     self.utils.print_info("Click on the save template button")
                                     self.auto_actions.click(save_btn)
-                                    sleep(10)
                                     tool_tip_text = tool_tip.tool_tip_text
                                     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
                                     if "Switch template has been saved successfully." in tool_tip_text:
@@ -1740,7 +1729,6 @@ class SwitchTemplate(object):
                         else:
                             self.utils.print_info("Did not find the save button!")
                             return -1
-
         else:
             self.utils.print_info("Could not find the assign button!")
             return -1
@@ -1758,14 +1746,11 @@ class SwitchTemplate(object):
         self.navigator.navigate_to_devices()
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
-        sleep(1)
         if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created")
             return -1
-        sleep(2)
         self.utils.print_info("Click on Device Template tab button")
         self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
-        sleep(2)
         self.utils.print_info("Searching the template: ", sw_template_name)
         sw_templates_rows = self.sw_template_web_elements.get_sw_template_rows()
         if sw_templates_rows:
@@ -1810,7 +1795,7 @@ class SwitchTemplate(object):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
-                    break
+                    return 1
                 slot_index = slot_index + 1
             if not slot_found:
                 self.utils.print_info("Unable to locate the correct slot")
