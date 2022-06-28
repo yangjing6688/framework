@@ -409,7 +409,7 @@ class DevicesWebElementsDefinitions:
 
     action_assign_network_policy_dialog = \
         {
-            "CSS_SELECTOR": '.ui-menu-list',
+            "CSS_SELECTOR": '.ui-dialog-content',
             'wait_for': 5
         }
 
