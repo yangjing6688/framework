@@ -7,7 +7,6 @@ import datetime as dt
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
-from robot.libraries.String import String
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -49,7 +48,6 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
-        self.string = String()
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
@@ -8015,7 +8013,7 @@ class Devices:
         :return: 1 if onboarding date has been changed ; else -1
         '''
         pattern1 = "(\\w+)."
-        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh,user_dest_ssh,pass_dest_ssh)
         if spawn == -1:
             return -1
@@ -8073,7 +8071,7 @@ class Devices:
         '''
 
         pattern1 = "(\\w+)."
-        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
         output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
@@ -8101,7 +8099,7 @@ class Devices:
         self.utils.print_info(output_cmd3)
         self.utils.print_info(output_cmd4)
         pattern = vhm_id + "\\s+\\|\\s+(\\d+)"
-        max_devices = self.string.get_regexp_matches(output_cmd4, pattern, 1)
+        max_devices = self.utils.get_regexp_matches(output_cmd4, pattern, 1)
         self.utils.print_info(max_devices)
         self.cli.close_spawn(spawn)
         return max_devices[0]
@@ -8117,7 +8115,7 @@ class Devices:
         :return: interval time and interval unit ; else -1
         '''
         pattern1 = "(\\w+)."
-        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
 
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
@@ -8144,7 +8142,7 @@ class Devices:
 
         pattern1 = "\\d+\\s+\\|\\s+(\\d+)\\s+\\|\\s+\\w+"
         pattern2 = "\\d+\\s+\\|\\s+\\d+\\s+\\|\\s+(\\w+)"
-        update_time = self.u.get_regexp_matches(output_cmd3, pattern1, 1)
+        update_time = self.utils.get_regexp_matches(output_cmd3, pattern1, 1)
         update_unit = self.utils.get_regexp_matches(output_cmd3, pattern2, 1)
         self.utils.print_info(update_time[0])
         self.utils.print_info(update_unit[0])
@@ -9115,7 +9113,7 @@ class Devices:
         '''
 
         pattern1 = "(\\w+)."
-        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
 
         if len(device_serial) > 11:
             self.utils.print_info("device SN has long format")
@@ -9930,7 +9928,7 @@ class Devices:
         """
 
         pattern1 = "Version[\\s\\:\\w]+\\s+(\\d+.\\d+.\\d+.\\d+)"
-        cli_os_version= self.string.get_regexp_matches(output_image_version, pattern1, 1)
+        cli_os_version= self.utils.get_regexp_matches(output_image_version, pattern1, 1)
         if cli_os_version:
             self.utils.print_info(cli_os_version)
             split_cli_os_version = cli_os_version[0].split('.')
@@ -10374,7 +10372,7 @@ class Devices:
         '''
 
         pattern1 = "(\\w+)r\\d."
-        gdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        gdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(gdc[0]))
         self.utils.print_info(output_cmd)
@@ -10397,8 +10395,8 @@ class Devices:
 
         pattern = "(VHM[\\w\\-]+)\\s+\\|\\s+\\w+"
         pattern2 = "VHM[\\w\\-]+\\s+\\|\\s+(\\w+)"
-        viq_id = self.string.get_regexp_matches(output_cmd5, pattern,1)
-        system_cuid = self.string.get_regexp_matches(output_cmd5, pattern2,1)
+        viq_id = self.utils.get_regexp_matches(output_cmd5, pattern,1)
+        system_cuid = self.utils.get_regexp_matches(output_cmd5, pattern2,1)
         self.utils.print_info(viq_id)
         self.utils.print_info(system_cuid)
 
@@ -10527,7 +10525,7 @@ class Devices:
         '''
 
         pattern1 = "(\\w+)."
-        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
         output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
@@ -10566,17 +10564,17 @@ class Devices:
         #output_cmd3 = " 324384 | 0 0 1 * * ?"
         pattern3 = "\\s+\\d+\\s+\\|\\s+([\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+)\\s+\\|"
         #pattern3 = "\\s+([\\d\\W]\\s[\\d\\W]+\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W])"
-        cron = self.string.get_regexp_matches(output_cmd3, pattern3, 1)
+        cron = self.utils.get_regexp_matches(output_cmd3, pattern3, 1)
         self.utils.print_info("cron",cron)
 
         #output_cmd4 = "        0"
         pattern4= "\\s+\\d+\\s+\\|\\s+(\\d+)"
-        interval = self.string.get_regexp_matches(output_cmd4, pattern4, 1)
+        interval = self.utils.get_regexp_matches(output_cmd4, pattern4, 1)
         self.utils.print_info("interval",interval)
 
         #output_cmd5 = "SECONDS"
         # pattern5 = "(\\w+)"
-        # interval_unit = self.string.get_regexp_matches(output_cmd5, pattern5, 1)
+        # interval_unit = self.utils.get_regexp_matches(output_cmd5, pattern5, 1)
         # self.utils.print_info(interval_unit)
 
         if '0 0 1 * * ?' in cron[0]:
