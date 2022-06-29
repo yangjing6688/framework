@@ -2998,23 +2998,23 @@ class Navigator(NavigatorWebElements):
         else:
             return -1
 
-    def navigate_to_vpn_services_tab(self):
+    def navigate_to_vpn_management_tab(self):
         """"
-        - This Keyword Navigate to VPN Services Page
-        - Flow: Manage --> VPN Services
+        - This Keyword Navigate to VPN Management Page
+        - Flow: Manage --> VPN Management
         - Keyword Usage:
-          - 'Navigate to VPN Services Tab'
+          - 'Navigate to VPN Management Tab'
         :return: 1 if Navigation Successful, else -1
         """
         self.navigate_to_manage_tab()
         sleep(5)
 
-        self.utils.print_info("Click on VPN Services Tab")
-        if self.get_vpn_services_tab().is_displayed():
-            self.auto_actions.click(self.get_vpn_services_tab())
+        self.utils.print_info("Click on VPN Management Tab")
+        if self.get_vpn_management_tab().is_displayed():
+            self.auto_actions.click(self.get_vpn_management_tab())
             return 1
         else:
-            self.utils.print_info("Unable to navigate to VPN Services Page")
+            self.utils.print_info("Unable to navigate to VPN Management Page")
             self.screen.save_screen_shot()
             return -1
 
