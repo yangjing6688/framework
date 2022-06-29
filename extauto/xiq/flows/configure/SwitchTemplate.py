@@ -1731,7 +1731,7 @@ class SwitchTemplate(object):
 
                                     def check_for_confirmation():
                                         tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
-                                        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                                        self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
                                         return "Stack template has been saved successfully." in tool_tip_text or \
                                             'Switch template has been saved successfully.' in tool_tip_text
 
@@ -1802,10 +1802,30 @@ class SwitchTemplate(object):
                         self.utils.print_info("Found the delete button.")
                         self.utils.print_info("Clicking the delete button...")
                         self.auto_actions.click(delete_button)
-                        kwargs['pass_msg'] = f"Succesfully deleted switch template: {sw_template_name} from policy: " \
-                                             f"{nw_policy}"
-                        self.common_validation.validate(1, 1, **kwargs)
-                        return 1
+                        # kwargs['pass_msg'] = f"Succesfully deleted switch template: {sw_template_name} from policy: " \
+                        #                      f"{nw_policy}"
+                        # self.common_validation.validate(1, 1, **kwargs)
+                        # return 1
+
+                        def check_for_confirmation():
+                            tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
+                            self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
+                            return "Template was successfully removed from policy." in tool_tip_text
+
+                        confirmation_message = self.tools.wait_till(check_for_confirmation,
+                                                                    is_logging_enabled=True,
+                                                                    custom_response=[True])[0]
+                        if confirmation_message:
+                            rc = 1
+                            self.utils.print_info("Template was successfully removed from policy.")
+                            kwargs['pass_msg'] = "Template was successfully removed from policy."
+                            self.common_validation.validate(1, 1, **kwargs)
+                        else:
+                            self.utils.print_info("Successful message not found")
+                            kwargs['fail_msg'] = "Successful message not found"
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
+                            return -1
                     else:
                         kwargs['fail_msg'] = "Delete button hasn't been found."
                         self.screen.save_screen_shot()
@@ -1837,23 +1857,29 @@ class SwitchTemplate(object):
         complete_stack = self.sw_template_web_elements.get_complete_stack_list()
         if complete_stack:
             slots_in_stack = self.sw_template_web_elements.get_complete_stack_all_rows(complete_stack)
-            for stack_item in slots_in_stack:
-                if slot_index == int(slot):
-                    self.utils.print_info("Slot {str(slot)} found in the stack, selecting the slot")
-                    self.auto_actions.click(stack_item)
-                    slot_found = True
-                    kwargs['pass_msg'] = f"Slot {str(slot)} found in the stack"
-                    self.common_validation.validate(1, 1, **kwargs)
-                    return 1
-                slot_index = slot_index + 1
-            if not slot_found:
-                kwargs['fail_msg'] = f"Slot {str(slot)} not found in the stack, check the numbers of slots"
+            if slots_in_stack:
+                for stack_item in slots_in_stack:
+                    if slot_index == int(slot):
+                        self.utils.print_info("Slot {str(slot)} found in the stack, selecting the slot")
+                        self.auto_actions.click(stack_item)
+                        slot_found = True
+                        kwargs['pass_msg'] = f"Slot {str(slot)} found in the stack"
+                        self.common_validation.validate(1, 1, **kwargs)
+                        return 1
+                    slot_index = slot_index + 1
+                if not slot_found:
+                    kwargs['fail_msg'] = f"Slot {str(slot)} not found in the stack, check the numbers of slots"
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+                kwargs['fail_msg'] = f"Something went wrong with selecting the slot {str(slot)}"
                 self.screen.save_screen_shot()
                 self.common_validation.validate(-1, 1, **kwargs)
-                return -1
-            kwargs['fail_msg'] = f"Something went wrong with selecting the slot {str(slot)}"
-            self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            else:
+                self.utils.print_info("Cannot find the slot list for the stack in this template")
+                kwargs['fail_msg'] = "Cannot find the slot list for the stack in this template"
+                self.screen.save_screen_shot()
+                self.common_validation.validate(-1, 1, **kwargs)
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             kwargs['fail_msg'] = "Unable to gather the list of the devices in the stack"

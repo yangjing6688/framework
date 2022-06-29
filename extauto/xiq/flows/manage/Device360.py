@@ -6701,8 +6701,8 @@ class Device360(Device360WebElements):
                 self.common_validation.validate(-1, 1, **kwargs)
                 return -1
         else:
-            self.utils.print_info("Unable to gather the list of the devices in the stack")
-            kwargs['fail_msg'] = "Unable to gather the list of the devices in the stack"
+            self.utils.print_info("Unable to gather the list of the slots for the stack")
+            kwargs['fail_msg'] = "Unable to gather the list of the slots for the stack"
             self.screen.save_screen_shot()
             self.common_validation.validate(-1, 1, **kwargs)
             return -1

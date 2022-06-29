@@ -563,7 +563,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_check_box_row = \
         {
-            'CSS_SELECTOR': '.dgrid-cell',
+            'CSS_SELECTOR': '.dgrid-selector',
             'wait_for': 5
         }
 
