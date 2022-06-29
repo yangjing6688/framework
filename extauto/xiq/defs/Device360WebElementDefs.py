@@ -135,7 +135,7 @@ class Device360WebElementDefs:
     close_dialog = \
         {
             'XPATH': "//*[@data-dojo-attach-point='closeDialog']",
-            'wait_for': 5
+            'wait_for': 10
         }
 
     actions_adv_cli_access_cmd_input = \
@@ -1140,13 +1140,13 @@ class Device360WebElementDefs:
 
     device360_switch_sidebar_active_alarms = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="alarmsNum"]',
+            'XPATH': '//*[@data-automation-tag="device-entity-active-alarms-number"]',
             'wait_for': 5
         }
 
     device360_switch_sidebar_unique_clients = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="clientsNum"]',
+            'XPATH': '//*[@data-automation-tag="device-entity-unique-clients-number"]',
             'wait_for': 5
         }
 
@@ -2105,12 +2105,6 @@ class Device360WebElementDefs:
     device360_save_threshold_poe_value = \
         {
             'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
-            'wait_for': 5
-        }
-
-    device360_device_configuration_button = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-device-entity-device-configuration-tab"]',
             'wait_for': 5
         }
 

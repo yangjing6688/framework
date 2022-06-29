@@ -8,10 +8,11 @@ from extauto.xiq.flows.configure.PasswdSettings import PasswdSettings
 from extauto.xiq.flows.configure.ExpirationSettings import ExpirationSettings
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class UserGroups(UserGroupsWebElements):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
         self.utils = Utils()
         self.navigator = Navigator()
@@ -19,7 +20,7 @@ class UserGroups(UserGroupsWebElements):
         self.pass_settings = PasswdSettings()
         self.expiration = ExpirationSettings()
         self.auto_actions = AutoActions()
-
+        self.common_validation = CommonValidation()
         self.builtin = BuiltIn()
 
     def _select_password_db_loc_type(self, password_db_loc, password_type):
@@ -879,3 +880,59 @@ class UserGroups(UserGroupsWebElements):
         self.utils.print_info(f"User Profile:{profile_name} not present !!!")
         self.auto_actions.click(self.get_wireless_usr_profile_select_wind_cancel_button())
         return False
+    
+    def delete_all_user_groups(self, **kwargs):
+        """
+        - Delete all custom user groups
+        - Keyword Usage:
+        - ``delete_all_user_groups    IRV=True``
+
+        :param IRV:    if False, the error will skip, otherwise, error will not skip
+        :return: 1 if deleted successfully else -1
+        """
+
+        exclusive_groups = ['GA-ppsk-user-device', 'GA-ppsk-user-service', 'GA-ppsk-self-reg', 'GA-RADIUS-us']
+
+        self.utils.print_info("Navigating to the configure users")
+        if not self.navigator.navigate_to_configure_user_groups():
+            kwargs['fail_msg'] = "Unable to navigate to the user group page"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        self.utils.print_info("Click on full page view")
+        if self.get_paze_size_element():
+            self.auto_actions.click(self.get_paze_size_element())
+
+        sleep(5)
+        self.utils.print_info("Get an user group total")
+        total_rows = self.get_user_group_grid_rows()
+        if total_rows != None:
+            if int(len(total_rows)) - 1 == len(exclusive_groups):
+                self.utils.print_info("There are no custom user groups to delete")
+                return 1
+        else:
+            kwargs['fail_msg'] = "Could not get an user group list"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        try:
+            self.auto_actions.click(self.get_usr_group_select_all_checkbox())
+            for exclusive_group in exclusive_groups:
+                if not self._search_user_group(exclusive_group):
+                    self.utils.print_info("User group does not exist in the user group list")
+                    kwargs['fail_msg'] = "User group does not exist in the user group list "
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+                else:
+                    self._select_user_group_row(exclusive_group)
+        except:
+            kwargs['fail_msg'] = "Not able to select the exclusive user group "
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        
+        if self._perform_user_group_delete() == -1:
+            kwargs['fail_msg'] = "Unable to delete all custom users "
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        return 1

@@ -343,7 +343,7 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    port_type_save_button = \
+    port_new_type_save_button = \
         {
             'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
             'index': 2,
@@ -573,4 +573,16 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': '//*/input[@data-dojo-attach-point="enableAutoSense"]',
             'wait_for': 5
+        }
+
+    mgmt_checkbox = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="miSwitch"]',
+            'wait_for': 2
+        }
+
+    mgmt_vlan_text_field = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="detail-mgtd-vlan"]//input[@data-dojo-attach-point="mgtVlan"]',
+            'wait_for': 2
         }

@@ -1,11 +1,7 @@
-import ast
 import json
-import pycurl
-import base64
 import subprocess
+import random
 
-from io import BytesIO
-from io import StringIO
 
 from extauto.common.Utils import Utils
 from extauto.common.Cli import Cli
@@ -14,6 +10,18 @@ from robot.libraries.BuiltIn import BuiltIn
 
 HTTP_PROTOCOL = "HTTP/1.1"
 
+
+def extract_id_from_json(json_values):
+    return json_values['id']
+
+def extract_nw_policy_name_from_json(json_values):
+    return json_values['network_policy_name']
+
+def extract_device_admin_state_from_json(json_values):
+    return json_values['device_admin_state']
+
+def extract_connected_status_from_json(json_values):
+    return json_values['connected']
 
 class Xapi:
     def __init__(self):
@@ -179,7 +187,8 @@ class Xapi:
 
         return stdout
 
-    def rest_api_post(self, path, post_data, access_token="default", return_output="default", result_code="default",
+    def rest_api_post(self, path, post_data="default", access_token="default", return_output="default",
+                      result_code="default",
                       role="default"):
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
@@ -193,7 +202,10 @@ class Xapi:
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
 
-        curl_cmd = f"curl -v --location --request POST '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + post_data
+        if post_data == "default":
+            curl_cmd = f"curl -v --location --request POST '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
+        else:
+            curl_cmd = f"curl -v --location --request POST '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + post_data
 
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
@@ -207,11 +219,14 @@ class Xapi:
         self.utils.print_info("stderr: ", stderr)
 
         if result_code:
-            if 'HTTP/1.1 202' in str(stderr):
+            if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
                 return 1
+            else:
+                return -1
         return stdout
 
-    def rest_api_post_with_file(self, path, file_path, access_token = "default", return_output="default", result_code="default", role="default"):
+    def rest_api_post_with_file(self, path, file_path, access_token="default", return_output="default",
+                                result_code="default", role="default"):
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
 
@@ -242,7 +257,8 @@ class Xapi:
                 return 1
         return stdout
 
-    def rest_api_post_with_no_file(self, path, access_token = "default", return_output="default", result_code="default", role="default"):
+    def rest_api_post_with_no_file(self, path, access_token="default", return_output="default", result_code="default",
+                                   role="default"):
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
         self.utils.print_info("URL Path : ", path)
@@ -271,7 +287,8 @@ class Xapi:
                 return 1
         return stdout
 
-    def rest_api_put(self, path, put_data="default", access_token="default", return_output="default", result_code="default", role="default"):
+    def rest_api_put(self, path, put_data="default", access_token="default", return_output="default",
+                     result_code="default", role="default"):
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
 
@@ -283,7 +300,6 @@ class Xapi:
 
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
-
 
         if put_data == "default":
             curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
@@ -306,7 +322,7 @@ class Xapi:
         if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/1.1 200' in str(stderr):
-                htppCode = 200
+                httpCode = 200
             elif 'HTTP/1.1 400' in str(stderr):
                 httpCode = 400
             elif 'HTTP/1.1 500' in str(stderr):
@@ -318,7 +334,43 @@ class Xapi:
                 return 1
         return stdout
 
-    def rest_api_patch(self, path, patch_data="default", access_token="default", return_output="default", result_code="default", role="default"):
+    # This method returns http response code for the corresponding put api request.
+    # It will be useful to validate expected http response code with actual response code.
+    def rest_api_put_v1(self, path, put_data="default", access_token="default", return_output="default",
+                        result_code="default", role="default"):
+        self.utils.print_info("Return Output :", return_output)
+        self.utils.print_info("Role : ", role)
+
+        self.utils.print_info("URL Path : ", path)
+        self.utils.print_info("PUT Data: ", put_data)
+
+        if access_token == "default":
+            access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
+
+        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        url = base_url + path
+
+        if put_data == "default":
+            curl_cmd = f"curl -sw '%{{http_code}}' --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
+        else:
+            curl_cmd = f"curl -sw '%{{http_code}}' --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d '" + put_data + "'"
+
+        self.utils.print_info("*****************************")
+        self.utils.print_info("Curl Command v1: ", curl_cmd.encode())
+
+        process = subprocess.Popen(curl_cmd, shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+
+        self.utils.print_info("stdout: ", stdout)
+        self.utils.print_info("stderr: ", stderr)
+        http_response_code = stdout.decode('utf-8')
+        self.utils.print_info("rest_api_put_v1->http_response_code: ", http_response_code)
+        return http_response_code
+
+    def rest_api_patch(self, path, patch_data="default", access_token="default", return_output="default",
+                       result_code="default", role="default"):
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
 
@@ -330,7 +382,6 @@ class Xapi:
 
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
-
 
         if patch_data == "default":
             curl_cmd = f"curl -v --location --request PATCH '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
@@ -351,7 +402,7 @@ class Xapi:
         if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/1.1 200' in str(stderr):
-                htppCode = 200
+                httpCode = 200
             elif 'HTTP/1.1 400' in str(stderr):
                 httpCode = 400
             elif 'HTTP/1.1 500' in str(stderr):
@@ -363,7 +414,7 @@ class Xapi:
                 return 1
         return stdout
 
-    def rest_api_delete(self, path, delete_data, access_token="default", return_output="default", result_code="default",
+    def rest_api_delete(self, path, delete_data="default", access_token="default", return_output="default", result_code="default",
                         role="default"):
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
@@ -377,7 +428,10 @@ class Xapi:
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
 
-        curl_cmd = f"curl -v --location --request DELETE '{url}/{delete_data}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
+        if delete_data == "default":
+            curl_cmd = f"curl -v --location --request DELETE '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
+        else:
+            curl_cmd = f"curl -v --location --request DELETE '{url}/{delete_data}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
 
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
@@ -390,6 +444,19 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
+        if result_code == 'response_map':
+            httpCode = 200
+            if 'HTTP/2 200' in str(stderr):
+                httpCode = 200
+            elif 'HTTP/1.1 400' in str(stderr):
+                httpCode = 400
+            elif 'HTTP/1.1 500' in str(stderr):
+                httpCode = 500
+            return {'httpCode': httpCode, 'response': stdout}
+
+        if result_code:
+            if 'HTTP/2 200' in str(stderr):
+                return 1
         return stdout
 
     def get_json_values_for(self, required_key, json_data, key_val):
@@ -479,7 +546,7 @@ class Xapi:
 
     # This method returns http response  code for the corresponding delete api request.
     # It will be useful to validate expected http response code with actual response code.
-    def rest_api_delete_v1(self, path, delete_data, access_token="default", return_output="default", role="default"):
+    def rest_api_delete_v1(self, path, delete_data="default", access_token="default", return_output="default", role="default"):
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
 
@@ -492,7 +559,10 @@ class Xapi:
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
 
-        curl_cmd = f"curl -v --location --request DELETE '{url}/{delete_data}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
+        if delete_data == "default":
+            curl_cmd = f"curl -v --location --request DELETE '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
+        else:
+            curl_cmd = f"curl -v --location --request DELETE '{url}/{delete_data}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
 
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
@@ -623,3 +693,129 @@ class Xapi:
             for _item in json_values:
                 if _item[_key] == _val:
                     return _item[required_key]
+
+    def get_random_id_from_list_json(self, json_data):
+        return random.sample(list(map(extract_id_from_json, json_data)), 1)[0] if len(json_data) > 0 else 0
+
+    # Subramani R - below code is to get Device ID from index of list
+    def get_index_id_from_list_json(self, json_data, index):
+        """
+         - This Keyword is used to get the specific id for the specified index of list json
+         :param json_data:  the list of json data
+         :param index: the index of list
+         :return: returns id
+         """
+        return list(map(extract_id_from_json, json_data))[int(index)] if len(json_data) > 0 else 0
+
+    def rest_api_post_v3(self, path, post_data="default", access_token="default", return_output="default",
+                         result_code="default",
+                         role="default"):
+        """
+        - This Keyword is used to post the API request evaluating the httpCode
+        """
+
+        self.utils.print_info("Return Output :", return_output)
+        self.utils.print_info("Role : ", role)
+
+        self.utils.print_info("URL Path : ", path)
+        self.utils.print_info("POST Data: ", post_data)
+
+        if access_token == "default":
+            access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
+
+        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        url = base_url + path
+
+        if post_data == "default":
+            curl_cmd = f"curl -v --location --request POST '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
+        else:
+            curl_cmd = f"curl -v --location --request POST '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + post_data
+
+        self.utils.print_info("*****************************")
+        self.utils.print_info("Curl Command: ", curl_cmd.encode())
+
+        process = subprocess.Popen(curl_cmd, shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+
+        self.utils.print_info("stdout: ", stdout)
+        self.utils.print_info("stderr: ", stderr)
+
+        if result_code:
+            if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
+                return stdout
+            else:
+                return -1
+
+
+    def rest_api_put_v3(self, path, put_data="default", access_token="default", return_output="default",
+                        result_code="default", role="default"):
+
+        """
+        - This Keyword is used to run the update API request evaluating the httpCode
+        """
+
+        self.utils.print_info("Return Output :", return_output)
+        self.utils.print_info("Role : ", role)
+
+        self.utils.print_info("URL Path : ", path)
+        self.utils.print_info("PUT Data: ", put_data)
+
+        if access_token == "default":
+            access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
+
+        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        url = base_url + path
+
+        if put_data == "default":
+            curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
+        else:
+            curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + put_data
+
+        self.utils.print_info("*****************************")
+        self.utils.print_info("Curl Command: ", curl_cmd.encode())
+
+        process = subprocess.Popen(curl_cmd, shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+
+        self.utils.print_info("stdout: ", stdout)
+        self.utils.print_info("stderr: ", stderr)
+
+        if result_code:
+            if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
+                return 1
+            else:
+                return -1
+        return stdout
+
+
+    def get_index_nw_policy_name_from_list_json(self, json_data, index):
+        """
+         - This Keyword is used to get the specific network policy name for the specified index of list json
+         :param json_data:  the list of json data
+         :param index: the index of list
+         :return: returns id
+         """
+        return list(map(extract_nw_policy_name_from_json, json_data))[int(index)] if len(json_data) > 0 else 0
+
+
+    def get_index_device_admin_state_from_list_json(self, json_data, index):
+        """
+        - This Keyword is used to get the specific device admin state for the specified index of list json
+        :param json_data:  the list of json data
+        :param index: the index of list
+        :return: returns id
+        """
+        return list(map(extract_device_admin_state_from_json, json_data))[int(index)] if len(json_data) > 0 else 0
+
+    def get_index_connected_status_from_list_json(self, json_data, index):
+        """
+        - This Keyword is used to get the specific connected status of the device for the specified index of list json
+        :param json_data:  the list of json data
+        :param index: the index of list
+        :return: returns id
+        """
+        return list(map(extract_connected_status_from_json, json_data))[int(index)] if len(json_data) > 0 else 0

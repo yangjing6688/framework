@@ -3,6 +3,7 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.NPExpressPolicyWebelEments import NPExpressPolicyWebElements
 
 
@@ -14,6 +15,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         self.auto_actions = AutoActions()
         self.navigator = Navigator()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
 
     def _search_network_policy_in_card_view(self, policy_name):
         """
@@ -58,7 +60,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         self.screen.save_screen_shot()
         return -1
 
-    def create_open_auth_express_network_policy(self, policy_name, ssid_name, cwp=None):
+    def create_open_auth_express_network_policy(self, policy_name, ssid_name, cwp=None, **kwargs):
         """
         - Create open network express network policy
         - Checks the policy already exists, if it is not exist then create the network policy
@@ -71,6 +73,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         :param cwp: Captive Portal name
         :return: 1
         """
+
         self.utils.print_info("Click on network policy card view button")
         self.navigator.navigate_to_network_policies_card_view_page()
 
@@ -79,7 +82,8 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.auto_actions.click(new_express_btn)
         else:
             if self._search_network_policy_in_card_view(policy_name):
-                self.utils.print_info(f"Network policy:{policy_name} already exists in the network polices list")
+                kwargs['pass_msg'] = f"Network policy:{policy_name} already exists in the network polices list"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
             self.utils.print_info("Click on Express policy setup button")
@@ -88,8 +92,9 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
                 self.auto_actions.click(express_btn)
                 sleep(2)
             else:
-                self.utils.print_info(f"Unable to find button to create express policy")
                 self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Unable to find button to create express policy"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
         cancel_button = self.get_network_policy_cancel_button()
@@ -99,10 +104,11 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         if name_field:
             self.auto_actions.send_keys(name_field, policy_name)
         else:
-            self.utils.print_info(f"Unable to find field to enter Policy Name")
             self.screen.save_screen_shot()
             if cancel_button:
                 self.auto_actions.click(cancel_button)
+            kwargs['fail_msg'] = f"Unable to find field to enter Policy Name"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         self.utils.print_info("Select Create Wireless Network check box")
@@ -111,10 +117,11 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.auto_actions.enable_check_box(wireless_cb)
             sleep(2)
         else:
-            self.utils.print_info(f"Unable to find check box to select Create Wireless Network")
             self.screen.save_screen_shot()
             if cancel_button:
                 self.auto_actions.click(cancel_button)
+            kwargs['fail_msg'] = f"Unable to find check box to select Create Wireless Network"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         self.utils.print_info("Selecting the Wireless Auth Type: Open")
@@ -124,6 +131,8 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.screen.save_screen_shot()
             if cancel_button:
                 self.auto_actions.click(cancel_button)
+            kwargs['fail_msg'] = "Unable to select Wireless Auth Type: Open"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         self.utils.print_info(f"Enter the SSID Name:{ssid_name}")
@@ -131,10 +140,11 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         if ssid_field:
             self.auto_actions.send_keys(ssid_field, ssid_name)
         else:
-            self.utils.print_info(f"Unable to find field to enter SSID")
             self.screen.save_screen_shot()
             if cancel_button:
                 self.auto_actions.click(cancel_button)
+            kwargs['fail_msg'] = f"Unable to find field to enter SSID"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         cwp_cb = self.get_cwp_toggle_check_box()
@@ -147,16 +157,18 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
                 if cwp_name_field:
                     self.auto_actions.send_keys(cwp_name_field, cwp)
                 else:
-                    self.utils.print_info(f"Unable to find field to enter CWP name")
                     self.screen.save_screen_shot()
                     if cancel_button:
                         self.auto_actions.click(cancel_button)
+                    kwargs['fail_msg'] = f"Unable to find field to enter CWP name"
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
         else:
-            self.utils.print_info(f"Unable to find check box to select Create CWP")
             self.screen.save_screen_shot()
             if cancel_button:
                 self.auto_actions.click(cancel_button)
+            kwargs['fail_msg'] = f"Unable to find check box to select Create CWP"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         self.utils.print_info("Click on network policy create button")
@@ -165,10 +177,11 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.auto_actions.click(create_btn)
             sleep(5)
         else:
-            self.utils.print_info(f"Unable to find Create button to create the policy")
             self.screen.save_screen_shot()
             if cancel_button:
                 self.auto_actions.click(cancel_button)
+            kwargs['fail_msg'] = f"Unable to find Create button to create the policy"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         self.screen.save_screen_shot()
@@ -180,10 +193,13 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.auto_actions.click(done_btn)
             sleep(2)
         else:
-            self.utils.print_info(f"Unable to find Done button after creating the policy")
+            kwargs['fail_msg'] = f"Unable to find Done button after creating the policy"
+            self.common_validation.validate(-1, 1, **kwargs)
             self.screen.save_screen_shot()
             return -1
 
+        kwargs['pass_msg'] = "Successfully created open auth express network policy"
+        self.common_validation.validate(1, 1, **kwargs)
         return 1
 
     def create_express_network_policy_no_wireless(self, policy_name):

@@ -84,6 +84,13 @@ class DeviceUpdateDefs:
             'XPATH': '//*[@data-dojo-attach-point="forceDownloadImage"]',
             'wait_for': 2
         }
+        
+    upgrade_even_if_versions_same_checkbox_input = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="forceDownloadImage"]//input',
+            'wait_for': 2
+        }
+       
 
     activate_at_next_reboot_radio = \
         {
@@ -187,3 +194,32 @@ class DeviceUpdateDefs:
             'wait_for': 2
         }
 
+    update_devices_button_from_d360 = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="deployNowBtn"]',
+            'wait_for': 2
+        }
+        
+    upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
+            'wait_for': 5
+        }
+
+    perform_upgrade_if_the_versions_are_the_same_checkbox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="forceDownloadImage"]',
+            'wait_for': 5
+        }
+
+    config_download_options_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-checkbox-network-policy-configuration"]',
+            'wait_for': 5
+        }
+
+    config_download_options_checkbox = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-checkbox-network-policy-configuration"]',
+            'wait_for': 5
+        }

@@ -13,6 +13,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
 
 
 class DeviceTemplate(object):
@@ -23,6 +24,7 @@ class DeviceTemplate(object):
         self.screen = Screen()
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = NavigatorWebElements()
+        self.np_web_elements = NetworkPolicyWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.network_policy = NetworkPolicy()
         self.navigator = Navigator()
@@ -115,6 +117,52 @@ class DeviceTemplate(object):
         tool_tip_text = tool_tip.tool_tip_text
         self.screen.save_screen_shot()
         sleep(2)
+        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+        sub_string = "template"
+        strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
+        self.utils.print_info("Tool tip Text ap template", strings_with_substring)
+        if "AP template was saved successfully" in str(strings_with_substring):
+            return 1
+        else:
+            return -1
+
+    def edit_ap_net_policy_template_wifi2(self, policy_name):
+        """
+        - Selects the given network policy and edit, selects the AP Template and edit wifi2 and disable
+        - Keyword Usage
+         - ``Edit AP Net Policy Template Wifi2   ${POLICY_NAME}``
+
+        :param policy_name: Network Policy Name
+        :param ap_template: Ap Template Name ie AP630,AP410C
+        :return: 1 if Editing is successful on AP Template or else -1
+        """
+
+        self.network_policy.navigate_to_np_edit_tab(policy_name)
+
+        self.utils.print_info("Click on Device Template tab")
+        self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
+
+        self.utils.print_info("Click on AP Template")
+        self.auto_actions.click(self.device_template_web_elements.get_select_ap_template())
+
+        self.utils.print_info("Click on WiFi2 Tab on AP Template page")
+        self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab())
+
+        self.auto_actions.scroll_down()
+
+        self.utils.print_info("Disable Radio Status on WiFi2 Interface")
+        if self.device_template_web_elements.get_wifi2_radio_status_button().is_selected():
+            self.auto_actions.click(self.device_template_web_elements.get_wifi2_radio_status_button())
+
+            self.screen.save_screen_shot()
+
+        self.auto_actions.scroll_up()
+
+        self.utils.print_info("Click on the save template button")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
+
+        tool_tip_text = tool_tip.tool_tip_text
+        self.screen.save_screen_shot()
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         sub_string = "template"
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
@@ -609,3 +657,213 @@ class DeviceTemplate(object):
         else:
             return -1
         """
+
+    def enable_supplemental_cli_in_ap_template(self, policy_name, ap_model, ap_template_name, suppl_cli_name, suppl_cli_cmds):
+        """
+        - This Keyword creates Supplemental CLI inside the AP Template
+        - Flow: Network Policies --> Device Template --> AP Template --> Advanced Settings --> Supplemental CLI
+        - Keyword Usage:
+         - ``Enable Supplemental CLI in AP Template   ${POLICY_NAME}    ${AP_MODEL}    ${AP_TEMPLATE_NAME}   ${SUPPL_CLI_NAME}     ${SUPPL_CLI_CMDS}``
+
+        :param policy_name: Name of the Network policy
+        :param ap_model: AP Model
+        :param ap_template_name: Name of the AP Template
+        :param suppl_cli_name: Name of the Supplemental CLI name
+        :param suppl_cli_cmds: Supplemental CLI commands
+        :return: 1 if AP Template is saved successfully else -1
+        """
+
+        self.utils.print_info("Selecting Configure tab...")
+        self.navigator.navigate_to_configure_tab()
+        sleep(5)
+
+        self.utils.print_info("Navigating to network policies...")
+        self.navigator.navigate_to_network_policies_tab()
+        sleep(2)
+
+        self.utils.print_info("Click on network policy add button")
+        self.auto_actions.click(self.device_template_web_elements.get_network_policy_add_button())
+        sleep(2)
+
+        self.utils.print_info("Enter the policy name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
+        sleep(3)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Click on network policy save button")
+        self.auto_actions.click(self.device_template_web_elements.get_network_policy_save_button())
+        sleep(3)
+
+        self.utils.print_info("Click on Device Template tab")
+        self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
+        sleep(5)
+
+        self.utils.print_info("Click on AP Template add button")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_add_button())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("select the AP: ", ap_model)
+        ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
+        for el in ap_list_items:
+            if not el:
+                pass
+            if ap_model.upper() in el.text.upper():
+                self.auto_actions.click(el)
+                break
+            print(el.text)
+        sleep(3)
+
+        self.utils.print_info("Enter the AP Template Name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_text(), ap_template_name)
+        sleep(3)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Clicking Advanced Settings ... ")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_advanced_settings())
+        sleep(2)
+
+        self.utils.print_info("Click to enable Supplemental CLI ... ")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_enable_scli())
+        sleep(2)
+
+        self.utils.print_info("Entering Supplemental Cli Name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_scli_config_enter_name(),
+                                    suppl_cli_name)
+        sleep(2)
+
+        self.auto_actions.scroll_down()
+        sleep(3)
+        self.utils.print_info("Entering Supplemental Cli Commands")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_scli_enter_commands(),
+                                    suppl_cli_cmds)
+        sleep(2)
+
+        self.utils.print_info("Saving template ... ")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_template())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        if "AP template was saved successfully." in tool_tp_text[-1]:
+            return 1
+        else:
+            self.utils.print_info("Unable to save the template")
+            return -1
+
+    def enable_supplemental_cli_in_switch_template(self, policy_name, switch_model, switch_template_name, suppl_cli_name, suppl_cli_cmds):
+        """
+        - This Keyword creates Supplemental CLI inside the Switch Template
+        - Flow: Network Policies --> Device Template --> Switch Template --> Advanced Settings --> Supplemental CLI
+        - Keyword Usage:
+         - ``Enable Supplemental CLI in Switch Template   ${POLICY_NAME}    ${SWITCH_MODEL}    ${SWITCH_TEMPLATE_NAME}   ${SUPPL_CLI_NAME}     ${SUPPL_CLI_CMDS}``
+
+        :param policy_name: Name of the Network policy
+        :param switch_model: Switch Model
+        :param switch_template_name: Name of the Switch Template
+        :param suppl_cli_name: Name of the Supplemental CLI name
+        :param suppl_cli_cmds: Supplemental CLI commands
+        :return: 1 if AP Template is saved successfully else -1
+        """
+
+        self.utils.print_info("Selecting Configure tab...")
+        self.navigator.navigate_to_configure_tab()
+        sleep(5)
+
+        self.utils.print_info("Navigating to network policies...")
+        self.navigator.navigate_to_network_policies_tab()
+        sleep(2)
+
+        self.utils.print_info("Click on network policy add button")
+        self.auto_actions.click(self.device_template_web_elements.get_network_policy_add_button())
+        sleep(2)
+
+        self.utils.print_info("Enter the policy name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
+        sleep(3)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Click on network policy save button")
+        self.auto_actions.click(self.device_template_web_elements.get_network_policy_save_button())
+        sleep(3)
+
+        self.utils.print_info("Click on Device Template tab")
+        self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
+        sleep(5)
+
+        self.utils.print_info("Click on Switch Template tab")
+        self.auto_actions.click(self.device_template_web_elements.get_select_switch_template())
+        sleep(5)
+
+        self.utils.print_info("Click on Switch Template add button")
+        self.auto_actions.click(self.device_template_web_elements.get_switch_template_add_button())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("select the Switch: ", switch_model)
+        switch_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
+        for el in switch_list_items:
+            if not el:
+                pass
+            if switch_model.upper() in el.text.upper():
+                self.auto_actions.click(el)
+                break
+            print(el.text)
+        sleep(3)
+
+        self.utils.print_info("Enter the Switch Template Name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_text(), switch_template_name)
+        sleep(3)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Clicking Advanced Settings ... ")
+        self.auto_actions.click(self.device_template_web_elements.get_switch_template_advanced_settings())
+        sleep(2)
+
+        self.utils.print_info("Click to enable Supplemental CLI ... ")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_enable_scli())
+        sleep(2)
+
+        self.utils.print_info("Entering Supplemental Cli Name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_scli_config_enter_name(),
+                                    suppl_cli_name)
+        sleep(2)
+
+        self.auto_actions.scroll_down()
+        sleep(3)
+        self.utils.print_info("Entering Supplemental Cli Commands")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_scli_enter_commands(),
+                                    suppl_cli_cmds)
+        sleep(2)
+
+        self.utils.print_info("Saving template ... ")
+        self.auto_actions.click(self.device_template_web_elements.get_switch_template_save_template())
+        sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        if "Switch template has been saved successfully." in tool_tp_text[-1]:
+            return 1
+        else:
+            self.utils.print_info("Unable to save the template")
+            return -1

@@ -98,6 +98,16 @@ class CommonObjectsWebElementsDefinitions:
     next_page_element = \
         {
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next',
+            # 'CSS_SELECTOR': '.J-page-item.ui-page-item.ui-page-item',
+            'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            'index': 1,
+            'wait_for': 2
+        }
+
+    page_numbers = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="pagesWrap"]',
+            'index': 1,
             'wait_for': 2
         }
 
@@ -376,6 +386,29 @@ class CommonObjectsWebElementsDefinitions:
         {
             'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 3
+        }
+    common_object_basic_client_mode_profiles_grid_rows_all = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td[contains(@class, "dgrid-selector")]/../..',
+            'wait_for': 10
+        }
+
+    common_object_basic_client_mode_profiles_selectall = \
+        {
+            'XPATH': '//th[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]/div/input',
+            'wait_for': 5
+        }
+
+    common_object_basic_client_mode_profiles_delete = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="additionalSettingsContentArea"]//span[@class="table-action-icons table-remove"]',
+            'wait_for': 5
+        }
+
+    common_object_basic_client_mode_profiles_delete_confirm_ok_button = \
+        {
+            'XPATH': "//button[@data-dojo-attach-point='yesBtn']",
+            'wait_for': 5
         }
 
     common_object_wifi0_client_access = \
