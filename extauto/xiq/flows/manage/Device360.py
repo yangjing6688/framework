@@ -15,6 +15,7 @@ from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.flows.manage.Tools import Tools
 
 class Device360(Device360WebElements):
     def __init__(self):
@@ -31,6 +32,7 @@ class Device360(Device360WebElements):
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
+        self.tools = Tools()
 
     def get_system_info(self):
         """
@@ -6322,7 +6324,7 @@ class Device360(Device360WebElements):
                 port_row = self.device360_get_port_row(port_number)
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
-                    self.utils.print_info("click Port Usage drop down")
+                    self.utils.print_info("Click Port Usage drop down")
                     drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
                     self.auto_actions.click(drop_down_button)
                     if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
@@ -6338,6 +6340,7 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Deleting the selected values in port..")
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                                                 Keys.BACK_SPACE)
+                    self.utils.print_info("Entering Trunk Native Vlan in TextField...")
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                                                 trunk_native_vlan)
                     self.utils.print_info("Entering Trunk Allowed Vlan IDs TextField...")
@@ -6364,22 +6367,25 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-                sleep(4)  # After saving the port configuration in D360, the confirmation message does not appear
-                # exactly after pressing the "SAVE PORT CONFIGURATION" button for tool_tip_text to capture
-                tool_tip_text = tool_tip.tool_tip_text
-                self.screen.save_screen_shot()
-                self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if 'Switch Port Configuration Saved' in tool_tip_text:
-                    kwargs['pass_msg'] = "Port Configuration Saved"
+
+                def check_for_confirmation():
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    return 'Switch Port Configuration Saved' in tool_tip_text
+
+                confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
+                                                            custom_response=[True])[0]
+                if confirmation_message:
+                    kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = "Failed to save port configuration."
+                    kwargs['fail_msg'] = "Confirmation message not found."
                     self.screen.save_screen_shot()
                     self.common_validation.validate(-1, 1, **kwargs)
                     return -1
         else:
-            self.utils.print_info(f"Port Configuration Page Content not available in the Page")
+            self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click(self.get_close_dialog())
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
@@ -6456,17 +6462,20 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-                sleep(4)  # After saving the port configuration in D360, the confirmation message does not appear
-                # exactly after pressing the "SAVE PORT CONFIGURATION" button for tool_tip_text to capture
-                tool_tip_text = tool_tip.tool_tip_text
-                self.screen.save_screen_shot()
-                self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if 'Stack Port Configuration Saved' in tool_tip_text:
-                    kwargs['pass_msg'] = "Port Configuration Saved"
+
+                def check_for_confirmation():
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    return 'Stack Port Configuration Saved' in tool_tip_text
+
+                confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
+                                                            custom_response=[True])[0]
+                if confirmation_message:
+                    kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = "Failed to save port configuration."
+                    kwargs['fail_msg'] = "Confirmation message not found."
                     self.screen.save_screen_shot()
                     self.common_validation.validate(-1, 1, **kwargs)
                     return -1
@@ -6510,7 +6519,7 @@ class Device360(Device360WebElements):
         if not self.get_device360_configure_button().is_selected():
             self.auto_actions.click(self.get_device360_configure_button())
 
-        self.utils.print_info("Click PortConfiguration Button")
+        self.utils.print_info("Click Port Configuration Button")
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
@@ -6535,11 +6544,12 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Deleting the selected values in port..")
                     self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
                                                 Keys.BACK_SPACE)
+                    self.utils.print_info("Inserting the access vlan id..")
                     self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
                                                 access_vlan_id)
                     self.screen.save_screen_shot()
                 else:
-                    self.utils.print_info(f"Port Row Not Found")
+                    self.utils.print_info("Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
@@ -6554,22 +6564,25 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-                sleep(4)  # After saving the port configuration in D360, the confirmation message does not appear
-                # exactly after pressing the "SAVE PORT CONFIGURATION" button for tool_tip_text to capture
-                tool_tip_text = tool_tip.tool_tip_text
-                self.screen.save_screen_shot()
-                self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if 'Switch Port Configuration Saved' in tool_tip_text:
-                    kwargs['pass_msg'] = "Port Configuration Saved"
+
+                def check_for_confirmation():
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    return 'Switch Port Configuration Saved' in tool_tip_text
+
+                confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
+                                                            custom_response=[True])[0]
+                if confirmation_message:
+                    kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = "Failed to save port configuration."
+                    kwargs['fail_msg'] = "Confirmation message not found."
                     self.screen.save_screen_shot()
                     self.common_validation.validate(-1, 1, **kwargs)
                     return -1
         else:
-            self.utils.print_info(f"Port Configuration Page Content not available in the Page")
+            self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click(self.get_close_dialog())
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
@@ -6595,7 +6608,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
             self.auto_actions.click(self.get_device360_configure_button())
-        self.utils.print_info("Click PortConfiguration Button")
+        self.utils.print_info("Click Port Configuration Button")
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
@@ -6618,6 +6631,7 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Deleting the selected values in port..")
                     self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
                                                 Keys.BACK_SPACE)
+                    self.utils.print_info("Inserting the access vlan id..")
                     self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
                                                 access_vlan_id)
                     self.screen.save_screen_shot()
@@ -6637,17 +6651,20 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-                sleep(4) #After saving the port configuration in D360, the confirmation message does not appear
-                         #exactly after pressing the "SAVE PORT CONFIGURATION" button for tool_tip_text to capture
-                tool_tip_text = tool_tip.tool_tip_text
-                self.screen.save_screen_shot()
-                self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if 'Stack Port Configuration Saved' in tool_tip_text:
-                    kwargs['pass_msg'] = "Port Configuration Saved"
+
+                def check_for_confirmation():
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    return 'Stack Port Configuration Saved' in tool_tip_text
+
+                confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
+                                                            custom_response=[True])[0]
+                if confirmation_message:
+                    kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = "Failed to save port configuration."
+                    kwargs['fail_msg'] = "Confirmation message not found."
                     self.screen.save_screen_shot()
                     self.common_validation.validate(-1, 1, **kwargs)
                     return -1
@@ -6670,7 +6687,7 @@ class Device360(Device360WebElements):
             slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows(complete_stack)
             for stack_item in slots_in_stack:
                 if slot_index == int(slot):
-                    self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.utils.print_info(f"Slot {str(slot)} found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
                     kwargs['pass_msg'] = f"Selected the slot {str(slot)} successfully"

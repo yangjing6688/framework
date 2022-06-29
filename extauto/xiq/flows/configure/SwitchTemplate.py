@@ -1707,11 +1707,12 @@ class SwitchTemplate(object):
                                 self.utils.print_info("A trunk option was chosen. Saving the current allowed/native "
                                                       "configuration fields...")
                                 save_button_trunk_choice_dialog = self.sw_template_web_elements.\
-                                                                                    get_switch_temp_save_button()
+                                    get_switch_temp_save_button()
                                 if save_button_trunk_choice_dialog:
                                     self.utils.print_info("Clicking on the 'Save' button...")
                                     self.auto_actions.click(save_button_trunk_choice_dialog)
-                                    self.utils.print_info("Saved")
+                                    self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to the "
+                                                          f"ports: {ports}")
                                 else:
                                     self.utils.print_info("Unable to find the 'Save' button in this section!")
                                     kwargs['fail_msg'] = "Unable to find the 'Save' button in this section!"
@@ -1727,16 +1728,20 @@ class SwitchTemplate(object):
                                 if save_btn.is_displayed():
                                     self.utils.print_info("Click on the save template button")
                                     self.auto_actions.click(save_btn)
-                                    sleep(2)  # After saving the template, the confirmation message
-                                              # does not appear exactly after pressing the "SAVE" button for
-                                              # tool_tip_text to capture
-                                    tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
-                                    self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
-                                    if "Stack template has been saved successfully." in tool_tip_text or \
-                                            'Switch template has been saved successfully.' in tool_tip_text:
+
+                                    def check_for_confirmation():
+                                        tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
+                                        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                                        return "Stack template has been saved successfully." in tool_tip_text or \
+                                            'Switch template has been saved successfully.' in tool_tip_text
+
+                                    confirmation_message = self.tools.wait_till(check_for_confirmation,
+                                                                                is_logging_enabled=True,
+                                                                                custom_response=[True])[0]
+                                    if confirmation_message:
                                         rc = 1
-                                        self.utils.print_info("Device's template has been saved successfully.")
-                                        kwargs['pass_msg'] = "Device's template has been saved successfully."
+                                        self.utils.print_info("Template has been saved successfully.")
+                                        kwargs['pass_msg'] = "Template has been saved successfully."
                                         self.common_validation.validate(1, 1, **kwargs)
                                     else:
                                         self.utils.print_info("Successful message not found")
@@ -1797,7 +1802,8 @@ class SwitchTemplate(object):
                         self.utils.print_info("Found the delete button.")
                         self.utils.print_info("Clicking the delete button...")
                         self.auto_actions.click(delete_button)
-                        kwargs['pass_msg'] = f"Succesfully deleted switch template from policy: {nw_policy}"
+                        kwargs['pass_msg'] = f"Succesfully deleted switch template: {sw_template_name} from policy: " \
+                                             f"{nw_policy}"
                         self.common_validation.validate(1, 1, **kwargs)
                         return 1
                     else:
@@ -1806,9 +1812,10 @@ class SwitchTemplate(object):
                         self.common_validation.validate(-1, 1, **kwargs)
                         return -1
             if not found:
-                self.utils.print_info("The template '" + sw_template_name + "' is not present here, it may have been "
+                self.utils.print_info(f"The template {sw_template_name} is not present here, it may have been "
                                       "already deleted or it wasn't created.")
-                kwargs['pass_msg'] = "Device status is connected - locally managed"
+                kwargs['pass_msg'] = f"The template {sw_template_name} is not present here, it may have been " \
+                                     f"already deleted or it wasn't created."
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
         else:
@@ -1832,19 +1839,19 @@ class SwitchTemplate(object):
             slots_in_stack = self.sw_template_web_elements.get_complete_stack_all_rows(complete_stack)
             for stack_item in slots_in_stack:
                 if slot_index == int(slot):
-                    self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.utils.print_info("Slot {str(slot)} found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
-                    kwargs['pass_msg'] = "Slot " + str(slot) + " found in the stack"
+                    kwargs['pass_msg'] = f"Slot {str(slot)} found in the stack"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 slot_index = slot_index + 1
             if not slot_found:
-                kwargs['fail_msg'] = "Slot " + str(slot) + " not found in the stack, check the numbers of slots"
+                kwargs['fail_msg'] = f"Slot {str(slot)} not found in the stack, check the numbers of slots"
                 self.screen.save_screen_shot()
                 self.common_validation.validate(-1, 1, **kwargs)
                 return -1
-            kwargs['fail_msg'] = "Something went wrong with selecting the slot..."
+            kwargs['fail_msg'] = f"Something went wrong with selecting the slot {str(slot)}"
             self.screen.save_screen_shot()
             self.common_validation.validate(-1, 1, **kwargs)
         else:

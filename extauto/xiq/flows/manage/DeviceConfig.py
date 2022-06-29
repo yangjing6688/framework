@@ -15,6 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.flows.manage.Tools import Tools
 
 class DeviceConfig(DeviceConfigElements):
     def __init__(self):
@@ -28,7 +29,7 @@ class DeviceConfig(DeviceConfigElements):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
         self.common_validation = CommonValidation()
-
+        self.tools = Tools()
 
     def _override_wifi0_psk_ssid_settings(self, **override_args):
         """
@@ -2367,7 +2368,7 @@ class DeviceConfig(DeviceConfigElements):
                 for row in rows:
                     if device_mac in row.text:
                         device_found = 1
-                        self.utils.print_debug("Found device!")
+                        self.utils.print_debug(f"Found device with mac: {device_mac}")
                         self.utils.print_info("Attempting to click audit delta view button...")
                         audit_delta_view_button = self.get_config_audit_delta_view_button(row)
                         if audit_delta_view_button:
@@ -2391,12 +2392,16 @@ class DeviceConfig(DeviceConfigElements):
                             self.screen.save_screen_shot()
                             self.common_validation.validate(-1, 1, **kwargs)
                             return -1
-                        sleep(4) #Left the sleep until we come with a solution for the delta cli page loading
                         self.utils.print_info("Attempting to locate the delta config content...")
                         if self.get_device_config_audit_delta_view_content():
                             self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+
+                            def check_device_config_audit_delta_view_content():
+                                return bool(self.get_device_config_audit_delta_view_content().text)
+
+                            self.tools.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True,
+                                                 custom_response=[True])
                             delta_configs = self.get_device_config_audit_delta_view_content().text
-                            self.utils.print_info("Delta Configs : ", delta_configs)
                         else:
                             self.utils.print_info("Did not manage to locate the content...")
                             kwargs['fail_msg'] = "Did not manage to locate the content..."
@@ -2416,6 +2421,7 @@ class DeviceConfig(DeviceConfigElements):
                             return -1
                         if delta_configs:
                             self.utils.print_info("Successfully collected Delta CLI configs")
+                            self.utils.print_info("Delta Configs : ", delta_configs)
                             kwargs['pass_msg'] = "Successfully collected Delta CLI configs"
                             self.common_validation.validate(1, 1, **kwargs)
                             return delta_configs
