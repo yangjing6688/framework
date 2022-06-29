@@ -3035,3 +3035,22 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to open clients hyperlink page")
             self.screen.save_screen_shot()
             return -1
+
+    def navigate_to_vpn_services_tab(self):
+        """"
+        - This Keyword Navigate to VPN Services Page
+        - Flow: Assume that already navigated to Configure > Common Objects > Network tab
+                Then navigate to VPN Services page
+        - Keyword Usage:
+          - 'Navigate to VPN Services Tab'
+        :return: 1 if Navigation Successful, else -1
+        """
+
+        self.utils.print_info("Click on VPN Services Tab")
+        if self.get_vpn_services_tab().is_displayed():
+            self.auto_actions.click(self.get_vpn_services_tab())
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to VPN Services Page")
+            self.screen.save_screen_shot()
+            return -1
