@@ -164,8 +164,9 @@ class Navigator(NavigatorWebElements):
 
         :return:  1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
         """
-        self.navigate_to_manage_tab()
-        self.navigate_to_tools_sub_tab()
+        self.navigate_to_devices()
+        self.navigate_to_device_utilities_tools()
+
 
     def navigate_configure_network_policies(self):
         """
