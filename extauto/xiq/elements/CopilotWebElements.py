@@ -63,6 +63,12 @@ class CopilotWebElements(CopilotDefs):
         elements = self.weh.get_elements(self.wifi_capacity_widget_location_more_options_mute_button)
         return self.get_dislayed_element(elements)
 
+    def get_wifi_capacity_widget_location_ap_status_info_pin_column(self, row):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_status_info_pin_column, row)
+
+    def get_wifi_capacity_widget_location_ap_info_icon(self, row):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_info_icon, row)
+
     def get_wifi_capacity_anomaly_ap_issue_details(self):
         return self.weh.get_element(self.wifi_capacity_anomaly_ap_issue_details)
 
@@ -107,6 +113,9 @@ class CopilotWebElements(CopilotDefs):
     def get_wifi_capacity_widget_location_individual_ap_unpin_button(self, row):
         return self.weh.get_element(self.wifi_capacity_widget_location_individual_ap_unpin_button, row)
 
+    def get_tooltip_content(self):
+        return self.weh.get_element(self.tooltip_content)
+
     def get_wifi_capacity_widget_location_detailed_view_close_button(self):
         return self.weh.get_element(self.wifi_capacity_widget_location_detailed_view_close_button)
 
@@ -118,6 +127,12 @@ class CopilotWebElements(CopilotDefs):
 
     def get_wifi_capacity_content(self):
         return self.weh.get_element(self.wifi_capacity_content)
+
+    def get_wifi_capacity_widget_location_ap_like(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_like)
+
+    def get_wifi_capacity_widget_location_ap_like_tooltip(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_like_tooltip)
 
     def get_assurance_scan_widget(self):
         return self.weh.get_element(self.assurance_scan_widget)
@@ -501,3 +516,18 @@ class CopilotWebElements(CopilotDefs):
 
     def get_adverse_traffic_patterns_widget_content(self):
         return self.weh.get_element(self.adverse_traffic_patterns_widget_content)
+
+    def get_wifi_capacity_widget_location_ap_dislike(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike)
+
+    def get_wifi_capacity_widget_location_ap_dislike_send_feedback_textfield(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike_send_feedback_textfield)
+
+    def get_wifi_capacity_widget_location_ap_dislike_send_feedback_button(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike_send_feedback_button)
+
+    def get_wifi_capacity_widget_location_ap_like_tooltip(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_like_tooltip)
+
+    def get_wifi_capacity_widget_location_ap_dislike_button_enabled_status(self):
+        return self.weh.get_element(self.wifi_capacity_widget_location_ap_dislike_button_enabled_status)
