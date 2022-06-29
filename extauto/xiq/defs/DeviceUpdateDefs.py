@@ -3,7 +3,7 @@ class DeviceUpdateDefs:
 
     update_devices_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-update-config"]',
+            'XPATH': '//span[@data-automation-tag="automation-manage-update-config"]',
             'wait_for': 5
         }
 
@@ -27,7 +27,7 @@ class DeviceUpdateDefs:
 
     upgrade_iq_engine_checkbox = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="updateHiveOS"]',
+            'XPATH': '//input[@data-automation-tag="automation-config-download-options-update-hive-os"]',
             'wait_for': 5
         }
 

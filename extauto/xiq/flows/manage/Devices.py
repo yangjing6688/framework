@@ -6270,7 +6270,10 @@ class Devices:
             sleep(5)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+            retry_count = 0
+            while AutoActions().click(DeviceUpdate().get_upgrade_iq_engine_checkbox()) == -1 and retry_count < 3:
+                sleep(5)
+                retry_count += 1
             sleep(5)
 
             self.utils.print_info("Selecting upgrade to specific version checkbox")
