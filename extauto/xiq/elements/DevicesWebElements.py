@@ -1152,3 +1152,24 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return el
         else:
             return None
+
+    def get_update_reboot_revert_checkbox(self):
+        return self.weh.get_element(self.update_reboot_revert_checkbox)
+
+    def get_update_image_checkbox(self):
+        return self.weh.get_element(self.update_image_checkbox)
+
+    def get_events_text(self):
+        return self.weh.get_elements(self.get_events)
+
+    def get_update_config_checkbox(self):
+        return self.weh.get_element(self.update_config_checkbox)
+
+    def get_device_actions_button(self):
+        """
+        :return: Device Actions Button
+        """
+        return self.weh.get_element(self.device_actions_button)
+
+    def get_license_action_button(self):
+        return self.weh.get_element(self.license_action_button)

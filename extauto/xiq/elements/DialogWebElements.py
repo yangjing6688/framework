@@ -45,3 +45,6 @@ class DialogWebElements(DialogWebElementsDefinitions):
         for element in elements:
             if element.is_displayed():
                 return element
+
+    def get_confirm_yes_button_reboot(self):
+         return self.weh.get_elements(self.confirm_yes_button_reboot)

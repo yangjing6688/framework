@@ -2152,6 +2152,7 @@ class Cli(object):
             if 'EXOS' in device_make.upper():
                 self.send(_spawn, f'configure iqagent server ipaddress {server_name}')
                 self.send(_spawn, f'configure iqagent server vr {vr}')
+                self.send(_spawn, 'enable iqagent')
                 count = 1
                 while count <= retry_count:
                     self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)

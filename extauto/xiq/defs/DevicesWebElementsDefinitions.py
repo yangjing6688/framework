@@ -291,7 +291,7 @@ class DevicesWebElementsDefinitions:
 
     devices_perform_update_button = \
         {
-            'XPATH': '//div/a[@data-dojo-attach-point="uploadBtn"]',
+            'XPATH': "//a[@class='btn btn-small btn-primary']",
             'wait_for': 10
          }
 
@@ -396,7 +396,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-policy"]',
+            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
             'wait_for': 5
         }
 
@@ -674,7 +674,7 @@ class DevicesWebElementsDefinitions:
 
     reboot_and_revert_warning_dialog_yes_button = \
         {
-            'XPATH': '//div[contains(@id, "ActionsAndUpdateDialog")]//button[@data-dojo-attach-point="yesBtn"]',
+            'XPATH': '//div[contains(@id, "ActionsAndUpdateDialog")]//button[@data-automation-tag="automation-notification-yes-btn"]',
             'wait_for': 1
         }
 
@@ -1329,7 +1329,7 @@ class DevicesWebElementsDefinitions:
 
     devices_switch_update_reboot_rollback = \
         {
-            'CSS_SELECTOR': 'input[class="J-up"][data-dojo-attach-point="reboot-revert"]',
+            'XPATH': "//li[@data-dojo-attach-point='revertWrap']//label[@class='checkbox']//input[@type='checkbox']",
             'wait_for': 5
         }
 
@@ -1678,3 +1678,42 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//span[@data-dojo-attach-point="unmanage"]',
             'wait_for': 5
         }
+
+    update_reboot_revert_checkbox = \
+        {
+            'XPATH': "//li[@data-dojo-attach-point='revertWrap']//label[@class='checkbox']//input[@type='checkbox']",
+            'wait_for': 10
+        }
+
+    update_image_checkbox = \
+        {
+            'XPATH': "//div[@class='first column']//label[@class='checkbox']//input[@type='checkbox']",
+            'wait_for': 10
+        }
+
+    update_config_checkbox = \
+        {
+            'CSS_SELECTOR': ".J-up",
+            'wait_for': 10
+        }
+
+    get_events = \
+        {
+            'XPATH': "//td/div",
+            'wait_for': 10
+        }
+
+    device_actions_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
+            'wait_for': 2
+        }
+
+    license_action_button = \
+        {
+            'CSS_SELECTOR': '.dijitMenuItem',
+            'wait_for': 5
+        }
+
+
+
