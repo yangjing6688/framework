@@ -397,7 +397,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_user = variables[netelem]["username"]
                 netelem_pass = variables[netelem]["password"]
                 netelem_con_method = variables[netelem]["connection_method"]
-                netelem_os = variables[netelem]["os"]
+                netelem_os = variables[netelem]["cli_type"]
                 netelem_port = variables[netelem]["port"]
             except KeyError:
                 if netelem_name is None:

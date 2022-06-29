@@ -18,6 +18,7 @@ from extauto.xiq.elements.SwTemplateLegacyPortTypeWebElements import SwTemplateL
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
 from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
 
 class SwitchTemplate(object):
 
@@ -35,6 +36,7 @@ class SwitchTemplate(object):
         self.screen = Screen()
         self.tools = Tools()
         self.common_validation = CommonValidation()
+        self.dialogue_web_elements = DialogWebElements()
 
     def check_sw_template(self, sw_template):
         """
@@ -1676,7 +1678,6 @@ class SwitchTemplate(object):
         :return: returns 1 if the ports have been assigned the existing port type
                  returns -1 if otherwise
         """
-        kwargs['IRV'] = True
         self.select_wireframe_net_ports(ports)
         assign_button = self.sw_template_web_elements.get_sw_template_assign_button()
         if assign_button:
@@ -1713,7 +1714,7 @@ class SwitchTemplate(object):
                                     self.utils.print_info("Saved")
                                 else:
                                     self.utils.print_info("Unable to find the 'Save' button in this section!")
-                                    kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
+                                    kwargs['fail_msg'] = "Unable to find the 'Save' button in this section!"
                                     self.screen.save_screen_shot()
                                     self.common_validation.validate(-1, 1, **kwargs)
                                     return -1
@@ -1726,14 +1727,23 @@ class SwitchTemplate(object):
                                 if save_btn.is_displayed():
                                     self.utils.print_info("Click on the save template button")
                                     self.auto_actions.click(save_btn)
-                                    sleep(2)
-                                    tool_tip_text = tool_tip.tool_tip_text
-                                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                                    sleep(2)  # After saving the template, the confirmation message
+                                              # does not appear exactly after pressing the "SAVE" button for
+                                              # tool_tip_text to capture
+                                    tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
+                                    self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
                                     if "Stack template has been saved successfully." in tool_tip_text or \
                                             'Switch template has been saved successfully.' in tool_tip_text:
                                         rc = 1
-                                        kwargs['pass_msg'] = "Stack template has been saved successfully."
+                                        self.utils.print_info("Device's template has been saved successfully.")
+                                        kwargs['pass_msg'] = "Device's template has been saved successfully."
                                         self.common_validation.validate(1, 1, **kwargs)
+                                    else:
+                                        self.utils.print_info("Successful message not found")
+                                        kwargs['fail_msg'] = "Successful message not found"
+                                        self.screen.save_screen_shot()
+                                        self.common_validation.validate(-1, 1, **kwargs)
+                                        return -1
                                     break
                             return rc
                         else:
@@ -1749,7 +1759,7 @@ class SwitchTemplate(object):
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
-    def delete_switch_template(self, nw_policy, sw_template_name):
+    def delete_switch_template(self, nw_policy, sw_template_name, **kwargs):
         """
         - This keyword will delete the switch template from a newtwork policy
         - Flow: Network Policies -> Edit nw_policy -> Device Templates -> Select Template -> Delete Template
@@ -1764,6 +1774,9 @@ class SwitchTemplate(object):
         self.navigator.navigate_configure_network_policies()
         if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created")
+            kwargs['fail_msg'] = f"Policy: {nw_policy} has not been found."
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
         self.utils.print_info("Click on Device Template tab button")
         self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
@@ -1784,16 +1797,27 @@ class SwitchTemplate(object):
                         self.utils.print_info("Found the delete button.")
                         self.utils.print_info("Clicking the delete button...")
                         self.auto_actions.click(delete_button)
+                        kwargs['pass_msg'] = f"Succesfully deleted switch template from policy: {nw_policy}"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
+                    else:
+                        kwargs['fail_msg'] = "Delete button hasn't been found."
+                        self.screen.save_screen_shot()
+                        self.common_validation.validate(-1, 1, **kwargs)
+                        return -1
             if not found:
                 self.utils.print_info("The template '" + sw_template_name + "' is not present here, it may have been "
                                       "already deleted or it wasn't created.")
+                kwargs['pass_msg'] = "Device status is connected - locally managed"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
         else:
             self.utils.print_info("There aren't any templates here.")
+            kwargs['pass_msg'] = "There are no templates configured."
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
-    def sw_template_stack_select_slot(self, slot):
+    def sw_template_stack_select_slot(self, slot, **kwargs):
         """
         - Assume that already in Device Template Port Configuration
         :param slot: "The slot number that needs to be selected"
@@ -1811,12 +1835,20 @@ class SwitchTemplate(object):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
+                    kwargs['pass_msg'] = "Slot " + str(slot) + " found in the stack"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 1
                 slot_index = slot_index + 1
             if not slot_found:
-                self.utils.print_info("Unable to locate the correct slot")
+                kwargs['fail_msg'] = "Slot " + str(slot) + " not found in the stack, check the numbers of slots"
+                self.screen.save_screen_shot()
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
-            return -1
+            kwargs['fail_msg'] = "Something went wrong with selecting the slot..."
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
-            return -1
+            kwargs['fail_msg'] = "Unable to gather the list of the devices in the stack"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)

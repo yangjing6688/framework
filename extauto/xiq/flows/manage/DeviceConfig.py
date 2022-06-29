@@ -14,6 +14,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from extauto.common.CloudDriver import CloudDriver
+from extauto.common.CommonValidation import CommonValidation
 
 class DeviceConfig(DeviceConfigElements):
     def __init__(self):
@@ -26,6 +27,7 @@ class DeviceConfig(DeviceConfigElements):
         self.web = WebElementHandler()
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
+        self.common_validation = CommonValidation()
 
 
     def _override_wifi0_psk_ssid_settings(self, **override_args):
@@ -2350,22 +2352,7 @@ class DeviceConfig(DeviceConfigElements):
 
             return -1
 
-    def wait_function_load(self):
-        max_time = 30
-
-        for attempt_index in range(max_time):
-            # Note we are sleeping for 1 second on each loop through until jQuery is no
-            # longer active.  The first sleep before checking jQuery status is needed
-            # because we need to have time for jQuery to activate after clicking the refresh
-            # button.
-            _driver = CloudDriver().cloud_driver
-            sleep(1)
-            jQueryActiveState = _driver.execute_script("return jQuery.active")
-            print("jQueryActive= ",jQueryActiveState)
-            if jQueryActiveState == 0:
-                return
-
-    def get_device_config_audit_delta(self, device_mac):
+    def get_device_config_audit_delta(self, device_mac, **kwargs):
         """
         - This keyword will get the delta cli configuration
         - Assumes That Already in Devices Page
@@ -2389,6 +2376,9 @@ class DeviceConfig(DeviceConfigElements):
                             self.auto_actions.click(audit_delta_view_button)
                         else:
                             self.utils.print_info("Did not find the delta view button")
+                            kwargs['fail_msg'] = "Did not find the delta view button"
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
                             return -1
                         delta_view = self.get_device_config_audit_delta_view()
                         self.utils.print_info("Attempting to locate delta view...")
@@ -2397,8 +2387,11 @@ class DeviceConfig(DeviceConfigElements):
                             self.auto_actions.click(self.get_device_config_audit_delta_view())
                         else:
                             self.utils.print_info("Did not find the delta view...")
+                            kwargs['fail_msg'] = "Did not find the delta view..."
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
                             return -1
-                        self.wait_function_load()
+                        sleep(4) #Left the sleep until we come with a solution for the delta cli page loading
                         self.utils.print_info("Attempting to locate the delta config content...")
                         if self.get_device_config_audit_delta_view_content():
                             self.utils.print_info("Get the Config content from Device Config Audit Delta View")
@@ -2406,6 +2399,9 @@ class DeviceConfig(DeviceConfigElements):
                             self.utils.print_info("Delta Configs : ", delta_configs)
                         else:
                             self.utils.print_info("Did not manage to locate the content...")
+                            kwargs['fail_msg'] = "Did not manage to locate the content..."
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
                             return -1
 
                         close_audit_view_button = self.get_device_config_audit_view_close_button()
@@ -2414,11 +2410,30 @@ class DeviceConfig(DeviceConfigElements):
                             self.auto_actions.click(self.get_device_config_audit_view_close_button())
                         else:
                             self.utils.print_info("Did not find the close button.")
+                            kwargs['fail_msg'] = "Did not find the close button."
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
                             return -1
-                        return delta_configs
+                        if delta_configs:
+                            self.utils.print_info("Successfully collected Delta CLI configs")
+                            kwargs['pass_msg'] = "Successfully collected Delta CLI configs"
+                            self.common_validation.validate(1, 1, **kwargs)
+                            return delta_configs
+                        else:
+                            self.utils.print_info("Did not manage to get any configurations")
+                            kwargs['fail_msg'] = "Did not manage to get any configurations"
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
+                            return -1
                 if device_found == 0:
                     self.utils.print_info(f"Did not find any device with mac address: {device_mac}")
+                    kwargs['fail_msg'] = f"Did not find any device with mac address: {device_mac}"
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
         else:
             self.utils.print_info("Did not find any rows!")
+            kwargs['fail_msg'] = "Did not find any rows!"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1

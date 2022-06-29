@@ -14,6 +14,7 @@ from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElem
 from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 class Device360(Device360WebElements):
     def __init__(self):
@@ -6314,7 +6315,7 @@ class Device360(Device360WebElements):
         :param  port_type:  Trunk Port
         :return: 1 if Ports Usage Trunk and Vlan range Successfully configured else -1
         """
-        kwargs['IRV'] = True
+
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -6363,11 +6364,12 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-                sleep(4)
+                sleep(4)  # After saving the port configuration in D360, the confirmation message does not appear
+                # exactly after pressing the "SAVE PORT CONFIGURATION" button for tool_tip_text to capture
                 tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if 'Stack Port Configuration Saved' in tool_tip_text or 'Switch Port Configuration Saved' in tool_tip_text:
+                if 'Switch Port Configuration Saved' in tool_tip_text:
                     kwargs['pass_msg'] = "Port Configuration Saved"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
@@ -6399,7 +6401,6 @@ class Device360(Device360WebElements):
         :param slot: The current slot of the stack
         :return: 1 if Ports Usage Trunk and Vlan range Successfully configured else -1
         """
-        kwargs['IRV'] = True
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -6455,11 +6456,12 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-                sleep(4)
+                sleep(4)  # After saving the port configuration in D360, the confirmation message does not appear
+                # exactly after pressing the "SAVE PORT CONFIGURATION" button for tool_tip_text to capture
                 tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if 'Stack Port Configuration Saved' in tool_tip_text or 'Switch Port Configuration Saved' in tool_tip_text:
+                if 'Stack Port Configuration Saved' in tool_tip_text:
                     kwargs['pass_msg'] = "Port Configuration Saved"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
@@ -6491,7 +6493,6 @@ class Device360(Device360WebElements):
         :param  port_type:  Access Port
         :return: 1 if Ports Usage Access and Vlan Successfully configured else -1
         """
-        kwargs['IRV'] = True
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
@@ -6553,11 +6554,12 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-                sleep(4)
+                sleep(4)  # After saving the port configuration in D360, the confirmation message does not appear
+                # exactly after pressing the "SAVE PORT CONFIGURATION" button for tool_tip_text to capture
                 tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if 'Stack Port Configuration Saved' in tool_tip_text or 'Switch Port Configuration Saved' in tool_tip_text:
+                if 'Switch Port Configuration Saved' in tool_tip_text:
                     kwargs['pass_msg'] = "Port Configuration Saved"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
@@ -6590,7 +6592,6 @@ class Device360(Device360WebElements):
         :param slot: The slot of the stack
         :return: 1 if Ports Usage Access and Vlan Successfully configured else -1
         """
-        kwargs['IRV'] = True
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
             self.auto_actions.click(self.get_device360_configure_button())
@@ -6636,11 +6637,12 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-                sleep(4)
+                sleep(4) #After saving the port configuration in D360, the confirmation message does not appear
+                         #exactly after pressing the "SAVE PORT CONFIGURATION" button for tool_tip_text to capture
                 tool_tip_text = tool_tip.tool_tip_text
                 self.screen.save_screen_shot()
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                if 'Stack Port Configuration Saved' in tool_tip_text or 'Switch Port Configuration Saved' in tool_tip_text:
+                if 'Stack Port Configuration Saved' in tool_tip_text:
                     kwargs['pass_msg'] = "Port Configuration Saved"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
@@ -6659,7 +6661,6 @@ class Device360(Device360WebElements):
             return -1
 
     def select_stack_unit(self, slot, **kwargs):
-        kwargs['IRV'] = True
         self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
