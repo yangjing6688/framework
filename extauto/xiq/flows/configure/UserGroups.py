@@ -490,15 +490,19 @@ class UserGroups(UserGroupsWebElements):
             sleep(3)
 
         group_select_flag = None
+        user_group_flag = -1
         for group in groups:
             if not self._search_user_group(group):
                 self.utils.print_info("User group doesn't exists in user group list")
+                user_group_flag = 1
                 continue
             else:
                 self._select_user_group_row(group)
                 group_select_flag = True
         if group_select_flag:
             return self._perform_user_group_delete()
+        if user_group_flag == 1:
+            return '1
 
     def select_wireless_user_group(self, group_name, passwd_db_loc='None', passwd_type='None'):
         """
