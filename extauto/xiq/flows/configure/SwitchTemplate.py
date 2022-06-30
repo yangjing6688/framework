@@ -1715,7 +1715,10 @@ class SwitchTemplate(object):
                                     def check_for_confirmation_trunk():
                                         tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
                                         self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
-                                        return "Trunk Port has been saved successfully." in tool_tip_text
+                                        if tool_tip_text:
+                                            return "Trunk Port has been saved successfully." in tool_tip_text
+                                        else:
+                                            return False
 
                                     confirmation_message_trunk = self.tools.wait_till(check_for_confirmation_trunk,
                                                                                       is_logging_enabled=True,
@@ -1747,8 +1750,11 @@ class SwitchTemplate(object):
                                     def check_for_confirmation():
                                         tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
                                         self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
-                                        return "Stack template has been saved successfully." in tool_tip_text or \
-                                            'Switch template has been saved successfully.' in tool_tip_text
+                                        if tool_tip_text:
+                                            return "Stack template has been saved successfully." in tool_tip_text or \
+                                                'Switch template has been saved successfully.' in tool_tip_text
+                                        else:
+                                            return False
 
                                     confirmation_message = self.tools.wait_till(check_for_confirmation,
                                                                                 is_logging_enabled=True,
