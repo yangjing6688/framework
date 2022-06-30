@@ -1282,13 +1282,13 @@ class DevicesWebElementsDefinitions:
     device_os_voss_radio = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-voss-radio-button"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_os_exos_radio = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-exos-radio-button"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_np_header = \
