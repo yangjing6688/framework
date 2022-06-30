@@ -59,26 +59,28 @@ class Switch(SwitchWebElements):
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), switch_serial)
         sleep(5)
 
+        self.utils.print_info("Checking for the Device Make dropdown or Switch/Fabric Engine selection option")
+        dropdown_make = self.get_switch_make_drop_down()
+      
         if "VOSS" in device_os.upper() or "VOSS" in switch_make.upper():
-            self.utils.print_info("Selecting Switch Type/Device OS : VOSS")
-            try:
+            if dropdown_make.is_displayed():
+                self.utils.print_info("Device Make dropdown selection is displayed, selecting VOSS")
                 self.auto_actions.click(self.get_switch_make_drop_down())
                 sleep(2)
                 self.select_drop_down_options(self.get_switch_make_drop_down_options(), "VOSS")
-
-            except Exception as e:
-                self.utils.print_debug("Exception: ", e)
+            else:
+                self.utils.print_info("Switch/Fabric Engine radio options are displayed, selecting Fabric Engine")
                 self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
-
+      
         if "EXOS" in device_os.upper() or "EXOS" in switch_make.upper():
-            self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
-            try:
+            if dropdown_make.is_displayed():
+                self.utils.print_info("Device Make dropdown selection is displayed, selecting EXOS")
                 self.auto_actions.click(self.get_switch_make_drop_down())
                 sleep(2)
                 self.select_drop_down_options(self.get_switch_make_drop_down_options(), "EXOS")
-            except Exception as e:
-                self.utils.print_debug("Exception: ", e)
-                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+            else:
+                self.utils.print_info("Switch/Fabric Engine radio options are displayed, selecting Switch Engine")
+                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())          
 
         sleep(2)
         if location:

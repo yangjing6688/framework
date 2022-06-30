@@ -321,17 +321,23 @@ class Device360(Device360WebElements):
         self.auto_actions.click(self.get_device360_configure_ssh_cli_enable_button())
 
         sleep(90)
-
+        self.screen.save_screen_shot()
         ip = self.get_device360_configure_ssh_cli_ip()
         port = self.get_device360_configure_ssh_cli_port()
+
 
         ip_port_info = dict()
         ip_port_info["ip"] = ip
         ip_port_info["port"] = port
 
+
         self.utils.print_info(f"****************** IP/Port Information ************************")
+
         for key, value in ip_port_info.items():
             self.utils.print_info(f"{key}:{value}")
+
+        if not ip_port_info["ip"] and not ip_port_info["port"]:
+            self.utils.print_info(f"****************** IP/Port Information is not available ************************")
 
         return ip_port_info
 
@@ -496,7 +502,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Closing device360 Dialogue Window.")
         self.auto_actions.click(self.dev360.get_close_dialog())
-        sleep(2)
+        self.screen.save_screen_shot()
 
         return device360_info
 
@@ -518,6 +524,7 @@ class Device360(Device360WebElements):
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
+                self.screen.save_screen_shot()
                 exos_info = self.get_exos_information()
                 return exos_info
 
@@ -527,6 +534,7 @@ class Device360(Device360WebElements):
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
+                self.screen.save_screen_shot()
                 exos_info = self.get_exos_information()
                 return exos_info
 

@@ -116,7 +116,7 @@ class Device360WebElementDefs:
     close_dialog = \
         {
             'XPATH': "//*[@data-dojo-attach-point='closeDialog']",
-            'wait_for': 5
+            'wait_for': 10
         }
 
     actions_adv_cli_access_cmd_input = \
