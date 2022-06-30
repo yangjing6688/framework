@@ -5,6 +5,7 @@ try:
     from extauto.common.Ap import Ap
     from extauto.common.Cli import Cli
     from extauto.common.Utils import Utils
+    from extauto.common.CloudDriver import CloudDriver
     from extauto.common.AutoActions import AutoActions
     from extauto.common.GmailHandler import GmailHandler
     # from extauto.common.Iapi import Iapi
@@ -225,6 +226,7 @@ class XiqLibrary():
         self.Ap = Ap()
         self.Cli = Cli()
         self.Utils = Utils()
+        self.CloudDriver = CloudDriver()
         self.Screen = Screen()
         self.GmailHandler = GmailHandler()
         self.ImageAnalysis = ImageAnalysis()
