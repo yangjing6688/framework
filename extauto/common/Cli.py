@@ -2277,7 +2277,7 @@ class Cli(object):
             self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
             return -1
 
-    def wait_for_cli_output2(self, ip_dest, username, password, port, cmd, expected_output, os , retry_duration=30, retry_count=10):
+    def open_spawn_and_wait_for_cli_output(self, ip_dest, username, password, port, cmd, expected_output, os , retry_duration=30, retry_count=10):
         """
         - This Keyword will Helps to Wait till getting expected output based on retry duration
         - Retry duration by default 30 seconds
