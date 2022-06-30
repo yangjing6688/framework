@@ -1188,9 +1188,6 @@ class Devices:
         sleep(4)
 
         self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
-        sleep(5)
-
         self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
 
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
