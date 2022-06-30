@@ -396,7 +396,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-policy"]',
+            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
             'wait_for': 5
         }
 
@@ -409,7 +409,7 @@ class DevicesWebElementsDefinitions:
 
     action_assign_network_policy_dialog = \
         {
-            "CSS_SELECTOR": '.ui-menu-list',
+            "CSS_SELECTOR": '.ui-dialog-content',
             'wait_for': 5
         }
 
@@ -1282,13 +1282,13 @@ class DevicesWebElementsDefinitions:
     device_os_voss_radio = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-voss-radio-button"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_os_exos_radio = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-exos-radio-button"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_np_header = \
