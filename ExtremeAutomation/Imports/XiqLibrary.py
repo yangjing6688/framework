@@ -202,6 +202,7 @@ try:
     from extauto.xiq.flows.manage.FilterManageDevices import FilterManageDevices
     from extauto.xiq.flows.manage.Reports import Reports
     from extauto.xiq.flows.manage.Switch import Switch
+    from extauto.xiq.flows.manage.Tools import Tools
     from extauto.xiq.flows.mlinsights.MLInsightClient360 import MLInsightClient360
     ## -- typo in lib ---from extauto.xiq.flows.mlinsights.MLInsights import MLInsights
     from extauto.xiq.flows.mlinsights.Network360Monitor import Network360Monitor
@@ -283,6 +284,7 @@ class XiqLibrary():
         self.xflowsmanageEvents = Events()
         self.xflowsmanageReports = Reports()
         self.xflowsmanageSwitch = Switch()
+        self.xflowsmanageTools = Tools()
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
