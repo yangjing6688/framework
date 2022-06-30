@@ -2301,17 +2301,13 @@ class Cli(object):
             spawn = self.open_voss_spawn(conn_str, username, password, False)
         else:
             return -1
-
         if spawn == -1:
             return -1
-
         if os.lower() == 'exos':
             pass
         elif os.lower() == 'voss':
             self.send(spawn, "enable")
             self.send(spawn, "config t")
-
-
         count = 1
         while count <= retry_count:
             _output = self.send(spawn, cmd)
