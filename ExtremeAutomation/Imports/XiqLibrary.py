@@ -202,6 +202,7 @@ try:
     from extauto.xiq.flows.manage.FilterManageDevices import FilterManageDevices
     from extauto.xiq.flows.manage.Reports import Reports
     from extauto.xiq.flows.manage.Switch import Switch
+    from extauto.xiq.flows.manage.Tools import Tools
     from extauto.xiq.flows.mlinsights.MLInsightClient360 import MLInsightClient360
     ## -- typo in lib ---from extauto.xiq.flows.mlinsights.MLInsights import MLInsights
     from extauto.xiq.flows.mlinsights.Network360Monitor import Network360Monitor
@@ -214,9 +215,11 @@ except Exception as e:
 
 from ExtremeAutomation.Utilities.deprecated import deprecated
 
+      
+
 
 class XiqLibrary():
-
+    
     def __init__(self):
         self.login = Login()
         self.Ap = Ap()
@@ -280,20 +283,21 @@ class XiqLibrary():
         self.xflowsmanageEvents = Events()
         self.xflowsmanageReports = Reports()
         self.xflowsmanageSwitch = Switch()
+        self.xflowsmanageTools = Tools()
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
 
+
     @deprecated("Please use self.xiq.login.login_user(...)")
-    def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default",
-                                    incognito_mode="False", **kwargs):
+    def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default", incognito_mode="False", **kwargs):
         res = -1
         try:
-            res = self.login.login_user(username, password, capture_version=False, url=url,
-                                        incognito_mode=incognito_mode, **kwargs)
+            res = self.login.login_user(username, password, capture_version=False, url=url, incognito_mode=incognito_mode, **kwargs)
         except Exception as e:
             Logger().log_error("Unable to load the XIQ libraries and login!")
             Logger().log_error(e)
             Logger().log_error(traceback.format_exc())
+
 
         return res
