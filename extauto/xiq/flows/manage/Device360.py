@@ -6371,7 +6371,10 @@ class Device360(Device360WebElements):
                 def check_for_confirmation():
                     tool_tip_text = tool_tip.tool_tip_text
                     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    return 'Switch Port Configuration Saved' in tool_tip_text
+                    if tool_tip_text:
+                        return 'Switch Port Configuration Saved' in tool_tip_text
+                    else:
+                        return False
 
                 confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
                                                             custom_response=[True])[0]
@@ -6466,7 +6469,8 @@ class Device360(Device360WebElements):
                 def check_for_confirmation():
                     tool_tip_text = tool_tip.tool_tip_text
                     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    return 'Stack Port Configuration Saved' in tool_tip_text
+                    if tool_tip_text:
+                        return 'Stack Port Configuration Saved' in tool_tip_text
 
                 confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
                                                             custom_response=[True])[0]
@@ -6568,7 +6572,10 @@ class Device360(Device360WebElements):
                 def check_for_confirmation():
                     tool_tip_text = tool_tip.tool_tip_text
                     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    return 'Switch Port Configuration Saved' in tool_tip_text
+                    if tool_tip_text:
+                        return 'Switch Port Configuration Saved' in tool_tip_text
+                    else:
+                        return False
 
                 confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
                                                             custom_response=[True])[0]
@@ -6655,7 +6662,10 @@ class Device360(Device360WebElements):
                 def check_for_confirmation():
                     tool_tip_text = tool_tip.tool_tip_text
                     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    return 'Stack Port Configuration Saved' in tool_tip_text
+                    if tool_tip_text:
+                        return 'Stack Port Configuration Saved' in tool_tip_text
+                    else:
+                        return False
 
                 confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
                                                             custom_response=[True])[0]
