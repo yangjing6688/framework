@@ -1711,8 +1711,23 @@ class SwitchTemplate(object):
                                 if save_button_trunk_choice_dialog:
                                     self.utils.print_info("Clicking on the 'Save' button...")
                                     self.auto_actions.click(save_button_trunk_choice_dialog)
-                                    self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to the "
-                                                          f"ports: {ports}")
+
+                                    def check_for_confirmation_trunk():
+                                        tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
+                                        self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
+                                        return "Trunk Port has been saved successfully." in tool_tip_text
+
+                                    confirmation_message_trunk = self.tools.wait_till(check_for_confirmation_trunk,
+                                                                                      is_logging_enabled=True,
+                                                                                      custom_response=[True])[0]
+                                    if confirmation_message_trunk:
+                                        self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to the "
+                                                              f"ports: {ports}")
+                                    else:
+                                        kwargs['fail_msg'] = 'Did not find the successful Trunk Port message.'
+                                        self.common_validation.validate(-1, 1, **kwargs)
+                                        return -1
+
                                 else:
                                     self.utils.print_info("Unable to find the 'Save' button in this section!")
                                     kwargs['fail_msg'] = "Unable to find the 'Save' button in this section!"
