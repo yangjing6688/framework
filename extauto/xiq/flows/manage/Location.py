@@ -548,7 +548,7 @@ class Location:
         sleep(3)
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_width_floor(), width)
         sleep(3)
-        #Comment below lines until XIQ-8469 will be resolved 
+        #Comment below lines until XIQ-8469 will be resolved
         #self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_height_floor(), height)
         #sleep(3)
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_apply_button())
