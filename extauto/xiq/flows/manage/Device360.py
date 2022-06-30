@@ -5721,7 +5721,6 @@ class Device360(Device360WebElements):
                             self.utils.print_info(" The button d360_create_port_type from policy  was not found")
                             self.screen.save_screen_shot()
                             return -1
-
         else:
             port_conf_content = self.get_device360_port_configuration_content()
             if port_conf_content:
@@ -5771,7 +5770,7 @@ class Device360(Device360WebElements):
 
     def edit_port_type(self, template_values, port, verify_summary=True):
         '''
-
+        This Keyword edit a port type and verify the summary page .
 
         :param template_values:
         A dictionary with below structure:
@@ -5908,12 +5907,19 @@ class Device360(Device360WebElements):
 
     def port_type_verify_summary(self,template_values):
 
+        '''
+        This keyword verify the summary after configure new port type.
+        See edit_port_type and create_new_port_type
+        :param template_values: a dictionary (See edit_port_type and create_new_port_type )
+        :return: 1 if informations from summary page are correct ; else -1
+        '''
+
         cnt = 0
         for key in template_values.keys():
             cnt = cnt +1
             if not template_values[key][1] == None:
                 sleep(5)
-                conf_element = self.get_select_element_port_type_summery(key)
+                conf_element = self.get_select_element_port_type_summary(key)
                 print("For ", key, "we have ", conf_element)
                 if conf_element.text.lower() == template_values[key][1].lower():
                     self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: "
@@ -5935,6 +5941,13 @@ class Device360(Device360WebElements):
 
 
     def configure_element_port_type(self,element,value):
+        '''
+        This keyword select the Tabs and configure all field when create or edit a new port type
+        See edit_port_type and create_new_port_type
+        :param element: name of field
+        :param value: value of field ; if contains the string "next_page" will move to next tab
+        :return:
+        '''
 
         # tab
         sleep(2)
@@ -6012,7 +6025,7 @@ class Device360(Device360WebElements):
                 sleep(5)
                 self.auto_actions.click(get_tab_summary)
                 return 1
-        #pag1
+        #page Port Name
         elif element == "name":
             sleep(5)
             get_name_el = self.get_select_element_port_type(element)
@@ -6052,7 +6065,7 @@ class Device360(Device360WebElements):
                 sleep(2)
                 self.auto_actions.click(get_trunk_el)
                 return 1
-        # pag2 Vlan
+        # page Vlan
         elif element == "vlan":
             sleep(5)
             get_select_button = self.get_select_element_port_type("select_button")
@@ -6149,7 +6162,7 @@ class Device360(Device360WebElements):
             if get_allowed_vlans:
                 self.auto_actions.send_keys(get_allowed_vlans, value)
                 return 1
-        #Pag3
+        #Page Transmission
         elif element == "transmission type":
             sleep(5)
             get_transmission_type = self.get_select_element_port_type(element)
@@ -6197,7 +6210,7 @@ class Device360(Device360WebElements):
                 sleep(2)
                 self.auto_actions.click(get_lldp_receive)
                 return 1
-        # pag4 STP
+        # page STP
         elif element == "stp enable":
             sleep(5)
             get_stp_el = self.get_select_element_port_type(element,value)
@@ -6241,7 +6254,7 @@ class Device360(Device360WebElements):
                 sleep(2)
                 self.auto_actions.send_keys(get_cost_el, value)
                 return 1
-        # # pag5 Storm Control
+        # page Storm Control
         elif element == "broadcast":
             sleep(5)
             get_broadcast_el = self.get_select_element_port_type(element,value)
@@ -6273,7 +6286,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(get_rate_limit_val_el, value)
                 return 1
 
-        #pag6 ELRP (ONLY FOR EXOS)
+        #page ELRP (ONLY FOR EXOS)
         elif element == "elrp status":
             sleep(5)
             get_elrp_status = self.get_select_element_port_type(element,value)
@@ -6282,7 +6295,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_elrp_status)
                 return 1
 
-        # pag6 PSE
+        # page PSE
         elif element.lower() == "pse profile":
             sleep(5)
             get_pse_profile = self.get_select_element_port_type(element)
@@ -6373,104 +6386,3 @@ class Device360(Device360WebElements):
             return 1
         else:
             return -1
-
-
-
-
-
-
-    # def create_new_port_type(self, template_values, port="1/10", os="voss", support_poe=True):
-    #
-    #     port_conf_content = self.get_device360_port_configuration_content()
-    #     if port_conf_content:
-    #         port_row = self.device360_get_port_row(port)
-    #         if port_row:
-    #             self.utils.print_debug("Found row for port: ", port_row.text)
-    #
-    #             d360_create_port_type = self.get_d360_create_port_type(port_row)
-    #             if d360_create_port_type:
-    #                 self.utils.print_info(" The button d360_create_port_type  was found")
-    #                 self.auto_actions.click(d360_create_port_type)
-    #             else:
-    #                 self.utils.print_info(" The button d360_create_port_type  was not found")
-    #                 self.screen.save_screen_shot()
-    #                 return -1
-    #         else:
-    #             self.utils.print_info("Port was not found ")
-    #     else:
-    #         pass
-        # if os == 'voss':
-        #     for key in template_values.keys():
-        #         print(f"Default value for {key} is {template_values[key][0]}")
-        #         print(f"Selected value for {key} is {template_values[key][1]}")
-        #         # if we don't want to make changes and use the default values we skip the current option
-        #         if template_values[key][0] == template_values[key][1]:
-        #             continue
-        #
-        #         # verify the options that can't be changed(that have only one value in port template or can't be selected) or that are used only for vlan
-        #         elif key in ['vlan','native vlan', 'allowed vlans', 'thresholds', 'rate limit type', 'unknown unicast']:
-        #             #vlan, native vlan and allowed vlans will be used separatelly later on port usage part
-        #             # for thresholds we can't select drop-down now (is not implemented)
-        #             #for rate limit type there is only one value implemented
-        #             #unknown unicast is not supported on voss
-        #             continue
-        #
-        #         #if we have values that we want to change
-        #         else:
-        #             # trebuie facut un check daca avem port access sau trunk ca sa vedem ce elemente de vlan folosim
-        #             if key == 'port usage':
-        #                 if template_values[key][0] == 'auto sense enabled':
-        #                     continue
-        #                 elif template_values[key][0] == 'access port':
-        #                     pass
-        #                     # trebuie facut un check pt VLAN daca exista deja in lista
-        #                     # *****************  de facut functia check_vlan_in_list(vlan)   *****************
-        #                     VLAN_flag = check_vlan_in_list(template_values['vlan'])
-        #                     if VLAN_flag:
-        #                         self.get_d360_create_port_type(key, template_values[key][1])
-        #                     else:
-        #                         #***************** de facut functia create_vlan(vlan)  *****************
-        #                         create_vlan(template_values['vlan'])
-        #                         self.get_d360_create_port_type(key, template_values[key][1])
-        #
-        #                 elif template_values[key][0] == 'trunk port':
-        #                     pass
-        #                     # trebuie facut un check pt Native VLAN daca exista deja in lista
-        #                     VLAN_flag = False
-        #                     VLAN_flag = check_vlan_in_list(template_values['vlan'])
-        #                     if VLAN_flag:
-        #                         self.get_d360_create_port_type(key, template_values[key][1])
-        #                     else:
-        #                         create_vlan(template_values['vlan'])
-        #                         self.get_d360_create_port_type('vlan', template_values['vlan'][1])
-        #                     self.get_d360_create_port_type('allowed vlans', template_values['allowed vlans'][1])
-        #
-        #
-        #
-        #             # un check pentru optiunile "transmission type" si "transmission speed"
-        #
-        #
-        #             #trebuie facut un check pt rate limit value default pt ca difera de la device la device
-        #
-        #             #va trebui sa luam intai valoarea din tab si sa o punem in template_values[key][0]
-        #             #val_rate_limit = get_actual_value()
-        #             #if val_rate_limit == template_values[key][1]:
-        #             #    continue
-        #             #else:
-        #             #    get_d360_create_port_type(key, template_values[key][1])
-        #
-        #
-        #             # mai trebuie facut un check pt tab-ul de pse - lipseste daca device-ul nu suporta pse
-        #
-        #             # trebuie facut un check pt PSE template daca exista deja in lista
-        #
-        #
-        #
-        # elif os == 'exos':
-        #     pass
-        # else:
-        #     return -1
-
-
-
-

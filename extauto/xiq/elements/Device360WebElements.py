@@ -1361,8 +1361,6 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_element(self.close_port_type_box)
 
     def get_select_element_port_type(self,element, value = None):
-        #tab
-
         if element == "tab_vlan":
             return self.weh.get_element(self.select_element_port_type_tab_vlan)
         elif element == "usagePage":
@@ -1379,7 +1377,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_tab_summary)
         elif element == "elrdp":
             return self.weh.get_element(self.select_element_port_type_name)
-        #pag1
+        #page Port Name
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
         elif element == "description":
@@ -1392,7 +1390,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_port_usage_access)
         elif element == "port usage" and value == "trunk port":
             return self.weh.get_element(self.select_element_port_type_port_usage_trunk)
-        #pag2-access Vlan
+        #page Access Vlan
         elif element == "next_button":
             return self.weh.get_element(self.select_element_port_type_next_button)
         elif element == "add_vlan":
@@ -1405,7 +1403,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_vlan_select_button)
         elif element == "dropdown_items":
             return self.weh.get_elements(self.select_element_port_type_vlan_dropdown_items)
-        #pag2 Trunk vlan
+        #page Trunk vlan
         elif element == "native_vlan_add_vlan":
             return self.weh.get_element(self.select_element_port_type_native_vlan_add_vlan)
         elif element == "native_vlan_name_vlan":
@@ -1420,7 +1418,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_save_vlan)
         elif element == "allowed vlans":
             return self.weh.get_element(self.select_element_port_type_allowed_vlans)
-        #pag3
+        #page Transmission
         elif element == "transmission type":
             return self.weh.get_element(self.select_element_port_type_transmission_type)
         elif element == "transmission_type_dropdown_items":
@@ -1435,7 +1433,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_lldp_transmit)
         elif element == "lldp receive":
             return self.weh.get_element(self.select_element_port_type_lldp_receive)
-        # pag4
+        # page STP
         elif element == "stp enable":
             return self.weh.get_element(self.select_element_port_type_stp_enable)
         elif element == "edge port":
@@ -1450,7 +1448,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_elements(self.select_element_port_type_priority_items)
         elif element == "path cost":
             return self.weh.get_element(self.select_element_port_type_path_cost)
-        # pag5
+        # page Storm
         elif element == "broadcast":
             return self.weh.get_element(self.select_element_port_type_broadcast)
         elif element == "unknown unicast":
@@ -1459,10 +1457,10 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_multicast)
         elif element == "rate limit value":
             return self.weh.get_element(self.select_element_port_type_rate_limit_value)
-        #pag 6 ELRP (ONLY FOR EXOS)
+        #page ELRP (ONLY FOR EXOS)
         elif element == "elrp status":
             return self.weh.get_element(self.select_element_port_type_elrp_status)
-        # pag6
+        # page PSE
         elif element == "pse profile":
             return self.weh.get_element(self.select_element_port_type_pse_profile)
         elif element == "pse_profile_items":
@@ -1483,60 +1481,59 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
-        # pag7
         return -1
 
-    def get_select_element_port_type_summery(self,element):
+    def get_select_element_port_type_summary(self,element):
         if element == "name":
-            return self.weh.get_element(self.select_element_port_type_name_summery)
+            return self.weh.get_element(self.select_element_port_type_name_summary)
         elif element == "description":
-            return self.weh.get_element(self.select_element_port_type_description_summery)
+            return self.weh.get_element(self.select_element_port_type_description_summary)
         elif element == "status":
-            return self.weh.get_element(self.select_element_port_type_status_summery)
+            return self.weh.get_element(self.select_element_port_type_status_summary)
         elif element == "port usage":
-            return self.weh.get_element(self.select_element_port_type_port_usage_access_summery)
+            return self.weh.get_element(self.select_element_port_type_port_usage_access_summary)
         elif element == "vlan":
-            return self.weh.get_element(self.select_element_port_type_vlan_summery)
+            return self.weh.get_element(self.select_element_port_type_vlan_summary)
         elif element == "native vlan":
-            return self.weh.get_element(self.select_element_port_type_native_vlan_summery)
+            return self.weh.get_element(self.select_element_port_type_native_vlan_summary)
         elif element == "allowed vlans":
-            return self.weh.get_element(self.select_element_port_type_allowed_vlans_summery)
+            return self.weh.get_element(self.select_element_port_type_allowed_vlans_summary)
         elif element == "transmission type":
-            return self.weh.get_element(self.select_element_port_type_transmission_type_summery)
+            return self.weh.get_element(self.select_element_port_type_transmission_type_summary)
         elif element == "transmission speed":
-            return self.weh.get_element(self.select_element_port_type_transmission_speed_summery)
+            return self.weh.get_element(self.select_element_port_type_transmission_speed_summary)
         elif element == "cdp receive":
-            return self.weh.get_element(self.select_element_port_type_cdp_receive_summery)
+            return self.weh.get_element(self.select_element_port_type_cdp_receive_summary)
         elif element == "lldp transmit":
-            return self.weh.get_element(self.select_element_port_type_lldp_transmit_summery)
+            return self.weh.get_element(self.select_element_port_type_lldp_transmit_summary)
         elif element == "lldp receive":
-            return self.weh.get_element(self.select_element_port_type_lldp_receive_summery)
+            return self.weh.get_element(self.select_element_port_type_lldp_receive_summary)
         elif element == "stp":
-            return self.weh.get_element(self.select_element_port_type_stp_summery)
+            return self.weh.get_element(self.select_element_port_type_stp_summary)
         elif element == "edge port":
-            return self.weh.get_element(self.select_element_port_type_edge_port_summery)
+            return self.weh.get_element(self.select_element_port_type_edge_port_summary)
         elif element == "bpdu protection":
-            return self.weh.get_element(self.select_element_port_type_bpdu_protection_summery)
+            return self.weh.get_element(self.select_element_port_type_bpdu_protection_summary)
         elif element == "priority":
-            return self.weh.get_element(self.select_element_port_type_priority_summery)
+            return self.weh.get_element(self.select_element_port_type_priority_summary)
         elif element == "path cost":
-            return self.weh.get_element(self.select_element_port_type_path_cost_summery)
+            return self.weh.get_element(self.select_element_port_type_path_cost_summary)
         elif element == "broadcast":
-            return self.weh.get_element(self.select_element_port_type_broadcast_summery)
+            return self.weh.get_element(self.select_element_port_type_broadcast_summary)
         elif element == "unknown unicast":
-            return self.weh.get_element(self.select_element_port_type_unknown_unicast_summery)
+            return self.weh.get_element(self.select_element_port_type_unknown_unicast_summary)
         elif element == "multicast":
-            return self.weh.get_element(self.select_element_port_type_multicast_summery)
+            return self.weh.get_element(self.select_element_port_type_multicast_summary)
         elif element == "rate limit type":
-            return self.weh.get_element(self.select_element_port_type_rate_limit_type_summery)
+            return self.weh.get_element(self.select_element_port_type_rate_limit_type_summary)
         elif element == "rate limit value":
-            return self.weh.get_element(self.select_element_port_type_rate_limit_value_summery)
+            return self.weh.get_element(self.select_element_port_type_rate_limit_value_summary)
         elif element == "elrp status":
-            return self.weh.get_element(self.select_element_port_type_elrp_status_summery)
+            return self.weh.get_element(self.select_element_port_type_elrp_status_summary)
         elif element == "pse profile":
-            return self.weh.get_element(self.select_element_port_type_pse_profile_summery)
+            return self.weh.get_element(self.select_element_port_type_pse_profile_summary)
         elif element == "poe status":
-            return self.weh.get_element(self.select_element_port_type_poe_status_summery)
+            return self.weh.get_element(self.select_element_port_type_poe_status_summary)
         return None
 
     def get_device_d360_save_port_configuration(self):
