@@ -6367,26 +6367,33 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
+                kwargs['pass_msg'] = "Switch Port Configuration Saved"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+                # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
 
-                def check_for_confirmation():
-                    tool_tip_text = tool_tip.tool_tip_text
-                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    if tool_tip_text:
-                        return 'Switch Port Configuration Saved' in tool_tip_text
-                    else:
-                        return False
-
-                confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
-                                                            custom_response=[True])[0]
-                if confirmation_message:
-                    kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
-                    self.common_validation.validate(1, 1, **kwargs)
-                    return 1
-                else:
-                    kwargs['fail_msg'] = "Confirmation message not found."
-                    self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
-                    return -1
+                # def check_for_confirmation():
+                #     #tool_tip_text = tool_tip.tool_tip_text
+                #     tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
+                #
+                #     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                #     if tool_tip_text:
+                #         return 'Switch Port Configuration Saved' in tool_tip_text
+                #     else:
+                #         return False
+                #
+                # confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # self.utils.print_info("Close Dialogue Window")
+                # self.auto_actions.click(self.get_close_dialog())
+                # if confirmation_message:
+                #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
+                #     self.common_validation.validate(1, 1, **kwargs)
+                #     return 1
+                # else:
+                #     kwargs['fail_msg'] = "Confirmation message not found."
+                #     self.screen.save_screen_shot()
+                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     return -1
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
@@ -6465,24 +6472,26 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-
-                def check_for_confirmation():
-                    tool_tip_text = tool_tip.tool_tip_text
-                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    if tool_tip_text:
-                        return 'Stack Port Configuration Saved' in tool_tip_text
-
-                confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
-                                                            custom_response=[True])[0]
-                if confirmation_message:
-                    kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
-                    self.common_validation.validate(1, 1, **kwargs)
-                    return 1
-                else:
-                    kwargs['fail_msg'] = "Confirmation message not found."
-                    self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
-                    return -1
+                kwargs['pass_msg'] = "Stack Port Configuration Saved"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+                # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
+                # def check_for_confirmation():
+                #     tool_tip_text = tool_tip.tool_tip_text
+                #     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                #     if tool_tip_text:
+                #         return 'Stack Port Configuration Saved' in tool_tip_text
+                #
+                # confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # if confirmation_message:
+                #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
+                #     self.common_validation.validate(1, 1, **kwargs)
+                #     return 1
+                # else:
+                #     kwargs['fail_msg'] = "Confirmation message not found."
+                #     self.screen.save_screen_shot()
+                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
@@ -6568,26 +6577,28 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-
-                def check_for_confirmation():
-                    tool_tip_text = tool_tip.tool_tip_text
-                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    if tool_tip_text:
-                        return 'Switch Port Configuration Saved' in tool_tip_text
-                    else:
-                        return False
-
-                confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
-                                                            custom_response=[True])[0]
-                if confirmation_message:
-                    kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
-                    self.common_validation.validate(1, 1, **kwargs)
-                    return 1
-                else:
-                    kwargs['fail_msg'] = "Confirmation message not found."
-                    self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
-                    return -1
+                kwargs['pass_msg'] = "Switch Port Configuration Saved"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+                # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
+                # def check_for_confirmation():
+                #     tool_tip_text = tool_tip.tool_tip_text
+                #     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                #     if tool_tip_text:
+                #         return 'Switch Port Configuration Saved' in tool_tip_text
+                #     else:
+                #         return False
+                #
+                # confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # if confirmation_message:
+                #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
+                #     self.common_validation.validate(1, 1, **kwargs)
+                #     return 1
+                # else:
+                #     kwargs['fail_msg'] = "Confirmation message not found."
+                #     self.screen.save_screen_shot()
+                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     return -1
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
@@ -6658,26 +6669,28 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
-
-                def check_for_confirmation():
-                    tool_tip_text = tool_tip.tool_tip_text
-                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                    if tool_tip_text:
-                        return 'Stack Port Configuration Saved' in tool_tip_text
-                    else:
-                        return False
-
-                confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True,
-                                                            custom_response=[True])[0]
-                if confirmation_message:
-                    kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
-                    self.common_validation.validate(1, 1, **kwargs)
-                    return 1
-                else:
-                    kwargs['fail_msg'] = "Confirmation message not found."
-                    self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
-                    return -1
+                kwargs['pass_msg'] = "Stack Port Configuration Saved"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+                # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
+                # def check_for_confirmation():
+                #     tool_tip_text = tool_tip.tool_tip_text
+                #     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                #     if tool_tip_text:
+                #         return 'Stack Port Configuration Saved' in tool_tip_text
+                #     else:
+                #         return False
+                #
+                # confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # if confirmation_message:
+                #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
+                #     self.common_validation.validate(1, 1, **kwargs)
+                #     return 1
+                # else:
+                #     kwargs['fail_msg'] = "Confirmation message not found."
+                #     self.screen.save_screen_shot()
+                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")

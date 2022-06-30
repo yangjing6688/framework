@@ -1721,8 +1721,7 @@ class SwitchTemplate(object):
                                             return False
 
                                     confirmation_message_trunk = self.tools.wait_till(check_for_confirmation_trunk,
-                                                                                      is_logging_enabled=True,
-                                                                                      custom_response=[True])[0]
+                                                                                      is_logging_enabled=True)[0]
                                     if confirmation_message_trunk:
                                         self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to the "
                                                               f"ports: {ports}")
@@ -1757,8 +1756,7 @@ class SwitchTemplate(object):
                                             return False
 
                                     confirmation_message = self.tools.wait_till(check_for_confirmation,
-                                                                                is_logging_enabled=True,
-                                                                                custom_response=[True])[0]
+                                                                                is_logging_enabled=True)[0]
                                     if confirmation_message:
                                         rc = 1
                                         self.utils.print_info("Template has been saved successfully.")
@@ -1823,19 +1821,13 @@ class SwitchTemplate(object):
                         self.utils.print_info("Found the delete button.")
                         self.utils.print_info("Clicking the delete button...")
                         self.auto_actions.click(delete_button)
-                        # kwargs['pass_msg'] = f"Succesfully deleted switch template: {sw_template_name} from policy: " \
-                        #                      f"{nw_policy}"
-                        # self.common_validation.validate(1, 1, **kwargs)
-                        # return 1
 
                         def check_for_confirmation():
                             tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
                             self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
                             return "Template was successfully removed from policy." in tool_tip_text
 
-                        confirmation_message = self.tools.wait_till(check_for_confirmation,
-                                                                    is_logging_enabled=True,
-                                                                    custom_response=[True])[0]
+                        confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                         if confirmation_message:
                             rc = 1
                             self.utils.print_info("Template was successfully removed from policy.")

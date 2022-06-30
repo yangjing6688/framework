@@ -2399,8 +2399,7 @@ class DeviceConfig(DeviceConfigElements):
                             def check_device_config_audit_delta_view_content():
                                 return bool(self.get_device_config_audit_delta_view_content().text)
 
-                            self.tools.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True,
-                                                 custom_response=[True])
+                            self.tools.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True)
                             delta_configs = self.get_device_config_audit_delta_view_content().text
                         else:
                             self.utils.print_info("Did not manage to locate the content...")
