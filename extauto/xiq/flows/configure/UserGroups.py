@@ -502,7 +502,7 @@ class UserGroups(UserGroupsWebElements):
         if group_select_flag:
             return self._perform_user_group_delete()
         if user_group_flag == 1:
-            return '1
+            return 1
 
     def select_wireless_user_group(self, group_name, passwd_db_loc='None', passwd_type='None'):
         """
