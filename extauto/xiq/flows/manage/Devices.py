@@ -9071,10 +9071,7 @@ class Devices:
         except Exception as e:
             return -1
 
-
-    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true",
-                                       performUpgrade="true", saveDefault="false", updateTo="latest",
-                                       updatefromD360Page="false", retry_duration=30, retry_count=1200):
+    def update_network_device_firmware(self,device_mac='default',version='default',forceDownloadImage="true",performUpgrade="true",saveDefault="false",updateTo="latest",updatefromD360Page="false",retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
         - This method needs import datetime as dt
@@ -9121,8 +9118,7 @@ class Devices:
             self.utils.print_info("Device Updated Status : ", device_updated_status)
             initial_updated_status = device_updated_status
             if re.search(r'\d+-\d+-\d+', device_updated_status):
-                initial_timestamp = int(
-                    dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
+                initial_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
             os_version = self.get_device_row_values(device_mac, 'OS VERSION')
             nos_version = str(os_version['OS VERSION'])
             sleep(10)
@@ -9132,8 +9128,6 @@ class Devices:
 
         try:
             if self.select_device(device_mac):
-                self.close_last_refreshed_tooltip()
-                self.utils.print_info("Closing the last refreshed tool tip")
 
                 if updatefromD360Page.lower() == "false":
                     self.utils.print_info("Selecting Update Devices Button")
@@ -9144,25 +9138,13 @@ class Devices:
                     sleep(5)
                     self.auto_actions.click(self.device_update.get_update_devices_button_from_d360())
 
-                # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
-                config_download_checkbox = self.device_update.get_config_download_options_checkbox()
-                if config_download_checkbox.is_selected():  # Is selected method will return bool True or False depending upon the selection of the checkbox
-                    self.utils.print_info(f"Update Network Policy and Configuration checkbox is checked - Unchecking")
-                    self.auto_actions.click(config_download_checkbox)
-                else:
-                    self.utils.print_info("Update Network Policy and Configuration checkbox is already unchecked")
-
-                # Check if the Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked
-                checkbox_status = self.device_update.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
-                if checkbox_status == "true":  # If checkbox is selected we get string "true" otherwise we get None
-                    self.utils.print_info(
-                        f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
-                else:
-                    self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-                    self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+                self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+                self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+                sleep(5)
 
                 # Case-1 : This flow is to perform firmware upgrade to a latest version and return the latest version if success else -1
                 if updateTo.lower() == "latest":
+
                     self.utils.print_info("Selecting upgrade to latest version radio button")
                     self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
                     sleep(2)
@@ -9172,24 +9154,10 @@ class Devices:
                     self.utils.print_info("Device Latest Version: ", updateToVersion)
                     sleep(5)
 
-                    # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
-                    forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox_status()
                     if forceDownloadImage.lower() == "true":
-                        if forceDownloadImage_checkbox_status is not None:  # If checkbox is selected we get string "true" otherwise we get None
-                            self.utils.print_info(
-                                f"Perform upgrade if the versions are the same checkbox is already checked")
-                        else:
-                            self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
-                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                    else:
-                        if forceDownloadImage_checkbox_status is not None:
-                            self.utils.print_info(
-                                f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
-                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                        else:
-                            self.utils.print_info(
-                                "Perform upgrade if the versions are the same checkbox is already unchecked")
-                    sleep(2)
+                        self.utils.print_info("Perform upgrade if the versions are the same or upgrading to same version which includes a patch")
+                        self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                        sleep(5)
 
                     if saveDefault.lower() == "true":
                         self.utils.print_info("Selecting Save Default button...")
@@ -9230,7 +9198,6 @@ class Devices:
                     self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
                     sleep(5)
 
-                    # This is needed to get the list from the dropdown box
                     self.utils.print_info("Selecting perform upgrade if the versions are the same")
                     self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
                     sleep(5)
@@ -9245,8 +9212,7 @@ class Devices:
 
                     avilableImagesList = []
                     if update_version_items:
-                        self.utils.print_info(
-                            f"Total number of images found from the drop down list :{len(update_version_items)}")
+                        self.utils.print_info(f"Total number of images found from the drop down list :{len(update_version_items)}")
                         for opt in update_version_items:
                             avilableImagesList.append(opt.text)
                             self.utils.print_info(f"One of the list image is : '{opt.text}'")
@@ -9257,7 +9223,7 @@ class Devices:
                     if avilableImagesList == []:
                         self.utils.print_error("Image list from the drop down is empty!")
                         self.screen.save_screen_shot()
-                        sleep(2)
+                        sleep(5)
                         return -1
 
                     # Case-2.1 : Specific version is passed as an argument e.g version = "8.6.1.0" or "31.6.1.2"
@@ -9270,8 +9236,7 @@ class Devices:
                                 match_count += 1
                                 updateToVersion = opt
                             else:
-                                self.utils.print_info(
-                                    "Version {} doesn't match the image {} from drop down".format(version, opt))
+                                self.utils.print_info("Version {} doesn't match the image {} from drop down".format(version, opt))
 
                         if match_count > 0 and updateToVersion != -1:
                             # If more than one match then last match will be used to upgrade the image
@@ -9279,8 +9244,7 @@ class Devices:
                         else:
                             self.screen.save_screen_shot()
                             sleep(5)
-                            self.utils.print_info(
-                                "Image version {} doesn't match the images from drop down.".format(version))
+                            self.utils.print_info("Image version {} doesn't match the images from drop down.".format(version))
                             return -1
 
                     # Case-2.2 : If there is no version specified but opted to upgrade from specific
@@ -9294,27 +9258,23 @@ class Devices:
                         updateToVersion = avilableImagesList[0]
                         self.utils.print_info("Very first version in the image list {}".format(updateToVersion))
 
-                        # Case-2.4 : Specific version is 'last', last version in the list will be used
+                    # Case-2.4 : Specific version is 'last', last version in the list will be used
                     elif version == 'last':
                         self.utils.print_info("Last image version in the specific version drop down will be selected")
                         updateToVersion = avilableImagesList[-1]
                         self.utils.print_info("Last version in the image list {}".format(updateToVersion))
 
-                        # Case-2.5 : Latest version selected from specific,  e.g version="latest"
+                    # Case-2.5 : Latest version selected from specific,  e.g version="latest"
                     elif version == 'latest' and latest_version != "":
-                        self.utils.print_info(
-                            "Latest version {latest_version} will be selected from the specific version if it is available")
+                        self.utils.print_info("Latest version {latest_version} will be selected from the specific version if it is available")
                         match_count = 0
                         for opt in avilableImagesList:
                             if latest_version in opt:
-                                self.utils.print_info(
-                                    "Latest version {} match the image {} from drop down".format(latest_version, opt))
+                                self.utils.print_info("Latest version {} match the image {} from drop down".format(latest_version, opt))
                                 match_count += 1
                                 updateToVersion = opt
                             else:
-                                self.utils.print_info(
-                                    "Latest version {} doesn't match the image {} from drop down".format(latest_version,
-                                                                                                         opt))
+                                self.utils.print_info("Latest version {} doesn't match the image {} from drop down".format(latest_version, opt))
 
                         if match_count > 0 and updateToVersion != -1:
                             # If more than one match then last match will be used to upgrade the image
@@ -9322,34 +9282,28 @@ class Devices:
                         else:
                             self.screen.save_screen_shot()
                             sleep(5)
-                            self.utils.print_info(
-                                "Image version {} doesn't match the images from drop down.".format(version))
+                            self.utils.print_info("Image version {} doesn't match the images from drop down.".format(version))
                             return -1
 
-                            # Case-2.6 : Specific version from the list but different from current NOS version e.g version = "noncurrent"
+                    # Case-2.6 : Specific version from the list but different from current NOS version e.g version = "noncurrent"
                     elif version == 'noncurrent' and nos_version != "":
-                        self.utils.print_info(
-                            "Specific version from drop down but different from the current NOS version will be selected")
+                        self.utils.print_info("Specific version from drop down but different from current NOS version will be selected")
                         match_count = 0
                         for opt in avilableImagesList:
                             if nos_version not in opt:
-                                self.utils.print_info(
-                                    "Device version {} match the image {} from drop down".format(nos_version, opt))
+                                self.utils.print_info("Device version {} match the image {} from drop down".format(nos_version, opt))
                                 match_count += 1
                                 updateToVersion = opt
                                 break
                             else:
-                                self.utils.print_info(
-                                    "Device version {} match the image {} from drop down".format(nos_version, opt))
+                                self.utils.print_info("Device version {} match the image {} from drop down".format(nos_version, opt))
 
                         if match_count > 0 and updateToVersion != -1:
                             # If more than one match then last match will be used to upgrade the image
                             self.utils.print_info(f"Last successfull match version '{updateToVersion}'")
                         elif match_count == 0:
                             updateToVersion = avilableImagesList[0]
-                            self.utils.print_info(
-                                "First image version in the image list {} is picked since no match found".format(
-                                    updateToVersion))
+                            self.utils.print_info("First image version in the image list {} is picked since no match found".format(updateToVersion))
                         else:
                             self.screen.save_screen_shot()
                             sleep(5)
@@ -9361,25 +9315,10 @@ class Devices:
                         self.utils.print_info(f"Selected update version from drop down :{updateToVersion}")
                         if saveDefault.lower() == "true":
                             self.utils.print_info("Selecting Save Default button...")
-
-                        # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
-                        forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox_status()
-                        if forceDownloadImage.lower() == "true":
-                            if forceDownloadImage_checkbox_status is not None:
-                                self.utils.print_info(
-                                    f"Perform upgrade if the versions are the same checkbox is already checked")
-                            else:
-                                self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
-                                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                        else:
-                            if forceDownloadImage_checkbox_status is not None:
-                                self.utils.print_info(
-                                    f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
-                                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
-                            else:
-                                self.utils.print_info(
-                                    "Perform upgrade if the versions are the same checkbox is already unchecked")
-
+                        if forceDownloadImage.lower() != "true":
+                            self.utils.print_info("Unselecting perform upgrade if the versions are the same.")
+                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                            sleep(5)
                         if performUpgrade.lower() == "true":
                             self.screen.save_screen_shot()
                             self.utils.print_info("Selecting Perform Update button...")
@@ -9435,7 +9374,7 @@ class Devices:
             # Incase close option is selected then will return 1
             if performUpgrade.lower() != "true" and "Firmware Updating" not in device_updated_status:
                 self.utils.print_info("Firmware update is not triggered when clicking the close button...")
-                return 1  # This is where we return the updated status as 1
+                return 1        # This is where we return the updated status as 1
             elif performUpgrade.lower() != "true" and "Firmware Updating" in device_updated_status:
                 self.screen.save_screen_shot()
                 sleep(5)
@@ -9453,8 +9392,7 @@ class Devices:
                     sleep(5)
                     device_row = self.get_device_row(device_mac)
                     device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
-                    self.utils.print_info(
-                        f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
+                    self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
                     if ("Device Update Failed" in device_updated_status) or (count > 300):
                         self.utils.print_error("Firmware Update failed...")
                         self.screen.save_screen_shot()
@@ -9468,8 +9406,7 @@ class Devices:
                     sleep(5)
                     device_row = self.get_device_row(device_mac)
                     device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
-                    self.utils.print_info(
-                        f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
+                    self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
                     if ("Device Update Failed" in device_updated_status) or (count > retry_count):
                         self.utils.print_error("Firmware Update failed...")
                         self.screen.save_screen_shot()
@@ -9487,15 +9424,12 @@ class Devices:
                 device_row = self.get_device_row(device_mac)
                 device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                 self.utils.print_info("Current Device Updated Status : ", device_updated_status)
-                if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (
-                        device_updated_status == "Device Update Failed."):
+                if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
                     count = 0
                     while True:
-                        latest_timestamp = int(
-                            dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
+                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
                         if latest_timestamp > initial_timestamp:
-                            self.utils.print_info(f"Device update is finished by just updating the timestamp to : ",
-                                                  str(dt.datetime.fromtimestamp(latest_timestamp)))
+                            self.utils.print_info(f"Device update is finished by just updating the timestamp to : ", str(dt.datetime.fromtimestamp(latest_timestamp)))
                             self.screen.save_screen_shot()
                             sleep(5)
                             break
@@ -9504,8 +9438,7 @@ class Devices:
                             self.screen.save_screen_shot()
                             sleep(5)
                             return -1
-                        elif ((device_updated_status == "Device Update Failed.") or (
-                        not re.search(r'\d+-\d+-\d+', device_updated_status))) and (count > 60):
+                        elif ((device_updated_status == "Device Update Failed.") or (not re.search(r'\d+-\d+-\d+', device_updated_status))) and (count > 60):
                             device_row = self.get_device_row(device_mac)
                             self.utils.print_error("Device Update Failed due to ", device_updated_status)
                             self.screen.save_screen_shot()
@@ -9531,14 +9464,13 @@ class Devices:
             count = 0
             while True:
                 self.utils.print_info(f"Time elapsed in comparing the firmware version : {count} seconds ...")
-                if str(deviceImageVersion) in str(updateToVersion):
+                if  str(deviceImageVersion) in str(updateToVersion):
                     self.utils.print_info(f"Device firmware successfully updated to version : '{deviceImageVersion}'")
                     self.screen.save_screen_shot()
                     sleep(5)
-                    return deviceImageVersion  # This is where we return the updated status with updated firmware version
+                    return deviceImageVersion                           # This is where we return the updated status with updated firmware version
                 elif (count > 600) and (str(deviceImageVersion) not in str(updateToVersion)):
-                    self.utils.print_error(
-                        f"Firmware Update Failed..., expected version is '{updateToVersion}' but found '{deviceImageVersion}'")
+                    self.utils.print_error(f"Firmware Update Failed..., expected version is '{updateToVersion}' but found '{deviceImageVersion}'")
                     self.screen.save_screen_shot()
                     sleep(5)
                     return -1
