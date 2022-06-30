@@ -25,8 +25,6 @@ from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 
-
-
 class Devices:
     def __init__(self):
         self.utils = Utils()
@@ -37,7 +35,6 @@ class Devices:
         self.switch_web_elements = SwitchWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
-
         self.navigator = Navigator()
         self.device_actions = DeviceActions()
         self.device_update = DeviceUpdate()
