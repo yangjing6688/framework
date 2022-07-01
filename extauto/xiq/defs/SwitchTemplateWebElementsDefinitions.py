@@ -563,7 +563,8 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_check_box_row = \
         {
-            'CSS_SELECTOR': '.dgrid-selector',
+            'XPATH': '//tr//input[@type="checkbox"]',
+            'index': 1,
             'wait_for': 5
         }
 
@@ -572,4 +573,15 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//span[@data-automation-tag="automation-switch-device-templates-speRemove-btn"]',
             'wait_for': 5
         }
-    
+
+    new_sw_template_add_button = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-switch-device-templates-menu-button"]',
+            'wait_for': 5
+        }
+        
+    sw_template_save_btn_bottom = \
+        {
+            'XPATH': "//*[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
+            'wait_for': 5
+        }
