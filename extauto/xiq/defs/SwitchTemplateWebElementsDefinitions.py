@@ -579,6 +579,7 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//span[@data-automation-tag="automation-switch-device-templates-menu-button"]',
             'wait_for': 5
         }
+        
     sw_template_save_btn_bottom = \
         {
             'XPATH': "//*[@class='bottom']//*[@data-dojo-attach-point='saveButton']",

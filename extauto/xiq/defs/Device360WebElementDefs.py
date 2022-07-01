@@ -1828,25 +1828,27 @@ class Device360WebElementDefs:
 
     device360_configure_port_usage_drop_down_options = \
         {
-            'CSS_SELECTOR': '.chzn-results.qa-chzn-results-portusage li',
+            'CSS_SELECTOR': '.active-result',
             'wait_for': 5
         }
 
     device360_configure_port_access_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.portUsageVLANfield.accessVLAN',
+            'CSS_SELECTOR': '.port-type-vlan-value',
             'wait_for': 5
         }
 
     device360_configure_port_trunk_native_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.portUsageVLANfield.trunkNativeVLAN',
+            'CSS_SELECTOR': '.native-vlan',
+            'index': 1,
             'wait_for': 5
         }
 
     device360_configure_port_trunk_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.portUsageVLANfield.trunkAllowedVLAN',
+            'CSS_SELECTOR': '.allowed-vlan',
+            'index': 1,
             'wait_for': 5
         }
 
@@ -2370,6 +2372,7 @@ class Device360WebElementDefs:
             'XPATH': '//input[@data-automation-tag="port-type-editor-lldp-rx"]',
             'wait_for': 5
         }
+
     # page STP
     select_element_port_type_stp_enable= \
         {
@@ -2410,6 +2413,7 @@ class Device360WebElementDefs:
             'XPATH': '//input[@data-automation-tag="port-type-editor-stp-path-cost"]',
             'wait_for': 5
         }
+
     # page Storm
     select_element_port_type_broadcast = \
         {
@@ -2589,6 +2593,7 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+
     select_element_port_type_priority_summary = \
         {
             'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-priority"]',
@@ -2631,6 +2636,7 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+
     select_element_port_type_elrp_status_summary = \
         {
             'XPATH': '//a[@data-automation-tag="port-type-editor-summary-elrp-enabled"]',
@@ -2658,5 +2664,36 @@ class Device360WebElementDefs:
     device_d360_cancel_port_configuration = \
         {
             'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
+        
+    device360_configure_port_usage_drop_down_options_presence = \
+        {
+            'CSS_SELECTOR': '.chzn-single-with-drop',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_stack_units_dropdown = \
+        {
+            'XPATH': '//div[@class="stack-member-chooser"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_stack_units_dropdown_parent_rows = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]//ul[@data-automation-tag="automation-chzn-results-ctn"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    device360_port_configuration_stack_units_rows = \
+        {
+            "CSS_SELECTOR": '.active-result',
+            'wait_for': 5
+        }
+
+    policy_configure_port_rows = \
+        {
+            'XPATH': '//tabset[@data-dojo-attach-point="configuration-ports-tabs"]//portdetails//portentry-row',
             'wait_for': 5
         }

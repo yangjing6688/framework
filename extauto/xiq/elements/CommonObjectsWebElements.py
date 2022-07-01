@@ -521,3 +521,6 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_user_profile_save_button(self):
         return self.weh.get_element(self.user_profile_save_button)
+
+    def get_policy_port_types_confirmation_button(self):
+        return self.weh.get_element(self.policy_port_types_confirmation_button)

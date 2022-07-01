@@ -4234,7 +4234,6 @@ class Devices:
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        # self.utils.print_info(f"Device failed to come ONLINE. Please check.")
         kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
         self.screen.save_screen_shot()
         self.common_validation.validate(-1, 1, **kwargs)

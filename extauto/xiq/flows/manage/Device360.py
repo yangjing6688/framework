@@ -14,6 +14,8 @@ from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElem
 from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
+from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.flows.manage.Tools import Tools
 
 class Device360(Device360WebElements):
     def __init__(self):
@@ -29,6 +31,8 @@ class Device360(Device360WebElements):
         self.wireless_web_elements = WirelessWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
+        self.common_validation = CommonValidation()
+        self.tools = Tools()
 
     def get_system_info(self):
         """
@@ -4261,18 +4265,21 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row), Keys.BACK_SPACE)
                 sleep(2)
                 self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row), trunk_native_vlan)
-                self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),   Keys.TAB)
                 self.screen.save_screen_shot()
                 sleep(4)
 
                 self.utils.print_info("Entering Trunk Allowed Vlan IDs TextField...")
-                self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),   Keys.TAB)
                 sleep(2)
                 element = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
+                self.utils.print_info("Deleting the selected values in Vlan ID textfield..")
+                self.auto_actions.send_keys(element, Keys.CONTROL + "a")
+                self.auto_actions.send_keys(element, Keys.BACK_SPACE)
                 element.send_keys(trunk_vlan_id)
                 self.screen.save_screen_shot()
                 sleep(2)
 
+                self.select_configure_tab()
+                sleep(5)
                 save_btn = self.get_device360_configure_port_save_button()
                 if save_btn:
                     self.utils.print_info("Clicking 'Save Port Configuration' button'")
@@ -5729,6 +5736,7 @@ class Device360(Device360WebElements):
                             self.utils.print_info(" The button d360_create_port_type from policy  was not found")
                             self.screen.save_screen_shot()
                             return -1
+
         else:
             port_conf_content = self.get_device360_port_configuration_content()
             if port_conf_content:
@@ -5768,6 +5776,7 @@ class Device360(Device360WebElements):
             sleep(5)
             close_port_type_box = self.get_close_port_type_box()
             sleep(5)
+
             if close_port_type_box:
                 self.utils.print_info(" The button close_port_type_box from policy  was found")
                 self.auto_actions.click(close_port_type_box)
@@ -6393,4 +6402,431 @@ class Device360(Device360WebElements):
             self.utils.print_info("Exit the port configuration ")
             return 1
         else:
+            return -1
+
+    def device360_configure_ports_trunk_vlan(self, port_numbers="", trunk_native_vlan="", trunk_vlan_id="",
+                                                   port_type="Trunk Port", **kwargs):
+        """
+        - This keyword will configure multiple ports to Port Type: Trunk and assign a vlan value
+        - Assume that already in device360 window
+        - Flow: Configure --> Port Configuration--> interface --> Ports Usage and Vlan Range
+
+        :param device_name: Device Name
+        :param port_number: Port Number of the Switch
+        :param trunk_native_vlan: Trunk Native Vlan Number for switch port
+        :param trunk_vlan_id: The vlan values [Can be any value EX: single , range ]
+        :param  port_type:  Trunk Port
+        :return: 1 if Ports Usage Trunk and Vlan range Successfully configured else -1
+        """
+
+        port_conf_content = self.get_device360_port_configuration_content()
+        if port_conf_content and port_conf_content.is_displayed():
+            for port_number in port_numbers.split(','):
+                port_row = self.device360_get_port_row(port_number)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+                    self.utils.print_info("Click Port Usage drop down")
+                    drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
+                    self.auto_actions.click(drop_down_button)
+                    if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
+                        pass
+                    else:
+                        self.auto_actions.click(drop_down_button)
+                    self.utils.print_info("Selecting Port Usage")
+                    self.auto_actions.select_drop_down_options(
+                        self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
+                    self.utils.print_info("Entering Trunk Native Vlan TextField...")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
+                                                Keys.CONTROL + "a")
+                    self.utils.print_info("Deleting the selected values in port..")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
+                                                Keys.BACK_SPACE)
+                    self.utils.print_info("Entering Trunk Native Vlan in TextField...")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
+                                                trunk_native_vlan)
+                    self.utils.print_info("Entering Trunk Allowed Vlan IDs TextField...")
+                    self.utils.print_info("Deleting the selected values in port trunk textfield..")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_trunk_vlan_textfield(port_row),
+                                                Keys.CONTROL + "a")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_trunk_vlan_textfield(port_row),
+                                                Keys.BACK_SPACE)
+                    self.auto_actions.send_keys(self.get_device360_configure_port_trunk_vlan_textfield(port_row),
+                                                trunk_vlan_id)
+                else:
+                    self.utils.print_info(f"Port Row Not Found")
+                    self.utils.print_info("Close Dialogue Window")
+                    self.auto_actions.click(self.get_close_dialog())
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "Port Row Not Found"
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
+            self.select_configure_tab()
+            save_btn = self.get_device360_configure_port_save_button()
+            if save_btn:
+                self.utils.print_info("Clicking 'Save Port Configuration' button'")
+                self.auto_actions.click(save_btn)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Close Dialogue Window")
+                self.auto_actions.click(self.get_close_dialog())
+                kwargs['pass_msg'] = "Switch Port Configuration Saved"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+                # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
+
+                # def check_for_confirmation():
+                #     #tool_tip_text = tool_tip.tool_tip_text
+                #     tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
+                #
+                #     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                #     if tool_tip_text:
+                #         return 'Switch Port Configuration Saved' in tool_tip_text
+                #     else:
+                #         return False
+                #
+                # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # self.utils.print_info("Close Dialogue Window")
+                # self.auto_actions.click(self.get_close_dialog())
+                # if confirmation_message:
+                #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
+                #     self.common_validation.validate(1, 1, **kwargs)
+                #     return 1
+                # else:
+                #     kwargs['fail_msg'] = "Confirmation message not found."
+                #     self.screen.save_screen_shot()
+                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     return -1
+        else:
+            self.utils.print_info("Port Configuration Page Content not available in the Page")
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+    def device360_configure_ports_trunk_stack(self, port_numbers="", trunk_native_vlan="", trunk_vlan_id="", slot = "",
+                                              port_type="Trunk Port", **kwargs):
+        """
+        - This keyword will configure multiple ports to Port Type: Trunk and assign a vlan value for a slot
+        - Flow: Device 360 Window --> Configure --> Port Configuration--> interface --> Ports Usage and Vlan Range
+        :param device_mac: Device Mac Address
+        :param device_name: Device Name
+        :param port_number: Port Number of the Switch
+        :param trunk_native_vlan: Trunk Native Vlan Number for switch port
+        :param trunk_vlan_id: The vlan values [Can be any value EX: single , range ]
+        :param port_type:  Trunk Port
+        :param slot: The current slot of the stack
+        :return: 1 if Ports Usage Trunk and Vlan range Successfully configured else -1
+        """
+        port_conf_content = self.get_device360_port_configuration_content()
+        if port_conf_content and port_conf_content.is_displayed():
+            for port_number in port_numbers.split(','):
+                port_row = self.device360_get_port_row(str(slot) + ':' + port_number)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+                    self.utils.print_info("Click Port Usage drop down")
+                    drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
+                    self.auto_actions.click(drop_down_button)
+                    if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
+                        pass
+                    else:
+                        self.auto_actions.click(drop_down_button)
+
+                    self.auto_actions.select_drop_down_options(
+                        self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
+                    self.utils.print_info("Entering Trunk Native Vlan TextField...")
+                    self.auto_actions.send_keys(
+                        self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
+                        Keys.CONTROL + "a")
+                    self.utils.print_info("Deleting the selected values in port..")
+                    self.auto_actions.send_keys(
+                        self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
+                        Keys.BACK_SPACE)
+                    self.utils.print_info(f"Inserting native vlan value: {trunk_native_vlan} ...")
+                    self.auto_actions.send_keys(
+                        self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
+                        trunk_native_vlan)
+                    self.utils.print_info("Selecting the actual allowed vlans values...")
+                    self.auto_actions.send_keys(
+                        self.get_device360_configure_port_trunk_vlan_textfield(port_row),
+                        Keys.CONTROL + "a")
+                    self.utils.print_info("Deleting the actual allowed vlans values...")
+                    self.auto_actions.send_keys(
+                        self.get_device360_configure_port_trunk_vlan_textfield(port_row),
+                        Keys.BACK_SPACE)
+                    self.utils.print_info("Entering allowed vlans values in allowed vlans textfield...")
+                    element = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
+                    element.send_keys(trunk_vlan_id)
+                else:
+                    self.utils.print_info(f"Port Row Not Found")
+                    self.utils.print_info("Close Dialogue Window")
+                    self.auto_actions.click(self.get_close_dialog())
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "Port Row was not found"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+            self.select_configure_tab()
+            save_btn = self.get_device360_configure_port_save_button()
+            if save_btn:
+                self.utils.print_info("Clicking 'Save Port Configuration' button'")
+                self.auto_actions.click(save_btn)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Close Dialogue Window")
+                self.auto_actions.click(self.get_close_dialog())
+                kwargs['pass_msg'] = "Stack Port Configuration Saved"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+                # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
+                # def check_for_confirmation():
+                #     tool_tip_text = tool_tip.tool_tip_text
+                #     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                #     if tool_tip_text:
+                #         return 'Stack Port Configuration Saved' in tool_tip_text
+                #
+                # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # if confirmation_message:
+                #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
+                #     self.common_validation.validate(1, 1, **kwargs)
+                #     return 1
+                # else:
+                #     kwargs['fail_msg'] = "Confirmation message not found."
+                #     self.screen.save_screen_shot()
+                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     return -1
+        else:
+            self.utils.print_info(f"Port Configuration Page Content not available in the Page")
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+    def device360_configure_ports_access_vlan(self, device_mac="", device_name="", port_numbers="", access_vlan_id="",
+                                              port_type="Access Port", **kwargs):
+        """
+        - This keyword will configure multiple ports to the port type "Access Port"
+        - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> interface -->
+                Ports Usage and Vlan
+
+        :param device_mac: Device Mac Address
+        :param device_name: Device Name
+        :param port_numbers: Port Numbers of the Switch [written as: "1,2,3..."]
+        :param access_vlan_id: Access Vlan Number for switch port
+        :param  port_type:  Access Port
+        :return: 1 if Ports Usage Access and Vlan Successfully configured else -1
+        """
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+
+        self.utils.print_info("Click Configure Button")
+        if not self.get_device360_configure_button().is_selected():
+            self.auto_actions.click(self.get_device360_configure_button())
+
+        self.utils.print_info("Click Port Configuration Button")
+        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        port_conf_content = self.get_device360_port_configuration_content()
+        if port_conf_content and port_conf_content.is_displayed():
+            for port_number in port_numbers.split(','):
+                port_row = self.device360_get_port_row(port_number)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+                    self.utils.print_info("click Port Usage drop down")
+                    drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
+                    self.auto_actions.click(drop_down_button)
+                    if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
+                        pass
+                    else:
+                        self.auto_actions.click(drop_down_button)
+
+                    self.utils.print_info("Selecting Port Usage")
+                    self.auto_actions.select_drop_down_options(
+                        self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
+                    self.utils.print_info("Entering Search String...")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
+                                                Keys.CONTROL + "a")
+                    self.utils.print_info("Deleting the selected values in port..")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
+                                                Keys.BACK_SPACE)
+                    self.utils.print_info("Inserting the access vlan id..")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
+                                                access_vlan_id)
+                    self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info("Port Row Not Found")
+                    self.utils.print_info("Close Dialogue Window")
+                    self.auto_actions.click(self.get_close_dialog())
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "Port Row was not found"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+            self.select_configure_tab()
+            save_btn = self.get_device360_configure_port_save_button()
+            if save_btn:
+                self.utils.print_info("Clicking 'Save Port Configuration' button'")
+                self.auto_actions.click(save_btn)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Close Dialogue Window")
+                self.auto_actions.click(self.get_close_dialog())
+                kwargs['pass_msg'] = "Switch Port Configuration Saved"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+                # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
+                # def check_for_confirmation():
+                #     tool_tip_text = tool_tip.tool_tip_text
+                #     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                #     if tool_tip_text:
+                #         return 'Switch Port Configuration Saved' in tool_tip_text
+                #     else:
+                #         return False
+                #
+                # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # if confirmation_message:
+                #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
+                #     self.common_validation.validate(1, 1, **kwargs)
+                #     return 1
+                # else:
+                #     kwargs['fail_msg'] = "Confirmation message not found."
+                #     self.screen.save_screen_shot()
+                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     return -1
+        else:
+            self.utils.print_info("Port Configuration Page Content not available in the Page")
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+    def device360_configure_ports_access_vlan_stack(self, port_numbers="", access_vlan_id="1", slot="",
+                                                    port_type="Access Port", **kwargs):
+        """
+        - This keyword will configure multiple ports to the port type "Access Port"
+        - Assume that already in Device 360 Window
+        - Flow: Configure --> Port Configuration--> interface --> Ports Usage and Vlan
+
+        :param device_mac: Device Mac Address
+        :param device_name: Device Name
+        :param port_numbers: Port Numbers of the Switch [written as: "1,2,3..."]
+        :param access_vlan_id: Access Vlan Number for switch port
+        :param port_type:  Access Port
+        :param slot: The slot of the stack
+        :return: 1 if Ports Usage Access and Vlan Successfully configured else -1
+        """
+        self.utils.print_info("Click Configure Button")
+        if not self.get_device360_configure_button().is_selected():
+            self.auto_actions.click(self.get_device360_configure_button())
+        self.utils.print_info("Click Port Configuration Button")
+        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        port_conf_content = self.get_device360_port_configuration_content()
+        if port_conf_content and port_conf_content.is_displayed():
+            for port_number in port_numbers.split(','):
+                port_row = self.device360_get_port_row(str(slot) + ':' + port_number)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+                    self.utils.print_info("Click Port Usage drop down")
+                    drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
+                    self.auto_actions.click(drop_down_button)
+                    if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
+                        pass
+                    else:
+                        self.auto_actions.click(drop_down_button)
+                    self.auto_actions.select_drop_down_options(
+                        self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
+                    self.utils.print_info("Entering Search String...")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
+                                                Keys.CONTROL + "a")
+                    self.utils.print_info("Deleting the selected values in port..")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
+                                                Keys.BACK_SPACE)
+                    self.utils.print_info("Inserting the access vlan id..")
+                    self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row),
+                                                access_vlan_id)
+                    self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info(f"Port Row Not Found")
+                    self.utils.print_info("Close Dialogue Window")
+                    self.auto_actions.click(self.get_close_dialog())
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "Port Row was not found"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+            self.select_configure_tab()
+            save_btn = self.get_device360_configure_port_save_button()
+            if save_btn:
+                self.utils.print_info("Clicking 'Save Port Configuration' button'")
+                self.auto_actions.click(save_btn)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Close Dialogue Window")
+                self.auto_actions.click(self.get_close_dialog())
+                kwargs['pass_msg'] = "Stack Port Configuration Saved"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+                # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
+                # def check_for_confirmation():
+                #     tool_tip_text = tool_tip.tool_tip_text
+                #     self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                #     if tool_tip_text:
+                #         return 'Stack Port Configuration Saved' in tool_tip_text
+                #     else:
+                #         return False
+                #
+                # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # if confirmation_message:
+                #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
+                #     self.common_validation.validate(1, 1, **kwargs)
+                #     return 1
+                # else:
+                #     kwargs['fail_msg'] = "Confirmation message not found."
+                #     self.screen.save_screen_shot()
+                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     return -1
+        else:
+            self.utils.print_info(f"Port Configuration Page Content not available in the Page")
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+    def select_stack_unit(self, slot, **kwargs):
+        self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
+        self.utils.print_info("Gather the list of the devices in the stack")
+        slot_index = 1
+        slot_found = False
+        complete_stack = self.dev360.get_device360_port_configuration_stack_units_dropdown_parent_rows()
+        if complete_stack:
+            slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows(complete_stack)
+            for stack_item in slots_in_stack:
+                if slot_index == int(slot):
+                    self.utils.print_info(f"Slot {str(slot)} found in the stack, selecting the slot")
+                    self.auto_actions.click(stack_item)
+                    slot_found = True
+                    kwargs['pass_msg'] = f"Selected the slot {str(slot)} successfully"
+                    self.common_validation.validate(1, 1, **kwargs)
+                    return 1
+                slot_index = slot_index + 1
+            if not slot_found:
+                self.utils.print_info(f"Unable to locate slot {str(slot)}")
+                kwargs['fail_msg'] = f"Unable to locate slot {str(slot)}"
+                self.screen.save_screen_shot()
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+        else:
+            self.utils.print_info("Unable to gather the list of the slots for the stack")
+            kwargs['fail_msg'] = "Unable to gather the list of the slots for the stack"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
