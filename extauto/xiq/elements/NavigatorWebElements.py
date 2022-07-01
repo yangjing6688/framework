@@ -39,6 +39,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_devices_nav(self):
         return self.weh.get_element(self.device_nav)
 
+    def get_devices_page(self):
+        return self.weh.get_element(self.devices_page)
+
     def get_ssid_option(self):
         return self.weh.get_element(self.common_objects_ssids)
 

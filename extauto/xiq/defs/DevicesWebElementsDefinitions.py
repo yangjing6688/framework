@@ -505,10 +505,45 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
-    ap_configure_button = \
+    device_level_configure_tab = \
         {
             'XPATH': '//*[@data-dojo-attach-point="configureViewSelect"]',
             'wait_for': 5
+        }
+
+    device_level_configure_interface_settings = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-interface-settings"]',
+            'wait_for': 10
+        }
+    device_level_configure_interface_settings_wireless_toggle = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="wirelessToggle"] //*[@class="header-toggle-caret"]',
+            'wait_for': 2
+        }
+
+    device_level_configure_interface_settings_wifi0_ssid = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="wifi0_SsidArea"] //*[@name="SsidBroadcastName"]',
+            'wait_for': 2
+        }
+
+    device_level_configure_interface_settings_wifi1_ssid = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="wifi1_SsidArea"] //*[@name="SsidBroadcastName"]',
+            'wait_for': 2
+        }
+
+    device_level_page_refresh = \
+        {
+            'CSS_SELECTOR': '.entity-page-actions .ui-fresh-icon',
+            'wait_for': 3
+        }
+
+    device_level_page_close_icon = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 2
         }
 
     ap_device_config_tab = \

@@ -284,6 +284,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 10
         }
 
+    devices_page = \
+        {
+            'CSS_SELECTOR': '.device-list-area',
+            'wait_for': 5
+        }
+
     common_objects_ssids = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-ssidManage"]',
