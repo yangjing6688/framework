@@ -6483,7 +6483,7 @@ class Device360(Device360WebElements):
                 #     else:
                 #         return False
                 #
-                # confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # self.utils.print_info("Close Dialogue Window")
                 # self.auto_actions.click(self.get_close_dialog())
                 # if confirmation_message:
@@ -6583,7 +6583,7 @@ class Device360(Device360WebElements):
                 #     if tool_tip_text:
                 #         return 'Stack Port Configuration Saved' in tool_tip_text
                 #
-                # confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
                 #     self.common_validation.validate(1, 1, **kwargs)
@@ -6690,7 +6690,7 @@ class Device360(Device360WebElements):
                 #     else:
                 #         return False
                 #
-                # confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
                 #     self.common_validation.validate(1, 1, **kwargs)
@@ -6782,7 +6782,7 @@ class Device360(Device360WebElements):
                 #     else:
                 #         return False
                 #
-                # confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
                 #     self.common_validation.validate(1, 1, **kwargs)

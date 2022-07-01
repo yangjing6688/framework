@@ -1720,7 +1720,7 @@ class SwitchTemplate(object):
                                         else:
                                             return False
 
-                                    confirmation_message_trunk = self.tools.wait_till(check_for_confirmation_trunk,
+                                    confirmation_message_trunk = self.utils.wait_till(check_for_confirmation_trunk,
                                                                                       is_logging_enabled=True)[0]
                                     if confirmation_message_trunk:
                                         self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to the "
@@ -1755,7 +1755,7 @@ class SwitchTemplate(object):
                                         else:
                                             return False
 
-                                    confirmation_message = self.tools.wait_till(check_for_confirmation,
+                                    confirmation_message = self.utils.wait_till(check_for_confirmation,
                                                                                 is_logging_enabled=True)[0]
                                     if confirmation_message:
                                         rc = 1
@@ -1919,7 +1919,7 @@ class SwitchTemplate(object):
                             self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
                             return "Template was successfully removed from policy." in tool_tip_text
 
-                        confirmation_message = self.tools.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                        confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                         if confirmation_message:
                             rc = 1
                             self.utils.print_info("Template was successfully removed from policy.")
