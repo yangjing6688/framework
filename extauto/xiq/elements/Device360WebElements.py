@@ -1541,7 +1541,8 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device_d360_cancel_port_configuration(self):
         return self.weh.get_element(self.device_d360_cancel_port_configuration)
-        def get_device360_configure_port_usage_drop_down_options_presence(self, row):
+
+    def get_device360_configure_port_usage_drop_down_options_presence(self, row):
         return self.weh.get_element(self.device360_configure_port_usage_drop_down_options_presence, parent=row)
 
     def get_device360_port_configuration_stack_units_dropdown(self):
