@@ -1021,6 +1021,8 @@ class Devices:
         """
 
         self.navigator.navigate_to_devices()
+        if self.devices_web_elements.get_devices_drawer_open():
+            self.auto_actions.click(self.devices_web_elements.get_devices_drawer_trigger())
 
         try:
 
@@ -9746,15 +9748,10 @@ class Devices:
         wifi0_1_lists = {}
         if self.navigate_to_device_configure(ap_name) == 1:
             self.auto_actions.click(self.devices_web_elements.get_device_configure_interface_settings())
-            i = 1
             while not self.devices_web_elements.get_device_configure_interface_settings_wireless_toggle():
-                self.utils.print_info("Wireless Interfaces toggle is NOT loading successfully, click refresh to wait for loaded successfully...")
+                self.utils.print_info("Wireless Interfaces toggle is NOT shown, click to refresh page ...")
                 self.auto_actions.click(self.devices_web_elements.get_device_level_page_refresh())
-                i += 1
-                self.utils.print_info(f"Try to refresh {i} times, wireless toggle is still NOT loadded successfully, return -1, and please check your test environment...")
-                # if i > 10:
-                #     self.utils.print_info(f"Try to refresh {i} times, wireless toggle is still NOT loadded successfully, return -1, and please check your test environment...")
-                #     return -1
+                self.utils.print_info("Wireless toggle is still NOT loaded successfully, try to refresh...")
             wifi0_ssids_list = []
             wifi0_ssid_rows = self.devices_web_elements.get_device_configure_interface_settings_wifi0_ssid()
             if wifi0_ssid_rows:

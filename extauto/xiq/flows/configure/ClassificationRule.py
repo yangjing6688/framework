@@ -327,6 +327,7 @@ class ClassificationRule(object):
          :param name: Name of the Classification Rule
          :return: 1 if created else return -1
          """
+        self.navigator.navigate_to_classification_rule()
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")

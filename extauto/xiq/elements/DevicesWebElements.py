@@ -115,6 +115,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.devices_add_devices_button)
 
+    def get_devices_drawer_open(self):
+        return self.weh.get_element(self.devices_drawer_open)
+
+    def get_devices_drawer_trigger(self):
+        return self.weh.get_element(self.devices_drawer_trigger)
+
     def get_delete_button(self):
         """
         :return: device delete button
