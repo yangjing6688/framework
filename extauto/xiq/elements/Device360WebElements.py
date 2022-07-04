@@ -1652,6 +1652,14 @@ class Device360WebElements(Device360WebElementDefs):
         return results
 
     def get_device360_port_table_rows(self):
+        scroll = self.get_device360_ports_table_scroll()
+        if scroll:
+            from common.AutoActions import AutoActions
+            from selenium.webdriver.common.keys import Keys
+            auto_actions = AutoActions()
+            auto_actions.click(scroll)
+            for _ in range(10):
+                auto_actions.scroll_down()
         return self.weh.get_elements(self.device360_ports_table_rows)
 
     def get_device360_ports_table_pagination_sizes(self):
@@ -1687,5 +1695,8 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_pagination_current_page(self):
         return self.weh.get_element(self.d360_pagination_current_page)
 
-    def get_device360_ah_icon(self,index):
+    def get_device360_ah_icon(self, index):
         return self.weh.get_template_element(self.device360_ah_icons, index=index)
+
+    def get_device360_ports_table_scroll(self):
+        return self.weh.get_element(self.device360_ports_table_scroll)

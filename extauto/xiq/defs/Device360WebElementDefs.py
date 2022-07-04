@@ -2852,3 +2852,9 @@ class Device360WebElementDefs:
             "XPATH": '//li/div[contains(@class,"AH-ports-icons")][@data-index="${index}"]',
             'wait_for': 5
         }
+
+    device360_ports_table_scroll = \
+        {
+            "XPATH": "//div[@data-automation-tag='automation-port-list-grid']//div[@class='dgrid-scroller']",
+            'wait_for': 5
+        }
