@@ -84,6 +84,9 @@ class PytestConfigHelper():
             self.dut1_name = config['netelem1']['name']
             self.dut1_username = config['netelem1']['username']
             self.dut1_password = config['netelem1']['password']
+            self.dut1_connection_method = config['netelem1']['connection_method']
+            self.dut1_ip = config['netelem1']['ip']
+            self.dut1_port = config['netelem1']['port']
             self.dut1_console_ip = config['netelem1']['console_ip']
             self.dut1_console_port = config['netelem1']['console_port']
             self.dut1_serial = config['netelem1']['serial']
@@ -91,10 +94,11 @@ class PytestConfigHelper():
             self.node_count += 1
             self.dut1_os = config['netelem1']['cli_type']
             self.dut1_platform = config['netelem1']['platform']
-            self.dut1_make = config['netelem1']['make']
             self.dut1_model = config['netelem1']['model']
+            self.dut1_make = config['netelem1']['make']
             self.dut1_location1 = config['netelem1']['location']['location1']
             self.dut1_location2 = config['netelem1']['location']['location2']
+
             self.dut_list.append('dut1')
         except:
             pass
