@@ -9756,7 +9756,7 @@ class Devices:
             wifi0_ssid_rows = self.devices_web_elements.get_device_configure_interface_settings_wifi0_ssid()
             if wifi0_ssid_rows:
                 for wifi0_ssid_row in wifi0_ssid_rows:
-                    wifi0_ssids_list.append(wifi0_ssid_row.get_dom_attribute('value'))
+                    wifi0_ssids_list.append(wifi0_ssid_row.get_attribute('value'))
                 wifi0_1_lists['wifi0'] = wifi0_ssids_list
             else:
                 self.utils.print_info("No WiFi0 SSID row found, set wifi0_1lists as empty...")
@@ -9766,7 +9766,7 @@ class Devices:
             wifi1_ssid_rows = self.devices_web_elements.get_device_configure_interface_settings_wifi1_ssid()
             if wifi1_ssid_rows:
                 for wifi1_ssid_row in wifi1_ssid_rows:
-                    wifi1_ssids_list.append(wifi1_ssid_row.get_dom_attribute('value'))
+                    wifi1_ssids_list.append(wifi1_ssid_row.get_attribute('value'))
                 wifi0_1_lists['wifi1'] = wifi1_ssids_list
             else:
                 self.utils.print_info("No WiFi1 SSID row found, set wifi0_1lists as empty...")

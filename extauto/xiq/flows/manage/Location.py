@@ -484,6 +484,9 @@ class Location:
             self.utils.print_info("Button not found")
             return -1
         sleep(3)
+        if self.devices_web_elements.get_devices_drawer_open():
+            self.auto_actions.click(self.devices_web_elements.get_devices_drawer_trigger())
+
         if self.ml_insights_plan_web_elements.get_create_new_map_btn():
             self.auto_actions.click(self.ml_insights_plan_web_elements.get_create_new_map_btn())
             self.utils.print_info("New map button found")
