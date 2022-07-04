@@ -75,7 +75,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_row_cells = \
         {
-            'CSS_SELECTOR': '.dgrid-cell',
+            'CSS_SELECTOR': '.J-tmplName',
             'wait_for': 5
         }
 
@@ -352,8 +352,7 @@ class SwitchTemplateWebElementDefinitions:
 
     switch_temp_save_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
-            'index': 4,
+            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -485,7 +484,7 @@ class SwitchTemplateWebElementDefinitions:
 
     existing_port_type = \
         {
-            'XPATH': '//a[@data-automation-tag="automation-switch-template-choose-existing"]',
+            'XPATH': '//a[@data-automation-tag="automation-switch-template-chooseexisting"]',
             'wait_for': 2
         }
 
@@ -553,4 +552,36 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': '//div[@data-dojo-attach-point="detail-mgtd-vlan"]//input[@data-dojo-attach-point="mgtVlan"]',
             'wait_for': 2
+        }
+
+    sw_template_assign_choose_existing_trunk_choice_second_dialog_box = \
+        {
+            'XPATH': '//div[@class="ui-dialog-content"]',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    sw_template_check_box_row = \
+        {
+            'XPATH': '//tr//input[@type="checkbox"]',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    sw_template_delete_button = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-switch-device-templates-speRemove-btn"]',
+            'wait_for': 5
+        }
+
+    new_sw_template_add_button = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-switch-device-templates-menu-button"]',
+            'wait_for': 5
+        }
+        
+    sw_template_save_btn_bottom = \
+        {
+            'XPATH': "//*[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
+            'wait_for': 5
         }

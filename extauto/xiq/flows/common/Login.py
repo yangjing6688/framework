@@ -5,7 +5,6 @@ import random
 from io import StringIO
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
-from robot.libraries.String import String
 
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
@@ -33,7 +32,6 @@ class Login:
         self.nav_web_elements = NavigatorWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        self.string = String()
         pass
 
     def _init(self, url="default", incognito_mode="False"):
@@ -1417,7 +1415,7 @@ class Login:
                 self.utils.print_info("Found dropdown options!")
                 sleep(2)
                 pattern1 = "(\\w+)."
-                gdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+                gdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
                 self.utils.print_info("RDC is : ", gdc[0])
                 flag = False
                 for option in data_center_dropdown_options:
@@ -1576,7 +1574,7 @@ class Login:
         '''
 
         pattern1 = "(\\w+)r\\d+."
-        gdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
+        gdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
         self.utils.print_info("GDC is : ", gdc[0])
         if isinstance(gdc,list):
             if isinstance(gdc[0],str):
