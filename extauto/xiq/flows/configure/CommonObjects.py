@@ -546,11 +546,19 @@ class CommonObjects(object):
         sleep(2)
 
         if not self._search_common_object(port_type_name):
-            self.utils.print_info("Port Type Profile Name does't exists in the list")
+            self.utils.print_info("Port Type Profile Name does't exists in the list",port_type_name)
             return 1
 
         self.utils.print_info("Select and delete Port Type Profile row")
         self._select_delete_common_object(port_type_name)
+        self.utils.print_info("Clicking 'YES' button...")
+        confirmation_button = self.cobj_web_elements.get_policy_port_types_confirmation_button()
+        if confirmation_button:
+            self.utils.print_info("Found 'YES' button.")
+            self.auto_actions.click(confirmation_button)
+        else:
+            self.utils.print_info("Did not find the confirmation button!")
+            return -1
 
         sleep(5)
         tool_tp_text = tool_tip.tool_tip_text

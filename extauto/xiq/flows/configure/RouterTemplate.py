@@ -555,7 +555,7 @@ class RouterTemplate(RouterTemplateWebElements):
         else:
             self.utils.print_info("default Router Template :{} doesn't exist, create it..".format(template_name))
             self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
-            return False
+            return True
 
     def configure_advanced_subnetwork_section(self, **advance_config):
         """
