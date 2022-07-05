@@ -209,7 +209,8 @@ try:
     from extauto.xiq.flows.mlinsights.Network360Monitor import Network360Monitor
     from extauto.xiq.flows.mlinsights.Network360Plan import Network360Plan
     from extauto.xiq.flows.mlinsights.Network360ScoreCard import Network360ScoreCard
-    from extauto.xiq.flows.manage.Tools import Tools
+    from extauto.common.Utils import Utils
+
 except Exception as e:
     Logger().log_warn("Unable to load the XIQ libraries!")
     Logger().log_error(e)
@@ -241,6 +242,7 @@ class XiqLibrary():
         self.WindowsMU = WindowsMU()
         self.WingAP = WingAP()
         self.Xapi = Xapi()
+        self.Utils = Utils()
 
         self.xflowsmanageFilterManageDevices = FilterManageDevices()
         self.xflowsAirDefenceAirDefenceAlarms = AirDefenceAlarms()
@@ -286,11 +288,9 @@ class XiqLibrary():
         self.xflowsmanageEvents = Events()
         self.xflowsmanageReports = Reports()
         self.xflowsmanageSwitch = Switch()
-        self.xflowsmanageTools = Tools()
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
-        self.xflowsmanageTools = Tools()
 
     @deprecated("Please use self.xiq.login.login_user(...)")
     def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default", incognito_mode="False", **kwargs):
