@@ -342,6 +342,42 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
+    def check_location_assigned_to_ap_in_xloc(self, device_hostname, dev_location):
+        """
+        - This Keyword Will check new location assigned to AP in XLOC AP Page
+        - Flow: Extreme Location--> More Insights--> AP page--> New location assgined to AP
+        - Keyword Usage:
+         - ``Check Location Assigned to AP in XLOC     ${AP1_SERIAL}       ${NEW_LOCATION}``
+        :param device_hostname: hostname of access point
+        :param dev_location: location hierarchy in terms of location, building, floor
+        :return: 1 if edited location is successfully seen in ADSP Sensor page else -1
+        """
+
+        self.go_to_extreme_location_access_points_menu()
+
+        self.utils.print_info("Clicking search button on XLOC AP page")
+        self.auto_actions.click(self.get_search_xloc_ap_page())
+
+        self.utils.print_info("Seraching ap hostname in XLOC APp page")
+        self.auto_actions.send_keys(self.get_host_to_xloc_ap_page(), device_hostname)
+
+        location_list = dev_location.split(',')
+        location_list_floor = location_list[-1]
+        location_list_building = location_list[-2]
+        observed_building = self.get_device_building_from_xloc().text
+        observed_floor = self.get_device_floor_from_xloc().text
+        self.utils.print_info("Expected building string: ", location_list_building)
+        self.utils.print_info("Device location from XLOC AP page: ", observed_building)
+        self.utils.print_info("Expected floor string: ", location_list_floor)
+        self.utils.print_info("Device Floor from XLOC AP page: ", observed_floor)
+
+        if location_list_building.strip() in observed_building and location_list_floor.strip() in observed_floor:
+            self.utils.print_info("Edited/Assigned Location is successfully seen in XLOC AP page")
+            return 1
+        else:
+            self.utils.print_info("Edited/Assigned Location cannot be seen in XLOC AP page")
+            return -1
+
     def get_client_information_in_extreme_location_devices_page(self, client_mac=None, site_name=None, retry_duration=30, retry_count=5):
         """
         - get client information in extreme location devices page

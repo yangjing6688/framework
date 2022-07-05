@@ -32,6 +32,18 @@ class CopilotDefs:
             'wait_for': 5
         }
 
+    wifi_capacity_widget_location_ap_status_info_pin_column = \
+        {
+            'CSS_SELECTOR': '.as-ah-fo-column',
+            'wait_for': 5
+        }
+
+    wifi_capacity_widget_location_ap_info_icon = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-info-icon',
+            'wait_for': 5
+        }
+
     wifi_capacity_widget_location_grid_pin_rows = \
         {
             'XPATH': '//*[@class="wifi-capacity-widget"]//*[contains(@class, "list-item ng-star-inserted")]'
@@ -42,6 +54,12 @@ class CopilotDefs:
     wifi_capacity_widget_location_pin_button = \
         {
             'CSS_SELECTOR':'.material-icons.nui-auto-copilot-wifi-capacity-summary-pin',
+            'wait_for': 5
+        }
+
+    tooltip_content = \
+        {
+            'XPATH': '//div[@class="tooltip-inner"]',
             'wait_for': 5
         }
 
@@ -149,7 +167,19 @@ class CopilotDefs:
             'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-close-btn',
             'wait_for': 5
         }
-    
+
+    wifi_capacity_widget_location_ap_like = \
+        {
+            'XPATH': '//span[text()="thumb_up"]',
+            'wait_for': 5
+        }
+
+    wifi_capacity_widget_location_ap_like_tooltip = \
+        {
+            'TAG_NAME': 'simple-snack-bar',
+            'wait_for': 5
+        }
+
     anomalies_view_all_btn = \
         {
             'XPATH': '//*[@data-dojo-attach-point="activeAlarmLink"]',
@@ -912,11 +942,16 @@ class CopilotDefs:
     wifi_capacity_widget_location_ap_like_tooltip = \
         {
             'TAG_NAME': 'simple-snack-bar',
-            'wait_for': 10
+            'wait_for': 20
         }
 
     wifi_capacity_widget_location_ap_dislike_button_enabled_status = \
         {
             'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-downvote.material-icons.vote-thumb-down.user-vote',
             'wait_for': 10
+        }
+
+    wifi_capacity_widget_location_ap_overall_discription = \
+        {
+            'CSS_SELECTOR': '.as-list-item-body'
         }
