@@ -19,7 +19,7 @@ class ExtremeGuestWebElementsDefs:
 
     extreme_guest_subscription_page_open_ssid_checkbox = \
         {
-            'XPATH': '//div[contains(@class, "choose-guest-policies-view")]//*[contains(@class, "dgrid-column-0")]',
+            'XPATH': '(//input[contains(@type, "checkbox")])[2]',
             'wait_for': 5
         }
 

@@ -32,18 +32,6 @@ class CopilotDefs:
             'wait_for': 5
         }
 
-    wifi_capacity_widget_location_ap_status_info_pin_column = \
-        {
-            'CSS_SELECTOR': '.as-ah-fo-column',
-            'wait_for': 5
-        }
-
-    wifi_capacity_widget_location_ap_info_icon = \
-        {
-            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-info-icon',
-            'wait_for': 5
-        }
-
     wifi_capacity_widget_location_grid_pin_rows = \
         {
             'XPATH': '//*[@class="wifi-capacity-widget"]//*[contains(@class, "list-item ng-star-inserted")]'
@@ -54,12 +42,6 @@ class CopilotDefs:
     wifi_capacity_widget_location_pin_button = \
         {
             'CSS_SELECTOR':'.material-icons.nui-auto-copilot-wifi-capacity-summary-pin',
-            'wait_for': 5
-        }
-
-    tooltip_content = \
-        {
-            'XPATH': '//div[@class="tooltip-inner"]',
             'wait_for': 5
         }
 

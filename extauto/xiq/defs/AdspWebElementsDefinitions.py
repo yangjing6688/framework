@@ -169,11 +169,6 @@ class AdspWebElementsDefinitions:
             'CSS_SELECTOR': '.summary-refresh-btn',
             'wait_for': 5
         }
-    adsp_alarm_refresh_button = \
-        {
-            'CSS_SELECTOR': '.alarm-refresh-btn',
-            'wait_for': 5
-        }
 
     adsp_settings_button = \
         {

@@ -123,11 +123,7 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    device_ap_template_items = \
-        {
-            'XPATH': '//div[@class="ui-menu-filter-list"]//*[@class="ui-menu-list"]//*[@class="ui-menu-item"]',
-            'wait_for': 5
-        }
+    device_ap_template_items = {'CSS_SELECTOR': '.ui-menu-item', 'wait_for': 5}
 
     device_template_grid_rows = {'CSS_SELECTOR': '.dgrid-row', 'wait_for': 5}
 
