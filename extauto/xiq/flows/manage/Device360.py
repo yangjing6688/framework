@@ -502,8 +502,6 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Closing device360 Dialogue Window.")
         self.auto_actions.click(self.dev360.get_close_dialog())
-        sleep(2)
-
         return device360_info
 
     def get_exos_switch_360_information(self, device_mac='', device_name=''):
@@ -516,14 +514,13 @@ class Device360(Device360WebElements):
 
         :param device_mac: ExOS SWitch MAC Address
         :param device_name:  ExOS SWitch Name
-        :return: dictionary of ExOS Switch information
+        :return: dictionary of ExOS Switch information; else -1
         """
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
                 exos_info = self.get_exos_information()
                 return exos_info
 
@@ -532,9 +529,9 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
                 exos_info = self.get_exos_information()
                 return exos_info
+        return -1
 
     def advance_channel_selection(self, device_serial=None):
         """
@@ -5424,38 +5421,30 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(10)
-
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(10)
         if select_page == "Overview":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.select_monitor_overview()
-            sleep(5)
         elif select_page == "Clients":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.select_monitor_clients()
-            sleep(5)
         elif select_page == "Events":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.device360_select_events_view()
-            sleep(5)
         elif select_page == "Alarms":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.device360_select_alarms_view()
-            sleep(5)
         else:
             self.utils.print_info(f"No '{select_page}' page ")
-            sleep(2)
             return -1
 
         ret_val = 1
         self.utils.print_info("Clicking on Column Picker")
-        sleep(10)
+        sleep(5)
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.auto_actions.click(self.get_device360_column_picker_icon())
         sleep(2)
@@ -5526,14 +5515,12 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(10)
-
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(10)
+
         if select_page == "Overview":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.select_monitor_overview()
@@ -5596,7 +5583,6 @@ class Device360(Device360WebElements):
                         if row_input_count == row_num:
                             ans = row_inp.get_attribute("checked")
                             if ans == "true":
-                               # self.act
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
                                 sleep(2)
                             else:
@@ -5609,7 +5595,6 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(f"No option available '{option}'")
             ret_val = -1
-
         self.utils.print_info("Closing Column Picker")
         self.auto_actions.click(self.get_device360_column_picker_icon())
         self.utils.print_info("Close Dialogue Window")
@@ -5666,20 +5651,20 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
+        # Wait device360 page to open
         sleep(5)
         self.select_configure_tab()
+        sleep(2)
         self.select_port_configuration_view()
-        sleep(10)
+        sleep(2)
         self.select_stack_unit(slot=slot)
-        sleep(5)
+        sleep(2)
         self.utils.print_info("Click PSE Tab")
         self.auto_actions.click(self.get_device360_port_config_pse_tab_slot_stack())
         sleep(2)
@@ -5694,13 +5679,11 @@ class Device360(Device360WebElements):
         edit_threshold_poe = self.get_device360_edit_threshold_poe_stack()
         self.utils.print_info("Editing threshold value")
         self.auto_actions.send_keys(edit_threshold_poe, Keys.CONTROL + "a" + Keys.BACK_SPACE)
-        sleep(2)
         threshold_value_int = int(threshold_value)
         if 1 <= threshold_value_int <= 99:
             self.utils.print_info("Sending threshold {} % value".format(threshold_value))
             self.auto_actions.send_keys(edit_threshold_poe, threshold_value)
             self.screen.save_screen_shot()
-            sleep(5)
         else:
             self.utils.print_info("Value needs to be between 1 and 99.")
             return -1
@@ -5713,19 +5696,17 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Save button not found")
             return -1
-        sleep(5)
         self.select_configure_tab()
-        sleep(5)
+        sleep(2)
         save_btn = self.get_device360_configure_port_save_button_stack()
         if save_btn:
             self.utils.print_info("Clicking 'Save Port Configuration' button'")
             self.auto_actions.click(save_btn)
-            sleep(2)
         else:
             self.utils.print_info("Could not click Save button")
             return -1
         self.utils.print_info("Close Dialogue Window")
-        sleep(5)
+        sleep(2)
         self.auto_actions.click(self.get_close_dialog())
         return 1
 
@@ -5746,16 +5727,14 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
-
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
         slot_index = 1
         slot_found = False
+        #Wait device360 page to open
         sleep(5)
         slot_details_overview = self.get_device360_stack_overview_slot_details_rows()
         if slot_details_overview:
@@ -5764,9 +5743,9 @@ class Device360(Device360WebElements):
                 if slot_index == int(slot):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
                     self.auto_actions.click_and_hold_element(power_item)
-                    sleep(5)
+                    sleep(2)
                     self.auto_actions.move_to_element(power_item)
-                    sleep(5)
+                    sleep(2)
                     slot_found = True
                     break
                 slot_index = slot_index + 1
@@ -5776,7 +5755,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Power details not found")
             return -1
-        sleep(5)
+        sleep(2)
         power_details = self.dev360.get_device360_power_details().text
         if power_details:
             self.utils.print_info(f"",power_details)
