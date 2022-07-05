@@ -5,7 +5,6 @@ try:
     from extauto.common.Ap import Ap
     from extauto.common.Cli import Cli
     from extauto.common.Utils import Utils
-    from extauto.common.CloudDriver import CloudDriver
     from extauto.common.AutoActions import AutoActions
     from extauto.common.GmailHandler import GmailHandler
     # from extauto.common.Iapi import Iapi
@@ -203,13 +202,11 @@ try:
     from extauto.xiq.flows.manage.FilterManageDevices import FilterManageDevices
     from extauto.xiq.flows.manage.Reports import Reports
     from extauto.xiq.flows.manage.Switch import Switch
-    from extauto.xiq.flows.manage.Tools import Tools
     from extauto.xiq.flows.mlinsights.MLInsightClient360 import MLInsightClient360
     ## -- typo in lib ---from extauto.xiq.flows.mlinsights.MLInsights import MLInsights
     from extauto.xiq.flows.mlinsights.Network360Monitor import Network360Monitor
     from extauto.xiq.flows.mlinsights.Network360Plan import Network360Plan
     from extauto.xiq.flows.mlinsights.Network360ScoreCard import Network360ScoreCard
-    from extauto.common.Utils import Utils
 
 except Exception as e:
     Logger().log_warn("Unable to load the XIQ libraries!")
@@ -228,7 +225,6 @@ class XiqLibrary():
         self.Ap = Ap()
         self.Cli = Cli()
         self.Utils = Utils()
-        self.CloudDriver = CloudDriver()
         self.Screen = Screen()
         self.GmailHandler = GmailHandler()
         self.ImageAnalysis = ImageAnalysis()
@@ -291,6 +287,7 @@ class XiqLibrary():
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
+
 
     @deprecated("Please use self.xiq.login.login_user(...)")
     def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default", incognito_mode="False", **kwargs):

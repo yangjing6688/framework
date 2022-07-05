@@ -404,7 +404,9 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_user = variables[netelem]["username"]
                 netelem_pass = variables[netelem]["password"]
                 netelem_con_method = variables[netelem]["connection_method"]
+
                 netelem_cli_type = variables[netelem]["cli_type"]
+
                 netelem_port = variables[netelem]["port"]
 
             except KeyError:

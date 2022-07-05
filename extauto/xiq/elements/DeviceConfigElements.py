@@ -657,16 +657,3 @@ class DeviceConfigElements(DeviceConfigDefs):
 
     def get_client360_page_confirmation(self):
         return self.weh.get_element(self.wired_client_popup_confirmation)
-
-    def get_config_audit_delta_view_button(self, row):
-        return self.weh.get_element(self.config_audit_delta_view_button, parent=row)
-
-    def get_grid_rows(self):
-        """
-        :return: all the rows in the devices grid
-        """
-        grid_rows = self.weh.get_elements(self.devices_page_grid_rows)
-        if grid_rows:
-            return grid_rows
-        else:
-            return False
