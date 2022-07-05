@@ -16,6 +16,9 @@ class NetworkElementUtils(object):
         """
         end_of_line = '\n'
 
+        if not dev_os:
+            raise Exception("The CLI_TYPE for the device was None, please check your yaml file to ensure that the cli_type is added to all of the devices")
+
         formatted_dev_os = dev_os.replace("_", "").upper()
 
         if formatted_dev_os == NetworkElementConstants.OS_EOS:
@@ -111,18 +114,30 @@ class NetworkElementUtils(object):
             login_prompt = "Username:"
             pass_prompt = "Password:"
             main_prompt = "#"
-        elif formatted_dev_os == NetworkElementConstants.OS_HIVE:
-            device_os = NetworkElementConstants.OS_HIVE
-            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_HIVE_BASE
-            login_prompt = "Username:"
+        elif formatted_dev_os == NetworkElementConstants.OS_AHFASTPATH:
+            device_os = NetworkElementConstants.OS_AHFASTPATH
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_FASTPATH_BASE
+            login_prompt = "login as:"
             pass_prompt = "Password:"
+            main_prompt = "#"
+        elif formatted_dev_os == NetworkElementConstants.OS_AHXR:
+            device_os = NetworkElementConstants.OS_AHXR
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_XR_BASE
+            login_prompt = "login:"
+            pass_prompt = "Password:"
+            main_prompt = "#"
+        elif formatted_dev_os == NetworkElementConstants.OS_AHAP:
+            device_os = NetworkElementConstants.OS_AHAP
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_AP_BASE
+            login_prompt = "username:"
+            pass_prompt = "password:"
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_WING:
             device_os = NetworkElementConstants.OS_WING
-            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_WING_BASE
+            device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_WING_AP_BASE
             login_prompt = "Username:"
             pass_prompt = "Password:"
-            main_prompt = "#"
+            main_prompt = ">"
         else:
             logger = Logger()
 

@@ -1,13 +1,9 @@
 import json
-import pycurl
-from io import StringIO
-from extauto.common.Utils import Utils
-from extauto.common.Cli import Cli
-from robot.libraries.BuiltIn import BuiltIn
-from io import BytesIO
-import base64
 import subprocess
-import ast
+
+from robot.libraries.BuiltIn import BuiltIn
+
+from extauto.common.Utils import Utils
 
 
 class Internal_api:

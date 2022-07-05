@@ -28,18 +28,18 @@ class CommonValidation():
         Description: Validate the input values for framework
         
         kwargs:
-            IRV = Internal Result verification flag, will be set to false by default
+            IRV = Internal Result verification flag, will be set to true by default
             fail_msg = The message to print on failure
             pass_msg = The message to print on success
             ignore_cli_feedback = which ignores any errors or output from the keyword
             expect_error = verifies that an error was returned by the keyword
         """
         test_result = False
-        ivr_flag = self.get_kwarg(kwargs, "IRV", False)
+        ivr_flag = self.get_kwarg(kwargs, "IRV", True)
         if ivr_flag:
-            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            self.logger.warning("Internal Result Verification is Enabled")
-            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.logger.info("Internal Result Verification is Enabled")
+            self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             default_fail_msg = "The keyword had a result of fail"
             fail_msg = self.get_kwarg(kwargs, "fail_msg", default_fail_msg)
             pass_msg = self.get_kwarg(kwargs, "pass_msg")
@@ -84,6 +84,7 @@ class CommonValidation():
                 # Print the error message
                 full_error_msg = fail_msg + " Expected Value: " + str(expectedValue) + " Value: " + str(value)
                 pytest.fail(full_error_msg, pytrace=False)
+                assert value == expectedValue, full_error_msg
         else:
             test_result = True
 
@@ -127,4 +128,3 @@ class CommonValidation():
             boolean = default
 
         return boolean
-                
