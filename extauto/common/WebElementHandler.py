@@ -177,7 +177,7 @@ class WebElementHandler:
                 {
                     'DESC': 'This finds a panel with title="${title}"',
                     'XPATH': '//div[contains(@id, "panel-title") and text()="${title}"]',
-                    'wait_for': 10
+                    
                 }
             self.weh.get_template_element(template_example, title="Devices")
             self.weh.get_template_element(template_example, title="Policy")
@@ -200,7 +200,7 @@ class WebElementHandler:
             {
                 'DESC': 'Drop down items for a list type dropdown (li)',
                 'XPATH': '//div[contains(@id, "${element_id}") and contains(@id, "-picker-listWrap")]/ul/li',
-                'wait_for': 10
+                
             }
             You would then get the elements by passing in the element ID:
             self.weh.get_template_elements(list_dropdown_items, element_id="combo-id")
