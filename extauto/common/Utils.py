@@ -905,7 +905,6 @@ class Utils:
         groups = [self._parse_group(g) for g in groups]
         return [m.group(*groups) for m in regexp.finditer(string)]
 
-
     def wait_till(self, func=None, fail_func=None, timeout=20, delay=0.2, exp_func_resp=True, is_logging_enabled=False,
                   silent_failure=False, custom_response=[], msg=None):
         """ wait till method returns the func() response and raise Timeout Exception if timedout
@@ -1060,3 +1059,9 @@ class Utils:
 
         # Raise timeout exception if silent_failure is set as false
         raise Exception("Request Timedout")
+
+    def _parse_group(self, group):
+        try:
+            return int(group)
+        except ValueError:
+            return group
