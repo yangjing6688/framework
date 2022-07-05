@@ -950,3 +950,8 @@ class CopilotDefs:
             'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-downvote.material-icons.vote-thumb-down.user-vote',
             'wait_for': 10
         }
+
+    wifi_capacity_widget_location_ap_overall_discription = \
+        {
+            'CSS_SELECTOR': '.as-list-item-body'
+        }
