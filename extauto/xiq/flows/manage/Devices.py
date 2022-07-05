@@ -6305,6 +6305,8 @@ class Devices:
                 for opt in update_version_items:
                     self.utils.print_info("Image: {} is in drop down ".format(opt.text))
                     if version in opt.text:
+                        if "patch" not in version and "patch" in opt.text:
+                            continue
                         self.utils.print_info(
                             "Image version {} match the image {} from drop down".format(version, opt.text))
                         cont_images_found += 1
