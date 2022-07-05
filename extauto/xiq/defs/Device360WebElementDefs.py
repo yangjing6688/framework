@@ -2206,7 +2206,6 @@ class Device360WebElementDefs:
     device360_thunderbold_icon_stack = \
         {
             'CSS_SELECTOR': '.power-supply',
-        }
 
     d360_create_port_type = \
         {
