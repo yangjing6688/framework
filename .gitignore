@@ -22,5 +22,10 @@ settings.json
 venv
 /libspecs/
 *.libspecs
-/.pytest_cache/
+**.pytest_cache**
 /PytestPlugins
+**report.html**
+**log.html**
+**output.xml**
+**allure_output**
+

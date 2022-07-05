@@ -26,8 +26,6 @@ from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 
-
-
 class Devices:
     def __init__(self):
         self.utils = Utils()
@@ -38,7 +36,6 @@ class Devices:
         self.switch_web_elements = SwitchWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
-
         self.navigator = Navigator()
         self.device_actions = DeviceActions()
         self.device_update = DeviceUpdate()
@@ -7632,7 +7629,7 @@ class Devices:
             return -1
         retry = 0
         while retry <= 10:
-            output = self.cli.send_line_and_wait(spawn, "", 30)
+            self.cli.send(spawn, "")
             self.utils.print_info(output)
             if 'Rebooting switch as configuration caused disconnect' in output:
                 self.utils.print_info("VOSS : 'CLOUD_AGENT INFO  Rebooting switch as configuration caused disconnect'")

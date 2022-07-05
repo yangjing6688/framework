@@ -53,10 +53,10 @@ class WebElementHandler:
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
         _driver = CloudDriver().cloud_driver if parent == "default" else parent
 
-        self.utils.print_info("Waiting for page to complete loading")
+        self.utils.print_debug("Waiting for page to complete loading")
         while not self.check_for_page_is_loading(_driver):
             continue
-        self.utils.print_info("Page completed loading")
+        self.utils.print_debug("Page completed loading")
 
         for key, value in key_val.items():
             if 'IMAGE' in key:
