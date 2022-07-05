@@ -4526,10 +4526,10 @@ class Devices:
         - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
           check button in the Device Update dialog.
         - Go To Manage-->Devices-->Select switch row to apply the network policy
-        - Select Switch-->Update device
+        - Select Stack-->Update device
         - Keyword Usage:
-         - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
-        :param serial: serial number of the switch to update
+         - ``Update Stack Policy and Configuration ``
+        :param mac: MAC system of the stack which has to be updated
         :return: 1
         """
         self.utils.print_info("Select Stack")

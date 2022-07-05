@@ -5618,6 +5618,7 @@ class Device360(Device360WebElements):
         return ret_val
 
     def select_stack_unit(self, slot):
+        """Gather the list of devices in the stack"""
         self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
@@ -5642,7 +5643,7 @@ class Device360(Device360WebElements):
 
     def device360_configure_poe_threshold_value_stack(self, threshold_value, slot, device_mac="",device_name=""):
         """
-         - This keyword will configure the POE threshold value in Device 360
+         - This keyword will configure the PoE Threshold Power value in Device 360 on PoE slots
          - Flow: Click Device --> Device 360 Window --> Port Configuration --> PSE --> PSE SETTINGS FOR DEVICE
          - Keyword Usage:
          - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_mac=${DEVICE_MAC}``
@@ -5670,6 +5671,7 @@ class Device360(Device360WebElements):
         self.select_configure_tab()
         self.select_port_configuration_view()
         sleep(10)
+        #Change the Threshold Power value on the slot with POE
         self.select_stack_unit(slot=slot)
         sleep(5)
         self.utils.print_info("Click PSE Tab")
@@ -5723,7 +5725,7 @@ class Device360(Device360WebElements):
 
     def device360_power_details_stack(self,slot,device_mac="",device_name=""):
         """
-         - This keyword will get Power Supply Details in Device 360 from thunderbolt icon
+         - This keyword will get Power Supply Details in Device 360 from thunderbolt icon on PoE slots
          - Flow: Click Device -->Device 360 Window -->Thunderbolt ICON
          - Keyword Usage:
          - ``Device360 Power Details      device_mac=${DEVICE_MAC}``
@@ -5749,6 +5751,7 @@ class Device360(Device360WebElements):
         slot_index = 1
         slot_found = False
         sleep(5)
+        #get Power Supply Details in Device 360 from thunderbolt icon on PoE slots
         slot_details_overview = self.get_device360_stack_overview_slot_details_rows()
         if slot_details_overview:
             power_elements = self.dev360.get_device360_thunderbold_icon_stack(slot_details_overview)

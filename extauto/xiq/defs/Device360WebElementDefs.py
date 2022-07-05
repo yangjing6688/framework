@@ -618,7 +618,6 @@ class Device360WebElementDefs:
 
     device360_configure_port_save_button = \
         {
-            #'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
             'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
             'wait_for': 5
         }
@@ -1890,7 +1889,6 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_tab = \
         {
-            #'XPATH': '//*[@data-automation-tag="automation-port-configuration-pse"]',
             'XPATH': '//*[@data-automation-tag="automation-port-config-pse"]',
             'wait_for': 5
         }
@@ -2028,21 +2026,18 @@ class Device360WebElementDefs:
 
     device360_pse_settings_for_device_button = \
         {
-            #'XPATH': '//button[@data-automation-tag="automation-pse-settings"]',
             'XPATH': '//button[@data-dojo-attach-point="showPSESettingsBtn"]',
             'wait_for': 5
         }
 
     device360_edit_threshold_poe = \
         {
-            #'XPATH': '//input[@data-automation-tag="automation-pse-settings-edit-power-input"]',
             'XPATH': '//div[@class="field-container max-power-budget"]//input[@type="text"]',
             'wait_for': 5
         }
 
     device360_save_threshold_poe_value = \
         {
-            #'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
             'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 5
         }
