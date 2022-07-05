@@ -4356,9 +4356,9 @@ class Devices:
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
-         - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
-        :param serial: serial number of the switch to update
-        :return: 1
+         - ``Update Switch Policy and Configuration  ${SWITCH_MAC}``
+        :param device_mac: device mac of the switch to update
+        :return: 1 if config push success else -1
         """
         self.utils.print_info("Select Stack")
         self.select_device(device_mac)

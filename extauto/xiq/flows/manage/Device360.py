@@ -5592,6 +5592,11 @@ class Device360(Device360WebElements):
         return ret_val
 
     def select_stack_unit(self, slot):
+        '''
+        This keyword shows all units of stack
+        :param slot: The slot which will be selected
+        :return: 1 if the slot was selected; else -1
+        '''
         self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
@@ -5609,7 +5614,9 @@ class Device360(Device360WebElements):
             if not slot_found:
                 self.utils.print_info("Unable to locate the correct slot")
                 return -1
-            return -1
+            else:
+                self.utils.print_info("Slot found in the stack")
+                return 1
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
@@ -5619,9 +5626,10 @@ class Device360(Device360WebElements):
          - This keyword will configure the POE threshold value in Device 360
          - Flow: Click Device --> Device 360 Window --> Port Configuration --> PSE --> PSE SETTINGS FOR DEVICE
          - Keyword Usage:
-         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_mac=${DEVICE_MAC}``
-         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_name=${DEVICE_NAME}``
+         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}  slot=${SLOT} device_mac=${DEVICE_MAC}``
+         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}  slot=${SLOT}  device_name=${DEVICE_NAME}``
         :param threshold_value: value for threshold between 1 and 99
+        :slot: The slot which supported POE
         :param device_mac: Device Mac Address
         :param device_name: Device Name
         :return: 1 if value was configured successfully , else -1
@@ -5704,7 +5712,7 @@ class Device360(Device360WebElements):
          - ``Device360 Power Details      device_name=${DEVICE_NAME}``
         :param device_mac: Device Mac Address
         :param device_name: Device Name
-        :return: list with power supply details
+        :return: list with power supply details; else -1
         """
         self.navigator.navigate_to_devices()
         if device_mac:
@@ -5744,7 +5752,11 @@ class Device360(Device360WebElements):
             return -1
         sleep(5)
         power_details = self.dev360.get_device360_power_details().text
-        self.utils.print_info(f"",power_details)
-        self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
-        return power_details
+        if power_details:
+            self.utils.print_info(f"",power_details)
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            return power_details
+        else:
+            self.utils.print_info("Power details not found")
+            return -1
