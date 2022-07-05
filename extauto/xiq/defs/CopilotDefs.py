@@ -10,7 +10,7 @@ class CopilotDefs:
     wifi_capacity_widget = \
         {
             'XPATH':  '//*[@class="wifi-capacity-widget"]',
-            'wait_for': 10
+            'wait_for': 20
          }
     wifi_capacity_status = \
         {
@@ -32,6 +32,18 @@ class CopilotDefs:
             'wait_for': 5
         }
 
+    wifi_capacity_widget_location_ap_status_info_pin_column = \
+        {
+            'CSS_SELECTOR': '.as-ah-fo-column',
+            'wait_for': 5
+        }
+
+    wifi_capacity_widget_location_ap_info_icon = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-info-icon',
+            'wait_for': 5
+        }
+
     wifi_capacity_widget_location_grid_pin_rows = \
         {
             'XPATH': '//*[@class="wifi-capacity-widget"]//*[contains(@class, "list-item ng-star-inserted")]'
@@ -42,6 +54,12 @@ class CopilotDefs:
     wifi_capacity_widget_location_pin_button = \
         {
             'CSS_SELECTOR':'.material-icons.nui-auto-copilot-wifi-capacity-summary-pin',
+            'wait_for': 5
+        }
+
+    tooltip_content = \
+        {
+            'XPATH': '//div[@class="tooltip-inner"]',
             'wait_for': 5
         }
 
@@ -68,6 +86,18 @@ class CopilotDefs:
             'XPATH': '//*[@class="wifi-capacity-widget"]//*[@class="as-list-item-wrapper as-list-muted"]',
             'wait_for': 5
          }
+
+    wifi_capacity_anomaly_ap_issue_details = \
+        {
+            'CSS_SELECTOR': '.eff-aly-desc',
+            'wait_for': 5
+        }
+
+    wifi_capacity_anomaly_ap_recommended_actions_details = \
+        {
+            'XPATH': '//div[@class="eff-rec-desc nui-auto-copilot-wifi-capacity-detail-recommend-action-desc"]',
+            'wait_for': 5
+        }
 
     total_anomalies_detected_from_icon = \
         {
@@ -137,7 +167,19 @@ class CopilotDefs:
             'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-close-btn',
             'wait_for': 5
         }
-    
+
+    wifi_capacity_widget_location_ap_like = \
+        {
+            'XPATH': '//span[text()="thumb_up"]',
+            'wait_for': 5
+        }
+
+    wifi_capacity_widget_location_ap_like_tooltip = \
+        {
+            'TAG_NAME': 'simple-snack-bar',
+            'wait_for': 5
+        }
+
     anomalies_view_all_btn = \
         {
             'XPATH': '//*[@data-dojo-attach-point="activeAlarmLink"]',
@@ -176,7 +218,7 @@ class CopilotDefs:
 
     wifi_capacity_video_help_icon = \
         {
-            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-summary-help-btn',
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-efficiency-summary-help-btn',
             'wait_for': 5
          }
 
@@ -194,7 +236,7 @@ class CopilotDefs:
 
     wifi_capacity_additional_resources_close_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="closeBtn"]',
+            'CSS_SELECTOR': '.nui-auto-wifi-efficiency-help-dialog-close-btn',
             'wait_for': 5
          }
 
@@ -251,34 +293,34 @@ class CopilotDefs:
 
     poe_stability_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="poeStabilityWidget"]',
-            'wait_for': 10
+                'XPATH': '//*[@class="poe-stability-widget"]',
+                'wait_for': 10
          }
 
     poe_stability_content = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="poeStabilityWidget"]'
-                     '//*[@data-dojo-attach-point="anomalySummary"]',
+            'XPATH': '//*[@class="poe-stability-widget"]'
+                     '//*[@class="nui-auto-copilot-poe-stability-summary-description"]',
             'wait_for': 10
          }
 
     poe_stability_widget_location_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="poeStabilityWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]',
-            'wait_for': 5
+            'XPATH': '//*[@class="poe-stability-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
+            'CSS_SELECTOR': '.as-list-item-clickable',
+            'wait_for': 10
          }
 
     poe_stability_widget_location_grid_pin_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="poeStabilityWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]//i[@data-dojo-attach-point="pinItem"]',
+            'XPATH': '//*[@class="poe-stability-widget"]//*[contains(@class, "list-item ng-star-inserted")]'
+                     '//*[contains(@class, "pinned-item")]',
             'wait_for': 5
          }
 
     poe_stability_widget_location_pin_button = \
         {
-            'CSS_SELECTOR':'.material-icons.pin-anomaly-cls',
+            'CSS_SELECTOR':'.material-icons.nui-auto-copilot-poe-stability-summary-pin',
             'wait_for': 5
         }
 
@@ -290,34 +332,34 @@ class CopilotDefs:
 
     port_efficiency_widget = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="uplinkEfficiencyWidget"]',
-            'wait_for': 10
+            'XPATH':  '//*[@class="uplink-efficiency-widget"]',
+            'wait_for': 1
         }
 
     port_efficiency_widget_details = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="uplinkEfficiencyWidget"]'
-                     '//*[@data-dojo-attach-point="anomalySummary"]',
+            'XPATH': '//*[@class="uplink-efficiency-widget"]'
+                     '//*[@class="nui-auto-copilot-uplink-efficiency-summary-description"]',
             'wait_for': 10
         }
 
     port_efficiency_widget_location_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="uplinkEfficiencyWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]',
-            'wait_for': 5
+            'XPATH': '//*[@class="uplink-efficiency-widget"]//*[contains(@class, "list-item ng-star-inserted")]',
+            'CSS_SELECTOR': '.as-list-item-clickable',
+            'wait_for': 10
          }
 
     port_efficiency_widget_location_grid_pin_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="uplinkEfficiencyWidget"]//div[@data-dojo-attach-point="anomalyList"]'
-                     '//div[@data-dojo-attach-point="asList"]//i[@data-dojo-attach-point="pinItem"]',
-            'wait_for': 5
+            'XPATH': '//*[@class="uplink-efficiency-widget"]//*[contains(@class, "list-item ng-star-inserted")]'
+                     '//*[contains(@class, "pinned-item")]',
+            'wait_for': 10
          }
 
     port_efficiency_widget_location_pin_button = \
         {
-            'CSS_SELECTOR':'.material-icons.pin-anomaly-cls',
+            'CSS_SELECTOR':'.material-icons.nui-auto-copilot-uplink-efficiency-summary-pin',
             'wait_for': 5
         }
 
@@ -876,3 +918,35 @@ class CopilotDefs:
             'CSS_SELECTOR': '.nui-auto-copilot-high-mbcast-summary-description',
             'wait_for': 5,
          }
+
+    wifi_capacity_widget_location_ap_dislike = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-downvote',
+            'XPATH': '//span[text()="thumb_down"]',
+            'wait_for': 10
+        }
+
+    wifi_capacity_widget_location_ap_dislike_send_feedback_button = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-send-feedback',
+            'XPATH': '//span[text()="send"]',
+            'wait_for': 10
+        }
+
+    wifi_capacity_widget_location_ap_dislike_send_feedback_textfield = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-send-feedback-input',
+            'wait_for': 10
+        }
+
+    wifi_capacity_widget_location_ap_like_tooltip = \
+        {
+            'TAG_NAME': 'simple-snack-bar',
+            'wait_for': 20
+        }
+
+    wifi_capacity_widget_location_ap_dislike_button_enabled_status = \
+        {
+            'CSS_SELECTOR': '.nui-auto-copilot-wifi-capacity-detail-downvote.material-icons.vote-thumb-down.user-vote',
+            'wait_for': 10
+        }

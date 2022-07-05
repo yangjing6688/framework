@@ -5,6 +5,7 @@ from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.manage.Tools import Tools
@@ -37,6 +38,7 @@ class NetworkPolicy(object):
         self.filter_element = FilterManageDeviceWebElements()
         self.robot_built_in = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
@@ -88,11 +90,12 @@ class NetworkPolicy(object):
             self.utils.print_info(f"Network policy {policy} exists in the network policy list")
             return 1
 
-    def _perform_np_delete(self):
+    def _perform_np_delete(self, **kwargs):
         """
         clicking on the network policy delete button
         :return:
         """
+
         self.utils.print_info("Click on network policy delete button")
         self.auto_actions.click(self.np_web_elements.get_np_delete_button())
 
@@ -107,14 +110,20 @@ class NetworkPolicy(object):
         sleep(2)
         for value in tool_tp_text:
             if "Network policy was deleted successfully" in value:
+                kwargs['pass_msg'] = "Network policy was deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
             elif "The Network Policy cannot be removed " in value:
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
             elif "An unknown error has occurred" in value:
-                self.utils.print_info("Unable to delete the network policy")
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -2
+
+        kwargs['fail_msg'] = "Unable to perform the delete"
+        self.common_validation.validate(-1, 1, **kwargs)
         return -1
 
     def create_network_policy(self, policy, **wireless_profile):
@@ -198,7 +207,7 @@ class NetworkPolicy(object):
 
         return self._perform_np_delete()
 
-    def delete_network_polices(self, *policies):
+    def delete_network_polices(self, *policies, **kwargs):
         """
         - Deleting the network policies based on the passed list of policies
         - Keyword Usage:
@@ -207,7 +216,10 @@ class NetworkPolicy(object):
         :param policies: list of network polices to delete
         :return: 1 if deleted successfully else -1
         """
+
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+            kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -2
 
         select_flag = None
@@ -222,6 +234,9 @@ class NetworkPolicy(object):
 
         if select_flag:
             return self._perform_np_delete()
+
+        kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
+        self.common_validation.validate(1, 1, **kwargs)
         return 1
 
     def delete_all_network_policies(self, exclude_list=''):
@@ -1300,7 +1315,7 @@ class NetworkPolicy(object):
         else:
             return -1
 
-    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name):
+    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name, firmwareUpdate = False):
         """
         - Deploy the network policy to the particular device
         - By default it will do delta config push
@@ -1326,9 +1341,14 @@ class NetworkPolicy(object):
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_tab())
         sleep(2)
 
-        self.utils.print_info("Click on eligible device button")
-        self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
-        sleep(2)
+        def _click_eligible():
+            self.utils.print_info("Click on eligible device button")
+            self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
+        _click_eligible()
+        
+        def _check_device_rows():
+            return self._get_device_rows(device_mac)
+        self.tools.wait_till(_check_device_rows, delay=0.2, is_logging_enabled=True, silent_failure=False)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -1337,18 +1357,17 @@ class NetworkPolicy(object):
                 self.screen.save_screen_shot()
                 sleep(2)
                 self.robot_built_in.fail(f"{tip_text} occurred while assigning nw policy")
-
+        
         if not self._select_device_row(device_mac):
             self.utils.print_info("Device is not available in the deploy policy page")
             return -1
+
         self.screen.save_screen_shot()
         sleep(1)
         self.utils.print_info("Click on the policy deploy upload button")
         self.auto_actions.click(self.np_web_elements.get_deploy_policy_upload_button())
         sleep(1)
         self.screen.save_screen_shot()
-        self.utils.print_info("Click on the perform update")
-        self.auto_actions.click(self.np_web_elements.get_perform_after_select_update_policy_button())
 
         # Select from dropdown
         if sw_template_name is not None:
@@ -1379,34 +1398,54 @@ class NetworkPolicy(object):
         uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
 
         if not uptd.is_selected():
-            self.utils.print_info(f" Click on the update configuration checkbox ")
+            self.utils.print_info(f"Click on the update configuration checkbox")
             self.auto_actions.click(uptd)
+            
+        # Uncheck the firmware update checkbox if it is checked 
+        firmware_update = self.devices_web_elements.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
+        if not firmwareUpdate:
+            if firmware_update.is_selected():
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is checked - Unchecking")
+                self.auto_actions.click(firmware_update)
+            else:
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already unchecked")
+        else:
+            if firmware_update.is_selected():
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")  
+            else:
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is not checked - Checking")
+                self.auto_actions.click(firmware_update)
 
         # Perform the update
         self.screen.save_screen_shot()
         sleep(5)
+        
+        # Captute tool tip msg before pressing the perform update button
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
+        
+        # Press perform update button
+        self.utils.print_info("Checking for the perform update button presence")
         if self.np_web_elements.get_perform_update_policy_button():
-            self.utils.print_info("Click on update policy button ")
+            self.utils.print_info("Click on perform update button ")
             self.auto_actions.click(self.np_web_elements.get_perform_update_policy_button())
         else:
-            self.utils.print_info("The update policy button was not found")
+            self.utils.print_info("The perform update button was not found")
+            return -1
 
         self.screen.save_screen_shot()
         sleep(5)
+        
+        # Capture the tool tip after pressing the perform update button
         tool_tp_text_after = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_after)
-
-        self.utils.print_info("close the device update button ##################")
-        x=self.devices_web_elements.get_actions_network_policy_close_button_md()
-        self.auto_actions.click(x[-1])
-
+       
+        # Print and return the displayed tool tip msg if any 
         for item_after in tool_tp_text_after:
             if item_after in tool_tp_text_before:
                 pass
             else:
-                self.utils.print_info(" Below error message is displayed after press update button")
+                self.utils.print_info("Below message is displayed after pressing the perform update button")
                 self.utils.print_info(item_after)
                 return item_after
         return 1
@@ -1894,3 +1933,4 @@ class NetworkPolicy(object):
         else:
             self.utils.print_info("Unable to locate management options on/off button")
             return -1
+

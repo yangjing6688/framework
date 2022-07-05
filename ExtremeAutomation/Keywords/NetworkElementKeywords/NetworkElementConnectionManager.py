@@ -406,7 +406,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_con_method = variables[netelem]["connection_method"]
                 netelem_cli_type = variables[netelem]["cli_type"]
                 netelem_port = variables[netelem]["port"]
-                netelem_os = variables[netelem]["os"]
+
             except KeyError:
                 if netelem_name is None:
                     self.logger.log_error("${" + netelem + ".name} variable not present in testbed " +

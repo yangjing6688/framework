@@ -670,12 +670,12 @@ class Utils:
         -This keyword Will Switch to default frame
         """
         self.print_info("<<<Switching to Default>>>")
+        time.sleep(5)
         try:
             driver.find_element_by_tag_name('iframe')
             self.print_info("||| No Need to Switch |||")
         except NoSuchElementException:
             driver.switch_to.default_content()
-            time.sleep(5)
             self.print_info("<<< Switching to Default Completed >>>")
 
     def switch_to_iframe(self, driver):
@@ -904,3 +904,9 @@ class Utils:
         regexp = re.compile(pattern)
         groups = [self._parse_group(g) for g in groups]
         return [m.group(*groups) for m in regexp.finditer(string)]
+
+    def _parse_group(self, group):
+        try:
+            return int(group)
+        except ValueError:
+            return group
