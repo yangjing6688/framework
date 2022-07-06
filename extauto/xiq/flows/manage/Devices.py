@@ -7,6 +7,7 @@ import datetime as dt
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
+#from robot.libraries.String import String
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -25,8 +26,6 @@ from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 
-
-
 class Devices:
     def __init__(self):
         self.utils = Utils()
@@ -37,7 +36,6 @@ class Devices:
         self.switch_web_elements = SwitchWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
-
         self.navigator = Navigator()
         self.device_actions = DeviceActions()
         self.device_update = DeviceUpdate()
@@ -48,6 +46,7 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
+        #self.string = String()
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
@@ -3482,20 +3481,6 @@ class Devices:
         :return: 1 if Devices Deleted Successfully else -1
         """
 
-        check_page = self.devices_web_elements.get_delete_button()
-        if check_page:
-            if check_page.is_displayed():
-                self.utils.print_info("this is the device page ")
-                self.screen.save_screen_shot()
-            else:
-                self.utils.print_info("the page is not device page ")
-                self.screen.save_screen_shot()
-                return -1
-        else:
-            self.utils.print_info("the page is not device page ")
-            self.screen.save_screen_shot()
-            return -1
-
         if self.devices_web_elements.get_device_page_size_100() != None:
             self.auto_actions.click(self.devices_web_elements.get_device_page_size_100())
             
@@ -4553,6 +4538,29 @@ class Devices:
             return self._check_device_update_status(device_mac=mac)
 
         return None
+
+    def update_switch_policy_and_configuration_stack(self, device_mac=None):
+        """
+        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
+          check button in the Device Update dialog.
+        - Go To Manage-->Devices-->Select switch row to apply the network policy
+        - Select Switch-->Update device
+        - Keyword Usage:
+         - ``Update Switch Policy and Configuration  ${SWITCH_MAC}``
+        :param device_mac: device mac of the switch to update
+        :return: 1 if config push success else -1
+        """
+        self.utils.print_info("Select Stack")
+        self.select_device(device_mac)
+
+        self._update_switch(update_method="PolicyAndConfig")
+
+        self.screen.save_screen_shot()
+
+        return self._check_device_update_status(device_mac)
+
+
+
 
     def update_switch_iq_engine_and_images(self, serial):
         """
@@ -7652,7 +7660,7 @@ class Devices:
             return -1
         retry = 0
         while retry <= 10:
-            output = self.cli.send_line_and_wait(spawn, "", 30)
+            self.cli.send(spawn, "")
             self.utils.print_info(output)
             if 'Rebooting switch as configuration caused disconnect' in output:
                 self.utils.print_info("VOSS : 'CLOUD_AGENT INFO  Rebooting switch as configuration caused disconnect'")
@@ -8058,7 +8066,7 @@ class Devices:
         :return: 1 if onboarding date has been changed ; else -1
         '''
         pattern1 = "(\\w+)."
-        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh,user_dest_ssh,pass_dest_ssh)
         if spawn == -1:
             return -1
@@ -8116,7 +8124,7 @@ class Devices:
         '''
 
         pattern1 = "(\\w+)."
-        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
         output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
@@ -8144,7 +8152,7 @@ class Devices:
         self.utils.print_info(output_cmd3)
         self.utils.print_info(output_cmd4)
         pattern = vhm_id + "\\s+\\|\\s+(\\d+)"
-        max_devices = self.utils.get_regexp_matches(output_cmd4, pattern, 1)
+        max_devices = self.string.get_regexp_matches(output_cmd4, pattern, 1)
         self.utils.print_info(max_devices)
         self.cli.close_spawn(spawn)
         return max_devices[0]
@@ -8160,7 +8168,7 @@ class Devices:
         :return: interval time and interval unit ; else -1
         '''
         pattern1 = "(\\w+)."
-        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
 
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
@@ -8187,7 +8195,7 @@ class Devices:
 
         pattern1 = "\\d+\\s+\\|\\s+(\\d+)\\s+\\|\\s+\\w+"
         pattern2 = "\\d+\\s+\\|\\s+\\d+\\s+\\|\\s+(\\w+)"
-        update_time = self.utils.get_regexp_matches(output_cmd3, pattern1, 1)
+        update_time = self.u.get_regexp_matches(output_cmd3, pattern1, 1)
         update_unit = self.utils.get_regexp_matches(output_cmd3, pattern2, 1)
         self.utils.print_info(update_time[0])
         self.utils.print_info(update_unit[0])
@@ -9158,7 +9166,7 @@ class Devices:
         '''
 
         pattern1 = "(\\w+)."
-        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
 
         if len(device_serial) > 11:
             self.utils.print_info("device SN has long format")
@@ -9973,7 +9981,7 @@ class Devices:
         """
 
         pattern1 = "Version[\\s\\:\\w]+\\s+(\\d+.\\d+.\\d+.\\d+)"
-        cli_os_version= self.utils.get_regexp_matches(output_image_version, pattern1, 1)
+        cli_os_version= self.string.get_regexp_matches(output_image_version, pattern1, 1)
         if cli_os_version:
             self.utils.print_info(cli_os_version)
             split_cli_os_version = cli_os_version[0].split('.')
@@ -10417,7 +10425,7 @@ class Devices:
         '''
 
         pattern1 = "(\\w+)r\\d."
-        gdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
+        gdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(gdc[0]))
         self.utils.print_info(output_cmd)
@@ -10440,13 +10448,71 @@ class Devices:
 
         pattern = "(VHM[\\w\\-]+)\\s+\\|\\s+\\w+"
         pattern2 = "VHM[\\w\\-]+\\s+\\|\\s+(\\w+)"
-        viq_id = self.utils.get_regexp_matches(output_cmd5, pattern,1)
-        system_cuid = self.utils.get_regexp_matches(output_cmd5, pattern2,1)
+        viq_id = self.string.get_regexp_matches(output_cmd5, pattern,1)
+        system_cuid = self.string.get_regexp_matches(output_cmd5, pattern2,1)
         self.utils.print_info(viq_id)
         self.utils.print_info(system_cuid)
 
         self.cli.close_spawn(spawn)
         return viq_id[0],system_cuid[0]
+
+    def delete_all_devices(self):
+        '''
+        This function select all boxes from device manage page and then delete them
+        :return: 1 if all devices was deleted or devices are already deleted; else -1
+        '''
+        check_page = self.devices_web_elements.get_delete_button()
+        if check_page:
+            if check_page.is_displayed():
+                self.utils.print_info("this is the device page ")
+                self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("the page is not device page ")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.utils.print_info("the page is not device page ")
+            self.screen.save_screen_shot()
+            return -1
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            for row in rows:
+                self.utils.print_debug("Found device Row: ", self.format_row(row.text))
+                click_checkbox = self.devices_web_elements.get_device_select_checkbox(row)
+                if click_checkbox:
+                    self.auto_actions.click(click_checkbox)
+                else:
+                    pass
+                self.screen.save_screen_shot()
+                sleep(2)
+
+            self.utils.print_info("Click delete button")
+            sleep(2)
+            delete_button = self.devices_web_elements.get_delete_button()
+            if delete_button:
+                self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                sleep(2)
+            else:
+                return -1
+
+            self.utils.print_info("Click confirmation Yes Button")
+            confirm_yes_button = self.dialogue_web_elements.get_confirm_yes_button()
+            if confirm_yes_button:
+                self.auto_actions.click(confirm_yes_button)
+                sleep(2)
+                self.screen.save_screen_shot()
+            else:
+                self.screen.save_screen_shot()
+                return -1
+
+            rows = self.devices_web_elements.get_grid_rows()
+            if rows:
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            self.screen.save_screen_shot()
+            return 1
+        return 1
 
     def unmanage_device_when_license_expired(self,device_sn):
         '''
@@ -10512,7 +10578,7 @@ class Devices:
         '''
 
         pattern1 = "(\\w+)."
-        rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
+        rdc = self.string.get_regexp_matches(sw_connection_host, pattern1, 1)
         spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
         output_cmd_ls = self.cli.send_pxssh(spawn, "ls")
@@ -10551,17 +10617,17 @@ class Devices:
         #output_cmd3 = " 324384 | 0 0 1 * * ?"
         pattern3 = "\\s+\\d+\\s+\\|\\s+([\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+)\\s+\\|"
         #pattern3 = "\\s+([\\d\\W]\\s[\\d\\W]+\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W])"
-        cron = self.utils.get_regexp_matches(output_cmd3, pattern3, 1)
+        cron = self.string.get_regexp_matches(output_cmd3, pattern3, 1)
         self.utils.print_info("cron",cron)
 
         #output_cmd4 = "        0"
         pattern4= "\\s+\\d+\\s+\\|\\s+(\\d+)"
-        interval = self.utils.get_regexp_matches(output_cmd4, pattern4, 1)
+        interval = self.string.get_regexp_matches(output_cmd4, pattern4, 1)
         self.utils.print_info("interval",interval)
 
         #output_cmd5 = "SECONDS"
         # pattern5 = "(\\w+)"
-        # interval_unit = self.utils.get_regexp_matches(output_cmd5, pattern5, 1)
+        # interval_unit = self.string.get_regexp_matches(output_cmd5, pattern5, 1)
         # self.utils.print_info(interval_unit)
 
         if '0 0 1 * * ?' in cron[0]:
@@ -10649,10 +10715,3 @@ class Devices:
                 sleep(20)
         self.screen.save_screen_shot()
         return [available, activated]
-
-    def delete_all_aps(self):
-        '''
-        This function is deprecated. This Keyword will Delete All the Devices in the Manage--> Devices Grid
-        :return: 1 if Devices Deleted Successfully else -1
-        '''
-        return self.delete_all_devices()

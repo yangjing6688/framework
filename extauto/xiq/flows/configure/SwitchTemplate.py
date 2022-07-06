@@ -136,7 +136,7 @@ class SwitchTemplate(object):
                         
                         def _is_sw_template_available():
                             return self.get_sw_template_row(sw_template_name)
-                        self.tools.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
+                        self.utils.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
                         
                         self.screen.save_screen_shot()
                         rc = 1
@@ -567,7 +567,7 @@ class SwitchTemplate(object):
                             
                             def _is_sw_template_available():
                                 return self.get_sw_template_row(sw_template_name)
-                            self.tools.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)                            
+                            self.utils.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
                             self.screen.save_screen_shot()
                             return 1
                         else:

@@ -297,7 +297,7 @@ class DeviceTemplateWebElementDefinitions:
     click_selected_ap_template = \
         {
             'CSS_SELECTOR': '.dojoxGridCell ',
-            'wait_for': 10
+            
         }
 
     ap_template_dialog_select_button = \

@@ -97,7 +97,7 @@ class SwitchWebElementsDefinitions:
     devices_page_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
          }
 
     devices_switch_port_detail_rows = \

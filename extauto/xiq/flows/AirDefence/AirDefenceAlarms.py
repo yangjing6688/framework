@@ -322,14 +322,6 @@ class AirDefenceAlarms(AdspWebElements):
         self._go_to_adsp_alarm_page()
         sleep(8)
 
-        self.utils.print_info("Click alarm page Refresh button")
-        self.auto_actions.click(self.get_adsp_alarm_refresh_button())
-        sleep(2)
-
-        self.utils.print_info("Click alarm page Refresh button")
-        self.auto_actions.click(self.get_adsp_alarm_refresh_button())
-        sleep(2)
-
         alarm_count = self.get_total_adsp_alarm_count_on_grid().text
         self.utils.print_info(f"Total ADSP Alarms count : {alarm_count}")
         return str(alarm_count).strip()
@@ -347,11 +339,11 @@ class AirDefenceAlarms(AdspWebElements):
         CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
-        sleep(2)
+        sleep(5)
         self.navigator.navigate_to_extreme_airdefence()
 
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        sleep(2)
+        sleep(5)
 
         self.utils.print_info("Click widget refresh button")
         self.auto_actions.click(self.get_adsp_widget_refresh_button())

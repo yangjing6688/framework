@@ -81,9 +81,6 @@ class AdspWebElements(AdspWebElementsDefinitions):
     def get_adsp_widget_refresh_button(self):
         return self.weh.get_element(self.adsp_widget_refresh_button)
 
-    def get_adsp_alarm_refresh_button(self):
-        return self.weh.get_element(self.adsp_alarm_refresh_button)
-
     def get_adsp_settings_button(self):
         return self.weh.get_element(self.adsp_settings_button)
 

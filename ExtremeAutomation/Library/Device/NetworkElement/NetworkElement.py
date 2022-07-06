@@ -150,13 +150,13 @@ class NetworkElement(ManagedDeviceObject):
             logger.debug("POP session_key %s", session_key)
         except:
             pass
-        if len(device.agent_track[connection_method]) == 0:
-            try:
+        try:
+            if len(device.agent_track[connection_method]) == 0:
                 device.agent_track.pop(connection_method, None)
                 logger.debug("POP connect meth %s", connection_method)
-            except:
-                logger.debug("POP error connect meth %s", connection_method)
-                pass
+        except:
+            logger.debug("POP error connect meth %s", connection_method)
+            pass
         else:
             logger.debug("LEAVE connect meth %s", connection_method)
 
@@ -372,7 +372,7 @@ class NetworkElement(ManagedDeviceObject):
                           NetworkElementConstants.VERSION_BASE,
                           NetworkElementConstants.UNIT_BASE
                           ]
-        except AttributeError:
+        except AttributeError as e:
             base_attrs = [NetworkElementConstants.PLATFORM_BASE,
                           NetworkElementConstants.VERSION_BASE,
                           NetworkElementConstants.UNIT_BASE

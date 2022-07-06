@@ -16,7 +16,7 @@ class NetworkPolicyWebElementDefinition:
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]'
                      '//table[@class="dgrid-row-table"]//tr',
-            'wait_for': 10
+            
         }
     np_row_cells = \
         {
@@ -58,6 +58,12 @@ class NetworkPolicyWebElementDefinition:
     np_wireless_check_box = \
         {
             'XPATH': '//input[@data-automation-tag="automation-policy-wireless"]',
+            'wait_for':    3
+        }
+
+    np_routing_check_box = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-policy-routing"]',
             'wait_for':    3
         }
 
@@ -715,7 +721,7 @@ class NetworkPolicyWebElementDefinition:
     table_management_options_rows = \
         {
             "CSS_SELECTOR": '.dojoxGridRow',
-            'wait_for': 10
+            
         }
 
     table_management_options_row_checkbox = \
@@ -727,7 +733,7 @@ class NetworkPolicyWebElementDefinition:
     management_options_select_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-dialog-link"]',
-            'wait_for': 10
+            
         }
 
     device_templates_tab = \

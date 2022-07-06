@@ -2,7 +2,7 @@ class GlobalSettingWebElementDefinitions:
     authentication_logs_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     authentication_logs_grid_row_cells = \
@@ -100,13 +100,13 @@ class GlobalSettingWebElementDefinitions:
     organization_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     organization_grid_rows_cell = \
         {
             'CSS_SELECTOR': '.dgrid-cell',
-            'wait_for': 10
+            
         }
 
     global_settings_account_enable_hiq_confirm_button = \

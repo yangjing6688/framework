@@ -76,23 +76,23 @@ class PasswordResetWebElementsDefinition:
     forgot_password_reset_it_here_link = \
         {
             'XPATH': "//*[@data-automation-tag='automation-login-page-reset-link']",
-            'wait_for': 10
+            
         }
 
     forgot_password_email_textfield = \
         {
             'XPATH': "//*[@data-dojo-attach-point='forgotEmail']",
-            'wait_for': 10
+            
         }
 
     forgot_password_reset_password_button = \
         {
             'XPATH': "//*[@data-dojo-attach-point='resetButton']",
-            'wait_for': 10
+            
         }
 
     forgot_password_result_label = \
         {
             'XPATH': "//*[@data-dojo-attach-point='resendMessaging']",
-            'wait_for': 10
+            
         }
