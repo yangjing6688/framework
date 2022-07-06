@@ -44,7 +44,7 @@ class CommonObjectsWebElementsDefinitions:
     common_object_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     common_object_grid_row_cells = \
@@ -384,7 +384,7 @@ class CommonObjectsWebElementsDefinitions:
     common_object_basic_client_mode_profiles_grid_rows_all = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td[contains(@class, "dgrid-selector")]/../..',
-            'wait_for': 10
+            
         }
 
     common_object_basic_client_mode_profiles_selectall = \
@@ -659,7 +659,7 @@ class CommonObjectsWebElementsDefinitions:
     imago_tag_profile_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]',
-            'wait_for': 10
+            
          }
 
     imago_tag_profile_select_checkbox = \
@@ -727,7 +727,7 @@ class CommonObjectsWebElementsDefinitions:
     common_object_ip_firewall_policy_add_rule_select_application_rows = \
         {
             'XPATH': '//li[@class="filter-app-list-item"]',
-            'wait_for': 10
+            
          }
 
     firewall_policy_add_rule_select_application_check_box = \
@@ -827,11 +827,5 @@ class CommonObjectsWebElementsDefinitions:
     user_profile_save_button = \
         {
             'XPATH': '//button[@data-automation-tag="automation-user-profile-save-btn"]',
-            'wait_for': 1
-        }
-
-    policy_port_types_confirmation_button = \
-        {
-            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
             'wait_for': 1
         }

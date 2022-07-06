@@ -478,16 +478,14 @@ class MLInsightsPlanDefinitions:
 
     n360_country_list_click = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-chzn-container-ctn"]',
+            'XPATH': '//*[@class="chzn-single"]',
             'wait_for': 5
         }
-        
     n360_country_change_item = \
         {
-            'XPATH': '//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
+            'XPATH': '//*[@class="chzn-drop"]//li',
             'wait_for': 5
         }
-        
     n360_click_x_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="createDoneTipX"]',
