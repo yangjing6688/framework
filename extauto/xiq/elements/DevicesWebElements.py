@@ -1028,10 +1028,17 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.field_license_stat, row)
 
     def get_check_unmanage_box(self):
-        return self.weh.get_element(self.check_unmanage_box)
+        el = self.weh.get_element(self.check_unmanage_box)
+        if el:
+            if el.is_displayed():
+                return el
+            else:
+                return None
+        else:
+            return None
 
     def get_pilot_lic_inventory(self):
-        return self.weh.get_element(self.pilot_lic_inventory)
+        return self.weh.get_elements(self.pilot_lic_inventory)
 
     def get_sn_button(self):
         return self.weh.get_element(self.sn_button)
@@ -1150,7 +1157,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
-    
+
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)
     
@@ -1162,4 +1169,13 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
       
     def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
         return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
-      
+
+    def get_license_mgmt(self):
+        return self.weh.get_element(self.license_mgmt)
+
+    def get_license_unmanage_box(self):
+        el = self.weh.get_element(self.license_unmanage_box)
+        if el.is_displayed():
+            return el
+        else:
+            return None

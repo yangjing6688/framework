@@ -78,7 +78,7 @@ class TelnetAgent(CliAgent):
                     found_main_prompt = True
                     break
                 else:
-                    self.write_encode_ln("")
+                    self.write_encode_ln("\n")
                     output += self.wait_no_parse(250, 1)
 
         # If we found the login prompt try to find the password prompt.
@@ -244,9 +244,10 @@ class TelnetAgent(CliAgent):
             self.debug_print(self.send_command("disable clipaging"))
         elif self.device.oper_sys == NetworkElementConstants.OS_VOSS:
             self.debug_print(self.send_command("terminal more disable"))
-        elif self.device.oper_sys == NetworkElementConstants.OS_HIVE:
+        elif self.device.oper_sys == NetworkElementConstants.OS_AHAP:
             self.debug_print(self.send_command("console page 0"))
-        elif self.device.oper_sys == NetworkElementConstants.OS_AH_SWITCH:
+        elif self.device.oper_sys in [NetworkElementConstants.OS_AHFASTPATH,
+                                      NetworkElementConstants.OS_AHXR]:
             self.debug_print(self.send_command("enable"))
             self.debug_print(self.send_command("configure"))
             self.debug_print(self.send_command("do terminal length 0"))

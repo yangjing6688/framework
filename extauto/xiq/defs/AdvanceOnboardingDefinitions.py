@@ -152,7 +152,7 @@ class AdvanceOnboardingDefinitions:
     onboard_success_message = \
         {
          'CSS_SELECTOR': '.device-onboard-success-status',
-         'wait_for': 10
+         
          }
 
     locations_generic = \

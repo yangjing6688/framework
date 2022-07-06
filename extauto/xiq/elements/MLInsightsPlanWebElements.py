@@ -23,7 +23,7 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
         return self.weh.get_element(self.n360_plan_create_map_get_started)
 
     def get_n360_plan_map_close_btn(self):
-        return self.weh.get_elements(self.n360_plan_map_close_button)
+        return self.weh.get_element(self.n360_plan_map_close_button)
 
     def get_n360_plan_import_map_button(self):
         return self.weh.get_element(self.n360_plan_import_map_button)

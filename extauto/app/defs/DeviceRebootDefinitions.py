@@ -4,14 +4,14 @@ class DeviceRebootDefinitions:
         {
             'DESC': 'Serail Number of the AP',
             'ID': "com.extremenetworks.xiqmobileapp:id/txt_serial",
-            'wait_for': 10
+            
         }
 
     continue_button_id = \
         {
             'DESC': 'Clicked continue button',
             'ID': "com.extremenetworks.xiqmobileapp:id/btn_continue",
-            'wait_for': 10
+            
         }
 
     reboot_device_id = \

@@ -6,6 +6,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.AdspWebElements import AdspWebElements
+from extauto.xiq.flows.common.Login import Login
 
 
 class AirDefenceAlarms(AdspWebElements):
@@ -15,6 +16,7 @@ class AirDefenceAlarms(AdspWebElements):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
+        self.login = Login()
         self.auto_actions = AutoActions()
 
     def get_adsp_alarm_details(self, search_string, page_size=250):
@@ -123,6 +125,40 @@ class AirDefenceAlarms(AdspWebElements):
         for row in self.get_adsp_alarm_grid_rows():
             if search_string in row.text:
                 return row
+
+    def check_error_msg_when_adess_not_enabled(self, url="default", incognito_mode="False"):
+        """
+        - This Keyword Will check for Auth Error in ADESS Page When ADESS is not Enabled
+        - Flow: Extreme AirDefense--> Open New Tab--> Load ADESS URL--> Check Auth Error
+        - Keyword Usage:
+         - ``Check Error Msg When ADESS Not Enabled     ${URL}``
+
+        :param url: url of AD Essential appliction
+        :return: 1 if expected auth error is successfully seen in AD Essentials page else -1
+        """
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_extreme_airdefence()
+
+        self.utils.print_info("Loading the AD Essentials URL in new tab")
+        self.login._init(url=url, incognito_mode=incognito_mode)
+
+        self.utils.print_info("Switch to new tab")
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
+
+        self.utils.print_info("Checking the Auth Error")
+        observed_auth_error = self.get_auth_error_from_adess().text
+        self.utils.print_info("Observed Auth Error from ADESS Page: ", observed_auth_error)
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.screen.save_screen_shot()
+
+        if "AirDefense Essential Service not enabled" in observed_auth_error:
+            self.utils.print_info("Expected Auth Error is Seen: ", observed_auth_error)
+            return 1
+        else:
+            self.utils.print_info("Not Able to See Appropriate Auth Error or Auth Error is not seen")
+            return -1
 
     def check_ap_in_adess_device_view_page(self, device_serial):
         """
@@ -286,6 +322,14 @@ class AirDefenceAlarms(AdspWebElements):
         self._go_to_adsp_alarm_page()
         sleep(8)
 
+        self.utils.print_info("Click alarm page Refresh button")
+        self.auto_actions.click(self.get_adsp_alarm_refresh_button())
+        sleep(2)
+
+        self.utils.print_info("Click alarm page Refresh button")
+        self.auto_actions.click(self.get_adsp_alarm_refresh_button())
+        sleep(2)
+
         alarm_count = self.get_total_adsp_alarm_count_on_grid().text
         self.utils.print_info(f"Total ADSP Alarms count : {alarm_count}")
         return str(alarm_count).strip()
@@ -303,11 +347,11 @@ class AirDefenceAlarms(AdspWebElements):
         CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
-        sleep(5)
+        sleep(2)
         self.navigator.navigate_to_extreme_airdefence()
 
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        sleep(5)
+        sleep(2)
 
         self.utils.print_info("Click widget refresh button")
         self.auto_actions.click(self.get_adsp_widget_refresh_button())

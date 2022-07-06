@@ -4,13 +4,13 @@ class DevicesWebElementsDefinitions:
     devices_page_grid_ids = \
         {
             'ID': 'dgrid_1',
-            'wait_for': 10
+            
          }
 
     devices_page_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]//td/..',
-            'wait_for': 10
+            
          }
 
     devices_page_grid_rows_next = \
@@ -31,14 +31,14 @@ class DevicesWebElementsDefinitions:
     devices_page_grid_ap_name_cells = \
         {
             'CSS_SELECTOR': '.field-hostname',
-            'wait_for': 10,
+            
         }
 
     devices_page_grid_cells = \
         {
             'CSS_SELECTOR': '.dgrid-cell',
             'index': 0,
-            'wait_for': 10
+            
          }
 
     devices_ap_status_cell = \
@@ -278,7 +278,7 @@ class DevicesWebElementsDefinitions:
     device_details_refresh_button = \
         {
             'XPATH':    '/html/body/div[8]/div[1]/div/div[1]/div[4]/div[2]',
-            'wait_for': 10
+            
         }
 
     update_config_delta_radio_button = \
@@ -291,7 +291,7 @@ class DevicesWebElementsDefinitions:
     update_devices_button = \
         {
             'XPATH': "//*[@data-automation-tag='automation-manage-update-config']",
-            'wait_for': 10
+            
         }
 
     update_devices_full_radio_button = \
@@ -304,7 +304,7 @@ class DevicesWebElementsDefinitions:
     devices_perform_update_button = \
         {
             'XPATH': '//div/a[@data-dojo-attach-point="uploadBtn"]',
-            'wait_for': 10
+            
          }
 
     devices_config_update_message = \
@@ -379,7 +379,7 @@ class DevicesWebElementsDefinitions:
     simulated_devices_grid_rows = \
         {
             'TITLE': 'Simulated Device',
-            'wait_for': 10
+            
          }
 
     simulated_device_icon = \
@@ -408,7 +408,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-policy"]',
+            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
             'wait_for': 5
         }
 
@@ -421,7 +421,7 @@ class DevicesWebElementsDefinitions:
 
     action_assign_network_policy_dialog = \
         {
-            "CSS_SELECTOR": '.ui-menu-list',
+            "CSS_SELECTOR": '.ui-dialog-content',
             'wait_for': 5
         }
 
@@ -729,7 +729,7 @@ class DevicesWebElementsDefinitions:
         {
             'CSS_SELECTOR': '.btn[data-dojo-attach-point="closeDialog"]',
             'XPATH': '//div/a[@data-dojo-attach-point="closeDialog"]',
-            'wait_for': 10
+            
          }
 
     actions_assign_network_policy_switch = \
@@ -975,31 +975,31 @@ class DevicesWebElementsDefinitions:
     devices_page_grid_rows_all = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td[contains(@class, "dgrid-selector")]/../..',
-            'wait_for': 10
+            
          }
 
     devices_page_grid_rows_selected = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td[contains(@class, "dgrid-selector")]/input[@aria-checked="true"]/../..',
-            'wait_for': 10
+            
          }
 
     devices_page_grid_rows_deselected = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td[contains(@class, "dgrid-selector")]/input[not(@aria-checked="true")]/../..',
-            'wait_for': 10
+            
          }
 
     last_refreshed_tooltip = \
         {
             'XPATH': '//div[@class="ui-tooltip-content"]/span[@data-dojo-attach-point="refreshTime"]',
-            'wait_for': 10
+            
          }
 
     total_count_label = \
         {
             'XPATH': '//span[@data-dojo-attach-point="gridTotalResults"]',
-            'wait_for': 10
+            
          }
 
     devices_display_count_per_page_selection_button = \
@@ -1017,7 +1017,7 @@ class DevicesWebElementsDefinitions:
     devices_display_count_per_page_buttons = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottom"]//div[@data-dojo-attach-point="gridBottomLeft"]',
-            'wait_for': 10,
+            
             'index': 1
          }
 
@@ -1050,13 +1050,13 @@ class DevicesWebElementsDefinitions:
     devices_stack_update_policy_dropdown_btn = \
         {
             'XPATH': '//div[@data-dojo-attach-point="stackTemplateChooser"]//*[@class="chzn-single"]',
-            'wait_for': 10
+            
         }
 
     devices_stack_update_policy_dropdown_items = \
         {
             'XPATH': '//div[@data-dojo-attach-point="stackTemplateChooser"]//div[@data-automation-tag="automation-chzn-drop-ctn"]//ul//li',
-            'wait_for': 10
+            
         }
 
     device_stack_toggle = \
@@ -1074,27 +1074,27 @@ class DevicesWebElementsDefinitions:
     devices_perform_update_button_d360 = \
         {
             'XPATH': '//*[@data-dojo-attach-point="uploadBtn"]',
-            'wait_for': 10
+            
         }
 
     actions_open_site_engine_menu_option = \
         {
             'XPATH': '//a[@type="openSiteEngine"]',
-            'wait_for': 10
+            
         }
 
     actions_maximum_site_engine_message = \
         {
             'DESC': 'Maximum Site Engine message displayed in the Manage > Devices view.',
             'XPATH': '//h3[contains(text(),"Maximum 5 Site Engine")]',
-            'wait_for': 10
+            
         }
 
     actions_maximum_site_engine_message_close_btn = \
         {
             'DESC': 'Close Maximum Site Engine message box displayed in the Manage > Devices view.',
             'XPATH': '//div[@class="ui-tipbox ui-tipbox-warning"]//i[@class="ui-tipbox-close"]',
-            'wait_for': 10
+            
         }
 
     device_make_dropdown = \
@@ -1329,13 +1329,13 @@ class DevicesWebElementsDefinitions:
     device_os_voss_radio = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-voss-radio-button"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_os_exos_radio = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-exos-radio-button"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_np_header = \
@@ -1461,7 +1461,7 @@ class DevicesWebElementsDefinitions:
 
     pilot_lic_inventory = \
         {
-            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]',
+            'XPATH': '//li[@data-dojo-attach-point="deviceInventory"]//div',
             'wait_for': 5
         }
 
@@ -1564,13 +1564,13 @@ class DevicesWebElementsDefinitions:
     subscription_available = \
         {
             'CSS_SELECTOR': '.field-available',
-            'wait_for': 10,
+            
         }
 
     subscription_activated = \
         {
             'CSS_SELECTOR': '.field-activated',
-            'wait_for': 10,
+            
         }
 
     message_unlink_button = \
@@ -1687,7 +1687,7 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
-    
+
     manage_devices_progress_status = \
         {
             'DESC': 'Manage > Devices "devices progress status',
@@ -1711,5 +1711,17 @@ class DevicesWebElementsDefinitions:
     upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
         {
             'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
+            'wait_for': 5
+        }
+  
+    license_mgmt = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-licenseMng"]',
+            'wait_for': 5
+        }
+
+    license_unmanage_box = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="unmanage"]',
             'wait_for': 5
         }
