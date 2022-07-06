@@ -7371,13 +7371,13 @@ class Devices:
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
-        sleep(10)
+        
 
         self.utils.print_info(f"Select switch row with serial {mac}")
         if not self.select_device(mac):
             self.utils.print_info(f"Switch {mac} is not present in the grid")
             return -1
-        sleep(2)
+        
 
         if not self._assign_policy_to_switch(policy_name):
             return -1
@@ -7417,7 +7417,7 @@ class Devices:
         else:
             self.utils.print_info("Click on Create template based on currently selected device button")
 
-            sleep(10)
+            
 
             self.utils.print_info("Enter the Device Template Name: ", name_stack_template)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
@@ -10697,7 +10697,7 @@ class Devices:
 
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
-        sleep(2)
+        
         #self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
 
     def update_device_policy_config_reboot(self, device_serial):
@@ -10746,22 +10746,22 @@ class Devices:
 
 
     def update_device_policy_image(self, device_serial):
-        sleep(2)
+        
         self.utils.print_info("Select Device row")
         self.select_device(device_serial)
-        sleep(2)
+        
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click(self.devices_web_elements.get_update_device_button())
-        sleep(2)
+        
 
         self.utils.print_info("Selecting image option")
         self.auto_actions.click(self.devices_web_elements.get_update_image_checkbox())
-        sleep(2)
+        
 
         self.utils.print_info("Deselecting upgrade configuration option")
         self.auto_actions.click(self.devices_web_elements.get_update_config_checkbox())
-        sleep(2)
+        
 
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
@@ -10781,11 +10781,11 @@ class Devices:
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click(self.device_actions.get_device_actions_button())
-            sleep(2)
+            
 
             self.utils.print_info("Clicking on Reboot")
             self.auto_actions.click(self.device_actions.get_device_actions_reboot_menu_item())
-            sleep(2)
+            
 
             self.utils.print_info("Confirming...")
             self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button_reboot())
@@ -10806,7 +10806,7 @@ class Devices:
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
-            sleep(2)
+            
 
         self.utils.print_info("Checking if License option is displayed")
         license_button = self.devices_web_elements.get_license_action_button()
@@ -10829,7 +10829,7 @@ class Devices:
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
-            sleep(2)
+            
 
         self.utils.print_info("Checking if License option is displayed")
         reboot_button = self.device_actions.get_device_actions_reboot_menu_item()
