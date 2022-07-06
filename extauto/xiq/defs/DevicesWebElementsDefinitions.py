@@ -1682,25 +1682,21 @@ class DevicesWebElementsDefinitions:
     update_reboot_revert_checkbox = \
         {
             'XPATH': "//li[@data-dojo-attach-point='revertWrap']//label[@class='checkbox']//input[@type='checkbox']",
-            'wait_for': 10
         }
 
     update_image_checkbox = \
         {
             'XPATH': "//div[@class='first column']//label[@class='checkbox']//input[@type='checkbox']",
-            'wait_for': 10
         }
 
     update_config_checkbox = \
         {
             'CSS_SELECTOR': ".J-up",
-            'wait_for': 10
         }
 
     get_events = \
         {
             'XPATH': "//td/div",
-            'wait_for': 10
         }
 
     device_actions_button = \
