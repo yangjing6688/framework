@@ -1126,23 +1126,23 @@ class DeviceConfig(DeviceConfigElements):
             pass
         else:
             self.auto_actions.click(self.get_device_override_configure_button())
-        sleep(10)
+        
 
         self.utils.print_info("Click Device Configuration Button")
         self.auto_actions.click(self.get_device_override_configure_exos_device_configuration_button())
-        sleep(5)
+        
 
         self.utils.print_info("Click on Supplemental cli add option")
         self.auto_actions.click(self.get_device_config_supplemental_cli_add_button())
-        sleep(10)
+        
 
         self.utils.print_info(f"Entering Supplemental Cli Name:{suppl_cli_name}")
         self.auto_actions.send_keys(self.get_device_config_supplemental_cli_enter_name(), suppl_cli_name)
-        sleep(5)
+        
 
         self.utils.print_info(f"Entering Supplemental Cli Commands:{suppl_cli_cmds}")
         self.auto_actions.send_keys(self.get_device_config_supplemental_cli_enter_commands(), suppl_cli_cmds)
-        sleep(5)
+        
 
         self.utils.print_info(f"Saving Supplemental Cli Configs")
         self.auto_actions.click(self.get_device_config_supplemental_cli_save_button())
@@ -1153,14 +1153,14 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Save Device Configuration")
         self.auto_actions.click(self.get_device_override_exos_save_device_configuration())
-        sleep(5)
+        
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
 
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click(self.get_close_dialog())
-        sleep(5)
+        
 
         if "Device configuration was updated successfully" in tool_tip_text:
             self.utils.print_info("Device configuration was updated successfully")
