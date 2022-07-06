@@ -114,14 +114,11 @@ class DeviceTemplate(object):
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
         sleep(3)
 
-        tool_tip_text = tool_tip.tool_tip_text
-        self.screen.save_screen_shot()
-        sleep(2)
-        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-        sub_string = "template"
-        strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
-        self.utils.print_info("Tool tip Text ap template", strings_with_substring)
-        if "AP template was saved successfully" in str(strings_with_substring):
+        self.utils.print_info("Checking the Save template message...")
+        observed_temp_message = self.device_template_web_elements.get_ap_template_save_tool_tip().text
+        self.utils.print_info("Observed Message: ", observed_temp_message)
+
+        if "AP template was saved successfully" in observed_temp_message:
             return 1
         else:
             return -1
