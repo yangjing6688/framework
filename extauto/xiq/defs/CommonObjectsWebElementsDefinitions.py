@@ -829,3 +829,9 @@ class CommonObjectsWebElementsDefinitions:
             'XPATH': '//button[@data-automation-tag="automation-user-profile-save-btn"]',
             'wait_for': 1
         }
+
+    policy_port_types_confirmation_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 1
+        }
