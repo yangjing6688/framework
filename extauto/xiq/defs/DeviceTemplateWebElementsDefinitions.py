@@ -150,7 +150,7 @@ class DeviceTemplateWebElementDefinitions:
     ap_template_save_button = \
         {
             'XPATH': '//*[@id="ah/comp/configuration/deviceTemplate/APTemplate_0"]/div[2]/fixed-bar/button[2]',
-            'wait_for': 2
+            'wait_for': 5
         }
 
     device_template_page_next_button = \
@@ -297,7 +297,7 @@ class DeviceTemplateWebElementDefinitions:
     click_selected_ap_template = \
         {
             'CSS_SELECTOR': '.dojoxGridCell ',
-            'wait_for': 10
+            
         }
 
     ap_template_dialog_select_button = \
@@ -357,6 +357,12 @@ class DeviceTemplateWebElementDefinitions:
     select_device_template = \
         {
             'XPATH': '//div[@data-dojo-attach-point="configwizardNav"]//li[@class="wiz-item wiz-item-2"]',
+            'wait_for': 5
+        }
+
+    select_ap_template = \
+        {
+            'XPATH': '//*[contains(@data-automation-tag, "wireless-device-templates-cell")]//*[@class="J-tmplName"]',
             'wait_for': 5
         }
 

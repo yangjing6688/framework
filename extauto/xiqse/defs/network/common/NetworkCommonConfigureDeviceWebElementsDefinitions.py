@@ -13,42 +13,42 @@ class NetworkCommonConfigureDeviceWebElementsDefinitions:
         {
             'DESC': 'Device Tab in the Configure Device dialog',
             'XPATH': '//div[contains(@id, "editDeviceDataWindow")]//span[text()="Device"]',
-            'wait_for': 10
+            
         }
 
     device_annotation_tab = \
         {
             'DESC': 'Device Annotation Tab in the Configure Device dialog',
             'XPATH': '//div[contains(@id, "editDeviceDataWindow")]//span[text()="Device Annotation"]',
-            'wait_for': 10
+            
         }
 
     vlan_definitions_tab = \
         {
             'DESC': 'VLAN Definitions Tab in the Configure Device dialog',
             'XPATH': '//div[contains(@id, "editDeviceDataWindow")]//span[text()="VLAN Definitions"]',
-            'wait_for': 10
+            
         }
 
     ports_tab = \
         {
             'DESC': 'Ports Tab in the Configure Device dialog',
             'XPATH': '//div[contains(@id, "editDeviceDataWindow")]//span[text()="Ports"]',
-            'wait_for': 10
+            
         }
 
     ztp_plus_device_settings_tab = \
         {
             'DESC': 'ZTP+ Device Settings Tab in the Configure Device dialog',
             'XPATH': '//div[contains(@id, "editDeviceDataWindow")]//span[text()="ZTP+ Device Settings"]',
-            'wait_for': 10
+            
         }
 
     vendor_profile_tab = \
         {
             'DESC': 'Vendor Profile Tab in the Configure Device dialog',
             'XPATH': '//div[contains(@id, "editDeviceDataWindow")]//span[text()="Vendor Profile"]',
-            'wait_for': 10
+            
         }
 
     # Action Buttons

@@ -3,7 +3,7 @@ class AdspWebElementsDefinitions:
         {
             'CSS_SELECTOR': '.mat-button-wrapper',
             'index': 5,
-            'wait_for': 3
+            'wait_for': 5
         }
 
     adsp_more_insights_auth_failure_page_text = \
@@ -33,7 +33,7 @@ class AdspWebElementsDefinitions:
     adsp_alarm_grid_rows = \
         {
             'CSS_SELECTOR': '.table-row',
-            'wait_for': 10
+            
         }
 
     adsp_alarms_grid_row_cells = \
@@ -63,6 +63,42 @@ class AdspWebElementsDefinitions:
     adsp_alarm_search_button = \
         {
             'CSS_SELECTOR': '.alarm-search-btn',
+            'wait_for': 5
+        }
+
+    to_adsp_sensor_page = \
+        {
+            'XPATH': '//*[contains(@class, "SENSORS-navlist-tab")]',
+            'wait_for': 5
+        }
+
+    search_adsp_sensor_page = \
+        {
+            'XPATH': '//*[contains(@class, "sensor-search-btn")]',
+            'wait_for': 5
+        }
+
+    serial_to_adsp_sensor_page = \
+        {
+            'XPATH': '//*[contains(@class, "sensor-search-txt")]',
+            'wait_for': 5
+        }
+
+    device_location_from_adsp = \
+        {
+            'XPATH': '//td[contains(@class, "mat-column-location")]//div[contains(@class, "ng-star-inserted")]',
+            'wait_for': 5
+        }
+
+    ap_serial_from_adsp =  \
+        {
+            'XPATH': '//td[contains(@class, "mat-column-serial_num")]//div[contains(@class, "ng-star-inserted")]',
+            'wait_for': 5
+        }
+
+    auth_error_from_adess = \
+        {
+            'XPATH': '//app-auth-failure//div[contains(@class,"centerCls titleCls")]//span',
             'wait_for': 5
         }
 
@@ -143,7 +179,7 @@ class AdspWebElementsDefinitions:
     adsp_page_wips_policy_grid_rows1 = \
         {
             'CSS_SELECTOR': '.mat-row.cdk-row.table-row',
-            'wait_for': 10
+            
          }
 
     adsp_wireless_thread_detection_button = \

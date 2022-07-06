@@ -224,6 +224,9 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
     def get_select_device_template(self):
         return self.weh.get_element(self.select_device_template)
 
+    def get_select_ap_template(self):
+        return self.weh.get_element(self.select_ap_template)
+
     def get_ap_template_advanced_settings(self):
         return self.weh.get_element(self.ap_template_advanced_settings)
 

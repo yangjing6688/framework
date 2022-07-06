@@ -9,7 +9,7 @@ class WirelessNetworksDefinitions:
     wireless_nw_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     wireless_row_cells = \
