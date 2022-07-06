@@ -829,3 +829,9 @@ class CommonObjectsWebElementsDefinitions:
             'XPATH': '//button[@data-automation-tag="automation-user-profile-save-btn"]',
             'wait_for': 1
         }
+
+    ui_tipbox_error = \
+        {
+            'XPATH': '//div[contains(@class,"ui-tipbox-error")]/div[@class="ui-tipbox-con"]/h3',
+            'wait_for': 1
+        }

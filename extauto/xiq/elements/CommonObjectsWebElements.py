@@ -521,3 +521,7 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_user_profile_save_button(self):
         return self.weh.get_element(self.user_profile_save_button)
+
+    def get_ui_tipbox_error(self):
+        return self.weh.get_element(self.ui_tipbox_error)
+
