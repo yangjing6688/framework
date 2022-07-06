@@ -6,40 +6,40 @@ class AlarmsEventsAlarmsWebElementsDefinitions:
         {
             'DESC': 'Button to open the Search field',
             'XPATH': '//div[contains(@id, "alarmGrid")]//span[contains(@class, "x-form-search-trigger")]/ancestor::a',
-            'wait_for': 10
+            
         }
 
     search_text_field = \
         {
             'DESC': 'Search Text Field',
             'XPATH': '//div[contains(@id, "alarmGrid")]//div[contains(@id, "trigger-search")]/preceding-sibling::div[contains(@id, "inputWrap")]/input',
-            'wait_for': 10
+            
         }
 
     search_trigger_button = \
         {
             'DESC': 'Button to trigger the search',
             'XPATH': '//div[contains(@id, "alarmGrid")]//div[contains(@id, "trigger-search")]',
-            'wait_for': 10
+            
         }
 
     search_clear_button = \
         {
             'DESC': 'Button to clear the search',
             'XPATH': '//div[contains(@id, "alarmGrid")]//div[contains(@id, "trigger-search")]/preceding-sibling::div[contains(@id, "trigger-clear")]',
-            'wait_for': 10
+            
         }
 
     alarms_table = \
         {
             'DESC': 'Alarms Table',
             'XPATH': '//div[contains(@id, "alarmGrid") and @data-ref="body"]//div[@class="x-grid-item-container"]',
-            'wait_for': 10
+            
         }
 
     alarms_table_rows = \
         {
             'DESC': 'Alarms Table Rows',
             'XPATH': '//div[contains(@id, "alarmGrid")]//table[contains(@id, "gridview")]//tr',
-            'wait_for': 10
+            
         }

@@ -26,7 +26,7 @@ class ExtremeGuestWebElementsDefs:
     extreme_guest_subscription_page_open_ssid_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     extreme_guest_subscription_page_open_ssid_grid_row_cells = \

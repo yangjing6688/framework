@@ -1,10 +1,12 @@
 import time
 import socket
+
 from ExtremeAutomation.Library.Device.Common.Agents.CliAgent import CliAgent
 from netmiko import ConnectHandler, NetMikoTimeoutException  # pip install netmiko
 from ExtremeAutomation.Library.Utils.Constants.Constants import Constants
 from ExtremeAutomation.Library.Device.TrafficGeneration.Utils.TrafficGenConstants import TrafficGenConstants
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
+from ExtremeAutomation.Library.Device.EndsystemElement.Constants.EndsystemElementConstants import EndsystemElementConstants
 
 
 class SshAgent(CliAgent):
@@ -42,7 +44,10 @@ class SshAgent(CliAgent):
             if self.device.oper_sys in [NetworkElementConstants.OS_EOS,
                                         NetworkElementConstants.OS_BOSS,
                                         TrafficGenConstants.JETS_CHASSIS.upper(),
-                                        NetworkElementConstants.OS_SLX]:
+                                        NetworkElementConstants.OS_SLX,
+                                        EndsystemElementConstants.OS_WINDOWS,
+                                        EndsystemElementConstants.OS_WINDOWS_MU,
+                                        EndsystemElementConstants.OS_A3]:
                 ssh_args["device_type"] = "terminal_server"
             elif self.device.oper_sys == NetworkElementConstants.OS_EXOS:
                 ssh_args["device_type"] = "extreme"
@@ -61,12 +66,13 @@ class SshAgent(CliAgent):
                     client.read_channel()
                     client.set_base_prompt()
                     client.send_command("enable", strip_prompt=False, auto_find_prompt=False)
-                if self.device.oper_sys == NetworkElementConstants.OS_HIVE:
+                if self.device.oper_sys == NetworkElementConstants.OS_AHAP:
                     # client._test_channel_read()  # Re-enable this if read_channel() doesn't work.
                     client.read_channel()
                     client.set_base_prompt()
                     client.send_command("console page 0", strip_prompt=False, auto_find_prompt=False)
-                if self.device.oper_sys == NetworkElementConstants.OS_AH_SWITCH:
+                if self.device.oper_sys in [NetworkElementConstants.OS_AHFASTPATH,
+                                            NetworkElementConstants.OS_AHXR]:
                     # client._test_channel_read()  # Re-enable this if read_channel() doesn't work.
                     client.read_channel()
                     client.send_command("enable", strip_prompt=False, auto_find_prompt=False)
