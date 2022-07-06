@@ -6,7 +6,6 @@ from io import StringIO
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
 
-
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -33,7 +32,6 @@ class Login:
         self.nav_web_elements = NavigatorWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-
         pass
 
     def _init(self, url="default", incognito_mode="False"):

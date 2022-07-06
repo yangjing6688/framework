@@ -159,7 +159,7 @@ class SwitchWebElementsDefinitions:
         {
             # 'XPATH': '//div[@data-dojo-attach-point="quickMakeSelect"]//div[@data-automation-tag="chzn-container-ctn"]/a',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-make-select"]',
-            'wait_for': 5,
+            'wait_for': 10,
             # 'index': 0
         }
 
