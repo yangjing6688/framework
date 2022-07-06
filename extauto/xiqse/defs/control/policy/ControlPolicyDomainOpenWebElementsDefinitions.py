@@ -4,7 +4,7 @@ class ControlPolicyDomainOpenWebElementsDefinitions:
         {
             'DESC': 'Domain name list in the dropdown menu in the Delete Domain window',
             'XPATH': '//input[@name="policyDomainSelectionCombo"]',
-            'wait_for': 10
+            
         }
 
     domain_els_active_template = \

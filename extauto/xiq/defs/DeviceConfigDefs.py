@@ -1280,16 +1280,3 @@ class DeviceConfigDefs:
             'XPATH': '//*[@data-dojo-attach-point=""]',
             'wait_for': 5
         }
-
-    config_audit_delta_view_button = \
-        {
-            'CSS_SELECTOR': '.ui-icon-sprite-mismatch',
-            'index': 0,
-            'wait_for': 5
-        }
-
-    devices_page_grid_rows = \
-        {
-            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]//td/..',
-            'wait_for': 10
-        }

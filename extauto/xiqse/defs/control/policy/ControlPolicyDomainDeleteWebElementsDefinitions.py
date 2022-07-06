@@ -4,7 +4,7 @@ class ControlPolicyDomainDeleteWebElementsDefinitions:
         {
             'DESC': 'Domain name list in the dropdown menu in the Delete Domain window',
             'XPATH': '//input[@name="policyDomainSelectionCombo"]',
-            'wait_for': 10
+            
         }
 
     delete_domain_name_template = \
@@ -18,26 +18,26 @@ class ControlPolicyDomainDeleteWebElementsDefinitions:
         {
             'DESC': 'OK button in the Delete domain window',
             'XPATH': '//div[contains(@id,"window")]//span[contains(text(),"OK")]',
-            'wait_for': 10
+            
         }
 
     delete_domain_close = \
         {
          'DESC': 'Close button in the Delete domain window',
          'XPATH': '//div[contains(@id,"window")]//span[contains(text(),"Close")]',
-        'wait_for': 10
+        
         }
 
     delete_domain_yes = \
         {
             'DESC': 'Yes button in the Are You Sure? dialog during Delete Domain process',
             'XPATH': '//div[contains(@id,"messagebox")]//span[contains(text(),"Yes")]',
-            'wait_for': 10
+            
         }
 
     delete_domain_confirm_ok = \
         {
             'DESC': 'OK button in the Delete domain Successful dialog',
             'XPATH': '//div[contains(@id,"messagebox")]//span[contains(text(),"OK")]',
-            'wait_for': 10
+            
         }

@@ -135,7 +135,7 @@ class Device360WebElementDefs:
     close_dialog = \
         {
             'XPATH': "//*[@data-dojo-attach-point='closeDialog']",
-            'wait_for': 10
+            'wait_for': 5
         }
 
     actions_adv_cli_access_cmd_input = \
@@ -547,24 +547,24 @@ class Device360WebElementDefs:
     device360_events_grid_cells = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td',
-            'wait_for': 10
+
          }
 
     device360_event_timestamp = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-timestamp")]',
-            'wait_for': 10
+
          }
 
     device360_event_description = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-description")]',
-            'wait_for': 10
+
          }
     device360_event_severity = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-severity")]',
-            'wait_for': 10
+
          }
     device360_alarms_link = \
         {
@@ -587,21 +587,21 @@ class Device360WebElementDefs:
     device360_alarms_grid_cells = \
         {
             'XPATH': 'td',
-            'wait_for': 10
+
          }
 
     device360_alarm_timestamp = \
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//td[contains(@class, "field-timestamp")]',
             'index': 0,
-            'wait_for': 10
+
          }
 
     device360_alarm_category = \
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//td[contains(@class, "field-category")]',
             'index': 0,
-            'wait_for': 10
+
          }
 
     device360_configure_port_list = \
@@ -642,7 +642,7 @@ class Device360WebElementDefs:
 
     device360_configure_port_save_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
             'wait_for': 5
         }
 
@@ -1604,7 +1604,7 @@ class Device360WebElementDefs:
     d360_switch_ports_table_grid_rows = \
         {
             'XPATH': '//*[@data-dojo-attach-point="portGridNode"]//*[@class="dgrid-row-table"]',
-            'wait_for': 10
+
          }
 
     device360_switch_port_table_port_name = \
@@ -1739,7 +1739,7 @@ class Device360WebElementDefs:
     d360_monitor_port_name = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-ifName")]',
-            'wait_for': 10
+
         }
 
     d360_monitor_lldp_neighbor_header = \
@@ -1844,12 +1844,6 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    policy_configure_port_rows = \
-        {
-            'XPATH': '//tabset[@data-dojo-attach-point="configuration-ports-tabs"]//portdetails//portentry-row',
-            'wait_for': 5
-        }
-
     sw_template_stack_sw_item = \
         {
             'XPATH': '//span[@data-dojo-attach-point="deviceType"]',
@@ -1864,7 +1858,7 @@ class Device360WebElementDefs:
 
     device360_configure_port_usage_drop_down_options = \
         {
-            'CSS_SELECTOR': '.active-result',
+            'CSS_SELECTOR': '.chzn-results.qa-chzn-results-portusage li',
             'wait_for': 5
         }
 
@@ -1876,7 +1870,7 @@ class Device360WebElementDefs:
 
     device360_configure_port_access_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.port-type-vlan-value',
+            'CSS_SELECTOR': '.portUsageVLANfield.accessVLAN',
             'wait_for': 5
         }
 
@@ -1888,8 +1882,7 @@ class Device360WebElementDefs:
 
     device360_configure_port_trunk_native_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.native-vlan',
-            'index': 1,
+            'CSS_SELECTOR': '.portUsageVLANfield.trunkNativeVLAN',
             'wait_for': 5
         }
 
@@ -1901,8 +1894,7 @@ class Device360WebElementDefs:
 
     device360_configure_port_trunk_vlan_textfield = \
         {
-            'CSS_SELECTOR': '.allowed-vlan',
-            'index': 1,
+            'CSS_SELECTOR': '.portUsageVLANfield.trunkAllowedVLAN',
             'wait_for': 5
         }
 
@@ -1963,7 +1955,8 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-port-configuration-pse"]',
+            #'XPATH': '//*[@data-automation-tag="automation-port-configuration-pse"]',
+            'XPATH': '//*[@data-automation-tag="automation-port-config-pse"]',
             'wait_for': 5
         }
 
@@ -2100,19 +2093,22 @@ class Device360WebElementDefs:
 
     device360_pse_settings_for_device_button = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-pse-settings"]',
+            #'XPATH': '//button[@data-automation-tag="automation-pse-settings"]',
+            'XPATH': '//button[@data-dojo-attach-point="showPSESettingsBtn"]',
             'wait_for': 5
         }
 
     device360_edit_threshold_poe = \
         {
-            'XPATH': '//input[@data-automation-tag="automation-pse-settings-edit-power-input"]',
+            #'XPATH': '//input[@data-automation-tag="automation-pse-settings-edit-power-input"]',
+            'XPATH': '//div[@class="field-container max-power-budget"]//input[@type="text"]',
             'wait_for': 5
         }
 
     device360_save_threshold_poe_value = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
+            #'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
+            'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 5
         }
 
@@ -2758,9 +2754,45 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    policy_configure_port_rows = \
+    device360_port_config_pse_tab_slot_stack = \
         {
-            'XPATH': '//tabset[@data-dojo-attach-point="configuration-ports-tabs"]//portdetails//portentry-row',
+            'XPATH': '//*[@data-automation-tag="automation-port-config-pse"]',
+            'wait_for': 5
+        }
+
+    device360_pse_settings_for_device_button_stack = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="showPSESettingsBtn"]',
+            'wait_for': 5
+        }
+
+    device360_edit_threshold_poe_stack = \
+        {
+            'XPATH': '//div[@class="field-container max-power-budget"]//input[@type="text"]',
+            'wait_for': 5
+        }
+
+    device360_save_threshold_poe_value_stack = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
+    device360_configure_port_save_button_stack = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'wait_for': 5
+        }
+
+    device360_stack_overview_slot_details_rows = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="switchStackPortsPanelContainer"]',
+            'wait_for': 5
+        }
+
+    device360_thunderbold_icon_stack = \
+        {
+            'CSS_SELECTOR': '.power-supply',
             'wait_for': 5
         }
 
@@ -2858,3 +2890,4 @@ class Device360WebElementDefs:
             "XPATH": "//div[@data-automation-tag='automation-port-list-grid']//div[@class='dgrid-scroller']",
             'wait_for': 5
         }
+

@@ -105,7 +105,7 @@ class MLInsightsClient360Definitions:
     n360_client_360_client_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     n360_client_360_table_select_btn = \

@@ -1220,6 +1220,11 @@ class NetworkPolicy(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        self.utils.print_info("Unselect routing check box")
+        self.auto_actions.disable_check_box(self.np_web_elements.get_np_routing_check_box())
+        self.screen.save_screen_shot()
+        sleep(2)
+
         self.utils.print_info("Enter the policy name:{}".format(policy_name))
         self.auto_actions.send_keys(self.np_web_elements.get_np_name_text(), policy_name)
         self.screen.save_screen_shot()
@@ -1348,7 +1353,7 @@ class NetworkPolicy(object):
         
         def _check_device_rows():
             return self._get_device_rows(device_mac)
-        self.tools.wait_till(_check_device_rows, delay=0.2, is_logging_enabled=True, silent_failure=False)
+        self.utils.wait_till(_check_device_rows, delay=0.2, is_logging_enabled=True, silent_failure=False)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)

@@ -1,4 +1,5 @@
 import time
+from ExtremeAutomation.Library.Utils.RobotUtils import RobotUtils
 from ExtremeAutomation.Library.Utils.NetworkElementUtils import NetworkElementUtils
 from ExtremeAutomation.Library.Utils.EndsystemElementUtils import EndsystemElementUtils
 from ExtremeAutomation.Library.Device.EndsystemElement.EndsystemElement import EndsystemElement
@@ -7,7 +8,7 @@ from ExtremeAutomation.Keywords.BaseClasses.EndsystemKeywordBaseClass import End
 
 class EndsystemConnectionManager(EndsystemKeywordBaseClass):
 
-    def connect_to_endsystem_element(self, es_elem_name, ip, username, password, connection_method, device_os,
+    def connect_to_endsystem_element(self, es_elem_name, ip, username, password, connection_method, cli_type,
                                      port=None, device_platform=None, device_version=None, device_unit=None,
                                      max_wait="60", **kwargs):
         """
@@ -18,14 +19,14 @@ class EndsystemConnectionManager(EndsystemKeywordBaseClass):
         [password]          - The password needed to log into the device.
         [connection_method] - The protocol used to connect to the device. Current options are
                               "telnet", "ssh" and "json".
-        [device_type]       - The type of device that will be connected to. Current options are "EOS", "EXOS",
+        [cli_type]          - The type of device that will be connected to. Current options are "EOS", "EXOS",
                               "EXOS-ISW".
         [port]              - The port used to connect to the device. If no port is provided the protocols default will
                               be used.
 
         This keyword connects to a endsystem element. An exception is thrown if a connection cannot be established.
         """
-        device = self.__base_connect_to_end_sys(es_elem_name, ip, username, password, connection_method, device_os,
+        device = self.__base_connect_to_end_sys(es_elem_name, ip, username, password, connection_method, cli_type,
                                                 port, device_platform, device_version, device_unit, **kwargs)
 
         self._init_keyword(es_elem_name, **kwargs)
@@ -48,7 +49,7 @@ class EndsystemConnectionManager(EndsystemKeywordBaseClass):
         This function parses the current robot variables dictionary and connects to all end
         system elements present.
         """
-        variables = BuiltIn().get_variables(no_decoration=True)
+        variables = RobotUtils.get_variables(no_decoration=True)
         end_systems = NetworkElementUtils.get_device_names_from_variables(variables, "endsys")
 
         for end_system in end_systems:
@@ -67,7 +68,7 @@ class EndsystemConnectionManager(EndsystemKeywordBaseClass):
                 es_password = variables[end_system]["password"]
                 es_con_method = variables[end_system]["connection_method"]
                 es_port = variables[end_system]["port"]
-                es_os = variables[end_system]["os"]
+                es_os = variables[end_system]["cli_type"]
             except KeyError:
                 if es_ip is None:
                     self.logger.log_error("${" + end_system + ".ip} variable not present in testbed " +
@@ -107,7 +108,7 @@ class EndsystemConnectionManager(EndsystemKeywordBaseClass):
         """
         Closes the connection to all end system elements present in the extended environment file.
         """
-        variables = BuiltIn().get_variables(no_decoration=True)
+        variables = RobotUtils.get_variables(no_decoration=True)
         end_systems = NetworkElementUtils.get_device_names_from_variables(variables, "endsys")
 
         for end_system in end_systems:
@@ -139,15 +140,15 @@ class EndsystemConnectionManager(EndsystemKeywordBaseClass):
         self.connect_to_endsystem_element(es_elem_name, ip, username, password, connection_method, os,
                                           connection_port, platform, version, unit, log_keyword=False)
 
-    def __base_connect_to_end_sys(self, name, ip, user, password, connection_method, oper_sys, port, platform,
+    def __base_connect_to_end_sys(self, name, ip, user, password, connection_method, cli_type, port, platform,
                                   version, unit, **kwargs):
-        device_info = EndsystemElementUtils.get_device_info(oper_sys, platform, version, unit)
+        device_info = EndsystemElementUtils.get_device_info(cli_type, platform, version, unit)
         connection_method, port = EndsystemElementUtils.get_connection_method(connection_method, port)
 
         device = EndsystemElement(device_info["device_os"], device_info["device_platform"],
                                   device_info["device_unit"], device_info["device_version"])
 
-        EndsystemElementUtils.update_device_class(device, oper_sys, platform, version, unit)
+        EndsystemElementUtils.update_device_class(device, cli_type, platform, version, unit)
         device.hostname = ip
         device.port = port
         device.connection_method = connection_method
