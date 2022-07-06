@@ -1,6 +1,6 @@
 from ExtremeAutomation.Library.Device.NetworkElement.NetworkElement import NetworkElement
 
-netelem = NetworkElement("os", "platform", "unit", "version")
+netelem = NetworkElement("cli_type", "platform", "unit", "version")
 link = netelem.get_api("api")
 
 

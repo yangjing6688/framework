@@ -221,79 +221,79 @@ class NavigatorWebElementDefinitions:
     manage_tool_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-issue"]/a',
-            'wait_for': 10
+            
         }
 
     tool_utility_nav = \
         {
             'XPATH': '//td[@data-automation-tag="automation-tools-controller-troubleshoot-utilities-link"]/ul/li/a',
-            'wait_for': 10
+            
         }
 
     global_header_nav = \
         {
             'XPATH': '//div[@data-dojo-attach-point="headerUserIcon"]',
-            'wait_for': 10
+            
         }
 
     global_header_communication_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-account-menu-communications-link"]',
-            'wait_for': 10
+            
         }
 
     manage_reports_nav = \
         {
             'XPATH': '//div[@data-automation-tag="automation-header-nav-reports"]/a',
-            'wait_for': 10
+            
         }
 
     manage_alarms_nav = \
         {
             'XPATH': '//div[@data-automation-tag="automation-header-nav-alarms"]//a',
-            'wait_for': 10
+            
         }
 
     manage_security_nav = \
         {
             'XPATH': '//div[@data-automation-tag="automation-header-nav-security"]//a',
-            'wait_for': 10
+            
         }
 
     policy_toggle = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-label-Policy"]',
-            'wait_for': 10
+            
         }
 
     policy_toggle_right_arrow = \
         {
             'CSS_SELECTOR': 'ui-chevron-big.dropdown-chevron.right.active.pilot-active-bot',
-            'wait_for': 10
+            
         }
 
     auto_provisioning_option = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-autoProvision"]',
-            'wait_for': 10
+            
         }
 
     device_nav = \
         {
             'XPATH': ' //*[@data-automation-tag="automation-header-nav-devices"]',
-            'wait_for': 10
+            
         }
 
     common_objects_ssids = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-ssidManage"]',
-            'wait_for': 10
+            
         }
 
     manage_clients_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-clients"]',
-            'wait_for': 10
+            
         }
 
     common_object_authentication_tab = \
@@ -456,13 +456,13 @@ class NavigatorWebElementDefinitions:
     list_view = \
         {
             'XPATH': "//*[@data-automation-tag='automation-config-list']",
-            'wait_for': 10
+            
         }
 
     card_view = \
         {
             'XPATH': "//*[@data-automation-tag='automation-config-card']",
-            'wait_for': 10
+            
         }
 
     network_policy_page_size = \
@@ -474,7 +474,7 @@ class NavigatorWebElementDefinitions:
     device_actions_button = \
         {
             'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-button"]',
-            'wait_for': 10
+            
         }
 
     device_utilities_status = \
@@ -510,13 +510,13 @@ class NavigatorWebElementDefinitions:
     common_objects_switch_templates = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-switchTemplate"]',
-            'wait_for': 10
+            
         }
 
     api_token_mgmt_tab = \
         {
             'XPATH': '//li[@data-automation-tag="automation-sider-list-xapiTokenMng"]',
-            'wait_for': 10
+            
         }
 
     a3_nav = \
@@ -642,7 +642,7 @@ class NavigatorWebElementDefinitions:
     communications_notification_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-notifications"]',
-            'wait_for': 10
+            
         }
 
     extreme_IOT_subscribe_button = \
@@ -891,13 +891,13 @@ class NavigatorWebElementDefinitions:
     common_objects_ccgs = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-CloudConfigGroups"]',
-            'wait_for': 10
+            
         }
 
     common_objects_classification = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-ClassificationRules"]',
-            'wait_for': 10
+            
         }
 
     configure_ppsk_classification_side_nav_item = \
@@ -921,7 +921,7 @@ class NavigatorWebElementDefinitions:
     common_objects_radio_profile = \
         {
             'XPATH': '//div[@data-automation-tag="automation-sider-list-RadioProfiles"]',
-            'wait_for': 10
+            
         }
     
     subtab_common_object = \

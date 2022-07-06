@@ -7643,7 +7643,7 @@ class Devices:
             return -1
         retry = 0
         while retry <= 10:
-            output = self.cli.send_line_and_wait(spawn, "", 30)
+            self.cli.send(spawn, "")
             self.utils.print_info(output)
             if 'Rebooting switch as configuration caused disconnect' in output:
                 self.utils.print_info("VOSS : 'CLOUD_AGENT INFO  Rebooting switch as configuration caused disconnect'")
