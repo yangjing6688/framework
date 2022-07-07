@@ -716,7 +716,7 @@ class Cli(object):
 
 
     def configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                             vr='VR-Default', retry_count=10):
+                                             vr='VR-Mgmt', retry_count=10):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
@@ -737,15 +737,15 @@ class Cli(object):
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'Hivemanager address {server_name}')
-            self.send(_spawn, f'Application stop hiveagent')
-            self.send(_spawn, f'Application start hiveagent')
+            self.send(_spawn, f'do Hivemanager address {server_name}')
+            self.send(_spawn, f'do Application stop hiveagent')
+            self.send(_spawn, f'do Application start hiveagent')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                hm_status = self.send(_spawn, f'show hivemanager status | include Status')
-                hm_address = self.send(_spawn, f'show hivemanager address')
+                hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
+                hm_address = self.send(_spawn, f'do show hivemanager address')
 
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
                     self.close_spawn(_spawn)
