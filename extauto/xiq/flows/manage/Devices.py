@@ -2427,6 +2427,49 @@ class Devices:
                 ret_val = -1
         return ret_val
 
+    def wait_for_device_to_finish_update(self, device_serial=None, device_name=None, device_mac=None, retry_duration=10, retry_count=30, **kwargs):
+        """
+        - This keyword waits for the device to finish updates
+        - This keyword by default loop over every 10 seconds for up to 5 minutes to check the device updated status
+        - Flow:
+         - check the device status for a device based on passed device serial/device mac/device_name
+        - Keyword Usage:
+         - ``wait_for_device_to_finish_update       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
+         - ``wait_for_device_to_finish_update       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+
+        :param device_serial: device serial number to check the device update status
+        :param device_mac: device mac to check the device update status
+        :param device_name: device name to check the device update status
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if device finished update, else -1
+        """
+        update_status = ['Querying', 'IQ Engine Firmware Updating', 'User Configuration Updating', 'Rebooting',
+                         'Certification Updating']
+        device_update_status = ""
+        for delay in range(retry_count):
+            self.utils.print_info(f"Device Update Status Check - Loop: ", delay+1)
+            device_update_status = self.get_device_updated_status(device_serial=device_serial, device_mac=device_mac,
+                                                                  device_name=device_name)
+
+            if device_update_status not in update_status:
+                kwargs['pass_msg'] = f"Device status is {device_update_status}. Device finished update!"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+            else:
+                self.utils.print_info(f"Device status is {device_update_status}. Waiting for {retry_duration}s")
+                sleep(retry_duration)
+                if delay == retry_count-1:
+                    kwargs['fail_msg'] = f"Device status is still {device_update_status}. " \
+                                         f"Device didn't finish update within time!"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+
+        kwargs['fail_msg'] = "Failed to get device update status. Please check."
+        self.screen.save_screen_shot()
+        self.common_validation.validate(-1, 1, **kwargs)
+        return -1
+
     def delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - Deletes Device matching either any of either one of serial, name, MAC
@@ -2442,7 +2485,8 @@ class Devices:
         if device_serial:
             self.utils.print_info("Deleting device: ", device_serial)
             search_result = self.search_device(device_serial=device_serial)
-            if search_result != -1:
+
+            if search_result != -1 and self.wait_for_device_to_finish_update(device_serial=device_serial):
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click delete button")
                     sleep(2)
@@ -2483,7 +2527,7 @@ class Devices:
             self.utils.print_info("Deleting device: ", device_name)
             search_result = self.search_device(device_name=device_name)
 
-            if search_result != -1:
+            if search_result != -1 and self.wait_for_device_to_finish_update(device_name=device_name):
                 if self.select_device(device_name=device_name):
                     self.utils.print_info("Click delete button")
                     self.auto_actions.click(self.devices_web_elements.get_delete_button())
@@ -2518,7 +2562,7 @@ class Devices:
             self.utils.print_info("Deleting device: ", device_mac)
             search_result = self.search_device(device_mac=device_mac)
 
-            if search_result != -1:
+            if search_result != -1 and self.wait_for_device_to_finish_update(device_mac=device_mac):
                 if self.select_device(device_mac=device_mac):
                     self.utils.print_info("Click delete button")
                     self.auto_actions.click(self.devices_web_elements.get_delete_button())
@@ -3291,7 +3335,7 @@ class Devices:
         if nw_policy:
             return nw_policy
 
-    def get_device_updated_status(self, device_serial='default', device_name='default', device_mac='default'):
+    def get_device_updated_status(self, device_serial=None, device_name=None, device_mac=None):
         """
         - This keyword returns the device updated status by searching device row using serial, name or mac address
         - Assumes that already navigated to the manage-->device page
@@ -3311,15 +3355,15 @@ class Devices:
         sleep(5)
 
         self.utils.print_info('Getting device Updated Status using')
-        if device_serial != 'default':
+        if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
             device_row = self.get_device_row(device_serial)
 
-        if device_name != 'default':
+        if device_name:
             self.utils.print_info("Getting Updated status of device with name: ", device_name)
             device_row = self.get_device_row(device_name)
 
-        if device_mac != 'default':
+        if device_mac:
             self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac)
 
