@@ -44,9 +44,6 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
     def get_np_wireless_check_box(self):
         return self.weh.get_element(self.np_wireless_check_box)
 
-    def get_np_routing_check_box(self):
-        return self.weh.get_element(self.np_routing_check_box)
-
     def get_np_name_text(self):
         return self.weh.get_element(self.policy_name_text)
 
