@@ -35,7 +35,7 @@ class ClassificationRule(object):
 
         :param name: Name of the Classification Rule
         :param description: Description of the Classification Rule
-        :param match_type_flag: yes(whatever case sensitive) means 'Contains', not(whatever case sensitive) means 'Does Not Contain'
+        :param match_type_flag: YES = (default) match based on 'Contains' NOT = match based on "Does Not Contain"
         :param ccg_policy: Cloud Config Group Policy Name
         :return: 1 if created else -1
         """
