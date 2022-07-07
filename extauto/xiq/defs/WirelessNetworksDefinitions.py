@@ -9,7 +9,7 @@ class WirelessNetworksDefinitions:
     wireless_nw_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     wireless_row_cells = \
@@ -62,8 +62,7 @@ class WirelessNetworksDefinitions:
 
     wireless_select_ppsk_ssid_auth = \
         {
-            'CLASS_NAME': 'ui-select-card-title',
-            'index': 2,
+            'XPATH': '//*[@data-automation-tag="automation-ssid-auth-ppsk"]',
             'wait_for': 1
         }
 
@@ -83,8 +82,7 @@ class WirelessNetworksDefinitions:
 
     wireless_select_open_ssid_auth = \
         {
-            'CLASS_NAME': 'ui-select-card-title',
-            'index': 4,
+            'XPATH': '//*[@data-automation-tag="automation-ssid-auth-open-access"]',
             'wait_for': 1
         }
 

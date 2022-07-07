@@ -3,21 +3,22 @@
 class DialogWebElementsDefinitions:
     dialog_title_label = \
         {'CLASS_NAME': 'dijitDialogTitle',
-         'wait_for': 10
+         
          }
 
     dialog_box = \
         {'CSS_SELECTOR': '.quick-onboard-dialog.dijitDialogFixed.dijitDialog',
-         'wait_for': 10
+         
         }
 
     dialog_message = \
         {'CSS_SELECTOR': '.ui-dialog-content.quick-failure-ctn',
-         'wait_for': 10
+         
          }
 
     dialog_ok_button = \
-        {'CSS_SELECTOR': '.btn.btn-small.btn-primary',
+        {
+         'XPATH': "//*[@data-dojo-attach-point='okBtn']",
          'wait_for': 5
          }
 

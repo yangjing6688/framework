@@ -2,7 +2,7 @@ from ExtremeAutomation.Library.Utils.Constants.Constants import Constants
 
 
 class NetworkElementConstants(Constants):
-    # OS Constants
+    # cli type Constants
     OS_BOSS = 'BOSS'
     OS_BOSS_RADIUS = 'BOSS-RADIUS'
     OS_EOS = 'EOS'
@@ -21,8 +21,10 @@ class NetworkElementConstants(Constants):
     OS_MLX = 'MLX'  # brocade
     OS_VDX = 'VDX'  # brocade
     OS_ICX = 'ICX'  # brocade
-    OS_HIVE = 'HIVE'  # AP
-    OS_WING = 'WING'  # AP
+    OS_AHFASTPATH = 'AH-FASTPATH'    # AH Fastpath
+    OS_WING = 'WING-AP'              # WING AP
+    OS_AHAP = 'AH-AP'                # AEROHIVE Switch
+    OS_AHXR = 'AH-XR'                # XR Switch
 
     # Unit Constants
     UNIT_BASE = "baseunit"
@@ -34,8 +36,6 @@ class NetworkElementConstants(Constants):
     PLATFORM_BASE = "base"
     PLATFORM_EOS_BASE = "base"
     PLATFORM_BOSS_BASE = "base"
-    PLATFORM_HIVE_BASE = "base"
-    PLATFORM_WING_BASE = "base"
     PLATFORM_ECOS_BASE = "base"
     PLATFORM_EOS_TOR = "TOR"
     PLATFORM_EOS_S = "S"
@@ -48,6 +48,10 @@ class NetworkElementConstants(Constants):
     PLATFORM_VOSS_BASE = "base"
     PLATFORM_ALPHA_BASE = "base"
     PLATFORM_EOS_STACKS_BASE = "base"
+    PLATFORM_AH_AP_BASE = "base"
+    PLATFORM_AH_FASTPATH_BASE = "base"
+    PLATFORM_WING_AP_BASE = "base"
+    PLATFORM_AH_XR_BASE = "base"
 
     # CLI Prompts
     PROMPT_FORCE_ROUTER_CONFIG = "forceRouterConfigPrompt"

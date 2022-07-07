@@ -16,7 +16,7 @@ class RouterTemplateWebElementsDefinitions:
     network_allocation_tab = \
         {
             'XPATH': '//ul[@data-dojo-attach-point="routerSubmenu"]//li[@data-tab="NetworkAllocation"]',
-            'wait_for': 10
+            
         }
 
     device_template_tab = \
@@ -158,7 +158,7 @@ class RouterTemplateWebElementsDefinitions:
     router_template_port_details_grid_rows = \
         {
             'CSS_SELECTOR': '.state-type-access-port',
-            'wait_for': 10
+            
          }
 
     router_template_add_port_type_link_button = \
@@ -316,7 +316,8 @@ class RouterTemplateWebElementsDefinitions:
 
     port_new_vlan_select_new_button = \
         {
-            'XPATH': '//div[contains(@id,"ah/util/form/objects")]//a[@class="item-new"]',
+            'XPATH': '//div[@data-dojo-attach-point="ipList"]//*[@class="ui-ip-list-item"]'
+                     '//a[@data-type="vlan-profile"]',
             'wait_for': 5
         }
 

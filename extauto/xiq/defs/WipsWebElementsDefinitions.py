@@ -242,7 +242,7 @@ class WipsWebElementDefinitions:
     wips_mac_oui_grid_rows = \
         {
             'CLASS_NAME': 'dojoxGridRow',
-            'wait_for': 10
+            
          }
 
     wips_mac_oui_select_all_checkbox_list = \
@@ -440,7 +440,7 @@ class WipsWebElementDefinitions:
     rogue_ap_logs_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     rogue_ap_logs_grid_row_cells = \
@@ -470,7 +470,7 @@ class WipsWebElementDefinitions:
     rogue_client_logs_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            'wait_for': 10
+            
         }
 
     rogue_client_logs_grid_row_cells = \

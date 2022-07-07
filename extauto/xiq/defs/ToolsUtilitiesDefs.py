@@ -49,7 +49,7 @@ class ToolsUtilitiesDefs:
     neighbor_page_body_grid_rows = \
         {
             'TAG_NAME': 'tr',
-            'wait_for': 10
+            
         }
 
     neighbor_info_close_button = \
@@ -224,7 +224,7 @@ class ToolsUtilitiesDefs:
     device_client_info_grids = \
         {
             'XPAth': '//*[contains(@id,"dojox_grid__View")]/div/div/div/div/table/tbody/tr/td',
-            'wait_for': 10
+            
         }
     device_client_info_ap_name_txt = \
         {
@@ -294,7 +294,7 @@ class ToolsUtilitiesDefs:
 
     locked_device_unlock_btn = \
         {'XPATH': '//button[@data-dojo-attach-point="unlockDevices"]',
-         'wait_for': 10
+         
          }
 
     locked_device_tbl = \
@@ -319,7 +319,7 @@ class ToolsUtilitiesDefs:
         }
     device_diag_list = \
         {'CSS_SELECTOR': '.dgrid-row',
-         'wait_for': 10
+         
          }
     device_diag_ping_btn1 = \
         {'XPATH': '//span[@data-dojo-attach-point="deviceDiagnosticsBtn"]/div[1]/ul[1]/li/a[text() = "Ping"]',
@@ -353,7 +353,7 @@ class ToolsUtilitiesDefs:
          }
     vlan_probe_input_range_txt = \
         {'XPATH': '//input[@data-dojo-attach-point="vlanRanges"]',
-         'wait_for': 10
+         
          }
     vlan_probe_timeout_txt = \
         {'XPATH': '//input[@data-dojo-attach-point="probeTimeout"]',

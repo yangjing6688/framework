@@ -11,19 +11,19 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
         return self.weh.get_element(self.n360_plan_create_new_map_button)
 
     def get_n360_plan_map_organization_text(self):
-        return self.weh.get_elements(self.n360_plan_create_map_organization)
+        return self.weh.get_element(self.n360_plan_create_map_organization)
 
     def get_n360_plan_create_map_street_address(self):
-        return self.weh.get_elements(self.n360_plan_create_map_street_address)
+        return self.weh.get_element(self.n360_plan_create_map_street_address)
 
     def get_n360_plan_map_city_text(self):
-        return self.weh.get_elements(self.n360_plan_create_map_city_state)
+        return self.weh.get_element(self.n360_plan_create_map_city_state)
 
     def get_n360_plan_map_save_btn(self):
         return self.weh.get_element(self.n360_plan_create_map_get_started)
 
     def get_n360_plan_map_close_btn(self):
-        return self.weh.get_elements(self.n360_plan_map_close_button)
+        return self.weh.get_element(self.n360_plan_map_close_button)
 
     def get_n360_plan_import_map_button(self):
         return self.weh.get_element(self.n360_plan_import_map_button)

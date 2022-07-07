@@ -21,6 +21,11 @@ class EndsystemElementConstants(Constants):
     OS_EMC = "EMC"
     OS_GIM = "GIM"
     OS_ECIQ = "ECIQ"
+    OS_WINDOWS_MU = "MU-WINDOWS"
+    OS_LINUX_MU = "MU-LINUX"
+    OS_MAC_MU =  "MU-MAC"
+    OS_A3 = "A3"
+
 
     # Unit Constants
     UNIT_BASE = "baseunit"
@@ -36,6 +41,10 @@ class EndsystemElementConstants(Constants):
     PLATFORM_EMC_BASE = "base"
     PLATFORM_GIM_BASE = "base"
     PLATFORM_ECIQ_BASE = "base"
+    PLATFORM_MU_WINDOWS_BASE = "base"
+    PLATFORM_MU_LINUX_BASE = "base"
+    PLATFORM_MU_MAC_BASE = "base"
+    PLATFORM_A3_BASE = "base"
 
     # API Constants
     API_COMMON = "common"
