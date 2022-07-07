@@ -6845,12 +6845,8 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-        # Wait device360 page to open
-        sleep(5)
         self.select_configure_tab()
-        sleep(2)
         self.select_port_configuration_view()
-        sleep(2)
         self.select_stack_unit(slot=slot)
         sleep(2)
         self.utils.print_info("Click PSE Tab")
@@ -6880,7 +6876,6 @@ class Device360(Device360WebElements):
         if save_threshold_poe:
             self.utils.print_info("Saving threshold {} % ".format(threshold_value))
             self.auto_actions.click(save_threshold_poe)
-            sleep(2)
         else:
             self.utils.print_info("Save button not found")
             return -1
@@ -6922,8 +6917,6 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
         slot_index = 1
         slot_found = False
-        # Wait device360 page to open
-        sleep(5)
         slot_details_overview = self.get_device360_stack_overview_slot_details_rows()
         if slot_details_overview:
             power_elements = self.dev360.get_device360_thunderbold_icon_stack(slot_details_overview)
