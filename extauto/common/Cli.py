@@ -716,7 +716,7 @@ class Cli(object):
 
 
     def configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                             vr='VR-Mgmt', retry_count=10):
+                                             vr='VR-Default', retry_count=10):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
