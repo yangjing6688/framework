@@ -834,6 +834,8 @@ class CommonObjects(object):
                 return -1
             elif "Deleted Switch Template successfully" in value:
                 return 1
+            elif "Template was successfully removed from policy" in value:
+                return 1
         return -1
 
     def _get_switch_template_row(self, search_string):
