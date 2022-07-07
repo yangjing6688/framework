@@ -5517,13 +5517,14 @@ class Device360(Device360WebElements):
 
     def device360_check_column_picker(self, option, *columns, select_page="", device_mac="", device_name=""):
         '''
-
-        :param option:
-        :param columns:
-        :param select_page:
-        :param device_mac:
-        :param device_name:
-        :return:
+        This keyword confirms the list of the column picker values that was previously checked or unchecked in the
+        column from a specific page
+        :param option: check/uncheck columns picker values from each page
+        :param columns: list of columns from each page that should be selected
+        :param select_page: the page can be Overview/Clients/Alarms/Events
+        :param device_mac: mac of the device
+        :param device_name: name of the device
+        :return: 1 if you can select the page and return the status of the column from the specific page; else -1
         '''
 
         self.navigator.navigate_to_devices()
