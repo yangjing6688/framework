@@ -251,21 +251,6 @@ class CloudConfigGroup(object):
                 self.utils.print_info(f"{tip_text}")
                 sleep(1)
                 return -3
-# Below lines are commented out by Wenqi Cao on July 7
-# Reason: CCG config should be pure CCG config, should NOT involve push config logic, so comment out below lines.
-        # for ap_serial in ap_serials:
-        #     self.utils.print_info("Navigating to the Device Page")
-        #     self.utils.print_info("Select row for ap with serial", ap_serial)
-        #     self.navigator.navigate_to_devices()
-        #     sleep(5)
-        #     if not self.device.select_device(ap_serial):
-        #         self.utils.print_info(f"AP {ap_serial} is not present in the grid")
-        #         return -1
-        #     sleep(2)
-        #
-        # sleep(2)
-        # self.device._update_network_policy()
-# Above lines are commented out by Wenqi Cao on July 7
         if self.search_ccg_group_from_common_object(policy):
             ccg_group_members = self.get_ccg_group_members(policy)
             for ap_serial in ap_serials:
