@@ -59,4 +59,3 @@ class DeviceCommonDefs:
             'XPATH': '//span[@data-id="100"][0]',
             'wait_for': 5
         }
-
