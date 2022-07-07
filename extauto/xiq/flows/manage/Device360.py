@@ -4966,14 +4966,12 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
         sleep(5)
         self.select_configure_tab()
         self.select_port_configuration_view()
