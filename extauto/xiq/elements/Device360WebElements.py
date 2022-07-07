@@ -1675,7 +1675,6 @@ class Device360WebElements(Device360WebElementDefs):
         scroll = self.get_device360_ports_table_scroll()
         if scroll:
             from common.AutoActions import AutoActions
-            from selenium.webdriver.common.keys import Keys
             auto_actions = AutoActions()
             auto_actions.click(scroll)
             for _ in range(10):
