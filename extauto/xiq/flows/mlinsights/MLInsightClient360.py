@@ -42,6 +42,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
         self.navigator.navigate_to_client360()
 
         self.utils.print_info("Click on real time client 360 tab")
+        self.auto_actions.click(self.get_client_360_inactive_tab())
         self.auto_actions.click(self.get_client_360_real_time_tab())
 
         self.utils.print_info("Click on the client 360 refresh button")
@@ -81,6 +82,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
         self.navigator.navigate_to_client360()
 
         self.utils.print_info("Click on real time client 360 tab")
+        self.auto_actions.click(self.get_client_360_inactive_tab())
         self.auto_actions.click(self.get_client_360_real_time_tab())
 
         self.utils.print_info("Click on the client 360 refresh button")

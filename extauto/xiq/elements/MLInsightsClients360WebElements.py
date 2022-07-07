@@ -69,6 +69,9 @@ class MLInsightsClients360WebElements(MLInsightsClient360Definitions):
     def get_client_360_real_time_tab(self):
         return self.weh.get_element(self.client_360_real_time_tab)
 
+    def get_client_360_inactive_tab(self):
+        return self.weh.get_element(self.client_360_inactive_tab)
+
     def get_client_360_real_time_grid_rows(self):
         return self.weh.get_elements(self.client_360_real_time_grid_rows)
 

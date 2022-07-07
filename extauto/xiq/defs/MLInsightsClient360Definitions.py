@@ -132,6 +132,12 @@ class MLInsightsClient360Definitions:
             'wait_for': 5
         }
 
+    client_360_inactive_tab = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="historical"]',
+            'wait_for': 5
+        }
+
     client_360_real_time_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="activeClientsBox"]//table[@class="dgrid-row-table"]',
