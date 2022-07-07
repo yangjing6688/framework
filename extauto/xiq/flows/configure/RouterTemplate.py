@@ -142,12 +142,12 @@ class RouterTemplate(RouterTemplateWebElements):
         self.auto_actions.click(self.get_router_allocation_add_button())
         sleep(5)
 
-        self.utils.print_info("Configure Network Vlan Object")
-        self.configure_network_allocation_vlan(**network_vlan_settings)
-        sleep(2)
-
         self.utils.print_info("Configure Sub Network Section")
         self.configure_network_allocation_sub_network(**sub_network_settings)
+        sleep(2)
+
+        self.utils.print_info("Configure Network Vlan Object")
+        self.configure_network_allocation_vlan(**network_vlan_settings)
         sleep(2)
 
         return 1
@@ -364,6 +364,9 @@ class RouterTemplate(RouterTemplateWebElements):
         self.auto_actions.click(self.get_router_allocation_new_vlan_save_button())
         sleep(5)
 
+        self.utils.print_info("Saving Network Allocation Configuration")
+        self.auto_actions.click(self.get_save_network_allocation_button())
+
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -401,9 +404,6 @@ class RouterTemplate(RouterTemplateWebElements):
 
         if advance_config != 'None':
             self.configure_advanced_subnetwork_section(**advance_config)
-
-        self.utils.print_info("Saving Network Allocation Configuration")
-        self.auto_actions.click(self.get_save_network_allocation_button())
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -555,7 +555,7 @@ class RouterTemplate(RouterTemplateWebElements):
         else:
             self.utils.print_info("default Router Template :{} doesn't exist, create it..".format(template_name))
             self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
-            return False
+            return True
 
     def configure_advanced_subnetwork_section(self, **advance_config):
         """

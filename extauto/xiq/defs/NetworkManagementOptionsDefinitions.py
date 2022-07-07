@@ -16,7 +16,7 @@ class NetworkManagementOptionsDefinitions:
     network_management_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]',
-            'wait_for': 10
+            
         }
 
     network_management_grid_row_cells = \

@@ -1,3 +1,4 @@
+import logging
 import re
 from ExtremeAutomation.Library.Logger.Logger import Logger
 from ExtremeAutomation.Library.Device.Common.Agents.AgentConstants import AgentConstants
@@ -50,7 +51,7 @@ class EndsystemElementUtils(object):
             pass_prompt = ""
             main_prompt = ""
         # If an unknown device type is received default to EOS.
-        else:
+        elif formatted_dev_os == EndsystemElementConstants.OS_WINDOWS.upper():
             device_os = EndsystemElementConstants.OS_WINDOWS
             device_platform = EndsystemElementConstants.PLATFORM_WINDOWS_BASE
             login_prompt = "login:"
@@ -58,6 +59,35 @@ class EndsystemElementUtils(object):
             main_prompt = ">"
             end_of_line = "\r\n"
             slow_login = 20
+        elif formatted_dev_os == EndsystemElementConstants.OS_WINDOWS_MU.upper():
+            device_os = EndsystemElementConstants.OS_WINDOWS_MU
+            device_platform = EndsystemElementConstants.PLATFORM_MU_WINDOWS_BASE
+            login_prompt = "login as:"
+            pass_prompt = "password:"
+            main_prompt = ">"
+            end_of_line = "\r\n"
+            slow_login = 20
+        elif formatted_dev_os == EndsystemElementConstants.OS_MAC_MU.upper():
+            device_os = EndsystemElementConstants.OS_MAC_MU
+            device_platform = EndsystemElementConstants.PLATFORM_MU_MAC_BASE
+            login_prompt = "login as:"
+            pass_prompt = "password:"
+            main_prompt = "#"
+        elif formatted_dev_os == EndsystemElementConstants.OS_LINUX_MU.upper():
+            device_os = EndsystemElementConstants.OS_LINUX_MU
+            device_platform = EndsystemElementConstants.PLATFORM_LINUX_BASE
+            login_prompt = "login:"
+            pass_prompt = "password:"
+            main_prompt = "#"
+        elif formatted_dev_os == EndsystemElementConstants.OS_A3.upper():
+            device_os = EndsystemElementConstants.OS_A3
+            device_platform = EndsystemElementConstants.PLATFORM_A3_BASE
+            login_prompt = "login as:"
+            pass_prompt = "password:"
+            main_prompt = "$"
+        else:
+            raise Exception("Unknown OS Type: " + str(formatted_dev_os))
+
 
         device_version = dev_version if dev_version is not None else EndsystemElementConstants.VERSION_BASE
         device_unit = dev_unit if dev_unit is not None else EndsystemElementConstants.UNIT_BASE
@@ -109,7 +139,11 @@ class EndsystemElementUtils(object):
         Note: Currently these are the only supported endsystem OSes.
         """
         if not (dev_os.upper() == EndsystemElementConstants.OS_LINUX or
-                dev_os.upper() == EndsystemElementConstants.OS_WINDOWS):
+                dev_os.upper() == EndsystemElementConstants.OS_WINDOWS or
+                dev_os.upper() == EndsystemElementConstants.OS_WINDOWS_MU or
+                dev_os.upper() == EndsystemElementConstants.OS_LINUX_MU or
+                dev_os.upper() == EndsystemElementConstants.OS_MAC_MU or
+                dev_os.upper() == EndsystemElementConstants.OS_A3):
             logger = Logger()
             logger.log_trace("!!! OS not supported " + dev_os + " !!!")
 

@@ -8,6 +8,8 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementListU
 from ExtremeAutomation.Keywords.NetworkElementKeywords.StaticKeywords.NetworkElementResetDeviceUtilsKeywords import NetworkElementResetDeviceUtilsKeywords
 from ExtremeAutomation.Keywords.NetworkElementKeywords.StaticKeywords.NetworkElementFirmwareUtilsKeywords import NetworkElementFirmwareUtilsKeywords
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementHealthCheck import NetworkElementHealthCheck
+from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
+
 from pytest_testconfig import config
 from ExtremeAutomation.Imports.pytestConfigHelper import PytestConfigHelper
 
@@ -16,10 +18,12 @@ class SetupTeardownUdks():
         self.healthCheckUdks = HealthCheckUdks()
         self.networkElementListUtils = NetworkElementListUtils()
         self.networkElementConnectionManager = NetworkElementConnectionManager()
+
         self.trafficGeneratorConnectionManager = TrafficGeneratorConnectionManager()
         self.trafficPortKeywords = TrafficPortKeywords()
         self.networkElementFileManagementKeywords = NetworkElementFileManagementUtilsKeywords()
         self.networkElementResetDeviceUtilsKeywords = NetworkElementResetDeviceUtilsKeywords()
+        self.endsystemConnectionManager = EndsystemConnectionManager();
 
     ########################################################
     ##############  Suite_Setup_Keywords  ##################
@@ -27,6 +31,7 @@ class SetupTeardownUdks():
     def Base_Test_Suite_Setup(self, baseline=False,**kwargs):
         all_tgen_ports = self.networkElementListUtils.create_list_of_all_tgen_ports()
         self.networkElementConnectionManager.connect_to_all_network_elements()
+        self.endsystemConnectionManager.connect_to_all_endsystem_elements()
         self.trafficGeneratorConnectionManager.connect_to_all_traffic_generators()
         self.trafficPortKeywords.take_port_ownership(all_tgen_ports)
         try:
@@ -47,6 +52,7 @@ class SetupTeardownUdks():
     #######################################################
     def Base_Test_Suite_Cleanup(self, **kwargs):
         self.networkElementConnectionManager.close_connection_to_all_network_elements()
+        self.endsystemConnectionManager.close_connection_to_all_endsystem_elements()
         self.trafficGeneratorConnectionManager.close_connection_to_all_traffic_generators()
 
     def Unit_Test_Suite_Cleanup(self, **kwargs):

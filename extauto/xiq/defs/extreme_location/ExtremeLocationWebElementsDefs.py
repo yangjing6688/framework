@@ -37,6 +37,32 @@ class ExtremeLocationWebElementsDefs:
             'wait_for': 5
         }
 
+    search_xloc_ap_page = \
+        {
+            'XPATH': '//div[contains(@class,"xloc-ap-summary-grid-search")]//div[contains(@class,"x-form-search-trigger")]',
+            'wait_for': 5
+        }
+
+    host_to_xloc_ap_page = \
+        {
+            'XPATH': '//div[contains(@class,"xloc-ap-summary-grid-search")]//input[contains(@id,"allcolumnssearch")]',
+            'wait_for': 5
+        }
+
+    device_building_from_xloc = \
+        {
+            'XPATH': '//div[contains(@id,"ApSummaryGrid")]//table[contains(@id,"gridview")]//td[contains(@class,"x-grid-cell")]//div[contains(@class,"x-grid-cell-inner ")]',
+            'index': 4,
+            'wait_for': 5
+        }
+
+    device_floor_from_xloc = \
+        {
+            'XPATH': '//div[contains(@id,"ApSummaryGrid")]//table[contains(@id,"gridview")]//td[contains(@class,"x-grid-cell")]//div[contains(@class,"x-grid-cell-inner ")]',
+            'index': 5,
+            'wait_for': 5
+        }
+
     devices_wireless_devices_search_textfield = \
         {
             'XPATH': '//*[contains(@class, "xloc-wireless-devices-grid-search-txt")]'
@@ -110,7 +136,7 @@ class ExtremeLocationWebElementsDefs:
         {
             'XPATH': '//*[contains(@id, "WirelessDevicesGrid") and contains'
                      '(@class, "x-grid-with-row-lines")]//tr[contains(@class, "x-grid-row")]',
-            'wait_for': 10
+            
         }
 
     extreme_location_sites_menu_dropdown_button = \
@@ -190,19 +216,19 @@ class ExtremeLocationWebElementsDefs:
     async_window_presence_button = \
         {
             'XPATH': '//input[contains(@class,"presence-analytics-on")]',
-            'wait_for': 10
+            
         }
 
     async_window_ibeacon_button = \
         {
             'XPATH': '//input[contains(@class,"ibeacon-on")]',
-            'wait_for': 10
+            
         }
 
     xloc_authentication_error = \
         {
             'XPATH': '//span[contains(text(),"Authentication Failure")]',
-            'wait_for': 10
+            
         }
 
     refresh_eloc_sites_page = \
@@ -384,7 +410,7 @@ class ExtremeLocationWebElementsDefs:
         {
             'XPATH': '//*[contains(@id, "DeviceClassificationGrid") and contains'
                      '(@class, "x-grid-with-row-lines")]//tr[contains(@class, "x-grid-row")]',
-            'wait_for': 10
+            
         }
 
     device_classification_edit_btn = \
@@ -616,7 +642,7 @@ class ExtremeLocationWebElementsDefs:
     device_classification_grid_row = \
         {
             'XPATH': '//div[contains(@class,"deviceClassificationGrid")]//table//tr[contains(@class,"x-grid-row")]',
-            'wait_for': 10
+            
          }
 
     device_classification_ssid_radio_btn = \

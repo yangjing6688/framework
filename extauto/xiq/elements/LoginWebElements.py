@@ -87,11 +87,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
         return self.weh.get_element(self.user_account_nav)
 
     def get_about_extreme_cloudiq_link(self):
-        menu = self.weh.get_element(self.logout_user_menu_item)
-        menu_items = self.weh.get_elements(self.menu_item, menu)
-        for menu_item in menu_items:
-            if 'ABOUT EXTREMECLOUD IQ' in menu_item.text.upper():
-                return menu_item
+        return self.weh.get_element(self.click_about_extreme_cloudiq_link)
 
     def get_cancel_about_extremecloudiq_dialogue(self):
         elements = self.weh.get_elements(self.cancel_about_extremecloudiq_dialogue)
@@ -300,3 +296,80 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_check_error_shared_cuid(self):
         return self.weh.get_element(self.check_error_shared_cuid)
+
+    def get_login_portal_page_username_text(self):
+        return self.weh.get_element(self.login_portal_page_username_text)
+
+    def get_login_portal_page_password_text(self):
+        return self.weh.get_element(self.login_portal_page_password_text)
+
+    def get_login_portal_page_login_button(self):
+        return self.weh.get_element(self.login_portal_page_login_button)
+
+    def get_login_portal_check_error(self):
+        elements = self.weh.get_elements(self.login_portal_check_error)
+        if elements:
+            for el in elements:
+                if el.is_displayed():
+                    return el
+                else:
+                    return None
+        else:
+            return None
+
+    def get_add_button_portal(self):
+        return self.weh.get_element(self.add_button_portal)
+
+    def get_customer_name_field(self):
+        return self.weh.get_element(self.customer_name_field)
+
+    def get_admin_first_name_field(self):
+        return self.weh.get_element(self.admin_first_name_field)
+
+    def get_admin_last_name_field(self):
+        return self.weh.get_element(self.admin_last_name_field)
+
+    def get_admin_email_field(self):
+        return self.weh.get_element(self.admin_email_field)
+
+    def get_admin_password_field(self):
+        return self.weh.get_element(self.admin_password_field)
+
+    def get_data_center_dropdown(self):
+        return self.weh.get_element(self.data_center_dropdown)
+
+    def get_data_center_dropdown_options(self):
+        return self.weh.get_elements(self.data_center_dropdown_options)
+
+    def get_submit_button(self):
+        return self.weh.get_element(self.submit_button)
+
+    def get_cell_menu_button_name_section(self):
+        return self.weh.get_element(self.cell_menu_button_name_section)
+
+    def get_filter_type_dropdown(self):
+        return self.weh.get_element(self.filter_type_dropdown)
+
+    def get_filter_dropdown_option_equals(self):
+        return self.weh.get_element(self.filter_dropdown_option_equals)
+
+    def get_filter_text_box(self):
+        return self.weh.get_element(self.filter_text_box)
+
+    def get_user_found(self):
+        return self.weh.get_elements(self.user_found)
+
+    def get_delete_button(self):
+        return self.weh.get_element(self.delete_button)
+
+    def get_confirmation_option_yes(self):
+        return self.weh.get_element(self.confirmation_option_yes)
+
+    def get_delete_confirmation(self):
+        return self.weh.get_element(self.delete_confirmation)
+
+    def get_log_out_button_portal(self):
+        return self.weh.get_element(self.log_out_button_portal)
+
+    def get_cancel_button(self):
+        return self.weh.get_element(self.cancel_button)

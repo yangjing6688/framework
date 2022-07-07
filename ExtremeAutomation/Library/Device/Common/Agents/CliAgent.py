@@ -453,6 +453,9 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
             if self.device.oper_sys in [NetworkElementConstants.OS_LINUX,
                                         NetworkElementConstants.OS_SNAP_ROUTE]:
                 prompt_list = ["#", "$"]
+            elif self.device.oper_sys in [NetworkElementConstants.OS_AHFASTPATH,
+                                          NetworkElementConstants.OS_AHXR]:
+                prompt_list = ["#",">"]
             else:
                 prompt_list = [self.device.main_prompt]
 
@@ -519,12 +522,16 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
         The regex strings may need different formatting depending on the device's operating system.
         """
         prompt_re = ".*" + self.prompt_snapshot + ".*" + self.device.main_prompt + ".*"
-        prompt_list = \
-            [re.compile(prompt_re.replace("[", r"\[").replace("]", r"\]").replace("(", "[(]").replace(")", "[)]"))]
+        try:
+            prompt_list = \
+                [re.compile(prompt_re.replace("[", r"\[").replace("]", r"\]").replace("(", "[(]").replace(")", "[)]"))]
+        except Exception as e:
+            print("Unable to get default prompt value: " +str(e))
 
         # OS based exceptions.
         if self.device.oper_sys in [NetworkElementConstants.OS_LINUX,
-                                    NetworkElementConstants.OS_SNAP_ROUTE]:
+                                    NetworkElementConstants.OS_SNAP_ROUTE,
+                                    EndsystemElementConstants.OS_LINUX_MU]:
             prompt_re1 = ".*" + self.prompt_snapshot + ".*$"
             prompt_re1 = re.compile(prompt_re1.replace("[", r"\[").replace("]", r"\]"))
             prompt_re2 = ".*" + self.prompt_snapshot + ".*#"
@@ -534,6 +541,22 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
             prompt_re1 = self.prompt_snapshot + ".$"
             prompt_re1 = prompt_re1.replace("\\", "\\\\")
             prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
+        elif self.device.oper_sys in [EndsystemElementConstants.OS_MAC_MU]:
+            prompt_re1 = ".#"
+            prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
+        elif self.device.oper_sys in [EndsystemElementConstants.OS_WINDOWS_MU]:
+            prompt_re1 = ".>"
+            prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
+        elif self.device.oper_sys in [EndsystemElementConstants.OS_A3]:
+            prompt_re1 = ".$"
+            prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
+        elif self.device.oper_sys in [NetworkElementConstants.OS_AHAP,
+                                      NetworkElementConstants.OS_AHFASTPATH,
+                                      NetworkElementConstants.OS_AHXR,
+                                      NetworkElementConstants.OS_WING]:
+            prompt_re1 = ".*" + self.prompt_snapshot + ".*"
+            prompt_re2 = prompt_re1.replace("(", r"\(").replace(")", r"\)")
+            prompt_list = [re.compile(prompt_re2, re.IGNORECASE)]
 
         return prompt_list
 
