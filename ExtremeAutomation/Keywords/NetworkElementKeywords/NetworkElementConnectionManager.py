@@ -182,7 +182,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 verify_cert = netelem_dict[netelem_name]["verify_cert"]
 
                 self.connect_to_network_element(netelem_name, netelem_ip, netelem_user, netelem_pass,
-                                                netelem_con_method, netelem_os, netelem_port, netelem_platform,
+                                                netelem_con_method, netelem_cli_type, netelem_port, netelem_platform,
                                                 netelem_version, netelem_unit, netelem_console_ip=netelem_console_ip,
                                                 netelem_console_port=netelem_console_port, snmp_info=snmp_info,
                                                 auth_mode=auth_mode, verify_cert=verify_cert, **kwargs)
