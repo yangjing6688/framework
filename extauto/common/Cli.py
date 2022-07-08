@@ -733,6 +733,7 @@ class Cli(object):
         :param retry_count: Retry count to check device connection status with capwap server
         :return: 1 id device successfully connected with capwap server else -1
         """
+
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \

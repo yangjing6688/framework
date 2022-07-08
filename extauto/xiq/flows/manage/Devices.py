@@ -7300,13 +7300,13 @@ class Devices:
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
-        sleep(5)
+        
 
         self.utils.print_info(f"Select switch row with serial {mac}")
         if not self.select_device(mac):
             self.utils.print_info(f"Switch {mac} is not present in the grid")
             return -1
-        sleep(2)
+        
 
         if not self._assign_policy_to_switch(policy_name):
             return -1
@@ -7346,7 +7346,7 @@ class Devices:
         else:
             self.utils.print_info("Click on Create template based on currently selected device button")
 
-            sleep(10)
+            
 
             self.utils.print_info("Enter the Device Template Name: ", name_stack_template)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
@@ -7630,6 +7630,7 @@ class Devices:
                 self.select_device(device_serial)
             if device_mac:
                 self.select_device(device_mac)
+                sleep(10)
         else:
             self.utils.print_info("Device is down")
             return -1
@@ -7663,9 +7664,10 @@ class Devices:
             self.utils.print_info("Device has already a policy")
             pass
 
+        sleep(5)
         self.utils.print_info("Click on device update button")
         self.auto_actions.click(self.devices_web_elements.get_update_device_button())
-
+        self.auto_actions.move_to_element(self.devices_web_elements.get_update_device_button())
         self.utils.print_info("Select the network policy and configuration checkbox")
         update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
         reboot_rollback_check = self.devices_web_elements.get_devices_switch_update_reboot_rollback()
@@ -10562,3 +10564,154 @@ class Devices:
         :return: 1 if Devices Deleted Successfully else -1
         '''
         return self.delete_all_devices()
+
+    def update_device_policy_config_simple(self, device_serial):
+        self.utils.print_info("Select Device row")
+        self.select_device(device_serial)
+
+        self.utils.print_info("Click on device update button")
+        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+
+
+        self.utils.print_info("Clicking on perform update")
+        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        
+        #self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+
+    def update_device_policy_config_reboot(self, device_serial):
+        self.utils.print_info("Select Device row")
+        self.select_device(device_serial)
+
+        self.utils.print_info("Click on device update button")
+        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+
+        self.utils.print_info("Selecting reboot option")
+        self.auto_actions.click(self.devices_web_elements.get_update_reboot_revert_checkbox())
+
+        self.utils.print_info("Clicking on perform update")
+        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        sleep(2)
+        #self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+        sleep(2)
+        self.auto_actions.click(self.devices_web_elements.get_switch_update_reboot_and_revert_warning_dialog_yes_button())
+
+    def get_device_events_list(self, device_model):
+        self.utils.print_info("Getting events list")
+        events_list = []
+        events_elements = self.devices_web_elements.get_events_text()
+        sleep(2)
+        for element in events_elements:
+            events_list.append(element.text)
+
+        if ("Configuration upgrade process is canceled by the user" and device_model) in events_list:
+            self.utils.print_info(events_list)
+            return 1
+        else:
+            return -1
+
+    def update_device_policy_config_image(self, device_serial):
+        self.utils.print_info("Select Device row")
+        self.select_device(device_serial)
+
+        self.utils.print_info("Click on device update button")
+        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+
+        self.utils.print_info("Selecting image option")
+        self.auto_actions.click(self.devices_web_elements.get_update_image_checkbox())
+
+        self.utils.print_info("Clicking on perform update")
+        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+
+
+    def update_device_policy_image(self, device_serial):
+        
+        self.utils.print_info("Select Device row")
+        self.select_device(device_serial)
+        
+
+        self.utils.print_info("Click on device update button")
+        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        
+
+        self.utils.print_info("Selecting image option")
+        self.auto_actions.click(self.devices_web_elements.get_update_image_checkbox())
+        
+
+        self.utils.print_info("Deselecting upgrade configuration option")
+        self.auto_actions.click(self.devices_web_elements.get_update_config_checkbox())
+        
+
+        self.utils.print_info("Clicking on perform update")
+        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+
+    def reboot_device_while_update(self, device_serial):
+        """
+        - Assumes that already navigated to Manage --> Devices
+        - This method reboots a device matching the serial(s)
+        - Keyword Usage:
+         - ``Reboot Device  ${DEVICE_SERIAL}``
+        :param device_serial: device serial number
+        :return: None
+        """
+        self.utils.print_info("Rebooting Device with serial: ", device_serial)
+
+
+        if self.select_device(device_serial):
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            
+
+            self.utils.print_info("Clicking on Reboot")
+            self.auto_actions.click(self.device_actions.get_device_actions_reboot_menu_item())
+            
+
+            self.utils.print_info("Confirming...")
+            self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button_reboot())
+
+            return 1
+
+    def check_device_license_action(self, device_serial):
+        """
+        - Assumes that already navigated to Manage --> Devices
+        - This method checks if License action is available for a device matching the serial(s)
+        - Keyword Usage:
+         - ``Check Device License Action ${DEVICE_SERIAL}``
+        :param device_serial: device serial number
+        :return: int
+        """
+        self.utils.print_info("Looking for device with serial: ", device_serial)
+        self.select_device(device_serial)
+        if self.select_device(device_serial):
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
+            
+
+        self.utils.print_info("Checking if License option is displayed")
+        license_button = self.devices_web_elements.get_license_action_button()
+        if license_button.is_displayed():
+            return -1
+        else:
+            return 1
+
+    def check_device_reboot_action(self, device_serial):
+        """
+        - Assumes that already navigated to Manage --> Devices
+        - This method checks if License action is available for a device matching the serial(s)
+        - Keyword Usage:
+         - ``Check Device License Action ${DEVICE_SERIAL}``
+        :param device_serial: device serial number
+        :return: int
+        """
+        self.utils.print_info("Looking for device with serial: ", device_serial)
+        self.select_device(device_serial)
+        if self.select_device(device_serial):
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
+            
+
+        self.utils.print_info("Checking if License option is displayed")
+        reboot_button = self.device_actions.get_device_actions_reboot_menu_item()
+        if reboot_button.is_displayed():
+            return -1
+        else:
+            return 1

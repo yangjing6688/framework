@@ -3035,3 +3035,23 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to open clients hyperlink page")
             self.screen.save_screen_shot()
             return -1
+
+    def navigate_to_manage_events(self):
+        """
+         - This keyword Navigates to Events on Manage Menu
+         - Flow Manage--> Events
+         - Keyword Usage
+          - ``Navigate To Events``
+        :return: 1 if Navigation Successful to Devices Sub tab on Monitor Tab else return -1
+        """
+        if self.navigate_to_manage_tab() == 1:
+            self.utils.print_info("Clicking Events Tab...")
+            if self.auto_actions.click(self.get_devices_nav()) == 1:
+                sleep(2)
+                return 1
+            else:
+                self.utils.print_info("Unable to navigate to Devices tab")
+                self.screen.save_screen_shot()
+                return -1
+        else:
+            return -1
