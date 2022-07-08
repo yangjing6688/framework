@@ -394,7 +394,6 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             netelem_pass = None
             netelem_con_method = None
             netelem_port = None
-            netelem_os = None
             netelem_cli_type = None
             session_keylist = []
 
