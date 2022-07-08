@@ -61,12 +61,6 @@ class NetworkPolicyWebElementDefinition:
             'wait_for':    3
         }
 
-    np_routing_check_box = \
-        {
-            'XPATH': '//input[@data-automation-tag="automation-policy-routing"]',
-            'wait_for':    3
-        }
-
     policy_name_text = \
         {
             'XPATH': "//*[@data-automation-tag='automation-policy-name']",

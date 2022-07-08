@@ -45,6 +45,171 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_ip_object_host_name_button(self):
         return self.weh.get_element(self.ip_object_host_name_button)
 
+
+    def get_ip_object_hostname_page(self):
+        return self.weh.get_element(self.ip_object_hostname_page)
+
+    def get_ip_object_hostname_object_page_size_100(self):
+        return self.weh.get_elements(self.ip_object_hostname_object_page_size_100)
+
+    def get_ip_object_hostname_existed_object_list_per_page(self):
+        return self.weh.get_elements(self.ip_object_hostname_existed_object_list_per_page)
+
+    def get_ip_object_hostname_existed_object_name(self, ip_object_row):
+        return self.weh.get_element(self.ip_object_hostname_existed_object_name, ip_object_row)
+
+    def get_ip_object_hostname_add_button(self):
+        return self.weh.get_element(self.ip_object_hostname_add_button)
+
+    def get_ip_object_hostname_edit_button(self):
+        return self.weh.get_element(self.ip_object_hostname_edit_button)
+
+    def get_ip_object_hostname_delete_button(self):
+        return self.weh.get_element(self.ip_object_hostname_delete_button)
+
+    def get_ip_object_hostname_object_checkbox_checked(self, ip_object_row):
+        return self.weh.get_element(self.ip_object_hostname_object_checkbox_checked, ip_object_row)
+
+    def get_ip_object_hostname_delete_confirm_win(self):
+        return self.weh.get_element(self.ip_object_hostname_delete_confirm_win)
+
+    def get_ip_object_hostname_delete_confirm_win_no(self):
+        return self.weh.get_element(self.ip_object_hostname_delete_confirm_win_no)
+
+    def get_ip_object_hostname_delete_confirm_win_yes(self):
+        return self.weh.get_element(self.ip_object_hostname_delete_confirm_win_yes)
+
+    def get_ip_object_hostname_profile_name_textfield(self):
+        return self.weh.get_element(self.ip_object_hostname_profile_name_textfield)
+
+    def get_ip_object_type_drop_down(self):
+        return self.weh.get_element(self.ip_object_type_drop_down)
+
+    def get_ip_object_type_options(self):
+        return self.weh.get_elements(self.ip_object_type_options)
+
+    def get_ip_object_type(self):
+        return self.weh.get_element(self.ip_object_type)
+
+    def get_ip_object_ip_address_textfield(self):
+        return self.weh.get_element(self.ip_object_ip_address_textfield)
+
+    def get_ip_object_ip_address_value(self):
+        return self.weh.get_element(self.ip_object_ip_address_value)
+
+    def get_ip_object_hostname_textfield(self):
+        return self.weh.get_element(self.ip_object_hostname_textfield)
+
+    def get_ip_object_wildcard_hostname_textfield(self):
+        return self.weh.get_element(self.ip_object_wildcard_hostname_textfield)
+
+    def get_ip_object_ip_network_subnet_textfield(self):
+        return self.weh.get_element(self.ip_object_ip_network_subnet_textfield)
+
+    def get_ip_object_ip_network_netmask_textfield(self):
+        return self.weh.get_element(self.ip_object_ip_network_netmask_textfield)
+
+    def get_ip_object_ip_range_start_textfield(self):
+        return self.weh.get_element(self.ip_object_ip_range_start_textfield)
+
+    def get_ip_object_ip_range_end_textfield(self):
+        return self.weh.get_element(self.ip_object_ip_range_end_textfield)
+
+    def get_ip_object_wildcard_ip_textfield(self):
+        return self.weh.get_element(self.ip_object_wildcard_ip_textfield)
+
+    def get_ip_object_wildcard_mask_textfield(self):
+        return self.weh.get_element(self.ip_object_wildcard_mask_textfield)
+
+    def get_ip_object_ip_network_subnet_textfield_row(self, row: object) -> object:
+        return self.weh.get_element(self.ip_object_ip_network_subnet_textfield, row)
+
+    def get_ip_object_ip_network_netmask_textfield_row(self, row):
+        return self.weh.get_element(self.ip_object_ip_network_netmask_textfield, row)
+
+    def get_ip_object_ip_range_start_textfield_row(self, row):
+        return self.weh.get_element(self.ip_object_ip_range_start_textfield, row)
+
+    def get_ip_object_ip_range_end_textfield_row(self, row):
+        return self.weh.get_element(self.ip_object_ip_range_end_textfield, row)
+
+    def get_ip_object_wildcard_ip_textfield_row(self, row):
+        return self.weh.get_element(self.ip_object_wildcard_ip_textfield, row)
+
+    def get_ip_object_wildcard_mask_textfield_row(self, row):
+        return self.weh.get_element(self.ip_object_wildcard_mask_textfield, row)
+
+    def get_ip_object_wildcard_host_textfield(self, row):
+        return self.weh.get_element(self.ip_object_wildcard_host_textfield, row)
+
+    def get_ip_object_ip_address_textfield_row(self, row):
+        return self.weh.get_element(self.ip_object_ip_address_textfield, row)
+
+    def get_ip_object_hostname_textfield_row(self, row):
+        return self.weh.get_element(self.ip_object_hostname_textfield, row)
+
+    def get_ip_object_wildcard_hostname_textfield_row(self, row):
+        return self.weh.get_element(self.ip_object_wildcard_hostname_textfield, row)
+
+    def get_ip_object_save_button(self):
+        return self.weh.get_element(self.ip_object_save_button)
+
+    def get_ip_object_cancel_button(self):
+        return self.weh.get_element(self.ip_object_cancel_button)
+
+    def get_ip_object_add_new_object(self):
+        return self.weh.get_element(self.ip_object_add_new_object)
+
+    def get_ip_object_confirm_message_window(self):
+        return self.weh.get_element(self.ip_object_confirm_message_window)
+
+    def get_ip_object_object_rows(self):
+        return self.weh.get_elements(self.ip_object_object_rows, self.weh.get_element(self.ip_object_create_object_page))
+
+    def get_ip_object_object_item_type(self, row):
+        return self.weh.get_element(self.ip_object_object_item_type, row)
+
+    def get_ip_object_hostname_object_items_page_size_100(self):
+        return self.weh.get_element(self.ip_object_hostname_object_items_page_size_100)
+
+    def get_ip_object_confirm_message_window_yes_button(self):
+        return self.weh.get_element(self.ip_object_confirm_message_window_yes_button)
+
+    def get_ip_object_hostname_add_cls_rule_button(self):
+        return self.weh.get_element(self.ip_object_hostname_object_add_classification_rule)
+
+    def get_ip_object_hostname_select_cls_rule_button(self, row):
+        return self.weh.get_element(self.ip_object_hostname_select_cls_rule_button, row)
+
+    def get_ip_object_hostname_classification_rule_page(self):
+        return self.weh.get_element(self.ip_object_hostname_classification_rule_page)
+
+    def get_ip_object_hostname_classification_rule_page_size_100(self):
+        return self.weh.get_element(self.ip_object_hostname_classification_rule_page_size_100)
+
+    def get_ip_object_hostname_classification_rules(self):
+        return self.weh.get_elements(self.ip_object_hostname_classification_rules)
+
+    def get_ip_object_hostname_classification_rule_name(self, rule):
+        return self.weh.get_element(self.ip_object_hostname_classification_rule_name, rule)
+
+    def get_ip_object_hostname_classification_rule_page_link_button(self):
+        return self.weh.get_element(self.ip_object_hostname_classification_rule_page_link_button)
+
+    def get_ip_object_hostname_classification_rule_used_error(self):
+        return self.weh.get_element(self.ip_object_hostname_classification_rule_used_error)
+
+    def get_ip_object_hostname_classification_rule_used_error_close(self):
+        return self.weh.get_element(self.ip_object_hostname_classification_rule_used_error_close)
+
+    def get_ip_object_hostname_profile_objects_list_page_num_bottom(self):
+        return  self.weh.get_element(self.ip_object_hostname_profile_objects_list_page_num_bottom)
+
+    def get_ip_object_hostname_profile_objects_list_last_page(self):
+        return self.weh.get_element(self.ip_object_hostname_profile_objects_list_last_page)
+
+
+
     def get_common_object_grid_rows(self):
         return self.weh.get_elements(self.common_object_grid_rows)
 
@@ -226,7 +391,7 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_common_object_radio_profile_exclude_ch_u_3(self):
         return self.weh.get_element(self.common_object_radio_exclude_ch_u_3)
-      
+
     def get_common_object_add_ap_template_button(self):
         return self.weh.get_element(self.common_object_add_ap_template_button)
 
@@ -412,7 +577,7 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_common_object_imago_tag_profile_description_textfield(self):
         return self.weh.get_element(self.common_object_imago_tag_profile_description_textfield)
-    
+
     def get_common_object_imago_tag_profile_server_textfield(self):
         return self.weh.get_element(self.common_object_imago_tag_profile_server_textfield)
 
@@ -522,6 +687,8 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_user_profile_save_button(self):
         return self.weh.get_element(self.user_profile_save_button)
 
+    def get_policy_port_types_confirmation_button(self):
+        return self.weh.get_element(self.policy_port_types_confirmation_button)
+
     def get_ui_tipbox_error(self):
         return self.weh.get_element(self.ui_tipbox_error)
-

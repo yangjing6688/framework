@@ -19,13 +19,326 @@ class CommonObjectsWebElementsDefinitions:
 
     basic_slider_button = \
         {
-            'CSS_SELECTOR': '.ui-nav-sider-title.qa-sider-title-basic',
+            'XPATH': '//*[@data-automation-tag="automation-header-label-Basic"]',
             'wait_for': 5
         }
 
     ip_object_host_name_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-ipObjectManage"]',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_page = \
+        {
+            'CSS_SELECTOR': '.common-objects .ipobjectmanage',
+            'wait_for': 5
+        }
+    ip_object_hostname_object_page_size_100 = \
+        {
+            'CSS_SELECTOR': '.ipobjectmanage .ui-page-size:nth-child(4)',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_existed_object_list_per_page = \
+        {
+            'CSS_SELECTOR': '.ipobjectmanage .dgrid .dgrid-content .dgrid-row',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_existed_object_name = \
+        {
+            'CSS_SELECTOR': '.field-name .J-item-edit',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_add_button = \
+        {
+            # 'XPATH': '//div[@componentpath="Application/CommonObject/IpObjectManage"]//span[@class="table-action-icons table-add"]',
+            'CSS_SELECTOR': '.adjustable-content.ipobjectmanage .table-action-icons.table-add',
+            'wait_for': 5
+
+        }
+
+    ip_object_hostname_edit_button = \
+        {
+            # 'XPATH': '//div[@componentpath="Application/CommonObject/IpObjectManage"]//span[@class="table-action-icons table-add"]',
+            'CSS_SELECTOR': '.adjustable-content.ipobjectmanage .table-action-icons.table-edit',
+            'wait_for': 5
+
+        }
+
+    ip_object_hostname_delete_button = \
+        {
+            'CSS_SELECTOR': '.ipobjectmanage .table-remove',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_delete_confirm_win = \
+        {
+            'CSS_SELECTOR': '.ui-cfmsg.confirm',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_delete_confirm_win_no = \
+        {
+            'CSS_SELECTOR': '.cfm-btns .btn-primary',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_delete_confirm_win_yes = \
+        {
+            'CSS_SELECTOR': '.cfm-btns .btn-secondary',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_profile_name_textfield = \
+        {
+            # 'XPATH': '//input[@data-dojo-attach-point="nameEl"]',
+            'CSS_SELECTOR': '.ip-create-ctn .w200',
+            'wait_for': 5
+        }
+    ip_object_type_drop_down = \
+        {
+            # 'XPATH': '//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'CSS_SELECTOR': '.ip-create-ctn .chzn-container',
+            'wait_for': 5,
+            'index': 0
+        }
+    ip_object_type_options = \
+        {
+            # 'XPATH': '//ul[contains(@class, "chzn-results qa-chzn-results-typesel")]//li',
+            'CSS_SELECTOR': '.ip-create-ctn .chzn-drop .active-result',
+            'wait_for': 5
+        }
+
+    ip_object_type = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn .chzn-container > a > span',
+            'wait_for': 5
+        }
+
+    ip_object_ip_address_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.ip-value',
+            'wait_for': 5
+        }
+
+    ip_object_ip_address_value = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.ip-value[value]',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.hostname-value',
+            'wait_for': 5
+        }
+
+    ip_object_wildcard_hostname_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.wildcard-host-value',
+            'wait_for': 5
+        }
+
+    ip_object_ip_network_subnet_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.subnet-value',
+            'wait_for': 5
+        }
+
+    ip_object_ip_network_netmask_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.subnet-netmask',
+            'wait_for': 5
+        }
+
+    ip_object_ip_range_start_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.ip-range-start',
+            'wait_for': 5
+        }
+
+    ip_object_ip_range_end_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.ip-range-end',
+            'wait_for': 5
+        }
+
+    ip_object_wildcard_ip_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.wildcard-value',
+            'wait_for': 5
+        }
+
+    ip_object_wildcard_mask_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.wildcard-mask',
+            'wait_for': 5
+        }
+
+    ip_object_wildcard_host_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.wildcard-host-value',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_textfield = \
+        {
+            'CSS_SELECTOR': '.ip-object-field.hostname-value',
+            'wait_for': 5
+        }
+
+    ip_object_save_button = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn .btn-area-inner .btn.btn-small.btn-primary',
+            'wait_for': 5
+        }
+
+    ip_object_cancel_button = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn .btn-area-inner .btn.btn-small.btn-cancel',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_save_error_without_rule = \
+        {
+            'CSS_SELECTOR': '.common-objects.generic-page-padding .ui-tipbox-title',
+            'wait_for': 5
+        }
+    ip_object_hostname_save_error_without_rule_close = \
+        {
+            'CSS_SELECTOR': '.common-objects.generic-page-padding .ui-tipbox-close',
+            'wait_for': 5
+        }
+    ip_object_add_new_object = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn .table-action-icons.table-add',
+            'wait_for': 5
+        }
+    ip_object_confirm_message_window = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-confirm-message-view"]',
+            'wait_for': 5
+        }
+    ip_object_create_object_page = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn',
+            'wait_for': 5
+        }
+    ip_object_object_rows = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn .dgrid-row',
+            'wait_for': 5
+        }
+    ip_object_object_item_type = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn .dgrid-row .dgrid-column-2',
+            'wait_for': 5
+        }
+    ip_object_confirm_message_window_yes_button = \
+        {
+            'XPATH': '//button[@class="btn btn-secondary" and @data-dojo-attach-point="yesBtn"]',
+            'wait_for': 5
+        }
+    ip_object_hostname_object_add_classification_rule = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn .J-add-rule',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_object_items_page_size_100 = \
+        {
+            'CSS_SELECTOR': '.ip-create-ctn .ui-page-size:nth-child(4)',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_select_cls_rule_button = \
+        {
+            'CSS_SELECTOR': '.dgrid-row .field-classAsgn .J-select-rule',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_page = \
+        {
+            'CSS_SELECTOR': '.hmOverride.dijitDialog',
+            'wait_for': 5
+        }
+    ip_object_hostname_classification_rules = \
+        {
+            'CSS_SELECTOR': '.assignment-rule .dgrid-row',
+            'wait_for': 5
+        }
+    ip_object_hostname_classification_rule_name = \
+        {
+            'CSS_SELECTOR': '.assignment-rule .dgrid-row .field-name',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_delete_button = \
+        {
+            'CSS_SELECTOR': '.hmOverride.dijitDialog .assignment-rule .dgrid-row .table-sim-remove',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_page_link_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="linkButton"]',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_used_error = \
+        {
+            'CSS_SELECTOR': '.hmOverride.dijitDialog .ui-tipbox-ctn .ui-tipbox-error',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_used_error_close = \
+        {
+            'CSS_SELECTOR': '.hmOverride.dijitDialog .ui-tipbox-ctn .ui-tipbox-error .ui-tipbox-close',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_page_copy_button = \
+        {
+            'XPATH': '//div[@class="hmOverride dijitDialog dijitDialogFocused dijitFocused"] //button[@data-dojo-attach-point="copyButton"]',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_page_cancel_button = \
+        {
+            'XPATH': '//div[@class="hmOverride dijitDialog dijitDialogFocused dijitFocused"] //button[@data-dojo-attach-point="cancelButton"]',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_page_search = \
+        {
+            'XPATH': '//div[@class="hmOverride dijitDialog dijitDialogFocused dijitFocused"] //input[@data-dojo-attach-point="ruleFilterNode"]',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_classification_rule_page_size_100 = \
+        {
+            'CSS_SELECTOR': '.assignment-rule .J-page-size:nth-child(4)',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_object_checkbox_checked = \
+        {
+            'XPATH': '//input[@aria-checked="true"]',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_profile_objects_list_page_num_bottom = \
+        {
+            'CSS_SELECTOR': '.ip-object-list .ui-grid-bottom',
+            'wait_for': 5
+        }
+
+    ip_object_hostname_profile_objects_list_last_page = \
+        {
+            'CSS_SELECTOR': '.ip-object-list .J-page-last',
             'wait_for': 5
         }
 
@@ -827,6 +1140,12 @@ class CommonObjectsWebElementsDefinitions:
     user_profile_save_button = \
         {
             'XPATH': '//button[@data-automation-tag="automation-user-profile-save-btn"]',
+            'wait_for': 1
+        }
+
+    policy_port_types_confirmation_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
             'wait_for': 1
         }
 

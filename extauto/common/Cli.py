@@ -733,19 +733,20 @@ class Cli(object):
         :param retry_count: Retry count to check device connection status with capwap server
         :return: 1 id device successfully connected with capwap server else -1
         """
+
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'Hivemanager address {server_name}')
-            self.send(_spawn, f'Application stop hiveagent')
-            self.send(_spawn, f'Application start hiveagent')
+            self.send(_spawn, f'do Hivemanager address {server_name}')
+            self.send(_spawn, f'do Application stop hiveagent')
+            self.send(_spawn, f'do Application start hiveagent')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                hm_status = self.send(_spawn, f'show hivemanager status | include Status')
-                hm_address = self.send(_spawn, f'show hivemanager address')
+                hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
+                hm_address = self.send(_spawn, f'do show hivemanager address')
 
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
                     self.close_spawn(_spawn)
@@ -990,3 +991,47 @@ if __name__ == '__main__':
     username = 'extreme'
     password = 'extreme'
     sID = tCli.open_windows_spawn(conn_str, username, password)
+
+    def open_spawn_and_wait_for_cli_output(self, ip_dest, username, password, port, cmd, expected_output, os , retry_duration=30, retry_count=10):
+        """
+        - This Keyword will Helps to Wait till getting expected output based on retry duration
+        - Retry duration by default 30 seconds
+        - Retry Count by default 10
+        - Keyword Usage:
+         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}``
+         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60``
+         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60  ${COUNT}=15``
+
+        :param spawn: Device Spawn
+        :param cmd: Command to Execute
+        :param expected_output: Expected CLI Output
+        :param retry_duration: Retry Duration in seconds
+        :param retry_count: Retry Count
+        :return: 1 if Getting the expected output else -1
+        """
+        conn_str = 'telnet ' + ip_dest + " " + str(port)
+        if os.lower() == 'exos':
+            spawn = self.open_exos_switch_spawn(conn_str,username, password, False)
+        elif os.lower() == 'voss':
+            spawn = self.open_voss_spawn(conn_str, username, password, False)
+        else:
+            return -1
+        if spawn == -1:
+            return -1
+        if os.lower() == 'exos':
+            pass
+        elif os.lower() == 'voss':
+            self.send(spawn, "enable")
+            self.send(spawn, "config t")
+        count = 1
+        while count <= retry_count:
+            _output = self.send(spawn, cmd)
+            if expected_output in _output:
+                self.utils.print_info("Got the expected output")
+                return 1
+            else:
+                self.utils.print_info("Waiting for: ", retry_duration, " Seconds")
+                time.sleep(retry_duration)
+            count += 1
+        self.utils.print_info("Unable to get the expected output. Please check.")
+        return -1
