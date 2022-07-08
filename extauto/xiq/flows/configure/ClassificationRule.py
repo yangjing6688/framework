@@ -119,7 +119,7 @@ class ClassificationRule(object):
         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
         - Create Classification Rule Based on AP Location
         - Keyword Usage
-        ``Add Classification Rule with CCG      ${RULE_NAME}        ${RULE_DESCRIPTION}        &{LOCATION_OF_AP}``
+        ``Add Classification Rule with Location      ${RULE_NAME}        ${RULE_DESCRIPTION}        &{LOCATION_OF_AP}``
 
         :param name: Name of the Classification Rule
         :param description: Description of the Classification Rule
@@ -139,8 +139,7 @@ class ClassificationRule(object):
         self.auto_actions.send_keys(self.classification_rule_web_elements.get_classification_rule_name_text(), name)
 
         self.utils.print_info("Enter the Classification Rule description:{}".format(description))
-        self.auto_actions.send_keys(
-            self.classification_rule_web_elements.get_classification_rule_description_text(), description)
+        self.auto_actions.send_keys(self.classification_rule_web_elements.get_classification_rule_description_text(), description)
 
         self.utils.print_info("Clicking on Classification Rule Option Button")
         self.auto_actions.click(self.classification_rule_web_elements.get_classification_option_add_button())
@@ -383,6 +382,13 @@ class ClassificationRule(object):
         country_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(country_nodes, country_node):
             self.utils.print_info(f"Country node {country_node} is not present...")
+            return False
+        sleep(1)
+
+        self.utils.print_info("Click on location node open icon")
+        loc_nodes = self.classification_rule_web_elements.get_node_location()
+        if not self._open_location_tree_nodes(loc_nodes, loc_node):
+            self.utils.print_info(f"Location node {loc_node} not present")
             return False
         sleep(1)
 
@@ -840,4 +846,3 @@ class ClassificationRule(object):
                 sleep(2)
                 return 1
         return False
-

@@ -33,7 +33,7 @@ class MLInsightsPlanDefinitions:
 
     n360_plan_create_map_get_started = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='btnSave']",
+            'CSS_SELECTOR': '.hmOverride.dijitDialog .btn.btn-small.btn-primary',
             'wait_for': 2
         }
 
