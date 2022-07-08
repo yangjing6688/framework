@@ -1,5 +1,6 @@
 import re
 import os
+
 import copy
 from time import sleep
 from datetime import datetime
@@ -1864,7 +1865,7 @@ class Devices:
         :return: -7 for error - Please enter a valid MAC Address
         :return: -8 for error - Unable to get pop-up menu item
         """
-        kwargs['IRV'] = True
+
         self.utils.print_info("Onboarding: ", device_make)
 
         if 'Controllers' in device_make or 'XCC' in device_make:
@@ -2076,7 +2077,7 @@ class Devices:
         self.utils.print_info("Serials: ", serials)
 
         for serial in serials:
-            if self.search_device_serial(serial) == 1:
+            if self.search_device(serial) == 1:
                 kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
@@ -2216,7 +2217,7 @@ class Devices:
             self.utils.print_info("Serials: ", serials)
 
             for serial in serials:
-                if self.search_device_serial(serial) == 1:
+                if self.search_device(serial) == 1:
                     self.utils.print_info("Successfully Onboarded EXOS Device(s): ", serials)
                     return 1
                 else:
@@ -2351,7 +2352,7 @@ class Devices:
         self.utils.print_info("Serials: ", serials)
 
         for serial in serials:
-            if self.search_device_serial(serial) == 1:
+            if self.search_device(serial) == 1:
                 self.utils.print_info("Successfully Onboarded Device(s): ", serials)
                 return 1
             else:
@@ -2420,7 +2421,7 @@ class Devices:
 
         ret_val = 1
         for serial in serials:
-            if self.search_device_serial(serial) == 1:
+            if self.search_device(serial) == 1:
                 self.utils.print_info(f"Successfully Onboarded XIQ Site Engine {serial}")
             else:
                 self.utils.print_info(f"ERROR: XIQ Site Engine {serial} was not onboarded")
@@ -2510,7 +2511,7 @@ class Devices:
                         return 1
 
                     # Confirm device was deleted successfully
-                    if self.search_device_serial(device_serial) == 1:
+                    if self.search_device(device_serial) == 1:
                         kwargs['fail_msg'] = "Unable to delete the device"
                         self.common_validation.validate(-1, 1, **kwargs)
                         return -1
@@ -2545,7 +2546,7 @@ class Devices:
                     self.wait_until_device_removed(device_name=device_name, retry_duration=10, retry_count=6)
 
                     # Confirm device was deleted successfully
-                    if self.search_device_name(device_name) == 1:
+                    if self.search_device(device_name) == 1:
                         kwargs['fail_msg'] = "Unable to delete the device"
                         self.common_validation.validate(-1, 1, **kwargs)
                         return -1
@@ -2580,7 +2581,7 @@ class Devices:
                     self.wait_until_device_removed(device_mac=device_mac, retry_duration=10, retry_count=6)
 
                     # Confirm device was deleted successfully
-                    if self.search_device_mac(device_mac) == 1:
+                    if self.search_device(device_mac) == 1:
                         kwargs['fail_msg'] = "Unable to delete the device"
                         self.common_validation.validate(-1, 1, **kwargs)
                         return -1
@@ -2727,7 +2728,7 @@ class Devices:
 
         return ret_val
 
-    def search_device(self, device_serial=None, device_name=None, device_mac=None):
+    def search_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - Searches for the device matching either one of serial, name or MAC
 
@@ -2736,45 +2737,23 @@ class Devices:
         :param device_mac: device MAC
         :return: 1 if device found else -1
         """
-        if device_serial:
-            self.utils.print_info("Searching device with Serial: ", device_serial)
-            return self.search_device_serial(device_serial)
-        if device_name:
-            self.utils.print_info("Searching device with Name: ", device_name)
-            return self.search_device_name(device_name)
-        if device_mac:
-            self.utils.print_info("Searching device with MAC: ", device_mac)
-            return self.search_device_mac(device_mac)
 
-        return -1
-
-    def search_device_serial(self, device_serial):
-        """
-        - Searches for Device matching Device's Serial Number
-
-        :param device_serial: Device Serial Number
-        :return: return 1 if Device found,
-                 return -1 if Device not found or if an error occurs
-        """
-        if not device_serial:
-            self.utils.print_info("No serial number provided to search for")
+        if not device_serial and device_mac and device_name:
+            kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
         else:
-            self.utils.print_info(f"Searching for serial number '{device_serial}'")
+            self.utils.print_info(f"Searching for the device matching either one of serial, name or MAC!")
 
-        sleep(2)
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
 
-        self.screen.save_screen_shot()
-        sleep(2)
         device_page_numbers = self.devices_web_elements.get_page_numbers()
         if device_page_numbers.text:
             page_len = int(max(device_page_numbers.text))
         else:
             page_len = int(1)
 
-        device_found = False
         num_pages = page_len
         try:
             while page_len:
@@ -2785,13 +2764,22 @@ class Devices:
                     self.utils.print_debug(f"Searching {len(rows)} rows")
                     for row in rows:
                         self.utils.print_info("row data: ", self.format_row(row.text))
-                        if device_serial in row.text:
-                            self.utils.print_info("Found Device Row: ", self.format_row(row.text))
-                            device_found = True
-                            return 1
-                            break
-                    if device_found:
-                        break
+                        if device_serial:
+                            if device_serial in row.text:
+                                kwargs['pass_msg'] = f"Found device with serial number: {device_serial}"
+                                self.common_validation.validate(1, 1, **kwargs)
+                                return 1
+                        elif device_mac:
+                            if device_mac in row.text:
+                                kwargs['pass_msg'] = f"Found device with MAC: {device_mac}"
+                                self.common_validation.validate(1, 1, **kwargs)
+                                return 1
+                        elif device_name:
+                            if device_name in row.text:
+                                kwargs['pass_msg'] = f"Found device with name: {device_name}"
+                                self.common_validation.validate(1, 1, **kwargs)
+                                return 1
+
                 else:
                     self.utils.print_debug(f"No rows returned for page #{page_num}")
                 page_len = page_len - 1
@@ -2801,137 +2789,20 @@ class Devices:
                     self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
                     sleep(5)
 
-            self.utils.print_info(f"Did not find device row with serial {device_serial}")
-            return -1
+            if device_serial:
+                self.utils.print_info(f"Did not find device row with serial {device_serial}")
+                return -1
+            if device_name:
+                self.utils.print_info(f"Did not find device row with name {device_name}")
+                return -1
+            if device_mac:
+                self.utils.print_info(f"Did not find device row with mac {device_mac}")
+                return -1
         except StaleElementReferenceException:
             self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
-        return -1
 
-    def search_device_mac(self, device_mac):
-        """
-        - Searches for device matching device's MAC
-
-        :param device_mac: device's MAC
-        :return: return 1 if device found, else -1
-        """
-        if not device_mac:
-            self.utils.print_info("No MAC provided to search for")
-            return -1
-        else:
-            self.utils.print_info(f"Searching for MAC '{device_mac}'")
-        sleep(2)
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(5)
-        self.screen.save_screen_shot()
-        sleep(5)
-        rows = self.devices_web_elements.get_grid_rows()
-        device_page_numbers = self.devices_web_elements.get_page_numbers()
-        if device_page_numbers.text:
-            page_len = int(max(device_page_numbers.text))
-        else:
-            page_len = int(1)
-
-        device_found = False
-        while page_len:
-            rows = self.devices_web_elements.get_grid_rows()
-            sleep(5)
-            if rows:
-                self.utils.print_debug(f"Searching {len(rows)} rows")
-                for row in rows:
-                    if device_mac in row.text:
-                        self.utils.print_info("Found device Row1: ", self.format_row(row.text))
-                        device_found = True
-                        return 1
-                        break
-                if device_found:
-                    break
-            self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
-            self.utils.print_info("Searching in next page")
-            sleep(5)
-            page_len = page_len - 1
-        self.utils.print_info(f"Did not find device row with MAC address {device_mac}")
-        sleep(2)
-        stale_retry = 1
-        while stale_retry <= 10:
-            try:
-                rows = self.devices_web_elements.get_grid_rows()
-                if rows:
-                    self.utils.print_debug(f"Searching {len(rows)} rows")
-                    for row in rows:
-                        if device_mac in row.text:
-                            self.utils.print_info("Found device Row: ", self.format_row(row.text))
-                            return 1
-                    self.utils.print_info(f"Did not find device row with MAC address {device_mac}")
-                    return -1
-                else:
-                    self.utils.print_info(f"Did not find device row with MAC address {device_mac} - no rows present")
-                    return -1
-            except StaleElementReferenceException:
-                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                stale_retry = stale_retry + 1
-        return -1
-
-    def search_device_name(self, device_name):
-        """
-        - Searches for device matching device's NAME
-
-        :param device_name: device's Name
-        :return: return 1 if device found, else -1
-        """
-        if not device_name:
-            self.utils.print_info("No device name provided to search for")
-            return -1
-        else:
-            self.utils.print_info(f"Searching for device name '{device_name}'")
-        sleep(2)
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(5)
-        self.screen.save_screen_shot()
-        sleep(2)
-        device_page_numbers = self.devices_web_elements.get_page_numbers()
-        if device_page_numbers.text:
-            page_len = int(max(device_page_numbers.text))
-        else:
-            page_len = int(1)
-
-        rows = self.devices_web_elements.get_grid_rows()
-        device_found = False
-        while page_len:
-            rows = self.devices_web_elements.get_grid_rows()
-            sleep(5)
-            if rows:
-                self.utils.print_debug(f"Searching {len(rows)} rows")
-                for row in rows:
-                    if device_name in row.text:
-                        self.utils.print_info("Found device Row1: ", self.format_row(row.text))
-                        device_found = True
-                        return 1
-                        break
-                if device_found:
-                    break
-            self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
-            self.utils.print_info("Searching in next page")
-            sleep(5)
-            page_len = page_len - 1
-        self.utils.print_info(f"Did not find device row with name {device_name}")
-        stale_retry = 1
-        while stale_retry <= 10:
-            try:
-                rows = self.devices_web_elements.get_grid_rows()
-                if rows:
-                    self.utils.print_debug(f"Searching {len(rows)} rows")
-                    for row in rows:
-                        if device_name in row.text:
-                            self.utils.print_info("Found device Row: ", self.format_row(row.text))
-                            return 1
-                    self.utils.print_info(f"Did not find device row with name {device_name}")
-                    return -1
-                else:
-                    self.utils.print_info(f"Did not find device row with name {device_name} - no rows present")
-                    return -1
-            except StaleElementReferenceException:
-                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                stale_retry = stale_retry + 1
+        kwargs['fail_msg'] = "Unable to find the device"
+        self.common_validation.validate(-1, 1, **kwargs)
         return -1
 
     def select_device(self, device_serial=None, device_name=None, device_mac=None):
@@ -5324,7 +5195,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Serial Number: loop {count}")
-                if self.search_device_serial(device_serial) == 1:
+                if self.search_device(device_serial) == 1:
                     self.utils.print_info(f"Device with serial {device_serial} has been added")
                     return 1
                 else:
@@ -5338,7 +5209,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Name: loop {count}")
-                if self.search_device_name(device_name) == 1:
+                if self.search_device(device_name) == 1:
                     self.utils.print_info(f"Device with name {device_name} has been added")
                     return 1
                 else:
@@ -5353,7 +5224,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by MAC Address: loop {count}")
-                if self.search_device_mac(device_mac) == 1:
+                if self.search_device(device_mac) == 1:
                     self.utils.print_info(f"Device with MAC {device_mac} has been added")
                     return 1
                 else:
@@ -5399,7 +5270,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Serial Number: loop {count}")
-                if self.search_device_serial(device_serial) == 1:
+                if self.search_device(device_serial) == 1:
                     self.utils.print_info(
                         f"Device with serial {device_serial} is still present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
@@ -5414,7 +5285,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Name: loop {count}")
-                if self.search_device_name(device_name) == 1:
+                if self.search_device(device_name) == 1:
                     self.utils.print_info(
                         f"Device with name {device_name} is still present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
@@ -5429,7 +5300,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by MAC Address: loop {count}")
-                if self.search_device_mac(device_mac) == 1:
+                if self.search_device(device_mac) == 1:
                     self.utils.print_info(
                         f"Device with MAC {device_mac} is still present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
