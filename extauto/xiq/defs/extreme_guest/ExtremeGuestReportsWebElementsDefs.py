@@ -155,7 +155,7 @@ class ExtremeGuestReportsWebElementsDefs:
     extreme_guest_manage_reports_grid_rows = \
         {
             'XPATH': '//tr[@class="  x-grid-row"]',
-            'wait_for': 10
+            
         }
 
     extreme_guest_manage_reports_grid_row_cells = \
@@ -173,7 +173,7 @@ class ExtremeGuestReportsWebElementsDefs:
     extreme_guest_generated_reports_grid_rows = \
         {
             'XPATH': '//tr[@class="  x-grid-row"]',
-            'wait_for': 10
+            
         }
 
     extreme_guest_generated_reports_grid_row_cells = \

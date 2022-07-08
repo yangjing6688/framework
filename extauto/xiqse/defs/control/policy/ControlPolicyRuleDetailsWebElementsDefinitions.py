@@ -6,5 +6,5 @@ class ControlPolicyRuleDetailsWebElementsDefinitions:
         # need to work on this xpath for 21.9.10.x and older
         'XPATH': '//div[@xiqse-auto-id="policyRuleEditTrafDescButton"] |'
                  '//span[contains(@class, "x-btn") and text()="Edit..."]',
-        'wait_for': 10
+        
     }

@@ -7,6 +7,8 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.CopilotWebElements import CopilotWebElements
 import re
 from extauto.common.CommonValidation import CommonValidation
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.flows.manage.Tools import Tools
 
 
 class Copilot(CopilotWebElements):
@@ -18,6 +20,7 @@ class Copilot(CopilotWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
+        self.tools = Tools()
 
     def get_wifi_capacity_widget_summary(self):
         """
@@ -2755,7 +2758,76 @@ class Copilot(CopilotWebElements):
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
+    def get_hover_over_details_for_wifi_capacity_anomaly_ap_level(self, ap_name, **kwargs):
+
+        """
+        - This Keyword will get the text that is displayed when the i icon is hovered over
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and hover over the i (info) icon
+        - Keyword Usage:
+         - ``Get Hover Over Details For Wifi Capacity Anomaly Ap Level {$AP_NAME}``
+
+        :param ap_name: Ap name
+        :return: Detail text if successful else return -1
+        """
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.utils.print_info("Attempting to gather all APs from loacation")
+        internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
+        if not internal_rows:
+            self.utils.print_info("Unable to get APs from location")
+            kwargs['fail_msg'] = "Unable to get APs from location"
+            self.common_validation.validate(-1, 1, **kwargs)
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return -1
+        for ap_row in internal_rows:
+            self.utils.print_info("Current location :" + ap_row.text)
+            if ap_name in ap_row.text:
+                self.utils.print_info("AP name : " + ap_name + " found")
+                self.utils.print_info("Attempting to locate column containing status, i icon, and pin")
+                status_icon_pin_column = self.get_wifi_capacity_widget_location_ap_status_info_pin_column(ap_row)
+                if status_icon_pin_column:
+                    self.utils.print_info("Able to locate column containing status, i icon, and pin")
+                    self.utils.print_info("Attempting to get  i(info) icon")
+                    i_icon = self.get_wifi_capacity_widget_location_ap_info_icon(status_icon_pin_column)
+                    if i_icon:
+                        self.utils.print_info("Hovering over the  i(info) icon")
+                        self.auto_actions.move_to_element(i_icon)
+                        sleep(2)
+                        self.utils.print_info("Attempting to gather detail data provided by the hovering over the i(info) icon")
+                        tt_content = self.get_tooltip_content()
+                        if tt_content:
+                            tt_text = tt_content.text
+                            self.utils.print_info("Data details from the hovering :" + tt_text)
+                            kwargs['pass_msg'] = "Data details from the hovering :" + tt_text
+                            self.common_validation.validate(1, 1, **kwargs)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
+                            return tt_text
+                        else:
+                            self.utils.print_info("Unable to gather detail data from the hovering over the i(info) icon")
+                            kwargs['fail_msg'] = "Unable to gather detail data from the hovering over the i(info) icon"
+                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
+                            return -1
+                    else:
+                        self.utils.print_info("Unable to get i(info) icon")
+                        kwargs['fail_msg'] = "Unable to get i(info) icon"
+                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.utils.switch_to_default(CloudDriver().cloud_driver)
+                        return -1
+                else:
+                    self.utils.print_info("Unable to locate column containing status, i icon, and pin")
+                    kwargs['fail_msg'] = "Unable to locate column containing status, i icon, and pin"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
+                    return -1
+        self.utils.print_info("Unable to find AP : " + ap_name)
+        kwargs['fail_msg'] = "Unable to find AP : " + ap_name
+        self.common_validation.validate(-1, 1, **kwargs)
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        return -1
+
     def dislike_wifi_capacity_anomaly_location_ap(self, location_name, ap_name, feedback="Need improvement", **kwargs):
+
         """
         - This Keyword will click dislike button in WiFi Capacity widget specific location and access point.
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click Dislike Button
@@ -2825,3 +2897,86 @@ class Copilot(CopilotWebElements):
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
+
+    def get_wifi_capacity_detailed_view(self, location_name, **kwargs):
+
+        """
+        - This Keyword will get detailed view data from the Location at the building level
+        - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get detailed view data from location
+        - Keyword Usage:
+        - ``Get Wifi Capacity Detailed View {$Location_Name}``
+
+        :param location_name: Location Name
+        :return: detaliled_data_string if successful else return -1
+        """
+
+        fail_message = ""
+        detail_view_data = '\n' + "***Building*** : " +  '\n'
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        wifi_cap_widget = self.get_wifi_capacity_widget()
+        if not wifi_cap_widget:
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            fail_message = "Unable to get WIFI capacty widget"
+            self.utils.print_info(fail_message)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            location_rows = self.get_wifi_capacity_widget_location_grid_rows_from_widget(wifi_cap_widget)
+            if not location_rows:
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                fail_message = "Unable to get rows from widget"
+                self.utils.print_info(fail_message)
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+            else:
+                self.utils.print_info("Searching for loacation : " + location_name)
+                for row in location_rows:
+                    row_text_no_newline = row.text.replace('\n', ' ')
+                    self.utils.print_info("Current location :" + row_text_no_newline)
+                    if location_name in row_text_no_newline:
+                        self.utils.print_info("Location : " + location_name + " found")
+                        detail_view_data = detail_view_data + "Location ->" + row_text_no_newline
+                        self.utils.print_info("Clicking on row")
+                        self.auto_actions.click(row)
+
+                        self.utils.print_info("Attempting to get overall description of the anolomy")
+                        overall_desc = self.get_wifi_capacity_widget_location_ap_overall_discription()
+                        if not overall_desc:
+                            kwargs['fail_msg'] = "Unable to get overall description of the anolomy"
+                            self.utils.print_info(fail_message)
+                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
+                            return -1
+                        detail_view_data = detail_view_data + '\n' + "***General Description***"+ '\n' + "Description->" + (overall_desc.text).replace('\n', ' ')
+
+                        self.utils.print_info("Attempting to gather all APs from loacation")
+                        internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
+                        if not internal_rows:
+                            kwargs['fail_msg'] = "Unable to get APs from location"
+                            self.utils.print_info(fail_message)
+                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.utils.switch_to_default(CloudDriver().cloud_driver)
+                            return -1
+                        else:
+                            detail_view_data = detail_view_data + '\n' +"***APs*** : "
+                            for ap_row in internal_rows:
+                                sleep(2)
+                                detail_view_data = detail_view_data + '\n' + "AP -> " + (ap_row.text).replace('\n', ' ')
+                        self.utils.switch_to_default(CloudDriver().cloud_driver)
+                        pass_msg = "Successfully able to get Location and Ap detailed view data"
+                        kwargs['pass_msg'] = pass_msg
+                        self.utils.print_info(pass_msg)
+                        self.utils.print_info(detail_view_data)
+                        self.common_validation.validate(1, 1, **kwargs)
+                        return detail_view_data
+
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                fail_message = "Unable to find location : " + location_name
+                self.utils.print_info(fail_message)
+                kwargs['fail_msg'] = fail_message
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
