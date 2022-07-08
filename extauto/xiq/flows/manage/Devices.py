@@ -1009,7 +1009,7 @@ class Devices:
         """
         - onboard multiple simulated devices of same type and returns their serial number(s)
         - Keyword Usage:
-         - ``Onboard Simulated Devices  ${DEVICE_TYPE}   count=2``
+         - ``Onboard Simulated Device  ${DEVICE_TYPE}   count=2``
          - For supported ${DEVICE_TYPE} look the device type drop down in quick add
 
         :param device_model: device model to onboard
@@ -1020,6 +1020,8 @@ class Devices:
         """
 
         self.navigator.navigate_to_devices()
+        if self.devices_web_elements.get_devices_drawer_open():
+            self.auto_actions.click(self.devices_web_elements.get_devices_drawer_trigger())
 
         try:
 
@@ -1081,7 +1083,7 @@ class Devices:
         """
         - gets all existing devices serials with the same device_type
         - Keyword Usage:
-         - ``Get Device Serial Number   ${DEVICE_TYPE}``
+         - ``Get Device Serial Numbers   ${DEVICE_TYPE}``
 
         :param device_type: type of device to onboard
         :return: serial number(s) with same device type
@@ -9871,6 +9873,129 @@ class Devices:
 
             return 1
 
+
+    def assign_network_policy_to_all_devices(self, policy_name):
+        """
+        - This keyword will assign the network policy to the all devices
+        - flow:
+            -- If Not in devices page, go to it
+            -- Select all devices
+            -- Actions
+            -- Assign Network Policy
+            -- Select the network policy from drop down window
+            -- Assign
+        - Keyword Usage:
+         - ``Assign Network Policy To All Devices    ${policy_name}``
+        :param policy_name: policy name to be applied
+        :return: Success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        self.select_all_devices()
+        if self._assign_network_policy(policy_name):
+            return 1
+        else:
+            return -1
+
+    def navigate_to_device_configure(self, ap_name):
+        """
+        - Click on the AP Rows host name --> Configure
+        :param ap_name: AP's name
+        :return: success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        ap_name_href = self.devices_web_elements.get_devices_page_grid_ap_name_href(ap_name)
+        if ap_name_href:
+            self.utils.print_info(f"Click AP name {ap_name} to go to AP device level page...")
+            self.auto_actions.click(ap_name_href)
+        else:
+            self.utils.print_info("No ap_name found...")
+            return -1
+        self.utils.print_info("Click Configure button to go to configure page...")
+        device_level_configure_button = self.devices_web_elements.get_device_configure_tab()
+        if device_level_configure_button:
+            self.auto_actions.click(device_level_configure_button)
+            return 1
+        else:
+            self.utils.print_info("No Configure button found...")
+            return -1
+
+    def get_ap_wifi0and1_configured_ssids(self, ap_name):
+        """
+        - This keyword will get wifi0 and wifi1 ssids from interface settings page behind Configure tab in AP device level
+        - flow:
+            -- Go to configure tab in AP device level based on AP hostname
+            -- Click Configure tab
+            -- Click Interface Settings
+            -- Get wifi0 ssids and wifi1 ssids
+            -- Put them to a ssid dictionary, as example {'wifi0':['ssid1','ssid2'], 'wifi1':['ssid1','ssid2']}
+            -- return the ssid dictionary
+        - Keyword Usage:
+         - ``Get Ap Wifi0and1 Configured Ssids    ${ap_name}``
+        :param ap_name: AP hostname
+        :return: Success ssid dictionary whatever it is null
+        """
+        wifi0_1_lists = {}
+        if self.navigate_to_device_configure(ap_name) == 1:
+            self.auto_actions.click(self.devices_web_elements.get_device_configure_interface_settings())
+            while not self.devices_web_elements.get_device_configure_interface_settings_wireless_toggle():
+                self.utils.print_info("Wireless Interfaces toggle is NOT shown, click to refresh page ...")
+                self.auto_actions.click(self.devices_web_elements.get_device_level_page_refresh())
+                self.utils.print_info("Wireless toggle is still NOT loaded successfully, try to refresh...")
+            wifi0_ssids_list = []
+            wifi0_ssid_rows = self.devices_web_elements.get_device_configure_interface_settings_wifi0_ssid()
+            if wifi0_ssid_rows:
+                for wifi0_ssid_row in wifi0_ssid_rows:
+                    wifi0_ssids_list.append(wifi0_ssid_row.get_attribute('value'))
+                wifi0_1_lists['wifi0'] = wifi0_ssids_list
+            else:
+                self.utils.print_info("No WiFi0 SSID row found, set wifi0_1lists as empty...")
+                wifi0_1_lists['wifi0'] = wifi0_ssids_list
+
+            wifi1_ssids_list = []
+            wifi1_ssid_rows = self.devices_web_elements.get_device_configure_interface_settings_wifi1_ssid()
+            if wifi1_ssid_rows:
+                for wifi1_ssid_row in wifi1_ssid_rows:
+                    wifi1_ssids_list.append(wifi1_ssid_row.get_attribute('value'))
+                wifi0_1_lists['wifi1'] = wifi1_ssids_list
+            else:
+                self.utils.print_info("No WiFi1 SSID row found, set wifi0_1lists as empty...")
+                wifi0_1_lists['wifi1'] = wifi1_ssids_list
+            self.auto_actions.click(self.devices_web_elements.get_device_level_page_close_icon())
+            self.utils.print_info(f"The WiFi0 and WiFi1 SSID list is: {wifi0_1_lists}")
+            return wifi0_1_lists
+        else:
+            return -1
+            
+    def get_ap_hostname(self, ap_serial):
+        """
+        - This method gets AP hostname based on AP serial
+        - Keyword Usage:
+         - ``Get Ap Hostname   ${AP_SERIAL}``
+
+        :param ap_serial: serial number of AP
+        :return: success AP hostname else -1
+        """
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            for row in rows:
+                if ap_serial in row.text:
+                    hostname = self.devices_web_elements.get_hostname_code_cell(row).text
+                    return hostname
+        else:
+            return -1
+
     def check_voss_image_version(self, output_image_version, os_version, operator = 'less'):
         """
         Check is os_version is equel, less or greater than on version from cli
@@ -10564,7 +10689,7 @@ class Devices:
         :return: 1 if Devices Deleted Successfully else -1
         '''
         return self.delete_all_devices()
-
+        
     def update_device_policy_config_simple(self, device_serial):
         self.utils.print_info("Select Device row")
         self.select_device(device_serial)
