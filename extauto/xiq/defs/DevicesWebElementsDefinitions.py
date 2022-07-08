@@ -304,7 +304,6 @@ class DevicesWebElementsDefinitions:
     devices_perform_update_button = \
         {
             'XPATH': '//div/a[@data-dojo-attach-point="uploadBtn"]',
-            
          }
 
     devices_config_update_message = \
@@ -721,7 +720,7 @@ class DevicesWebElementsDefinitions:
 
     reboot_and_revert_warning_dialog_yes_button = \
         {
-            'XPATH': '//div[contains(@id, "ActionsAndUpdateDialog")]//button[@data-dojo-attach-point="yesBtn"]',
+            'XPATH': '//div[contains(@id, "ActionsAndUpdateDialog")]//button[@data-automation-tag="automation-notification-yes-btn"]',
             'wait_for': 1
         }
 
@@ -1376,7 +1375,7 @@ class DevicesWebElementsDefinitions:
 
     devices_switch_update_reboot_rollback = \
         {
-            'CSS_SELECTOR': 'input[class="J-up"][data-dojo-attach-point="reboot-revert"]',
+            'XPATH': "//li[@data-dojo-attach-point='revertWrap']//label[@class='checkbox']//input[@type='checkbox']",
             'wait_for': 5
         }
 
@@ -1725,3 +1724,38 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//span[@data-dojo-attach-point="unmanage"]',
             'wait_for': 5
         }
+
+    update_reboot_revert_checkbox = \
+        {
+            'XPATH': "//li[@data-dojo-attach-point='revertWrap']//label[@class='checkbox']//input[@type='checkbox']",
+        }
+
+    update_image_checkbox = \
+        {
+            'XPATH': "//div[@class='first column']//label[@class='checkbox']//input[@type='checkbox']",
+        }
+
+    update_config_checkbox = \
+        {
+            'CSS_SELECTOR': ".J-up",
+        }
+
+    get_events = \
+        {
+            'XPATH': "//td/div",
+        }
+
+    device_actions_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
+            'wait_for': 2
+        }
+
+    license_action_button = \
+        {
+            'CSS_SELECTOR': '.dijitMenuItem',
+            'wait_for': 5
+        }
+
+
+
