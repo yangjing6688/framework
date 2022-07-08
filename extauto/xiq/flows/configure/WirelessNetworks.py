@@ -455,10 +455,8 @@ class WirelessNetworks:
     def _config_enhanced_open_wireless_network(self, **auth_profile):
         """
         - Configure Enhanced Open SSID Authentication Wireless Network
-        :param auth_profile: transition_mode
-        :return: 1 if there is no error
-        :param auth_profile:
-        :return:
+        :param auth_profile: (dict) Authentication profile 
+        :return: 1 if success else -1        
         """
         self.utils.print_info(60 * '*')
         self.utils.print_info("Configuration parameters for enhanced open network")
