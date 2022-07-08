@@ -17,7 +17,7 @@ class ClientModeDefinitions:
         {
             'DESC':  'Login Page Submit Button',
             'XPATH': '//img[@src="/rs/extimages/button-login.png"]',
-            'wait_for': 10
+            
         }
 
     admin_page_client_mode_ssid_tab = \

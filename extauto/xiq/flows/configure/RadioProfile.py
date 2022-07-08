@@ -718,3 +718,13 @@ class RadioProfile (RadioProfileWebElements):
             return -1
 
         return 1
+
+    def enable_DFS_selection(self):
+        """
+        - This keyword will enable DFS channel selection.
+        - Keyword Usage:
+                 - ``enable_DFS_selection''
+        """
+        self.utils.print_info("Enable Dynamic Frequency Selection on radio profile")
+        self.auto_actions.click(self.get_enable_DFS_selection())
+        self.utils.print_info("able to enable DFS selection")

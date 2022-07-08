@@ -27,9 +27,12 @@ class DialogWebElements(DialogWebElementsDefinitions):
 
     def get_confirm_yes_button(self):
         elements = self.weh.get_elements(self.confirm_yes_button)
-        for element in elements:
-            if element.is_displayed():
-                return element
+        if elements:
+            for element in elements:
+                if element.is_displayed():
+                    return element
+        else:
+            return None
 
     def get_confirm_cancel_button(self):
         elements = self.weh.get_elements(self.confirm_cancel_button)
@@ -42,3 +45,6 @@ class DialogWebElements(DialogWebElementsDefinitions):
         for element in elements:
             if element.is_displayed():
                 return element
+
+    def get_confirm_yes_button_reboot(self):
+         return self.weh.get_elements(self.confirm_yes_button_reboot)

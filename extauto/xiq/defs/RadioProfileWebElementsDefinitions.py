@@ -331,3 +331,9 @@ class RadioProfileWebElementsDefinitions:
             'XPATH': '//button[@data-dojo-attach-point="noBtn"]',
             'wait_for': 5
         }
+
+    enable_DFS_selection = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="enableDynamicFrequencySelection"]',
+            'wait_for': 5
+        }

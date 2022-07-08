@@ -2,7 +2,7 @@ class UserGroupsWebElementsDefinitions:
     user_groups_grid_rows = \
         {
             'XPATH': '//div[@data-automation-tag="automation-user-groups-grid"]//table[@class="dgrid-row-table"]',
-            'wait_for': 10
+            
          }
     user_group_row_cells = \
         {
@@ -450,5 +450,11 @@ class UserGroupsWebElementsDefinitions:
     wireless_usr_profile_select_wind_cancel_button = \
         {
             'XPATH': '//div[@componentpath="SelectUserProfiles"]//button[@data-dojo-attach-point="cancelButton"]',
+            'wait_for': 5
+        }
+
+    usr_group_select_all_checkbox = \
+        {
+            'XPATH': '//*[contains(@id,"dgrid")]//tr//th//input',
             'wait_for': 5
         }

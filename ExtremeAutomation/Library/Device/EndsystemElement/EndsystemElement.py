@@ -32,9 +32,14 @@ class EndsystemElement(NetworkElement):
         This function returns the base attributes for an end system. The base attributes
         are used by the API factories as folders when no match can be found.
         """
-        base_attrs = [getattr(EndsystemElementConstants, "PLATFORM_" + self.oper_sys + "_BASE"),
-                      EndsystemElementConstants.VERSION_BASE,
-                      EndsystemElementConstants.UNIT_BASE
-                      ]
-
+        try:
+            base_attrs = [getattr(EndsystemElementConstants, "PLATFORM_" + self.oper_sys + "_BASE"),
+                          EndsystemElementConstants.VERSION_BASE,
+                          EndsystemElementConstants.UNIT_BASE
+                          ]
+        except AttributeError as e:
+            base_attrs = [EndsystemElementConstants.PLATFORM_BASE,
+                          EndsystemElementConstants.VERSION_BASE,
+                          EndsystemElementConstants.UNIT_BASE
+                          ]
         return base_attrs

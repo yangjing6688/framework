@@ -177,7 +177,9 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(map(str, words))
+        line = ""
+        for word in words:
+            line += str(word)
 
         if "DEBUG" in line:
             BuiltIn().log_to_console(line)
@@ -191,7 +193,9 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(map(str, words))
+        line = ""
+        for word in words:
+            line += str(word)
 
         self.logger.error(line)
         test_name = BuiltIn().get_variable_value("${TEST_NAME}")
@@ -225,7 +229,9 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(map(str, words))
+        line = ""
+        for word in words:
+            line += str(word)
 
         self.logger.info(line)
         test_name = BuiltIn().get_variable_value("${TEST_NAME}")
@@ -240,7 +246,9 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        line = "".join(map(str, words))
+        line = ""
+        for word in words:
+            line += str(word)
         if "DEBUG" in BuiltIn().get_variable_value("${LOG_LEVEL}"):
             BuiltIn().log_to_console(line)
 
@@ -662,12 +670,12 @@ class Utils:
         -This keyword Will Switch to default frame
         """
         self.print_info("<<<Switching to Default>>>")
+        time.sleep(5)
         try:
             driver.find_element_by_tag_name('iframe')
             self.print_info("||| No Need to Switch |||")
         except NoSuchElementException:
             driver.switch_to.default_content()
-            time.sleep(5)
             self.print_info("<<< Switching to Default Completed >>>")
 
     def switch_to_iframe(self, driver):
@@ -896,3 +904,164 @@ class Utils:
         regexp = re.compile(pattern)
         groups = [self._parse_group(g) for g in groups]
         return [m.group(*groups) for m in regexp.finditer(string)]
+
+    def wait_till(self, func=None, fail_func=None, timeout=20, delay=0.2, exp_func_resp=True, is_logging_enabled=False,
+                  silent_failure=False, custom_response=[], msg=None):
+        """ wait till method returns the func() response and raise Timeout Exception if timedout
+            :param func              : callable function without arguments
+            :param fail_func         : callable function, to be run after every unsuccessful attempt of func
+            :param timeout           : float/int type , max number of seconds to wait before timed out
+            :param delay             : float/int, delay in seconds between each retry
+            :param exp_func_resp     : bool,by default wait_till expects True from the callback function func
+            :pram is_logging_enabled : bool, prints the time remaining and result of the func function, default disabled
+            :pram silent_failure     : bool, if true nothing will be returned and Timeout exceptions will not be raised.
+            :pram custom_response    : list, should contain list of str values to match against the func() response. e.g ["Green", "connected", "MANAGED"]
+            :param msg               : str, message that has to printed when this wait_till function is called.
+            :return: raise timeout exception incase max timed out else resturns the calback function's response
+        usages:
+            self.utils.wait_till()
+            self.utils.wait_till(_check_device_rows)
+            self.utils.wait_till(_check_device_rows, timeout=5, delay=0.25)
+            self.utils.wait_till(_check_device_rows, _click_eligible, is_logging_enabled=True, silent_failure=False)
+            out, et = self.tools.wait_till(_check_device_rows, exp_func_resp=False, silent_failure=False, custom_response=["Green", "Managed"])
+
+        Note:
+            1. custom_response has higher priority than the exp_func_resp
+            2. Timeout might not the break point, callback func and fail_func might take sometime
+            3. If no arguments passed then it will act like a sleep(timeout) and returns None.
+            4. Calback func() response and the Execution Time are returned as tuple.
+                e.g
+                out,et = wait_till(_check_device_rows, _click_eligible, is_logging_enabled=True, silent_failure=False))
+                out = func() response
+                et  = Execution time (HH:MM:SS)
+        """
+
+        start = time.time()
+
+        # A simple boolean (Ture/False) conversion function
+        def to_bool(_input):
+            """
+            A small supporting function which is used to convert the func response into a boolean response
+            """
+            if _input is None:
+                return False
+            elif isinstance(_input, bool):
+                return _input
+            elif isinstance(_input, int):
+                return _input > 0
+            elif isinstance(_input, str) and _input.lower() not in ['yes', 'true']:
+                return _input.lower() not in ['no', 'false']
+            else:
+                return bool(_input)
+
+        # Args None/Negative validation and correction
+        if not timeout: timeout = 1
+        if timeout <= 0: timeout = 1
+        if not delay: delay = timeout
+        if delay <= 0 or delay > timeout: delay = timeout
+
+        # Converting the type of timeout and delay to float
+        if isinstance(timeout, (int, float)):
+            timeout = float(timeout)
+        if isinstance(delay, (int, float)):
+            delay = float(delay)
+
+        # Converting the custom_response list values into lowercase
+        custom_response_list = []
+        for x in custom_response:
+            if isinstance(x, str):
+                custom_response_list.append(x.lower())
+            else:
+                custom_response_list.append(x)
+
+        # If expected response arg is not a boolean then it will be converted into a equalent boolean value
+        if not isinstance(exp_func_resp, bool):
+            exp_func_resp = to_bool(exp_func_resp)
+            if is_logging_enabled:
+                self.print_info(f"Expected Response is not boolean, converting into boolean '{exp_func_resp}'")
+
+        # Storing the timeout for later use
+        max_wait_time = timeout
+        callback_response = None
+        callback_response_bool = None
+        callback_response_lower = None
+        elapsed_time = None
+        elapsed_time_hms = None
+
+        # This custom message prints in the start of wait_till if it set else prints default message
+        if msg:
+            self.print_info(f"{msg}")
+        else:
+            self.print_info(f"wait_till Started: Timeout '{timeout}' seconds, Delay '{delay}' seconds ")
+
+        # if func is None, wait until the default timeout and returns None
+        if func is None:
+            time.sleep(timeout)
+            return None
+
+        while timeout > 0:
+
+            # Time sleep for delay seconds
+            time.sleep(delay)
+            timeout = timeout - delay
+
+            # function call to callback
+            callback_response = func()
+
+            # if is_logging_enabled is True then callback response and time left in seconds will be printed
+            if is_logging_enabled:
+                self.print_info(
+                    f"Actual callback function response is '{callback_response}', time left '{timeout}s' ")
+
+            # callback function response is converted to bool type
+            callback_response_bool = to_bool(callback_response)
+
+            if isinstance(callback_response, str):
+                callback_response_lower = callback_response.lower()
+            else:
+                callback_response_lower = callback_response
+
+            # Execution end time
+            elapsed_time = time.time() - start
+            elapsed_time_hms = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
+
+            # This block checks if callback response matches with custom response list and it has higher priority than exp_func_resp
+            if len(custom_response_list) > 0:
+                if callback_response_lower in custom_response_list:
+                    if is_logging_enabled:
+                        self.print_info(f"Wail_till is success, callback response is '{callback_response}'")
+                        self.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
+                    return callback_response, elapsed_time_hms
+                else:
+                    pass
+            # This block checks callback response matches with expected response and or custom_response, if so returns the func() response
+            elif callback_response_bool == exp_func_resp:
+                if is_logging_enabled:
+                    self.print_info(f"Wail_till is success, callback response is '{callback_response_bool}'")
+                    self.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
+                return callback_response, elapsed_time_hms
+
+            # This fail_func function will be called everytime callback func failed and timeout is > 0
+            if fail_func and timeout > 0:
+                fail_func()
+
+        # Below this will be executed only when timeout reached.
+
+        # if enable_log is True then callback response and time left in seconds will be printed
+        if is_logging_enabled:
+            self.print_info(
+                f"Wait_till is unsuccess, function response was '{callback_response}' after waiting for '{max_wait_time} seconds' ")
+            self.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
+
+        # silent failure is True then this function will not raise timeout exception but returns the func() response
+        if silent_failure:
+            return callback_response, elapsed_time_hms
+
+        # Raise timeout exception if silent_failure is set as false
+        raise Exception("Request Timedout")
+
+    def _parse_group(self, group):
+        try:
+            return int(group)
+        except ValueError:
+            return group

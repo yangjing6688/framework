@@ -115,6 +115,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.devices_add_devices_button)
 
+    def get_devices_drawer_open(self):
+        return self.weh.get_element(self.devices_drawer_open)
+
+    def get_devices_drawer_trigger(self):
+        return self.weh.get_element(self.devices_drawer_trigger)
+
     def get_delete_button(self):
         """
         :return: device delete button
@@ -301,6 +307,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_country_code_cell(self, row):
         return self.weh.get_element(self.country_code_cell, row)
 
+    def get_hostname_code_cell(self, row):
+        return self.weh.get_element(self.devices_page_grid_ap_name_cells, row)
+
     def get_actions_country_code_menu_item(self):
         return self.weh.get_element(self.actions_country_code_menu_item)
 
@@ -334,8 +343,26 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_actions_country_code_confirm_button(self):
         return self.weh.get_element(self.actions_country_code_confirm_button)
 
-    def get_ap_configure_button(self):
-        return self.weh.get_element(self.ap_configure_button)
+    def get_device_configure_tab(self):
+        return self.weh.get_element(self.device_level_configure_tab)
+
+    def get_device_configure_interface_settings(self):
+        return self.weh.get_element(self.device_level_configure_interface_settings)
+
+    def get_device_configure_interface_settings_wireless_toggle(self):
+        return self.weh.get_element(self.device_level_configure_interface_settings_wireless_toggle)
+
+    def get_device_configure_interface_settings_wifi0_ssid(self):
+        return self.weh.get_elements(self.device_level_configure_interface_settings_wifi0_ssid)
+
+    def get_device_configure_interface_settings_wifi1_ssid(self):
+        return self.weh.get_elements(self.device_level_configure_interface_settings_wifi1_ssid)
+
+    def get_device_level_page_refresh(self):
+        return self.weh.get_element(self.device_level_page_refresh)
+
+    def get_device_level_page_close_icon(self):
+        return self.weh.get_element(self.device_level_page_close_icon)
 
     def get_ap_device_config_tab(self):
         return self.weh.get_element(self.ap_device_config_tab)
@@ -1001,10 +1028,17 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.field_license_stat, row)
 
     def get_check_unmanage_box(self):
-        return self.weh.get_element(self.check_unmanage_box)
+        el = self.weh.get_element(self.check_unmanage_box)
+        if el:
+            if el.is_displayed():
+                return el
+            else:
+                return None
+        else:
+            return None
 
     def get_pilot_lic_inventory(self):
-        return self.weh.get_element(self.pilot_lic_inventory)
+        return self.weh.get_elements(self.pilot_lic_inventory)
 
     def get_sn_button(self):
         return self.weh.get_element(self.sn_button)
@@ -1123,3 +1157,46 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
+
+    def get_manage_all_devices_progress_status(self):
+        return self.weh.get_elements(self.manage_devices_progress_status)
+    
+    def get_device_page_size_100(self):
+        return self.weh.get_element(self.device_page_size_100)
+
+    def get_simulation_device_count_input_field(self):
+        return self.weh.get_element(self.simulation_device_count_input_field)
+      
+    def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
+        return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
+
+    def get_license_mgmt(self):
+        return self.weh.get_element(self.license_mgmt)
+
+    def get_license_unmanage_box(self):
+        el = self.weh.get_element(self.license_unmanage_box)
+        if el.is_displayed():
+            return el
+        else:
+            return None
+
+    def get_update_reboot_revert_checkbox(self):
+        return self.weh.get_element(self.update_reboot_revert_checkbox)
+
+    def get_update_image_checkbox(self):
+        return self.weh.get_element(self.update_image_checkbox)
+
+    def get_events_text(self):
+        return self.weh.get_elements(self.get_events)
+
+    def get_update_config_checkbox(self):
+        return self.weh.get_element(self.update_config_checkbox)
+
+    def get_device_actions_button(self):
+        """
+        :return: Device Actions Button
+        """
+        return self.weh.get_element(self.device_actions_button)
+
+    def get_license_action_button(self):
+        return self.weh.get_element(self.license_action_button)

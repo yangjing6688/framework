@@ -14,7 +14,6 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
 
-
 class Tools:
     def __init__(self):
         self.utils = Utils()
@@ -649,3 +648,5 @@ class Tools:
             return 1
 
         return -1
+
+        
