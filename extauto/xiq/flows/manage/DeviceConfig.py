@@ -1847,6 +1847,16 @@ class DeviceConfig(DeviceConfigElements):
 
         return interface_info
 
+    def close_D360_configuration_page(self):
+        """
+        - This keyword will close D360 configuration page.
+        - Keyword Usage:
+                 - ``close_D360_configuration_page''
+        """
+        self.utils.print_info("Click on close D360 popup page")
+        self.auto_actions.click(self.get_close_D360_popup())
+        self.utils.print_info("able to close D360 popup page")
+
     def verify_page_details(self, dic1=None, dic2=None):
 
         """
@@ -1957,7 +1967,7 @@ class DeviceConfig(DeviceConfigElements):
 
         """
 
-        self._enabe_override_channel_exclusion_setting_in_radio_profile(interface=interface)
+        self.enabe_override_channel_exclusion_setting_in_radio_profile(interface=interface)
         try:
             locator = None
             for channel in channels:
@@ -2008,7 +2018,6 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info(" Validate the channel width and channels ")
 
-        self._enabe_override_channel_exclusion_setting_in_radio_profile(interface=interface)
         element = None
         if interface in ['wifi2', 'WIFI2']:
             if channel_width == '80':
@@ -2058,8 +2067,6 @@ class DeviceConfig(DeviceConfigElements):
             elif interface in ['wifi0', 'WIFI0']:
                 locator = self.get_devices_override_channel_exclusion_setting_wifi0(str(channel))
 
-            # self.utils.print_info(" locator " + str(locator))
-
             element = self.web.get_element(locator)
             if element == None:
                 self.utils.print_info(" channel element does not exist: ", channel)
@@ -2072,7 +2079,7 @@ class DeviceConfig(DeviceConfigElements):
                 if enabled_text.find("enabled") == -1:
                     self.utils.print_info(" channel is not enabled: ", channel)
                     return -1
-            elif mode == 'disable':
+            elif mode == 'disabled':
                 if enabled_text.find("disabled") == -1:
                     self.utils.print_info(" channel is not disabled: ", channel)
                     return -1
@@ -2202,7 +2209,7 @@ class DeviceConfig(DeviceConfigElements):
             else:
                 return 'OFF'
 
-    def _enabe_override_channel_exclusion_setting_in_radio_profile(self, interface='default'):
+    def enabe_override_channel_exclusion_setting_in_radio_profile(self, interface='default'):
 
         """
             - Enable the override the channel exclusion setting in radio profile
