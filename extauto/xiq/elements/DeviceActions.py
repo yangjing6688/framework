@@ -177,8 +177,8 @@ class DeviceActions(DeviceActionsDefs):
                 pass
         return None
 
-    def get_manage_AP_device_btn(self):
-        elements = self.weh.get_elements(self.manage_AP_device_btn)
+    def get_manage_AP_dev_btn(self):
+        elements = self.weh.get_elements(self.manage_AP_dev_btn)
         for el in elements:
             if el.is_displayed():
                 return el
@@ -186,8 +186,8 @@ class DeviceActions(DeviceActionsDefs):
                 pass
         return None
 
-    def get_unmanage_AP_device_btn(self):
-        elements = self.weh.get_elements(self.unmanage_AP_device_btn)
+    def get_unmanage_AP_dev_btn(self):
+        elements = self.weh.get_elements(self.unmanage_AP_dev_btn)
         for el in elements:
             if el.is_displayed():
                 return el
