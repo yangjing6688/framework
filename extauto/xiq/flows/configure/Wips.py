@@ -26,7 +26,6 @@ class Wips(WipsWebElements):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.device_template_web_elements = DeviceTemplateWebElements()
-        self.wips_web_elements = WipsWebElements()
         self.cobj_web_elements = CommonObjectsWebElements()
         self.np_web_elements = NetworkPolicyWebElements()
         self.network_policy = NetworkPolicy()
@@ -431,12 +430,13 @@ class Wips(WipsWebElements):
         self.utils.print_info("Click on Save button")
         self.auto_actions.click(self.get_wips_common_object_save_button())
         sleep(2)
+        
+        self.screen.save_screen_shot()
+        sleep(2)
 
-        self.utils.print_info("Checking the Save profile message...")
-        observed_profile_message = self.wips_web_elements.get_wips_profile_save_tool_tip().text
-        self.utils.print_info("Observed Message: ", observed_profile_message)
-
-        if "WIPS was updated successfully" in observed_profile_message:
+        tool_tip_text = tool_tip.tool_tip_text
+        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+        if "WIPS was updated successfully." in tool_tip_text:
             return 1
         else:
             return -1
@@ -604,12 +604,13 @@ class Wips(WipsWebElements):
         self.utils.print_info("Click on Save WIPS button")
         self.auto_actions.click(self.get_wips_common_object_save_button())
         sleep(2)
-        self.utils.print_info("Checking the Save profile message...")
-        observed_profile_message = self.wips_web_elements.get_wips_profile_save_tool_tip().text
-        self.utils.print_info("Observed Message: ", observed_profile_message)
-
-        if "WIPS was updated successfully" in observed_profile_message:
-
+       
+        self.screen.save_screen_shot()
+        sleep(2)
+        
+         tool_tip_text = tool_tip.tool_tip_text
+        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+        if "WIPS was updated successfully." in tool_tip_text:
             return 1
         else:
             return -1
