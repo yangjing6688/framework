@@ -608,7 +608,7 @@ class Wips(WipsWebElements):
         self.screen.save_screen_shot()
         sleep(2)
         
-         tool_tip_text = tool_tip.tool_tip_text
+        tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
             return 1
