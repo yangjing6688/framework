@@ -448,13 +448,6 @@ class WipsWebElements(WipsWebElementDefinitions):
         """
         return self.weh.get_element(self.wips_common_object_save_button)
 
-    def get_wips_profile_save_tool_tip(self):
-        """
-
-        :return:
-        """
-        return self.weh.get_element(self.wips_profile_save_tool_tip)
-
     def get_wips_common_object_add_button(self):
         """
 

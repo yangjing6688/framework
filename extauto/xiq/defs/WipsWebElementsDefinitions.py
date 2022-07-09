@@ -382,12 +382,6 @@ class WipsWebElementDefinitions:
             'wait_for': 2
         }
 
-    wips_profile_save_tool_tip = \
-        {
-            'XPATH': '//*[contains(@class, "ui-tipbox-success")]//*[@data-dojo-attach-point="textEl"]',
-            'wait_for': 5
-        }
-
     wips_common_object_add_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="wipsCtn"]//span[@data-tip="Add"]',

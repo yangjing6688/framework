@@ -73,12 +73,6 @@ class NetworkPolicyWebElementDefinition:
             'wait_for': 5
         }
 
-    np_save_tool_tip = \
-        {
-            'XPATH': '//*[contains(@class, "ui-tipbox-success")]//*[@data-dojo-attach-point="textEl"]',
-            'wait_for': 5
-        }
-
     policy_exit_button = \
         {
             'XPATH': "//*[@data-automation-tag='automation-tab-wireless-exit']",
