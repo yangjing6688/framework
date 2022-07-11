@@ -79,6 +79,12 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    sw_template_row_table_cells = \
+        {
+            'CSS_SELECTOR': '.dgrid-cell',
+            'wait_for': 5
+        }
+
     sw_template_select_button = \
         {
             'CSS_SELECTOR': '.table-select',

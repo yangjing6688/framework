@@ -471,6 +471,10 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         cells = self.weh.get_elements(self.sw_template_row_cells, row)
         return cells
 
+    def get_sw_template_row_table_cells(self, row):
+        cells = self.weh.get_elements(self.sw_template_row_table_cells, row)
+        return cells
+
     def get_sw_template_row_cells_hyperlink(self, cell):
         value = self.weh.get_elements(self.sw_template_row_cells_hyperlink, cell)
         return value

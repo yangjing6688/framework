@@ -2007,7 +2007,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Switch templates not exists in switch device template page")
             return False
         for row in rows:
-            cells = self.sw_template_web_elements.get_sw_template_row_cells(row)
+            cells = self.sw_template_web_elements.get_sw_template_row_table_cells(row)
             template_cell = cells[2]
             if sw_template in template_cell.text:
                 hyperlink = self.sw_template_web_elements.get_sw_template_row_cells_hyperlink(template_cell)
