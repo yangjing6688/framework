@@ -40,7 +40,7 @@ class Tools:
 
         :param SERIAL: serial number of device
         :param MAC: mac address of device
-        :return: 1 if successful
+        :return: 1 if successful else -1
          """
 
         return self.get_l2_neighbor_info(serial, mac, **kwargs)
@@ -55,7 +55,7 @@ class Tools:
 
         :param SERIAL: serial number of device
         :param MAC: mac address of device
-        :return: 1 if successful
+        :return: 1 if successful else -1
          """
 
         self.utils.print_info("Navigate to the devices page")
@@ -341,7 +341,7 @@ class Tools:
         - Used to ui ssh status check
         - Keyword Usage:
             - ``Ui Ssh Status Check``
-        :return: 1 if successful else -1
+        :return: status if successful else -1
         """
         self.utils.print_info("SSH status checking in UI")
         status_comp = self.tools_elements.get_ssh_status()
@@ -370,7 +370,7 @@ class Tools:
         - Used to ui tools ssh status check
         - Keyword Usage:
           - ``Ui Tools Ssh Status Check``
-        :return: 1 if successful else -1
+        :return: status if successful else -1
         """
         self.utils.print_info("SSH status checking in UI")
         status_comp = self.tools_elements.get_ssh_status()
