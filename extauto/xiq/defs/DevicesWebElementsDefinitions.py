@@ -154,6 +154,18 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
          }
 
+    devices_drawer_open = \
+        {
+            'CSS_SELECTOR': '.ah-drawer-ctn.is-open',
+            'wait_for': 2
+        }
+
+    devices_drawer_trigger = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-ah-drawer-trigger"]',
+            'wait_for': 2
+        }
+
     quick_onbaroding_failure = \
         {
             'CSS_SELECTOR': 'quick-onboard-dialog.hmOverride.dijitDialog',
@@ -292,7 +304,6 @@ class DevicesWebElementsDefinitions:
     devices_perform_update_button = \
         {
             'XPATH': '//div/a[@data-dojo-attach-point="uploadBtn"]',
-            
          }
 
     devices_config_update_message = \
@@ -432,8 +443,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-
-            'XPATH': '//div[@class="select-policy-container"]//tr[@role="presentation"]',
+            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
             'wait_for': 5
         }
 
@@ -452,7 +462,7 @@ class DevicesWebElementsDefinitions:
 
     action_assign_network_policy_dialog = \
         {
-            "CSS_SELECTOR": '.ui-menu-list',
+            "CSS_SELECTOR": '.ui-dialog-content',
             'wait_for': 5
         }
 
@@ -548,10 +558,45 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
-    ap_configure_button = \
+    device_level_configure_tab = \
         {
             'XPATH': '//*[@data-dojo-attach-point="configureViewSelect"]',
+            'wait_for': 2
+        }
+
+    device_level_configure_interface_settings = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-interface-settings"]',
+            'wait_for': 10
+        }
+    device_level_configure_interface_settings_wireless_toggle = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="wirelessToggle"] //*[@class="header-toggle-caret"]',
+            'wait_for': 3
+        }
+
+    device_level_configure_interface_settings_wifi0_ssid = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="wifi0_SsidArea"] //*[@name="SsidBroadcastName"]',
             'wait_for': 5
+        }
+
+    device_level_configure_interface_settings_wifi1_ssid = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="wifi1_SsidArea"] //*[@name="SsidBroadcastName"]',
+            'wait_for': 5
+        }
+
+    device_level_page_refresh = \
+        {
+            'CSS_SELECTOR': '.entity-page-actions .ui-fresh-icon',
+            'wait_for': 3
+        }
+
+    device_level_page_close_icon = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 2
         }
 
     ap_device_config_tab = \
@@ -717,7 +762,7 @@ class DevicesWebElementsDefinitions:
 
     reboot_and_revert_warning_dialog_yes_button = \
         {
-            'XPATH': '//div[contains(@id, "ActionsAndUpdateDialog")]//button[@data-dojo-attach-point="yesBtn"]',
+            'XPATH': '//div[contains(@id, "ActionsAndUpdateDialog")]//button[@data-automation-tag="automation-notification-yes-btn"]',
             'wait_for': 1
         }
 
@@ -1325,13 +1370,13 @@ class DevicesWebElementsDefinitions:
     device_os_voss_radio = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-voss-radio-button"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_os_exos_radio = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-exos-radio-button"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     device_np_header = \
@@ -1372,7 +1417,7 @@ class DevicesWebElementsDefinitions:
 
     devices_switch_update_reboot_rollback = \
         {
-            'CSS_SELECTOR': 'input[class="J-up"][data-dojo-attach-point="reboot-revert"]',
+            'XPATH': "//li[@data-dojo-attach-point='revertWrap']//label[@class='checkbox']//input[@type='checkbox']",
             'wait_for': 5
         }
 
@@ -1721,3 +1766,38 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//span[@data-dojo-attach-point="unmanage"]',
             'wait_for': 5
         }
+
+    update_reboot_revert_checkbox = \
+        {
+            'XPATH': "//li[@data-dojo-attach-point='revertWrap']//label[@class='checkbox']//input[@type='checkbox']",
+        }
+
+    update_image_checkbox = \
+        {
+            'XPATH': "//div[@class='first column']//label[@class='checkbox']//input[@type='checkbox']",
+        }
+
+    update_config_checkbox = \
+        {
+            'CSS_SELECTOR': ".J-up",
+        }
+
+    get_events = \
+        {
+            'XPATH': "//td/div",
+        }
+
+    device_actions_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
+            'wait_for': 2
+        }
+
+    license_action_button = \
+        {
+            'CSS_SELECTOR': '.dijitMenuItem',
+            'wait_for': 5
+        }
+
+
+

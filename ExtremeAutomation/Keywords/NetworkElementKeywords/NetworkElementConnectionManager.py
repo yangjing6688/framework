@@ -182,7 +182,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 verify_cert = netelem_dict[netelem_name]["verify_cert"]
 
                 self.connect_to_network_element(netelem_name, netelem_ip, netelem_user, netelem_pass,
-                                                netelem_con_method, netelem_os, netelem_port, netelem_platform,
+                                                netelem_con_method, netelem_cli_type, netelem_port, netelem_platform,
                                                 netelem_version, netelem_unit, netelem_console_ip=netelem_console_ip,
                                                 netelem_console_port=netelem_console_port, snmp_info=snmp_info,
                                                 auth_mode=auth_mode, verify_cert=verify_cert, **kwargs)
@@ -394,7 +394,6 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             netelem_pass = None
             netelem_con_method = None
             netelem_port = None
-            netelem_os = None
             netelem_cli_type = None
             session_keylist = []
 
@@ -404,9 +403,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 netelem_user = variables[netelem]["username"]
                 netelem_pass = variables[netelem]["password"]
                 netelem_con_method = variables[netelem]["connection_method"]
-
                 netelem_cli_type = variables[netelem]["cli_type"]
-
                 netelem_port = variables[netelem]["port"]
 
             except KeyError:

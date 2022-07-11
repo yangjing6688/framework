@@ -474,3 +474,19 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_row_cells_hyperlink(self, cell):
         value = self.weh.get_elements(self.sw_template_row_cells_hyperlink, cell)
         return value
+
+    def get_sw_template_assign_choose_existing_trunk_choice_second_dialog_box(self):
+        return self.weh.get_element(self.sw_template_assign_choose_existing_trunk_choice_second_dialog_box)
+
+    def get_sw_template_check_box_row(self, row):
+        return self.weh.get_elements(self.sw_template_check_box_row, parent=row)
+
+    def get_sw_template_delete_button(self):
+        return self.weh.get_element(self.sw_template_delete_button)
+
+    def get_new_sw_template_add_button(self):
+        return self.weh.get_element(self.new_sw_template_add_button)
+
+    def get_sw_template_save_button_bottom(self):
+        return self.weh.get_elements(self.sw_template_save_btn_bottom)
+    
