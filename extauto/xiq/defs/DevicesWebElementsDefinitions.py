@@ -1309,13 +1309,13 @@ class DevicesWebElementsDefinitions:
 
     device_stack_template_click = \
         {
-            'CSS_SELECTOR': '.J-template',
+            'XPATH': './/a[@data-automation-tag="automation-manage-assign-create-template"]',
             'wait_for': 5
         }
 
     create_template_click = \
         {
-            'XPATH': '//*[contains(text(), "currently")]',
+            'XPATH': '//div[@data-automation-tag="automation-assign-template-create"]',
             'wait_for': 5
         }
 
