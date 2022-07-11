@@ -26,15 +26,16 @@ class ClassificationRule(object):
         self.np_web_elements = NetworkPolicyWebElements()
         self.classification_rule_web_elements = ClassificationRuleWebElements()
 
-    def add_classification_rule_with_ccg(self, name, description, ccg_policy):
+    def add_classification_rule_with_ccg(self, name, description, match_type_flag, ccg_policy):
         """
         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
         - Create Classification Rule with Cloud Config Group Policy
         - Keyword Usage
-        ``Add Classification Rule with CCG      ${RULE_NAME}        ${RULE_DESCRIPTION}        ${CLOUD_CONFIG_GROUP_POLCIY}``
+        ``Add Classification Rule with CCG      ${RULE_NAME}        ${RULE_DESCRIPTION}    ${match_type}    ${CLOUD_CONFIG_GROUP_POLCIY}``
 
         :param name: Name of the Classification Rule
         :param description: Description of the Classification Rule
+        :param match_type_flag: YES = (default) match based on 'Contains' NOT = match based on "Does Not Contain"
         :param ccg_policy: Cloud Config Group Policy Name
         :return: 1 if created else -1
         """
@@ -64,7 +65,21 @@ class ClassificationRule(object):
         else:
             self.utils.print_info("Not able to Select CCG Classification Rule")
             return False
-
+        if match_type_flag.upper() == "YES":
+            match_type = "Contains"
+        elif match_type_flag.upper() == "NOT":
+            match_type = "Does Not Contain"
+        else:
+            self.utils.print_info(f"The ccg Match Type {match_type_flag} is incorrect, force ccg Match Type as default 'Contains' ")
+            match_type = "Contains"
+        self.utils.print_info("Selecting CCG Match Type from dropdown")
+        self.auto_actions.click(self.classification_rule_web_elements.get_ccg_match_type_dropdown_button())
+        match_type_options = self.classification_rule_web_elements.get_ccg_match_type_options()
+        if self.auto_actions.select_drop_down_options(match_type_options, match_type):
+            self.utils.print_info(f"Selected CCG Match Type {match_type}")
+        else:
+            self.utils.print_info(f"Not able to Select CCG Match Type {match_type}")
+            return False
         self.utils.print_info(f"Selecting CCG policy :{ccg_policy}")
         self.auto_actions.click(self.classification_rule_web_elements.get_ccg_policy_select_option())
         sleep(2)
@@ -104,7 +119,7 @@ class ClassificationRule(object):
         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
         - Create Classification Rule Based on AP Location
         - Keyword Usage
-        ``Add Classification Rule with CCG      ${RULE_NAME}        ${RULE_DESCRIPTION}        &{LOCATION_OF_AP}``
+        ``Add Classification Rule with Location      ${RULE_NAME}        ${RULE_DESCRIPTION}        &{LOCATION_OF_AP}``
 
         :param name: Name of the Classification Rule
         :param description: Description of the Classification Rule
@@ -124,8 +139,7 @@ class ClassificationRule(object):
         self.auto_actions.send_keys(self.classification_rule_web_elements.get_classification_rule_name_text(), name)
 
         self.utils.print_info("Enter the Classification Rule description:{}".format(description))
-        self.auto_actions.send_keys(
-            self.classification_rule_web_elements.get_classification_rule_description_text(), description)
+        self.auto_actions.send_keys(self.classification_rule_web_elements.get_classification_rule_description_text(), description)
 
         self.utils.print_info("Clicking on Classification Rule Option Button")
         self.auto_actions.click(self.classification_rule_web_elements.get_classification_option_add_button())
@@ -312,6 +326,7 @@ class ClassificationRule(object):
          :param name: Name of the Classification Rule
          :return: 1 if created else return -1
          """
+        self.navigator.navigate_to_classification_rule()
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
@@ -367,6 +382,13 @@ class ClassificationRule(object):
         country_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(country_nodes, country_node):
             self.utils.print_info(f"Country node {country_node} is not present...")
+            return False
+        sleep(1)
+
+        self.utils.print_info("Click on location node open icon")
+        loc_nodes = self.classification_rule_web_elements.get_node_location()
+        if not self._open_location_tree_nodes(loc_nodes, loc_node):
+            self.utils.print_info(f"Location node {loc_node} not present")
             return False
         sleep(1)
 
@@ -824,4 +846,3 @@ class ClassificationRule(object):
                 sleep(2)
                 return 1
         return False
-

@@ -185,3 +185,6 @@ class RadioProfileWebElements(RadioProfileWebElementsDefinitions):
 
     def get_radio_profile_dialog_yes_button(self):
         return self.weh.get_element(self.radio_profile_dialog_yes_button)
+
+    def get_enable_DFS_selection(self):
+        return self.weh.get_element(self.enable_DFS_selection)

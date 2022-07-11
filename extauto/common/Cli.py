@@ -733,19 +733,20 @@ class Cli(object):
         :param retry_count: Retry count to check device connection status with capwap server
         :return: 1 id device successfully connected with capwap server else -1
         """
+
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'Hivemanager address {server_name}')
-            self.send(_spawn, f'Application stop hiveagent')
-            self.send(_spawn, f'Application start hiveagent')
+            self.send(_spawn, f'do Hivemanager address {server_name}')
+            self.send(_spawn, f'do Application stop hiveagent')
+            self.send(_spawn, f'do Application start hiveagent')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                hm_status = self.send(_spawn, f'show hivemanager status | include Status')
-                hm_address = self.send(_spawn, f'show hivemanager address')
+                hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
+                hm_address = self.send(_spawn, f'do show hivemanager address')
 
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
                     self.close_spawn(_spawn)
