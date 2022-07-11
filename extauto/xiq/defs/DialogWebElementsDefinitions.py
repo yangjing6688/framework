@@ -44,3 +44,9 @@ class DialogWebElementsDefinitions:
             'XPATH': "//button[@data-dojo-attach-point='deployBtn']",
             'wait_for': 5
         }
+
+    confirm_yes_button_reboot = \
+        {
+            'XPATH': "//button[@class='btn btn-secondary']",
+            'wait_for': 5
+        }
