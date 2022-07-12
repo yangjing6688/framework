@@ -456,14 +456,17 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         if import_html.upper() == "ENABLE":
             self.utils.print_info("click on import html button")
             self.auto_actions.click(self.get_import_html_button())
-            sleep(2)
+            self.screen.save_screen_shot()
+
             if open_cwp_config.get('download_samples') == 'download':
                 self.utils.print_info("click on the User-Auth-Return-PPSK-Example download link")
                 if self.get_user_auth_return_ppsk_link():
                     self.auto_actions.click(self.get_user_auth_return_ppsk_link())
+                    self.screen.save_screen_shot()
                     # @to do Need to add the import logic just checking download the html pages
                     sleep(2)
                     self.auto_actions.click(self.get_cwp_dialog_window_cancel_button())
+                    self.screen.save_screen_shot()
                     return 1
                 else:
                     self.utils.print_info("user auth return ppsk example link not present")
