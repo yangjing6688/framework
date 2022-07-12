@@ -30,6 +30,18 @@ class ClassificationRuleWebElementDefinition:
             'wait_for': 5
         }
 
+    get_ccg_match_type_dropdown = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    get_ccg_match_type_option = \
+        {
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-cloudconfiggroupscope"] /li',
+            'wait_for': 5
+        }
+
     get_ccg_policy_drop_down_item = \
         {
             'XPATH': '//div[@data-dojo-attach-point="ipList"]//ul[@class="item-area"]//li',

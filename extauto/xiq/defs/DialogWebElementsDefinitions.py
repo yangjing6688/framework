@@ -3,17 +3,17 @@
 class DialogWebElementsDefinitions:
     dialog_title_label = \
         {'CLASS_NAME': 'dijitDialogTitle',
-         'wait_for': 10
+         
          }
 
     dialog_box = \
         {'CSS_SELECTOR': '.quick-onboard-dialog.dijitDialogFixed.dijitDialog',
-         'wait_for': 10
+         
         }
 
     dialog_message = \
         {'CSS_SELECTOR': '.ui-dialog-content.quick-failure-ctn',
-         'wait_for': 10
+         
          }
 
     dialog_ok_button = \
@@ -42,5 +42,11 @@ class DialogWebElementsDefinitions:
     confirm_deploy_button = \
         {
             'XPATH': "//button[@data-dojo-attach-point='deployBtn']",
+            'wait_for': 5
+        }
+
+    confirm_yes_button_reboot = \
+        {
+            'XPATH': "//button[@class='btn btn-secondary']",
             'wait_for': 5
         }

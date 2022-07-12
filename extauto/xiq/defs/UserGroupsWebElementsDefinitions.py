@@ -2,7 +2,7 @@ class UserGroupsWebElementsDefinitions:
     user_groups_grid_rows = \
         {
             'XPATH': '//div[@data-automation-tag="automation-user-groups-grid"]//table[@class="dgrid-row-table"]',
-            'wait_for': 10
+            
          }
     user_group_row_cells = \
         {

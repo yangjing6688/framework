@@ -34,7 +34,7 @@ class NetworkCommonConfigureDeviceDeviceWebElementsDefinitions:
         {
             'DESC': 'Administration Profile dropdown on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="profileName"]',
-            'wait_for': 10
+            
         }
 
     replacement_serial_field = \
@@ -48,14 +48,14 @@ class NetworkCommonConfigureDeviceDeviceWebElementsDefinitions:
         {
             'DESC': 'Remove From Service check box on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="outOfService"]',
-            'wait_for': 10
+            
         }
 
     use_default_webview_url_checkbox = \
         {
             'DESC': 'Use Default WebView URL check box on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="defaultWebViewUrl"]',
-            'wait_for': 10
+            
         }
 
     webview_url_field = \
@@ -69,21 +69,21 @@ class NetworkCommonConfigureDeviceDeviceWebElementsDefinitions:
         {
             'DESC': 'Default Site dropdown on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="defaultSiteId"]',
-            'wait_for': 10
+            
         }
 
     poll_group_dropdown = \
         {
             'DESC': 'Poll Group dropdown on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="pollGroup"]',
-            'wait_for': 10
+            
         }
 
     poll_type_dropdown = \
         {
             'DESC': 'Poll Type dropdown on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="pollType"]',
-            'wait_for': 10
+            
         }
 
     snmp_timeout_field = \
@@ -104,21 +104,21 @@ class NetworkCommonConfigureDeviceDeviceWebElementsDefinitions:
         {
             'DESC': 'Topology Layer dropdown on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="topologyRole"]',
-            'wait_for': 10
+            
         }
 
     collection_mode_dropdown_trigger = \
         {
             'DESC': 'Collection Mode dropdown trigger arrow on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="collectionMode"]/ancestor::div[contains(@id, "combo")]//div[contains(@id, "trigger-picker")]',
-            'wait_for': 10
+            
         }
 
     collection_mode_dropdown = \
         {
             'DESC': 'Collection Mode dropdown on the Device tab of the Configure Device dialog',
             'XPATH': '//div[contains(@id, "deviceUserDataPanel")]//input[@name="collectionMode"]',
-            'wait_for': 10
+            
         }
 
     collection_interval_field = \

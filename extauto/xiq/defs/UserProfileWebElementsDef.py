@@ -46,7 +46,7 @@ class UserProfileWebElementsDef:
     user_profile_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="additionalSettingsContentArea"]//table[@class="dgrid-row-table"]',
-            'wait_for': 10
+            
          }
 
     user_profile_row_cells = \
