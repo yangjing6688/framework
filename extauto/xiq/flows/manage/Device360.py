@@ -6890,7 +6890,6 @@ class Device360(Device360WebElements):
             self.utils.print_info("Could not click Save button")
             return -1
         self.utils.print_info("Close Dialogue Window")
-        sleep(2)
         self.auto_actions.click(self.get_close_dialog())
         return 1
 
