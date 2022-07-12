@@ -96,6 +96,7 @@ class Tools:
 
         self.utils.print_info("Gathering Layer 2 Neighbor Information rows")
         rows = self.tools_elements.get_neighbor_page_body_grid_rows()
+        self.screen.save_screen_shot()
         if not rows:
             self.utils.print_info("Closing the Dialog page")
             close_button = self.tools_elements.get_neighbor_info_close_button()
@@ -186,6 +187,7 @@ class Tools:
 
         self.utils.print_info("Getting Ping Output...")
         ping_output = self.tools_elements.get_diagnostics_ping_output()
+        self.screen.save_screen_shot()
         if not ping_output:
             kwargs['fail_msg'] = "Unable to select Ping Output"
             self.common_validation.validate(-1, 1, **kwargs)
