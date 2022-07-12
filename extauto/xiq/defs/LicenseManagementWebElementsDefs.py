@@ -132,7 +132,7 @@ class LicenseManagementWebElementsDefs:
     entitlements_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="licenseCtn"]//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td/..',
-            'wait_for': 10
+            
          }
 
     entitlements_table_feature_col = \
@@ -140,7 +140,7 @@ class LicenseManagementWebElementsDefs:
             'DESC': 'Entitlements Table Feature Column',
             'CSS_SELECTOR': 'td.field-gemaltoFeature',
             'XPATH': '//td[contains(@class, "field-gemaltoFeature")]',
-            'wait_for': 10
+            
         }
 
     entitlements_table_devices_col = \
@@ -148,7 +148,7 @@ class LicenseManagementWebElementsDefs:
             'DESC': 'Entitlements Table Devices Column',
             'CSS_SELECTOR': 'td.field-devices span',
             'XPATH': '//td[contains(@class, "field-devices")]/span',
-            'wait_for': 10
+            
         }
 
     entitlements_table_available_col = \
@@ -156,7 +156,7 @@ class LicenseManagementWebElementsDefs:
             'DESC': 'Entitlements Table Available Column',
             'CSS_SELECTOR': 'td.field-available',
             'XPATH': '//td[contains(@class, "field-available")]',
-            'wait_for': 10
+            
         }
 
     entitlements_table_activated_col = \
@@ -164,7 +164,7 @@ class LicenseManagementWebElementsDefs:
             'DESC': 'Entitlements Table Activated Column',
             'CSS_SELECTOR': 'td.field-activated',
             'XPATH': '//td[contains(@class, "field-activated")]',
-            'wait_for': 10
+            
         }
 
     legacy_ek_checkbox = \

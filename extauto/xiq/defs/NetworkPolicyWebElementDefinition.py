@@ -16,7 +16,7 @@ class NetworkPolicyWebElementDefinition:
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]'
                      '//table[@class="dgrid-row-table"]//tr',
-            'wait_for': 10
+            
         }
     np_row_cells = \
         {
@@ -709,7 +709,7 @@ class NetworkPolicyWebElementDefinition:
     table_management_options_rows = \
         {
             "CSS_SELECTOR": '.dojoxGridRow',
-            'wait_for': 10
+            
         }
 
     table_management_options_row_checkbox = \
@@ -721,5 +721,5 @@ class NetworkPolicyWebElementDefinition:
     management_options_select_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-dialog-link"]',
-            'wait_for': 10
+            
         }

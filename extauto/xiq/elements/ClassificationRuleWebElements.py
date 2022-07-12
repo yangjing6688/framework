@@ -22,6 +22,12 @@ class ClassificationRuleWebElements(ClassificationRuleWebElementDefinition):
     def get_classification_rule_option(self):
         return self.weh.get_elements(self.get_classification_all_option)
 
+    def get_ccg_match_type_dropdown_button(self):
+        return self.weh.get_element(self.get_ccg_match_type_dropdown)
+
+    def get_ccg_match_type_options(self):
+        return self.weh.get_elements(self.get_ccg_match_type_option)
+
     def get_ccg_policy_drop_down_items(self):
         return self.weh.get_elements(self.get_ccg_policy_drop_down_item)
 
