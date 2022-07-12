@@ -1559,3 +1559,12 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_port_configuration_stack_units_rows(self, row):
         return self.weh.get_elements(self.device360_port_configuration_stack_units_rows, parent=row)
+
+    def get_device360_configure_port_access_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_access_vlan_textfield_VOSS, row)
+
+    def get_device360_configure_port_trunk_native_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield_VOSS, row)
+
+    def get_device360_configure_port_trunk_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_trunk_vlan_textfield_VOSS, row)

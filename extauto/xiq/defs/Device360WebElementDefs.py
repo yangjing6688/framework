@@ -2709,3 +2709,24 @@ class Device360WebElementDefs:
             'XPATH': '//tabset[@data-dojo-attach-point="configuration-ports-tabs"]//portdetails//portentry-row',
             'wait_for': 5
         }
+
+    device360_configure_port_access_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.accessVLAN',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    device360_configure_port_trunk_native_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.trunkNativeVLAN',
+            'index': 2,
+            'wait_for': 5
+        }
+
+    device360_configure_port_trunk_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.trunkAllowedVLAN',
+            'index': 2,
+            'wait_for': 5
+        }
