@@ -1298,4 +1298,4 @@ class DeviceConfigDefs:
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]//td/..',
             'wait_for': 10
-        
+        } 

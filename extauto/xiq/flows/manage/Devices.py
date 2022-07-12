@@ -9466,18 +9466,18 @@ class Devices:
                 # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
                 config_download_checkbox = self.device_update.get_config_download_options_checkbox()
                 if config_download_checkbox.is_selected(): # Is selected method will return bool True or False depending upon the selection of the checkbox
-                	  self.utils.print_info(f"Update Network Policy and Configuration checkbox is checked - Unchecking")
-                	  self.auto_actions.click(config_download_checkbox)
+                    self.utils.print_info(f"Update Network Policy and Configuration checkbox is checked - Unchecking")
+                    self.auto_actions.click(config_download_checkbox)
                 else:
-                	  self.utils.print_info("Update Network Policy and Configuration checkbox is already unchecked")
+                    self.utils.print_info("Update Network Policy and Configuration checkbox is already unchecked")
                 
                 # Check if the Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked                   
                 checkbox_status = self.device_update.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
                 if checkbox_status == "true":  # If checkbox is selected we get string "true" otherwise we get None
-                	  self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
+                    self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
                 else:
-                	  self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-                	  self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+                    self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+                    self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
 
                 # Case-1 : This flow is to perform firmware upgrade to a latest version and return the latest version if success else -1
                 if updateTo.lower() == "latest":
