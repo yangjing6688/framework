@@ -432,8 +432,8 @@ class DevicesWebElementsDefinitions:
 
     nw_policy_drop = \
         {
-            'XPATH':  '//table[@data-automation-tag="automation-assign-policy-select"]//td[@data-dojo-attach-point="titleNode"]',
-            'wait_for': 2,
+            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select"]//td[@data-dojo-attach-point="titleNode"]',
+            'wait_for': 5,
         }
 
     actions_network_policy_assign_button = \

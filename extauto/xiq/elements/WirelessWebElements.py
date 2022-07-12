@@ -101,11 +101,15 @@ class WirelessWebElements(WirelessNetworksDefinitions):
         """
         return self.weh.get_element(self.wireless_select_ppsk_ssid_auth)
 
-    def get_wireless_authtype_wep(self):
+    def get_wireless_authtype_enhanced(self):
         """
         :return: Get Wireless auth type wep on Network Policy
         """
-        return self.weh.get_element(self.wireless_select_wep_ssid_auth)
+        return self.weh.get_element(self.wireless_select_enhanced_ssid_auth)
+
+    def get_transition_mode_for_2ghz_and_5ghz(self):
+        return self.weh.get_element(self.transition_mode_for_2ghz_and_5ghz)
+
 
     def get_wireless_ssid_authentication(self):
         """
@@ -171,8 +175,7 @@ class WirelessWebElements(WirelessNetworksDefinitions):
         return self.weh.get_element(self.sae_group_drop_down)
 
     def get_sae_group_options(self):
-        parent = self.weh.get_element(self.sae_group_drop_down)
-        return self.weh.get_elements(self.key_management_options, parent)
+        return self.weh.get_elements(self.sae_group_options)
 
     def get_transition_mode_button(self):
         """
