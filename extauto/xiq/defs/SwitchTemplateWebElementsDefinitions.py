@@ -357,14 +357,14 @@ class SwitchTemplateWebElementDefinitions:
 
     switch_temp_cancel_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="cancelButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-switch-template-cancel-btn"]',
             'index': 3,
             'wait_for': 5
         }
 
     switch_temp_save_button = \
         {
-            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-switch-template-save-btn"]',
             'wait_for': 5
         }
 
@@ -391,7 +391,6 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="switch-template-aggregate-for-exos"]',
             'wait_for': 5
         }
-
 
     poe_status = \
         {
