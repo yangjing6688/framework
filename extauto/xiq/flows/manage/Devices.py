@@ -10271,7 +10271,7 @@ class Devices:
         :param device_serial: device Serial
         :param device_mac: device MAC address
         :param manage_type: Manage/Unmanage device
-        :return: 1 if the management status was changed
+        :return: 1 if the management status was changed else -1
         '''
 
         manage_setting = 'MANAGE'
@@ -10284,7 +10284,7 @@ class Devices:
                     self.utils.print_info("Device with serial {} was selected".format(device))
                     select_flag = True
                 else:
-                    self.utils.print_info("Device with serial {} was not been selected".format(device))
+                    self.utils.print_info("Device with serial {} was not  selected".format(device))
                     self.screen.save_screen_shot()
                     return -1
         elif device_mac:
@@ -10293,7 +10293,7 @@ class Devices:
                 self.utils.print_info("Device with mac {} was selected".format(device_mac))
                 select_flag = True
             else:
-                self.utils.print_info("Device with mac {} was not been selected".format(device_mac))
+                self.utils.print_info("Device with mac {} was not selected".format(device_mac))
                 self.screen.save_screen_shot()
                 return -1
         elif device_name:
@@ -10311,28 +10311,24 @@ class Devices:
         if select_flag:
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click(self.device_actions.get_device_actions_button())
-            sleep(2)
+
         self.utils.print_info("Trying to Change Management Status")
-        sleep(2)
         manage_status = self.device_actions.get_device_actions_change_manage_status()
         self.utils.print_info("Change Management Status")
         if manage_status:
             self.utils.print_info("Selecting Change management status ")
             self.auto_actions.move_to_element(manage_status)
-            sleep(2)
             self.utils.print_info("Trying to select manage/unmanage.")
             if str(manage_type).upper() in 'MANAGE':
                 manage_btn = self.device_actions.get_manage_AP_dev_btn()
                 if manage_btn:
                     self.utils.print_info("Select Manage device")
                     self.auto_actions.click(manage_btn)
-                    sleep(2)
                     self.screen.save_screen_shot()
                     confirm_btn = self.device_actions.get_confirm_manage_btn_yes()
                     if confirm_btn:
                         self.utils.print_info("Confirm manage device")
                         self.auto_actions.click(confirm_btn)
-                        sleep(2)
                     else:
                         self.utils.print_info("Confirm button not found")
                         return -1
@@ -10374,13 +10370,11 @@ class Devices:
                 if unmanage_btn:
                     self.utils.print_info("Select Unmanage device")
                     self.auto_actions.click(unmanage_btn)
-                    sleep(2)
 
                     confirm_btn = self.device_actions.get_confirm_manage_btn_yes()
                     if confirm_btn:
                         self.utils.print_info("Confirm unmanage device")
                         self.auto_actions.click(confirm_btn)
-                        sleep(2)
                     else:
                         self.utils.print_info("Confirm button not found")
                         self.screen.save_screen_shot()
