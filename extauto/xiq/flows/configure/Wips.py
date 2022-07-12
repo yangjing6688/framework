@@ -935,12 +935,12 @@ class Wips(WipsWebElements):
         self.utils.print_info("Click on Save button")
         self.auto_actions.click(self.get_wips_save_button())
 
-        self.screen.save_screen_shot()
         sleep(2)
-        
-        tool_tip_text = tool_tip.tool_tip_text
-        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-        if "WIPS was updated successfully." in tool_tip_text:
+        self.utils.print_info("Checking the Save profile message...")
+        observed_profile_message = self.wips_web_elements.get_wips_profile_save_tool_tip().text
+        self.utils.print_info("Observed Message: ", observed_profile_message)
+
+        if "WIPS was updated successfully" in observed_profile_message:
             return 1
         else:
             return -1
