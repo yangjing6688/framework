@@ -21,16 +21,6 @@ class ToolsElements(ToolsUtilitiesDefs):
                 if 'L2 Neighbor Info' in submenu.text:
                     return submenu
 
-    def old_get_device_diagnostics_menu_item(self):
-        menu = self.get_utilities_menu()
-        menus = self.weh.get_elements(self.neighbor_info_menu_item, parent=menu)
-        #menus = self.weh.get_elements(self.neighbor_info_menu_item)
-        for submenu in menus:
-            submenu.text
-            if submenu.is_displayed():
-                if 'Diagnostics' in submenu.text:
-                    return submenu
-
     def get_device_diagnostics_menu_item(self):
         submenu = self.weh.get_element(self.device_diagnostics_menu_item)
         return submenu
@@ -54,15 +44,6 @@ class ToolsElements(ToolsUtilitiesDefs):
 
     def get_diagnostics_ping_menu(self):
         return self.weh.get_element(self.diagnostics_menu)
-
-    def old_get_diagnostics_ping_menu_item(self):
-        # self.get_device_diagnostics_menu_item()
-        menu = self.get_diagnostics_ping_menu()
-        menu_items = self.weh.get_elements(self.diagnostics_menu_items, parent= menu)
-        for menu_item in menu_items:
-            if menu_item.is_displayed():
-                if 'Ping' in menu_item.text:
-                    return menu_item
 
     def get_diagnostics_ping_menu_item(self):
         menu_item = self.weh.get_elements(self.diagnostics_ping_menu_item)
