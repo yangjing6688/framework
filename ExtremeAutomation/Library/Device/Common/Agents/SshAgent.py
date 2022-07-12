@@ -133,11 +133,18 @@ class SshAgent(CliAgent):
         if not self.connected:
             raise EOFError("SSH session closed.")
 
+        # check to see if EOF is True, set the connection as closed and return an error
+        if type(self.main_session.remote_conn.eof_received) == bool and self.main_session.remote_conn.eof_received:
+            self.main_session.remote_conn.close()
+            raise EOFError("SSH session got EOF")
+
         return_string = ""
 
         for num in range(0, retries + 1):
             if self.main_session.remote_conn.recv_ready():
                 return_string += self.main_session.remote_conn.recv(65535).decode("utf-8")
+            if self.main_session.remote_conn.recv_stderr_ready():
+                return_string += self.main_session.remote_conn.recv_stderr(65535).decode("utf-8")
             time.sleep(ms / 1000.0)
         return return_string
 
