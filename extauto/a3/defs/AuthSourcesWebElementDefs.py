@@ -5,6 +5,12 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    auth_source_button = \
+        {
+            'XPATH': '//button[normalize-space()="New Internal Source"]',
+            'wait_for': 5,
+        }
+
     ad_name = \
         {
             'XPATH': '//*[@data-automation-tag="automation-id"]',

@@ -10,6 +10,7 @@ from a3.defs.GlobalSettingWebElementDefinitions import GlobalSettingWebElementDe
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
 from selenium.webdriver.common.by import By
+from selenium import webdriver
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -18,7 +19,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class A3WebElementsflow(A3WebElements):
     def __init__(self):
         super().__init__()
-        # self.CloudDriver = CloudDriver()
+        #self.CloudDriver = CloudDriver()
         # self.driver2 = None
         self.driver1 = None
         self.utils = Utils()
@@ -28,6 +29,8 @@ class A3WebElementsflow(A3WebElements):
         self.a3_web_elements = A3WebElements()
         #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
+        self.driver = webdriver.Chrome()
+
 
     # def create_auth_source(self):
     #     """
@@ -303,8 +306,12 @@ class A3WebElementsflow(A3WebElements):
         if self.auto_actions.click(self.get_radius_audit_log_ui()) == 1:
             sleep(2)
             self.utils.print_info(f"select the table")
+            tab = self.weh.get_element(self.get_table)
+            # self.auto_actions.click(tab)
             table = self.setting.get_audit_logs_grid_rows()
-            ele_selected = self.driver.find_element_by_xpath("//table").is_displayed
+            #
+            #ele_selected = self.driver.find_element_by_xpath("//table").is_displayed
+            ele_selected = tab.is_displayed
             sleep(5)
             if ele_selected:
                 for rows in table:
@@ -466,39 +473,39 @@ class A3WebElementsflow(A3WebElements):
             return -1
 
 
-    def switch_policies_access_control(self):
-        """
-         - This keyword switches to Policies & Access Control and expand the menu
-         - Keyword Usage
-          - ``Switch To Policies Access Control``
+    # def switch_policies_access_control(self):
+    #     """
+    #      - This keyword switches to Policies & Access Control and expand the menu
+    #      - Keyword Usage
+    #       - ``Switch To Policies Access Control``
+    #
+    #     :return: 1 if Navigation Successful to Policies & Access Control else return -1
+    #     """
+    #     self.utils.print_info("Selecting Policies Access Control Tab...")
+    #     if self.auto_actions.click(self.get_policies_access_control()) == 1:
+    #         sleep(2)
+    #         return 1
+    #     else:
+    #         self.utils.print_info("Unable to navigate to Policies & Access control")
+    #         self.screen.save_screen_shot()
+    #         return -1
 
-        :return: 1 if Navigation Successful to Policies & Access Control else return -1
-        """
-        self.utils.print_info("Selecting Policies Access Control Tab...")
-        if self.auto_actions.click(self.get_policies_access_control()) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to Policies & Access control")
-            self.screen.save_screen_shot()
-            return -1
-
-    def switch_system_configuration(self):
-        """
-         - This keyword switches to System Configuration Page
-         - Keyword Usage
-          - ``Switch To System Configuration Page``
-
-        :return: 1 if Navigation Successful to System Configuration else return -1
-        """
-        self.utils.print_info("Selecting System Configuration...")
-        if self.auto_actions.click(self.get_system_configuration()) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to Navigate to System Configuration")
-            self.screen.save_screen_shot()
-            return -1
+    # def switch_system_configuration(self):
+    #     """
+    #      - This keyword switches to System Configuration Page
+    #      - Keyword Usage
+    #       - ``Switch To System Configuration Page``
+    #
+    #     :return: 1 if Navigation Successful to System Configuration else return -1
+    #     """
+    #     self.utils.print_info("Selecting System Configuration...")
+    #     if self.auto_actions.click(self.get_system_configuration()) == 1:
+    #         sleep(2)
+    #         return 1
+    #     else:
+    #         self.utils.print_info("Unable to Navigate to System Configuration")
+    #         self.screen.save_screen_shot()
+    #         return -1
 
     def select_ssh(self):
         """
@@ -561,6 +568,8 @@ class A3WebElementsflow(A3WebElements):
             element4 = self.weh.get_element(self.cloud_link_button)
             self.auto_actions.click(element4)
             sleep(20)
+            self.driver.get(self.driver.current_url)
+            sleep(3)
             self.driver.refresh()
             sleep(10)
             self.utils.print_info("Unlinking from cloud ")

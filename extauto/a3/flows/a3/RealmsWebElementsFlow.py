@@ -4,6 +4,7 @@ from a3.elements.RealmsWebElements import RealmsWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
+from selenium import webdriver
 
 
 class RealmsWebElementsFlow(RealmsWebElements):
@@ -17,6 +18,7 @@ class RealmsWebElementsFlow(RealmsWebElements):
         self.realms_web_elements = RealmsWebElements()
         #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
+        self.driver = webdriver.Chrome()
 
     def create_realm(self):
         """

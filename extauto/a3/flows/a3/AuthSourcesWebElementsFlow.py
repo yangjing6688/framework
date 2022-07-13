@@ -4,6 +4,8 @@ from a3.elements.AuthSourcesWebElements import AuthSourcesWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
+from selenium import webdriver
+
 
 
 class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
@@ -17,6 +19,7 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
         self.auth_source_web_elements = AuthSourcesWebElements()
         #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
+        self.driver = webdriver.Chrome()
 
     def create_auth_source(self):
         """
@@ -29,8 +32,10 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             sleep(2)
             self.utils.print_info("Select the Internal source & expand the menu ")
             sleep(10)
-            self.driver.find_element_by_xpath("//button[text()='New Internal Source']").click()
-            sleep(5)
+            b1 = self.weh.get_element(self.auth_source_button)
+            b1.click()
+            # self.driver.find_element_by_xpath("//button[text()='New Internal Source']").click()
+            # sleep(5)
             self.utils.print_info("Selected Drop Down")
             sleep(10)
             drop_options = self.driver.find_elements_by_xpath("//ul[@class='dropdown-menu show']//li/a")
