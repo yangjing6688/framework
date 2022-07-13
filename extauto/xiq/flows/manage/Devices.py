@@ -10840,3 +10840,23 @@ class Devices:
             return -1
         else:
             return 1
+
+    def update_switch_policy_and_configuration_stack(self, device_mac=None):
+        """
+        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
+          check button in the Device Update dialog.
+        - Go To Manage-->Devices-->Select switch row to apply the network policy
+        - Select Switch-->Update device
+        - Keyword Usage:
+         - ``Update Switch Policy and Configuration  ${SWITCH_MAC}``
+        :param device_mac: device mac of the switch to update
+        :return: 1 if config push success else -1
+        """
+        self.utils.print_info("Select Stack")
+        self.select_device(device_mac)
+
+        self._update_switch(update_method="PolicyAndConfig")
+
+        self.screen.save_screen_shot()
+
+        return self._check_device_update_status(device_mac)
