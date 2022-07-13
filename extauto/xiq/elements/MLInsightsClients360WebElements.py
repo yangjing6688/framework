@@ -69,6 +69,9 @@ class MLInsightsClients360WebElements(MLInsightsClient360Definitions):
     def get_client_360_real_time_tab(self):
         return self.weh.get_element(self.client_360_real_time_tab)
 
+    def get_client_360_inactive_tab(self):
+        return self.weh.get_element(self.client_360_inactive_tab)
+
     def get_client_360_real_time_grid_rows(self):
         return self.weh.get_elements(self.client_360_real_time_grid_rows)
 
@@ -77,3 +80,42 @@ class MLInsightsClients360WebElements(MLInsightsClient360Definitions):
 
     def get_client360_health_status(self, cell):
         return self.weh.get_element(self.client360_health_status, cell)
+
+    def get_client360_cell_href(self, cell):
+        return self.weh.get_element(self.client360_cells_href, parent=cell)
+
+    def get_client_360_status_ostype(self):
+        return self.weh.get_element(self.client_360_status_ostype)
+
+    def get_client_360_status_ipaddress(self):
+        return self.weh.get_element(self.client_360_status_ipaddress)
+
+    def get_client_360_status_macaddress(self):
+        return self.weh.get_element(self.client_360_status_macaddress)
+
+    def get_client_360_status_user(self):
+        return self.weh.get_element(self.client_360_status_user)
+
+    def get_client_360_status_connectto(self):
+        return self.weh.get_element(self.client_360_status_connectto)
+
+    def get_client_360_status_connecttime(self):
+        return self.weh.get_element(self.client_360_status_connecttime)
+
+    def get_client_360_status_vlan(self):
+        return self.weh.get_element(self.client_360_status_vlan)
+
+    def get_client_360_status_cwp(self):
+        return self.weh.get_element(self.client_360_status_cwp)
+
+    def get_client_360_status_userprofile(self):
+        return self.weh.get_element(self.client_360_status_userprofile)
+
+    def get_client_360_status_ssid(self):
+        return self.weh.get_element(self.client_360_status_ssid)
+
+    def get_client_360_status_radio(self):
+        return self.weh.get_element(self.client_360_status_radio)
+
+    def get_client_360_status_channel(self):
+        return self.weh.get_element(self.client_36_status_channel)
