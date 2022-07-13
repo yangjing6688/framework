@@ -1875,7 +1875,7 @@ class SwitchTemplate(object):
             self.utils.print_info("User choose not to save the policy. More configs could be added")
             return 1
             
-    def delete_switch_template(self, nw_policy, sw_template_name, **kwargs):
+    def delete_switch_template_from_policy(self, nw_policy, sw_template_name, **kwargs):
         """
         - This keyword will delete the switch template from a newtwork policy
         - Flow: Network Policies -> Edit nw_policy -> Device Templates -> Select Template -> Delete Template

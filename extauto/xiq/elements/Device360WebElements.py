@@ -1621,6 +1621,28 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_thunderbold_icon_stack(self,row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
+
+
+    def get_device360_port_config_pse_tab_slot_stack(self):
+        return self.weh.get_element(self.device360_port_config_pse_tab_slot_stack)
+
+    def get_device360_pse_settings_for_device_button_stack(self):
+        return self.weh.get_element(self.device360_pse_settings_for_device_button_stack)
+
+    def get_device360_edit_threshold_poe_stack(self):
+        return self.weh.get_element(self.device360_edit_threshold_poe_stack)
+
+    def get_device360_save_threshold_poe_value_stack(self):
+        return self.weh.get_element(self.device360_save_threshold_poe_value_stack)
+
+    def get_device360_configure_port_save_button_stack(self):
+        return self.weh.get_element(self.device360_configure_port_save_button_stack)
+
+    def get_device360_stack_overview_slot_details_rows(self):
+        return self.weh.get_element(self.device360_stack_overview_slot_details_rows)
+
+    def get_device360_thunderbold_icon_stack(self,row):
+        return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
     def get_device360_cpu_utilized_button(self):
         return self.weh.get_element(self.device360_cpu_utilized_button)
 

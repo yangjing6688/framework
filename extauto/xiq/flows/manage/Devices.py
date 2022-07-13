@@ -1009,7 +1009,7 @@ class Devices:
         """
         - onboard multiple simulated devices of same type and returns their serial number(s)
         - Keyword Usage:
-         - ``Onboard Simulated Devices  ${DEVICE_TYPE}   count=2``
+         - ``Onboard Simulated Device  ${DEVICE_TYPE}   count=2``
          - For supported ${DEVICE_TYPE} look the device type drop down in quick add
 
         :param device_model: device model to onboard
@@ -1020,6 +1020,8 @@ class Devices:
         """
 
         self.navigator.navigate_to_devices()
+        if self.devices_web_elements.get_devices_drawer_open():
+            self.auto_actions.click(self.devices_web_elements.get_devices_drawer_trigger())
 
         try:
 
@@ -1081,7 +1083,7 @@ class Devices:
         """
         - gets all existing devices serials with the same device_type
         - Keyword Usage:
-         - ``Get Device Serial Number   ${DEVICE_TYPE}``
+         - ``Get Device Serial Numbers   ${DEVICE_TYPE}``
 
         :param device_type: type of device to onboard
         :return: serial number(s) with same device type
@@ -2077,7 +2079,7 @@ class Devices:
         self.utils.print_info("Serials: ", serials)
 
         for serial in serials:
-            if self.search_device(serial) == 1:
+            if self.search_device(device_serial=serial) == 1:
                 kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
@@ -2217,7 +2219,7 @@ class Devices:
             self.utils.print_info("Serials: ", serials)
 
             for serial in serials:
-                if self.search_device(serial) == 1:
+                if self.search_device(device_serial=serial) == 1:
                     self.utils.print_info("Successfully Onboarded EXOS Device(s): ", serials)
                     return 1
                 else:
@@ -2352,7 +2354,7 @@ class Devices:
         self.utils.print_info("Serials: ", serials)
 
         for serial in serials:
-            if self.search_device(serial) == 1:
+            if self.search_device(device_serial=serial) == 1:
                 self.utils.print_info("Successfully Onboarded Device(s): ", serials)
                 return 1
             else:
@@ -2421,7 +2423,7 @@ class Devices:
 
         ret_val = 1
         for serial in serials:
-            if self.search_device(serial) == 1:
+            if self.search_device(device_serial=serial) == 1:
                 self.utils.print_info(f"Successfully Onboarded XIQ Site Engine {serial}")
             else:
                 self.utils.print_info(f"ERROR: XIQ Site Engine {serial} was not onboarded")
@@ -5195,7 +5197,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Serial Number: loop {count}")
-                if self.search_device(device_serial) == 1:
+                if self.search_device(device_serial=device_serial) == 1:
                     self.utils.print_info(f"Device with serial {device_serial} has been added")
                     return 1
                 else:
@@ -5209,7 +5211,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Name: loop {count}")
-                if self.search_device(device_name) == 1:
+                if self.search_device(device_name=device_name) == 1:
                     self.utils.print_info(f"Device with name {device_name} has been added")
                     return 1
                 else:
@@ -5224,7 +5226,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by MAC Address: loop {count}")
-                if self.search_device(device_mac) == 1:
+                if self.search_device(device_mac=device_mac) == 1:
                     self.utils.print_info(f"Device with MAC {device_mac} has been added")
                     return 1
                 else:
@@ -5270,7 +5272,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Serial Number: loop {count}")
-                if self.search_device(device_serial) == 1:
+                if self.search_device(device_serial=device_serial) == 1:
                     self.utils.print_info(
                         f"Device with serial {device_serial} is still present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
@@ -5285,7 +5287,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by Name: loop {count}")
-                if self.search_device(device_name) == 1:
+                if self.search_device(device_name=device_name) == 1:
                     self.utils.print_info(
                         f"Device with name {device_name} is still present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
@@ -5300,7 +5302,7 @@ class Devices:
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Searching for device by MAC Address: loop {count}")
-                if self.search_device(device_mac) == 1:
+                if self.search_device(device_mac=device_mac) == 1:
                     self.utils.print_info(
                         f"Device with MAC {device_mac} is still present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
@@ -7312,13 +7314,13 @@ class Devices:
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
-        sleep(5)
+        
 
         self.utils.print_info(f"Select switch row with serial {mac}")
         if not self.select_device(mac):
             self.utils.print_info(f"Switch {mac} is not present in the grid")
             return -1
-        sleep(2)
+        
 
         if not self._assign_policy_to_switch(policy_name):
             return -1
@@ -7358,7 +7360,7 @@ class Devices:
         else:
             self.utils.print_info("Click on Create template based on currently selected device button")
 
-            sleep(10)
+            
 
             self.utils.print_info("Enter the Device Template Name: ", name_stack_template)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
@@ -7642,6 +7644,7 @@ class Devices:
                 self.select_device(device_serial)
             if device_mac:
                 self.select_device(device_mac)
+                sleep(10)
         else:
             self.utils.print_info("Device is down")
             return -1
@@ -7675,9 +7678,10 @@ class Devices:
             self.utils.print_info("Device has already a policy")
             pass
 
+        sleep(5)
         self.utils.print_info("Click on device update button")
         self.auto_actions.click(self.devices_web_elements.get_update_device_button())
-
+        self.auto_actions.move_to_element(self.devices_web_elements.get_update_device_button())
         self.utils.print_info("Select the network policy and configuration checkbox")
         update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
         reboot_rollback_check = self.devices_web_elements.get_devices_switch_update_reboot_rollback()
@@ -9443,18 +9447,18 @@ class Devices:
                 # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
                 config_download_checkbox = self.device_update.get_config_download_options_checkbox()
                 if config_download_checkbox.is_selected(): # Is selected method will return bool True or False depending upon the selection of the checkbox
-                	  self.utils.print_info(f"Update Network Policy and Configuration checkbox is checked - Unchecking")
-                	  self.auto_actions.click(config_download_checkbox)
+                    self.utils.print_info(f"Update Network Policy and Configuration checkbox is checked - Unchecking")
+                    self.auto_actions.click(config_download_checkbox)
                 else:
-                	  self.utils.print_info("Update Network Policy and Configuration checkbox is already unchecked")
+                    self.utils.print_info("Update Network Policy and Configuration checkbox is already unchecked")
                 
                 # Check if the Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked                   
                 checkbox_status = self.device_update.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
                 if checkbox_status == "true":  # If checkbox is selected we get string "true" otherwise we get None
-                	  self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
+                    self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
                 else:
-                	  self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-                	  self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+                    self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+                    self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
 
                 # Case-1 : This flow is to perform firmware upgrade to a latest version and return the latest version if success else -1
                 if updateTo.lower() == "latest":
@@ -9880,6 +9884,129 @@ class Devices:
                 return -1
 
             return 1
+
+
+    def assign_network_policy_to_all_devices(self, policy_name):
+        """
+        - This keyword will assign the network policy to the all devices
+        - flow:
+            -- If Not in devices page, go to it
+            -- Select all devices
+            -- Actions
+            -- Assign Network Policy
+            -- Select the network policy from drop down window
+            -- Assign
+        - Keyword Usage:
+         - ``Assign Network Policy To All Devices    ${policy_name}``
+        :param policy_name: policy name to be applied
+        :return: Success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        self.select_all_devices()
+        if self._assign_network_policy(policy_name):
+            return 1
+        else:
+            return -1
+
+    def navigate_to_device_configure(self, ap_name):
+        """
+        - Click on the AP Rows host name --> Configure
+        :param ap_name: AP's name
+        :return: success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        ap_name_href = self.devices_web_elements.get_devices_page_grid_ap_name_href(ap_name)
+        if ap_name_href:
+            self.utils.print_info(f"Click AP name {ap_name} to go to AP device level page...")
+            self.auto_actions.click(ap_name_href)
+        else:
+            self.utils.print_info("No ap_name found...")
+            return -1
+        self.utils.print_info("Click Configure button to go to configure page...")
+        device_level_configure_button = self.devices_web_elements.get_device_configure_tab()
+        if device_level_configure_button:
+            self.auto_actions.click(device_level_configure_button)
+            return 1
+        else:
+            self.utils.print_info("No Configure button found...")
+            return -1
+
+    def get_ap_wifi0and1_configured_ssids(self, ap_name):
+        """
+        - This keyword will get wifi0 and wifi1 ssids from interface settings page behind Configure tab in AP device level
+        - flow:
+            -- Go to configure tab in AP device level based on AP hostname
+            -- Click Configure tab
+            -- Click Interface Settings
+            -- Get wifi0 ssids and wifi1 ssids
+            -- Put them to a ssid dictionary, as example {'wifi0':['ssid1','ssid2'], 'wifi1':['ssid1','ssid2']}
+            -- return the ssid dictionary
+        - Keyword Usage:
+         - ``Get Ap Wifi0and1 Configured Ssids    ${ap_name}``
+        :param ap_name: AP hostname
+        :return: Success ssid dictionary whatever it is null
+        """
+        wifi0_1_lists = {}
+        if self.navigate_to_device_configure(ap_name) == 1:
+            self.auto_actions.click(self.devices_web_elements.get_device_configure_interface_settings())
+            while not self.devices_web_elements.get_device_configure_interface_settings_wireless_toggle():
+                self.utils.print_info("Wireless Interfaces toggle is NOT shown, click to refresh page ...")
+                self.auto_actions.click(self.devices_web_elements.get_device_level_page_refresh())
+                self.utils.print_info("Wireless toggle is still NOT loaded successfully, try to refresh...")
+            wifi0_ssids_list = []
+            wifi0_ssid_rows = self.devices_web_elements.get_device_configure_interface_settings_wifi0_ssid()
+            if wifi0_ssid_rows:
+                for wifi0_ssid_row in wifi0_ssid_rows:
+                    wifi0_ssids_list.append(wifi0_ssid_row.get_attribute('value'))
+                wifi0_1_lists['wifi0'] = wifi0_ssids_list
+            else:
+                self.utils.print_info("No WiFi0 SSID row found, set wifi0_1lists as empty...")
+                wifi0_1_lists['wifi0'] = wifi0_ssids_list
+
+            wifi1_ssids_list = []
+            wifi1_ssid_rows = self.devices_web_elements.get_device_configure_interface_settings_wifi1_ssid()
+            if wifi1_ssid_rows:
+                for wifi1_ssid_row in wifi1_ssid_rows:
+                    wifi1_ssids_list.append(wifi1_ssid_row.get_attribute('value'))
+                wifi0_1_lists['wifi1'] = wifi1_ssids_list
+            else:
+                self.utils.print_info("No WiFi1 SSID row found, set wifi0_1lists as empty...")
+                wifi0_1_lists['wifi1'] = wifi1_ssids_list
+            self.auto_actions.click(self.devices_web_elements.get_device_level_page_close_icon())
+            self.utils.print_info(f"The WiFi0 and WiFi1 SSID list is: {wifi0_1_lists}")
+            return wifi0_1_lists
+        else:
+            return -1
+            
+    def get_ap_hostname(self, ap_serial):
+        """
+        - This method gets AP hostname based on AP serial
+        - Keyword Usage:
+         - ``Get Ap Hostname   ${AP_SERIAL}``
+
+        :param ap_serial: serial number of AP
+        :return: success AP hostname else -1
+        """
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            for row in rows:
+                if ap_serial in row.text:
+                    hostname = self.devices_web_elements.get_hostname_code_cell(row).text
+                    return hostname
+        else:
+            return -1
 
     def check_voss_image_version(self, output_image_version, os_version, operator = 'less'):
         """
@@ -10574,3 +10701,154 @@ class Devices:
         :return: 1 if Devices Deleted Successfully else -1
         '''
         return self.delete_all_devices()
+        
+    def update_device_policy_config_simple(self, device_serial):
+        self.utils.print_info("Select Device row")
+        self.select_device(device_serial)
+
+        self.utils.print_info("Click on device update button")
+        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+
+
+        self.utils.print_info("Clicking on perform update")
+        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        
+        #self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+
+    def update_device_policy_config_reboot(self, device_serial):
+        self.utils.print_info("Select Device row")
+        self.select_device(device_serial)
+
+        self.utils.print_info("Click on device update button")
+        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+
+        self.utils.print_info("Selecting reboot option")
+        self.auto_actions.click(self.devices_web_elements.get_update_reboot_revert_checkbox())
+
+        self.utils.print_info("Clicking on perform update")
+        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        sleep(2)
+        #self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+        sleep(2)
+        self.auto_actions.click(self.devices_web_elements.get_switch_update_reboot_and_revert_warning_dialog_yes_button())
+
+    def get_device_events_list(self, device_model):
+        self.utils.print_info("Getting events list")
+        events_list = []
+        events_elements = self.devices_web_elements.get_events_text()
+        sleep(2)
+        for element in events_elements:
+            events_list.append(element.text)
+
+        if ("Configuration upgrade process is canceled by the user" and device_model) in events_list:
+            self.utils.print_info(events_list)
+            return 1
+        else:
+            return -1
+
+    def update_device_policy_config_image(self, device_serial):
+        self.utils.print_info("Select Device row")
+        self.select_device(device_serial)
+
+        self.utils.print_info("Click on device update button")
+        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+
+        self.utils.print_info("Selecting image option")
+        self.auto_actions.click(self.devices_web_elements.get_update_image_checkbox())
+
+        self.utils.print_info("Clicking on perform update")
+        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+
+
+    def update_device_policy_image(self, device_serial):
+        
+        self.utils.print_info("Select Device row")
+        self.select_device(device_serial)
+        
+
+        self.utils.print_info("Click on device update button")
+        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        
+
+        self.utils.print_info("Selecting image option")
+        self.auto_actions.click(self.devices_web_elements.get_update_image_checkbox())
+        
+
+        self.utils.print_info("Deselecting upgrade configuration option")
+        self.auto_actions.click(self.devices_web_elements.get_update_config_checkbox())
+        
+
+        self.utils.print_info("Clicking on perform update")
+        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+
+    def reboot_device_while_update(self, device_serial):
+        """
+        - Assumes that already navigated to Manage --> Devices
+        - This method reboots a device matching the serial(s)
+        - Keyword Usage:
+         - ``Reboot Device  ${DEVICE_SERIAL}``
+        :param device_serial: device serial number
+        :return: None
+        """
+        self.utils.print_info("Rebooting Device with serial: ", device_serial)
+
+
+        if self.select_device(device_serial):
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            
+
+            self.utils.print_info("Clicking on Reboot")
+            self.auto_actions.click(self.device_actions.get_device_actions_reboot_menu_item())
+            
+
+            self.utils.print_info("Confirming...")
+            self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button_reboot())
+
+            return 1
+
+    def check_device_license_action(self, device_serial):
+        """
+        - Assumes that already navigated to Manage --> Devices
+        - This method checks if License action is available for a device matching the serial(s)
+        - Keyword Usage:
+         - ``Check Device License Action ${DEVICE_SERIAL}``
+        :param device_serial: device serial number
+        :return: int
+        """
+        self.utils.print_info("Looking for device with serial: ", device_serial)
+        self.select_device(device_serial)
+        if self.select_device(device_serial):
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
+            
+
+        self.utils.print_info("Checking if License option is displayed")
+        license_button = self.devices_web_elements.get_license_action_button()
+        if license_button.is_displayed():
+            return -1
+        else:
+            return 1
+
+    def check_device_reboot_action(self, device_serial):
+        """
+        - Assumes that already navigated to Manage --> Devices
+        - This method checks if License action is available for a device matching the serial(s)
+        - Keyword Usage:
+         - ``Check Device License Action ${DEVICE_SERIAL}``
+        :param device_serial: device serial number
+        :return: int
+        """
+        self.utils.print_info("Looking for device with serial: ", device_serial)
+        self.select_device(device_serial)
+        if self.select_device(device_serial):
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
+            
+
+        self.utils.print_info("Checking if License option is displayed")
+        reboot_button = self.device_actions.get_device_actions_reboot_menu_item()
+        if reboot_button.is_displayed():
+            return -1
+        else:
+            return 1
