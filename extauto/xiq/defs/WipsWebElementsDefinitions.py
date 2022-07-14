@@ -381,8 +381,8 @@ class WipsWebElementDefinitions:
             'XPATH': "//*[@data-automation-tag='automation-common-object-wips-save-button']",
             'wait_for': 2
         }
-   wips_common_object_add_button = \
-          {
+    wips_common_object_add_button = \
+        {
             'XPATH': '//div[@data-dojo-attach-point="wipsCtn"]//span[@data-tip="Add"]',
             'wait_for': 2
         }
