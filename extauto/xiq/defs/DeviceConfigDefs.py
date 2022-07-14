@@ -573,6 +573,13 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    device_config_audit_audit_view = \
+        {
+            'XPATH': '//div[@componentpath="AHDialog"]'
+                     '//a[contains(text(), "Audit")]',
+            'wait_for': 5
+        }
+
     device_config_audit_delta_view = \
         {
             'XPATH': '//div[@componentpath="AHDialog"]'
@@ -583,6 +590,12 @@ class DeviceConfigDefs:
     device_config_audit_complete_view = \
         {
             'XPATH': '//a[contains(text(), "Complete")]',
+            'wait_for': 5
+        }
+
+    device_config_audit_audit_view_content = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="auditCtn"]',
             'wait_for': 5
         }
 
