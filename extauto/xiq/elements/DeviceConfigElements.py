@@ -230,8 +230,14 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_config_audit_delta_view_button(self, row):
         return self.weh.get_element(self.config_audit_delta_view_button, parent=row)
 
+    def get_device_config_audit_audit_view(self):
+        return self.weh.get_element(self.device_config_audit_audit_view)
+
     def get_device_config_audit_delta_view(self):
         return self.weh.get_element(self.device_config_audit_delta_view)
+
+    def get_device_config_audit_audit_view_content(self):
+        return self.weh.get_element(self.device_config_audit_audit_view_content)
 
     def get_device_config_audit_delta_view_content(self):
         return self.weh.get_element(self.device_config_audit_delta_view_content)
