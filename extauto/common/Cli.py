@@ -863,7 +863,7 @@ class Cli(object):
             return -1
 
 
-    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type,url_image):
+    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type, url_image):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         if NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(_spawn, f'show iqagent | include Version')
