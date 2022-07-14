@@ -825,7 +825,7 @@ class Cli(object):
                 - ``Downgrade Iqagent  ${IP}   ${PORT}      ${USERNAME}       ${PASSWORD}        ${PLATFORM}     url_image='image'``
 
                :param ip: IP Address of the Device
-               :param port: Console Port
+               :param port: Port
                :param username: username to access console
                :param password: Password to access console
                :param cli_type: Device Cli Type
