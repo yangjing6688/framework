@@ -282,53 +282,6 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-dojo-attach-point="port"]',
             'wait_for': 5
         }
-    exos_switch_info_ip_address = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="ipAddress"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_mac_address = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="macAddress"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_software_version = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="softwareVersion"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_model = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="productType"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_serial = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="serviceTag"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_make = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="make"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_iqagent_version = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="hiveAgent"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_device_policy = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="devicePolicy"]',
-            'wait_for': 5
-        }
 
     device360_configure_ssh_web_ip = \
         {
@@ -448,49 +401,50 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    voss_switch_info_ip_address = \
+    switch_info_ip_address = \
         {
             'XPATH': '//*[@data-dojo-attach-point="ipAddress"]',
             'wait_for': 5
         }
 
-    voss_switch_info_mac_address = \
+    switch_info_mac_address = \
         {
             'XPATH': '//*[@data-dojo-attach-point="macAddress"]',
             'wait_for': 5
         }
 
-    voss_switch_info_software_version = \
+    switch_info_software_version = \
         {
             'XPATH': '//*[@data-dojo-attach-point="softwareVersion"]',
             'wait_for': 5
         }
 
-    voss_switch_info_model = \
+    switch_info_model = \
         {
             'XPATH': '//*[@data-dojo-attach-point="productType"]',
             'wait_for': 5
         }
 
-    voss_switch_info_serial = \
+    switch_info_serial = \
         {
             'XPATH': '//*[@class="health-item service-tag data-item"]',
+            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="serviceTag"]',
             'wait_for': 5
         }
 
-    voss_switch_info_make = \
+    switch_info_make = \
         {
             'XPATH': '//*[@data-dojo-attach-point="make"]',
             'wait_for': 5
         }
 
-    voss_switch_info_iqagent_version = \
+    switch_info_iqagent_version = \
         {
             'XPATH': '//*[@data-dojo-attach-point="hiveAgent"]',
             'wait_for': 5
         }
 
-    voss_switch_info_device_policy = \
+    switch_info_device_policy = \
         {
             'XPATH': '//*[@data-dojo-attach-point="devicePolicy"]',
             'wait_for': 5
