@@ -1824,6 +1824,27 @@ class NetworkPolicy(object):
         else:
             return -1
 
+    def create_ssid_to_policy(self, nw_policy, **wireless_profile):
+        """
+        - This keyword will create extra new ssid and add to exist policy.
+        - Wireless network includes open, ppsk, psk, enhanced, and enterprise network
+        - Flow: Configure --> Network Policies --> select exist Policy --> select Wireless Networks tab --> Add(+) SSID
+        - Keyword Usage:
+         - ''Create SSID to Policy   ${SSID}   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
+         - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
+         - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+
+        :param nw_policy: name of exist policy
+        :param SSID: extra new SSID to create
+        :param wireless_profile: (dict) wireless network creation profile parameters
+        :return: 1 if ssid creation and addition is success, otherwise -1
+        """
+        self.navigator.navigate_to_devices()
+        self.utils.print_info("Selecting exist policy  " + str(nw_policy))
+        self.navigate_to_np_edit_tab(nw_policy)
+
+        return self.wireless_nw.create_wireless_network(**wireless_profile)
+
     def enable_mgmt_option_http_redirect(self, nw_policy, mgmt_option_name):
         """
         - This keyword is used to enable HTTP Redirect under enable Management Options.

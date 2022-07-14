@@ -1921,7 +1921,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-port-configuration-pse"]',
+            'XPATH': '//div[@data-automation-tag="automation-port-config-pse"]',
             'wait_for': 5
         }
 
@@ -2058,19 +2058,19 @@ class Device360WebElementDefs:
 
     device360_pse_settings_for_device_button = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-pse-settings"]',
+            'XPATH': '//button[@data-dojo-attach-point="showPSESettingsBtn"]',
             'wait_for': 5
         }
 
     device360_edit_threshold_poe = \
         {
-            'XPATH': '//input[@data-automation-tag="automation-pse-settings-edit-power-input"]',
+            'XPATH': '//div[@class="field-container max-power-budget"]//input[@type="text"]',
             'wait_for': 5
         }
 
     device360_save_threshold_poe_value = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
+            'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 5
         }
 
@@ -2722,6 +2722,48 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_port_config_pse_tab_slot_stack = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-port-config-pse"]',
+            'wait_for': 5
+        }
+
+    device360_pse_settings_for_device_button_stack = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="showPSESettingsBtn"]',
+            'wait_for': 5
+        }
+
+    device360_edit_threshold_poe_stack = \
+        {
+            'XPATH': '//div[@class="field-container max-power-budget"]//input[@type="text"]',
+            'wait_for': 5
+        }
+
+    device360_save_threshold_poe_value_stack = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
+    device360_configure_port_save_button_stack = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'wait_for': 5
+        }
+
+    device360_stack_overview_slot_details_rows = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="switchStackPortsPanelContainer"]',
+            'wait_for': 5
+        }
+
+    device360_thunderbold_icon_stack = \
+        {
+            'CSS_SELECTOR': '.power-supply',
+            'wait_for': 5
+        }
+
     device360_configure_aggregated_port_settings_aggregation_rows = \
         {
             'XPATH': '//aggregate-ports/div[@class="port-settings-entry "]',
@@ -2823,3 +2865,4 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-automation-tag="lag-selected-port-${port}"]',
             'wait_for': 5
         }
+
