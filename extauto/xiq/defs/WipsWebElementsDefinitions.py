@@ -382,7 +382,7 @@ class WipsWebElementDefinitions:
             'wait_for': 2
         }
     wips_common_object_add_button = \
-          {
+        {
             'XPATH': '//div[@data-dojo-attach-point="wipsCtn"]//span[@data-tip="Add"]',
             'wait_for': 2
         }
