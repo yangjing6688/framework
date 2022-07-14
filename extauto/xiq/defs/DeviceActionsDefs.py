@@ -278,22 +278,13 @@ class DeviceActionsDefs:
 
     manage_device_btn = \
         {
-            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-manage-device"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-manage-device"] | //a[@data-automation-tag="automation-manage-device-actions-ap-manage-device"]',
             'wait_for': 2
         }
-    manage_AP_dev_btn = \
-        {
-            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-ap-manage-device"]',
-            'wait_for': 2
-        }
-    unmanage_AP_dev_btn = \
-        {
-            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-ap-unmanage-device"]',
-            'wait_for': 2
-        }
+
     unmanage_device_btn = \
         {
-            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-unmanage-device"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-unmanage-device"] | //a[@data-automation-tag="automation-manage-device-actions-ap-unmanage-device"]',
             'wait_for': 2
         }
 
