@@ -822,9 +822,9 @@ class Cli(object):
         """
                - This Keyword will downgrade iqagent
                - Keyword Usage:
-                - ``Downgrade Iqagent  ${CONSOLE_IP}   ${CONSOLE_PORT}      ${USERNAME}       ${PASSWORD}        ${PLATFORM}     url_image='image'``
+                - ``Downgrade Iqagent  ${IP}   ${PORT}      ${USERNAME}       ${PASSWORD}        ${PLATFORM}     url_image='image'``
 
-               :param ip: Console IP Address of the Device
+               :param ip: IP Address of the Device
                :param port: Console Port
                :param username: username to access console
                :param password: Password to access console
