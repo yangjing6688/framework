@@ -2454,10 +2454,10 @@ class DeviceConfig(DeviceConfigElements):
 
     def get_device_config_audit_delta_complete(self, ap_serial, config_type, **kwargs):
         """
-        - This keyword will get the delta cli configuration
-        - Assumes That Already in Devices Page
-        :param device_mac:   The serial of the device string
-        :return:                Returns a list of strings with the commands present in delta cli
+        - This keyword will get the audit, delta or complete cli configuration
+        :param ap_serial:   The serial of the device
+        :param config_type: audit, or delta, or complete
+        :return: Returns a list of strings with the commands present in audit, delta or complete clis
         """
         if not self.navigator.get_devices_page():
             self.utils.print_info("Not in Devices page, now to navigate this page...")
@@ -2536,6 +2536,33 @@ class DeviceConfig(DeviceConfigElements):
 
                                 self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True)
                                 get_configs_result = self.get_device_config_audit_delta_view_content().text
+                            else:
+                                self.utils.print_info("Did not manage to locate the content...")
+                                kwargs['fail_msg'] = "Did not manage to locate the content..."
+                                self.screen.save_screen_shot()
+                                self.common_validation.validate(-1, 1, **kwargs)
+                                return -1
+                        elif config_type.upper() == "AUDIT":
+                            audit_view = self.get_device_config_audit_audit_view()
+                            self.utils.print_info("Attempting to locate audit view...")
+                            if audit_view:
+                                self.utils.print_info("Clicking on Device Config Audit audit View...")
+                                self.auto_actions.click(self.get_device_config_audit_audit_view())
+                            else:
+                                self.utils.print_info("Did not find the audit view...")
+                                kwargs['fail_msg'] = "Did not find the audit view..."
+                                self.screen.save_screen_shot()
+                                self.common_validation.validate(-1, 1, **kwargs)
+                                return -1
+                            self.utils.print_info("Attempting to locate the audit config content...")
+                            if self.get_device_config_audit_audit_view_content():
+                                self.utils.print_info("Get the Config content from Device Config Audit audit View")
+
+                                def check_device_config_audit_audit_view_content():
+                                    return bool(self.get_device_config_audit_audit_view_content().text)
+
+                                self.utils.wait_till(check_device_config_audit_audit_view_content, is_logging_enabled=True)
+                                get_configs_result = self.get_device_config_audit_audit_view_content().text
                             else:
                                 self.utils.print_info("Did not manage to locate the content...")
                                 kwargs['fail_msg'] = "Did not manage to locate the content..."
