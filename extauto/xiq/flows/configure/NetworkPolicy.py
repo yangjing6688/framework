@@ -1950,7 +1950,6 @@ class NetworkPolicy(object):
         :param **auth_profile: PPSK or 8021x auth profile in file ../CFD/Resource/wireless_networks_related_config.robot
         :return: 1 if successfully else -1
         """
-        cwp_config = auth_profile.get('cwp_config')
         user_group_config = auth_profile.get('user_group_config', 'None')
         self.utils.print_info(f"The user group configuration: {user_group_config}")
         self.utils.print_info("Click on Network Policy card view button")
