@@ -6480,17 +6480,13 @@ class Devices:
             self.auto_actions.click(self.device_update.get_update_devices_button())
             sleep(5)
 
-            self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            retry_count = 0
-            while retry_count < 3:
-                try:
-                    self.auto_actions.click(DeviceUpdate().get_upgrade_iq_engine_checkbox())
-                    break
-                except Exception as exc:
-                    print(exc)
+            checkbox_status = DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
 
-                sleep(5)
-                retry_count += 1
+            if checkbox_status == "true":  # If checkbox is selected we get string "true" otherwise we get None
+                print("Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
+            else:
+                print("Selecting upgrade IQ Engine checkbox")
+                AutoActions().click(DeviceUpdate().get_upgrade_iq_engine_checkbox())
             sleep(5)
 
             self.utils.print_info("Selecting upgrade to specific version checkbox")
