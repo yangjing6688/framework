@@ -458,3 +458,9 @@ class UserGroupsWebElementsDefinitions:
             'XPATH': '//*[contains(@id,"dgrid")]//tr//th//input',
             'wait_for': 5
         }
+
+    ssid_user_group_item = \
+        {
+            'CSS_SELECTOR': '.J-auth-con.ssid-user-group-ctn',
+            'wait_for': 5
+        }
