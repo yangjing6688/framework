@@ -1308,7 +1308,6 @@ class NetworkPolicy(object):
         sleep(5)
 
         tool_tip_text = tool_tip.tool_tip_text
-
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Network Policy was saved successfully." in tool_tip_text:
             return 1
