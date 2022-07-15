@@ -121,7 +121,7 @@ class Switch(SwitchWebElements):
                 self.utils.print_error(f"Switch with serial no. {switch_serial} is not successfully onboarded...")
                 return -1
 
-            
+
     def onboard_aerohive_switch(self, switch_serial, switch_type):
         """
         - This keyword onboards an Aerohive Switch using Quick onboarding flow.
