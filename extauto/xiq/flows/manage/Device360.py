@@ -484,20 +484,20 @@ class Device360(Device360WebElements):
         self.utils.print_info("Getting device360 Information.")
         device360_info = dict()
         device360_info["host_name"] = self.dev360.get_system_info_device_host_name().text
-        ip_address_field = self.dev360.get_switch_info_ip_address().text
+        ip_address_field = self.dev360.get_device_info_ip_address().text
         device360_info["ip_address"] = ip_address_field.split('\n')[-1]
-        mac_address_field = self.dev360.get_switch_info_mac_address().text
+        mac_address_field = self.dev360.get_device_info_mac_address().text
         device360_info["mac_address"] = mac_address_field.split('\n')[-1]
-        serial_number_field = self.dev360.get_switch_info_serial().text
+        serial_number_field = self.dev360.get_device_info_serial().text
         device360_info["serial_number"] = serial_number_field.split('\n')[-1]
-        device360_info["network_policy"] = self.dev360.get_switch_info_device_policy().text
-        device_model_field = self.dev360.get_switch_info_model().text
+        device360_info["network_policy"] = self.dev360.get_device_info_device_policy().text
+        device_model_field = self.dev360.get_device_info_model().text
         device360_info["device_model"] = device_model_field.split('\n')[-1]
-        iq_agent_version_field = self.get_switch_info_iqagent_version().text
+        iq_agent_version_field = self.get_device_info_iqagent_version().text
         device360_info["IQAgent_version"] = iq_agent_version_field.split('\n')[-1]
-        device_make_field = self.dev360.get_switch_info_make().text
+        device_make_field = self.dev360.get_device_info_make().text
         device360_info["device_make"] = device_make_field.split('\n')[-1]
-        software_version_field = self.dev360.get_switch_info_software_version().text
+        software_version_field = self.dev360.get_device_info_software_version().text
         device360_info["software_version"] = software_version_field.split('\n')[-1]
 
         self.utils.print_info(f"******************ExOS Device360 Information************************")
@@ -603,20 +603,20 @@ class Device360(Device360WebElements):
         self.utils.print_info("Getting device360 Monitor> Overview Information.")
         device360_info = dict()
         device360_info["host_name"] = self.dev360.get_system_info_device_host_name().text
-        ip_address_field = self.dev360.get_switch_info_ip_address().text
+        ip_address_field = self.dev360.get_device_info_ip_address().text
         device360_info["ip_address"] = ip_address_field.split('\n')[-1]
-        mac_address_field = self.dev360.get_switch_info_mac_address().text
+        mac_address_field = self.dev360.get_device_info_mac_address().text
         device360_info["mac_address"] = mac_address_field.split('\n')[-1]
-        serial_number_field = self.dev360.get_switch_info_serial().text
+        serial_number_field = self.dev360.get_device_info_serial().text
         device360_info["serial_number"] = serial_number_field.split('\n')[-1]
-        device360_info["network_policy"] = self.dev360.get_switch_info_device_policy().text
-        device_model_field = self.dev360.get_switch_info_model().text
+        device360_info["network_policy"] = self.dev360.get_device_info_device_policy().text
+        device_model_field = self.dev360.get_device_info_model().text
         device360_info["device_model"] = device_model_field.split('\n')[-1]
-        iq_agent_version_field = self.get_switch_info_iqagent_version().text
+        iq_agent_version_field = self.get_device_info_iqagent_version().text
         device360_info["IQAgent_version"] = iq_agent_version_field.split('\n')[-1]
-        device_make_field = self.dev360.get_switch_info_make().text
+        device_make_field = self.dev360.get_device_info_make().text
         device360_info["device_make"] = device_make_field.split('\n')[-1]
-        software_version_field = self.dev360.get_switch_info_software_version().text
+        software_version_field = self.dev360.get_device_info_software_version().text
         device360_info["software_version"] = software_version_field.split('\n')[-1]
 
         self.utils.print_info(f"******************VOSS Device360 Overview Information************************")
