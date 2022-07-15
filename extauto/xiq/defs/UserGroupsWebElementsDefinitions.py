@@ -464,4 +464,3 @@ class UserGroupsWebElementsDefinitions:
             'CSS_SELECTOR': '.J-auth-con.ssid-user-group-ctn',
             'wait_for': 5
         }
-    
