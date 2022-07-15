@@ -585,3 +585,9 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': "//*[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
+
+    sw_template_hyperlink = \
+        {
+            'XPATH': "//a[@class='J-tmplName']",
+            'wait_for': 5
+        }

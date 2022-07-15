@@ -6004,6 +6004,12 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_storm_control)
                 return 1
 
+        elif "MACLOCKINGSettingsPage" in element:
+            get_mac_locking = self.get_select_element_port_type("MACLOCKINGSettings")
+            if get_mac_locking:
+                self.auto_actions.click(get_mac_locking)
+                return 1
+
         elif "ELRPSettingsPage" in element:
             sleep(5)
             get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
@@ -6286,6 +6292,43 @@ class Device360(Device360WebElements):
             if get_rate_limit_val_el:
                 sleep(2)
                 self.auto_actions.send_keys(get_rate_limit_val_el, value)
+                return 1
+
+        # pag MAC LOCKING
+        elif element == "mac locking":
+            get_maclocking = self.get_select_element_port_type(element, value)
+            if get_maclocking:
+                self.auto_actions.click(get_maclocking)
+                return 1
+
+        elif element == "max first arrival":
+            get_max_first_arrival_el = self.get_select_element_port_type(element)
+            if get_max_first_arrival_el:
+                self.auto_actions.send_keys(get_max_first_arrival_el, value)
+                return 1
+
+        elif element == "disable port":
+            get_maclocking_disable_port = self.get_select_element_port_type(element, value)
+            if get_maclocking_disable_port:
+                self.auto_actions.click(get_maclocking_disable_port)
+                return 1
+
+        elif element == "link down clear":
+            get_maclocking_link_down_clear = self.get_select_element_port_type(element, value)
+            if get_maclocking_link_down_clear:
+                self.auto_actions.click(get_maclocking_link_down_clear)
+                return 1
+
+        elif element == "link down retain":
+            get_maclocking_link_down_retain = self.get_select_element_port_type(element, value)
+            if get_maclocking_link_down_retain:
+                self.auto_actions.click(get_maclocking_link_down_retain)
+                return 1
+
+        elif element == "remove aged MACs":
+            get_maclocking_remove_aged_MACs = self.get_select_element_port_type(element, value)
+            if get_maclocking_remove_aged_MACs:
+                self.auto_actions.click(get_maclocking_remove_aged_MACs)
                 return 1
 
         #page ELRP (ONLY FOR EXOS)
