@@ -1602,3 +1602,63 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_thunderbold_icon_stack(self,row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
 
+    def get_device360_ports_description_table_header(self):
+        header_element = self.weh.get_element(self.device360_ports_description_table_header)
+        return [h.strip() for h in header_element.text.split("\n")]
+
+    def get_device360_ports_description_table_row(self):
+        return self.weh.get_element(self.device360_ports_description_table_header)
+
+    def get_device360_all_checkboxes(self):
+        checkboxes = self.get_device360_coluns_toggle_checkboxes()
+        results = {}
+        for checkbox in checkboxes:
+            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
+            label = self.weh.get_element({"XPATH": label_xpath}).text
+            results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
+        return results
+
+    def get_device360_all_marked_checkboxes(self):
+        checkboxes = self.get_device360_coluns_toggle_checkboxes()
+        results = {}
+        for checkbox in checkboxes:
+            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
+            label = self.weh.get_element({"XPATH": label_xpath}).text
+            if checkbox.is_selected():
+                results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
+        return results
+
+    def get_device360_port_table_rows(self):
+        return self.weh.get_elements(self.device360_ports_table_rows)
+
+    def get_device360_ports_table_pagination_sizes(self):
+        return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
+
+    def get_device360_ports_table_current_pagination_size(self):
+        return self.weh.get_element(self.device360_ports_table_current_pagination_size)
+
+    def get_device360_ports_table_th_columns(self):
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+        return {th.text.strip(): th for th in ths if th.text.strip()}
+
+    def get_device360_ports_table(self):
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+
+        table_rows = self.get_device360_port_table_rows()
+        results = []
+        for row in table_rows:
+            result = {}
+            tds = self.weh.get_elements(self.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip():
+                    result[th.text.strip()] = td.text.strip()
+            results.append(result)
+        return results
+
+    def get_device360_pagination_page_buttons(self):
+        return self.weh.get_elements(self.d360_pagination_page_button)
+
+    def get_device360_pagination_current_page(self):
+        return self.weh.get_element(self.d360_pagination_current_page)

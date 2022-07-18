@@ -2805,3 +2805,44 @@ class Device360WebElementDefs:
         {
             'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-remove-aged-macs"]'
         }
+
+    device360_ports_description_table_header = \
+        {
+            'XPATH': "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-header')]",
+            'wait_for': 5
+        }
+
+    device360_ports_table_rows = \
+        {
+            "XPATH": "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-row')]",
+            'wait_for': 5
+        }
+
+    device360_ports_table_pagination_sizes = \
+        {
+            "XPATH": "//span[contains(@class, 'pagination-size')]",
+            'wait_for': 5
+        }
+
+    device360_ports_table_current_pagination_size = \
+        {
+            "XPATH": "//span[@class='pagination-size current-pagination']",
+            'wait_for': 5
+        }
+
+    device360_ports_table_th_columns = \
+        {
+            "XPATH": ".//th[@role='columnheader']",
+            'wait_for': 5
+        }
+    device360_ports_table_td_gridcell = \
+        {
+            "XPATH": ".//tr//td[@role='gridcell']",
+            'wait_for': 5
+        }
+
+    d360_pagination_current_page = \
+        {
+            'XPATH': '//span[@class="pagination-page current-pagination"]',
+            'wait_for': 3
+        }
