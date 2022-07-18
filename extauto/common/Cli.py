@@ -992,7 +992,7 @@ class Cli(object):
         :param port: Port
         :param username: username to access console
         :param password: Password to access console
-        :param platform: device Platform example: exos,voss
+        :param cli_type: device Platform example: exos,voss
         :return: _spawn Device Prompt without '#'
         """
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
