@@ -577,10 +577,11 @@ class CommonObjects(object):
         """
         self.utils.print_info("Navigate to Port Types Settings")
         self.navigator.navigate_to_policy_port_types()
+        sleep(5)
 
         self.utils.print_info("Click Full pages button")
         self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_port_types_view_all_pages())
-        sleep(2)
+        sleep(5)
 
         if not self._search_common_object(port_type_name):
             self.utils.print_info("Port Type Profile Name does't exists in the list",port_type_name)
@@ -838,13 +839,24 @@ class CommonObjects(object):
         self.navigator.navigate_to_switch_templates()
 
         self.utils.print_info("Click on full page view for switch template")
-        page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
-        if page_size_el:
-            self.utils.print_info("  -- clicking page size element 100 for switch template")
-            self.auto_actions.click(page_size_el)
-            sleep(3)
-        else:
-            self.utils.print_info("  -- could not find page size element 100")
+        retry = 0
+        while retry < 10 :
+            sleep(5)
+            page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
+            if page_size_el:
+                self.utils.print_info("  -- clicking page size element 100 for switch template")
+                self.auto_actions.click(page_size_el)
+                sleep(3)
+                break
+            else:
+                self.utils.print_info("  -- could not find page size element 100")
+                retry += 1
+                self.utils.print_info("  -- retry: " + str(retry))
+
+        if retry >= 10 :
+            self.utils.print_info("delete_switch_template fails: could not find page size element 100" + str(retry))
+            return -1
+
 
         if not self._search_switch_template(template_name):
             self.utils.print_info("Switch Template doesn't exist on first page")
