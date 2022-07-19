@@ -2905,6 +2905,7 @@ class Devices:
                 else:
                     self.utils.print_info("Getting status from cell failed...Attempting to get status again")
                     self.screen.save_screen_shot()
+                    self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
                 attempt_count = attempt_count - 1
                 device_status = self.devices_web_elements.get_status_cell(device_row)
                 sleep(5)
