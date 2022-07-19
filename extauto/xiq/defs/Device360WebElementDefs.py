@@ -2813,3 +2813,8 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_ports_table_current_pagin_number = \
+        {
+            "XPATH": "//div[@class='pagination-num-ctn']//span[@class='pagination-page current-pagination']",
+            'wait_for': 5
+        }
