@@ -6475,10 +6475,10 @@ class Devices:
         :return: 1 if success else -1
         """
         if self.select_device(device_serial):
-            sleep(5)
-            self.utils.print_info("Selecting Update Devices button")
-            self.auto_actions.click(self.device_update.get_update_devices_button())
-            sleep(5)
+            def _click_update_devices_button():
+                return self.auto_actions.click(self.device_update.get_update_devices_button())
+            self.utils.wait_till(_click_update_devices_button, timeout=30, delay=10,
+                                 msg="Selecting Update Devices button")
 
             checkbox_status = DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
 
