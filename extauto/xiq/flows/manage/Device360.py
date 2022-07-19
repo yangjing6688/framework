@@ -4374,7 +4374,6 @@ class Device360(Device360WebElements):
          transmission_mode=${MODE}  speed=${SPEED}``
          - `` device360 configure port transmission mode and speed  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}
          transmission_mode=${MODE}  speed=${SPEED}``
-
          :param device_mac: Device Mac Address
          :param device_name: Device Name
          :param port_number: Port Number of the Switch
@@ -4406,22 +4405,9 @@ class Device360(Device360WebElements):
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
         sleep(2)
 
-        retry = 0
-        while retry < 10:
-            sleep(5)
-            configure_port_btn = self.get_device360_port_configuration_port_settings_tab()
-            if configure_port_btn:
-                self.utils.print_info("Click Port Settings Tab")
-                self.auto_actions.click(configure_port_btn)
-                sleep(3)
-                break
-            else:
-                self.utils.print_info("Could not find element port configuration button")
-                retry += 1
-                self.utils.print_info("  -- retry: " + str(retry))
-        if retry >= 10:
-            self.utils.print_info("Element not loaded after" + str(retry) + "retries")
-            return -1
+        self.utils.print_info("Click Port Settings Tab")
+        self.auto_actions.click(self.get_device360_port_configuration_port_settings_tab())
+        sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():

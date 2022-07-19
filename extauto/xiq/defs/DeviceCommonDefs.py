@@ -53,9 +53,3 @@ class DeviceCommonDefs:
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[contains(@class,"ui-page-size-cur")]',
             'wait_for': 5
         }
-
-    change_view_to_100_elems = \
-        {
-            'XPATH': '//span[@data-id="100"][0]',
-            'wait_for': 5
-        }

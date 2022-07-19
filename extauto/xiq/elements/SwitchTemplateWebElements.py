@@ -257,9 +257,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_port_details_all_rows(self):
         return self.weh.get_template_elements(self.port_details_all_rows)
 
-    def get_all_ports_autosense(self):
-        return self.weh.get_template_elements(self.all_ports_autosense)
-
     def get_port_details_row_label(self, row):
         return self.weh.get_element(self.port_details_row_label, parent=row)
 
@@ -377,9 +374,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def port_type_list(self):
         return self.weh.get_elements(self.switch_template_port_types_list)
 
-    def port_type_custom_name(self, port_type_name):
-        return self.weh.get_template_element(self.switch_template_port_type_custom, port_type_name=port_type_name)
-
     def save_btn_existing_port(self):
         return self.weh.get_element(self.save_btn)
 
@@ -433,6 +427,3 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_save_button_bottom(self):
         return self.weh.get_elements(self.sw_template_save_btn_bottom)
-
-    def get_new_sw_template_add_button(self):
-        return self.weh.get_element(self.new_sw_template_add_button)

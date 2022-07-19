@@ -1207,9 +1207,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_configure_port_trunk_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_trunk_vlan_textfield, row)
 
-    def get_device360_configure_port_description_textfield_with_index(self, row, index):
-        return self.weh.get_template_element(self.device360_configure_port_description_textfield_with_index, row, index=index)
-
     def get_device360_port_configuration_port_settings_tab(self):
         return self.weh.get_element(self.device360_port_configuration_port_settings_tab)
 
@@ -1585,7 +1582,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_thunderbold_icon_stack(self,row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
-
 
     def get_device360_port_config_pse_tab_slot_stack(self):
         return self.weh.get_element(self.device360_port_config_pse_tab_slot_stack)

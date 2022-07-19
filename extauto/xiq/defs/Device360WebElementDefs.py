@@ -1842,12 +1842,6 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    device360_configure_port_description_textfield_with_index = \
-        {
-            'XPATH': '//input[@data-automation-tag="automation-port-details-port-description-${index}"]',
-            'wait_for': 5
-        }
-
     device360_port_configuration_port_settings_tab = \
         {
             'XPATH': '//*[@data-automation-tag="automation-port-configuration-port-settings"]',

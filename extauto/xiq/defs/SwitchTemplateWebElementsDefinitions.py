@@ -259,13 +259,6 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    all_ports_autosense = \
-        {
-            "CSS_SELECTOR": '.state-type-autoSense-port',
-            'wait_for': 5
-        }
-
-
     port_details_row_label = \
         {
             "CSS_SELECTOR": '.portInterface',
@@ -498,12 +491,6 @@ class SwitchTemplateWebElementDefinitions:
     switch_template_port_types_list = \
         {
             'XPATH': '//ul[@data-dojo-attach-point="portTypeList"]//li',
-            'wait_for': 2
-        }
-
-    switch_template_port_type_custom = \
-        {
-            'XPATH': '//ul[@data-dojo-attach-point="portTypeList"]//li//span[contains(text(), "${port_type_name}")]//preceding-sibling::input',
             'wait_for': 2
         }
 
