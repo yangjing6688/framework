@@ -305,9 +305,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_switch_temp_save_button(self):
         return self.weh.get_element(self.switch_temp_save_button)
 
-    def get_switch_temp_save_button_good(self):
-        return self.weh.get_element(self.switch_temp_save_button_good)
-
     def get_port_details_vlan_input_obj(self):
         return self.weh.get_element(self.port_details_vlan_input_obj)
 
@@ -439,6 +436,3 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_new_sw_template_add_button(self):
         return self.weh.get_element(self.new_sw_template_add_button)
-
-    def get_autoSense_button(self):
-        return self.weh.get_element(self.sw_template_autoSense_btn)

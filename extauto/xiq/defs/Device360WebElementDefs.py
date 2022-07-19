@@ -1822,21 +1822,9 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    device360_configure_port_usage_drop_down_options_with_index = \
-            {
-                'XPATH': '//ul[@data-automation-tag="automation-port-details-port-dropdown-${index}-chzn-results-ctn"]/li',
-                'wait_for': 5
-            }
-
     device360_configure_port_access_vlan_textfield = \
         {
             'CSS_SELECTOR': '.port-type-vlan-value',
-            'wait_for': 5
-        }
-
-    device360_configure_port_access_vlan_textfield_with_index = \
-        {
-            'XPATH': 'input[@data-automation-tag="automation-port-details-port-access-vlan-${index}"]',
             'wait_for': 5
         }
 
@@ -1847,22 +1835,10 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    device360_configure_port_trunk_native_vlan_textfield_with_index = \
-        {
-            'XPATH': '//input[@data-automation-tag="automation-port-details-port-trunk-native-vlan-${index}"]',
-            'wait_for': 5
-        }
-
     device360_configure_port_trunk_vlan_textfield = \
         {
             'CSS_SELECTOR': '.allowed-vlan',
             'index': 1,
-            'wait_for': 5
-        }
-
-    device360_configure_port_trunk_vlan_textfield_with_index = \
-        {
-            'XPATH': '//input[@data-automation-tag="automation-port-details-port-trunk-allowed-vlan-${index}"]',
             'wait_for': 5
         }
 
@@ -2835,12 +2811,6 @@ class Device360WebElementDefs:
         {
             "XPATH": ".//tr//td[@role='gridcell']",
             'wait_for': 5
-        }
-
-    d360_pagination_current_page = \
-        {
-            'XPATH': '//span[@class="pagination-page current-pagination"]',
-            'wait_for': 3
         }
 
     device360_ah_icons = \

@@ -29,7 +29,7 @@ try:
     from extauto.common.tools.remote.LinMuConnect import LinMuConnect
     from extauto.common.tools.remote.MacMuConnect import MacMuConnect
     from extauto.common.tools.remote.Recording import Recording
-    # from extauto.common.tools.remote.RFTestClient import RFTestClient
+    #from extauto.common.tools.remote.RFTestClient import RFTestClient
     from extauto.common.tools.remote.WinMuConnect import WinMuConnect
     from extauto.common.tools.remote.captiveportal.CaptivePortal import CPWebElements
     from extauto.common.tools.remote.captiveportal.CPWebElementDefinitions import CPWebElementDefinitions

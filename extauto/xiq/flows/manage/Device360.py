@@ -3516,81 +3516,6 @@ class Device360(Device360WebElements):
             self.screen.save_screen_shot()
             return -1
 
-    def get_switch_device360_port_table_information_all_ports(self, device_mac="", device_name=""):
-        """
-        - This keyword gets EXOS/VOSS Switch Port table information from device360 page
-        - Flow : Manage --> Devices--> Select Device-->Device 360 Page
-        - Keyword Usage
-         - ``Get Switch Device360 Port Table Information  device_mac={DEVICE_MAC} ``
-         - ``Get Switch Device360 Port Table Information  device_name={DEVICE_NAME} ``
-         :param device_mac: Device Mac Address
-         :param device_name: Device Name
-
-        :return: Dictionary of Port Table Information if the ports are present in the table, else -1
-        """
-
-        if device_mac:
-            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
-            if device_row:
-                self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
-
-        if device_name:
-            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
-            if device_row:
-                self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
-
-        if view_log := self.get_d360_switch_port_view_all_pages_button():
-            if view_log.is_displayed():
-                self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
-                self.screen.save_screen_shot()
-                sleep(4)
-
-        try:
-            switch_device360_info_all_ports = dict()
-            rows = self.get_d360_switch_ports_table_grid_rows()
-            for row in rows:
-                port_name_cell = self.get_d360_switch_ports_table_interface_port_name_cell(row).text
-
-                switch_device360_info = dict()
-
-                self.utils.print_info("Getting Port Table Information")
-                switch_device360_info["port_name"] = self.dev360.get_device360_switch_port_table_port_name(row).text
-                switch_device360_info["port_type"] = self.dev360.get_device360_switch_port_table_port_type(row).text
-                switch_device360_info["lldp_neighbor"] = self.dev360.get_device360_switch_port_table_lacp_neighbor(row).text
-                switch_device360_info["lldp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
-                switch_device360_info["port_status"] = self.dev360.get_device360_switch_port_table_port_status(row).text
-                switch_device360_info["trasmission_mode"] = self.dev360.get_device360_switch_port_table_transmission_mode(row).text
-                switch_device360_info["port_mode"] = self.dev360.get_device360_switch_port_table_port_mode(row).text
-                switch_device360_info["access_vlan"] = self.dev360.get_device360_switch_port_table_access_vlan(row).text
-                if self.dev360.get_device360_switch_port_table_tagged_vlans(row):
-                   switch_device360_info["tagged_vlans"] = self.dev360.get_device360_switch_port_table_tagged_vlans(row).text
-                switch_device360_info["traffic_received"] = self.dev360.get_device360_switch_port_table_traffic_received(row).text
-                switch_device360_info["traffic_transmitted"] = self.dev360.get_device360_switch_port_table_traffic_transmitted(row).text
-                switch_device360_info["power_used"] = self.dev360.get_device360_switch_port_table_power_used(row).text
-                switch_device360_info["port_speed"] = self.dev360.get_device360_switch_port_table_port_speed(row).text
-
-                switch_device360_info_all_ports[port_name_cell] = switch_device360_info
-
-                self.utils.print_info(f"****************** Switch Port Table Information ************************")
-                for key, value in switch_device360_info.items():
-                    self.utils.print_info(f"{key}:{value}")
-
-            self.screen.save_screen_shot()
-            self.auto_actions.click(self.dev360.get_close_dialog())
-            self.screen.save_screen_shot()
-            return switch_device360_info_all_ports
-        except Exception as e:
-            self.utils.print_info("Unable to get Port Table Information")
-            self.screen.save_screen_shot()
-            self.auto_actions.click(self.dev360.get_close_dialog())
-            self.screen.save_screen_shot()
-            return -1
-
     def check_up_or_down_ports(self, port_list, port_state='down'):
         """
         This keyword check the list of ports and returns only ports with "OPERATE" status that are up/down
@@ -4244,7 +4169,6 @@ class Device360(Device360WebElements):
         - Keyword Usage:
          - ``Device360 Configure Port Access Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
          - ``Device360 Configure Port Access Vlan  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
-
          :param device_mac: Device Mac Address
          :param device_name: Device Name
          :param port_number: Port Number of the Switch
@@ -4274,21 +4198,20 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click PortConfiguration Button")
         self.auto_actions.click(self.get_device360_configure_port_configuration_button())
-        sleep(30)
+        sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
-            sleep(10)
             port_row = self.device360_get_port_row(port_number)
             if port_row:
                 self.utils.print_debug("Found row for port: ", port_row.text)
                 self.utils.print_info("click Port Usage drop down")
                 self.auto_actions.click(self.get_device360_configure_port_usage_drop_down_button(port_row))
-                sleep(5)
+                sleep(2)
 
                 self.utils.print_info("Selecting Port Usage")
                 self.auto_actions.select_drop_down_options(self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
-                sleep(5)
+                sleep(2)
 
                 self.utils.print_info("Entering Search String...")
                 self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row), Keys.CONTROL + "a")
@@ -4296,7 +4219,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row), Keys.BACK_SPACE)
                 self.auto_actions.send_keys(self.get_device360_configure_port_access_vlan_textfield(port_row), access_vlan_id)
                 self.screen.save_screen_shot()
-                sleep(4)
+                sleep(2)
 
                 save_btn = self.get_device360_configure_port_save_button()
                 if save_btn:
@@ -4339,7 +4262,6 @@ class Device360(Device360WebElements):
         - Keyword Usage:
          - ``Device360 Configure Port Trunk Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
          - ``Device360 Configure Port Trunk Vlan  device_name=${NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
-
          :param device_mac: Device Mac Address
          :param device_name: Device Name
          :param port_number: Port Number of the Switch
@@ -4368,22 +4290,9 @@ class Device360(Device360WebElements):
             self.auto_actions.click(self.get_device360_configure_button())
         sleep(4)
 
-        retry = 0
-        while retry < 10:
-            sleep(5)
-            configure_port_btn = self.get_device360_configure_port_configuration_button()
-            if configure_port_btn:
-                self.utils.print_info("Click PortConfiguration Button")
-                self.auto_actions.click(configure_port_btn)
-                sleep(3)
-                break
-            else:
-                self.utils.print_info("Could not find element port configuration button")
-                retry += 1
-                self.utils.print_info("  -- retry: " + str(retry))
-        if retry >= 10:
-            self.utils.print_info("Element not loaded after" + str(retry) + "retries")
-            return -1
+        self.utils.print_info("Click PortConfiguration Button")
+        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():

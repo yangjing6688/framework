@@ -2824,7 +2824,6 @@ class Devices:
         if rows:
             if device_serial:
                 self.utils.print_info("Selecting Device with serial: ", device_serial)
-                sleep(10)
                 for row in rows:
                     if device_serial in row.text:
                         self.utils.print_debug("Found device Row: ", self.format_row(row.text))
@@ -4526,32 +4525,21 @@ class Devices:
         sleep(4)
 
         self.utils.print_info("Click on network policy drop down")
-	    # First try with get_actions_assign_network_policy_drop_down - with 22R3 use get_nw_policy_drop
         self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
         sleep(5)
-        
+
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
+        sleep(2)
 
-        if not network_policy_items:
-            # Try with new policy elements
-            self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
-            sleep(3)
-            network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
-
-        policy_status = False
-        for item in network_policy_items:
-            if policy_name.upper() in item.text.upper():
-                self.utils.print_info("Selecting Network policy from drop down")
-                self.auto_actions.click(item)
-                policy_status = True
-                sleep(2)
-                break
-        if not policy_status:
+        if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
+            self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
+        else:
             self.utils.print_info("Network policy is not present in drop down")
-            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_cancel_button())
+            self.screen.save_screen_shot()
+            return False
 
         self.screen.save_screen_shot()
-        sleep(2)
+        sleep(5)
 
         self.utils.print_info("Click on network policy assign button")
         self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
@@ -4565,8 +4553,8 @@ class Devices:
             if "Your account does not have permission to perform that action" in tooltip_text:
                 self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
                 sleep(5)
-                return -1
-        return 1
+                return False
+        return True
 
     def _update_switch(self, update_method="PolicyAndConfig"):
         """

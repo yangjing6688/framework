@@ -363,12 +363,6 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    switch_temp_save_button_good = \
-        {
-            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-dojo-attach-point="saveButton"]',
-            'wait_for': 5
-        }
-
     complete_stack_list = \
         {
             'XPATH': '//*[@data-dojo-attach-point="templateElements"]',
@@ -558,19 +552,6 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_scli_save_btn = \
         {
             'XPATH': "//*[@data-dojo-attach-point='saveButton']",
-            'wait_for': 5
-        }
-    sw_template_scli_save_btn = \
-        {
-            'XPATH': "//*[@data-dojo-attach-point='saveButton']",
-            'wait_for': 5
-        }
-
-
-
-    sw_template_autoSense_btn = \
-        {
-            'XPATH': '//*/input[@data-dojo-attach-point="enableAutoSense"]',
             'wait_for': 5
         }
 
