@@ -1654,14 +1654,14 @@ class Device360WebElements(Device360WebElementDefs):
         return results
 
     def get_device360_port_table_rows(self):
-        scroll = self.get_device360_ports_table_scroll()
-        if scroll:
+        scroll_element = self.get_device360_ports_table_scroll()
+        if scroll_element:
             from common.AutoActions import AutoActions
             auto_actions = AutoActions()
-            auto_actions.click(scroll)
+            auto_actions.click(scroll_element)
             for _ in range(10):
                 auto_actions.scroll_down()
-        return self.weh.get_elements(self.device360_ports_table_rows)
+        return self.get_d360_switch_ports_table_grid_rows()
 
     def get_device360_ports_table_pagination_sizes(self):
         return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
@@ -1675,11 +1675,11 @@ class Device360WebElements(Device360WebElementDefs):
         return {th.text.strip(): th for th in ths if th.text.strip()}
 
     def get_device360_ports_table(self):
-
+        
         header_row = self.get_device360_ports_description_table_row()
         ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
 
-        table_rows = self.get_device360_port_table_rows()
+        table_rows = self.get_device360_port_table_rows()[1:]
         results = []
         for row in table_rows:
             result = {}

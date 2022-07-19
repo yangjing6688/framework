@@ -2778,12 +2778,6 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    device360_ports_table_rows = \
-        {
-            "XPATH": "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-row')]",
-            'wait_for': 5
-        }
-
     device360_ports_table_pagination_sizes = \
         {
             "XPATH": "//span[contains(@class, 'pagination-size')]",
