@@ -1,5 +1,7 @@
 import re
 from time import sleep
+
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -193,6 +195,7 @@ class CommonObjects(object):
             return 1
         self._delete_common_objects()
 
+        sleep(2)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
@@ -205,9 +208,14 @@ class CommonObjects(object):
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
-        self.common_validation.validate(-1, 1)
-        return -1
+        for ssid in ssids:
+            if self._search_common_object(ssid):
+                kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+        kwargs['pass_msg'] = "Successfully deleted SSIDs"
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1
 
     def delete_all_ssids(self):
         """
