@@ -1638,3 +1638,42 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_pagination_current_page(self):
         return self.weh.get_element(self.d360_pagination_current_page)
+
+    def get_d360_configure_port_mac_locking_tab_button(self):
+        return self.weh.get_element(self.d360_configure_port_mac_locking_tab_button)
+
+    def get_d360_monitor_mac_locking_checkbox_interface(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_checkbox_interface, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_on_off(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_on_off, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_max_first_arrival_limit(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_max_first_arrival_limit, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_disable_port(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_disable_port, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_remove_aged_macs(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_remove_aged_macs, port_number=port_number)
+
+    def get_d360_save_port_configuration(self):
+        return self.weh.get_element(self.d360_save_port_configuration)
+
+    def get_d360_monitor_mac_locking_interface_edit_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_interface_edit_button)
+
+    def get_d360_monitor_mac_locking_multi_edit_max_first_arrival_limit_checkbox(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_max_first_arrival_limit_checkbox)
+
+    def get_d360_monitor_mac_locking_input_max_first_arrival_limit_value(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_input_max_first_arrival_limit_value)
+
+    def get_d360_monitor_mac_locking_multi_edit_save_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_save_button)
+
+    def get_d360_monitor_mac_locking_multi_edit_warning_max_limit_arrival(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_warning_max_limit_arrival)
+
+    def get_d360_monitor_mac_locking_multi_edit_close_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_close_button)

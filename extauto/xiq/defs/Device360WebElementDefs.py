@@ -2800,3 +2800,82 @@ class Device360WebElementDefs:
             'XPATH': '//span[@class="pagination-page current-pagination"]',
             'wait_for': 3
         }
+
+    d360_configure_port_mac_locking_tab_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ahTabContainer"]//a[contains(text(), "MAC Locking")]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_checkbox_interface = \
+        {
+            'XPATH': "//div[@class='port-mac-locking']//label/input[@type='checkbox'][@value='${port_number}']",
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_on_off = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-status"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_max_first_arrival_limit = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-first-arrival-limit"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_disable_port = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-disable-port"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_remove_aged_macs = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-remove-aged-macs"]',
+            'wait_for': 5
+        }
+
+    d360_save_port_configuration = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_interface_edit_button = \
+        {
+            'XPATH': '//div[@class="mac-locking-global-controls"]//button[@class="btn btn-primary multi-edit-btn"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_multi_edit_max_first_arrival_limit_checkbox = \
+        {
+            'XPATH': '//input[@data-automation-tag="medit-maclock-max-fa-cb"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_input_max_first_arrival_limit_value = \
+        {
+            'XPATH': '//div[@class="field port-max-learn-limit"]//input[@data-automation-tag="medit-maclock-max-fa"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_multi_edit_save_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="medit-maclock-save"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_multi_edit_warning_max_limit_arrival = \
+        {
+            'XPATH': '//div[@role="dialog"]//div[@data-dojo-attach-point="containerNode"]//div[@class="ui-tipbox ui-tipbox-error"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_multi_edit_close_button = \
+        {
+            'XPATH': '//div[@id="dijit_Dialog_0"]//span[@data-automation-tag="automation-dialog-close-button"]',
+            'wait_for': 5
+        }
+

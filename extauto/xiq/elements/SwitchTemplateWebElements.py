@@ -430,3 +430,10 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_hyperlink(self):
         return self.weh.get_element(self.sw_template_hyperlink)
+
+    def get_sw_template_enable_mac_locking(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking)
+
+    def get_sw_template_enable_mac_locking_confirm_message_yes_button(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message_yes_button)
+
