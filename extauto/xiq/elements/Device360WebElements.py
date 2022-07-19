@@ -148,30 +148,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_configure_ssh_cli_port(self):
         return self.weh.get_element(self.device360_configure_ssh_cli_port).text
 
-    def get_exos_switch_info_ip_address(self):
-        return self.weh.get_element(self.exos_switch_info_ip_address)
-
-    def get_exos_switch_info_mac_address(self):
-        return self.weh.get_element(self.exos_switch_info_mac_address)
-
-    def get_exos_switch_info_software_version(self):
-        return self.weh.get_element(self.exos_switch_info_software_version)
-
-    def get_exos_switch_info_model(self):
-        return self.weh.get_element(self.exos_switch_info_model)
-
-    def get_exos_switch_info_serial(self):
-        return self.weh.get_element(self.exos_switch_info_serial)
-
-    def get_exos_switch_info_make(self):
-        return self.weh.get_element(self.exos_switch_info_make)
-
-    def get_exos_switch_info_iqagent_version(self):
-        return self.weh.get_element(self.exos_switch_info_iqagent_version)
-
-    def get_exos_switch_info_device_policy(self):
-        return self.weh.get_element(self.exos_switch_info_device_policy)
-
     def get_device360_configure_ssh_web_enable_button(self):
         return self.weh.get_element(self.device360_configure_ssh_web_enable_button)
 
@@ -229,29 +205,29 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_port_configuration_title(self):
         return self.weh.get_element(self.device360_port_configuration_title)
 
-    def get_voss_switch_info_ip_address(self):
-        return self.weh.get_element(self.voss_switch_info_ip_address)
+    def get_device_info_ip_address(self):
+        return self.weh.get_element(self.device_info_ip_address)
 
-    def get_voss_switch_info_mac_address(self):
-        return self.weh.get_element(self.voss_switch_info_mac_address)
+    def get_device_info_mac_address(self):
+        return self.weh.get_element(self.device_info_mac_address)
 
-    def get_voss_switch_info_software_version(self):
-        return self.weh.get_element(self.voss_switch_info_software_version)
+    def get_device_info_software_version(self):
+        return self.weh.get_element(self.device_info_software_version)
 
-    def get_voss_switch_info_model(self):
-        return self.weh.get_element(self.voss_switch_info_model)
+    def get_device_info_model(self):
+        return self.weh.get_element(self.device_info_model)
 
-    def get_voss_switch_info_serial(self):
-        return self.weh.get_element(self.voss_switch_info_serial)
+    def get_device_info_serial(self):
+        return self.weh.get_element(self.device_info_serial)
 
-    def get_voss_switch_info_make(self):
-        return self.weh.get_element(self.voss_switch_info_make)
+    def get_device_info_make(self):
+        return self.weh.get_element(self.device_info_make)
 
-    def get_voss_switch_info_iqagent_version(self):
-        return self.weh.get_element(self.voss_switch_info_iqagent_version)
+    def get_device_info_iqagent_version(self):
+        return self.weh.get_element(self.device_info_iqagent_version)
 
-    def get_voss_switch_info_device_policy(self):
-        return self.weh.get_element(self.voss_switch_info_device_policy)
+    def get_device_info_device_policy(self):
+        return self.weh.get_element(self.device_info_device_policy)
 
     def get_device360_configure_ssh_disable_button(self):
         return self.weh.get_element(self.device360_configure_ssh_disable_button)
