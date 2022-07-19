@@ -815,7 +815,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("select the Switch: ", switch_model)
-        switch_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
+        switch_list_items = self.device_template_web_elements.get_switch_template_platform_from_drop_down()
         for el in switch_list_items:
             if not el:
                 pass

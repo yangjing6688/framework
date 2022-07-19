@@ -27,6 +27,13 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
         """
         return self.weh.get_elements(self.device_ap_template_items)
 
+    def get_switch_template_platform_from_drop_down(self):
+        """
+
+        :return:
+        """
+        return self.weh.get_elements(self.device_switch_template_items)
+
     def get_ap_template_text(self):
         """
 
