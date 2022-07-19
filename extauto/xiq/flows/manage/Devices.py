@@ -2946,6 +2946,8 @@ class Devices:
                         kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
                         self.common_validation.validate(1, 1, **kwargs)
                         return "disconnected"
+                    kwargs['pass_msg'] = "Device is disconnected!"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return "disconnected"
 
                 if "local-icon" in device_status:
