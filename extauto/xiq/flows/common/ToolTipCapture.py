@@ -18,7 +18,7 @@ def tool_tip_capture():
     t = threading.current_thread()
     while getattr(t, "do_run", True):
         try:
-            tool_tip_elemnt = CloudDriver().cloud_driver.find_element_by_css_selector(".ui-tipbox-ctn")
+            tool_tip_elemnt = CloudDriver().cloud_driver.find_element_by_css_selector(".ui-tipbox-single")
             if text := tool_tip_elemnt.text:
                 if text not in tool_tip_text:
                     tool_tip_text.append(text)
