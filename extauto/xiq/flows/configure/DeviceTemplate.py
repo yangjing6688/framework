@@ -112,10 +112,10 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Click on the save template button")
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
-        sleep(3)
+        sleep(1)
 
         tool_tip_text = tool_tip.tool_tip_text
-        self.screen.save_screen_shot()
+#        self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         sub_string = "template"
