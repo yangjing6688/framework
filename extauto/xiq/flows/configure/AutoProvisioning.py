@@ -61,8 +61,12 @@ class AutoProvisioning:
                 sleep(3)
                 self.screen.save_screen_shot()
                 return 1
-        self.screen.save_screen_shot()
-        return -1
+            else:
+                self.utils.print_info("Unable to select country code for AP model")
+                return -1
+        else:
+            self.screen.save_screen_shot()
+            return 1
 
     def auto_provision_advanced_settings(self, **advance_setting):
         """
