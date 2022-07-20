@@ -34,7 +34,7 @@ class DeviceTemplateWebElementDefinitions:
     device_template_ap_template_name_textfield = \
         {
             'XPATH': "//*[@data-dojo-attach-point='tplName']",
-            'wait_for': 5
+            'wait_for': 7
         }
 
     device_template_ap_template_wifi0_tab = \
@@ -126,7 +126,7 @@ class DeviceTemplateWebElementDefinitions:
     device_ap_template_items = \
         {
             'XPATH': '//div[@class="ui-menu-filter-list"]//*[@class="ui-menu-list"]//*[@class="ui-menu-item"]',
-            'wait_for': 5
+            'wait_for': 7
         }
 
     device_switch_template_items = \
@@ -349,7 +349,7 @@ class DeviceTemplateWebElementDefinitions:
     network_policy_add_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@class="table-action-icons table-add"]',
-            'wait_for': 3
+            'wait_for': 5
         }
 
     network_policy_name_text = \
@@ -367,7 +367,7 @@ class DeviceTemplateWebElementDefinitions:
     select_device_template = \
         {
             'XPATH': '//div[@data-dojo-attach-point="configwizardNav"]//li[@class="wiz-item wiz-item-2"]',
-            'wait_for': 5
+            'wait_for': 7
         }
 
     select_ap_template = \
@@ -379,7 +379,7 @@ class DeviceTemplateWebElementDefinitions:
     ap_template_advanced_settings = \
         {
             'XPATH': '//li[@class="ui-nav-sider-item has-cap-advanced nav-configuration-advanced active-result"]',
-            'wait_for': 3
+            'wait_for': 5
         }
 
     ap_template_enable_scli = \
@@ -440,5 +440,5 @@ class DeviceTemplateWebElementDefinitions:
         {
             'XPATH': '//div[@data-automation-tag="automation-country-code"]'
                      '//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
-            'wait_for': 5
+            'wait_for': 7
         }
