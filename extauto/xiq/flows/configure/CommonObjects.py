@@ -830,23 +830,13 @@ class CommonObjects(object):
         self.navigator.navigate_to_switch_templates()
 
         self.utils.print_info("Click on full page view for switch template")
-        retry = 0
-        while retry < 10 :
-            sleep(5)
-            page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
-            if page_size_el:
-                self.utils.print_info("  -- clicking page size element 100 for switch template")
-                self.auto_actions.click(page_size_el)
-                sleep(3)
-                break
-            else:
-                self.utils.print_info("  -- could not find page size element 100")
-                retry += 1
-                self.utils.print_info("  -- retry: " + str(retry))
-
-        if retry >= 10 :
-            self.utils.print_info("delete_switch_template fails: could not find page size element 100" + str(retry))
-            return -1
+        page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
+        if page_size_el:
+            self.utils.print_info("  -- clicking page size element 100 for switch template")
+            self.auto_actions.click(page_size_el)
+            sleep(3)
+        else:
+            self.utils.print_info("  -- could not find page size element 100")
 
         if not self._search_switch_template(template_name):
             self.utils.print_info("Switch Template doesn't exist on first page")
@@ -913,7 +903,7 @@ class CommonObjects(object):
         :return:
         """
         self._select_switch_template_row(object_name)
-        sleep(5)
+        sleep(2)
         self._delete_switch_template()
         sleep(5)
         tool_tp_text = tool_tip.tool_tip_text
