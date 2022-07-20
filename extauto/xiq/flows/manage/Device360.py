@@ -4376,7 +4376,7 @@ class Device360(Device360WebElements):
          transmission_mode=${MODE}  speed=${SPEED}``
          - `` device360 configure port transmission mode and speed  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}
          transmission_mode=${MODE}  speed=${SPEED}``
-         
+
          :param device_mac: Device Mac Address
          :param device_name: Device Name
          :param port_number: Port Number of the Switch
