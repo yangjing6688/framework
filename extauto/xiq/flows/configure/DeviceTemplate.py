@@ -894,11 +894,11 @@ class DeviceTemplate(object):
         self.utils.print_info("Enter the policy name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
 
-        self.screen.save_screen_shot()
-
 
         self.utils.print_info("Click on network policy save button")
         self.auto_actions.click(self.device_template_web_elements.get_network_policy_save_button())
+
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Click on Device Template tab")
         self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
@@ -927,10 +927,10 @@ class DeviceTemplate(object):
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_advanced_settings())
 
         self.auto_actions.scroll_down()
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking on Country Code dropdown")
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_country_code_drop_down())
-        self.screen.save_screen_shot()
 
         self.utils.print_info("Select the Country Code")
         countries = self.device_template_web_elements.get_ap_template_country_code_list()
