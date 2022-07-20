@@ -429,3 +429,16 @@ class DeviceTemplateWebElementDefinitions:
             'XPATH': '//fixed-bar[@class="bottom"]//button[@class="btn btn-primary"]',
             'wait_for': 5
         }
+
+    ap_template_country_code_drop_down = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="countryCodeCtn"]//*[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    ap_template_country_code_list = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-country-code"]'
+                     '//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
