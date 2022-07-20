@@ -301,7 +301,7 @@ class A3WebElementsDefs:
 
     client_ent_info = \
         {
-                'XPATH': "//*[contains(text(),'a3225\a3test1')]",
+                'XPATH': "//*[contains(text(),'realma3154\a3test1')]",
                 'wait_for': 5
         }
 

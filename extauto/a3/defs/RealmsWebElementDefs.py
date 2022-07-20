@@ -24,6 +24,18 @@ class RealmsWebElementDefs:
                 'wait_for': 5
         }
 
+    realm_list = \
+        {
+                'XPATH': '//*[@data-automation-tag="automation-domain"]',
+                'wait_for': 5
+        }
+
+    realm_select = \
+        {
+                'XPATH': '//*[@data-automation-tag="automation-id"]',
+                'wait_for': 5
+        }
+
     create_button = \
         {
             'XPATH': '//*[@data-automation-tag="saveButton"]',

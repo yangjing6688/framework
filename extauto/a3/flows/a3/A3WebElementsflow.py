@@ -307,11 +307,12 @@ class A3WebElementsflow(A3WebElements):
             sleep(2)
             self.utils.print_info(f"select the table")
             tab = self.weh.get_element(self.get_table)
-            # self.auto_actions.click(tab)
+            sleep(2)
+            self.utils.print_info(f"select the table1")
             table = self.setting.get_audit_logs_grid_rows()
-            #
-            #ele_selected = self.driver.find_element_by_xpath("//table").is_displayed
+            self.utils.print_info(f"select the table2")
             ele_selected = tab.is_displayed
+            self.utils.print_info(f"print status", ele_selected)
             sleep(5)
             if ele_selected:
                 for rows in table:
@@ -323,8 +324,6 @@ class A3WebElementsflow(A3WebElements):
                             self.utils.print_info(f"clicked on the selected row")
                             sleep(5)
                             rows.click()
-                            #self.driver.find_element_by_xpath(
-                            #'//span[@class ="badge badge-success badge-pill" and text() = "Registered"]').click()
                             break
             rad_tab = self.weh.get_element(self.rad_entry_tab)
             self.auto_actions.click(rad_tab)
@@ -365,8 +364,7 @@ class A3WebElementsflow(A3WebElements):
                         self.utils.print_info(f"Found the Expected Row Text", row)
                         self.utils.print_info(f"clicked on the selected row")
                         sleep(5)
-                        self.driver.find_element_by_xpath(
-                            '//span[@class ="badge badge-success badge-pill" and text() = "on"]').click()
+                        rows.click()
                         break
             info_tab = self.weh.get_element(self.client_info_tab)
             self.auto_actions.click(info_tab)
