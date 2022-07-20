@@ -1677,3 +1677,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_d360_monitor_mac_locking_multi_edit_close_button(self):
         return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_close_button)
+
+    def get_d360_monitor_mac_locking_header(self):
+        return self.weh.get_element(self.d360_monitor_mac_locking_header)

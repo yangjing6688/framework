@@ -2611,7 +2611,7 @@ class Device360WebElementDefs:
 
     device_d360_save_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
             'wait_for': 5
         }
 
@@ -2876,6 +2876,12 @@ class Device360WebElementDefs:
     d360_monitor_mac_locking_multi_edit_close_button = \
         {
             'XPATH': '//div[@id="dijit_Dialog_0"]//span[@data-automation-tag="automation-dialog-close-button"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_header = \
+        {
+            'XPATH': '//th[contains(@class, "field-macLock")]',
             'wait_for': 5
         }
 
