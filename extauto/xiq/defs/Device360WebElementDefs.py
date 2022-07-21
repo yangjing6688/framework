@@ -2884,4 +2884,3 @@ class Device360WebElementDefs:
             'XPATH': '//th[contains(@class, "field-macLock")]',
             'wait_for': 5
         }
-
