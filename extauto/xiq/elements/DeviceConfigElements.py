@@ -637,3 +637,7 @@ class DeviceConfigElements(DeviceConfigDefs):
             return grid_rows
         else:
             return False
+
+    def get_stack_edit_template_drop_down(self):
+        return self.weh.get_element(self.stack_edit_template_drop_down)
+
