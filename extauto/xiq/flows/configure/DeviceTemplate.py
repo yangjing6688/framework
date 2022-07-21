@@ -868,7 +868,7 @@ class DeviceTemplate(object):
             self.utils.print_info("Unable to save the template")
             return -1
 
-    def choose_country_code_in_ap_template(self, policy_name, ap_model, ap_template_name, country_code):
+    def add_ap_template_with_country_code(self, policy_name, ap_model, ap_template_name, country_code):
         """
         - This Keyword is to create Country Code in AP Template
         - Flow: Network Policies --> Device Template --> AP Template --> Advanced Settings --> Country Code
@@ -893,7 +893,6 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Enter the policy name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
-
 
         self.utils.print_info("Click on network policy save button")
         self.auto_actions.click(self.device_template_web_elements.get_network_policy_save_button())
