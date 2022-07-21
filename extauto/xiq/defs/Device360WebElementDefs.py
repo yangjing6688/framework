@@ -282,53 +282,6 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-dojo-attach-point="port"]',
             'wait_for': 5
         }
-    exos_switch_info_ip_address = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="ipAddress"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_mac_address = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="macAddress"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_software_version = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="softwareVersion"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_model = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="productType"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_serial = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="serviceTag"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_make = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="make"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_iqagent_version = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="hiveAgent"]',
-            'wait_for': 5
-        }
-
-    exos_switch_info_device_policy = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="devicePolicy"]',
-            'wait_for': 5
-        }
 
     device360_configure_ssh_web_ip = \
         {
@@ -448,49 +401,50 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    voss_switch_info_ip_address = \
+    device_info_ip_address = \
         {
             'XPATH': '//*[@data-dojo-attach-point="ipAddress"]',
             'wait_for': 5
         }
 
-    voss_switch_info_mac_address = \
+    device_info_mac_address = \
         {
             'XPATH': '//*[@data-dojo-attach-point="macAddress"]',
             'wait_for': 5
         }
 
-    voss_switch_info_software_version = \
+    device_info_software_version = \
         {
             'XPATH': '//*[@data-dojo-attach-point="softwareVersion"]',
             'wait_for': 5
         }
 
-    voss_switch_info_model = \
+    device_info_model = \
         {
             'XPATH': '//*[@data-dojo-attach-point="productType"]',
             'wait_for': 5
         }
 
-    voss_switch_info_serial = \
+    device_info_serial = \
         {
             'XPATH': '//*[@class="health-item service-tag data-item"]',
+            'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="serviceTag"]',
             'wait_for': 5
         }
 
-    voss_switch_info_make = \
+    device_info_make = \
         {
             'XPATH': '//*[@data-dojo-attach-point="make"]',
             'wait_for': 5
         }
 
-    voss_switch_info_iqagent_version = \
+    device_info_iqagent_version = \
         {
             'XPATH': '//*[@data-dojo-attach-point="hiveAgent"]',
             'wait_for': 5
         }
 
-    voss_switch_info_device_policy = \
+    device_info_device_policy = \
         {
             'XPATH': '//*[@data-dojo-attach-point="devicePolicy"]',
             'wait_for': 5
@@ -1909,7 +1863,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-port-configuration-pse"]',
+            'XPATH': '//div[@data-automation-tag="automation-port-config-pse"]',
             'wait_for': 5
         }
 
@@ -2046,19 +2000,19 @@ class Device360WebElementDefs:
 
     device360_pse_settings_for_device_button = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-pse-settings"]',
+            'XPATH': '//button[@data-dojo-attach-point="showPSESettingsBtn"]',
             'wait_for': 5
         }
 
     device360_edit_threshold_poe = \
         {
-            'XPATH': '//input[@data-automation-tag="automation-pse-settings-edit-power-input"]',
+            'XPATH': '//div[@class="field-container max-power-budget"]//input[@type="text"]',
             'wait_for': 5
         }
 
     device360_save_threshold_poe_value = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-pse-settings-edit-save-btn"]',
+            'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
             'wait_for': 5
         }
 
@@ -2707,6 +2661,48 @@ class Device360WebElementDefs:
     policy_configure_port_rows = \
         {
             'XPATH': '//tabset[@data-dojo-attach-point="configuration-ports-tabs"]//portdetails//portentry-row',
+            'wait_for': 5
+        }
+
+    device360_port_config_pse_tab_slot_stack = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-port-config-pse"]',
+            'wait_for': 5
+        }
+
+    device360_pse_settings_for_device_button_stack = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="showPSESettingsBtn"]',
+            'wait_for': 5
+        }
+
+    device360_edit_threshold_poe_stack = \
+        {
+            'XPATH': '//div[@class="field-container max-power-budget"]//input[@type="text"]',
+            'wait_for': 5
+        }
+
+    device360_save_threshold_poe_value_stack = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
+    device360_configure_port_save_button_stack = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'wait_for': 5
+        }
+
+    device360_stack_overview_slot_details_rows = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="switchStackPortsPanelContainer"]',
+            'wait_for': 5
+        }
+
+    device360_thunderbold_icon_stack = \
+        {
+            'CSS_SELECTOR': '.power-supply',
             'wait_for': 5
         }
 

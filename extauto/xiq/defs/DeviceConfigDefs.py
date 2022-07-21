@@ -573,6 +573,13 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    device_config_audit_audit_view = \
+        {
+            'XPATH': '//div[@componentpath="AHDialog"]'
+                     '//a[contains(text(), "Audit")]',
+            'wait_for': 5
+        }
+
     device_config_audit_delta_view = \
         {
             'XPATH': '//div[@componentpath="AHDialog"]'
@@ -580,9 +587,27 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    device_config_audit_complete_view = \
+        {
+            'XPATH': '//a[contains(text(), "Complete")]',
+            'wait_for': 5
+        }
+
+    device_config_audit_audit_view_content = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="auditCtn"]',
+            'wait_for': 5
+        }
+
     device_config_audit_delta_view_content = \
         {
             'XPATH': '//div[@data-dojo-attach-point="deltaCtn"]',
+            'wait_for': 5
+        }
+
+    device_config_audit_complete_view_content = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="fullCtn"]',
             'wait_for': 5
         }
 
@@ -1289,7 +1314,26 @@ class DeviceConfigDefs:
 
     config_audit_delta_view_button = \
         {
+            'XPATH': '//span[@title="Configuration Audit"]',
+            'wait_for': 5
+        }
+
+    devices_config_audit_view_button = \
+        {
+            'XPATH': '//span[@title="Configuration Audit"]',
+            'wait_for': 5
+        }
+
+    devices_config_audit_mismatch = \
+        {
             'CSS_SELECTOR': '.ui-icon-sprite-mismatch',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    devices_config_audit_match = \
+        {
+            'CSS_SELECTOR': '.ui-icon-sprite-match',
             'index': 0,
             'wait_for': 5
         }

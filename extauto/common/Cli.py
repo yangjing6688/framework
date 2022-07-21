@@ -720,8 +720,7 @@ class Cli(object):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${DEVICE_MAKE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}
-                                                    ${PLATFORM}  ${SERVER_NAME}``
+         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${SERVER_NAME}``
 
         :param cli_type: Device Cli Type
         :param ip: Console IP Address of the Device
