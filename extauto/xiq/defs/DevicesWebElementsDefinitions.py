@@ -49,9 +49,8 @@ class DevicesWebElementsDefinitions:
 
     devices_ap_status_green = \
         {
-            'CSS_SELECTOR': '.hive-status',
-            'wait_for': 1
-         }
+            'CSS_SELECTOR': '.hive-status'
+        }
 
     device_config_audit = \
         {
