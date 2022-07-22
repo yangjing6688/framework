@@ -11,6 +11,18 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    auth_source_options = \
+        {
+            'XPATH': '//ul[@class="dropdown-menu show"]//li/a',
+            'wait_for': 5,
+        }
+
+    host_input = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-host"]//input',
+            'wait_for': 5,
+        }
+
     ad_name = \
         {
             'XPATH': '//*[@data-automation-tag="automation-id"]',

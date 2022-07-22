@@ -11,6 +11,7 @@ from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
 from selenium.webdriver.common.by import By
 from selenium import webdriver
+import re
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -454,16 +455,15 @@ class A3WebElementsflow(A3WebElements):
             start_test_button = self.weh.get_element(self.test_start)
             self.auto_actions.click(start_test_button)
             sleep(5)
-            test_output_text = self.weh.get_element(self.test_output)
-            self.utils.print_info(test_output_text)
-            self.utils.print_info(type(test_output_text))
-            for result in test_output_text.text.splitlines():
-                if "802.1x" in result:
-                    self.utils.print_info("Found 802.1X profile")
-                elif "guest" in result:
-                    self.utils.print_info("Found guest profile")
-                else:
-                    self.utils.print_info("No profile found")
+            test_output_text = self.weh.get_elements(self.test_output)
+            test_output_lines = test_output_text[0].text
+            self.utils.print_info(test_output_lines)
+            if re.search(r'802.1X', test_output_lines):
+                self.utils.print_info("Found 802.1X profile")
+            elif re.search(r'guest', test_output_lines):
+                self.utils.print_info("Found guest profile")
+            else:
+                self.utils.print_info("No profile found")
             sleep(10)
             return 1
         else:
@@ -519,7 +519,8 @@ class A3WebElementsflow(A3WebElements):
         self.auto_actions.click(element)
         sleep(5)
 
-        ele1 = self.driver.find_element_by_name("check-button")
+        #ele1 = self.driver.find_element_by_name("check-button")
+        element1 = self.weh.get_element(self.ssh_selector)
         status = self.driver.find_element_by_name("check-button").is_selected()
         # ele2 = self.driver.find_element_by_class_name("custom-control-label")
         # status = self.driver.find_element_by_class_name("custom-control-label").is_selected()
@@ -564,7 +565,8 @@ class A3WebElementsflow(A3WebElements):
             self.auto_actions.send_keys(element3, "Aerohive123")
             sleep(5)
             element4 = self.weh.get_element(self.cloud_link_button)
-            self.auto_actions.click(element4)
+            element4.click()
+            #self.auto_actions.click(element4)
             sleep(20)
             self.driver.get(self.driver.current_url)
             sleep(3)
@@ -961,25 +963,17 @@ class A3WebElementsflow(A3WebElements):
         if self.auto_actions.click(self.get_log_ui()) == 1:
             sleep(2)
             rows = self.setting.get_logs_grid_rows()
-            #self.utils.print_info("rows value", rows)
 
             for row in rows:
                 sleep(5)
-                #self.utils.print_info(f"row", row.text)
-                sleep(2)
-
                 if search_string in row.text:
-                    #self.utils.print_info(f"row", row.text)
                     self.utils.print_info(f"Found the Expected Row Text")
-                    self.driver.execute_script("arguments[0].click();", row)
-                    #row.click()
+                    row.click()
                     self.utils.print_info(f"clicked on the selected --  ", search_string)
                     sleep(5)
                     return 1
-
                 else:
                     self.utils.print_info(f"Not found the log file")
                     sleep(5)
                     continue
-
             return -1

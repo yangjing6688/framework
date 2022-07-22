@@ -618,8 +618,8 @@ class A3WebElementsDefs:
 
     cloud_unlink_button = \
         {
-            #'XPATH': '//*[@data-automation-tag="unlinkButton"]',
-            'XPATH': '// span[contains(text(), "UNLINK FROM EXTREME CLOUD ACCOUNT")]',
+            'XPATH': '//*[@data-automation-tag="unlinkButton"]',
+            #'XPATH': '// span[contains(text(), "UNLINK FROM EXTREME CLOUD ACCOUNT")]',
             'wait_for': 2
         }
 
@@ -667,8 +667,8 @@ class A3WebElementsDefs:
             # 'NAME': 'check-button',
             # 'XPATH': '//input[@name ="check-button"]',
             # 'XPATH': "$x('//*[@data-automation-tag='automation-enable']')[0]",
-            # #'XPATH': '//*[@data-automation-tag="automation-enable"]',
-            'XPATH': '/html/body/div/div[2]/div[2]/div[2]/div/div/div/form/div[3]/div/div/label',
+            'XPATH': '//*[@data-automation-tag="automation-enable"]',
+            #'XPATH': '/html/body/div/div[2]/div[2]/div[2]/div/div/div/form/div[3]/div/div/label',
 
             # 'index': 0,
             'wait_for': 5
