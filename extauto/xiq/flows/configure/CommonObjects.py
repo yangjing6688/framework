@@ -788,7 +788,7 @@ class CommonObjects(object):
             self.utils.print_info(f"{search_string} object present in grid row")
             return 1
 
-    def delete_switch_template(self, template_name):
+    def delete_switch_template(self, template_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
@@ -820,22 +820,52 @@ class CommonObjects(object):
                     sleep(2)
                     page_len = page_len - 1
             if not self._search_switch_template(template_name):
-                self.utils.print_info("Switch Template doesn't exist in the list")
+                kwargs['pass_msg'] = "Switch Template doesn't exist in the list"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
         self.utils.print_info("Select and delete switch template")
         tool_tp_text = self._select_delete_switch_template_row(template_name)
 
+        sleep(2)
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
             elif "Deleted Switch Template successfully" in value:
+                kwargs['pass_msg'] = "Deleted Switch Template successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
             elif "Template was successfully removed from policy" in value:
+                kwargs['pass_msg'] = "Template was successfully removed from policy"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
+
+        self.navigator.navigate_to_switch_templates()
+        if self._search_switch_template(template_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted switch Template"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        next_page_el = self.cobj_web_elements.get_next_page_element()
+        if next_page_el:
+            device_page_numbers = self.cobj_web_elements.get_page_numbers()
+            page_len = int(max(device_page_numbers.text))
+            while page_len:
+                self.utils.print_info("  -- clicking next page")
+                self.auto_actions.click(next_page_el)
+                sleep(2)
+                page_len = page_len - 1
+                if  self._search_switch_template(template_name):
+                    kwargs['fail_msg'] = "Unsuccessfully deleted switch Template"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+
+        kwargs['pass_msg'] = "Successfully deleted Switch Template"
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1
 
     def _get_switch_template_row(self, search_string):
         """
