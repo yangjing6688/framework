@@ -1,4 +1,4 @@
-# ExtAuto extauto.common packages
+# extauto.common
 
 ## extauto.common.Ap module
 

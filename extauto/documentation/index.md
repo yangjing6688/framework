@@ -7,7 +7,7 @@ contain the root `toctree` directive. -->
 # Contents:
 
 
-* [ExtAuto extauto.common packages](extauto.common.md)
+* [extauto.common](extauto.common.md)
 
 
     * [extauto.common.Ap module](extauto.common.md#extauto-common-ap-module)
@@ -109,13 +109,25 @@ contain the root `toctree` directive. -->
     * [Module contents](extauto.common.md#module-extauto.common)
 
 
-* [flows package](flows.md)
+* [XIQ flows](flows.md)
 
 
-    * [Subpackages](flows.md#subpackages)
+    * [extauto.xiq.flows.common package](flows.common.md)
 
 
-    * [Module contents](flows.md#module-contents)
+    * [xiq configure package](flows.configure.md)
+
+
+    * [xiq.flows.extreme_guest](flows.extreme_guest.md)
+
+
+    * [extauto.xiq.flows.globalsettings package](flows.globalsettings.md)
+
+
+    * [xiq manage package](flows.manage.md)
+
+
+    * [extauto.xiq.flows.mlinsights package](flows.mlinsights.md)
 
 
 * [a3](a3.md)

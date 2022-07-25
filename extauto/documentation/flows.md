@@ -1,6 +1,4 @@
-# flows package
-
-## Subpackages
+# XIQ flows
 
 
 * [extauto.xiq.flows.common package](flows.common.md)
@@ -126,49 +124,43 @@
     * [Module contents](flows.configure.md#module-extauto.xiq.flows.configure)
 
 
-* [flows.extreme_guest package](flows.extreme_guest.md)
+* [xiq.flows.extreme_guest](flows.extreme_guest.md)
 
 
-    * [Submodules](flows.extreme_guest.md#submodules)
+    * [extauto.xiq.flows.extreme_guest.AnalyzeClients module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-analyzeclients-module)
 
 
-    * [flows.extreme_guest.AnalyzeClients module](flows.extreme_guest.md#flows-extreme-guest-analyzeclients-module)
+    * [extauto.xiq.flows.extreme_guest.AnalyzeUsers module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-analyzeusers-module)
 
 
-    * [flows.extreme_guest.AnalyzeUsers module](flows.extreme_guest.md#flows-extreme-guest-analyzeusers-module)
+    * [extauto.xiq.flows.extreme_guest.Dashboard module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-dashboard-module)
 
 
-    * [flows.extreme_guest.Dashboard module](flows.extreme_guest.md#flows-extreme-guest-dashboard-module)
+    * [extauto.xiq.flows.extreme_guest.ExtremeGuest module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-extremeguest-module)
 
 
-    * [flows.extreme_guest.ExtremeGuest module](flows.extreme_guest.md#flows-extreme-guest-extremeguest-module)
+    * [extauto.xiq.flows.extreme_guest.ExtremeGuestUsers module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-extremeguestusers-module)
 
 
-    * [flows.extreme_guest.ExtremeGuestUsers module](flows.extreme_guest.md#flows-extreme-guest-extremeguestusers-module)
+    * [extauto.xiq.flows.extreme_guest.Landing module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-landing-module)
 
 
-    * [flows.extreme_guest.Landing module](flows.extreme_guest.md#flows-extreme-guest-landing-module)
+    * [extauto.xiq.flows.extreme_guest.MuGuestPortal module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-muguestportal-module)
 
 
-    * [flows.extreme_guest.MuGuestPortal module](flows.extreme_guest.md#flows-extreme-guest-muguestportal-module)
+    * [extauto.xiq.flows.extreme_guest.Notification module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-notification-module)
 
 
-    * [flows.extreme_guest.Notification module](flows.extreme_guest.md#flows-extreme-guest-notification-module)
+    * [extauto.xiq.flows.extreme_guest.Onboarding module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-onboarding-module)
 
 
-    * [flows.extreme_guest.Onboarding module](flows.extreme_guest.md#flows-extreme-guest-onboarding-module)
+    * [extauto.xiq.flows.extreme_guest.Reports module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-reports-module)
 
 
-    * [flows.extreme_guest.Reports module](flows.extreme_guest.md#flows-extreme-guest-reports-module)
+    * [extauto.xiq.flows.extreme_guest.SplashTemplate module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-splashtemplate-module)
 
 
-    * [flows.extreme_guest.SplashTemplate module](flows.extreme_guest.md#flows-extreme-guest-splashtemplate-module)
-
-
-    * [flows.extreme_guest.Summary module](flows.extreme_guest.md#flows-extreme-guest-summary-module)
-
-
-    * [Module contents](flows.extreme_guest.md#module-contents)
+    * [extauto.xiq.flows.extreme_guest.Summary module](flows.extreme_guest.md#extauto-xiq-flows-extreme-guest-summary-module)
 
 
 * [extauto.xiq.flows.globalsettings package](flows.globalsettings.md)
@@ -289,6 +281,3 @@
 
 
     * [Module contents](flows.mlinsights.md#module-extauto.xiq.flows.mlinsights)
-
-
-## Module contents
