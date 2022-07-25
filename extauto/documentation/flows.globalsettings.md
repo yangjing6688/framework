@@ -2159,4 +2159,107 @@ verify XIQ is not linked to extreme portal
 
 ## extauto.xiq.flows.globalsettings.PasswordReset module
 
+
+### _class_ extauto.xiq.flows.globalsettings.PasswordReset.PasswordReset()
+Bases: `object`
+
+
+#### add_account(name, _email)
+
+* adds an account under account management
+
+
+* Adding administrative account
+
+
+* Flow Global Settings –> Account Management
+
+
+* Keyword Usage:
+
+> 
+> * `Add Account  ${NAME}   ${EMAIL`
+
+
+* **Parameters**
+
+    
+    * **name** – 
+
+
+    * **_email** – 
+
+
+
+* **Returns**
+
+    1 if account created else -1
+
+
+
+#### get_link(_email, _password)
+
+* Get the url link for password set to new account sent to email
+
+
+* Keyword Usage:
+
+> 
+> * `Get Link   ${EMAIL}   ${PASSWORD}`
+
+
+* **Parameters**
+
+    
+    * **_email** – 
+
+
+    * **_password** – 
+
+
+
+* **Returns**
+
+    password reset link
+
+
+
+#### password_reset(name, _email, _password)
+
+* Create administrative account and get the password reset link
+
+
+* Flow Global Settings –> Account Management
+
+
+* Keyword Usage:
+
+> 
+> * 
+
+> ```
+> ``
+> ```
+
+> Password Reset   ${NAME}   ${EMAIL}   ${PASSWORD}
+
+
+* **Parameters**
+
+    
+    * **name** – 
+
+
+    * **_email** – 
+
+
+    * **_password** – 
+
+
+
+* **Returns**
+
+    pasword reset link
+
+
 ## Module contents

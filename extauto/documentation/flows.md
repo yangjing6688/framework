@@ -48,7 +48,7 @@
     * [Submodules](flows.configure.md#submodules)
 
 
-    * [extauto.xiq.flows.configure.AdditionalSettings module](flows.configure.md#extauto-xiq-flows-configure-additionalsettings-module)
+    * [extauto.xiq.flows.configure.AdditionalSettings module](flows.configure.md#module-extauto.xiq.flows.configure.AdditionalSettings)
 
 
     * [extauto.xiq.flows.configure.AutoProvisioning module](flows.configure.md#extauto-xiq-flows-configure-autoprovisioning-module)

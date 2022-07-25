@@ -4,6 +4,100 @@
 
 ## extauto.xiq.flows.configure.AdditionalSettings module
 
+
+### _class_ extauto.xiq.flows.configure.AdditionalSettings.AdditionalSettings()
+Bases: `AdditionalSettingsWebElements`
+
+
+#### get_total_counts_of_ntp_server_classification_entry(nw_policy)
+
+* This keyword will check Total counts of NTP server Classification Entry in Network Policy’s NTP Server configuration page.
+
+
+* Flow: Configure –> Edit Network Policy->Additional Settings –> NTP Server
+
+
+* Keyword Usage
+
+> 
+> * `get total counts of ntp server classification entry     ${NETWORK_POLICY_NAME}`
+
+
+* **Parameters**
+
+    **nw_policy** – Network Policy Name to check total ntp server classification entry
+
+
+
+* **Returns**
+
+    total number of rows if NTP server Classification Entry rows found on Network Policy else -1
+
+
+
+#### search_ntp_server_classification_entries(nw_policy, \*ntp_server_names)
+
+* This keyword will check Multiple NTP server Classification Entries in Network Policy’s NTP Server
+configuration page.
+
+
+* Flow: Configure –> Edit Network Policy->Additional Settings –> NTP Server
+
+
+* Keyword Usage
+
+> 
+> * `Search Ntp Server Classification Entry  ${NETWORK_POLICY_NAME}   ${NTP_SERVER_NAME}`
+
+
+> * `Search Ntp Server Classification Entry  ${NETWORK_POLICY_NAME}   ${NTP_SERVER_NAME}   ${NTP_SERVER_NAME2}`
+
+
+* **Parameters**
+
+    
+    * **nw_policy** – Network Policy Name to check ntp server classification entry
+
+
+    * **ntp_server_names** – NTP Server Names for classification entry
+
+
+
+* **Returns**
+
+    1 if NTP server Classification Entries found on Network Policy else -1
+
+
+
+#### search_ntp_server_classification_entry(nw_policy, ntp_server_name)
+
+* This keyword will check Single NTP server Classification Entry in Network Policy’s NTP Server configuration page.
+
+
+* Flow: Configure –> Edit Network Policy->Additional Settings –> NTP Server
+
+
+* Keyword Usage
+
+> 
+> * `Search Ntp Server Classification Entry     ${NETWORK_POLICY_NAME}     ${NTP_SERVER_NAME}`
+
+
+* **Parameters**
+
+    
+    * **nw_policy** – Network Policy Name to check ntp server classification entry
+
+
+    * **ntp_server_name** – NTP Server Name for classification entry
+
+
+
+* **Returns**
+
+    1 if NTP server Classification Entry found on Network Policy else -1
+
+
 ## extauto.xiq.flows.configure.AutoProvisioning module
 
 
