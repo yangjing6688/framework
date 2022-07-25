@@ -43,10 +43,18 @@ class RealmsWebElementsFlow(RealmsWebElements):
             self.auto_actions.click(realm_auth)
             sleep(5)
             self.utils.print_info("Switch to NTLM Auth and enter the domain")
-            self.driver.find_element_by_xpath(
-                '//*[@data-automation-tag="automation-domain"]//input').click()
+            realm_domain = self.weh.get_element(self.realm_list)
+            self.auto_actions.click(realm_domain)
             drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-domain"]//span/span')
+                "//ul[contains (@class,'multiselect__content')]//li/span")
+            # search_string = "ad154"
+            # for list_item in drop_options:
+            #
+            #     if search_string in list_item.text:
+            #         self.utils.print_info(f"Found the Expected Row Text")
+            #         list_item.click()
+            #         self.utils.print_info(f"clicked on the selected --  ", search_string)
+            #         break
             self.auto_actions.select_drop_down_options(drop_options, "ad154")
             sleep(10)
             element2 = self.weh.get_element(self.create_button)
