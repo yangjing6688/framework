@@ -238,4 +238,7 @@ class UserGroupsWebElements(UserGroupsWebElementsDefinitions):
     
     def get_usr_group_select_all_checkbox(self):
         return self.weh.get_element(self.usr_group_select_all_checkbox)
+
+    def get_ssid_user_group_item(self):
+        return self.weh.get_element(self.ssid_user_group_item)
     

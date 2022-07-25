@@ -1,5 +1,7 @@
 import re
 from time import sleep
+
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -193,6 +195,7 @@ class CommonObjects(object):
             return 1
         self._delete_common_objects()
 
+        sleep(2)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
@@ -205,9 +208,14 @@ class CommonObjects(object):
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
-        self.common_validation.validate(-1, 1)
-        return -1
+        for ssid in ssids:
+            if self._search_common_object(ssid):
+                kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+        kwargs['pass_msg'] = "Successfully deleted SSIDs"
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1
 
     def delete_all_ssids(self):
         """
@@ -302,6 +310,36 @@ class CommonObjects(object):
             elif "Deleted captive web portal successfully" in value:
                 return 1
         return -1
+
+    def delete_all_captive_web_portals(self, exclude_list=''):
+        """
+        - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
+        - Delete captive web portals from the grid
+        - Keyword Usage:
+         - ``Delete All Captive Web Portals   exclude_list=${cwp1},${cwp2}``
+        :param exclude_list: list of cwps to exclude from delete
+        :return: 1 deleted
+                -1 cannot be removed because it is used by another object
+        """
+        exclude_list = exclude_list.split(",")
+        np_list = []
+
+        self.navigator.navigate_to_captive_web_portal()
+        self.utils.print_info("Click on 50 page size")
+
+        if self.cobj_web_elements.get_paze_size_element():
+            self.auto_actions.click(self.cobj_web_elements.get_paze_size_element())
+            sleep(3)
+
+        for row in self.cobj_web_elements.get_common_object_grid_rows():
+            if cell := self.cobj_web_elements.get_common_object_grid_row_cells(row):
+                np_list.append(cell.text)
+
+        delete_cwp_list = [np for np in np_list if np not in exclude_list]
+        self.utils.print_info(f"Deleting Captive Web Portal list: {delete_cwp_list}")
+        self.navigator.navigate_to_ssids()
+
+        return self.delete_captive_web_portals(*delete_cwp_list)
 
     def delete_external_radius_server(self, radius_server):
         """
