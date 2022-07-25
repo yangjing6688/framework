@@ -6485,8 +6485,10 @@ class Devices:
             if checkbox_status == "true":  # If checkbox is selected we get string "true" otherwise we get None
                 print("Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
             else:
-                print("Selecting upgrade IQ Engine checkbox")
-                AutoActions().click(DeviceUpdate().get_upgrade_iq_engine_checkbox())
+                def _click_upgrade_iq_engine_button():
+                    return AutoActions().click(DeviceUpdate().get_upgrade_iq_engine_checkbox())
+                self.utils.wait_till(_click_upgrade_iq_engine_button, timeout=30, delay=10,
+                                     msg="Selecting upgrade IQ Engine checkbox")
             sleep(5)
 
             self.utils.print_info("Selecting upgrade to specific version checkbox")
