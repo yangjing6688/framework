@@ -274,7 +274,7 @@ class A3WebElementsflow(A3WebElements):
 
         return 1
 
-      def connection_profile_test(self, mac_add):
+    def connection_profile_test(self, mac_add):
         """
             - This keyword select the connection profile test from tools menu and takes mac as input and give
                 profile in use
@@ -447,7 +447,7 @@ class A3WebElementsflow(A3WebElements):
         self.utils.print_info("SSH configuration is done")
         return 1
 
-      def backup_file(self):
+    def backup_file(self):
         """
             - This keyword will take the backup
             - Keyword Usage
