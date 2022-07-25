@@ -47,7 +47,9 @@ class RealmsWebElementsFlow(RealmsWebElements):
             self.auto_actions.click(realm_domain)
             drop_options = self.driver.find_elements_by_xpath(
                 "//ul[contains (@class,'multiselect__content')]//li/span")
-            # search_string = "ad154"
+            self.utils.print_info("print the list", drop_options)
+
+            search_string = "ad154"
             # for list_item in drop_options:
             #
             #     if search_string in list_item.text:
