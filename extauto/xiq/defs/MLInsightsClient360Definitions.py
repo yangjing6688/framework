@@ -132,6 +132,12 @@ class MLInsightsClient360Definitions:
             'wait_for': 5
         }
 
+    client_360_inactive_tab = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="historical"]',
+            'wait_for': 5
+        }
+
     client_360_real_time_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="activeClientsBox"]//table[@class="dgrid-row-table"]',
@@ -147,5 +153,83 @@ class MLInsightsClient360Definitions:
     client360_health_status = \
         {
             'CSS_SELECTOR': '.status-ico',
+            'wait_for': 5
+        }
+
+    client360_cells_href = \
+        {
+            'TAG_NAME': 'a',
+            'wait_for': 5
+        }
+
+    client_360_status_ostype = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientOSType"]',
+            'wait_for': 5
+        }
+
+    client_360_status_ipaddress = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ip"]',
+            'wait_for': 5
+        }
+
+    client_360_status_macaddress = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientMac"]',
+            'wait_for': 5
+        }
+
+    client_360_status_user = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="userName"]',
+            'wait_for': 5
+        }
+
+    client_360_status_connectto = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientDeviceName"]',
+            'wait_for': 5
+        }
+
+    client_360_status_connecttime = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="connectedTime"]',
+            'wait_for': 5
+        }
+
+    client_360_status_vlan = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="vlan"]',
+            'wait_for': 5
+        }
+
+    client_360_status_cwp = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="cwpUsed"]',
+            'wait_for': 5
+        }
+
+    client_360_status_userprofile = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="userProfile"]',
+            'wait_for': 5
+        }
+
+    client_360_status_ssid = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ssid"]',
+            'wait_for': 5
+        }
+
+    client_360_status_radio = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="macProtocol"]',
+            'wait_for': 5
+        }
+
+    client_36_status_channel = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="channel"]',
             'wait_for': 5
         }

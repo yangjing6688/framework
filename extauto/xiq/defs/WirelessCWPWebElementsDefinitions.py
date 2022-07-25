@@ -94,7 +94,6 @@ class WirelessCWPWebElementsDefinitions:
         {
             'XPATH': '//div[contains(@class, "ui-dialog-bottom")]//button[@data-dojo-attach-point="cancelButton"]',
             'wait_for': 5,
-            'index': 1
         }
 
     default_cwp_select_button = \
@@ -485,13 +484,14 @@ class WirelessCWPWebElementsDefinitions:
     import_html_button = \
         {
             'XPATH': '//button[@data-dojo-attach-point="cwpImportBtn"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     user_auth_return_ppsk_link = \
         {
-            'XPATH': '//div//a[@data-dojo-attach-point="importDownloadLink"]',
-            'wait_for': 5
+            'XPATH': '//div[@data-dojo-attach-point="cwpDownloadSample"]'
+                     '//a[@data-dojo-attach-point="importDownloadLink"]',
+            'wait_for': 10
         }
 
     wireless_network_cancel_button = \

@@ -720,8 +720,7 @@ class Cli(object):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${DEVICE_MAKE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}
-                                                    ${PLATFORM}  ${SERVER_NAME}``
+         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${SERVER_NAME}``
 
         :param cli_type: Device Cli Type
         :param ip: Console IP Address of the Device
@@ -818,6 +817,24 @@ class Cli(object):
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
 
+    def downgrade_iqagent(self,ip, port, username, password, cli_type, url_image='default'):
+        """
+               - This Keyword will downgrade iqagent
+               - Keyword Usage:
+                - ``Downgrade Iqagent  ${IP}   ${PORT}      ${USERNAME}       ${PASSWORD}        ${PLATFORM}     url_image='image'``
+
+               :param ip: IP Address of the Device
+               :param port: Port
+               :param username: username to access console
+               :param password: Password to access console
+               :param cli_type: Device Cli Type
+               :param url_image: image for exos device
+               :return: 1 commands successfully configured  else -1
+               """
+        if cli_type.upper()=='VOSS':
+            self.downgrade_iqagent_voss(ip, port, username, password, cli_type)
+        if cli_type.upper()=='EXOS':
+            self.downgrade_iqagent_exos(ip, port, username, password, cli_type, url_image)
 
     def downgrade_iqagent_voss(self, ip, port, username, password, cli_type):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
@@ -839,12 +856,13 @@ class Cli(object):
             self.send(_spawn, f'iqagent enable')
             output_new_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
             self.close_spawn(_spawn)
+            return 1
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device. So Exiting the Testcase")
             return -1
 
 
-    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type,url_image):
+    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type, url_image):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         if NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(_spawn, f'show iqagent | include Version')
@@ -854,6 +872,7 @@ class Cli(object):
             time.sleep(10)
             self.send(_spawn, f'show iqagent | include Version')
             self.close_spawn(_spawn)
+            return 1
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device. So Exiting the Testcase")
             return -1

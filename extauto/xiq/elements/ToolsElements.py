@@ -14,21 +14,16 @@ class ToolsElements(ToolsUtilitiesDefs):
 
     def get_neighbor_info_menu_item(self):
         menu = self.get_utilities_menu()
-
         menus = self.weh.get_elements(self.neighbor_info_menu_item, parent=menu)
-        for menu in menus:
-            if menu.is_displayed():
-                if 'Neighbor Info' in menu.text:
-                    return menu
+        for submenu in menus:
+            print(menu.text)
+            if submenu.is_displayed():
+                if 'L2 Neighbor Info' in submenu.text:
+                    return submenu
 
     def get_device_diagnostics_menu_item(self):
-        menu = self.get_utilities_menu()
-
-        menus = self.weh.get_elements(self.neighbor_info_menu_item, parent=menu)
-        for menu in menus:
-            if menu.is_displayed():
-                if 'Device Diagnostics' in menu.text:
-                    return menu
+        submenu = self.weh.get_element(self.device_diagnostics_menu_item)
+        return submenu
 
     def get_neighbor_info_button(self):
         return self.weh.get_element(self.neighbor_info_button)
@@ -51,12 +46,8 @@ class ToolsElements(ToolsUtilitiesDefs):
         return self.weh.get_element(self.diagnostics_menu)
 
     def get_diagnostics_ping_menu_item(self):
-        menu = self.get_diagnostics_ping_menu()
-        menu_items = self.weh.get_elements(self.diagnostics_menu_items, parent= menu)
-        for menu_item in menu_items:
-            if menu_item.is_displayed():
-                if 'Ping' in menu_item.text:
-                    return menu_item
+        menu_item = self.weh.get_elements(self.diagnostics_ping_menu_item)
+        return menu_item
 
     def get_diagnostics_ping_output(self):
         return self.weh.get_element(self.dialog_page_body)
