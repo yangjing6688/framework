@@ -1,7 +1,7 @@
 class DeviceConfigDefs:
     interface_settings_tab = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-sider-list-interfaceSettings"]//a',
+            'XPATH': '//*[@data-dojo-attach-point="interfaceSettingsTab"]',
             'wait_for': 5
         }
 
