@@ -746,8 +746,10 @@ class Cli(object):
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
                 hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
+                self.utils.print_info(f"hm_status", hm_status)
                 hm_address = self.send(_spawn, f'do show hivemanager address')
-
+                self.utils.print_info(f"hm_address", hm_address)
+                
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
                     self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
