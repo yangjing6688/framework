@@ -714,9 +714,8 @@ class Cli(object):
     #         self.utils.print_info("OUTPUT : ", output)
     #         return -1
 
-
     def configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                             vr='VR-Default', retry_count=10):
+                                             connection_type='ssh', vr='VR-Default', retry_count=10):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
@@ -728,12 +727,13 @@ class Cli(object):
         :param username: username to access console
         :param password: Password to access console
         :param server_name: Cloud Server Name to connect the device
+        :param connection_type: The connection type, will default to ssh. (ssh, telnet, console)
         :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
         :param retry_count: Retry count to check device connection status with capwap server
         :return: 1 id device successfully connected with capwap server else -1
         """
 
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
+        _spawn = self.open_spawn(ip, port, username, password, cli_type, connection_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
