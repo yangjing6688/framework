@@ -135,12 +135,12 @@ class GlobalSetting(GlobalSettingWebElements):
                         if re.search(r'field-\w*', cell.get_attribute("class")):
                             label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
 
-                            if label == 'reply':
-                                auth_cell = self.get_authentication_logs_auth_status_cell(cell)
-                                auth_logs_dict[label] = auth_cell.get_attribute("class").split()[-1]
-                                self.screen.save_screen_shot()
-                            else:
-                                auth_logs_dict[label] = cell.text
+                        if label == 'reply':
+                            auth_cell = self.get_authentication_logs_auth_status_cell(cell)
+                            auth_logs_dict[label] = auth_cell.get_attribute("class").split()[-1]
+                            self.screen.save_screen_shot()
+                        else:
+                            auth_logs_dict[label] = cell.text
                     self.utils.print_info(f"******************Authentication log details************************")
                     for key, value in auth_logs_dict.items():
                         self.utils.print_info(f"{key}:{value}")
