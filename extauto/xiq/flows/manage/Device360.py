@@ -6792,22 +6792,29 @@ class Device360(Device360WebElements):
         :param slot: The slot which will be selected
         :return: 1 if the slot was selected; else -1
         '''
+
+        def _check_dropdown():
+            if self.dev360.get_device360_port_configuration_stack_units_dropdown():
+                return True
+            else:
+                return False
+        self.utils.wait_till(_check_dropdown)
         self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
+
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
         slot_found = False
-        complete_stack = self.dev360.get_device360_port_configuration_stack_units_dropdown_parent_rows()
-        if complete_stack:
-            slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows(complete_stack)
+
+        slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows()
+        if slots_in_stack:
             for stack_item in slots_in_stack:
-                if slot_index == int(slot):
+                if "Unit " + str(slot) in stack_item.text:
                     self.utils.print_info(f"Slot {str(slot)} found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
                     kwargs['pass_msg'] = f"Selected the slot {str(slot)} successfully"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
-                slot_index = slot_index + 1
             if not slot_found:
                 self.utils.print_info(f"Unable to locate slot {str(slot)}")
                 kwargs['fail_msg'] = f"Unable to locate slot {str(slot)}"

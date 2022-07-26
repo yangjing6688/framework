@@ -2629,20 +2629,14 @@ class Device360WebElementDefs:
 
     device360_port_configuration_stack_units_dropdown = \
         {
-            'XPATH': '//div[@class="stack-member-chooser"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 5
-        }
-
-    device360_port_configuration_stack_units_dropdown_parent_rows = \
-        {
-            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]//ul[@data-automation-tag="automation-chzn-results-ctn"]',
-            'index': 0,
+            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]'
+                     '//div[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
 
     device360_port_configuration_stack_units_rows = \
         {
-            "CSS_SELECTOR": '.active-result',
+            "XPATH": '//div[@data-dojo-attach-point="stackMemberChooserArea"]//li[contains(text(),"Unit")]',
             'wait_for': 5
         }
 
