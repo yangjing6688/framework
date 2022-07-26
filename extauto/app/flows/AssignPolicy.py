@@ -1,5 +1,5 @@
-from app.elements.AssignPolicyWebElements import *
-from app.elements.NewDeviceOnboardWebElements import *
+from extauto.app.elements.AssignPolicyWebElements import *
+from extauto.app.elements.NewDeviceOnboardWebElements import *
 from extauto.common.AutoActions import *
 import time
 

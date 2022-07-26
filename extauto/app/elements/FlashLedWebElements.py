@@ -1,4 +1,4 @@
-from app.defs.FlashLedDefinitions import *
+from extauto.app.defs.FlashLedDefinitions import *
 from extauto.common.AutoActions import *
 from extauto.common.WebElementHandler import *
 

@@ -1,5 +1,5 @@
-from app.elements.DeviceCliWebElements import *
-from app.elements.NewDeviceOnboardWebElements import *
+from extauto.app.elements.DeviceCliWebElements import *
+from extauto.app.elements.NewDeviceOnboardWebElements import *
 from extauto.common.AutoActions import *
 import time
 

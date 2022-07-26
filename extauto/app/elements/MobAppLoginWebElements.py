@@ -1,4 +1,4 @@
-from app.defs.MobAppWebElementsDefinition import *
+from extauto.app.defs.MobAppWebElementsDefinition import *
 from extauto.common.AutoActions import *
 from extauto.common.WebElementHandler import *
 from selenium.common.exceptions import NoSuchElementException

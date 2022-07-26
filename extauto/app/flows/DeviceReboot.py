@@ -1,5 +1,5 @@
-from app.elements.DeviceRebootWebElements import *
-from app.elements.NewDeviceOnboardWebElements import *
+from extauto.app.elements.DeviceRebootWebElements import *
+from extauto.app.elements.NewDeviceOnboardWebElements import *
 from extauto.common.AutoActions import *
 import time
 

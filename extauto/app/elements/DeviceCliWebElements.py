@@ -1,4 +1,4 @@
-from app.defs.DeviceCliDefinitions import *
+from extauto.app.defs.DeviceCliDefinitions import *
 from extauto.common.AutoActions import *
 from extauto.common.WebElementHandler import *
 

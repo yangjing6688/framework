@@ -1,4 +1,4 @@
-from app.elements.DeviceHostnameWebElements import *
+from extauto.app.elements.DeviceHostnameWebElements import *
 from extauto.common.AutoActions import *
 import time
 

@@ -1,4 +1,4 @@
-from app.defs.DeviceHostnameDefinitions import *
+from extauto.app.defs.DeviceHostnameDefinitions import *
 from extauto.common.AutoActions import *
 from extauto.common.WebElementHandler import *
 

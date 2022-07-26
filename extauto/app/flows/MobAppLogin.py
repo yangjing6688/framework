@@ -1,7 +1,7 @@
-from appium.webdriver.common.touch_action import TouchAction
+from selenium import webdriver
 from extauto.common.CloudDriver import CloudDriver
-from app.elements.MobAppLoginWebElements import *
-from app.elements.NewDeviceOnboardWebElements import *
+from extauto.app.elements.MobAppLoginWebElements import *
+from extauto.app.elements.NewDeviceOnboardWebElements import *
 from extauto.common.AutoActions import *
 import time
 
@@ -61,7 +61,7 @@ class MobAppLogin:
         self.auto_actions.click(self.scan_web_elements.get_onboard_symbol())
         self.utils.print_info("user clicked on onboard screen entry")
         time.sleep(2)
-        user_action = TouchAction(CloudDriver())
+        user_action = webdriver.TouchActions(CloudDriver())
         user_action.press(x=540, y=1138).move_to(x=521, y=443).release().perform()
         self.utils.print_info("User tap the screen up")
 
@@ -73,18 +73,18 @@ class MobAppLogin:
     def entry_onboard_screen(self):
         self.auto_actions.click(self.scan_web_elements.get_onboard_symbol())
         self.utils.print_info("user clicked on onboard screen entry symbol")
-        #user_action = TouchAction(CloudDriver().cloud_driver)
+        #user_action = webdriver.TouchActions(CloudDriver().cloud_driver)
         #user_action.press(x=540, y=1138).move_to(x=521, y=443).release().perform()
         #self.utils.print_info("User tap the screen up")
 
     def tap_screen(self):
-        user_action = TouchAction(CloudDriver().cloud_driver)
+        user_action = webdriver.TouchActions(CloudDriver().cloud_driver)
         user_action.press(x=540, y=1138).move_to(x=521, y=443).release().perform()
         self.utils.print_info("User tap the screen up")
         time.sleep(2)
 
     def tap_device_list(self):
-        user_action = TouchAction(CloudDriver().cloud_driver)
+        user_action = webdriver.TouchActions(CloudDriver().cloud_driver)
         user_action.press(x=531, y=1808).move_to(x=543, y=802).release().perform()
         self.utils.print_info("User tap the device list")
         time.sleep(10)

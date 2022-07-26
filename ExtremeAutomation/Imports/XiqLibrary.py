@@ -211,6 +211,17 @@ try:
     from extauto.xiq.flows.mlinsights.Network360ScoreCard import Network360ScoreCard
     from extauto.common.Utils import Utils
 
+    from extauto.app.flows.DeviceReboot import DeviceReboot
+    from extauto.app.flows.DeviceCli import DeviceCli
+    from extauto.app.flows.AssignPolicy import AssignPolicy
+    from extauto.app.flows.NewDeviceOnboard import NewDeviceOnboard
+    from extauto.app.flows.MobAppLogin import MobAppLogin
+    from extauto.app.flows.DeviceName import DeviceName
+    from extauto.app.flows.FlashLed import FlashLed
+    from extauto.app.flows.RemoveDevice import RemoveDevice
+
+
+
 except Exception as e:
     Logger().log_warn("Unable to load the XIQ libraries!")
     Logger().log_error(e)
@@ -291,6 +302,16 @@ class XiqLibrary():
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
+
+        self.DeviceReboot = DeviceReboot()
+        self.DeviceCli = DeviceCli()
+        self.AssignPolicy = AssignPolicy()
+        self.NewDeviceOnboard = NewDeviceOnboard()
+        self.MobAppLogin = MobAppLogin()
+        self.DeviceName = DeviceName()
+        self.FlashLed = FlashLed()
+        self.RemoveDevice = RemoveDevice()
+
 
     @deprecated("Please use self.xiq.login.login_user(...)")
     def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default", incognito_mode="False", **kwargs):

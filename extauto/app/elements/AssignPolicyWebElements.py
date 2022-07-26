@@ -1,4 +1,4 @@
-from app.defs.AssignPolicyDefinitions import *
+from extauto.app.defs.AssignPolicyDefinitions import *
 from extauto.common.AutoActions import *
 from extauto.common.WebElementHandler import *
 

@@ -1,4 +1,4 @@
-from app.defs.RemoveDeviceDefinitions import *
+from extauto.app.defs.RemoveDeviceDefinitions import *
 from extauto.common.AutoActions import *
 from extauto.common.WebElementHandler import *
 

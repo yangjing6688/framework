@@ -1,4 +1,4 @@
-from app.defs.DeviceRebootDefinitions import *
+from extauto.app.defs.DeviceRebootDefinitions import *
 from extauto.common.AutoActions import *
 from extauto.common.WebElementHandler import *
 
