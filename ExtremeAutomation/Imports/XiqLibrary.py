@@ -303,15 +303,6 @@ class XiqLibrary():
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
 
-        self.DeviceReboot = DeviceReboot()
-        self.DeviceCli = DeviceCli()
-        self.AssignPolicy = AssignPolicy()
-        self.NewDeviceOnboard = NewDeviceOnboard()
-        self.MobAppLogin = MobAppLogin()
-        self.DeviceName = DeviceName()
-        self.FlashLed = FlashLed()
-        self.RemoveDevice = RemoveDevice()
-
 
     @deprecated("Please use self.xiq.login.login_user(...)")
     def init_xiq_libaries_and_login(self, username, password, capture_version=False, code="default", url="default", incognito_mode="False", **kwargs):
