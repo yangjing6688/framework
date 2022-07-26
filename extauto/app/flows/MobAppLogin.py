@@ -2,7 +2,7 @@ from appium.webdriver.common.touch_action import TouchAction
 from extauto.common.CloudDriver import CloudDriver
 from app.elements.MobAppLoginWebElements import *
 from app.elements.NewDeviceOnboardWebElements import *
-from app.common.AutoActions import *
+from extauto.common.AutoActions import *
 import time
 
 

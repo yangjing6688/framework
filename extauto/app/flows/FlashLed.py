@@ -1,6 +1,6 @@
 from app.elements.FlashLedWebElements import *
 from app.elements.NewDeviceOnboardWebElements import *
-from app.common.AutoActions import *
+from extauto.common.AutoActions import *
 import time
 
 

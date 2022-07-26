@@ -1,6 +1,6 @@
 from app.defs.NewDeviceOnboardDefinitions import *
-from app.common.AutoActions import *
-from app.common.WebElementHandler import *
+from extauto.common.AutoActions import *
+from extauto.common.WebElementHandler import *
 from selenium.common.exceptions import NoSuchElementException
 
 
