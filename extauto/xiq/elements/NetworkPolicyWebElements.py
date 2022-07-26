@@ -442,3 +442,6 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
 
     def get_management_options_select_button(self):
         return self.weh.get_element(self.management_options_select_button)
+
+    def get_nw_policy_port_types_view_all_pages(self):
+        return self.weh.get_element(self.nw_policy_port_types_view_all_pages)

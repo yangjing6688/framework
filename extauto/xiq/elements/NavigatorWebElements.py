@@ -670,3 +670,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_clients_hyperlink(self):
         return self.weh.get_element(self.clients_hyperlink)
+
+    def get_nw_policy_port_types_view_all_pages(self):
+        return self.weh.get_element(self.nw_policy_port_types_view_all_pages)

@@ -537,8 +537,8 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Click on network policy fill size page")
-        if self.np_web_elements.get_network_policy_page_size():
-            self.auto_actions.click(self.np_web_elements.get_network_policy_page_size())
+        if self.np_web_elements.get_nw_policy_port_types_view_all_pages():
+            self.auto_actions.click(self.np_web_elements.get_nw_policy_port_types_view_all_pages())
             sleep(2)
 
         self.utils.print_info("Select the network policy rows")

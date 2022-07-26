@@ -1274,3 +1274,9 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-dashboard-health-cards-client-header-count"]',
             'wait_for': 5
         }
+
+    nw_policy_port_types_view_all_pages = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
