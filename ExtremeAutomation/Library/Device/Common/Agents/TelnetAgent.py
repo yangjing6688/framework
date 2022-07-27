@@ -74,9 +74,16 @@ class TelnetAgent(CliAgent):
                     self.write_encode_ln(self.device.username)
                     found_login_prompt = True
                     break
-                elif output.strip().endswith(self.device.main_prompt):
+                elif output.strip().endswith(self.device.main_prompt.strip()):
                     found_main_prompt = True
                     break
+                elif output.strip().endswith('Press [Ctrl+ d] to go to the Suspend Menu.'):
+                    self.write_encode_ln("\r\n")
+                    output += self.wait_no_parse(500, 1)
+                    self.write_encode_ln("R\r")
+                    output += self.wait_no_parse(500, 1)
+                    self.write_encode_ln("\r\n")
+                    output += self.wait_no_parse(500, 1)
                 else:
                     self.write_encode_ln("\n")
                     output += self.wait_no_parse(250, 1)
