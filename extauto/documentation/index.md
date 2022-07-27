@@ -148,7 +148,7 @@ contain the root `toctree` directive. -->
     * [RolesWebElementsFlow module](RolesWebElementsFlow.md)
 
 
-* [flows package](xiqse.md)
+* [XIQSE packages](xiqse.md)
 
 
     * [Subpackages](xiqse.md#subpackages)

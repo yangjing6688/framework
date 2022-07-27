@@ -1,5 +1,21 @@
 # extauto.xiqse.flows.connect package
 
+
+* [extauto.xiqse.flows.connect.configuration package](flows.connect.configuration.md)
+
+
+    * [extauto.xiqse.flows.connect.configuration.XIQSE_ConnectConfiguration module](flows.connect.configuration.md#module-extauto.xiqse.flows.connect.configuration.XIQSE_ConnectConfiguration)
+
+
+* [extauto.xiqse.flows.connect.diagnostics package](flows.connect.diagnostics.md)
+
+
+    * [extauto.xiqse.flows.connect.diagnostics.XIQSE_ConnectDiagnostics module](flows.connect.diagnostics.md#module-extauto.xiqse.flows.connect.diagnostics.XIQSE_ConnectDiagnostics)
+
+
+* [extauto.xiqse.flows.connect.services_api package](flows.connect.services_api.md)
+
+
 ## extauto.xiqse.flows.connect.XIQSE_Connect module
 
 

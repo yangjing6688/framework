@@ -2,6 +2,13 @@
 
 ## Subpackages
 
+
+* [extauto.xiqse.flows.alarms_events.event_config.event_logs package](flows.alarms_events.event_config.event_logs.md)
+
+
+* [extauto.xiqse.flows.alarms_events.event_config.event_patterns package](flows.alarms_events.event_config.event_patterns.md)
+
+
 ## extauto.xiqse.flows.alarms_events.event_config.XIQSE_AlarmsEventsEventConfig module
 
 
