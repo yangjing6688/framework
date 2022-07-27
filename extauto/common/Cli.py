@@ -88,6 +88,7 @@ class Cli(object):
         self.utils.print_info("Username: ", username)
         self.utils.print_info("Password: ", password)
         self.utils.print_info("Cli Type: ", cli_type)
+        self.utils.print_info("Connection Method: ", connection_method)
         self.utils.print_info("=================================")
 
         # Generate UUID
@@ -106,7 +107,7 @@ class Cli(object):
     def send(self, spawn, line, expect_match="default", time_out="default", platform="default", **kwargs):
         """
         - This Keyword used to send CLI command to AP1 of Topology used to configure or Monitor
-        - Default timeout is 90 seconds
+        - Default timeout is 60 seconds
         - Keyword Usage:
          - ``Send   ${SPAWN}        ${COMMAND}``
 
@@ -962,21 +963,22 @@ class Cli(object):
                :return: 1 commands successfully configured  else -1
                """
         if cli_type.upper()=='VOSS':
-            self.downgrade_iqagent_voss(ip, port, username, password, cli_type)
-        if cli_type.upper()=='EXOS':
-            self.downgrade_iqagent_exos(ip, port, username, password, cli_type, url_image)
+            return self.downgrade_iqagent_voss(ip, port, username, password, cli_type)
+        elif cli_type.upper()=='EXOS':
+            return self.downgrade_iqagent_exos(ip, port, username, password, cli_type, url_image)
+
 
     def downgrade_iqagent_voss(self, ip, port, username, password, cli_type):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(_spawn, f'enable')
-            output=self.send(_spawn, f'ls /intflash/rc.0')
-            if '  rc.0 ' in output:
-                self.utils.print_info("rc.0 file found in the device")
-            else:
-                self.utils.print_info("Couldn't able to locate rc.0 file")
-                self.close_spawn(_spawn)
-                return -1
+            # output=self.send(_spawn, f'ls /intflash/rc.0')
+            # if '  rc.0 ' in output:
+            #     self.utils.print_info("rc.0 file found in the device")
+            # else:
+            #     self.utils.print_info("Couldn't able to locate rc.0 file")
+            #     self.close_spawn(_spawn)
+            #     return -1
             self.send(_spawn, f'dbg enable')
             self.send(_spawn, f'config t')
             self.send(_spawn, f'application')

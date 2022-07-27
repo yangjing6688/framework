@@ -5332,6 +5332,9 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
+        # Make sure we have the correct columns
+        self.column_picker_select('OS Version', 'IQAgent', 'Managed')
+
         count = 1
 
         while count <= retry_count:
