@@ -1687,6 +1687,7 @@ class SwitchTemplate(object):
             choose_existing_port_type = self.sw_template_web_elements.existing_port_type_button()
             if choose_existing_port_type:
                 self.auto_actions.click(choose_existing_port_type)
+            self.utils.wait_till(self.sw_template_web_elements.port_type_list)
             existing_port_type_list = self.sw_template_web_elements.port_type_list()
             if existing_port_type_list:
                 self.utils.print_info("Found the port type list!")
