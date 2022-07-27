@@ -714,9 +714,8 @@ class Cli(object):
     #         self.utils.print_info("OUTPUT : ", output)
     #         return -1
 
-
     def configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                             vr='VR-Default', retry_count=10):
+                                             connection_type='ssh', vr='VR-Default', retry_count=10):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
@@ -728,18 +727,33 @@ class Cli(object):
         :param username: username to access console
         :param password: Password to access console
         :param server_name: Cloud Server Name to connect the device
+        :param connection_type: The connection type, will default to ssh. (ssh, telnet, console)
         :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
         :param retry_count: Retry count to check device connection status with capwap server
         :return: 1 id device successfully connected with capwap server else -1
+        On July 26 2022, it was decide to disable the verification steps for the following reason
+        Depending on the order of configuration in a test case the verification check will fail.
+            As an example:
+            configure_device_to_connect_to_cloud, then onboard device to the cloud
+        As of July 26, 2022, this method never return a "-1" it would only return a "1"
+        if the verification check passed. Since I took out the verification I am blindly
+        return "1".
         """
 
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
+        _spawn = self.open_spawn(ip, port, username, password, cli_type, connection_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(_spawn, f'do Hivemanager address {server_name}')
             self.send(_spawn, f'do Application stop hiveagent')
             self.send(_spawn, f'do Application start hiveagent')
+            """
+            July 26, 2022
+            Depending on the order of configuration this step will fail.
+            As an example:
+            configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
+            It was decided to take out the verification steps from this method for now.
+            We should create a verify method if the user does desire that functionality
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
@@ -752,7 +766,7 @@ class Cli(object):
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
                 count += 1
-
+            """
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(_spawn, f'capwap client server name {server_name}')
             self.send(_spawn, f'capwap client default-server-name {server_name}')
@@ -760,6 +774,13 @@ class Cli(object):
             self.send(_spawn, f'no capwap client enable')
             self.send(_spawn, f'capwap client enable')
             self.send(_spawn, f'save config')
+            """
+            July 26, 2022
+            Depending on the order of configuration this step will fail.
+            As an example:
+            configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
+            It was decided to take out the verification steps from this method for now.
+            We should create a verify method if the user does desire that functionality
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
@@ -773,10 +794,18 @@ class Cli(object):
                 count +=1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With CAPWAP Server : {server_name}")
-
+            """
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(_spawn, f'configure iqagent server ipaddress {server_name}')
             self.send(_spawn, f'configure iqagent server vr {vr}')
+            """
+            July 26, 2022
+            Depending on the order of configuration this step will fail.
+            As an example:
+            configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
+            It was decided to take out the verification steps from this method for now.
+            We should create a verify method if the user does desire that functionality
+            
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
@@ -791,6 +820,7 @@ class Cli(object):
                 count +=1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
+            """
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(_spawn, f'enable')
@@ -801,6 +831,13 @@ class Cli(object):
             self.send(_spawn, f'iqagent enable')
             self.send(_spawn, f'end')
 
+            """
+            July 26, 2022
+            Depending on the order of configuration this step will fail.
+            As an example:
+            configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
+            It was decided to take out the verification steps from this method for now.
+            We should create a verify method if the user does desire that functionality
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
@@ -816,7 +853,8 @@ class Cli(object):
                 count += 1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
-
+            """
+        return 1
     def downgrade_iqagent(self,ip, port, username, password, cli_type, url_image='default'):
         """
                - This Keyword will downgrade iqagent
