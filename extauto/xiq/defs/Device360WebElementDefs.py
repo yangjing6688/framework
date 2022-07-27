@@ -247,11 +247,6 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-id="sshavailability"]',
             'wait_for': 5
         }
-    device360_configure_checkboxes_button = \
-        {
-            'XPATH': '//*[@id="hcgrid_0"]/div[6]',
-            'wait_for': 5
-        }
 
     device360_configure_ssh_web_tab = \
         {
@@ -501,25 +496,25 @@ class Device360WebElementDefs:
     device360_events_grid_cells = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td',
-
-         }
+        }
 
     device360_event_timestamp = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-timestamp")]',
-
-         }
+        }
 
     device360_event_description = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-description")]',
 
-         }
+        }
+
     device360_event_severity = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-severity")]',
 
-         }
+        }
+
     device360_alarms_link = \
         {
             'XPATH': '//*[@data-dojo-attach-point="alarmsTab"]',
@@ -548,15 +543,13 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//td[contains(@class, "field-timestamp")]',
             'index': 0,
-
-         }
+        }
 
     device360_alarm_category = \
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//td[contains(@class, "field-category")]',
             'index': 0,
-
-         }
+        }
 
     device360_configure_port_list = \
         {
@@ -1558,8 +1551,7 @@ class Device360WebElementDefs:
     d360_switch_ports_table_grid_rows = \
         {
             'XPATH': '//*[@data-dojo-attach-point="portGridNode"]//*[@class="dgrid-row-table"]',
-
-         }
+        }
 
     device360_switch_port_table_port_name = \
         {
@@ -1693,7 +1685,6 @@ class Device360WebElementDefs:
     d360_monitor_port_name = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-ifName")]',
-
         }
 
     d360_monitor_lldp_neighbor_header = \
@@ -2656,7 +2647,7 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 5
         }
-
+        
     device360_configure_port_usage_drop_down_options_presence = \
         {
             'CSS_SELECTOR': '.chzn-single-with-drop',

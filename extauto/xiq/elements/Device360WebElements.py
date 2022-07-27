@@ -1624,9 +1624,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_coluns_toggle_checkboxes(self):
         return self.weh.get_elements(self.device360_coluns_toggle_checkboxes)
 
-    def get_device360_columns_checkboxes_button(self):
-        return self.weh.get_elements(self.device360_configure_checkboxes_button)
-
     def get_device360_ports_description_table_header(self):
         header_element = self.weh.get_element(self.device360_ports_description_table_header)
         return [h.strip() for h in header_element.text.split("\n")]

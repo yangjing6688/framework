@@ -280,7 +280,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
-
+    
     def get_nw_policy_drop(self):
         return self.weh.get_element(self.nw_policy_drop)
 
@@ -297,7 +297,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_network_policy_assign_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_button)
-
+    
     def get_perform_update_tooltip(self):
         return self.weh.get_element(self.perform_update_tooltip)
 
@@ -1160,13 +1160,13 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)
-
+    
     def get_device_page_size_100(self):
         return self.weh.get_element(self.device_page_size_100)
 
     def get_simulation_device_count_input_field(self):
         return self.weh.get_element(self.simulation_device_count_input_field)
-
+      
     def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
         return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
 

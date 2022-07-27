@@ -1692,7 +1692,7 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//div[contains(@id,"updatedOn")]//div[@class="progress-message"]',
             'wait_for': 10
         }
-
+    
     device_page_size_100 = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottom"]/div/a[@data-size="100"]',
@@ -1705,13 +1705,13 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="numOfDevices"]',
             'wait_for': 5
         }
-
+    
     upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
         {
             'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
             'wait_for': 5
         }
-
+  
     license_mgmt = \
         {
             'XPATH': '//li[@data-automation-tag="automation-sider-list-licenseMng"]',

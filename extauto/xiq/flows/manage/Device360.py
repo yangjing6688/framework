@@ -4169,7 +4169,7 @@ class Device360(Device360WebElements):
         - Keyword Usage:
          - ``Device360 Configure Port Access Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
          - ``Device360 Configure Port Access Vlan  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
-         
+
          :param device_mac: Device Mac Address
          :param device_name: Device Name
          :param port_number: Port Number of the Switch
@@ -4263,7 +4263,7 @@ class Device360(Device360WebElements):
         - Keyword Usage:
          - ``Device360 Configure Port Trunk Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
          - ``Device360 Configure Port Trunk Vlan  device_name=${NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
-         
+
          :param device_mac: Device Mac Address
          :param device_name: Device Name
          :param port_number: Port Number of the Switch
