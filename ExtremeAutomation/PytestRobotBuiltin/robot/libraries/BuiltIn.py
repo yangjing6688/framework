@@ -35,6 +35,16 @@ class BuiltIn(object):
             raise e
 
         return value
+
+    @staticmethod
+    def set_global_variable(key, value):
+        try:
+            # Try pytest
+            config[key] = value
+        except Exception as e:
+            raise e
+
+        return value
     
     @staticmethod
     def log_to_console(txt):
