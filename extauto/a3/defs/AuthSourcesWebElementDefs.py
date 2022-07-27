@@ -101,6 +101,12 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    rule_row1_select_option = \
+        {
+                'XPATH': '//span[text()="Role"]',
+                'wait_for': 5
+        }
+
     add_row = \
         {
             'XPATH': '//a[@title="Add Row"]',

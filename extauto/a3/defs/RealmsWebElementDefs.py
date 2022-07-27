@@ -30,6 +30,23 @@ class RealmsWebElementDefs:
                 'wait_for': 5
         }
 
+    realm_select_option = \
+        {
+                'XPATH': '//span[text()="ad154"]',
+                'wait_for': 5
+        }
+
+    radiusd_button = \
+        {
+                'XPATH': "//button[text()=' radiusd-auth ']",
+                'wait_for': 5
+        }
+
+    radiusd_options = \
+        {
+                'XPATH': "//ul[@class='dropdown-menu show']//li/a",
+                'wait_for': 5
+        }
     realm_select = \
         {
                 'XPATH': '//*[@data-automation-tag="automation-id"]',

@@ -16,7 +16,6 @@ class RealmsWebElementsFlow(RealmsWebElements):
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.realms_web_elements = RealmsWebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
         self.driver = webdriver.Chrome()
 
@@ -45,20 +44,10 @@ class RealmsWebElementsFlow(RealmsWebElements):
             self.utils.print_info("Switch to NTLM Auth and enter the domain")
             realm_domain = self.weh.get_element(self.realm_list)
             self.auto_actions.click(realm_domain)
-            drop_options = self.driver.find_elements_by_xpath(
-                "//ul[contains (@class,'multiselect__content')]//li/span")
-            self.utils.print_info("print the list", drop_options)
-
-            search_string = "ad154"
-            # for list_item in drop_options:
-            #
-            #     if search_string in list_item.text:
-            #         self.utils.print_info(f"Found the Expected Row Text")
-            #         list_item.click()
-            #         self.utils.print_info(f"clicked on the selected --  ", search_string)
-            #         break
-            self.auto_actions.select_drop_down_options(drop_options, "ad154")
             sleep(10)
+            option = self.weh.get_element(self.realm_select_option)
+            self.auto_actions.click(option)
+            sleep(5)
             element2 = self.weh.get_element(self.create_button)
             self.auto_actions.click(element2)
             sleep(5)
@@ -70,12 +59,13 @@ class RealmsWebElementsFlow(RealmsWebElements):
             sleep(5)
             self.utils.print_info("Select the radiusd-auth service ")
             sleep(10)
-            self.driver.find_element_by_xpath("//button[text()=' radiusd-auth ']").click()
+            element5 = self.weh.get_element(self.radiusd_button)
+            self.auto_actions.click(element5)
             sleep(5)
             self.utils.print_info("Selected Drop Down")
             sleep(10)
-            drop_options = self.driver.find_elements_by_xpath("//ul[@class='dropdown-menu show']//li/a")
-            self.auto_actions.select_drop_down_options(drop_options, "Restart")
+            rad_options = self.weh.get_elements(self.radiusd_options)
+            self.auto_actions.select_drop_down_options(rad_options, "Restart")
             sleep(5)
             self.utils.print_info("New Realm created successfully")
             return 1

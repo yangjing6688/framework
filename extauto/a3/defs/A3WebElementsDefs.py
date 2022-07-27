@@ -611,16 +611,16 @@ class A3WebElementsDefs:
 
     cloud_link_button = \
         {
-            #'XPATH': '//*[@data-automation-tag="linkButton"]',
-            'XPATH': '//span[contains(text(), "LINK WITH EXTREME CLOUD IQ ACCOUNT")]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="linkButton"]',
+            #'XPATH': '//span[contains(text(), "LINK WITH EXTREME CLOUD IQ ACCOUNT")]',
+            'wait_for': 5
         }
 
     cloud_unlink_button = \
         {
             'XPATH': '//*[@data-automation-tag="unlinkButton"]',
             #'XPATH': '// span[contains(text(), "UNLINK FROM EXTREME CLOUD ACCOUNT")]',
-            'wait_for': 2
+            'wait_for': 5
         }
 
     ssh_option_ui = \

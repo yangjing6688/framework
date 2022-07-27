@@ -89,21 +89,23 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             self.utils.print_info("Select action 1 for row 1")
             auth_rule1_act1 = self.weh.get_elements(self.add_rule_row1_act1)
             self.utils.print_info(auth_rule1_act1)
-            self.driver.find_elements_by_xpath(
-               '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,type"]//input')
-            auth_rule1_act1.click()
-            drop_options = self.driver.find_elements_by_xpath(
-                 '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,type"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "Role")
-            sleep(5)
-            # self.utils.print_info("Select action 2 for row 1")
-            # auth_rule1_act2 = self.weh.get_elements(self.add_rule_row1_act2)
-            # # self.driver.find_element_by_xpath(
-            # #     '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]//input').click()
+            option = self.weh.get_element(self.rule_row1_select_option)
+            self.auto_actions.click(option)
+            #
             # drop_options = self.driver.find_elements_by_xpath(
-            #      '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]//span/span')
-            # self.auto_actions.select_drop_down_options(drop_options, "roleE")
+            #      '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,type"]//ul')
+            #     #self.driver.find_elements_by_xpath(
+            #      #'.//*[@data-automation-tag="automation-authentication_rules,0,actions,0,type"]//ul/li')
+            # self.utils.print_info("Print the drop options ", drop_options)
+            # self.auto_actions.select_drop_down_options(drop_options, "Role")
             sleep(5)
+            self.utils.print_info("Select action 2 for row 1")
+            auth_rule1_act2 = self.weh.get_elements(self.add_rule_row1_act2)
+            # self.driver.find_element_by_xpath(
+            #     '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]//input').click()
+            drop_options = self.driver.find_elements_by_xpath(
+                 '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]//span/span')
+            self.auto_actions.select_drop_down_options(drop_options, "roleE")
             self.utils.print_info("Add another row")
             new_row = self.weh.get_element(self.add_row)
             self.auto_actions.click(new_row)

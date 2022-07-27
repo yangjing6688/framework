@@ -316,33 +316,21 @@ class A3WebElementsflow(A3WebElements):
 
         :return: 1 if Navigation Successful to SSH Option else return -1
         """
-        # driver = webdriver.Chrome()
-        # self.driver.implicitly_wait(10)
         element = self.weh.get_element(self.ssh_option_ui)
         self.auto_actions.click(element)
         sleep(5)
-
-        #ele1 = self.driver.find_element_by_name("check-button")
         element1 = self.weh.get_element(self.ssh_selector)
-        status = self.driver.find_element_by_name("check-button").is_selected()
-        # ele2 = self.driver.find_element_by_class_name("custom-control-label")
-        # status = self.driver.find_element_by_class_name("custom-control-label").is_selected()
+        status = element1.is_selected()
         self.utils.print_info(status)
-        # wait_for = WebDriverWait(self.driver, 5)
-        # xypath = "/html/body/div/div[2]/div[2]/div/div[2]/div/div/div/form/div[3]/div/div/label"
-        # wait_for.until(EC.element_to_be_clickable((By.XPATH, xypath)))
-        # invisible = wait_for.until(EC.invisibility_of_element_located((By.XPATH, xypath)))
-        # self.utils.print_info(type(invisible))
         if status:
             self.utils.print_info("SSH option is enabled, disabling it")
-            self.driver.execute_script("arguments[0].click();", ele1)
+            self.auto_actions.click(element1)
+            self.utils.print_info("SSH option is disabled now")
         else:
             self.utils.print_info("SSH option is disabled, enabling it")
-            self.driver.execute_script("arguments[0].click();", ele1)
-
-            # self.driver.execute_script(document.getElementsByName('check-button')[0].click())
-            # self.auto_actions.click(ele1)
-            # self.driver.find_element_by_name("check-button").click()
+            sleep(5)
+            self.auto_actions.click(element1)
+            self.utils.print_info("SSH option is enabled now")
 
     def select_cloud_integration(self):
         """
@@ -359,17 +347,16 @@ class A3WebElementsflow(A3WebElements):
             self.utils.print_info("Entering Cloud account details ")
             element1 = self.weh.get_element(self.cloud_host_input)
             element1.clear()
-            self.auto_actions.send_keys(element1, 'https://gcp1.qa.xcloudiq.com')
+            self.auto_actions.send_keys(element1, 'https://g2.qa.xcloudiq.com')
             sleep(5)
             element2 = self.weh.get_element(self.cloud_admin)
-            self.auto_actions.send_keys(element2, "testrach17+gcp1r1acc@gmail.com")
+            self.auto_actions.send_keys(element2, "a3g2r1@gmail.com")
             sleep(5)
             element3 = self.weh.get_element(self.cloud_password)
-            self.auto_actions.send_keys(element3, "Aerohive123")
+            self.auto_actions.send_keys(element3, "Extreme@123")
             sleep(5)
             element4 = self.weh.get_element(self.cloud_link_button)
-            element4.click()
-            #self.auto_actions.click(element4)
+            self.auto_actions.click(element4)
             sleep(20)
             self.driver.get(self.driver.current_url)
             sleep(3)
@@ -431,9 +418,7 @@ class A3WebElementsflow(A3WebElements):
         sleep(5)
         self.utils.print_info("Selected Drop Down")
         self.utils.print_info(ssh_drop)
-        # self.utils.print_info(type(ssh_drop))
         drop_options = self.weh.get_elements(self.input_drop_down_options)
-        # self.utils.print_info(drop_options)
         self.auto_actions.select_drop_down_options(drop_options, "5 days")
         sleep(5)
         self.utils.print_info("Enter password")
