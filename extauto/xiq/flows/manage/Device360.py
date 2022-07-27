@@ -6407,6 +6407,14 @@ class Device360(Device360WebElements):
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
+
+                def _wait_for_port_row():
+                    if self.device360_get_port_row(port_number):
+                        return True
+                    else:
+                        return False
+                self.utils.wait_till(_wait_for_port_row)
+                
                 port_row = self.device360_get_port_row(port_number)
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
@@ -6623,6 +6631,14 @@ class Device360(Device360WebElements):
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
+
+                def _wait_for_port_row():
+                    if self.device360_get_port_row(port_number):
+                        return True
+                    else:
+                        return False
+                self.utils.wait_till(_wait_for_port_row)
+
                 port_row = self.device360_get_port_row(port_number)
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
