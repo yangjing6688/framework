@@ -109,25 +109,13 @@ contain the root `toctree` directive. -->
     * [Module contents](extauto.common.md#module-extauto.common)
 
 
-* [XIQ flows](flows.md)
+* [flows package](flows.md)
 
 
-    * [extauto.xiq.flows.common package](flows.common.md)
+    * [Subpackages](flows.md#subpackages)
 
 
-    * [xiq configure package](flows.configure.md)
-
-
-    * [xiq.flows.extreme_guest](flows.extreme_guest.md)
-
-
-    * [extauto.xiq.flows.globalsettings package](flows.globalsettings.md)
-
-
-    * [xiq manage package](flows.manage.md)
-
-
-    * [extauto.xiq.flows.mlinsights package](flows.mlinsights.md)
+    * [Module contents](flows.md#module-flows)
 
 
 * [a3](a3.md)
@@ -158,6 +146,15 @@ contain the root `toctree` directive. -->
 
 
     * [RolesWebElementsFlow module](RolesWebElementsFlow.md)
+
+
+* [flows package](xiqse.md)
+
+
+    * [Subpackages](xiqse.md#subpackages)
+
+
+    * [Module contents](xiqse.md#module-flows)
 
 
 # Indices and tables

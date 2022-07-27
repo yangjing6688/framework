@@ -1,7 +1,5 @@
 # extauto.xiq.flows.common package
 
-## Submodules
-
 ## extauto.xiq.flows.common.DeviceCommon module
 
 
@@ -5264,5 +5262,3 @@ Bases: `AdspWebElements`
 
 
 :return:Alarm row information if row present with Search String
-
-## Module contents
