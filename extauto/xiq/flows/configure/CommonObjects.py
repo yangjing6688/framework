@@ -579,32 +579,47 @@ class CommonObjects(object):
         self.navigator.navigate_to_policy_port_types()
 
         self.utils.print_info("Click Full pages button")
-        self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_port_types_view_all_pages())
+
+        view_all_pages = self.cobj_web_elements.get_common_object_policy_port_types_view_all_pages()
+        if view_all_pages:
+            self.auto_actions.click(view_all_pages)
+        else:
+            self.utils.print_info("Unable to find 100 rows per page item!")
+            return -1
         sleep(2)
 
-        if not self._search_common_object(port_type_name):
-            self.utils.print_info("Port Type Profile Name does't exists in the list",port_type_name)
-            return 1
+        self.utils.print_info(f"Searching {port_type_name} profile on all pages...")
+        current_page = 1
+        while True:
+            self.utils.print_info(f"Searching: {port_type_name} profile, on page: {current_page}...")
+            try:
+                if not self._search_common_object(port_type_name):
+                    self.utils.print_info(f"Port Type Profile Name: {port_type_name} is not present on page: "
+                                          f"{str(current_page)}")
+                    self.utils.print_info("Checking the next page: ", str(current_page+1) + ' ...')
+                    self.utils.print_info("Clicking next page...")
+                    if not self.cobj_web_elements.get_next_page_element_disabled():
+                        if self.cobj_web_elements.get_next_page_element():
+                            self.auto_actions.click(self.cobj_web_elements.get_next_page_element())
+                            current_page += 1
+                        else:
+                            self.utils.print_info("Did not find next page button!")
+                            return -1
+                    else:
+                        self.utils.print_info("This is the last page: ", str(current_page))
+                        self.utils.print_info(f"Checked all {current_page} pages for Port Type profile: "
+                                              f"{port_type_name} ;"
+                                              f"It was already deleted or it hasn't been created yet!")
+                        return 1
+                else:
+                    self.utils.print_info(f"Found the port type profile {port_type_name}. Deleting...")
+                    self._select_delete_common_object(port_type_name)
+                    return 1
 
-        self.utils.print_info("Select and delete Port Type Profile row")
-        self._select_delete_common_object(port_type_name)
-        self.utils.print_info("Clicking 'YES' button...")
-        confirmation_button = self.cobj_web_elements.get_policy_port_types_confirmation_button()
-        if confirmation_button:
-            self.utils.print_info("Found 'YES' button.")
-            self.auto_actions.click(confirmation_button)
-        else:
-            self.utils.print_info("Did not find the confirmation button!")
-            return -1
-
-        sleep(5)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-
-        for value in tool_tp_text:
-            if "The vlan has been deleted" in value:
-                return 1
-        return -1
+            except Exception as e:
+                self.utils.print_info("Got the following error: ", e)
+                self.utils.print_info("Attempting to come back to page: ", str(current_page))
+                self.navigator.navigate_to_policy_port_types()
 
     def delete_sub_network_profile(self, sub_network_name):
         """
