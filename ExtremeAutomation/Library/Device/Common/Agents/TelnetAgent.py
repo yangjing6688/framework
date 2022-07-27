@@ -77,16 +77,12 @@ class TelnetAgent(CliAgent):
                 elif output.strip().endswith(self.device.main_prompt.strip()):
                     found_main_prompt = True
                     break
-                elif output.strip().endswith('Press [Ctrl+ d] to go to the Suspend Menu.'):
-                    self.write_encode_ln("\r\n")
-                    output += self.wait_no_parse(500, 1)
-                    self.write_encode_ln("R\r")
-                    output += self.wait_no_parse(500, 1)
-                    self.write_encode_ln("\r\n")
-                    output += self.wait_no_parse(500, 1)
                 else:
-                    self.write_encode_ln("\n")
-                    output += self.wait_no_parse(250, 1)
+                    if output.strip().endswith('Press [Ctrl+ d] to go to the Suspend Menu.'):
+                        self.write_encode_ln("\r")
+                    else:
+                        self.write_encode_ln("\n")
+                    output += self.wait_no_parse(500, 1)
 
         # If we found the login prompt try to find the password prompt.
         if found_login_prompt:
@@ -212,18 +208,19 @@ class TelnetAgent(CliAgent):
         self.connected = False
 
     def __pre_login_commands(self, output):
-        # This is for login on BOSS, there is no login prompt.
-        if "ctrl" in output.lower():
-            ctrl_output = output.lower().split("ctrl")
-            output_chars_after_ctrl = ctrl_output[1][:3]
-            prompt_char = re.sub('[^a-zA-Z]+', '', output_chars_after_ctrl)
-            self.write_encode_ln("^" + prompt_char.upper())
-            self.wait_no_parse(250, 1)
-            self.write_encode_ln('enable')
-            output = self.wait_no_parse(250, 1)
-            if output.strip().endswith(self.device.main_prompt.strip()):
-                return True
-            return False
+        if self.device.oper_sys == 'BOSS':
+            # This is for login on BOSS, there is no login prompt.
+            if "ctrl" in output.lower():
+                ctrl_output = output.lower().split("ctrl")
+                output_chars_after_ctrl = ctrl_output[1][:3]
+                prompt_char = re.sub('[^a-zA-Z]+', '', output_chars_after_ctrl)
+                self.write_encode_ln("^" + prompt_char.upper())
+                self.wait_no_parse(250, 1)
+                self.write_encode_ln('enable')
+                output = self.wait_no_parse(250, 1)
+                if output.strip().endswith(self.device.main_prompt.strip()):
+                    return True
+                return False
         return False
 
     def __post_login_commands(self, output):
