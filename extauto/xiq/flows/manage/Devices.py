@@ -5336,10 +5336,11 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
+        self.utils.print_info(f"Enabling 'Managed' column Picker")
+        self.column_picker_select("Managed")
+
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Enabling 'Managed' column Picker")
-            self.column_picker_select("Managed")
             self.utils.print_info(f"Searching for device: loop {count}")
             col_value = self.get_device_details(device_serial, col)
             if col_value == "Managed":
