@@ -171,34 +171,34 @@
     * [Module contents](flows.extreme_guest.md#module-extauto.xiq.flows.extreme_guest)
 
 
-* [flows.globalsettings package](flows.globalsettings.md)
+* [extauto.xiq.flows.globalsettings package](flows.globalsettings.md)
 
 
     * [Submodules](flows.globalsettings.md#submodules)
 
 
-    * [flows.globalsettings.AccountManagement module](flows.globalsettings.md#flows-globalsettings-accountmanagement-module)
+    * [extauto.xiq.flows.globalsettings.AccountManagement module](flows.globalsettings.md#extauto-xiq-flows-globalsettings-accountmanagement-module)
 
 
-    * [flows.globalsettings.Communications module](flows.globalsettings.md#flows-globalsettings-communications-module)
+    * [extauto.xiq.flows.globalsettings.Communications module](flows.globalsettings.md#extauto-xiq-flows-globalsettings-communications-module)
 
 
-    * [flows.globalsettings.CredDistrGrup module](flows.globalsettings.md#flows-globalsettings-creddistrgrup-module)
+    * [extauto.xiq.flows.globalsettings.CredDistrGrup module](flows.globalsettings.md#extauto-xiq-flows-globalsettings-creddistrgrup-module)
 
 
-    * [flows.globalsettings.Dashboard module](flows.globalsettings.md#flows-globalsettings-dashboard-module)
+    * [extauto.xiq.flows.globalsettings.Dashboard module](flows.globalsettings.md#extauto-xiq-flows-globalsettings-dashboard-module)
 
 
-    * [flows.globalsettings.GlobalSetting module](flows.globalsettings.md#flows-globalsettings-globalsetting-module)
+    * [extauto.xiq.flows.globalsettings.GlobalSetting module](flows.globalsettings.md#extauto-xiq-flows-globalsettings-globalsetting-module)
 
 
-    * [flows.globalsettings.LicenseManagement module](flows.globalsettings.md#flows-globalsettings-licensemanagement-module)
+    * [extauto.xiq.flows.globalsettings.LicenseManagement module](flows.globalsettings.md#extauto-xiq-flows-globalsettings-licensemanagement-module)
 
 
-    * [flows.globalsettings.PasswordReset module](flows.globalsettings.md#flows-globalsettings-passwordreset-module)
+    * [extauto.xiq.flows.globalsettings.PasswordReset module](flows.globalsettings.md#extauto-xiq-flows-globalsettings-passwordreset-module)
 
 
-    * [Module contents](flows.globalsettings.md#module-contents)
+    * [Module contents](flows.globalsettings.md#module-extauto.xiq.flows.globalsettings)
 
 
 * [extauto.xiq.flows.manage package](flows.manage.md)
