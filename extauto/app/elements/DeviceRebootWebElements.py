@@ -1,6 +1,6 @@
-from app.defs.DeviceRebootDefinitions import *
-from app.common.AutoActions import *
-from app.common.WebElementHandler import *
+from extauto.app.defs.DeviceRebootDefinitions import *
+from extauto.common.AutoActions import *
+from extauto.common.WebElementHandler import *
 
 
 class DeviceRebootWebElements(DeviceRebootDefinitions):
