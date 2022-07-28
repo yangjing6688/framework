@@ -2740,12 +2740,16 @@ class Devices:
         :return: 1 if device found else -1
         """
 
+        # call a refresh
+        self.refresh_devices_page()
+
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
         else:
             self.utils.print_info(f"Searching for the device matching either one of serial, name or MAC!")
+            self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_mac}', device_mac: '{device_mac}'")
 
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
