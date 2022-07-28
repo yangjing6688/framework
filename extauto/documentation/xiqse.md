@@ -174,34 +174,40 @@
 * [extauto.xiq.flows.common package](flows.common.md)
 
 
-    * [extauto.xiq.flows.common.DeviceCommon module](flows.common.md#module-extauto.xiq.flows.common.DeviceCommon)
+    * [Submodules](flows.common.md#submodules)
 
 
-    * [extauto.xiq.flows.common.GlobalSearch module](flows.common.md#module-extauto.xiq.flows.common.GlobalSearch)
+    * [extauto.xiq.flows.common.DeviceCommon module](flows.common.md#extauto-xiq-flows-common-devicecommon-module)
 
 
-    * [extauto.xiq.flows.common.Login module](flows.common.md#module-extauto.xiq.flows.common.Login)
+    * [extauto.xiq.flows.common.GlobalSearch module](flows.common.md#extauto-xiq-flows-common-globalsearch-module)
 
 
-    * [extauto.xiq.flows.common.MuCaptivePortal module](flows.common.md#module-extauto.xiq.flows.common.MuCaptivePortal)
+    * [extauto.xiq.flows.common.Login module](flows.common.md#extauto-xiq-flows-common-login-module)
 
 
-    * [extauto.xiq.flows.common.Navigator module](flows.common.md#module-extauto.xiq.flows.common.Navigator)
+    * [extauto.xiq.flows.common.MuCaptivePortal module](flows.common.md#extauto-xiq-flows-common-mucaptiveportal-module)
 
 
-    * [extauto.xiq.flows.common.SideNavMenu module](flows.common.md#module-extauto.xiq.flows.common.SideNavMenu)
+    * [extauto.xiq.flows.common.Navigator module](flows.common.md#extauto-xiq-flows-common-navigator-module)
 
 
-    * [extauto.xiq.flows.common.SpecificSearch module](flows.common.md#module-extauto.xiq.flows.common.SpecificSearch)
+    * [extauto.xiq.flows.common.SideNavMenu module](flows.common.md#extauto-xiq-flows-common-sidenavmenu-module)
 
 
-    * [extauto.xiq.flows.common.ToolTipCapture module](flows.common.md#module-extauto.xiq.flows.common.ToolTipCapture)
+    * [extauto.xiq.flows.common.SpecificSearch module](flows.common.md#extauto-xiq-flows-common-specificsearch-module)
 
 
-    * [extauto.xiq.flows.common.WiredLib module](flows.common.md#module-extauto.xiq.flows.common.WiredLib)
+    * [extauto.xiq.flows.common.ToolTipCapture module](flows.common.md#extauto-xiq-flows-common-tooltipcapture-module)
 
 
-    * [extauto.xiq.flows.common.adsp module](flows.common.md#module-extauto.xiq.flows.common.adsp)
+    * [extauto.xiq.flows.common.WiredLib module](flows.common.md#extauto-xiq-flows-common-wiredlib-module)
+
+
+    * [extauto.xiq.flows.common.adsp module](flows.common.md#extauto-xiq-flows-common-adsp-module)
+
+
+    * [Module contents](flows.common.md#module-extauto.xiq.flows.common)
 
 
 * [extauto.xiqse.flows.compliance package](flows.compliance.md)
@@ -361,6 +367,12 @@
 
 
     * [extauto.xiqse.flows.network.common package](flows.network.common.md)
+
+
+        * [Subpackages](flows.network.common.md#subpackages)
+
+
+            * [extauto.xiqse.flows.network.common.configure_device package](flows.network.common.configure_device.md)
 
 
         * [extauto.xiqse.flows.network.common.XIQSE_NetworkCommonConfigureDevice module](flows.network.common.md#module-extauto.xiqse.flows.network.common.XIQSE_NetworkCommonConfigureDevice)

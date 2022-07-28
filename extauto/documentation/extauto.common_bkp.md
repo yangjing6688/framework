@@ -1,7 +1,5 @@
 # extauto.common
 
-## Submodules
-
 ## extauto.common.Ap module
 
 
@@ -1434,7 +1432,7 @@ Bases: `object`
 
 
 ### _class_ extauto.common.CoPilotUtils.CoPilotUtils()
-Bases: [`Cli`](extauto.common_bkp.md#extauto.common.Cli.Cli)
+Bases: `Cli`
 
 
 #### connect_to_xiq_cloud_console(local_host_ip, local_host_username, local_host_pwd, js_ip, js_username, js_pwd, rdc_console_name, rdc_console_username, ahqa_key)

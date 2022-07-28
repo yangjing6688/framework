@@ -10,6 +10,9 @@ contain the root `toctree` directive. -->
 * [extauto.common](extauto.common.md)
 
 
+    * [Submodules](extauto.common.md#submodules)
+
+
     * [extauto.common.Ap module](extauto.common.md#extauto-common-ap-module)
 
 
@@ -115,7 +118,7 @@ contain the root `toctree` directive. -->
     * [Subpackages](flows.md#subpackages)
 
 
-    * [Module contents](flows.md#module-flows)
+    * [Module contents](flows.md#module-extauto.xiq.flows)
 
 
 * [a3](a3.md)
