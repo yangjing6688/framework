@@ -739,12 +739,7 @@ class Cli(object):
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(_spawn, f'do Hivemanager address {server_name}')
-            self.send(_spawn, f'do Application stop hiveagent')
-            self.close_spawn(_spawn)
 
-            _spawn = self.open_spawn(ip, port, username, password, cli_type)
-            self.send(_spawn, f'do Application start hiveagent')
-            
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
