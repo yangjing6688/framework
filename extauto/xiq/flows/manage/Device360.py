@@ -1125,6 +1125,8 @@ class Device360(Device360WebElements):
         :param  None
         :return: 1 if navigation was successful, else -1
         """
+
+        self.device360_refresh_page()
         ret_val = self.select_configure_tab()
         if ret_val != -1:
             ret_val = self.select_port_configuration_view()

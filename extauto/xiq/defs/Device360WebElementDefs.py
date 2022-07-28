@@ -355,7 +355,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="portNav"]',
+            'XPATH': '//li[contains(text(),"Port Configuration")]',
             'wait_for': 5
         }
 
