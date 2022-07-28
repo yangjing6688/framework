@@ -852,43 +852,68 @@ class CommonObjects(object):
         """
         self.navigator.navigate_to_switch_templates()
         self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows)
-        self.utils.print_info("Click on full page view for switch template")
-        page_size_el = self.cobj_web_elements.get_paze_size_element(page_size='100')
-        if page_size_el:
-            self.utils.print_info("  -- clicking page size element 100 for switch template")
-            self.auto_actions.click(page_size_el)
-            sleep(3)
+        self.utils.print_info("Click Full pages button")
+
+        view_all_pages = self.cobj_web_elements.get_common_object_policy_port_types_view_all_pages()
+        if view_all_pages:
+            self.auto_actions.click(view_all_pages)
         else:
-            self.utils.print_info("  -- could not find page size element 100")
+            self.utils.print_info("Unable to find 100 rows per page item!")
+            return -1
+        sleep(2)
 
-        if not self._search_switch_template(template_name):
-            self.utils.print_info("Switch Template doesn't exist on first page")
-            next_page_el = self.cobj_web_elements.get_next_page_element()
-            if next_page_el:
-                device_page_numbers = self.cobj_web_elements.get_page_numbers()
-                page_len = int(max(device_page_numbers.text))
-                while page_len:
-                    self.utils.print_info("  -- clicking next page")
-                    self.auto_actions.click(next_page_el)
-                    sleep(2)
-                    page_len = page_len - 1
-            if not self._search_switch_template(template_name):
-                self.utils.print_info("Switch Template doesn't exist in the list")
-                return 1
+        self.utils.print_info(f"Searching Template: {template_name} on all pages...")
+        current_page = 1
+        found_template = 0
 
-        self.utils.print_info("Select and delete switch template")
-        tool_tp_text = self._select_delete_switch_template_row(template_name)
+        while True:
+            rows = self.cobj_web_elements.get_common_object_grid_rows()
+            self.utils.print_info(f"Searching Template: {template_name} on page: {current_page}...")
+            for row in rows:
+                if template_name in row.text:
+                    self.utils.print_info(f"Found template name: {template_name} on row: ", row.text)
+                    found_template = 1
 
-        self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
-        for value in tool_tp_text:
-            if "cannot be deleted because this item is still used by another item " in value:
-                self.utils.print_info(f"{value}")
-                return -1
-            elif "Deleted Switch Template successfully" in value:
-                return 1
-            elif "Template was successfully removed from policy" in value:
-                return 1
-        return -1
+                    self.utils.print_info("Clicking the row's checkbox...")
+                    check_box = self.cobj_web_elements.get_common_object_grid_row_cells(row, 'dgrid-selector')
+                    if check_box:
+                        self.auto_actions.click(check_box)
+                    else:
+                        self.utils.print_info("Did not find row's check box!")
+                        return -1
+
+                    self.utils.print_info("Clicking on delete button")
+                    delete_button = self.cobj_web_elements.get_common_objects_delete_button()
+                    if delete_button:
+                        self.auto_actions.click(delete_button)
+                        return 1
+                    else:
+                        self.utils.print_info("Didn't find the delete button!")
+                        return -1
+
+            if not found_template:
+                self.utils.print_info(f"Template Name: {template_name} is not present on page: "
+                                      f"{str(current_page)}")
+                if not self.cobj_web_elements.get_next_page_element_disabled():
+                    self.utils.print_info("Checking the next page: ", str(current_page + 1) + ' ...')
+                    self.utils.print_info("Clicking next page...")
+                    next_page_button = self.cobj_web_elements.get_next_page_element()
+                    if self.cobj_web_elements.get_next_page_element():
+                        if next_page_button:
+                            self.auto_actions.click(next_page_button)
+                            current_page += 1
+                        else:
+                            self.utils.print_info("Did not manage to find the next page button")
+                            return -1
+                    else:
+                        self.utils.print_info("Did not find next page button!")
+                        return -1
+                else:
+                    self.utils.print_info("This is the last page: ", str(current_page))
+                    self.utils.print_info(f"Checked all {current_page} pages for Template Name: "
+                                          f"{template_name} ;"
+                                          f"It was already deleted or it hasn't been created yet!")
+                    return 1
 
     def _get_switch_template_row(self, search_string):
         """
