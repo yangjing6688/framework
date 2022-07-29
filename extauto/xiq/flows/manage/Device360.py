@@ -6947,3 +6947,554 @@ class Device360(Device360WebElements):
             self.utils.print_info("Power details not found")
             return -1
 
+    def create_port_type_with_stp_settings(self, switch_port, port_type_name, path_cost, description=None, status=None, 
+                                           port_usage="access", priority=None, bpdu_protection=None, stp_enabled=None,
+                                           edge_port=None, device_360=False, save=True):
+        """ This function creates a port type with custom STP settings at device or template level.
+        
+        The only mandatory arguments are switch_port, port_type_name and path_cost. All the other arguments are optional.
+
+        The function will return a tuple that contains the status of the function and the summary of the newly created port type.
+
+        args:
+            :switch_port:        str  - the name of the port
+            :port_type_name:     str  - the name of the port type
+            :path_cost:          int  - the value of path cost
+             
+        kwargs:     
+            :description:        str  - the description|None for no action
+            :status:             bool - True for enabled|False for disabled|None for no action
+            :port_usage:         str  - "access"|"trunk"|None for no action
+            :priority:           int  - 0, 16, 32, ...|None for no action
+            :bpdu_protection:    str  - "Disabled"|"Guard"|None for no action
+            :stp_enabled:        bool - True for enabled|False for disabled|None for no action
+            :edge_port:          bool - True for enabled|False for disabled|None for no action
+            :device_360:         bool - True for device level|False for template level 
+            :save:               bool - True for saving the port type at the end|False for not saving
+        
+        return: if the function succeeds it will return (1, {...})
+                if the function fails it will return (-1, {})
+        
+        usage:
+
+            status, summary = self.xiq.xflowsmanageDevice360.create_port_type_with_stp_settings(
+                1, "testing_port_type_1", 1111, description="description", status=True, 
+                port_usage="access", priority=64, bpdu_protection="Disabled", stp_enabled=True, edge_port=True)
+            >>> status
+            1
+            >>> summary
+            {'STP': 'Enabled', 'Edge Port': 'Enabled', 'BPDU Protection': 'Disabled', 'Priority': '64', 'Path Cost': '1111'}
+            >>>
+        """
+        if not device_360:
+            rows = self.get_policy_configure_port_rows()
+            if not rows:
+                self.utils.print_info("Could not obtain list of port rows")
+                return -1, {}
+            else:
+                for row in rows:
+                    if re.search(f'{switch_port}\n', row.text):
+                        d360_create_port_type = self.get_d360_create_port_type(row)
+                        
+                        if d360_create_port_type:
+                            self.utils.print_info("The button d360_create_port_type from policy was found")
+                            self.auto_actions.click(d360_create_port_type)
+                            sleep(10)
+                            break
+                        else:
+                            self.utils.print_info("The button d360_create_port_type from policy was not found")
+                            return -1, {}
+                else:
+                    self.utils.print_info("The button d360_create_port_type from policy was not found")
+                    return -1, {}    
+        else:
+            port_conf_content = self.get_device360_port_configuration_content()
+            if port_conf_content:
+                port_row = self.device360_get_port_row(switch_port)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+
+                    d360_create_port_type = self.get_d360_create_port_type(port_row)
+                    if d360_create_port_type:
+                        self.utils.print_info("The button d360_create_port_type was found")
+                        self.auto_actions.click(d360_create_port_type)
+                        sleep(2)
+                    else:
+                        self.utils.print_info("The button d360_create_port_type was not found")
+                        self.screen.save_screen_shot()
+                        return -1, {}
+                else:
+                    self.utils.print_info("Port was not found ")
+                    return -1, {}
+            else:
+                return -1, {}
+
+        name_element = self.get_select_element_port_type("name")
+        if not name_element:
+            self.utils.print_info("Port name element was not found")
+            return -1, {}
+        
+        if self.auto_actions.send_keys(name_element, port_type_name) == 1:
+            self.utils.print_info("Successfully configured the name field")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to configure the name field")
+            return -1, {}
+
+        if description is not None:
+            description_element = self.get_select_element_port_type("description")
+            if not description_element:
+                self.utils.print_info("Port description element was not found")
+                return -1, {}
+            
+            if self.auto_actions.send_keys(description_element, description) == 1:
+                self.utils.print_info("Successfully configured the description field")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to configure the description field")
+                return -1, {}
+
+        if status is not None:
+            status_element = self.get_select_element_port_type("status")
+            if not status_element:
+                self.utils.print_info("Port status element was not found")
+                return -1, {}
+            
+            if (not status_element.is_selected() and status) or (
+                    status_element.is_selected() and not status):
+                
+                if self.auto_actions.click(status_element) == 1:
+                    self.utils.print_info("Successfully clicked on the status element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the status element")
+                    return -1, {}
+
+        auto_sense = self.dev360.get_select_element_port_type("auto-sense")
+        if auto_sense:
+            if auto_sense.is_selected():
+                if self.auto_actions.click(auto_sense) == 1:
+                    self.utils.print_info("Successfully disabled the auto sense on chosen port")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to disable the auto sense on chosen port")
+                    return -1, {}
+
+        port_element = self.dev360.get_select_element_port_type("port usage", f"{port_usage} port")
+        if not port_element:
+            self.utils.print_info(f"{port_usage} port type element was not found")
+            return -1, {}
+        
+        if self.auto_actions.click(port_element) == 1:
+            self.utils.print_info("Successfully chose the port usage field")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to chose the port usage field")
+            return -1, {}
+        
+        self.utils.print_info("Go to the STP settings page")
+        for _ in range(5):
+            if "active" in self.get_select_element_port_type("stpPage").get_attribute("class"):
+                break
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    self.auto_actions.click(get_next_button)
+                    sleep(2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+                return -1, {}
+
+        if stp_enabled is not None:
+            stp_enabled_element = self.get_select_element_port_type("stp enable")
+            
+            if not stp_enabled_element:
+                self.utils.print_info("STP Enabled element was not found")
+                return -1, {}
+            
+            if (not stp_enabled_element.is_selected() and stp_enabled) or (
+                stp_enabled_element.is_selected() and not stp_enabled):
+                
+                if self.auto_actions.click(stp_enabled_element) == 1:
+                    self.utils.print_info("Successfully clicked on the STP enabled element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the STP Enabled element")
+                    return -1, {}
+
+        if edge_port is not None:
+            edge_port_element = self.get_select_element_port_type("edge port")
+            
+            if not edge_port_element:
+                self.utils.print_info("Edge Port element was not found")
+                return -1, {}
+            
+            if (not edge_port_element.is_selected() and edge_port) or (
+                edge_port_element.is_selected() and not edge_port):
+                
+                if self.auto_actions.click(edge_port_element) == 1:
+                    self.utils.print_info("Successfully clicked on the Edge Port element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the Edge Port element")
+                    return -1, {}
+
+        if bpdu_protection is not None:
+            bpdu_protection_element = self.get_select_element_port_type("bpdu protection")
+            
+            if not bpdu_protection_element:
+                self.utils.print_info("BPDU Protection element was not found")
+                return -1, {}
+
+            if self.auto_actions.click(bpdu_protection_element) == 1:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                sleep(5)
+            else:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                return -1, {}
+            
+            get_bpdu_protection_items = self.get_select_element_port_type("bpdu_protection_items")
+            
+            if not get_bpdu_protection_items:
+                self.utils.print_info("BPDU Protection list elements not found")
+                return -1, {}
+            
+            if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, bpdu_protection):
+                self.utils.print_info("Selected into dropdown value : ", bpdu_protection)
+            else:
+                self.utils.print_info("Failed to select from BPDU Protection dropdown")
+                return -1, {}
+            
+        if path_cost is not None:
+            path_cost_element = self.get_select_element_port_type("path cost")
+            
+            if not path_cost_element:
+                self.utils.print_info("Path Cost element was not found")
+                return -1, {}
+            
+            if self.auto_actions.send_keys(path_cost_element, str(path_cost)) == 1:
+                self.utils.print_info("Successfully configured the path cost field")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to configure the path cost field")
+                return -1, {}
+        
+        if priority:
+            priority_element = self.get_select_element_port_type("priority")
+            
+            if not priority_element:
+                self.utils.print_info("Priority element was not found")
+                return -1, {}
+            
+            if self.auto_actions.click(priority_element) == 1:
+                self.utils.print_info("Successfully clicked on the priority element")
+                sleep(5)
+            else:
+                self.utils.print_info("Failed to click on the priority element")
+                return -1, {}
+            
+            get_priority_items = self.get_select_element_port_type("priority_items")
+            if not get_priority_items:
+                self.utils.print_info("Priority dropdown elements not found")
+                return -1, {}
+            
+            if self.auto_actions.select_drop_down_options(get_priority_items, str(priority)):
+                self.utils.print_info("Selected into dropdown value : ", priority)
+            else:
+                self.utils.print_info("Failed to select item from priority dropdown")        
+                return -1, {}
+
+        self.utils.print_info("Go to the last page")
+        for _ in range(5):
+            if "active" in self.get_select_element_port_type("summaryPage").get_attribute("class"):
+                break
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    self.auto_actions.click(get_next_button)
+                    sleep(2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+                return -1, {}
+
+        summary = {}
+        
+        for row_name, row_value in zip(
+            ["STP", "Edge Port", "BPDU Protection", "Priority", "Path Cost"],
+            ["stp", "edge port", "bpdu protection", "priority", "path cost"]
+        ):
+            try:
+                summary[row_name] = self.dev360.get_select_element_port_type_summary(row_value).text
+            except:
+                summary[row_name] = ""
+        
+        if save:
+            save_button = self.dev360.get_close_port_type_box()
+            
+            if not save_button:
+                self.utils.print_info("save button not found")
+                return -1, {}
+            
+            if self.auto_actions.click(save_button) == 1:
+                self.utils.print_info("Successfully clicked on the Save element")
+            else:
+                self.utils.print_info("Failed to click on the Save element")
+                return -1, {}
+
+        return 1, summary
+
+    def edit_stp_settings_in_honeycomb_port_editor(self, switch_port, port_type_name, status=None, stp_enabled=None,
+                                                   edge_port=None, bpdu_protection=None, priority=None,
+                                                   path_cost=None, save=True):
+        """ This function edits a port type with custom STP settings at template level.
+        
+        The only mandatory arguments are switch_port, port_type_name and path_cost. All the other arguments are optional.
+
+        The function will return a tuple that contains the status of the function and the summary of the newly created port type.
+
+        args:
+            :switch_port:        str   -   the name of the port
+            :port_type_name:     str   -   the name of the port type
+              
+        kwargs:      
+            :description:        str   -   the description
+            :status:             bool  -   True for enabled|False for disabled|None for no action
+            :port_usage:         str   -   "access"|"trunk"|None for no action
+            :priority:           int   -   0, 16, 32, ...|None for no action
+            :bpdu_protection:    str   -   "Disabled"|"Guard"|None for no action
+            :stp_enabled:        bool  -   True for enabled|False for disabled|None for no action
+            :edge_port:          bool  -   True for enabled|False for disabled|None for no action
+            :device_360:         bool  -   True for device level|False for template level
+            :path_cost:          int   -   the value of path cost|None for no action
+            :save:               bool  -   True for saving the port type at the end|False for not saving|None for no action
+        
+        return: if the function succeeds it will return (1, {...})
+                if the function fails it will return (-1, {})
+                
+        return: if the function succeeds it will return (1, {...})
+                if the function fails it will return (-1, {})
+        
+        usage:
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", path_cost=2222, bpdu_protection="Guard"
+            )
+            
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", bpdu_protection="Disabled"
+            )
+
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", priority=80, edge_port=False, stp_enabled=False
+            )
+
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", status=False, edge_port=True, stp_enabled=True
+            )
+
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", status=True
+            )
+
+        """
+        
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return -1, {}
+        else:
+            for row in rows:
+                if re.search(rf'{switch_port}\n{port_type_name}\n', row.text):
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info("The button policy_edit_port_type from policy was found")
+                        self.auto_actions.click(policy_edit_port_type)
+                        sleep(10)
+                        break
+                    else:
+                        self.utils.print_info("The button policy_edit_port_type from policy was not found")
+                        return -1, {}
+            else:
+                self.utils.print_info("The button policy_edit_port_type from policy was not found")
+                return -1, {}
+
+        if status is not None:
+            
+            usage_tab = self.get_select_element_port_type("usagePage")
+            if not usage_tab:
+                self.utils.print_info("Failed to click the usage tab")
+                return -1, {}
+            
+            if self.auto_actions.click(usage_tab) == 1:
+                self.utils.print_info("Successfully clicked the usage tab")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to click on the usage tab")
+                return -1, {}
+        
+            status_element = self.get_select_element_port_type("status")
+            if not status_element:
+                self.utils.print_info("Port status element was not found")
+                return -1, {}
+            
+            if (not status_element.is_selected() and status) or (
+                    status_element.is_selected() and not status):
+                
+                if self.auto_actions.click(status_element) == 1:
+                    self.utils.print_info("Successfully clicked on the status element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the status element")
+                    return -1, {}
+
+        stp_tab = self.get_select_element_port_type("stpPage")
+        if not stp_tab:
+            self.utils.print_info("Failed to click the stp tab")
+            return -1, {}
+        
+        if self.auto_actions.click(stp_tab) == 1:
+            self.utils.print_info("Successfully clicked the stp tab")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to click on the stp tab")
+            return -1, {}
+
+        if stp_enabled is not None:
+            stp_enabled_element = self.get_select_element_port_type("stp enable")
+            
+            if not stp_enabled_element:
+                self.utils.print_info("STP Enabled element was not found")
+                return -1, {}
+            
+            if (not stp_enabled_element.is_selected() and stp_enabled) or (
+                stp_enabled_element.is_selected() and not stp_enabled):
+                
+                if self.auto_actions.click(stp_enabled_element) == 1:
+                    self.utils.print_info("Successfully clicked on the STP enabled element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the STP Enabled element")
+                    return -1, {}
+
+        if edge_port is not None:
+            edge_port_element = self.get_select_element_port_type("edge port")
+            
+            if not edge_port_element:
+                self.utils.print_info("Edge Port element was not found")
+                return -1, {}
+            
+            if (not edge_port_element.is_selected() and edge_port) or (
+                edge_port_element.is_selected() and not edge_port):
+                
+                if self.auto_actions.click(edge_port_element) == 1:
+                    self.utils.print_info("Successfully clicked on the Edge Port element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the Edge Port element")
+                    return -1, {}
+
+        if bpdu_protection is not None:
+            bpdu_protection_element = self.get_select_element_port_type("bpdu protection")
+            
+            if not bpdu_protection_element:
+                self.utils.print_info("BPDU Protection element was not found")
+                return -1, {}
+
+            if self.auto_actions.click(bpdu_protection_element) == 1:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                sleep(5)
+            else:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                return -1, {}
+            
+            get_bpdu_protection_items = self.get_select_element_port_type("bpdu_protection_items")
+            
+            if not get_bpdu_protection_items:
+                self.utils.print_info("BPDU Protection list elements not found")
+                return -1, {}
+            
+            if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, bpdu_protection):
+                self.utils.print_info("Selected into dropdown value : ", bpdu_protection)
+            else:
+                self.utils.print_info("Failed to select from BPDU Protection dropdown")
+                return -1, {}
+            
+        if path_cost is not None:
+            path_cost_element = self.get_select_element_port_type("path cost")
+            
+            if not path_cost_element:
+                self.utils.print_info("Path Cost element was not found")
+                return -1, {}
+            
+            if self.auto_actions.send_keys(path_cost_element, str(path_cost)) == 1:
+                self.utils.print_info("Successfully configured the path cost field")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to configure the path cost field")
+                return -1, {}
+        
+        if priority:
+            priority_element = self.get_select_element_port_type("priority")
+            
+            if not priority_element:
+                self.utils.print_info("Priority element was not found")
+                return -1, {}
+            
+            if self.auto_actions.click(priority_element) == 1:
+                self.utils.print_info("Successfully clicked on the priority element")
+                sleep(5)
+            else:
+                self.utils.print_info("Failed to click on the priority element")
+                return -1, {}
+            
+            get_priority_items = self.get_select_element_port_type("priority_items")
+            if not get_priority_items:
+                self.utils.print_info("Priority dropdown elements not found")
+                return -1, {}
+            
+            if self.auto_actions.select_drop_down_options(get_priority_items, str(priority)):
+                self.utils.print_info("Selected into dropdown value : ", priority)
+            else:
+                self.utils.print_info("Failed to select item from priority dropdown")        
+                return -1, {}
+
+        summary_tab = self.get_select_element_port_type("summaryPage")
+        if not summary_tab:
+            self.utils.print_info("Failed to get the summary tab element")
+            return -1
+        
+        if self.auto_actions.click(summary_tab) == 1:
+            self.utils.print_info("Successfully clicked on the summary tab")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to click on the summary tab")
+            return -1, {}
+
+        summary = {}
+        
+        for row_name, row_value in zip(
+            ["STP", "Edge Port", "BPDU Protection", "Priority", "Path Cost"],
+            ["stp", "edge port", "bpdu protection", "priority", "path cost"]
+        ):
+            try:
+                summary[row_name] = self.dev360.get_select_element_port_type_summary(row_value).text
+            except:
+                summary[row_name] = ""
+        
+        if save:
+            save_button = self.dev360.get_close_port_type_box()
+            
+            if not save_button:
+                self.utils.print_info("save button not found")
+                return -1, {}
+            
+            if self.auto_actions.click(save_button) == 1:
+                self.utils.print_info("Successfully clicked on the Save element")
+            else:
+                self.utils.print_info("Failed to click on the Save element")
+                return -1, {}
+
+        return 1, summary

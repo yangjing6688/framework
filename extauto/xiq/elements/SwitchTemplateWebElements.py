@@ -427,3 +427,13 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_save_button_bottom(self):
         return self.weh.get_elements(self.sw_template_save_btn_bottom)
+
+    def get_sw_template_stp_tab(self):
+        return self.weh.get_element(self.sw_template_stp_tab)
+    
+    def get_sw_template_stp_port_rows(self):
+        return self.weh.get_elements(self.sw_template_stp_port_rows)
+
+    def get_sw_template_path_cost_row(self, row):
+        return self.weh.get_element(self.sw_template_path_cost_row, parent=row)
+

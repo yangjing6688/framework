@@ -585,3 +585,21 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': "//*[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
+
+    sw_template_stp_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-stp"]',
+            'wait_for': 5
+        }
+    
+    sw_template_stp_port_rows = \
+        {
+            'XPATH': '//portentry-row[contains(@componentpath, "PortSTPEntry")]',
+            'wait_for': 5
+        }
+
+    sw_template_path_cost_row = \
+        {
+            'XPATH': './/input[@data-dojo-attach-point="pathCostField"]',
+            'wait_for': 5
+        }

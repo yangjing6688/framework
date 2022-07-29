@@ -1305,7 +1305,7 @@ class Device360WebElementDefs:
 
     device360_configure_stp_rows = \
         {
-            'XPATH': '//div[contains(@class, "port-stp-entry")]',
+            'XPATH': "//div[@data-dojo-attach-point='listArea']//div[contains(@componentpath, 'STPEntry')]",
             'wait_for': 5
         }
 
@@ -1449,7 +1449,7 @@ class Device360WebElementDefs:
 
     d360_configure_port_stp_tab_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="ahTabContainer"]//a[contains(text(), "STP")]',
+            'XPATH': "//div[@data-automation-tag='automation-port-configuration-stp']//a[contains(text(), 'STP')]",
             'wait_for': 5
         }
 
@@ -2691,5 +2691,11 @@ class Device360WebElementDefs:
     device360_thunderbold_icon_stack = \
         {
             'CSS_SELECTOR': '.power-supply',
+            'wait_for': 5
+        }
+    
+    device360_port_configuration_path_cost_stp = \
+        {
+            'XPATH': './/input[contains(@data-automation-tag, "automation-port-stp-port-path-cost-")]',
             'wait_for': 5
         }

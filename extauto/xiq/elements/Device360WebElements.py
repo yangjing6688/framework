@@ -1551,3 +1551,5 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_thunderbold_icon_stack(self,row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
 
+    def get_device360_port_configuration_path_cost_stp(self, row):
+        return self.weh.get_element(self.device360_port_configuration_path_cost_stp, parent=row)
