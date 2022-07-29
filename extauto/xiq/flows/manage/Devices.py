@@ -2904,6 +2904,8 @@ class Devices:
                     self.utils.print_info("Getting status from cell")
                 else:
                     self.utils.print_info("Getting status from cell failed...Attempting to get status again")
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
                 attempt_count = attempt_count - 1
                 device_status = self.devices_web_elements.get_status_cell(device_row)
                 sleep(5)
@@ -2944,6 +2946,8 @@ class Devices:
                         kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
                         self.common_validation.validate(1, 1, **kwargs)
                         return "disconnected"
+                    kwargs['pass_msg'] = "Device is disconnected!"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return "disconnected"
 
                 if "local-icon" in device_status:

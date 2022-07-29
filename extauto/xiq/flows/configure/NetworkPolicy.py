@@ -19,6 +19,8 @@ from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
 from extauto.xiq.elements.FilterManageDeviceWebElements import FilterManageDeviceWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.flows.configure.UserGroups import UserGroups
+from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 
 
 class NetworkPolicy(object):
@@ -39,6 +41,8 @@ class NetworkPolicy(object):
         self.robot_built_in = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
         self.common_validation = CommonValidation()
+        self.user_group = UserGroups()
+        self.user_group_elements = UserGroupsWebElements()
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
@@ -1954,3 +1958,43 @@ class NetworkPolicy(object):
             self.utils.print_info("Unable to locate management options on/off button")
             return -1
 
+    def add_user_group_to_network_policy_ssid(self, policy_name, ssid_name, **auth_profile):
+        """
+        - This keyword will add user group to the SSID which have user group item in a Network Policy
+        - Flow: network policy -- > click on network policy card view --> click on SSID --> Add user group
+        - Keyword Usage:
+         - ``Add User Group To Network Policy Ssid   ${POLICY_NAME}   ${SSID_NAME}   &{AUTH_PROFILE}``
+
+        :param policy_name: Name of the network policy
+        :param ssid_name: name of the ssid already exist on that network policy
+        :param **auth_profile: PPSK or 8021x auth profile in file ../CFD/Resource/wireless_networks_related_config.robot
+        :return: 1 if successfully else -1
+        """
+        user_group_config = auth_profile.get('user_group_config', 'None')
+        self.utils.print_info(f"The user group configuration: {user_group_config}")
+        self.utils.print_info("Click on Network Policy card view button")
+        self.navigator.navigate_to_network_policies_card_view_page()
+
+        if self.select_network_policy_in_card_view(policy_name):
+            if self._select_ssid(ssid_name):
+                self.utils.print_info("Check if there is User Group item...")
+                if self.user_group_elements.get_ssid_user_group_item():
+                    self.utils.print_info("Select the user group")
+                    if not user_group_config == 'None':
+                        usr_group_name = user_group_config.get('group_name')
+                        group_profile = user_group_config.get('user_group_profile')
+                        if not group_profile == 'None':
+                            self.user_group.add_wireless_nw_user_group(usr_group_name, group_profile)
+                        else:
+                            db_loc = user_group_config.get('db_loc')
+                            if not self.user_group.select_wireless_user_group(usr_group_name, db_loc, 'PPSK'):
+                                self.utils.print_info(f"User group:{usr_group_name} not created !!!")
+                                return -1
+                else:
+                    self.utils.print_info("No User Group item found in the SSID...")
+                    return -1
+
+        self.utils.print_info("Clicking on Network Save button..")
+        self.auto_actions.click(self.np_web_elements.get_network_policy_wireless_networks_save_button())
+
+        return 1
