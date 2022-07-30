@@ -2904,6 +2904,8 @@ class Devices:
                     self.utils.print_info("Getting status from cell")
                 else:
                     self.utils.print_info("Getting status from cell failed...Attempting to get status again")
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
                 attempt_count = attempt_count - 1
                 device_status = self.devices_web_elements.get_status_cell(device_row)
                 sleep(5)
@@ -2944,6 +2946,8 @@ class Devices:
                         kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
                         self.common_validation.validate(1, 1, **kwargs)
                         return "disconnected"
+                    kwargs['pass_msg'] = "Device is disconnected!"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return "disconnected"
 
                 if "local-icon" in device_status:
@@ -3294,6 +3298,7 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Column list to select: ", columns)
         for filter_ in columns:
@@ -3307,8 +3312,10 @@ class Devices:
                         ans = row_inp.get_attribute("checked")
                         if ans == "true":
                             self.utils.print_info(f"Column Picker Filter {filter_} is already checked")
+                            self.screen.save_screen_shot()
                         else:
                             self.auto_actions.click(filter_row)
+                            self.screen.save_screen_shot()
                             self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
                         break
             else:
@@ -3319,6 +3326,7 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.screen.save_screen_shot()
         sleep(2)
 
         return ret_val
@@ -4651,17 +4659,17 @@ class Devices:
 
         return ret_val
 
-    def _check_device_update_status(self, device_serial):
+    def _check_device_update_status(self,  device_serial_mac_or_name):
         """
         - This keyword is used to check the status of the device update
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
-        :param device_serial: device serial number to check the config push status
+        :param  device_serial_mac_or_name: device serial number, device mac or device name to check the config push status
         :return: 1 if config push success else -1
         """
         retry_count = 0
         while retry_count <= 300:
-            device_update_status = self.get_device_updated_status(device_serial)
+            device_update_status = self.get_device_updated_status(device_serial_mac_or_name)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif device_update_status == "Device Update Failed":
@@ -5328,8 +5336,10 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
-        count = 1
+        self.utils.print_info(f"Enabling 'Managed' column Picker")
+        self.column_picker_select("Managed")
 
+        count = 1
         while count <= retry_count:
             self.utils.print_info(f"Searching for device: loop {count}")
             col_value = self.get_device_details(device_serial, col)
@@ -10840,3 +10850,31 @@ class Devices:
             return -1
         else:
             return 1
+
+    def update_policy_and_configuration_stack(self,  device_serial_mac_or_name=None):
+        """
+        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
+          check button in the Device Update dialog.
+        - Go To Manage-->Devices-->Select switch row to apply the network policy
+        - Select Switch-->Update device
+        - Keyword Usage:
+         - ``Update Policy and Configuration  ${SWITCH_SERIAL}``
+         - ``Update Policy and Configuration  ${SWITCH_MAC}``
+         - ``Update Policy and Configuration  ${SWITCH_NAME}``
+        :param  device_serial_mac_or_name: device serial number, mac or name  of the switch to update
+        :return: 1 if config push success else -1
+        """
+        self.utils.print_info("Select Stack")
+        if not self.select_device(device_serial_mac_or_name):
+            self.utils.print_info("The device cannot be selected")
+            self.screen.save_screen_shot()
+            return -1
+
+        if self._update_switch(update_method="PolicyAndConfig") == -1:
+            self.utils.print_info("The update cannot be performed")
+            self.screen.save_screen_shot()
+            return -1
+
+        self.screen.save_screen_shot()
+
+        return self._check_device_update_status(device_serial_mac_or_name)

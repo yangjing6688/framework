@@ -484,20 +484,20 @@ class Device360(Device360WebElements):
         self.utils.print_info("Getting device360 Information.")
         device360_info = dict()
         device360_info["host_name"] = self.dev360.get_system_info_device_host_name().text
-        ip_address_field = self.dev360.get_exos_switch_info_ip_address().text
+        ip_address_field = self.dev360.get_device_info_ip_address().text
         device360_info["ip_address"] = ip_address_field.split('\n')[-1]
-        mac_address_field = self.dev360.get_exos_switch_info_mac_address().text
+        mac_address_field = self.dev360.get_device_info_mac_address().text
         device360_info["mac_address"] = mac_address_field.split('\n')[-1]
-        serial_number_field = self.dev360.get_exos_switch_info_serial().text
+        serial_number_field = self.dev360.get_device_info_serial().text
         device360_info["serial_number"] = serial_number_field.split('\n')[-1]
-        device360_info["network_policy"] = self.dev360.get_exos_switch_info_device_policy().text
-        device_model_field = self.dev360.get_exos_switch_info_model().text
+        device360_info["network_policy"] = self.dev360.get_device_info_device_policy().text
+        device_model_field = self.dev360.get_device_info_model().text
         device360_info["device_model"] = device_model_field.split('\n')[-1]
-        iq_agent_version_field = self.get_exos_switch_info_iqagent_version().text
+        iq_agent_version_field = self.get_device_info_iqagent_version().text
         device360_info["IQAgent_version"] = iq_agent_version_field.split('\n')[-1]
-        device_make_field = self.dev360.get_exos_switch_info_make().text
+        device_make_field = self.dev360.get_device_info_make().text
         device360_info["device_make"] = device_make_field.split('\n')[-1]
-        software_version_field = self.dev360.get_exos_switch_info_software_version().text
+        software_version_field = self.dev360.get_device_info_software_version().text
         device360_info["software_version"] = software_version_field.split('\n')[-1]
 
         self.utils.print_info(f"******************ExOS Device360 Information************************")
@@ -603,20 +603,20 @@ class Device360(Device360WebElements):
         self.utils.print_info("Getting device360 Monitor> Overview Information.")
         device360_info = dict()
         device360_info["host_name"] = self.dev360.get_system_info_device_host_name().text
-        ip_address_field = self.dev360.get_voss_switch_info_ip_address().text
+        ip_address_field = self.dev360.get_device_info_ip_address().text
         device360_info["ip_address"] = ip_address_field.split('\n')[-1]
-        mac_address_field = self.dev360.get_voss_switch_info_mac_address().text
+        mac_address_field = self.dev360.get_device_info_mac_address().text
         device360_info["mac_address"] = mac_address_field.split('\n')[-1]
-        serial_number_field = self.dev360.get_voss_switch_info_serial().text
+        serial_number_field = self.dev360.get_device_info_serial().text
         device360_info["serial_number"] = serial_number_field.split('\n')[-1]
-        device360_info["network_policy"] = self.dev360.get_voss_switch_info_device_policy().text
-        device_model_field = self.dev360.get_voss_switch_info_model().text
+        device360_info["network_policy"] = self.dev360.get_device_info_device_policy().text
+        device_model_field = self.dev360.get_device_info_model().text
         device360_info["device_model"] = device_model_field.split('\n')[-1]
-        iq_agent_version_field = self.get_voss_switch_info_iqagent_version().text
+        iq_agent_version_field = self.get_device_info_iqagent_version().text
         device360_info["IQAgent_version"] = iq_agent_version_field.split('\n')[-1]
-        device_make_field = self.dev360.get_voss_switch_info_make().text
+        device_make_field = self.dev360.get_device_info_make().text
         device360_info["device_make"] = device_make_field.split('\n')[-1]
-        software_version_field = self.dev360.get_voss_switch_info_software_version().text
+        software_version_field = self.dev360.get_device_info_software_version().text
         device360_info["software_version"] = software_version_field.split('\n')[-1]
 
         self.utils.print_info(f"******************VOSS Device360 Overview Information************************")
@@ -4966,14 +4966,12 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
         sleep(5)
         self.select_configure_tab()
         self.select_port_configuration_view()
@@ -5417,6 +5415,7 @@ class Device360(Device360WebElements):
         if not found:
             self.utils.print_info(" Not able to find the searched value in table ")
             return -1
+
     def device360_confirm_column_picker_column_selected(self, option, *columns, select_page="", device_mac="",
                                                         device_name=""):
         """
@@ -5433,38 +5432,33 @@ class Device360(Device360WebElements):
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(10)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(10)
+
+        sleep(5)
         if select_page == "Overview":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.select_monitor_overview()
-            sleep(5)
         elif select_page == "Clients":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.select_monitor_clients()
-            sleep(5)
         elif select_page == "Events":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.device360_select_events_view()
-            sleep(5)
         elif select_page == "Alarms":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.device360_select_alarms_view()
-            sleep(5)
         else:
             self.utils.print_info(f"No '{select_page}' page ")
-            sleep(2)
             return -1
 
         ret_val = 1
         self.utils.print_info("Clicking on Column Picker")
-        sleep(10)
+        sleep(5)
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.auto_actions.click(self.get_device360_column_picker_icon())
         sleep(2)
@@ -5481,12 +5475,10 @@ class Device360(Device360WebElements):
                             ans = row_inp.get_attribute("checked")
                             if ans == "true":
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
-                                sleep(2)
                             else:
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
                                 self.utils.print_info(f"Selecting Column Picker Filter '{filter_}'")
                                 self.auto_actions.click(filter_row)
-                                sleep(2)
                             break
                 else:
                     self.utils.print_info("Unable to obtain status of the column ", filter_)
@@ -5506,10 +5498,8 @@ class Device360(Device360WebElements):
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
                                 self.utils.print_info(f"Unselecting Column Picker Filter '{filter_}'")
                                 self.auto_actions.click(filter_row)
-                                sleep(2)
                             else:
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
-                                sleep(2)
                             break
                 else:
                     self.utils.print_info("Unable to obtain status of the column ", filter_)
@@ -5517,17 +5507,25 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(f"No option available '{option}'")
             ret_val = -1
-
+        sleep(2)
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.auto_actions.click(self.get_device360_column_picker_icon())
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click(self.get_close_dialog())
-        sleep(2)
-
         return ret_val
 
     def device360_check_column_picker(self, option, *columns, select_page="", device_mac="", device_name=""):
+        '''
+        This keyword confirms the list of the column picker values that was previously checked or unchecked in the
+        column from a specific page
+        :param option: check/uncheck columns picker values from each page
+        :param columns: list of columns from each page that should be selected
+        :param select_page: the page can be Overview/Clients/Alarms/Events
+        :param device_mac: mac of the device
+        :param device_name: name of the device
+        :return: 1 if you can select the page and return the status of the column from the specific page; else -1
+        '''
 
         self.navigator.navigate_to_devices()
         if device_mac:
@@ -5546,29 +5544,23 @@ class Device360(Device360WebElements):
         if select_page == "Overview":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.select_monitor_overview()
-            sleep(5)
         elif select_page == "Clients":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.select_monitor_clients()
-            sleep(5)
         elif select_page == "Events":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.device360_select_events_view()
-            sleep(5)
         elif select_page == "Alarms":
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.device360_select_alarms_view()
-            sleep(5)
         else:
             self.utils.print_info(f"No '{select_page}' page ")
-            sleep(2)
             return -1
         ret_val = 1
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.auto_actions.click(self.get_device360_column_picker_icon())
-        sleep(2)
         if option.lower() == "unchecked":
             self.utils.print_info(f"Checking '{columns}' are not selected")
             sleep(2)
@@ -5583,12 +5575,9 @@ class Device360(Device360WebElements):
                             ans = row_inp.get_attribute("checked")
                             if ans == "true":
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
-                                sleep(2)
                                 ret_val = -1
                             else:
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
-                                sleep(2)
-                               # return -1
                 else:
                     self.utils.print_info("Unable to obtain status of the column ", filter_)
                     ret_val = -1
@@ -5605,12 +5594,9 @@ class Device360(Device360WebElements):
                         if row_input_count == row_num:
                             ans = row_inp.get_attribute("checked")
                             if ans == "true":
-                               # self.act
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
-                                sleep(2)
                             else:
                                 self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
-                                sleep(2)
                                 ret_val = -1
                 else:
                     self.utils.print_info("Unable to obtain status of the column ", filter_)
@@ -5618,12 +5604,11 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(f"No option available '{option}'")
             ret_val = -1
-
+        sleep(2)
         self.utils.print_info("Closing Column Picker")
         self.auto_actions.click(self.get_device360_column_picker_icon())
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click(self.get_close_dialog())
-        sleep(2)
         return ret_val
 
     def create_new_port_type(self, template_values, port, d360=False, verify_summary=True):
@@ -6802,6 +6787,11 @@ class Device360(Device360WebElements):
             return -1
 
     def select_stack_unit(self, slot, **kwargs):
+        '''
+        This keyword will select a slot from a stack in Device360
+        :param slot: The slot which will be selected
+        :return: 1 if the slot was selected; else -1
+        '''
         self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
@@ -6830,3 +6820,130 @@ class Device360(Device360WebElements):
             self.screen.save_screen_shot()
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
+
+    def device360_configure_poe_threshold_value_stack(self, threshold_value, slot, device_mac="", device_name=""):
+        """
+         - This keyword will configure the POE threshold value in Device 360
+         - Flow: Click Device --> Device 360 Window --> Port Configuration --> PSE --> PSE SETTINGS FOR DEVICE
+         - Keyword Usage:
+         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}  slot=${SLOT} device_mac=${DEVICE_MAC}``
+         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}  slot=${SLOT}  device_name=${DEVICE_NAME}``
+        :param threshold_value: value for threshold between 1 and 99
+        :slot: The slot which supported POE
+        :param device_mac: Device Mac Address
+        :param device_name: Device Name
+        :return: 1 if value was configured successfully , else -1
+        """
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+        self.select_configure_tab()
+        self.select_port_configuration_view()
+        self.select_stack_unit(slot=slot)
+        sleep(2)
+        self.utils.print_info("Click PSE Tab")
+        self.auto_actions.click(self.get_device360_port_config_pse_tab_slot_stack())
+        sleep(2)
+        pse_settings_for_device_button = self.get_device360_pse_settings_for_device_button_stack()
+        if pse_settings_for_device_button:
+            self.utils.print_info("Click on PSE settings for device")
+            self.auto_actions.click(pse_settings_for_device_button)
+        else:
+            self.utils.print_info("PSE settings for device button not found")
+            return -1
+        sleep(2)
+        edit_threshold_poe = self.get_device360_edit_threshold_poe_stack()
+        self.utils.print_info("Editing threshold value")
+        self.auto_actions.send_keys(edit_threshold_poe, Keys.CONTROL + "a" + Keys.BACK_SPACE)
+        threshold_value_int = int(threshold_value)
+        if 1 <= threshold_value_int <= 99:
+            self.utils.print_info("Sending threshold {} % value".format(threshold_value))
+            self.auto_actions.send_keys(edit_threshold_poe, threshold_value)
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Value needs to be between 1 and 99.")
+            return -1
+        sleep(2)
+        save_threshold_poe = self.get_device360_save_threshold_poe_value_stack()
+        if save_threshold_poe:
+            self.utils.print_info("Saving threshold {} % ".format(threshold_value))
+            self.auto_actions.click(save_threshold_poe)
+        else:
+            self.utils.print_info("Save button not found")
+            return -1
+        self.select_configure_tab()
+        sleep(2)
+        save_btn = self.get_device360_configure_port_save_button_stack()
+        if save_btn:
+            self.utils.print_info("Clicking 'Save Port Configuration' button'")
+            self.auto_actions.click(save_btn)
+        else:
+            self.utils.print_info("Could not click Save button")
+            return -1
+        self.utils.print_info("Close Dialogue Window")
+        self.auto_actions.click(self.get_close_dialog())
+        return 1
+
+    def device360_power_details_stack(self, slot, device_mac="", device_name=""):
+        """
+         - This keyword will get Power Supply Details in Device 360 from thunderbolt icon
+         - Flow: Click Device -->Device 360 Window -->Thunderbolt ICON
+         - Keyword Usage:
+         - ``Device360 Power Details      device_mac=${DEVICE_MAC}``
+         - ``Device360 Power Details      device_name=${DEVICE_NAME}``
+        :param device_mac: Device Mac Address
+        :param device_name: Device Name
+        :return: list with power supply details; else -1
+        """
+        self.navigator.navigate_to_devices()
+        if device_mac:
+            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
+            device_row = self.dev.get_device_row(device_mac)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_mac(device_mac)
+        if device_name:
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name)
+            if device_row:
+                self.navigator.navigate_to_device360_page_with_host_name(device_name)
+        slot_index = 1
+        slot_found = False
+        slot_details_overview = self.get_device360_stack_overview_slot_details_rows()
+        if slot_details_overview:
+            power_elements = self.dev360.get_device360_thunderbold_icon_stack(slot_details_overview)
+            for power_item in power_elements:
+                if slot_index == int(slot):
+                    self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.auto_actions.click_and_hold_element(power_item)
+                    sleep(2)
+                    self.auto_actions.move_to_element(power_item)
+                    sleep(2)
+                    slot_found = True
+                    break
+                slot_index = slot_index + 1
+            if not slot_found:
+                self.utils.print_info("Unable to locate the correct slot")
+                return -1
+        else:
+            self.utils.print_info("Power details not found")
+            return -1
+        sleep(2)
+        power_details = self.dev360.get_device360_power_details().text
+        if power_details:
+            self.utils.print_info(f"", power_details)
+            self.utils.print_info("Close Dialogue Window")
+            self.auto_actions.click(self.get_close_dialog())
+            return power_details
+        else:
+            self.utils.print_info("Power details not found")
+            return -1
+
