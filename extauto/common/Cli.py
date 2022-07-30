@@ -1039,7 +1039,7 @@ class Cli(object):
         return -1
 
 
-    def enable_debug_mode_iqagent(self, ip, port, username, password, cli_type):
+    def enable_debug_mode_iqagent(self, ip, username, password, cli_type):
         """
         - This Keyword enables debug mode for IQagent for VOSS/EXOS
         - Keyword Usage:
@@ -1052,18 +1052,18 @@ class Cli(object):
         :param cli_type: device Platform example: exos,voss
         :return: _spawn Device Prompt without '#'
         """
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
+        _spawn = self.open_pxssh_spawn(ip,username,password)
 
         if _spawn != -1:
             if 'EXOS' in cli_type.upper():
-                self.send(_spawn, f'disable cli paging')
-                self.send(_spawn, f'debug iqagent show log hive-agent tail', expect_match="", time_out="", platform="")
+                self.send_pxssh(_spawn, 'disable cli paging')
+                self.send_pxssh(_spawn, 'debug iqagent show log hive-agent tail')
                 return _spawn
             elif 'VOSS' in cli_type.upper():
-                self.send(_spawn, f'enable')
-                self.send(_spawn, f'configure terminal')
-                self.send(_spawn, f'trace level 261 3')
-                self.send(_spawn, f'trace screen enable')
+                self.send_pxssh(_spawn, 'enable')
+                self.send_pxssh(_spawn, 'configure terminal')
+                self.send_pxssh(_spawn, 'trace level 261 3')
+                self.send_pxssh(_spawn, 'trace screen enable')
                 return _spawn
             else:
                 self.builtin.fail(msg="Device is not supported")
@@ -1071,6 +1071,30 @@ class Cli(object):
         else:
             self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
             return -1
+
+    def send_line_and_wait(self, spawn, line, wait=60):
+        """
+        - This Keyword used to gets the output from CLI
+        - Default timeout is 90 seconds
+        - Keyword Usage:
+         - ``Send line and_wait   ${SPAWN}   ${LINE}     ${COMMAND}``
+        :param spawn: Device Spawn to execute command
+        :param line: CLI command to be execute
+        :param wait: Collect the information in a certain time
+        :return: CLI Command Output; else -1
+        """
+        line = line.strip()
+        if spawn == None or spawn == 0:
+            self.utils.print_info("No information about spawn")
+            return -1
+        spawn.sendline(line)
+        time.sleep(wait)
+        output2 = spawn.read_nonblocking(size=100000000)
+        if isinstance(output2, bytes):
+            return output2.decode()
+        else:
+            return output2
+
 
 if __name__ == '__main__':
     from pytest_testconfig import *
@@ -1126,26 +1150,3 @@ if __name__ == '__main__':
             count += 1
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
-        
-    def send_line_and_wait(self, spawn,line, wait = 60):
-        """
-        - This Keyword used to gets the output from CLI
-        - Default timeout is 90 seconds
-        - Keyword Usage:
-         - ``Send line and_wait   ${SPAWN}   ${LINE}     ${COMMAND}``
-        :param spawn: Device Spawn to execute command
-        :param line: CLI command to be execute
-        :param wait: Collect the information in a certain time
-        :return: CLI Command Output; else -1
-        """
-        line = line.strip()
-        if spawn == None or spawn == 0:
-            self.utils.print_info("No information about spawn")
-            return -1
-        spawn.sendline(line)
-        time.sleep(wait)
-        output2 = spawn.read_nonblocking(size=100000000)
-        if isinstance(output2, bytes):
-            return output2.decode()
-        else:
-            return output2
