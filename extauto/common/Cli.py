@@ -745,7 +745,7 @@ class Cli(object):
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(_spawn, f'do Hivemanager address {server_name}')
-
+            """
             July 26, 2022
             Depending on the order of configuration this step will fail.
             As an example:
@@ -856,6 +856,7 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
             """
         return 1
+    
     def downgrade_iqagent(self,ip, port, username, password, cli_type, url_image='default'):
         """
                - This Keyword will downgrade iqagent
