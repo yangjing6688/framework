@@ -18,6 +18,7 @@ from ExtremeAutomation.Utilities.deprecated import deprecated
 
 
 from extauto.common.Utils import Utils
+from extauto.common.CommonValidation import CommonValidation
 
 if "Window" not in system():
     from pexpect.pxssh import ExceptionPxssh
@@ -34,6 +35,7 @@ class Cli(object):
         self.networkElementConnectionManager = NetworkElementConnectionManager()
         self.networkElementCliSend = NetworkElementCliSend()
         self.endsystemConnectionManager = EndsystemConnectionManager()
+        self.commonValidation = CommonValidation()
 
         self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP', 'AH-XR']
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
@@ -948,7 +950,7 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
         return 1
 
-    def downgrade_iqagent(self, ip, port, username, password, cli_type):
+    def downgrade_iqagent(self, ip, port, username, password, cli_type, **kwargs):
         """
                - This Keyword will downgrade iqagent
                - Keyword Usage:
@@ -963,14 +965,14 @@ class Cli(object):
                :return: 1 commands successfully configured  else -1
                """
         if cli_type.upper()=='VOSS':
-            return self.downgrade_iqagent_voss(ip, port, username, password, cli_type)
+            return self.downgrade_iqagent_voss(ip, port, username, password, cli_type, **kwargs)
         elif cli_type.upper()=='EXOS':
-            return self.downgrade_iqagent_exos(ip, port, username, password, cli_type)
+            return self.downgrade_iqagent_exos(ip, port, username, password, cli_type, **kwargs)
         else:
             self.utils.print_info(f"cli_type: {cli_type} doesn't need to be downgraded and isn't supported")
             return 1
 
-    def downgrade_iqagent_voss(self, ip, port, username, password, cli_type):
+    def downgrade_iqagent_voss(self, ip, port, username, password, cli_type, **kwargs):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(_spawn, f'enable')
@@ -996,14 +998,14 @@ class Cli(object):
             return -1
 
 
-    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type):
+    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type, **kwargs):
         returnCode = -1
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         try:
             current_version = self.send(_spawn, f'show iqagent | include Version')
-            current_version = ' '.join(current_version.split()).split(' ')[1]
+            current_version = current_version.split()[1]
             base_version = self.send(_spawn, f'show process iqagent  | include iqagent')
-            base_version = ' '.join(base_version.split()).split(' ')[1]
+            base_version = base_version.split()[1]
             # Adjust the verison down to 3 numbers
             parts = base_version.split('.')
             if len(parts) > 3:
@@ -1011,7 +1013,7 @@ class Cli(object):
 
             if current_version != base_version:
                 system_name = self.send(_spawn, f'show switch | include SysName')
-                system_name = ' '.join(system_name.split()).split(' ')[1]
+                system_name = system_name.split()[1]
                 self.utils.print_info(f"Getting the device type for EXOS: {system_name}")
                 exos_device_type = None
                 if '5320' in system_name or '5420' in system_name or '5520' in system_name:
@@ -1036,18 +1038,30 @@ class Cli(object):
                     self.send(_spawn, f'download url {url_image}', \
                               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                               confirmation_args='yes')
-                    time.sleep(10)
+                    # Wait for the output to return version to a max of 60 seconds
+                    max_wait = 6
+                    count = 0
                     new_version = self.send(_spawn, f'show iqagent | include Version')
-                    new_version = ' '.join(base_version.split()).split(' ')[1]
-                    if new_version == base_version:
-                        returnCode = 1
-                    else:
-                        self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed!")
+                    while 'Version' not in new_version:
+                        if count == max_wait:
+                            break
+                        time.sleep(10)
+                        new_version = self.send(_spawn, f'show iqagent | include Version')
+                        count = count + 1
+                    try:
+                        new_version = new_version.split()[1]
+                        if new_version == base_version:
+                            returnCode = 1
+                        else:
+                            self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed!")
+                    except:
+                        self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed! new_version: {new_version}")
         except Exception as e :
             raise e
         finally:
             self.close_spawn(_spawn)
-        return 1
+        self.commonValidation.validate(returnCode, 1, **kwargs)
+        return returnCode
 
         # show iqagent - get version
         # show process iqagent - get version
