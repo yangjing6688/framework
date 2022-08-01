@@ -967,7 +967,7 @@ class Cli(object):
         elif cli_type.upper()=='EXOS':
             return self.downgrade_iqagent_exos(ip, port, username, password, cli_type)
         else:
-            self.utils.print_info(f"cli_type: {cli_type} doesn't eed to be downgraded and isn't supported")
+            self.utils.print_info(f"cli_type: {cli_type} doesn't need to be downgraded and isn't supported")
             return 1
 
     def downgrade_iqagent_voss(self, ip, port, username, password, cli_type):
@@ -1021,10 +1021,10 @@ class Cli(object):
                     exos_device_type = 'summitX'
                     self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
                 elif '435' in system_name:
-                    xos_device_type = 'summitlite_arm'
+                    exos_device_type = 'summitlite_arm'
                     self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
                 elif '465' in system_name or '5720' in system_name:
-                    xos_device_type = 'onie'
+                    exos_device_type = 'onie'
                     self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
                 else:
                     self.utils.print_error(f'Failed to get the correct device type for {system_name}')
