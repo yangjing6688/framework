@@ -94,7 +94,7 @@ class NetworkPolicy(object):
             self.utils.print_info(f"Network policy {policy} exists in the network policy list")
             return 1
 
-    def _perform_np_delete(self, **kwargs):
+    def _perform_np_delete(self):
         """
         clicking on the network policy delete button
         :return:
@@ -102,33 +102,13 @@ class NetworkPolicy(object):
 
         self.utils.print_info("Click on network policy delete button")
         self.auto_actions.click(self.np_web_elements.get_np_delete_button())
+        # sleep(2)
 
-        sleep(2)
-        self.utils.print_info("Click on confirmation Yes Button")
-        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-
-        sleep(5)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-
-        sleep(2)
-        for value in tool_tp_text:
-            if "Network policy was deleted successfully" in value:
-                kwargs['pass_msg'] = "Network policy was deleted successfully"
-                self.common_validation.validate(1, 1, **kwargs)
-                return 1
-            elif "The Network Policy cannot be removed " in value:
-                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}"
-                self.common_validation.validate(-1, 1, **kwargs)
-                return -1
-            elif "An unknown error has occurred" in value:
-                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}"
-                self.common_validation.validate(-1, 1, **kwargs)
-                return -2
-
-        kwargs['fail_msg'] = "Unable to perform the delete"
-        self.common_validation.validate(-1, 1, **kwargs)
-        return -1
+        confirm_delete_btn = self.dialogue_web_elements.get_confirm_yes_button()
+        if confirm_delete_btn:
+            self.utils.print_info("Clicking on confirmation Yes button")
+            self.auto_actions.click(confirm_delete_btn)
+            sleep(3)
 
     def create_network_policy(self, policy, **wireless_profile):
         """
@@ -189,7 +169,7 @@ class NetworkPolicy(object):
 
         return self.wireless_nw.create_wireless_network(**wireless_profile)
 
-    def delete_network_policy(self, policy):
+    def delete_network_policy(self, policy, **kwargs):
         """
         - Delete Network Policy from network policy Grid
         - Keyword Usage:
@@ -199,17 +179,47 @@ class NetworkPolicy(object):
         :return: 1 if deleted else -1
         """
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+            kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
+            self.common_validation.validate(-1, 1, **kwargs)
             return -2
 
         if not self._search_network_policy_in_list_view(policy):
-            self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+            kwargs['pass_msg'] = f"Network policy {policy} doesn't exist in the network policies list"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         self.utils.print_info("Select Network policy row")
         self.select_network_policy_row(policy)
-        sleep(3)
 
-        return self._perform_np_delete()
+        self._perform_np_delete()
+
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        for value in tool_tp_text:
+            if "Network policy was deleted successfully" in value:
+                kwargs['pass_msg'] = "Network policy was deleted successfully!"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+            elif "The Network Policy cannot be removed " in value:
+                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}!"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+            elif "An unknown error has occurred" in value:
+                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -2
+
+        # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
+        # if it's gone assume success.
+        if self._search_network_policy_in_list_view(policy):
+            kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        kwargs['pass_msg'] = f"Successfully deleted Network Policy {policy}!"
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1
 
     def delete_network_polices(self, *policies, **kwargs):
         """
@@ -236,10 +246,38 @@ class NetworkPolicy(object):
             else:
                 self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
 
-        if select_flag:
-            return self._perform_np_delete()
+        if not select_flag:
+            kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
 
-        kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
+        self._perform_np_delete()
+        
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        for value in tool_tp_text:
+            if "Network policy was deleted successfully" in value:
+                kwargs['pass_msg'] = "Network policy was deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+            elif "The Network Policy cannot be removed " in value:
+                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+            elif "An unknown error has occurred" in value:
+                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -2
+
+        # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
+        # if it's gone assume success.
+        for policy in policies:
+            if self._search_network_policy_in_list_view(policy):
+                kwargs['fail_msg'] = "Unable to perform the delete!"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+        kwargs['pass_msg'] = "Successfully deleted Network Policies!"
         self.common_validation.validate(1, 1, **kwargs)
         return 1
 

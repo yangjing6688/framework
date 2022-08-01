@@ -132,7 +132,7 @@ class CommonObjects(object):
                 ssid_list.append(cell.text)
         return ssid_list
 
-    def delete_ssid(self, ssid_name):
+    def delete_ssid(self, ssid_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete SSID from the ssid grid
@@ -146,7 +146,8 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            self.utils.print_info(f"SSID Name {ssid_name} doesn't exist in the list")
+            kwargs['pass_msg'] = f"SSID Name {ssid_name} doesn't exist in the list"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         self.utils.print_info(f"Select and delete SSID {ssid_name}")
@@ -155,12 +156,22 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
-                self.utils.print_info(f"Successfully deleted SSID {ssid_name}")
+                kwargs['pass_msg'] = f"Successfully deleted SSID {ssid_name}"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
+
+        if self._search_common_object(ssid_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted the SSID!"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        kwargs['pass_msg'] = "Successfully deleted the SSID!"
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1
 
     def delete_ssids(self, *ssids, **kwargs):
         """
@@ -841,7 +852,7 @@ class CommonObjects(object):
             self.utils.print_info(f"{search_string} object present in grid row")
             return 1
 
-    def delete_switch_template(self, template_name):
+    def delete_switch_template(self, template_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
@@ -861,6 +872,7 @@ class CommonObjects(object):
             self.utils.print_info("Unable to find 100 rows per page item!")
             return -1
         sleep(2)
+
 
         self.utils.print_info(f"Searching Template: {template_name} on all pages...")
         current_page = 1

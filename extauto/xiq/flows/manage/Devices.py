@@ -3298,6 +3298,7 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Column list to select: ", columns)
         for filter_ in columns:
@@ -3311,8 +3312,10 @@ class Devices:
                         ans = row_inp.get_attribute("checked")
                         if ans == "true":
                             self.utils.print_info(f"Column Picker Filter {filter_} is already checked")
+                            self.screen.save_screen_shot()
                         else:
                             self.auto_actions.click(filter_row)
+                            self.screen.save_screen_shot()
                             self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
                         break
             else:
@@ -3323,6 +3326,7 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.screen.save_screen_shot()
         sleep(2)
 
         return ret_val
@@ -5332,8 +5336,10 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
-        count = 1
+        self.utils.print_info(f"Enabling 'Managed' column Picker")
+        self.column_picker_select("Managed")
 
+        count = 1
         while count <= retry_count:
             self.utils.print_info(f"Searching for device: loop {count}")
             col_value = self.get_device_details(device_serial, col)
