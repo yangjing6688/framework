@@ -5,7 +5,7 @@ from extauto.common.WebElementHandler import *
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
-from extauto.common.CloudDriver import CloudDriver
+
 
 class Navigator(NavigatorWebElements):
     def __init__(self):
@@ -14,7 +14,6 @@ class Navigator(NavigatorWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
-        self.CloudDriver = CloudDriver()
 
     def navigate_to_manage_tab(self):
         """
@@ -929,7 +928,6 @@ class Navigator(NavigatorWebElements):
         :param device_mac:  device MAC number
         :return: 1 if navigated else -1
         """
-        self.CloudDriver.refresh_page()
         self.navigate_to_devices()
         sleep(6)
         return self.device_common.go_to_device360_window(device_mac=device_mac)
