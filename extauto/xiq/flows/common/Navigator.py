@@ -5,7 +5,7 @@ from extauto.common.WebElementHandler import *
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
-
+from extauto.common.CommonValidation import CommonValidation
 
 class Navigator(NavigatorWebElements):
     def __init__(self):
@@ -14,6 +14,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
+        self.common_validation = CommonValidation()
 
     def navigate_to_manage_tab(self):
         """
@@ -3055,4 +3056,34 @@ class Navigator(NavigatorWebElements):
                 self.screen.save_screen_shot()
                 return -1
         else:
+            return -1
+
+    def navigate_to_port_configuration_d360(self, **kwargs):
+        self.utils.print_info("Finding 'Configure' button...")
+        configure_button = self.get_configure_button_d360()
+        if configure_button:
+            self.utils.print_info("Found 'Configure' button! Clicking...")
+            self.auto_actions.click(configure_button)
+
+            self.utils.print_info("Finding 'Port Configuration' button...")
+            port_configuration_button = self.get_port_configuration_d360()
+            if port_configuration_button:
+                self.utils.print_info("Found 'Port Configuration' button! Clicking...")
+                self.auto_actions.click(port_configuration_button)
+                self.utils.print_info("Waiting for port rows to load in d360 Port Configuration page...")
+                self.utils.wait_till(self.get_port_rows_d360)
+                kwargs['pass_msg'] = " 'Port Configuration' button clicked!"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+            else:
+                self.utils.print_info("Failed to find 'Port Configuration' button!")
+                kwargs['fail_msg'] = "Failed to find 'Port Configuration' button!"
+                self.screen.save_screen_shot()
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+        else:
+            self.utils.print_info("Failed to find 'Configure' button!")
+            kwargs['fail_msg'] = "Failed to find 'Configure' button!"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1

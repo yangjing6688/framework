@@ -1280,3 +1280,18 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
             'wait_for': 3
         }
+
+    configure_button_d360 = \
+        {
+            'XPATH': '//li[@data-automation-tag="device-entity-configure"]'
+        }
+
+    port_configuration_d360 = \
+        {
+            'XPATH': '//li[@data-automation-tag="device-entity-nav-menu-port-configuration"]'
+        }
+
+    port_rows_d360 = \
+        {
+            'XPATH': '//div[@class="port-entry"]'
+        }
