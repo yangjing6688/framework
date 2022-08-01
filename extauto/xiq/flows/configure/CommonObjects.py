@@ -565,7 +565,7 @@ class CommonObjects(object):
                 return 1
         return -1
 
-    def delete_port_type_profile(self, port_type_name):
+    def delete_port_type_profile(self, port_type_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
@@ -583,7 +583,8 @@ class CommonObjects(object):
         sleep(2)
 
         if not self._search_common_object(port_type_name):
-            self.utils.print_info("Port Type Profile Name does't exists in the list",port_type_name)
+            kwargs['pass_msg'] = f"Port Type Profile Name {port_type_name}  does't exists in the list"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         self.utils.print_info("Select and delete Port Type Profile row")
@@ -603,10 +604,20 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "The vlan has been deleted" in value:
+                kwargs['pass_msg'] = f"Port type {port_type_name}  deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
 
-    def delete_sub_network_profile(self, sub_network_name):
+        if self._search_common_object(port_type_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted the Port type profile"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Successfully deleted the Port type profile"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
+
+    def delete_sub_network_profile(self, sub_network_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
         - Delete Sub Network in Common Object from the grid
@@ -620,7 +631,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_network_subnetwork_space()
 
         if not self._search_common_object(sub_network_name):
-            self.utils.print_info("SubNetwork Space Name does't exists in the list")
+            kwargs['pass_msg'] = f"SubNetwork Space Name {sub_network_name}  does't exists in the list"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         self.utils.print_info("Select and delete SubNetwork Space row")
@@ -632,10 +644,21 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "The subnetwork has been deleted" in value:
+                kwargs['pass_msg'] = f"SubNetwork Space Name {sub_network_name}  deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
 
-    def delete_vlan_profile(self, vlan_name):
+        if self._search_common_object(sub_network_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted the SUB NETWORK SPACE!"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Successfully deleted SUB NETWORK SPACE!"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
+
+
+    def delete_vlan_profile(self, vlan_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
@@ -649,7 +672,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_basic_vlans_tab()
 
         if not self._search_common_object(vlan_name):
-            self.utils.print_info("VLAN Name does't exists in the list")
+            kwargs['pass_msg'] = f"VLAN Object {vlan_name}  does't exists in the list"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         self.utils.print_info("Select and delete VLAN row")
@@ -661,8 +685,18 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "VLAN has been deleted" in value:
+                kwargs['pass_msg'] = f"Vlan object {vlan_name}  deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
+
+        if self._search_common_object(vlan_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted the Vlan object"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Successfully deleted the vlan object"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
 
     def navigate_to_security_wips_policies(self):
         """
