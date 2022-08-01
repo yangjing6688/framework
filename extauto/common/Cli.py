@@ -1056,6 +1056,10 @@ class Cli(object):
                             self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed!")
                     except:
                         self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed! new_version: {new_version}")
+
+            else:
+                # We should be good as we are running the base version
+                returnCode = 1
         except Exception as e :
             raise e
         finally:
