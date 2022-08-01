@@ -905,8 +905,10 @@ class Cli(object):
     def downgrade_iqagent_exos(self, ip, port, username, password, cli_type, url_image):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         if NetworkElementConstants.OS_EXOS in cli_type.upper():
+            download_image="download url"+" "+url_image
+            print("Download image:",download_image)
             self.send(_spawn, f'show iqagent | include Version')
-            self.send(_spawn, url_image, \
+            self.send(_spawn, download_image, \
                       confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                       confirmation_args='yes')
             time.sleep(10)
