@@ -1289,7 +1289,7 @@ class NavigatorWebElementDefinitions:
     port_configuration_d360 = \
         {
             'CSS_SELECTOR': '.active-result',
-            'index': 1
+            'index': 2
         }
 
     port_rows_d360 = \
