@@ -641,3 +641,6 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_stack_edit_template_drop_down(self):
         return self.weh.get_element(self.stack_edit_template_drop_down)
 
+    def get_device_edit_template_drop_down_options_stack(self):
+        return self.weh.get_elements(self.device_edit_template_drop_down_options_stack)
+

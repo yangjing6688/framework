@@ -480,8 +480,8 @@ class DeviceConfigDefs:
 
     device_edit_template_drop_down_options = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]//ul[contains(@class, "chzn-results '
-                     'qa-chzn-results-stacktemplatelist")]//li',
+            'XPATH': '//div[@data-automation-tag="chzn-drop-ctn"]'
+                     '//ul[contains(@class, "chzn-results qa-chzn-results-devicetemplate")]//li',
             'wait_for': 5
         }
 
@@ -1349,4 +1349,10 @@ class DeviceConfigDefs:
             'XPATH': '//div[@data-dojo-attach-point="stackTemplateArea"]//div['
                      '@data-automation-tag="automation-chzn-container-ctn"]/a',
             'wait_for': 5
+        }
+
+    device_edit_template_drop_down_options_stack = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]//ul[contains(@class, "chzn-results '
+                     'qa-chzn-results-stacktemplatelist")]//li',
         }
