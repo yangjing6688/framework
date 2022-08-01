@@ -826,7 +826,7 @@ class CommonObjects(object):
         self._delete_common_objects()
         sleep(5)
 
-    def _search_switch_template(self, search_string):
+    def search_switch_template(self, search_string):
         """
         Search the passed search string object in Switch Template grid rows
         :param search_string:
@@ -857,7 +857,7 @@ class CommonObjects(object):
         else:
             self.utils.print_info("  -- could not find page size element 100")
 
-        if not self._search_switch_template(template_name):
+        if not self.search_switch_template(template_name):
             self.utils.print_info("Switch Template doesn't exist on first page")
             next_page_el = self.cobj_web_elements.get_next_page_element()
             if next_page_el:
@@ -868,7 +868,7 @@ class CommonObjects(object):
                     self.auto_actions.click(next_page_el)
                     sleep(2)
                     page_len = page_len - 1
-            if not self._search_switch_template(template_name):
+            if not self.search_switch_template(template_name):
                 kwargs['pass_msg'] = "Switch Template doesn't exist in the list"
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
@@ -891,7 +891,7 @@ class CommonObjects(object):
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
-        if not self._search_switch_template(template_name):
+        if not self.search_switch_template(template_name):
             self.utils.print_info("Switch Template doesn't exist on first page")
             next_page_el = self.cobj_web_elements.get_next_page_element()
             if next_page_el:
@@ -902,7 +902,7 @@ class CommonObjects(object):
                     self.auto_actions.click(next_page_el)
                     sleep(2)
                     page_len = page_len - 1
-            if not self._search_switch_template(template_name):
+            if not self.search_switch_template(template_name):
                 kwargs['pass_msg'] = "Switch Template was deleted successfully"
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
