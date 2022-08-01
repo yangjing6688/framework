@@ -3066,7 +3066,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click(configure_button)
 
             self.utils.print_info("Finding 'Port Configuration' button...")
-            port_configuration_button = self.get_port_configuration_d360()
+            port_configuration_button = self.get_port_configuration_d360(self.get_configure_parent())
             if port_configuration_button:
                 self.utils.print_info("Found 'Port Configuration' button! Clicking...")
                 self.auto_actions.click(port_configuration_button)

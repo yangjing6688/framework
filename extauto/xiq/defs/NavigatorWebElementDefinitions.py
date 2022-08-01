@@ -1288,10 +1288,16 @@ class NavigatorWebElementDefinitions:
 
     port_configuration_d360 = \
         {
-            'XPATH': '//li[@data-automation-tag="device-entity-nav-menu-port-configuration"]'
+            'CSS_SELECTOR': '.active-result',
+            'index': 1
         }
 
     port_rows_d360 = \
         {
             'XPATH': '//div[@class="port-entry"]'
+        }
+
+    configure_parent = \
+        {
+            'XPATH': '//ul[@data-dojo-attach-point="configureNav"]'
         }
