@@ -858,7 +858,7 @@ class Cli(object):
         return 1
 
     def wait_for_configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                                     connection_type='ssh', vr='VR-Default', retry_count=10):
+                                                     connection_type='ssh', vr='VR-Default', retry_count=10, retry_duration=30):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
@@ -890,7 +890,7 @@ class Cli(object):
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
+                time.sleep(retry_duration)
                 hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
                 hm_address = self.send(_spawn, f'do show hivemanager address')
 
@@ -948,11 +948,11 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
         return 1
 
-    def downgrade_iqagent(self,ip, port, username, password, cli_type, url_image='default'):
+    def downgrade_iqagent(self, ip, port, username, password, cli_type):
         """
                - This Keyword will downgrade iqagent
                - Keyword Usage:
-                - ``Downgrade Iqagent  ${IP}   ${PORT}      ${USERNAME}       ${PASSWORD}        ${PLATFORM}     url_image='image'``
+                - ``Downgrade Iqagent  ${IP}   ${PORT}      ${USERNAME}       ${PASSWORD}        ${PLATFORM}
 
                :param ip: IP Address of the Device
                :param port: Port
@@ -965,8 +965,10 @@ class Cli(object):
         if cli_type.upper()=='VOSS':
             return self.downgrade_iqagent_voss(ip, port, username, password, cli_type)
         elif cli_type.upper()=='EXOS':
-            return self.downgrade_iqagent_exos(ip, port, username, password, cli_type, url_image)
-
+            return self.downgrade_iqagent_exos(ip, port, username, password, cli_type)
+        else:
+            self.utils.print_info(f"cli_type: {cli_type} doesn't eed to be downgraded and isn't supported")
+            return 1
 
     def downgrade_iqagent_voss(self, ip, port, username, password, cli_type):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
@@ -994,20 +996,83 @@ class Cli(object):
             return -1
 
 
-    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type, url_image):
+    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type):
+        returnCode = -1
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
-        if NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'show iqagent | include Version')
-            self.send(_spawn, url_image, \
-                      confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
-                      confirmation_args='yes')
-            time.sleep(10)
-            self.send(_spawn, f'show iqagent | include Version')
+        try:
+            current_version = self.send(_spawn, f'show iqagent | include Version')
+            current_version = ' '.join(current_version.split()).split(' ')[1]
+            base_version = self.send(_spawn, f'show process iqagent  | include iqagent')
+            base_version = ' '.join(base_version.split()).split(' ')[1]
+            # Adjust the verison down to 3 numbers
+            parts = base_version.split('.')
+            if len(parts) > 3:
+                base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
+
+            if current_version != base_version:
+                system_name = self.send(_spawn, f'show switch | include SysName')
+                system_name = ' '.join(system_name.split()).split(' ')[1]
+                self.utils.print_info(f"Getting the device type for EXOS: {system_name}")
+                exos_device_type = None
+                if '5320' in system_name or '5420' in system_name or '5520' in system_name:
+                    exos_device_type = 'summit_arm'
+                    self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
+                elif '440' in system_name or '450' in system_name or '460' in system_name:
+                    exos_device_type = 'summitX'
+                    self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
+                elif '435' in system_name:
+                    xos_device_type = 'summitlite_arm'
+                    self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
+                elif '465' in system_name or '5720' in system_name:
+                    xos_device_type = 'onie'
+                    self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
+                else:
+                    self.utils.print_error(f'Failed to get the correct device type for {system_name}')
+
+                if exos_device_type:
+                    self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
+                    url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
+                    self.utils.print_info(f"Sending URL: {url_image}")
+                    self.send(_spawn, f'download url {url_image}', \
+                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
+                              confirmation_args='yes')
+                    time.sleep(10)
+                    new_version = self.send(_spawn, f'show iqagent | include Version')
+                    new_version = ' '.join(base_version.split()).split(' ')[1]
+                    if new_version == base_version:
+                        returnCode = 1
+                    else:
+                        self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed!")
+        except Exception as e :
+            raise e
+        finally:
             self.close_spawn(_spawn)
-            return 1
-        else:
-            self.builtin.fail(msg="Failed to Open The Spawn to Device. So Exiting the Testcase")
-            return -1
+        return 1
+
+        # show iqagent - get version
+        # show process iqagent - get version
+        # Compare versions
+        # downgrade
+        # X435 - download image 10.51.1.154 summitlite_arm-iqagent-0.5.40.xmod
+        # X465 (and 5720, but the minimum used should be 0.5.61) - download image 10.51.1.154 onie-iqagent-0.5.40.xmod
+        # Other X4xx (440, 450, 460) - download image 10.51.1.154 summitX-iqagent-0.5.40.xmod
+        # 5320,5420,5520 - download image 10.51.1.154 summit_arm-iqagent-0.5.40.xmod
+        # show system | include Type
+        #       System Type:      5520-24T-SwitchEngine
+        #
+
+        # if NetworkElementConstants.OS_EXOS in cli_type.upper():
+        #     self.send(_spawn, f'show iqagent | include Version')
+        #     self.send(_spawn, url_image, \
+        #               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
+        #               confirmation_args='yes')
+        #     time.sleep(10)
+        #     self.send(_spawn, f'show iqagent | include Version')
+        #     self.close_spawn(_spawn)
+        #     return 1
+        # else:
+        #     self.builtin.fail(msg="Failed to Open The Spawn to Device. So Exiting the Testcase")
+        #     return -1
 
     def disconnect_device_from_cloud(self, cli_type, ip, port, username, password, retry_count=10):
         """
