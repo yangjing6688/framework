@@ -22,7 +22,7 @@ class NetworkElementConstants(Constants):
     OS_VDX = 'VDX'  # brocade
     OS_ICX = 'ICX'  # brocade
     OS_AHFASTPATH = 'AH-FASTPATH'    # AH Fastpath
-    OS_WING = 'WING-AP'              # WING AP
+    OS_WING = 'AH-WING'              # WING AP
     OS_AHAP = 'AH-AP'                # AEROHIVE Switch
     OS_AHXR = 'AH-XR'                # XR Switch
 
