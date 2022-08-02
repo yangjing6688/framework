@@ -3065,7 +3065,7 @@ class Navigator(NavigatorWebElements):
                  Waits for the port rows to load
         :return: 1 if 'Port Configuration' has been clicked and the port rows have been loaded on the page
         """
-        
+
         self.utils.print_info("Finding 'Configure' button...")
         configure_button = self.get_configure_button_d360()
         if configure_button:
