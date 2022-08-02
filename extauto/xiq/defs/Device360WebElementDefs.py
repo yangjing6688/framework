@@ -2617,7 +2617,7 @@ class Device360WebElementDefs:
 
     device_d360_cancel_port_configuration = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
+            'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
             'wait_for': 5
         }
         
