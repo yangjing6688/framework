@@ -1038,15 +1038,19 @@ class Cli(object):
                     self.send(_spawn, f'download url {url_image}', \
                               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                               confirmation_args='yes')
-                    # Wait for the output to return version to a max of 5 minutes
-                    max_wait = 30
+
+                    # Wait for the output to return downgraded version to a max of 60 seconds
+                    max_tries = 60
                     count = 0
-                    time.sleep(10)
-                    new_version = self.send(_spawn, f'show iqagent | include Version')
+
+                    # Sleep for 20 seconds to allow for the download to complete
+                    time.sleep(20)
+
+                    # new_version = self.send(_spawn, f'show iqagent | include Version')
                     while 'Version' not in new_version:
-                        if count == max_wait:
+                        if count == max_tries:
                             break
-                        time.sleep(10)
+                        time.sleep(1)
                         new_version = self.send(_spawn, f'show iqagent | include Version')
                         count = count + 1
                     try:

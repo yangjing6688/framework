@@ -1842,6 +1842,7 @@ class Devices:
                 return 1
         return -1
 
+#EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
