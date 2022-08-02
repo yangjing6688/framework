@@ -841,7 +841,7 @@ class CommonObjects(object):
         self._delete_common_objects()
         sleep(5)
 
-    def _search_switch_template(self, search_string):
+    def search_switch_template(self, search_string):
         """
         Search the passed search string object in Switch Template grid rows
         :param search_string:
@@ -872,8 +872,6 @@ class CommonObjects(object):
             self.utils.print_info("Unable to find 100 rows per page item!")
             return -1
         sleep(2)
-
-
         self.utils.print_info(f"Searching Template: {template_name} on all pages...")
         current_page = 1
         found_template = 0
