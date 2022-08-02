@@ -1038,8 +1038,8 @@ class Cli(object):
                     self.send(_spawn, f'download url {url_image}', \
                               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                               confirmation_args='yes')
-                    # Wait for the output to return version to a max of 60 seconds
-                    max_wait = 6
+                    # Wait for the output to return version to a max of 5 minutes
+                    max_wait = 30
                     count = 0
                     new_version = self.send(_spawn, f'show iqagent | include Version')
                     while 'Version' not in new_version:
