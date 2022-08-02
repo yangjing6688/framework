@@ -15,19 +15,6 @@ class EspAlert(EspAlertWebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
-    def enable_esp_alert(self,url):
-        """
-        - Keyword Usage:
-         - ``Enable Esp Alert   ${URL}``
-
-        :param url: url to load for enabling esp alert on cloud UI
-        :return: 1 if loaded the url successfully
-        """
-        self.utils.print_info("Refresh Page")
-        CloudDriver().cloud_driver.get(url)
-        CloudDriver().cloud_driver.refresh()
-        sleep(10)
-        return 1
     def go_to_policy_and_check_tab(self,configred_title,not_configured_title):
         """
         - Go to policy page and check configured policies and not configured policies tab
@@ -289,6 +276,8 @@ class EspAlert(EspAlertWebElements):
         self.utils.print_info("Going to Policy page")
         self.auto_actions.click(self.get_go_to_policy())
         sleep(2)
+    def go_out_alerts(self):
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
     def check_alert_detail(self,summary):
         """
         - Go to policy page and check alert detail exist

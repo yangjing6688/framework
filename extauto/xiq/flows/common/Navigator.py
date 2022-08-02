@@ -1857,6 +1857,26 @@ class Navigator(NavigatorWebElements):
         else:
             return -2
 
+    def navigate_to_webhooks_page(self):
+        """
+        - Navigate to the USER ACCOUNT-> Global settings > Webhooks
+        - Flow: USER ACCOUNT-> Global settings > Webhooks
+        - Keyword Usage:
+         - ``Navigate To Webhooks Page``
+
+        :return: 1 If Navigated successfully else -1
+        """
+        self.navigate_to_global_settings_page()
+        sleep(2)
+        self.utils.print_info("Clicking on account details...")
+        webhooks_ele = self.weh.get_element(self.global_settings_webhooks)
+        sleep(2)
+        if webhooks_ele.is_displayed():
+            self.auto_actions.click(webhooks_ele)
+            return 1
+        else:
+            return -1
+
     def navigate_to_dashboard_page(self):
         """
         - Navigate to dashboard page by clicking top left of UI
@@ -2879,40 +2899,29 @@ class Navigator(NavigatorWebElements):
             self.screen.save_screen_shot()
             return -2
 
-    def navigate_configure_alert(self):
+    def navigate_manage_alerts(self):
         """
-         - This keyword Navigates to Alert On Configure Menu
-         - Flow Configure--> Alert
-         - Keyword Usage
-          - ``Navigate Configure Alert``
+        - Navigate to the MANAGE->ALERTS
+        - Flow: Manage --> Alerts
+        - Keyword Usage:
+         - ``Navigate Manage Alerts``
 
-        :return: 1 if Navigation Successful to Alert On Configure Menu else return -1
+        :return: 1 If Navigated successfully else -1
         """
-        self.utils.print_info("Selecting Configure tab...")
-        if self.get_configure_tab().is_displayed():
-            self.navigate_to_configure_tab()
+        self.utils.print_info("Clicking Manage Tab...")
+        try:
+            if self.get_manage_tab().is_displayed():
+                self.auto_actions.click(self.get_manage_tab())
+            else:
+                return -2
+
+            self.utils.print_info("Clicking on Alerts Tab..")
+            self.auto_actions.click(self.get_manage_alerts_menu_item())
             sleep(2)
-        else:
-            return -2
-
-        return self.navigate_to_alert_tab()
-
-    def navigate_to_alert_tab(self):
-        """
-         - This keyword Navigates to Alert
-         - Keyword Usage
-          - ``Navigate To Alert Tab``
-
-        :return: 1 if Navigation Successful to Alert On Configure Menu else return -1
-        """
-        self.utils.print_info("Selecting Alert Tab...")
-        if self.get_alert_sub_tab():
-            self.auto_actions.click(self.get_alert_sub_tab())
-            sleep(10)
             return 1
-        else:
-            self.utils.print_info("Unable to navigate to Alert tab")
-            self.screen.save_screen_shot()
+
+        except Exception as e:
+            self.utils.print_info("Unable to Navigate to Alerts ", e)
             return -1
 
     def navigate_to_applications_tab(self):
