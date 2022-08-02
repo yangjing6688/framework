@@ -1041,6 +1041,7 @@ class Cli(object):
                     # Wait for the output to return version to a max of 5 minutes
                     max_wait = 30
                     count = 0
+                    time.sleep(10)
                     new_version = self.send(_spawn, f'show iqagent | include Version')
                     while 'Version' not in new_version:
                         if count == max_wait:
