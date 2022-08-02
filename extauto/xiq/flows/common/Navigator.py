@@ -3070,16 +3070,13 @@ class Navigator(NavigatorWebElements):
         configure_button = self.get_configure_button_d360()
         if configure_button:
             self.utils.print_info("Found 'Configure' button! Clicking...")
+            self.auto_actions.scroll_by_horizontal(configure_button)
             self.auto_actions.click(configure_button)
-
             self.utils.print_info("Finding 'Port Configuration' button...")
-            self.auto_actions.scroll_down()
-            # Added 3 seconds sleep because after scrolling down, it clicks Device Credentials instead of
-            # Port Configuration
-            sleep(3)
             port_configuration_button = self.get_port_configuration_d360()
             if port_configuration_button:
                 self.utils.print_info("Found 'Port Configuration' button! Clicking...")
+                self.auto_actions.scroll_by_horizontal(port_configuration_button)
                 self.auto_actions.click(port_configuration_button)
                 self.utils.print_info("Waiting for port rows to load in d360 Port Configuration page...")
                 self.utils.wait_till(self.get_port_rows_d360)
