@@ -3059,6 +3059,13 @@ class Navigator(NavigatorWebElements):
             return -1
 
     def navigate_to_port_configuration_d360(self, **kwargs):
+        """
+         - Assumes that D360 poge is already open
+         - Flow: Clicks 'Configure' button -> Scrolls down -> Clicks 'Port Configuration" ->
+                 Waits for the port rows to load
+        :return: 1 if 'Port Configuration' has been clicked and the port rows have been loaded on the page
+        """
+        
         self.utils.print_info("Finding 'Configure' button...")
         configure_button = self.get_configure_button_d360()
         if configure_button:
@@ -3067,6 +3074,9 @@ class Navigator(NavigatorWebElements):
 
             self.utils.print_info("Finding 'Port Configuration' button...")
             self.auto_actions.scroll_down()
+            # Added 3 seconds sleep because after scrolling down, it clicks Device Credentials instead of
+            # Port Configuration
+            sleep(3)
             port_configuration_button = self.get_port_configuration_d360()
             if port_configuration_button:
                 self.utils.print_info("Found 'Port Configuration' button! Clicking...")
