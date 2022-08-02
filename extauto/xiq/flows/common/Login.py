@@ -1,5 +1,5 @@
 import threading
-#import requests
+import requests
 import re
 import random
 from io import StringIO
