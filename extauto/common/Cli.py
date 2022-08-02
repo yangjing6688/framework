@@ -1047,6 +1047,7 @@ class Cli(object):
                     time.sleep(20)
 
                     # new_version = self.send(_spawn, f'show iqagent | include Version')
+                    new_version = ''
                     while 'Version' not in new_version:
                         if count == max_tries:
                             break
