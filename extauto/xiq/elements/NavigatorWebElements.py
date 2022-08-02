@@ -677,11 +677,8 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_configure_button_d360(self):
         return self.weh.get_element(self.configure_button_d360)
 
-    def get_port_configuration_d360(self, parent):
-        return self.weh.get_element(self.port_configuration_d360, parent=parent)
+    def get_port_configuration_d360(self):
+        return self.weh.get_element(self.port_configuration_d360)
 
     def get_port_rows_d360(self):
         return self.weh.get_elements(self.port_rows_d360)
-
-    def get_configure_parent(self):
-        return self.weh.get_element(self.configure_parent)
