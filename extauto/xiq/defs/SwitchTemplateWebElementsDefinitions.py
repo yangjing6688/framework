@@ -592,6 +592,12 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
     
+    sw_template_port_details_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-details"]',
+            'wait_for': 5
+        }
+
     sw_template_stp_port_rows = \
         {
             'XPATH': '//portentry-row[contains(@componentpath, "PortSTPEntry")]',

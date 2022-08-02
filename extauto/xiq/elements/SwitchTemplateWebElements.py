@@ -431,6 +431,9 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_stp_tab(self):
         return self.weh.get_element(self.sw_template_stp_tab)
     
+    def get_sw_template_port_details_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_tab)
+
     def get_sw_template_stp_port_rows(self):
         return self.weh.get_elements(self.sw_template_stp_port_rows)
 
