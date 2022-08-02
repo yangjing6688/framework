@@ -1293,5 +1293,5 @@ class NavigatorWebElementDefinitions:
 
     port_rows_d360 = \
         {
-            'XPATH': '//div[@class="port-entry"]'
+            'CSS_SELECTOR': '.port-details-entry'
         }
