@@ -2744,6 +2744,9 @@ class Devices:
         # call a refresh
         self.refresh_devices_page()
 
+        #EJL this isn't what we should do here
+        sleep(10)
+
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
             self.common_validation.validate(-1, 1, **kwargs)
