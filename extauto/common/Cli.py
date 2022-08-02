@@ -1030,6 +1030,7 @@ class Cli(object):
                     self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
                 else:
                     self.utils.print_error(f'Failed to get the correct device type for {system_name}')
+                    kwargs['fail_msg'] = f'Failed to get the correct device type for {system_name}'
 
                 if exos_device_type:
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
@@ -1046,7 +1047,6 @@ class Cli(object):
                     # Sleep for 20 seconds to allow for the download to complete
                     time.sleep(20)
 
-                    # new_version = self.send(_spawn, f'show iqagent | include Version')
                     new_version = ''
                     while 'Version' not in new_version:
                         if count == max_tries:
@@ -1060,9 +1060,10 @@ class Cli(object):
                             returnCode = 1
                         else:
                             self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed!")
+                            kwargs['fail_msg'] = f"Downgrading iqagent {current_version} to base version {base_version} failed!"
                     except:
                         self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed! new_version: {new_version}")
-
+                        kwargs['pass_msg'] = f"Downgrading iqagent {current_version} to base version {base_version} failed! new_version: {new_version}"
             else:
                 # We should be good as we are running the base version
                 returnCode = 1
