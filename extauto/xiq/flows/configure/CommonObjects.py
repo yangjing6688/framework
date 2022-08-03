@@ -1,6 +1,8 @@
 import re
 from time import sleep
 
+import selenium.common.exceptions
+
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
@@ -619,7 +621,7 @@ class CommonObjects(object):
                     else:
                         self.utils.print_info("This is the last page: ", str(current_page))
                         self.utils.print_info(f"Checked all {current_page} pages for Port Type profile: "
-                                              f"{port_type_name} ;"
+                                              f"{port_type_name} ; "
                                               f"It was already deleted or it hasn't been created yet!")
                         return 1
                 else:
@@ -627,10 +629,10 @@ class CommonObjects(object):
                     self._select_delete_common_object(port_type_name)
                     return 1
 
-            except Exception as e:
+            except (selenium.common.exceptions.StaleElementReferenceException, TypeError) as e:
                 self.utils.print_info("Got the following error: ", e)
-                self.utils.print_info("Attempting to come back to page: ", str(current_page))
-                self.navigator.navigate_to_policy_port_types()
+                self.utils.print_info("Trying to get the rows again on page: ", str(current_page))
+                continue
 
     def delete_sub_network_profile(self, sub_network_name):
         """
