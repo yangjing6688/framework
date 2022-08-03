@@ -19,6 +19,7 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 
 class SwitchTemplate(object):
 
@@ -37,6 +38,7 @@ class SwitchTemplate(object):
         self.tools = Tools()
         self.common_validation = CommonValidation()
         self.dialogue_web_elements = DialogWebElements()
+        self.common_objects = CommonObjects()
 
     def check_sw_template(self, sw_template):
         """
@@ -61,7 +63,7 @@ class SwitchTemplate(object):
                 return True
         return False
 
-    def add_sw_template(self, nw_policy, sw_model, sw_template_name):
+    def add_sw_template(self, nw_policy, sw_model, sw_template_name, **kwargs):
         """
         - Checks the given switch template present already in the switch Templates Grid
         - If it is not there add to the sw_template
@@ -74,6 +76,36 @@ class SwitchTemplate(object):
 
         :return: 1 if Switch Template Configured Successfully else -1
         """
+        self.navigator.navigate_to_switch_templates()
+        self.utils.print_info("Click on full page view for switch template")
+        page_size_el = self.common_objects.cobj_web_elements.get_paze_size_element(page_size='100')
+        if page_size_el:
+            self.utils.print_info("  -- clicking page size element 100 for switch template")
+            self.auto_actions.click(page_size_el)
+            sleep(3)
+        else:
+            self.utils.print_info("  -- could not find page size element 100")
+        if self.common_objects.search_switch_template(sw_template_name):
+            kwargs['pass_msg'] = "Switch Template exists on first page!!"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
+
+        elif not self.common_objects.search_switch_template(sw_template_name):
+            self.utils.print_info("Switch Template doesn't exist on first page")
+            next_page_el = self.common_objects.cobj_web_elements.get_next_page_element()
+            if next_page_el:
+                device_page_numbers = self.common_objects.cobj_web_elements.get_page_numbers()
+                page_len = int(max(device_page_numbers.text))
+                while page_len:
+                    self.utils.print_info("  -- clicking next page")
+                    self.auto_actions.click(next_page_el)
+                    sleep(2)
+                    page_len = page_len - 1
+                    if self.common_objects.search_switch_template(sw_template_name):
+                        kwargs['pass_msg'] = "Switch Template exists in the list!!"
+                        self.common_validation.validate(1, 1, **kwargs)
+                        return 1
+
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
         sleep(1)
@@ -91,10 +123,6 @@ class SwitchTemplate(object):
             self.auto_actions.click(tab)
             sleep(2)
 
-        if self.check_sw_template(sw_model):
-            self.utils.print_info("Template Already present in the template grid")
-            return 1
-       
         add_btns = self.sw_template_web_elements.get_sw_template_add_button()
         sleep(2)
 
@@ -108,6 +136,7 @@ class SwitchTemplate(object):
                 self.utils.print_info("select the sw: ", sw_model)
                 sw_list_items = self.sw_template_web_elements.get_sw_template_platform_from_drop_down()
                 sleep(2)
+                model_found = False
                 for el in sw_list_items:
                     if not el:
                         continue
@@ -117,8 +146,13 @@ class SwitchTemplate(object):
                     self.utils.print_info("Looking for: ", sw_model.upper())
                     if sw_model.upper() in el.text.upper():
                         self.utils.print_info("    -switch template match")
+                        model_found = True
                         self.auto_actions.click(el)
                         break
+                if not model_found:
+                    kwargs['fail_msg'] = "Device model NOT found!"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
 
                 sleep(1)
 
@@ -144,7 +178,7 @@ class SwitchTemplate(object):
                         
                         self.screen.save_screen_shot()
                         rc = 1
-                        break;
+                        break
 
                 self.utils.print_info("Click on network policy exit button")
                 self.auto_actions.click(self.np_web_elements.get_np_exit_button())
