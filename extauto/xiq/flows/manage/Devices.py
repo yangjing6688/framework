@@ -10878,3 +10878,53 @@ class Devices:
         self.screen.save_screen_shot()
 
         return self._check_device_update_status(device_serial_mac_or_name)
+
+    def wait_for_policy_config_push_to_complete(self, device_serial, boot_wait_time=60, **kwargs):
+        """
+        - This method waits until the device is online & managed with status green after a config push
+        - Keyword Usage:
+        - ``Wait For Policy Config Push To Complete ${DEVICE_SERIAL} ${BOOT_WAIT_TIME}``
+        :param device_serial: device serial number
+        :param boot_wait_time: time to wait until the device is supposed to have completed the reboot
+        :return: 1 if reboot was successful, device is online & managed, status is green else -1
+        """
+
+        kwargs['IRV'] = True
+        self.utils.print_info("Sleeping for {} seconds to allow device to come back on line".format(boot_wait_time))
+        sleep(boot_wait_time)
+
+        reboot_res = self.wait_until_device_reboots(device_serial, retry_duration=15, retry_count=12)
+        if reboot_res == 1:
+            self.utils.print_info('Reboot for device with serial number: {} is successful'.format(device_serial))
+        else:
+            kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(device_serial, reboot_res)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        online_res = self.wait_until_device_online(device_serial, retry_duration=15, retry_count=12)
+        if online_res == 1:
+            self.utils.print_info('Device with serial number: {} is online'.format(device_serial))
+        else:
+            kwargs['fail_msg'] = 'Device with serial number: {} is NOT online: {}'.format(device_serial, online_res)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        managed_res = self.wait_until_device_managed(device_serial)
+        if managed_res == 1:
+            self.utils.print_info('Status for device with serial number: {} is equal to managed'.format(device_serial))
+        else:
+            kwargs['fail_msg'] = 'Status for device with serial number: {} is NOT equal to managed: {}'.format(device_serial, managed_res)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        status_res = self.get_device_status(device_serial=device_serial)
+        if status_res == 'green':
+            self.utils.print_info('Status for device with serial number: {} is equal to green'.format(device_serial))
+        else:
+            kwargs['fail_msg'] = 'Status for device with serial number: {} is NOT equal to green: {}'.format(device_serial, status_res)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        kwargs['pass_msg'] = 'Wait for policy config push to device with serial number: {} is complete'
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1
