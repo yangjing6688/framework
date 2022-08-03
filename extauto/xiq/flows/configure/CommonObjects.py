@@ -926,31 +926,6 @@ class CommonObjects(object):
                 self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
-        self.navigator.navigate_to_switch_templates()
-        if self._search_switch_template(template_name):
-            kwargs['fail_msg'] = "Unsuccessfully deleted switch Template"
-            self.common_validation.validate(-1, 1, **kwargs)
-            return -1
-
-        next_page_el = self.cobj_web_elements.get_next_page_element()
-        if next_page_el:
-            device_page_numbers = self.cobj_web_elements.get_page_numbers()
-            page_len = int(max(device_page_numbers.text))
-            while page_len:
-                self.utils.print_info("  -- clicking next page")
-                self.auto_actions.click(next_page_el)
-                sleep(2)
-                page_len = page_len - 1
-                if  self._search_switch_template(template_name):
-                    kwargs['fail_msg'] = "Unsuccessfully deleted switch Template"
-                    self.common_validation.validate(-1, 1, **kwargs)
-                    return -1
-
-        kwargs['pass_msg'] = "Successfully deleted Switch Template"
-        self.common_validation.validate(1, 1, **kwargs)
-        return 1
-=======
-                return 1
 
         if not self.search_switch_template(template_name):
             self.utils.print_info("Switch Template doesn't exist on first page")
@@ -971,7 +946,6 @@ class CommonObjects(object):
         kwargs['fail_msg'] = f"Switch Template was NOT deleted successfully"
         self.common_validation.validate(-1, 1, **kwargs)
         return -1
->>>>>>> main
 
     def _get_switch_template_row(self, search_string):
         """
