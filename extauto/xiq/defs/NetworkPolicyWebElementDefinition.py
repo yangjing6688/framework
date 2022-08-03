@@ -729,3 +729,14 @@ class NetworkPolicyWebElementDefinition:
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
             'wait_for': 3
         }
+
+    next_page_element_disabled = \
+        {
+            'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable'
+        }
+
+    next_page_element = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            'index': 1
+        }

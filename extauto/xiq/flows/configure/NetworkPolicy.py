@@ -580,7 +580,27 @@ class NetworkPolicy(object):
             sleep(2)
 
         self.utils.print_info("Select the network policy rows")
-        self.select_network_policy_row(policy_name)
+
+        current_page = 1
+        while True:
+            try:
+                self.utils.print_info(f"Current page: {current_page}")
+                self.utils.print_info("Waiting for Network Policy rows to load...")
+                self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
+                self.utils.print_info(f"Network Policy rows have been loaded. Searching for "
+                                      f"Network Policy: {policy_name} ...")
+                self.select_network_policy_row(policy_name)
+                break
+            except (TypeError, AssertionError):
+                if not self.np_web_elements.get_next_page_element_disabled():
+                    self.utils.print_info(f"The network policy {policy_name} is not present on page: {current_page}. "
+                                          f"Checking next page: {current_page + 1}...")
+                    self.auto_actions.click(self.np_web_elements.get_next_page_element())
+                    current_page += 1
+                else:
+                    self.utils.print_info(f"This is the last page: {current_page}. Network policy was not found in all "
+                                          f"{current_page} pages. It was deleted or not created at all.")
+                    return -1
 
         self.utils.print_info("Click on network policy Edit button")
         self.auto_actions.click(self.np_web_elements.get_np_edit_button())
