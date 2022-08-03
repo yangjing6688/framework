@@ -1,3 +1,5 @@
+import selenium.common.exceptions
+
 from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 import re
@@ -583,15 +585,19 @@ class NetworkPolicy(object):
 
         current_page = 1
         while True:
+            self.utils.print_info(f"Current page: {current_page}")
+            self.utils.print_info("Waiting for Network Policy rows to load...")
+            self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
+            self.utils.print_info(f"Network Policy rows have been loaded. Searching for "
+                                  f"Network Policy: {policy_name} ...")
             try:
-                self.utils.print_info(f"Current page: {current_page}")
-                self.utils.print_info("Waiting for Network Policy rows to load...")
-                self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
-                self.utils.print_info(f"Network Policy rows have been loaded. Searching for "
-                                      f"Network Policy: {policy_name} ...")
                 self.select_network_policy_row(policy_name)
                 break
-            except (TypeError, AssertionError):
+            except (TypeError, AssertionError, selenium.common.exceptions.StaleElementReferenceException) as e:
+                if 'Stale' in str(e):
+                    self.utils.print_info('Stale Element Error: ', e)
+                    self.utils.print_info('Checking rows again...')
+                    continue
                 if not self.np_web_elements.get_next_page_element_disabled():
                     self.utils.print_info(f"The network policy {policy_name} is not present on page: {current_page}. "
                                           f"Checking next page: {current_page + 1}...")
