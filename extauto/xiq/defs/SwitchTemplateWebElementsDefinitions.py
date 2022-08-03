@@ -52,6 +52,12 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    sw_template_enable_mstp = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='stpMode-mstp']",
+            'wait_for': 5
+        }
+
     sw_template_device_configuration_tab = \
         {
             'CSS_SELECTOR': '.nav-configuration-device',

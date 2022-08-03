@@ -49,6 +49,9 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_enable_rstp(self):
         return self.weh.get_element(self.sw_template_enable_rstp)
 
+    def get_sw_template_enable_mstp(self):
+        return self.weh.get_element(self.sw_template_enable_mstp)
+
     def get_sw_template_port_configuration_tab(self):
         return self.weh.get_element(self.sw_template_port_configuration_tab)
 
