@@ -7,6 +7,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.xiq.elements.RouterTemplateWebElements import *
 
@@ -19,6 +20,7 @@ class RouterTemplate(RouterTemplateWebElements):
         self.navigator = Navigator()
         self.screen = Screen()
         self.nw_policy = NetworkPolicy()
+        self.common_validation = CommonValidation()
 
     def check_router_template(self, router_template):
         """
