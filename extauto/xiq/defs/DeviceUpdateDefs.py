@@ -51,7 +51,13 @@ class DeviceUpdateDefs:
 
     upgrade_to_specific_version_dropdown = \
         {
-            'XPATH': '//*[@id="ah/util/layout/list/ChosenList_0"]',
+            'XPATH': '//*[contains(@class,"upgrade-version-select")] //*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 2
+        }
+
+    is_specific_version_dropdown_open = \
+        {
+            'XPATH': '//*[contains(@class,"upgrade-version-select")] //*[contains(@class,"chzn-single-with-drop")]',
             'wait_for': 2
         }
 

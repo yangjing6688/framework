@@ -274,6 +274,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_utilities_button(self):
         return self.weh.get_element(self.manage_device_utilities_button)
 
+    def get_manage_device_utilities_wan_access(self):
+        return self.weh.get_element(self.manage_device_utilities_wan_access())
+
     def get_actions_assign_network_policy_combo(self):
         elements = self.weh.get_elements(self.actions_assign_network_policy)
         return self.get_dislayed_element(elements)

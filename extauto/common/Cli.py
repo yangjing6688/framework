@@ -88,6 +88,7 @@ class Cli(object):
         self.utils.print_info("Username: ", username)
         self.utils.print_info("Password: ", password)
         self.utils.print_info("Cli Type: ", cli_type)
+        self.utils.print_info("Connection Method: ", connection_method)
         self.utils.print_info("=================================")
 
         # Generate UUID

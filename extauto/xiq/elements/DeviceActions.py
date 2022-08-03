@@ -13,6 +13,21 @@ class DeviceActions(DeviceActionsDefs):
         """
         return self.weh.get_element(self.device_actions_button)
 
+    def get_device_actions_advance(self):
+        return self.weh.get_element(self.device_actions_advance)
+
+    def get_device_actions_advance_cli_access(self):
+        return self.weh.get_element(self.device_actions_advance_cli_access)
+
+    def get_device_actions_cli_windows(self):
+        return self.weh.get_element(self.device_actions_cli_windows)
+
+    def get_device_actions_cli_windows_input(self):
+        return self.weh.get_element(self.device_actions_cli_windows_input)
+
+    def get_device_actions_cli_windows_input_apply(self):
+        return self.weh.get_element(self.device_actions_cli_windows_input_apply)
+
     def get_device_actions_reboot_menu_item(self):
         """
         :return: Reboot Menu Option

@@ -16,6 +16,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
+from extauto.xiq.flows.manage.Devices import Devices
 
 class DeviceConfig(DeviceConfigElements):
     def __init__(self):
@@ -30,6 +31,7 @@ class DeviceConfig(DeviceConfigElements):
         self.cobj_web_elements = CommonObjectsWebElements()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.devices = Devices()
 
     def _override_wifi0_psk_ssid_settings(self, **override_args):
         """
@@ -2604,3 +2606,49 @@ class DeviceConfig(DeviceConfigElements):
             self.screen.save_screen_shot()
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
+
+    def configure_device_function(self, ap_serial, device_function='AP'):
+        """
+        - This keyword will configure device function as AP or Router
+        :param ap_serial:   The serial of the device
+        :param device_function: AP or ApAsRouter, default is AP
+        :return: success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        self.utils.print_info(f"Select AP serial {ap_serial} ...")
+        self.devices.select_ap(ap_serial)
+        self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
+        self.auto_actions.click(self.get_edit_button())
+        self.utils.print_info("Click Configure tab...")
+        self.auto_actions.click(self.get_devices_edit_config_button())
+        self.utils.print_info("Click Device Configuration...")
+        self.auto_actions.click(self.get_device_configuration_tab())
+        self.utils.print_info("Click Device Function dropdown button...")
+        self.auto_actions.click(self.get_devices_device_config_device_function_dropdown())
+        device_function_options = self.get_devices_device_config_device_function()
+        for opt in device_function_options:
+            self.utils.print_info(f"Option is {opt}")
+            if device_function.upper() == opt.text.upper():
+                self.utils.print_info(f"Select {device_function} as Device Function")
+                self.auto_actions.click(opt)
+                break
+        sleep(3)
+        self.utils.print_info("Click Save Device Configuration button...")
+        self.auto_actions.click(self.get_devices_device_config_page_save_button())
+        sleep(3)
+        self.utils.print_info("Close device config windows...")
+        self.auto_actions.click(self.get_close_dialog())
+        return 1
+
+
+
+
+
+
+

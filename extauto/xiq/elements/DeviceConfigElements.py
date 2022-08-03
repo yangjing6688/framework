@@ -637,3 +637,12 @@ class DeviceConfigElements(DeviceConfigDefs):
             return grid_rows
         else:
             return False
+
+    def get_devices_device_config_device_function_dropdown(self):
+        return self.weh.get_element(self.devices_device_config_device_function_dropdown)
+
+    def get_devices_device_config_device_function(self):
+        return self.weh.get_elements(self.devices_device_config_device_function)
+
+    def get_devices_device_config_page_save_button(self):
+        return self.weh.get_element(self.devices_device_config_page_save_button)

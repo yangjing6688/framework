@@ -399,6 +399,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 2
         }
 
+    manage_device_utilities_wan_access = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-utilities-device-wan-access"]',
+            'wait_for': 2
+        }
+
     actions_assign_network_policy = \
         {
             'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions") and contains(@data-automation-tag, "-assign-policy")]',

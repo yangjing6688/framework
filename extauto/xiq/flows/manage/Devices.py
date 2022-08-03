@@ -1709,34 +1709,37 @@ class Devices:
         :return: 1 if success
         """
         specific_version = -1
-
         if self.select_ap(device_serial):
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click(self.device_update.get_update_devices_button())
             sleep(5)
-
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
             sleep(5)
-
             self.utils.print_info("Selecting upgrade to specific version checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
             sleep(2)
-
+            self.utils.print_info("Click specific version Dropdown")
+            self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_dropdown())
+            while not self.device_update.get_is_specific_version_dropdown_open():
+                self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_dropdown())
+            self.utils.print_info(f"Selected specific upgrade version as '{version}' from drop down")
+            options = self.device_update.get_upgrade_to_specific_version_dropdown_list()
+            for option in options:
+                self.utils.print_info(option.get_attribute('data-automation-tag'))
+                if version in option.get_attribute('data-automation-tag'):
+                    self.utils.print_info(option.get_attribute('data-automation-tag'))
+                    self.auto_actions.click(option)
             specific_version = self.device_update.get_specific_version()
-            sleep(2)
-
             self.utils.print_info("Device Specific Version: ", specific_version)
-
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same")
+            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
-
             self.utils.print_info("Setting Activate time to 60 seconds")
             self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), '60')
-
             self.utils.print_info("Selecting Perform Update button...")
             self.auto_actions.click(self.device_update.get_perform_update_button())
-
         return specific_version
 
     def xiq_upgrade_device_to_specific_version(self, device_serial, version=None):
@@ -10870,3 +10873,21 @@ class Devices:
         self.screen.save_screen_shot()
 
         return self._check_device_update_status(device_serial_mac_or_name)
+
+    def enable_device_wan_access(self, device_serial):
+        """
+        - This keyword will configure device function as AP or Router
+        :param device_serial:   The serial of the device
+        :return: success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        if self.select_device(device_serial):
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.device_actions.get_device_actions_button())
+

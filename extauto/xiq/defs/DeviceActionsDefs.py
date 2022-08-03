@@ -5,6 +5,41 @@ class DeviceActionsDefs:
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 2
         }
+    device_actions_advance = \
+        {
+            'XPATH': '//ul[contains(@class,"ui-menu-list") and contains(@style,"display")] //*[@data-automation-tag="automation-manage-device-actions-advanced"]',
+            'wait_for': 2
+        }
+
+    device_actions_advance_cli_access = \
+        {
+            'XPATH': '//ul[contains(@class,"ui-menu-list") and contains(@style,"display")] //a[@data-automation-tag="automation-manage-device-actions-router-cli-access"]',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_input = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .cli-command-input',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_input_apply = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .cli-command-input',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_cli_result_windows = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .cli-pane-resut',
+            'wait_for': 2
+        }
 
     device_actions_reboot_menu_item = \
         {

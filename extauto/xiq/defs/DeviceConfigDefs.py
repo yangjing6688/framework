@@ -447,7 +447,7 @@ class DeviceConfigDefs:
 
     device_edit_button = \
         {
-            'CSS_SELECTOR': '.table-action-icons.table-edit',
+            'XPATH': '//span[@data-automation-tag="automation-device-list-bulkEdit-btn"]',
             'wait_for': 5
         }
 
@@ -1342,4 +1342,22 @@ class DeviceConfigDefs:
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]//td/..',
             'wait_for': 10
+        }
+
+    devices_device_config_device_function_dropdown = \
+        {
+            'XPATH': '//a[@href="javascript:void(0)"] //span[contains(text(),"AP")]',
+            'wait_for': 5
+        }
+
+    devices_device_config_device_function = \
+        {
+            'CSS_SELECTOR': '.chzn-results.qa-chzn-results-devicefunction .active-result',
+            'wait_for': 5
+        }
+
+    devices_device_config_page_save_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-deviceconfiguration-save-btn"]',
+            'wait_for': 5
         }
