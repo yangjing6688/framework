@@ -584,20 +584,48 @@ class NetworkPolicy(object):
         self.utils.print_info("Select the network policy rows")
 
         current_page = 1
+        policy_found = False
+
         while True:
             self.utils.print_info(f"Current page: {current_page}")
             self.utils.print_info("Waiting for Network Policy rows to load...")
             self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
             self.utils.print_info(f"Network Policy rows have been loaded. Searching for "
                                   f"Network Policy: {policy_name} ...")
+
             try:
-                self.select_network_policy_row(policy_name)
-                break
-            except (TypeError, AssertionError, selenium.common.exceptions.StaleElementReferenceException) as e:
-                if 'Stale' in str(e):
-                    self.utils.print_info('Stale Element Error: ', e)
-                    self.utils.print_info('Checking rows again...')
-                    continue
+                rows = self.np_web_elements.get_np_grid_rows()
+                if rows:
+                    for row in rows:
+                        self.utils.print_info(f"Looking for {policy_name} on row: {row.text}")
+                        if policy_name in row.text:
+                            policy_found = True
+                            self.utils.print_info(f"Network policy: {policy_name} has been found on the row: "
+                                                  f"{row.text}")
+                            self.utils.print_info(f"Searching the checkbox for row: {row.text} ...")
+                            row_check_box = self.np_web_elements.get_np_row_cell(row, 'dgrid-selector')
+                            if row_check_box:
+                                self.utils.print_info(f"Found the checkbox for row: {row.text}! Clicking ... ")
+                                self.auto_actions.click(row_check_box)
+                                self.utils.print_info("Clicking on network policy Edit button...")
+                                np_edit_button = self.np_web_elements.get_np_edit_button()
+                                if np_edit_button:
+                                    self.utils.print_info("Found the Edit button!")
+                                    self.auto_actions.click(np_edit_button)
+                                    return 1
+                                else:
+                                    self.utils.print_info("Edit button not found!")
+                                    return -1
+                else:
+                    self.utils.print_info("Rows were not found!")
+                    return -1
+
+            except selenium.common.exceptions.StaleElementReferenceException as e:
+                self.utils.print_info("Stale Element error: \n", e)
+                self.utils.print_info(f"Checking the rows for the policy: {policy_name} again...")
+                continue
+
+            if not policy_found:
                 if not self.np_web_elements.get_next_page_element_disabled():
                     self.utils.print_info(f"The network policy {policy_name} is not present on page: {current_page}. "
                                           f"Checking next page: {current_page + 1}...")
@@ -607,11 +635,6 @@ class NetworkPolicy(object):
                     self.utils.print_info(f"This is the last page: {current_page}. Network policy was not found in all "
                                           f"{current_page} pages. It was deleted or not created at all.")
                     return -1
-
-        self.utils.print_info("Click on network policy Edit button")
-        self.auto_actions.click(self.np_web_elements.get_np_edit_button())
-        sleep(2)
-        return 1
 
     def add_wireless_nw_to_network_policy(self, policy_name, **wireless_profile):
         """
