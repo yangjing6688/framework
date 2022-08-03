@@ -250,6 +250,8 @@ class Switch(SwitchWebElements):
         :param sw_serial: Switch's Serial Number
         :return: return 1 if Switch found on Devices Grid Row else -1
         """
+        #Adding 5 seconds of sleep as a workaround for XIQ-9267, will be removed after it's fixed
+        sleep(5)
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
