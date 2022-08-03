@@ -1,6 +1,5 @@
-from appium.webdriver.common.touch_action import TouchAction
-from app.elements.NewDeviceOnboardWebElements import *
-from app.common.AutoActions import *
+from extauto.app.elements.NewDeviceOnboardWebElements import *
+from extauto.common.AutoActions import *
 import time
 
 
