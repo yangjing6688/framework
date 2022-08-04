@@ -9,6 +9,10 @@ class BuiltIn(object):
         pass
 
     @staticmethod
+    def isRunningPytest():
+        return True
+
+    @staticmethod
     def get_variables(no_decoration=True):
         try:
             # Try pytest

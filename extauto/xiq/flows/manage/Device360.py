@@ -470,15 +470,15 @@ class Device360(Device360WebElements):
 
         return 1
 
-    def get_exos_information(self):
+    def get_switch_information(self):
         """
-        - This keyword gets EXOS Switch information from device360 page
+        - This keyword gets Switch information from device360 page
         - It Assumes That Already Navigated to Device360 Page
         - Flow : Device 360 Page
         - Keyword Usage
          - ``Get ExOS Information``
 
-        :return: dictionary of ExOS Switch information
+        :return: dictionary of Switch information
         """
 
         self.utils.print_info("Getting device360 Information.")
@@ -510,17 +510,24 @@ class Device360(Device360WebElements):
 
         return device360_info
 
-    def get_exos_switch_360_information(self, device_mac='', device_name=''):
+    def get_device_360_information(self, cli_type, device_mac='', device_name=''):
+        if cli_type.upper() == 'EXOS' or cli_type.upper() == 'VOSS':
+            return self.get_switch_360_information(device_mac, device_name)
+        else:
+            self.utils.print_info(f"The cli type {cli_type} is not supported for this keyword")
+            return None
+
+    def get_switch_360_information(self, device_mac='', device_name=''):
         """
-        - This keyword gets EXOS Switch information from device360 page ie Model,Serial Number etc
-        - Flow : Manage-->Devices-->click on SWitch hyperlink(MAC/hostname)
+        - This keyword gets Switch information from device360 page ie Model,Serial Number etc
+        - Flow : Manage-->Devices-->click on Switch hyperlink(MAC/hostname)
         - Keyword Usage
          - ``Get ExOS Switch 360 Information   device_name=${SW1_NAME}``
          - ``Get ExOS Switch 360 Information   device_mac=${SW1_MAC}``
 
-        :param device_mac: ExOS SWitch MAC Address
-        :param device_name:  ExOS SWitch Name
-        :return: dictionary of ExOS Switch information
+        :param device_mac:  Switch MAC Address
+        :param device_name:  Switch Name
+        :return: dictionary of Switch information
         """
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
@@ -529,7 +536,7 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
                 self.screen.save_screen_shot()
-                exos_info = self.get_exos_information()
+                exos_info = self.get_switch_information()
                 return exos_info
 
         if device_name:
@@ -539,7 +546,7 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
                 self.screen.save_screen_shot()
-                exos_info = self.get_exos_information()
+                exos_info = self.get_switch_information()
                 return exos_info
 
     def advance_channel_selection(self, device_serial=None):
