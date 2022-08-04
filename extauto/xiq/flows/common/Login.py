@@ -231,9 +231,7 @@ class Login:
     def get_version(self):
         self.utils.print_info("Clicking on About Extreme cloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
-        sleep(2)
         self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
-        sleep(5)
         self.screen.save_screen_shot()
         viq_id = self.login_web_elements.get_viq_id_field().text
         build_id=self.login_web_elements.get_build_id().text
