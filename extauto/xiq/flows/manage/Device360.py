@@ -279,7 +279,7 @@ class Device360(Device360WebElements):
         sleep(2)
 
         return  ret_val
-    def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5):
+    def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30, retry_time=150):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -323,27 +323,29 @@ class Device360(Device360WebElements):
         sleep(5)
         self.utils.print_info("Clicking Device 360 SSH CLI Enable SSH button...")
         self.auto_actions.click(self.get_device360_configure_ssh_cli_enable_button())
-
-        sleep(90)
         self.screen.save_screen_shot()
-        ip = self.get_device360_configure_ssh_cli_ip()
-        port = self.get_device360_configure_ssh_cli_port()
 
+        retry_count = 0
+        while retry_count <= retry_time:
+            self.utils.print_info(f"Checking SSH IP and Port Details after: {retry_count} seconds")
+            ip = self.get_device360_configure_ssh_cli_ip()
+            port = self.get_device360_configure_ssh_cli_port()
+            self.screen.save_screen_shot()
 
-        ip_port_info = dict()
-        ip_port_info["ip"] = ip
-        ip_port_info["port"] = port
+            if ip and port:
+                ip_port_info = dict()
+                ip_port_info["ip"] = ip
+                ip_port_info["port"] = port
 
-
-        self.utils.print_info(f"****************** IP/Port Information ************************")
-
-        for key, value in ip_port_info.items():
-            self.utils.print_info(f"{key}:{value}")
-
-        if not ip_port_info["ip"] and not ip_port_info["port"]:
-            self.utils.print_info(f"****************** IP/Port Information is not available ************************")
-
-        return ip_port_info
+                self.utils.print_info(f"****************** IP/Port Information ************************")
+                for key, value in ip_port_info.items():
+                    self.utils.print_info(f"{key}:{value}")
+                return ip_port_info
+            else:
+                self.utils.print_info(f"****************** IP/Port Information is not available after {retry_count} seconds ************************")
+                sleep(time_interval)
+                retry_count += 30
+        return -1
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """
