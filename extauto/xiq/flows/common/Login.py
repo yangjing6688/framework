@@ -86,9 +86,9 @@ class Login:
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   **kwargs):
+                   max_retries=3, **kwargs):
         """
-        - Login to Xiq account with username and password ( we will try up to 3 times)
+        - Login to Xiq account with username and password (we will try up to 3 times)
         - By default url will load from the topology file
         - keyword Usage:
          - ``Login User   ${USERNAME}   ${PASSWORD}``
@@ -108,27 +108,26 @@ class Login:
         :param saleforce_shared_cuid: Salesforce Shared CUID
         :param quick: Quick login without more sleep time while loading url
         :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
+        :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
         result = -1
         count = 0
         max_retries = 3
         expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
-        result = self._login_user(username, password, capture_version=False, login_option="30-day-trial", url="default",
-                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
+        result = self._login_user(username, password, capture_version, login_option, url,
+                    incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                    salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
                     **kwargs)
 
         # Let's try again if we don't expect and error and the results were not good
         if not expect_error:
             while result != 1 and count < max_retries:
                 self.utils.print_warning(f'Trying to log in again: {count}')
-                result = self._login_user(username, password, capture_version=False, login_option="30-day-trial", url="default",
-                                     incognito_mode="False", co_pilot_status=False, entitlement_key=False,
-                                     salesforce_username=False,
-                                     salesforce_password=False, saleforce_shared_cuid=False, quick=False,
-                                     check_warning_msg=False,
-                                     **kwargs)
+                result = self._login_user(username, password, capture_version, login_option, url,
+                                          incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
+                                          **kwargs)
                 count = count + 1
         self.common_validation.validate(result, 1, **kwargs)
         return result
