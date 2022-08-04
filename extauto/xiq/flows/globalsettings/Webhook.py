@@ -74,6 +74,13 @@ class Webhook(WebhookWebElements):
         self.screen.save_screen_shot()
         self.utils.print_info("Inputing webhook - end")
     def find_url_in_webhook_grid(self,webhook):
+        """
+        - find one webhook url if it in the grid
+        - if it can be found also click on it(select the one)
+        - Keyword Usage
+         - ``Find Url In Webhook Grid  ${webhook}``
+        :return: returns 1 if successfully find the url else -1
+        """
         webhook_rows = self.get_webhook_grid_rows()
         for row in webhook_rows:
           cells = self.get_webhook_grid_row_cells(row)

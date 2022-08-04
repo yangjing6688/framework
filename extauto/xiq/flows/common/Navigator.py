@@ -1867,10 +1867,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 If Navigated successfully else -1
         """
         self.navigate_to_global_settings_page()
-        sleep(2)
         self.utils.print_info("Clicking on account details...")
         webhooks_ele = self.weh.get_element(self.global_settings_webhooks)
-        sleep(2)
         if webhooks_ele.is_displayed():
             self.auto_actions.click(webhooks_ele)
             return 1
@@ -2913,7 +2911,7 @@ class Navigator(NavigatorWebElements):
             if self.get_manage_tab().is_displayed():
                 self.auto_actions.click(self.get_manage_tab())
             else:
-                return -2
+                return -1
 
             self.utils.print_info("Clicking on Alerts Tab..")
             self.auto_actions.click(self.get_manage_alerts_menu_item())
