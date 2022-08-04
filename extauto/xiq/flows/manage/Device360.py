@@ -279,7 +279,7 @@ class Device360(Device360WebElements):
         sleep(2)
 
         return  ret_val
-    def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5):
+    def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30, retry_time=150):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -323,27 +323,29 @@ class Device360(Device360WebElements):
         sleep(5)
         self.utils.print_info("Clicking Device 360 SSH CLI Enable SSH button...")
         self.auto_actions.click(self.get_device360_configure_ssh_cli_enable_button())
-
-        sleep(90)
         self.screen.save_screen_shot()
-        ip = self.get_device360_configure_ssh_cli_ip()
-        port = self.get_device360_configure_ssh_cli_port()
 
+        retry_count = 0
+        while retry_count <= retry_time:
+            self.utils.print_info(f"Checking SSH IP and Port Details after: {retry_count} seconds")
+            ip = self.get_device360_configure_ssh_cli_ip()
+            port = self.get_device360_configure_ssh_cli_port()
+            self.screen.save_screen_shot()
 
-        ip_port_info = dict()
-        ip_port_info["ip"] = ip
-        ip_port_info["port"] = port
+            if ip and port:
+                ip_port_info = dict()
+                ip_port_info["ip"] = ip
+                ip_port_info["port"] = port
 
-
-        self.utils.print_info(f"****************** IP/Port Information ************************")
-
-        for key, value in ip_port_info.items():
-            self.utils.print_info(f"{key}:{value}")
-
-        if not ip_port_info["ip"] and not ip_port_info["port"]:
-            self.utils.print_info(f"****************** IP/Port Information is not available ************************")
-
-        return ip_port_info
+                self.utils.print_info(f"****************** IP/Port Information ************************")
+                for key, value in ip_port_info.items():
+                    self.utils.print_info(f"{key}:{value}")
+                return ip_port_info
+            else:
+                self.utils.print_info(f"****************** IP/Port Information is not available after {retry_count} seconds ************************")
+                sleep(time_interval)
+                retry_count += 30
+        return -1
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """
@@ -1128,6 +1130,7 @@ class Device360(Device360WebElements):
         :param  None
         :return: 1 if navigation was successful, else -1
         """
+
         ret_val = self.select_configure_tab()
         if ret_val != -1:
             ret_val = self.select_port_configuration_view()
@@ -6414,6 +6417,14 @@ class Device360(Device360WebElements):
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
+
+                def _wait_for_port_row():
+                    if self.device360_get_port_row(port_number):
+                        return True
+                    else:
+                        return False
+                self.utils.wait_till(_wait_for_port_row)
+                
                 port_row = self.device360_get_port_row(port_number)
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
@@ -6630,6 +6641,14 @@ class Device360(Device360WebElements):
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
+
+                def _wait_for_port_row():
+                    if self.device360_get_port_row(port_number):
+                        return True
+                    else:
+                        return False
+                self.utils.wait_till(_wait_for_port_row)
+
                 port_row = self.device360_get_port_row(port_number)
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
@@ -6799,22 +6818,29 @@ class Device360(Device360WebElements):
         :param slot: The slot which will be selected
         :return: 1 if the slot was selected; else -1
         '''
+
+        def _check_dropdown():
+            if self.dev360.get_device360_port_configuration_stack_units_dropdown():
+                return True
+            else:
+                return False
+        self.utils.wait_till(_check_dropdown)
         self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
+
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
         slot_found = False
-        complete_stack = self.dev360.get_device360_port_configuration_stack_units_dropdown_parent_rows()
-        if complete_stack:
-            slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows(complete_stack)
+
+        slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows()
+        if slots_in_stack:
             for stack_item in slots_in_stack:
-                if slot_index == int(slot):
+                if "Unit " + str(slot) in stack_item.text:
                     self.utils.print_info(f"Slot {str(slot)} found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
                     kwargs['pass_msg'] = f"Selected the slot {str(slot)} successfully"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
-                slot_index = slot_index + 1
             if not slot_found:
                 self.utils.print_info(f"Unable to locate slot {str(slot)}")
                 kwargs['fail_msg'] = f"Unable to locate slot {str(slot)}"

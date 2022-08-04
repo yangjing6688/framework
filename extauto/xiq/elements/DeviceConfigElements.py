@@ -637,3 +637,9 @@ class DeviceConfigElements(DeviceConfigDefs):
             return grid_rows
         else:
             return False
+
+    def get_config_audit_content(self):
+        return self.weh.get_element(self.config_audit_content)
+
+    def get_config_audit_delta_view_button_yellow(self, row):
+        return self.weh.get_element(self.config_audit_delta_view_button_yellow, parent=row)

@@ -47,7 +47,7 @@ class Cli(object):
          - ``Close Spawn``
 
         :param spawn: device spawn
-        :return: 1 if device spawn closed successfully else -1
+        :return: 1 if the connection is closed.  Note: an error will be raised if the connection fails to close
         """
 
         if spawn.split('_')[1].upper() in self.net_element_types:
@@ -56,6 +56,8 @@ class Cli(object):
             self.endsystemConnectionManager.close_connection_to_endsystem_element(spawn)
         else:
             raise Exception("Cli_Type was not found, please use on of the following type: \n" + '\n'.join(self.net_element_types) + '\n' + '\n'.join(self.end_system_types))
+
+        return 1
 
     def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh'):
         """
