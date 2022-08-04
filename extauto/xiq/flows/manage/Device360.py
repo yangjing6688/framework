@@ -1101,18 +1101,14 @@ class Device360(Device360WebElements):
         :param  None
         :return: 1 if the Port Configuration view was selected, else -1
         """
-        self.screen.save_screen_shot()
-        self.utils.wait_till(self.get_device360_port_configuration_button)
         port_conf_link = self.get_device360_port_configuration_button()
         if port_conf_link:
             self.utils.print_info("Clicking Port Configuration on the Device360 Configure tab")
             self.auto_actions.click(port_conf_link)
-            self.screen.save_screen_shot()
             return 1
         else:
             self.utils.print_info(
                 "Could not find Port Configuration link - make sure Device360 window is open and on Configure tab")
-            self.screen.save_screen_shot()
             return -1
 
     def device360_navigate_to_port_configuration(self):
@@ -1126,7 +1122,6 @@ class Device360(Device360WebElements):
         :return: 1 if navigation was successful, else -1
         """
 
-        self.device360_refresh_page()
         ret_val = self.select_configure_tab()
         if ret_val != -1:
             ret_val = self.select_port_configuration_view()
