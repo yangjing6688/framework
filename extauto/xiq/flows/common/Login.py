@@ -113,7 +113,6 @@ class Login:
         """
         result = -1
         count = 0
-        max_retries = 3
         expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
         result = self._login_user(username, password, capture_version, login_option, url,
                     incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
