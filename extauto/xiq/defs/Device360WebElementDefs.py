@@ -268,19 +268,19 @@ class Device360WebElementDefs:
     device360_configure_ssh_cli_enable_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="setDeviceSSH"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_cli_ip = \
         {
             'XPATH': '//*[@data-dojo-attach-point="addressInfo"]//*[@data-dojo-attach-point="ipAddress"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_cli_port = \
         {
             'XPATH': '//*[@data-dojo-attach-point="port"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_web_ip = \
