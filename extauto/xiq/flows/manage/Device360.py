@@ -7300,7 +7300,6 @@ class Device360(Device360WebElements):
             )
 
         """
-        
         rows = self.get_policy_configure_port_rows()
         if not rows:
             self.utils.print_info("Could not obtain list of port rows")
@@ -7468,7 +7467,7 @@ class Device360(Device360WebElements):
         
         if self.auto_actions.click(summary_tab) == 1:
             self.utils.print_info("Successfully clicked on the summary tab")
-            sleep(2)
+            sleep(5)
         else:
             self.utils.print_info("Failed to click on the summary tab")
             return -1, {}
