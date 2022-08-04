@@ -2693,3 +2693,9 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.power-supply',
             'wait_for': 5
         }
+
+    device360_monitor_diagnostics_stack_drop_down = \
+        {
+            'XPATH': '//div[@class="stack-member-chooser fn-right"]//div[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 5
+        }

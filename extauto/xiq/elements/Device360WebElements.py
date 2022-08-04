@@ -1551,3 +1551,21 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_thunderbold_icon_stack(self,row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
 
+    def get_device360_monitor_diagnostics_stack_drop_down(self):
+
+        """
+
+        :return: Stack unit drop down for the device360 diagnostics tab
+
+        """
+
+        elements = self.weh.get_elements(self.device360_monitor_diagnostics_stack_drop_down)
+
+        if elements == None:
+
+            return -1
+
+        for el in elements:
+
+            if el.is_displayed():
+                return el
