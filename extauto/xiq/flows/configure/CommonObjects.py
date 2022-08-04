@@ -911,7 +911,8 @@ class CommonObjects(object):
                     delete_button = self.cobj_web_elements.get_common_objects_delete_button()
                     if delete_button:
                         self.auto_actions.click(delete_button)
-                        kwargs['pass_msg'] = "Delete button has been clicked! Switch Template has been deleted!"
+                        kwargs['pass_msg'] = f"Delete button has been clicked! Switch Template: {template_name} " \
+                                             f"has been deleted!"
                         self.common_validation.validate(1, 1, **kwargs)
                         return 1
                     else:
