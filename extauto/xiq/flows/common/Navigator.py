@@ -3064,6 +3064,7 @@ class Navigator(NavigatorWebElements):
          - Flow: Clicks 'Configure' button -> Scrolls down -> Clicks 'Port Configuration" ->
                  Waits for the port rows to load
         :return: 1 if 'Port Configuration' has been clicked and the port rows have been loaded on the page
+                 -1 if elements are not found along the way
         """
 
         self.utils.print_info("Finding 'Configure' button...")

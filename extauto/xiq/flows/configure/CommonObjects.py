@@ -578,7 +578,7 @@ class CommonObjects(object):
                 return 1
         return -1
 
-    def delete_port_type_profile(self, port_type_name):
+    def delete_port_type_profile(self, port_type_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
@@ -591,15 +591,16 @@ class CommonObjects(object):
         self.utils.print_info("Navigate to Port Types Settings")
         self.navigator.navigate_to_policy_port_types()
 
-        self.utils.print_info("Click Full pages button")
-
+        self.utils.print_info("Searching for 100 rows per page button...")
         view_all_pages = self.cobj_web_elements.get_common_object_policy_port_types_view_all_pages()
         if view_all_pages:
+            self.utils.print_info("Found the 100 rows per page button! Clicking...")
             self.auto_actions.click(view_all_pages)
         else:
-            self.utils.print_info("Unable to find 100 rows per page item!")
-            return -1
-        sleep(2)
+            self.utils.print_info("100 rows per page button was not found. Continue running...")
+
+        self.utils.print_info("Waiting for the rows to load...")
+        self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows, delay=3)
 
         self.utils.print_info(f"Searching {port_type_name} profile on all pages...")
         current_page = 1
@@ -614,19 +615,30 @@ class CommonObjects(object):
                     if not self.cobj_web_elements.get_next_page_element_disabled():
                         if self.cobj_web_elements.get_next_page_element():
                             self.auto_actions.click(self.cobj_web_elements.get_next_page_element())
+                            self.utils.print_info("Waiting for the rows to load...")
+                            self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows, delay=3)
                             current_page += 1
                         else:
                             self.utils.print_info("Did not find next page button!")
+                            kwargs['fail_msg'] = "Did not find next page button!"
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
                             return -1
                     else:
                         self.utils.print_info("This is the last page: ", str(current_page))
                         self.utils.print_info(f"Checked all {current_page} pages for Port Type profile: "
                                               f"{port_type_name} ; "
                                               f"It was already deleted or it hasn't been created yet!")
+                        kwargs['pass_msg'] = f"Checked all {current_page} pages for Port Type profile: " \
+                                             f"{port_type_name} ; " \
+                                             f"It was already deleted or it hasn't been created yet!"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
                 else:
                     self.utils.print_info(f"Found the port type profile {port_type_name}. Deleting...")
                     self._select_delete_common_object(port_type_name)
+                    kwargs['pass_msg'] = "Port type profile deleted!"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 1
 
             except (selenium.common.exceptions.StaleElementReferenceException, TypeError) as e:
@@ -863,17 +875,18 @@ class CommonObjects(object):
         :param template_name: Name of the switch template
         :return: 1 if deleted else -1
         """
+
         self.navigator.navigate_to_switch_templates()
         self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows)
-        self.utils.print_info("Click Full pages button")
 
+        self.utils.print_info("Searching for 100 rows per page button...")
         view_all_pages = self.cobj_web_elements.get_common_object_policy_port_types_view_all_pages()
         if view_all_pages:
+            self.utils.print_info("Found 100 rows per page button. Clicking...")
             self.auto_actions.click(view_all_pages)
         else:
-            self.utils.print_info("Unable to find 100 rows per page item!")
-            return -1
-        sleep(2)
+            self.utils.print_info("100 rows per page button not present! Continue running...")
+
         self.utils.print_info(f"Searching Template: {template_name} on all pages...")
         current_page = 1
         found_template = 0
@@ -898,9 +911,14 @@ class CommonObjects(object):
                     delete_button = self.cobj_web_elements.get_common_objects_delete_button()
                     if delete_button:
                         self.auto_actions.click(delete_button)
+                        kwargs['pass_msg'] = "Delete button has been clicked! Switch Template has been deleted!"
+                        self.common_validation.validate(1, 1, **kwargs)
                         return 1
                     else:
                         self.utils.print_info("Didn't find the delete button!")
+                        kwargs['fail_msg'] = "Didn't find the delete button!"
+                        self.screen.save_screen_shot()
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
 
             if not found_template:
@@ -916,15 +934,25 @@ class CommonObjects(object):
                             current_page += 1
                         else:
                             self.utils.print_info("Did not manage to find the next page button")
+                            kwargs['fail_msg'] = "Did not manage to find the next page button"
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
                             return -1
                     else:
                         self.utils.print_info("Did not find next page button!")
+                        kwargs['fail_msg'] = "Did not find next page button!"
+                        self.screen.save_screen_shot()
+                        self.common_validation.validate(-1, 1, **kwargs)
                         return -1
                 else:
                     self.utils.print_info("This is the last page: ", str(current_page))
                     self.utils.print_info(f"Checked all {current_page} pages for Template Name: "
                                           f"{template_name} ;"
                                           f"It was already deleted or it hasn't been created yet!")
+                    kwargs['pass_msg'] = f"Checked all {current_page} pages for Template Name: " \
+                                         f"{template_name} ;" \
+                                         f"It was already deleted or it hasn't been created yet!"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return 1
 
     def _get_switch_template_row(self, search_string):

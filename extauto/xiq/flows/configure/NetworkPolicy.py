@@ -561,28 +561,39 @@ class NetworkPolicy(object):
             self.utils.print_info("Network Policy in Devices grid does not matches with the deployed one...")
             return -1
 
-    def navigate_to_np_edit_tab(self, policy_name):
+    def navigate_to_np_edit_tab(self, policy_name, **kwargs):
         """
         - Flow: Configure-->Network policy-->Select List View-->Select Network Policy ROW--> Edit
 
         :param policy_name: policy name
-        :return: 1 if success
+        :return: 1 if navigation to the edit tab was complete
+                 -1 if elements are not found along the way
         """
+
         self.utils.print_info("Navigating to the configure network policies")
         self.navigator.navigate_configure_network_policies()
-        sleep(2)
 
-        self.utils.print_info("Click on network policy list view button")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_list_view())
-        sleep(2)
+        self.utils.print_info("Searching for network policy list view button...")
+        list_view_button = self.np_web_elements.get_network_policy_list_view()
+        if list_view_button:
+            self.utils.print_info("Network policy list view button found! Clicking... ")
+            self.auto_actions.click(self.np_web_elements.get_network_policy_list_view())
+        else:
+            self.utils.print_info("List view button not found!")
+            kwargs['fail_msg'] = "List view button not found!"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
 
-        self.utils.print_info("Click on network policy fill size page")
-        if self.np_web_elements.get_nw_policy_port_types_view_all_pages():
-            self.auto_actions.click(self.np_web_elements.get_nw_policy_port_types_view_all_pages())
-            sleep(2)
+        self.utils.print_info("Searching for network policy 100 rows per page button...")
+        view_all_pages = self.np_web_elements.get_nw_policy_port_types_view_all_pages()
+        if view_all_pages:
+            self.utils.print_info("Network Policy fill size is present on page. Clicking... ")
+            self.auto_actions.click(view_all_pages)
+        else:
+            self.utils.print_info("Network Policy fill size is not present on page. Continue running... ")
 
         self.utils.print_info("Select the network policy rows")
-
         current_page = 1
         policy_found = False
 
@@ -612,14 +623,21 @@ class NetworkPolicy(object):
                                 if np_edit_button:
                                     self.utils.print_info("Found the Edit button!")
                                     self.auto_actions.click(np_edit_button)
+                                    kwargs['pass_msg'] = "Found the Edit button!"
+                                    self.common_validation.validate(1, 1, **kwargs)
                                     return 1
                                 else:
                                     self.utils.print_info("Edit button not found!")
+                                    kwargs['fail_msg'] = "Edit button not found!"
+                                    self.screen.save_screen_shot()
+                                    self.common_validation.validate(-1, 1, **kwargs)
                                     return -1
                 else:
                     self.utils.print_info("Rows were not found!")
+                    kwargs['fail_msg'] = "Rows were not found!"
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
-
             except selenium.common.exceptions.StaleElementReferenceException as e:
                 self.utils.print_info("Stale Element error: \n", e)
                 self.utils.print_info(f"Checking the rows for the policy: {policy_name} again...")
@@ -634,6 +652,10 @@ class NetworkPolicy(object):
                 else:
                     self.utils.print_info(f"This is the last page: {current_page}. Network policy was not found in all "
                                           f"{current_page} pages. It was deleted or not created at all.")
+                    kwargs['fail_msg'] = f"This is the last page: {current_page}. Network policy was not found in " \
+                                         f"all {current_page} pages. It was deleted or not created at all."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
                     return -1
 
     def add_wireless_nw_to_network_policy(self, policy_name, **wireless_profile):
