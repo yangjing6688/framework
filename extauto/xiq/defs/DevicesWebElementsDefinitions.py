@@ -1756,5 +1756,8 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
-
-
+    port_details_info = \
+        {
+            'XPATH': '//div[@class="port-info-view"]/div',
+            'wait_for': 5
+        }
