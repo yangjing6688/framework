@@ -1274,3 +1274,24 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-dashboard-health-cards-client-header-count"]',
             'wait_for': 5
         }
+
+    nw_policy_port_types_view_all_pages = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    configure_button_d360 = \
+        {
+            'XPATH': '//li[@data-automation-tag="device-entity-configure"]'
+        }
+
+    port_configuration_d360 = \
+        {
+            'XPATH': '//li[@data-automation-tag="device-entity-nav-menu-port-configuration"]'
+        }
+
+    port_rows_d360 = \
+        {
+            'CSS_SELECTOR': '.port-details-entry'
+        }

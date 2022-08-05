@@ -372,7 +372,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.save_button_pse)
 
     def existing_port_type_button(self):
-        return self.weh.get_elements(self.existing_port_type)
+        return self.weh.get_element(self.existing_port_type)
 
     def port_type_list(self):
         return self.weh.get_elements(self.switch_template_port_types_list)
