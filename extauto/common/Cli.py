@@ -157,9 +157,11 @@ class Cli(object):
             kwargs['expect_error'] = True
         if time_out != 'default':
             kwargs['max_wait'] = time_out
+        self.utils.print_info(f"Sending command to device: {spawn}: {line}")
         result = self.networkElementCliSend.send_cmd(spawn, line, **kwargs)
         try:
             output = str(result[0].return_text)
+            self.utils.print_info(f"Got response to commandf from device {spawn}: {output}")
         except Exception as e:
             self.utils.print_info("Keyword had an error: " + str(e))
         return output
