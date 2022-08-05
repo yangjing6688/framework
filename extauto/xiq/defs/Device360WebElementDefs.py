@@ -543,7 +543,7 @@ class Device360WebElementDefs:
     device360_configure_port_rows = \
         {
             # 'XPATH': '//div[contains(@class, "port-details-entry")]',
-            'CSS_SELECTOR': '.port-entry',
+            'CSS_SELECTOR': '.port-details-entry',
             'wait_for': 5
         }
 
