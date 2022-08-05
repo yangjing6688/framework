@@ -4065,6 +4065,31 @@ class Devices:
             sleep(30)
             retry_time += 30
 
+    def get_device_column_information(self, device_serial, column_array):
+        """
+        - This keyword is used to get the column data for the device
+        - Keyword Usage:
+         - ``@{column_list}=    Create List    MGT IP ADDRESS    MAC``
+         - ``get_device_column_information   ${DEVICE_SERIAL}  ${column_array}``
+
+        :param device_serial: device serial number to check the device connected status
+        :param column_array: The device array of columns to get data for
+        :return: object map of data columns to data, spaces are replaced with _
+        """
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+
+        return_array_data = {}
+        self.refresh_devices_page()
+        sleep(10)
+        device_row = self.get_device_row(device_serial)
+        for column in column_array:
+            data = self.get_device_details(device_serial, column)
+            return_array_data[column.replace(' ',"_")] = data
+        return return_array_data
+
+
+
     def get_device_configuration_audit_status(self, device_serial):
         """
         - This keyword is used to get the device configuration audit status

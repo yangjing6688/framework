@@ -157,9 +157,11 @@ class Cli(object):
             kwargs['expect_error'] = True
         if time_out != 'default':
             kwargs['max_wait'] = time_out
+        self.utils.print_info(f"Sending command to device: {spawn}: {line}")
         result = self.networkElementCliSend.send_cmd(spawn, line, **kwargs)
         try:
             output = str(result[0].return_text)
+            self.utils.print_info(f"Got response to commandf from device {spawn}: {output}")
         except Exception as e:
             self.utils.print_info("Keyword had an error: " + str(e))
         return output
@@ -859,6 +861,20 @@ class Cli(object):
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
             """
+        elif NetworkElementConstants.OS_WING in cli_type.upper():
+            self.send(_spawn, f'en')
+            self.send(_spawn, f'config')
+            # Delete the policy
+            self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(_spawn, f'commit write memory')
+            # Create the new policy
+            self.send(_spawn, f'nsight-policy xiq')
+            self.send(_spawn, f'server host {server_name} https enforce-verification poll-work-queue')
+            self.send(_spawn, f'commit write memory')
+            self.send(_spawn, f'rf-domain default')
+            self.send(_spawn, f'use nsight-policy xiq')
+            self.send(_spawn, f'commit write memory')
+            # show run nsight-policy ECIQ
         return 1
 
     def wait_for_configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
