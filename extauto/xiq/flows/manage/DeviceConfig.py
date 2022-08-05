@@ -2369,53 +2369,233 @@ class DeviceConfig(DeviceConfigElements):
         :param device_mac:   The serial of the device string
         :return:                Returns a list of strings with the commands present in delta cli
         """
+
+        def check_delta_view_button_yellow():
+            device_found = 0
+            rows_check = self.get_grid_rows()
+            if rows_check:
+                if device_mac:
+                    for row_check in rows_check:
+                        if device_mac in row_check.text:
+                            device_found = 1
+                            if self.get_config_audit_delta_view_button_yellow(row_check):
+                                return True
+                            else:
+                                return False
+                else:
+                    self.utils.print_info(f"The mac {str(device_mac)} is invalid.")
+                    kwargs['fail_msg'] = f"The mac {str(device_mac)} is invalid."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
+            else:
+                self.utils.print_info("Did not find any rows!")
+                kwargs['fail_msg'] = "Did not find any rows!"
+                self.screen.save_screen_shot()
+                self.common_validation.validate(-1, 1, **kwargs)
+
+            if device_found != 1:
+                self.utils.print_info(f"Did not find any device with mac address: {device_mac}")
+                kwargs['fail_msg'] = f"Did not find any device with mac address: {device_mac}"
+                self.screen.save_screen_shot()
+                self.common_validation.validate(-1, 1, **kwargs)
+
+        self.utils.wait_till(check_delta_view_button_yellow, timeout=120, delay=15, is_logging_enabled=True)
+
+        rows = self.get_grid_rows()
+        self.utils.print_info("Selecting Device with mac address: ", device_mac)
+        for row in rows:
+            if device_mac in row.text:
+                self.utils.print_debug(f"Found device with mac: {device_mac}")
+                self.utils.print_info("Attempting to click audit delta view button...")
+                audit_delta_view_button = self.get_config_audit_delta_view_button_yellow(row)
+                if audit_delta_view_button:
+                    self.utils.print_info("Found the delta view button!")
+                    self.utils.print_info("Clicking the delta view button...")
+                    self.auto_actions.click(audit_delta_view_button)
+                else:
+                    self.utils.print_info("Did not find the delta view button")
+                    kwargs['fail_msg'] = "Did not find the delta view button"
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+                self.utils.print_info("Locating audit content...")
+
+                def check_audit_config_content():
+                    if self.get_config_audit_content():
+                        return bool(self.get_config_audit_content().text)
+                    else:
+                        return False
+                self.utils.wait_till(check_audit_config_content, is_logging_enabled=True, timeout=30, delay=10)
+                self.utils.print_info(f"Audit content: {self.get_config_audit_content().text}")
+                self.utils.print_info("Attempting to locate delta view...")
+
+                delta_view = self.get_device_config_audit_delta_view()
+                if delta_view:
+                    self.utils.print_info("Clicking on Device Config Audit Delta View...")
+                    self.auto_actions.click(self.get_device_config_audit_delta_view())
+                else:
+                    self.utils.print_info("Did not find the delta view...")
+                    kwargs['fail_msg'] = "Did not find the delta view..."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+                self.utils.print_info("Attempting to locate the delta config content...")
+                if self.get_device_config_audit_delta_view_content():
+                    self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+
+                    def check_device_config_audit_delta_view_content():
+                        return bool(self.get_device_config_audit_delta_view_content().text)
+
+                    self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True,
+                                         timeout=30, delay=10)
+                    delta_configs = self.get_device_config_audit_delta_view_content().text
+                else:
+                    self.utils.print_info("Did not manage to locate the content...")
+                    kwargs['fail_msg'] = "Did not manage to locate the content..."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+
+                close_audit_view_button = self.get_device_config_audit_view_close_button()
+                self.utils.print_info("Attempting to locate the close button...")
+                if close_audit_view_button:
+                    self.auto_actions.click(self.get_device_config_audit_view_close_button())
+                else:
+                    self.utils.print_info("Did not find the close button.")
+                    kwargs['fail_msg'] = "Did not find the close button."
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+                if delta_configs:
+                    self.utils.print_info("Successfully collected Delta CLI configs")
+                    self.utils.print_info("Delta Configs : ", delta_configs)
+                    kwargs['pass_msg'] = "Successfully collected Delta CLI configs"
+                    self.common_validation.validate(1, 1, **kwargs)
+                    return delta_configs
+                else:
+                    self.utils.print_info("Did not manage to get any configurations")
+                    kwargs['fail_msg'] = "Did not manage to get any configurations"
+                    self.screen.save_screen_shot()
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+
+    def get_device_config_audit_delta_complete(self, ap_serial, config_type, **kwargs):
+        """
+        - This keyword will get the audit, delta or complete cli configuration
+        :param ap_serial:   The serial of the device
+        :param config_type: audit, or delta, or complete
+        :return: Returns a list of strings with the commands present in audit, delta or complete clis
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+
         rows = self.get_grid_rows()
         if rows:
-            if device_mac:
-                self.utils.print_info("Selecting Device with mac address: ", device_mac)
+            if ap_serial:
+                self.utils.print_info(f"Selecting Device with AP serial: {ap_serial}")
                 device_found = 0
                 for row in rows:
-                    if device_mac in row.text:
+                    if ap_serial in row.text:
                         device_found = 1
-                        self.utils.print_debug(f"Found device with mac: {device_mac}")
-                        self.utils.print_info("Attempting to click audit delta view button...")
-                        audit_delta_view_button = self.get_config_audit_delta_view_button(row)
-                        if audit_delta_view_button:
-                            self.utils.print_info("Found the delta view button!")
-                            self.utils.print_info("Clicking the delta view button...")
-                            self.auto_actions.click(audit_delta_view_button)
+                        self.utils.print_debug(f"Found device with serial: {ap_serial}")
+                        self.utils.print_info("Attempting to click Configuration Audit view button...")
+                        config_audit_view_button = self.get_devices_config_audit_view_button(row)
+                        if config_audit_view_button:
+                            self.utils.print_info("Found the config audit view button!")
+                            self.utils.print_info("Clicking the config audit view button...")
+                            self.auto_actions.click(config_audit_view_button)
                         else:
-                            self.utils.print_info("Did not find the delta view button")
-                            kwargs['fail_msg'] = "Did not find the delta view button"
+                            self.utils.print_info("Did not find the config audit view button")
+                            kwargs['fail_msg'] = "Did not find the config audit view button"
                             self.screen.save_screen_shot()
                             self.common_validation.validate(-1, 1, **kwargs)
                             return -1
-                        delta_view = self.get_device_config_audit_delta_view()
-                        self.utils.print_info("Attempting to locate delta view...")
-                        if delta_view:
-                            self.utils.print_info("Clicking on Device Config Audit Delta View...")
-                            self.auto_actions.click(self.get_device_config_audit_delta_view())
-                        else:
-                            self.utils.print_info("Did not find the delta view...")
-                            kwargs['fail_msg'] = "Did not find the delta view..."
-                            self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
-                            return -1
-                        self.utils.print_info("Attempting to locate the delta config content...")
-                        if self.get_device_config_audit_delta_view_content():
-                            self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+                        if config_type.upper() == "COMPLETE":
+                            complete_view = self.get_device_config_audit_complete_view()
+                            self.utils.print_info("Attempting to locate complete view...")
+                            if complete_view:
+                                self.utils.print_info("Clicking on Device Config Audit Complete View...")
+                                self.auto_actions.click(self.get_device_config_audit_complete_view())
+                            else:
+                                self.utils.print_info("Did not find the complete view...")
+                                kwargs['fail_msg'] = "Did not find the complete view..."
+                                self.screen.save_screen_shot()
+                                self.common_validation.validate(-1, 1, **kwargs)
+                                return -1
+                            self.utils.print_info("Attempting to locate the complete config content...")
+                            if self.get_device_config_audit_complete_view_content():
+                                self.utils.print_info("Get the Config content from Device Config Audit Complete View")
 
-                            def check_device_config_audit_delta_view_content():
-                                return bool(self.get_device_config_audit_delta_view_content().text)
+                                def check_device_config_audit_complete_view_content():
+                                    return bool(self.get_device_config_audit_complete_view_content().text)
 
-                            self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True)
-                            delta_configs = self.get_device_config_audit_delta_view_content().text
-                        else:
-                            self.utils.print_info("Did not manage to locate the content...")
-                            kwargs['fail_msg'] = "Did not manage to locate the content..."
-                            self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
-                            return -1
+                                self.utils.wait_till(check_device_config_audit_complete_view_content, is_logging_enabled=True)
+                                get_configs_result = self.get_device_config_audit_complete_view_content().text
+                            else:
+                                self.utils.print_info("Did not manage to locate the content...")
+                                kwargs['fail_msg'] = "Did not manage to locate the content..."
+                                self.screen.save_screen_shot()
+                                self.common_validation.validate(-1, 1, **kwargs)
+                                return -1
+                        elif config_type.upper() == "DELTA":
+                            delta_view = self.get_device_config_audit_delta_view()
+                            self.utils.print_info("Attempting to locate delta view...")
+                            if delta_view:
+                                self.utils.print_info("Clicking on Device Config Audit Delta View...")
+                                self.auto_actions.click(self.get_device_config_audit_delta_view())
+                            else:
+                                self.utils.print_info("Did not find the delta view...")
+                                kwargs['fail_msg'] = "Did not find the delta view..."
+                                self.screen.save_screen_shot()
+                                self.common_validation.validate(-1, 1, **kwargs)
+                                return -1
+                            self.utils.print_info("Attempting to locate the delta config content...")
+                            if self.get_device_config_audit_delta_view_content():
+                                self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+
+                                def check_device_config_audit_delta_view_content():
+                                    return bool(self.get_device_config_audit_delta_view_content().text)
+
+                                self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True)
+                                get_configs_result = self.get_device_config_audit_delta_view_content().text
+                            else:
+                                self.utils.print_info("Did not manage to locate the content...")
+                                kwargs['fail_msg'] = "Did not manage to locate the content..."
+                                self.screen.save_screen_shot()
+                                self.common_validation.validate(-1, 1, **kwargs)
+                                return -1
+                        elif config_type.upper() == "AUDIT":
+                            audit_view = self.get_device_config_audit_audit_view()
+                            self.utils.print_info("Attempting to locate audit view...")
+                            if audit_view:
+                                self.utils.print_info("Clicking on Device Config Audit audit View...")
+                                self.auto_actions.click(self.get_device_config_audit_audit_view())
+                            else:
+                                self.utils.print_info("Did not find the audit view...")
+                                kwargs['fail_msg'] = "Did not find the audit view..."
+                                self.screen.save_screen_shot()
+                                self.common_validation.validate(-1, 1, **kwargs)
+                                return -1
+                            self.utils.print_info("Attempting to locate the audit config content...")
+                            if self.get_device_config_audit_audit_view_content():
+                                self.utils.print_info("Get the Config content from Device Config Audit audit View")
+
+                                def check_device_config_audit_audit_view_content():
+                                    return bool(self.get_device_config_audit_audit_view_content().text)
+
+                                self.utils.wait_till(check_device_config_audit_audit_view_content, is_logging_enabled=True)
+                                get_configs_result = self.get_device_config_audit_audit_view_content().text
+                            else:
+                                self.utils.print_info("Did not manage to locate the content...")
+                                kwargs['fail_msg'] = "Did not manage to locate the content..."
+                                self.screen.save_screen_shot()
+                                self.common_validation.validate(-1, 1, **kwargs)
+                                return -1
 
                         close_audit_view_button = self.get_device_config_audit_view_close_button()
                         self.utils.print_info("Attempting to locate the close button...")
@@ -2427,12 +2607,12 @@ class DeviceConfig(DeviceConfigElements):
                             self.screen.save_screen_shot()
                             self.common_validation.validate(-1, 1, **kwargs)
                             return -1
-                        if delta_configs:
-                            self.utils.print_info("Successfully collected Delta CLI configs")
-                            self.utils.print_info("Delta Configs : ", delta_configs)
-                            kwargs['pass_msg'] = "Successfully collected Delta CLI configs"
+                        if get_configs_result:
+                            self.utils.print_info(f"Successfully collected {config_type} CLI configs")
+                            self.utils.print_info("{config_type} Configs : ", get_configs_result)
+                            kwargs['pass_msg'] = f"Successfully collected {config_type} CLI configs"
                             self.common_validation.validate(1, 1, **kwargs)
-                            return delta_configs
+                            return get_configs_result
                         else:
                             self.utils.print_info("Did not manage to get any configurations")
                             kwargs['fail_msg'] = "Did not manage to get any configurations"
@@ -2440,8 +2620,8 @@ class DeviceConfig(DeviceConfigElements):
                             self.common_validation.validate(-1, 1, **kwargs)
                             return -1
                 if device_found == 0:
-                    self.utils.print_info(f"Did not find any device with mac address: {device_mac}")
-                    kwargs['fail_msg'] = f"Did not find any device with mac address: {device_mac}"
+                    self.utils.print_info(f"Did not find any device with AP serial: {ap_serial}")
+                    kwargs['fail_msg'] = f"Did not find any device with AP serial: {ap_serial}"
                     self.screen.save_screen_shot()
                     self.common_validation.validate(-1, 1, **kwargs)
                     return -1

@@ -16,7 +16,7 @@ class DeviceActionsDefs:
         {
             # The identifier differs depending on which type of device is selected (ap, switch, etc.),
             # so need to get all partial matches and select the displayed element
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-location"]',
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-assign-location")]',
             'wait_for': 5
         }
 
@@ -278,13 +278,13 @@ class DeviceActionsDefs:
 
     manage_device_btn = \
         {
-            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-manage-device"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-manage-device"] | //a[@data-automation-tag="automation-manage-device-actions-ap-manage-device"]',
             'wait_for': 2
         }
 
     unmanage_device_btn = \
         {
-            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-unmanage-device"]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-unmanage-device"] | //a[@data-automation-tag="automation-manage-device-actions-ap-unmanage-device"]',
             'wait_for': 2
         }
 

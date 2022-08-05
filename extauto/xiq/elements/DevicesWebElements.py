@@ -1222,3 +1222,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_license_action_button(self):
         return self.weh.get_element(self.license_action_button)
+
+    def get_port_details_info(self):
+        return self.weh.get_elements(self.port_details_info)

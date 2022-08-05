@@ -47,6 +47,7 @@ class Devices:
         self.login = Login()
         self.cli = Cli()
 
+
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
@@ -1801,7 +1802,8 @@ class Devices:
             self.auto_actions.scroll_up()
             self.clear_search_field()
             self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-            sleep(5)
+            # EJL increase sleep
+            sleep(10)
             kwargs['pass_msg'] = "Device page refreshed successfully"
             self.common_validation.validate(1, 1, **kwargs)
             return 1
@@ -1842,6 +1844,7 @@ class Devices:
                 return 1
         return -1
 
+#EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
@@ -2997,12 +3000,19 @@ class Devices:
         :return: 1 if device found else -1
         """
 
+        # call a refresh
+        self.refresh_devices_page()
+
+        #EJL this isn't what we should do here
+        sleep(10)
+
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
         else:
             self.utils.print_info(f"Searching for the device matching either one of serial, name or MAC!")
+            self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_mac}', device_mac: '{device_mac}'")
 
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
@@ -3161,6 +3171,8 @@ class Devices:
                     self.utils.print_info("Getting status from cell")
                 else:
                     self.utils.print_info("Getting status from cell failed...Attempting to get status again")
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
                 attempt_count = attempt_count - 1
                 device_status = self.devices_web_elements.get_status_cell(device_row)
                 sleep(5)
@@ -3201,6 +3213,8 @@ class Devices:
                         kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
                         self.common_validation.validate(1, 1, **kwargs)
                         return "disconnected"
+                    kwargs['pass_msg'] = "Device is disconnected!"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return "disconnected"
 
                 if "local-icon" in device_status:
@@ -3551,6 +3565,7 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Column list to select: ", columns)
         for filter_ in columns:
@@ -3564,8 +3579,10 @@ class Devices:
                         ans = row_inp.get_attribute("checked")
                         if ans == "true":
                             self.utils.print_info(f"Column Picker Filter {filter_} is already checked")
+                            self.screen.save_screen_shot()
                         else:
                             self.auto_actions.click(filter_row)
+                            self.screen.save_screen_shot()
                             self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
                         break
             else:
@@ -3576,6 +3593,7 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.screen.save_screen_shot()
         sleep(2)
 
         return ret_val
@@ -4339,7 +4357,7 @@ class Devices:
 
         return -1
 
-    def wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10, **kwargs):
+    def wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20, **kwargs):
         """
         - This keyword is used to check the device connected status on XIQ.
         - After Configuring the CAPWAP client server in device cli, check the device connected status
@@ -4908,17 +4926,17 @@ class Devices:
 
         return ret_val
 
-    def _check_device_update_status(self, device_serial):
+    def _check_device_update_status(self,  device_serial_mac_or_name):
         """
         - This keyword is used to check the status of the device update
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
-        :param device_serial: device serial number to check the config push status
+        :param  device_serial_mac_or_name: device serial number, device mac or device name to check the config push status
         :return: 1 if config push success else -1
         """
         retry_count = 0
         while retry_count <= 300:
-            device_update_status = self.get_device_updated_status(device_serial)
+            device_update_status = self.get_device_updated_status(device_serial_mac_or_name)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif device_update_status == "Device Update Failed":
@@ -5585,8 +5603,10 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
-        count = 1
+        # Make sure we have the correct columns
+        self.column_picker_select('OS Version', 'IQAgent', 'Managed')
 
+        count = 1
         while count <= retry_count:
             self.utils.print_info(f"Searching for device: loop {count}")
             col_value = self.get_device_details(device_serial, col)
@@ -11107,3 +11127,81 @@ class Devices:
             return -1
         else:
             return 1
+
+    def update_policy_and_configuration_stack(self,  device_serial_mac_or_name=None):
+        """
+        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
+          check button in the Device Update dialog.
+        - Go To Manage-->Devices-->Select switch row to apply the network policy
+        - Select Switch-->Update device
+        - Keyword Usage:
+         - ``Update Policy and Configuration  ${SWITCH_SERIAL}``
+         - ``Update Policy and Configuration  ${SWITCH_MAC}``
+         - ``Update Policy and Configuration  ${SWITCH_NAME}``
+        :param  device_serial_mac_or_name: device serial number, mac or name  of the switch to update
+        :return: 1 if config push success else -1
+        """
+        self.utils.print_info("Select Stack")
+        if not self.select_device(device_serial_mac_or_name):
+            self.utils.print_info("The device cannot be selected")
+            self.screen.save_screen_shot()
+            return -1
+
+        if self._update_switch(update_method="PolicyAndConfig") == -1:
+            self.utils.print_info("The update cannot be performed")
+            self.screen.save_screen_shot()
+            return -1
+
+        self.screen.save_screen_shot()
+
+        return self._check_device_update_status(device_serial_mac_or_name)
+
+    def wait_for_policy_config_push_to_complete(self, device_serial, boot_wait_time=60, **kwargs):
+        """
+        - This method waits until the device is online & managed with status green after a config push
+        - Keyword Usage:
+        - ``Wait For Policy Config Push To Complete ${DEVICE_SERIAL} ${BOOT_WAIT_TIME}``
+        :param device_serial: device serial number
+        :param boot_wait_time: time to wait until the device is supposed to have completed the reboot
+        :return: 1 if reboot was successful, device is online & managed, status is green else -1
+        """
+
+        kwargs['IRV'] = True
+        self.utils.print_info("Sleeping for {} seconds to allow device to come back on line".format(boot_wait_time))
+        sleep(boot_wait_time)
+
+        reboot_res = self.wait_until_device_reboots(device_serial, retry_duration=15, retry_count=12)
+        if reboot_res == 1:
+            self.utils.print_info('Reboot for device with serial number: {} is successful'.format(device_serial))
+        else:
+            kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(device_serial, reboot_res)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        online_res = self.wait_until_device_online(device_serial, retry_duration=15, retry_count=12)
+        if online_res == 1:
+            self.utils.print_info('Device with serial number: {} is online'.format(device_serial))
+        else:
+            kwargs['fail_msg'] = 'Device with serial number: {} is NOT online: {}'.format(device_serial, online_res)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        managed_res = self.wait_until_device_managed(device_serial)
+        if managed_res == 1:
+            self.utils.print_info('Status for device with serial number: {} is equal to managed'.format(device_serial))
+        else:
+            kwargs['fail_msg'] = 'Status for device with serial number: {} is NOT equal to managed: {}'.format(device_serial, managed_res)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        status_res = self.get_device_status(device_serial=device_serial)
+        if status_res == 'green':
+            self.utils.print_info('Status for device with serial number: {} is equal to green'.format(device_serial))
+        else:
+            kwargs['fail_msg'] = 'Status for device with serial number: {} is NOT equal to green: {}'.format(device_serial, status_res)
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        kwargs['pass_msg'] = 'Wait for policy config push to device with serial number: {} is complete'
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1

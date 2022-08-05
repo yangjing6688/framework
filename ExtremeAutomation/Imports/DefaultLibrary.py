@@ -4,6 +4,7 @@ from ExtremeAutomation.Imports.LowLevelApis import LowLevelApis
 from ExtremeAutomation.Imports.VirtualMachineUtils import VirtualMachineUtils
 from ExtremeAutomation.Imports.NetElementUtils import NetElementUtils
 from ExtremeAutomation.Imports.LowLevelTrafficApis import LowLevelTrafficApis
+from ExtremeAutomation.Imports.CommonObjectUtils import CommonObjectUtils
 
 
 class DefaultLibrary():
@@ -17,3 +18,4 @@ class DefaultLibrary():
         self.deviceEndSystem = EndSystemUtils()
         self.deviceVirtualMachine = VirtualMachineUtils()
         self.deviceNetworkElement = NetElementUtils()
+        self.commonObjectUtils = CommonObjectUtils()
