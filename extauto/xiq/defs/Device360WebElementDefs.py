@@ -287,19 +287,19 @@ class Device360WebElementDefs:
     device360_configure_ssh_cli_enable_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="setDeviceSSH"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_cli_ip = \
         {
             'XPATH': '//*[@data-dojo-attach-point="addressInfo"]//*[@data-dojo-attach-point="ipAddress"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_cli_port = \
         {
             'XPATH': '//*[@data-dojo-attach-point="port"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_web_ip = \
@@ -374,7 +374,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="portNav"]',
+            'XPATH': '//li[contains(text(),"Port Configuration")]',
             'wait_for': 5
         }
 
@@ -2656,20 +2656,14 @@ class Device360WebElementDefs:
 
     device360_port_configuration_stack_units_dropdown = \
         {
-            'XPATH': '//div[@class="stack-member-chooser"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 5
-        }
-
-    device360_port_configuration_stack_units_dropdown_parent_rows = \
-        {
-            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]//ul[@data-automation-tag="automation-chzn-results-ctn"]',
-            'index': 0,
+            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]'
+                     '//div[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
 
     device360_port_configuration_stack_units_rows = \
         {
-            "CSS_SELECTOR": '.active-result',
+            "XPATH": '//div[@data-dojo-attach-point="stackMemberChooserArea"]//li[contains(text(),"Unit")]',
             'wait_for': 5
         }
 

@@ -1556,11 +1556,8 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_port_configuration_stack_units_dropdown(self):
         return self.weh.get_element(self.device360_port_configuration_stack_units_dropdown)
 
-    def get_device360_port_configuration_stack_units_dropdown_parent_rows(self):
-        return self.weh.get_element(self.device360_port_configuration_stack_units_dropdown_parent_rows)
-
-    def get_device360_port_configuration_stack_units_rows(self, row):
-        return self.weh.get_elements(self.device360_port_configuration_stack_units_rows, parent=row)
+    def get_device360_port_configuration_stack_units_rows(self):
+        return self.weh.get_elements(self.device360_port_configuration_stack_units_rows)
 
     def get_device360_port_config_pse_tab_slot_stack(self):
         return self.weh.get_element(self.device360_port_config_pse_tab_slot_stack)

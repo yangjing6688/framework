@@ -80,6 +80,9 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_build_version_details(self):
         return self.weh.get_element(self.build_version_details).text
 
+    def get_build_id(self):
+        return self.weh.get_element(self.build_id)
+
     def get_data_center_name(self):
         return self.weh.get_element(self.data_center_name).text
 
@@ -373,3 +376,11 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_cancel_button(self):
         return self.weh.get_element(self.cancel_button)
+
+    def get_devices_list_check(self):
+        return self.weh.get_element(self.devices_list_check)
+
+    def get_user_account_nav_click(self):
+        return self.weh.get_element(self.user_account_nav_click)
+    def get_about_extreme(self):
+        return self.weh.get_element(self.about_extreme)
