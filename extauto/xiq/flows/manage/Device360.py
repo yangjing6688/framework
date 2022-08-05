@@ -3499,7 +3499,7 @@ class Device360(Device360WebElements):
                     switch_device360_info["port_name"] = self.dev360.get_device360_switch_port_table_port_name(row).text
                     switch_device360_info["port_type"] = self.dev360.get_device360_switch_port_table_port_type(row).text
                     switch_device360_info["lldp_neighbor"] = self.dev360.get_device360_switch_port_table_lacp_neighbor(row).text
-                    switch_device360_info["lldp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
+                    switch_device360_info["lacp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
                     switch_device360_info["port_status"] = self.dev360.get_device360_switch_port_table_port_status(row).text
                     switch_device360_info["trasmission_mode"] = self.dev360.get_device360_switch_port_table_transmission_mode(row).text
                     switch_device360_info["port_mode"] = self.dev360.get_device360_switch_port_table_port_mode(row).text
@@ -3935,6 +3935,59 @@ class Device360(Device360WebElements):
         ret_val = self.auto_actions.click(port_icon_list[int(port) - 1])
         self.utils.print_info("Clicking success")
         sleep(2)
+
+        port_name_el = self.dev360.get_device360_port_leftclick_interface_name()
+        port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
+        port_access_vlan_el = self.dev360.get_device360_port_leftclick_access_vlan()
+        port_tagged_vlan_el = self.dev360.get_device360_port_leftclick_tagged_vlan()
+        port_status_el = self.dev360.get_device360_port_leftclick_port_status()
+
+        device360_info = {}
+        if port_name_el:
+            device360_info["Interface_name"] = port_name_el.text
+        else:
+            self.utils.print_info("Could not determine value for Device Port name")
+            device360_info["Interface_name"] = ""
+
+        if port_mode_el:
+            device360_info["port_mode"] = port_mode_el.text
+        else:
+            self.utils.print_info("Could not determine value for Device Port Mode")
+            device360_info["port_mode"] = ""
+
+        if port_access_vlan_el:
+            device360_info["port_access_vlan"] = port_access_vlan_el.text
+        else:
+            self.utils.print_info("Could not determine value for Port Access Vlan")
+            device360_info["port_access_vlan"] = ""
+
+        if port_tagged_vlan_el:
+            device360_info["port_tagged_vlan"] = port_tagged_vlan_el.text
+        else:
+            self.utils.print_info("Could not determine value for Port Tagged Vlan")
+            device360_info["port_tagged_vlan"] = ""
+
+        if port_status_el:
+            device360_info["port_status"] = port_status_el.text
+        else:
+            self.utils.print_info("Could not determine value for Port Status")
+            device360_info["port_status"] = ""
+
+        return device360_info
+
+    def device360_get_automation_port_info(self, port):
+        self.utils.print_info("Locating Device360 Port Icon")
+        sleep(10)
+        port_icon_list = self.dev360.get_device360_automation_port()
+        self.utils.print_info("selecting ports to right click")
+
+        searched_port = "automation-port-" + port
+        for port in port_icon_list:
+            if port.get_attribute("data-automation-tag") == searched_port:
+                self.auto_actions.click(port)
+                self.utils.print_info("Clicking success")
+                sleep(2)
+                break
 
         port_name_el = self.dev360.get_device360_port_leftclick_interface_name()
         port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
