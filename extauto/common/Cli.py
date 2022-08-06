@@ -95,14 +95,8 @@ class Cli(object):
         # Generate UUID
         device_uuid = str(uuid.uuid4()) + "_" + cli_type
 
-        if disable_strict_host_key_checking:
-            self.utils.print_info("Disabling SSH key Checking for Remote Device/Host On Server")
-            self.paramiko_ssh_connection = paramiko.SSHClient()
-            self.paramiko_ssh_connection.set_missing_host_key_policy(paramiko.MissingHostKeyPolicy())
-            self.paramiko_ssh_connection.connect(ip, port=port, username=username, password=password, look_for_keys=False, allow_agent=False)
-
         if cli_type.upper() in self.net_element_types:
-            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)
+            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port, disable_strict_host_key_checking=disable_strict_host_key_checking)
 
         elif cli_type.upper() in self.end_system_types:
             self.endsystemConnectionManager.connect_to_endsystem_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)

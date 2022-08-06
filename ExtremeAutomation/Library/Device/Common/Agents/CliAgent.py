@@ -14,6 +14,7 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
         self.prompt_snapshot = ""
         self.variable_cache = GlobalVariableCache()
         self.eol = "\n"
+        self.disable_strict_host_key_checking = False
 
     @abc.abstractmethod
     def login(self):
@@ -618,3 +619,9 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
         output = re.sub(r'[^a-zA-Z0-9@-]', r'', output)
         output = output.replace(' ', '')
         return output
+
+    def set_disable_strict_host_key_checking(self, enable_or_disable):
+        self.disable_strict_host_key_checking = enable_or_disable
+
+    def get_disable_strict_host_key_checking(self):
+        return self.disable_strict_host_key_checking
