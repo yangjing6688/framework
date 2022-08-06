@@ -1721,6 +1721,7 @@ class SwitchTemplate(object):
             choose_existing_port_type = self.sw_template_web_elements.existing_port_type_button()
             if choose_existing_port_type:
                 self.auto_actions.click(choose_existing_port_type)
+            self.utils.wait_till(self.sw_template_web_elements.port_type_list)
             existing_port_type_list = self.sw_template_web_elements.port_type_list()
             if existing_port_type_list:
                 self.utils.print_info("Found the port type list!")
@@ -1951,7 +1952,10 @@ class SwitchTemplate(object):
                         def check_for_confirmation():
                             tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
                             self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
-                            return "Template was successfully removed from policy." in tool_tip_text
+                            if tool_tip_text:
+                                return "Template was successfully removed from policy." in tool_tip_text
+                            else:
+                                return False
 
                         confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                         if confirmation_message:

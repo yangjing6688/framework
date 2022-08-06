@@ -86,9 +86,9 @@ class Login:
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   **kwargs):
+                   max_retries=3, **kwargs):
         """
-        - Login to Xiq account with username and password
+        - Login to Xiq account with username and password (we will try up to 3 times)
         - By default url will load from the topology file
         - keyword Usage:
          - ``Login User   ${USERNAME}   ${PASSWORD}``
@@ -108,8 +108,33 @@ class Login:
         :param saleforce_shared_cuid: Salesforce Shared CUID
         :param quick: Quick login without more sleep time while loading url
         :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
+        :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
+        result = -1
+        count = 0
+        expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
+        result = self._login_user(username, password, capture_version, login_option, url,
+                    incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                    salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
+                    **kwargs)
+
+        # Let's try again if we don't expect and error and the results were not good
+        if not expect_error:
+            while result != 1 and count < max_retries:
+                self.utils.print_warning(f'Trying to log in again: {count}')
+                result = self._login_user(username, password, capture_version, login_option, url,
+                                          incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
+                                          **kwargs)
+                count = count + 1
+        self.common_validation.validate(result, 1, **kwargs)
+        return result
+
+    def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
+                   incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
+                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   **kwargs):
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
@@ -170,20 +195,19 @@ class Login:
         if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
             # self.utils.print_info("Wrong Credentials. Try Again")
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid) == -1:
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         if quick:
             sleep(2)
         else:
             sleep(10)
-
+        self.utils.print_info("Capturing screenshot after logging")
+        self.screen.save_screen_shot()
         if check_warning_msg:
             self.utils.print_info("Check for Warning Messages..")
             if self.login_web_elements.get_dialog_message():
@@ -209,7 +233,10 @@ class Login:
                     self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
             except Exception as e:
                 pass
+        if self.login_web_elements.get_devices_list_check().is_displayed():
+            self.utils.print_info("webelement exists in the mainpage")
 
+        self.get_version()
         if co_pilot_status:
             url = BuiltIn().get_variable_value("${TEST_URL}")
             copilot_url = f"{url}/hm-webapp/?copilotBeta=true"
@@ -221,8 +248,22 @@ class Login:
         if capture_version:
             self._capture_xiq_version()
         kwargs['pass_msg'] = "User has been logged in"
-        self.common_validation.validate(1, 1, **kwargs)
         return 1
+
+    def get_version(self):
+        self.utils.print_info("Clicking on About Extreme cloudIQ link")
+        self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
+        self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
+        self.screen.save_screen_shot()
+        viq_id = self.login_web_elements.get_viq_id_field().text
+        build_id=self.login_web_elements.get_build_id().text
+        xiq_version = self.login_web_elements.get_build_version_details()
+        self.utils.print_info(f"VIQ ID Is: {viq_id}")
+        self.utils.print_info("Build Id: ",build_id)
+        self.utils.print_info("XIQ build Version Is: ", xiq_version)
+
+        self.utils.print_info("Close About Extreme cloudIQ Link Dialogue Page")
+        self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
 
     def logout_user(self):
         """

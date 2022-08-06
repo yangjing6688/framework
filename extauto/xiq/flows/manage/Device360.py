@@ -472,15 +472,15 @@ class Device360(Device360WebElements):
 
         return 1
 
-    def get_exos_information(self):
+    def get_switch_information(self):
         """
-        - This keyword gets EXOS Switch information from device360 page
+        - This keyword gets Switch information from device360 page
         - It Assumes That Already Navigated to Device360 Page
         - Flow : Device 360 Page
         - Keyword Usage
          - ``Get ExOS Information``
 
-        :return: dictionary of ExOS Switch information
+        :return: dictionary of Switch information
         """
 
         self.utils.print_info("Getting device360 Information.")
@@ -512,17 +512,24 @@ class Device360(Device360WebElements):
 
         return device360_info
 
-    def get_exos_switch_360_information(self, device_mac='', device_name=''):
+    def get_device_360_information(self, cli_type, device_mac='', device_name=''):
+        if cli_type.upper() == 'EXOS' or cli_type.upper() == 'VOSS':
+            return self.get_switch_360_information(device_mac, device_name)
+        else:
+            self.utils.print_info(f"The cli type {cli_type} is not supported for this keyword")
+            return None
+
+    def get_switch_360_information(self, device_mac='', device_name=''):
         """
-        - This keyword gets EXOS Switch information from device360 page ie Model,Serial Number etc
-        - Flow : Manage-->Devices-->click on SWitch hyperlink(MAC/hostname)
+        - This keyword gets Switch information from device360 page ie Model,Serial Number etc
+        - Flow : Manage-->Devices-->click on Switch hyperlink(MAC/hostname)
         - Keyword Usage
          - ``Get ExOS Switch 360 Information   device_name=${SW1_NAME}``
          - ``Get ExOS Switch 360 Information   device_mac=${SW1_MAC}``
 
-        :param device_mac: ExOS SWitch MAC Address
-        :param device_name:  ExOS SWitch Name
-        :return: dictionary of ExOS Switch information
+        :param device_mac:  Switch MAC Address
+        :param device_name:  Switch Name
+        :return: dictionary of Switch information
         """
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
@@ -531,7 +538,7 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
                 self.screen.save_screen_shot()
-                exos_info = self.get_exos_information()
+                exos_info = self.get_switch_information()
                 return exos_info
 
         if device_name:
@@ -541,7 +548,7 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
                 self.screen.save_screen_shot()
-                exos_info = self.get_exos_information()
+                exos_info = self.get_switch_information()
                 return exos_info
 
     def advance_channel_selection(self, device_serial=None):
@@ -1123,6 +1130,7 @@ class Device360(Device360WebElements):
         :param  None
         :return: 1 if navigation was successful, else -1
         """
+
         ret_val = self.select_configure_tab()
         if ret_val != -1:
             ret_val = self.select_port_configuration_view()
@@ -3491,7 +3499,7 @@ class Device360(Device360WebElements):
                     switch_device360_info["port_name"] = self.dev360.get_device360_switch_port_table_port_name(row).text
                     switch_device360_info["port_type"] = self.dev360.get_device360_switch_port_table_port_type(row).text
                     switch_device360_info["lldp_neighbor"] = self.dev360.get_device360_switch_port_table_lacp_neighbor(row).text
-                    switch_device360_info["lldp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
+                    switch_device360_info["lacp_status"] = self.dev360.get_device360_switch_port_table_lacp_status(row).text
                     switch_device360_info["port_status"] = self.dev360.get_device360_switch_port_table_port_status(row).text
                     switch_device360_info["trasmission_mode"] = self.dev360.get_device360_switch_port_table_transmission_mode(row).text
                     switch_device360_info["port_mode"] = self.dev360.get_device360_switch_port_table_port_mode(row).text
@@ -3927,6 +3935,59 @@ class Device360(Device360WebElements):
         ret_val = self.auto_actions.click(port_icon_list[int(port) - 1])
         self.utils.print_info("Clicking success")
         sleep(2)
+
+        port_name_el = self.dev360.get_device360_port_leftclick_interface_name()
+        port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
+        port_access_vlan_el = self.dev360.get_device360_port_leftclick_access_vlan()
+        port_tagged_vlan_el = self.dev360.get_device360_port_leftclick_tagged_vlan()
+        port_status_el = self.dev360.get_device360_port_leftclick_port_status()
+
+        device360_info = {}
+        if port_name_el:
+            device360_info["Interface_name"] = port_name_el.text
+        else:
+            self.utils.print_info("Could not determine value for Device Port name")
+            device360_info["Interface_name"] = ""
+
+        if port_mode_el:
+            device360_info["port_mode"] = port_mode_el.text
+        else:
+            self.utils.print_info("Could not determine value for Device Port Mode")
+            device360_info["port_mode"] = ""
+
+        if port_access_vlan_el:
+            device360_info["port_access_vlan"] = port_access_vlan_el.text
+        else:
+            self.utils.print_info("Could not determine value for Port Access Vlan")
+            device360_info["port_access_vlan"] = ""
+
+        if port_tagged_vlan_el:
+            device360_info["port_tagged_vlan"] = port_tagged_vlan_el.text
+        else:
+            self.utils.print_info("Could not determine value for Port Tagged Vlan")
+            device360_info["port_tagged_vlan"] = ""
+
+        if port_status_el:
+            device360_info["port_status"] = port_status_el.text
+        else:
+            self.utils.print_info("Could not determine value for Port Status")
+            device360_info["port_status"] = ""
+
+        return device360_info
+
+    def device360_get_automation_port_info(self, port):
+        self.utils.print_info("Locating Device360 Port Icon")
+        sleep(10)
+        port_icon_list = self.dev360.get_device360_automation_port()
+        self.utils.print_info("selecting ports to right click")
+
+        searched_port = "automation-port-" + port
+        for port in port_icon_list:
+            if port.get_attribute("data-automation-tag") == searched_port:
+                self.auto_actions.click(port)
+                self.utils.print_info("Clicking success")
+                sleep(2)
+                break
 
         port_name_el = self.dev360.get_device360_port_leftclick_interface_name()
         port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
@@ -6409,6 +6470,14 @@ class Device360(Device360WebElements):
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
+
+                def _wait_for_port_row():
+                    if self.device360_get_port_row(port_number):
+                        return True
+                    else:
+                        return False
+                self.utils.wait_till(_wait_for_port_row)
+                
                 port_row = self.device360_get_port_row(port_number)
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
@@ -6625,6 +6694,14 @@ class Device360(Device360WebElements):
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
+
+                def _wait_for_port_row():
+                    if self.device360_get_port_row(port_number):
+                        return True
+                    else:
+                        return False
+                self.utils.wait_till(_wait_for_port_row)
+
                 port_row = self.device360_get_port_row(port_number)
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
@@ -6794,22 +6871,29 @@ class Device360(Device360WebElements):
         :param slot: The slot which will be selected
         :return: 1 if the slot was selected; else -1
         '''
+
+        def _check_dropdown():
+            if self.dev360.get_device360_port_configuration_stack_units_dropdown():
+                return True
+            else:
+                return False
+        self.utils.wait_till(_check_dropdown)
         self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
+
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
         slot_found = False
-        complete_stack = self.dev360.get_device360_port_configuration_stack_units_dropdown_parent_rows()
-        if complete_stack:
-            slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows(complete_stack)
+
+        slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows()
+        if slots_in_stack:
             for stack_item in slots_in_stack:
-                if slot_index == int(slot):
+                if "Unit " + str(slot) in stack_item.text:
                     self.utils.print_info(f"Slot {str(slot)} found in the stack, selecting the slot")
                     self.auto_actions.click(stack_item)
                     slot_found = True
                     kwargs['pass_msg'] = f"Selected the slot {str(slot)} successfully"
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
-                slot_index = slot_index + 1
             if not slot_found:
                 self.utils.print_info(f"Unable to locate slot {str(slot)}")
                 kwargs['fail_msg'] = f"Unable to locate slot {str(slot)}"
