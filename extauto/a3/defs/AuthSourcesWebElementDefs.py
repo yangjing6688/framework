@@ -95,16 +95,22 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
-    add_rule_row1_act2 = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]',
-            'wait_for': 5,
-        }
-
     rule_row1_select_option = \
         {
                 'XPATH': '//span[text()="Role"]',
                 'wait_for': 5
+        }
+
+    add_rule_row1_act2 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]//input',
+            'wait_for': 5,
+        }
+
+    value_row1_select_option = \
+        {
+            'XPATH': '//span[text()="roleE"]',
+            'wait_for': 5,
         }
 
     add_row = \
@@ -119,10 +125,22 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    rule_row2_select_option = \
+        {
+                'XPATH': '//span[text()="Role"]',
+                'wait_for': 5
+        }
+
     add_rule_row2_act2 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-authentication_rules,0,actions,1,value"]',
+            'XPATH': '//*[@data-automation-tag="automation-authentication_rules,0,actions,1,value"]//input',
             'wait_for': 5
+        }
+
+    value_row2_select_option = \
+        {
+            'XPATH': '//span[text()="5 days"]',
+            'wait_for': 5,
         }
 
     save_button = \

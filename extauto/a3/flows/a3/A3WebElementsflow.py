@@ -332,7 +332,7 @@ class A3WebElementsflow(A3WebElements):
             self.auto_actions.click(element1)
             self.utils.print_info("SSH option is enabled now")
 
-    def select_cloud_integration(self):
+    def select_cloud_integration(self, cloud_url, cloud_uname, cloud_pwd):
         """
             - This keyword select the Cloud Integration from the menu System Configuration ank link it to XIQ
             - Keyword Usage
@@ -347,13 +347,13 @@ class A3WebElementsflow(A3WebElements):
             self.utils.print_info("Entering Cloud account details ")
             element1 = self.weh.get_element(self.cloud_host_input)
             element1.clear()
-            self.auto_actions.send_keys(element1, 'https://g2.qa.xcloudiq.com')
+            self.auto_actions.send_keys(element1, cloud_url)
             sleep(5)
             element2 = self.weh.get_element(self.cloud_admin)
-            self.auto_actions.send_keys(element2, "a3g2r1@gmail.com")
+            self.auto_actions.send_keys(element2, cloud_uname)
             sleep(5)
             element3 = self.weh.get_element(self.cloud_password)
-            self.auto_actions.send_keys(element3, "Extreme@123")
+            self.auto_actions.send_keys(element3, cloud_pwd)
             sleep(5)
             element4 = self.weh.get_element(self.cloud_link_button)
             self.auto_actions.click(element4)

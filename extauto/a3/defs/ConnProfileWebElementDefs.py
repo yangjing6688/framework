@@ -7,8 +7,8 @@ class RolesWebElementDefs:
 
     conn_profile_new = \
         {
-            'XPATH': '//a[contains(@href,"#/configuration/connection_profiles/new")]',
-            'wait_for': 2
+            'XPATH': '//a[text()="New Connection Profile"]',
+            'wait_for': 5
         }
 
     conn_profile_name = \
