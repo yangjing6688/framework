@@ -28,7 +28,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         """
          - This keyword is used to onboard Device using Advance Onboarding Method
          - Keyword Usage:
-          - ``Onboard Device  ${DEVICE_SERIAL}   device_make=${DEVICE_MAKE_AEROHIVE}   dev_location=${LOCATION}``
+          - ``Onboard Device  ${DEVICE_SERIAL}   device_make=${device1.make}   dev_location=${LOCATION}``
 
         :param device_serial: serial number of Device
         :param device_make: Model of the Device ex:Extreme-aerohive,ExOS,VOSS,DELL
