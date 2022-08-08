@@ -159,6 +159,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
+    global_settings_webhooks = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-manageWebhooks"]',
+            'wait_for': 2
+        }
+
     dashboard  = \
         {
             'XPATH': "//*[@data-dojo-attach-point='appLogo']",
@@ -552,6 +558,12 @@ class NavigatorWebElementDefinitions:
     manage_events_menu_item = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-events"]',
+            'wait_for': 5
+        }
+
+    manage_alerts_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-alerts"]',
             'wait_for': 5
         }
 
@@ -1275,8 +1287,23 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
-    vpn_services_tab = \
+    nw_policy_port_types_view_all_pages = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-sider-list-vpnServices"]',
-            'wait_for': 5
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    configure_button_d360 = \
+        {
+            'XPATH': '//li[@data-automation-tag="device-entity-configure"]'
+        }
+
+    port_configuration_d360 = \
+        {
+            'XPATH': '//li[@data-automation-tag="device-entity-nav-menu-port-configuration"]'
+        }
+
+    port_rows_d360 = \
+        {
+            'CSS_SELECTOR': '.port-details-entry'
         }

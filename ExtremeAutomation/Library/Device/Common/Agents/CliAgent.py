@@ -552,11 +552,14 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
             prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
         elif self.device.oper_sys in [NetworkElementConstants.OS_AHAP,
                                       NetworkElementConstants.OS_AHFASTPATH,
-                                      NetworkElementConstants.OS_AHXR,
-                                      NetworkElementConstants.OS_WING]:
+                                      NetworkElementConstants.OS_AHXR]:
             prompt_re1 = ".*" + self.prompt_snapshot + ".*"
             prompt_re2 = prompt_re1.replace("(", r"\(").replace(")", r"\)")
             prompt_list = [re.compile(prompt_re2, re.IGNORECASE)]
+        elif self.device.oper_sys == NetworkElementConstants.OS_WING:
+            prompt_re1 = ".>"
+            prompt_re2 = ".#"
+            prompt_list = [re.compile(prompt_re1, re.IGNORECASE), re.compile(prompt_re2, re.IGNORECASE)]
 
         return prompt_list
 

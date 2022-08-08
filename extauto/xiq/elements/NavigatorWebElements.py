@@ -632,6 +632,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_manage_events_menu_item(self):
         return self.weh.get_element(self.manage_events_menu_item)
 
+    def get_manage_alerts_menu_item(self):
+        return self.weh.get_element(self.manage_alerts_menu_item)
+
     def get_configure_guest_essentials_users_menu_item(self):
         return self.weh.get_element(self.configure_guest_essentials_users_menu_item)
 
@@ -670,6 +673,3 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_clients_hyperlink(self):
         return self.weh.get_element(self.clients_hyperlink)
-
-    def get_vpn_services_tab(self):
-        return self.weh.get_element(self.vpn_services_tab)
