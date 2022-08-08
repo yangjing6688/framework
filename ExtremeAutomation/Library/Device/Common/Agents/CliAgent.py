@@ -14,6 +14,8 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
         self.prompt_snapshot = ""
         self.variable_cache = GlobalVariableCache()
         self.eol = "\n"
+        self.fallback_password = 'Aerohive123'
+        self.fallback_password_mode = False
 
     @abc.abstractmethod
     def login(self):
@@ -621,3 +623,9 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
         output = re.sub(r'[^a-zA-Z0-9@-]', r'', output)
         output = output.replace(' ', '')
         return output
+
+    def enable_fallback_password_mode(self, bool_val):
+        self.fallback_password_mode = bool_val
+
+    def get_enable_fallback_password_mode(self):
+        return self.fallback_password_mode

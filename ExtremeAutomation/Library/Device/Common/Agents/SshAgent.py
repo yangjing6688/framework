@@ -31,10 +31,14 @@ class SshAgent(CliAgent):
                 self.debug_print("Already connected and logged in.")
                 return True
 
+            adjusted_password = self.cmd_encode(self.device.password)
+            if self.get_enable_fallback_password_mode():
+                adjusted_password = self.cmd_encode(self.fallback_password)
+
             ssh_args = {"device_type": "cisco_ios",
                         "ip": self.cmd_encode(self.device.hostname),
                         "username": self.cmd_encode(self.device.username),
-                        "password": self.cmd_encode(self.device.password),
+                        "password": adjusted_password,
                         "port": self.device.port,
                         "timeout": 30,
                         "keepalive": 3,
