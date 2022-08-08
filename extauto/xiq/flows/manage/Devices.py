@@ -47,6 +47,7 @@ class Devices:
         self.login = Login()
         self.cli = Cli()
 
+
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
@@ -1801,7 +1802,8 @@ class Devices:
             self.auto_actions.scroll_up()
             self.clear_search_field()
             self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-            sleep(5)
+            # EJL increase sleep
+            sleep(10)
             kwargs['pass_msg'] = "Device page refreshed successfully"
             self.common_validation.validate(1, 1, **kwargs)
             return 1
@@ -1842,6 +1844,7 @@ class Devices:
                 return 1
         return -1
 
+#EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
@@ -2740,12 +2743,19 @@ class Devices:
         :return: 1 if device found else -1
         """
 
+        # call a refresh
+        self.refresh_devices_page()
+
+        #EJL this isn't what we should do here
+        sleep(10)
+
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
         else:
             self.utils.print_info(f"Searching for the device matching either one of serial, name or MAC!")
+            self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_mac}', device_mac: '{device_mac}'")
 
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
@@ -4055,6 +4065,31 @@ class Devices:
             sleep(30)
             retry_time += 30
 
+    def get_device_column_information(self, device_serial, column_array):
+        """
+        - This keyword is used to get the column data for the device
+        - Keyword Usage:
+         - ``@{column_list}=    Create List    MGT IP ADDRESS    MAC``
+         - ``get_device_column_information   ${DEVICE_SERIAL}  ${column_array}``
+
+        :param device_serial: device serial number to check the device connected status
+        :param column_array: The device array of columns to get data for
+        :return: object map of data columns to data, spaces are replaced with _
+        """
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+
+        return_array_data = {}
+        self.refresh_devices_page()
+        sleep(10)
+        device_row = self.get_device_row(device_serial)
+        for column in column_array:
+            data = self.get_device_details(device_serial, column)
+            return_array_data[column.replace(' ',"_")] = data
+        return return_array_data
+
+
+
     def get_device_configuration_audit_status(self, device_serial):
         """
         - This keyword is used to get the device configuration audit status
@@ -4090,7 +4125,7 @@ class Devices:
 
         return -1
 
-    def wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10, **kwargs):
+    def wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20, **kwargs):
         """
         - This keyword is used to check the device connected status on XIQ.
         - After Configuring the CAPWAP client server in device cli, check the device connected status
@@ -5336,8 +5371,8 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
-        self.utils.print_info(f"Enabling 'Managed' column Picker")
-        self.column_picker_select("Managed")
+        # Make sure we have the correct columns
+        self.column_picker_select('OS Version', 'IQAgent', 'Managed')
 
         count = 1
         while count <= retry_count:
