@@ -1805,12 +1805,15 @@ class Devices:
             self.utils.print_info("Refreshing devices page...")
             self.auto_actions.scroll_up()
             self.clear_search_field()
-            self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-            # EJL increase sleep
-            sleep(10)
-            kwargs['pass_msg'] = "Device page refreshed successfully"
-            self.common_validation.validate(1, 1, **kwargs)
-            return 1
+            returnValue = self.auto_actions.click_reference(self.devices_web_elements.get_refresh_devices_page)
+            if returnValue == -1:
+                kwargs['pass_msg'] = "Device page was not refreshed successfully"
+                self.common_validation.validate(-1, 1, **kwargs)
+            else:
+                sleep(10)
+                kwargs['pass_msg'] = "Device page refreshed successfully"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
         except Exception as e:
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to refresh devices page. Capturing screenshot"
