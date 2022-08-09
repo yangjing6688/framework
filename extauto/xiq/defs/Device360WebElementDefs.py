@@ -2699,3 +2699,46 @@ class Device360WebElementDefs:
             'XPATH': '//div[@class="stack-member-chooser fn-right"]//div[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
+
+
+    device360_monitor_diagnostics_health_item_ip_address = \
+        {
+            'XPATH': '//*[@id="ah/comp/entities/includes/switch/HealthStatus_17"]//span[contains(text(),"${ip_address}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_mac_address = \
+        {
+            'XPATH': '*[@id="ah/comp/entities/includes/switch/HealthStatus_17"]//span[contains(text(),"${mac_address}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_soft_version = \
+        {
+            'XPATH': '*[@id="ah/comp/entities/includes/switch/HealthStatus_17"]//span[contains(text(),"${soft_version}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_model = \
+        {
+            'XPATH': '*[@id="ah/comp/entities/includes/switch/HealthStatus_17"]//span[contains(text(),"${model}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_serial_number = \
+        {
+            'XPATH': '*[@id="ah/comp/entities/includes/switch/HealthStatus_17"]//span[contains(text(),"${serial_number}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_make = \
+        {
+            'XPATH': '*[@id="ah/comp/entities/includes/switch/HealthStatus_17"]//span[contains(text(),"${make}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_iqagent_version = \
+        {
+            'XPATH': '*[@id="ah/comp/entities/includes/switch/HealthStatus_17"]//span[contains(text(),"${iqagent_version}")]',
+            'wait_for': 5
+        }

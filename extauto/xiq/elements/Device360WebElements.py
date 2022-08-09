@@ -1569,3 +1569,24 @@ class Device360WebElements(Device360WebElementDefs):
 
             if el.is_displayed():
                 return el
+
+    def get_device360_monitor_diagnostics_health_item_ip_address(self, ip_address):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_ip_address, ip_address=ip_address)
+
+    def get_device360_monitor_diagnostics_health_item_mac_address(self, mac_address):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_mac_address, mac_address=mac_address)
+
+    def get_device360_monitor_diagnostics_health_item_soft_version(self, soft_version):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_soft_version, soft_version=soft_version)
+
+    def get_device360_monitor_diagnostics_health_item_model(self, model):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_model, model=model)
+
+    def get_device360_monitor_diagnostics_health_item_serial_number(self, serial_number):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_serial_number, serial_number=serial_number)
+
+    def get_device360_monitor_diagnostics_health_item_make(self, make):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_make, make=make)
+
+    def get_device360_monitor_diagnostics_health_item_iqagent_version(self, iqagent):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_iqagent_version, iqagent_version=iqagent_version)
