@@ -25,6 +25,8 @@ from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.defs.DevicesWebElementsDefinitions import *
+from extauto.common.WebElementController import WebElementController
 
 class Devices:
     def __init__(self):
@@ -46,6 +48,8 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
+        self.web_element_ctrl = WebElementController()
+
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
@@ -2496,11 +2500,15 @@ class Devices:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click delete button")
                     sleep(2)
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                    # self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                    self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                        self.devices_web_elements.get_delete_button)
                     sleep(2)
 
                     self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    # self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                        self.dialogue_web_elements.get_confirm_yes_button)
                     sleep(2)
                     self.screen.save_screen_shot()
 
