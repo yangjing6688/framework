@@ -157,7 +157,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                     self.utils.print_info("Added the Wing Mac Address")
                     self.auto_actions.send_keys(self.get_advance_onboard_mac_textfield(), device_mac)
                     sleep(3)
-                else:
+                if self.get_advance_onboard_mac_textfield().is_displayed() and device_mac == None:
                     kwargs['fail_msg'] = ">>> The Wing device needs the 'device_mac' to be passed into this method"
                     self.commonValidation.validate(-1, 1, **kwargs)
         else:
