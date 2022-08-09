@@ -128,7 +128,12 @@ class Login:
                                           salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
                                           **kwargs)
                 count = count + 1
-        self.common_validation.validate(result, 1, **kwargs)
+        if result != 1:
+            kwargs['pass_msg'] = "Login was not successful"
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Login was successful"
+            self.common_validation.passed(**kwargs)
         return result
 
     def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
