@@ -159,6 +159,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
+    global_settings_webhooks = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-manageWebhooks"]',
+            'wait_for': 2
+        }
+
     dashboard  = \
         {
             'XPATH': "//*[@data-dojo-attach-point='appLogo']",
@@ -552,6 +558,12 @@ class NavigatorWebElementDefinitions:
     manage_events_menu_item = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-events"]',
+            'wait_for': 5
+        }
+
+    manage_alerts_menu_item = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-alerts"]',
             'wait_for': 5
         }
 

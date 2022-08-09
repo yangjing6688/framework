@@ -632,6 +632,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_manage_events_menu_item(self):
         return self.weh.get_element(self.manage_events_menu_item)
 
+    def get_manage_alerts_menu_item(self):
+        return self.weh.get_element(self.manage_alerts_menu_item)
+
     def get_configure_guest_essentials_users_menu_item(self):
         return self.weh.get_element(self.configure_guest_essentials_users_menu_item)
 
