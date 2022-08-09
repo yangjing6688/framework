@@ -26,7 +26,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         self.commonValidation = CommonValidation()
 
     def advance_onboard_device(self, device_serial, device_make="", dev_location="", device_type="Real",
-                               entry_type="Manual", csv_location='', create_location=False, device_mac=None):
+                               entry_type="Manual", csv_location='', create_location=False, device_mac=None, **kwargs):
         """
          - This keyword is used to onboard Device using Advance Onboarding Method
          - Keyword Usage:
