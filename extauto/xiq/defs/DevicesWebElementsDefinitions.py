@@ -49,13 +49,14 @@ class DevicesWebElementsDefinitions:
 
     devices_ap_status_green = \
         {
-            'CSS_SELECTOR': '.hive-status'
+            'CSS_SELECTOR': '.hive-status-true',
+            'wait_for': 15
         }
 
     device_config_audit = \
         {
             'CSS_SELECTOR': '.J-view',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_stack_status = \

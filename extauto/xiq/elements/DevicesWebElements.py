@@ -52,7 +52,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return False
 
     def get_status_cell(self, row):
-        el = self.weh.get_element(self.devices_ap_status_green, row)
+        el = self.weh.get_element(self.devices_ap_status_green, parent=row)
         if el:
             return el.get_attribute("class")
         else:
@@ -79,7 +79,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.device_stack_status, row)
 
     def get_device_config_audit(self, row):
-        el = self.weh.get_element(self.device_config_audit, row)
+        el = self.weh.get_element(self.device_config_audit, parent=row)
         if el:
             return el.get_attribute("class")
         else:

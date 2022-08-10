@@ -29,6 +29,8 @@ class CommonObjectUtils:
                 generic_capwap_url = self.builtin.get_variable_value(self.setExecutionVariable("capwap_url",""))
                 if value['cli_type'].upper() == 'EXOS' or value['cli_type'].upper() == 'VOSS':
                     generic_capwap_url = self.builtin.get_variable_value(self.setExecutionVariable("sw_capwap_url",""))
+                elif value['cli_type'].upper() == 'WING-AP':
+                    generic_capwap_url = self.builtin.get_variable_value(self.setExecutionVariable("wing_capwap_url", ""))
                 self.builtin.set_global_variable(self.setExecutionVariable("generic_capwap_url",""), generic_capwap_url)
                 generic_capwap_url_check = self.builtin.get_variable_value(self.setExecutionVariable("generic_capwap_url", ""))
                 if not generic_capwap_url_check:
