@@ -10981,7 +10981,7 @@ class Devices:
         :return: Success 1 else -1
         """
         if not self.navigator.get_devices_page():
-            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            self.utils.print_info("Not in Devices page, Navigating to devices page now")
             if self.navigator.navigate_to_devices() == 1:
                 self.utils.print_info("To navigate the Devices page successfully...")
             else:
