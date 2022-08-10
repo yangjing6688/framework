@@ -25,6 +25,8 @@ from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.defs.DevicesWebElementsDefinitions import *
+from extauto.common.WebElementController import WebElementController
 
 class Devices:
     def __init__(self):
@@ -46,6 +48,8 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
+        self.web_element_ctrl = WebElementController()
+
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
@@ -1801,12 +1805,15 @@ class Devices:
             self.utils.print_info("Refreshing devices page...")
             self.auto_actions.scroll_up()
             self.clear_search_field()
-            self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-            # EJL increase sleep
-            sleep(10)
-            kwargs['pass_msg'] = "Device page refreshed successfully"
-            self.common_validation.validate(1, 1, **kwargs)
-            return 1
+            returnValue = self.auto_actions.click_reference(self.devices_web_elements.get_refresh_devices_page)
+            if returnValue == -1:
+                kwargs['pass_msg'] = "Device page was not refreshed successfully"
+                self.common_validation.validate(-1, 1, **kwargs)
+            else:
+                sleep(10)
+                kwargs['pass_msg'] = "Device page refreshed successfully"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
         except Exception as e:
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to refresh devices page. Capturing screenshot"
@@ -2496,11 +2503,15 @@ class Devices:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click delete button")
                     sleep(2)
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                    # self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                    self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                        self.devices_web_elements.get_delete_button)
                     sleep(2)
 
                     self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    # self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                        self.dialogue_web_elements.get_confirm_yes_button)
                     sleep(2)
                     self.screen.save_screen_shot()
 
