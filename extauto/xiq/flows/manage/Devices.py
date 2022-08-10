@@ -10963,3 +10963,32 @@ class Devices:
         kwargs['pass_msg'] = 'Wait for policy config push to device with serial number: {} is complete'
         self.common_validation.validate(1, 1, **kwargs)
         return 1
+
+    def assign_network_policy_to_a_device(self, device_serial, policy_name):
+        """
+        - This keyword will assign the network policy to single device
+        - flow:
+            -- If Not in devices page, go to it
+            -- Select the device
+            -- Actions
+            -- Assign Network Policy
+            -- Select the network policy from drop-down window
+            -- Assign
+        - Keyword Usage:
+         - ``Assign Network Policy To A Device  ${device_serial}   ${policy_name}``
+        :param policy_name: policy name to be applied
+        :param device_serial: serial number of the device
+        :return: Success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        self.select_device(device_serial)
+        if self._assign_network_policy(policy_name):
+            return 1
+        else:
+            return -1
