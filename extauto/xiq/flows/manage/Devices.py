@@ -10987,8 +10987,8 @@ class Devices:
             else:
                 self.utils.print_info("Failed to navigate to the Devices page ...")
                 return -1
-        self.select_device(device_serial)
-        if self._assign_network_policy(policy_name):
+        if self.select_device(device_serial):
+            self._assign_network_policy(policy_name)
             return 1
         else:
             return -1
