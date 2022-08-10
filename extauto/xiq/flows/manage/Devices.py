@@ -10983,9 +10983,9 @@ class Devices:
         if not self.navigator.get_devices_page():
             self.utils.print_info("Not in Devices page, Navigating to devices page now")
             if self.navigator.navigate_to_devices() == 1:
-                self.utils.print_info("To navigate the Devices page successfully...")
+                self.utils.print_info("Navigated to the devices page successfully")
             else:
-                self.utils.print_info("Failed to navigate the Devices page ...")
+                self.utils.print_info("Failed to navigate to the Devices page ...")
                 return -1
         self.select_device(device_serial)
         if self._assign_network_policy(policy_name):
