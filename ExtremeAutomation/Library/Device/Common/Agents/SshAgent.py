@@ -32,8 +32,8 @@ class SshAgent(CliAgent):
                 return True
 
             adjusted_password = self.cmd_encode(self.device.password)
-            if self.get_enable_fallback_password_mode():
-                adjusted_password = self.cmd_encode(self.fallback_password)
+            if self.get_enable_default_password_mode():
+                adjusted_password = self.cmd_encode(self.default_password)
 
             ssh_args = {"device_type": "cisco_ios",
                         "ip": self.cmd_encode(self.device.hostname),
