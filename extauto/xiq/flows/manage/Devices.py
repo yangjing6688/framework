@@ -4344,6 +4344,39 @@ class Devices:
 
         return -1
 
+    def wait_until_country_discovered(self, device_serial, retry_duration=30, retry_count=10):
+        """
+        - This Keyword will wait until device finishes Discovering Country Code based on device update status message
+        - Keyword Usage:
+         - `` Wait Until Country Discovered  ${DEVICE_SERIAL}``
+
+        :param device_serial: Device Serial Number
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        If the message has a date value, the assumption the device hase finished rebooting
+        :return: 1 if Device wait till reboots else -1
+        """
+
+        count = 0
+        self.utils.print_info("Checking to see if the device has completed Discovering Country Code")
+        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        while count < retry_count:
+            reboot_message = self.get_device_details(device_serial, "UPDATED")
+            if "Discovering" in reboot_message:
+                self.utils.print_info(f"Device is discovering country code. Waiting for {retry_duration} seconds...")
+                self.utils.print_info(f"Message: {reboot_message} :...")
+                sleep(retry_duration)
+            elif re.match(date_regex, reboot_message):
+                    self.utils.print_info("Device has finshed discovering country code at {}".format(reboot_message))
+                    return 1
+            count += 1
+
+        self.utils.print_info(f"Loop Count: {count} ")
+        self.utils.print_info(f"Retry Count: {retry_count} ")
+        self.screen.save_screen_shot()
+
+        return -1
+
     def assign_network_policy_to_switch(self, policy_name, serial):
         """
         - This keyword does a config push for a switch
