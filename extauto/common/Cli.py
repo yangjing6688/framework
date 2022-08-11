@@ -400,6 +400,19 @@ class Cli(object):
             self.utils.print_info(e)
             return -1
 
+    def send_commands_with_comma(self, spawn, command):
+        """
+            Sends the full command without separating the ","
+
+                :param spawn: spawn of DUT/host
+                :param commands_list: list of DUT/Lunux command
+                :return: output of the command
+        """
+        self.utils.print_info("Sending Commands List: ", command)
+        output1 = self.send(spawn, command)
+        self.utils.print_info("output is: ", output1)
+        return output1
+
     def send_paramiko_cmd(self, spawn, cmd, timeout=10):
         """
         - Execute the commands on ssh spawn
