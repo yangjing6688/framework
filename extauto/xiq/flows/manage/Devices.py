@@ -25,6 +25,8 @@ from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.defs.DevicesWebElementsDefinitions import *
+from extauto.common.WebElementController import WebElementController
 
 class Devices:
     def __init__(self):
@@ -46,6 +48,8 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
+        self.web_element_ctrl = WebElementController()
+
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
@@ -1801,12 +1805,15 @@ class Devices:
             self.utils.print_info("Refreshing devices page...")
             self.auto_actions.scroll_up()
             self.clear_search_field()
-            self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-            # EJL increase sleep
-            sleep(10)
-            kwargs['pass_msg'] = "Device page refreshed successfully"
-            self.common_validation.validate(1, 1, **kwargs)
-            return 1
+            returnValue = self.auto_actions.click_reference(self.devices_web_elements.get_refresh_devices_page)
+            if returnValue == -1:
+                kwargs['pass_msg'] = "Device page was not refreshed successfully"
+                self.common_validation.validate(-1, 1, **kwargs)
+            else:
+                sleep(10)
+                kwargs['pass_msg'] = "Device page refreshed successfully"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
         except Exception as e:
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to refresh devices page. Capturing screenshot"
@@ -2753,11 +2760,15 @@ class Devices:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click delete button")
                     sleep(2)
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                    # self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                    self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                        self.devices_web_elements.get_delete_button)
                     sleep(2)
 
                     self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    # self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                        self.dialogue_web_elements.get_confirm_yes_button)
                     sleep(2)
                     self.screen.save_screen_shot()
 
@@ -4322,6 +4333,31 @@ class Devices:
             sleep(30)
             retry_time += 30
 
+    def get_device_column_information(self, device_serial, column_array):
+        """
+        - This keyword is used to get the column data for the device
+        - Keyword Usage:
+         - ``@{column_list}=    Create List    MGT IP ADDRESS    MAC``
+         - ``get_device_column_information   ${DEVICE_SERIAL}  ${column_array}``
+
+        :param device_serial: device serial number to check the device connected status
+        :param column_array: The device array of columns to get data for
+        :return: object map of data columns to data, spaces are replaced with _
+        """
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+
+        return_array_data = {}
+        self.refresh_devices_page()
+        sleep(10)
+        device_row = self.get_device_row(device_serial)
+        for column in column_array:
+            data = self.get_device_details(device_serial, column)
+            return_array_data[column.replace(' ',"_")] = data
+        return return_array_data
+
+
+
     def get_device_configuration_audit_status(self, device_serial):
         """
         - This keyword is used to get the device configuration audit status
@@ -4561,6 +4597,39 @@ class Devices:
                     return 1
             count += 1
 
+        self.screen.save_screen_shot()
+
+        return -1
+
+    def wait_until_country_discovered(self, device_serial, retry_duration=30, retry_count=10):
+        """
+        - This Keyword will wait until device finishes Discovering Country Code based on device update status message
+        - Keyword Usage:
+         - `` Wait Until Country Discovered  ${DEVICE_SERIAL}``
+
+        :param device_serial: Device Serial Number
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        If the message has a date value, the assumption the device hase finished rebooting
+        :return: 1 if Device wait till reboots else -1
+        """
+
+        count = 0
+        self.utils.print_info("Checking to see if the device has completed Discovering Country Code")
+        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        while count < retry_count:
+            reboot_message = self.get_device_details(device_serial, "UPDATED")
+            if "Discovering" in reboot_message:
+                self.utils.print_info(f"Device is discovering country code. Waiting for {retry_duration} seconds...")
+                self.utils.print_info(f"Message: {reboot_message} :...")
+                sleep(retry_duration)
+            elif re.match(date_regex, reboot_message):
+                    self.utils.print_info("Device has finshed discovering country code at {}".format(reboot_message))
+                    return 1
+            count += 1
+
+        self.utils.print_info(f"Loop Count: {count} ")
+        self.utils.print_info(f"Retry Count: {retry_count} ")
         self.screen.save_screen_shot()
 
         return -1
