@@ -340,6 +340,11 @@ class NetworkElement(ManagedDeviceObject):
             retries += 1
             try:
                 logged_in = self.current_agent.login()
+                if not logged_in and self.oper_sys == NetworkElementConstants.OS_AHAP and \
+                        not self.current_agent.get_enable_default_password_mode():
+                    self.current_agent.enable_default_password_mode(True)
+                    logged_in = self.current_agent.login()
+                    self.current_agent.enable_default_password_mode(False)
                 if not logged_in:
                     self.logger.log_debug("Attempt Connection failed, retry attempt " + str(retries))
             except (EOFError, socket.error):
