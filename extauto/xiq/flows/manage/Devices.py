@@ -10988,7 +10988,13 @@ class Devices:
                 self.utils.print_info("Failed to navigate to the Devices page ...")
                 return -1
         if self.select_device(device_serial):
-            self._assign_network_policy(policy_name)
+            self.utils.print_info("Device is selected ...")
+        else:
+            self.utils.print_info("Failed to Select the device ...")
+            return -1
+        if self._assign_network_policy(policy_name):
+            self.utils.print_info("Network Policy is assigned to selected device ...")
             return 1
         else:
+            self.utils.print_info("Failed to assign Network Policy to the device...")
             return -1
