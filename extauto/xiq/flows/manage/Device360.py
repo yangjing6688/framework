@@ -6017,7 +6017,7 @@ class Device360(Device360WebElements):
             cnt = cnt +1
             if not template_values[key][1] == None:
                 sleep(5)
-                conf_element = self.get_select_element_port_type_summary(key)
+                conf_element = self.get_select_element_port_type_summary(key.lower())
                 print("For ", key, "we have ", conf_element)
                 if conf_element.text.lower() == template_values[key][1].lower():
                     self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: "
@@ -6525,7 +6525,8 @@ class Device360(Device360WebElements):
                 self.utils.print_info("get_pse_profile not found ")
         elif element.lower() == "poe status":
             sleep(5)
-            get_poe_status = self.get_select_element_port_type(element,value)
+
+            get_poe_status = self.get_select_element_port_type("poe status")
             print('Found POE_Status button: ', get_poe_status)
             sleep(5)
             if get_poe_status:
