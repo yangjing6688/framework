@@ -585,3 +585,27 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': "//*[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
+
+    sw_template_auto_cfg = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="configPushAuto"]',
+            'wait_for': 5
+        }
+
+    sw_template_auto_revert_disabled = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableAutoRevert"][@disabled]',
+            'wait_for': 5
+        }
+
+    sw_template_auto_revert_enabled = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableAutoRevert"]',
+            'wait_for': 5
+        }
+
+    sw_template_auto_revert_msg = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-upload-config-auto-enable-revert"]',
+            'wait_for': 5
+        }

@@ -10963,3 +10963,262 @@ class Devices:
         kwargs['pass_msg'] = 'Wait for policy config push to device with serial number: {} is complete'
         self.common_validation.validate(1, 1, **kwargs)
         return 1
+
+    def onboard_device_with_policy(self, device_serial, device_make, device_mac=False, device_type="Real",
+                                   entry_type="Manual",
+                                   csv_file_name='', device_os=False, location=False, policy_name=False,
+                                   service_tag=False, **kwargs):
+        """
+        - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
+        - Keyword Usage:
+         - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
+         - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}  device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}``
+        :param device_serial: serial number of Device
+        :param device_make: Model of the Device ex:aerohive
+        :param device_mac: Device MAC
+        :param device_type: Real/Simulated
+        :param entry_type: Manual/CSV
+        :param csv_file_name: CSV File Name
+        :param device_os: verifies the Device OS automatically selected after entering device serial
+        :param location: device location
+        :param policy_name: Name of the policy to assign to the device (if not specified, policy will not be assigned)
+        :return:  1 if onboarding success
+        :return: -2 for error - Serial numbers entered are from different platform families. Please enter serial numbers that are part of the same platform family. Please remove serial number
+        :return: -3 for error - Could not recognize 166A129943554583. Please onboard 166A129943554583 separately.
+        :return: -4 for error - No more than 10 serial numbers could be entered at once.
+        :return: -5 for error - When onboarding multiple devices, serial numbers must be separated by ", " (Commas).
+        :return: -6 for error - The number of MAC Addresses must match the number of Serial Numbers
+        :return: -7 for error - Please enter a valid MAC Address
+        :return: -8 for error - Unable to get pop-up menu item
+        """
+
+        self.utils.print_info("Onboarding: ", device_make)
+
+        if 'Controllers' in device_make or 'XCC' in device_make:
+            return self.onboard_wing_ap(device_serial, device_mac, device_make, location)
+
+        if 'Dual Boot' in device_make:
+            return self.onboard_ap(device_serial, device_make, location, device_os)
+
+        self.navigator.navigate_to_devices()
+
+        self.utils.print_info("Clicking on ADD button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+
+        self.utils.print_info("Selecting Quick Add Devices menu")
+        quick_add_devices_button = ''
+        attempt_count = 3
+        while attempt_count > 0:
+            if attempt_count != 3:
+                self.utils.print_info("Menu selection failed. Making another attempt...")
+                self.utils.print_info("Clicking on ADD button...")
+                self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+                self.utils.print_info("Selecting Quick Add Devices menu")
+                sleep(4)
+            try:
+                quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
+                self.auto_actions.move_to_element(quick_add_devices_button)
+                break
+            except:
+                attempt_count = attempt_count - 1
+        if attempt_count == 0:
+            self.utils.print_info("Unable to get / click the menu option")
+            return -8
+
+        self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
+        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+
+        if device_type:
+            self.utils.print_info("Selecting Real/Simulated Device Type Dropdown")
+            sleep(2)
+            self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
+
+        self.utils.print_info("Entering Serial Number...", device_serial)
+        self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+        sleep(5)
+
+        if 'Extreme - Aerohive' in device_make:
+            if entry_type:
+                if 'Manual' in entry_type:
+                    self.auto_actions.click(self.devices_web_elements.get_entry_type_manual_radio_button())
+
+                if 'CSV' in entry_type:
+                    self.auto_actions.click(self.devices_web_elements.get_entry_type_csv_radio_button())
+
+                if entry_type == "CSV":
+                    upload_button = self.devices_web_elements.get_device_entry_csv_upload_button()
+                    csv_location = self.custom_file_dir + csv_file_name
+                    self.auto_actions.send_keys(upload_button, csv_location)
+
+            self.utils.print_info("Entering Serial Number...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+
+            if self.devices_web_elements.get_device_os_radio():
+                self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
+                device_os = self.devices_web_elements.get_device_os_radio().text
+                self.utils.print_info("Device OS: ", device_os)
+                if 'Cloud IQ Engine' in device_os:
+                    self.utils.print_info("Device OS matched")
+                else:
+                    self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
+                    self.auto_actions.click(self.devices_web_elements.get_device_os_radio())
+
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
+        # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
+        if "VOSS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : VOSS/Fabric Engine")
+            if self.switch_web_elements.get_switch_make_drop_down():
+                self.utils.print_info("Selecting Switch Type : VOSS")
+                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                self.screen.save_screen_shot()
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
+                                                           , "VOSS")
+                self.screen.save_screen_shot()
+
+            if self.devices_web_elements.get_device_os_voss_radio():
+                self.utils.print_info("Selecting Device OS : Fabric Engine")
+                self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+                self.screen.save_screen_shot()
+
+            if entry_type == "CSV":
+                if csv_location:
+                    upload_button = self.devices_web_elements.get_device_entry_voss_csv_upload_button()
+                    if upload_button:
+                        self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
+                        self.auto_actions.send_keys(upload_button, csv_location)
+                    else:
+                        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
+                        return -1
+                else:
+                    self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+
+        if "EXOS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : EXOS/Switch Engine")
+            if self.switch_web_elements.get_switch_make_drop_down():
+                self.utils.print_info("Selecting Switch Type : EXOS")
+                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                self.screen.save_screen_shot()
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
+                                                           "EXOS")
+                self.screen.save_screen_shot()
+
+            if self.devices_web_elements.get_device_os_exos_radio():
+                self.utils.print_info("Selecting Device OS : Switch Engine")
+                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+                self.screen.save_screen_shot()
+
+            if entry_type == "CSV":
+                if csv_location:
+                    upload_button = self.devices_web_elements.get_device_entry_exos_csv_upload_button()
+                    if upload_button:
+                        self.utils.print_info("Specifying CSV file '" + csv_location + "' for EXOS device")
+                        self.auto_actions.send_keys(upload_button, csv_location)
+                    else:
+                        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
+                        return -1
+                else:
+                    self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+            else:
+                _errors = self.check_negative_combinations()
+                if _errors != 1:
+                    return _errors
+
+        if 'Dell' in device_make:
+            self.utils.print_info("Entering Serial Number...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
+
+            self.utils.print_info("Entering Service Tag...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
+
+        if 'Universal Appliance' in device_make:
+            self.utils.print_info("Entering Serial Number...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
+
+        if 'XMC' in device_make.upper():
+            self.utils.print_info("Entering Serial Number...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
+
+        if device_make:
+            sleep(5)
+            self.utils.print_info("Verifying Device Make...")
+            ui_device_make = self.devices_web_elements.get_device_make_dropdownoption().text
+            self.utils.print_info("Device Make from UI: ", ui_device_make)
+            if device_make in ui_device_make:
+                self.utils.print_info("Device Make matched")
+            else:
+                self.utils.print_info("Device Make NOT matched")
+
+        sleep(2)
+        if location:
+            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self._select_location(location)
+
+        if policy_name:
+            self.utils.print_info("Selecting policy '" + policy_name + "'")
+            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down())
+            sleep(2)
+            self.screen.save_screen_shot()
+            self.auto_actions.select_drop_down_options(self.devices_web_elements.
+                                                       get_devices_quick_add_policy_drop_down_items(), policy_name)
+            sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Clicking on ADD DEVICES button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Checking for Errors...")
+        dialog_message = self.dialogue_web_elements.get_dialog_message()
+
+        if dialog_message:
+            self.utils.print_info("Dialog Message: ", dialog_message)
+            if "Device already onboarded" in dialog_message:
+                self.utils.print_info("Error: ", dialog_message)
+                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+
+            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            self.utils.print_info("No Dialog box")
+
+        serials = device_serial.split(",")
+        self.utils.print_info("Serials: ", serials)
+
+        for serial in serials:
+            if self.search_device(device_serial=serial) == 1:
+                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1

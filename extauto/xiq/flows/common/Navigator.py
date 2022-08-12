@@ -282,8 +282,10 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to User Account Menu else return -1
         """
         self.utils.print_info("Selecting user account...")
+        def _wait_for_account():
+            return self.get_user_account_nav()
+        self.utils.wait_till(_wait_for_account, timeout = 10, delay= 1)
         if self.auto_actions.click(self.get_user_account_nav()) == 1:
-            sleep(2)
             return 1
         else:
             self.utils.print_info("Unable to navigate to user account")

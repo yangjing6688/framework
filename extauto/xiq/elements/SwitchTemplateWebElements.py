@@ -427,3 +427,18 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_save_button_bottom(self):
         return self.weh.get_elements(self.sw_template_save_btn_bottom)
+
+    def get_sw_template_adv_settings_tab(self):
+        return self.weh.get_element(self.sw_template_adv_settings_tab)
+
+    def get_sw_template_auto_cfg(self):
+        return self.weh.get_element(self.sw_template_auto_cfg)
+
+    def get_sw_template_auto_revert_disabled(self):
+        return self.weh.get_element(self.sw_template_auto_revert_disabled)
+
+    def get_sw_template_auto_revert_enabled(self):
+        return self.weh.get_element(self.sw_template_auto_revert_enabled)
+
+    def get_sw_template_auto_revert_msg(self):
+        return self.weh.get_element(self.sw_template_auto_revert_msg)

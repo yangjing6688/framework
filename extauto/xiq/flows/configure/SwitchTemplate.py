@@ -77,6 +77,9 @@ class SwitchTemplate(object):
         :return: 1 if Switch Template Configured Successfully else -1
         """
         self.navigator.navigate_to_switch_templates()
+        def _wait_pagination():
+            return self.common_objects.cobj_web_elements.get_paze_size_element(page_size='100')
+        self.utils.wait_till(_wait_pagination, timeout=30, delay=2, msg='Waiting pagination')
         self.utils.print_info("Click on full page view for switch template")
         page_size_el = self.common_objects.cobj_web_elements.get_paze_size_element(page_size='100')
         if page_size_el:
