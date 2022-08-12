@@ -1,4 +1,4 @@
-class RolesWebElementDefs:
+class ConnProfileWebElementDefs:
     conn_profile_menu = \
         {
             'XPATH': '//*[@data-automation-tag="StandardConnectionProfiles"]',
@@ -29,9 +29,21 @@ class RolesWebElementDefs:
             'wait_for': 5
         }
 
+    drop_opt_act1 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-filter,0,type"]//span//span',
+            'wait_for': 5
+        }
+
     add_filter_act2 = \
         {
             'XPATH': '//*[@data-automation-tag="automation-filter,0,match"]//input',
+            'wait_for': 5
+        }
+
+    drop_opt_act2 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-filter,0,type"]',
             'wait_for': 5
         }
 

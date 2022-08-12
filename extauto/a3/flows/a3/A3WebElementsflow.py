@@ -32,159 +32,159 @@ class A3WebElementsflow(A3WebElements):
         self.setting = GlobalSettingWebElements()
         self.driver = webdriver.Chrome()
 
-    def create_new_conn_profile(self):
-        """
-        - This keyword will create the connection profile
-        - Keyword Usage
-        - ``Create New Conn Profile``
-        :return: 1 if connection profile is created successfully else return -1
-        """
-        if self.auto_actions.click(self.select_conn_profile_menu()) == 1:
-            sleep(5)
-            self.utils.print_info("create a new connection profile ")
-            sleep(10)
-            self.driver.find_element_by_xpath("//a[contains(@href,'#/configuration/connection_profiles/new')]").click()
-            sleep(5)
-            self.utils.print_info("profile name ")
-            description = self.weh.get_element(self.conn_profile_name)
-            self.auto_actions.send_keys(description, "802.1X")
-            sleep(10)
-            self.utils.print_info("click add filter")
-            auth_add_rule = self.weh.get_element(self.add_filter)
-            self.auto_actions.click(auth_add_rule)
-            sleep(10)
-            self.utils.print_info("Select action 1 for row 1")
-            self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-filter,0,type"]//input').click()
-            sleep(10)
-            self.driver.maximize_window()
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-filter,0,type"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "Connection Type")
-            sleep(5)
-            self.utils.print_info("Select action 2 for row 1")
-            self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-filter,0,match"]//input').click()
-            sleep(10)
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-filter,0,match"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "Wireless-802.11-EAP")
-            sleep(5)
-            self.utils.print_info("Click on Add Source")
-            add_src_btn = self.weh.get_element(self.add_source)
-            self.auto_actions.click(add_src_btn)
-            sleep(5)
-            self.utils.print_info("Select Source")
-            self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-sources,0"]//input').click()
-            sleep(10)
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-sources,0"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "AS154")
-            sleep(5)
-            self.utils.print_info("Created Connection Profile")
-            create_conn_profile = self.weh.get_element(self.save_button)
-            self.auto_actions.click(create_conn_profile)
-            sleep(5)
-            self.utils.print_info("Connection Profile is created successfully")
-            return 1
-        else:
-            self.utils.print_info("Connection Profile is not created")
-            return -1
-
-    def add_device(self):
-        """
-        - This keyword will add the device in Device section
-        - Keyword Usage
-        - ``Add Device``
-        :return: 1 if device is been added successfully else return -1
-        """
-        if self.auto_actions.click(self.select_device_ui()) == 1:
-            sleep(5)
-            self.utils.print_info("Add a new device ")
-            new = self.weh.get_element(self.new_dev_btn)
-            self.auto_actions.click(new)
-            sleep(5)
-            drop_options = self.driver.find_elements_by_xpath('//ul[@class="dropdown-menu show"]/li')
-            self.auto_actions.select_drop_down_options(drop_options, "Aerohive_AP")
-            sleep(10)
-            self.utils.print_info("Select Advanced Mode")
-            toggle_mode = self.driver.find_element_by_xpath(
-                '//*[@class="base-input-range-label col-form-label text-nowrap mr-2"]').click()
-            status = self.driver.find_element_by_xpath(
-                '//*[@data-automation-tag="automation-toggle-advanced-mode"]').is_selected()
-            sleep(5)
-            self.utils.print_info("Enter IP")
-            dev_ip = self.weh.get_element(self.device_ip)
-            self.auto_actions.send_keys(dev_ip, "10.234.63.13")
-            sleep(5)
-            self.utils.print_info("Enter Description")
-            dev_desc = self.weh.get_element(self.device_description)
-            self.auto_actions.send_keys(dev_desc, "AP305C")
-            sleep(5)
-            self.utils.print_info("Select device type")
-            dev_type = self.weh.get_element(self.device_type)
-            self.auto_actions.click(dev_type)
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-type"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "Aerohive AP")
-            sleep(5)
-            self.utils.print_info("Select Mode")
-            dev_mode = self.weh.get_element(self.device_mode)
-            self.auto_actions.click(dev_mode)
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-mode"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "Production")
-            sleep(5)
-            self.utils.print_info("Select De authentication Method")
-            dev_de_auth = self.weh.get_element(self.device_de_auth_method)
-            self.auto_actions.click(dev_de_auth)
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-deauthMethod"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "RADIUS")
-            sleep(5)
-            #self.utils.print_info("Select Advanced Mode")
-            # toggle_mode = self.driver.find_element_by_xpath(
-            #     '//*[@class="base-input-range-label col-form-label text-nowrap mr-2"]').click()
-            # status = self.driver.find_element_by_xpath(
-            #     '//*[@data-automation-tag="automation-toggle-advanced-mode"]').is_selected()
-            self.utils.print_info("Configure & create Device")
-            create_dev = self.weh.get_element(self.save_button)
-            self.auto_actions.click(create_dev)
-            sleep(5)
-            self.utils.print_info("Save the configuration")
-            save_dev = self.weh.get_element(self.save_button)
-            self.auto_actions.click(save_dev)
-            sleep(10)
-            self.utils.print_info("Switch to Device Role")
-            dev_roles = self.weh.get_element(self.device_roles)
-            self.driver.execute_script("arguments[0].click();", dev_roles)
-            #self.auto_actions.click(dev_roles)
-            sleep(5)
-            self.utils.print_info("Enter the Vlan")
-            g_vlan = self.weh.get_element(self.emp_vlan)
-            self.auto_actions.send_keys(g_vlan, "10")
-            sleep(5)
-            self.utils.print_info("Create role with vlan")
-            create_role = self.weh.get_element(self.save_button)
-            self.auto_actions.click(create_role)
-            sleep(15)
-            self.utils.print_info("Switch to Radius Tab ")
-            radius_input = self.weh.get_element(self.radius_tab)
-            self.driver.execute_script("arguments[0].click();", radius_input)
-            #self.auto_actions.click(radius_input)
-            sleep(5)
-            self.utils.print_info("Enter Radius Password")
-            radius_pp = self.weh.get_element(self.radius_SC)
-            self.auto_actions.send_keys(radius_pp, "aerohive")
-            sleep(5)
-            self.utils.print_info("Save the configuration")
-            save_radius_pp = self.weh.get_element(self.save_button)
-            self.auto_actions.click(save_radius_pp)
-            sleep(5)
-            self.utils.print_info("Device is created successfully")
-            sleep(5)
-            return 1
-        else:
-            self.utils.print_info("Device is not created")
-            return -1
+    # def create_new_conn_profile(self):
+    #     """
+    #     - This keyword will create the connection profile
+    #     - Keyword Usage
+    #     - ``Create New Conn Profile``
+    #     :return: 1 if connection profile is created successfully else return -1
+    #     """
+    #     if self.auto_actions.click(self.select_conn_profile_menu()) == 1:
+    #         sleep(5)
+    #         self.utils.print_info("create a new connection profile ")
+    #         sleep(10)
+    #         self.driver.find_element_by_xpath("//a[contains(@href,'#/configuration/connection_profiles/new')]").click()
+    #         sleep(5)
+    #         self.utils.print_info("profile name ")
+    #         description = self.weh.get_element(self.conn_profile_name)
+    #         self.auto_actions.send_keys(description, "802.1X")
+    #         sleep(10)
+    #         self.utils.print_info("click add filter")
+    #         auth_add_rule = self.weh.get_element(self.add_filter)
+    #         self.auto_actions.click(auth_add_rule)
+    #         sleep(10)
+    #         self.utils.print_info("Select action 1 for row 1")
+    #         self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-filter,0,type"]//input').click()
+    #         sleep(10)
+    #         self.driver.maximize_window()
+    #         drop_options = self.driver.find_elements_by_xpath(
+    #             '//*[@data-automation-tag="automation-filter,0,type"]//span//span')
+    #         self.auto_actions.select_drop_down_options(drop_options, "Connection Type")
+    #         sleep(5)
+    #         self.utils.print_info("Select action 2 for row 1")
+    #         self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-filter,0,match"]//input').click()
+    #         sleep(10)
+    #         drop_options = self.driver.find_elements_by_xpath(
+    #             '//*[@data-automation-tag="automation-filter,0,match"]//span//span')
+    #         self.auto_actions.select_drop_down_options(drop_options, "Wireless-802.11-EAP")
+    #         sleep(5)
+    #         self.utils.print_info("Click on Add Source")
+    #         add_src_btn = self.weh.get_element(self.add_source)
+    #         self.auto_actions.click(add_src_btn)
+    #         sleep(5)
+    #         self.utils.print_info("Select Source")
+    #         self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-sources,0"]//input').click()
+    #         sleep(10)
+    #         drop_options = self.driver.find_elements_by_xpath(
+    #             '//*[@data-automation-tag="automation-sources,0"]//span//span')
+    #         self.auto_actions.select_drop_down_options(drop_options, "AS154")
+    #         sleep(5)
+    #         self.utils.print_info("Created Connection Profile")
+    #         create_conn_profile = self.weh.get_element(self.save_button)
+    #         self.auto_actions.click(create_conn_profile)
+    #         sleep(5)
+    #         self.utils.print_info("Connection Profile is created successfully")
+    #         return 1
+    #     else:
+    #         self.utils.print_info("Connection Profile is not created")
+    #         return -1
+    #
+    # def add_device(self):
+    #     """
+    #     - This keyword will add the device in Device section
+    #     - Keyword Usage
+    #     - ``Add Device``
+    #     :return: 1 if device is been added successfully else return -1
+    #     """
+    #     if self.auto_actions.click(self.select_device_ui()) == 1:
+    #         sleep(5)
+    #         self.utils.print_info("Add a new device ")
+    #         new = self.weh.get_element(self.new_dev_btn)
+    #         self.auto_actions.click(new)
+    #         sleep(5)
+    #         drop_options = self.driver.find_elements_by_xpath('//ul[@class="dropdown-menu show"]/li')
+    #         self.auto_actions.select_drop_down_options(drop_options, "Aerohive_AP")
+    #         sleep(10)
+    #         self.utils.print_info("Select Advanced Mode")
+    #         toggle_mode = self.driver.find_element_by_xpath(
+    #             '//*[@class="base-input-range-label col-form-label text-nowrap mr-2"]').click()
+    #         status = self.driver.find_element_by_xpath(
+    #             '//*[@data-automation-tag="automation-toggle-advanced-mode"]').is_selected()
+    #         sleep(5)
+    #         self.utils.print_info("Enter IP")
+    #         dev_ip = self.weh.get_element(self.device_ip)
+    #         self.auto_actions.send_keys(dev_ip, "10.234.63.13")
+    #         sleep(5)
+    #         self.utils.print_info("Enter Description")
+    #         dev_desc = self.weh.get_element(self.device_description)
+    #         self.auto_actions.send_keys(dev_desc, "AP305C")
+    #         sleep(5)
+    #         self.utils.print_info("Select device type")
+    #         dev_type = self.weh.get_element(self.device_type)
+    #         self.auto_actions.click(dev_type)
+    #         drop_options = self.driver.find_elements_by_xpath(
+    #             '//*[@data-automation-tag="automation-type"]//span//span')
+    #         self.auto_actions.select_drop_down_options(drop_options, "Aerohive AP")
+    #         sleep(5)
+    #         self.utils.print_info("Select Mode")
+    #         dev_mode = self.weh.get_element(self.device_mode)
+    #         self.auto_actions.click(dev_mode)
+    #         drop_options = self.driver.find_elements_by_xpath(
+    #             '//*[@data-automation-tag="automation-mode"]//span//span')
+    #         self.auto_actions.select_drop_down_options(drop_options, "Production")
+    #         sleep(5)
+    #         self.utils.print_info("Select De authentication Method")
+    #         dev_de_auth = self.weh.get_element(self.device_de_auth_method)
+    #         self.auto_actions.click(dev_de_auth)
+    #         drop_options = self.driver.find_elements_by_xpath(
+    #             '//*[@data-automation-tag="automation-deauthMethod"]//span//span')
+    #         self.auto_actions.select_drop_down_options(drop_options, "RADIUS")
+    #         sleep(5)
+    #         #self.utils.print_info("Select Advanced Mode")
+    #         # toggle_mode = self.driver.find_element_by_xpath(
+    #         #     '//*[@class="base-input-range-label col-form-label text-nowrap mr-2"]').click()
+    #         # status = self.driver.find_element_by_xpath(
+    #         #     '//*[@data-automation-tag="automation-toggle-advanced-mode"]').is_selected()
+    #         self.utils.print_info("Configure & create Device")
+    #         create_dev = self.weh.get_element(self.save_button)
+    #         self.auto_actions.click(create_dev)
+    #         sleep(5)
+    #         self.utils.print_info("Save the configuration")
+    #         save_dev = self.weh.get_element(self.save_button)
+    #         self.auto_actions.click(save_dev)
+    #         sleep(10)
+    #         self.utils.print_info("Switch to Device Role")
+    #         dev_roles = self.weh.get_element(self.device_roles)
+    #         self.driver.execute_script("arguments[0].click();", dev_roles)
+    #         #self.auto_actions.click(dev_roles)
+    #         sleep(5)
+    #         self.utils.print_info("Enter the Vlan")
+    #         g_vlan = self.weh.get_element(self.emp_vlan)
+    #         self.auto_actions.send_keys(g_vlan, "10")
+    #         sleep(5)
+    #         self.utils.print_info("Create role with vlan")
+    #         create_role = self.weh.get_element(self.save_button)
+    #         self.auto_actions.click(create_role)
+    #         sleep(15)
+    #         self.utils.print_info("Switch to Radius Tab ")
+    #         radius_input = self.weh.get_element(self.radius_tab)
+    #         self.driver.execute_script("arguments[0].click();", radius_input)
+    #         #self.auto_actions.click(radius_input)
+    #         sleep(5)
+    #         self.utils.print_info("Enter Radius Password")
+    #         radius_pp = self.weh.get_element(self.radius_SC)
+    #         self.auto_actions.send_keys(radius_pp, "aerohive")
+    #         sleep(5)
+    #         self.utils.print_info("Save the configuration")
+    #         save_radius_pp = self.weh.get_element(self.save_button)
+    #         self.auto_actions.click(save_radius_pp)
+    #         sleep(5)
+    #         self.utils.print_info("Device is created successfully")
+    #         sleep(5)
+    #         return 1
+    #     else:
+    #         self.utils.print_info("Device is not created")
+    #         return -1
 
     def select_radius_audit_logs(self, mac, auth_status, user_name):
         """
