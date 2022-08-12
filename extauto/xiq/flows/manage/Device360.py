@@ -5736,7 +5736,16 @@ class Device360(Device360WebElements):
                                         #for VOSS
                                         'page6 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
-                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                                ## To select an already existing pse profile:
+                                                # [{'pse_profile_name': 'default-pse-vsp'}/'None' , 'default-pse-vsp'/'None'],
+
+                                                ## To create a new profile
+                                                # [{'pse_profile_name': 'PSE_123',
+                                                    'pse_profile_power_mode': '802.3at',
+                                                    'pse_profile_power_limit': '20000',
+                                                    'pse_profile_priority': 'high',
+                                                    'pse_profile_description': 'Testing PSE'
+                                                   }, 'PSE_123'/None],
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page7 summaryPage': ["next_page", None]
@@ -5748,7 +5757,17 @@ class Device360(Device360WebElements):
 
                                         'page7 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
-                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                                ## To select an already existing pse profile:
+                                                # [{'pse_profile_name': 'default-pse-vsp'}/'None' , 'default-pse-vsp'/'None'],
+
+                                                ## To create a new profile
+                                                # [{'pse_profile_name': 'PSE_123',
+                                                    'pse_profile_power_mode': '802.3at',
+                                                    'pse_profile_power_limit': '20000',
+                                                    'pse_profile_priority': 'high',
+                                                    'pse_profile_description': 'Testing PSE'
+                                                   }, 'PSE_123'/None],
+
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page8 summaryPage': ["next_page", None]
@@ -5896,7 +5915,14 @@ class Device360(Device360WebElements):
                                         #for VOSS
                                         'page6 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
-                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                                ## To edit and existing PSE profile, add: 'pse_profile_edit_flag': True
+                                                # [{'pse_profile_name': 'PSE_123'
+                                                #   'pse_profile_power_mode': '802.3bt',
+                                                #   'pse_profile_power_limit': '30000',
+                                                #   'pse_profile_priority': 'low',
+                                                #   'pse_profile_description': 'Testing PSE EDIT',
+                                                #   'pse_profile_edit_flag': True
+                                                #  }, 'PSE_123'/None],
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page7 summaryPage': ["next_page", None]
@@ -5908,7 +5934,14 @@ class Device360(Device360WebElements):
 
                                         'page7 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
-                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                                ## To edit and existing PSE profile, add: 'pse_profile_edit_flag': True
+                                                # [{'pse_profile_name': 'PSE_123'
+                                                #   'pse_profile_power_mode': '802.3bt',
+                                                #   'pse_profile_power_limit': '30000',
+                                                #   'pse_profile_priority': 'low',
+                                                #   'pse_profile_description': 'Testing PSE EDIT',
+                                                #   'pse_profile_edit_flag': True
+                                                #  }, 'PSE_123'/None],
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page8 summaryPage': ["next_page", None]
@@ -6370,6 +6403,71 @@ class Device360(Device360WebElements):
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, value['pse_profile_name']):
                     self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_name'])
+
+                    try:
+                        edit_flag = value['pse_profile_edit_flag']
+                    except KeyError:
+                        print("'pse_profile_edit_flag' key not found in pse dictionary.")
+                        edit_flag = False
+
+                    if edit_flag:
+                        self.utils.print_info(f"Editing PSE profile {value['pse_profile_name']}")
+                        get_pse_profile_edit_button = self.get_select_element_port_type("pse_profile_edit")
+                        if get_pse_profile_edit_button:
+                            self.utils.print_info("Found pse profile edit button!")
+                            self.auto_actions.click(get_pse_profile_edit_button)
+
+                        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
+                        if get_pse_profile_name:
+                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_pse_profile_name not found ")
+                        sleep(5)
+
+                        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type(
+                            'pse_profile_power_mode_dropdown')
+                        if get_pse_profile_power_mode_dropdown:
+                            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
+                            get_pse_profile_power_mode_items = self.get_select_element_port_type(
+                                "pse_profile_power_mode_items")
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
+                                                                          value['pse_profile_power_mode']):
+                                self.utils.print_info(" Selected into dropdown value : ",
+                                                      value['pse_profile_power_mode'])
+
+                        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
+                        if get_pse_profile_power_limit:
+                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
+                        else:
+                            self.utils.print_info("Power Limit textbox not found!")
+
+                        sleep(2)
+                        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
+                        if get_pse_profile_priority_dropdown:
+                            self.auto_actions.click(get_pse_profile_priority_dropdown)
+                            sleep(2)
+                            get_pse_profile_priority_items = self.get_select_element_port_type(
+                                "pse_profile_priority_items")
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
+                                                                          value['pse_profile_priority']):
+                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+
+                        sleep(2)
+                        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
+                        if get_pse_profile_description:
+                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_pse_profile_description not found ")
+                        sleep(5)
+                        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
+                        if get_pse_profile_save:
+                            self.auto_actions.click(get_pse_profile_save)
+                            return 1
+                        else:
+                            self.utils.print_info("get_pse_profile_save not found ")
+
                     return 1
                 else:
                     sleep(5)
