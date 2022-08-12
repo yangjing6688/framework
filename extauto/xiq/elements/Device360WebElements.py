@@ -1588,5 +1588,5 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_monitor_diagnostics_health_item_make_stack_master(self, make):
         return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_make_stack_master, make=make)
 
-    def get_device360_monitor_diagnostics_health_item_iqagent_version_stack_master(self, iqagent):
+    def get_device360_monitor_diagnostics_health_item_iqagent_version_stack_master(self, iqagent_version):
         return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_iqagent_version_stack_master, iqagent_version=iqagent_version)
