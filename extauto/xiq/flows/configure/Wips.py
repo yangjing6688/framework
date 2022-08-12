@@ -430,9 +430,6 @@ class Wips(WipsWebElements):
         self.utils.print_info("Click on Save button")
         self.auto_actions.click(self.get_wips_common_object_save_button())
         sleep(1)
-        
-        # self.screen.save_screen_shot()
-        # sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
@@ -604,10 +601,7 @@ class Wips(WipsWebElements):
         self.utils.print_info("Click on Save WIPS button")
         self.auto_actions.click(self.get_wips_common_object_save_button())
         sleep(1)
-       
-        # self.screen.save_screen_shot()
-        # sleep(2)
-        
+
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
