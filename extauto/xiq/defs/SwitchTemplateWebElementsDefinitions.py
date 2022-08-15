@@ -352,7 +352,7 @@ class SwitchTemplateWebElementDefinitions:
 
     switch_temp_save_button = \
         {
-            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@class="btn btn-primary"][@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -607,5 +607,23 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_auto_revert_msg = \
         {
             'XPATH': '//*[@data-automation-tag="automation-upload-config-auto-enable-revert"]',
+            'wait_for': 5
+        }
+
+    sw_template_notification_yes_btn = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
+            'wait_for': 5
+        }
+
+    sw_template_notification_msg = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="msgContainer"]/h3[@data-dojo-attach-point="textEl"]',
+            'wait_for': 5
+        }
+
+    sw_template_notification_hide = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-notification-checkbox"]',
             'wait_for': 5
         }
