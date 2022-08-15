@@ -1041,8 +1041,8 @@ class Cli(object):
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
-                system_type = self.send(_spawn, f'show switch | include Type')
-                system_type = system_type.split()[1]
+                system_type = self.send(_spawn, f'show switch | include "System Type"')
+                system_type = system_type.split()[2]
                 self.utils.print_info(f"Getting the device type for EXOS: {system_type}")
                 exos_device_type = None
                 if '5320' in system_type or '5420' in system_type or '5520' in system_type:
