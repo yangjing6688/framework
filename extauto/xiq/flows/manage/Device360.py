@@ -1268,7 +1268,8 @@ class Device360(Device360WebElements):
             self.utils.print_info("Could not obtain list of port rows")
         else:
             for row in rows:
-                if port_name in row.text:
+                row_text = row.text
+                if row_text.startswith(port_name):
                     ret_val = row
                     break
         return ret_val
