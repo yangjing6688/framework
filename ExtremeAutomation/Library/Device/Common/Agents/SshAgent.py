@@ -51,7 +51,8 @@ class SshAgent(CliAgent):
                                         NetworkElementConstants.OS_SLX,
                                         EndsystemElementConstants.OS_WINDOWS,
                                         EndsystemElementConstants.OS_WINDOWS_MU,
-                                        EndsystemElementConstants.OS_A3]:
+                                        EndsystemElementConstants.OS_A3,
+                                        EndsystemElementConstants.OS_MAC_MU]:
                 ssh_args["device_type"] = "terminal_server"
             elif self.device.oper_sys == NetworkElementConstants.OS_EXOS:
                 ssh_args["device_type"] = "extreme"
