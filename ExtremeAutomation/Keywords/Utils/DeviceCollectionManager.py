@@ -35,7 +35,7 @@ class DeviceCollectionManager(object):
         self.device_dict[name] = device
         self.device_dict[connection_method] = connection_method
 
-    def get_device(self, name, init=True):
+    def get_device(self, name, init=True, disable_strict_host_key_checking=False):
         """
         Arguments:
         [name] - The name of the device
@@ -44,7 +44,7 @@ class DeviceCollectionManager(object):
             device = self.device_dict[name]
             if init:
                 try:
-                    device.init_current_agent()
+                    device.init_current_agent(disable_strict_host_key_checking=disable_strict_host_key_checking)
                 except AttributeError:
                     pass  # Device type does not need/support initializing it's agent.
             return device

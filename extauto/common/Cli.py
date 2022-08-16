@@ -36,7 +36,6 @@ class Cli(object):
         self.networkElementCliSend = NetworkElementCliSend()
         self.endsystemConnectionManager = EndsystemConnectionManager()
         self.commonValidation = CommonValidation()
-
         self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP', 'AH-XR']
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
 
@@ -59,7 +58,7 @@ class Cli(object):
 
         return 1
 
-    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh'):
+    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh', disable_strict_host_key_checking=False):
         """
         - This Keyword used to access device/host Prompt Using IP Address,port number, username,password and cli_type
         # Device type:
@@ -83,7 +82,7 @@ class Cli(object):
         :param password: Password for spawn access
         :param cli_type: Device Cli Type
         :param connection_method: The connection type, will default to ssh. (ssh, telnet, console)
-
+        :param disable_strict_host_key_checking: Used to enable or disable strict host key checking
         :return: Device Prompt
         """
         self.utils.print_info("=================================")
@@ -97,8 +96,10 @@ class Cli(object):
 
         # Generate UUID
         device_uuid = str(uuid.uuid4()) + "_" + cli_type
+
         if cli_type.upper() in self.net_element_types:
-            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)
+            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port, disable_strict_host_key_checking=disable_strict_host_key_checking)
+
         elif cli_type.upper() in self.end_system_types:
             self.endsystemConnectionManager.connect_to_endsystem_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)
         else:

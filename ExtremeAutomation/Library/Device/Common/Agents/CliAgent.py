@@ -16,6 +16,7 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
         self.eol = "\n"
         self.default_password = 'aerohive'
         self.default_password_mode = False
+        self.disable_strict_host_key_checking = False
 
     @abc.abstractmethod
     def login(self):
@@ -629,3 +630,10 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
 
     def get_enable_default_password_mode(self):
         return self.default_password_mode
+
+    def set_disable_strict_host_key_checking(self, enable_or_disable):
+        self.disable_strict_host_key_checking = enable_or_disable
+
+    def get_disable_strict_host_key_checking(self):
+        return self.disable_strict_host_key_checking
+

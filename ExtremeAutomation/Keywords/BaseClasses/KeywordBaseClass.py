@@ -40,7 +40,7 @@ class KeywordBaseClass(object):
         # except RobotNotRunningError:
             # return False
 
-    def _init_keyword(self, **kwargs):
+    def _init_keyword(self, disable_strict_host_key_checking=False, **kwargs):
         """
         Initializes a given keyword.
 
@@ -55,7 +55,7 @@ class KeywordBaseClass(object):
 
         if device_name:
             do_init = StringUtils.string_to_boolean(kwargs.get("check_initial_prompt", True))
-            device = self.device_collection.get_device(device_name, init=do_init)
+            device = self.device_collection.get_device(device_name, init=do_init, disable_strict_host_key_checking=disable_strict_host_key_checking)
 
             if not device:
                 self.logger.log_info("ERROR - Device not found, verify it was created.")
