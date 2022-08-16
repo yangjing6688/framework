@@ -8,7 +8,7 @@ class DeviceActionsDefs:
 
     device_actions_reboot_menu_item = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-reboot"]',
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag, "-reboot")]',
             'wait_for': 2
         }
 
