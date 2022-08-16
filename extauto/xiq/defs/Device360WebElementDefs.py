@@ -2742,3 +2742,15 @@ class Device360WebElementDefs:
             'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-agent"]//span[contains(text(),"${iqagent_version}")]',
             'wait_for': 5
         }
+
+    device360_monitor_diagnostics_stack_drop_down_unit = \
+        {
+            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@data-dojo-attach-point="stackMemberChooserArea"]//div[@data-automation-tag="automation-chzn-container-ctn"]/a',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_stack_drop_down_unit_options = \
+        {
+            'XPATH': '//li[@data-automation-tag="Unit_${unit}_-_${unit_role}"]',
+            'wait_for': 5
+        }

@@ -1590,3 +1590,9 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_monitor_diagnostics_health_item_iqagent_version_stack_master(self, iqagent_version):
         return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_iqagent_version_stack_master, iqagent_version=iqagent_version)
+
+    def get_device360_monitor_diagnostics_stack_drop_down_unit(self):
+        return self.weh.get_element(self.device360_monitor_diagnostics_stack_drop_down_unit)
+
+    def get_device360_monitor_diagnostics_stack_drop_down_unit_options(self, unit, unit_role):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_stack_drop_down_unit_options, unit=unit, unit_role=unit_role)
