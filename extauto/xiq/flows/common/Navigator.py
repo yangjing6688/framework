@@ -884,8 +884,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("click on list view button")
         self.auto_actions.click(self.get_network_policy_list_view())
         self.utils.print_info("Click on network policy full size page")
-        if self.get_nw_policy_port_types_view_all_pages():
-            self.auto_actions.click(self.get_nw_policy_port_types_view_all_pages())
+        if self.get_network_policy_page_size():
+            self.auto_actions.click(self.get_network_policy_page_size())
             sleep(2)
         return 1
 

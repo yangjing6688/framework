@@ -49,6 +49,11 @@ class DevicesWebElementsDefinitions:
 
     devices_ap_status_green = \
         {
+            # Moving this to .hive-status away from .hive-status-true because
+            # it is causing test failures.  This webelement is pulled from
+            # get_status_cell() which needs to get the status of the cell whether
+            # it's green or not.  I'm not sure why this is called devices_ap_status_green()
+            # a new function may need to be created or this one renamed.
             'CSS_SELECTOR': '.hive-status',
             'wait_for': 15
         }

@@ -10,8 +10,7 @@ from selenium.common.exceptions import ElementNotInteractableException
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.CloudDriver import CloudDriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from extauto.common.WebElementController import WebElementController
 
 
 class AutoActions:
@@ -21,6 +20,10 @@ class AutoActions:
         self.utils = Utils()
         self.screen = Screen()
         self.builtin = BuiltIn()
+        self.web_element_ctrl = WebElementController()
+
+    def click_reference(self, element_object_ref):
+        return self.web_element_ctrl.action_method(self.click, element_object_ref)
 
     def click(self, element):
         """
