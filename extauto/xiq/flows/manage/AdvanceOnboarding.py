@@ -9,6 +9,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.AdvanceOnboardingWebElements import AdvanceOnboardingWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class AdvanceOnboarding(AdvanceOnboardingWebElements):
@@ -22,9 +23,10 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         self.screen = Screen()
         self.navigator = Navigator()
         self.devices = Devices()
+        self.commonValidation = CommonValidation()
 
     def advance_onboard_device(self, device_serial, device_make="", dev_location="", device_type="Real",
-                               entry_type="Manual", csv_location='', create_location=False):
+                               entry_type="Manual", csv_location='', create_location=False, device_mac=None, **kwargs):
         """
          - This keyword is used to onboard Device using Advance Onboarding Method
          - Keyword Usage:
@@ -39,6 +41,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         :param create_location: Create new location during onboarding
         :return: 1 if Device Onboarded Sucessfully else -1
         """
+
         self.utils.print_info("Navigate to advance on board tab")
         self._got_to_advanced_onboard_tab()
 
@@ -150,11 +153,13 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                     self.screen.save_screen_shot()
                     sleep(2)
 
-                if self.get_advance_onboard_cloudiq_engine_button().is_displayed():
-                    self.utils.print_info("Selecting CloudIQEngine Radio Button")
-                    self.auto_actions.click(self.get_advance_onboard_cloudiq_engine_button())
+                if self.get_advance_onboard_mac_textfield().is_displayed() and device_mac != None:
+                    self.utils.print_info("Added the Wing Mac Address")
+                    self.auto_actions.send_keys(self.get_advance_onboard_mac_textfield(), device_mac)
                     sleep(3)
-
+                if self.get_advance_onboard_mac_textfield().is_displayed() and device_mac == None:
+                    kwargs['fail_msg'] = ">>> The Wing device needs the 'device_mac' to be passed into this method"
+                    self.commonValidation.validate(-1, 1, **kwargs)
         else:
             self.utils.print_info("Selecting Entry Type as CSV")
             self.auto_actions.click(self.get_entry_type_csv_radio_button())
@@ -174,20 +179,23 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                             self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
                             self.auto_actions.send_keys(upload_button, csv_location)
                         else:
-                            self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                            self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
+                            kwargs['fail_msg'] = ">>> CSV file could not be specified - upload button not located\n"
+                            kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                             self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                            self.commonValidation.validate(-1,1, **kwargs)
                             return -1
                     else:
-                        self.utils.print_info(">>> CSV file was not specified")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
+                        kwargs['fail_msg'] =">>> CSV file was not specified\n"
+                        kwargs['fail_msg'] +=">>> Clicking Cancel and exiting - device NOT on-boarded"
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        self.commonValidation.validate(-1, 1, **kwargs)
                         return -1
 
             else:
-                self.utils.print_info(">>> Unsupported device type " + device_make)
-                self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
+                kwargs['fail_msg'] =">>> Unsupported device type " + device_make + "\n"
+                kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                 self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                self.commonValidation.validate(-1, 1, **kwargs)
                 return -1
 
         self.utils.print_info("Click Onboard Devices Button")
