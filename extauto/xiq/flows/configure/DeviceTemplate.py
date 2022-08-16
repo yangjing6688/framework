@@ -115,7 +115,6 @@ class DeviceTemplate(object):
         sleep(1)
 
         tool_tip_text = tool_tip.tool_tip_text
-#        self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         sub_string = "template"
