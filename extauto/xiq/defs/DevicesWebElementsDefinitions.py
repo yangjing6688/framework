@@ -47,7 +47,7 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
          }
 
-    devices_ap_status_green = \
+    device_status_cell = \
         {
             # Moving this to .hive-status away from .hive-status-true because
             # it is causing test failures.  This webelement is pulled from
