@@ -400,6 +400,19 @@ class Cli(object):
             self.utils.print_info(e)
             return -1
 
+    def send_commands_with_comma(self, spawn, command):
+        """
+            Sends the full command without separating the ","
+
+                :param spawn: spawn of DUT/host
+                :param commands_list: list of DUT/Lunux command
+                :return: output of the command
+        """
+        self.utils.print_info("Sending Commands List: ", command)
+        output1 = self.send(spawn, command)
+        self.utils.print_info("output is: ", output1)
+        return output1
+
     def send_paramiko_cmd(self, spawn, cmd, timeout=10):
         """
         - Execute the commands on ssh spawn
@@ -985,7 +998,18 @@ class Cli(object):
         if cli_type.upper()=='VOSS':
             return self.downgrade_iqagent_voss(ip, port, username, password, cli_type, **kwargs)
         elif cli_type.upper()=='EXOS':
-            return self.downgrade_iqagent_exos(ip, port, username, password, cli_type, **kwargs)
+            count = 0
+            retries = 6
+            results = -1
+            while count < retries:
+                try:
+                    results = self.downgrade_iqagent_exos(ip, port, username, password, cli_type, **kwargs)
+                    break
+                except Exception as e:
+                    self.utils.print_info(f"Unable to downgrade IQAgent {e}, waiting 30 seconds and trying again...")
+                    time.sleep(30)
+                    count = count + 1
+            return results
         else:
             self.utils.print_info(f"cli_type: {cli_type} doesn't need to be downgraded and isn't supported")
             return 1
@@ -1030,25 +1054,25 @@ class Cli(object):
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
-                system_name = self.send(_spawn, f'show switch | include SysName')
-                system_name = system_name.split()[1]
-                self.utils.print_info(f"Getting the device type for EXOS: {system_name}")
+                system_type = self.send(_spawn, f'show switch | include "System Type"')
+                system_type = system_type.split()[2]
+                self.utils.print_info(f"Getting the device type for EXOS: {system_type}")
                 exos_device_type = None
-                if '5320' in system_name or '5420' in system_name or '5520' in system_name:
+                if '5320' in system_type or '5420' in system_type or '5520' in system_type:
                     exos_device_type = 'summit_arm'
-                    self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
-                elif '440' in system_name or '450' in system_name or '460' in system_name:
+                    self.utils.print_info(f'Found device type for {system_type} as {exos_device_type}')
+                elif '440' in system_type or '450' in system_type or '460' in system_type:
                     exos_device_type = 'summitX'
-                    self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
-                elif '435' in system_name:
+                    self.utils.print_info(f'Found device type for {system_type} as {exos_device_type}')
+                elif '435' in system_type:
                     exos_device_type = 'summitlite_arm'
-                    self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
-                elif '465' in system_name or '5720' in system_name:
+                    self.utils.print_info(f'Found device type for {system_type} as {exos_device_type}')
+                elif '465' in system_type or '5720' in system_type:
                     exos_device_type = 'onie'
-                    self.utils.print_info(f'Found device type for {system_name} as {exos_device_type}')
+                    self.utils.print_info(f'Found device type for {system_type} as {exos_device_type}')
                 else:
-                    self.utils.print_error(f'Failed to get the correct device type for {system_name}')
-                    kwargs['fail_msg'] = f'Failed to get the correct device type for {system_name}'
+                    self.utils.print_error(f'Failed to get the correct device type for {system_type}')
+                    kwargs['fail_msg'] = f'Failed to get the correct device type for {system_type}'
 
                 if exos_device_type:
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
