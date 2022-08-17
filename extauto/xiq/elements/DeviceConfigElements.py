@@ -113,6 +113,9 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_wireless_interface_wifi1_channel_options(self):
         return self.weh.get_elements(self.wireless_interface_wifi1_channel_options)
 
+    def get_wireless_interface_wifi2_channel_options(self):
+        return self.weh.get_elements(self.wireless_interface_wifi2_channel_options)
+
     def get_wireless_wifi0_radio_profile_drop_down(self):
         return self.weh.get_element(self.wireless_wifi0_radio_profile_drop_down)
 
