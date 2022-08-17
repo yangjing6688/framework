@@ -129,7 +129,7 @@ class Login:
                                           **kwargs)
                 count = count + 1
         if result != 1:
-            kwargs['pass_msg'] = "Login was not successful"
+            kwargs['fail_msg'] = "Login was not successful"
             self.common_validation.failed(**kwargs)
         else:
             kwargs['pass_msg'] = "Login was successful"
