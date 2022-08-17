@@ -1,12 +1,12 @@
 
 from common.AutoActions import *
-from a3.elements.RolesWebElements import RolesWebElements
+from a3.elements.ConnProfileWebElements import ConnProfileWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
 
 
-class RolesWebElementsFlow(RolesWebElements):
+class ConnProfileWebElementsFlow(ConnProfileWebElements):
     def __init__(self):
         super().__init__()
         self.driver1 = None
@@ -14,8 +14,7 @@ class RolesWebElementsFlow(RolesWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
-        self.roles_web_elements = RolesWebElements()
-        #self.driver = common.CloudDriver.cloud_driver
+        self.conn_profile_web_elements = ConnProfileWebElements()
         self.setting = GlobalSettingWebElements()
 
     def create_new_conn_profile(self):
@@ -29,7 +28,8 @@ class RolesWebElementsFlow(RolesWebElements):
             sleep(5)
             self.utils.print_info("create a new connection profile ")
             sleep(10)
-            self.driver.find_element_by_xpath("//a[contains(@href,'#/configuration/connection_profiles/new')]").click()
+            new_profile = self.weh.get_element(self.conn_profile_new)
+            self.auto_actions.click(new_profile)
             sleep(5)
             self.utils.print_info("profile name ")
             description = self.weh.get_element(self.conn_profile_name)
@@ -40,9 +40,11 @@ class RolesWebElementsFlow(RolesWebElements):
             self.auto_actions.click(auth_add_rule)
             sleep(10)
             self.utils.print_info("Select action 1 for row 1")
-            self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-filter,0,type"]//input').click()
+            act1 = self.weh.get_element(self.add_filter_act1)
+            self.auto_actions.click(act1)
             sleep(10)
             self.driver.maximize_window()
+            drop_opt_1 = self.weh.get_element()
             drop_options = self.driver.find_elements_by_xpath(
                 '//*[@data-automation-tag="automation-filter,0,type"]//span//span')
             self.auto_actions.select_drop_down_options(drop_options, "Connection Type")
