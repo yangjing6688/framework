@@ -47,16 +47,21 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
          }
 
-    devices_ap_status_green = \
+    device_status_cell = \
         {
+            # Moving this to .hive-status away from .hive-status-true because
+            # it is causing test failures.  This webelement is pulled from
+            # get_status_cell() which needs to get the status of the cell whether
+            # it's green or not.  I'm not sure why this is called devices_ap_status_green()
+            # a new function may need to be created or this one renamed.
             'CSS_SELECTOR': '.hive-status',
-            'wait_for': 1
-         }
+            'wait_for': 15
+        }
 
     device_config_audit = \
         {
             'CSS_SELECTOR': '.J-view',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_stack_status = \
@@ -1757,5 +1762,8 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
-
-
+    port_details_info = \
+        {
+            'XPATH': '//div[@class="port-info-view"]/div',
+            'wait_for': 5
+        }

@@ -9,6 +9,10 @@ class BuiltIn(object):
         pass
 
     @staticmethod
+    def isRunningPytest():
+        return True
+
+    @staticmethod
     def get_variables(no_decoration=True):
         try:
             # Try pytest
@@ -31,6 +35,16 @@ class BuiltIn(object):
         try:
             # Try pytest
             value = config[varname]
+        except Exception as e:
+            raise e
+
+        return value
+
+    @staticmethod
+    def set_global_variable(key, value):
+        try:
+            # Try pytest
+            config[key] = value
         except Exception as e:
             raise e
 

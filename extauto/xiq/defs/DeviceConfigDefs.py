@@ -1349,3 +1349,13 @@ class DeviceConfigDefs:
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]//td/..',
             'wait_for': 10
         }
+
+    config_audit_content = \
+        {
+            'XPATH': "//div[@data-dojo-attach-point='auditCtn']"
+        }
+
+    config_audit_delta_view_button_yellow = \
+        {
+            'CSS_SELECTOR': '.ui-icon-sprite-mismatch'
+        }

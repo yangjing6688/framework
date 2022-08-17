@@ -31,10 +31,14 @@ class SshAgent(CliAgent):
                 self.debug_print("Already connected and logged in.")
                 return True
 
+            adjusted_password = self.cmd_encode(self.device.password)
+            if self.get_enable_default_password_mode():
+                adjusted_password = self.cmd_encode(self.default_password)
+
             ssh_args = {"device_type": "cisco_ios",
                         "ip": self.cmd_encode(self.device.hostname),
                         "username": self.cmd_encode(self.device.username),
-                        "password": self.cmd_encode(self.device.password),
+                        "password": adjusted_password,
                         "port": self.device.port,
                         "timeout": 30,
                         "keepalive": 3,
@@ -47,7 +51,8 @@ class SshAgent(CliAgent):
                                         NetworkElementConstants.OS_SLX,
                                         EndsystemElementConstants.OS_WINDOWS,
                                         EndsystemElementConstants.OS_WINDOWS_MU,
-                                        EndsystemElementConstants.OS_A3]:
+                                        EndsystemElementConstants.OS_A3,
+                                        EndsystemElementConstants.OS_MAC_MU]:
                 ssh_args["device_type"] = "terminal_server"
             elif self.device.oper_sys == NetworkElementConstants.OS_EXOS:
                 ssh_args["device_type"] = "extreme"
