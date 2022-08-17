@@ -17,11 +17,11 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
         self.conn_profile_web_elements = ConnProfileWebElements()
         self.setting = GlobalSettingWebElements()
 
-    def create_new_conn_profile(self):
+    def create_mac_conn_profile(self):
         """
-        - This keyword will create the connection profile
+        - This keyword will create the Mac connection profile
         - Keyword Usage
-        - ``Create New Conn Profile``
+        - ``Create Mac Conn Profile``
         :return: 1 if connection profile is created successfully else return -1
         """
         if self.auto_actions.click(self.select_conn_profile_menu()) == 1:
@@ -43,29 +43,77 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
             act1 = self.weh.get_element(self.add_filter_act1)
             self.auto_actions.click(act1)
             sleep(10)
-            self.driver.maximize_window()
-            drop_opt_1 = self.weh.get_element()
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-filter,0,type"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "Connection Type")
+            drop1 = self.weh.get_element(self.drop_opt_act1)
+            self.auto_actions.click(drop1)
             sleep(5)
             self.utils.print_info("Select action 2 for row 1")
-            self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-filter,0,match"]//input').click()
-            sleep(10)
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-filter,0,match"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "Wireless-802.11-EAP")
+            act2 = self.weh.get_element(self.add_filter_act2)
+            self.auto_actions.click(act2)
+            sleep(5)
+            drop2 = self.weh.get_element(self.drop_opt_act2)
+            self.auto_actions.click(drop2)
             sleep(5)
             self.utils.print_info("Click on Add Source")
             add_src_btn = self.weh.get_element(self.add_source)
             self.auto_actions.click(add_src_btn)
             sleep(5)
             self.utils.print_info("Select Source")
-            self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-sources,0"]//input').click()
+            src = self.weh.get_element(self.select_source)
+            self.auto_actions.click(src)
+            sleep(5)
+            self.utils.print_info("Created Connection Profile")
+            create_conn_profile = self.weh.get_element(self.save_button)
+            self.auto_actions.click(create_conn_profile)
+            sleep(5)
+            self.utils.print_info("Connection Profile is created successfully")
+            return 1
+        else:
+            self.utils.print_info("Connection Profile is not created")
+            return -1
+
+    def create_guest_conn_profile(self):
+        """
+        - This keyword will create the Guest connection profile
+        - Keyword Usage
+        - ``Create Guest Conn Profile``
+        :return: 1 if connection profile is created successfully else return -1
+        """
+        if self.auto_actions.click(self.select_conn_profile_menu()) == 1:
+            sleep(5)
+            self.utils.print_info("create a new connection profile ")
             sleep(10)
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-sources,0"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "AS154")
+            new_profile = self.weh.get_element(self.conn_profile_new)
+            self.auto_actions.click(new_profile)
+            sleep(5)
+            self.utils.print_info("profile name ")
+            description = self.weh.get_element(self.conn_profile_name)
+            self.auto_actions.send_keys(description, "802.1X")
+            sleep(10)
+            self.utils.print_info("click add filter")
+            auth_add_rule = self.weh.get_element(self.add_filter)
+            self.auto_actions.click(auth_add_rule)
+            sleep(10)
+            self.utils.print_info("Select action 1 for row 1")
+            act1 = self.weh.get_element(self.add_filter_act1)
+            self.auto_actions.click(act1)
+            sleep(10)
+            drop1 = self.weh.get_element(self.drop_opt_act1)
+            self.auto_actions.click(drop1)
+            sleep(5)
+            self.utils.print_info("Select action 2 for row 1")
+            act2 = self.weh.get_element(self.add_filter_act2)
+            self.auto_actions.click(act2)
+            sleep(5)
+            drop2 = self.weh.get_element(self.drop_opt_act2)
+            self.auto_actions.click(drop2)
+            sleep(5)
+            self.utils.print_info("Click on Add Source")
+            add_src_btn = self.weh.get_element(self.add_source)
+            self.auto_actions.click(add_src_btn)
+            sleep(5)
+            self.utils.print_info("Select Source")
+            src = self.weh.get_element(self.select_source)
+            self.auto_actions.click(src)
             sleep(5)
             self.utils.print_info("Created Connection Profile")
             create_conn_profile = self.weh.get_element(self.save_button)

@@ -25,13 +25,13 @@ class ConnProfileWebElementDefs:
 
     add_filter_act1 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-filter,0,type"]',
+            'XPATH': '//*[@data-automation-tag="automation-filter,0,type"]//input',
             'wait_for': 5
         }
 
     drop_opt_act1 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-filter,0,type"]//span//span',
+            'XPATH': '//span[text()="Connection Type"]',
             'wait_for': 5
         }
 
@@ -43,13 +43,19 @@ class ConnProfileWebElementDefs:
 
     drop_opt_act2 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-filter,0,type"]',
+            'XPATH': '//span[text()="Wireless-802.11-EAP"]',
             'wait_for': 5
         }
 
     add_source = \
         {
             'XPATH': '//*[@data-automation-tag="Add Source"]',
+            'wait_for': 5
+        }
+
+    select_source = \
+        {
+            'XPATH': '//span[text()="AS154"]',
             'wait_for': 5
         }
 
