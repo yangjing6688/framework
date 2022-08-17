@@ -1149,6 +1149,17 @@ class Device360WebElementDefs:
             'XPATH': './/div[contains(@data-automation-tag, "automation-port-")]',
             'wait_for': 5
         }
+
+    device360_asic_port_groups_stack = \
+        {
+            'XPATH': '//li[contains(@class, "port-group port-group-")]'
+        }
+
+    device360_ports_each_asic_port_group_stack = \
+        {
+            'XPATH': './/div[contains(@data-automation-tag, "automation-port-${slot}")]',
+            'wait_for': 5
+        }
         
     device360_stack_port_table_port_name = \
         {

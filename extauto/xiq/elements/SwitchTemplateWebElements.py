@@ -443,3 +443,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_path_cost_row(self, row):
         return self.weh.get_element(self.sw_template_path_cost_row, parent=row)
 
+    def get_template_slot(self, slot):
+        return self.weh.get_template_element(self.template_slot, slot=slot)
+

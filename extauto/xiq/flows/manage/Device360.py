@@ -7679,3 +7679,117 @@ class Device360(Device360WebElements):
                 except IndexError:
                     ret.append(asic[-1])
         return ret
+
+    def get_all_ports_from_each_asic_stack(self, slot):
+        """
+            This method returns all the ASICS and their ports from the Device360 Overview port groups.
+
+            returns: a list which contains lists of ports (List[List[str]])
+
+        Output e.g.:
+            SR:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/0/1', '1/0/2', '1/0/3', '1/0/4', '1/0/5', '1/0/6', '1/0/7', '1/0/8'],
+                ['1/0/9', '1/0/10', '1/0/11', '1/0/12', '1/0/13', '1/0/14', '1/0/15', '1/0/16'],
+                ['1/0/17', '1/0/18', '1/0/19','1/0/20', '1/0/21', '1/0/22', '1/0/23', '1/0/24']
+                ['2/0/1', '2/0/2', '2/0/3', '2/0/4', '2/0/5', '2/0/6', '2/0/7', '2/0/8'],
+                ['2/0/9', '2/0/10', '2/0/11', '2/0/12', '2/0/13', '2/0/14', '2/0/15', '2/0/16'],
+                ['2/0/17', '2/0/18', '2/0/19','2/0/20', '2/0/21', '2/0/22', '2/0/23', '2/0/24']
+            ]
+
+            EXOS:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/1', '1/2', '1/3', '1/4', '1/5', '1/6', '1/7', '1/8', '1/9', '1/10', '1/11', '1/12'],
+                ['1/13', '1/14', '1/15', '1/16', '1/17', '1/18', '1/19', '1/20', '1/21', '1/22', '1/23', '1/24']
+                ['2/1', '2/2', '2/3', '2/4', '2/5', '2/6', '2/7', '2/8', '2/9', '2/10', '2/11', '2/12'],
+                ['2/13', '2/14', '2/15', '2/16', 2/17', '2/18', '2/19', '2/20', '2/21', '2/22', '2/23', '2/24']
+            ]
+            VOSS:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/1', '1/2', '1/3', '1/4', '1/5', '1/6', '1/7', '1/8', '1/9', '1/10', '1/11', '1/12'],
+                ['1/13', '1/14', '1/15', '1/16', '1/17', '1/18', '1/19', '1/20', '1/21', '1/22', '1/23', '1/24']
+                ['2/1', '2/2', '2/3', '2/4', '2/5', '2/6', '2/7', '2/8', '2/9', '2/10', '2/11', '2/12'],
+                ['2/13', '2/14', '2/15', '2/16', '2/17', '2/18', '2/19', '2/20', '2/21', '2/22', '2/23', '2/24']
+            ]
+        """
+        port_asics = self.dev360.get_device360_asic_port_groups_stack()
+        ret = []
+        for asic in port_asics:
+            temp = []
+            ports_of_asic = self.dev360.get_device360_ports_each_asic_port_group_stack(asic, slot=slot)
+            if ports_of_asic:
+                for p in ports_of_asic:
+                    data_automation_tag = p.get_attribute("data-automation-tag")
+                    if data_automation_tag:
+                        port = data_automation_tag.split("automation-port-")[1]
+                        if port not in ["mgmt", "console"]:
+                            temp.append(port)
+                if temp:
+                    ret.append(temp)
+        return [asic for asic in ret if len(asic) == len(max(ret, key=len))]
+
+    def get_one_port_from_each_asic_stack(self, order, slot):
+        """
+            This method returns the ports on specific position from all the available ASICs.
+
+            args:
+                :order: int value that specifies which port of the ASIC to get
+
+            returns: a list of strings (List[str])
+
+        Output e.g.:
+            SR:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1/0/1', '1/0/9', '1/0/17']
+            ['2/0/1', '2/0/9', '2/0/17']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['1/0/5', '1/0/13', '1/0/21']
+            ['2/0/5', '2/0/13', '2/0/21']
+            >>> self.get_one_port_from_each_asic(order=8)
+            ['1/0/8', '1/0/16', '1/0/24']
+            ['2/0/8', '2/0/16', '2/0/24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['1/0/8', '1/0/16', '1/0/24']
+            ['2/0/8', '2/0/16', '2/0/24']
+
+
+            EXOS:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1:1', '1:13']
+            ['2:1', '2:13']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['1:5', '1:17']
+            ['2:5', '2:17']
+            >>> self.get_one_port_from_each_asic(order=12)
+            ['1:12', '1:24']
+            ['2:12', '2:24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['1:12', '1:24']
+            ['1:12', '1:24']
+
+            VOSS:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1/1', '1/13']
+            ['2/1', '2/13']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['1/5', '1/17']
+            ['2/5', '2/17']
+            >>> self.get_one_port_from_each_asic(order=12)
+            ['1/12', '1/24']
+            ['2/12', '2/24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['1/12', '1/24']
+            ['2/12', '2/24']
+        """
+        ret = []
+        port_asics = self.get_all_ports_from_each_asic_stack(slot=slot)
+        for asic in port_asics:
+            if asic:
+                try:
+                    ret.append(asic[order - 1])
+                except IndexError:
+                    ret.append(asic[-1])
+        return ret

@@ -1704,3 +1704,11 @@ class Device360WebElements(Device360WebElementDefs):
     
     def get_device360_ports_each_asic_port_group(self, port_asic):
         return self.weh.get_elements(self.device360_ports_each_asic_port_group, parent=port_asic)
+
+    def get_device360_asic_port_groups_stack(self):
+        return self.weh.get_elements(self.device360_asic_port_groups_stack)
+
+    def get_device360_ports_each_asic_port_group_stack(self, port_asic, slot):
+        return self.weh.get_template_elements(self.device360_ports_each_asic_port_group_stack, parent=port_asic, slot=slot)
+
+
