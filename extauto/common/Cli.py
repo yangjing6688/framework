@@ -58,7 +58,7 @@ class Cli(object):
 
         return 1
 
-    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh', disable_strict_host_key_checking=False):
+    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh', disable_strict_host_key_checking=False, **kwargs):
         """
         - This Keyword used to access device/host Prompt Using IP Address,port number, username,password and cli_type
         # Device type:
@@ -85,23 +85,24 @@ class Cli(object):
         :param disable_strict_host_key_checking: Used to enable or disable strict host key checking
         :return: Device Prompt
         """
-        self.utils.print_info("=================================")
-        self.utils.print_info("IP: ", ip)
-        self.utils.print_info("PORT: ", port)
-        self.utils.print_info("Username: ", username)
-        self.utils.print_info("Password: ", password)
-        self.utils.print_info("Cli Type: ", cli_type)
-        self.utils.print_info("Connection Method: ", connection_method)
-        self.utils.print_info("=================================")
+        self.utils.print_info(f"=================================")
+        self.utils.print_info(f"IP: {ip}")
+        self.utils.print_info(f"PORT: {port}")
+        self.utils.print_info(f"Username: {username}")
+        self.utils.print_info(f"Password: {password}")
+        self.utils.print_info(f"Cli Type: {cli_type}")
+        self.utils.print_info(f"Connection Method: {connection_method}")
+        self.utils.print_info(f"Disable Strict Host Key Checking: {disable_strict_host_key_checking}")
+        self.utils.print_info(f"=================================")
 
         # Generate UUID
         device_uuid = str(uuid.uuid4()) + "_" + cli_type
 
         if cli_type.upper() in self.net_element_types:
-            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port, disable_strict_host_key_checking=disable_strict_host_key_checking)
+            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port, disable_strict_host_key_checking=disable_strict_host_key_checking, **kwargs)
 
         elif cli_type.upper() in self.end_system_types:
-            self.endsystemConnectionManager.connect_to_endsystem_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port)
+            self.endsystemConnectionManager.connect_to_endsystem_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port, **kwargs)
         else:
             raise Exception("Cli_Type was not found, please use on of the following type: \n" +  '\n'.join(
                 self.net_element_types) + '\n' + '\n'.join(self.end_system_types))

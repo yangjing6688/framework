@@ -62,16 +62,14 @@ class SshAgent(CliAgent):
                 ssh_args["device_type"] = "avaya_vsp"
 
             try:
+                if self.get_disable_strict_host_key_checking():
+                    self.logger.log_debug("Disabling SSH key Checking for Remote Device/Host On Server")
+                    ssh_args['look_for_keys'] = False
+                    ssh_args['allow_agent'] = False
+
                 self.logger.log_debug("SSH Connection values:" +
                                       ", ".join("{}: {}".format(key, value) for key, value in ssh_args.items()))
                 client = ConnectHandler(**ssh_args)
-                connect_using_paramiko = self.get_disable_strict_host_key_checking()
-                if connect_using_paramiko:
-                    self.logger.log_debug("Disabling SSH key Checking for Remote Device/Host On Server")
-                    paramiko_ssh_connection = paramiko.SSHClient()
-                    paramiko_ssh_connection.set_missing_host_key_policy(paramiko.MissingHostKeyPolicy())
-                    paramiko_ssh_connection.connect(ssh_args["ip"], port=ssh_args["port"], username=ssh_args["username"], password=ssh_args["password"],
-                                                         look_for_keys=False, allow_agent=False)
 
                 if self.device.oper_sys == NetworkElementConstants.OS_VOSS:
                     # client._test_channel_read()  # Re-enable this if read_channel() doesn't work.
