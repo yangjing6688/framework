@@ -4367,9 +4367,15 @@ class Devices:
                 self.utils.print_info(f"Device is discovering country code. Waiting for {retry_duration} seconds...")
                 self.utils.print_info(f"Message: {reboot_message} :...")
                 sleep(retry_duration)
+            elif "Failed" in reboot_message:
+                self.utils.print_info("Operation Failed {}".format(reboot_message))
+                return 1
+            elif "Timeout" in reboot_message:
+                self.utils.print_info("Operation Timeout {}".format(reboot_message))
+                return 1
             elif re.match(date_regex, reboot_message):
-                    self.utils.print_info("Device has finshed discovering country code at {}".format(reboot_message))
-                    return 1
+                self.utils.print_info("Device has finshed discovering country code at {}".format(reboot_message))
+                return 1
             count += 1
 
         self.utils.print_info(f"Loop Count: {count} ")
