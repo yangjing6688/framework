@@ -1050,16 +1050,23 @@ class CommonObjects(object):
         self.screen.save_screen_shot()
         sleep(2)
 
-        sleep(5)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
+        # sleep(5)
+        # tool_tp_text = tool_tip.tool_tip_text
+        # self.utils.print_info(tool_tp_text)
 
-        for value in tool_tp_text:
-            if "SSID was saved successfully." in value:
-                return 1
-            elif "The SSID Profile cannot be saved" in value:
-                return -2
-        return -1
+        # for value in tool_tp_text:
+        #     if "SSID was saved successfully." in value:
+        #         return 1
+        #     elif "The SSID Profile cannot be saved" in value:
+        #         return -2
+        # return -1
+
+        if self._search_common_object(ssid_name):
+            self.utils.print_info(f"SSID Name {ssid_name} created")
+            return 1
+        else:
+            self.utils.print_info(" SSID Name is not created")
+            return -1
 
     def clone_open_ssid_in_common_objects(self, ssid_name, clone_ssid_name):
         """

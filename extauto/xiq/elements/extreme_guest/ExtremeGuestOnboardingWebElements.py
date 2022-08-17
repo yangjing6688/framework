@@ -63,6 +63,9 @@ class ExtremeGuestOnboardingWebElements(ExtremeGuestOnboardingWebElementsDefs):
     def get_extreme_guest_onboarding_policy_add_save_ok_button(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_save_ok_button)
 
+    def get_extreme_guest_onboarding_policy_add_get_close_button(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_close_button)
+
     def get_extreme_guest_onboarding_rule_tab(self):
         return self.weh.get_element(self.extreme_guest_onboarding_rule_tab)
 

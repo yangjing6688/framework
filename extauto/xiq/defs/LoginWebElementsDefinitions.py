@@ -627,3 +627,16 @@ class LoginWebElementsDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-account-menu-about-link"]',
             'wait_for': 5
         }
+
+    right_arrow_displayed = \
+        {
+            'XPATH': '//*[@id="hcApp/manage/view/NetworkTypeView_0"]/div[2]/div/div[2]/label/span',
+            'wait_for': 3,
+        }
+
+    click_right_arrow_button = \
+        {
+            'XPATH': '//*[@id="ah/comp/common/AHDrawer_0"]/div[2]',
+            'wait_for': 3,
+        }
+

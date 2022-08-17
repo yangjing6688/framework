@@ -113,6 +113,12 @@ class ExtremeGuestOnboardingWebElementsDefs:
             'wait_for': 1
         }
 
+    extreme_guest_onboarding_policy_close_button = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-popup-message-OK")])[2]',
+            'wait_for': 2
+        }
+
     extreme_guest_onboarding_rule_tab = \
         {
             'XPATH': '//span[text()="Rules"]',
@@ -193,7 +199,7 @@ class ExtremeGuestOnboardingWebElementsDefs:
 
     extreme_guest_onboarding_rule_add_save_ok_button = \
         {
-            'XPATH': '//span[text()="OK"]',
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-popup-message-OK")])[1]',
             'wait_for': 1
         }
 
