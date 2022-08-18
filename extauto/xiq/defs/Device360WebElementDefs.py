@@ -2700,52 +2700,51 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-
     device360_monitor_diagnostics_health_item_ip_address_stack_active_unit = \
         {
-            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-ipAddr"]//span[contains(text(),"${ip_address}")]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-ipAddr"]//span[contains(text(),"${ip_address}")]',
             'wait_for': 5
         }
 
     device360_monitor_diagnostics_health_item_mac_address_stack_active_unit = \
         {
-            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-macAddr"]//span[contains(text(),"${mac_address}")]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-macAddr"]//span[contains(text(),"${mac_address}")]',
             'wait_for': 5
         }
 
     device360_monitor_diagnostics_health_item_soft_version_stack_active_unit = \
         {
-            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-version"]//span[contains(text(),"${soft_version}")]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-version"]//span[contains(text(),"${soft_version}")]',
             'wait_for': 5
         }
 
     device360_monitor_diagnostics_health_item_model_stack_active_unit = \
         {
-            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-type"]//span[contains(text(),"${model}")]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-type"]//span[contains(text(),"${model}")]',
             'wait_for': 5
         }
 
     device360_monitor_diagnostics_health_item_serial_number_stack_active_unit = \
         {
-            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-tag"]//span[contains(text(),"${serial_number}")]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-tag"]//span[contains(text(),"${serial_number}")]',
             'wait_for': 5
         }
 
     device360_monitor_diagnostics_health_item_make_stack_active_unit = \
         {
-            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-make"]//span[contains(text(),"${make}")]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-make"]//span[contains(text(),"${make}")]',
             'wait_for': 5
         }
 
     device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit = \
         {
-            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-agent"]//span[contains(text(),"${iqagent_version}")]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-agent"]//span[contains(text(),"${iqagent_version}")]',
             'wait_for': 5
         }
 
     device360_monitor_diagnostics_stack_drop_down_unit = \
         {
-            'XPATH': '//div[@class="device-diagnostics entity-main device-entity-main entity-page-body diagnostics selected-content"]//div[@data-dojo-attach-point="stackMemberChooserArea"]//div[@data-automation-tag="automation-chzn-container-ctn"]/a',
+            'XPATH': '//div[@data-automation-tag="diagnostics-stack-member-chooser-area"]//a',
             'wait_for': 5
         }
 
