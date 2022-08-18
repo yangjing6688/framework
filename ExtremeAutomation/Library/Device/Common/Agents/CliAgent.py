@@ -453,7 +453,7 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
             self.debug_print("Taking snapshot of prompt...")
 
             if self.device.oper_sys in [NetworkElementConstants.OS_LINUX,
-                                        NetworkElementConstants.OS_SNAP_ROUTE]:
+                                        NetworkElementConstants.OS_SNAP_ROUTE,EndsystemElementConstants.OS_MAC_MU]:
                 prompt_list = ["#", "$"]
             elif self.device.oper_sys in [NetworkElementConstants.OS_AHFASTPATH,
                                           NetworkElementConstants.OS_AHXR]:
@@ -545,7 +545,8 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
             prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
         elif self.device.oper_sys in [EndsystemElementConstants.OS_MAC_MU]:
             prompt_re1 = ".#"
-            prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]
+            prompt_re2 = ".$"
+            prompt_list = [re.compile(prompt_re1, re.IGNORECASE), re.compile(prompt_re2, re.IGNORECASE)]
         elif self.device.oper_sys in [EndsystemElementConstants.OS_WINDOWS_MU]:
             prompt_re1 = ".>"
             prompt_list = [re.compile(prompt_re1, re.IGNORECASE)]

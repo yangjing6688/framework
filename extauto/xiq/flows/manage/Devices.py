@@ -808,7 +808,7 @@ class Devices:
         :param search_string: string to uniquely identify the row in device grid
         :param label_str: supported labels are Column headers ex: LOCATION, IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
                           MAC, CLIENTS
-                      UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN,
+                      UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN, COPILOT
         :return: column header value
         """
         label_map = {'LOCATION': 'locationName',
@@ -842,7 +842,8 @@ class Devices:
                      'CLOUD CONFIG GROUPS': 'cloudConfigGroups',
                      'WAN IP ADDRESS': 'wanIpAddress',
                      'PUBLIC IP ADDRESS': 'extIpAddress',
-                     'DEVICE LICENSE': 'subscriptionLicense'
+                     'DEVICE LICENSE': 'subscriptionLicense',
+                     'COPILOT': 'copilotLicenseStatus',
                      }
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -4366,9 +4367,15 @@ class Devices:
                 self.utils.print_info(f"Device is discovering country code. Waiting for {retry_duration} seconds...")
                 self.utils.print_info(f"Message: {reboot_message} :...")
                 sleep(retry_duration)
+            elif "Failed" in reboot_message:
+                self.utils.print_info("Operation Failed {}".format(reboot_message))
+                return 1
+            elif "Timeout" in reboot_message:
+                self.utils.print_info("Operation Timeout {}".format(reboot_message))
+                return 1
             elif re.match(date_regex, reboot_message):
-                    self.utils.print_info("Device has finshed discovering country code at {}".format(reboot_message))
-                    return 1
+                self.utils.print_info("Device has finshed discovering country code at {}".format(reboot_message))
+                return 1
             count += 1
 
         self.utils.print_info(f"Loop Count: {count} ")
