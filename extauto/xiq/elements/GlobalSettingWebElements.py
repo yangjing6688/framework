@@ -243,3 +243,6 @@ class GlobalSettingWebElements(GlobalSettingWebElementDefinitions):
 
     def get_exos_device_management_settings_save_button(self):
         return self.weh.get_element(self.exos_device_management_settings_save_button)
+
+    def get_enable_copilot_feature_option_status(self):
+        return self.weh.get_element(self.enable_copilot_feature_option_status)
