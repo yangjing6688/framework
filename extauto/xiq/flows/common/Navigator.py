@@ -3089,17 +3089,17 @@ class Navigator(NavigatorWebElements):
                 self.utils.print_info("Waiting for port rows to load in d360 Port Configuration page...")
                 self.utils.wait_till(self.get_port_rows_d360)
                 kwargs['pass_msg'] = " 'Port Configuration' button clicked!"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Failed to find 'Port Configuration' button!")
                 kwargs['fail_msg'] = "Failed to find 'Port Configuration' button!"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Failed to find 'Configure' button!")
             kwargs['fail_msg'] = "Failed to find 'Configure' button!"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1

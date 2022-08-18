@@ -128,3 +128,11 @@ class CommonValidation():
             boolean = default
 
         return boolean
+
+    def passed(self, **kwargs):
+        """Description: This method will print the passing message and return 1"""
+        return self.validate(1, 1, **kwargs)
+
+    def failed(self, **kwargs):
+        """Description: This method will print the failing message and raise an error if IRV is enabled"""
+        return self.validate(-1, 1, **kwargs)
