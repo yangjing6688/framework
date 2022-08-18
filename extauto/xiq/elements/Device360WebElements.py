@@ -1574,16 +1574,16 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_ip_address_stack_active_unit, ip_address=ip_address)
 
     def get_device360_monitor_diagnostics_health_item_mac_address_stack_active_unit(self, mac_address):
-        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_mac_address_active_unit, mac_address=mac_address)
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_mac_address_stack_active_unit, mac_address=mac_address)
 
     def get_device360_monitor_diagnostics_health_item_soft_version_stack_active_unit(self, soft_version):
-        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_soft_version_active_unit, soft_version=soft_version)
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_soft_version_stack_active_unit, soft_version=soft_version)
 
     def get_device360_monitor_diagnostics_health_item_model_stack_active_unit(self, model):
-        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_model_active_unit, model=model)
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_model_stack_active_unit, model=model)
 
     def get_device360_monitor_diagnostics_health_item_serial_number_stack_active_unit(self, serial_number):
-        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_serial_number_active_unit, serial_number=serial_number)
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_serial_number_stack_active_unit, serial_number=serial_number)
 
     def get_device360_monitor_diagnostics_health_item_make_stack_active_unit(self, make):
         return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_make_stack_active_unit, make=make)
