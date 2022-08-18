@@ -58,7 +58,7 @@ class Cli(object):
 
         return 1
 
-    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh', disable_strict_host_key_checking=False, **kwargs):
+    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh' **kwargs):
         """
         - This Keyword used to access device/host Prompt Using IP Address,port number, username,password and cli_type
         # Device type:
@@ -92,14 +92,13 @@ class Cli(object):
         self.utils.print_info(f"Password: {password}")
         self.utils.print_info(f"Cli Type: {cli_type}")
         self.utils.print_info(f"Connection Method: {connection_method}")
-        self.utils.print_info(f"Disable Strict Host Key Checking: {disable_strict_host_key_checking}")
         self.utils.print_info(f"=================================")
 
         # Generate UUID
         device_uuid = str(uuid.uuid4()) + "_" + cli_type
 
         if cli_type.upper() in self.net_element_types:
-            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port, disable_strict_host_key_checking=disable_strict_host_key_checking, **kwargs)
+            self.networkElementConnectionManager.connect_to_network_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port, **kwargs)
 
         elif cli_type.upper() in self.end_system_types:
             self.endsystemConnectionManager.connect_to_endsystem_element(device_uuid, ip, username, password, connection_method, cli_type.upper(), port=port, **kwargs)
@@ -865,9 +864,12 @@ class Cli(object):
             """
         elif NetworkElementConstants.OS_WING in cli_type.upper():
             self.send(_spawn, f'en')
-            self.send(_spawn, f'config')
+            self.send(_spawn, f'self')
             self.send(_spawn, f'virtual-controller')
             self.send(_spawn, f'show adoption status')
+            self.send(_spawn, f'end')
+            self.send(_spawn, f'en')
+            self.send(_spawn, f'config')
             # Delete the policy
             self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
             self.send(_spawn, f'commit write memory')

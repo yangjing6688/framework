@@ -256,7 +256,7 @@ class NetworkElement(ManagedDeviceObject):
 
 ######################################################################################
 
-    def init_current_agent(self, login=True, agent_type=None, disable_strict_host_key_checking=False):
+    def init_current_agent(self, login=True, agent_type=None):
         """
         Function Args:
         [login] - A boolean that dictates whether we attempt to login with the current agent.
@@ -286,12 +286,6 @@ class NetworkElement(ManagedDeviceObject):
                         self.current_agent.eol = self.eol
                     except AttributeError:
                         pass  # Current agent does not have an eol attribute.
-
-                if disable_strict_host_key_checking:
-                    try:
-                        self.current_agent.set_disable_strict_host_key_checking(disable_strict_host_key_checking)
-                    except AttributeError:
-                        pass  # Current agent does not have attribute.
             else:
                 raise ValueError(agent_type + " is not a valid agent type for NetworkElements.")
 

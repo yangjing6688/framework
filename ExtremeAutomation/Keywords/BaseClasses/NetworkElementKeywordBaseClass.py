@@ -177,7 +177,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
     # +-----------------+
     # | Private Methods |
     # +-----------------+
-    def _init_keyword(self, device_name=None, cmd_const=None, parse_const=None, disable_strict_host_key_checking=False, **kwargs):
+    def _init_keyword(self, device_name=None, cmd_const=None, parse_const=None,  **kwargs):
         """
         Runs the needed initialization before executing a keyword. Gets the device object and API
         requested by the keyword.
@@ -187,7 +187,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
             [cmd_const] - A string indicating which command API should be used.
             [parse_const] - A string indicating which parse API should be used.
         """
-        dev = super(NetworkElementKeywordBaseClass, self)._init_keyword(device_name=device_name, disable_strict_host_key_checking=disable_strict_host_key_checking, **kwargs)
+        dev = super(NetworkElementKeywordBaseClass, self)._init_keyword(device_name=device_name, **kwargs)
         cmd_api, parse_api = None, None
         self._parse_kwargs(dev, **kwargs)
 

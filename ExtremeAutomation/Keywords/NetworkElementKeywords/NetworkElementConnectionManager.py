@@ -22,8 +22,7 @@ logging.basicConfig(format='[%(asctime)s] %(levelname)s: [%(filename)s %(name)s 
 class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
     def connect_to_network_element(self, net_elem_name, ip, username, password, connection_method, device_cli_type, port=None,
                                    device_platform=None, device_version=None, device_unit=None, debug_password=None,
-                                   max_wait="60", session_key="default", disable_strict_host_key_checking=False,
-                                  **kwargs):
+                                   max_wait="60", session_key="default", **kwargs):
         """
         Keyword Arguments:
         [net_elem_name] - A string name for calling the device. Example, "DUT1", "EXOS_1", or "DHCP_Server".
@@ -58,10 +57,9 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         self.__base_connect_to_network_element(net_elem_name, ip, username, password, connection_method, device_cli_type,
                                                port, device_platform, device_version, device_unit, debug_password,
-                                               disable_strict_host_key_checking=disable_strict_host_key_checking, **kwargs)
+                                            **kwargs)
 
-        dev, _, _ = self._init_keyword(net_elem_name, disable_strict_host_key_checking=disable_strict_host_key_checking,
-                                       **kwargs)
+        dev, _, _ = self._init_keyword(net_elem_name, **kwargs)
         expect_error = self.get_kwarg_bool(kwargs, "expect_error", False)
         dev.max_connection_retries = 0 if expect_error else 3
         dev.connection_method = connection_method
@@ -295,8 +293,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             dev.set_and_connect_named_agent('default', connection_method, ip, port)
 
     def __base_connect_to_network_element(self, net_elem_name, ip, username, password, connection_method, device_os,
-                                          port, device_platform, device_version, device_unit, debug_password,
-                                          disable_strict_host_key_checking=False, **kwargs):
+                                          port, device_platform, device_version, device_unit, debug_password, **kwargs):
 
 
         this_function_name   = inspect.currentframe().f_code.co_name
