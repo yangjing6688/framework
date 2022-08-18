@@ -416,6 +416,13 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    # To be modified when a data-automation-tag will be added for this web element
+    common_object_basic_supplemental_cli = \
+        {
+            'XPATH': '//div[@type="Supplemental CLI Objects"]',
+            'wait_for': 5
+        }
+
     ml_insight_client360 = \
         {
             'XPATH': '//div[@data-automation-tag="automation-header-nav-clientsoverview"]',

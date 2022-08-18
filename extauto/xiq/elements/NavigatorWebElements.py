@@ -137,6 +137,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_common_object_basic_vlans(self):
         return self.weh.get_element(self.common_object_basic_vlans)
 
+    def get_common_object_basic_supplemental_cli(self):
+        return self.weh.get_element(self.common_object_basic_supplemental_cli)
+
     def get_manage_alarms_nav(self):
         return self.weh.get_element(self.manage_alarms_nav)
 

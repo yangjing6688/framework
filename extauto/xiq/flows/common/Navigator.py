@@ -780,6 +780,24 @@ class Navigator(NavigatorWebElements):
         sleep(5)
         return 1
 
+    def navigate_to_supplemental_cli_objects(self):
+        """
+        - This Keyword Navigate to Supplemental CLI Objects On Common Objects
+        - Flow: Configure --> Common Objects --> Basic --> Supplemental CLI Objects
+        - Keyword Usage:
+         - ``Navigate To Basic Supplemental CLI Objects Tab``
+
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_configure_common_objects()
+        sleep(3)
+        self.utils.print_info("Click on common object Basic tab")
+        self.navigate_to_common_object_basic_tab()
+        self.utils.print_info("Click on Vlan tab...")
+        self.auto_actions.click(self.get_common_object_basic_supplemental_cli())
+        sleep(5)
+        return 1
+
     def navigate_to_manage_alarms(self):
         """
         - This Keyword Navigate to Alarms on manage Menu

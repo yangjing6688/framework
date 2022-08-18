@@ -110,7 +110,7 @@ class NetworkPolicy(object):
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirmation Yes button")
             self.auto_actions.click(confirm_delete_btn)
-            sleep(3)
+            sleep(2)
 
     def create_network_policy(self, policy, **wireless_profile):
         """

@@ -408,6 +408,10 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_updated_status_cell(self, row):
         return self.weh.get_element(self.devices_ap_updated_status_cell, row)
 
+    def get_updated_fail_message_cell(self, row):
+        cell = self.weh.get_element(self.devices_ap_updated_status_cell, row)
+        return cell.get_attribute("title")
+
     def get_column_picker_icon(self):
         return self.weh.get_element(self.column_picker_icon)
 
