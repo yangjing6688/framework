@@ -62,11 +62,6 @@ class SshAgent(CliAgent):
                 ssh_args["device_type"] = "avaya_vsp"
 
             try:
-                if self.get_disable_strict_host_key_checking():
-                    self.logger.log_debug("Disabling SSH key Checking for Remote Device/Host On Server")
-                    ssh_args['look_for_keys'] = False
-                    ssh_args['allow_agent'] = False
-
                 self.logger.log_debug("SSH Connection values:" +
                                       ", ".join("{}: {}".format(key, value) for key, value in ssh_args.items()))
                 client = ConnectHandler(**ssh_args)
