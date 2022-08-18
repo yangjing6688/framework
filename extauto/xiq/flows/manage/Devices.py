@@ -25,6 +25,8 @@ from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.defs.DevicesWebElementsDefinitions import *
+from extauto.common.WebElementController import WebElementController
 
 class Devices:
     def __init__(self):
@@ -46,6 +48,9 @@ class Devices:
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
         self.login = Login()
         self.cli = Cli()
+        self.web_element_ctrl = WebElementController()
+
+
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
@@ -803,7 +808,7 @@ class Devices:
         :param search_string: string to uniquely identify the row in device grid
         :param label_str: supported labels are Column headers ex: LOCATION, IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
                           MAC, CLIENTS
-                      UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN,
+                      UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN, COPILOT
         :return: column header value
         """
         label_map = {'LOCATION': 'locationName',
@@ -837,7 +842,8 @@ class Devices:
                      'CLOUD CONFIG GROUPS': 'cloudConfigGroups',
                      'WAN IP ADDRESS': 'wanIpAddress',
                      'PUBLIC IP ADDRESS': 'extIpAddress',
-                     'DEVICE LICENSE': 'subscriptionLicense'
+                     'DEVICE LICENSE': 'subscriptionLicense',
+                     'COPILOT': 'copilotLicenseStatus',
                      }
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -1800,15 +1806,19 @@ class Devices:
             self.utils.print_info("Refreshing devices page...")
             self.auto_actions.scroll_up()
             self.clear_search_field()
-            self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-            sleep(5)
-            kwargs['pass_msg'] = "Device page refreshed successfully"
-            self.common_validation.validate(1, 1, **kwargs)
-            return 1
+            returnValue = self.auto_actions.click_reference(self.devices_web_elements.get_refresh_devices_page)
+            if returnValue == -1:
+                kwargs['fail_msg'] = "Device page was not refreshed successfully"
+                self.common_validation.failed(**kwargs)
+            else:
+                sleep(10)
+                kwargs['pass_msg'] = "Device page refreshed successfully"
+                self.common_validation.passed(**kwargs)
+                return 1
         except Exception as e:
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to refresh devices page. Capturing screenshot"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def edit_ap_description(self, ap_desc, ap_serial=None, ap_name=None, ap_mac=None):
@@ -1842,6 +1852,7 @@ class Devices:
                 return 1
         return -1
 
+#EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
@@ -1967,12 +1978,12 @@ class Devices:
                     else:
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                         kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                 else:
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
 
         if "EXOS" in device_make.upper():
@@ -1998,12 +2009,12 @@ class Devices:
                     else:
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                         kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                 else:
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
             else:
                 _errors = self.check_negative_combinations()
@@ -2070,7 +2081,7 @@ class Devices:
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
             kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             self.utils.print_info("No Dialog box")
@@ -2081,11 +2092,11 @@ class Devices:
         for serial in serials:
             if self.search_device(device_serial=serial) == 1:
                 kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
@@ -2457,7 +2468,7 @@ class Devices:
 
             if device_update_status not in update_status:
                 kwargs['pass_msg'] = f"Device status is {device_update_status}. Device finished update!"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Device status is {device_update_status}. Waiting for {retry_duration}s")
@@ -2465,12 +2476,12 @@ class Devices:
                 if delay == retry_count-1:
                     kwargs['fail_msg'] = f"Device status is still {device_update_status}. " \
                                          f"Device didn't finish update within time!"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
 
         kwargs['fail_msg'] = "Failed to get device update status. Please check."
         self.screen.save_screen_shot()
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
@@ -2493,11 +2504,15 @@ class Devices:
                 if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click delete button")
                     sleep(2)
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                    # self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                    self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                        self.devices_web_elements.get_delete_button)
                     sleep(2)
 
                     self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    # self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                        self.dialogue_web_elements.get_confirm_yes_button)
                     sleep(2)
                     self.screen.save_screen_shot()
 
@@ -2509,21 +2524,21 @@ class Devices:
                     # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
                     if result == 1:
                         kwargs['pass_msg'] = f"Deleted Device Successfully with Serial: {device_serial}"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
 
                     # Confirm device was deleted successfully
                     if self.search_device(device_serial) == 1:
                         kwargs['fail_msg'] = "Unable to delete the device"
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                     else:
                         kwargs['pass_msg'] = f"Deleted Device Successfully with Serial: {device_serial}"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
             else:
                 kwargs['pass_msg'] = f"Device with serial {device_serial} does not exist / is already deleted"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
 
         if device_name:
@@ -2550,15 +2565,15 @@ class Devices:
                     # Confirm device was deleted successfully
                     if self.search_device(device_name) == 1:
                         kwargs['fail_msg'] = "Unable to delete the device"
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                     else:
                         kwargs['pass_msg'] = f"Deleted Device Successfully with Name: {device_name}"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
             else:
                 kwargs['pass_msg'] = f"Device with name {device_name} does not exist / is already deleted"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
 
         if device_mac:
@@ -2585,19 +2600,19 @@ class Devices:
                     # Confirm device was deleted successfully
                     if self.search_device(device_mac) == 1:
                         kwargs['fail_msg'] = "Unable to delete the device"
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                     else:
                         kwargs['pass_msg'] = f"Deleted Device Successfully with Mac: {device_mac}"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
             else:
                 kwargs['pass_msg'] = f"Device with MAC {device_mac} does not exist / is already deleted"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
 
         kwargs['fail_msg'] = "Device was not deleted.  Make sure to specify a serial, name, or MAC"
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def delete_devices(self, *device_list):
@@ -2643,93 +2658,6 @@ class Devices:
 
         return ret_val
 
-    def delete_device_and_wait(self, device_serial=None, device_name=None, device_mac=None):
-        """
-        - Deletes the device matching the specified device search parameter and waits until it is removed.
-        - Keyword Usage:
-         - ``Delete Device and Wait    device_serial=${DEVICE_SERIAL}``
-         - ``Delete Device and Wait    device_name=${DEVICE_NAME}``
-         - ``Delete Device and Wait    device_mac=${DEVICE_MAC}``
-
-        :param device_serial: serial number of the device to delete
-        :param device_name: Name of the device to delete
-        :param device_mac: MAC Address of the device to delete
-        :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
-        """
-        ret_val = -1
-
-        # Delete using device serial number
-        if device_serial:
-            self.utils.print_info(f"Deleting device with serial {device_serial}")
-            search_result = self.search_device(device_serial=device_serial)
-
-            if search_result == 1:
-                if self.select_device(device_serial=device_serial):
-                    self.utils.print_info("Clicking delete button")
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    sleep(2)
-
-                    self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                    sleep(2)
-
-                    # Wait until the device is removed from the view
-                    ret_val = self.wait_until_device_removed(device_serial=device_serial)
-            else:
-                self.utils.print_info(f"Device with serial {device_serial} does not exist / is already deleted")
-                ret_val = 1
-
-        # Delete using device name
-        elif device_name:
-            self.utils.print_info(f"Deleting device with name {device_name}")
-            search_result = self.search_device(device_name=device_name)
-
-            if search_result == 1:
-                if self.select_device(device_name=device_name):
-                    self.utils.print_info("Clicking delete button")
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    sleep(2)
-
-                    self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                    sleep(2)
-
-                    # Wait until the device is removed from the view
-                    ret_val = self.wait_until_device_removed(device_name=device_name)
-
-        # Delete using device MAC address
-        elif device_mac:
-            self.utils.print_info(f"Deleting device with MAC address {device_mac}")
-            search_result = self.search_device(device_mac=device_mac)
-
-            if search_result == 1:
-                if self.select_device(device_mac=device_mac):
-                    self.utils.print_info("Clicking delete button")
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    sleep(2)
-
-                    self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                    sleep(2)
-
-                    # Wait until the device is removed from the view
-                    ret_val = self.wait_until_device_removed(device_mac=device_mac)
-            else:
-                self.utils.print_info(f"Device with MAC address {device_mac} does not exist / is already deleted")
-                ret_val = 1
-
-        # Unknown device search parameter
-        else:
-            self.utils.print_info(
-                f"Unknown device search parameter sent; please use Serial Number, Name, or MAC Address")
-            ret_val = -1
-
-        if ret_val == -1:
-            self.utils.print_info("Device was not deleted - please check")
-            self.screen.save_screen_shot()
-
-        return ret_val
-
     def search_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - Searches for the device matching either one of serial, name or MAC
@@ -2740,12 +2668,19 @@ class Devices:
         :return: 1 if device found else -1
         """
 
+        # call a refresh
+        self.refresh_devices_page()
+
+        #EJL this isn't what we should do here
+        sleep(10)
+
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             self.utils.print_info(f"Searching for the device matching either one of serial, name or MAC!")
+            self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_mac}', device_mac: '{device_mac}'")
 
         self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
         sleep(5)
@@ -2769,17 +2704,17 @@ class Devices:
                         if device_serial:
                             if device_serial in row.text:
                                 kwargs['pass_msg'] = f"Found device with serial number: {device_serial}"
-                                self.common_validation.validate(1, 1, **kwargs)
+                                self.common_validation.passed(**kwargs)
                                 return 1
                         elif device_mac:
                             if device_mac in row.text:
                                 kwargs['pass_msg'] = f"Found device with MAC: {device_mac}"
-                                self.common_validation.validate(1, 1, **kwargs)
+                                self.common_validation.passed(**kwargs)
                                 return 1
                         elif device_name:
                             if device_name in row.text:
                                 kwargs['pass_msg'] = f"Found device with name: {device_name}"
-                                self.common_validation.validate(1, 1, **kwargs)
+                                self.common_validation.passed(**kwargs)
                                 return 1
 
                 else:
@@ -2804,7 +2739,7 @@ class Devices:
             self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
 
         kwargs['fail_msg'] = "Unable to find the device"
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def select_device(self, device_serial=None, device_name=None, device_mac=None):
@@ -2921,54 +2856,54 @@ class Devices:
                         if "ui-icon-sprite-match" in audit_config_status:
                             # self.utils.print_info("Device Status: Connected, audit status matched")
                             kwargs['pass_msg'] = "Device Status: Connected, audit status matched"
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                             return 'green'
                         if "ui-icon-sprite-mismatch" in audit_config_status:
                             # self.utils.print_info("Device Status: Connected, configuration audit status mis matched")
                             kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                             return "config audit mismatch"
                     else:
                         # self.utils.print_info("Unable to obtain audit config status for the row - returning connection status 'green'")
                         kwargs['pass_msg'] = "Unable to obtain audit config status for the row - returning connection status 'green'"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 'green'
 
                 if "local-managed-icon" in device_status:
                     # self.utils.print_info("Device Status: Connected, locally managed")
                     kwargs['pass_msg'] = "Device Status: Connected, locally managed"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return 'green'
 
                 if "hive-status-false" in device_status:
                     if self.devices_web_elements.get_device_conn_status_after_ten_min(device_row):
                         # self.utils.print_info("Device has not yet established connection after 10 minutes")
                         kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return "disconnected"
                     kwargs['pass_msg'] = "Device is disconnected!"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return "disconnected"
 
                 if "local-icon" in device_status:
                     # self.utils.print_info("Device Status: Disconnected, locally managed")
                     kwargs['pass_msg'] = "Device Status: Disconnected, locally managed"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return 'disconnected'
 
                 if "device-status-unknown" in device_status:
                     # self.utils.print_info("Device Status: Unknown")
                     kwargs['pass_msg'] = "Device Status: Unknown"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return 'unknown'
             else:
                 # self.utils.print_info("Unable to obtain device status for the device row")
                 kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
         kwargs['fail_msg'] = "Unable to obtain device status!"
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def verify_device_status(self, device_serial='default', device_name='default', device_mac='default',
@@ -4055,6 +3990,31 @@ class Devices:
             sleep(30)
             retry_time += 30
 
+    def get_device_column_information(self, device_serial, column_array):
+        """
+        - This keyword is used to get the column data for the device
+        - Keyword Usage:
+         - ``@{column_list}=    Create List    MGT IP ADDRESS    MAC``
+         - ``get_device_column_information   ${DEVICE_SERIAL}  ${column_array}``
+
+        :param device_serial: device serial number to check the device connected status
+        :param column_array: The device array of columns to get data for
+        :return: object map of data columns to data, spaces are replaced with _
+        """
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+
+        return_array_data = {}
+        self.refresh_devices_page()
+        sleep(10)
+        device_row = self.get_device_row(device_serial)
+        for column in column_array:
+            data = self.get_device_details(device_serial, column)
+            return_array_data[column.replace(' ',"_")] = data
+        return return_array_data
+
+
+
     def get_device_configuration_audit_status(self, device_serial):
         """
         - This keyword is used to get the device configuration audit status
@@ -4090,7 +4050,7 @@ class Devices:
 
         return -1
 
-    def wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10, **kwargs):
+    def wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20, **kwargs):
         """
         - This keyword is used to check the device connected status on XIQ.
         - After Configuring the CAPWAP client server in device cli, check the device connected status
@@ -4136,12 +4096,12 @@ class Devices:
                         if "hive-status-true" in self.devices_web_elements.get_status_cell(device_row):
                             # self.utils.print_info("Device status is connected")
                             kwargs['pass_msg'] = "Device status is connected!"
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                             return 1
                         elif "local-managed-icon" in self.devices_web_elements.get_status_cell(device_row):
                             # self.utils.print_info("Device status is connected - locally managed")
                             kwargs['pass_msg'] = "Device status is connected - locally managed"
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                             return 1
                         else:
                             self.utils.print_info(
@@ -4158,7 +4118,7 @@ class Devices:
 
         kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
         self.screen.save_screen_shot()
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10):
@@ -4294,6 +4254,45 @@ class Devices:
                     return 1
             count += 1
 
+        self.screen.save_screen_shot()
+
+        return -1
+
+    def wait_until_country_discovered(self, device_serial, retry_duration=30, retry_count=10):
+        """
+        - This Keyword will wait until device finishes Discovering Country Code based on device update status message
+        - Keyword Usage:
+         - `` Wait Until Country Discovered  ${DEVICE_SERIAL}``
+
+        :param device_serial: Device Serial Number
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        If the message has a date value, the assumption the device hase finished rebooting
+        :return: 1 if Device wait till reboots else -1
+        """
+
+        count = 0
+        self.utils.print_info("Checking to see if the device has completed Discovering Country Code")
+        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        while count < retry_count:
+            reboot_message = self.get_device_details(device_serial, "UPDATED")
+            if "Discovering" in reboot_message:
+                self.utils.print_info(f"Device is discovering country code. Waiting for {retry_duration} seconds...")
+                self.utils.print_info(f"Message: {reboot_message} :...")
+                sleep(retry_duration)
+            elif "Failed" in reboot_message:
+                self.utils.print_info("Operation Failed {}".format(reboot_message))
+                return 1
+            elif "Timeout" in reboot_message:
+                self.utils.print_info("Operation Timeout {}".format(reboot_message))
+                return 1
+            elif re.match(date_regex, reboot_message):
+                self.utils.print_info("Device has finshed discovering country code at {}".format(reboot_message))
+                return 1
+            count += 1
+
+        self.utils.print_info(f"Loop Count: {count} ")
+        self.utils.print_info(f"Retry Count: {retry_count} ")
         self.screen.save_screen_shot()
 
         return -1
@@ -5336,8 +5335,8 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
-        self.utils.print_info(f"Enabling 'Managed' column Picker")
-        self.column_picker_select("Managed")
+        # Make sure we have the correct columns
+        self.column_picker_select('OS Version', 'IQAgent', 'Managed')
 
         count = 1
         while count <= retry_count:
@@ -9871,14 +9870,14 @@ class Devices:
                 self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
                 if (update_status == '') or (re.match(date_regex, update_status)):
                     kwargs['pass_msg'] = "Device has finshed updating "
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     complete = True
                     break
                 sleep(15)
 
             if not complete:
                 kwargs['fail_msg'] = "Device has not finshed updating "
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
             return 1
@@ -10898,7 +10897,7 @@ class Devices:
             self.utils.print_info('Reboot for device with serial number: {} is successful'.format(device_serial))
         else:
             kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(device_serial, reboot_res)
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         online_res = self.wait_until_device_online(device_serial, retry_duration=15, retry_count=12)
@@ -10906,7 +10905,7 @@ class Devices:
             self.utils.print_info('Device with serial number: {} is online'.format(device_serial))
         else:
             kwargs['fail_msg'] = 'Device with serial number: {} is NOT online: {}'.format(device_serial, online_res)
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         managed_res = self.wait_until_device_managed(device_serial)
@@ -10914,7 +10913,7 @@ class Devices:
             self.utils.print_info('Status for device with serial number: {} is equal to managed'.format(device_serial))
         else:
             kwargs['fail_msg'] = 'Status for device with serial number: {} is NOT equal to managed: {}'.format(device_serial, managed_res)
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         status_res = self.get_device_status(device_serial=device_serial)
@@ -10922,9 +10921,9 @@ class Devices:
             self.utils.print_info('Status for device with serial number: {} is equal to green'.format(device_serial))
         else:
             kwargs['fail_msg'] = 'Status for device with serial number: {} is NOT equal to green: {}'.format(device_serial, status_res)
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         kwargs['pass_msg'] = 'Wait for policy config push to device with serial number: {} is complete'
-        self.common_validation.validate(1, 1, **kwargs)
+        self.common_validation.passed(**kwargs)
         return 1

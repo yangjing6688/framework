@@ -1,9 +1,9 @@
-from a3.defs.RolesWebElementDefs import *
+from a3.defs.ConnProfileWebElementDefs import *
 from common.AutoActions import *
 from common.WebElementHandler import *
 
 
-class RolesWebElements(RolesWebElementDefs):
+class ConnProfileWebElements(ConnProfileWebElementDefs):
     def __init__(self):
         self.weh = WebElementHandler()
         self.auto_actions = AutoActions()

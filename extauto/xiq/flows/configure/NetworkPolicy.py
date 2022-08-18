@@ -1,3 +1,5 @@
+import selenium.common.exceptions
+
 from extauto.common.CloudDriver import CloudDriver
 from time import sleep
 import re
@@ -180,12 +182,12 @@ class NetworkPolicy(object):
         """
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -2
 
         if not self._search_network_policy_in_list_view(policy):
             kwargs['pass_msg'] = f"Network policy {policy} doesn't exist in the network policies list"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Select Network policy row")
@@ -199,26 +201,26 @@ class NetworkPolicy(object):
         for value in tool_tp_text:
             if "Network policy was deleted successfully" in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully!"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             elif "The Network Policy cannot be removed " in value:
                 kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}!"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             elif "An unknown error has occurred" in value:
                 kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -2
 
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
         # if it's gone assume success.
         if self._search_network_policy_in_list_view(policy):
             kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         kwargs['pass_msg'] = f"Successfully deleted Network Policy {policy}!"
-        self.common_validation.validate(1, 1, **kwargs)
+        self.common_validation.passed(**kwargs)
         return 1
 
     def delete_network_polices(self, *policies, **kwargs):
@@ -233,7 +235,7 @@ class NetworkPolicy(object):
 
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -2
 
         select_flag = None
@@ -248,7 +250,7 @@ class NetworkPolicy(object):
 
         if not select_flag:
             kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
         self._perform_np_delete()
@@ -259,15 +261,15 @@ class NetworkPolicy(object):
         for value in tool_tp_text:
             if "Network policy was deleted successfully" in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             elif "The Network Policy cannot be removed " in value:
                 kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             elif "An unknown error has occurred" in value:
                 kwargs['fail_msg'] = f"Unable to delete the network policy, {value}"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -2
 
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
@@ -275,10 +277,10 @@ class NetworkPolicy(object):
         for policy in policies:
             if self._search_network_policy_in_list_view(policy):
                 kwargs['fail_msg'] = "Unable to perform the delete!"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         kwargs['pass_msg'] = "Successfully deleted Network Policies!"
-        self.common_validation.validate(1, 1, **kwargs)
+        self.common_validation.passed(**kwargs)
         return 1
 
     def delete_all_network_policies(self, exclude_list=''):
@@ -559,33 +561,102 @@ class NetworkPolicy(object):
             self.utils.print_info("Network Policy in Devices grid does not matches with the deployed one...")
             return -1
 
-    def navigate_to_np_edit_tab(self, policy_name):
+    def navigate_to_np_edit_tab(self, policy_name, **kwargs):
         """
         - Flow: Configure-->Network policy-->Select List View-->Select Network Policy ROW--> Edit
 
         :param policy_name: policy name
-        :return: 1 if success
+        :return: 1 if navigation to the edit tab was complete
+                 -1 if elements are not found along the way
         """
+
         self.utils.print_info("Navigating to the configure network policies")
         self.navigator.navigate_configure_network_policies()
-        sleep(2)
 
-        self.utils.print_info("Click on network policy list view button")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_list_view())
-        sleep(2)
+        self.utils.print_info("Searching for network policy list view button...")
+        list_view_button = self.np_web_elements.get_network_policy_list_view()
+        if list_view_button:
+            self.utils.print_info("Network policy list view button found! Clicking... ")
+            self.auto_actions.click(self.np_web_elements.get_network_policy_list_view())
+        else:
+            self.utils.print_info("List view button not found!")
+            kwargs['fail_msg'] = "List view button not found!"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
 
-        self.utils.print_info("Click on network policy fill size page")
-        if self.np_web_elements.get_network_policy_page_size():
-            self.auto_actions.click(self.np_web_elements.get_network_policy_page_size())
-            sleep(2)
+        self.utils.print_info("Searching for network policy 100 rows per page button...")
+        view_all_pages = self.np_web_elements.get_nw_policy_port_types_view_all_pages()
+        if view_all_pages:
+            self.utils.print_info("Network Policy fill size is present on page. Clicking... ")
+            self.auto_actions.click(view_all_pages)
+        else:
+            self.utils.print_info("Network Policy fill size is not present on page. Continue running... ")
 
         self.utils.print_info("Select the network policy rows")
-        self.select_network_policy_row(policy_name)
+        current_page = 1
+        policy_found = False
 
-        self.utils.print_info("Click on network policy Edit button")
-        self.auto_actions.click(self.np_web_elements.get_np_edit_button())
-        sleep(2)
-        return 1
+        while True:
+            self.utils.print_info(f"Current page: {current_page}")
+            self.utils.print_info("Waiting for Network Policy rows to load...")
+            self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
+            self.utils.print_info(f"Network Policy rows have been loaded. Searching for "
+                                  f"Network Policy: {policy_name} ...")
+
+            try:
+                rows = self.np_web_elements.get_np_grid_rows()
+                if rows:
+                    for row in rows:
+                        self.utils.print_info(f"Looking for {policy_name} on row: {row.text}")
+                        if policy_name in row.text:
+                            policy_found = True
+                            self.utils.print_info(f"Network policy: {policy_name} has been found on the row: "
+                                                  f"{row.text}")
+                            self.utils.print_info(f"Searching the checkbox for row: {row.text} ...")
+                            row_check_box = self.np_web_elements.get_np_row_cell(row, 'dgrid-selector')
+                            if row_check_box:
+                                self.utils.print_info(f"Found the checkbox for row: {row.text}! Clicking ... ")
+                                self.auto_actions.click(row_check_box)
+                                self.utils.print_info("Clicking on network policy Edit button...")
+                                np_edit_button = self.np_web_elements.get_np_edit_button()
+                                if np_edit_button:
+                                    self.utils.print_info("Found the Edit button!")
+                                    self.auto_actions.click(np_edit_button)
+                                    kwargs['pass_msg'] = "Found the Edit button!"
+                                    self.common_validation.passed(**kwargs)
+                                    return 1
+                                else:
+                                    self.utils.print_info("Edit button not found!")
+                                    kwargs['fail_msg'] = "Edit button not found!"
+                                    self.screen.save_screen_shot()
+                                    self.common_validation.failed(**kwargs)
+                                    return -1
+                else:
+                    self.utils.print_info("Rows were not found!")
+                    kwargs['fail_msg'] = "Rows were not found!"
+                    self.screen.save_screen_shot()
+                    self.common_validation.failed(**kwargs)
+                    return -1
+            except selenium.common.exceptions.StaleElementReferenceException as e:
+                self.utils.print_info("Stale Element error: \n", e)
+                self.utils.print_info(f"Checking the rows for the policy: {policy_name} again...")
+                continue
+
+            if not policy_found:
+                if not self.np_web_elements.get_next_page_element_disabled():
+                    self.utils.print_info(f"The network policy {policy_name} is not present on page: {current_page}. "
+                                          f"Checking next page: {current_page + 1}...")
+                    self.auto_actions.click(self.np_web_elements.get_next_page_element())
+                    current_page += 1
+                else:
+                    self.utils.print_info(f"This is the last page: {current_page}. Network policy was not found in all "
+                                          f"{current_page} pages. It was deleted or not created at all.")
+                    kwargs['fail_msg'] = f"This is the last page: {current_page}. Network policy was not found in " \
+                                         f"all {current_page} pages. It was deleted or not created at all."
+                    self.screen.save_screen_shot()
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
     def add_wireless_nw_to_network_policy(self, policy_name, **wireless_profile):
         """

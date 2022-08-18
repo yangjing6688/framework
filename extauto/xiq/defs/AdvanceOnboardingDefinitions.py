@@ -191,4 +191,10 @@ class AdvanceOnboardingDefinitions:
             'wait_for': 5
         }
 
+    advance_onboard_mac_address_textfield = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="macSerials"]',
+            'wait_for': 5
+        }
+
 

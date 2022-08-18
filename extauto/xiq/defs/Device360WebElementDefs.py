@@ -1,4 +1,23 @@
 class Device360WebElementDefs:
+
+    ports_from_device360_up_lldp_neighbour = \
+        {
+            'XPATH': '//div[@class="port-info port-lldp-neighbor  "]',
+            'wait_for': 5
+        }
+
+    ports_from_device360_up = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="portFlexWrap"]//ul//li//ul//li',
+            'wait_for': 5
+        }
+
+    lldp_neigbour_from_table = \
+        {
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-2 field-lldpSystemName w75"]',
+            'wait_for': 5
+        }
+
     system_info_button = \
         {
             'XPATH': '//*[@data-id="systeminfo"]',
@@ -268,19 +287,19 @@ class Device360WebElementDefs:
     device360_configure_ssh_cli_enable_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="setDeviceSSH"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_cli_ip = \
         {
             'XPATH': '//*[@data-dojo-attach-point="addressInfo"]//*[@data-dojo-attach-point="ipAddress"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_cli_port = \
         {
             'XPATH': '//*[@data-dojo-attach-point="port"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device360_configure_ssh_web_ip = \
@@ -355,7 +374,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="portNav"]',
+            'XPATH': '//li[contains(text(),"Port Configuration")]',
             'wait_for': 5
         }
 
@@ -477,25 +496,25 @@ class Device360WebElementDefs:
     device360_events_grid_cells = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td',
-            
-         }
+        }
 
     device360_event_timestamp = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-timestamp")]',
-            
-         }
+        }
 
     device360_event_description = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-description")]',
-            
-         }
+
+        }
+
     device360_event_severity = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-severity")]',
-            
-         }
+
+        }
+
     device360_alarms_link = \
         {
             'XPATH': '//*[@data-dojo-attach-point="alarmsTab"]',
@@ -517,22 +536,20 @@ class Device360WebElementDefs:
     device360_alarms_grid_cells = \
         {
             'XPATH': 'td',
-            
+
          }
 
     device360_alarm_timestamp = \
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//td[contains(@class, "field-timestamp")]',
             'index': 0,
-            
-         }
+        }
 
     device360_alarm_category = \
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//td[contains(@class, "field-category")]',
             'index': 0,
-            
-         }
+        }
 
     device360_configure_port_list = \
         {
@@ -1534,8 +1551,7 @@ class Device360WebElementDefs:
     d360_switch_ports_table_grid_rows = \
         {
             'XPATH': '//*[@data-dojo-attach-point="portGridNode"]//*[@class="dgrid-row-table"]',
-            
-         }
+        }
 
     device360_switch_port_table_port_name = \
         {
@@ -1669,7 +1685,12 @@ class Device360WebElementDefs:
     d360_monitor_port_name = \
         {
             'XPATH': 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-ifName")]',
-            
+        }
+
+    d360_monitor_lldp_neighbor_header = \
+        {
+            'XPATH': '//th[contains(@class, "field-lldpSystemName")]',
+            'wait_for': 5
         }
 
     d360_monitor_interface_name = \
@@ -1696,6 +1717,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    d360_automation_port = \
+        {
+            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li/div',
+            'wait_for': 5
+        }
+
     d360_port_leftclick_interface_name = \
         {
             'XPATH': '//div[@class="port-info interface-name"]',
@@ -1710,7 +1737,7 @@ class Device360WebElementDefs:
 
     d360_port_leftclick_port_mode = \
         {
-            'XPATH': '//div[@class="port-info port-mode "]',
+            'XPATH': '//div[starts-with(@class, "port-info port-mode")]',
             'wait_for': 5
         }
 
@@ -2629,20 +2656,14 @@ class Device360WebElementDefs:
 
     device360_port_configuration_stack_units_dropdown = \
         {
-            'XPATH': '//div[@class="stack-member-chooser"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 5
-        }
-
-    device360_port_configuration_stack_units_dropdown_parent_rows = \
-        {
-            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]//ul[@data-automation-tag="automation-chzn-results-ctn"]',
-            'index': 0,
+            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]'
+                     '//div[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
 
     device360_port_configuration_stack_units_rows = \
         {
-            "CSS_SELECTOR": '.active-result',
+            "XPATH": '//div[@data-dojo-attach-point="stackMemberChooserArea"]//li[contains(text(),"Unit")]',
             'wait_for': 5
         }
 
@@ -2691,5 +2712,94 @@ class Device360WebElementDefs:
     device360_thunderbold_icon_stack = \
         {
             'CSS_SELECTOR': '.power-supply',
+            'wait_for': 5
+        }
+
+    device360_cpu_utilized_button = \
+        {
+            'XPATH': '//*[@class="timeline-legend-label" and text()="CPU UTILIZED"]',
+            'wait_for': 5
+        }
+
+    device360_memory_utilized_button = \
+        {
+            'XPATH': '//*[@class="timeline-legend-label" and text()="MEMORY UTILIZED"]',
+            'wait_for': 5
+        }
+
+    device360_rx_counter_button = \
+        {
+            'XPATH': '//*[@class="timeline-legend-label" and text()="RX COUNTER"]',
+            'wait_for': 5
+        }
+
+    device360_tx_counter_button = \
+        {
+            'XPATH': '//*[@class="timeline-legend-label" and text()="TX COUNTER"]',
+            'wait_for': 5
+        }
+
+    device360_ports_list_graph = \
+        {
+            'XPATH': '//li[contains(@class, "port-rel")]//div[contains(@data-automation-tag, "automation-port") and not(contains(@class, "active"))]',
+            'wait_for': 5
+        }
+
+    device360_columns_toggle_button = \
+        {
+            'XPATH': '//div[@aria-label="Show or hide columns" and @type="button"]',
+            'wait_for': 5
+        }
+
+    device360_coluns_toggle_checkboxes = \
+        {
+            'XPATH': '//input[contains(@id, "hcgrid_") and @type="checkbox"]',
+            'wait_for': 5
+        }
+
+    device360_ports_description_table_header = \
+        {
+            'XPATH': "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-header')]",
+            'wait_for': 5
+        }
+
+    device360_ports_table_pagination_sizes = \
+        {
+            "XPATH": "//span[contains(@class, 'pagination-size')]",
+            'wait_for': 5
+        }
+
+    device360_ports_table_current_pagination_size = \
+        {
+            "XPATH": "//span[@class='pagination-size current-pagination']",
+            'wait_for': 5
+        }
+
+    device360_ports_table_th_columns = \
+        {
+            "XPATH": ".//th[@role='columnheader']",
+            'wait_for': 5
+        }
+    device360_ports_table_td_gridcell = \
+        {
+            "XPATH": ".//tr//td[@role='gridcell']",
+            'wait_for': 5
+        }
+
+    device360_ah_icons = \
+        {
+            "XPATH": '//li/div[contains(@class,"AH-ports-icons")][@data-index="${index}"]',
+            'wait_for': 5
+        }
+
+    device360_ports_table_scroll = \
+        {
+            "XPATH": "//div[@data-automation-tag='automation-port-list-grid']//div[@class='dgrid-scroller']",
+            'wait_for': 5
+        }
+
+    device360_ports_table_current_pagin_number = \
+        {
+            "XPATH": "//div[@class='pagination-num-ctn']//span[@class='pagination-page current-pagination']",
             'wait_for': 5
         }
