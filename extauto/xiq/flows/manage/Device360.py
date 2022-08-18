@@ -279,7 +279,7 @@ class Device360(Device360WebElements):
         sleep(2)
 
         return  ret_val
-    def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=30, time_interval=30, retry_time=150, **kwargs):
+    def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30, retry_time=150, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)

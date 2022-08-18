@@ -866,6 +866,8 @@ class Cli(object):
         elif NetworkElementConstants.OS_WING in cli_type.upper():
             self.send(_spawn, f'en')
             self.send(_spawn, f'config')
+            self.send(_spawn, f'virtual-controller')
+            self.send(_spawn, f'show adoption status')
             # Delete the policy
             self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
             self.send(_spawn, f'commit write memory')
