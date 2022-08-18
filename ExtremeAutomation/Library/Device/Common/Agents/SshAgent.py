@@ -1,6 +1,5 @@
 import time
 import socket
-import paramiko
 from ExtremeAutomation.Library.Device.Common.Agents.CliAgent import CliAgent
 from netmiko import ConnectHandler, NetMikoTimeoutException  # pip install netmiko
 from ExtremeAutomation.Library.Utils.Constants.Constants import Constants
