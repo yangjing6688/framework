@@ -196,3 +196,18 @@ class LicenseManagementWebElementsDefs:
         {
             'XPATH': '//button[contains(@class, "ant-btn modal-foot-antd-button-licenseInfoCtl")]'
         }
+
+    extreme_portal_login = \
+        {
+            'XPATH': '//input[@type="text"]'
+        }
+
+    extreme_portal_password = \
+        {
+            'XPATH': '//input[@type="password"]'
+        }
+
+    extreme_portal_login_button = \
+        {
+            'XPATH': '//input[@type="submit"]'
+        }

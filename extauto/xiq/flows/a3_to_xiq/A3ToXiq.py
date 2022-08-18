@@ -8,6 +8,9 @@ import datetime as dt
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
+
+import a3.flows.common.Login
+import xiq.flows.common.Login
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -26,7 +29,7 @@ from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.globalsettings.LicenseManagement import LicenseManagement
-
+from extauto.a3.flows.common.Login import Login
 class A3ToXiq:
     def __init__(self):
         self.utils = Utils()
@@ -45,11 +48,13 @@ class A3ToXiq:
         self.screen = Screen()
         self.robot_built_in = BuiltIn()
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
-        self.login = Login()
+        self.login = xiq.flows.common.Login.Login()
         self.cli = Cli()
         self.licenseManagement = LicenseManagement()
+        self.a3login = a3.flows.common.Login.Login()
 
-    def configure_a3_to_xiq_instance(self, check_version_value=None, **kwargs):
+    def configure_a3_to_xiq_instance(self,  portal_username='username', portal_password='password123', a3website='website',
+                                     a3_username='username', a3_password='password', check_version_value=None, **kwargs):
         """
         - Configure A3 To Xiq Instance
         - Keyword Usage:
@@ -57,6 +62,9 @@ class A3ToXiq:
 
         :return: 1 if the connection is closed.  Note: an error will be raised if the connection fails to close
         """
+
+        a3_login_success = self.a3login.login_a3_user(a3_username, a3_password, url=a3website)
+
         # check xiq version steps 1-2
         xiq_version = self.login._capture_xiq_version()
         if check_version_value:
@@ -76,6 +84,34 @@ class A3ToXiq:
             return -1
         self.auto_actions.click(link_portal_button)
 
+        portal_login_successful = self.licenseManagement.link_to_extreme_portal(portal_username, portal_password)
+        if portal_login_successful == -1:
+            kwargs['fail_msg'] = "Unable to log into Extreme Portal"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
 
+        # go back to license management page and check for linked status
+        sleep(10)
+        self.utils.print_info("Returning to License Management Page to check link status")
+        self.licenseManagement.open_license_management_page()
+        sleep(10)
+        unlink_extreme_portal_btn = self.licenseManagement.get_unlink_xiq_from_extr_portal_btn()
+        link_message = self.licenseManagement.get_xiq_linked_to_extreme_portal_status()
+        if not unlink_extreme_portal_btn or not link_message:
+            kwargs['fail_msg'] = "Unable to verify that web page show linked to Extreme Portal"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        status_unlink_extreme_portal_btn = unlink_extreme_portal_btn.get_attribute("class")
+        status_link_message = link_message.get_attribute("class")
+        self.utils.print_info(str(status_unlink_extreme_portal_btn))
+        self.utils.print_info(str(status_link_message))
+        if 'hidden' not in status_unlink_extreme_portal_btn and 'hidden' not in status_link_message:
+            self.utils.print_info("Successfully linked to customer account")
+        else:
+            kwargs['fail_msg'] = "Status does NOT show successfully linked to customer account"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        # log into a3
+        a3_login_success = self.a3login.login_a3_user(a3_username, a3_password, url=a3website, incognito_mode="True")
 
         return 1
