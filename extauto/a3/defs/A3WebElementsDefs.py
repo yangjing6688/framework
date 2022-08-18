@@ -301,7 +301,7 @@ class A3WebElementsDefs:
 
     client_ent_info = \
         {
-                'XPATH': "//*[contains(text(),'a3225\a3test1')]",
+                'XPATH': "//*[contains(text(),'realma3154\a3test1')]",
                 'wait_for': 5
         }
 
@@ -387,7 +387,6 @@ class A3WebElementsDefs:
     ssh_password = \
         {
             'XPATH': '//input[@type="password" and @class="ivu-input ivu-input-default"]',
-            #'XPATH': '//*[@data-automation-tag="automation-password"]',
             'wait_for': 5
         }
 
@@ -400,7 +399,6 @@ class A3WebElementsDefs:
     backup_save_config = \
         {
             'XPATH': '//button[normalize-space()="Save Current Configuration"]',
-            #'XPATH': '/html/body/div/div[2]/div[2]/div[2]/form/div/div[5]/button[1]',
             'wait_for': 2
         }
 
@@ -434,7 +432,6 @@ class A3WebElementsDefs:
             'wait_for': 5
         }
 
-
     auth_internal_source = \
         {
             'XPATH': "//*[@class = 'btn dropdown-toggle btn-outline-primary' and @aria-expanded='true']",
@@ -467,7 +464,6 @@ class A3WebElementsDefs:
 
     name_input = \
         {
-            #'XPATH': '//*[@data-automation-tag="automation-id"]',
             'XPATH': "//input[@class='base-form-group-input form-control is-invalid'][@type='text']",
             'wait_for': 2
         }
@@ -475,7 +471,6 @@ class A3WebElementsDefs:
     role_name = \
         {
             'XPATH': '//*[@data-automation-tag="automation-id"]',
-            #'XPATH': '//*[@class="input-group is-blur is-invalid"]/input',
             'wait_for': 5
         }
 
@@ -494,78 +489,66 @@ class A3WebElementsDefs:
     ad_domain = \
         {
             'XPATH': '//*[@href="#/configuration/domains"]',
-            # 'XPATH': '/html/body/div/div[2]/div[2]/div[2]/div/div/div[3]/div[1]/div/a',
             'wait_for': 2
         }
 
     domain_button = \
         {
             'XPATH': '//*[@href="#/configuration/domains/new"]',
-            # 'XPATH': '//*[@data-automation-tag="formDomain"]',
-            # 'XPATH': '/html/body/div/div[2]/div[2]/div[2]/div/div/div[3]/div[1]/div/a',
             'wait_for': 2
         }
 
     identifier_input = \
         {
             'XPATH': '//*[@data-automation-tag="automation-id"]',
-            # 'XPATH': "(//input [@class='form-control is-invalid' and starts-with(@id,'__BVID__') and @type='text'])[1]",
             'wait_for': 2
         }
 
     workgroup_input = \
         {
             'XPATH': '//*[@data-automation-tag="automation-workgroup"]',
-            # 'XPATH': "(//input [@class='form-control is-invalid' and starts-with(@id,'__BVID__') and @type='text'])[2]",
             'wait_for': 2
         }
 
     dns_name_input = \
         {
             'XPATH': '//*[@data-automation-tag="automation-dns_name"]',
-            # 'XPATH': "(//input [@class='form-control is-invalid' and starts-with(@id,'__BVID__') and @type='text'])[3]",
             'wait_for': 2
         }
 
     ad_server_input = \
         {
             'XPATH': '//*[@data-automation-tag="automation-ad_server"]',
-            # 'XPATH': "(//input [@class='form-control is-invalid' and starts-with(@id,'__BVID__') and @type='text'])[4]",
             'wait_for': 2
         }
 
     dns_server_input = \
         {
             'XPATH': '//*[@data-automation-tag="automation-dns_servers"]',
-            # 'XPATH': "(//input [@class='form-control is-invalid' and starts-with(@id,'__BVID__') and @type='text'])[5]",
             'wait_for': 2
         }
 
     join_ad = \
         {
             'XPATH': '//button[normalize-space()="Join"]',
-            # 'XPATH': '/html/body/div/div[2]/div[2]/div[2]/form/div/div[5]/button[1]',
             'wait_for': 2
         }
 
     join_domain_button = \
         {
             'XPATH': '//button[normalize-space()="Join Domain"]',
-            # 'XPATH': '/html/body/div/div[2]/div[2]/div[2]/form/div/div[5]/button[1]',
             'wait_for': 2
         }
 
     join_ad_domain_username = \
         {
             'XPATH': '//*[@data-automation-tag="automation-username"]',
-            # 'XPATH': "(//input [@class='form-control is-invalid' and starts-with(@id,'__BVID__') and @type='text'])",
             'wait_for': 2
         }
 
     join_ad_domain_password = \
         {
             'XPATH': '//*[@data-automation-tag="automation-password"]',
-            # 'XPATH': "(//input [@class='form-control is-invalid' and starts-with(@id,'__BVID__') and @type='password'])",
             'wait_for': 2
         }
 
@@ -578,14 +561,12 @@ class A3WebElementsDefs:
     system_config_tab = \
         {
             'XPATH': '//*[@id="pf-sidebar-links"]/ul/a[6]/span',
-            # 'XPATH': '//*[@href="#/Policies & Access Control"]',
             'wait_for': 2
         }
 
     cloud_integration = \
         {
             'XPATH': '//*[@data-automation-tag="CloudIntegration"]',
-            # 'XPATH': '//*[@href="#/tools""]',
             'wait_for': 2
         }
 
@@ -611,16 +592,14 @@ class A3WebElementsDefs:
 
     cloud_link_button = \
         {
-            #'XPATH': '//*[@data-automation-tag="linkButton"]',
-            'XPATH': '//span[contains(text(), "LINK WITH EXTREME CLOUD IQ ACCOUNT")]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="linkButton"]',
+            'wait_for': 5
         }
 
     cloud_unlink_button = \
         {
-            #'XPATH': '//*[@data-automation-tag="unlinkButton"]',
-            'XPATH': '// span[contains(text(), "UNLINK FROM EXTREME CLOUD ACCOUNT")]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="unlinkButton"]',
+            'wait_for': 5
         }
 
     ssh_option_ui = \
@@ -655,21 +634,12 @@ class A3WebElementsDefs:
 
     ssh_enable = \
         {
-            # 'XPATH': '//input[@type = "checkbox"]',
             'XPATH': '/html/body/div/div[2]/div[2]/div[2]/div/div/div/form/div[3]/div/div/label',
-            # 'XPATH' :'/html/body/div/div[2]/div[2]/div[2]/div/div/div/form/div[4]/div/div/div[1]/div/span',
             'wait_for': 2
         }
 
     ssh_selector = \
         {
-
-            # 'NAME': 'check-button',
-            # 'XPATH': '//input[@name ="check-button"]',
-            # 'XPATH': "$x('//*[@data-automation-tag='automation-enable']')[0]",
-            # #'XPATH': '//*[@data-automation-tag="automation-enable"]',
-            'XPATH': '/html/body/div/div[2]/div[2]/div[2]/div/div/div/form/div[3]/div/div/label',
-
-            # 'index': 0,
+            'XPATH': '//*[@data-automation-tag="automation-enable"]',
             'wait_for': 5
         }

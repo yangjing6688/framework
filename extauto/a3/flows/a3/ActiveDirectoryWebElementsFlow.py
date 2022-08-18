@@ -4,6 +4,7 @@ from a3.elements.ActiveDirectoryWebElements import ActiveDirectoryWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
+from selenium import webdriver
 
 
 class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
