@@ -58,7 +58,7 @@ class Cli(object):
 
         return 1
 
-    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh' **kwargs):
+    def open_spawn(self, ip, port, username, password, cli_type, connection_method='ssh', **kwargs):
         """
         - This Keyword used to access device/host Prompt Using IP Address,port number, username,password and cli_type
         # Device type:
