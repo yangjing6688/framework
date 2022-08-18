@@ -843,7 +843,7 @@ class Devices:
                      'WAN IP ADDRESS': 'wanIpAddress',
                      'PUBLIC IP ADDRESS': 'extIpAddress',
                      'DEVICE LICENSE': 'subscriptionLicense',
-                     'COPILOT': 'copilotLicenseStatus',
+                     'COPILOT': 'copilotLicenseStatus'
                      }
 
         self.utils.print_info("Navigate to Manage-->Devices")
