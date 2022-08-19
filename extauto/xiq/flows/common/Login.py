@@ -40,7 +40,7 @@ class Login:
         :param url: if not default, will be read from the ${TEST_URL} variable
         :return: returns driver object
         """
-        if CloudDriver().cloud_driver == None:
+        if CloudDriver().cloud_driver is None:
             self.utils.print_info("Creating new cloud driver")
             CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
             self.window_index = 0
@@ -352,7 +352,6 @@ class Login:
             response_code = None
             total_time = None
 
-
         self.utils.print_info("HTTP Status Code: ", response_code)
         self.utils.print_info("Response : ", json_response)
         self.utils.print_info("Time: ", total_time)
@@ -496,7 +495,6 @@ class Login:
         self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
 
         return data_center_name
-
 
     def _capture_xiq_version(self):
         """
@@ -724,7 +722,7 @@ class Login:
 
         :param username: login account username
         :param password: login account password
-        :param login_type: trial, connect, extremecloudiq license, legacy license
+        :param login_option: trial, connect, extremecloudiq license, legacy license
         :param capture_version: true if want capture the xiq build version
         :param code:
         :param url: url to load
@@ -1305,18 +1303,18 @@ class Login:
             self.utils.print_info(e)
 
     def click_advanced_onboard_popup(self):
-           """
-           This keyword just clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
-           - Keyword Usage:
-         - ` click advanced popup`
-            :return: None
-           """
-           self.utils.print_info("Check for Advance Onboard Popup page after login..")
-           try:
-               if self.login_web_elements.get_drawer_content().is_displayed():
-                   self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
-           except Exception as e:
-               pass
+        """
+        This keyword just clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
+        - Keyword Usage:
+        - ` click advanced popup`
+         :return: None
+        """
+        self.utils.print_info("Check for Advance Onboard Popup page after login..")
+        try:
+            if self.login_web_elements.get_drawer_content().is_displayed():
+                self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+        except Exception as e:
+            pass
 
     def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_password,
                                sw_connection_host):
@@ -1328,7 +1326,7 @@ class Login:
         :param admin_email: admin email, the email that is used to log in into xiq cloud
         :param admin_password: the password chosen to log in into xiq cloud
         :param sw_connection_host: the url of the RDC
-        :return: returns 1 if the account was created succesfully or -1 if otherwise
+        :return: returns 1 if the account was created successfully or -1 if otherwise
         """
         cnt = 0
         while cnt < 3:
@@ -1482,11 +1480,11 @@ class Login:
             return -1
 
     def delete_user_portal(self, customer_name, check_delete_devices=-1):
-        '''
+        """
         This function deletes the account created in portal
         :param customer_name:   the name of the customer under which the account was created
         :return: returns 1 if the account was deleted or -1 if otherwise
-        '''
+        """
         sleep(20)
         if check_delete_devices == -1:
             print("There are still devices on this account!!!!")
@@ -1575,34 +1573,33 @@ class Login:
         return 1
 
     def log_out_portal(self):
-        '''
+        """
         This function logs out from portal
         :return: returns 1 if logging out was succesfull or -1 if otherwise
-        '''
+        """
         self.screen.save_screen_shot()
         self.utils.print_info("Clicking LOGOUT button...")
         log_out_button_portal = self.login_web_elements.get_log_out_button_portal()
         if log_out_button_portal:
             self.utils.print_info("Found LOGOUT button!")
             self.auto_actions.click(log_out_button_portal)
-            self.utils.print_info("Succesfully logged out!")
+            self.utils.print_info("Successfully logged out!")
             return 1
         else:
             self.utils.print_info("Unable to find LOGOUT button.")
             return -1
 
     def get_portal_url(self, sw_connection_host):
-        '''
-
+        """
         :param sw_connection_host: the url of the RDC
         :return: the url of portal page ; else -1 
-        '''
+        """
 
         pattern1 = "(\\w+)r\\d+."
         gdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
         self.utils.print_info("GDC is : ", gdc[0])
-        if isinstance(gdc,list):
-            if isinstance(gdc[0],str):
+        if isinstance(gdc, list):
+            if isinstance(gdc[0], str):
                 url = "https://" + gdc[0] + "-portal.qa.xcloudiq.com/portal/"
                 self.utils.print_info("url is : ", url)
                 return url
@@ -1610,14 +1607,13 @@ class Login:
                 return -1
         else:
             return -1
-        return -1
 
     def check_if_xiq_user_exists(self, customer_name):
-        '''
+        """
         This function check if the XIQ user exists into portal page
         :param customer_name:   the name of the customer under which the account was created
         :return: returns 1 if the account user doesn't exist; else -1
-        '''
+        """
 
         self.screen.save_screen_shot()
         self.utils.print_info("Clicking on name cell menu button ...")
@@ -1671,4 +1667,18 @@ class Login:
             self.utils.print_info("The user has already been deleted or it hasn't been created.")
             self.screen.save_screen_shot()
             return 1
+        # return 1 < This code is unreachable?
+
+    def xiq_soft_launch_feature_url(self, url):
+        # xiq_enable_hidden_feature
+        """
+        - XIQ uses a URL to enable or disable a 'soft launch' (beta) feature.
+        - Keyword Usage:
+         - ``XIQ Soft Launch Feature URL   ${URL}``
+        :param url: full url to load to enable or disable the 'hidden' feature
+        :return: 1 if loaded the url successfully
+        """
+        self.utils.print_info(f"Load Page: {url}")
+        CloudDriver().cloud_driver.get(url)
+        sleep(5)
         return 1

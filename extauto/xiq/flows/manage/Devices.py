@@ -28,6 +28,7 @@ from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.defs.DevicesWebElementsDefinitions import *
 from extauto.common.WebElementController import WebElementController
 
+
 class Devices:
     def __init__(self):
         self.utils = Utils()
@@ -49,7 +50,6 @@ class Devices:
         self.login = Login()
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
-
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
@@ -1085,13 +1085,14 @@ class Devices:
             self.utils.print_info("Unable to Onboard Simulated Device")
             return -1
 
-    def get_device_serial_numbers(self, device_type):
+    def get_device_serial_numbers(self, device_type, os_persona=None):
         """
         - gets all existing devices serials with the same device_type
         - Keyword Usage:
          - ``Get Device Serial Numbers   ${DEVICE_TYPE}``
 
-        :param device_type: type of device to onboard
+        :param device_type: type of device to
+        :param os_persona: device OS Persona. (Specific to Digital Twin)
         :return: serial number(s) with same device type
         """
         try:
@@ -1101,7 +1102,7 @@ class Devices:
             rows = self.devices_web_elements.get_grid_rows()
             if rows:
                 for row in rows:
-                    if device_type in row.text:
+                    if (device_type and device_type in row.text) or (os_persona and os_persona in row.text):
                         self.utils.print_info(f"{row.text}")
                         try:
                             cells = self.devices_web_elements.get_device_row_cells(row)
@@ -1648,7 +1649,7 @@ class Devices:
 
         return latest_version
 
-    def xiq_upgrade_device_to_latest_version(self, device_serial, action = "perform upgrade"):
+    def xiq_upgrade_device_to_latest_version(self, device_serial, action="perform upgrade"):
         """
         - This method update device(s) to latest version from the XIQ 
         - Keyword Usage:
@@ -1667,7 +1668,7 @@ class Devices:
 
             uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
 
-            if  uptd.is_selected():
+            if uptd.is_selected():
                 self.utils.print_info(f"uncheck the update configuration checkbox ")
                 self.auto_actions.click(uptd)
 
@@ -1689,11 +1690,11 @@ class Devices:
             self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             sleep(5)
 
-            if (action == "perform upgrade"):
+            if action == "perform upgrade":
                 self.utils.print_info("Selecting Perform Update button...")
                 self.auto_actions.click(self.device_update.get_perform_update_button())
 
-            elif (action == "close"):
+            elif action == "close":
                 self.utils.print_info("Selecting Cancel and Close button...")
                 self.auto_actions.click(self.device_update.get_update_close_button())
             
@@ -1852,7 +1853,7 @@ class Devices:
                 return 1
         return -1
 
-#EJL update the defaults
+# EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
@@ -1869,6 +1870,7 @@ class Devices:
         :param csv_file_name: CSV File Name
         :param device_os: verifies the Device OS automatically selected after entering device serial
         :param location: device location
+        :param service_tag: Dell Service Tag
         :return:  1 if onboarding success
         :return: -2 for error - Serial numbers entered are from different platform families. Please enter serial numbers that are part of the same platform family. Please remove serial number
         :return: -3 for error - Could not recognize 166A129943554583. Please onboard 166A129943554583 separately.
@@ -1920,7 +1922,7 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
 
-        self.utils.print_info("Entering Serial Number...",device_serial)
+        self.utils.print_info("Entering Serial Number...", device_serial)
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
         sleep(5)
 
@@ -2097,6 +2099,283 @@ class Devices:
             else:
                 kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
                 self.common_validation.failed(**kwargs)
+                return -1
+
+    def onboard_device_dt(self, device_serial=None, device_make=None, device_mac=None, device_type="Real", entry_type="Manual",
+                           csv_file_name=None, csv_location=None, device_os=None, location=None, service_tag=None,
+                           os_persona=None, device_model=None, device_count=1, os_version=None, policy=None, **kwargs):
+        """
+        - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick onboarding flow.
+        - Keyword Usage:
+         - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
+         - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}  device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}``
+
+        :param device_serial: comma separated string of Device serial number(s)
+        :param device_make: Model of the Device ex:Extreme - Aerohive
+        :param device_mac: Device MAC
+        :param device_type: Real/Simulated/Digital_Twin
+        :param entry_type: Manual/CSV
+        :param csv_file_name: CSV File Name
+        :param csv_location: csv file path
+        e.g. ${DEVICE_CSV_FILE}   /automation/xiq/cw_automation/testsuites/xiq/topologies/${TESTBED}/MultipleVossDevices.csv
+        :param device_os: verifies the Device OS automatically selected after entering device serial
+        :param location: device location
+        :param service_tag: Dell Service Tag
+        :param os_persona: SwitchEngine / FabricEngine (specific to Digital Twin)
+        :param device_model: Simulated or Digital Twin device model
+        :param device_count: number of Simulated devices to onboard
+        :param os_version: firmware version (specific to Digital Twin)
+        :param policy: Network Policy (optional)
+        :return:  1 if device(s) successfully onboarded
+        :return: -2 for error - Serial numbers entered are from different platform families. Please enter serial numbers that are part of the same platform family. Please remove serial number
+        :return: -3 for error - Could not recognize 166A129943554583. Please onboard 166A129943554583 separately.
+        :return: -4 for error - No more than 10 serial numbers could be entered at once.
+        :return: -5 for error - When onboarding multiple devices, serial numbers must be separated by ", " (Commas).
+        :return: -6 for error - The number of MAC Addresses must match the number of Serial Numbers
+        :return: -7 for error - Please enter a valid MAC Address
+        :return: -8 for error - Unable to get pop-up menu item
+        :return: list containing serial number(s) of Simulated or Digital Twin device.
+        """
+        add_device_button = "Add Devices"
+        initial_serials = []
+        current_serials = []
+
+        self.navigator.navigate_to_devices()
+
+        if os_persona:
+            initial_serials = self.get_device_serial_numbers(os_persona)
+        elif device_model:
+            initial_serials = self.get_device_serial_numbers(device_model)
+
+        self.utils.print_info("Clicking on ADD button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+
+        self.utils.print_info("Selecting Quick Add Devices menu")
+        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
+
+        self.utils.print_info("Selecting Deploy your devices directly to the cloud")
+        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+
+        if device_type.lower() == "real":
+            self.utils.print_info("Selecting 'Real' Device Type radio button")
+            self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
+
+            if entry_type.lower() == "csv":
+                self.utils.print_info("Selecting 'CSV Import' Entry Type radio button")
+                # Select "Device Make"
+                if self.switch_web_elements.get_switch_make_drop_down():
+                    self.utils.print_info(f"Selecting Switch Type : {device_make}")
+                    self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                    self.auto_actions.select_drop_down_options_partial_match(
+                        self.switch_web_elements.get_switch_make_drop_down_options(), device_make)
+
+                # Select "Import File"
+                # csv_location looks to be the full path to the CSV file.
+                # csv_file_name looks to be the name of CSV file.  Need to prepend the self.custom_file_dir.
+                if csv_file_name:
+                    csv_location = self.custom_file_dir + csv_file_name
+
+                if csv_location:
+                    upload_button = self.devices_web_elements.get_device_entry_voss_csv_upload_button()
+                    if upload_button:
+                        self.utils.print_info("Specifying CSV file '" + csv_location + "'")
+                        self.auto_actions.send_keys(upload_button, csv_location)
+                    else:
+                        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
+                        self.common_validation.validate(-1, 1, **kwargs)
+                        return -1
+                else:
+                    self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+
+            else:  # Manually onboard device
+                self.utils.print_info("Entering Serial Number(s)...", device_serial)
+                self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+                sleep(5)
+
+                # Check for "Device Make" option field
+                if self.switch_web_elements.get_switch_make_drop_down():
+                    self.utils.print_info(f"Selecting Switch Type : {device_make}")
+                    self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                    self.auto_actions.select_drop_down_options(
+                        self.switch_web_elements.get_switch_make_drop_down_options(), device_make)
+
+                # Check for "Device OS" option field. (Switch Engine, Fabric Engine, Cloud IQ Engine, Wing)
+                if self.get_devices_quick_add_device_os_radio():
+                    if 'Extreme - Aerohive' in device_make:
+                        if self.devices_web_elements.get_device_os_radio():
+                            self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
+                            device_os = self.devices_web_elements.get_device_os_radio().text
+                            self.utils.print_info("Device OS: ", device_os)
+                            if 'Cloud IQ Engine' in device_os:
+                                self.utils.print_info("Device OS matched")
+                            else:
+                                self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
+                                self.auto_actions.click(self.devices_web_elements.get_device_os_radio())
+
+                    if "EXOS" in device_make.upper():
+                        if self.devices_web_elements.get_device_os_exos_radio():
+                            self.utils.print_info("Selecting Device OS : Switch Engine")
+                            self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+                            self.screen.save_screen_shot()
+
+                    if "VOSS" in device_make.upper():
+                        if self.devices_web_elements.get_device_os_voss_radio():
+                            self.utils.print_info("Selecting Device OS : Fabric Engine")
+                            self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+                            self.screen.save_screen_shot()
+
+        # Code copied from 'onboard_simulated_device'
+        elif device_type.lower() == "simulated":
+            self.utils.print_info("Selecting 'Simulated' Device Type radio button")
+            self.auto_actions.click(self.devices_web_elements.get_quick_onboard_simulated())
+            self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
+
+            table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
+
+            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
+            for option in options:
+                if device_model in option.text:
+                    self.utils.print_info("Simulated device option: ", option.text)
+                    self.auto_actions.click(option)
+
+            self.utils.print_info(f"Entering Device Count: {device_count}")
+            self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), device_count)
+
+        # Code specific to Digital Twin devices
+        elif device_type.lower() == "digital_twin":
+            add_device_button = "Launch Digital Twin"
+            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+            if "fn-hidden" not in attribute:
+                self.utils.print_info("Selecting 'Digital Twin' radio button")
+                self.auto_actions.click(self.devices_web_elements.get_device_type_digital_twin_radio_button())
+
+                if os_persona and os_persona != "":
+                    self.utils.print_debug(f"Selecting OS Persona: {os_persona}")
+                    self.auto_actions.click(self.devices_web_elements.get_digital_twin_os_persona_dropdown())
+                    sleep(2)
+                    if self.auto_actions.select_drop_down_options(
+                            self.devices_web_elements.get_digital_twin_os_persona_dropdown_items(), os_persona):
+                        self.utils.print_info(f"OS Persona set to: {os_persona}")
+                    else:
+                        self.utils.print_info(f"Could not select OS Persona: {os_persona}")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    self.utils.print_info("OS Persona value not provided...")
+                    return -1
+
+                if device_model and device_model != "":
+                    self.utils.print_debug(f"Selecting Device Model: {device_model}")
+                    self.auto_actions.click(self.devices_web_elements.get_digital_twin_device_model_dropdown())
+                    sleep(2)
+                    if self.auto_actions.select_drop_down_options(
+                            self.devices_web_elements.get_digital_twin_device_model_dropdown_items(), device_model):
+                        self.utils.print_info(f"Device Model set to: {device_model}")
+                    else:
+                        self.utils.print_info(f"Could not select Device Model: {device_model}")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    self.utils.print_info("Device Model value not provided...")
+                    return -1
+
+                if os_version and os_version != "":
+                    self.utils.print_debug(f"Selecting OS Version: {os_version}")
+                    self.auto_actions.click(self.devices_web_elements.get_digital_twin_os_version_dropdown())
+                    sleep(2)
+                    if self.auto_actions.select_drop_down_options(
+                            self.devices_web_elements.get_digital_twin_os_version_dropdown_items(), os_version):
+                        self.utils.print_info(f"OS Version set to: {os_version}")
+                    else:
+                        self.utils.print_info(f"Could not select OS Version: {os_version}")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    self.utils.print_info("OS Version value not provided...")
+                    return -1
+
+            else:
+                self.utils.print_info("Digital Twin option is not available...")
+                return -1
+
+        else:
+            self.utils.print_info(f"Specified Device Type not found: {device_type.lower()}")
+            return -1
+
+        # Selecting a Location is required for Real > Manual and Simulated devices.
+        if location and location != "":
+            self.utils.print_info("Selecting Location '" + location + "'")
+            if self.auto_actions.click(self.devices_web_elements.get_location_button()):
+                self._select_location(location)
+
+        # Selecting a Network Policy is not required when onboarding a device.
+        if policy and policy != "":
+            self.utils.print_info(f"Selecting Policy: {policy}")
+            if self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down()):
+                sleep(2)
+                if self.auto_actions.select_drop_down_options(self.devices_web_elements.get_devices_quick_add_policy_drop_down_items(), policy):
+                    self.utils.print_info(f"Policy set to: {policy}")
+                else:
+                    self.utils.print_info(f"Could not select Policy: {policy}")
+                    self.utils.print_info("Selecting a Network Policy is not required when adding a device...")
+                    self.screen.save_screen_shot()
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Clicking on " + add_device_button + " button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+
+        self.screen.save_screen_shot()
+        sleep(10)
+
+        self.utils.print_info("Checking for Errors...")
+        dialog_message = self.dialogue_web_elements.get_dialog_message()
+
+        if dialog_message:
+            self.utils.print_info("Dialog Message: ", dialog_message)
+            if "Device already onboarded" in dialog_message:
+                self.utils.print_info("Error: ", dialog_message)
+                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+
+            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            self.utils.print_info("No Dialog box")
+
+        # Need to obtain Serial Number for new Simulated or Digital Twin device
+        if os_persona:
+            current_serials = self.get_device_serial_numbers(os_persona)
+        elif device_model:
+            current_serials = self.get_device_serial_numbers(device_model)
+
+        if current_serials:
+            self.utils.print_debug("prev ", initial_serials, "cur ", current_serials)
+            new_serials = list(set(current_serials) - set(initial_serials))
+            self.utils.print_info(f"Successfully Onboarded {device_type} Device: {device_model} with Serial Number "
+                                  f"{new_serials}")
+            if len(new_serials) == 1:
+                return new_serials[0]
+            return new_serials
+
+        serials = device_serial.split(",")
+        self.utils.print_info("Serials: ", serials)
+
+        for serial in serials:
+            if self.search_device(device_serial=serial) == 1:
+                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
+                self.common_validation.validate(1, 1, **kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
@@ -3038,13 +3317,13 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
             count = 5
-            tool_tp_text_error=self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
-               if "a configuration related action is currently in progress for device" in tool_tp_text_error.text.lower():
-                   self.utils.print_info(tool_tp_text_error.text)
-                   return -1
+                if "a configuration related action is currently in progress for device" in tool_tp_text_error.text.lower():
+                    self.utils.print_info(tool_tp_text_error.text)
+                    return -1
             if tool_tp_text:
                 for value in tool_tp_text:
                     if "a device mode change is not supported with a delta configuration update" in value.lower():
@@ -3176,7 +3455,7 @@ class Devices:
         ret_val = 1
 
         # To extract the list of columns if 'columns' arg vaule is ist or tuple 
-        if isinstance(columns, tuple) and ( isinstance(columns[0], list) or isinstance(columns[0], tuple) ):
+        if isinstance(columns, tuple) and (isinstance(columns[0], list) or isinstance(columns[0], tuple)):
             columns = columns[0]
 
         self.utils.print_info("Clicking on Column Picker")
@@ -3230,7 +3509,7 @@ class Devices:
         ret_val = 1
         
         # To extract the list of columns if 'columns' arg vaule is ist or tuple 
-        if isinstance(columns, tuple) and ( isinstance(columns[0], list) or isinstance(columns[0], tuple) ):
+        if isinstance(columns, tuple) and (isinstance(columns[0], list) or isinstance(columns[0], tuple)):
             columns = columns[0]
         
         self.utils.print_info("Clicking on Column Picker")
@@ -3961,10 +4240,8 @@ class Devices:
         device_row = self.get_device_row(device_serial)
         for column in column_array:
             data = self.get_device_details(device_serial, column)
-            return_array_data[column.replace(' ',"_")] = data
+            return_array_data[column.replace(' ', "_")] = data
         return return_array_data
-
-
 
     def get_device_configuration_audit_status(self, device_serial):
         """
@@ -4020,7 +4297,7 @@ class Devices:
         :return: 1 if device connected within time else -1
         """
 
-       # IRV - Internal Result verification flag - is set to True to raise an error when a failure occurs
+        # IRV - Internal Result verification flag - is set to True to raise an error when a failure occurs
         kwargs['IRV'] = True
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -5834,7 +6111,6 @@ class Devices:
             else:
                 self.utils.print_info("Could not get Stack status")
 
-
     def get_exos_stack_status(self, device_mac='default'):
         """
         - This keyword returns the EXOS Stack icon status is blue or red 
@@ -5876,7 +6152,6 @@ class Devices:
                 return -1
         else:
             return -1
-
 
     def verify_stack_devices_managed(self, stack_mac, slot_serial_list):
         """
@@ -6071,12 +6346,10 @@ class Devices:
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
-         - ``Get Device Status   device_serial=${DEVICE_SERIAL}``
-         - ``Get Device Status   device_name=${DEVICE_NAme}``
-         - ``Get Device Status   device_mac=${DEVICE_MAC}``
+         - ``Get Device Stack Status   device_serial=${DEVICE_SERIAL}``
+         - ``Get Device Stack Status   device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
-        :param device_name: device host name
         :param device_mac: device MAC address
         :param duration_retry : duration of retry in seconds
 
@@ -6561,7 +6834,7 @@ class Devices:
         return 1
 
     def quick_onboarding_cloud_manual(self, device_sn, device_make, location, policy_name=None):
-        '''
+        """
         This keyword on boards your devices directly to cloud by using new onboarding flow
         Can on boards an aerohive device [AP or Switch], Universal APs , Exos Switch, Exos Stack and Voss devices
         using Quick onboarding flow.
@@ -6573,7 +6846,7 @@ class Devices:
         :param policy_name: The policy name
         :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message
          will be returned ; else -1
-        '''
+        """
 
         self.navigator.navigate_to_devices()
         add_button = self.devices_web_elements.get_add_button()
@@ -6736,7 +7009,7 @@ class Devices:
         return 1
 
     def quick_onboarding_cloud_csv(self, device_make, csv_location, location=None, policy_name=None):
-        '''
+        """
         This keyword on boards your devices directly to cloud by using new onboarding flow
         Can on boards an aerohive device [AP or Switch], Universal APs , Exos Switch, Exos Stack and Voss devices
         using Quick onboarding flow.
@@ -6750,7 +7023,7 @@ class Devices:
         :param policy_name: The policy name
         :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message
          will be returned ; else -1
-        '''
+        """
 
         self.navigator.navigate_to_devices()
         add_button = self.devices_web_elements.get_add_button()
@@ -7026,7 +7299,7 @@ class Devices:
         return 1
 
     def quick_onboarding_locally_csv(self, device_make, csv_location):
-        '''
+        """
         This keyword on boards your devices locally by using new onboarding flow
         Can on boards an Wing device, Exos Switch, Exos Stack and Voss devices
         using Quick onboarding flow.
@@ -7037,7 +7310,7 @@ class Devices:
         e.g. ${DUT_CSV_FILE}             /automation/xiq/cw_automation/testsuites/xiq/topologies/${TESTBED}/MultipleVossDevices.csv
         :return: 1 if successfully onboarded; if any error occurs on banner the text of error message will be returned ;
          else -1
-        '''
+        """
         self.navigator.navigate_to_devices()
         add_button = self.devices_web_elements.get_add_button()
         if add_button:
@@ -7262,13 +7535,11 @@ class Devices:
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
-        
 
         self.utils.print_info(f"Select switch row with serial {mac}")
         if not self.select_device(mac):
             self.utils.print_info(f"Switch {mac} is not present in the grid")
             return -1
-        
 
         if not self._assign_policy_to_switch(policy_name):
             return -1
@@ -7307,8 +7578,6 @@ class Devices:
             return -1
         else:
             self.utils.print_info("Click on Create template based on currently selected device button")
-
-            
 
             self.utils.print_info("Enter the Device Template Name: ", name_stack_template)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
@@ -7490,7 +7759,7 @@ class Devices:
                         self.auto_actions.move_to_element(column_header)
                         sleep(5)
                         self.screen.save_screen_shot()
-                        self.utils.print_info("Column Tooltip: ",self.devices_web_elements.get_ui_tool_tip_inner().text)
+                        self.utils.print_info("Column Tooltip: ", self.devices_web_elements.get_ui_tool_tip_inner().text)
 
                         return self.devices_web_elements.get_ui_tool_tip_inner().text
             except AttributeError:
@@ -7607,7 +7876,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
             sleep(5)
             network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
-            #self.auto_actions.scroll_down()
+            # self.auto_actions.scroll_down()
             sleep(5)
             if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
                 self.utils.print_info("Selected Network policy from drop down:{}".format(policy_name))
@@ -7914,7 +8183,7 @@ class Devices:
             return -1
 
     def change_device_onboarding_date(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days, serial_number, owner_id, sw_connection_host):
-        '''
+        """
         This function change the onboarding date with specific number of days behind
         To use this function you need to have access to RDC database
 
@@ -7926,10 +8195,10 @@ class Devices:
         :param owner_id: Owner Id for XIQ account
         :param rdc: RDC name : e.g w1r1 , g2r1
         :return: 1 if onboarding date has been changed ; else -1
-        '''
+        """
         pattern1 = "(\\w+)."
         rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
-        spawn = self.cli.open_pxssh_spawn(ip_dest_ssh,user_dest_ssh,pass_dest_ssh)
+        spawn = self.cli.open_pxssh_spawn(ip_dest_ssh,user_dest_ssh, pass_dest_ssh)
         if spawn == -1:
             return -1
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
@@ -7939,7 +8208,7 @@ class Devices:
         else:
             self.cli.send_pxssh(spawn, "cd ..")
         if not "ahqa_id_rsa" in output_cmd_ls:
-           #self.robot_built_in.skip('No ssh certificate exist on jump station')
+            # self.robot_built_in.skip('No ssh certificate exist on jump station')
             return -1
         output_cmd = self.cli.send_pxssh(spawn ,"ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
         self.utils.print_info(output_cmd)
@@ -7954,7 +8223,7 @@ class Devices:
                 output_cmd4 =output_cmd4 + self.cli.send_pxssh(spawn,
                 "update hm_device set created_at = DATE_TRUNC('DAY', NOW() - INTERVAL '{} DAY'),"
                 "updated_at = DATE_TRUNC('DAY', NOW() - INTERVAL '{} DAY')"
-                "where serial_number = '{}' and owner_id = {};".format(days[cnt],days[cnt],el,owner_id))
+                "where serial_number = '{}' and owner_id = {};".format(days[cnt], days[cnt], el, owner_id))
                 cnt = cnt + 1
         else:
             output_cmd4 =self.cli.send_pxssh(spawn,
@@ -7973,7 +8242,7 @@ class Devices:
         return 1
 
     def max_device_num_from_hm_vhm_account_table(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, vhm_id, sw_connection_host):
-        '''
+        """
         This function returns the number of devices which can be onboarded
         To use this function you need to have access to RDC database
 
@@ -7983,7 +8252,7 @@ class Devices:
         :param vhm_id: VHM Id for XIQ account
         :param rdc: RDC name : e.g w1r1 , g2r1
         :return: number of devices which can be onboarded  ; else -1
-        '''
+        """
 
         pattern1 = "(\\w+)."
         rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
@@ -7995,11 +8264,11 @@ class Devices:
         else:
             self.cli.send_pxssh(spawn, "cd ..")
         if not "ahqa_id_rsa" in output_cmd_ls:
-            #self.robot_built_in.skip('No ssh certificate exist on jump station')
+            # self.robot_built_in.skip('No ssh certificate exist on jump station')
             return -1
         output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
         self.utils.print_info(output_cmd)
-        #output_cmd1 = self.cli.send_pxssh(spawn, "yes")
+        # output_cmd1 = self.cli.send_pxssh(spawn, "yes")
         output_cmd1 = self.cli.send_pxssh(spawn, "sudo su -")
         output_cmd2 = self.cli.send_pxssh(spawn, "psqlsystemdb")
         output_cmd3 = self.cli.send_pxssh(spawn,
@@ -8020,7 +8289,7 @@ class Devices:
         return max_devices[0]
 
     def check_update_time_on_rdc(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, sw_connection_host):
-        '''
+        """
         This function returns the update time interval for RDC
 
         :param ip_dest_ssh: ip of 'bastion station'
@@ -8028,7 +8297,7 @@ class Devices:
         :param pass_dest_ssh: extreme account password
         :param sw_connection_host: The RDC DNS
         :return: interval time and interval unit ; else -1
-        '''
+        """
         pattern1 = "(\\w+)."
         rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
 
@@ -8069,20 +8338,20 @@ class Devices:
             return -1
 
     def get_banner_messages(self, expected_message):
-        '''
+        """
         This function compares a message from banner with expected_message
 
         :param expected_message:
         :return: 1 if expected message was found in banner ; else -1
-        '''
+        """
 
         all_error_messages = self.devices_web_elements.get_all_messages_banner()
         self.utils.print_info(all_error_messages)
         if all_error_messages:
             for el2 in all_error_messages:
-                self.utils.print_info("Messages from banner are : ",el2.text)
+                self.utils.print_info("Messages from banner are : ", el2.text)
         else:
-            self.utils.print_info("No message was found:",expected_message)
+            self.utils.print_info("No message was found:", expected_message)
             self.screen.save_screen_shot()
             return -1
         for el in all_error_messages:
@@ -8096,10 +8365,10 @@ class Devices:
         return -1
 
     def move_to_free_pilot_from_trial_or_connect(self):
-        '''
+        """
         This function moves XIQ account into free pilot mode by using the link from banner
         :return: 1 if account was moved ; else -1
-        '''
+        """
 
         update_button = self.devices_web_elements.get_upgrade_to_free_pilot_link()
         if update_button:
@@ -8119,15 +8388,15 @@ class Devices:
             return -1
         return 1
 
-    def activate_device_license(self, device_serial, license_type, username = None, password = None, shared_cuid = None,
-                                warning_msg = None, skip_warning_check = False):
-        '''
+    def activate_device_license(self, device_serial, license_type, username=None, password=None, shared_cuid=None,
+                                warning_msg=None, skip_warning_check=False):
+        """
         This function activate premier or macsec license on a device
 
         :param device_serial: Serial of device
         :param license_type: premier or macsec
         :return: 1 if license was activated ; else -1
-        '''
+        """
 
         select_flag = False
         for el in device_serial.split(','):
@@ -8278,15 +8547,15 @@ class Devices:
             return -1
         return 1
 
-    def revoke_device_license(self, device_serial,license_type, username = None, password = None, shared_cuid = None,
-                              warning_msg = None, skip_warning_check = False):
-        '''
+    def revoke_device_license(self, device_serial,license_type, username=None, password=None, shared_cuid=None,
+                              warning_msg=None, skip_warning_check=False):
+        """
         This function revoke premier or macsec license on a device
 
         :param device_serial: Serial of device
         :param license_type: premier or macsec
         :return: 1 if license was revoked ; else -1
-        '''
+        """
 
         select_flag = False
         for el in device_serial.split(','):
@@ -8381,7 +8650,7 @@ class Devices:
                     warning_xiq_text = self.device_actions.get_warning_rvk_xiq_text()
                     if warning_xiq_text:
                         self.utils.print_info("Message is  :", warning_msg)
-                        self.utils.print_info("Message is XIQ :",warning_xiq_text.text)
+                        self.utils.print_info("Message is XIQ :", warning_xiq_text.text)
                         if warning_msg in warning_xiq_text.text:
                             self.utils.print_info("Message match")
                             confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
@@ -8446,7 +8715,7 @@ class Devices:
         retry_count = 0
         error = None
         error_before = None
-        options_list = ['PREMIER','MACSEC','FOURPORT10G','EIGHTPORT10G','None']
+        options_list = ['PREMIER', 'MACSEC', 'FOURPORT10G', 'EIGHTPORT10G', 'None']
         check_list_before = [None] * 5
         check_list = [None] * 5
         flag_try_again = False
@@ -8460,8 +8729,8 @@ class Devices:
                         license_form_error = self.devices_web_elements.get_license_form_error(row)
                         if license_form_error:
                             if isinstance(license_form_error.get_attribute("title"), str):
-                               error = ' ' + license_form_error.get_attribute("title")
-                               self.utils.print_info("ERROR FOUND:",error)
+                                error = ' ' + license_form_error.get_attribute("title")
+                                self.utils.print_info("ERROR FOUND:", error)
                             else:
                                 error = None
                         else:
@@ -8474,7 +8743,7 @@ class Devices:
                                 error_before = None
                             else:
                                 field_license_stat_list = field_license_stat.text.split(',')
-                                self.utils.print_info("License status is :",field_license_stat_list)
+                                self.utils.print_info("License status is :", field_license_stat_list)
                                 for el in field_license_stat_list:
                                     if el in options_list:
                                         self.utils.print_info("{} is valid value".format(el))
@@ -8488,7 +8757,7 @@ class Devices:
                                     else:
                                         pass
                                     cnt = cnt + 1
-                                self.utils.print_info("Current status for license field : ",check_list)
+                                self.utils.print_info("Current status for license field : ", check_list)
                         else:
                             self.utils.print_info("license field status not found ")
                             self.screen.save_screen_shot()
@@ -8515,13 +8784,13 @@ class Devices:
                                         pass
                                 if error:
                                     if error_before == error and flag_try_again == False:
-                                        self.utils.print_info("Return :",list_return + error)
+                                        self.utils.print_info("Return :", list_return + error)
                                         self.screen.save_screen_shot()
                                         return list_return + error
                                     else:
                                         pass
                                 else:
-                                    self.utils.print_info("Return :",list_return)
+                                    self.utils.print_info("Return :", list_return)
                                     self.utils.print_info("Return type :", type(list_return))
                                     self.screen.save_screen_shot()
                                     return list_return
@@ -8531,7 +8800,7 @@ class Devices:
                         else:
                             check_list_before = check_list.copy()
                         if flag_try_again:
-                            self.utils.print_info("Will try again to confirm the result: {} and Error : {}".format(check_list,error))
+                            self.utils.print_info("Will try again to confirm the result: {} and Error : {}".format(check_list, error))
                         check_list = [None] * 5
                         error = None
                     else:
@@ -8548,14 +8817,14 @@ class Devices:
         return -1
 
     def pilot_lic_inventory_from_unmanage_box(self, max_time=120, interval_time=20):
-        '''
+        """
         This function returns the number of license which should be consumed and the number of license available from
         unmanage box. These are displayed into this format   e.g.  1/0
         :param max_time: Maximum duration of check
         :param interval_time: Time interval between two consecutive checks
         :return: the number of license which should be consumed and the number of license available from
         unmanage box. These are displayed into this format   e.g.  1/0  ; else -1
-        '''
+        """
 
         pilot_inventory_found = False
         cnt = 0
@@ -8595,12 +8864,12 @@ class Devices:
             return -1
 
     def check_serial_list(self, serial):
-        '''
+        """
         This function checks if a device or more need a Pilot License in next 15 days. The list from banner is cheked
 
         :param serial: a serial or more
         :return: 1 if the SN or SNs are into serial list from banner ; else -1
-        '''
+        """
 
         serial_list = serial.split(",")
         self.utils.print_info(len(serial_list))
@@ -8680,14 +8949,14 @@ class Devices:
             return -1
         return 1
 
-    def link_to_sfdc_from_unmanage_box(self, username, password, shared_cuid = None):
-        '''
+    def link_to_sfdc_from_unmanage_box(self, username, password, shared_cuid=None):
+        """
         This function links the XIQ account to SFDC by using the 'ADD LICENSE' button from unmanage dialog
         :param username: SFDC username account
         :param password: SFDC password account
         :param shared_cuid: SFDC shared cuid
         :return: 1 if account was linked ; else -1
-        '''
+        """
         self.screen.save_screen_shot()
         add_a_license = self.devices_web_elements.get_add_a_license()
         if add_a_license:
@@ -8730,14 +8999,14 @@ class Devices:
         return self.login_to_extreme_portal(username, password, shared_cuid)
 
     def move_to_pilot_mode_from_unmanage_box(self):
-        '''
+        """
         This function move the XIQ account from free pilot or trial mode into pilot mode by using the 'ADD LICENSE'
         button from unmanage dialog
         :param username: SFDC username account
         :param password: SFDC password account
         :param shared_cuid: SFDC shared cuid
         :return: 1 if account was moved into Pilot mode  ; else -1
-        '''
+        """
         self.screen.save_screen_shot()
         add_a_license = self.devices_web_elements.get_add_a_license()
         if add_a_license:
@@ -8776,11 +9045,11 @@ class Devices:
         return 1
 
     def check_upgrade_account_button(self):
-        '''
+        """
         This function presses the upgrade account button
 
         :return: 1 if account button was pressed  ; else -1
-        '''
+        """
         self.screen.save_screen_shot()
         upgrade_account_to_pilot = self.devices_web_elements.get_upgrade_account_to_pilot()
         if upgrade_account_to_pilot:
@@ -8791,14 +9060,14 @@ class Devices:
             return -1
         return 1
 
-    def login_to_extreme_portal(self, username, password, shared_cuid = None):
-        '''
+    def login_to_extreme_portal(self, username, password, shared_cuid=None):
+        """
         This function enters the credentials when SFDC page is displayed
         :param username: SFDC username account
         :param password: SFDC password account
         :param shared_cuid: SFDC shared cuid
         :return: 1 if the credentials were entered ; else -1
-        '''
+        """
 
         sfdc_username = self.devices_web_elements.get_sfdc_username()
         if sfdc_username:
@@ -8887,11 +9156,11 @@ class Devices:
         return 1
 
     def check_unlink_button(self):
-        '''
+        """
         This function checks if the unlink button is present
 
         :return: 1 if unlink button is present ; else -1
-        '''
+        """
         self.screen.save_screen_shot()
         sfdc_unlink = self.devices_web_elements.get_sfdc_unlink()
         if sfdc_unlink:
@@ -8900,10 +9169,10 @@ class Devices:
             return -1
 
     def unlink_sfdc_account(self):
-        '''
+        """
         This function presses the unlink button from License Management page
         :return: 1 if the account was unlinked ; else -1
-        '''
+        """
         self.utils.print_info("Starting unlink")
         sleep(3)
         sfdc_unlink = self.devices_web_elements.get_sfdc_unlink()
@@ -8932,9 +9201,9 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 
-    def check_pilot_license_consumption(self, expected_available, expected_activated, license_type = "PRD-XIQ-PIL-S-C",
+    def check_pilot_license_consumption(self, expected_available, expected_activated, license_type="PRD-XIQ-PIL-S-C",
                                         max_time=660, interval_check_time=60):
-        '''
+        """
         This function checks if the available and activated licenses are displayed as expected into License Management page
         :param expected_available: Number of expected available licenses
         :param expected_activated: Number of expected activated license
@@ -8942,7 +9211,7 @@ class Devices:
         :param max_time: Maximum duration of check
         :param interval_check_time: time interval between two consecutive checks
         :return:
-        '''
+        """
 
         cnt = 0
         still_loading = False
@@ -9017,7 +9286,7 @@ class Devices:
         return -1
 
     def check_long_sn_or_legacy_sn_mapping(self, device_serial, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, sw_connection_host):
-        '''
+        """
         This function checks if the SN for 5520 has short or long format . If the function has short format the sn will be
         searched into extr_legacy_sn_mapping table
         :param ip_dest_ssh: ip of 'Jump Station'
@@ -9025,7 +9294,7 @@ class Devices:
         :param pass_dest_ssh: SFDC password account
         :param sw_connection_host: The RDC DNS
         :return: 1 if SN has long format or if it is into db ; else -1
-        '''
+        """
 
         pattern1 = "(\\w+)."
         rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
@@ -9042,7 +9311,7 @@ class Devices:
             else:
                 self.cli.send_pxssh(spawn, "cd ..")
             if not "ahqa_id_rsa" in output_cmd_ls:
-                #self.robot_built_in.skip('No ssh certificate exist on jump station')
+                # self.robot_built_in.skip('No ssh certificate exist on jump station')
                 return -1
             output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc))
             self.utils.print_info(output_cmd)
@@ -9066,11 +9335,11 @@ class Devices:
                 return -1
 
     def check_message_unlink_button(self, expected_message):
-        '''
+        """
         This function checks if the message is correct when try to unlink
         :param expected_message: Expected message
         :return: 1 if expected message was found ; else -1
-        '''
+        """
 
         sfdc_unlink_button = self.devices_web_elements.get_sfdc_unlink()
         if sfdc_unlink_button:
@@ -9096,13 +9365,13 @@ class Devices:
         return -1
 
     def link_to_sfdc_from_license_management_page(self, username, password, shared_cuid=None):
-        '''
+        """
         This function links the XIQ account to SFDC and will move the account to Pilot mode from License Management page
         :param username: SFDC username account
         :param password: SFDC password account
         :param shared_cuid: SFDC shared cuid
         :return: 1 if account was linked ; else -1
-        '''
+        """
 
         if not self.navigator.navigate_to_license_management() == 1:
             self.screen.save_screen_shot()
@@ -9137,10 +9406,10 @@ class Devices:
         return self.login_to_extreme_portal(username, password, shared_cuid)
 
     def get_audit_log(self):
-        '''
+        """
         This function returns the date for the last log from audit
         :return: the date of last log ; else -1
-        '''
+        """
 
         user_button = self.devices_web_elements.get_user_button()
         if user_button:
@@ -9753,7 +10022,7 @@ class Devices:
             count = 0
             while True:
                 self.utils.print_info(f"Time elapsed in comparing the firmware version : {count} seconds ...")
-                if  str(deviceImageVersion) in str(updateToVersion):
+                if str(deviceImageVersion) in str(updateToVersion):
                     self.utils.print_info(f"Device firmware successfully updated to version : '{deviceImageVersion}'")
                     self.screen.save_screen_shot()
                     sleep(5)
@@ -9783,56 +10052,54 @@ class Devices:
         while n_time < int(wait_time_in_min)*2:       # waits for 30s instead of 1 min before the next loop
             rows = self.devices_web_elements.get_manage_all_devices_progress_status()
             if rows == None:
-               complete = True
-               break
+                complete = True
+                break
             else:
-               self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
-               n_time = n_time + 1
-               sleep(30)
-               self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
-
-    def  wait_until_device_update_done(self, device_serial=None, wait_time_in_min=15, IRV=None):
-
-            """
-            - This keyword checks if the expected device is done with updating
-            - Keyword Usage:
-             - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
-
-            :param device_serial: Serial number of AP Ex:11301810220048
-            :param wait_time_in_min: time to wait in mins
-            :param IRV: True or False
-            :return: 1 if done, -1 if not
-            """
-
-            self.navigator.navigate_to_manage_tab()
-            self.refresh_devices_page()
-
-            complete = False
-            n_time = 0
-            kwargs = {}
-            date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
-
-            if IRV != None:
-                kwargs["IRV"] = IRV
-                
-            while n_time <= int(wait_time_in_min*4):
+                self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
                 n_time = n_time + 1
-                update_status= self.get_device_details(device_serial, 'UPDATED')
-                self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
-                if (update_status == '') or (re.match(date_regex, update_status)):
-                    kwargs['pass_msg'] = "Device has finshed updating "
-                    self.common_validation.passed(**kwargs)
-                    complete = True
-                    break
-                sleep(15)
+                sleep(30)
+                self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
-            if not complete:
-                kwargs['fail_msg'] = "Device has not finshed updating "
-                self.common_validation.failed(**kwargs)
-                return -1
+    def wait_until_device_update_done(self, device_serial=None, wait_time_in_min=15, IRV=None):
+        """
+        - This keyword checks if the expected device is done with updating
+        - Keyword Usage:
+         - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
 
-            return 1
+        :param device_serial: Serial number of AP Ex:11301810220048
+        :param wait_time_in_min: time to wait in mins
+        :param IRV: True or False
+        :return: 1 if done, -1 if not
+        """
 
+        self.navigator.navigate_to_manage_tab()
+        self.refresh_devices_page()
+
+        complete = False
+        n_time = 0
+        kwargs = {}
+        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+
+        if IRV != None:
+            kwargs["IRV"] = IRV
+
+        while n_time <= int(wait_time_in_min*4):
+            n_time = n_time + 1
+            update_status = self.get_device_details(device_serial, 'UPDATED')
+            self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
+            if (update_status == '') or (re.match(date_regex, update_status)):
+                kwargs['pass_msg'] = "Device has finshed updating "
+                self.common_validation.validate(1, 1, **kwargs)
+                complete = True
+                break
+            sleep(15)
+
+        if not complete:
+            kwargs['fail_msg'] = "Device has not finished updating "
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        return 1
 
     def assign_network_policy_to_all_devices(self, policy_name):
         """
@@ -9956,9 +10223,9 @@ class Devices:
         else:
             return -1
 
-    def check_voss_image_version(self, output_image_version, os_version, operator = 'less'):
+    def check_voss_image_version(self, output_image_version, os_version, operator='less'):
         """
-        Check is os_version is equel, less or greater than on version from cli
+        Check is os_version is equal, less or greater than on version from cli
         :param spawn:
         :param os_version: 8.6.0.0
         :param operator: equal, less or greater than on version from cli
@@ -9966,7 +10233,7 @@ class Devices:
         """
 
         pattern1 = "Version[\\s\\:\\w]+\\s+(\\d+.\\d+.\\d+.\\d+)"
-        cli_os_version= self.utils.get_regexp_matches(output_image_version, pattern1, 1)
+        cli_os_version = self.utils.get_regexp_matches(output_image_version, pattern1, 1)
         if cli_os_version:
             self.utils.print_info(cli_os_version)
             split_cli_os_version = cli_os_version[0].split('.')
@@ -10012,11 +10279,11 @@ class Devices:
             return -1
 
     def teardown_check_and_revoke_license(self, device_sn):
-        '''
+        """
         This function revoke all device license
         :param device_sn: Sn of device
         :return: 1 if device license status in "None" ; else -1
-        '''
+        """
         flag_revoke = False
         error = None
         cnt = 0
@@ -10042,12 +10309,12 @@ class Devices:
                 if list_status_lic_and_error[0] == 'None':
                     return 1
                 if error:
-                    self.utils.print_info("There are still active licenses ({}) and error is displayed: {} ".format(list_status_lic_and_error[0],error))
+                    self.utils.print_info("There are still active licenses ({}) and error is displayed: {} ".format(list_status_lic_and_error[0], error))
                     self.screen.save_screen_shot()
                     return -1
                 list_status_lic = list_status_lic_and_error[0].split(",")
                 for lic in list_status_lic:
-                    self.revoke_device_license(device_sn, lic, skip_warning_check = True)
+                    self.revoke_device_license(device_sn, lic, skip_warning_check=True)
                     self.check_license_status(device_sn)
                 flag_revoke = True
                 error = list_status_lic_and_error[1]
@@ -10057,9 +10324,8 @@ class Devices:
             cnt = cnt +1
         return -1
 
-
     def change_manage_device_status(self, manage_type='MANAGE', device_serial=None, device_mac=None, device_name=None):
-        '''
+        """
         This Keyword changes the management status of the device.
         - Keyword Usage:
          - ``Change Manage Device Status    MANAGE      device_serial=${DEVICE_SERIAL}``
@@ -10070,7 +10336,7 @@ class Devices:
         :param device_mac: device MAC address
         :param manage_type: Manage/Unmanage device
         :return: 1 if the management status was changed
-        '''
+        """
 
         manage_setting = 'MANAGE'
         unmanage_setting = 'UNMANAGE'
@@ -10078,7 +10344,7 @@ class Devices:
         if device_serial:
             select_flag = False
             for device in device_serial.split(','):
-                if self.select_device(device_serial = device):
+                if self.select_device(device_serial=device):
                     self.utils.print_info("Device with serial {} was selected".format(device))
                     select_flag = True
                 else:
@@ -10087,7 +10353,7 @@ class Devices:
                     return -1
         elif device_mac:
             select_flag = False
-            if self.select_device(device_mac = device_mac):
+            if self.select_device(device_mac=device_mac):
                 self.utils.print_info("Device with mac {} was selected".format(device_mac))
                 select_flag = True
             else:
@@ -10096,7 +10362,7 @@ class Devices:
                 return -1
         elif device_name:
             select_flag = False
-            if self.device_name(device_name = device_name):
+            if self.device_name(device_name=device_name):
                 self.utils.print_info("Device with name {} was selected".format(device_name))
                 select_flag = True
             else:
@@ -10146,7 +10412,7 @@ class Devices:
                     self.utils.print_info("Text: ", confirm_msg_txt)
 
                     if "successfully changed to MANAGED" in confirm_msg_txt:
-                        self.utils.print_info("Managed status succesfully changed")
+                        self.utils.print_info("Managed status successfully changed")
 
                         close_confirm_tab = self.device_actions.get_close_message_btn()
                         if close_confirm_tab:
@@ -10189,7 +10455,7 @@ class Devices:
                     self.utils.print_info("Text: ", confirm_msg_txt)
 
                     if "successfully changed to UNMANAGED" in confirm_msg_txt:
-                        self.utils.print_info("Unmanaged status succesfully changed")
+                        self.utils.print_info("Unmanaged status successfully changed")
                         close_confirm_tab = self.device_actions.get_close_message_btn()
                         if close_confirm_tab:
                             self.utils.print_info("Closing the unmanage confirmation tab")
@@ -10219,12 +10485,11 @@ class Devices:
             return -1
         return -1
 
-
     def check_unmanage_message_on_device(self):
-        '''
+        """
         This Keyword verifies if the unmanage message was shown.
         :return: 1 if the unmanaged message was shown
-        '''
+        """
 
         unmanage_msg = self.device_actions.get_unmanage_msg_text()
         if unmanage_msg:
@@ -10269,24 +10534,23 @@ class Devices:
                 self.utils.print_info("Could not close the device tab")
                 self.screen.save_screen_shot()
                 return -1
-            return -1
-
+        return -1
 
     def onboarding_stack_per_unit(self, serial_numbers_list, device_os, location):
-        '''
+        """
         This functions onboard serials one by one
         :param serial_numbers_list: list of SNs
         :param device_os: device os
         :param location: location
         :return: 1 if all SN was onboarded; else -1
-        '''
+        """
 
         for serial_number in serial_numbers_list:
             self.utils.print_info("Onboarding the serial: {}".format(serial_number))
 
             check_onboarding_success = self.quick_onboarding_cloud_manual(serial_number, device_os, location)
             if check_onboarding_success == 1:
-                self.utils.print_info("The serial: {} was succesfully onboarded.".format(serial_number))
+                self.utils.print_info("The serial: {} was successfully onboarded.".format(serial_number))
             else:
                 self.utils.print_info("Could not onboard the serial number {}".format(serial_number))
                 self.screen.save_screen_shot()
@@ -10295,7 +10559,7 @@ class Devices:
 
     def change_device_onboarding_date_for_each_stack_member(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days,
                                                             serial_number, owner_id, sw_connection_host):
-        '''
+        """
         This function change the onboarding date with specific number of days behind
         To use this function you need to have access to RDC database
 
@@ -10307,7 +10571,7 @@ class Devices:
         :param owner_id: Owner Id for XIQ account
         :param rdc: RDC name : e.g w1r1 , g2r1
         :return: 1 if onboarding date has been changed ; else -1
-        '''
+        """
         if not isinstance(serial_number, list):
             serial_number = serial_number.split(",")
 
@@ -10318,7 +10582,7 @@ class Devices:
                 change_date_status = self.change_device_onboarding_date(ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days,
                                                                         serial, owner_id, sw_connection_host)
                 if change_date_status != 1:
-                    self.utils.print_info("For this serial the onboarding date was not changed:",serial)
+                    self.utils.print_info("For this serial the onboarding date was not changed:", serial)
                     return -1
             return 1
         else:
@@ -10326,14 +10590,14 @@ class Devices:
             return -1
 
     def actions_change_os(self, device_serial, os, max_time=300, time_interval=10):
-        '''
-        This function chenge the os on switch by using ACTIONS->CHANGE OS button . Return 1 when "Rebooting" status is displayed
+        """
+        This function change the os on switch by using ACTIONS->CHANGE OS button . Return 1 when "Rebooting" status is displayed
         :param device_serial: SN of device
         :param os: exos or voss
         :param max_time:  maximum time waited for "Rebooting" status
         :param time_interval: check interval
         :return: 1 when "Rebooting" status is displayed; else -1
-        '''
+        """
         select_flag = False
         for el in device_serial.split(','):
             if self.select_device(el):
@@ -10399,7 +10663,7 @@ class Devices:
         return -1
 
     def get_cuid_and_viq_id(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, owner_id, sw_connection_host):
-        '''
+        """
         This functions returns VHM ID an CUID ID.
         :param ip_dest_ssh: ip/dns destination of bastion host
         :param user_dest_ssh: user for bastion host account
@@ -10407,7 +10671,7 @@ class Devices:
         :param owner_id: Owner id
         :param sw_connection_host: RDC environment
         :return: CUID and VIQ_IQ; else return None
-        '''
+        """
 
         pattern1 = "(\\w+)r\\d."
         gdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
@@ -10433,20 +10697,20 @@ class Devices:
 
         pattern = "(VHM[\\w\\-]+)\\s+\\|\\s+\\w+"
         pattern2 = "VHM[\\w\\-]+\\s+\\|\\s+(\\w+)"
-        viq_id = self.utils.get_regexp_matches(output_cmd5, pattern,1)
-        system_cuid = self.utils.get_regexp_matches(output_cmd5, pattern2,1)
+        viq_id = self.utils.get_regexp_matches(output_cmd5, pattern, 1)
+        system_cuid = self.utils.get_regexp_matches(output_cmd5, pattern2, 1)
         self.utils.print_info(viq_id)
         self.utils.print_info(system_cuid)
 
         self.cli.close_spawn(spawn)
-        return viq_id[0],system_cuid[0]
+        return viq_id[0], system_cuid[0]
 
-    def unmanage_device_when_license_expired(self,device_sn):
-        '''
+    def unmanage_device_when_license_expired(self, device_sn):
+        """
         This function unmanage a device when unmanage box is displayed
         :param device_sn: Sn of device
         :return: 1 when device was unmanage ; else -1
-        '''
+        """
 
         if self.select_device(device_sn) == 1:
             unmanage_button = self.devices_web_elements.get_license_unmanage_box()
@@ -10493,8 +10757,8 @@ class Devices:
         else:
             return -1
 
-    def check_license_update_frequency(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh,sw_connection_host):
-        '''
+    def check_license_update_frequency(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, sw_connection_host):
+        """
         This function checks the update frequency for license job
 
         :param ip_dest_ssh: ip of 'Jump station'
@@ -10502,7 +10766,7 @@ class Devices:
         :param pass_dest_ssh: extreme account password
         :param sw_connection_host: RDC DNS
         :return: 1 if update time is less or equal than 10 minutes ; else -1
-        '''
+        """
 
         pattern1 = "(\\w+)."
         rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
@@ -10530,8 +10794,8 @@ class Devices:
                                           "select id,cron,end_time from hm_job_trigger where id in (select job_trigger_id from "
                                           "hm_job where name = 'validate Gemalto license for Cloud task');")
         self.cli.close_spawn(spawn)
-        #output_cmd5 = self.cli.send_pxssh(spawn,
-        #"select interval from hm_job_trigger where id in (select job_trigger_id from hm_job where name =
+        # output_cmd5 = self.cli.send_pxssh(spawn,
+        # "select interval from hm_job_trigger where id in (select job_trigger_id from hm_job where name =
         # 'validate Gemalto license for Cloud task');")
 
         self.utils.print_info(output_cmd)
@@ -10539,20 +10803,20 @@ class Devices:
         self.utils.print_info(output_cmd2)
         self.utils.print_info(output_cmd3)
         self.utils.print_info(output_cmd4)
-        #self.utils.print_info(output_cmd5)
-        #output_cmd3 = " 324384 | 0 0/5 * * * ?"
-        #output_cmd3 = " 324384 | 0 0 1 * * ?"
+        # self.utils.print_info(output_cmd5)
+        # output_cmd3 = " 324384 | 0 0/5 * * * ?"
+        # output_cmd3 = " 324384 | 0 0 1 * * ?"
         pattern3 = "\\s+\\d+\\s+\\|\\s+([\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+\\s+[\\d\\W]+)\\s+\\|"
-        #pattern3 = "\\s+([\\d\\W]\\s[\\d\\W]+\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W])"
+        # pattern3 = "\\s+([\\d\\W]\\s[\\d\\W]+\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W]\\s[\\d\\W])"
         cron = self.utils.get_regexp_matches(output_cmd3, pattern3, 1)
-        self.utils.print_info("cron",cron)
+        self.utils.print_info("cron", cron)
 
-        #output_cmd4 = "        0"
-        pattern4= "\\s+\\d+\\s+\\|\\s+(\\d+)"
+        # output_cmd4 = "        0"
+        pattern4 = "\\s+\\d+\\s+\\|\\s+(\\d+)"
         interval = self.utils.get_regexp_matches(output_cmd4, pattern4, 1)
-        self.utils.print_info("interval",interval)
+        self.utils.print_info("interval", interval)
 
-        #output_cmd5 = "SECONDS"
+        # output_cmd5 = "SECONDS"
         # pattern5 = "(\\w+)"
         # interval_unit = self.utils.get_regexp_matches(output_cmd5, pattern5, 1)
         # self.utils.print_info(interval_unit)
@@ -10561,7 +10825,7 @@ class Devices:
             if int(interval[0]) == 0:
                 self.utils.print_info("The update license job is running once at each 24 hours. Skip the test ")
                 return -1
-            elif int(interval[0]) <= 10 and not int(interval[0]) == 0 :
+            elif int(interval[0]) <= 10 and not int(interval[0]) == 0:
                 self.utils.print_info("The update license job is running once at less than 10 minutes")
                 return 1
             else:
@@ -10576,14 +10840,14 @@ class Devices:
             return -1
         return 1
 
-    def get_pilot_license_consumption(self,license_type = "PRD-XIQ-PIL-S-C",max_time=120, interval_check_time=60):
-        '''
+    def get_pilot_license_consumption(self, license_type="PRD-XIQ-PIL-S-C", max_time=120, interval_check_time=60):
+        """
         This functions gets the available and activated licenses
         :param license_type:
         :param max_time:
         :param interval_check_time:
         :return: available and activated licenses
-        '''
+        """
 
         cnt = 0
         still_loading = False
@@ -10644,10 +10908,10 @@ class Devices:
         return [available, activated]
 
     def delete_all_aps(self):
-        '''
+        """
         This function is deprecated. This Keyword will Delete All the Devices in the Manage--> Devices Grid
         :return: 1 if Devices Deleted Successfully else -1
-        '''
+        """
         return self.delete_all_devices()
         
     def update_device_policy_config_simple(self, device_serial):
@@ -10657,11 +10921,10 @@ class Devices:
         self.utils.print_info("Click on device update button")
         self.auto_actions.click(self.devices_web_elements.get_update_device_button())
 
-
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
         
-        #self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+        # self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
 
     def update_device_policy_config_reboot(self, device_serial):
         self.utils.print_info("Select Device row")
@@ -10676,7 +10939,7 @@ class Devices:
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
         sleep(2)
-        #self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+        # self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
         sleep(2)
         self.auto_actions.click(self.devices_web_elements.get_switch_update_reboot_and_revert_warning_dialog_yes_button())
 
@@ -10707,24 +10970,18 @@ class Devices:
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
 
-
     def update_device_policy_image(self, device_serial):
-        
         self.utils.print_info("Select Device row")
         self.select_device(device_serial)
-        
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click(self.devices_web_elements.get_update_device_button())
-        
 
         self.utils.print_info("Selecting image option")
         self.auto_actions.click(self.devices_web_elements.get_update_image_checkbox())
-        
 
         self.utils.print_info("Deselecting upgrade configuration option")
         self.auto_actions.click(self.devices_web_elements.get_update_config_checkbox())
-        
 
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
@@ -10740,15 +10997,12 @@ class Devices:
         """
         self.utils.print_info("Rebooting Device with serial: ", device_serial)
 
-
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click(self.device_actions.get_device_actions_button())
-            
 
             self.utils.print_info("Clicking on Reboot")
             self.auto_actions.click(self.device_actions.get_device_actions_reboot_menu_item())
-            
 
             self.utils.print_info("Confirming...")
             self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button_reboot())
@@ -10769,7 +11023,6 @@ class Devices:
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
-            
 
         self.utils.print_info("Checking if License option is displayed")
         license_button = self.devices_web_elements.get_license_action_button()
@@ -10792,7 +11045,6 @@ class Devices:
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
-            
 
         self.utils.print_info("Checking if License option is displayed")
         reboot_button = self.device_actions.get_device_actions_reboot_menu_item()
@@ -10878,3 +11130,96 @@ class Devices:
         kwargs['pass_msg'] = 'Wait for policy config push to device with serial number: {} is complete'
         self.common_validation.passed(**kwargs)
         return 1
+
+    def is_digital_twin_option_visible(self):
+        """
+        - This Keyword checks if the Digital Twin option is visible within the 'Quick Add Devices' panel.
+        - The 'Quick Add Devices' panel will be closed.
+        - Keyword Usage:
+         - ``Is Digital Twin Option Visible``
+        :return: 1 if visible, -1 if not
+        """
+        self.utils.print_info("Clicking on ADD button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+
+        self.utils.print_info("Selecting Quick Add Devices menu")
+        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
+
+        self.utils.print_info("Selecting Deploy your devices directly to the cloud")
+        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.screen.save_screen_shot()
+
+        attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+        self.utils.print_info(f"Class Attribute Value: {attribute}")
+
+        self.utils.print_info("Click the Quick Add Devices > Cancel button")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+
+        if attribute == "":
+            return 1
+
+        return -1
+
+    def get_device_status_icon(self, device_serial=None):
+        """
+        - This keyword returns the Device Status icon.
+        - Keyword Usage:
+         - ``Get Device Status Icon   device_serial=${DEVICE_SERIAL}``
+        :param device_serial: device serial number
+        :return:
+        - 'digital_twin' if Device Status icon is 'Digital Twin'.
+        - 'simulated' if Device Status icon is 'Simulated'.
+        - 'local_managed' if Device Status icon is 'Local Managed'.
+        - 'cloud_managed' if Device Status icon is 'Cloud Managed'.
+        - 'unknown' if Device Status icon is 'Unknown'.
+        """
+        device_row = -1
+        self.refresh_devices_page()
+
+        if device_serial and device_serial != "":
+            self.utils.print_info("Get Device Status icon for serial: ", device_serial)
+            device_row = self.get_device_row(device_serial)
+
+        if device_row:
+            sleep(5)
+            device_status = self.devices_web_elements.get_status_cell(device_row)
+            self.screen.save_screen_shot()
+
+            if device_status:
+                if "dt-icon" in device_status:
+                    return 'digital_twin'
+                elif "sim-icon" in device_status:
+                    return 'simulated'
+                elif "local" in device_status:
+                    return 'local_managed'
+                elif "dashboard-icon" in device_status:
+                    return 'cloud_managed'
+                else:
+                    self.utils.print_info("Unable to determine Device Status icon.")
+                    return 'unknown'
+            else:
+                self.utils.print_info("Device Status field was not found.")
+                return 'unknown'
+        else:
+            self.utils.print_info(f"Device row was not found for serial: ", device_serial)
+            return 'unknown'
+
+    def cancel_quick_add_devices_panel(self):
+        """
+        - This Keyword clicks the Cancel button within the 'Quick Add Devices' panel.
+        - It is assumed that the 'Quick Add Devices' panel is already visible.
+        - Keyword Usage:
+         - ``Cancel Quick Add Devices Panel``
+        :return: 1 if successful, -1 if not
+        """
+        self.utils.print_info("Check if the Quick Add Devices panel is visible.")
+        attribute = self.devices_web_elements.get_devices_quick_add_device_panel().get_attribute("class")
+        self.utils.print_info(f"Class Attribute Value: {attribute}")
+
+        if "show-quick-add" in attribute:
+            self.utils.print_info("Click the Quick Add Devices > Cancel button")
+            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+            return 1
+        else:
+            self.utils.print_info("The Quick Add Devices panel is not visible.")
+            return -1

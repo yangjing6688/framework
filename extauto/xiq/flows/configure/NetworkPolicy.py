@@ -152,7 +152,7 @@ class NetworkPolicy(object):
         self.utils.print_info("Click on network policy save button")
         self.auto_actions.click(self.np_web_elements.get_np_save_button())
 
-        sleep(5)
+        sleep(2)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
@@ -1170,9 +1170,11 @@ class NetworkPolicy(object):
         self.auto_actions.click(self.np_web_elements.get_ibeacon_services_save_button())
         sleep(3)
 
-        tool_tip_text = tool_tip.tool_tip_text
-        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-        if "iBeacon settings saved successfully" in tool_tip_text:
+        self.utils.print_info("Checking the Save profile message...")
+        observed_nwpolicy_message = self.np_web_elements.get_np_save_tool_tip().text
+        self.utils.print_info("Observed Message: ", observed_nwpolicy_message)
+
+        if "iBeacon settings saved successfully" in observed_nwpolicy_message:
             return 1
         else:
             return -1
@@ -1412,17 +1414,11 @@ class NetworkPolicy(object):
         self.utils.print_info("Click on network policy save button")
         self.auto_actions.click(self.np_web_elements.get_np_save_button())
 
-        sleep(2)
-        self.screen.save_screen_shot()
-        sleep(2)
+        self.utils.print_info("Checking the Save profile message...")
+        observed_nwpolicy_message = self.np_web_elements.get_np_save_tool_tip().text
+        self.utils.print_info("Observed Message: ", observed_nwpolicy_message)
 
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-        sleep(5)
-
-        tool_tip_text = tool_tip.tool_tip_text
-        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-        if "Network Policy was saved successfully." in tool_tip_text:
+        if "Network Policy was saved successfully" in observed_nwpolicy_message:
             return 1
         else:
             return -1

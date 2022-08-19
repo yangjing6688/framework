@@ -823,8 +823,6 @@ class Cli(object):
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(_spawn, f'do Hivemanager address {server_name}')
-            self.send(_spawn, f'do Application stop hiveagent')
-            self.send(_spawn, f'do Application start hiveagent')
             """
             July 26, 2022
             Depending on the order of configuration this step will fail.
@@ -832,13 +830,16 @@ class Cli(object):
             configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
             It was decided to take out the verification steps from this method for now.
             We should create a verify method if the user does desire that functionality
+
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
                 hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
+                self.utils.print_info(f"hm_status", hm_status)
                 hm_address = self.send(_spawn, f'do show hivemanager address')
-
+                self.utils.print_info(f"hm_address", hm_address)
+                
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
                     self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
