@@ -2079,7 +2079,7 @@ class Devices:
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
             kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
@@ -2497,7 +2497,7 @@ class Devices:
                 if "Device already onboarded" in dialog_message:
                     self.utils.print_info("Error: ", dialog_message)
                     self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
-                    self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                    self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-300'))
 
                     self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
@@ -2632,9 +2632,9 @@ class Devices:
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-400'))
 
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-400'))
 
             return -1
         else:
@@ -2700,9 +2700,9 @@ class Devices:
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-500'))
 
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-500'))
 
             return -1
         else:
