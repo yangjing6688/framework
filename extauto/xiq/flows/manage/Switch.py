@@ -94,10 +94,10 @@ class Switch(SwitchWebElements):
         dialog_message = self.dialogue_web_elements.get_dialog_message()
         self.utils.print_info("Dialog Message: ", dialog_message)
         if dialog_message:
-            if switch_serial + BuiltIn().get_variable_value('${MSG_DUPLICATE_DEVICE}') in dialog_message:
+            if switch_serial + BuiltIn().get_variable_value('${MSG_DUPLICATE_DEVICE}', default='Device already onboarded') in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-600'))
                 return -1
 
         self.utils.print_info("Clicking on DEVICES REFRESH Page button...")

@@ -279,7 +279,7 @@ class Device360(Device360WebElements):
         sleep(2)
 
         return  ret_val
-    def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30, retry_time=150):
+    def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30, retry_time=150, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -308,17 +308,21 @@ class Device360(Device360WebElements):
         if run_time == 5:
             self.auto_actions.click(self.get_device360_configure_ssh_cli_5min_radio())
 
-        if run_time == 30:
+        elif run_time == 30:
             self.auto_actions.click(self.get_device360_configure_ssh_cli_30min_radio())
 
-        if run_time == 60:
+        elif run_time == 60:
             self.auto_actions.click(self.get_device360_configure_ssh_cli_60min_radio())
 
-        if run_time == 120:
+        elif run_time == 120:
             self.auto_actions.click(self.get_device360_configure_ssh_cli_120min_radio())
 
-        if run_time == 240:
+        elif run_time == 240:
             self.auto_actions.click(self.get_device360_configure_ssh_cli_240min_radio())
+        else:
+            kwargs['fail_msg'] = f"Unsupported run_time: {run_time} supported numbers are: 5, 30, 60, 120, 240"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
 
         sleep(5)
         self.utils.print_info("Clicking Device 360 SSH CLI Enable SSH button...")
@@ -340,11 +344,15 @@ class Device360(Device360WebElements):
                 self.utils.print_info(f"****************** IP/Port Information ************************")
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
+                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
+                self.common_validation.validate(1, 1, **kwargs)
                 return ip_port_info
             else:
                 self.utils.print_info(f"****************** IP/Port Information is not available after {retry_count} seconds ************************")
                 sleep(time_interval)
                 retry_count += 30
+        kwargs['fail_msg'] = f"Failed to get the SSH and port information"
+        self.common_validation.validate(-1, 1, **kwargs)
         return -1
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
