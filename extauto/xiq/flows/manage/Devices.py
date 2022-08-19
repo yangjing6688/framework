@@ -5267,44 +5267,46 @@ class Devices:
         self.utils.print_info(f"Device still exists in the view. Please check.")
         return -1
 
-    def wait_until_device_managed(self, device_serial, col="MANAGED", retry_duration=30, retry_count=10):
+    def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10):
         """
-        - This keyword waits until the specified column for the specified device contains managed state.
-        - This keyword by default loops every 30 seconds for 10 times to check the column data
+        - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
+        - This keyword by default loops every 30 seconds for 10 times to check the MANAGED column data
         - Flow:
          - Navigate to Manage --> Devices
-         - check the specified device column for data
+         - check the specified device MANAGED column for data
         - Keyword Usage:
-         - ``Wait Until Device Data Present  ${DEVICE_SERIAL}    MAC    retry_duration=10    retry_count=12``
+         - ``Wait Until Device Managed  ${DEVICE_SERIAL}   retry_duration=10    retry_count=12``
 
-        :param device_serial: device serial number to check the device connected status
-        :param col: column name to check for data
+        :param device_serial: device serial number to check the device 'managed' state
         :param retry_duration: duration between each retry
         :param retry_count: retry count
-        :return: 1 if column contains data within the specified time, else -1
+        :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
-        # Make sure we have the correct columns
-        self.column_picker_select('OS Version', 'IQAgent', 'Managed')
+        # Enable the 'Managed' Column
+        self.column_picker_select('Managed')
 
         count = 1
+
         while count <= retry_count:
-            self.utils.print_info(f"Searching for device: loop {count}")
-            col_value = self.get_device_details(device_serial, col)
+            self.utils.print_info(f"Searching for device {device_serial}: loop {count}")
+            col_value = self.get_device_details(device_serial, 'MANAGED')
             if col_value == "Managed":
-                self.utils.print_info(f"{col} column contains data: '{col_value}'")
+                self.utils.print_info(
+                    f"MANAGED column for device {device_serial} contains expected data: '{col_value}'")
                 return 1
             else:
                 self.utils.print_info(
-                    f"{col} column contains value: '{col_value}'  still not matching..Waiting for {retry_duration} seconds...")
+                    f"MANAGED column for device {device_serial} contains value: '{col_value}'  still not matching expected value 'Managed' ..Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
                 self.refresh_devices_page()
             count += 1
 
-        self.utils.print_info(f"{col} column for device {device_serial} still does not contain data. Please check.")
+        self.utils.print_info(f"MANAGED column for device {device_serial} does not contain expected value 'Managed'")
         return -1
+
 
     def wait_until_device_data_present(self, device_serial, col, retry_duration=30, retry_count=10):
         """
