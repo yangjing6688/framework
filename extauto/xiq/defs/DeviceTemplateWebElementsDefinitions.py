@@ -163,6 +163,12 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 7
         }
 
+    ap_template_save_tool_tip = \
+        {
+            'XPATH': '//*[contains(@class, "ui-tipbox-success")]//*[@data-dojo-attach-point="textEl"]',
+            'wait_for': 5
+        }
+
     device_template_page_next_button = \
         {
             'XPATH': '//*[@id="ah/comp/configuration/ConfigWizard_0"]/fixed-bar/button[2]',
