@@ -2496,122 +2496,73 @@ class Devices:
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
 
+        num_device_params = 0
+        search_device = None
+        search_type = None
+
         if device_serial:
-            self.utils.print_info("Deleting device: ", device_serial)
-            search_result = self.search_device(device_serial=device_serial)
-
-            if search_result != -1 and self.wait_for_device_to_finish_update(device_serial=device_serial):
-                if self.select_device(device_serial=device_serial):
-                    self.utils.print_info("Click delete button")
-                    sleep(2)
-                    # self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    self.web_element_ctrl.action_method(self.auto_actions.click,
-                                                        self.devices_web_elements.get_delete_button)
-                    sleep(2)
-
-                    self.utils.print_info("Click confirmation Yes Button")
-                    # self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                    self.web_element_ctrl.action_method(self.auto_actions.click,
-                                                        self.dialogue_web_elements.get_confirm_yes_button)
-                    sleep(2)
-                    self.screen.save_screen_shot()
-
-                    # Wait until 'loading' mask is cleared
-                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
-
-                    # Wait until the device is removed from the view
-                    result = self.wait_until_device_removed(device_serial=device_serial, retry_duration=10, retry_count=6)
-                    # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
-                    if result == 1:
-                        kwargs['pass_msg'] = f"Deleted Device Successfully with Serial: {device_serial}"
-                        self.common_validation.passed(**kwargs)
-                        return 1
-
-                    # Confirm device was deleted successfully
-                    if self.search_device(device_serial) == 1:
-                        kwargs['fail_msg'] = "Unable to delete the device"
-                        self.common_validation.failed(**kwargs)
-                        return -1
-                    else:
-                        kwargs['pass_msg'] = f"Deleted Device Successfully with Serial: {device_serial}"
-                        self.common_validation.passed(**kwargs)
-                        return 1
-            else:
-                kwargs['pass_msg'] = f"Device with serial {device_serial} does not exist / is already deleted"
-                self.common_validation.passed(**kwargs)
-                return 1
-
+            num_device_params += 1
+            search_type = "device_serial"
+            search_device = device_serial
         if device_name:
-            self.utils.print_info("Deleting device: ", device_name)
-            search_result = self.search_device(device_name=device_name)
-
-            if search_result != -1 and self.wait_for_device_to_finish_update(device_name=device_name):
-                if self.select_device(device_name=device_name):
-                    self.utils.print_info("Click delete button")
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    sleep(2)
-
-                    self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                    sleep(2)
-                    self.screen.save_screen_shot()
-
-                    # Wait until 'loading' mask is cleared
-                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
-
-                    # Wait until the device is removed from the view
-                    self.wait_until_device_removed(device_name=device_name, retry_duration=10, retry_count=6)
-
-                    # Confirm device was deleted successfully
-                    if self.search_device(device_name) == 1:
-                        kwargs['fail_msg'] = "Unable to delete the device"
-                        self.common_validation.failed(**kwargs)
-                        return -1
-                    else:
-                        kwargs['pass_msg'] = f"Deleted Device Successfully with Name: {device_name}"
-                        self.common_validation.passed(**kwargs)
-                        return 1
-            else:
-                kwargs['pass_msg'] = f"Device with name {device_name} does not exist / is already deleted"
-                self.common_validation.passed(**kwargs)
-                return 1
-
+            num_device_params += 1
+            search_type = "device_name"
+            search_device = device_name
         if device_mac:
-            self.utils.print_info("Deleting device: ", device_mac)
-            search_result = self.search_device(device_mac=device_mac)
+            num_device_params += 1
+            search_type = "device_mac"
+            search_device = device_mac
 
-            if search_result != -1 and self.wait_for_device_to_finish_update(device_mac=device_mac):
-                if self.select_device(device_mac=device_mac):
-                    self.utils.print_info("Click delete button")
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    sleep(2)
+        if num_device_params != 1:
+            kwargs['fail_msg'] = f"Expected one device parameter to delete. Instead received {num_device_params}"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            self.utils.print_info(f"Deleting device with {search_type}: {search_device}")
+            search_result = self.search_device(device_serial=device_serial, device_name=device_name,
+                                               device_mac=device_mac)
 
-                    self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
-                    sleep(2)
-                    self.screen.save_screen_shot()
+            if search_result != -1:
+                if self.wait_for_device_to_finish_update(device_serial=device_serial, device_name=device_name,
+                                                         device_mac=device_mac):
+                    if self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac):
+                        self.utils.print_info("Click delete button")
+                        self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                            self.devices_web_elements.get_delete_button)
 
-                    # Wait until 'loading' mask is cleared
-                    self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
+                        self.utils.print_info("Click confirmation Yes Button")
+                        self.web_element_ctrl.action_method(self.auto_actions.click,
+                                                            self.dialogue_web_elements.get_confirm_yes_button)
+                        self.screen.save_screen_shot()
 
-                    # Wait until the device is removed from the view
-                    self.wait_until_device_removed(device_mac=device_mac, retry_duration=10, retry_count=6)
+                        # Wait until 'loading' mask is cleared
+                        self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
 
-                    # Confirm device was deleted successfully
-                    if self.search_device(device_mac) == 1:
-                        kwargs['fail_msg'] = "Unable to delete the device"
-                        self.common_validation.failed(**kwargs)
-                        return -1
-                    else:
-                        kwargs['pass_msg'] = f"Deleted Device Successfully with Mac: {device_mac}"
-                        self.common_validation.passed(**kwargs)
-                        return 1
+                        # Wait until the device is removed from the view
+                        result = self.wait_until_device_removed(device_serial=device_serial, device_name=device_name,
+                                                                device_mac=device_mac, retry_duration=10, retry_count=6)
+                        # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
+                        if result == 1:
+                            kwargs['pass_msg'] = f"Deleted device successfully with {search_type}: {search_device}"
+                            self.common_validation.passed(**kwargs)
+                            return 1
+
+                        # Confirm device was deleted successfully
+                        if self.search_device(device_serial=device_serial, device_name=device_name,
+                                              device_mac=device_mac):
+                            kwargs['fail_msg'] = f"Unable to delete the device with {search_type}: {search_device}"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+                        else:
+                            kwargs['pass_msg'] = f"Deleted Device Successfully!"
+                            self.common_validation.passed(**kwargs)
+                            return 1
             else:
-                kwargs['pass_msg'] = f"Device with MAC {device_mac} does not exist / is already deleted"
+                kwargs['pass_msg'] = f"Device with {search_type}: {search_device} does not exist / is already deleted"
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "Device was not deleted.  Make sure to specify a serial, name, or MAC"
+        kwargs['fail_msg'] = "Device was not deleted. Make sure to specify a serial, name, or MAC"
         self.common_validation.failed(**kwargs)
         return -1
 
