@@ -6472,6 +6472,14 @@ class Device360(Device360WebElements):
                     return 1
                 else:
                     sleep(5)
+
+                    def check_pse_profile_add():
+                        if self.get_select_element_port_type("pse_profile_add"):
+                            return True
+                        else:
+                            return False
+                    self.utils.wait_till(check_pse_profile_add, delay=5)
+                    
                     get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
                     if get_pse_profile_add:
                         self.auto_actions.click(get_pse_profile_add)
