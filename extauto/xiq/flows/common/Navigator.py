@@ -882,8 +882,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("click on list view button")
         self.auto_actions.click(self.get_network_policy_list_view())
         self.utils.print_info("Click on network policy full size page")
-        if self.get_nw_policy_port_types_view_all_pages():
-            self.auto_actions.click(self.get_nw_policy_port_types_view_all_pages())
+        if self.get_network_policy_page_size():
+            self.auto_actions.click(self.get_network_policy_page_size())
             sleep(2)
         return 1
 
@@ -3108,17 +3108,17 @@ class Navigator(NavigatorWebElements):
                 self.utils.print_info("Waiting for port rows to load in d360 Port Configuration page...")
                 self.utils.wait_till(self.get_port_rows_d360)
                 kwargs['pass_msg'] = " 'Port Configuration' button clicked!"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Failed to find 'Port Configuration' button!")
                 kwargs['fail_msg'] = "Failed to find 'Port Configuration' button!"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Failed to find 'Configure' button!")
             kwargs['fail_msg'] = "Failed to find 'Configure' button!"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1

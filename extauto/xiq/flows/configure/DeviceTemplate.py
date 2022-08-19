@@ -112,7 +112,7 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Click on the save template button")
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
-        sleep(3)
+        sleep(1)
 
         self.utils.print_info("Checking the Save template message...")
         observed_temp_message = self.device_template_web_elements.get_ap_template_save_tool_tip().text

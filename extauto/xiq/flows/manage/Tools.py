@@ -62,7 +62,7 @@ class Tools:
         nav_to_devices = self.navigator.navigate_to_devices()
         if nav_to_devices == -1:
             kwargs['fail_msg'] = "Unable to navigate to the devices page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         if self.devices.select_ap(ap_serial=serial):
@@ -72,25 +72,25 @@ class Tools:
                 if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                         in error:
                     kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least one unmanaged device."
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
                         in error:
                     kwargs['fail_msg'] = "The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device."
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
 
         return_nav_toop_page = self.navigator.navigate_to_device_utilities_tools()
         if return_nav_toop_page == -1:
             kwargs['fail_msg'] = "Unable to navigate to Tools Page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Selecting L2 Neighbor Info menu item")
         neighbor_info_item = self.tools_elements.get_neighbor_info_menu_item()
         if not neighbor_info_item:
             kwargs['fail_msg'] = "Unable to select L2 Neighbor Info menu item"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.click(neighbor_info_item)
 
@@ -102,11 +102,11 @@ class Tools:
             close_button = self.tools_elements.get_neighbor_info_close_button()
             if not close_button:
                 kwargs['fail_msg'] = "Unable to gather Layer 2 Neighbor Information and unable to close dialog page"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
             kwargs['fail_msg'] = "Unable to gather Layer 2 Neighbor Information rows"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         for row in rows:
@@ -115,11 +115,11 @@ class Tools:
                 self.utils.print_info("Closing the Dialog page")
                 self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
                 kwargs['pass_msg'] = "Successful found AP with MAC " +  mac + " in Layer 2 Neighbor Information table"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
 
         kwargs['fail_msg'] = "Unable to get Layer 2 Neighbor Information"
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def device_diagnostics_ping(self, serial, **kwargs):
@@ -135,7 +135,7 @@ class Tools:
         ret_device = self.navigator.navigate_to_devices()
         if ret_device == -1:
             kwargs['fail_msg'] = "Unable to navigate to Device Page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         if self.devices.search_ap(ap_serial=serial):
@@ -147,20 +147,20 @@ class Tools:
                     if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                             in error:
                         kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least one unmanaged device."
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                     elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
                             in error:
                         kwargs[
                             'fail_msg'] = "The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device."
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
 
         self.utils.print_info("Clicking on Utilities Button")
         util_button = self.tools_elements.get_utilities_button()
         if not util_button:
             kwargs['fail_msg'] = "Unable to click Utilities Button"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.click(self.tools_elements.get_utilities_button())
 
@@ -168,20 +168,20 @@ class Tools:
         diagnostic_button = self.tools_elements.get_device_diagnostics_menu_item()
         if not diagnostic_button:
             kwargs['fail_msg'] = "Unable to hovering over Diagnostics button"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         if diagnostic_button.is_displayed():
             self.auto_actions.move_to_element(diagnostic_button)
         else:
             kwargs['fail_msg'] = "Unable to hovering over Diagnostics button due to item not being displayed"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Selecting Ping...")
         diagnostic_ping_button = self.tools_elements.get_diagnostics_ping_menu_item()
         if not diagnostic_ping_button:
             kwargs['fail_msg'] = "Unable to select Ping menu"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.click(diagnostic_ping_button)
 
@@ -190,7 +190,7 @@ class Tools:
         self.screen.save_screen_shot()
         if not ping_output:
             kwargs['fail_msg'] = "Unable to select Ping Output"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         output = ping_output.text
 
@@ -198,21 +198,21 @@ class Tools:
         close_button = self.tools_elements.get_device_diag_ping_close_dlg()
         if not close_button:
             kwargs['fail_msg'] = "Unable to close the Dialog page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.click(close_button)
 
         if 'ping statistics' in output and '5 packets transmitted' in output:
             kwargs['pass_msg'] = "Ping was Successful"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "Ping was NOT successful"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         kwargs['fail_msg'] = "Unable to get Device Diagnostics Ping"
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     """
@@ -261,7 +261,7 @@ class Tools:
         nav_return = self.navigator.navigate_to_tools_page()
         if nav_return == -1:
             kwargs['fail_msg'] = "Unable to navigate to tools page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.scroll_up()
         sleep(5)
@@ -270,7 +270,7 @@ class Tools:
         utils_button = self.tools_elements.get_utilities_button()
         if not utils_button:
             kwargs['fail_msg'] = "Unable to click on utilities button"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.click(utils_button)
 
@@ -278,7 +278,7 @@ class Tools:
         ssh_avail_button = self.tools_elements.get_utilities_ssh_availability()
         if not ssh_avail_button:
             kwargs['fail_msg'] = "Unable to click on ssh availability"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.click(ssh_avail_button)
         sleep(5)
@@ -289,7 +289,7 @@ class Tools:
             run_button = self.tools_elements.get_run_button()
             if not ssh_avail_button:
                 kwargs['fail_msg'] = "Unable to click on ssh availability"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             self.auto_actions.click(self.tools_elements.get_run_button())
             sleep(15)
@@ -299,7 +299,7 @@ class Tools:
             self.auto_actions.click(timeout_5_button)
             if not timeout_5_button:
                 kwargs['fail_msg'] = "Unable to click on 5 minutes radio"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             sleep(10)
 
@@ -308,7 +308,7 @@ class Tools:
             self.auto_actions.click(enable_ssh_button)
             if not enable_ssh_button:
                 kwargs['fail_msg'] = "Unable to click on enable SSH button"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             self.utils.print_info("sleep for 45 seconds to enable SSH")
             sleep(45)
@@ -330,12 +330,12 @@ class Tools:
                 self.utils.print_info(port_num)
 
                 kwargs['pass_msg'] = "Successfully able to get ip address and port"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return ip_addr, port_num
             else:
                 self.utils.print_info("AP does not exists in the list")
                 kwargs['fail_msg'] = "AP does not exists in the list"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
     def ui_ssh_status_check(self, **kwargs):
@@ -349,7 +349,7 @@ class Tools:
         status_comp = self.tools_elements.get_ssh_status()
         if not status_comp:
             kwargs['fail_msg'] = "Unable to get ssh ui component"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         status = status_comp.text
         self.utils.print_info("SSH Status on UI: ", status)
@@ -358,13 +358,13 @@ class Tools:
         close_comp = self.dev360.get_close_dialog()
         if not close_comp:
             kwargs['fail_msg'] = "Unable to get closing device360 Dialogue Window"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.click(close_comp)
         sleep(2)
 
         kwargs['pass_msg'] = "Successfully able to get SSH status checking in UI"
-        self.common_validation.validate(1, 1, **kwargs)
+        self.common_validation.passed(**kwargs)
         return status
 
     def ui_tools_ssh_status_check(self, **kwargs):
@@ -378,14 +378,14 @@ class Tools:
         status_comp = self.tools_elements.get_ssh_status()
         if not status_comp:
             kwargs['fail_msg'] = "Unable to get ssh ui component"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         status = status_comp.text
         self.utils.print_info("SSH Status on UI: ", status)
         self.utils.print_info(status)
         sleep(2)
         kwargs['pass_msg'] = "Successfully able to get SSH status checking in UI"
-        self.common_validation.validate(1, 1, **kwargs)
+        self.common_validation.passed(**kwargs)
         return status
 
     def lock_device(self, host, username, passwd, ssid, ssid_passwd="FFLJLSP09865"):

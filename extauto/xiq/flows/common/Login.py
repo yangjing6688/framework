@@ -128,7 +128,12 @@ class Login:
                                           salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
                                           **kwargs)
                 count = count + 1
-        self.common_validation.validate(result, 1, **kwargs)
+        if result != 1:
+            kwargs['fail_msg'] = "Login was not successful"
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Login was successful"
+            self.common_validation.passed(**kwargs)
         return result
 
     def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
@@ -206,8 +211,6 @@ class Login:
             sleep(2)
         else:
             sleep(10)
-        self.utils.print_info("Capturing screenshot after logging")
-        self.screen.save_screen_shot()
         if check_warning_msg:
             self.utils.print_info("Check for Warning Messages..")
             if self.login_web_elements.get_dialog_message():
@@ -233,10 +236,6 @@ class Login:
                     self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
             except Exception as e:
                 pass
-        if self.login_web_elements.get_devices_list_check().is_displayed():
-            self.utils.print_info("webelement exists in the mainpage")
-
-        self.get_version()
         if co_pilot_status:
             url = BuiltIn().get_variable_value("${TEST_URL}")
             copilot_url = f"{url}/hm-webapp/?copilotBeta=true"
@@ -249,21 +248,6 @@ class Login:
             self._capture_xiq_version()
         kwargs['pass_msg'] = "User has been logged in"
         return 1
-
-    def get_version(self):
-        self.utils.print_info("Clicking on About Extreme cloudIQ link")
-        self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
-        self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
-        self.screen.save_screen_shot()
-        viq_id = self.login_web_elements.get_viq_id_field().text
-        build_id=self.login_web_elements.get_build_id().text
-        xiq_version = self.login_web_elements.get_build_version_details()
-        self.utils.print_info(f"VIQ ID Is: {viq_id}")
-        self.utils.print_info("Build Id: ",build_id)
-        self.utils.print_info("XIQ build Version Is: ", xiq_version)
-
-        self.utils.print_info("Close About Extreme cloudIQ Link Dialogue Page")
-        self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
 
     def logout_user(self):
         """
