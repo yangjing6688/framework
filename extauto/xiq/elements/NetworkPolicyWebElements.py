@@ -50,6 +50,9 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
     def get_np_save_button(self):
         return self.weh.get_element(self.policy_save_button)
 
+    def get_np_save_tool_tip(self):
+        return self.weh.get_element(self.np_save_tool_tip)
+
     def get_np_exit_button(self):
         return self.weh.get_element(self.policy_exit_button)
 

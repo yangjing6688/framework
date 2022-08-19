@@ -156,6 +156,9 @@ class DeviceActions(DeviceActionsDefs):
     def get_warning_rvk_xiq_text(self):
         return self.weh.get_element(self.warning_rvk_xiq_text)
 
+    def get_confirm_msg_no(self):
+        return self.weh.get_element(self.confirm_msg_no)
+
     def get_confirm_msg_yes(self):
         return self.weh.get_element(self.confirm_msg_yes)
 
@@ -203,3 +206,24 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_change_os_actions_voss(self):
         return self.weh.get_element(self.change_os_actions_voss)
+
+    def get_digital_twin_assign_location(self):
+        return self.weh.get_element(self.digital_twin_assign_location)
+
+    def get_digital_twin_assign_network_policy(self):
+        return self.weh.get_element(self.digital_twin_assign_network_policy)
+
+    def get_digital_twin_relaunch_action_menu_item(self):
+        return self.weh.get_element(self.digital_twin_relaunch_action_menu_item)
+
+    def get_digital_twin_relaunch_action(self):
+        return self.weh.get_element(self.digital_twin_relaunch_action)
+
+    def get_digital_twin_shutdown_action_menu_item(self):
+        return self.weh.get_element(self.digital_twin_shutdown_action_menu_item)
+
+    def get_digital_twin_shutdown_action(self):
+        return self.weh.get_element(self.digital_twin_shutdown_action)
+
+    def get_digital_twin_revert_device_template(self):
+        return self.weh.get_element(self.digital_twin_revert_device_template)

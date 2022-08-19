@@ -1144,3 +1144,52 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("The log was not found . return -1")
         return -1
 
+    def enable_copilot_feature_for_this_viq(self):
+        """
+        - Enabling CoPilot Feature in Global Settings Page
+        - Flow : User account icon-->Global Settings--> VIQ Management
+        - Keyword Usage
+         - ``Enable CoPilot feature for this VIQ``
+        :return: 1 after successfully enabling CoPilot feature
+        """
+
+        self.navigate.navigate_to_viq_management_page()
+        sleep(2)
+
+        self.utils.print_info("Now checking for Enable CoPilot feature for this VIQ")
+        self.screen.save_screen_shot()
+        if not self.get_enable_copilot_feature_option_status().is_selected():
+            self.utils.print_info("Enabling CoPilot feature..")
+            self.auto_actions.click(self.get_enable_copilot_feature_option_status())
+            sleep(1)
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Enable CoPilot feature for this VIQ button already enabled...")
+            sleep(2)
+            self.screen.save_screen_shot()
+
+        return 1
+
+    def disable_copilot_feature_for_this_viq(self):
+        """
+        - Disabling CoPilot Feature in Global Settings Page
+        - Flow : User account icon-->Global Settings--> VIQ Management
+        - Keyword Usage
+         - ``Disable CoPilot feature for this VIQ``
+        :return: 1 after successfully disabling CoPilot feature
+        """
+
+        self.navigate.navigate_to_viq_management_page()
+        sleep(2)
+
+        self.utils.print_info("Now checking for Enable CoPilot feature for this VIQ")
+        self.screen.save_screen_shot()
+        if self.get_enable_copilot_feature_option_status().is_selected():
+            self.utils.print_info("Disabling CoPilot feature..")
+            self.auto_actions.click(self.get_enable_copilot_feature_option_status())
+            sleep(1)
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Enable CoPilot feature for this VIQ button already disabled...")
+            sleep(2)
+            self.screen.save_screen_shot()
