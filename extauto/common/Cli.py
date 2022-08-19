@@ -327,7 +327,7 @@ class Cli(object):
                :return: returns 1 if 0 packet loss else -1
                """
 
-        return self.__open_pxssh_spawn(self, host, username, password, _port=port, prompt_reset=prompt_reset,
+        return self.__open_pxssh_spawn(host, username, password, _port=_port, prompt_reset=prompt_reset,
                          disable_strict_host_key_checking=disable_strict_host_key_checking, sync_multiplier=sync_multiplier)
 
     def __open_pxssh_spawn(self, host, username, password, _port=22, prompt_reset=False,
@@ -381,7 +381,7 @@ class Cli(object):
         :param pxssh_spawn: pxssh spawn to close
         :return: -1 in case of error else 1
         """
-        return __close_pxssh_spawn
+        return self.__close_pxssh_spawn(pxssh_spawn)
 
     def __close_pxssh_spawn(self, pxssh_spawn):
         """
