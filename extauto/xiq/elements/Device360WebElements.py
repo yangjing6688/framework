@@ -1596,3 +1596,40 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_monitor_diagnostics_stack_drop_down_unit_options(self, unit, unit_role):
         return self.weh.get_template_element(self.device360_monitor_diagnostics_stack_drop_down_unit_options, unit=unit, unit_role=unit_role)
+
+    def get_topbar_cpu_diagnostics(self):
+        return self.weh.get_elements(self.device360_topbar_cpu)
+
+    def get_topbar_memory_diagnostics(self):
+        return self.weh.get_elements(self.device360_topbar_memory)
+
+
+    def get_topbar_mac_usage_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_mac_usage)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_topbar_uptime_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_uptime)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_topbar_temperature_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_temperature)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_topbar_power_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_power)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_topbar_fan_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_fan)
+        for el in elements:
+            if el.is_displayed():
+                return el
