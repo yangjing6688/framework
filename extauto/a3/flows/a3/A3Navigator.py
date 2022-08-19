@@ -131,12 +131,12 @@ class Navigator(NavigatorWebElements):
             if self.auto_actions.click(self.get_devices_nav()) == 1:
                 sleep(2)
                 kwargs['pass_msg'] = "Navigation Successful to Devices tab"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Unable to navigate to Devices tab"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
     def navigate_to_ssids(self):

@@ -11,3 +11,6 @@ class AuthSourcesWebElements(AuthSourcesWebElementDefs):
     def get_auth_source_menu(self):
         return self.weh.get_element(self.auth_source_ui)
 
+    def get_auth_source_button(self):
+        return self.weh.get_element(self.auth_source_button)
+

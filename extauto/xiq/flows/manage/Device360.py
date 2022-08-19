@@ -1262,7 +1262,8 @@ class Device360(Device360WebElements):
             self.utils.print_info("Could not obtain list of port rows")
         else:
             for row in rows:
-                if port_name in row.text:
+                row_text = row.text
+                if row_text.startswith(port_name):
                     ret_val = row
                     break
         return ret_val
@@ -6457,7 +6458,7 @@ class Device360(Device360WebElements):
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row Not Found"
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
             if save_btn:
@@ -6467,7 +6468,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
                 kwargs['pass_msg'] = "Switch Port Configuration Saved"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
                 # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
 
@@ -6486,12 +6487,12 @@ class Device360(Device360WebElements):
                 # self.auto_actions.click(self.get_close_dialog())
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
-                #     self.common_validation.validate(1, 1, **kwargs)
+                #     self.common_validation.passed(**kwargs)
                 #     return 1
                 # else:
                 #     kwargs['fail_msg'] = "Confirmation message not found."
                 #     self.screen.save_screen_shot()
-                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     self.common_validation.failed(**kwargs)
                 #     return -1
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
@@ -6499,7 +6500,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(self.get_close_dialog())
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_configure_ports_trunk_stack(self, port_numbers="", trunk_native_vlan="", trunk_vlan_id="", slot = "",
@@ -6561,7 +6562,7 @@ class Device360(Device360WebElements):
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
@@ -6572,7 +6573,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
                 kwargs['pass_msg'] = "Stack Port Configuration Saved"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
                 # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
                 # def check_for_confirmation():
@@ -6584,12 +6585,12 @@ class Device360(Device360WebElements):
                 # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
-                #     self.common_validation.validate(1, 1, **kwargs)
+                #     self.common_validation.passed(**kwargs)
                 #     return 1
                 # else:
                 #     kwargs['fail_msg'] = "Confirmation message not found."
                 #     self.screen.save_screen_shot()
-                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     self.common_validation.failed(**kwargs)
                 #     return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
@@ -6597,7 +6598,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(self.get_close_dialog())
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_configure_ports_access_vlan(self, device_mac="", device_name="", port_numbers="", access_vlan_id="",
@@ -6674,7 +6675,7 @@ class Device360(Device360WebElements):
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
@@ -6685,7 +6686,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
                 kwargs['pass_msg'] = "Switch Port Configuration Saved"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
                 # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
                 # def check_for_confirmation():
@@ -6699,12 +6700,12 @@ class Device360(Device360WebElements):
                 # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
-                #     self.common_validation.validate(1, 1, **kwargs)
+                #     self.common_validation.passed(**kwargs)
                 #     return 1
                 # else:
                 #     kwargs['fail_msg'] = "Confirmation message not found."
                 #     self.screen.save_screen_shot()
-                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     self.common_validation.failed(**kwargs)
                 #     return -1
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
@@ -6712,7 +6713,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(self.get_close_dialog())
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_configure_ports_access_vlan_stack(self, port_numbers="", access_vlan_id="1", slot="",
@@ -6766,7 +6767,7 @@ class Device360(Device360WebElements):
                     self.auto_actions.click(self.get_close_dialog())
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
             self.select_configure_tab()
             save_btn = self.get_device360_configure_port_save_button()
@@ -6777,7 +6778,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click(self.get_close_dialog())
                 kwargs['pass_msg'] = "Stack Port Configuration Saved"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
                 # Needs to be debugged. Tooltip won't capture 'Switch Port Configuration Saved' message in D360
                 # def check_for_confirmation():
@@ -6791,12 +6792,12 @@ class Device360(Device360WebElements):
                 # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved."
-                #     self.common_validation.validate(1, 1, **kwargs)
+                #     self.common_validation.passed(**kwargs)
                 #     return 1
                 # else:
                 #     kwargs['fail_msg'] = "Confirmation message not found."
                 #     self.screen.save_screen_shot()
-                #     self.common_validation.validate(-1, 1, **kwargs)
+                #     self.common_validation.failed(**kwargs)
                 #     return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
@@ -6804,7 +6805,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(self.get_close_dialog())
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def select_stack_unit(self, slot, **kwargs):
@@ -6834,19 +6835,19 @@ class Device360(Device360WebElements):
                     self.auto_actions.click(stack_item)
                     slot_found = True
                     kwargs['pass_msg'] = f"Selected the slot {str(slot)} successfully"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return 1
             if not slot_found:
                 self.utils.print_info(f"Unable to locate slot {str(slot)}")
                 kwargs['fail_msg'] = f"Unable to locate slot {str(slot)}"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Unable to gather the list of the slots for the stack")
             kwargs['fail_msg'] = "Unable to gather the list of the slots for the stack"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_configure_poe_threshold_value_stack(self, threshold_value, slot, device_mac="", device_name=""):
