@@ -127,7 +127,7 @@ class AuthSourcesWebElementDefs:
 
     rule_row2_select_option = \
         {
-                'XPATH': '//span[text()="Access duration"]',
+                'XPATH': '(//span[text()="Access duration"])[2]',
                 'wait_for': 5
         }
 

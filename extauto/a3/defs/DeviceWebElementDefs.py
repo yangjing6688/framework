@@ -24,6 +24,12 @@ class DeviceWebElementDefs:
             'wait_for': 5
         }
 
+    toggle_option = \
+        {
+            'XPATH': '//*[@class="base-input-range-label col-form-label text-nowrap mr-2"]',
+            'wait_for': 5
+        }
+
     device_ip = \
         {
             'XPATH': '//*[@data-automation-tag="automation-id"]',
