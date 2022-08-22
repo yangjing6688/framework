@@ -306,14 +306,14 @@ class Device360WebElementDefs:
         {
             'XPATH': '//*[@data-dojo-attach-point="ipAddress"]',
             'wait_for': 5,
-            'index':1
+            'index': 1
         }
 
     device360_configure_ssh_web_port = \
         {
             'XPATH': '//*[@data-dojo-attach-point="port"]',
             'wait_for': 5,
-            'index':1
+            'index': 1
         }
 
     device360_configure_ssh_web_url = \
@@ -327,7 +327,7 @@ class Device360WebElementDefs:
         {
             'XPATH': '//*[@data-dojo-attach-point="setDeviceSSH"]',
             'wait_for': 5,
-            'index':1
+            'index': 1
         }
 
     device360_configure_ssh_web_disable_button = \
@@ -1299,7 +1299,7 @@ class Device360WebElementDefs:
     device360_configure_vlan_port_one = \
         {
             'XPATH': '//*[@data-dojo-attach-point="portOverrideNode"]//input[@data-dojo-attach-point="accessPortVLAN"]',
-            'wait_for':5
+            'wait_for': 5
         }
 
     d360_configure_port_row_override_revert = \
@@ -1544,7 +1544,7 @@ class Device360WebElementDefs:
 
     d360_switch_ports_table_port_name_cell = \
         {
-            'CSS_SELECTOR':'.field-ifName',
+            'CSS_SELECTOR': '.field-ifName',
             'wait_for': 3
         }
 
@@ -1786,12 +1786,6 @@ class Device360WebElementDefs:
     device360_configure_port_configuration_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="configureNav"]//li[@data-id="portconfiguration"]',
-            'wait_for': 5
-        }
-
-    policy_configure_port_rows = \
-        {
-            'XPATH': '//tabset[@data-dojo-attach-point="configuration-ports-tabs"]//portdetails//portentry-row',
             'wait_for': 5
         }
 
@@ -2158,7 +2152,7 @@ class Device360WebElementDefs:
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
             'wait_for': 5
         }
-    #tab
+    # tab
     select_element_port_type_tab_usage = \
         {
             'XPATH': '//div[@data-automation-tag="port-type-editor-step-info"]',
@@ -2207,7 +2201,7 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    #page Name
+    # page Name
     select_element_port_type_name = \
         {
             'XPATH': '//input[@data-automation-tag="port-type-editor-name"]',
@@ -2323,7 +2317,7 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    #Page Transmission
+    # Page Transmission
     select_element_port_type_transmission_type = \
         {
             'XPATH': '//div[@data-automation-tag="automation-port-type-editor-duplex-chzn-container-ctn"]',
@@ -2367,7 +2361,7 @@ class Device360WebElementDefs:
         }
 
     # page STP
-    select_element_port_type_stp_enable= \
+    select_element_port_type_stp_enable = \
         {
             'XPATH': '//input[@data-automation-tag="port-type-editor-stp-enable"]',
             'wait_for': 5
@@ -2428,7 +2422,7 @@ class Device360WebElementDefs:
             'XPATH': '//input[@data-automation-tag="port-type-editor-sc-rate-limit-value"]',
             'wait_for': 5
         }
-    #pag6 ELRP (ONLY FOR EXOS)
+    # page ELRP (ONLY FOR EXOS)
     select_element_port_type_elrp_status = \
         {
             'XPATH': '//input[@data-automation-tag="port-type-editor-elrp-enable"]',
@@ -2495,7 +2489,7 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    #Page summary
+    # Page summary
     select_element_port_type_name_summary = \
         {
             'XPATH': '//a[@data-automation-tag="port-type-editor-summary-name"]',
@@ -2586,7 +2580,6 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-
     select_element_port_type_priority_summary = \
         {
             'XPATH': '//a[@data-automation-tag="port-type-editor-summary-stp-priority"]',
@@ -2628,7 +2621,6 @@ class Device360WebElementDefs:
             'XPATH': '//a[@data-automation-tag="port-type-editor-summary-sc-rate-limit-value"]',
             'wait_for': 5
         }
-
 
     select_element_port_type_elrp_status_summary = \
         {

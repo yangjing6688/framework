@@ -232,7 +232,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_configure_ssh_disable_button(self):
         return self.weh.get_element(self.device360_configure_ssh_disable_button)
 
-
     def get_device360_events_link(self):
         return self.weh.get_element(self.device360_events_link)
 
@@ -310,7 +309,6 @@ class Device360WebElements(Device360WebElementDefs):
         el = self.weh.get_element(self.device360_alarm_category, parent=row)
         return el.get_attribute("innerText")
 
-  
     def get_device360_configure_port_list(self):
         return self.weh.get_element(self.device360_configure_port_list)
 
@@ -373,7 +371,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_monitor_diagnostics_button(self):
         return self.weh.get_element(self.device360_monitor_diagnostics_button)
-
 
     def get_device360_time_range_drop_down(self):
         """
@@ -900,14 +897,6 @@ class Device360WebElements(Device360WebElementDefs):
         else:
             return False
 
-    def get_device360_device_configuration_save_button(self):
-        elements = self.weh.get_elements(self.device360_device_configuration_save_button)
-        for el in elements:
-            if el.is_displayed():
-                return el
-        else:
-            return False
-
     def get_device360_device_configuration_update_button(self):
         return self.weh.get_element(self.device360_device_configuration_update_button)
 
@@ -1019,7 +1008,7 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_configure_port_storm_control_tab_button(self):
         return self.weh.get_element(self.d360_configure_port_storm_control_tab_button)
 
-    def get_d360_configure_port_details_settings_aggregation_stp_storm_control_row_click_on_checkbox_or_button(self,select,row):
+    def get_d360_configure_port_details_settings_aggregation_stp_storm_control_row_click_on_checkbox_or_button(self, select, row):
         # Port Details
         if select == 'port state':
             return self.weh.get_element(self.d360_configure_port_state_click_button, row)
@@ -1107,7 +1096,7 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_monitor_port_speed(self, row):
         return self.weh.get_element(self.d360_monitor_port_speed, row)
 
-    def get_device360_port_settings_button(self, row):
+    def get_device360_port_settings_button(self):
         return self.weh.get_element(self.device360_port_settings_button)
 
     def get_icon_ports_items(self):
@@ -1365,16 +1354,16 @@ class Device360WebElements(Device360WebElementDefs):
         else:
             return False
 
-    def get_d360_create_port_type(self,port_row):
+    def get_d360_create_port_type(self, port_row):
         return self.weh.get_element(self.d360_create_port_type, port_row)
 
-    def get_policy_edit_port_type(self,port_row):
+    def get_policy_edit_port_type(self, port_row):
         return self.weh.get_element(self.policy_edit_port_type, port_row)
 
     def get_close_port_type_box(self):
         return self.weh.get_element(self.close_port_type_box)
 
-    def get_select_element_port_type(self,element, value = None):
+    def get_select_element_port_type(self, element, value=None):
         if element == "tab_vlan":
             return self.weh.get_element(self.select_element_port_type_tab_vlan)
         elif element == "usagePage":
@@ -1391,7 +1380,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_tab_summary)
         elif element == "elrdp":
             return self.weh.get_element(self.select_element_port_type_name)
-        #page Port Name
+        # page Port Name
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
         elif element == "description":
@@ -1404,7 +1393,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_port_usage_access)
         elif element == "port usage" and value == "trunk port":
             return self.weh.get_element(self.select_element_port_type_port_usage_trunk)
-        #page Access Vlan
+        # page Access Vlan
         elif element == "next_button":
             return self.weh.get_element(self.select_element_port_type_next_button)
         elif element == "add_vlan":
@@ -1417,7 +1406,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_vlan_select_button)
         elif element == "dropdown_items":
             return self.weh.get_elements(self.select_element_port_type_vlan_dropdown_items)
-        #page Trunk vlan
+        # page Trunk vlan
         elif element == "native_vlan_add_vlan":
             return self.weh.get_element(self.select_element_port_type_native_vlan_add_vlan)
         elif element == "native_vlan_name_vlan":
@@ -1432,7 +1421,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_save_vlan)
         elif element == "allowed vlans":
             return self.weh.get_element(self.select_element_port_type_allowed_vlans)
-        #page Transmission
+        # page Transmission
         elif element == "transmission type":
             return self.weh.get_element(self.select_element_port_type_transmission_type)
         elif element == "transmission_type_dropdown_items":
@@ -1471,7 +1460,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_multicast)
         elif element == "rate limit value":
             return self.weh.get_element(self.select_element_port_type_rate_limit_value)
-        #page ELRP (ONLY FOR EXOS)
+        # page ELRP (ONLY FOR EXOS)
         elif element == "elrp status":
             return self.weh.get_element(self.select_element_port_type_elrp_status)
         # page PSE
@@ -1497,7 +1486,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_poe_status)
         return -1
 
-    def get_select_element_port_type_summary(self,element):
+    def get_select_element_port_type_summary(self, element):
         if element == "name":
             return self.weh.get_element(self.select_element_port_type_name_summary)
         elif element == "description":
@@ -1583,7 +1572,7 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_stack_overview_slot_details_rows(self):
         return self.weh.get_element(self.device360_stack_overview_slot_details_rows)
 
-    def get_device360_thunderbold_icon_stack(self,row):
+    def get_device360_thunderbold_icon_stack(self, row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
 
     def get_device360_port_config_pse_tab_slot_stack(self):

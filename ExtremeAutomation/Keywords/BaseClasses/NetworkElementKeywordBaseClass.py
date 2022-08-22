@@ -177,7 +177,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
     # +-----------------+
     # | Private Methods |
     # +-----------------+
-    def _init_keyword(self, device_name=None, cmd_const=None, parse_const=None, **kwargs):
+    def _init_keyword(self, device_name=None, cmd_const=None, parse_const=None,  **kwargs):
         """
         Runs the needed initialization before executing a keyword. Gets the device object and API
         requested by the keyword.

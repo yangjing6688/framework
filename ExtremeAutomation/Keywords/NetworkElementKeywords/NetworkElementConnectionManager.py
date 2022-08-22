@@ -57,7 +57,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         self.__base_connect_to_network_element(net_elem_name, ip, username, password, connection_method, device_cli_type,
                                                port, device_platform, device_version, device_unit, debug_password,
-                                               **kwargs)
+                                            **kwargs)
 
         dev, _, _ = self._init_keyword(net_elem_name, **kwargs)
         expect_error = self.get_kwarg_bool(kwargs, "expect_error", False)
