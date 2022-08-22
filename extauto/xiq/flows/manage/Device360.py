@@ -6421,13 +6421,9 @@ class Device360(Device360WebElements):
                     return 1
                 else:
                     sleep(5)
-
-                    def check_pse_profile_add():
-                        if self.get_select_element_port_type("pse_profile_add"):
-                            return True
-                        else:
-                            return False
-                    self.utils.wait_till(check_pse_profile_add, delay=5)
+                    self.utils.print_info(f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
+                                          f"Closing dropdown...")
+                    self.auto_actions.click(get_pse_profile)
                     
                     get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
                     if get_pse_profile_add:
@@ -6483,7 +6479,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("get_pse_profile not found ")
         elif element.lower() == "poe status":
             sleep(5)
-            get_poe_status = self.get_select_element_port_type(element, value)
+            get_poe_status = self.get_select_element_port_type('poe status')
             print('Found POE_Status button: ', get_poe_status)
             sleep(5)
             if get_poe_status:
