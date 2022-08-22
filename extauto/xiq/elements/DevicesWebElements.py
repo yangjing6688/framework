@@ -517,6 +517,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.devices_advanced_add_device_make_drop_down)
 
+    def get_devices_quick_add_block_show(self):
+        return self.weh.get_element(self.devices_quick_add_block_show)
+
     def get_devices_quick_add_device_make_aerohive_choice(self):
         """
         :return: quick add device make drop down Extreme - Aerohive selection

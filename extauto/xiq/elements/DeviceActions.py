@@ -28,6 +28,9 @@ class DeviceActions(DeviceActionsDefs):
     def get_device_actions_cli_windows_input_apply(self):
         return self.weh.get_element(self.device_actions_cli_windows_input_apply)
 
+    def get_device_actions_cli_windows_close(self):
+        return self.weh.get_element(self.device_actions_cli_windows_close)
+
     def get_device_actions_reboot_menu_item(self):
         """
         :return: Reboot Menu Option

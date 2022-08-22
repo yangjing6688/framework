@@ -817,6 +817,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    devices_quick_add_block_show = \
+        {
+            'CSS_SELECTOR': '.show-quick-add',
+            'wait_for': 1
+        }
+
     devices_add_devices_cancel_button = \
         {
             'CSS_SELECTOR': '.btn.btn-cancel.btn-small',

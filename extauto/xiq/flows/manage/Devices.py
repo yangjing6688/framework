@@ -97,6 +97,15 @@ class Devices:
         self.utils.print_info("Clicking on ADD DEVICES button...")
         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
 
+        quick_add_ongoing = True
+        while quick_add_ongoing:
+            if self.devices_web_elements.get_devices_quick_add_block_show():
+                self.utils.print_info("Still in adding device process, wait for finishing ...")
+                sleep(2)
+            else:
+                quick_add_ongoing = False
+                self.utils.print_info("Finish device adding process ...")
+
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
 
@@ -10876,7 +10885,7 @@ class Devices:
 
     def enable_device_wan_access(self, device_serial):
         """
-        - This keyword will configure device function as AP or Router
+        - This keyword will enable WAN access for XR or AP as Router mode
         :param device_serial:   The serial of the device
         :return: success 1 else -1
         """
@@ -10888,6 +10897,30 @@ class Devices:
                 self.utils.print_info("Failed to navigate the Devices page ...")
                 return -1
         if self.select_device(device_serial):
-            self.utils.print_info("Selecting Actions button")
+            self.utils.print_info("Click Actions button ...")
             self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.utils.print_info("Move to Advance button ...")
+            self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
+            self.utils.print_info("Move to CLI Access button ...")
+            self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance_cli_access())
+            self.utils.print_info("Click CLI Access button ...")
+            self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
+            if self.device_actions.get_device_actions_cli_windows():
+                self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
+                self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
+                self.utils.print_info("Click Apply button to send CLI to AP ...")
+                self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
+                self.utils.print_info("Close CLI windows ...")
+                self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
+                return 1
+            else:
+                self.utils.print_info("There is no CLI window popup ...")
+                return -1
+        else:
+            self.utils.print_info("No device is selected ...")
+            return -1
+
+
+
+
 

@@ -186,7 +186,7 @@ class WirelessNetworksDefinitions:
 
     key_based_radio_button = \
         {
-            'XPATH': '//*[@id="keyBasedPCG"]',
+            'XPATH': '//*[@data-automation-tag="ssid-details-access-security-key-based-pcg"]',
             'wait_for': 5
         }
 

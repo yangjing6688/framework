@@ -2,18 +2,18 @@
 
 class DialogWebElementsDefinitions:
     dialog_title_label = \
-        {'CLASS_NAME': 'dijitDialogTitle',
-         
+        {
+            'CLASS_NAME': 'dijitDialogTitle',
          }
 
     dialog_box = \
-        {'CSS_SELECTOR': '.quick-onboard-dialog.dijitDialogFixed.dijitDialog',
-         
+        {
+            'CSS_SELECTOR': '.quick-onboard-dialog.dijitDialogFixed.dijitDialog',
         }
 
     dialog_message = \
-        {'CSS_SELECTOR': '.ui-dialog-content.quick-failure-ctn',
-         
+        {
+            'CSS_SELECTOR': '.ui-dialog-content.quick-failure-ctn',
          }
 
     dialog_ok_button = \
