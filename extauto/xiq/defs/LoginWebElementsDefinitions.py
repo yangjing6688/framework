@@ -600,3 +600,4 @@ class LoginWebElementsDefinitions:
             'XPATH': '//button[@class="button-grey"]',
             'wait_for': 3,
         }
+

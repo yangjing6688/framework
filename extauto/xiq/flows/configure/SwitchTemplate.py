@@ -19,6 +19,7 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 
 class SwitchTemplate(object):
 
@@ -37,6 +38,7 @@ class SwitchTemplate(object):
         self.tools = Tools()
         self.common_validation = CommonValidation()
         self.dialogue_web_elements = DialogWebElements()
+        self.common_objects = CommonObjects()
 
     def check_sw_template(self, sw_template):
         """
@@ -61,7 +63,7 @@ class SwitchTemplate(object):
                 return True
         return False
 
-    def add_sw_template(self, nw_policy, sw_model, sw_template_name):
+    def add_sw_template(self, nw_policy, sw_model, sw_template_name, **kwargs):
         """
         - Checks the given switch template present already in the switch Templates Grid
         - If it is not there add to the sw_template
@@ -74,6 +76,36 @@ class SwitchTemplate(object):
 
         :return: 1 if Switch Template Configured Successfully else -1
         """
+        self.navigator.navigate_to_switch_templates()
+        self.utils.print_info("Click on full page view for switch template")
+        page_size_el = self.common_objects.cobj_web_elements.get_paze_size_element(page_size='100')
+        if page_size_el:
+            self.utils.print_info("  -- clicking page size element 100 for switch template")
+            self.auto_actions.click(page_size_el)
+            sleep(3)
+        else:
+            self.utils.print_info("  -- could not find page size element 100")
+        if self.common_objects.search_switch_template(sw_template_name):
+            kwargs['pass_msg'] = "Switch Template exists on first page!!"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        elif not self.common_objects.search_switch_template(sw_template_name):
+            self.utils.print_info("Switch Template doesn't exist on first page")
+            next_page_el = self.common_objects.cobj_web_elements.get_next_page_element()
+            if next_page_el:
+                device_page_numbers = self.common_objects.cobj_web_elements.get_page_numbers()
+                page_len = int(max(device_page_numbers.text))
+                while page_len:
+                    self.utils.print_info("  -- clicking next page")
+                    self.auto_actions.click(next_page_el)
+                    sleep(2)
+                    page_len = page_len - 1
+                    if self.common_objects.search_switch_template(sw_template_name):
+                        kwargs['pass_msg'] = "Switch Template exists in the list!!"
+                        self.common_validation.passed(**kwargs)
+                        return 1
+
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
         sleep(1)
@@ -91,10 +123,6 @@ class SwitchTemplate(object):
             self.auto_actions.click(tab)
             sleep(2)
 
-        if self.check_sw_template(sw_model):
-            self.utils.print_info("Template Already present in the template grid")
-            return 1
-       
         add_btns = self.sw_template_web_elements.get_sw_template_add_button()
         sleep(2)
 
@@ -108,6 +136,7 @@ class SwitchTemplate(object):
                 self.utils.print_info("select the sw: ", sw_model)
                 sw_list_items = self.sw_template_web_elements.get_sw_template_platform_from_drop_down()
                 sleep(2)
+                model_found = False
                 for el in sw_list_items:
                     if not el:
                         continue
@@ -117,8 +146,13 @@ class SwitchTemplate(object):
                     self.utils.print_info("Looking for: ", sw_model.upper())
                     if sw_model.upper() in el.text.upper():
                         self.utils.print_info("    -switch template match")
+                        model_found = True
                         self.auto_actions.click(el)
                         break
+                if not model_found:
+                    kwargs['fail_msg'] = "Device model NOT found!"
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
                 sleep(1)
 
@@ -144,7 +178,7 @@ class SwitchTemplate(object):
                         
                         self.screen.save_screen_shot()
                         rc = 1
-                        break;
+                        break
 
                 self.utils.print_info("Click on network policy exit button")
                 self.auto_actions.click(self.np_web_elements.get_np_exit_button())
@@ -1687,6 +1721,7 @@ class SwitchTemplate(object):
             choose_existing_port_type = self.sw_template_web_elements.existing_port_type_button()
             if choose_existing_port_type:
                 self.auto_actions.click(choose_existing_port_type)
+            self.utils.wait_till(self.sw_template_web_elements.port_type_list)
             existing_port_type_list = self.sw_template_web_elements.port_type_list()
             if existing_port_type_list:
                 self.utils.print_info("Found the port type list!")
@@ -1727,14 +1762,14 @@ class SwitchTemplate(object):
                                                               f"ports: {ports}")
                                     else:
                                         kwargs['fail_msg'] = 'Did not find the successful Trunk Port message.'
-                                        self.common_validation.validate(-1, 1, **kwargs)
+                                        self.common_validation.failed(**kwargs)
                                         return -1
 
                                 else:
                                     self.utils.print_info("Unable to find the 'Save' button in this section!")
                                     kwargs['fail_msg'] = "Unable to find the 'Save' button in this section!"
                                     self.screen.save_screen_shot()
-                                    self.common_validation.validate(-1, 1, **kwargs)
+                                    self.common_validation.failed(**kwargs)
                                     return -1
                             else:
                                 pass
@@ -1761,12 +1796,12 @@ class SwitchTemplate(object):
                                         rc = 1
                                         self.utils.print_info("Template has been saved successfully.")
                                         kwargs['pass_msg'] = "Template has been saved successfully."
-                                        self.common_validation.validate(1, 1, **kwargs)
+                                        self.common_validation.passed(**kwargs)
                                     else:
                                         self.utils.print_info("Successful message not found")
                                         kwargs['fail_msg'] = "Successful message not found"
                                         self.screen.save_screen_shot()
-                                        self.common_validation.validate(-1, 1, **kwargs)
+                                        self.common_validation.failed(**kwargs)
                                         return -1
                                     break
                             return rc
@@ -1774,13 +1809,13 @@ class SwitchTemplate(object):
                             self.utils.print_info("Did not find the save button!")
                             kwargs['fail_msg'] = "Did not find the save button!"
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
         else:
             self.utils.print_info("Could not find the assign button!")
             kwargs['fail_msg'] = "Could not find the assign button!"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def add_5520_sw_template(self, nw_policy, sw_model, sw_template_name, save_template=True):
@@ -1892,7 +1927,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Not found the network policy. Make sure that it was created")
             kwargs['fail_msg'] = f"Policy: {nw_policy} has not been found."
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Click on Device Template tab button")
         self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
@@ -1917,36 +1952,39 @@ class SwitchTemplate(object):
                         def check_for_confirmation():
                             tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
                             self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
-                            return "Template was successfully removed from policy." in tool_tip_text
+                            if tool_tip_text:
+                                return "Template was successfully removed from policy." in tool_tip_text
+                            else:
+                                return False
 
                         confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                         if confirmation_message:
                             rc = 1
                             self.utils.print_info("Template was successfully removed from policy.")
                             kwargs['pass_msg'] = "Template was successfully removed from policy."
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                         else:
                             self.utils.print_info("Successful message not found")
                             kwargs['fail_msg'] = "Successful message not found"
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
                     else:
                         kwargs['fail_msg'] = "Delete button hasn't been found."
                         self.screen.save_screen_shot()
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
             if not found:
                 self.utils.print_info(f"The template {sw_template_name} is not present here, it may have been "
                                       "already deleted or it wasn't created.")
                 kwargs['pass_msg'] = f"The template {sw_template_name} is not present here, it may have been " \
                                      f"already deleted or it wasn't created."
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
         else:
             self.utils.print_info("There aren't any templates here.")
             kwargs['pass_msg'] = "There are no templates configured."
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
     def sw_template_stack_select_slot(self, slot, **kwargs):
@@ -1969,24 +2007,24 @@ class SwitchTemplate(object):
                         self.auto_actions.click(stack_item)
                         slot_found = True
                         kwargs['pass_msg'] = f"Slot {str(slot)} found in the stack"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
                     slot_index = slot_index + 1
                 if not slot_found:
                     kwargs['fail_msg'] = f"Slot {str(slot)} not found in the stack, check the numbers of slots"
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 kwargs['fail_msg'] = f"Something went wrong with selecting the slot {str(slot)}"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
             else:
                 self.utils.print_info("Cannot find the slot list for the stack in this template")
                 kwargs['fail_msg'] = "Cannot find the slot list for the stack in this template"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             kwargs['fail_msg'] = "Unable to gather the list of the devices in the stack"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)

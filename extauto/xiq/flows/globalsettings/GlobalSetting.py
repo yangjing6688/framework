@@ -101,7 +101,7 @@ class GlobalSetting(GlobalSettingWebElements):
         auth_logs_dict = {}
         auth_logs_row = self.get_authentication_logs_row(search_string)
         self.screen.save_screen_shot()
-        
+
         if auth_logs_row:
             cells = self.get_authentication_logs_row_cells(auth_logs_row)
             for cell in cells:
@@ -117,8 +117,34 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info(f"******************Authentication log details************************")
             for key, value in auth_logs_dict.items():
                 self.utils.print_info(f"{key}:{value}")
+        else:
+            self.utils.print_info("No logs found.. Sleep for 60secs and checking again..")
+            sleep(60)
+            self.navigate.navigate_to_devices()
+            self.navigate.navigate_to_authentication_logs()
+            self.auto_actions.send_keys(self.get_authentication_logs_search_text_field(),
+                                        search_filter)
+            sleep(2)
+            auth_logs_row = self.get_authentication_logs_row(search_string)
+            self.screen.save_screen_shot()
 
-            return auth_logs_dict
+            if auth_logs_row:
+                cells = self.get_authentication_logs_row_cells(auth_logs_row)
+                for cell in cells:
+                    if re.search(r'field-\w*', cell.get_attribute("class")):
+                        label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
+
+                        if label == 'reply':
+                            auth_cell = self.get_authentication_logs_auth_status_cell(cell)
+                            auth_logs_dict[label] = auth_cell.get_attribute("class").split()[-1]
+                            self.screen.save_screen_shot()
+                        else:
+                            auth_logs_dict[label] = cell.text
+                self.utils.print_info(f"******************Authentication log details************************")
+                for key, value in auth_logs_dict.items():
+                    self.utils.print_info(f"{key}:{value}")
+
+        return auth_logs_dict
 
     def get_authentication_logs_username(self, search_string):
         """
@@ -206,7 +232,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.auto_actions.click(self.get_global_settings_account_organizations_add_button())
         sleep(2)
 
-        self.utils.print_info("Entering Organization name: ",  organization_name)
+        self.utils.print_info("Entering Organization name: ", organization_name)
         self.auto_actions.send_keys(self.get_global_settings_account_organization_name_inputfield(), organization_name)
         sleep(2)
 
@@ -293,7 +319,7 @@ class GlobalSetting(GlobalSettingWebElements):
             sleep(2)
 
             tool_tp_text = tool_tip.tool_tip_text
-            self.utils.print_info("Tooltip Text After enabling HIQ:",tool_tp_text)
+            self.utils.print_info("Tooltip Text After enabling HIQ:", tool_tp_text)
 
             if "The process has been started. You will be logged out momentarily." in tool_tp_text:
                 self.utils.print_info("Automatic Logout Happening on Account after enabling HIQ")
@@ -637,7 +663,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Clicking Reset VIQ Confirm Button")
         self.auto_actions.click(self.get_reset_viq_confirm_button())
         sleep(2)
-        
+
         """
         self.screen.save_screen_shot()
         sleep(2)
@@ -651,8 +677,8 @@ class GlobalSetting(GlobalSettingWebElements):
         else:
             self.utils.print_info("VIQ Delete Data Operation is Not Successfully Completed")
             return -1
-        """    
-        
+        """
+
         self.utils.print_info("Reset VIQ operation is successful")
         return 1
 
@@ -759,7 +785,7 @@ class GlobalSetting(GlobalSettingWebElements):
                     return row
             return False
 
-    def set_vertical(self,industry_type):
+    def set_vertical(self, industry_type):
         """
         - This Keyword will set Industry type on xiq side
         - Flow : User account icon-->Global Settings--> Account Details ---> Industry
@@ -903,7 +929,7 @@ class GlobalSetting(GlobalSettingWebElements):
         else:
             return "Enable"
 
-    def get_supplemental_cli_option(self,option):
+    def get_supplemental_cli_option(self, option):
         """
         - This Keyword will Enable/Disable Supplemental CLI in Global Settings
         - Flow : User account image-->Global Settings--> VIQ Management
@@ -932,7 +958,7 @@ class GlobalSetting(GlobalSettingWebElements):
                 sleep(1)
         return 1
 
-    def change_exos_device_management_settings(self,option,platform):
+    def change_exos_device_management_settings(self, option, platform):
         """
         - This Keyword will Enable/Disable device management settings for EXOS switches.
         - Flow : User account image-->Global Settings--> Device Management Settings
@@ -1051,7 +1077,8 @@ class GlobalSetting(GlobalSettingWebElements):
                 time_stamp = self.devices_web_elements.get_audit_time_stamp(el)
                 if time_stamp:
                     self.utils.print_debug("Time_stamp for last log is : ", time_stamp.text)
-                    if self.utils.convert_string_to_date(time_stamp.text) > self.utils.convert_string_to_date(date_start):
+                    if self.utils.convert_string_to_date(time_stamp.text) > self.utils.convert_string_to_date(
+                            date_start):
                         field_description_more_button = self.devices_web_elements.get_field_description_more_button(el)
                         if field_description_more_button:
                             self.utils.print_info("'More' button button was found on row")
@@ -1117,3 +1144,52 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("The log was not found . return -1")
         return -1
 
+    def enable_copilot_feature_for_this_viq(self):
+        """
+        - Enabling CoPilot Feature in Global Settings Page
+        - Flow : User account icon-->Global Settings--> VIQ Management
+        - Keyword Usage
+         - ``Enable CoPilot feature for this VIQ``
+        :return: 1 after successfully enabling CoPilot feature
+        """
+
+        self.navigate.navigate_to_viq_management_page()
+        sleep(2)
+
+        self.utils.print_info("Now checking for Enable CoPilot feature for this VIQ")
+        self.screen.save_screen_shot()
+        if not self.get_enable_copilot_feature_option_status().is_selected():
+            self.utils.print_info("Enabling CoPilot feature..")
+            self.auto_actions.click(self.get_enable_copilot_feature_option_status())
+            sleep(1)
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Enable CoPilot feature for this VIQ button already enabled...")
+            sleep(2)
+            self.screen.save_screen_shot()
+
+        return 1
+
+    def disable_copilot_feature_for_this_viq(self):
+        """
+        - Disabling CoPilot Feature in Global Settings Page
+        - Flow : User account icon-->Global Settings--> VIQ Management
+        - Keyword Usage
+         - ``Disable CoPilot feature for this VIQ``
+        :return: 1 after successfully disabling CoPilot feature
+        """
+
+        self.navigate.navigate_to_viq_management_page()
+        sleep(2)
+
+        self.utils.print_info("Now checking for Enable CoPilot feature for this VIQ")
+        self.screen.save_screen_shot()
+        if self.get_enable_copilot_feature_option_status().is_selected():
+            self.utils.print_info("Disabling CoPilot feature..")
+            self.auto_actions.click(self.get_enable_copilot_feature_option_status())
+            sleep(1)
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Enable CoPilot feature for this VIQ button already disabled...")
+            sleep(2)
+            self.screen.save_screen_shot()

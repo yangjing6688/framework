@@ -49,7 +49,7 @@ class DeviceActionsDefs:
 
     device_actions_reboot_menu_item = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-switch-reboot"]',
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag, "-reboot")]',
             'wait_for': 2
         }
 
@@ -57,7 +57,7 @@ class DeviceActionsDefs:
         {
             # The identifier differs depending on which type of device is selected (ap, switch, etc.),
             # so need to get all partial matches and select the displayed element
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-ap-assign-location"]',
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-assign-location")]',
             'wait_for': 5
         }
 
@@ -218,14 +218,12 @@ class DeviceActionsDefs:
             'wait_for': 5
         }
 
-
     device_actions_manage_license = \
         {
             'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-manage-device-license"]',
 
             'wait_for': 2
         }
-
 
     activate_license = \
         {
@@ -305,6 +303,12 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    confirm_msg_no = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-no-button"]',
+            'wait_for': 2
+        }
+
     confirm_msg_yes = \
         {
             'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
@@ -362,5 +366,54 @@ class DeviceActionsDefs:
     change_os_actions_voss = \
         {
             'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-ap-os-voss"]',
+            'wait_for': 5
+        }
+
+    digital_twin_assign_location = \
+        {
+            'DESC': 'Digital Twin: Actions > Assign Location',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-dt-assign-location"]',
+            'wait_for': 5
+        }
+
+    digital_twin_assign_network_policy = \
+        {
+            'DESC': 'Digital Twin: Actions > Assign Network Policy',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-dt-assign-policy"]',
+            'wait_for': 5
+        }
+
+    digital_twin_relaunch_action_menu_item = \
+        {
+            'DESC': 'Digital Twin: Actions > Relaunch Digital Twin menu item',
+            'XPATH': '//li[@type="relaunchDigitalTwin"]',
+            'wait_for': 5
+        }
+
+    digital_twin_relaunch_action = \
+        {
+            'DESC': 'Digital Twin: Actions > Relaunch Digital Twin',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-dt-relaunch"]',
+            'wait_for': 5
+        }
+
+    digital_twin_shutdown_action_menu_item = \
+        {
+            'DESC': 'Digital Twin: Actions > Shutdown Digital Twin menu item',
+            'XPATH': '//li[@type="shutdownDigitalTwin"]',
+            'wait_for': 5
+        }
+
+    digital_twin_shutdown_action = \
+        {
+            'DESC': 'Digital Twin: Actions > Shutdown Digital Twin',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-dt-shutdown"]',
+            'wait_for': 5
+        }
+
+    digital_twin_revert_device_template = \
+        {
+            'DESC': 'Digital Twin: Actions > Revert Device to Template Defaults',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-dt-revert-template"]',
             'wait_for': 5
         }

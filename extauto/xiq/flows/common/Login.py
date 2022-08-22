@@ -40,7 +40,7 @@ class Login:
         :param url: if not default, will be read from the ${TEST_URL} variable
         :return: returns driver object
         """
-        if CloudDriver().cloud_driver == None:
+        if CloudDriver().cloud_driver is None:
             self.utils.print_info("Creating new cloud driver")
             CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
             self.window_index = 0
@@ -86,9 +86,9 @@ class Login:
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   **kwargs):
+                   max_retries=3, **kwargs):
         """
-        - Login to Xiq account with username and password
+        - Login to Xiq account with username and password (we will try up to 3 times)
         - By default url will load from the topology file
         - keyword Usage:
          - ``Login User   ${USERNAME}   ${PASSWORD}``
@@ -108,8 +108,38 @@ class Login:
         :param saleforce_shared_cuid: Salesforce Shared CUID
         :param quick: Quick login without more sleep time while loading url
         :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
+        :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
+        result = -1
+        count = 0
+        expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
+        result = self._login_user(username, password, capture_version, login_option, url,
+                    incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                    salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
+                    **kwargs)
+
+        # Let's try again if we don't expect and error and the results were not good
+        if not expect_error:
+            while result != 1 and count < max_retries:
+                self.utils.print_warning(f'Trying to log in again: {count}')
+                result = self._login_user(username, password, capture_version, login_option, url,
+                                          incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
+                                          **kwargs)
+                count = count + 1
+        if result != 1:
+            kwargs['fail_msg'] = "Login was not successful"
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Login was successful"
+            self.common_validation.passed(**kwargs)
+        return result
+
+    def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
+                   incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
+                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   **kwargs):
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
@@ -170,20 +200,17 @@ class Login:
         if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
             # self.utils.print_info("Wrong Credentials. Try Again")
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid) == -1:
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
         if quick:
             sleep(2)
         else:
             sleep(10)
-
         if check_warning_msg:
             self.utils.print_info("Check for Warning Messages..")
             if self.login_web_elements.get_dialog_message():
@@ -209,7 +236,6 @@ class Login:
                     self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
             except Exception as e:
                 pass
-
         if co_pilot_status:
             url = BuiltIn().get_variable_value("${TEST_URL}")
             copilot_url = f"{url}/hm-webapp/?copilotBeta=true"
@@ -221,7 +247,6 @@ class Login:
         if capture_version:
             self._capture_xiq_version()
         kwargs['pass_msg'] = "User has been logged in"
-        self.common_validation.validate(1, 1, **kwargs)
         return 1
 
     def logout_user(self):
@@ -326,7 +351,6 @@ class Login:
             json_response = "No Output"
             response_code = None
             total_time = None
-
 
         self.utils.print_info("HTTP Status Code: ", response_code)
         self.utils.print_info("Response : ", json_response)
@@ -471,7 +495,6 @@ class Login:
         self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
 
         return data_center_name
-
 
     def _capture_xiq_version(self):
         """
@@ -699,7 +722,7 @@ class Login:
 
         :param username: login account username
         :param password: login account password
-        :param login_type: trial, connect, extremecloudiq license, legacy license
+        :param login_option: trial, connect, extremecloudiq license, legacy license
         :param capture_version: true if want capture the xiq build version
         :param code:
         :param url: url to load
@@ -1280,18 +1303,18 @@ class Login:
             self.utils.print_info(e)
 
     def click_advanced_onboard_popup(self):
-           """
-           This keyword just clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
-           - Keyword Usage:
-         - ` click advanced popup`
-            :return: None
-           """
-           self.utils.print_info("Check for Advance Onboard Popup page after login..")
-           try:
-               if self.login_web_elements.get_drawer_content().is_displayed():
-                   self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
-           except Exception as e:
-               pass
+        """
+        This keyword just clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
+        - Keyword Usage:
+        - ` click advanced popup`
+         :return: None
+        """
+        self.utils.print_info("Check for Advance Onboard Popup page after login..")
+        try:
+            if self.login_web_elements.get_drawer_content().is_displayed():
+                self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+        except Exception as e:
+            pass
 
     def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_password,
                                sw_connection_host):
@@ -1303,7 +1326,7 @@ class Login:
         :param admin_email: admin email, the email that is used to log in into xiq cloud
         :param admin_password: the password chosen to log in into xiq cloud
         :param sw_connection_host: the url of the RDC
-        :return: returns 1 if the account was created succesfully or -1 if otherwise
+        :return: returns 1 if the account was created successfully or -1 if otherwise
         """
         cnt = 0
         while cnt < 3:
@@ -1457,11 +1480,11 @@ class Login:
             return -1
 
     def delete_user_portal(self, customer_name, check_delete_devices=-1):
-        '''
+        """
         This function deletes the account created in portal
         :param customer_name:   the name of the customer under which the account was created
         :return: returns 1 if the account was deleted or -1 if otherwise
-        '''
+        """
         sleep(20)
         if check_delete_devices == -1:
             print("There are still devices on this account!!!!")
@@ -1550,34 +1573,33 @@ class Login:
         return 1
 
     def log_out_portal(self):
-        '''
+        """
         This function logs out from portal
         :return: returns 1 if logging out was succesfull or -1 if otherwise
-        '''
+        """
         self.screen.save_screen_shot()
         self.utils.print_info("Clicking LOGOUT button...")
         log_out_button_portal = self.login_web_elements.get_log_out_button_portal()
         if log_out_button_portal:
             self.utils.print_info("Found LOGOUT button!")
             self.auto_actions.click(log_out_button_portal)
-            self.utils.print_info("Succesfully logged out!")
+            self.utils.print_info("Successfully logged out!")
             return 1
         else:
             self.utils.print_info("Unable to find LOGOUT button.")
             return -1
 
     def get_portal_url(self, sw_connection_host):
-        '''
-
+        """
         :param sw_connection_host: the url of the RDC
         :return: the url of portal page ; else -1 
-        '''
+        """
 
         pattern1 = "(\\w+)r\\d+."
         gdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
         self.utils.print_info("GDC is : ", gdc[0])
-        if isinstance(gdc,list):
-            if isinstance(gdc[0],str):
+        if isinstance(gdc, list):
+            if isinstance(gdc[0], str):
                 url = "https://" + gdc[0] + "-portal.qa.xcloudiq.com/portal/"
                 self.utils.print_info("url is : ", url)
                 return url
@@ -1585,14 +1607,13 @@ class Login:
                 return -1
         else:
             return -1
-        return -1
 
     def check_if_xiq_user_exists(self, customer_name):
-        '''
+        """
         This function check if the XIQ user exists into portal page
         :param customer_name:   the name of the customer under which the account was created
         :return: returns 1 if the account user doesn't exist; else -1
-        '''
+        """
 
         self.screen.save_screen_shot()
         self.utils.print_info("Clicking on name cell menu button ...")
@@ -1646,4 +1667,18 @@ class Login:
             self.utils.print_info("The user has already been deleted or it hasn't been created.")
             self.screen.save_screen_shot()
             return 1
+        # return 1 < This code is unreachable?
+
+    def xiq_soft_launch_feature_url(self, url):
+        # xiq_enable_hidden_feature
+        """
+        - XIQ uses a URL to enable or disable a 'soft launch' (beta) feature.
+        - Keyword Usage:
+         - ``XIQ Soft Launch Feature URL   ${URL}``
+        :param url: full url to load to enable or disable the 'hidden' feature
+        :return: 1 if loaded the url successfully
+        """
+        self.utils.print_info(f"Load Page: {url}")
+        CloudDriver().cloud_driver.get(url)
+        sleep(5)
         return 1

@@ -1361,3 +1361,13 @@ class DeviceConfigDefs:
             'XPATH': '//*[@data-automation-tag="automation-deviceconfiguration-save-btn"]',
             'wait_for': 5
         }
+
+    config_audit_content = \
+        {
+            'XPATH': "//div[@data-dojo-attach-point='auditCtn']"
+        }
+
+    config_audit_delta_view_button_yellow = \
+        {
+            'CSS_SELECTOR': '.ui-icon-sprite-mismatch'
+        }

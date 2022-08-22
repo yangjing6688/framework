@@ -370,3 +370,9 @@ class GlobalSettingWebElementDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="btnSaveDefaultPassword"]',
             'wait_for': 3
         }
+
+    enable_copilot_feature_option_status = \
+        {
+            'XPATH': '//*[@data-automation-tag="viq-copilot-feature-toggle"]',
+            'wait_for': 3
+        }

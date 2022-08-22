@@ -50,6 +50,9 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
     def get_np_save_button(self):
         return self.weh.get_element(self.policy_save_button)
 
+    def get_np_save_tool_tip(self):
+        return self.weh.get_element(self.np_save_tool_tip)
+
     def get_np_exit_button(self):
         return self.weh.get_element(self.policy_exit_button)
 
@@ -442,3 +445,12 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
 
     def get_management_options_select_button(self):
         return self.weh.get_element(self.management_options_select_button)
+
+    def get_nw_policy_port_types_view_all_pages(self):
+        return self.weh.get_element(self.nw_policy_port_types_view_all_pages)
+
+    def get_next_page_element_disabled(self):
+        return self.weh.get_element(self.next_page_element_disabled)
+
+    def get_next_page_element(self, page_size='50'):
+        return self.weh.get_elements(self.next_page_element)

@@ -5,7 +5,7 @@ from extauto.common.WebElementHandler import *
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
-
+from extauto.common.CommonValidation import CommonValidation
 
 class Navigator(NavigatorWebElements):
     def __init__(self):
@@ -14,6 +14,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
+        self.common_validation = CommonValidation()
 
     def navigate_to_manage_tab(self):
         """
@@ -1857,6 +1858,24 @@ class Navigator(NavigatorWebElements):
         else:
             return -2
 
+    def navigate_to_webhooks_page(self):
+        """
+        - Navigate to the USER ACCOUNT-> Global settings > Webhooks
+        - Flow: USER ACCOUNT-> Global settings > Webhooks
+        - Keyword Usage:
+         - ``Navigate To Webhooks Page``
+
+        :return: 1 If Navigated successfully else -1
+        """
+        self.navigate_to_global_settings_page()
+        self.utils.print_info("Clicking on account details...")
+        webhooks_ele = self.weh.get_element(self.global_settings_webhooks)
+        if webhooks_ele.is_displayed():
+            self.auto_actions.click(webhooks_ele)
+            return 1
+        else:
+            return -1
+
     def navigate_to_dashboard_page(self):
         """
         - Navigate to dashboard page by clicking top left of UI
@@ -2879,40 +2898,29 @@ class Navigator(NavigatorWebElements):
             self.screen.save_screen_shot()
             return -2
 
-    def navigate_configure_alert(self):
+    def navigate_manage_alerts(self):
         """
-         - This keyword Navigates to Alert On Configure Menu
-         - Flow Configure--> Alert
-         - Keyword Usage
-          - ``Navigate Configure Alert``
+        - Navigate to the MANAGE->ALERTS
+        - Flow: Manage --> Alerts
+        - Keyword Usage:
+         - ``Navigate Manage Alerts``
 
-        :return: 1 if Navigation Successful to Alert On Configure Menu else return -1
+        :return: 1 If Navigated successfully else -1
         """
-        self.utils.print_info("Selecting Configure tab...")
-        if self.get_configure_tab().is_displayed():
-            self.navigate_to_configure_tab()
+        self.utils.print_info("Clicking Manage Tab...")
+        try:
+            if self.get_manage_tab().is_displayed():
+                self.auto_actions.click(self.get_manage_tab())
+            else:
+                return -1
+
+            self.utils.print_info("Clicking on Alerts Tab..")
+            self.auto_actions.click(self.get_manage_alerts_menu_item())
             sleep(2)
-        else:
-            return -2
-
-        return self.navigate_to_alert_tab()
-
-    def navigate_to_alert_tab(self):
-        """
-         - This keyword Navigates to Alert
-         - Keyword Usage
-          - ``Navigate To Alert Tab``
-
-        :return: 1 if Navigation Successful to Alert On Configure Menu else return -1
-        """
-        self.utils.print_info("Selecting Alert Tab...")
-        if self.get_alert_sub_tab():
-            self.auto_actions.click(self.get_alert_sub_tab())
-            sleep(10)
             return 1
-        else:
-            self.utils.print_info("Unable to navigate to Alert tab")
-            self.screen.save_screen_shot()
+
+        except Exception as e:
+            self.utils.print_info("Unable to Navigate to Alerts ", e)
             return -1
 
     def navigate_to_applications_tab(self):
@@ -2999,23 +3007,23 @@ class Navigator(NavigatorWebElements):
         else:
             return -1
 
-    def navigate_to_vpn_services_tab(self):
+    def navigate_to_vpn_management_tab(self):
         """"
-        - This Keyword Navigate to VPN Services Page
-        - Flow: Manage --> VPN Services
+        - This Keyword Navigate to VPN Management Page
+        - Flow: Manage --> VPN Management
         - Keyword Usage:
-          - 'Navigate to VPN Services Tab'
+          - 'Navigate to VPN Management Tab'
         :return: 1 if Navigation Successful, else -1
         """
         self.navigate_to_manage_tab()
         sleep(5)
 
-        self.utils.print_info("Click on VPN Services Tab")
-        if self.get_vpn_services_tab().is_displayed():
-            self.auto_actions.click(self.get_vpn_services_tab())
+        self.utils.print_info("Click on VPN Management Tab")
+        if self.get_vpn_management_tab().is_displayed():
+            self.auto_actions.click(self.get_vpn_management_tab())
             return 1
         else:
-            self.utils.print_info("Unable to navigate to VPN Services Page")
+            self.utils.print_info("Unable to navigate to VPN Management Page")
             self.screen.save_screen_shot()
             return -1
 
@@ -3037,6 +3045,25 @@ class Navigator(NavigatorWebElements):
             self.screen.save_screen_shot()
             return -1
 
+    def navigate_to_vpn_services_tab(self):
+        """"
+        - This Keyword Navigate to VPN Services Page
+        - Flow: Assume that already navigated to Configure > Common Objects > Network tab
+                Then navigate to VPN Services page
+        - Keyword Usage:
+          - 'Navigate to VPN Services Tab'
+        :return: 1 if Navigation Successful, else -1
+        """
+
+        self.utils.print_info("Click on VPN Services Tab")
+        if self.get_vpn_services_tab().is_displayed():
+            self.auto_actions.click(self.get_vpn_services_tab())
+            return 1
+        else:
+            self.utils.print_info("Unable to navigate to VPN Services Page")
+            self.screen.save_screen_shot()
+            return -1
+    
     def navigate_to_manage_events(self):
         """
          - This keyword Navigates to Events on Manage Menu
@@ -3055,4 +3082,43 @@ class Navigator(NavigatorWebElements):
                 self.screen.save_screen_shot()
                 return -1
         else:
+            return -1
+
+    def navigate_to_port_configuration_d360(self, **kwargs):
+        """
+         - Assumes that D360 poge is already open
+         - Flow: Clicks 'Configure' button -> Scrolls down -> Clicks 'Port Configuration" ->
+                 Waits for the port rows to load
+        :return: 1 if 'Port Configuration' has been clicked and the port rows have been loaded on the page
+                 -1 if elements are not found along the way
+        """
+
+        self.utils.print_info("Finding 'Configure' button...")
+        configure_button = self.get_configure_button_d360()
+        if configure_button:
+            self.utils.print_info("Found 'Configure' button! Clicking...")
+            self.auto_actions.scroll_by_horizontal(configure_button)
+            self.auto_actions.click(configure_button)
+            self.utils.print_info("Finding 'Port Configuration' button...")
+            port_configuration_button = self.get_port_configuration_d360()
+            if port_configuration_button:
+                self.utils.print_info("Found 'Port Configuration' button! Clicking...")
+                self.auto_actions.scroll_by_horizontal(port_configuration_button)
+                self.auto_actions.click(port_configuration_button)
+                self.utils.print_info("Waiting for port rows to load in d360 Port Configuration page...")
+                self.utils.wait_till(self.get_port_rows_d360)
+                kwargs['pass_msg'] = " 'Port Configuration' button clicked!"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.utils.print_info("Failed to find 'Port Configuration' button!")
+                kwargs['fail_msg'] = "Failed to find 'Port Configuration' button!"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
+        else:
+            self.utils.print_info("Failed to find 'Configure' button!")
+            kwargs['fail_msg'] = "Failed to find 'Configure' button!"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
