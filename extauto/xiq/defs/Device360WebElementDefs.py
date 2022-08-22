@@ -2474,7 +2474,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_poe_status = \
         {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-pse-enable"]',
+            'XPATH': '//div[@class="field"]//input[@data-automation-tag="port-type-editor-pse-enable"]',
             'wait_for': 5
         }
 
