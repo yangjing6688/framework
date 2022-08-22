@@ -682,3 +682,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_port_rows_d360(self):
         return self.weh.get_elements(self.port_rows_d360)
+
+    def get_100_devices_per_page(self):
+        return self.weh.get_element(self.no_100_devices_per_page)

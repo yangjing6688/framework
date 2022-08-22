@@ -1307,3 +1307,8 @@ class NavigatorWebElementDefinitions:
         {
             'CSS_SELECTOR': '.port-details-entry'
         }
+
+    no_100_devices_per_page = \
+        {
+            "XPATH": '//a[@data-size="100"]'
+        }
