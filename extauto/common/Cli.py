@@ -1018,14 +1018,6 @@ class Cli(object):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(_spawn, f'enable')
-            # output=self.send(_spawn, f'ls /intflash/rc.0')
-            # if '  rc.0 ' in output:
-            #     self.utils.print_info("rc.0 file found in the device")
-            # else:
-            #     self.utils.print_info("Couldn't able to locate rc.0 file")
-            #     self.close_spawn(_spawn)
-            #     return -1
-            self.send(_spawn, f'dbg enable')
             self.send(_spawn, f'config t')
             self.send(_spawn, f'application')
             output_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
