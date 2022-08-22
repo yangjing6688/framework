@@ -1148,3 +1148,9 @@ class CommonObjectsWebElementsDefinitions:
             'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
             'wait_for': 1
         }
+
+    next_page_element_disabled = \
+        {
+            'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable',
+            'index': 0
+        }
