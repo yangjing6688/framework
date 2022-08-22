@@ -1193,5 +1193,3 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("Enable CoPilot feature for this VIQ button already disabled...")
             sleep(2)
             self.screen.save_screen_shot()
-
-        return 1
