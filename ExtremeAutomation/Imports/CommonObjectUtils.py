@@ -4,6 +4,10 @@ class CommonObjectUtils:
     def __init__(self):
         self.builtin = BuiltIn()
 
+    def check_cli_type_and_skip(self, accepted_list, cli_type, skip_msg="Test is not support for device type"):
+        if cli_type not in accepted_list:
+            self.builtin.skip(skip_msg)
+
     def convert_to_generic_device_object(self, new_name, index=1, look_for_device_type=None):
         value = None
         generic_device_types = ['ap', 'wing', 'netelem', 'router', 'aerohive_sw']
