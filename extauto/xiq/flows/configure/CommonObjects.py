@@ -149,7 +149,7 @@ class CommonObjects(object):
 
         if not self._search_common_object(ssid_name):
             kwargs['pass_msg'] = f"SSID Name {ssid_name} doesn't exist in the list"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info(f"Select and delete SSID {ssid_name}")
@@ -159,20 +159,20 @@ class CommonObjects(object):
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
                 kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
                 kwargs['pass_msg'] = f"Successfully deleted SSID {ssid_name}"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
 
         if self._search_common_object(ssid_name):
             kwargs['fail_msg'] = "Unsuccessfully deleted the SSID!"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         kwargs['pass_msg'] = "Successfully deleted the SSID!"
-        self.common_validation.validate(1, 1, **kwargs)
+        self.common_validation.passed(**kwargs)
         return 1
 
     def delete_ssids(self, *ssids, **kwargs):
@@ -204,7 +204,7 @@ class CommonObjects(object):
 
         if not select_ssid_flag:
             kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
         self._delete_common_objects()
 
@@ -214,20 +214,20 @@ class CommonObjects(object):
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
                 kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
                 kwargs['pass_msg'] = "Successfully deleted SSIDs"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
 
         for ssid in ssids:
             if self._search_common_object(ssid):
                 kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         kwargs['pass_msg'] = "Successfully deleted SSIDs"
-        self.common_validation.validate(1, 1, **kwargs)
+        self.common_validation.passed(**kwargs)
         return 1
 
     def delete_all_ssids(self):
@@ -622,7 +622,7 @@ class CommonObjects(object):
                             self.utils.print_info("Did not find next page button!")
                             kwargs['fail_msg'] = "Did not find next page button!"
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
                     else:
                         self.utils.print_info("This is the last page: ", str(current_page))
@@ -632,13 +632,13 @@ class CommonObjects(object):
                         kwargs['pass_msg'] = f"Checked all {current_page} pages for Port Type profile: " \
                                              f"{port_type_name} ; " \
                                              f"It was already deleted or it hasn't been created yet!"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
                 else:
                     self.utils.print_info(f"Found the port type profile {port_type_name}. Deleting...")
                     self._select_delete_common_object(port_type_name)
                     kwargs['pass_msg'] = "Port type profile deleted!"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return 1
 
             except (selenium.common.exceptions.StaleElementReferenceException, TypeError) as e:
@@ -672,10 +672,21 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "The subnetwork has been deleted" in value:
+                kwargs['pass_msg'] = f"SubNetwork Space Name {sub_network_name}  deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
 
-    def delete_vlan_profile(self, vlan_name):
+        if self._search_common_object(sub_network_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted the SUB NETWORK SPACE!"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Successfully deleted SUB NETWORK SPACE!"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
+
+
+    def delete_vlan_profile(self, vlan_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
@@ -689,7 +700,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_basic_vlans_tab()
 
         if not self._search_common_object(vlan_name):
-            self.utils.print_info("VLAN Name does't exists in the list")
+            kwargs['pass_msg'] = f"VLAN Object {vlan_name}  does't exists in the list"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         self.utils.print_info("Select and delete VLAN row")
@@ -701,8 +713,18 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "VLAN has been deleted" in value:
+                kwargs['pass_msg'] = f"Vlan object {vlan_name}  deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
+
+        if self._search_common_object(vlan_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted the Vlan object"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Successfully deleted the vlan object"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
 
     def navigate_to_security_wips_policies(self):
         """
@@ -913,13 +935,13 @@ class CommonObjects(object):
                         self.auto_actions.click(delete_button)
                         kwargs['pass_msg'] = f"Delete button has been clicked! Switch Template: {template_name} " \
                                              f"has been deleted!"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
                     else:
                         self.utils.print_info("Didn't find the delete button!")
                         kwargs['fail_msg'] = "Didn't find the delete button!"
                         self.screen.save_screen_shot()
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
 
             if not found_template:
@@ -937,13 +959,13 @@ class CommonObjects(object):
                             self.utils.print_info("Did not manage to find the next page button")
                             kwargs['fail_msg'] = "Did not manage to find the next page button"
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
                     else:
                         self.utils.print_info("Did not find next page button!")
                         kwargs['fail_msg'] = "Did not find next page button!"
                         self.screen.save_screen_shot()
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                 else:
                     self.utils.print_info("This is the last page: ", str(current_page))
@@ -953,7 +975,7 @@ class CommonObjects(object):
                     kwargs['pass_msg'] = f"Checked all {current_page} pages for Template Name: " \
                                          f"{template_name} ;" \
                                          f"It was already deleted or it hasn't been created yet!"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return 1
 
     def _get_switch_template_row(self, search_string):

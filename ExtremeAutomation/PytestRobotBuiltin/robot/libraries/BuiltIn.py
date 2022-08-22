@@ -30,14 +30,16 @@ class BuiltIn(object):
             raise e
 
     @staticmethod
-    def get_variable_value(varname):
+    def get_variable_value(varname, default=None):
         value = ''
         try:
             # Try pytest
             value = config[varname]
         except Exception as e:
-            raise e
-
+            if default:
+                value = default
+            else:
+                raise e
         return value
 
     @staticmethod

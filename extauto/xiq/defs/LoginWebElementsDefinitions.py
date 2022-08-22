@@ -78,12 +78,6 @@ class LoginWebElementsDefinitions:
             'wait_for': 5
         }
 
-    build_id = \
-        {
-            'XPATH': "//*[@data-automation-tag='automation-account-menu-build-id']",
-            'wait_for': 5
-        }
-
     txt_30_days_trial = \
         {'XPATH': '//div[contains(@id,"WelcomeEdition_1")]/ul/li[1]/span[2]',
          'wait_for': 5
@@ -607,23 +601,3 @@ class LoginWebElementsDefinitions:
             'wait_for': 3,
         }
 
-    devices_list_check = \
-        {
-            'XPATH': '//*[@class="dgrid-row-table"]',
-            'XPATH': '//*[@class="chzn-single"]',
-            'wait_for': 5
-        }
-
-    user_account_nav_click = \
-        {
-            'XPATH': '//div[@data-dojo-attach-point="accountInfo"]',
-            'XPATH': '//a[contains(text(),"About ExtremeCloud IQ")]',
-            'XPATH': '//*[@data-dojo-attach-point="aboutEl"]',
-            'wait_for': 5
-        }
-
-    about_extreme = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-account-menu-about-link"]',
-            'wait_for': 5
-        }

@@ -47,9 +47,14 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
          }
 
-    devices_ap_status_green = \
+    device_status_cell = \
         {
-            'CSS_SELECTOR': '.hive-status-true',
+            # Moving this to .hive-status away from .hive-status-true because
+            # it is causing test failures.  This webelement is pulled from
+            # get_status_cell() which needs to get the status of the cell whether
+            # it's green or not.  I'm not sure why this is called devices_ap_status_green()
+            # a new function may need to be created or this one renamed.
+            'CSS_SELECTOR': '.hive-status',
             'wait_for': 15
         }
 
@@ -142,6 +147,20 @@ class DevicesWebElementsDefinitions:
             'wait_for': 1
         }
 
+    devices_quick_add_device_os_radio = \
+        {
+            'DESC': "Quick Add Devices, Device OS section",
+            'XPATH': "//div[@data-dojo-attach-point='deviceOsSection']",
+            'wait_for': 10
+        }
+
+    devices_quick_add_device_make_field = \
+        {
+            'DESC': "Quick Add Devices, Device Make field",
+            'XPATH': "//div[@data-dojo-attach-point='deviceOsSection']",
+            'wait_for': 10
+        }
+
     location_select_button = \
         {
             'XPATH': "//*[@data-dojo-attach-point='btnSelect']",
@@ -164,12 +183,6 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//*[@data-automation-tag="automation-ah-drawer-trigger"]',
             'wait_for': 2
-        }
-
-    quick_onbaroding_failure = \
-        {
-            'CSS_SELECTOR': 'quick-onboard-dialog.hmOverride.dijitDialog',
-            'wait_for': 5
         }
 
     devices_add_button = \
@@ -370,7 +383,7 @@ class DevicesWebElementsDefinitions:
 
     simulated_device_dropdown_options = \
         {
-            #'CSS_SELECTOR': '.active-result',
+            # 'CSS_SELECTOR': '.active-result',
             'XPATH': '//*[@data-automation-tag="-dropdown"]',
             'wait_for': 5
         }
@@ -631,7 +644,7 @@ class DevicesWebElementsDefinitions:
 
     simulated_device_dropdown = \
         {
-            #'XPATH': '//*[@data-automation-tag="chzn-container-ctn"]//span[contains(text(), "ATOM")]',
+            # 'XPATH': '//*[@data-automation-tag="chzn-container-ctn"]//span[contains(text(), "ATOM")]',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-simulated-device-control"]'
                      '//*[@data-dojo-attach-point="_buttonNode,tableNode,focusNode,_popupStateNode"]',
             # "CSS_SELECTOR": ".dijit.dijitReset.dijitInline.dijitLeft.dijitDownArrowButton.honeycomb-ui-form-select",
@@ -719,7 +732,7 @@ class DevicesWebElementsDefinitions:
 
     wing_devices_mac_text_area = \
         {
-            #'XPATH': '//*[@data-dojo-attach-point="quickSerialWiNGMac"]',
+            # 'XPATH': '//*[@data-dojo-attach-point="quickSerialWiNGMac"]',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-mac-address-textbox"]',
             'wait_for': 1,
         }
@@ -776,6 +789,13 @@ class DevicesWebElementsDefinitions:
     actions_assign_network_policy_switch = \
         {
             'XPATH': "//*[@data-automation-tag='automation-manage-device-actions-switch-assign-policy']",
+            'wait_for': 5
+        }
+
+    devices_quick_add_device_panel = \
+        {
+            'DESC': 'Manage > Devices > Quick Add Devices panel',
+            'XPATH': '//div[@data-dojo-attach-point="quickAddCtn"]',
             'wait_for': 5
         }
 
@@ -855,8 +875,7 @@ class DevicesWebElementsDefinitions:
 
     devices_add_devices_cancel_button = \
         {
-            'CSS_SELECTOR': '.btn.btn-cancel.btn-small',
-            'has_text': 'Cancel',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-cancel-button"]',
             'wait_for': 5
          }
 
@@ -1066,21 +1085,13 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottom"]//div[@data-dojo-attach-point="gridBottomRight"]',
             'wait_for': 3,
-            'index' : 1
+            'index': 1
         }
 
     manage_device_search_clear_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="clearSearchField"]',
             'wait_for': 5
-        }
-
-    device_entry_exos_csv_upload_button = \
-        {
-            'XPATH': '//div[@data-dojo-attach-point="quickImportCtn"]'
-                     '//div[@data-dojo-attach-point="exosImportFileUploader"]//input[@name="file"]',
-            'wait_for': 5,
-            'index': 0
         }
 
     devices_page_stack_slot_rows = \
@@ -1144,24 +1155,24 @@ class DevicesWebElementsDefinitions:
             'wait_for': 2
         }
 
-    device_type_real_radio_button  = \
+    device_type_real_radio_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-real-device-radio-button"]',
             'wait_for': 2
         }
 
-    entry_type_manual_radio_button  = \
+    entry_type_manual_radio_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-manual-type-radio-button"]',
             'wait_for': 2
         }
 
-    entry_type_csv_radio_button  = \
+    entry_type_csv_radio_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-import-type-radio-button"]',
             'wait_for': 2
         }
-    device_make_dropdownoption  = \
+    device_make_dropdownoption = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-make-select"]',
             'wait_for': 2
@@ -1187,16 +1198,14 @@ class DevicesWebElementsDefinitions:
 
     devices_mac_text_area_error = \
         {
-            #'XPATH': '//*[@data-dojo-attach-point="hcTextareaError"]',
-            #'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-mac-address-textbox"]//span[@data-dojo-attach-point="hcTextareaError"]',
-            "CSS_SELECTOR" : ".quick-serial-numbers.invalid.honeycomb-ui-form-textarea",
+            "CSS_SELECTOR": ".quick-serial-numbers.invalid.honeycomb-ui-form-textarea",
             'wait_for': 5
         }
 
     mac_error = \
         {
             'TAG_NAME': 'span',
-            'wait_for':5
+            'wait_for': 5
         }
 
     add_button = \
@@ -1238,7 +1247,7 @@ class DevicesWebElementsDefinitions:
 
     devices_cancel_location_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="btnCancel"]',
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-select-location-cancel"]',
             'wait_for': 5
         }
 
@@ -1277,9 +1286,24 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
-    error_onboarding_message = \
+    quick_onboard_failure_panel = \
         {
+            'DESC': 'The Quick Onboard Failure panel.',
             'XPATH': '//div[@data-dojo-attach-point="failureCtn"]//ul',
+            'wait_for': 5
+        }
+
+    quick_onboard_failure_reason = \
+        {
+            'DESC': 'Failure Reason displayed within the Quick Onboard Failure panel.',
+            'XPATH': '//div[@data-dojo-attach-point="failureCtn"]//span[not(@class)]',
+            'wait_for': 5
+        }
+
+    quick_onboard_failure_ok_button = \
+        {
+            'DESC': 'OK button within the Quick Onboard Failure panel',
+            'XPATH': '//div[contains(@class,"quick-onboard-dialog")]//button[@data-dojo-attach-point="okBtn"]',
             'wait_for': 5
         }
 
@@ -1369,13 +1393,29 @@ class DevicesWebElementsDefinitions:
 
     device_os_voss_radio = \
         {
+            'DESC': 'Quick Add Devices, "Fabric Engine" Device OS',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-voss-radio-button"]',
             'wait_for': 10
         }
 
     device_os_exos_radio = \
         {
+            'DESC': 'Quick Add Devices, "Switch Engine" Device OS',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-exos-radio-button"]',
+            'wait_for': 10
+        }
+
+    device_os_cloudiq_engine_radio = \
+        {
+            'DESC': 'Quick Add Devices, "Cloud IQ Engine" Device OS',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-cloudiq-engine-radio-button"]',
+            'wait_for': 10
+        }
+
+    device_os_wing_radio = \
+        {
+            'DESC': 'Quick Add Devices, "WING" Device OS',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-wing-radio-button"]',
             'wait_for': 10
         }
 
@@ -1803,4 +1843,54 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//div[@class="port-info-view"]/div',
             'wait_for': 5
+        }
+
+    digital_twin_container_feature = \
+        {
+            'DESC': 'Quick Add Devices > Directly to the Cloud > Device Type > Digital Twin container',
+            'XPATH': '//li[@data-dojo-attach-point="digitalTwinContainer"]'
+        }
+    device_type_digital_twin_radio_button = \
+        {
+            'DESC': 'Quick Add Devices > Directly to the Cloud > Device Type > Digital Twin radio button',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-digital-twin-device-radio-button"]'
+        }
+
+    digital_twin_os_persona_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > OS Persona dropdown menu',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-os-persona-select"]'
+        }
+
+    digital_twin_os_persona_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > OS Persona dropdown menu items',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-os-persona-select-dropdown"]'
+                     '//tr[contains(@class, "dijitMenuItem")]'
+        }
+
+    digital_twin_device_model_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > Device Model dropdown menu',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-model-select"]'
+        }
+
+    digital_twin_device_model_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > Device Model dropdown menu items',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-model-select-dropdown"]'
+                     '//tr[contains(@class, "dijitMenuItem")]'
+        }
+
+    digital_twin_os_version_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > OS Version dropdown menu',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-os-version-select"]'
+        }
+
+    digital_twin_os_version_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > OS Version dropdown menu items',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-os-version-select-dropdown"]'
+                     '//tr[contains(@class, "dijitMenuItem")]'
         }
