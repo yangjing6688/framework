@@ -953,61 +953,6 @@ class Cli(object):
             # show run nsight-policy ECIQ
         return 1
 
-    def unconfigure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password,
-                                               connection_type='ssh', vr='VR-Default', retry_count=10):
-        """
-        - This Keyword will unconfigure necessary configuration in the Device to Connect to Cloud
-        - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${SERVER_NAME}``
-
-        :param cli_type: Device Cli Type
-        :param ip: Console IP Address of the Device
-        :param port: Console Port
-        :param username: username to access console
-        :param password: Password to access console
-        :param server_name: Cloud Server Name to connect the device
-        :param connection_type: The connection type, will default to ssh. (ssh, telnet, console)
-        :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
-        :param retry_count: Retry count to check device connection status with capwap server
-        :return: 1 id device successfully connected with capwap server else -1
-        On July 26 2022, it was decide to disable the verification steps for the following reason
-        Depending on the order of configuration in a test case the verification check will fail.
-            As an example:
-            configure_device_to_connect_to_cloud, then onboard device to the cloud
-        As of July 26, 2022, this method never return a "-1" it would only return a "1"
-        if the verification check passed. Since I took out the verification I am blindly
-        return "1".
-        """
-
-        _spawn = self.open_spawn(ip, port, username, password, cli_type, connection_type)
-
-        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
-                NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'no Hivemanager')
-            self.send(_spawn, f'do Application stop hiveagent')
-            self.send(_spawn, f'do Application start hiveagent')
-
-        elif NetworkElementConstants.OS_AHAP in cli_type.upper():
-            self.send(_spawn, f'capwap client server name {server_name}')
-            self.send(_spawn, f'capwap client default-server-name {server_name}')
-            self.send(_spawn, f'capwap client server backup name {server_name}')
-            self.send(_spawn, f'no capwap client enable')
-            self.send(_spawn, f'capwap client enable')
-            self.send(_spawn, f'save config')
-
-        elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'configure iqagent server ipaddress {server_name}')
-            self.send(_spawn, f'configure iqagent server vr {vr}')
-
-        elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(_spawn, f'enable')
-            self.send(_spawn, f'configure terminal')
-            self.send(_spawn, f'application')
-            self.send(_spawn, f'no iqagent enable')
-            self.send(_spawn, f'iqagent server {server_name}')
-            self.send(_spawn, f'iqagent enable')
-            self.send(_spawn, f'end')
-
     def wait_for_configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
                                                      connection_type='ssh', vr='VR-Default', retry_count=10, retry_duration=30):
         """
