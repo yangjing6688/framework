@@ -6351,8 +6351,10 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_pse_profile)
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
-                if self.auto_actions.select_drop_down_options(get_pse_profile_items, value['pse_profile_name']):
-                    self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_name'])
+                pse_profile_name = value.get('pse_profile_name')
+                if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
+
+                    self.utils.print_info(" Selected into dropdown value : ", pse_profile_name)
 
                     try:
                         edit_flag = value['pse_profile_edit_flag']
