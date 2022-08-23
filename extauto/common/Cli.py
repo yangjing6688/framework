@@ -1279,7 +1279,7 @@ class Cli(object):
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'no Hivemanager address {server_name}')
+            self.send(_spawn, f'no Hivemanager address ')
             self.send(_spawn, f'Application stop hiveagent')
             self.send(_spawn, f'Application start hiveagent')
             count = 1
@@ -1316,7 +1316,8 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'disable iqagent')
+            self.send(_spawn, f'configure iqagent server ipaddress none')
+            self.send(_spawn, f'configure iqagent server vr none')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
