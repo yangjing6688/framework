@@ -275,7 +275,6 @@ class AutoProvisioning:
         network_policy = auto_provision_policy.get('network_policy')
 
         self.devices.refresh_devices_page()
-        sleep(3)
 
         row = self.devices.get_manage_device_row(serial)
         self.utils.print_info("RoW Data: ", self.devices.format_row(row.text))

@@ -173,7 +173,7 @@ class Switch(SwitchWebElements):
 
             serials = switch_serial.split(",")
             self.utils.print_info("Serials: ", serials)
-            self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
+            self.refresh_devices_page()
             for serial in serials:
                 if self.devices.search_device(device_serial=serial):
                     self.utils.print_info("Successfully Onboarded switch(s): ", serials)
