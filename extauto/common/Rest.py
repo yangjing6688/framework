@@ -2,6 +2,7 @@ import json
 import requests
 import base64
 import subprocess
+import re
 from urllib3.exceptions import InsecureRequestWarning
 
 from extauto.common.Utils import Utils
@@ -241,3 +242,55 @@ class Rest:
         self.utils.print_info("Time: ", total_time)
 
         return response_code
+
+    def get_http_response_code(self, url):
+        """
+        This method used to get the status code of url
+        :param url:
+        :return: status code
+        """
+        r = requests.get(url)
+        response_code = r.status_code
+
+        return response_code
+
+    def get_http_data(self, url):
+        """
+        This method is used to get the data from url
+        :param url:
+        :return: data
+        """
+        r = requests.get(url)
+        data = r.text
+
+        return data
+
+    def get_product_url(self, url):
+        """
+        This method is used to generate right url based on XIQ instance
+
+        :param url:
+        :return: product_url
+        """
+
+        flag = "null"
+        string = url.find(".qa.xcloudiq.com")
+        string1 = url.find(".extremecloudiq.com")
+
+        if string > 0:
+            product_url_env = re.search('https://(.*?).qa.xcloudiq.com', url).group(1)
+            flag = "QA"
+
+        if string1 > 0:
+            product_url_env = re.search('https://(.*?).extremecloudiq.com', url).group(1)
+            flag = "Staging"
+
+        if flag == "null":
+            product_url = "https://productinfo.extremecloudiq.com/productinfo/dellsnstmapping/24301900000000"
+        elif flag == "QA":
+            product_url = "https://{}-productinfo.qa.xcloudiq.com/productinfo/dellsnstmapping/24301900000001".format(product_url_env)
+        else:
+            product_url = "https://{}-productinfo.extremecloudiq.com/productinfo/dellsnstmapping/24301900000000".format(product_url_env)
+
+
+        return product_url
