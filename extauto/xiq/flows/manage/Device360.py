@@ -5239,7 +5239,6 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Close D360 Dialogue Window")
                 self.close_device360_window()
                 self.dev.refresh_devices_page()
-                sleep(sleeptime)
         return 1
 
     def device360_read_wired_clients_popup(self):

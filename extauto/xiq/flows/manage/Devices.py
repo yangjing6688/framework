@@ -320,8 +320,7 @@ class Devices:
                 return 1
 
     def search_exos_device(self, EXOS_VOSS_device):
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(2)
+        self.refresh_devices_page()
         self.screen.save_screen_shot()
         sleep(2)
         device_tag = False
@@ -523,8 +522,7 @@ class Devices:
         :param ap_serial: AP's Serial Number
         :return: return 1 if AP found else False
         """
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(10)
+        self.refresh_devices_page()
 
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
@@ -556,8 +554,7 @@ class Devices:
         :param ap_mac: AP's MAC
         :return: return 1 if AP found else -1
         """
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(10)
+        self.refresh_devices_page()
 
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
@@ -588,8 +585,7 @@ class Devices:
         :param ap_name: AP's Name
         :return: return 1 if AP found
         """
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(10)
+        self.refresh_devices_page()
 
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
@@ -703,9 +699,7 @@ class Devices:
         :param ap_mac: ap Mac address
         :return: return 1 if AP found and selected else -1
         """
-
         self.refresh_devices_page()
-        sleep(10)
 
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
@@ -903,7 +897,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         network_policy = self.get_device_details(search_string, 'POLICY')
@@ -1166,8 +1159,7 @@ class Devices:
         :param ap_serial: AP's Serial Number
         :return: return 1 if AP found
         """
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(5)
+        self.refresh_devices_page()
 
         rows = self.devices_web_elements.get_simulated_devices_grid_rows()
         if rows:
@@ -1811,8 +1803,10 @@ class Devices:
             if returnValue == -1:
                 kwargs['fail_msg'] = "Device page was not refreshed successfully"
                 self.common_validation.failed(**kwargs)
+                return -1
             else:
-                sleep(10)
+                # Wait until 'loading' mask is cleared
+                self.wait_until_devices_load_mask_cleared(retry_duration=1, retry_count=180)
                 kwargs['pass_msg'] = "Device page refreshed successfully"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -2774,7 +2768,6 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-
         num_device_params = 0
         search_device = None
         search_type = None
@@ -2815,7 +2808,7 @@ class Devices:
                         self.screen.save_screen_shot()
 
                         # Wait until 'loading' mask is cleared
-                        self.wait_until_devices_load_mask_cleared(retry_duration=10, retry_count=12)
+                        self.wait_until_devices_load_mask_cleared(retry_duration=1, retry_count=180)
 
                         # Wait until the device is removed from the view
                         result = self.wait_until_device_removed(device_serial=device_serial, device_name=device_name,
@@ -2897,12 +2890,7 @@ class Devices:
         :param device_mac: device MAC
         :return: 1 if device found else -1
         """
-
-        # call a refresh
         self.refresh_devices_page()
-
-        #EJL this isn't what we should do here
-        sleep(10)
 
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
@@ -2910,11 +2898,9 @@ class Devices:
             return -1
         else:
             self.utils.print_info(f"Searching for the device matching either one of serial, name or MAC!")
-            self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_mac}', device_mac: '{device_mac}'")
+            self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_name}', device_mac: '{device_mac}'")
 
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(5)
-
+        self.refresh_devices_page()
         device_page_numbers = self.devices_web_elements.get_page_numbers()
         if device_page_numbers.text:
             page_len = int(max(device_page_numbers.text))
@@ -3042,8 +3028,6 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
-        # IRV - Internal Result verification flag - is set to True to raise an error when a failure occurs
-        kwargs['IRV'] = True
         device_row = -1
         self.refresh_devices_page()
 
@@ -3370,7 +3354,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [router_serial, router_mac, router_name] if value][0]
         nw_policy = self.get_device_details(search_string, 'POLICY')
@@ -3394,7 +3377,6 @@ class Devices:
         device_row = -1
 
         self.refresh_devices_page()
-        sleep(5)
 
         self.utils.print_info('Getting device Updated Status using')
         if device_serial:
@@ -3687,7 +3669,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         self.column_picker_select("WiFi0 Power")
@@ -3712,7 +3693,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         wifi1_power = self.get_device_details(search_string, 'WIFI1 POWER')
@@ -3735,7 +3715,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         wifi0_channel = self.get_device_details(search_string, 'WIFI0 CHANNEL')
@@ -3758,7 +3737,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         wifi1_channel = self.get_device_details(search_string, 'WIFI1 CHANNEL')
@@ -4236,7 +4214,7 @@ class Devices:
 
         return_array_data = {}
         self.refresh_devices_page()
-        sleep(10)
+
         device_row = self.get_device_row(device_serial)
         for column in column_array:
             data = self.get_device_details(device_serial, column)
@@ -4297,9 +4275,6 @@ class Devices:
         :return: 1 if device connected within time else -1
         """
 
-        # IRV - Internal Result verification flag - is set to True to raise an error when a failure occurs
-        kwargs['IRV'] = True
-
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
@@ -4312,7 +4287,6 @@ class Devices:
                     self.utils.print_info(f"Device Online Status Check - Loop: ", count)
                     self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
                     self.refresh_devices_page()
-                    sleep(2)
 
                     device_row = None
                     if device_serial:
@@ -4380,7 +4354,6 @@ class Devices:
                     self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
                     self.refresh_devices_page()
                     self.screen.save_screen_shot()
-                    sleep(2)
 
                     device_row = None
                     if device_serial:
@@ -4615,7 +4588,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         self.column_picker_select("Location")
@@ -5621,15 +5593,15 @@ class Devices:
         self.utils.print_info(f"{col} column for device {device_serial} still does not contain data. Please check.")
         return -1
 
-    def wait_until_devices_load_mask_cleared(self, retry_duration=30, retry_count=10):
+    def wait_until_devices_load_mask_cleared(self, retry_duration=1, retry_count=180):
         """
         - This keyword waits until the Manage > Devices 'loading' mask is cleared.
-        - This keyword by default loops every 30 seconds for 10 times to check for the 'loading' mask.
+        - This keyword by default loops every 1 second for 180 times to check for the 'loading' mask.
         - Flow:
          - Assumes that the 'Manage --> Devices' view is already visible.
          - check for the 'loading' mask
         - Keyword Usage:
-         - ``Wait Until Devices Load Mask Cleared   retry_duration=10    retry_count=5``
+         - ``Wait Until Devices Load Mask Cleared   retry_duration=1    retry_count=180``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -5667,7 +5639,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         management_ip = self.get_device_details(search_string, 'MGT IP ADDRESS')
@@ -5933,7 +5904,6 @@ class Devices:
         """
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
-        sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -5961,7 +5931,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         self.column_picker_select("WiFi0 Radio Profile")
@@ -5985,7 +5954,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         self.column_picker_select("WiFi1 Radio Profile")
@@ -6009,7 +5977,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         self.column_picker_select("Public IP Address")
@@ -6063,8 +6030,6 @@ class Devices:
             while count <= retry_count:
                 device_updated_status = self.get_device_updated_status(device_serial)
                 self.refresh_devices_page()
-                self.utils.print_info("Waiting for page to refresh...")
-                sleep(2)
                 if re.search(r'\d+-\d+-\d+', device_updated_status):
                     break
                 elif device_updated_status == "Device Update Failed.":
@@ -6605,8 +6570,7 @@ class Devices:
         :return: return 1 if AP found else False
         """
         self.navigator.navigate_to_devices()
-        self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
-        sleep(10)
+        self.refresh_devices_page()
 
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
@@ -7605,7 +7569,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         wifi2_power = self.get_device_details(search_string, 'WIFI2 POWER')
@@ -7628,7 +7591,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         wifi2_channel = self.get_device_details(search_string, 'WIFI2 CHANNEL')
@@ -7651,7 +7613,6 @@ class Devices:
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-        sleep(2)
 
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         self.column_picker_select("WiFi2 Radio Profile")
@@ -9627,7 +9588,6 @@ class Devices:
         self.utils.print_info("Navigate to Manage --> Devices")
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
-        sleep(5)
         self.close_last_refreshed_tooltip()
 
         if device_mac != 'default':
@@ -9925,7 +9885,6 @@ class Devices:
             self.utils.print_info("Navigate to Manage --> Devices")
             self.navigator.navigate_to_devices()
             self.refresh_devices_page()
-            sleep(5)
 
             device_row = self.get_device_row(device_mac)
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
@@ -9949,7 +9908,6 @@ class Devices:
                     sleep(retry_duration)
                     count += retry_duration
                     self.refresh_devices_page()
-                    sleep(5)
                     device_row = self.get_device_row(device_mac)
                     device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                     self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
@@ -9963,7 +9921,6 @@ class Devices:
                     sleep(retry_duration)
                     count += retry_duration
                     self.refresh_devices_page()
-                    sleep(5)
                     device_row = self.get_device_row(device_mac)
                     device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                     self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
@@ -9980,7 +9937,6 @@ class Devices:
                 self.utils.print_info("Initial Device Updated Status : ", initial_updated_status)
                 sleep(30)
                 self.refresh_devices_page()
-                sleep(10)
                 device_row = self.get_device_row(device_mac)
                 device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                 self.utils.print_info("Current Device Updated Status : ", device_updated_status)
@@ -10017,8 +9973,6 @@ class Devices:
             # Comparing the DUT version and XIQ version post successfull upgrade max wait time 300 seconds
             sleep(5)
             self.refresh_devices_page()
-            self.utils.print_info("Waiting for page to refresh...")
-            sleep(5)
             os_version = self.get_device_row_values(device_mac, 'OS VERSION')
             deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
             count = 0
