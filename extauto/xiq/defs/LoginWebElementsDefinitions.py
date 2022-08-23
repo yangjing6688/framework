@@ -78,12 +78,6 @@ class LoginWebElementsDefinitions:
             'wait_for': 5
         }
 
-    build_id = \
-        {
-            'XPATH': "//*[@data-automation-tag='automation-account-menu-build-id']",
-            'wait_for': 5
-        }
-
     txt_30_days_trial = \
         {'XPATH': '//div[contains(@id,"WelcomeEdition_1")]/ul/li[1]/span[2]',
          'wait_for': 5

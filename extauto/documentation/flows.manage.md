@@ -7213,42 +7213,6 @@ This function is deprecated. This Keyword will Delete All the Devices in the Man
 
 
 
-#### delete_device_and_wait(device_serial=None, device_name=None, device_mac=None)
-
-* Deletes the device matching the specified device search parameter and waits until it is removed.
-
-
-* Keyword Usage:
-
-> 
-> * `Delete Device and Wait    device_serial=${DEVICE_SERIAL}`
-
-
-> * `Delete Device and Wait    device_name=${DEVICE_NAME}`
-
-
-> * `Delete Device and Wait    device_mac=${DEVICE_MAC}`
-
-
-* **Parameters**
-
-    
-    * **device_serial** – serial number of the device to delete
-
-
-    * **device_name** – Name of the device to delete
-
-
-    * **device_mac** – MAC Address of the device to delete
-
-
-
-* **Returns**
-
-    1 if device deleted successfully or is already deleted/does not exist, else -1
-
-
-
 #### delete_devices(\*device_list)
 
 * Deletes the list of devices denoted by serial numbers

@@ -4,6 +4,8 @@ from a3.elements.AuthSourcesWebElements import AuthSourcesWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
@@ -17,6 +19,8 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
         self.auth_source_web_elements = AuthSourcesWebElements()
         #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
+        self.driver = webdriver.Chrome()
+        #self.action = ActionChains()
 
     def create_auth_source(self):
         """
@@ -29,16 +33,16 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             sleep(2)
             self.utils.print_info("Select the Internal source & expand the menu ")
             sleep(10)
-            self.driver.find_element_by_xpath("//button[text()='New Internal Source']").click()
-            sleep(5)
+            b1 = self.weh.get_element(self.auth_source_button)
+            b1.click()
             self.utils.print_info("Selected Drop Down")
             sleep(10)
-            drop_options = self.driver.find_elements_by_xpath("//ul[@class='dropdown-menu show']//li/a")
-            self.auto_actions.select_drop_down_options(drop_options, "Active Directory")
+            b2 = self.weh.get_elements(self.auth_source_options)
+            sleep(5)
+            self.auto_actions.select_drop_down_options(b2, "Active Directory")
             sleep(5)
             self.utils.print_info("Enter Active Directory name")
             name = self.weh.get_element(self.ad_name)
-            name.clear()
             self.auto_actions.send_keys(name, "AS154")
             sleep(5)
             self.utils.print_info("Enter Description")
@@ -47,7 +51,7 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             sleep(10)
             self.utils.print_info("Enter Host")
             description.send_keys(Keys.TAB)
-            host = self.driver.find_element_by_xpath("//*[@data-automation-tag='automation-host']//input")
+            host = self.weh.get_element(self.host_input)
             self.auto_actions.send_keys(host, "10.234.63.27")
             host.send_keys(Keys.ENTER)
             sleep(5)
@@ -61,7 +65,7 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             sleep(5)
             self.utils.print_info("Enter Password")
             password = self.weh.get_element(self.passwd)
-            self.auto_actions.send_keys(password, "Localsetup123")
+            self.auto_actions.send_keys(password, "Aquaman123")
             sleep(5)
             self.utils.print_info("Test Password")
             test_passwd = self.weh.get_element(self.test_pwd)
@@ -84,36 +88,30 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             self.auto_actions.click(action_button)
             sleep(5)
             self.utils.print_info("Select action 1 for row 1")
-            self.driver.find_element_by_xpath(
-                '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,type"]//input').click()
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,type"]//span//span')
-            self.auto_actions.select_drop_down_options(drop_options, "Role")
+            auth_row1_act1 = self.weh.get_elements(self.add_rule_row1_act1)
+            sleep(5)
+            option1 = self.weh.get_element(self.rule_row1_select_option)
+            self.auto_actions.click(option1)
             sleep(5)
             self.utils.print_info("Select action 2 for row 1")
-            self.driver.find_element_by_xpath(
-                '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]//input').click()
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]//span/span')
-            self.auto_actions.select_drop_down_options(drop_options, "roleE")
+            auth_row1_act2 = self.weh.get_element(self.add_rule_row1_act2)
+            self.auto_actions.click(auth_row1_act2)
+            option2 = self.weh.get_element(self.value_row1_select_option)
+            self.auto_actions.click(option2)
             sleep(5)
             self.utils.print_info("Add another row")
             new_row = self.weh.get_element(self.add_row)
             self.auto_actions.click(new_row)
             sleep(10)
             self.utils.print_info("Select action 1 for row 2")
-            self.driver.find_element_by_xpath(
-                '//*[@data-automation-tag="automation-authentication_rules,0,actions,1,type"]//input').click()
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-authentication_rules,0,actions,1,type"]//span/span')
-            self.auto_actions.select_drop_down_options(drop_options, "Access Duration")
-            sleep(10)
+            auth_row2_act1 = self.weh.get_elements(self.add_rule_row2_act1)
+            self.auto_actions.click(auth_row2_act1)
+            option3 = self.weh.get_element(self.rule_row2_select_option)
+            self.auto_actions.click(option3)
             self.utils.print_info("Select action 2 for row 2")
-            self.driver.find_element_by_xpath(
-                '//*[@data-automation-tag="automation-authentication_rules,0,actions,1,value"]//input').click()
-            drop_options = self.driver.find_elements_by_xpath(
-                '//*[@data-automation-tag="automation-authentication_rules,0,actions,1,value"]//span/span')
-            self.auto_actions.select_drop_down_options(drop_options, "5 days")
+            auth_row2_act2 = self.weh.get_elements(self.add_rule_row2_act2)
+            option4 = self.weh.get_element(self.value_row2_select_option)
+            self.auto_actions.click(option4)
             sleep(10)
             create_ad = self.weh.get_element(self.save_button)
             self.auto_actions.click(create_ad)

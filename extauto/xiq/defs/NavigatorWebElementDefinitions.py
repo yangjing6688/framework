@@ -1275,9 +1275,9 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
-    vpn_services_tab = \
+    vpn_management_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-sider-list-vpnServices"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-vpnMgmt"]',
             'wait_for': 5
         }
 
