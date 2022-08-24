@@ -2656,6 +2656,14 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.click(self.get_devices_edit_config_button())
         self.utils.print_info("Click Device Configuration...")
         self.auto_actions.click(self.get_device_configuration_tab())
+        device_config_node_not_load = True
+        while device_config_node_not_load:
+            if not self.get_device_configuration_node():
+                self.utils.print_info("Device config node page is still loading ...")
+                sleep(1)
+            else:
+                device_config_node_not_load = False
+                self.utils.print_info("Device config node page is loaded successfully ...")
         self.utils.print_info("Click Device Function dropdown button...")
         self.auto_actions.click(self.get_devices_device_config_device_function_dropdown())
         device_function_options = self.get_devices_device_config_device_function()
