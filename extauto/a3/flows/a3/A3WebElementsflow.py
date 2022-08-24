@@ -13,266 +13,106 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 import re
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 
 class A3WebElementsflow(A3WebElements):
     def __init__(self):
         super().__init__()
-        #self.CloudDriver = CloudDriver()
-        # self.driver2 = None
         self.driver1 = None
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.a3_web_elements = A3WebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
         self.driver = webdriver.Chrome()
 
-    # def create_new_conn_profile(self):
+    # def select_radius_audit_logs(self, mac, auth_status, user_name):
     #     """
-    #     - This keyword will create the connection profile
+    #     - This keyword will validate the authentication with A3 in Auditing tab by selecting the auditing details
     #     - Keyword Usage
-    #     - ``Create New Conn Profile``
-    #     :return: 1 if connection profile is created successfully else return -1
+    #     - ``Select Radius Audit Logs mac auth_status client_status``
+    #     :param mac:  it should be mac address of the client
+    #     :param auth_status:  it should be authentication status of the client ex: Accept/Reject
+    #     :param user_name:  it should be the user name ex: ad or mac id
+    #     :return: 1 if Authentication is done successfully else -1
     #     """
-    #     if self.auto_actions.click(self.select_conn_profile_menu()) == 1:
+    #     if self.auto_actions.click(self.get_radius_audit_log_ui()) == 1:
+    #         sleep(2)
+    #         self.utils.print_info(f"select the table")
+    #         tab = self.weh.get_element(self.get_table)
+    #         sleep(2)
+    #         self.utils.print_info(f"select the table1")
+    #         table = self.setting.get_audit_logs_grid_rows()
+    #         self.utils.print_info(f"select the table2")
+    #         ele_selected = tab.is_displayed
+    #         self.utils.print_info(f"print status", ele_selected)
     #         sleep(5)
-    #         self.utils.print_info("create a new connection profile ")
-    #         sleep(10)
-    #         self.driver.find_element_by_xpath("//a[contains(@href,'#/configuration/connection_profiles/new')]").click()
+    #         if ele_selected:
+    #             for rows in table:
+    #                 for row in rows.text.splitlines():
+    #                     if mac in row \
+    #                         and auth_status in row \
+    #                             and user_name in row:
+    #                         self.utils.print_info(f"Found the Expected Row Text", row)
+    #                         self.utils.print_info(f"clicked on the selected row")
+    #                         sleep(5)
+    #                         rows.click()
+    #                         break
+    #         rad_tab = self.weh.get_element(self.rad_entry_tab)
+    #         self.auto_actions.click(rad_tab)
+    #         radius_ent_info = self.weh.get_element(self.rad_ent_info)
+    #         radius_open_info = self.weh.get_element(self.rad_open_info)
     #         sleep(5)
-    #         self.utils.print_info("profile name ")
-    #         description = self.weh.get_element(self.conn_profile_name)
-    #         self.auto_actions.send_keys(description, "802.1X")
-    #         sleep(10)
-    #         self.utils.print_info("click add filter")
-    #         auth_add_rule = self.weh.get_element(self.add_filter)
-    #         self.auto_actions.click(auth_add_rule)
-    #         sleep(10)
-    #         self.utils.print_info("Select action 1 for row 1")
-    #         self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-filter,0,type"]//input').click()
-    #         sleep(10)
-    #         self.driver.maximize_window()
-    #         drop_options = self.driver.find_elements_by_xpath(
-    #             '//*[@data-automation-tag="automation-filter,0,type"]//span//span')
-    #         self.auto_actions.select_drop_down_options(drop_options, "Connection Type")
+    #         if radius_ent_info:
+    #             self.utils.print_info(f"Enterprise Authentication done successfully")
+    #         elif radius_open_info:
+    #             self.utils.print_info(f"Open Network Authentication done successfully")
+    #         else:
+    #             self.utils.print_info(f" Not Authenticated")
+    #             return -1
     #         sleep(5)
-    #         self.utils.print_info("Select action 2 for row 1")
-    #         self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-filter,0,match"]//input').click()
-    #         sleep(10)
-    #         drop_options = self.driver.find_elements_by_xpath(
-    #             '//*[@data-automation-tag="automation-filter,0,match"]//span//span')
-    #         self.auto_actions.select_drop_down_options(drop_options, "Wireless-802.11-EAP")
-    #         sleep(5)
-    #         self.utils.print_info("Click on Add Source")
-    #         add_src_btn = self.weh.get_element(self.add_source)
-    #         self.auto_actions.click(add_src_btn)
-    #         sleep(5)
-    #         self.utils.print_info("Select Source")
-    #         self.driver.find_element_by_xpath('//*[@data-automation-tag="automation-sources,0"]//input').click()
-    #         sleep(10)
-    #         drop_options = self.driver.find_elements_by_xpath(
-    #             '//*[@data-automation-tag="automation-sources,0"]//span//span')
-    #         self.auto_actions.select_drop_down_options(drop_options, "AS154")
-    #         sleep(5)
-    #         self.utils.print_info("Created Connection Profile")
-    #         create_conn_profile = self.weh.get_element(self.save_button)
-    #         self.auto_actions.click(create_conn_profile)
-    #         sleep(5)
-    #         self.utils.print_info("Connection Profile is created successfully")
-    #         return 1
-    #     else:
-    #         self.utils.print_info("Connection Profile is not created")
-    #         return -1
     #
-    # def add_device(self):
+    #     return 1
+    #
+    # def select_clients_search(self, mac, client_status, owner):
     #     """
-    #     - This keyword will add the device in Device section
+    #     - This keyword will validate the authentication with A3 in clients tab by selecting the client details
     #     - Keyword Usage
-    #     - ``Add Device``
-    #     :return: 1 if device is been added successfully else return -1
+    #     - ``Select Clients Search mac owner ``
+    #     :param mac:  it should be mac address of the client
+    #     :param client_status:  it should be the client connection status ex: online/offline - on /unknown
+    #     :param owner:  it should be the user name ex: ad or default
+    #     :return: 1 if Authentication is done successfully else -1
     #     """
-    #     if self.auto_actions.click(self.select_device_ui()) == 1:
+    #     if self.auto_actions.click(self.get_clients_search_ui()) == 1:
     #         sleep(5)
-    #         self.utils.print_info("Add a new device ")
-    #         new = self.weh.get_element(self.new_dev_btn)
-    #         self.auto_actions.click(new)
-    #         sleep(5)
-    #         drop_options = self.driver.find_elements_by_xpath('//ul[@class="dropdown-menu show"]/li')
-    #         self.auto_actions.select_drop_down_options(drop_options, "Aerohive_AP")
+    #         self.utils.print_info(f"select the table")
     #         sleep(10)
-    #         self.utils.print_info("Select Advanced Mode")
-    #         toggle_mode = self.driver.find_element_by_xpath(
-    #             '//*[@class="base-input-range-label col-form-label text-nowrap mr-2"]').click()
-    #         status = self.driver.find_element_by_xpath(
-    #             '//*[@data-automation-tag="automation-toggle-advanced-mode"]').is_selected()
+    #         table = self.setting.get_clients_search_rows()
+    #         for rows in table:
+    #             for row in rows.text.splitlines():
+    #                 if mac in row \
+    #                     and client_status in row \
+    #                         and owner in row:
+    #                     self.utils.print_info(f"Found the Expected Row Text", row)
+    #                     self.utils.print_info(f"clicked on the selected row")
+    #                     sleep(5)
+    #                     rows.click()
+    #                     break
+    #         info_tab = self.weh.get_element(self.client_info_tab)
+    #         self.auto_actions.click(info_tab)
+    #         client_ent = self.weh.get_element(self.client_ent_info)
+    #         client_open = self.weh.get_element(self.client_open_info)
+    #         if client_ent:
+    #             self.utils.print_info(f"Enterprise Authentication done successfully")
+    #         elif client_open:
+    #             self.utils.print_info(f"Open Network Authentication done successfully")
+    #         else:
+    #             self.utils.print_info(f" Not Authenticated")
+    #             return -1
     #         sleep(5)
-    #         self.utils.print_info("Enter IP")
-    #         dev_ip = self.weh.get_element(self.device_ip)
-    #         self.auto_actions.send_keys(dev_ip, "10.234.63.13")
-    #         sleep(5)
-    #         self.utils.print_info("Enter Description")
-    #         dev_desc = self.weh.get_element(self.device_description)
-    #         self.auto_actions.send_keys(dev_desc, "AP305C")
-    #         sleep(5)
-    #         self.utils.print_info("Select device type")
-    #         dev_type = self.weh.get_element(self.device_type)
-    #         self.auto_actions.click(dev_type)
-    #         drop_options = self.driver.find_elements_by_xpath(
-    #             '//*[@data-automation-tag="automation-type"]//span//span')
-    #         self.auto_actions.select_drop_down_options(drop_options, "Aerohive AP")
-    #         sleep(5)
-    #         self.utils.print_info("Select Mode")
-    #         dev_mode = self.weh.get_element(self.device_mode)
-    #         self.auto_actions.click(dev_mode)
-    #         drop_options = self.driver.find_elements_by_xpath(
-    #             '//*[@data-automation-tag="automation-mode"]//span//span')
-    #         self.auto_actions.select_drop_down_options(drop_options, "Production")
-    #         sleep(5)
-    #         self.utils.print_info("Select De authentication Method")
-    #         dev_de_auth = self.weh.get_element(self.device_de_auth_method)
-    #         self.auto_actions.click(dev_de_auth)
-    #         drop_options = self.driver.find_elements_by_xpath(
-    #             '//*[@data-automation-tag="automation-deauthMethod"]//span//span')
-    #         self.auto_actions.select_drop_down_options(drop_options, "RADIUS")
-    #         sleep(5)
-    #         #self.utils.print_info("Select Advanced Mode")
-    #         # toggle_mode = self.driver.find_element_by_xpath(
-    #         #     '//*[@class="base-input-range-label col-form-label text-nowrap mr-2"]').click()
-    #         # status = self.driver.find_element_by_xpath(
-    #         #     '//*[@data-automation-tag="automation-toggle-advanced-mode"]').is_selected()
-    #         self.utils.print_info("Configure & create Device")
-    #         create_dev = self.weh.get_element(self.save_button)
-    #         self.auto_actions.click(create_dev)
-    #         sleep(5)
-    #         self.utils.print_info("Save the configuration")
-    #         save_dev = self.weh.get_element(self.save_button)
-    #         self.auto_actions.click(save_dev)
-    #         sleep(10)
-    #         self.utils.print_info("Switch to Device Role")
-    #         dev_roles = self.weh.get_element(self.device_roles)
-    #         self.driver.execute_script("arguments[0].click();", dev_roles)
-    #         #self.auto_actions.click(dev_roles)
-    #         sleep(5)
-    #         self.utils.print_info("Enter the Vlan")
-    #         g_vlan = self.weh.get_element(self.emp_vlan)
-    #         self.auto_actions.send_keys(g_vlan, "10")
-    #         sleep(5)
-    #         self.utils.print_info("Create role with vlan")
-    #         create_role = self.weh.get_element(self.save_button)
-    #         self.auto_actions.click(create_role)
-    #         sleep(15)
-    #         self.utils.print_info("Switch to Radius Tab ")
-    #         radius_input = self.weh.get_element(self.radius_tab)
-    #         self.driver.execute_script("arguments[0].click();", radius_input)
-    #         #self.auto_actions.click(radius_input)
-    #         sleep(5)
-    #         self.utils.print_info("Enter Radius Password")
-    #         radius_pp = self.weh.get_element(self.radius_SC)
-    #         self.auto_actions.send_keys(radius_pp, "aerohive")
-    #         sleep(5)
-    #         self.utils.print_info("Save the configuration")
-    #         save_radius_pp = self.weh.get_element(self.save_button)
-    #         self.auto_actions.click(save_radius_pp)
-    #         sleep(5)
-    #         self.utils.print_info("Device is created successfully")
-    #         sleep(5)
-    #         return 1
-    #     else:
-    #         self.utils.print_info("Device is not created")
-    #         return -1
-
-    def select_radius_audit_logs(self, mac, auth_status, user_name):
-        """
-        - This keyword will validate the authentication with A3 in Auditing tab by selecting the auditing details
-        - Keyword Usage
-        - ``Select Radius Audit Logs mac auth_status client_status``
-        :param mac:  it should be mac address of the client
-        :param auth_status:  it should be authentication status of the client ex: Accept/Reject
-        :param user_name:  it should be the user name ex: ad or mac id
-        :return: 1 if Authentication is done successfully else -1
-        """
-        if self.auto_actions.click(self.get_radius_audit_log_ui()) == 1:
-            sleep(2)
-            self.utils.print_info(f"select the table")
-            tab = self.weh.get_element(self.get_table)
-            sleep(2)
-            self.utils.print_info(f"select the table1")
-            table = self.setting.get_audit_logs_grid_rows()
-            self.utils.print_info(f"select the table2")
-            ele_selected = tab.is_displayed
-            self.utils.print_info(f"print status", ele_selected)
-            sleep(5)
-            if ele_selected:
-                for rows in table:
-                    for row in rows.text.splitlines():
-                        if mac in row \
-                            and auth_status in row \
-                                and user_name in row:
-                            self.utils.print_info(f"Found the Expected Row Text", row)
-                            self.utils.print_info(f"clicked on the selected row")
-                            sleep(5)
-                            rows.click()
-                            break
-            rad_tab = self.weh.get_element(self.rad_entry_tab)
-            self.auto_actions.click(rad_tab)
-            radius_ent_info = self.weh.get_element(self.rad_ent_info)
-            radius_open_info = self.weh.get_element(self.rad_open_info)
-            sleep(5)
-            if radius_ent_info:
-                self.utils.print_info(f"Enterprise Authentication done successfully")
-            elif radius_open_info:
-                self.utils.print_info(f"Open Network Authentication done successfully")
-            else:
-                self.utils.print_info(f" Not Authenticated")
-                return -1
-            sleep(5)
-
-        return 1
-
-    def select_clients_search(self, mac, client_status, owner):
-        """
-        - This keyword will validate the authentication with A3 in clients tab by selecting the client details
-        - Keyword Usage
-        - ``Select Clients Search mac owner ``
-        :param mac:  it should be mac address of the client
-        :param client_status:  it should be the client connection status ex: online/offline - on /unknown
-        :param owner:  it should be the user name ex: ad or default
-        :return: 1 if Authentication is done successfully else -1
-        """
-        if self.auto_actions.click(self.get_clients_search_ui()) == 1:
-            sleep(5)
-            self.utils.print_info(f"select the table")
-            sleep(10)
-            table = self.setting.get_clients_search_rows()
-            for rows in table:
-                for row in rows.text.splitlines():
-                    if mac in row \
-                        and client_status in row \
-                            and owner in row:
-                        self.utils.print_info(f"Found the Expected Row Text", row)
-                        self.utils.print_info(f"clicked on the selected row")
-                        sleep(5)
-                        rows.click()
-                        break
-            info_tab = self.weh.get_element(self.client_info_tab)
-            self.auto_actions.click(info_tab)
-            client_ent = self.weh.get_element(self.client_ent_info)
-            client_open = self.weh.get_element(self.client_open_info)
-            if client_ent:
-                self.utils.print_info(f"Enterprise Authentication done successfully")
-            elif client_open:
-                self.utils.print_info(f"Open Network Authentication done successfully")
-            else:
-                self.utils.print_info(f" Not Authenticated")
-                return -1
-            sleep(5)
-
-        return 1
+    #
+    #     return 1
 
     def connection_profile_test(self, mac_add):
         """

@@ -1,10 +1,8 @@
-
 from common.AutoActions import *
 from a3.elements.ActiveDirectoryWebElements import ActiveDirectoryWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
-from selenium import webdriver
 
 
 class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
@@ -16,7 +14,6 @@ class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.ad_web_elements = ActiveDirectoryWebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
 
     def create_active_directory_domains(self):

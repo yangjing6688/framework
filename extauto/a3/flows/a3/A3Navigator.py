@@ -15,15 +15,12 @@ from extauto.common.CommonValidation import CommonValidation
 class Navigator(NavigatorWebElements):
     def __init__(self):
         super().__init__()
-        #self.CloudDriver = CloudDriver()
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.a3_web_elements = WebElements()
         self.common_validation = CommonValidation()
-       # self.driver = common.CloudDriver.cloud_driver
-
 
     def navigate_to_manage_tab(self):
         """
@@ -103,7 +100,6 @@ class Navigator(NavigatorWebElements):
         :return: None
         """
         self.navigate_to_configure_tab()
-
         self.utils.print_info("Selecting Common Objects")
         self.auto_actions.click(self.get_common_objects_sub_tab())
         sleep(2)
@@ -149,7 +145,6 @@ class Navigator(NavigatorWebElements):
         :return: None
         """
         self.navigate_to_configure_tab()
-
         self.utils.print_info("Selecting Common Objects")
         self.auto_actions.click(self.get_common_objects_sub_tab())
         sleep(2)

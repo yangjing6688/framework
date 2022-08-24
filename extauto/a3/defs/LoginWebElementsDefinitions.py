@@ -1,5 +1,3 @@
-
-
 class LoginWebElementsDefinitions:
     login_page_username_text_ids = \
         {

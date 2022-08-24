@@ -13,7 +13,6 @@ class DeviceWebElementDefs:
 
     new_dev_options = \
         {
-            #'XPATH': '//ul[@class="dropdown-menu show"]//li/a',
             'XPATH': '//ul[@class="dropdown-menu show"]//li[2]/a',
             'wait_for': 5
         }

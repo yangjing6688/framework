@@ -1,11 +1,9 @@
-
 from common.AutoActions import *
 from a3.elements.AuthSourcesWebElements import AuthSourcesWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
@@ -17,10 +15,8 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.auth_source_web_elements = AuthSourcesWebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
         self.driver = webdriver.Chrome()
-        #self.action = ActionChains()
 
     def create_auth_source(self, name_value, name_desc, host_name, host_pwd):
         """
@@ -105,7 +101,6 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             sleep(5)
             self.utils.print_info("Select action 1 for row 2")
             auth_row2_act1 = self.weh.get_element(self.add_rule_row2_act1)
-            #self.auto_actions.click(auth_row2_act1)
             sleep(5)
             option3 = self.weh.get_element(self.rule_row2_select_option)
             self.auto_actions.click(option3)
