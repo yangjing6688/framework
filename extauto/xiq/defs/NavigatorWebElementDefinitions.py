@@ -1281,6 +1281,13 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    vpn_services_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-vpnServices"]',
+            'wait_for': 5
+        }
+
+
     clients_hyperlink = \
         {
             'XPATH': '//*[@data-automation-tag="automation-dashboard-health-cards-client-header-count"]',
