@@ -2600,13 +2600,13 @@ class Copilot(CopilotWebElements):
         if not wifi_cap_widget:
             self.utils.print_info("Unable to get WIFI capacty widget")
             fail_message = "Unable to get WIFI capacty widget"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
         else:
             location_rows = self.get_wifi_capacity_widget_location_grid_rows_from_widget(wifi_cap_widget)
             if not location_rows:
                 self.utils.print_info("Unable to get rows from widget")
                 fail_message = "Unable to get rows from widget"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
             else:
                 self.utils.print_info("Searching for loacation : " + location_name)
                 searching_for_location_row = 1
@@ -2624,10 +2624,10 @@ class Copilot(CopilotWebElements):
                 fail_message = "Unable to find location : " + location_name
                 self.utils.print_info(fail_message)
             kwargs['fail_msg'] = fail_message
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
         else:
             kwargs['pass_msg'] = "Location successfully clicked to display AP list"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
         return return_value
 
     def click_wifi_capacity_anomaly_ap_row(self, ap_name, **kwargs):
@@ -2648,7 +2648,7 @@ class Copilot(CopilotWebElements):
         if not internal_rows:
             self.utils.print_info("Unable to get APs from location")
             kwargs['fail_msg'] = "Unable to get APs from location"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
         else:
@@ -2660,12 +2660,12 @@ class Copilot(CopilotWebElements):
                     self.utils.print_info("Clicking on row")
                     self.auto_actions.click(ap_row)
                     kwargs['pass_msg'] = "Successfully clicked on AP : " + ap_name
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return  1
         self.utils.print_info("Unable to find AP : " + ap_name)
         kwargs['fail_msg'] = "Unable to find AP : " + ap_name
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
@@ -2698,7 +2698,7 @@ class Copilot(CopilotWebElements):
             self.screen.save_screen_shot()
 
             self.utils.switch_to_default(CloudDriver().cloud_driver)
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(f"Unable to click like button for the Wi-Fi capacity widget location "
@@ -2710,7 +2710,7 @@ class Copilot(CopilotWebElements):
             self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         
 
@@ -2732,7 +2732,7 @@ class Copilot(CopilotWebElements):
         if not internal_rows:
             self.utils.print_info("Unable to get APs from location")
             kwargs['fail_msg'] = "Unable to get APs from location"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
         for ap_row in internal_rows:
@@ -2743,18 +2743,18 @@ class Copilot(CopilotWebElements):
                if "info"  in ap_row.text:
                   self.utils.print_info("i ICON Found in AP row")
                   kwargs['pass_msg'] = "i ICON Found in AP row"
-                  self.common_validation.validate(1, 1, **kwargs)
+                  self.common_validation.passed(**kwargs)
                   self.utils.switch_to_default(CloudDriver().cloud_driver)
                   return 1
                else:
                   self.utils.print_info("i ICON NOT Found in AP row")
                   kwargs['fail_msg'] = "i ICON NOT Found in AP row"
-                  self.common_validation.validate(-1, 1, **kwargs)
+                  self.common_validation.failed(**kwargs)
                   self.utils.switch_to_default(CloudDriver().cloud_driver)
                   return -1
         self.utils.print_info("Unable to find AP : " + ap_name)
         kwargs['fail_msg'] = "Unable to find AP : " + ap_name
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
@@ -2776,7 +2776,7 @@ class Copilot(CopilotWebElements):
         if not internal_rows:
             self.utils.print_info("Unable to get APs from location")
             kwargs['fail_msg'] = "Unable to get APs from location"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
         for ap_row in internal_rows:
@@ -2799,30 +2799,30 @@ class Copilot(CopilotWebElements):
                             tt_text = tt_content.text
                             self.utils.print_info("Data details from the hovering :" + tt_text)
                             kwargs['pass_msg'] = "Data details from the hovering :" + tt_text
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return tt_text
                         else:
                             self.utils.print_info("Unable to gather detail data from the hovering over the i(info) icon")
                             kwargs['fail_msg'] = "Unable to gather detail data from the hovering over the i(info) icon"
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return -1
                     else:
                         self.utils.print_info("Unable to get i(info) icon")
                         kwargs['fail_msg'] = "Unable to get i(info) icon"
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         self.utils.switch_to_default(CloudDriver().cloud_driver)
                         return -1
                 else:
                     self.utils.print_info("Unable to locate column containing status, i icon, and pin")
                     kwargs['fail_msg'] = "Unable to locate column containing status, i icon, and pin"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
                     return -1
         self.utils.print_info("Unable to find AP : " + ap_name)
         kwargs['fail_msg'] = "Unable to find AP : " + ap_name
-        self.common_validation.validate(-1, 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         return -1
 
@@ -2869,7 +2869,7 @@ class Copilot(CopilotWebElements):
                                       f"for the ap {ap_name}")
                 kwargs['pass_msg'] = f"successfully Disliked the Wi-Fi capacity widget location {location_name} " \
                                      f"for the ap {ap_name}"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
 
                 self.utils.print_info(f"Closing Detailed view")
                 self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
@@ -2880,7 +2880,7 @@ class Copilot(CopilotWebElements):
             else:
                 self.utils.print_info(f"Unable to Click Dislike button Icon")
                 kwargs['fail_msg'] = "Unable to Click Dislike button Icon"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
                 self.utils.print_info(f"Closing Detailed view")
                 self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
@@ -2891,7 +2891,7 @@ class Copilot(CopilotWebElements):
                                   f"{location_name} with ap {ap_name}")
             kwargs['fail_msg'] = f"Unable to click Dislike button for the Wi-Fi capacity widget location " \
                                  f"{location_name} with ap {ap_name}"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             self.utils.print_info(f"Closing Detailed view")
             self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
             self.screen.save_screen_shot()
@@ -2922,7 +2922,7 @@ class Copilot(CopilotWebElements):
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             fail_message = "Unable to get WIFI capacty widget"
             self.utils.print_info(fail_message)
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             location_rows = self.get_wifi_capacity_widget_location_grid_rows_from_widget(wifi_cap_widget)
@@ -2930,7 +2930,7 @@ class Copilot(CopilotWebElements):
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
                 fail_message = "Unable to get rows from widget"
                 self.utils.print_info(fail_message)
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             else:
                 self.utils.print_info("Searching for loacation : " + location_name)
@@ -2948,7 +2948,7 @@ class Copilot(CopilotWebElements):
                         if not overall_desc:
                             kwargs['fail_msg'] = "Unable to get overall description of the anolomy"
                             self.utils.print_info(fail_message)
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return -1
                         detail_view_data = detail_view_data + '\n' + "***General Description***"+ '\n' + "Description->" + (overall_desc.text).replace('\n', ' ')
@@ -2958,7 +2958,7 @@ class Copilot(CopilotWebElements):
                         if not internal_rows:
                             kwargs['fail_msg'] = "Unable to get APs from location"
                             self.utils.print_info(fail_message)
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return -1
                         else:
@@ -2971,12 +2971,12 @@ class Copilot(CopilotWebElements):
                         kwargs['pass_msg'] = pass_msg
                         self.utils.print_info(pass_msg)
                         self.utils.print_info(detail_view_data)
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return detail_view_data
 
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
                 fail_message = "Unable to find location : " + location_name
                 self.utils.print_info(fail_message)
                 kwargs['fail_msg'] = fail_message
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1

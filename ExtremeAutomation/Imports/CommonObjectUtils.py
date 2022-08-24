@@ -4,6 +4,32 @@ class CommonObjectUtils:
     def __init__(self):
         self.builtin = BuiltIn()
 
+    def check_cli_type_and_skip(self, accepted_list, cli_type, skip_msg="Test is not support for device type"):
+        """
+       - Will check the device (cli_type) against the supported device type (list).
+         # Device type:
+            - VOSS
+            - EXOS
+            - WING-AP
+            - AH-FASTPATH
+            - AH-AP
+            - AH-XR
+        # Endsystem:
+            - MU-WINDOWS
+            - MU-MAC
+            - MU-LINUX
+            - A3
+       - Keyword Usage:
+        - ``check_cli_type_and_skip  ${accepted_list}  ${CLI_TYPE}``
+
+       :param accepted_list: List of device types that are supported
+       :param cli_type: The cli type
+
+       :return: If the device type is found, it will return, otherwise it will skip the test.
+       """
+        if cli_type not in accepted_list:
+            self.builtin.skip(skip_msg)
+
     def convert_to_generic_device_object(self, new_name, index=1, look_for_device_type=None):
         value = None
         generic_device_types = ['ap', 'wing', 'netelem', 'router', 'aerohive_sw']

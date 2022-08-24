@@ -1,6 +1,5 @@
 import time
 import socket
-
 from ExtremeAutomation.Library.Device.Common.Agents.CliAgent import CliAgent
 from netmiko import ConnectHandler, NetMikoTimeoutException  # pip install netmiko
 from ExtremeAutomation.Library.Utils.Constants.Constants import Constants
@@ -51,7 +50,8 @@ class SshAgent(CliAgent):
                                         NetworkElementConstants.OS_SLX,
                                         EndsystemElementConstants.OS_WINDOWS,
                                         EndsystemElementConstants.OS_WINDOWS_MU,
-                                        EndsystemElementConstants.OS_A3]:
+                                        EndsystemElementConstants.OS_A3,
+                                        EndsystemElementConstants.OS_MAC_MU]:
                 ssh_args["device_type"] = "terminal_server"
             elif self.device.oper_sys == NetworkElementConstants.OS_EXOS:
                 ssh_args["device_type"] = "extreme"
@@ -65,6 +65,7 @@ class SshAgent(CliAgent):
                 self.logger.log_debug("SSH Connection values:" +
                                       ", ".join("{}: {}".format(key, value) for key, value in ssh_args.items()))
                 client = ConnectHandler(**ssh_args)
+
                 if self.device.oper_sys == NetworkElementConstants.OS_VOSS:
                     # client._test_channel_read()  # Re-enable this if read_channel() doesn't work.
                     client.read_channel()
