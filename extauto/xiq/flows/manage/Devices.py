@@ -6943,7 +6943,7 @@ class Devices:
             self.utils.print_info("Click on Add Devices")
             self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
             # Check the already onboarded error
-            if self.devices_web_elements.get_error_onboarding_message():
+            if self.devices_web_elements.get_quick_onboard_failure_panel():
                 self.utils.print_info("{} already onboarded ".format(device_sn))
                 return -1
             else:
@@ -7110,7 +7110,7 @@ class Devices:
             self.utils.print_info("Click on Add Devices")
             self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
             # Check the already onboarded error
-            if self.devices_web_elements.get_error_onboarding_message():
+            if self.devices_web_elements.get_quick_onboard_failure_panel():
                 self.utils.print_info("SN already onboarded ")
                 return -1
             else:
@@ -7233,7 +7233,7 @@ class Devices:
             self.utils.print_info("Click on Add Devices")
             self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
             # Check the already onboarded error
-            if self.devices_web_elements.get_error_onboarding_message():
+            if self.devices_web_elements.get_quick_onboard_failure_panel():
                 self.utils.print_info("{} already onboarded ".format(device_sn))
                 return -1
             else:
@@ -7369,7 +7369,7 @@ class Devices:
             self.utils.print_info("Click on Add Devices")
             self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
             # Check the already onboarded error
-            if self.devices_web_elements.get_error_onboarding_message():
+            if self.devices_web_elements.get_quick_onboard_failure_panel():
                 self.utils.print_info("Device(s) already onboarded ")
                 return -1
             else:
