@@ -6351,9 +6351,20 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_pse_profile)
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
-                pse_profile_name = value.get('pse_profile_name')
-                if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
+                pse_profile_name = value['pse_profile_name']
+                print("PSE PROFILE NAME: ", pse_profile_name)
 
+                pse_profile_found = False
+                self.utils.print_info(f"Searching for: {pse_profile_name} in the dropdown items...")
+
+                for pse_profile_item in get_pse_profile_items:
+                    if pse_profile_item.text == pse_profile_name:
+                        self.utils.print_info(f"Found PSE profile: {pse_profile_item.text} Selecting...")
+                        self.auto_actions.click(pse_profile_item)
+                        pse_profile_found = True
+
+                # if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
+                if pse_profile_found:
                     self.utils.print_info(" Selected into dropdown value : ", pse_profile_name)
 
                     try:
