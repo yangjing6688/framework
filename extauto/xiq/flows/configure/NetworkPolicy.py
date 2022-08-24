@@ -69,6 +69,7 @@ class NetworkPolicy(object):
             cell = self.np_web_elements.get_np_row_cell(row, 'field-name')
             if cell.text == policy:
                 return row
+        return None
 
     def _get_network_policy_list(self):
         """
@@ -95,6 +96,7 @@ class NetworkPolicy(object):
         if policy_row:
             self.utils.print_info(f"Network policy {policy} exists in the network policy list")
             return 1
+        return -1
 
     def _perform_np_delete(self):
         """
@@ -110,7 +112,7 @@ class NetworkPolicy(object):
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirmation Yes button")
             self.auto_actions.click(confirm_delete_btn)
-            sleep(2)
+            sleep(3)
 
     def create_network_policy(self, policy, **wireless_profile):
         """
@@ -1322,7 +1324,7 @@ class NetworkPolicy(object):
             self.utils.print_info("Add button is not enabled for the user")
             return -1
 
-        if self._search_network_policy_in_list_view(policy_name):
+        if self._search_network_policy_in_list_view(policy_name) == 1:
             self.utils.print_info("Network policy {} already exists in the network polices list".format(policy_name))
             return 1
 
