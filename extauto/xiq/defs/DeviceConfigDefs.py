@@ -177,6 +177,12 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    device_configuration_node = \
+        {
+            'CSS_SELECTOR': '.device-config-node',
+            'wait_for': 5
+        }
+
     device_configuration_dhcp_checkbox = \
         {
             'XPATH': '//input[@data-dojo-attach-point="dhcpAddressOnly"]',
