@@ -1287,7 +1287,6 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
-
     clients_hyperlink = \
         {
             'XPATH': '//*[@data-automation-tag="automation-dashboard-health-cards-client-header-count"]',
