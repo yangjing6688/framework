@@ -6352,12 +6352,13 @@ class Device360(Device360WebElements):
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
                 pse_profile_name = value['pse_profile_name']
-                print("ITEM: ", value)
-                print("PSE PROFILE NAME: ", pse_profile_name)
-                print("Power Mode: ", value['pse_profile_power_mode'])
-                print("PSE POWER LIMIT: ", value['pse_profile_power_limit'])
-                print("PRIORITY: ", value['pse_profile_priority'])
-                print("DESCRIPTION: ", value['pse_profile_description'])
+                self.utils.print_info("ITEM: ", value)
+                self.utils.print_info("PSE PROFILE NAME: ", pse_profile_name)
+                self.utils.print_info("PSE POWER LIMIT: ", value['pse_profile_power_limit'])
+                self.utils.print_info("PRIORITY: ", value['pse_profile_priority'])
+                self.utils.print_info("DESCRIPTION: ", value['pse_profile_description'])
+
+
                 pse_profile_found = False
                 self.utils.print_info(f"Searching for: {pse_profile_name} in the dropdown items...")
 
