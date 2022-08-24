@@ -183,7 +183,7 @@ class Cli(object):
             result = self.networkElementCliSend.send_cmd(spawn, line, **kwargs)
             try:
                 output = str(result[0].return_text)
-                self.utils.print_info(f"Got response to commandf from device {spawn}: {output}")
+                self.utils.print_info(f"Got response to command from device {spawn}: {output}")
             except Exception as e:
                 self.utils.print_info("Keyword had an error: " + str(e))
         return output
@@ -1100,6 +1100,8 @@ class Cli(object):
         returnCode = -1
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         try:
+            # Make sure the iqagent is enabled
+            self.send(_spawn, f'enable iqagent')
             current_version = self.send(_spawn, f'show iqagent | include Version')
             current_version = current_version.split()[1]
             base_version = self.send(_spawn, f'show process iqagent  | include iqagent')
@@ -1215,7 +1217,7 @@ class Cli(object):
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'no Hivemanager address {server_name}')
+            self.send(_spawn, f'no Hivemanager address ')
             self.send(_spawn, f'Application stop hiveagent')
             self.send(_spawn, f'Application start hiveagent')
             count = 1
@@ -1252,8 +1254,8 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'disable iqagent', expect_match='Do you want to continue? (y/N)')
-            self.send(_spawn, f'yes')
+            self.send(_spawn, f'configure iqagent server ipaddress none')
+            self.send(_spawn, f'configure iqagent server vr none')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
@@ -1290,6 +1292,14 @@ class Cli(object):
                 count += 1
 
             self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
+
+        elif NetworkElementConstants.OS_WING in cli_type.upper():
+            self.send(_spawn, f'en')
+            self.send(_spawn, f'config')
+            # Delete the policy
+            self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(_spawn, f'commit write memory')
+
 
     def wait_for_cli_output(self, spawn, cmd, expected_output, retry_duration=30, retry_count=10):
         """
