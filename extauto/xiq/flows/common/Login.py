@@ -892,7 +892,7 @@ class Login:
         self.utils.print_info("Redirected to SFDC to complete oauth...")
         sfdc_url = self.get_base_url_of_current_page()
         self.utils.print_info("Completing OAuth...", sfdc_url)
-        if "force.com" in sfdc_url:
+        if "extreme" in sfdc_url:
             self.utils.print_info("Extreme SFDC URL", sfdc_url)
             self.auto_actions.send_keys(self.login_web_elements.get_sfdc_login_username(), sfdc_email)
             self.auto_actions.send_keys(self.login_web_elements.get_sfdc_login_pwd(), sfdc_pwd)
