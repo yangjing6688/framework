@@ -6351,19 +6351,22 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_pse_profile)
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
-                pse_profile_name = value.get('pse_profile_name')
+                # pse_profile_name = value.get('pse_profile_name')
+                pse_profile_name = value[0]
+
+                print("Profile name: ", pse_profile_name)
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
 
                     self.utils.print_info(" Selected into dropdown value : ", pse_profile_name)
 
                     try:
-                        edit_flag = value['pse_profile_edit_flag']
-                    except KeyError:
-                        print("'pse_profile_edit_flag' key not found in pse dictionary.")
+                        edit_flag = value[5]
+                    except IndexError:
+                        print("Edit Flag not found in pse tuple.")
                         edit_flag = False
 
                     if edit_flag:
-                        self.utils.print_info(f"Editing PSE profile {value['pse_profile_name']}")
+                        self.utils.print_info(f"Editing PSE profile {value[0]}")
                         get_pse_profile_edit_button = self.get_select_element_port_type("pse_profile_edit")
                         if get_pse_profile_edit_button:
                             self.utils.print_info("Found pse profile edit button!")
@@ -6371,7 +6374,7 @@ class Device360(Device360WebElements):
 
                         get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
                         if get_pse_profile_name:
-                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
+                            self.auto_actions.send_keys(get_pse_profile_name, value[0])
                             sleep(2)
                         else:
                             self.utils.print_info("get_pse_profile_name not found ")
@@ -6384,13 +6387,13 @@ class Device360(Device360WebElements):
                             get_pse_profile_power_mode_items = self.get_select_element_port_type(
                                 "pse_profile_power_mode_items")
                             if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
-                                                                          value['pse_profile_power_mode']):
+                                                                          value[1]):
                                 self.utils.print_info(" Selected into dropdown value : ",
-                                                      value['pse_profile_power_mode'])
+                                                      value[1])
 
                         get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
                         if get_pse_profile_power_limit:
-                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
+                            self.auto_actions.send_keys(get_pse_profile_power_limit, value[2])
                         else:
                             self.utils.print_info("Power Limit textbox not found!")
 
@@ -6402,13 +6405,13 @@ class Device360(Device360WebElements):
                             get_pse_profile_priority_items = self.get_select_element_port_type(
                                 "pse_profile_priority_items")
                             if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
-                                                                          value['pse_profile_priority']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+                                                                          value[3]):
+                                self.utils.print_info(" Selected into dropdown value : ", value[3])
 
                         sleep(2)
                         get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
                         if get_pse_profile_description:
-                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
+                            self.auto_actions.send_keys(get_pse_profile_description, value[4])
                             sleep(2)
                         else:
                             self.utils.print_info("get_pse_profile_description not found ")
@@ -6423,7 +6426,7 @@ class Device360(Device360WebElements):
                     return 1
                 else:
                     sleep(5)
-                    self.utils.print_info(f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
+                    self.utils.print_info(f"PSE profile: {value[0]} not found in the dropdown items. "
                                           f"Closing dropdown...")
                     self.auto_actions.click(get_pse_profile)
                     
@@ -6433,7 +6436,7 @@ class Device360(Device360WebElements):
                         sleep(2)
                         get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
                         if get_pse_profile_name:
-                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
+                            self.auto_actions.send_keys(get_pse_profile_name, value[0])
                             sleep(2)
                         else:
                             self.utils.print_info("get_pse_profile_name not found ")
@@ -6443,12 +6446,12 @@ class Device360(Device360WebElements):
                         if get_pse_profile_power_mode_dropdown:
                             self.auto_actions.click(get_pse_profile_power_mode_dropdown)
                             get_pse_profile_power_mode_items = self.get_select_element_port_type("pse_profile_power_mode_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value['pse_profile_power_mode']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_power_mode'])
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value[1]):
+                                self.utils.print_info(" Selected into dropdown value : ", value[1])
 
                         get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
                         if get_pse_profile_power_limit:
-                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
+                            self.auto_actions.send_keys(get_pse_profile_power_limit, value[2])
                         else:
                             self.utils.print_info("Power Limit textbox not found!")
 
@@ -6458,13 +6461,13 @@ class Device360(Device360WebElements):
                             self.auto_actions.click(get_pse_profile_priority_dropdown)
                             sleep(2)
                             get_pse_profile_priority_items = self.get_select_element_port_type("pse_profile_priority_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value['pse_profile_priority']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value[3]):
+                                self.utils.print_info(" Selected into dropdown value : ", value[3])
 
                         sleep(2)
                         get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
                         if get_pse_profile_description:
-                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
+                            self.auto_actions.send_keys(get_pse_profile_description, value[4])
                             sleep(2)
                         else:
                             self.utils.print_info("get_pse_profile_description not found ")
