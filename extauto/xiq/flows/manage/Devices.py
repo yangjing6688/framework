@@ -1794,7 +1794,7 @@ class Devices:
 
         :return: 1 if device page refreshed successfully else -1
         """
-
+        # FIXME EJL check return codes here...
         try:
             self.utils.print_info("Refreshing devices page...")
             self.auto_actions.scroll_up()
@@ -2890,6 +2890,9 @@ class Devices:
         :param device_mac: device MAC
         :return: 1 if device found else -1
         """
+
+        # navigate to devices page
+        self.navigator.navigate_to_devices()
         self.refresh_devices_page()
 
         if not device_serial and device_mac and device_name:
