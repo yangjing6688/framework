@@ -2031,7 +2031,7 @@ class SwitchTemplate(object):
 
     def get_sw_template_row_hyperlink(self, sw_template):
         """
-        - Get the switch template row element on Network Policy's Switch Templates Grid
+        - Get the switch template row element hyperlink on Network Policy's Switch Templates Grid
         - Keyword Usage
          - ``Get SW Template Row  ${SW_TEMPLATE_NAME}``
 

@@ -400,6 +400,7 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    # This Xpath has been changed to a more specific path in order to solve an intermitent issue
     manage_device_actions_button = \
         {
             'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-button"]',
@@ -859,6 +860,7 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
          }
 
+    # This Xpath has been changed to a more specific path in order to solve an interminte
     devices_quick_add_policy_drop_down = \
         {
             'XPATH': '//table[@data-automation-tag="automation-quick-add-onboard-policy-select"]//tbody//tr//td[2]',
