@@ -615,8 +615,7 @@ class Cli(object):
         self.close_spawn(self.conn)
 
         
-    def mac_wifi_connection(self, ip, usr, passwd, ssid, ssid_pass='badpassword20*rd', wifi_port='en1', mode='pass',
-                            ntimes=1):
+    def mac_wifi_connection(self, ip, usr, passwd, ssid, ssid_pass='badpassword20*rd', mode='pass', ntimes=1):
 
         """
         - This Keyword will establish WiFi Connection in MAC PC/Laptop
@@ -629,45 +628,49 @@ class Cli(object):
         :param passwd: Password of MAC book
         :param ssid: WiFI SSID
         :param ssid_pass:  ssid Password
-        :param wifi_port: WiFi interface
         :param mode: WiFi Mode
         :param ntimes: No.of times to try to establish the WiFi Connections
         :return:  None
         """
 
-        self.conn = self.open_paramiko_ssh_spawn(ip, usr, passwd)
-        self.send_paramiko_cmd(self.conn, TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' ON', 30)
+        conn = self.open_paramiko_ssh_spawn(ip, usr, passwd)
+        wifi_port = self.send_paramiko_cmd(conn, MAC_GET_WIFI_INTERFACE_NAME, 10)
+        self.send_paramiko_cmd(conn, MAC_TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' ON', 30)
 
         cnt = -1
         for i in range(1, 6):
-            self.utils.print_info( " ***** Number of attempts ", str(i))
+            self.utils.print_info(" ***** Number of attempts ", str(i))
             time.sleep(30)
-            listSSIDs = str(self.send_paramiko_cmd(self.conn, SCAN_FOR_LIST_WIFI, 300))
+            listSSIDs = str(self.send_paramiko_cmd(conn, MAC_SCAN_FOR_LIST_WIFI, 300))
             cnt = self.utils.check_match(listSSIDs, ssid)
+            self.utils.print_info(f"The ssid match cnt is {cnt}.\n The ssid is {ssid}")
             if cnt == 1:
                 self.utils.print_info('ssid ' + ssid + ' is found')
                 break
 
-        if cnt != 1: return -1, "Not able to find the SSID"
+        if cnt != 1:
+            self.utils.print_info("Not able to find the SSID")
+            return -1
 
         cn1 = False
         if mode == 'pass':
-            rc = self.send_paramiko_cmd(self.conn, CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
+            rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
             self.utils.print_info("RC is ---------" + str(rc))
             if self.utils.check_match(rc, 'Failed to join') == 1   : return -1,  " Fail to Join "
             if self.utils.check_match(rc, 'not find network') == 1 : return -1,  " Could not find network " + str(ssid)
             if self.utils.check_match(rc, 'Exception') == 1        : return -1,  " Fail with an Exception"
             if self.utils.check_match(rc, 'Error') == 1            : return -1,  " There is an Error "
-
-            self.utils.print_info('Connect successfully!')
+            check_wifi_connection = self.send_paramiko_cmd(conn, MAC_CHECK_WIFI_CONNECTION + wifi_port, 10)
+            self.utils.print_info(f"WiFi Network status: {check_wifi_connection}")
+            if ssid in check_wifi_connection:
+                self.utils.print_info('Connect successfully!')
         else:
             for i in range(1, ntimes):
                 self.utils.print_info(str(i) + ' attempt(s)')
-                rc = self.send_paramiko_cmd(self.conn, CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 40)
-        self.close_spawn(self.conn)
+                rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 40)
+        self.close_paramiko_spawn(conn)
 
         return str(1), None
-
 
     def get_mac_hostname(self, ip, userid, passwd):
         """
@@ -684,6 +687,26 @@ class Cli(object):
         hostname = self.send_paramiko_cmd(conn, 'hostname')
         self.close_spawn(conn)
         return hostname
+
+    def get_mac_wifi_ipv4_addr(self, ip, userid, passwd):
+        """
+        - This keyword will get the wifi ipv4 address of Mac book
+        - Keyword Usage:
+         - ``Get MAC Wifi IPv4 Addr    ${IP}    ${USERNAME}    {PASSWORD}``
+
+        :param ip: IP Address of MAC book
+        :param userid:  username of MAC book
+        :param passwd: Password of MAC book
+        :return: wifi ipv4 address of mac book
+        """
+        conn = self.open_paramiko_ssh_spawn(ip, userid, passwd)
+        wifi_port = self.send_paramiko_cmd(conn, MAC_GET_WIFI_INTERFACE_NAME, 10)
+        wifi_ifconfig = self.send_paramiko_cmd(conn, IFCONFIG + wifi_port)
+        self.utils.print_info(f'WiFi ifconfig detail: {wifi_ifconfig}')
+        wifi_ipv4 = re.search("inet (.*) netmask", wifi_ifconfig).group(1)
+        self.utils.print_info(f"WiFi interface IPv4 address: {wifi_ipv4}")
+        self.close_paramiko_spawn(conn)
+        return wifi_ipv4
 
     def clear_ssh_host_key(self):
         """
