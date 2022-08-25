@@ -1275,6 +1275,9 @@ class Devices:
                 # Some other random push to the device is blocking my policy update!
                 sleep(30)
                 update_time += 30
+                if update_time >= 300:
+                    self.utils.print_info(f"Config push to AP BLOCKED for more than 300 seconds")
+                    return -1
                 continue
             elif retry_count >= int(max_config_push_wait):
                 self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
