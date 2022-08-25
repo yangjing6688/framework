@@ -520,7 +520,8 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_supplemental_cli_on_button = \
         {
-            'XPATH': '//input[@data-dojo-attach-point="enabledControl"]',
+            'XPATH': '//section[@data-dojo-attach-point="advSettingsCtn"]'
+                     '//input[@data-dojo-attach-point="enabledControl"]',
             'wait_for': 1
         }
 
@@ -592,12 +593,6 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    sw_template_auto_revert_disabled = \
-        {
-            'XPATH': '//input[@data-dojo-attach-point="enableAutoRevert"][@disabled]',
-            'wait_for': 5
-        }
-
     sw_template_auto_revert_enabled = \
         {
             'XPATH': '//input[@data-dojo-attach-point="enableAutoRevert"]',
@@ -613,17 +608,5 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_notification_yes_btn = \
         {
             'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
-            'wait_for': 5
-        }
-
-    sw_template_notification_msg = \
-        {
-            'XPATH': '//div[@data-dojo-attach-point="msgContainer"]/h3[@data-dojo-attach-point="textEl"]',
-            'wait_for': 5
-        }
-
-    sw_template_notification_hide = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-notification-checkbox"]',
             'wait_for': 5
         }

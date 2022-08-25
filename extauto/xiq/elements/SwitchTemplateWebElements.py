@@ -434,9 +434,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_auto_cfg(self):
         return self.weh.get_element(self.sw_template_auto_cfg)
 
-    def get_sw_template_auto_revert_disabled(self):
-        return self.weh.get_element(self.sw_template_auto_revert_disabled)
-
     def get_sw_template_auto_revert_enabled(self):
         return self.weh.get_element(self.sw_template_auto_revert_enabled)
 
@@ -445,9 +442,3 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_notification_yes_btn(self):
         return self.weh.get_element(self.sw_template_notification_yes_btn)
-
-    def get_sw_template_notification_msg(self):
-        return self.weh.get_element(self.sw_template_notification_msg)
-
-    def get_sw_template_notification_hide(self):
-        return self.weh.get_element(self.sw_template_notification_hide)

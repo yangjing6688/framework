@@ -12,6 +12,7 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
+from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.common.CommonValidation import CommonValidation
@@ -28,6 +29,7 @@ class Device360(Device360WebElements):
         self.navigator = Navigator()
         self.dev360 = Device360WebElements()
         self.deviceConfig = DeviceConfig()
+        self.deviceCommon = DeviceCommon()
         self.devices_web_elements = DevicesWebElements()
         self.wireless_web_elements = WirelessWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
@@ -6982,3 +6984,30 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Power details not found")
             return -1
+
+    def get_event_from_device360(self, dut, event, close_360_window=True):
+        """
+        This function is used to search for an event given as parameter in Events view from Device360 window
+        :param dut: the instance of the device
+        :param event: the event that is being looking for
+        :param close_360_window: True - if Device360 to be close; False - if not
+        :return: 1 - if the event was found successfully ; -1 - if not
+        """
+        if self.navigator.navigate_to_devices() != 1:
+            self.utils.print_info("Failed to navigate to Devices tab")
+            return -1
+        if self.deviceCommon.go_to_device360_window(device_mac=dut.mac) != 1:
+            self.utils.print_info("Failed to go to Device360 window")
+            return -1
+        if self.device360_select_events_view() != 1:
+            self.utils.print_info("Failed to select Events view")
+            return -1
+        sleep(3)
+
+        count = -1
+        if self.device360_search_event_and_confirm_event_description_contains(event) != -1:
+            count = 1
+
+        if close_360_window:
+            self.close_device360_window()
+        return count

@@ -223,15 +223,3 @@ class DeviceUpdateDefs:
             'XPATH': '//*[@data-automation-tag="automation-config-download-options-checkbox-network-policy-configuration"]',
             'wait_for': 5
         }
-
-    upgrade_specific_firmware_drop_down_button = \
-        {
-            'XPATH': '//div[@data-dojo-attach-point="importImageArea"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 5
-        }
-
-    upgrade_specific_firmware_drop_down_items = \
-        {
-            'XPATH': '//ul[@class="chzn-results "]//li[contains(@class,"active-result")]',
-            'wait_for': 2
-        }

@@ -286,6 +286,7 @@ class Navigator(NavigatorWebElements):
             return self.get_user_account_nav()
         self.utils.wait_till(_wait_for_account, timeout = 10, delay= 1)
         if self.auto_actions.click(self.get_user_account_nav()) == 1:
+            sleep(2)
             return 1
         else:
             self.utils.print_info("Unable to navigate to user account")
