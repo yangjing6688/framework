@@ -1794,7 +1794,6 @@ class Devices:
 
         :return: 1 if device page refreshed successfully else -1
         """
-        # FIXME EJL check return codes here...
         try:
             self.utils.print_info("Refreshing devices page...")
             self.auto_actions.scroll_up()
@@ -2085,15 +2084,25 @@ class Devices:
         serials = device_serial.split(",")
         self.utils.print_info("Serials: ", serials)
 
-        for serial in serials:
-            if self.search_device(device_serial=serial) == 1:
-                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
-                self.common_validation.passed(**kwargs)
-                return 1
-            else:
-                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                self.common_validation.failed(**kwargs)
-                return -1
+        max_retires = 3
+        count = 0
+        ret_value = -1
+        while max_retires != count:
+            for serial in serials:
+                if self.search_device(device_serial=serial) == 1:
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                    if count != max_reties:
+                        self.utils.print_info("fThe {serial} was not found, sleeping for 10 seconds")
+                        sleep(10)
+                        count += 1
+                        self.utils.print_info(f"new count value {count} of max reties {max_reties}")
+
+        self.common_validation.failed(**kwargs)
+        return -1
+
 
     def onboard_device_dt(self, device_serial=None, device_make=None, device_mac=None, device_type="Real", entry_type="Manual",
                            csv_file_name=None, csv_location=None, device_os=None, location=None, service_tag=None,
@@ -2768,6 +2777,8 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
+
+        # EJL make sure this is managed
         num_device_params = 0
         search_device = None
         search_type = None
