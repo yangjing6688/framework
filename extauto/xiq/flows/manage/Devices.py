@@ -1264,16 +1264,23 @@ class Devices:
         :return: 1 if config push success else -1
         """
         retry_count = 0
+        update_time = 0
         max_config_push_wait = self.robot_built_in.get_variable_value("${MAX_CONFIG_PUSH_TIME}")
         while True:
-            self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
+            self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
+            elif re.search(r'Certification|Application', device_update_status):
+                # Some other random push to the device is blocking my policy update!
+                sleep(30)
+                update_time += 30
+                continue
             elif retry_count >= int(max_config_push_wait):
                 self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
                 return -1
             sleep(30)
+            update_time += 30
             retry_count += 30
 
         policy_applied = self.get_ap_network_policy(ap_serial=device_serial)

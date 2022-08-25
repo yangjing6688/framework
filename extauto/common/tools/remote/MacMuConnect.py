@@ -254,6 +254,41 @@ class MacMuConnect(object):
             print(line)
         return -1
 
+    def ping_check(self, destination):
+        """
+        - Ping the destination address
+        - Keyword Usage:
+         - ``Ping Check   ${DESTINATION}``
+         - ``Ping Check  www.google.com``
+
+        :param destination: destination address ex www.google.com
+        :return: 1 if ping success else -1
+        """
+        cmd = 'ping ' + str(destination) + ' -n 3'
+        retry = 0
+        while retry < 3:
+            ping_out = self._execute_commands(cmd)
+            for line in ping_out:
+                print(line)
+                if "Packets: Sent = 3, Received = 3, Lost = 0 (0% loss)" in line:
+                    return 1
+            retry += 1
+        return -1
+
+    def ping_check_in_background(self, destination='www.google.com', count='4'):
+        """
+        - Ping the destination address
+        - Keyword Usage:
+         - ``Ping Check in Background   ${DESTINATION}    50``
+         - ``Ping Check in Background   www.google.com    5``
+
+        :param destination: destination address ex www.google.com
+        :param count: no of pings
+        :return: 1 if ping success else -1
+        """
+        cmd = 'ping ' + str(destination) + ' -c ' + str(count)
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
+
     @staticmethod
     def _execute_commands(cmd):
         """
