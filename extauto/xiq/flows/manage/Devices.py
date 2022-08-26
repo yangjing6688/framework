@@ -2073,7 +2073,7 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
 
         self.screen.save_screen_shot()
-        sleep(2)
+        sleep(5)
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
