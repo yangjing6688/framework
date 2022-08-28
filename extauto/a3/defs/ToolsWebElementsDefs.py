@@ -72,6 +72,12 @@ class ToolsWebElementsDefs:
             'wait_for': 2
         }
 
+    start_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="startButton"]',
+            'wait_for': 2
+        }
+
     download_button = \
         {
             'XPATH': '//*[@data-automation-tag="downloadButton"]',

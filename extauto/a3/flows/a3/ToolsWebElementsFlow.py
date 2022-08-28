@@ -10,7 +10,7 @@ from selenium import webdriver
 import re
 
 
-class ToolsWebElementsflow(ToolsWebElements):
+class ToolsWebElementsFlow(ToolsWebElements):
     def __init__(self):
         super().__init__()
         self.driver1 = None
@@ -18,7 +18,7 @@ class ToolsWebElementsflow(ToolsWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
-        self.tool_opt_web_elements = toolsWebElements()
+        self.tool_opt_web_elements = ToolsWebElements()
         self.setting = GlobalSettingWebElements()
         self.driver = webdriver.Chrome()
 
@@ -69,18 +69,21 @@ class ToolsWebElementsflow(ToolsWebElements):
         sleep(5)
         element1 = self.weh.get_element(self.ssh_selector)
         status = element1.is_selected()
-        self.utils.print_info(status)
+        sleep(10)
         if status:
             self.utils.print_info("SSH option is enabled, disabling it")
+            sleep(5)
             self.auto_actions.click(element1)
             self.utils.print_info("SSH option is disabled now")
+            return 1
         else:
             self.utils.print_info("SSH option is disabled, enabling it")
             sleep(5)
             self.auto_actions.click(element1)
             self.utils.print_info("SSH option is enabled now")
+            return 1
 
-    def ssh_page_entries(self, ssh_password):
+    def ssh_page_entries(self, ssh_password, ssh_dur_opt):
         """
         - This keyword will enter the values into SSH page tools
         - Keyword Usage
@@ -95,7 +98,7 @@ class ToolsWebElementsflow(ToolsWebElements):
         self.utils.print_info("Selected Drop Down")
         self.utils.print_info(ssh_drop)
         drop_options = self.weh.get_elements(self.input_drop_down_options)
-        self.auto_actions.select_drop_down_options(drop_options, "5 days")
+        self.auto_actions.select_drop_down_options(drop_options, ssh_dur_opt)
         sleep(5)
         self.utils.print_info("Enter password")
         ssh_pwd = self.weh.get_element(self.ssh_password)

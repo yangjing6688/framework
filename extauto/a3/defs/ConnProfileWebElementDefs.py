@@ -67,7 +67,7 @@ class ConnProfileWebElementDefs:
 
     select_source = \
         {
-            'XPATH': '//span[text()="AS154"]',
+            'XPATH': '//span[text()="AS161"]',
             'wait_for': 5
         }
 

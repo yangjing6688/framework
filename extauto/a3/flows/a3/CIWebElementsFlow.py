@@ -9,7 +9,7 @@ from common.CloudDriver import *
 from selenium import webdriver
 
 
-class CIWebElementsflow(CIWebElements):
+class CIWebElementsFlow(CIWebElements):
     def __init__(self):
         super().__init__()
         self.driver1 = None
@@ -42,14 +42,14 @@ class CIWebElementsflow(CIWebElements):
             sleep(5)
             element3 = self.weh.get_element(self.cloud_password)
             self.auto_actions.send_keys(element3, cloud_pwd)
-            sleep(5)
+            sleep(10)
             element4 = self.weh.get_element(self.cloud_link_button)
             self.auto_actions.click(element4)
             sleep(20)
             self.driver.get(self.driver.current_url)
             sleep(3)
             self.driver.refresh()
-            sleep(10)
+            sleep(15)
             self.utils.print_info("Unlinking from cloud ")
             element5 = self.weh.get_element(self.cloud_unlink_button)
             self.auto_actions.click(element5)
