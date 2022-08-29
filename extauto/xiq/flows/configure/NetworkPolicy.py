@@ -198,6 +198,7 @@ class NetworkPolicy(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
+        retryUnknown=0
         for value in tool_tp_text:
             if "Network policy was deleted successfully" in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully!"
@@ -208,16 +209,26 @@ class NetworkPolicy(object):
                 self.common_validation.failed(**kwargs)
                 return -1
             elif "An unknown error has occurred" in value:
-                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
-                self.common_validation.failed(**kwargs)
-                return -2
+                self.screen.save_screen_shot()
+                sleep(5)
+                retryUnknown += 1
+                if retryUnknown > 1:
+                    kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
+                    self.common_validation.failed(**kwargs)
+                    return -2
+                else:
+                    self.delete_network_policy(policy, **kwargs)
 
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
         # if it's gone assume success.
-        if self._search_network_policy_in_list_view(policy):
-            kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
-            self.common_validation.failed(**kwargs)
-            return -1
+        for verifyCount in range(2):
+            if self._search_network_policy_in_list_view(policy):
+                self.screen.save_screen_shot()
+                sleep(5)
+                if verifyCount == 2:
+                    kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
         kwargs['pass_msg'] = f"Successfully deleted Network Policy {policy}!"
         self.common_validation.passed(**kwargs)
