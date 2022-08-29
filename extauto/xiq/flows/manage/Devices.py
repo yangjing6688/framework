@@ -3043,17 +3043,21 @@ class Devices:
         self.refresh_devices_page()
 
         self.utils.print_info('Getting device Status using')
+        deviceKey = None
         if device_serial != 'default':
             self.utils.print_info("Getting status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial)
+            deviceKey = device_serial
+            device_row = self.get_device_row(deviceKey)
 
         if device_name != 'default':
             self.utils.print_info("Getting status of device with name: ", device_name)
-            device_row = self.get_device_row(device_name)
+            deviceKey = device_name
+            device_row = self.get_device_row(deviceKey)
 
         if device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            deviceKey = device_mac
+            device_row = self.get_device_row(deviceKey)
 
         if device_row:
             sleep(5)
@@ -3065,10 +3069,18 @@ class Devices:
                 else:
                     self.utils.print_info("Getting status from cell failed...Attempting to get status again")
                     self.screen.save_screen_shot()
-                    self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                    try:
+                        self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                    except:
+                        device_row = self.get_device_row(deviceKey)
+                        pass
                 attempt_count = attempt_count - 1
-                device_status = self.devices_web_elements.get_status_cell(device_row)
-                sleep(5)
+                try:
+                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                except:
+                    device_row = self.get_device_row(deviceKey)
+                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                sleep(2)
                 if device_status:
                     break
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
