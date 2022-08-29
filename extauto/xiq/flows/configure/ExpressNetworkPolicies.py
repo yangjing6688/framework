@@ -198,6 +198,23 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.screen.save_screen_shot()
             return -1
 
+        # Verify popup is closed by searching for the Done button again.  Race condition has done visible while
+        #    not selectible.
+        self.utils.print_info("Check express policy popup closed")
+        for chk in range(2):
+            is_done_btn = self.get_network_policy_dialog_done_button()
+            if is_done_btn:
+                break
+            else:
+                self.screen.save_screen_shot()
+                if chk == 2:
+                    kwargs['fail_msg'] = f"Unable to close Express popup"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                sleep(10)
+                self.auto_actions.click(done_btn)
+                sleep(2)
+
         kwargs['pass_msg'] = "Successfully created open auth express network policy"
         self.common_validation.passed(**kwargs)
         return 1
