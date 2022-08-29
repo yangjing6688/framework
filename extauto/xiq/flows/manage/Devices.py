@@ -1846,7 +1846,7 @@ class Devices:
                 return 1
         return -1
 
-# EJL update the defaults
+
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
         """
@@ -4304,18 +4304,20 @@ class Devices:
 
                     device_row = None
                     if device_serial:
+                        self.utils.print_info(f"Looking for Device by Serial: {device_serial}")
                         device_row = self.get_device_row(device_serial=device_serial)
                     elif device_mac:
+                        self.utils.print_info(f"Looking for Device by MAC: {device_serial}")
                         device_row = self.get_device_row(device_mac=device_mac)
 
                     if device_row and device_row != -1:
-                        if "hive-status-true" in self.devices_web_elements.get_status_cell(device_row):
-                            # self.utils.print_info("Device status is connected")
+                        status = self.devices_web_elements.get_status_cell(device_row)
+                        self.utils.print_info(f"Found Device status: {status}")
+                        if "hive-status-true" in status:
                             kwargs['pass_msg'] = "Device status is connected!"
                             self.common_validation.passed(**kwargs)
                             return 1
-                        elif "local-managed-icon" in self.devices_web_elements.get_status_cell(device_row):
-                            # self.utils.print_info("Device status is connected - locally managed")
+                        elif "local-managed-icon" in status:
                             kwargs['pass_msg'] = "Device status is connected - locally managed"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -4333,7 +4335,6 @@ class Devices:
                 stale_retry = stale_retry + 1
 
         kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
-        self.screen.save_screen_shot()
         self.common_validation.failed(**kwargs)
         return -1
 
