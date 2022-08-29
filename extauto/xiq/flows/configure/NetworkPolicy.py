@@ -45,6 +45,7 @@ class NetworkPolicy(object):
         self.common_validation = CommonValidation()
         self.user_group = UserGroups()
         self.user_group_elements = UserGroupsWebElements()
+        self.retryUnknown = 0
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
@@ -198,7 +199,6 @@ class NetworkPolicy(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        retryUnknown=0
         for value in tool_tp_text:
             if "Network policy was deleted successfully" in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully!"
@@ -211,14 +211,16 @@ class NetworkPolicy(object):
             elif "An unknown error has occurred" in value:
                 self.screen.save_screen_shot()
                 sleep(5)
-                retryUnknown += 1
-                if retryUnknown > 1:
+                self.retryUnknown += 1
+                if self.retryUnknown > 1:
                     kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
                     self.common_validation.failed(**kwargs)
+                    self.retryUnknown = 0
                     return -2
                 else:
                     self.delete_network_policy(policy, **kwargs)
 
+        self.retryUnknown = 0
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
         # if it's gone assume success.
         for verifyCount in range(2):
