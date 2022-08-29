@@ -137,7 +137,7 @@ class NetworkPolicy(object):
             self.utils.print_info("Add button is not enabled for the user")
             return -2
 
-        if self._search_network_policy_in_list_view(policy):
+        if self._search_network_policy_in_list_view(policy) == 1:
             self.utils.print_info(f"Network policy {policy} already exists in the network polices list")
             return 1
 
@@ -187,7 +187,7 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -2
 
-        if not self._search_network_policy_in_list_view(policy):
+        if self._search_network_policy_in_list_view(policy) == -1:
             kwargs['pass_msg'] = f"Network policy {policy} doesn't exist in the network policies list"
             self.common_validation.passed(**kwargs)
             return 1
@@ -216,7 +216,7 @@ class NetworkPolicy(object):
 
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
         # if it's gone assume success.
-        if self._search_network_policy_in_list_view(policy):
+        if self._search_network_policy_in_list_view(policy) == 1:
             kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
             self.common_validation.failed(**kwargs)
             return -1
@@ -242,7 +242,7 @@ class NetworkPolicy(object):
 
         select_flag = None
         for policy in policies:
-            if self._search_network_policy_in_list_view(policy):
+            if self._search_network_policy_in_list_view(policy) == 1:
                 self.utils.print_info("Select Network policy row")
                 self.select_network_policy_row(policy)
                 select_flag = True
@@ -277,7 +277,7 @@ class NetworkPolicy(object):
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
         # if it's gone assume success.
         for policy in policies:
-            if self._search_network_policy_in_list_view(policy):
+            if self._search_network_policy_in_list_view(policy) == 1:
                 kwargs['fail_msg'] = "Unable to perform the delete!"
                 self.common_validation.failed(**kwargs)
                 return -1
