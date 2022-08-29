@@ -1271,8 +1271,10 @@ class Devices:
             device_update_status = self.get_device_updated_status(device_serial)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
-            elif re.search(r'Certification|Application', device_update_status):
+            elif 'Certification' in device_update_status or 'Application' in device_update_status:
                 # Some other random push to the device is blocking my policy update!
+                self.utils.print_info("Non-update text in status :{}".format(device_update_status))
+                self.screen.save_screen_shot()
                 sleep(30)
                 update_time += 30
                 if update_time >= 300:
