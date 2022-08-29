@@ -1809,6 +1809,7 @@ class Devices:
                 self.wait_until_devices_load_mask_cleared(retry_duration=1, retry_count=180)
                 kwargs['pass_msg'] = "Device page refreshed successfully"
                 self.common_validation.passed(**kwargs)
+                sleep(5)
                 return 1
         except Exception as e:
             self.screen.save_screen_shot()
