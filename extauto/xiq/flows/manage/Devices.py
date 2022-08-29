@@ -2900,7 +2900,6 @@ class Devices:
             self.utils.print_info(f"Searching for the device matching either one of serial, name or MAC!")
             self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_name}', device_mac: '{device_mac}'")
 
-        self.refresh_devices_page()
         device_page_numbers = self.devices_web_elements.get_page_numbers()
         if device_page_numbers.text:
             page_len = int(max(device_page_numbers.text))
@@ -3068,30 +3067,26 @@ class Devices:
                 if "hive-status-true" in device_status:
                     if audit_config_status:
                         if "ui-icon-sprite-match" in audit_config_status:
-                            # self.utils.print_info("Device Status: Connected, audit status matched")
                             kwargs['pass_msg'] = "Device Status: Connected, audit status matched"
                             self.common_validation.passed(**kwargs)
                             return 'green'
                         if "ui-icon-sprite-mismatch" in audit_config_status:
-                            # self.utils.print_info("Device Status: Connected, configuration audit status mis matched")
                             kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
                             self.common_validation.passed(**kwargs)
                             return "config audit mismatch"
                     else:
-                        # self.utils.print_info("Unable to obtain audit config status for the row - returning connection status 'green'")
-                        kwargs['pass_msg'] = "Unable to obtain audit config status for the row - returning connection status 'green'"
+                        kwargs['pass_msg'] = "Unable to obtain audit config status for the row - returning connection " \
+                                             "status 'green'"
                         self.common_validation.passed(**kwargs)
                         return 'green'
 
                 if "local-managed-icon" in device_status:
-                    # self.utils.print_info("Device Status: Connected, locally managed")
                     kwargs['pass_msg'] = "Device Status: Connected, locally managed"
                     self.common_validation.passed(**kwargs)
                     return 'green'
 
                 if "hive-status-false" in device_status:
                     if self.devices_web_elements.get_device_conn_status_after_ten_min(device_row):
-                        # self.utils.print_info("Device has not yet established connection after 10 minutes")
                         kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
                         self.common_validation.passed(**kwargs)
                         return "disconnected"
@@ -3100,18 +3095,15 @@ class Devices:
                     return "disconnected"
 
                 if "local-icon" in device_status:
-                    # self.utils.print_info("Device Status: Disconnected, locally managed")
                     kwargs['pass_msg'] = "Device Status: Disconnected, locally managed"
                     self.common_validation.passed(**kwargs)
                     return 'disconnected'
 
                 if "device-status-unknown" in device_status:
-                    # self.utils.print_info("Device Status: Unknown")
                     kwargs['pass_msg'] = "Device Status: Unknown"
                     self.common_validation.passed(**kwargs)
                     return 'unknown'
             else:
-                # self.utils.print_info("Unable to obtain device status for the device row")
                 kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -6132,11 +6124,13 @@ class Devices:
 
         :param stack_mac: stack mac in use with which stack is onboarded
         :param slot_serial_list: list of serial numbers of stack devices to check the devices managed status
-        :param col: column name to check for data
         :return: 1 if column contains data within the specified time, else -1
         """
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
+
+        self.refresh_devices_page()
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Search Stack row")
         stack_row = self.get_device_row(device_mac=stack_mac)
@@ -6165,9 +6159,6 @@ class Devices:
                         self.utils.print_info(f"Slot with Serial number '{serial}' is NOT in Managed state")
             if not row_found:
                 self.utils.print_info(f"Slot with Serial number '{serial}' is NOT FOUND")
-
-        self.refresh_devices_page()
-        self.screen.save_screen_shot()
 
         if count == len(slot_serial_list):
             self.utils.print_info(f"All the Slots are in Managed state")
@@ -8769,7 +8760,6 @@ class Devices:
                     else:
                         pass
                 self.refresh_devices_page()
-                sleep(time_interval)
                 self.utils.print_info(f"Time elapsed for license update: {retry_count} seconds")
                 retry_count += time_interval
             else:
