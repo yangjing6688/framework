@@ -4523,7 +4523,7 @@ class Devices:
 
         return -1
 
-    def assign_network_policy_to_switch(self, policy_name, serial, update_device=True):
+    def assign_network_policy_to_switch(self, policy_name, serial, update_device=True, **kwargs):
         """
         - This keyword does a config push for a switch
         - Go To Manage-->Devices-->Select switch row to apply the network policy
@@ -4556,7 +4556,8 @@ class Devices:
             if policy_name.upper() == policy_applied.upper():
                 self.utils.print_info("Applied network policy:{}".format(policy_applied))
                 return 1
-            self.utils.print_info(f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}")
+            kwargs['fail_msg'] = f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}"
+            self.common_validation.failed(**kwargs)
             return -1
         return 1
 
