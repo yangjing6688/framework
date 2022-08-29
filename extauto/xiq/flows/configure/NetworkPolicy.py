@@ -45,7 +45,6 @@ class NetworkPolicy(object):
         self.common_validation = CommonValidation()
         self.user_group = UserGroups()
         self.user_group_elements = UserGroupsWebElements()
-        self.retryUnknown = 0
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
@@ -209,28 +208,16 @@ class NetworkPolicy(object):
                 self.common_validation.failed(**kwargs)
                 return -1
             elif "An unknown error has occurred" in value:
-                self.screen.save_screen_shot()
-                sleep(5)
-                self.retryUnknown += 1
-                if self.retryUnknown > 1:
-                    kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
-                    self.common_validation.failed(**kwargs)
-                    self.retryUnknown = 0
-                    return -2
-                else:
-                    self.delete_network_policy(policy, **kwargs)
+                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
+                self.common_validation.failed(**kwargs)
+                return -2
 
-        self.retryUnknown = 0
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
         # if it's gone assume success.
-        for verifyCount in range(2):
-            if self._search_network_policy_in_list_view(policy):
-                self.screen.save_screen_shot()
-                sleep(5)
-                if verifyCount == 2:
-                    kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
-                    self.common_validation.failed(**kwargs)
-                    return -1
+        if self._search_network_policy_in_list_view(policy):
+            kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
+            self.common_validation.failed(**kwargs)
+            return -1
 
         kwargs['pass_msg'] = f"Successfully deleted Network Policy {policy}!"
         self.common_validation.passed(**kwargs)
