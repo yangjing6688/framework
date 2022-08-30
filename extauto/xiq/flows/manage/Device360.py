@@ -301,7 +301,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
         self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
@@ -377,7 +377,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH WEB tab")
@@ -437,7 +437,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH tab")
@@ -470,7 +470,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH tab")
@@ -878,7 +878,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
         self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
@@ -922,7 +922,7 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
             self.utils.print_info("Clicking Device 360 Configure button")
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
 
             self.utils.print_info("Clicking Device 360 SSH WEB tab")
             self.auto_actions.click(self.get_device360_configure_ssh_web_tab())
@@ -957,7 +957,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
         self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
