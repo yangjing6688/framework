@@ -819,7 +819,7 @@ class DevicesWebElementsDefinitions:
 
     devices_quick_add_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-policy-select"]',
+            'XPATH': '//table[@data-automation-tag="automation-quick-add-onboard-policy-select"]//tbody//tr//td[2]',
             'CSS_SELECTOR': 'div[class="policy-list-el"][data-dojo-attach-point="networkPolicyListCtn"]',
             'wait_for': 1
          }

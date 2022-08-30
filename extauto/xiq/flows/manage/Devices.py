@@ -1849,7 +1849,8 @@ class Devices:
 
 # EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
-                       csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
+                       csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False,
+                       **kwargs):
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
@@ -1864,6 +1865,7 @@ class Devices:
         :param csv_file_name: CSV File Name
         :param device_os: verifies the Device OS automatically selected after entering device serial
         :param location: device location
+        :param policy_name: network policy
         :param service_tag: Dell Service Tag
         :return:  1 if onboarding success
         :return: -2 for error - Serial numbers entered are from different platform families. Please enter serial numbers that are part of the same platform family. Please remove serial number
@@ -2055,6 +2057,14 @@ class Devices:
         if location:
             self.auto_actions.click(self.devices_web_elements.get_location_button())
             self._select_location(location)
+
+        if policy_name:
+            self.utils.print_info("Selecting policy '" + policy_name + "'")
+            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down())
+            sleep(2)
+            self.screen.save_screen_shot()
+            self.auto_actions.select_drop_down_options(self.devices_web_elements.
+                                                       get_devices_quick_add_policy_drop_down_items(), policy_name)
 
         self.screen.save_screen_shot()
         sleep(2)
