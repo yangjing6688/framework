@@ -39,6 +39,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_devices_nav(self):
         return self.weh.get_element(self.device_nav)
 
+    def get_devices_page(self):
+        return self.weh.get_element(self.devices_page)
+
     def get_ssid_option(self):
         return self.weh.get_element(self.common_objects_ssids)
 
@@ -629,6 +632,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_manage_events_menu_item(self):
         return self.weh.get_element(self.manage_events_menu_item)
 
+    def get_manage_alerts_menu_item(self):
+        return self.weh.get_element(self.manage_alerts_menu_item)
+
     def get_configure_guest_essentials_users_menu_item(self):
         return self.weh.get_element(self.configure_guest_essentials_users_menu_item)
 
@@ -662,8 +668,17 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
                 return order_number
         return -1
 
-    def get_vpn_services_tab(self):
-        return self.weh.get_element(self.vpn_services_tab)
+    def get_vpn_management_tab(self):
+        return self.weh.get_element(self.vpn_management_tab)
 
     def get_clients_hyperlink(self):
         return self.weh.get_element(self.clients_hyperlink)
+
+    def get_configure_button_d360(self):
+        return self.weh.get_element(self.configure_button_d360)
+
+    def get_port_configuration_d360(self):
+        return self.weh.get_element(self.port_configuration_d360)
+
+    def get_port_rows_d360(self):
+        return self.weh.get_elements(self.port_rows_d360)

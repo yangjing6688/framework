@@ -53,10 +53,10 @@ class WebElementHandler:
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
         _driver = CloudDriver().cloud_driver if parent == "default" else parent
 
-        self.utils.print_info("Waiting for page to complete loading")
+        self.utils.print_debug("Waiting for page to complete loading")
         while not self.check_for_page_is_loading(_driver):
             continue
-        self.utils.print_info("Page completed loading")
+        self.utils.print_debug("Page completed loading")
 
         for key, value in key_val.items():
             if 'IMAGE' in key:
@@ -177,7 +177,7 @@ class WebElementHandler:
                 {
                     'DESC': 'This finds a panel with title="${title}"',
                     'XPATH': '//div[contains(@id, "panel-title") and text()="${title}"]',
-                    'wait_for': 10
+                    
                 }
             self.weh.get_template_element(template_example, title="Devices")
             self.weh.get_template_element(template_example, title="Policy")
@@ -200,7 +200,7 @@ class WebElementHandler:
             {
                 'DESC': 'Drop down items for a list type dropdown (li)',
                 'XPATH': '//div[contains(@id, "${element_id}") and contains(@id, "-picker-listWrap")]/ul/li',
-                'wait_for': 10
+                
             }
             You would then get the elements by passing in the element ID:
             self.weh.get_template_elements(list_dropdown_items, element_id="combo-id")

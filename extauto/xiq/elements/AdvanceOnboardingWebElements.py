@@ -98,3 +98,6 @@ class AdvanceOnboardingWebElements(AdvanceOnboardingDefinitions):
 
     def get_advance_onboard_cloudiq_engine_button(self):
         return self.weh.get_element(self.advance_onboard_cloudiq_engine_button)
+
+    def get_advance_onboard_mac_textfield(self):
+        return self.weh.get_element(self.advance_onboard_mac_address_textfield)

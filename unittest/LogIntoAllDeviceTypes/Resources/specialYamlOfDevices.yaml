@@ -1,0 +1,186 @@
+netelem1:
+  name:                     "EXOS"
+  cli_type:                 "EXOS"
+  model:                    "X460G2_24p_10_G4"
+  hostname:                 ""
+  serial:                   "2010G-00015"
+  mac:                      "000496EDF800"
+  ip:                       "10.148.35.202"
+  port:                     "22"
+  console_ip:               "10.148.35.5"
+  console_port:             "5030"
+  mgmt_vlan:                "VLAN_4000"
+  username:                 "admin"
+  password:                 ""
+  connection_method:        "ssh"
+  os:                       "exos"
+  make:                     "EXOS"
+  platform:                 "x460G2"
+  auth_mode:                "basic"
+  image_family:             ""
+
+netelem2:
+  name:                     "VOSS"
+  cli_type:                 "VOSS"
+  model:                    "vsp8000"
+  hostname:                 ""
+  serial:                   "2024G-00147"
+  mac:                      "000496F17400"
+  ip:                       "10.148.35.201"
+  port:                     "22"
+  console_ip:               "10.148.35.5"
+  console_port:             "5032"
+  username:                 "rwa"
+  password:                 "rwa"
+  connection_method:        "ssh"
+  os:                       "voss"
+  make:                     "VOSS"
+  platform:                 "vsp8000"
+  auth_mode:                "basic"
+  image_family:             ""
+
+## SJ_TB_6
+wing1:
+  name:                     ap7532-861180
+  connection_method:        "ssh"
+  cli_type:                 "AH-WING"
+  model:                    AP7532I
+  device_template:          AP7532I-default-template
+  serial:                   "14137522203443"
+  os_version:               7.6.0.1-004R
+  mac:                      84248D1777E0
+  bssid:
+  network_policy:           Test_np
+  username:                 admin
+  password:                 symbol
+  platform:                 wing
+  ip:                       10.16.171.38
+  port:                     22
+  country:                  United Kingdom
+  make:                     Controllers
+
+## SJ_TB_6
+aerohive_sw1:
+  name:               bui-flo-0026
+  cli_type:           "AH-FASTPATH"
+  model:              SR2208P
+  device_template:    SR2208P-default-template
+  serial:             '22081811231256'
+  os:                 Linux 3.6.5
+  mac:                B87cF20242A0
+  ip:                 10.16.152.228
+  port:               22
+  connection_method:  "ssh"
+  network_policy:
+  username:           admin
+  password:           Aerohive123
+  platform:           aerohive-fastpath
+  console_ip:         10.16.128.23
+  console_port:       7027
+  test_port:
+  make:               Extreme - Aerohive
+
+### SJ_TB_6
+router1:
+  name:                     bui-flo-0393
+  model:                    XR600P
+  connection_method:        "console"
+  cli_type:                 "AH-XR"
+  device_template:          XR600P_test_automation
+  serial:                   "60018082400393"
+  ip:                       10.16.171.37
+  port:                     4001
+  os:                       HiveOS 10.0r10b build-254127
+  mac:                      F4EAB52DCE00
+  network_policy:           Test_np
+  username:                 admin
+  password:                 Aerohive123
+  platform:                 aerohive
+  console_ip:               10.16.171.37
+  console_port:             4001
+  make:                     Extreme - Aerohive
+
+## SJ_TB_6
+ap1:
+  name:                     bui-flo-0005
+  cli_type:                 "AH-AP"
+  connection_method:        "ssh"
+  ip:                       10.16.171.74
+  port:                     22
+  username:                 admin
+  password:                 Aerohive123
+  serial:                   "01301511060005"
+  mac:                      885BDD4BE380
+  os:                       Cloud IQ Engine
+  platform:                 aerohive
+  model:                    AP130
+  template:                 AP130-default-template
+  make:                     Extreme - Aerohive
+  mgmt_vlan:                10
+  country:                  United States
+  location:                 auto_location_01, Santa Clara, building_02, floor_04
+  power_strip:
+    ip:
+    port:
+    username:
+    password:
+    plug:
+        plug_a:
+        plug_b:
+    type:
+  extra:
+      country:                  United Kingdom
+      network_policy:           Test_np
+      ssid:                     AP130_01
+      version:                  6.5
+      neighbour_serial:         06301908310556
+      neighbour_mac:            3485843A5CC0
+
+mu1:
+  cli_type: "MU-WINDOWS"
+  connection_method: "ssh"
+  ip:             10.16.166.236
+  port:           22
+  username:       admin
+  password:       symbol
+  platform:       win
+  mac_wifi_port:  en1
+  wifi_mac:       F018988B2B5D
+
+mu2:
+  cli_type: "MU-MAC"
+  connection_method: "ssh"
+  ip:             10.16.171.35
+  port:           22
+  username:       root
+  password:       aerohive
+  platform:       mac
+  mac_wifi_port:  en1
+  wifi_mac:       F018988B2B5D
+
+mu3:
+  cli_type: "MU-LINUX"
+  connection_method: "ssh"
+  ip:             10.148.35.200
+  port:           22
+  username:       root
+  password:       PASprt86
+  platform:       linux
+  mac_wifi_port:  en1
+  wifi_mac:       F018988B2B5D
+
+a3:
+  version: 4.0
+  ip: 10.234.188.108
+  cli_type: "A3"
+  node1_ip: 10.234.188.105
+  node2_ip: 10.234.188.106
+  node3_ip: 10.234.188.107
+  node1_hostname: A3-A4N1-105
+  node2_hostname: A3-A4-N2-106
+  node3_hostname: A3-A4N3-107
+  ui_username: demo@demo.com
+  ui_password: Extr_123
+  console_username: sshuser
+  console_password: Extr_123
+  console_port: 22

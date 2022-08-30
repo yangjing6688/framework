@@ -76,9 +76,7 @@ class ExtremeGuest(object):
 
             if self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox().is_displayed():
                 self.utils.print_info("Select Extreme Guest Open SSID")
-                self.auto_actions.enable_check_box(
-                    self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox())
-
+                self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox())
             else:
                 self.utils.print_info("Add SSID before continuing")
                 return 0

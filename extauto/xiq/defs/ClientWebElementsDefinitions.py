@@ -12,7 +12,7 @@ class ClientWebElementsDefinitions:
             'wait_for': 3
          }
 
-    client_page_grid_rows = {'CSS_SELECTOR': '.dgrid-row', 'wait_for': 10}
+    client_page_grid_rows = {'CSS_SELECTOR': '.dgrid-row', }
 
     client_status_green = \
         {

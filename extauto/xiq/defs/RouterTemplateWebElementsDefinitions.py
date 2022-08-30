@@ -16,7 +16,7 @@ class RouterTemplateWebElementsDefinitions:
     network_allocation_tab = \
         {
             'XPATH': '//ul[@data-dojo-attach-point="routerSubmenu"]//li[@data-tab="NetworkAllocation"]',
-            'wait_for': 10
+            
         }
 
     device_template_tab = \
@@ -158,7 +158,7 @@ class RouterTemplateWebElementsDefinitions:
     router_template_port_details_grid_rows = \
         {
             'CSS_SELECTOR': '.state-type-access-port',
-            'wait_for': 10
+            
          }
 
     router_template_add_port_type_link_button = \

@@ -123,7 +123,11 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    device_ap_template_items = {'CSS_SELECTOR': '.ui-menu-item', 'wait_for': 5}
+    device_ap_template_items = \
+        {
+            'XPATH': '//div[@class="ui-menu-filter-list"]//*[@class="ui-menu-list"]//*[@class="ui-menu-item"]',
+            'wait_for': 5
+        }
 
     device_template_grid_rows = {'CSS_SELECTOR': '.dgrid-row', 'wait_for': 5}
 
@@ -150,6 +154,12 @@ class DeviceTemplateWebElementDefinitions:
     ap_template_save_button = \
         {
             'XPATH': '//*[@id="ah/comp/configuration/deviceTemplate/APTemplate_0"]/div[2]/fixed-bar/button[2]',
+            'wait_for': 5
+        }
+
+    ap_template_save_tool_tip = \
+        {
+            'XPATH': '//*[contains(@class, "ui-tipbox-success")]//*[@data-dojo-attach-point="textEl"]',
             'wait_for': 5
         }
 
@@ -297,7 +307,7 @@ class DeviceTemplateWebElementDefinitions:
     click_selected_ap_template = \
         {
             'CSS_SELECTOR': '.dojoxGridCell ',
-            'wait_for': 10
+            
         }
 
     ap_template_dialog_select_button = \

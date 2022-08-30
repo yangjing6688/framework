@@ -16,7 +16,7 @@ class NetworkPolicyWebElementDefinition:
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]'
                      '//table[@class="dgrid-row-table"]//tr',
-            'wait_for': 10
+            
         }
     np_row_cells = \
         {
@@ -70,6 +70,11 @@ class NetworkPolicyWebElementDefinition:
     policy_save_button = \
         {
             'XPATH': "//*[@data-automation-tag='automation-policy-save']",
+            'wait_for': 5
+        }
+    np_save_tool_tip = \
+        {
+            'XPATH': '//*[contains(@class, "ui-tipbox-success")]//*[@data-dojo-attach-point="textEl"]',
             'wait_for': 5
         }
 
@@ -709,7 +714,7 @@ class NetworkPolicyWebElementDefinition:
     table_management_options_rows = \
         {
             "CSS_SELECTOR": '.dojoxGridRow',
-            'wait_for': 10
+            
         }
 
     table_management_options_row_checkbox = \
@@ -721,5 +726,22 @@ class NetworkPolicyWebElementDefinition:
     management_options_select_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-dialog-link"]',
-            'wait_for': 10
+            
+        }
+
+    nw_policy_port_types_view_all_pages = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    next_page_element_disabled = \
+        {
+            'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable'
+        }
+
+    next_page_element = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            'index': 1
         }
