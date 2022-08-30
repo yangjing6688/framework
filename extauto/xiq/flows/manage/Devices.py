@@ -3071,7 +3071,7 @@ class Devices:
         #   when the page auto refreshes or XIQ takes some other 'under the covers action'
         #   Copying the object takes a snapshot in time and illegal references should go away.
         device_row = self.get_device_row(deviceKey)
-        device_row = copy.deepcopy(device_row)
+        device_row = copy.copy(device_row)
 
         if device_row:
             sleep(5)
