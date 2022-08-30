@@ -27,7 +27,7 @@ class CommonObjectUtils:
 
        :return: If the device type is found, it will return, otherwise it will skip the test.
        """
-        if cli_type not in accepted_list
+        if cli_type not in accepted_list:
             self.builtin.fail(skip_msg)
 
     def convert_to_generic_device_object(self, new_name, index=1, look_for_device_type=None):
