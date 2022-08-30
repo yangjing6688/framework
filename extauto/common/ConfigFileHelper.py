@@ -34,7 +34,7 @@ if ROBOT:
             return 0
 
         def loadRdcAio(self):
-            if 'XDC' in self.variables:
+            if 'RDC' in self.variables:
                 if yamlRe.match(self.variables['RDC']):
                     # the RDC arg is a bypass rdc variable file
                     for p in sys.path:
