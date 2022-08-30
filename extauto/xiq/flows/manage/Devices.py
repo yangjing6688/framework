@@ -3044,8 +3044,6 @@ class Devices:
         """
         device_row = -1
         self.refresh_devices_page()
-
-        self.utils.print_info('Getting device Status using')
         if device_serial != 'default':
             self.utils.print_info("Getting status of device with serial: ", device_serial)
             device_row = self.get_device_row(device_serial)
@@ -3059,7 +3057,7 @@ class Devices:
             device_row = self.get_device_row(device_mac)
 
         if device_row:
-            sleep(5)
+            # sleep(5)
             device_status = ''
             attempt_count = 3
             while attempt_count > 0:
