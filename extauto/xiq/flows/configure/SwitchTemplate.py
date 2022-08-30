@@ -1660,7 +1660,7 @@ class SwitchTemplate(object):
 
             # In the case of a pop-up message, press yes
             sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
-            if sw_yes_button.is_displayed():
+            if sw_yes_button is not None and sw_yes_button.is_displayed():
                 self.utils.print_info("YES button is displayed")
                 self.auto_actions.click(sw_yes_button)
 
