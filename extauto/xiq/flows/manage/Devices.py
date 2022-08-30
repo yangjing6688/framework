@@ -3057,17 +3057,21 @@ class Devices:
         if device_serial != 'default':
             self.utils.print_info("Getting status of device with serial: ", device_serial)
             deviceKey = device_serial
-            device_row = self.get_device_row(deviceKey)
-
-        if device_name != 'default':
+        elif device_name != 'default':
             self.utils.print_info("Getting status of device with name: ", device_name)
             deviceKey = device_name
-            device_row = self.get_device_row(deviceKey)
-
-        if device_mac != 'default':
+        elif device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
             deviceKey = device_mac
-            device_row = self.get_device_row(deviceKey)
+        else:
+            kwargs['fail_msg'] = "No valid args passed.  Must be device_serial, device_name, device_mac!"
+            self.common_validation.failed(**kwargs)
+            return -1
+        # initial device_row is a pointer to the selenium object for the element.  The object can change unexpectedly
+        #   when the page auto refreshes or XIQ takes some other 'under the covers action'
+        #   Copying the object takes a snapshot in time and illegal references should go away.
+        device_row = self.get_device_row(deviceKey)
+        device_row = copy.deepcopy(device_row)
 
         if device_row:
             sleep(5)
@@ -3083,6 +3087,7 @@ class Devices:
                         self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
                     except:
                         device_row = self.get_device_row(deviceKey)
+                        self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
                         pass
                 attempt_count = attempt_count - 1
                 try:
