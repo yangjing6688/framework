@@ -65,6 +65,18 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    associated_realms = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-realms"]',
+            'wait_for': 5,
+        }
+
+    realm_value = \
+        {
+                'XPATH': '//span[text()="a3154"]',
+                'wait_for': 5
+        }
+
     ad_auth_add_rule = \
         {
             'XPATH': '//*[@data-automation-tag="Add Rule"]',
