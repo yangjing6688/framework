@@ -264,7 +264,7 @@ class MacMuConnect(object):
         :param destination: destination address ex www.google.com
         :return: 1 if ping success else -1
         """
-        cmd = 'ping ' + str(destination) + ' -n 3'
+        cmd = 'ping ' + str(destination) + ' -c 3'
         retry = 0
         while retry < 3:
             ping_out = self._execute_commands(cmd)
