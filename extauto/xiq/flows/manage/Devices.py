@@ -1253,7 +1253,7 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
 
-    def _check_update_network_policy_status(self, policy_name, device_serial):
+    def _check_update_network_policy_status(self, policy_name, device_serial, **kwargs):
         """
         - This keyword is used to check the network policy applied status to the device
         - It will poll the "update status" every 30 seconds to get the status of the network policy applied
@@ -1263,16 +1263,30 @@ class Devices:
         :return: 1 if config push success else -1
         """
         retry_count = 0
+        update_time = 0
         max_config_push_wait = self.robot_built_in.get_variable_value("${MAX_CONFIG_PUSH_TIME}")
         while True:
-            self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
+            self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
+            elif 'Certification' in device_update_status or 'Application' in device_update_status:
+                # Some other random push to the device is blocking my policy update!
+                self.utils.print_info("Non-update text in status :{}".format(device_update_status))
+                self.screen.save_screen_shot()
+                sleep(30)
+                update_time += 30
+                if update_time >= 300:
+                    self.utils.print_info(f"Config push to AP BLOCKED for more than 300 seconds")
+                    kwargs['fail_msg'] = "Config push to AP BLOCKED for more than 300 seconds"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                continue
             elif retry_count >= int(max_config_push_wait):
                 self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
                 return -1
             sleep(30)
+            update_time += 30
             retry_count += 30
 
         policy_applied = self.get_ap_network_policy(ap_serial=device_serial)
@@ -3040,17 +3054,25 @@ class Devices:
         self.refresh_devices_page()
 
         self.utils.print_info('Getting device Status using')
+        deviceKey = None
         if device_serial != 'default':
             self.utils.print_info("Getting status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial)
-
-        if device_name != 'default':
+            deviceKey = device_serial
+        elif device_name != 'default':
             self.utils.print_info("Getting status of device with name: ", device_name)
-            device_row = self.get_device_row(device_name)
-
-        if device_mac != 'default':
+            deviceKey = device_name
+        elif device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            deviceKey = device_mac
+        else:
+            kwargs['fail_msg'] = "No valid args passed.  Must be device_serial, device_name, device_mac!"
+            self.common_validation.failed(**kwargs)
+            return -1
+        # initial device_row is a pointer to the selenium object for the element.  The object can change unexpectedly
+        #   when the page auto refreshes or XIQ takes some other 'under the covers action'
+        #   Copying the object takes a snapshot in time and illegal references should go away.
+        device_row = self.get_device_row(deviceKey)
+        device_row = copy.copy(device_row)
 
         if device_row:
             sleep(5)
@@ -3062,10 +3084,19 @@ class Devices:
                 else:
                     self.utils.print_info("Getting status from cell failed...Attempting to get status again")
                     self.screen.save_screen_shot()
-                    self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                    try:
+                        self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                    except:
+                        device_row = self.get_device_row(deviceKey)
+                        self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                        pass
                 attempt_count = attempt_count - 1
-                device_status = self.devices_web_elements.get_status_cell(device_row)
-                sleep(5)
+                try:
+                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                except:
+                    device_row = self.get_device_row(deviceKey)
+                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                sleep(2)
                 if device_status:
                     break
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
