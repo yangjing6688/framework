@@ -1849,7 +1849,8 @@ class Devices:
 
 # EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
-                       csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
+                       csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False,
+                       **kwargs):
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
@@ -1864,6 +1865,7 @@ class Devices:
         :param csv_file_name: CSV File Name
         :param device_os: verifies the Device OS automatically selected after entering device serial
         :param location: device location
+        :param policy_name: network policy
         :param service_tag: Dell Service Tag
         :return:  1 if onboarding success
         :return: -2 for error - Serial numbers entered are from different platform families. Please enter serial numbers that are part of the same platform family. Please remove serial number
@@ -2055,6 +2057,14 @@ class Devices:
         if location:
             self.auto_actions.click(self.devices_web_elements.get_location_button())
             self._select_location(location)
+
+        if policy_name:
+            self.utils.print_info("Selecting policy '" + policy_name + "'")
+            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down())
+            sleep(2)
+            self.screen.save_screen_shot()
+            self.auto_actions.select_drop_down_options(self.devices_web_elements.
+                                                       get_devices_quick_add_policy_drop_down_items(), policy_name)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -4490,7 +4500,7 @@ class Devices:
 
         return -1
 
-    def assign_network_policy_to_switch(self, policy_name, serial):
+    def assign_network_policy_to_switch(self, policy_name, serial, update_device=True, **kwargs):
         """
         - This keyword does a config push for a switch
         - Go To Manage-->Devices-->Select switch row to apply the network policy
@@ -4501,6 +4511,7 @@ class Devices:
 
         :param policy_name: name of the network policy to deploy
         :param serial: serial number of the switch to select
+        :param update_device: True - if the policy to be pushed to the device ; False - if not
         :return: 1 if policy is assigned, else -1
         """
 
@@ -4517,12 +4528,15 @@ class Devices:
         if not self._assign_policy_to_switch(policy_name):
             return -1
 
-        policy_applied = self.get_ap_network_policy(ap_serial=serial)
-        if policy_name.upper() == policy_applied.upper():
-            self.utils.print_info("Applied network policy:{}".format(policy_applied))
-            return 1
-        self.utils.print_info(f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}")
-        return -1
+        if update_device:
+            policy_applied = self.get_ap_network_policy(ap_serial=serial)
+            if policy_name.upper() == policy_applied.upper():
+                self.utils.print_info("Applied network policy:{}".format(policy_applied))
+                return 1
+            kwargs['fail_msg'] = f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}"
+            self.common_validation.failed(**kwargs)
+            return -1
+        return 1
 
     def update_network_policy_to_switch(self, policy_name=None, serial=None, update_method="PolicyAndConfig"):
         """
