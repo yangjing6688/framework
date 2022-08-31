@@ -823,29 +823,7 @@ class Cli(object):
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(_spawn, f'do Hivemanager address {server_name}')
-            """
-            July 26, 2022
-            Depending on the order of configuration this step will fail.
-            As an example:
-            configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
-            It was decided to take out the verification steps from this method for now.
-            We should create a verify method if the user does desire that functionality
 
-            count = 1
-            while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
-                self.utils.print_info(f"hm_status", hm_status)
-                hm_address = self.send(_spawn, f'do show hivemanager address')
-                self.utils.print_info(f"hm_address", hm_address)
-                
-                if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
-                    self.close_spawn(_spawn)
-                    self.utils.print_info(f"Device Successfully Connected to {server_name}")
-                    return 1
-                count += 1
-            """
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(_spawn, f'capwap client server name {server_name}')
             self.send(_spawn, f'capwap client default-server-name {server_name}')
@@ -853,53 +831,10 @@ class Cli(object):
             self.send(_spawn, f'no capwap client enable')
             self.send(_spawn, f'capwap client enable')
             self.send(_spawn, f'save config')
-            """
-            July 26, 2022
-            Depending on the order of configuration this step will fail.
-            As an example:
-            configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
-            It was decided to take out the verification steps from this method for now.
-            We should create a verify method if the user does desire that functionality
-            count = 1
-            while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                output = self.send(_spawn, f'show capwap client | include "RUN state"')
 
-                if 'Connected securely to the CAPWAP server' in output:
-                    self.close_spawn(_spawn)
-                    self.utils.print_info(f"Device Successfully Connected to {server_name}")
-                    return 1
-                count +=1
-
-            self.builtin.fail(msg=f"Device is Not Connected Successfully With CAPWAP Server : {server_name}")
-            """
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(_spawn, f'configure iqagent server ipaddress {server_name}')
             self.send(_spawn, f'configure iqagent server vr {vr}')
-            """
-            July 26, 2022
-            Depending on the order of configuration this step will fail.
-            As an example:
-            configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
-            It was decided to take out the verification steps from this method for now.
-            We should create a verify method if the user does desire that functionality
-            
-            count = 1
-            while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                output = self.send(_spawn, f'show iqagent | include "XIQ Address"')
-                output1 = self.send(_spawn, f'show iqagent | include "Status"')
-
-                if server_name in output and 'CONNECTED TO XIQ' in output1:
-                    self.close_spawn(_spawn)
-                    self.utils.print_info(f"Device Successfully Connected to {server_name}")
-                    return 1
-                count +=1
-
-            self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
-            """
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(_spawn, f'enable')
@@ -910,29 +845,6 @@ class Cli(object):
             self.send(_spawn, f'iqagent enable')
             self.send(_spawn, f'end')
 
-            """
-            July 26, 2022
-            Depending on the order of configuration this step will fail.
-            As an example:
-            configure_device_to_connect_to_cloud, then onboard device to the cloud this step will fail
-            It was decided to take out the verification steps from this method for now.
-            We should create a verify method if the user does desire that functionality
-            count = 1
-            while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-
-                output1 = self.send(_spawn, f'show application iqagent | include "Server Address"')
-                output2 = self.send(_spawn, f'show application iqagent status | include "Connection Status"')
-
-                if server_name in output1 and 'Connected' in output2:
-                    self.close_spawn(_spawn)
-                    self.utils.print_info(f"Device Successfully Connected to {server_name}")
-                    return 1
-                count += 1
-
-            self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
-            """
         elif NetworkElementConstants.OS_WING in cli_type.upper():
             self.send(_spawn, f'en')
             self.send(_spawn, f'self')
