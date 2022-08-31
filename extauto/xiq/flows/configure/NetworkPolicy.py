@@ -196,7 +196,7 @@ class NetworkPolicy(object):
         self.select_network_policy_row(policy)
 
         self._perform_np_delete()
-
+        sleep(2)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 

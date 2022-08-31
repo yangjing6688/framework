@@ -492,13 +492,13 @@ class Location:
             self.utils.print_info("New map button found")
         else:
             self.utils.print_info("Organisation already existed")
-            return 1
+            return 2
         if self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text():
             self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text())
             sleep(3)
         else:
             self.utils.print_info("Organisation already existed")
-            return 1
+            return 2
 
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text(),organization)
         sleep(3)
