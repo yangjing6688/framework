@@ -51,7 +51,6 @@ class Devices:
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
 
-
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
@@ -963,12 +962,12 @@ class Devices:
 
     def onboard_multiple_devices(self, serials, device_make):
         """
-        - This Keyword will Onboard Multiple Devices with Serial Numbers and AP type
+        - This Keyword will Onboard Multiple Devices with Serial Numbers and Device Make
         - Keyword Usage:
-         - `Onboard Multiple Devices  ${SERIALS}  {AP_TYPE}``
+         - `Onboard Multiple Devices  ${SERIALS}  ${DEVICE_MAKE}``
 
-        :param serials: Serial Numbers seperated by comma
-        :param ap_type: AP Type ie aerohive,wing
+        :param serials: Serial Numbers separated by comma
+        :param device_make: Device Make ie aerohive,wing
         :return: 1 if on boarded else -1
         """
         if "aerohive" in device_make.lower():
@@ -1849,7 +1848,8 @@ class Devices:
 
 # EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
-                       csv_file_name='', device_os=False, location=False, service_tag=False, **kwargs):
+                       csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False,
+                       **kwargs):
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
@@ -1864,6 +1864,7 @@ class Devices:
         :param csv_file_name: CSV File Name
         :param device_os: verifies the Device OS automatically selected after entering device serial
         :param location: device location
+        :param policy_name: network policy
         :param service_tag: Dell Service Tag
         :return:  1 if onboarding success
         :return: -2 for error - Serial numbers entered are from different platform families. Please enter serial numbers that are part of the same platform family. Please remove serial number
@@ -2055,6 +2056,14 @@ class Devices:
         if location:
             self.auto_actions.click(self.devices_web_elements.get_location_button())
             self._select_location(location)
+
+        if policy_name:
+            self.utils.print_info("Selecting policy '" + policy_name + "'")
+            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down())
+            sleep(2)
+            self.screen.save_screen_shot()
+            self.auto_actions.select_drop_down_options(self.devices_web_elements.
+                                                       get_devices_quick_add_policy_drop_down_items(), policy_name)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -3293,7 +3302,7 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
             count = 5
-            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
@@ -3310,7 +3319,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
-            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
@@ -4490,7 +4499,7 @@ class Devices:
 
         return -1
 
-    def assign_network_policy_to_switch(self, policy_name, serial):
+    def assign_network_policy_to_switch(self, policy_name, serial, update_device=True, **kwargs):
         """
         - This keyword does a config push for a switch
         - Go To Manage-->Devices-->Select switch row to apply the network policy
@@ -4501,6 +4510,7 @@ class Devices:
 
         :param policy_name: name of the network policy to deploy
         :param serial: serial number of the switch to select
+        :param update_device: True - if the policy to be pushed to the device ; False - if not
         :return: 1 if policy is assigned, else -1
         """
 
@@ -4517,12 +4527,15 @@ class Devices:
         if not self._assign_policy_to_switch(policy_name):
             return -1
 
-        policy_applied = self.get_ap_network_policy(ap_serial=serial)
-        if policy_name.upper() == policy_applied.upper():
-            self.utils.print_info("Applied network policy:{}".format(policy_applied))
-            return 1
-        self.utils.print_info(f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}")
-        return -1
+        if update_device:
+            policy_applied = self.get_ap_network_policy(ap_serial=serial)
+            if policy_name.upper() == policy_applied.upper():
+                self.utils.print_info("Applied network policy:{}".format(policy_applied))
+                return 1
+            kwargs['fail_msg'] = f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}"
+            self.common_validation.failed(**kwargs)
+            return -1
+        return 1
 
     def update_network_policy_to_switch(self, policy_name=None, serial=None, update_method="PolicyAndConfig"):
         """
@@ -8448,7 +8461,7 @@ class Devices:
                     warning_xiq_text = self.device_actions.get_warning_xiq_text()
                     if warning_xiq_text:
                         self.utils.print_info("Expected message is  :", warning_msg)
-                        self.utils.print_info("Message from XIQ is :",warning_xiq_text.text)
+                        self.utils.print_info("Message from XIQ is :", warning_xiq_text.text)
                         if warning_msg in warning_xiq_text.text:
                             self.utils.print_info("Message match")
                             confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
@@ -8501,7 +8514,7 @@ class Devices:
             return -1
         return 1
 
-    def revoke_device_license(self, device_serial,license_type, username=None, password=None, shared_cuid=None,
+    def revoke_device_license(self, device_serial, license_type, username=None, password=None, shared_cuid=None,
                               warning_msg=None, skip_warning_check=False):
         """
         This function revoke premier or macsec license on a device
@@ -9545,7 +9558,7 @@ class Devices:
         except Exception as e:
             return -1
 
-    def update_network_device_firmware(self,device_mac='default',version='default',forceDownloadImage="true",performUpgrade="true",saveDefault="false",updateTo="latest",updatefromD360Page="false",retry_duration=30,retry_count=1200):
+    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true", performUpgrade="true", saveDefault="false", updateTo="latest", updatefromD360Page="false", retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
         - This method needs import datetime as dt
@@ -9933,7 +9946,7 @@ class Devices:
                 if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
                     count = 0
                     while True:
-                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
                         if latest_timestamp > initial_timestamp:
                             self.utils.print_info(f"Device update is finished by just updating the timestamp to : ", str(dt.datetime.fromtimestamp(latest_timestamp)))
                             self.screen.save_screen_shot()
@@ -10570,6 +10583,61 @@ class Devices:
         else:
             self.utils.print_info("change OS not found")
             self.screen.save_screen_shot()
+            return -1
+
+
+    def get_device_updated_status_percentage(self, device_serial='default', device_name='default',
+                                             device_mac='default'):
+        """
+        - This keyword returns the device updated status in percentage by searching device row using serial, name or mac address
+        - Assumes that already navigated to the manage-->device page
+        - Keyword Usage:
+         - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
+         - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
+         - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
+
+        :param device_serial: device Serial
+        :param device_name: device Name
+        :param device_mac: device MAC
+        :return: 'device_update_status_strip' status number without '%'
+        """
+        device_row = -1
+
+        self.utils.print_info('Getting device Updated Status using')
+        if device_serial != 'default':
+            self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
+            device_row = self.get_device_row(device_serial)
+
+        if device_name != 'default':
+            self.utils.print_info("Getting Updated status of device with name: ", device_name)
+            device_row = self.get_device_row(device_name)
+
+        if device_mac != 'default':
+            self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
+            device_row = self.get_device_row(device_mac)
+
+        if device_row:
+            sleep(5)
+            device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+            if re.search(r'\d+-\d+-\d+\s\d+:\d+:\d+', device_updated_status):
+                device_updated_status_replace_100 = re.sub(r'\d+-\d+-\d+\s\d+:\d+:\d+', "100", device_updated_status)
+                # self.utils.print_info(f"Device Updated Status is: {device_updated_status_replace_100} % ")
+                return device_updated_status_replace_100
+            elif "Device Update Failed" in device_updated_status:
+                self.utils.print_info("Device updating status is: Device Update Failed")
+                return 'Device Update Failed'
+            else:
+                device_update_status_replace = device_updated_status.replace("%", "")
+                if 'Configuration Updating' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Updating")
+                elif 'Waiting Switch Execution Result' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nWaiting Switch Execution Result")
+                elif 'Configuration Audit Clear' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Audit Clear")
+                self.utils.print_info(f"Device Updated Status is: {device_update_status_strip}%")
+                return device_update_status_strip
+        else:
+            self.utils.print_info(f"Device row not found")
             return -1
 
         yes_confirmation = self.device_actions.get_yes_confirmation()
