@@ -51,7 +51,6 @@ class Devices:
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
 
-
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
@@ -963,12 +962,12 @@ class Devices:
 
     def onboard_multiple_devices(self, serials, device_make):
         """
-        - This Keyword will Onboard Multiple Devices with Serial Numbers and AP type
+        - This Keyword will Onboard Multiple Devices with Serial Numbers and Device Make
         - Keyword Usage:
-         - `Onboard Multiple Devices  ${SERIALS}  {AP_TYPE}``
+         - `Onboard Multiple Devices  ${SERIALS}  ${DEVICE_MAKE}``
 
-        :param serials: Serial Numbers seperated by comma
-        :param ap_type: AP Type ie aerohive,wing
+        :param serials: Serial Numbers separated by comma
+        :param device_make: Device Make ie aerohive,wing
         :return: 1 if on boarded else -1
         """
         if "aerohive" in device_make.lower():
@@ -3303,7 +3302,7 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
             count = 5
-            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
@@ -3320,7 +3319,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
-            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
@@ -8462,7 +8461,7 @@ class Devices:
                     warning_xiq_text = self.device_actions.get_warning_xiq_text()
                     if warning_xiq_text:
                         self.utils.print_info("Expected message is  :", warning_msg)
-                        self.utils.print_info("Message from XIQ is :",warning_xiq_text.text)
+                        self.utils.print_info("Message from XIQ is :", warning_xiq_text.text)
                         if warning_msg in warning_xiq_text.text:
                             self.utils.print_info("Message match")
                             confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
@@ -8515,7 +8514,7 @@ class Devices:
             return -1
         return 1
 
-    def revoke_device_license(self, device_serial,license_type, username=None, password=None, shared_cuid=None,
+    def revoke_device_license(self, device_serial, license_type, username=None, password=None, shared_cuid=None,
                               warning_msg=None, skip_warning_check=False):
         """
         This function revoke premier or macsec license on a device
@@ -9559,7 +9558,7 @@ class Devices:
         except Exception as e:
             return -1
 
-    def update_network_device_firmware(self,device_mac='default',version='default',forceDownloadImage="true",performUpgrade="true",saveDefault="false",updateTo="latest",updatefromD360Page="false",retry_duration=30,retry_count=1200):
+    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true", performUpgrade="true", saveDefault="false", updateTo="latest", updatefromD360Page="false", retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
         - This method needs import datetime as dt
@@ -9947,7 +9946,7 @@ class Devices:
                 if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
                     count = 0
                     while True:
-                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
                         if latest_timestamp > initial_timestamp:
                             self.utils.print_info(f"Device update is finished by just updating the timestamp to : ", str(dt.datetime.fromtimestamp(latest_timestamp)))
                             self.screen.save_screen_shot()
