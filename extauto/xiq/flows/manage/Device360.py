@@ -304,24 +304,24 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
 
         self.utils.print_info("Clicking Device 360 SSH CLI Run Time: ", run_time)
         if run_time == 5:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_5min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_5min_radio)
 
         elif run_time == 30:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_30min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_30min_radio)
 
         elif run_time == 60:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_60min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_60min_radio)
 
         elif run_time == 120:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_120min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_120min_radio)
 
         elif run_time == 240:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_240min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_240min_radio)
         else:
             kwargs['fail_msg'] = f"Unsupported run_time: {run_time} supported numbers are: 5, 30, 60, 120, 240"
             self.common_validation.validate(-1, 1, **kwargs)
@@ -329,7 +329,7 @@ class Device360(Device360WebElements):
 
         sleep(5)
         self.utils.print_info("Clicking Device 360 SSH CLI Enable SSH button...")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_enable_button())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_enable_button)
         self.screen.save_screen_shot()
 
         retry_count = 0
