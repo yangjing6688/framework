@@ -471,7 +471,7 @@ class Location:
         :param street: name of street
         :param city: name of city
         :param country: select the country
-        :return: return 1 if the organization was created successfully, else -1
+        :return: return 1 if the organization was created successfully, 2 if organization already exists, else -1
         '''
 
         self.utils.print_info("Clicking on Devices Planning")
