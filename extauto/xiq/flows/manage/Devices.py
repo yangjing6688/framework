@@ -10586,6 +10586,61 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 
+
+    def get_device_updated_status_percentage(self, device_serial='default', device_name='default',
+                                             device_mac='default'):
+        """
+        - This keyword returns the device updated status in percentage by searching device row using serial, name or mac address
+        - Assumes that already navigated to the manage-->device page
+        - Keyword Usage:
+         - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
+         - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
+         - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
+
+        :param device_serial: device Serial
+        :param device_name: device Name
+        :param device_mac: device MAC
+        :return: 'device_update_status_strip' status number without '%'
+        """
+        device_row = -1
+
+        self.utils.print_info('Getting device Updated Status using')
+        if device_serial != 'default':
+            self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
+            device_row = self.get_device_row(device_serial)
+
+        if device_name != 'default':
+            self.utils.print_info("Getting Updated status of device with name: ", device_name)
+            device_row = self.get_device_row(device_name)
+
+        if device_mac != 'default':
+            self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
+            device_row = self.get_device_row(device_mac)
+
+        if device_row:
+            sleep(5)
+            device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+            if re.search(r'\d+-\d+-\d+\s\d+:\d+:\d+', device_updated_status):
+                device_updated_status_replace_100 = re.sub(r'\d+-\d+-\d+\s\d+:\d+:\d+', "100", device_updated_status)
+                # self.utils.print_info(f"Device Updated Status is: {device_updated_status_replace_100} % ")
+                return device_updated_status_replace_100
+            elif "Device Update Failed" in device_updated_status:
+                self.utils.print_info("Device updating status is: Device Update Failed")
+                return 'Device Update Failed'
+            else:
+                device_update_status_replace = device_updated_status.replace("%", "")
+                if 'Configuration Updating' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Updating")
+                elif 'Waiting Switch Execution Result' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nWaiting Switch Execution Result")
+                elif 'Configuration Audit Clear' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Audit Clear")
+                self.utils.print_info(f"Device Updated Status is: {device_update_status_strip}%")
+                return device_update_status_strip
+        else:
+            self.utils.print_info(f"Device row not found")
+            return -1
+
         yes_confirmation = self.device_actions.get_yes_confirmation()
         if yes_confirmation:
             self.utils.print_info("yes confirmation button was found ")
