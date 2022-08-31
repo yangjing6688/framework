@@ -1254,7 +1254,7 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
 
-    def _check_update_network_policy_status(self, policy_name, device_serial):
+    def _check_update_network_policy_status(self, policy_name, device_serial, **kwargs):
         """
         - This keyword is used to check the network policy applied status to the device
         - It will poll the "update status" every 30 seconds to get the status of the network policy applied
@@ -1279,6 +1279,8 @@ class Devices:
                 update_time += 30
                 if update_time >= 300:
                     self.utils.print_info(f"Config push to AP BLOCKED for more than 300 seconds")
+                    kwargs['fail_msg'] = "Config push to AP BLOCKED for more than 300 seconds"
+                    self.common_validation.failed(**kwargs)
                     return -1
                 continue
             elif retry_count >= int(max_config_push_wait):
