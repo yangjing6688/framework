@@ -2795,3 +2795,58 @@ class Device360WebElementDefs:
             "XPATH": "//div[@class='pagination-num-ctn']//span[@class='pagination-page current-pagination']",
             'wait_for': 5
         }
+# Wifi6E client - Pranav
+
+    device360_connected_clients_count = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="connectedTotal"]',
+            'wait_for': 5
+        }
+
+    device360_leftpane_unique_clients = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="clientsNum" and @class="entity-page-metric"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_interface_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-wireless-interfaces"]',
+            'wait_for': 15
+        }
+
+    device360_total_wireless_clients = \
+        {
+            'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi6gscore = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="overallScoreValue"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_combinedscore = \
+        {
+            'XPATH': '//div[@class="score-block"]//span[@data-dojo-attach-point="overallScoreValue"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi2widgetclient = \
+        {
+            'XPATH': '//*[@class="wireless-data-value"]//*[@data-dojo-attach-point="clients_3"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_combinedscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@label for="radio-healthCardOptions-4"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi6gscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@label for="radio-healthCardOptions-3"]',
+            'wait_for': 15
+        }
