@@ -428,7 +428,6 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
             'wait_for': 5,
-            'index': 1
         }
 
     action_assign_network_policy_dialog = \
