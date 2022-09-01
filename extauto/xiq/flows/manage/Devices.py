@@ -3065,13 +3065,9 @@ class Devices:
 
         """
         device_row = -1
-        self.refresh_devices_page()
-<<<<<<< HEAD
-=======
 
         self.utils.print_info('Getting device Status using')
         deviceKey = None
->>>>>>> main
         if device_serial != 'default':
             self.utils.print_info("Getting status of device with serial: ", device_serial)
             deviceKey = device_serial
