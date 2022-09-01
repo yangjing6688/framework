@@ -183,7 +183,7 @@ class Cli(object):
             result = self.networkElementCliSend.send_cmd(spawn, line, **kwargs)
             try:
                 output = str(result[0].return_text)
-                self.utils.print_info(f"Got response to commandf from device {spawn}: {output}")
+                self.utils.print_info(f"Got response to command from device {spawn}: {output}")
             except Exception as e:
                 self.utils.print_info("Keyword had an error: " + str(e))
         return output
@@ -1082,14 +1082,6 @@ class Cli(object):
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(_spawn, f'enable')
-            # output=self.send(_spawn, f'ls /intflash/rc.0')
-            # if '  rc.0 ' in output:
-            #     self.utils.print_info("rc.0 file found in the device")
-            # else:
-            #     self.utils.print_info("Couldn't able to locate rc.0 file")
-            #     self.close_spawn(_spawn)
-            #     return -1
-            self.send(_spawn, f'dbg enable')
             self.send(_spawn, f'config t')
             self.send(_spawn, f'application')
             output_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
@@ -1108,6 +1100,8 @@ class Cli(object):
         returnCode = -1
         _spawn = self.open_spawn(ip, port, username, password, cli_type)
         try:
+            # Make sure the iqagent is enabled
+            self.send(_spawn, f'enable iqagent')
             current_version = self.send(_spawn, f'show iqagent | include Version')
             current_version = current_version.split()[1]
             base_version = self.send(_spawn, f'show process iqagent  | include iqagent')
@@ -1223,7 +1217,7 @@ class Cli(object):
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'no Hivemanager address {server_name}')
+            self.send(_spawn, f'no Hivemanager address ')
             self.send(_spawn, f'Application stop hiveagent')
             self.send(_spawn, f'Application start hiveagent')
             count = 1
@@ -1260,8 +1254,8 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'disable iqagent', expect_match='Do you want to continue? (y/N)')
-            self.send(_spawn, f'yes')
+            self.send(_spawn, f'configure iqagent server ipaddress none')
+            self.send(_spawn, f'configure iqagent server vr none')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
@@ -1299,6 +1293,14 @@ class Cli(object):
 
             self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
 
+        elif NetworkElementConstants.OS_WING in cli_type.upper():
+            self.send(_spawn, f'en')
+            self.send(_spawn, f'config')
+            # Delete the policy
+            self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(_spawn, f'commit write memory')
+
+
     def wait_for_cli_output(self, spawn, cmd, expected_output, retry_duration=30, retry_count=10):
         """
         - This Keyword will Helps to Wait till getting expected output based on retry duration
@@ -1327,6 +1329,64 @@ class Cli(object):
             count += 1
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
+
+
+    def enable_debug_mode_iqagent(self, ip, username, password, cli_type):
+        """
+        - This Keyword enables debug mode for IQagent for VOSS/EXOS
+        - Keyword Usage:
+         - ``Enable Debug Mode Iqagent   ${IP}  ${PORT}  ${USERNAME}  ${PASSWORD}
+                                                    ${CLI_TYPE}``
+        :param ip: IP Address of the Device
+        :param port: Port
+        :param username: username to access console
+        :param password: Password to access console
+        :param cli_type: device Platform example: exos,voss
+        :return: _spawn Device Prompt without '#'
+        """
+        _spawn = self.open_pxssh_spawn(ip,username,password)
+
+        if _spawn != -1:
+            if 'EXOS' in cli_type.upper():
+                self.send_pxssh(_spawn, 'disable cli paging')
+                self.send_pxssh(_spawn, 'debug iqagent show log hive-agent tail')
+                return _spawn
+            elif 'VOSS' in cli_type.upper():
+                self.send_pxssh(_spawn, 'enable')
+                self.send_pxssh(_spawn, 'configure terminal')
+                self.send_pxssh(_spawn, 'trace level 261 3')
+                self.send_pxssh(_spawn, 'trace screen enable')
+                return _spawn
+            else:
+                self.builtin.fail(msg="Device is not supported")
+                return -1
+        else:
+            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+            return -1
+
+    def send_line_and_wait(self, spawn, line, wait=60):
+        """
+        - This Keyword used to gets the output from CLI
+        - Default timeout is 90 seconds
+        - Keyword Usage:
+         - ``Send line and_wait   ${SPAWN}   ${LINE}     ${COMMAND}``
+        :param spawn: Device Spawn to execute command
+        :param line: CLI command to be execute
+        :param wait: Collect the information in a certain time
+        :return: CLI Command Output; else -1
+        """
+        line = line.strip()
+        if spawn == None or spawn == 0:
+            self.utils.print_info("No information about spawn")
+            return -1
+        spawn.sendline(line)
+        time.sleep(wait)
+        output2 = spawn.read_nonblocking(size=100000000)
+        if isinstance(output2, bytes):
+            return output2.decode()
+        else:
+            return output2
+
 
 if __name__ == '__main__':
     from pytest_testconfig import *

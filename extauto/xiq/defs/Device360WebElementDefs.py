@@ -2806,3 +2806,21 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-events"]',
             'wait_for': 5
         }
+
+    device360_digital_twin_status_icon = \
+        {
+            'DESC': 'D360 > Digital Twin Status Icon',
+            'XPATH': '//span[@data-dojo-attach-point="digitalTwinIcon"]'
+        }
+
+    device360_digital_twin_relaunch_button = \
+        {
+            'DESC': 'D360 > Relaunch Digital Twin button',
+            'XPATH': '//button[@data-automation-tag="automation-switch-config-relaunch-dt-btn"]'
+        }
+
+    device360_digital_twin_shutdown_button = \
+        {
+            'DESC': 'D360 > Shutdown Digital Twin button',
+            'XPATH': '//button[@data-automation-tag="automation-switch-config-shutdown-dt-btn"]'
+        }

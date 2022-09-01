@@ -471,7 +471,6 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
             'wait_for': 5,
-            'index': 1
         }
 
     action_assign_network_policy_dialog = \
@@ -1674,8 +1673,9 @@ class DevicesWebElementsDefinitions:
             'wait_for': 3,
         }
 
-    perform_update_tooltip = \
+    ui_banner_error_message = \
         {
+            'DESC': 'XIQ UI Banner containing an error message.',
             'XPATH':  '//*[contains(@class, "ui-tipbox ui-tipbox-error") and contains(@data-dojo-attach-point, "wrapEl")]',
             'wait_for': 3
         }

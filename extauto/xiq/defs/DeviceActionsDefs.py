@@ -262,12 +262,6 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
-    confirm_msg_no = \
-        {
-            'XPATH': '//button[@data-automation-tag="automation-confirm-message-no-button"]',
-            'wait_for': 2
-        }
-
     confirm_msg_yes = \
         {
             'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
