@@ -1191,6 +1191,9 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
         sleep(3)
 
+        self.utils.print_info("Move to Assign Network policy action")
+        self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
+
         self.utils.print_info("Click on Assign Network policy action")
         self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
         sleep(4)
