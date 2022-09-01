@@ -2652,6 +2652,19 @@ class DeviceConfig(DeviceConfigElements):
         self.devices.select_ap(ap_serial)
         self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
         self.auto_actions.click(self.get_edit_button())
+        device_360_page = self.get_device_360_page()
+        if not device_360_page:
+            wait_times = 0
+            while wait_times <= 30:
+                self.utils.print_info("The device 360 page is still not loaded, sleep 2 seconds")
+                sleep(2)
+                wait_times += 1
+                self.utils.print_info("Waiting for device 360 page loaded " + wait_times*2 + " seconds")
+                if device_360_page:
+                    self.utils.print_info("Device 360 page is already loaded, move to next step")
+                    break
+                else:
+                    continue
         self.utils.print_info("Click Configure tab...")
         self.auto_actions.click(self.get_devices_edit_config_button())
         self.utils.print_info("Click Device Configuration...")
@@ -2664,15 +2677,22 @@ class DeviceConfig(DeviceConfigElements):
             else:
                 device_config_node_not_load = False
                 self.utils.print_info("Device config node page is loaded successfully ...")
-        self.utils.print_info("Click Device Function dropdown button...")
-        self.auto_actions.click(self.get_devices_device_config_device_function_dropdown())
-        device_function_options = self.get_devices_device_config_device_function()
-        for opt in device_function_options:
-            self.utils.print_info(f"Option is {opt}")
-            if device_function.upper() == opt.text.upper():
-                self.utils.print_info(f"Select {device_function} as Device Function")
-                self.auto_actions.click(opt)
-                break
+        if self.get_devices_device_config_device_function_set_ap():
+            self.utils.print_info("Click Device Function dropdown button...")
+            self.auto_actions.click(self.get_devices_device_config_device_function_set_ap())
+            device_function_options = self.get_devices_device_config_device_function()
+            for opt in device_function_options:
+                self.utils.print_info(f"Option is {opt}")
+                if device_function.upper() == opt.text.upper():
+                    self.utils.print_info(f"Select {device_function} as Device Function")
+                    self.auto_actions.click(opt)
+                    break
+        elif self.get_devices_device_config_device_function_set_router:
+            self.utils.print_info("Device function already is set as router mode...")
+            pass
+        else:
+            self.utils.print_info("No valid device function found!!!")
+            return -1
         sleep(3)
         self.utils.print_info("Click Save Device Configuration button...")
         self.auto_actions.click(self.get_devices_device_config_page_save_button())
