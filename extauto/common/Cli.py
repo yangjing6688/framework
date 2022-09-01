@@ -635,6 +635,7 @@ class Cli(object):
 
         conn = self.open_paramiko_ssh_spawn(ip, usr, passwd)
         wifi_port = self.send_paramiko_cmd(conn, MAC_GET_WIFI_INTERFACE_NAME, 10)
+        self.send_paramiko_cmd(conn, MAC_TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' OFF', 30)
         self.send_paramiko_cmd(conn, MAC_TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' ON', 30)
 
         cnt = -1
@@ -643,7 +644,7 @@ class Cli(object):
             time.sleep(30)
             listSSIDs = str(self.send_paramiko_cmd(conn, MAC_SCAN_FOR_LIST_WIFI, 300))
             cnt = self.utils.check_match(listSSIDs, ssid)
-            self.utils.print_info(f"The ssid match cnt is {cnt}.\n The ssid is {ssid}")
+            self.utils.print_info(f"The ssid match cnt is {cnt}.\n The searched ssid is {ssid}")
             if cnt == 1:
                 self.utils.print_info('ssid ' + ssid + ' is found')
                 break
@@ -654,7 +655,9 @@ class Cli(object):
 
         cn1 = False
         if mode == 'pass':
-            rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
+            while not cn1:
+                rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
+                cn1 = True
             self.utils.print_info("RC is ---------" + str(rc))
             if self.utils.check_match(rc, 'Failed to join') == 1   : return -1,  " Fail to Join "
             if self.utils.check_match(rc, 'not find network') == 1 : return -1,  " Could not find network " + str(ssid)
