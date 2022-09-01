@@ -171,6 +171,12 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    device_360_page = \
+        {
+            'CSS_SELECTOR': '.device-entity.modal-360',
+            'wait_for': 5
+        }
+
     device_configuration_tab = \
         {
             'XPATH': '//li[@data-dojo-attach-point="deviceConfigurationTab"]',
@@ -1350,9 +1356,15 @@ class DeviceConfigDefs:
             'wait_for': 10
         }
 
-    devices_device_config_device_function_dropdown = \
+    devices_device_config_device_function_set_ap = \
         {
             'XPATH': '//a[@href="javascript:void(0)"] //span[contains(text(),"AP")]',
+            'wait_for': 5
+        }
+
+    devices_device_config_device_function_set_router = \
+        {
+            'XPATH': '//a[@href="javascript:void(0)"] //span[contains(text(), "ApAsRouter")]',
             'wait_for': 5
         }
 
