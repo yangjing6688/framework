@@ -51,7 +51,6 @@ class Devices:
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
 
-
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
@@ -963,12 +962,12 @@ class Devices:
 
     def onboard_multiple_devices(self, serials, device_make):
         """
-        - This Keyword will Onboard Multiple Devices with Serial Numbers and AP type
+        - This Keyword will Onboard Multiple Devices with Serial Numbers and Device Make
         - Keyword Usage:
-         - `Onboard Multiple Devices  ${SERIALS}  {AP_TYPE}``
+         - `Onboard Multiple Devices  ${SERIALS}  ${DEVICE_MAKE}``
 
-        :param serials: Serial Numbers seperated by comma
-        :param ap_type: AP Type ie aerohive,wing
+        :param serials: Serial Numbers separated by comma
+        :param device_make: Device Make ie aerohive,wing
         :return: 1 if on boarded else -1
         """
         if "aerohive" in device_make.lower():
@@ -1254,7 +1253,7 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
 
-    def _check_update_network_policy_status(self, policy_name, device_serial):
+    def _check_update_network_policy_status(self, policy_name, device_serial, **kwargs):
         """
         - This keyword is used to check the network policy applied status to the device
         - It will poll the "update status" every 30 seconds to get the status of the network policy applied
@@ -1264,16 +1263,30 @@ class Devices:
         :return: 1 if config push success else -1
         """
         retry_count = 0
+        update_time = 0
         max_config_push_wait = self.robot_built_in.get_variable_value("${MAX_CONFIG_PUSH_TIME}")
         while True:
-            self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
+            self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
+            elif 'Certification' in device_update_status or 'Application' in device_update_status:
+                # Some other random push to the device is blocking my policy update!
+                self.utils.print_info("Non-update text in status :{}".format(device_update_status))
+                self.screen.save_screen_shot()
+                sleep(30)
+                update_time += 30
+                if update_time >= 300:
+                    self.utils.print_info(f"Config push to AP BLOCKED for more than 300 seconds")
+                    kwargs['fail_msg'] = "Config push to AP BLOCKED for more than 300 seconds"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                continue
             elif retry_count >= int(max_config_push_wait):
                 self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
                 return -1
             sleep(30)
+            update_time += 30
             retry_count += 30
 
         policy_applied = self.get_ap_network_policy(ap_serial=device_serial)
@@ -3041,17 +3054,25 @@ class Devices:
         self.refresh_devices_page()
 
         self.utils.print_info('Getting device Status using')
+        deviceKey = None
         if device_serial != 'default':
             self.utils.print_info("Getting status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial)
-
-        if device_name != 'default':
+            deviceKey = device_serial
+        elif device_name != 'default':
             self.utils.print_info("Getting status of device with name: ", device_name)
-            device_row = self.get_device_row(device_name)
-
-        if device_mac != 'default':
+            deviceKey = device_name
+        elif device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            deviceKey = device_mac
+        else:
+            kwargs['fail_msg'] = "No valid args passed.  Must be device_serial, device_name, device_mac!"
+            self.common_validation.failed(**kwargs)
+            return -1
+        # initial device_row is a pointer to the selenium object for the element.  The object can change unexpectedly
+        #   when the page auto refreshes or XIQ takes some other 'under the covers action'
+        #   Copying the object takes a snapshot in time and illegal references should go away.
+        device_row = self.get_device_row(deviceKey)
+        device_row = copy.copy(device_row)
 
         if device_row:
             sleep(5)
@@ -3063,10 +3084,19 @@ class Devices:
                 else:
                     self.utils.print_info("Getting status from cell failed...Attempting to get status again")
                     self.screen.save_screen_shot()
-                    self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                    try:
+                        self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                    except:
+                        device_row = self.get_device_row(deviceKey)
+                        self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                        pass
                 attempt_count = attempt_count - 1
-                device_status = self.devices_web_elements.get_status_cell(device_row)
-                sleep(5)
+                try:
+                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                except:
+                    device_row = self.get_device_row(deviceKey)
+                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                sleep(2)
                 if device_status:
                     break
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
@@ -3303,7 +3333,7 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
             count = 5
-            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
@@ -3320,7 +3350,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
-            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
@@ -8462,7 +8492,7 @@ class Devices:
                     warning_xiq_text = self.device_actions.get_warning_xiq_text()
                     if warning_xiq_text:
                         self.utils.print_info("Expected message is  :", warning_msg)
-                        self.utils.print_info("Message from XIQ is :",warning_xiq_text.text)
+                        self.utils.print_info("Message from XIQ is :", warning_xiq_text.text)
                         if warning_msg in warning_xiq_text.text:
                             self.utils.print_info("Message match")
                             confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
@@ -8515,7 +8545,7 @@ class Devices:
             return -1
         return 1
 
-    def revoke_device_license(self, device_serial,license_type, username=None, password=None, shared_cuid=None,
+    def revoke_device_license(self, device_serial, license_type, username=None, password=None, shared_cuid=None,
                               warning_msg=None, skip_warning_check=False):
         """
         This function revoke premier or macsec license on a device
@@ -9559,7 +9589,7 @@ class Devices:
         except Exception as e:
             return -1
 
-    def update_network_device_firmware(self,device_mac='default',version='default',forceDownloadImage="true",performUpgrade="true",saveDefault="false",updateTo="latest",updatefromD360Page="false",retry_duration=30,retry_count=1200):
+    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true", performUpgrade="true", saveDefault="false", updateTo="latest", updatefromD360Page="false", retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
         - This method needs import datetime as dt
@@ -9947,7 +9977,7 @@ class Devices:
                 if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
                     count = 0
                     while True:
-                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
                         if latest_timestamp > initial_timestamp:
                             self.utils.print_info(f"Device update is finished by just updating the timestamp to : ", str(dt.datetime.fromtimestamp(latest_timestamp)))
                             self.screen.save_screen_shot()
@@ -10584,6 +10614,61 @@ class Devices:
         else:
             self.utils.print_info("change OS not found")
             self.screen.save_screen_shot()
+            return -1
+
+
+    def get_device_updated_status_percentage(self, device_serial='default', device_name='default',
+                                             device_mac='default'):
+        """
+        - This keyword returns the device updated status in percentage by searching device row using serial, name or mac address
+        - Assumes that already navigated to the manage-->device page
+        - Keyword Usage:
+         - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
+         - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
+         - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
+
+        :param device_serial: device Serial
+        :param device_name: device Name
+        :param device_mac: device MAC
+        :return: 'device_update_status_strip' status number without '%'
+        """
+        device_row = -1
+
+        self.utils.print_info('Getting device Updated Status using')
+        if device_serial != 'default':
+            self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
+            device_row = self.get_device_row(device_serial)
+
+        if device_name != 'default':
+            self.utils.print_info("Getting Updated status of device with name: ", device_name)
+            device_row = self.get_device_row(device_name)
+
+        if device_mac != 'default':
+            self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
+            device_row = self.get_device_row(device_mac)
+
+        if device_row:
+            sleep(5)
+            device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+            if re.search(r'\d+-\d+-\d+\s\d+:\d+:\d+', device_updated_status):
+                device_updated_status_replace_100 = re.sub(r'\d+-\d+-\d+\s\d+:\d+:\d+', "100", device_updated_status)
+                # self.utils.print_info(f"Device Updated Status is: {device_updated_status_replace_100} % ")
+                return device_updated_status_replace_100
+            elif "Device Update Failed" in device_updated_status:
+                self.utils.print_info("Device updating status is: Device Update Failed")
+                return 'Device Update Failed'
+            else:
+                device_update_status_replace = device_updated_status.replace("%", "")
+                if 'Configuration Updating' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Updating")
+                elif 'Waiting Switch Execution Result' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nWaiting Switch Execution Result")
+                elif 'Configuration Audit Clear' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Audit Clear")
+                self.utils.print_info(f"Device Updated Status is: {device_update_status_strip}%")
+                return device_update_status_strip
+        else:
+            self.utils.print_info(f"Device row not found")
             return -1
 
         yes_confirmation = self.device_actions.get_yes_confirmation()
