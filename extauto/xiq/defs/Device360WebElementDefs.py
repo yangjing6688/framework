@@ -2805,7 +2805,8 @@ class Device360WebElementDefs:
 
     device360_leftpane_unique_clients = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="clientsNum" and @class="entity-page-metric"]',
+            'XPATH': '//div[@data-automation-tag="device-entity-unique-clients-number"]',
+#            'XPATH': '//div[@data-dojo-attach-point="clientsNum" and @class="entity-page-metric"]',
             'wait_for': 15
         }
 

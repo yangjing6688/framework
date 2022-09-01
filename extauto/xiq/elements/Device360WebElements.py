@@ -39,11 +39,11 @@ class Device360WebElements(Device360WebElementDefs):
     def get_leftpane_unique_clients(self):
         return self.weh.get_element(self.device360_leftpane_unique_clients)
 
-    def get_connected_clients_count(self):
-        return self.weh.get_element(self.device360_connected_clients_count)
-
-    def get_leftpane_unique_clients(self):
-        return self.weh.get_element(self.device360_leftpane_unique_clients)
+    # def get_connected_clients_count(self):
+    #     return self.weh.get_element(self.device360_connected_clients_count)
+    #
+    # def get_leftpane_unique_clients(self):
+    #     return self.weh.get_element(self.device360_leftpane_unique_clients)
 
 ######################################
 
