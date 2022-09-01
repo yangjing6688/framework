@@ -1071,7 +1071,8 @@ class CommonObjects(object):
         self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
         self.screen.save_screen_shot()
         sleep(2)
-
+        
+        #Commented due to getting mismatch error in xpath once xpath gets updated it will used
         # sleep(5)
         # tool_tp_text = tool_tip.tool_tip_text
         # self.utils.print_info(tool_tp_text)
