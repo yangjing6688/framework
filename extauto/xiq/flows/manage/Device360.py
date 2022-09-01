@@ -7139,4 +7139,20 @@ class Device360(Device360WebElements):
 
         return ret_val
 
+    def device360_get_connected_clients_count(self):
+        """
+        - This keyword obtains the count of connected clients from Device360 view.
+        - Keyword Usage
+         - ``Device360 Get Connected clients count``
+        :return: value of the device title in the Device360 view
+        """
+        ret_clientcount = ""
+        clients_count= self.dev360.get_connected_clients_count()
+        if clients_count:
+            self.utils.print_info("Connected clients count ")
+            ret_clientcount = clients_count.text
+        else:
+            self.utils.print_info("Unable to find the clients count")
+        return ret_clientcount
+
 # =============================================
