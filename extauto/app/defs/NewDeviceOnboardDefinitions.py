@@ -90,7 +90,7 @@ class NewDeviceOnboardDefinitions:
         {
             'DESC': 'Refresh cache',
             'ID': "com.extremenetworks.xiqmobileapp:id/refresh",
-            'wait_for': 10
+            
 
         }
 
@@ -98,20 +98,20 @@ class NewDeviceOnboardDefinitions:
         {
             'DESC': 'Serail Number of the AP',
             'ID': "com.extremenetworks.xiqmobileapp:id/txt_serial",
-            'wait_for': 10
+            
         }
 
     continue_button_id = \
         {
             'DESC': 'Clicked continue button',
             'CLASS_NAME': "android.widget.Button",
-            'wait_for': 10
+            
         }
 
     device_make_dropdown_id = \
         {
             'ID': "com.extremenetworks.xiqmobileapp:id/sel_make",
-            'wait_for': 10
+            
         }
 
     device_make_table = \
@@ -148,7 +148,7 @@ class NewDeviceOnboardDefinitions:
     device_model_no_id = \
         {
             'ID': "com.extremenetworks.xiqmobileapp:id/device_model",
-            'wait_for': 10
+            
         }
 
     serial_no_of_ap_id = \
@@ -181,14 +181,14 @@ class NewDeviceOnboardDefinitions:
     location_table_id = \
         {
             'CLASS_NAME': "android.widget.ListView",
-            'wait_for': 10
+            
         }
 
     location_grid_rows = \
         {
             'DESC': 'Get all the locations rows',
             'ID': "com.extremenetworks.xiqmobileapp:id/item",
-            'wait_for': 10
+            
         }
 
     building_backward_link_id = \
@@ -207,13 +207,13 @@ class NewDeviceOnboardDefinitions:
     building_table_id = \
         {
             'CLASS_NAME': "android.widget.ListView",
-            'wait_for': 10
+            
         }
 
     building_grid_rows = \
         {
             'ID': "com.extremenetworks.xiqmobileapp:id/item",
-            'wait_for': 10
+            
         }
 
     floor_backward_link_id = \
@@ -232,13 +232,13 @@ class NewDeviceOnboardDefinitions:
     floor_table_id = \
         {
             'CLASS_NAME': "android.widget.ListView",
-            'wait_for': 10
+            
         }
 
     floor_grid_rows = \
         {
             'ID': "com.extremenetworks.xiqmobileapp:id/item",
-            'wait_for': 10
+            
         }
 
     exit_onboard_id = \
@@ -307,13 +307,13 @@ class NewDeviceOnboardDefinitions:
     np_table_id = \
         {
             'CLASS_NAME': "android.widget.ListView",
-            'wait_for': 10
+            
         }
 
     np_grid_rows = \
         {
             'ID': "com.extremenetworks.xiqmobileapp:id/item",
-            'wait_for': 10
+            
         }
 
     done_button_id = \

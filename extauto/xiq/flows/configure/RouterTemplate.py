@@ -7,6 +7,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.xiq.elements.RouterTemplateWebElements import *
 
@@ -19,6 +20,7 @@ class RouterTemplate(RouterTemplateWebElements):
         self.navigator = Navigator()
         self.screen = Screen()
         self.nw_policy = NetworkPolicy()
+        self.common_validation = CommonValidation()
 
     def check_router_template(self, router_template):
         """
@@ -514,7 +516,7 @@ class RouterTemplate(RouterTemplateWebElements):
                 sleep(2)
                 return True
 
-    def delete_router_template(self, nw_policy, template_name):
+    def delete_router_template(self, nw_policy, template_name, **kwargs):
         """
         - Delete Router Template Name Row from Network Policy-->Router settings--> Device Template
         - Keyword Usage
@@ -550,12 +552,23 @@ class RouterTemplate(RouterTemplateWebElements):
             sleep(2)
             for value in tool_tp_text:
                 if "The item was deleted successfully" in value:
+                    kwargs['pass_msg'] = f"Router Template {value} deleted successfully"
+                    self.common_validation.validate(1, 1, **kwargs)
                     return True
-            return False
+
+            if self.select_router_template_row(template_name):
+                kwargs['fail_msg'] = "Unsuccessfully deleted the Router Template!"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return False
+            else:
+                kwargs['pass_msg'] = "Successfully deleted the Router Template!"
+                self.common_validation.validate(1, 1, **kwargs)
+                return True
         else:
-            self.utils.print_info("default Router Template :{} doesn't exist, create it..".format(template_name))
             self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
-            return False
+            kwargs['pass_msg'] = f"default Router Template :{template_name} doesn't exist in the list"
+            self.common_validation.validate(1, 1, **kwargs)
+            return True
 
     def configure_advanced_subnetwork_section(self, **advance_config):
         """

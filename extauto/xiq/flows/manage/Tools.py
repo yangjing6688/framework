@@ -13,6 +13,7 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.common.CommonValidation import CommonValidation
 
 class Tools:
     def __init__(self):
@@ -27,22 +28,42 @@ class Tools:
         self.cli = Cli()
         self.builtin = BuiltIn()
         self.web = WebElementHandler()
-        # self.driver = extauto.common.CloudDriver.cloud_driver
+        self.common_validation = CommonValidation()
 
-    def get_neighbor_info(self, serial, mac):
-        self.navigator.navigate_to_tools_page()
-        sleep(5)
+    def get_neighbor_info(self, serial, mac, **kwargs):
 
-        self.utils.print_info("Clicking on Utilities button...")
-        self.auto_actions.click(self.tools_elements.get_utilities_button())
-        sleep(10)
+        """
+        - Keywword requires that the device is already onboarded
+        - Used to get neighbor information
+        - Keyword Usage:
+            - ``Get Neighbor Info   ${SERIAL}  ${MAC}``
 
-        self.utils.print_info("Selecting Neighbor Info menu item")
-        self.auto_actions.click(self.tools_elements.get_neighbor_info_menu_item())
-        sleep(15)
+        :param SERIAL: serial number of device
+        :param MAC: mac address of device
+        :return: 1 if successful else -1
+         """
 
-        self.devices.refresh_devices_page()
-        sleep(10)
+        return self.get_l2_neighbor_info(serial, mac, **kwargs)
+
+    def get_l2_neighbor_info(self, serial, mac, **kwargs):
+
+        """
+        - Keywword requires that the device is already onboarded
+        - Used to get l2 neighbor information
+        - Keyword Usage:
+            - ``Get l2 Neighbor Info   ${SERIAL}  ${MAC}``
+
+        :param SERIAL: serial number of device
+        :param MAC: mac address of device
+        :return: 1 if successful else -1
+         """
+
+        self.utils.print_info("Navigate to the devices page")
+        nav_to_devices = self.navigator.navigate_to_devices()
+        if nav_to_devices == -1:
+            kwargs['fail_msg'] = "Unable to navigate to the devices page"
+            self.common_validation.failed(**kwargs)
+            return -1
 
         if self.devices.select_ap(ap_serial=serial):
             error = self.dialog_web_elements.get_tooltip_text()
@@ -50,78 +71,148 @@ class Tools:
                 self.utils.print_info("Error: ", error)
                 if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                         in error:
+                    kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least one unmanaged device."
+                    self.common_validation.failed(**kwargs)
                     return -1
                 elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
                         in error:
+                    kwargs['fail_msg'] = "The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device."
+                    self.common_validation.failed(**kwargs)
                     return -1
-                else:
-                    return -2
 
-            sleep(10)
+        return_nav_toop_page = self.navigator.navigate_to_device_utilities_tools()
+        if return_nav_toop_page == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Tools Page"
+            self.common_validation.failed(**kwargs)
+            return -1
 
-            self.auto_actions.click(self.tools_elements.get_neighbor_info_button())
-            sleep(10)
-            rows = self.tools_elements.get_neighbor_page_body_grid_rows()
-            sleep(10)
-            for row in rows:
-                if mac in row.text:
-                    self.utils.print_info("Found AP MAC in row: ", row.text)
+        self.utils.print_info("Selecting L2 Neighbor Info menu item")
+        neighbor_info_item = self.tools_elements.get_neighbor_info_menu_item()
+        if not neighbor_info_item:
+            kwargs['fail_msg'] = "Unable to select L2 Neighbor Info menu item"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click(neighbor_info_item)
 
+        self.utils.print_info("Gathering Layer 2 Neighbor Information rows")
+        rows = self.tools_elements.get_neighbor_page_body_grid_rows()
+        self.screen.save_screen_shot()
+        if not rows:
+            self.utils.print_info("Closing the Dialog page")
+            close_button = self.tools_elements.get_neighbor_info_close_button()
+            if not close_button:
+                kwargs['fail_msg'] = "Unable to gather Layer 2 Neighbor Information and unable to close dialog page"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
+            kwargs['fail_msg'] = "Unable to gather Layer 2 Neighbor Information rows"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        for row in rows:
+            if mac in row.text:
+                self.utils.print_info("Found AP MAC in row: ", row.text)
                 self.utils.print_info("Closing the Dialog page")
                 self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
+                kwargs['pass_msg'] = "Successful found AP with MAC " +  mac + " in Layer 2 Neighbor Information table"
+                self.common_validation.passed(**kwargs)
                 return 1
+
+        kwargs['fail_msg'] = "Unable to get Layer 2 Neighbor Information"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def device_diagnostics_ping(self, serial):
+    def device_diagnostics_ping(self, serial, **kwargs):
+        """
+        - Keywword requires that the device is already onboarded
+        - Used to get device diagnostics ping
+        - Keyword Usage:
+          - ``Device Diagnostics Ping   ${SERIAL}``
 
-        self.navigator.navigate_to_tools_page()
-        sleep(5)
-
-        self.utils.print_info("Clicking on Utilities button...")
-        self.auto_actions.click(self.tools_elements.get_utilities_button())
-        sleep(10)
-
-        self.auto_actions.click(self.tools_elements.get_device_diagnostics_menu_item())
-
-        self.devices.refresh_devices_page()
-        sleep(10)
+        :param SERIAL: serial number of device
+        :return: 1 if successful else -1
+        """
+        ret_device = self.navigator.navigate_to_devices()
+        if ret_device == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Page"
+            self.common_validation.failed(**kwargs)
+            return -1
 
         if self.devices.search_ap(ap_serial=serial):
             if self.devices.select_ap(ap_serial=serial):
                 error = self.dialog_web_elements.get_tooltip_text()
+                self.utils.print_info("Possible Error : " + error)
                 if error:
                     self.utils.print_info("Error: ", error)
                     if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                             in error:
+                        kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least one unmanaged device."
+                        self.common_validation.failed(**kwargs)
                         return -1
                     elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
                             in error:
+                        kwargs[
+                            'fail_msg'] = "The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device."
+                        self.common_validation.failed(**kwargs)
                         return -1
-                    else:
-                        return -2
-                sleep(10)
 
-        self.utils.print_info("Clicking Diagnostics button")
-        self.auto_actions.click(self.tools_elements.get_diagnostics_button())
-        sleep(5)
+        self.utils.print_info("Clicking on Utilities Button")
+        util_button = self.tools_elements.get_utilities_button()
+        if not util_button:
+            kwargs['fail_msg'] = "Unable to click Utilities Button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click(self.tools_elements.get_utilities_button())
+
+        self.utils.print_info("Hovering over Diagnostics button")
+        diagnostic_button = self.tools_elements.get_device_diagnostics_menu_item()
+        if not diagnostic_button:
+            kwargs['fail_msg'] = "Unable to hovering over Diagnostics button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        if diagnostic_button.is_displayed():
+            self.auto_actions.move_to_element(diagnostic_button)
+        else:
+            kwargs['fail_msg'] = "Unable to hovering over Diagnostics button due to item not being displayed"
+            self.common_validation.failed(**kwargs)
+            return -1
 
         self.utils.print_info("Selecting Ping...")
-        self.auto_actions.click(self.tools_elements.get_diagnostics_ping_menu_item())
-        sleep(10)
+        diagnostic_ping_button = self.tools_elements.get_diagnostics_ping_menu_item()
+        if not diagnostic_ping_button:
+            kwargs['fail_msg'] = "Unable to select Ping menu"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click(diagnostic_ping_button)
 
         self.utils.print_info("Getting Ping Output...")
-        output = self.tools_elements.get_diagnostics_ping_output().text
-        sleep(2)
-
-        self.utils.print_info("Getting Ping Output: ", output)
-        sleep(2)
+        ping_output = self.tools_elements.get_diagnostics_ping_output()
+        self.screen.save_screen_shot()
+        if not ping_output:
+            kwargs['fail_msg'] = "Unable to select Ping Output"
+            self.common_validation.failed(**kwargs)
+            return -1
+        output = ping_output.text
 
         self.utils.print_info("Closing the Dialog page")
-        self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
+        close_button = self.tools_elements.get_device_diag_ping_close_dlg()
+        if not close_button:
+            kwargs['fail_msg'] = "Unable to close the Dialog page"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click(close_button)
 
         if 'ping statistics' in output and '5 packets transmitted' in output:
+            kwargs['pass_msg'] = "Ping was Successful"
+            self.common_validation.passed(**kwargs)
             return 1
+        else:
+            kwargs['fail_msg'] = "Ping was NOT successful"
+            self.common_validation.failed(**kwargs)
+            return -1
 
+        kwargs['fail_msg'] = "Unable to get Device Diagnostics Ping"
+        self.common_validation.failed(**kwargs)
         return -1
 
     """
@@ -157,30 +248,68 @@ class Tools:
         return 1
     """
 
-    def run_ssh_availability_on_ap(self, serial_num, time_lim):
-        self.navigator.navigate_to_tools_page()
-        sleep(5)
+    def run_ssh_availability_on_ap(self, serial_num, time_lim, **kwargs):
+        """
+        - Used to run ssh availability on ap
+        - Keyword Usage:
+            - ``Run Ssh Availability On Ap   ${SERIAL}  ${TIME_LIM}``
+
+        :param SERIAL: serial number of device
+        :param TIME_LIM: time lim
+        :return: 1 if successful else -1
+        """
+        nav_return = self.navigator.navigate_to_tools_page()
+        if nav_return == -1:
+            kwargs['fail_msg'] = "Unable to navigate to tools page"
+            self.common_validation.failed(**kwargs)
+            return -1
         self.auto_actions.scroll_up()
         sleep(5)
+
         self.utils.print_info("clicking on utilities button")
-        self.auto_actions.click(self.tools_elements.get_utilities_button())
+        utils_button = self.tools_elements.get_utilities_button()
+        if not utils_button:
+            kwargs['fail_msg'] = "Unable to click on utilities button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click(utils_button)
 
         self.utils.print_info("clicking on ssh availability")
-        self.auto_actions.click(self.tools_elements.get_utilities_ssh_availability())
+        ssh_avail_button = self.tools_elements.get_utilities_ssh_availability()
+        if not ssh_avail_button:
+            kwargs['fail_msg'] = "Unable to click on ssh availability"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click(ssh_avail_button)
         sleep(5)
 
 
         if self.devices.select_ap(serial_num):
             self.utils.print_info("clicking on ssh RUN button")
+            run_button = self.tools_elements.get_run_button()
+            if not ssh_avail_button:
+                kwargs['fail_msg'] = "Unable to click on ssh availability"
+                self.common_validation.failed(**kwargs)
+                return -1
             self.auto_actions.click(self.tools_elements.get_run_button())
             sleep(15)
 
             self.utils.print_info("clicking on 5 minutes radio")
-            self.auto_actions.click(self.tools_elements.get_ssh_timeout_5_minutes_radio())
+            timeout_5_button = self.tools_elements.get_ssh_timeout_5_minutes_radio()
+            self.auto_actions.click(timeout_5_button)
+            if not timeout_5_button:
+                kwargs['fail_msg'] = "Unable to click on 5 minutes radio"
+                self.common_validation.failed(**kwargs)
+                return -1
             sleep(10)
 
             self.utils.print_info("clicking on enable SSH button")
-            self.auto_actions.click(self.tools_elements.get_enable_ssh_button())
+            enable_ssh_button = self.tools_elements.get_enable_ssh_button()
+            self.auto_actions.click(enable_ssh_button)
+            if not enable_ssh_button:
+                kwargs['fail_msg'] = "Unable to click on enable SSH button"
+                self.common_validation.failed(**kwargs)
+                return -1
             self.utils.print_info("sleep for 45 seconds to enable SSH")
             sleep(45)
 
@@ -200,27 +329,63 @@ class Tools:
                 self.utils.print_info(ip_addr)
                 self.utils.print_info(port_num)
 
+                kwargs['pass_msg'] = "Successfully able to get ip address and port"
+                self.common_validation.passed(**kwargs)
                 return ip_addr, port_num
             else:
                 self.utils.print_info("AP does not exists in the list")
+                kwargs['fail_msg'] = "AP does not exists in the list"
+                self.common_validation.failed(**kwargs)
                 return -1
 
-    def ui_ssh_status_check(self):
+    def ui_ssh_status_check(self, **kwargs):
+        """
+        - Used to ui ssh status check
+        - Keyword Usage:
+            - ``Ui Ssh Status Check``
+        :return: status if successful else -1
+        """
         self.utils.print_info("SSH status checking in UI")
-        status = self.tools_elements.get_ssh_status().text
+        status_comp = self.tools_elements.get_ssh_status()
+        if not status_comp:
+            kwargs['fail_msg'] = "Unable to get ssh ui component"
+            self.common_validation.failed(**kwargs)
+            return -1
+        status = status_comp.text
         self.utils.print_info("SSH Status on UI: ", status)
         self.utils.print_info(status)
         self.utils.print_info("Closing device360 Dialogue Window.")
-        self.auto_actions.click(self.dev360.get_close_dialog())
+        close_comp = self.dev360.get_close_dialog()
+        if not close_comp:
+            kwargs['fail_msg'] = "Unable to get closing device360 Dialogue Window"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click(close_comp)
         sleep(2)
+
+        kwargs['pass_msg'] = "Successfully able to get SSH status checking in UI"
+        self.common_validation.passed(**kwargs)
         return status
 
-    def ui_tools_ssh_status_check(self):
+    def ui_tools_ssh_status_check(self, **kwargs):
+        """
+        - Used to ui tools ssh status check
+        - Keyword Usage:
+          - ``Ui Tools Ssh Status Check``
+        :return: status if successful else -1
+        """
         self.utils.print_info("SSH status checking in UI")
-        status = self.tools_elements.get_ssh_status().text
+        status_comp = self.tools_elements.get_ssh_status()
+        if not status_comp:
+            kwargs['fail_msg'] = "Unable to get ssh ui component"
+            self.common_validation.failed(**kwargs)
+            return -1
+        status = status_comp.text
         self.utils.print_info("SSH Status on UI: ", status)
         self.utils.print_info(status)
         sleep(2)
+        kwargs['pass_msg'] = "Successfully able to get SSH status checking in UI"
+        self.common_validation.passed(**kwargs)
         return status
 
     def lock_device(self, host, username, passwd, ssid, ssid_passwd="FFLJLSP09865"):
@@ -649,155 +814,4 @@ class Tools:
 
         return -1
 
-    def wait_till(self, func=None, fail_func=None, timeout=20, delay=0.2, exp_func_resp=True, is_logging_enabled=False, silent_failure=False, custom_response=[], msg=None):
-        """ wait till method returns the func() response and raise Timeout Exception if timedout
-            :param func              : callable function without arguments
-            :param fail_func         : callable function, to be run after every unsuccessful attempt of func
-            :param timeout           : float/int type , max number of seconds to wait before timed out
-            :param delay             : float/int, delay in seconds between each retry
-            :param exp_func_resp     : bool,by default wait_till expects True from the callback function func
-            :pram is_logging_enabled : bool, prints the time remaining and result of the func function, default disabled
-            :pram silent_failure     : bool, if true nothing will be returned and Timeout exceptions will not be raised.
-            :pram custom_response    : list, should contain list of str values to match against the func() response. e.g ["Green", "connected", "MANAGED"]
-            :param msg               : str, message that has to printed when this wait_till function is called.
-            :return: raise timeout exception incase max timed out else resturns the calback function's response
-        usages:
-            self.tools.wait_till()
-            self.tools.wait_till(_check_device_rows)
-            self.tools.wait_till(_check_device_rows, timeout=5, delay=0.25)
-            self.tools.wait_till(_check_device_rows, _click_eligible, is_logging_enabled=True, silent_failure=False)
-            out, et = self.tools.wait_till(_check_device_rows, exp_func_resp=False, silent_failure=False, custom_response=["Green", "Managed"])
-
-        Note: 
-            1. custom_response has higher priority than the exp_func_resp
-            2. Timeout might not the break point, callback func and fail_func might take sometime
-            3. If no arguments passed then it will act like a sleep(timeout) and returns None.
-            4. Calback func() response and the Execution Time are returned as tuple. 
-                e.g
-                out,et = wait_till(_check_device_rows, _click_eligible, is_logging_enabled=True, silent_failure=False))
-                out = func() response
-                et  = Execution time (HH:MM:SS)
-        """
-        
-        start = time.time()
-
-        # A simple boolean (Ture/False) conversion function
-        def to_bool(_input):
-            """
-            A small supporting function which is used to convert the func response into a boolean response
-            """
-            if _input is None:
-                return False
-            elif isinstance(_input, bool):
-                return _input
-            elif isinstance(_input, int):
-                return _input > 0
-            elif isinstance(_input, str) and _input.lower() not in ['yes', 'true']:
-                return _input.lower() not in ['no', 'false']
-            else:
-                return bool(_input)
-
-        # Args None/Negative validation and correction
-        if not timeout: timeout = 1
-        if timeout <= 0: timeout = 1
-        if not delay: delay = timeout
-        if delay <= 0 or delay > timeout: delay = timeout
-        
-        # Converting the type of timeout and delay to float
-        if isinstance(timeout, (int, float)): 
-            timeout = float(timeout)
-        if isinstance(delay, (int, float)):
-            delay = float(delay)
-            
-        # Converting the custom_response list values into lowercase
-        custom_response_list=[]
-        for x in custom_response:
-            if isinstance(x, str):
-                custom_response_list.append(x.lower())
-            else:
-                custom_response_list.append(x)
-        
-        # If expected response arg is not a boolean then it will be converted into a equalent boolean value
-        if not isinstance(exp_func_resp, bool):
-            exp_func_resp = to_bool(exp_func_resp)
-            if is_logging_enabled:
-                self.utils.print_info(f"Expected Response is not boolean, converting into boolean '{exp_func_resp}'")
-        
-        # Storing the timeout for later use
-        max_wait_time = timeout
-        callback_response = None
-        callback_response_bool = None
-        callback_response_lower = None
-        elapsed_time=None
-        elapsed_time_hms=None
-        
-        # This custom message prints in the start of wait_till if it set else prints default message 
-        if msg:
-            self.utils.print_info(f"{msg}")
-        else:
-            self.utils.print_info(f"wait_till Started: Timeout '{timeout}' seconds, Delay '{delay}' seconds ")
-
-        # if func is None, wait until the default timeout and returns None
-        if func is None:
-            time.sleep(timeout)
-            return None
-        
-        while timeout > 0:
-
-            # Time sleep for delay seconds
-            time.sleep(delay)
-            timeout = timeout - delay
-
-            # function call to callback
-            callback_response = func()
-            
-            # if is_logging_enabled is True then callback response and time left in seconds will be printed
-            if is_logging_enabled:
-                self.utils.print_info(f"Actual callback function response is '{callback_response}', time left '{timeout}s' ")
-
-            # callback function response is converted to bool type
-            callback_response_bool = to_bool(callback_response)
-            
-            if isinstance(callback_response, str):
-                callback_response_lower = callback_response.lower()
-            else:
-                callback_response_lower = callback_response
-            
-            # Execution end time 
-            elapsed_time = time.time()-start
-            elapsed_time_hms = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
-
-            # This block checks if callback response matches with custom response list and it has higher priority than exp_func_resp
-            if len(custom_response_list) > 0 :
-                if callback_response_lower in custom_response_list:
-                    if is_logging_enabled:
-                        self.utils.print_info(f"Wail_till is success, callback response is '{callback_response}'")
-                        self.utils.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
-                    return callback_response,elapsed_time_hms
-                else:
-                    pass
-            # This block checks callback response matches with expected response and or custom_response, if so returns the func() response
-            elif callback_response_bool == exp_func_resp:
-                if is_logging_enabled:
-                    self.utils.print_info(f"Wail_till is success, callback response is '{callback_response_bool}'")
-                    self.utils.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
-                return callback_response,elapsed_time_hms
-            
-            # This fail_func function will be called everytime callback func failed and timeout is > 0   
-            if fail_func and timeout > 0:
-                fail_func()
-
-        # Below this will be executed only when timeout reached.
-      
-        # if enable_log is True then callback response and time left in seconds will be printed
-        if is_logging_enabled:
-            self.utils.print_info(f"Wait_till is unsuccess, function response was '{callback_response}' after waiting for '{max_wait_time} seconds' ")
-            self.utils.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
-            
-        # silent failure is True then this function will not raise timeout exception but returns the func() response
-        if silent_failure:
-            return callback_response,elapsed_time_hms
-        
-        # Raise timeout exception if silent_failure is set as false
-        raise Exception("Request Timedout")
         

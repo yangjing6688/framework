@@ -152,7 +152,7 @@ class AdvanceOnboardingDefinitions:
     onboard_success_message = \
         {
          'CSS_SELECTOR': '.device-onboard-success-status',
-         'wait_for': 10
+         
          }
 
     locations_generic = \
@@ -188,6 +188,12 @@ class AdvanceOnboardingDefinitions:
     advance_onboard_cloudiq_engine_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="cloudIqEngineRadio"]',
+            'wait_for': 5
+        }
+
+    advance_onboard_mac_address_textfield = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="macSerials"]',
             'wait_for': 5
         }
 

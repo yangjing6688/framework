@@ -16,7 +16,7 @@ class GlobalSettingWebElementDefinitions:
             'XPATH': '//table',
             'wait_for': 10
         }
-
+            
     logs_grid_rows = \
         {
             'XPATH': '//*[@role="table"]',

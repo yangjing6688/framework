@@ -484,6 +484,9 @@ class Location:
             self.utils.print_info("Button not found")
             return -1
         sleep(3)
+        if self.devices_web_elements.get_devices_drawer_open():
+            self.auto_actions.click(self.devices_web_elements.get_devices_drawer_trigger())
+
         if self.ml_insights_plan_web_elements.get_create_new_map_btn():
             self.auto_actions.click(self.ml_insights_plan_web_elements.get_create_new_map_btn())
             self.utils.print_info("New map button found")
@@ -527,7 +530,12 @@ class Location:
         else:
             self.utils.print_info("Save button not found")
             return -1
-        sleep(3)
+        # sleep(3)
+
+        def check_n360_click_x_button():
+            return bool(self.ml_insights_plan_web_elements.get_n360_click_x_button())
+
+        self.utils.wait_till(check_n360_click_x_button, is_logging_enabled=True)
         if self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_click_x_button()):
             self.utils.print_info("Click on close button Floor Plan")
         else:
@@ -548,7 +556,8 @@ class Location:
         sleep(3)
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_width_floor(), width)
         sleep(3)
-        self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_height_floor(), height)
-        sleep(3)
+        #Comment below lines until XIQ-8469 will be resolved
+        #self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_height_floor(), height)
+        #sleep(3)
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_apply_button())
         return 1

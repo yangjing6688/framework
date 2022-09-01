@@ -150,13 +150,13 @@ class NetworkElement(ManagedDeviceObject):
             logger.debug("POP session_key %s", session_key)
         except:
             pass
-        if len(device.agent_track[connection_method]) == 0:
-            try:
+        try:
+            if len(device.agent_track[connection_method]) == 0:
                 device.agent_track.pop(connection_method, None)
                 logger.debug("POP connect meth %s", connection_method)
-            except:
-                logger.debug("POP error connect meth %s", connection_method)
-                pass
+        except:
+            logger.debug("POP error connect meth %s", connection_method)
+            pass
         else:
             logger.debug("LEAVE connect meth %s", connection_method)
 
@@ -340,6 +340,11 @@ class NetworkElement(ManagedDeviceObject):
             retries += 1
             try:
                 logged_in = self.current_agent.login()
+                if not logged_in and self.oper_sys == NetworkElementConstants.OS_AHAP and \
+                        not self.current_agent.get_enable_default_password_mode():
+                    self.current_agent.enable_default_password_mode(True)
+                    logged_in = self.current_agent.login()
+                    self.current_agent.enable_default_password_mode(False)
                 if not logged_in:
                     self.logger.log_debug("Attempt Connection failed, retry attempt " + str(retries))
             except (EOFError, socket.error):
@@ -372,7 +377,7 @@ class NetworkElement(ManagedDeviceObject):
                           NetworkElementConstants.VERSION_BASE,
                           NetworkElementConstants.UNIT_BASE
                           ]
-        except AttributeError:
+        except AttributeError as e:
             base_attrs = [NetworkElementConstants.PLATFORM_BASE,
                           NetworkElementConstants.VERSION_BASE,
                           NetworkElementConstants.UNIT_BASE

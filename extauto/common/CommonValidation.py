@@ -37,9 +37,9 @@ class CommonValidation():
         test_result = False
         ivr_flag = self.get_kwarg(kwargs, "IRV", True)
         if ivr_flag:
-            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            self.logger.warning("Internal Result Verification is Enabled")
-            self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            self.logger.info("Internal Result Verification is Enabled")
+            self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             default_fail_msg = "The keyword had a result of fail"
             fail_msg = self.get_kwarg(kwargs, "fail_msg", default_fail_msg)
             pass_msg = self.get_kwarg(kwargs, "pass_msg")
@@ -128,3 +128,11 @@ class CommonValidation():
             boolean = default
 
         return boolean
+
+    def passed(self, **kwargs):
+        """Description: This method will print the passing message and return 1"""
+        return self.validate(1, 1, **kwargs)
+
+    def failed(self, **kwargs):
+        """Description: This method will print the failing message and raise an error if IRV is enabled"""
+        return self.validate(-1, 1, **kwargs)

@@ -52,7 +52,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return False
 
     def get_status_cell(self, row):
-        el = self.weh.get_element(self.devices_ap_status_green, row)
+        el = self.weh.get_element(self.device_status_cell, parent=row)
         if el:
             return el.get_attribute("class")
         else:
@@ -79,7 +79,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.device_stack_status, row)
 
     def get_device_config_audit(self, row):
-        el = self.weh.get_element(self.device_config_audit, row)
+        el = self.weh.get_element(self.device_config_audit, parent=row)
         if el:
             return el.get_attribute("class")
         else:
@@ -114,6 +114,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: device on-boarding add button
         """
         return self.weh.get_element(self.devices_add_devices_button)
+
+    def get_devices_drawer_open(self):
+        return self.weh.get_element(self.devices_drawer_open)
+
+    def get_devices_drawer_trigger(self):
+        return self.weh.get_element(self.devices_drawer_trigger)
 
     def get_delete_button(self):
         """
@@ -301,6 +307,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_country_code_cell(self, row):
         return self.weh.get_element(self.country_code_cell, row)
 
+    def get_hostname_code_cell(self, row):
+        return self.weh.get_element(self.devices_page_grid_ap_name_cells, row)
+
     def get_actions_country_code_menu_item(self):
         return self.weh.get_element(self.actions_country_code_menu_item)
 
@@ -334,8 +343,26 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_actions_country_code_confirm_button(self):
         return self.weh.get_element(self.actions_country_code_confirm_button)
 
-    def get_ap_configure_button(self):
-        return self.weh.get_element(self.ap_configure_button)
+    def get_device_configure_tab(self):
+        return self.weh.get_element(self.device_level_configure_tab)
+
+    def get_device_configure_interface_settings(self):
+        return self.weh.get_element(self.device_level_configure_interface_settings)
+
+    def get_device_configure_interface_settings_wireless_toggle(self):
+        return self.weh.get_element(self.device_level_configure_interface_settings_wireless_toggle)
+
+    def get_device_configure_interface_settings_wifi0_ssid(self):
+        return self.weh.get_elements(self.device_level_configure_interface_settings_wifi0_ssid)
+
+    def get_device_configure_interface_settings_wifi1_ssid(self):
+        return self.weh.get_elements(self.device_level_configure_interface_settings_wifi1_ssid)
+
+    def get_device_level_page_refresh(self):
+        return self.weh.get_element(self.device_level_page_refresh)
+
+    def get_device_level_page_close_icon(self):
+        return self.weh.get_element(self.device_level_page_close_icon)
 
     def get_ap_device_config_tab(self):
         return self.weh.get_element(self.ap_device_config_tab)
@@ -474,6 +501,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: device on-boarding text area to enter serial numbers for XIQ Site Engines
         """
         return self.weh.get_element(self.devices_xiqse_serial_text_area)
+
+    def get_devices_quick_add_device_panel(self):
+        """
+        :return: quick add device panel
+        """
+        return self.weh.get_element(self.devices_quick_add_device_panel)
 
     def get_devices_quick_add_device_make_drop_down(self):
         """
@@ -773,7 +806,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         menus = self.weh.get_elements(self.devices_add_devices_menu)
         for menu in menus:
             if menu.is_displayed():
-                menu_items =  self.weh.get_elements(self.devices_quick_add_devices_menu_item, parent=menu)
+                menu_items = self.weh.get_elements(self.devices_quick_add_devices_menu_item, parent=menu)
                 for menu_item in menu_items:
                     if "Quick Add Devices" in menu_item.text:
                         return menu_item
@@ -796,6 +829,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_device_os_radio(self):
         return self.weh.get_element(self.device_os_radio)
 
+    def get_devices_quick_add_device_os_radio(self):
+        return self.weh.get_element(self.devices_quick_add_device_os_radio)
+
     def get_location_button(self):
         return self.weh.get_element(self.location_button)
 
@@ -803,12 +839,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.location_select_button)
 
     def get_devices_serial_text_area_error(self):
-        a =  self.weh.get_element(self.devices_serial_text_area_error)
+        a = self.weh.get_element(self.devices_serial_text_area_error)
         time.sleep(5)
         return a.get_attribute("data-tooltip")
 
     def get_devices_mac_text_area_error(self):
-        a =  self.weh.get_element(self.devices_mac_text_area_error)
+        a = self.weh.get_element(self.devices_mac_text_area_error)
         time.sleep(5)
         _error = self.weh.get_element(self.mac_error, parent=a)
         return _error.get_attribute("data-tooltip")
@@ -857,8 +893,14 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_device_make_aerohive(self):
         return self.weh.get_element(self.device_make_aerohive)
 
-    def get_error_onboarding_message(self):
-        return self.weh.get_element(self.error_onboarding_message)
+    def get_quick_onboard_failure_panel(self):
+        return self.weh.get_element(self.quick_onboard_failure_panel)
+
+    def get_quick_onboard_failure_reason(self):
+        return self.weh.get_element(self.quick_onboard_failure_reason)
+
+    def get_quick_onboard_failure_ok_button(self):
+        return self.weh.get_element(self.quick_onboard_failure_ok_button)
 
     def get_device_auto_detection_voss(self):
         return self.weh.get_element(self.device_auto_detection_voss)
@@ -902,8 +944,8 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_items(self):
         return self.weh.get_elements(self.items)
 
-    def get_port_click(self,el):
-        return self.weh.get_element(self.port_click,el)
+    def get_port_click(self, el):
+        return self.weh.get_element(self.port_click, el)
 
     def get_device_auto_detection_wingRadio(self):
         el = self.weh.get_element(self.device_auto_detection_cloudIqEngineRadio)
@@ -934,6 +976,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_device_os_exos_radio(self):
         return self.weh.get_element(self.device_os_exos_radio)
 
+    def get_device_os_cloudiq_engine_radio(self):
+        return self.weh.get_element(self.device_os_cloudiq_engine_radio)
+
+    def get_device_os_wing_radio(self):
+        return self.weh.get_element(self.device_os_wing_radio)
+
     def get_assign_policy_device_selected(self):
         return self.weh.get_element(self.assign_policy_device_selected)
 
@@ -956,7 +1004,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         el = self.weh.get_element(self.status_update_failed_after_reboot)
         if el:
             status = el.get_attribute("errcode")
-            new_status = status.replace("<br>","")
+            new_status = status.replace("<br>", "")
             return new_status
         else:
             return None
@@ -1152,3 +1200,78 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return el
         else:
             return None
+
+    def get_update_reboot_revert_checkbox(self):
+        return self.weh.get_element(self.update_reboot_revert_checkbox)
+
+    def get_update_image_checkbox(self):
+        return self.weh.get_element(self.update_image_checkbox)
+
+    def get_events_text(self):
+        return self.weh.get_elements(self.get_events)
+
+    def get_update_config_checkbox(self):
+        return self.weh.get_element(self.update_config_checkbox)
+
+    def get_device_actions_button(self):
+        """
+        :return: Device Actions Button
+        """
+        return self.weh.get_element(self.device_actions_button)
+
+    def get_license_action_button(self):
+        return self.weh.get_element(self.license_action_button)
+
+    def get_port_details_info(self):
+        return self.weh.get_elements(self.port_details_info)
+
+    def get_digital_twin_container_feature(self):
+        """
+        :return: quick add > digital twin radio button field
+        """
+        return self.weh.get_element(self.digital_twin_container_feature)
+
+    def get_device_type_digital_twin_radio_button(self):
+        """
+        :return: quick add > digital twin radio button field
+        """
+        return self.weh.get_element(self.device_type_digital_twin_radio_button)
+
+    def get_digital_twin_os_persona_dropdown(self):
+        """
+        :return: quick add > digital twin OS persona dropdown to select the OS persona to assign
+        """
+        return self.weh.get_element(self.digital_twin_os_persona_dropdown)
+
+    def get_digital_twin_os_persona_dropdown_items(self):
+        """
+        :return: quick add > digital twin OS persona dropdown item
+        """
+        parent = self.get_digital_twin_os_persona_dropdown()
+        return self.weh.get_elements(self.digital_twin_os_persona_dropdown_items, parent)
+
+    def get_digital_twin_device_model_dropdown(self):
+        """
+        :return: quick add > digital twin device model dropdown to select the device model to assign
+        """
+        return self.weh.get_element(self.digital_twin_device_model_dropdown)
+
+    def get_digital_twin_device_model_dropdown_items(self):
+        """
+        :return: quick add > digital twin device model dropdown item
+        """
+        parent = self.get_digital_twin_device_model_dropdown()
+        return self.weh.get_elements(self.digital_twin_device_model_dropdown_items, parent)
+
+    def get_digital_twin_os_version_dropdown(self):
+        """
+        :return: quick add > digital twin OS version dropdown to select the OS version to assign
+        """
+        return self.weh.get_element(self.digital_twin_os_version_dropdown)
+
+    def get_digital_twin_os_version_dropdown_items(self):
+        """
+        :return: quick add > digital twin OS version dropdown item
+        """
+        parent = self.get_digital_twin_os_version_dropdown()
+        return self.weh.get_elements(self.digital_twin_os_version_dropdown_items, parent)

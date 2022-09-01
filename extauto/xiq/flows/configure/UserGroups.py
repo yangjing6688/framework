@@ -490,15 +490,19 @@ class UserGroups(UserGroupsWebElements):
             sleep(3)
 
         group_select_flag = None
+        user_group_flag = -1
         for group in groups:
             if not self._search_user_group(group):
                 self.utils.print_info("User group doesn't exists in user group list")
+                user_group_flag = 1
                 continue
             else:
                 self._select_user_group_row(group)
                 group_select_flag = True
         if group_select_flag:
             return self._perform_user_group_delete()
+        if user_group_flag == 1:
+            return 1
 
     def select_wireless_user_group(self, group_name, passwd_db_loc='None', passwd_type='None'):
         """
@@ -896,7 +900,7 @@ class UserGroups(UserGroupsWebElements):
         self.utils.print_info("Navigating to the configure users")
         if not self.navigator.navigate_to_configure_user_groups():
             kwargs['fail_msg'] = "Unable to navigate to the user group page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Click on full page view")
@@ -912,7 +916,7 @@ class UserGroups(UserGroupsWebElements):
                 return 1
         else:
             kwargs['fail_msg'] = "Could not get an user group list"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         try:
@@ -921,18 +925,18 @@ class UserGroups(UserGroupsWebElements):
                 if not self._search_user_group(exclusive_group):
                     self.utils.print_info("User group does not exist in the user group list")
                     kwargs['fail_msg'] = "User group does not exist in the user group list "
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 else:
                     self._select_user_group_row(exclusive_group)
         except:
             kwargs['fail_msg'] = "Not able to select the exclusive user group "
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         
         if self._perform_user_group_delete() == -1:
             kwargs['fail_msg'] = "Unable to delete all custom users "
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         return 1
