@@ -41,6 +41,9 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_configuration_tab(self):
         return self.weh.get_element(self.configuration_tab)
 
+    def get_device_360_page(self):
+        return self.weh.get_element(self.device_360_page)
+
     def get_device_configuration_tab(self):
         return self.weh.get_element(self.device_configuration_tab)
 
@@ -641,8 +644,11 @@ class DeviceConfigElements(DeviceConfigDefs):
         else:
             return False
 
-    def get_devices_device_config_device_function_dropdown(self):
-        return self.weh.get_element(self.devices_device_config_device_function_dropdown)
+    def get_devices_device_config_device_function_set_ap(self):
+        return self.weh.get_element(self.devices_device_config_device_function_set_ap)
+
+    def get_devices_device_config_device_function_set_router(self):
+        return self.weh.get_element(self.devices_device_config_device_function_set_apasrouter)
 
     def get_devices_device_config_device_function(self):
         return self.weh.get_elements(self.devices_device_config_device_function)
