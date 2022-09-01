@@ -37,6 +37,8 @@ class ConnProfileWebElementDefs:
 
     drop_opt_act1 = \
         {
+            # 'XPATH': '//*[@data-automation-tag="automation-filter,0,type"]//span//span',this XPATH does not select the
+            # dropdown value, hence selecting the data with span value
             'XPATH': '//span[text()="Connection Type"]',
             'wait_for': 5
         }
@@ -49,6 +51,8 @@ class ConnProfileWebElementDefs:
 
     drop_opt_act2 = \
         {
+            # 'XPATH': '//*[@data-automation-tag="automation-filter,0,type"]',this XPATH does not select the
+            #  dropdown value, hence selecting the data with span value
             'XPATH': '//span[text()="Wireless-802.11-EAP"]',
             'wait_for': 5
         }

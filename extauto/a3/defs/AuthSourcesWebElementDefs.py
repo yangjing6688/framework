@@ -139,6 +139,8 @@ class AuthSourcesWebElementDefs:
 
     rule_row2_select_option = \
         {
+                # 'XPATH': '(//span[text()="Access duration"])' , the prev XPATH gives 2 elements, to make it unique
+                # added the index value
                 'XPATH': '(//span[text()="Access duration"])[2]',
                 'wait_for': 5
         }
