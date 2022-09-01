@@ -138,15 +138,6 @@ class Onboarding(object):
         self.utils.print_info("Clicking OK Button")
         self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button())
 
-        try:
-            if self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_get_close_button().is_displayed():
-                self.screen.save_screen_shot()
-                self.utils.print_info("Clicking close Button")
-                self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_get_close_button())
-                self.screen.save_screen_shot()
-        except Exception as er:
-            pass
-
         self.screen.save_screen_shot()
         sleep(2)
 
