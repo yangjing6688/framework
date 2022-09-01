@@ -2797,6 +2797,24 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_digital_twin_status_icon = \
+        {
+            'DESC': 'D360 > Digital Twin Status Icon',
+            'XPATH': '//span[@data-dojo-attach-point="digitalTwinIcon"]'
+        }
+
+    device360_digital_twin_relaunch_button = \
+        {
+            'DESC': 'D360 > Relaunch Digital Twin button',
+            'XPATH': '//button[@data-automation-tag="automation-switch-config-relaunch-dt-btn"]'
+        }
+
+    device360_digital_twin_shutdown_button = \
+        {
+            'DESC': 'D360 > Shutdown Digital Twin button',
+            'XPATH': '//button[@data-automation-tag="automation-switch-config-shutdown-dt-btn"]'
+        }
+        
     select_element_port_type_pse_profile_power_limit = \
         {
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
