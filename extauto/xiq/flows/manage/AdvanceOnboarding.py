@@ -19,7 +19,6 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         self.auto_actions = AutoActions()
         self.dialogue_web_elements = DialogWebElements()
         self.devices_web_elements = DevicesWebElements()
-
         self.screen = Screen()
         self.navigator = Navigator()
         self.devices = Devices()
@@ -255,7 +254,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         ret_value = -1
         while max_retires != count:
             for serial in serials:
-                if self.dev.search_device(device_serial=serial) == 1:
+                if self.devices.search_device(device_serial=serial) == 1:
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
