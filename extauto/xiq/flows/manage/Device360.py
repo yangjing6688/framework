@@ -285,7 +285,7 @@ class Device360(Device360WebElements):
         return ret_val
 
     def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30,
-                                              retry_time=150, **kwargs):
+                                              retry_time=150, retry_counter=0, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -351,16 +351,28 @@ class Device360(Device360WebElements):
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
                 kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
-                self.common_validation.validate(1, 1, **kwargs)
+
+                if retry_counter != 0:
+                    kwargs['fail_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
+                    self.common_validation.fail(**kwargs)
+                else:
+                    self.common_validation.pass(**kwargs)
                 return ip_port_info
             else:
                 self.utils.print_info(
                     f"****************** IP/Port Information is not available after {retry_count} seconds ************************")
                 sleep(time_interval)
                 retry_count += 30
-        kwargs['fail_msg'] = f"Failed to get the SSH and port information"
-        self.common_validation.validate(-1, 1, **kwargs)
-        return -1
+
+        # we got here, so let's try this again
+        if (retry_counter == 5):
+            kwargs['fail_msg'] = f"Failed to get the SSH and port information"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
+            self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
+                                                       retry_time, retry_counter, **kwargs):
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """
