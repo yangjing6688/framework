@@ -354,9 +354,9 @@ class Device360(Device360WebElements):
 
                 if retry_counter != 0:
                     kwargs['fail_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
-                    self.common_validation.fail(**kwargs)
+                    self.common_validation.failed(**kwargs)
                 else:
-                    self.common_validation.pass(**kwargs)
+                    self.common_validation.passed(**kwargs)
                 return ip_port_info
             else:
                 self.utils.print_info(
@@ -367,7 +367,7 @@ class Device360(Device360WebElements):
         # we got here, so let's try this again
         if (retry_counter == 5):
             kwargs['fail_msg'] = f"Failed to get the SSH and port information"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
