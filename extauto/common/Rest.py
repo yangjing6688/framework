@@ -265,32 +265,3 @@ class Rest:
 
         return data
 
-    def get_product_url(self, url):
-        """
-        This method is used to generate right url based on XIQ instance
-
-        :param url:
-        :return: product_url
-        """
-
-        flag = "null"
-        string = url.find(".qa.xcloudiq.com")
-        string1 = url.find(".extremecloudiq.com")
-
-        if string > 0:
-            product_url_env = re.search('https://(.*?).qa.xcloudiq.com', url).group(1)
-            flag = "QA"
-
-        if string1 > 0:
-            product_url_env = re.search('https://(.*?).extremecloudiq.com', url).group(1)
-            flag = "Staging"
-
-        if flag == "null":
-            product_url = "https://productinfo.extremecloudiq.com/productinfo/dellsnstmapping/24301900000000"
-        elif flag == "QA":
-            product_url = "https://{}-productinfo.qa.xcloudiq.com/productinfo/dellsnstmapping/24301900000001".format(product_url_env)
-        else:
-            product_url = "https://{}-productinfo.extremecloudiq.com/productinfo/dellsnstmapping/24301900000000".format(product_url_env)
-
-
-        return product_url
