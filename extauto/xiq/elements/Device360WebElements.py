@@ -16,7 +16,7 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_element(self.device360_total_wireless_clients)
 
     def get_device360_total_clients_clientspage(self):
-        return self.weh.get_element(self.device360_total_wireless_clients)
+        return self.weh.get_element(self.device360_total_clients_clientspage)
 
     def get_device360_wireless_combinedscore(self):
         return self.weh.get_element(self.device360_wireless_combinedscore)

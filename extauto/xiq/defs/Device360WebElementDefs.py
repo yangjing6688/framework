@@ -2825,7 +2825,7 @@ class Device360WebElementDefs:
             'wait_for': 15
         }
 
-    get_device360_total_clients_clientspage = \
+    device360_total_clients_clientspage = \
         {
             'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
 #            'XPATH': '//*[@data-automation-tag="wirelessinterfaces-total-client-count-ctn"]//div[@data-dojo-attach-point="totalClientCount"]',
