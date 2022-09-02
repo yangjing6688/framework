@@ -1685,12 +1685,21 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_ports_table_current_pagin_number(self):
         return self.weh.get_element(self.device360_ports_table_current_pagin_number)
 
+    def get_device360_digital_twin_status_icon(self):
+        return self.weh.get_element(self.device360_digital_twin_status_icon)
+
+    def get_device360_digital_twin_relaunch_button(self):
+        return self.weh.get_element(self.device360_digital_twin_relaunch_button)
+
+    def get_device360_digital_twin_shutdown_button(self):
+        return self.weh.get_element(self.device360_digital_twin_shutdown_button)
+
     def get_device360_port_configuration_path_cost_stp(self, row):
         return self.weh.get_element(self.device360_port_configuration_path_cost_stp, parent=row)
 
     def get_device360_asic_port_groups(self):
         return self.weh.get_elements(self.device360_asic_port_groups)
-    
+
     def get_device360_ports_each_asic_port_group(self, port_asic):
         return self.weh.get_elements(self.device360_ports_each_asic_port_group, parent=port_asic)
 

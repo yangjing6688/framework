@@ -1141,7 +1141,7 @@ class Device360WebElementDefs:
 
     device360_asic_port_groups = \
         {
-            'XPATH': '//li[contains(@class, "port-group port-group-") and not(contains(@class, "active-result"))]'   
+            'XPATH': '//li[contains(@class, "port-group port-group-") and not(contains(@class, "active-result"))]'
         }
 
     device360_ports_each_asic_port_group = \
@@ -1160,7 +1160,7 @@ class Device360WebElementDefs:
             'XPATH': './/div[contains(@data-automation-tag, "automation-port-${slot}")]',
             'wait_for': 5
         }
-        
+
     device360_stack_port_table_port_name = \
         {
             'XPATH': '//*[@class="portdetails-table"]//span[contains(text(), "Port Name")]//following-sibling::span[contains(text(), "")]',
@@ -2816,6 +2816,24 @@ class Device360WebElementDefs:
         {
             "XPATH": "//div[@class='pagination-num-ctn']//span[@class='pagination-page current-pagination']",
             'wait_for': 5
+        }
+
+    device360_digital_twin_status_icon = \
+        {
+            'DESC': 'D360 > Digital Twin Status Icon',
+            'XPATH': '//span[@data-dojo-attach-point="digitalTwinIcon"]'
+        }
+
+    device360_digital_twin_relaunch_button = \
+        {
+            'DESC': 'D360 > Relaunch Digital Twin button',
+            'XPATH': '//button[@data-automation-tag="automation-switch-config-relaunch-dt-btn"]'
+        }
+
+    device360_digital_twin_shutdown_button = \
+        {
+            'DESC': 'D360 > Shutdown Digital Twin button',
+            'XPATH': '//button[@data-automation-tag="automation-switch-config-shutdown-dt-btn"]'
         }
 
 

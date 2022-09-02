@@ -428,7 +428,6 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-router-assign-policy"]',
             'wait_for': 5,
-            'index': 1
         }
 
     action_assign_network_policy_dialog = \
@@ -819,7 +818,7 @@ class DevicesWebElementsDefinitions:
 
     devices_quick_add_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-policy-select"]',
+            'XPATH': '//table[@data-automation-tag="automation-quick-add-onboard-policy-select"]//tbody//tr//td[2]',
             'CSS_SELECTOR': 'div[class="policy-list-el"][data-dojo-attach-point="networkPolicyListCtn"]',
             'wait_for': 1
          }
@@ -1630,8 +1629,9 @@ class DevicesWebElementsDefinitions:
             'wait_for': 3,
         }
 
-    perform_update_tooltip = \
+    ui_banner_error_message = \
         {
+            'DESC': 'XIQ UI Banner containing an error message.',
             'XPATH':  '//*[contains(@class, "ui-tipbox ui-tipbox-error") and contains(@data-dojo-attach-point, "wrapEl")]',
             'wait_for': 3
         }
