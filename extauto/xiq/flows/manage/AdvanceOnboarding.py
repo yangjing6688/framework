@@ -255,7 +255,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         ret_value = -1
         while max_retires != count:
             for serial in serials:
-                if self.search_device(device_serial=serial) == 1:
+                if self.dev.search_device(device_serial=serial) == 1:
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
