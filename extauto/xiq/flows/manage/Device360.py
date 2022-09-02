@@ -371,8 +371,8 @@ class Device360(Device360WebElements):
             return -1
         else:
             self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
-            self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
-                                                       retry_time, retry_counter, **kwargs)
+            return self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
+                                                              retry_time, retry_counter, **kwargs)
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """
