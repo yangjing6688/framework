@@ -264,4 +264,3 @@ class Rest:
         data = r.text
 
         return data
-
