@@ -6985,7 +6985,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Power details not found")
             return -1
 
-    def get_event_from_device360(self, dut, event, close_360_window=True):
+    def get_event_from_device360(self, dut, event, close_360_window=True, **kwargs):
         """
         This function is used to search for an event given as parameter in Events view from Device360 window
         :param dut: the instance of the device
@@ -6995,12 +6995,21 @@ class Device360(Device360WebElements):
         """
         if self.navigator.navigate_to_devices() != 1:
             self.utils.print_info("Failed to navigate to Devices tab")
+            kwargs['fail_msg'] = "Failed to navigate to Devices tab"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
         if self.deviceCommon.go_to_device360_window(device_mac=dut.mac) != 1:
             self.utils.print_info("Failed to go to Device360 window")
+            kwargs['fail_msg'] = "Failed to go to Device360 window"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
         if self.device360_select_events_view() != 1:
             self.utils.print_info("Failed to select Events view")
+            kwargs['fail_msg'] = "Failed to select Events view"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(3)
 
