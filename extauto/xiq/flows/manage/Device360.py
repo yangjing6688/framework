@@ -7131,7 +7131,8 @@ class Device360(Device360WebElements):
         sleep(5)
         self.utils.print_info("Getting Device360 Total clients Count in clients page")
         sleep(5)
-        total_count = self.dev360.get_device360_total_wireless_clients()
+        total_count = self.dev360.get_device360_total_clients_clientspage()
+#        total_count = self.dev360.get_device360_total_wireless_clients()
         if total_count:
             ret_val = total_count.text
         else:
