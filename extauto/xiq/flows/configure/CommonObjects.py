@@ -1016,7 +1016,8 @@ class CommonObjects(object):
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
-                        self.utils.print_info("Did not find row's check box!")
+                        kwargs['fail_msg'] = "Did not find row's check box!"
+                        self.common_validation.failed(**kwargs)
                         return -1
 
                     self.utils.print_info("Clicking on delete button")
