@@ -19,16 +19,12 @@ from selenium.webdriver.support import expected_conditions as EC
 class A3WebElementsflow(A3WebElements):
     def __init__(self):
         super().__init__()
-        #self.driver1 = None
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.a3_web_elements = A3WebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
-
-
 
     def select_auth_source(self):
         """
