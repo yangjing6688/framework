@@ -2453,18 +2453,18 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info(f"The mac {str(device_mac)} is invalid.")
                     kwargs['fail_msg'] = f"The mac {str(device_mac)} is invalid."
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
             else:
                 self.utils.print_info("Did not find any rows!")
                 kwargs['fail_msg'] = "Did not find any rows!"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
 
             if device_found != 1:
                 self.utils.print_info(f"Did not find any device with mac address: {device_mac}")
                 kwargs['fail_msg'] = f"Did not find any device with mac address: {device_mac}"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
 
         self.utils.wait_till(check_delta_view_button_yellow, timeout=120, delay=15, is_logging_enabled=True)
 
@@ -2483,7 +2483,7 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Did not find the delta view button")
                     kwargs['fail_msg'] = "Did not find the delta view button"
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 self.utils.print_info("Locating audit content...")
 
@@ -2504,7 +2504,7 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Did not find the delta view...")
                     kwargs['fail_msg'] = "Did not find the delta view..."
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 self.utils.print_info("Attempting to locate the delta config content...")
                 if self.get_device_config_audit_delta_view_content():
@@ -2520,7 +2520,7 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Did not manage to locate the content...")
                     kwargs['fail_msg'] = "Did not manage to locate the content..."
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
 
                 close_audit_view_button = self.get_device_config_audit_view_close_button()
@@ -2531,19 +2531,19 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Did not find the close button.")
                     kwargs['fail_msg'] = "Did not find the close button."
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 if delta_configs:
                     self.utils.print_info("Successfully collected Delta CLI configs")
                     self.utils.print_info("Delta Configs : ", delta_configs)
                     kwargs['pass_msg'] = "Successfully collected Delta CLI configs"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return delta_configs
                 else:
                     self.utils.print_info("Did not manage to get any configurations")
                     kwargs['fail_msg'] = "Did not manage to get any configurations"
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
 
     def get_device_config_audit_delta_complete(self, ap_serial, config_type, **kwargs):
@@ -2580,7 +2580,7 @@ class DeviceConfig(DeviceConfigElements):
                             self.utils.print_info("Did not find the config audit view button")
                             kwargs['fail_msg'] = "Did not find the config audit view button"
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
                         if config_type.upper() == "COMPLETE":
                             complete_view = self.get_device_config_audit_complete_view()
@@ -2592,7 +2592,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Did not find the complete view...")
                                 kwargs['fail_msg'] = "Did not find the complete view..."
                                 self.screen.save_screen_shot()
-                                self.common_validation.validate(-1, 1, **kwargs)
+                                self.common_validation.failed(**kwargs)
                                 return -1
                             self.utils.print_info("Attempting to locate the complete config content...")
                             if self.get_device_config_audit_complete_view_content():
@@ -2607,7 +2607,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Did not manage to locate the content...")
                                 kwargs['fail_msg'] = "Did not manage to locate the content..."
                                 self.screen.save_screen_shot()
-                                self.common_validation.validate(-1, 1, **kwargs)
+                                self.common_validation.failed(**kwargs)
                                 return -1
                         elif config_type.upper() == "DELTA":
                             delta_view = self.get_device_config_audit_delta_view()
@@ -2619,7 +2619,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Did not find the delta view...")
                                 kwargs['fail_msg'] = "Did not find the delta view..."
                                 self.screen.save_screen_shot()
-                                self.common_validation.validate(-1, 1, **kwargs)
+                                self.common_validation.failed(**kwargs)
                                 return -1
                             self.utils.print_info("Attempting to locate the delta config content...")
                             if self.get_device_config_audit_delta_view_content():
@@ -2634,7 +2634,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Did not manage to locate the content...")
                                 kwargs['fail_msg'] = "Did not manage to locate the content..."
                                 self.screen.save_screen_shot()
-                                self.common_validation.validate(-1, 1, **kwargs)
+                                self.common_validation.failed(**kwargs)
                                 return -1
                         elif config_type.upper() == "AUDIT":
                             audit_view = self.get_device_config_audit_audit_view()
@@ -2646,7 +2646,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Did not find the audit view...")
                                 kwargs['fail_msg'] = "Did not find the audit view..."
                                 self.screen.save_screen_shot()
-                                self.common_validation.validate(-1, 1, **kwargs)
+                                self.common_validation.failed(**kwargs)
                                 return -1
                             self.utils.print_info("Attempting to locate the audit config content...")
                             if self.get_device_config_audit_audit_view_content():
@@ -2661,7 +2661,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Did not manage to locate the content...")
                                 kwargs['fail_msg'] = "Did not manage to locate the content..."
                                 self.screen.save_screen_shot()
-                                self.common_validation.validate(-1, 1, **kwargs)
+                                self.common_validation.failed(**kwargs)
                                 return -1
 
                         close_audit_view_button = self.get_device_config_audit_view_close_button()
@@ -2672,29 +2672,29 @@ class DeviceConfig(DeviceConfigElements):
                             self.utils.print_info("Did not find the close button.")
                             kwargs['fail_msg'] = "Did not find the close button."
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
                         if get_configs_result:
                             self.utils.print_info(f"Successfully collected {config_type} CLI configs")
                             self.utils.print_info("{config_type} Configs : ", get_configs_result)
                             kwargs['pass_msg'] = f"Successfully collected {config_type} CLI configs"
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                             return get_configs_result
                         else:
                             self.utils.print_info("Did not manage to get any configurations")
                             kwargs['fail_msg'] = "Did not manage to get any configurations"
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
                 if device_found == 0:
                     self.utils.print_info(f"Did not find any device with AP serial: {ap_serial}")
                     kwargs['fail_msg'] = f"Did not find any device with AP serial: {ap_serial}"
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
         else:
             self.utils.print_info("Did not find any rows!")
             kwargs['fail_msg'] = "Did not find any rows!"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1

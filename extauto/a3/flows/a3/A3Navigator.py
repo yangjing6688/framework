@@ -15,15 +15,12 @@ from extauto.common.CommonValidation import CommonValidation
 class Navigator(NavigatorWebElements):
     def __init__(self):
         super().__init__()
-        #self.CloudDriver = CloudDriver()
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.a3_web_elements = WebElements()
         self.common_validation = CommonValidation()
-       # self.driver = common.CloudDriver.cloud_driver
-
 
     def navigate_to_manage_tab(self):
         """
@@ -103,7 +100,6 @@ class Navigator(NavigatorWebElements):
         :return: None
         """
         self.navigate_to_configure_tab()
-
         self.utils.print_info("Selecting Common Objects")
         self.auto_actions.click(self.get_common_objects_sub_tab())
         sleep(2)
@@ -131,12 +127,12 @@ class Navigator(NavigatorWebElements):
             if self.auto_actions.click(self.get_devices_nav()) == 1:
                 sleep(2)
                 kwargs['pass_msg'] = "Navigation Successful to Devices tab"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Unable to navigate to Devices tab"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
     def navigate_to_ssids(self):
@@ -149,7 +145,6 @@ class Navigator(NavigatorWebElements):
         :return: None
         """
         self.navigate_to_configure_tab()
-
         self.utils.print_info("Selecting Common Objects")
         self.auto_actions.click(self.get_common_objects_sub_tab())
         sleep(2)
