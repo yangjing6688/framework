@@ -176,4 +176,9 @@ class LicenseManagementWebElements(LicenseManagementWebElementsDefs):
     def get_extreme_portal_login_button(self):
         return self.weh.get_element(self.extreme_portal_login_button)
 
+    def get_account_successfully_linked(self):
+        return self.weh.get_element(self.account_successfully_linked)
+
+
+
 

@@ -39,6 +39,11 @@ class LicenseManagementWebElementsDefs:
             'wait_for': 3
         }
 
+    account_successfully_linked = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="accountLinkSuccess"]'
+        }
+
     extreme_licensing_portal_btn = \
         {
             'DESC': 'LINK MY EXTREME PORTAL ACCOUNT',

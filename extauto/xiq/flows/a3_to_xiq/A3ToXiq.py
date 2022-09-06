@@ -30,6 +30,11 @@ from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.globalsettings.LicenseManagement import LicenseManagement
 from extauto.a3.flows.common.Login import Login
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import By
+from extauto.common.CloudDriver import CloudDriver
+
 class A3ToXiq:
     def __init__(self):
         self.utils = Utils()
@@ -52,6 +57,7 @@ class A3ToXiq:
         self.cli = Cli()
         self.licenseManagement = LicenseManagement()
         self.a3login = a3.flows.common.Login.Login()
+        self.driver = CloudDriver().cloud_driver
 
     def configure_a3_to_xiq_instance(self,  portal_username='username', portal_password='password123', a3website='website',
                                      a3_username='username', a3_password='password', check_version_value=None, **kwargs):
@@ -63,20 +69,15 @@ class A3ToXiq:
         :return: 1 if the connection is closed.  Note: an error will be raised if the connection fails to close
         """
 
-        a3_login_success = self.a3login.login_a3_user(a3_username, a3_password, url=a3website)
-
-        # check xiq version steps 1-2
         xiq_version = self.login._capture_xiq_version()
         if check_version_value:
             if xiq_version != check_version_value:
                 kwargs['fail_msg'] = "XIQ Version is " + xiq_version + " does not equal expected version " + check_version_value
                 self.common_validation.validate(-1, 1, **kwargs)
                 return -1
-        # navigate to License Management page step 3
+
         self.licenseManagement.open_license_management_page()
 
-        # get_link_to_extr_portal_btn
-        #  Select "Link My Extreme Portal account " and provide customer account - a3extremeqa+directcust005@gmail.com/Extreme@123 step 4
         link_portal_button = self.licenseManagement.lic_mgt_web_elements.get_link_to_extr_portal_btn()
         if not link_portal_button:
             kwargs['fail_msg'] = "Unable to locate Link My Extreme Portal Account button"
@@ -91,20 +92,21 @@ class A3ToXiq:
             return -1
 
         # go back to license management page and check for linked status
-        sleep(10)
+        WebDriverWait(self.driver, 60).until(
+            ec.presence_of_element_located(
+                (By.XPATH, "//*[@data-automation-tag='automation-sider-list-licenseMng']")))
+
         self.utils.print_info("Returning to License Management Page to check link status")
         self.licenseManagement.open_license_management_page()
-        sleep(10)
+
         unlink_extreme_portal_btn = self.licenseManagement.get_unlink_xiq_from_extr_portal_btn()
-        link_message = self.licenseManagement.get_xiq_linked_to_extreme_portal_status()
+        link_message = self.licenseManagement.get_account_successfully_linked()
         if not unlink_extreme_portal_btn or not link_message:
             kwargs['fail_msg'] = "Unable to verify that web page show linked to Extreme Portal"
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
         status_unlink_extreme_portal_btn = unlink_extreme_portal_btn.get_attribute("class")
         status_link_message = link_message.get_attribute("class")
-        self.utils.print_info(str(status_unlink_extreme_portal_btn))
-        self.utils.print_info(str(status_link_message))
         if 'hidden' not in status_unlink_extreme_portal_btn and 'hidden' not in status_link_message:
             self.utils.print_info("Successfully linked to customer account")
         else:
@@ -112,6 +114,6 @@ class A3ToXiq:
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
         # log into a3
-        a3_login_success = self.a3login.login_a3_user(a3_username, a3_password, url=a3website, incognito_mode="True")
+        a3_login_success = self.a3login.login_a3_user(a3_username, a3_password, url=a3website)
 
         return 1

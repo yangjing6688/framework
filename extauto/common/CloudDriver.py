@@ -437,6 +437,10 @@ class CloudDriver():
             element_identify = "class-name"
             element_identify_value_css = ".btn"
 
+        if "admin" in url and "login" in url:
+            element_identify = "class-name"
+            element_identify_value_css = ".secondary-button"
+
         utils.print_info("Opening New Window")
         self.cloud_driver.execute_script("window.open();")
         window_handles = self.cloud_driver.window_handles
