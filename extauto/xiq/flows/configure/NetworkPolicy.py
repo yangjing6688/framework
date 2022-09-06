@@ -215,11 +215,17 @@ class NetworkPolicy(object):
                 return -2
 
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
-        # if it's gone assume success.
-        if self._search_network_policy_in_list_view(policy) == 1:
-            kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
-            self.common_validation.failed(**kwargs)
-            return -1
+        # if it's gone assume success. Retry if it still appears b/c apparrently policy still appears after delete
+        #    for a few moments.
+        for chk in range(2):
+            if chk == 2:
+                kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if self._search_network_policy_in_list_view(policy) == 1:
+                self.utils.print_info("Network policy still visible. Wait 5 seconds and try again")
+                sleep(5)
+
 
         kwargs['pass_msg'] = f"Successfully deleted Network Policy {policy}!"
         self.common_validation.passed(**kwargs)
