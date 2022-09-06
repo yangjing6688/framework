@@ -2801,7 +2801,6 @@ class Devices:
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
 
-        # EJL make sure this is managed
         num_device_params = 0
         search_device = None
         search_type = None
