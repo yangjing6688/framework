@@ -5,6 +5,8 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestLandingWebElements import ExtremeGuestLandingWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from time import sleep
+
 
 
 class Landing(object):
@@ -30,6 +32,7 @@ class Landing(object):
         :return:
         """
         all_displayed = True
+        sleep(10)
         self.ext_guest.go_to_extreme_guest_landing_page()
         if self.landing_web_elem.get_extreme_guest_landing_client_distribution_widget().is_displayed():
             self.utils.print_info("client_distribution_widget is displayed")
@@ -49,10 +52,10 @@ class Landing(object):
             self.utils.print_info("user_conversion_widget is not displayed")
             all_displayed = False
 
-        if self.landing_web_elem.get_extreme_guest_landing_user_dwell_time_widget().is_displayed():
-            self.utils.print_info("user_dwell_time_widget is displayed")
+        if self.landing_web_elem.get_extreme_guest_landing_sessions_dwell_time_widget().is_displayed():
+            self.utils.print_info("sessions_dwell_time_widget is displayed")
         else:
-            self.utils.print_info("user_dwell_time_widget is not displayed")
+            self.utils.print_info("sessions_dwell_time_widget is not displayed")
             all_displayed = False
 
         if self.landing_web_elem.get_extreme_guest_landing_user_walkin_widget().is_displayed():

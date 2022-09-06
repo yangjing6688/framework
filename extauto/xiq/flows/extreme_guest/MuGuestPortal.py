@@ -105,7 +105,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         :param password: Google password
         :return: 1 if successfully connected with internet with social login type facebook else -1
         """
-        self.utils.print_info("Click Social Login facebook button")
+        self.utils.print_info("Click Social Login google button")
         self.auto_actions.click(self.get_social_wifi_all_google_icon())
         self.get_gp_page_screen_shot()
         sleep(5)

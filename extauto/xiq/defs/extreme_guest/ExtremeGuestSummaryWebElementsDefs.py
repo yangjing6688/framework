@@ -7,7 +7,7 @@ class ExtremeGuestSummaryWebElementsDefs:
 
     extreme_guest_summary_dwell_time_widget = \
         {
-            'XPATH': '//div[text()="Dwell Time"]',
+            'XPATH': '//div[text()="Sessions Dwell Time"]',
             'wait_for': 5
         }
 
