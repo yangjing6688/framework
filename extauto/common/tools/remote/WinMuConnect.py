@@ -395,7 +395,7 @@ class WinMuConnect(object):
             retry += 1
         return -1
 
-    def ping_check_in_background(self, destination, count):
+    def ping_check_in_background(self, destination='www.google.com', count='4'):
         """
         - Ping the destination address
         - Keyword Usage:
