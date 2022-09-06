@@ -2,6 +2,7 @@ import json
 import requests
 import base64
 import subprocess
+import re
 from urllib3.exceptions import InsecureRequestWarning
 
 from extauto.common.Utils import Utils
@@ -241,3 +242,25 @@ class Rest:
         self.utils.print_info("Time: ", total_time)
 
         return response_code
+
+    def get_http_response_code(self, url):
+        """
+        This method used to get the status code of url
+        :param url:
+        :return: status code
+        """
+        r = requests.get(url)
+        response_code = r.status_code
+
+        return response_code
+
+    def get_http_data(self, url):
+        """
+        This method is used to get the data from url
+        :param url:
+        :return: data
+        """
+        r = requests.get(url)
+        data = r.text
+
+        return data
