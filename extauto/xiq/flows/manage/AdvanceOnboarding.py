@@ -255,16 +255,17 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         while max_retires != count:
             for serial in serials:
                 if self.devices.search_device(device_serial=serial) == 1:
+                    kwargs['pass_msg'] = f"Found the device for Serial: {device_serial}"
                     self.commonValidation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serial}"
                     if count != max_reties:
                         self.utils.print_info("fThe {serial} was not found, sleeping for 10 seconds")
                         sleep(10)
                         count += 1
                         self.utils.print_info(f"new count value {count} of max reties {max_reties}")
 
+        kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serial}"
         self.commonValidation.failed(**kwargs)
         return -1
 

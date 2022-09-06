@@ -293,6 +293,13 @@ class Device360(Device360WebElements):
          - ``Get Device360 Enable SSH CLI Connectivity  device_mac=${AP1_MAC}    run_time=5``
          - ``Get Device360 Enable SSH CLI Connectivity  device_name=${AP1_NAME}  run_time=10``
 
+        :param device_mac: The device MAC address
+        :param device_name: The device Name
+        :param run_time: The run time value to keep the ssh open (5, 30, 60, 120, 240)
+        :param time_interval: sleep time to read in the new ssh port / ip values
+        :param retry_time: The number of times to try and read in the new ssh port / ip values
+        :param retry_counter: retry counter value, do not override (default=0)
+
         :return: SSH String
         """
         if device_mac:
