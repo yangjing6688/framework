@@ -42,9 +42,9 @@ class Summary(object):
             all_displayed = False
 
         if self.summary_web_elem.get_extreme_guest_summary_dwell_time_widget().is_displayed():
-            self.utils.print_info("dwell_time_widget is displayed")
+            self.utils.print_info("sessions_dwell_time_widget is displayed")
         else:
-            self.utils.print_info("dwell_time_widget is not displayed")
+            self.utils.print_info("sessions_dwell_time_widget is not displayed")
             all_displayed = False
 
         if self.summary_web_elem.get_extreme_guest_summary_gender_widget().is_displayed():
