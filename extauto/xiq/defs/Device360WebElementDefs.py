@@ -2162,6 +2162,13 @@ class Device360WebElementDefs:
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
             'wait_for': 5
         }
+
+    cancel_port_type_box = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
+            'wait_for': 5
+        }
+
     # tab
     select_element_port_type_tab_usage = \
         {
@@ -2658,7 +2665,7 @@ class Device360WebElementDefs:
 
     device_d360_cancel_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
+            'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 5
         }
         

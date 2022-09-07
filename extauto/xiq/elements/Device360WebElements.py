@@ -1357,6 +1357,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_close_port_type_box(self):
         return self.weh.get_element(self.close_port_type_box)
 
+    def get_cancel_port_type_box(self):
+        return self.weh.get_element(self.cancel_port_type_box)
+
     def get_select_element_port_type(self, element, value=None):
         if element == "tab_vlan":
             return self.weh.get_element(self.select_element_port_type_tab_vlan)
