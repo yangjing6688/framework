@@ -123,7 +123,6 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Devices Tab...")
             if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                 sleep(2)
-                sadas
                 return 1
             else:
                 self.utils.print_info("Unable to navigate to Devices tab")
