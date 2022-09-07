@@ -273,7 +273,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click(self.get_common_object_basic_client_mode_profiles())
         return 1
 
-    def navigate_to_user_account(self):
+    def navigate_to_user_account(self, **kwargs):
         """
         - This keyword Navigates to User Account Menu
         - Keyword Usage
@@ -282,12 +282,15 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to User Account Menu else return -1
         """
         self.utils.print_info("Selecting user account...")
-        if self.auto_actions.click(self.get_user_account_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_user_account_nav) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigated to user account"
+            self.common_validation.passed(**kwargs))
             return 1
         else:
             self.utils.print_info("Unable to navigate to user account")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Failed: Unable to navigate to user account"
+            self.common_validation.failed(**kwargs))
             return -1
 
     def _navigate_to_global_settings(self):
@@ -295,12 +298,15 @@ class Navigator(NavigatorWebElements):
         - This method is used to click on the global setting button
         """
         self.utils.print_info("Selecting global settings...")
-        if self.auto_actions.click(self.get_global_settings_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_global_settings_nav) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigated to global settings"
+            self.common_validation.passed(**kwargs))
             return 1
         else:
             self.utils.print_info("Unable to navigate to global settings")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to global settings"
+            self.common_validation.passed(**kwargs))
             return -1
 
     def navigate_to_configure_user_sub_tab(self):

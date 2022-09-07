@@ -3100,13 +3100,15 @@ class Devices:
                         self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
                     except:
                         device_row = self.get_device_row(deviceKey)
+                        device_row = copy.copy(device_row)
                         self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
-                        pass
                 attempt_count = attempt_count - 1
                 try:
                     device_status = self.devices_web_elements.get_status_cell(device_row)
                 except:
+                    self.utils.print_info("Getting status from cell failed with Exception...Attempting to get status again")
                     device_row = self.get_device_row(deviceKey)
+                    device_row = copy.copy(device_row)
                     device_status = self.devices_web_elements.get_status_cell(device_row)
                 sleep(2)
                 if device_status:
