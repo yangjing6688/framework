@@ -630,3 +630,5 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
 
     def get_enable_default_password_mode(self):
         return self.default_password_mode
+
+

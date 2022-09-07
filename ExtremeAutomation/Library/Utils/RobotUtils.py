@@ -16,8 +16,8 @@ class RobotUtils():
         return BuiltIn().get_variables(no_decoration=no_decoration)
    
     @staticmethod
-    def get_variable_value(varname):
-        return BuiltIn().get_variable_value(varname)
+    def get_variable_value(varname, default=None):
+        return BuiltIn().get_variable_value(varname, default)
     
     @staticmethod
     def set_global_variable(key, value):

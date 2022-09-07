@@ -1,15 +1,11 @@
 import threading
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
-
 from extauto.common.CloudDriver import CloudDriver
-
 from common.Screen import Screen
 from common.Utils import Utils
 from common.AutoActions import AutoActions
-
 import xiq.flows.common.ToolTipCapture
-
 from a3.elements.LoginWebElements import LoginWebElements
 from xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 

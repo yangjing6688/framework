@@ -672,10 +672,21 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "The subnetwork has been deleted" in value:
+                kwargs['pass_msg'] = f"SubNetwork Space Name {sub_network_name}  deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
 
-    def delete_vlan_profile(self, vlan_name):
+        if self._search_common_object(sub_network_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted the SUB NETWORK SPACE!"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Successfully deleted SUB NETWORK SPACE!"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
+
+
+    def delete_vlan_profile(self, vlan_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
@@ -689,7 +700,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_basic_vlans_tab()
 
         if not self._search_common_object(vlan_name):
-            self.utils.print_info("VLAN Name does't exists in the list")
+            kwargs['pass_msg'] = f"VLAN Object {vlan_name}  does't exists in the list"
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         self.utils.print_info("Select and delete VLAN row")
@@ -701,8 +713,18 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "VLAN has been deleted" in value:
+                kwargs['pass_msg'] = f"Vlan object {vlan_name}  deleted successfully"
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
-        return -1
+
+        if self._search_common_object(vlan_name):
+            kwargs['fail_msg'] = "Unsuccessfully deleted the Vlan object"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Successfully deleted the vlan object"
+            self.common_validation.validate(1, 1, **kwargs)
+            return 1
 
     def navigate_to_security_wips_policies(self):
         """
@@ -1049,17 +1071,25 @@ class CommonObjects(object):
         self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
         self.screen.save_screen_shot()
         sleep(2)
+        
+        #Commented due to getting mismatch error in xpath once xpath gets updated it will used
+        # sleep(5)
+        # tool_tp_text = tool_tip.tool_tip_text
+        # self.utils.print_info(tool_tp_text)
 
-        sleep(5)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
+        # for value in tool_tp_text:
+        #     if "SSID was saved successfully." in value:
+        #         return 1
+        #     elif "The SSID Profile cannot be saved" in value:
+        #         return -2
+        # return -1
 
-        for value in tool_tp_text:
-            if "SSID was saved successfully." in value:
-                return 1
-            elif "The SSID Profile cannot be saved" in value:
-                return -2
-        return -1
+        if self._search_common_object(ssid_name):
+            self.utils.print_info(f"SSID Name {ssid_name} created")
+            return 1
+        else:
+            self.utils.print_info(" SSID Name is not created")
+            return -1
 
     def clone_open_ssid_in_common_objects(self, ssid_name, clone_ssid_name):
         """
