@@ -35,6 +35,12 @@ class ExtremeGuestOnboardingWebElementsDefs:
             'wait_for': 1
         }
 
+    extreme_guest_onboarding_policy_add_condition_dropdown_existing = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-onboarding-policy-criteria-condition")])[4]',
+            'wait_for': 1
+        }
+
     extreme_guest_onboarding_policy_add_condition_dropdown_items = \
         {
             'CSS_SELECTOR': '.x-boundlist-item',
@@ -52,6 +58,11 @@ class ExtremeGuestOnboardingWebElementsDefs:
             'XPATH': '//div[contains(@data-automation-tag, "eguest-onboarding-policy-criteria-action")]',
             'wait_for': 1
         }
+    extreme_guest_onboarding_policy_add_action_dropdown_existing = \
+        {
+            'XPATH': '(//div[contains(@class, "x-form-text-wrap x-form-text-wrap-select-box")])[7]',
+            'wait_for': 1
+        }
 
     extreme_guest_onboarding_policy_add_action_dropdown_items = \
         {
@@ -62,6 +73,11 @@ class ExtremeGuestOnboardingWebElementsDefs:
     extreme_guest_onboarding_policy_add_group_select_dropdown = \
         {
             'XPATH': '//div[contains(@data-automation-tag, "eguest-onboarding-policy-criteria-group-select")]',
+            'wait_for': 1
+        }
+    extreme_guest_onboarding_policy_add_group_select_dropdown_existing = \
+        {
+            'XPATH': '(//div[contains(@class, "x-form-text-wrap x-form-text-wrap-select-box")])[8]',
             'wait_for': 1
         }
 
@@ -113,6 +129,12 @@ class ExtremeGuestOnboardingWebElementsDefs:
             'wait_for': 1
         }
 
+    extreme_guest_onboarding_policy_close_button = \
+        {
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-popup-message-OK")])[2]',
+            'wait_for': 2
+        }
+
     extreme_guest_onboarding_rule_tab = \
         {
             'XPATH': '//span[text()="Rules"]',
@@ -122,6 +144,18 @@ class ExtremeGuestOnboardingWebElementsDefs:
     extreme_guest_onboarding_rule_add_rule = \
         {
             'XPATH': '//div[contains(@data-automation-tag, "eguest-onboarding-rules-add-btn")]',
+            'wait_for': 1
+        }
+
+    extreme_guest_onboarding_rule_name_add_rule_existing = \
+        {
+            'XPATH': '//span[text()="auto_eguest_onboarding_policy0"]',
+            'wait_for': 1
+        }
+
+    extreme_guest_onboarding_rule_name_add_rule = \
+        {
+            'XPATH': '(//div[contains(@class, "x-tool-tool-el x-tool-img x-tool-plus")])[2]',
             'wait_for': 1
         }
 
@@ -193,7 +227,7 @@ class ExtremeGuestOnboardingWebElementsDefs:
 
     extreme_guest_onboarding_rule_add_save_ok_button = \
         {
-            'XPATH': '//span[text()="OK"]',
+            'XPATH': '(//div[contains(@data-automation-tag, "eguest-popup-message-OK")])[1]',
             'wait_for': 1
         }
 

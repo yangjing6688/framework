@@ -1807,7 +1807,6 @@ class Devices:
 
         :return: 1 if device page refreshed successfully else -1
         """
-
         try:
             self.utils.print_info("Refreshing devices page...")
             self.auto_actions.scroll_up()
@@ -1860,7 +1859,7 @@ class Devices:
                 return 1
         return -1
 
-# EJL update the defaults
+
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False,
                        **kwargs):
@@ -2108,15 +2107,25 @@ class Devices:
         serials = device_serial.split(",")
         self.utils.print_info("Serials: ", serials)
 
-        for serial in serials:
-            if self.search_device(device_serial=serial) == 1:
-                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
-                self.common_validation.passed(**kwargs)
-                return 1
-            else:
-                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                self.common_validation.failed(**kwargs)
-                return -1
+        max_retires = 3
+        count = 0
+        ret_value = -1
+        while max_retires != count:
+            for serial in serials:
+                if self.search_device(device_serial=serial) == 1:
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                    if count != max_reties:
+                        self.utils.print_info("fThe {serial} was not found, sleeping for 10 seconds")
+                        sleep(10)
+                        count += 1
+                        self.utils.print_info(f"new count value {count} of max reties {max_reties}")
+
+        self.common_validation.failed(**kwargs)
+        return -1
+
 
     def onboard_device_dt(self, device_serial=None, device_make=None, device_mac=None, device_type="Real", entry_type="Manual",
                            csv_file_name=None, csv_location=None, device_os=None, location=None, service_tag=None,
@@ -2791,6 +2800,7 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
+
         num_device_params = 0
         search_device = None
         search_type = None
@@ -2913,6 +2923,9 @@ class Devices:
         :param device_mac: device MAC
         :return: 1 if device found else -1
         """
+
+        # navigate to devices page
+        self.navigator.navigate_to_devices()
         self.refresh_devices_page()
 
         if not device_serial and device_mac and device_name:
@@ -3051,7 +3064,6 @@ class Devices:
 
         """
         device_row = -1
-        self.refresh_devices_page()
 
         self.utils.print_info('Getting device Status using')
         deviceKey = None
@@ -3075,7 +3087,7 @@ class Devices:
         device_row = copy.copy(device_row)
 
         if device_row:
-            sleep(5)
+            # sleep(5)
             device_status = ''
             attempt_count = 3
             while attempt_count > 0:
@@ -4322,18 +4334,20 @@ class Devices:
 
                     device_row = None
                     if device_serial:
+                        self.utils.print_info(f"Looking for Device by Serial: {device_serial}")
                         device_row = self.get_device_row(device_serial=device_serial)
                     elif device_mac:
+                        self.utils.print_info(f"Looking for Device by MAC: {device_serial}")
                         device_row = self.get_device_row(device_mac=device_mac)
 
                     if device_row and device_row != -1:
-                        if "hive-status-true" in self.devices_web_elements.get_status_cell(device_row):
-                            # self.utils.print_info("Device status is connected")
+                        status = self.devices_web_elements.get_status_cell(device_row)
+                        self.utils.print_info(f"Found Device status: {status}")
+                        if "hive-status-true" in status:
                             kwargs['pass_msg'] = "Device status is connected!"
                             self.common_validation.passed(**kwargs)
                             return 1
-                        elif "local-managed-icon" in self.devices_web_elements.get_status_cell(device_row):
-                            # self.utils.print_info("Device status is connected - locally managed")
+                        elif "local-managed-icon" in status:
                             kwargs['pass_msg'] = "Device status is connected - locally managed"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -4351,7 +4365,6 @@ class Devices:
                 stale_retry = stale_retry + 1
 
         kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
-        self.screen.save_screen_shot()
         self.common_validation.failed(**kwargs)
         return -1
 
