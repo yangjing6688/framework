@@ -293,7 +293,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def _navigate_to_global_settings(self):
+    def _navigate_to_global_settings(self, **kwargs):
         """
         - This method is used to click on the global setting button
         """
