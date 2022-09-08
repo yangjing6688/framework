@@ -483,6 +483,7 @@ class CloudDriver():
         :return:None
         """
         utils = Utils()
+        win_index=int(win_index)
         window_handles = self.cloud_driver.window_handles
         win_count = len(window_handles)
         utils.print_debug(f"Window Handle Count: {win_count}")
@@ -503,6 +504,7 @@ class CloudDriver():
         :return:None
         """
         utils = Utils()
+        win_index=int(win_index)
         window_handles = self.cloud_driver.window_handles
         win_count = len(window_handles)
         utils.print_debug(f"Window Handle Count: {win_count}")

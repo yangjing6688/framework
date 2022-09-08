@@ -285,13 +285,20 @@ class Device360(Device360WebElements):
         return ret_val
 
     def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30,
-                                              retry_time=150, **kwargs):
+                                              retry_time=150, retry_counter=0, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
          - ``Get Device360 Enable SSH CLI Connectivity  device_mac=${AP1_MAC}    run_time=5``
          - ``Get Device360 Enable SSH CLI Connectivity  device_name=${AP1_NAME}  run_time=10``
+
+        :param device_mac: The device MAC address
+        :param device_name: The device Name
+        :param run_time: The run time value to keep the ssh open (5, 30, 60, 120, 240)
+        :param time_interval: sleep time to read in the new ssh port / ip values
+        :param retry_time: The number of times to try and read in the new ssh port / ip values
+        :param retry_counter: retry counter value, do not override (default=0)
 
         :return: SSH String
         """
@@ -304,27 +311,27 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
 
         self.utils.print_info("Clicking Device 360 SSH CLI Run Time: ", run_time)
         if run_time == 5:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_5min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_5min_radio)
 
         elif run_time == 30:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_30min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_30min_radio)
 
         elif run_time == 60:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_60min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_60min_radio)
 
         elif run_time == 120:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_120min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_120min_radio)
 
         elif run_time == 240:
-            self.auto_actions.click(self.get_device360_configure_ssh_cli_240min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_240min_radio)
         else:
             kwargs['fail_msg'] = f"Unsupported run_time: {run_time} supported numbers are: 5, 30, 60, 120, 240"
             self.common_validation.validate(-1, 1, **kwargs)
@@ -332,7 +339,7 @@ class Device360(Device360WebElements):
 
         sleep(5)
         self.utils.print_info("Clicking Device 360 SSH CLI Enable SSH button...")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_enable_button())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_enable_button)
         self.screen.save_screen_shot()
 
         retry_count = 0
@@ -351,16 +358,28 @@ class Device360(Device360WebElements):
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
                 kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
-                self.common_validation.validate(1, 1, **kwargs)
+
+                if retry_counter != 0:
+                    kwargs['fail_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
+                    self.common_validation.failed(**kwargs)
+                else:
+                    self.common_validation.passed(**kwargs)
                 return ip_port_info
             else:
                 self.utils.print_info(
                     f"****************** IP/Port Information is not available after {retry_count} seconds ************************")
                 sleep(time_interval)
                 retry_count += 30
-        kwargs['fail_msg'] = f"Failed to get the SSH and port information"
-        self.common_validation.validate(-1, 1, **kwargs)
-        return -1
+
+        # we got here, so let's try this again
+        if (retry_counter == 5):
+            kwargs['fail_msg'] = f"Failed to get the SSH and port information"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
+            return self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
+                                                              retry_time, retry_counter, **kwargs)
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """
@@ -381,7 +400,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH WEB tab")
@@ -441,7 +460,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH tab")
@@ -474,7 +493,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH tab")
@@ -885,7 +904,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
         self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
@@ -929,7 +948,7 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
             self.utils.print_info("Clicking Device 360 Configure button")
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
 
             self.utils.print_info("Clicking Device 360 SSH WEB tab")
             self.auto_actions.click(self.get_device360_configure_ssh_web_tab())
@@ -964,7 +983,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking Device 360 Configure button")
-        self.auto_actions.click(self.get_device360_configure_button())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
         self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
