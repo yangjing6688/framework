@@ -2677,6 +2677,7 @@ class DeviceConfig(DeviceConfigElements):
             else:
                 device_config_node_not_load = False
                 self.utils.print_info("Device config node page is loaded successfully ...")
+                sleep(3)
         if self.get_devices_device_config_device_function_set_ap():
             self.utils.print_info("Click Device Function dropdown button...")
             self.auto_actions.click(self.get_devices_device_config_device_function_set_ap())
