@@ -1077,7 +1077,9 @@ class Login:
 
     def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
                             salesforce_password=False, saleforce_shared_cuid=False):
-        if self.login_web_elements.get_welcome_wizard_heading():
+        welcome_wizard_page = self.login_web_elements.get_welcome_wizard_heading()
+        self.utils.print_info(f"Welcome wizard page: {welcome_wizard_page}")
+        if welcome_wizard_page:
             self.utils.print_info("Welcome page wizard found. Looks like you are logging in for the first time!")
             self.utils.print_info("Selecting login option: ", login_option)
             self.screen.save_screen_shot()
