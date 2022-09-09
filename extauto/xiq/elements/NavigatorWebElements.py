@@ -48,6 +48,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_manage_tools_menu_item(self):
         return self.weh.get_element(self.manage_tools_menu_item)
 
+    def get_subtab_head_img_nav(self):
+        return self.weh.get_element(self.subtab_head_img_nav)
+
     def get_network_policies_sub_tab(self):
         return self.weh.get_element(self.configure_network_policy_nav)
 
