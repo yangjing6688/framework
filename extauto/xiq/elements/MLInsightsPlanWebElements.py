@@ -292,6 +292,9 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
     def get_n360_save_button_floor(self):
         return self.weh.get_element(self.n360_save_button_floor)
 
+    def get_n360_scale_floor_plan_windows(self):
+        return self.weh.get_element(self.n360_scale_floor_plan_windows)
+
     def get_n360_size_floor_plan(self):
         return self.weh.get_element(self.n360_size_floor_plan)
 
