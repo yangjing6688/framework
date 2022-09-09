@@ -426,7 +426,8 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
+            # 'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
+            'CSS_SELECTOR': '.dijitDownArrowButton.select-policy .dijitButtonContents .honeycomb-ui-form-selectLabel',
             'wait_for': 5
         }
 
@@ -445,13 +446,14 @@ class DevicesWebElementsDefinitions:
 
     actions_network_policy_drop_down_items = \
         {
-            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"]//td[@data-dojo-attach-point="containerNode,textDirNode"]',
+            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"] //td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
         }
 
     nw_policy_drop = \
         {
-            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select"]//td[@data-dojo-attach-point="titleNode"]',
+            # 'XPATH': '//table[@data-automation-tag="automation-assign-policy-select"]//td[@data-dojo-attach-point="titleNode"]',
+            'CSS_SELECTOR': '.assign-policy .select-policy .honeycomb-ui-form-selectLabel',
             'wait_for': 5,
         }
 
@@ -638,7 +640,8 @@ class DevicesWebElementsDefinitions:
 
     devices_ap_updated_status_cell = \
         {
-            'CSS_SELECTOR': '.field-updatedOn',
+            # 'CSS_SELECTOR': '.field-updatedOn',
+            'CSS_SELECTOR': '.ui-state-default .dgrid-row-table .field-updatedOn',
             'wait_for': 1
          }
 
@@ -879,11 +882,7 @@ class DevicesWebElementsDefinitions:
 
     device_make_drop_down_options = \
         {
-            # 'XPATH': '//div[@data-dojo-attach-point="quickMakeSelect"]'
-            #          '//ul[contains(@class, "qa-chzn-results-quickaddselect")]//li',
-
-            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-make-select-dropdown"]'
-                     '//tr[contains(@class, "dijitMenuItem")]',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-make-select-dropdown"]  //td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
         }
 
