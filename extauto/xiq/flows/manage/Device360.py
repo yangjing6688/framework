@@ -5977,7 +5977,8 @@ class Device360(Device360WebElements):
         page will be skipped
         :return: 1 if new port type was successfully edited and summary page displays correct values  ; else -1
         """
-
+        self.utils.print_info("Waiting for the policy rows to load...")
+        self.utils.wait_till(self.get_policy_configure_port_rows, delay=5)
         rows = self.get_policy_configure_port_rows()
         if not rows:
             self.utils.print_info("Could not obtain list of port rows")
