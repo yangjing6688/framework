@@ -411,7 +411,7 @@ class LoginWebElementsDefinitions:
 
     welcome_wizard_heading = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='headingNode']",
+            'CSS_SELECTOR': '.WelcomeWizard.initial-flow',
             'wait_for': 5
         }
 
