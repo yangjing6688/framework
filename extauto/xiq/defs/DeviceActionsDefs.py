@@ -5,6 +5,13 @@ class DeviceActionsDefs:
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 2
         }
+
+    device_actions_dropdown = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions"] //*[@class="ui-menu-list" and contains(@style, "display: block")]',
+            'wait_for': 2
+        }
+
     device_actions_advance = \
         {
             'XPATH': '//ul[contains(@class,"ui-menu-list") and contains(@style,"display: block")] //*[@data-automation-tag="automation-manage-device-actions-advanced"]',
