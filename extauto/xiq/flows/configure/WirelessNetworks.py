@@ -638,8 +638,8 @@ class WirelessNetworks:
 
         self.utils.print_info("click on wireless network save button")
         self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
-        self.screen.save_screen_shot()
         sleep(2)
+        self.screen.save_screen_shot()
         return 1
 
     def _config_personal_wpa2_key_type_value_method(self, key_type, key_value):
