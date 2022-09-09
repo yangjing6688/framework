@@ -18,6 +18,12 @@ class WirelessNetworksDefinitions:
             'wait_for': 15
         }
 
+    wireless_nw_tab_page = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="wirelessConnectivityContainer"]',
+            'wait_for': 5
+        }
+
     wireless_nw_add_button = \
         {
          'XPATH': '//div[@data-automation-tag="automation-wireless-networks-grid"]//span[@data-tip="Add"]',
@@ -137,8 +143,7 @@ class WirelessNetworksDefinitions:
 
     wireless_network_save_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="wirelessDetailsContentArea"]'
-                     '//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="ssid-details-save-button"]',
             'wait_for': 5,
         }
 
