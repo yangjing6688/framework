@@ -15,7 +15,7 @@ from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementCon
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 from ExtremeAutomation.Utilities.deprecated import deprecated
-
+from time import sleep
 
 from extauto.common.Utils import Utils
 from extauto.common.CommonValidation import CommonValidation
@@ -630,7 +630,7 @@ class Cli(object):
         :param ssid_pass:  ssid Password
         :param mode: WiFi Mode
         :param ntimes: No.of times to try to establish the WiFi Connections
-        :return:  None
+        :return:  connection successfully return 1 else return -1
         """
 
         conn = self.open_paramiko_ssh_spawn(ip, usr, passwd)
@@ -654,26 +654,29 @@ class Cli(object):
             return -1
 
         cn1 = False
+        try_cnt = 0
         if mode == 'pass':
             while not cn1:
                 rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
-                cn1 = True
-            self.utils.print_info("RC is ---------" + str(rc))
-            if self.utils.check_match(rc, 'Failed to join') == 1   : return -1,  " Fail to Join "
-            if self.utils.check_match(rc, 'not find network') == 1 : return -1,  " Could not find network " + str(ssid)
-            if self.utils.check_match(rc, 'Exception') == 1        : return -1,  " Fail with an Exception"
-            if self.utils.check_match(rc, 'Error') == 1            : return -1,  " There is an Error "
-            check_wifi_connection = self.send_paramiko_cmd(conn, MAC_CHECK_WIFI_CONNECTION + wifi_port, 10)
-            self.utils.print_info(f"WiFi Network status: {check_wifi_connection}")
-            if ssid in check_wifi_connection:
-                self.utils.print_info('Connect successfully!')
-        else:
-            for i in range(1, ntimes):
-                self.utils.print_info(str(i) + ' attempt(s)')
-                rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 40)
-        self.close_paramiko_spawn(conn)
-
-        return str(1), None
+                self.utils.print_info("RC is ---------" + str(rc))
+                if self.utils.check_match(rc, 'Failed to join') == 1   : return -1,  " Fail to Join "
+                if self.utils.check_match(rc, 'not find network') == 1 : return -1,  " Could not find network " + str(ssid)
+                if self.utils.check_match(rc, 'Exception') == 1        : return -1,  " Fail with an Exception"
+                if self.utils.check_match(rc, 'Error') == 1            : return -1,  " There is an Error "
+                check_wifi_connection = self.send_paramiko_cmd(conn, MAC_CHECK_WIFI_CONNECTION + wifi_port, 10)
+                self.utils.print_info(f"WiFi Network status: {check_wifi_connection}")
+                if ssid in check_wifi_connection:
+                    self.utils.print_info('Connect successfully!')
+                    self.close_paramiko_spawn(conn)
+                    cn1 = True
+                    return 1
+                else:
+                    try_cnt += 1
+                    self.utils.print_info(f"WiFi client doesn't connect to {ssid}, {try_cnt} attempt(s)")
+                    if try_cnt == 10:
+                        self.utils.print_info(f"Max attempt(s) {try_cnt}, still can NOT make client to connect to SSID: {ssid}")
+                        self.close_paramiko_spawn(conn)
+                        return -1
 
     def get_mac_hostname(self, ip, userid, passwd):
         """
@@ -704,12 +707,32 @@ class Cli(object):
         """
         conn = self.open_paramiko_ssh_spawn(ip, userid, passwd)
         wifi_port = self.send_paramiko_cmd(conn, MAC_GET_WIFI_INTERFACE_NAME, 10)
-        wifi_ifconfig = self.send_paramiko_cmd(conn, IFCONFIG + wifi_port)
-        self.utils.print_info(f'WiFi ifconfig detail: {wifi_ifconfig}')
-        wifi_ipv4 = re.search("inet (.*) netmask", wifi_ifconfig).group(1)
-        self.utils.print_info(f"WiFi interface IPv4 address: {wifi_ipv4}")
-        self.close_paramiko_spawn(conn)
-        return wifi_ipv4
+        mac_client_get_ipv4_addr = False
+        try_cnt = 0
+        while not mac_client_get_ipv4_addr:
+            self.utils.print_info("Check if Mac client get IPv4 address")
+            wifi_ipv4 = self.send_paramiko_cmd(conn, IFCONFIG + wifi_port + MAC_IPV4_ADDRESS_FILTER)
+            self.utils.print_info(f"mac wifi ipv4 address: {wifi_ipv4}")
+            if not wifi_ipv4:
+                try_cnt += 1
+                self.utils.print_info(f"Mac client is NOT got IPV4 address: {wifi_ipv4} so far, {try_cnt} attempts to check IPV4 address")
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} attempts to check IPv4 address, still not got address: {wifi_ipv4}")
+                    return False
+                sleep(2)
+            elif '169.254.' in wifi_ipv4:
+                try_cnt += 1
+                self.utils.print_info(f"Mac client got invalid IPv4 address: {wifi_ipv4}, {try_cnt} attempts to check IPV4 address")
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} attempts to check IPv4 address, still get invalid address: {wifi_ipv4}")
+                    return False
+                sleep(2)
+            else:
+                self.utils.print_info(f"Mac client got IPv4 address: {wifi_ipv4}")
+                mac_client_get_ipv4_addr = True
+                self.utils.print_info(f"WiFi interface IPv4 address: {wifi_ipv4}")
+                self.close_paramiko_spawn(conn)
+                return wifi_ipv4
 
     def clear_ssh_host_key(self):
         """
