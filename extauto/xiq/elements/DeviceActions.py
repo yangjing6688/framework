@@ -13,6 +13,9 @@ class DeviceActions(DeviceActionsDefs):
         """
         return self.weh.get_element(self.device_actions_button)
 
+    def get_device_actions_dropdown(self):
+        return self.weh.get_element(self.device_actions_dropdown)
+
     def get_device_actions_advance(self):
         return self.weh.get_element(self.device_actions_advance)
 
