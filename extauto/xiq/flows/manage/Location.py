@@ -548,16 +548,32 @@ class Location:
         self.utils.print_info("Choose from Library")
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_choose_from_library())
         sleep(3)
+        self.utils.print_info("Choose image")
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_choose_image())
         sleep(3)
+        self.utils.print_info("Click choose button")
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_save_button_floor())
         sleep(3)
-        self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_size_floor_plan())
+        n360_scale_floor_plan_windows_display = False
+        try_cnt = 0
+        while not n360_scale_floor_plan_windows_display:
+            self.utils.print_info("Click n360 size floor plan")
+            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_size_floor_plan())
+            if self.ml_insights_plan_web_elements.get_n360_scale_floor_plan_windows():
+                n360_scale_floor_plan_windows_display = True
+            else:
+                try_cnt += 1
+                self.utils.print_info(f"{try_cnt} attempts to try to click size floor plan")
+                if try_cnt == 10:
+                    self.utils.print_info(f"The Max {try_cnt} attempts, still failed")
+                sleep(2)
         sleep(3)
+        self.utils.print_info("Fill in width")
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_width_floor(), width)
         sleep(3)
         #Comment below lines until XIQ-8469 will be resolved
         #self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_height_floor(), height)
         #sleep(3)
+        self.utils.print_info("Click n360 apply button")
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_apply_button())
         return 1
