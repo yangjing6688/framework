@@ -27,7 +27,8 @@ from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.defs.DevicesWebElementsDefinitions import *
 from extauto.common.WebElementController import WebElementController
-
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.WebElementHandler import WebElementHandler
 
 class Devices:
     def __init__(self):
@@ -50,6 +51,7 @@ class Devices:
         self.login = Login()
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
+        self.web_elements_handler = WebElementHandler()
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
@@ -1190,42 +1192,52 @@ class Devices:
         self.utils.print_info("Click on actions button")
         self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
         sleep(3)
+        if self.device_actions.get_device_actions_dropdown():
+            self.utils.print_info("Move to Assign Network policy action")
+            self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
+            self.screen.save_screen_shot()
 
-        self.utils.print_info("Move to Assign Network policy action")
-        self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
+            self.utils.print_info("Click on Assign Network policy action")
+            self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
+            sleep(4)
 
-        self.utils.print_info("Click on Assign Network policy action")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
-        sleep(4)
 
-        self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
+            select_is_shown = self.devices_web_elements.get_nw_policy_drop()
+            if select_is_shown:
+                self.utils.print_info("Click on network policy drop down")
+                self.auto_actions.click(select_is_shown)
 
-        network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
-        sleep(2)
-        if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
-            self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
-        else:
-            self.utils.print_info("Network policy is not present in drop down")
-            return False
+                network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
+                sleep(2)
+                if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
+                    self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
+                else:
+                    self.utils.print_info("Network policy is not present in drop down")
+                    self.screen.save_screen_shot()
+                    return False
 
-        self.screen.save_screen_shot()
-        sleep(5)
-
-        self.utils.print_info("Click on network policy assign button")
-        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
-        sleep(10)
-
-        tooltip_text = self.dialogue_web_elements.get_tooltip_text()
-        sleep(2)
-
-        self.utils.print_info("tooltip_text: ", tooltip_text)
-        if tooltip_text:
-            if "Your account does not have permission to perform that action" in tooltip_text:
-                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
                 sleep(5)
+                self.utils.print_info("Click on network policy assign button")
+                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+                sleep(10)
+
+                tooltip_text = self.dialogue_web_elements.get_tooltip_text()
+                sleep(2)
+
+                self.utils.print_info("tooltip_text: ", tooltip_text)
+                if tooltip_text:
+                    if "Your account does not have permission to perform that action" in tooltip_text:
+                        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
+                        sleep(5)
+                        return False
+                return True
+            else:
+                self.utils.print_info("Nothing is shown in network policy drop list")
                 return False
-        return True
+        else:
+            self.screen.save_screen_shot()
+            self.utils.print_info(f"Actions dropdown is NOT shown")
+            return False
 
     def _update_network_policy(self, update_method="Delta"):
         """
@@ -1410,15 +1422,32 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         sleep(5)
+        network_policy_assigned = False
+        try_cnt = 0
+        while not network_policy_assigned:
+            self.utils.print_info("Select ap row for network policy assignment")
+            if not self.select_ap(ap_serial):
+                self.utils.print_info(f"AP {ap_serial} is not present in the grid")
+                return -1
+            sleep(2)
 
-        self.utils.print_info("Select ap row")
-        if not self.select_ap(ap_serial):
-            self.utils.print_info(f"AP {ap_serial} is not present in the grid")
-            return -1
-        sleep(2)
-
-        if not self._assign_network_policy(policy_name):
-            return -1
+            if self._assign_network_policy(policy_name):
+                network_policy_assigned = True
+            else:
+                try_cnt += 1
+                self.utils.print_info(f"{try_cnt} attempts to select device --> click action --> click assign network policy --> select the policy and assign it to device")
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} attempts are reached, return -1")
+                    return -1
+                self.utils.print_info("Refresh the current page")
+                self.login.refresh_page()
+                self.utils.print_info("Waiting for page to complete loading")
+                # self.utils.print_debug("Waiting for page to complete loading")
+                _driver = CloudDriver().cloud_driver
+                while not self.web_elements_handler.check_for_page_is_loading(_driver):
+                    continue
+                # self.utils.print_debug("Page completed loading")
+                self.utils.print_info("Page completed loading")
 
         self.utils.print_info("Select ap row")
         self.select_ap(ap_serial)
@@ -11065,25 +11094,35 @@ class Devices:
             else:
                 self.utils.print_info("Failed to navigate the Devices page ...")
                 return -1
+        else:
+            self.utils.print_info("enable_device_wan_access: Already in Devices page, go to next step")
         if self.select_device(device_serial):
             self.utils.print_info("Click Actions button ...")
             self.auto_actions.click(self.device_actions.get_device_actions_button())
-            self.utils.print_info("Move to Advance button ...")
-            self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
-            self.utils.print_info("Move to CLI Access button ...")
-            self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance_cli_access())
-            self.utils.print_info("Click CLI Access button ...")
-            self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
-            if self.device_actions.get_device_actions_cli_windows():
-                self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
-                self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
-                self.utils.print_info("Click Apply button to send CLI to AP ...")
-                self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
-                self.utils.print_info("Close CLI windows ...")
-                self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
-                return 1
+            action_dropdown = self.device_actions.get_device_actions_dropdown()
+            if action_dropdown:
+                self.utils.print_info("Move to Advance button ...")
+                self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
+                cli_access = self.device_actions.get_device_actions_advance_cli_access()
+                self.utils.print_info(f"CLI access element: {cli_access}")
+                self.utils.print_info(f"Move to CLI Access button {cli_access}...")
+                self.auto_actions.move_to_element(cli_access)
+                self.utils.print_info("Click CLI Access button ...")
+                self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
+                if self.device_actions.get_device_actions_cli_windows():
+                    self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
+                    self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
+                    self.utils.print_info("Click Apply button to send CLI to AP ...")
+                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
+                    self.utils.print_info("Close CLI windows ...")
+                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
+                    return 1
+                else:
+                    self.utils.print_info("There is no CLI window popup ...")
+                    return -1
             else:
-                self.utils.print_info("There is no CLI window popup ...")
+                self.utils.print_info(f"Actions dropdown is NOT shown: {action_dropdown}")
+                self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info("No device is selected ...")
