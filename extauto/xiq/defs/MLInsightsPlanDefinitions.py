@@ -527,6 +527,12 @@ class MLInsightsPlanDefinitions:
             'wait_for': 5
         }
 
+    n360_scale_floor_plan_windows = \
+        {
+            'CSS_SELECTOR': '.scale-floor-plan',
+            'wait_for': 5
+        }
+
     n360_size_floor_plan = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnSizeFloorPlan"]',
