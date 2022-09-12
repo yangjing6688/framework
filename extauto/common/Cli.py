@@ -866,23 +866,17 @@ class Cli(object):
             # show run nsight-policy ECIQ
         return 1
 
-    def wait_for_configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                                     connection_type='ssh', vr='VR-Default', retry_count=10, retry_duration=30):
+    def wait_for_configure_device_to_connect_to_cloud(self, cli_type, server_name, connection, retry_count=10, retry_duration=30):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${SERVER_NAME}``
+         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
 
         :param cli_type: Device Cli Type
-        :param ip: Console IP Address of the Device
-        :param port: Console Port
-        :param username: username to access console
-        :param password: Password to access console
         :param server_name: Cloud Server Name to connect the device
-        :param connection_type: The connection type, will default to ssh. (ssh, telnet, console)
-        :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
+        :param connection: The open connection
         :param retry_count: Retry count to check device connection status with capwap server
-        :return: 1 id device successfully connected with capwap server else -1
+        :return: 1 if device successfully connected with capwap server else -1
         On July 26 2022, it was decide to disable the verification steps for the following reason
         Depending on the order of configuration in a test case the verification check will fail.
             As an example:
@@ -892,19 +886,16 @@ class Cli(object):
         return "1".
         """
 
-        _spawn = self.open_spawn(ip, port, username, password, cli_type, connection_type)
-
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
                 NetworkElementConstants.OS_AHXR in cli_type.upper():
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(retry_duration)
-                hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
-                hm_address = self.send(_spawn, f'do show hivemanager address')
+                hm_status = self.send(connection, f'do show hivemanager status | include Status')
+                hm_address = self.send(connection, f'do show hivemanager address')
 
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
                 count += 1
@@ -913,13 +904,12 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                output = self.send(_spawn, f'show capwap client | include "RUN state"')
+                output = self.send(connection, f'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' in output:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
-                count +=1
+                count += 1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With CAPWAP Server : {server_name}")
 
@@ -928,14 +918,13 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                output = self.send(_spawn, f'show iqagent | include "XIQ Address"')
-                output1 = self.send(_spawn, f'show iqagent | include "Status"')
+                output = self.send(connection, f'show iqagent | include "XIQ Address"')
+                output1 = self.send(connection, f'show iqagent | include "Status"')
 
                 if server_name in output and 'CONNECTED TO XIQ' in output1:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
-                count +=1
+                count += 1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
 
@@ -945,11 +934,10 @@ class Cli(object):
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
 
-                output1 = self.send(_spawn, f'show application iqagent | include "Server Address"')
-                output2 = self.send(_spawn, f'show application iqagent status | include "Connection Status"')
+                output1 = self.send(connection, f'show application iqagent | include "Server Address"')
+                output2 = self.send(connection, f'show application iqagent status | include "Connection Status"')
 
                 if server_name in output1 and 'Connected' in output2:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
                 count += 1
