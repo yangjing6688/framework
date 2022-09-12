@@ -1,4 +1,5 @@
 from extauto.common.Utils import Utils
+from extauto.common.Screen import Screen
 from extauto.common.Logging import Logging
 import traceback
 import abc
@@ -22,6 +23,7 @@ class CommonValidation():
     def __init__(self):
         self.logger = Logging().get_logger()
         self.utils = Utils()
+        self.screen = Screen()
     
     def validate(self, value, expectedValue, **kwargs):
         """
@@ -36,6 +38,7 @@ class CommonValidation():
         """
         test_result = False
         ivr_flag = self.get_kwarg(kwargs, "IRV", True)
+        xapi_flag = self.get_kwarg(kwargs, "XAPI", True)
         if ivr_flag:
             self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             self.logger.info("Internal Result Verification is Enabled")
@@ -87,6 +90,10 @@ class CommonValidation():
                 assert value == expectedValue, full_error_msg
         else:
             test_result = True
+
+        # Added screen capture in case of errors or problems
+        if not xapi_flag:
+            self.screen.save_screen_shot()
 
         return test_result
 
