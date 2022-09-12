@@ -27,6 +27,7 @@ from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.defs.DevicesWebElementsDefinitions import *
 from extauto.common.WebElementController import WebElementController
+from extauto.common.Xapi import Xapi
 
 
 class Devices:
@@ -50,6 +51,7 @@ class Devices:
         self.login = Login()
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
+        self.xapi = Xapi()
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
         """
@@ -4364,62 +4366,108 @@ class Devices:
         - Keyword Usage:
          - ``Wait Until Device Online       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
          - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+         - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}    access_token=${ACCESS_TOKEN}``
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
         :param retry_duration: duration between each retry
         :param retry_count: retry count
+        :param kwargs: keyword arguments ie access_token etc
         :return: 1 if device connected within time else -1
         """
 
-        self.utils.print_info("Navigate to Manage-->Devices")
-        self.navigator.navigate_to_devices()
+        access_token = self.common_validation.get_kwarg(kwargs, "access_token", False)
+        if access_token:
+            device_specific_url = f"/devices?sns={device_serial}"
+            device_info = self.xapi.rest_api_get(device_specific_url)
+            self.utils.print_info("Device Specific information is: ", device_info)
 
-        count = 1
+            if device_info:
+                self.utils.print_info("Getting Device ID Information")
+                device_data_list = self.xapi.get_json_value(device_info, 'data')
+                device_id = self.xapi.get_json_value_from_list(device_data_list, 'id')
+                self.utils.print_info("Device ID is: ", device_id)
 
-        stale_retry = 1
-        while stale_retry <= 10:
-            try:
-                while count <= retry_count:
-                    self.utils.print_info(f"Device Online Status Check - Loop: ", count)
-                    self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
-                    self.refresh_devices_page()
+                count = 1
+                stale_retry = 1
+                while stale_retry <= 10:
+                    try:
+                        while count <= retry_count:
+                            self.utils.print_info(f"Device Online Status Check - Loop: ", count)
+                            self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
 
-                    device_row = None
-                    if device_serial:
-                        self.utils.print_info(f"Looking for Device by Serial: {device_serial}")
-                        device_row = self.get_device_row(device_serial=device_serial)
-                    elif device_mac:
-                        self.utils.print_info(f"Looking for Device by MAC: {device_serial}")
-                        device_row = self.get_device_row(device_mac=device_mac)
+                            self.utils.print_info("Getting Device Connected Status Information")
+                            device_connected_status_url = f"/devices/{device_id}?fields=CONNECTED"
+                            device_connected_response = self.xapi.rest_api_get(device_connected_status_url)
+                            self.utils.print_info("Device Connected Status Response is: ", device_connected_response)
+                            device_connected_status = self.xapi.get_json_value(device_connected_response, 'connected')
+                            self.utils.print_info("Device Connected Status Value is: ", device_connected_status)
 
-                    if device_row and device_row != -1:
-                        status = self.devices_web_elements.get_status_cell(device_row)
-                        self.utils.print_info(f"Found Device status: {status}")
-                        if "hive-status-true" in status:
-                            kwargs['pass_msg'] = "Device status is connected!"
-                            self.common_validation.passed(**kwargs)
-                            return 1
-                        elif "local-managed-icon" in status:
-                            kwargs['pass_msg'] = "Device status is connected - locally managed"
-                            self.common_validation.passed(**kwargs)
-                            return 1
+                            if device_connected_status:
+                                kwargs['pass_msg'] = "Device status is connected!"
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            else:
+                                self.utils.print_info(
+                                    f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
+                                sleep(retry_duration)
+                                count += 1
+                            break
+                    except StaleElementReferenceException:
+                        self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                        stale_retry = stale_retry + 1
+
+            kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            self.utils.print_info("Navigate to Manage-->Devices")
+            self.navigator.navigate_to_devices()
+
+            count = 1
+            stale_retry = 1
+            while stale_retry <= 10:
+                try:
+                    while count <= retry_count:
+                        self.utils.print_info(f"Device Online Status Check - Loop: ", count)
+                        self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
+                        self.refresh_devices_page()
+
+                        device_row = None
+                        if device_serial:
+                            self.utils.print_info(f"Looking for Device by Serial: {device_serial}")
+                            device_row = self.get_device_row(device_serial=device_serial)
+                        elif device_mac:
+                            self.utils.print_info(f"Looking for Device by MAC: {device_serial}")
+                            device_row = self.get_device_row(device_mac=device_mac)
+
+                        if device_row and device_row != -1:
+                            status = self.devices_web_elements.get_status_cell(device_row)
+                            self.utils.print_info(f"Found Device status: {status}")
+                            if "hive-status-true" in status:
+                                kwargs['pass_msg'] = "Device status is connected!"
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            elif "local-managed-icon" in status:
+                                kwargs['pass_msg'] = "Device status is connected - locally managed"
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            else:
+                                self.utils.print_info(
+                                    f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
+                                sleep(retry_duration)
                         else:
-                            self.utils.print_info(
-                                f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
+                            self.utils.print_info(f"Did not find device row. Waiting for {retry_duration} seconds...")
                             sleep(retry_duration)
-                    else:
-                        self.utils.print_info(f"Did not find device row. Waiting for {retry_duration} seconds...")
-                        sleep(retry_duration)
-                    count += 1
-                break
-            except StaleElementReferenceException:
-                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                stale_retry = stale_retry + 1
+                        count += 1
+                    break
+                except StaleElementReferenceException:
+                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                    stale_retry = stale_retry + 1
 
-        kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
-        self.common_validation.failed(**kwargs)
-        return -1
+            kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10):
         """
