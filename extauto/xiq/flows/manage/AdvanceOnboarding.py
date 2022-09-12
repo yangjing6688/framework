@@ -18,8 +18,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.dialogue_web_elements = DialogWebElements()
-        self.devices_web_elements = DevicesWebElements()
-
+        self.common_validation = CommonValidation()
         self.screen = Screen()
         self.navigator = Navigator()
         self.devices = Devices()
@@ -250,12 +249,25 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         serials = device_serial.split(",")
         self.utils.print_info("Device Serials Numbers: ", serials)
 
-        for serial in serials:
-            if self.devices.search_ap_serial(serial):
-                self.utils.print_info("Successfully Onboarded Device(s): ", serials)
-                return 1
-            else:
-                return -1
+        max_retires = 3
+        count = 0
+        ret_value = -1
+        while max_retires != count:
+            for serial in serials:
+                if self.devices.search_device(device_serial=serial) == 1:
+                    kwargs['pass_msg'] = f"Found the device for Serial: {device_serial}"
+                    self.commonValidation.passed(**kwargs)
+                    return 1
+                else:
+                    if count != max_reties:
+                        self.utils.print_info("fThe {serial} was not found, sleeping for 10 seconds")
+                        sleep(10)
+                        count += 1
+                        self.utils.print_info(f"new count value {count} of max reties {max_reties}")
+
+        kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serial}"
+        self.commonValidation.failed(**kwargs)
+        return -1
 
     def _got_to_advanced_onboard_tab(self):
         """
