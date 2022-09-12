@@ -1092,34 +1092,29 @@ class Cli(object):
         #     self.builtin.fail(msg="Failed to Open The Spawn to Device. So Exiting the Testcase")
         #     return -1
 
-    def disconnect_device_from_cloud(self, cli_type, ip, port, username, password, retry_count=10):
+    def disconnect_device_from_cloud(self, cli_type, connection, retry_count=10):
         """
         - This Keyword Disconnect Device From Cloud
         - Keyword Usage:
-         - ``disconnect device from cloud  ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}``
+         - ``disconnect device from cloud  ${CLI_TYPE}  ${CONNECTION}``
 
         :param cli_type: The cli type
-        :param ip: Console IP Address of the Device
-        :param port: Console Port
-        :param username: username to access console
-        :param password: Password to access console
+        :param connection: The open connection
         :param retry_count: Retry count to check device connection status with Cloud server
         :return: 1 id device successfully disconnected with cloud server else -1
         """
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'no Hivemanager address ')
-            self.send(_spawn, f'Application stop hiveagent')
-            self.send(_spawn, f'Application start hiveagent')
+            self.send(connection, f'no Hivemanager address ')
+            self.send(connection, f'Application stop hiveagent')
+            self.send(connection, f'Application start hiveagent')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                hm_status = self.send(_spawn, f'show hivemanager status | include Status')
+                hm_status = self.send(connection, f'show hivemanager status | include Status')
                 if 'CONNECTED TO HIVEMANAGER' not in hm_status:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
@@ -1127,19 +1122,18 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
-            self.send(_spawn, f'no capwap client server name')
-            self.send(_spawn, f'no capwap client default-server-name')
-            self.send(_spawn, f'no capwap client server backup name')
-            self.send(_spawn, f'no capwap client enable')
-            self.send(_spawn, f'save config')
+            self.send(connection, f'no capwap client server name')
+            self.send(connection, f'no capwap client default-server-name')
+            self.send(connection, f'no capwap client server backup name')
+            self.send(connection, f'no capwap client enable')
+            self.send(connection, f'save config')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                output = self.send(_spawn, f'show capwap client | include "RUN state"')
+                output = self.send(connection, f'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' not in output:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
@@ -1147,16 +1141,15 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'configure iqagent server ipaddress none')
-            self.send(_spawn, f'configure iqagent server vr none')
+            self.send(connection, f'configure iqagent server ipaddress none')
+            self.send(connection, f'configure iqagent server vr none')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                output = self.send(_spawn, f'show iqagent | include "Status"')
+                output = self.send(connection, f'show iqagent | include "Status"')
 
                 if 'CONNECTED TO XIQ' not in output:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Disconnected From Cloud server")
                     return 1
                 count += 1
@@ -1164,22 +1157,21 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(_spawn, f'enable')
-            self.send(_spawn, f'configure terminal')
-            self.send(_spawn, f'application')
-            self.send(_spawn, f'no iqagent enable')
-            self.send(_spawn, f'no iqagent server')
-            self.send(_spawn, f'end')
+            self.send(connection, f'enable')
+            self.send(connection, f'configure terminal')
+            self.send(connection, f'application')
+            self.send(connection, f'no iqagent enable')
+            self.send(connection, f'no iqagent server')
+            self.send(connection, f'end')
 
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
 
-                output = self.send(_spawn, f'show application iqagent status | include "Connection Status"')
+                output = self.send(connection, f'show application iqagent status | include "Connection Status"')
 
                 if 'Disconnected' in output:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Disconnected from Cloud server")
                     return 1
                 count += 1
@@ -1187,12 +1179,11 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
-            self.send(_spawn, f'en')
-            self.send(_spawn, f'config')
+            self.send(connection, f'en')
+            self.send(connection, f'config')
             # Delete the policy
-            self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
-            self.send(_spawn, f'commit write memory')
-
+            self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(connection, f'commit write memory')
 
     def wait_for_cli_output(self, spawn, cmd, expected_output, retry_duration=30, retry_count=10):
         """
