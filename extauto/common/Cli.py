@@ -792,20 +792,15 @@ class Cli(object):
     #         self.utils.print_info("OUTPUT : ", output)
     #         return -1
 
-    def configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                             connection_type='ssh', vr='VR-Default', retry_count=10):
+    def configure_device_to_connect_to_cloud(self, cli_type, server_name, connection, vr='VR-Default', retry_count=10):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${SERVER_NAME}``
+         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
 
         :param cli_type: Device Cli Type
-        :param ip: Console IP Address of the Device
-        :param port: Console Port
-        :param username: username to access console
-        :param password: Password to access console
+        :param connection: The open connection
         :param server_name: Cloud Server Name to connect the device
-        :param connection_type: The connection type, will default to ssh. (ssh, telnet, console)
         :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
         :param retry_count: Retry count to check device connection status with capwap server
         :return: 1 id device successfully connected with capwap server else -1
@@ -818,51 +813,49 @@ class Cli(object):
         return "1".
         """
 
-        _spawn = self.open_spawn(ip, port, username, password, cli_type, connection_type)
-
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'do Hivemanager address {server_name}')
-
+            self.send(connection, f'do Hivemanager address {server_name}')
+    
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
-            self.send(_spawn, f'capwap client server name {server_name}')
-            self.send(_spawn, f'capwap client default-server-name {server_name}')
-            self.send(_spawn, f'capwap client server backup name {server_name}')
-            self.send(_spawn, f'no capwap client enable')
-            self.send(_spawn, f'capwap client enable')
-            self.send(_spawn, f'save config')
+            self.send(connection, f'capwap client server name {server_name}')
+            self.send(connection, f'capwap client default-server-name {server_name}')
+            self.send(connection, f'capwap client server backup name {server_name}')
+            self.send(connection, f'no capwap client enable')
+            self.send(connection, f'capwap client enable')
+            self.send(connection, f'save config')
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'configure iqagent server ipaddress {server_name}')
-            self.send(_spawn, f'configure iqagent server vr {vr}')
-
+            self.send(connection, f'configure iqagent server ipaddress {server_name}')
+            self.send(connection, f'configure iqagent server vr {vr}')
+        
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(_spawn, f'enable')
-            self.send(_spawn, f'configure terminal')
-            self.send(_spawn, f'application')
-            self.send(_spawn, f'no iqagent enable')
-            self.send(_spawn, f'iqagent server {server_name}')
-            self.send(_spawn, f'iqagent enable')
-            self.send(_spawn, f'end')
+            self.send(connection, f'enable')
+            self.send(connection, f'configure terminal')
+            self.send(connection, f'application')
+            self.send(connection, f'no iqagent enable')
+            self.send(connection, f'iqagent server {server_name}')
+            self.send(connection, f'iqagent enable')
+            self.send(connection, f'end')
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
-            self.send(_spawn, f'en')
-            self.send(_spawn, f'self')
-            self.send(_spawn, f'virtual-controller')
-            self.send(_spawn, f'show adoption status')
-            self.send(_spawn, f'end')
-            self.send(_spawn, f'en')
-            self.send(_spawn, f'config')
+            self.send(connection, f'en')
+            self.send(connection, f'self')
+            self.send(connection, f'virtual-controller')
+            self.send(connection, f'show adoption status')
+            self.send(connection, f'end')
+            self.send(connection, f'en')
+            self.send(connection, f'config')
             # Delete the policy
-            self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
-            self.send(_spawn, f'commit write memory')
+            self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(connection, f'commit write memory')
             # Create the new policy
-            self.send(_spawn, f'nsight-policy xiq')
-            self.send(_spawn, f'server host {server_name} https enforce-verification poll-work-queue')
-            self.send(_spawn, f'commit write memory')
-            self.send(_spawn, f'rf-domain default')
-            self.send(_spawn, f'use nsight-policy xiq')
-            self.send(_spawn, f'commit write memory')
+            self.send(connection, f'nsight-policy xiq')
+            self.send(connection, f'server host {server_name} https enforce-verification poll-work-queue')
+            self.send(connection, f'commit write memory')
+            self.send(connection, f'rf-domain default')
+            self.send(connection, f'use nsight-policy xiq')
+            self.send(connection, f'commit write memory')
             # show run nsight-policy ECIQ
         return 1
 
