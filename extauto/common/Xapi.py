@@ -819,3 +819,14 @@ class Xapi:
         :return: returns id
         """
         return list(map(extract_connected_status_from_json, json_data))[int(index)] if len(json_data) > 0 else 0
+
+    def get_json_value_from_list(self, json_list, key, list_index=0):
+        """
+        - This Keyword is used to get the value from JSON list for the specific key.
+
+        :param json_list: JSON List
+        :param key: Key name
+        :param list_index: List Index
+        :return: JSON Value from list
+        """
+        return json_list[list_index][key]
