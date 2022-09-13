@@ -2659,7 +2659,6 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info("The device 360 page is still not loaded, sleep 2 seconds")
                 sleep(2)
                 wait_times += 1
-                self.utils.print_info("Waiting for device 360 page loaded " + wait_times*2 + " seconds")
                 if device_360_page:
                     self.utils.print_info("Device 360 page is already loaded, move to next step")
                     break
