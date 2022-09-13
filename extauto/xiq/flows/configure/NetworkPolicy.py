@@ -110,6 +110,7 @@ class NetworkPolicy(object):
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirmation Yes button")
             self.auto_actions.click(confirm_delete_btn)
+            self.screen.save_screen_shot()
             sleep(3)
 
     def create_network_policy(self, policy, **wireless_profile):
@@ -940,6 +941,7 @@ class NetworkPolicy(object):
                 confirm_yes = self.wireless_element.get_confirm_dialog_yes_button()
                 if confirm_yes:
                     self.auto_actions.click(confirm_yes)
+                    self.screen.save_screen_shot()
                     sleep(5)
                 else:
                     self.utils.print_info(" Unable click the corfirm Yes button")
@@ -978,6 +980,7 @@ class NetworkPolicy(object):
                             self.utils.print_info(" SSIDs were successfully deleted ")
                             return 1
                         else:
+                            self.screen.save_screen_shot()
                             self.utils.print_info(" SSIDs were NOT successfully deleted ")
                             return -1
                     else:
