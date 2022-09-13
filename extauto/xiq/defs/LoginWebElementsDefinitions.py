@@ -601,3 +601,8 @@ class LoginWebElementsDefinitions:
             'wait_for': 3,
         }
 
+    page_loading = \
+        {
+            'CSS_SELECTOR': '.preload',
+            'wait_for': 3
+        }
