@@ -285,7 +285,7 @@ class Device360(Device360WebElements):
         return ret_val
 
     def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30,
-                                              retry_time=150, retry_counter=0, **kwargs):
+                                              retry_time=15, retry_counter=0, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -377,6 +377,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         else:
+            retry_counter += 1
             self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
             return self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
                                                               retry_time, retry_counter, **kwargs)
