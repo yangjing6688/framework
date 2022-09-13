@@ -171,7 +171,8 @@ class Device360(Device360WebElements):
         table = self.dev360.get_device_active_clients_grid()
         rows = self.dev360.get_device_active_clients_grid_rows(table)
 #        totalrows = rows.len()
-        self.utils.print_info("Getting the total number of rows: ", rows.len())
+        self.utils.print_info("Getting the total number of rows: ", len(rows))
+#        self.utils.print_info("Getting the total number of rows: ", rows.len())
         self.screen.save_screen_shot()
         for row in rows:
             self.utils.print_info("Getting the clients rows: ", row.text)
