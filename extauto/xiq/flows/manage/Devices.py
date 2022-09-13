@@ -1440,14 +1440,8 @@ class Devices:
                     self.utils.print_info(f"Max {try_cnt} attempts are reached, return -1")
                     return -1
                 self.utils.print_info("Refresh the current page")
-                self.login.refresh_page()
-                self.utils.print_info("Waiting for page to complete loading")
-                # self.utils.print_debug("Waiting for page to complete loading")
-                _driver = CloudDriver().cloud_driver
-                while not self.web_elements_handler.check_for_page_is_loading(_driver):
-                    continue
-                # self.utils.print_debug("Page completed loading")
-                self.utils.print_info("Page completed loading")
+                # self.login.refresh_page()
+                self.utils.wait_till(self.login.refresh_page(), is_logging_enabled=True)
 
         self.utils.print_info("Select ap row")
         self.select_ap(ap_serial)
@@ -4331,14 +4325,17 @@ class Devices:
                     self.utils.print_info(f"Device Online Status Check - Loop: ", count)
                     self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
                     self.refresh_devices_page()
+                    self.screen.save_screen_shot()
 
                     device_row = None
                     if device_serial:
                         device_row = self.get_device_row(device_serial=device_serial)
+                        self.utils.print_info(f"wait_until_device_online: Getting device row: {device_row}")
                     elif device_mac:
                         device_row = self.get_device_row(device_mac=device_mac)
 
                     if device_row and device_row != -1:
+                        self.utils.print_info(f"wait_until_device_online: {self.devices_web_elements.get_status_cell(device_row)}")
                         if "hive-status-true" in self.devices_web_elements.get_status_cell(device_row):
                             # self.utils.print_info("Device status is connected")
                             kwargs['pass_msg'] = "Device status is connected!"
@@ -4377,7 +4374,7 @@ class Devices:
          - check the device status for a device based on passed device serial
         - Keyword Usage:
          - ``Wait Until Device Offline       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
-         - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+         - ``Wait Until Device Offline       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
@@ -11096,37 +11093,50 @@ class Devices:
                 return -1
         else:
             self.utils.print_info("enable_device_wan_access: Already in Devices page, go to next step")
-        if self.select_device(device_serial):
-            self.utils.print_info("Click Actions button ...")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
-            action_dropdown = self.device_actions.get_device_actions_dropdown()
-            if action_dropdown:
-                self.utils.print_info("Move to Advance button ...")
-                self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
-                cli_access = self.device_actions.get_device_actions_advance_cli_access()
-                self.utils.print_info(f"CLI access element: {cli_access}")
-                self.utils.print_info(f"Move to CLI Access button {cli_access}...")
-                self.auto_actions.move_to_element(cli_access)
-                self.utils.print_info("Click CLI Access button ...")
-                self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
-                if self.device_actions.get_device_actions_cli_windows():
-                    self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
-                    self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
-                    self.utils.print_info("Click Apply button to send CLI to AP ...")
-                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
-                    self.utils.print_info("Close CLI windows ...")
-                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
-                    return 1
+        actions_disabled = False
+        try_cnt = 0
+        while not actions_disabled:
+            if self.select_device(device_serial):
+                self.utils.print_info("Check if Actions buttion is enable")
+                if self.device_actions.get_device_actions_button_disable():
+                    try_cnt += 1
+                    self.utils.print_info(f"Actions button is grayed, can NOT click it, {try_cnt} attempts to try")
+                    self.utils.wait_till(self.login.refresh_page(), is_logging_enabled=True)
+                    actions_disabled = True
+                    if try_cnt == 10:
+                        self.utils.print_info("Max {try_cnt} attempts reach...")
+                        return -1
                 else:
-                    self.utils.print_info("There is no CLI window popup ...")
-                    return -1
+                    self.utils.print_info("Click Actions button ...")
+                    self.auto_actions.click(self.device_actions.get_device_actions_button())
+                    action_dropdown = self.device_actions.get_device_actions_dropdown()
+                    if action_dropdown:
+                        self.utils.print_info("Move to Advance button ...")
+                        self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
+                        cli_access = self.device_actions.get_device_actions_advance_cli_access()
+                        self.utils.print_info(f"CLI access element: {cli_access}")
+                        self.utils.print_info(f"Move to CLI Access button {cli_access}...")
+                        self.auto_actions.move_to_element(cli_access)
+                        self.utils.print_info("Click CLI Access button ...")
+                        self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
+                        if self.device_actions.get_device_actions_cli_windows():
+                            self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
+                            self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
+                            self.utils.print_info("Click Apply button to send CLI to AP ...")
+                            self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
+                            self.utils.print_info("Close CLI windows ...")
+                            self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
+                            return 1
+                        else:
+                            self.utils.print_info("There is no CLI window popup ...")
+                            return -1
+                    else:
+                        self.utils.print_info(f"Actions dropdown is NOT shown: {action_dropdown}")
+                        self.screen.save_screen_shot()
+                        return -1
             else:
-                self.utils.print_info(f"Actions dropdown is NOT shown: {action_dropdown}")
-                self.screen.save_screen_shot()
+                self.utils.print_info("No device is selected ...")
                 return -1
-        else:
-            self.utils.print_info("No device is selected ...")
-            return -1
 
     def wait_for_policy_config_push_to_complete(self, device_serial, boot_wait_time=60, **kwargs):
         """
