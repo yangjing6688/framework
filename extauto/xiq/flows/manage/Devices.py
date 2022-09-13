@@ -52,6 +52,7 @@ class Devices:
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
         self.web_elements_handler = WebElementHandler()
+        self.cloud_driver = CloudDriver()
 
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False):
@@ -1441,7 +1442,7 @@ class Devices:
                     return -1
                 self.utils.print_info("Refresh the current page")
                 # self.login.refresh_page()
-                self.utils.wait_till(self.login.refresh_page(), is_logging_enabled=True)
+                self.utils.wait_till(self.cloud_driver.refresh_page(), is_logging_enabled=True)
 
         self.utils.print_info("Select ap row")
         self.select_ap(ap_serial)
