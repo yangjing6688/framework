@@ -938,29 +938,25 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
         return 1
 
-    def downgrade_iqagent(self, ip, port, username, password, cli_type, **kwargs):
+    def downgrade_iqagent(self, cli_type, connection, **kwargs):
         """
-               - This Keyword will downgrade iqagent
-               - Keyword Usage:
-                - ``Downgrade Iqagent  ${IP}   ${PORT}      ${USERNAME}       ${PASSWORD}        ${PLATFORM}
+       - This Keyword will downgrade iqagent
+       - Keyword Usage:
+        - ``Downgrade Iqagent       ${CLI_TYPE}     ${CONNECTION}
 
-               :param ip: IP Address of the Device
-               :param port: Port
-               :param username: username to access console
-               :param password: Password to access console
-               :param cli_type: Device Cli Type
-               :param url_image: image for exos device
-               :return: 1 commands successfully configured  else -1
-               """
-        if cli_type.upper()=='VOSS':
-            return self.downgrade_iqagent_voss(ip, port, username, password, cli_type, **kwargs)
-        elif cli_type.upper()=='EXOS':
+       :param cli_type: Device Cli Type
+       :param connection: The open connection
+       :return: 1 commands successfully configured  else -1
+        """
+        if cli_type.upper() == 'VOSS':
+            return self.downgrade_iqagent_voss(cli_type, connection, **kwargs)
+        elif cli_type.upper() == 'EXOS':
             count = 0
             retries = 6
             results = -1
             while count < retries:
                 try:
-                    results = self.downgrade_iqagent_exos(ip, port, username, password, cli_type, **kwargs)
+                    results = self.downgrade_iqagent_exos(cli_type, connection, **kwargs)
                     break
                 except Exception as e:
                     self.utils.print_info(f"Unable to downgrade IQAgent {e}, waiting 30 seconds and trying again...")
@@ -971,33 +967,50 @@ class Cli(object):
             self.utils.print_info(f"cli_type: {cli_type} doesn't need to be downgraded and isn't supported")
             return 1
 
-    def downgrade_iqagent_voss(self, ip, port, username, password, cli_type, **kwargs):
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
+    def downgrade_iqagent_voss(self, cli_type, connection, **kwargs):
+        """
+        - This Keyword will downgrade iqagent for VOSS devices
+        - Keyword Usage:
+         - ``downgrade iqagent voss     ${CLI_TYPE}  ${CONNECTION}``
+
+        :param cli_type: The cli type
+        :param connection: The open connection
+        :return:  1 if commands successfully configured else -1
+        """
+
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(_spawn, f'enable')
-            self.send(_spawn, f'config t')
-            self.send(_spawn, f'application')
-            output_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
-            self.send(_spawn, f'no iqagent enable')
-            self.send(_spawn, f'software iqagent reinstall')
-            self.send(_spawn, f'iqagent enable')
-            output_new_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
-            self.close_spawn(_spawn)
+            self.send(connection, f'enable')
+            self.send(connection, f'config t')
+            self.send(connection, f'application')
+            self.send(connection, f'show application iqagent | include "Agent Version"')
+            self.send(connection, f'no iqagent enable')
+            self.send(connection, f'software iqagent reinstall')
+            self.send(connection, f'iqagent enable')
+            self.send(connection, f'show application iqagent | include "Agent Version"')
             return 1
         else:
-            self.builtin.fail(msg="Failed to Open The Spawn to Device. So Exiting the Testcase")
+            kwargs['fail_msg'] = "Failed to downgrade IQAgent "
+            self.commonValidation.failed(**kwargs)
             return -1
 
+    def downgrade_iqagent_exos(self, cli_type, connection, **kwargs):
+        """
+        - This Keyword will downgrade iqagent for EXOS devices
+        - Keyword Usage:
+         - ``downgrade iqagent exos    ${CLI_TYPE}  ${CONNECTION}``
 
-    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type, **kwargs):
+        :param cli_type: The cli type
+        :param connection: The open connection
+        :return:  1 if commands successfully configured else -1
+        """
+
         returnCode = -1
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
         try:
             # Make sure the iqagent is enabled
-            self.send(_spawn, f'enable iqagent')
-            current_version = self.send(_spawn, f'show iqagent | include Version')
+            self.send(connection, f'enable iqagent')
+            current_version = self.send(connection, f'show iqagent | include Version')
             current_version = current_version.split()[1]
-            base_version = self.send(_spawn, f'show process iqagent  | include iqagent')
+            base_version = self.send(connection, f'show process iqagent  | include iqagent')
             base_version = base_version.split()[1]
             # Adjust the verison down to 3 numbers
             parts = base_version.split('.')
@@ -1005,7 +1018,7 @@ class Cli(object):
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
-                system_type = self.send(_spawn, f'show switch | include "System Type"')
+                system_type = self.send(connection, f'show switch | include "System Type"')
                 system_type = system_type.split()[2]
                 self.utils.print_info(f"Getting the device type for EXOS: {system_type}")
                 exos_device_type = None
@@ -1029,7 +1042,7 @@ class Cli(object):
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
                     url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
                     self.utils.print_info(f"Sending URL: {url_image}")
-                    self.send(_spawn, f'download url {url_image}', \
+                    self.send(connection, f'download url {url_image}', \
                               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                               confirmation_args='yes')
 
@@ -1045,7 +1058,7 @@ class Cli(object):
                         if count == max_tries:
                             break
                         time.sleep(1)
-                        new_version = self.send(_spawn, f'show iqagent | include Version')
+                        new_version = self.send(connection, f'show iqagent | include Version')
                         count = count + 1
                     try:
                         new_version = new_version.split()[1]
@@ -1060,10 +1073,9 @@ class Cli(object):
             else:
                 # We should be good as we are running the base version
                 returnCode = 1
-        except Exception as e :
+        except Exception as e:
             raise e
-        finally:
-            self.close_spawn(_spawn)
+
         self.commonValidation.validate(returnCode, 1, **kwargs)
         return returnCode
 
