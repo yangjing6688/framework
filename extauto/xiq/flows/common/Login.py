@@ -202,6 +202,17 @@ class Login:
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
             return -1
 
+        page_still_loading = True
+        while page_still_loading:
+            page_loading = self.login_web_elements.get_page_loading()
+            self.utils.print_info(f"Page loading element: {page_loading}")
+            if page_loading:
+                self.utils.print_info("Page is still loading")
+                sleep(2)
+            else:
+                page_still_loading = False
+                self.utils.print_info("Page is loaded successfully")
+
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid) == -1:
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
