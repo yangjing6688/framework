@@ -1357,6 +1357,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_close_port_type_box(self):
         return self.weh.get_element(self.close_port_type_box)
 
+    def get_close_port_type_dialog_box(self):
+        return self.weh.get_element(self.close_port_type_dialog_box)
+
     def get_select_element_port_type(self, element, value=None):
         if element == "tab_vlan":
             return self.weh.get_element(self.select_element_port_type_tab_vlan)
@@ -1484,6 +1487,8 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_poe_status)
         elif element == "pse_profile_edit":
             return self.weh.get_element(self.select_element_port_type_pse_edit)
+        elif element == "pse_more_button":
+            return self.weh.get_element(self.select_more_button_pse_profile)
         return -1
 
     def get_select_element_port_type_summary(self, element):

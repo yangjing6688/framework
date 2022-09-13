@@ -6421,21 +6421,31 @@ class Device360(Device360WebElements):
         # page PSE
         elif element.lower() == "pse profile":
             sleep(5)
+
+            try:
+                edit_flag = value['pse_profile_edit_flag']
+            except KeyError:
+                print("'pse_profile_edit_flag' key not found in pse dictionary.")
+                edit_flag = False
+
             get_pse_profile = self.get_select_element_port_type(element)
             if get_pse_profile:
                 self.auto_actions.click(get_pse_profile)
+                get_more_button = self.get_select_element_port_type('pse_more_button')
+                if get_more_button:
+                    self.utils.print_info("'More' button present in PSE dropdown. Scrolling down...")
+                    self.auto_actions.move_to_element(get_more_button)
+
+                    self.utils.print_info("'More' button present in PSE dropdown. Clicking...")
+                    self.auto_actions.click(get_more_button)
+                else:
+                    self.utils.print_info("'More' button not present in PSE dropdown. Continuing running...")
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
                 pse_profile_name = value['pse_profile_name']
 
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
                     self.utils.print_info(" Selected into dropdown value : ", pse_profile_name)
-
-                    try:
-                        edit_flag = value['pse_profile_edit_flag']
-                    except KeyError:
-                        print("'pse_profile_edit_flag' key not found in pse dictionary.")
-                        edit_flag = False
 
                     if edit_flag:
                         self.utils.print_info(f"Editing PSE profile {value['pse_profile_name']}")
@@ -6496,6 +6506,20 @@ class Device360(Device360WebElements):
                             self.utils.print_info("get_pse_profile_save not found ")
 
                     return 1
+
+                elif edit_flag:
+                    self.utils.print_info(f"Edit flag is: {edit_flag}")
+                    self.utils.print_info(f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
+                                          f"Cannot edit non-exisiting PSE profile. Make sure 'More' button is clicked."
+                                          f"Closing dialog box...")
+                    close_dialog_box = self.get_close_port_type_dialog_box()
+                    if close_dialog_box:
+                        self.utils.print_info("Found 'close dialog' button. Clicking...")
+                        self.auto_actions.click(close_dialog_box)
+                    else:
+                        self.utils.print_info("Cannot find 'close dialog' button...")
+                    return -1
+
                 else:
                     sleep(5)
                     self.utils.print_info(f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
@@ -6554,7 +6578,7 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info("get_pse_profile not found ")
         elif element.lower() == "poe status":
-            sleep(5)
+            sleep(10)
             get_poe_status = self.get_select_element_port_type('poe status')
             print('Found POE_Status button: ', get_poe_status)
             sleep(5)

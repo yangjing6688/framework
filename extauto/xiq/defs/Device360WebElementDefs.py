@@ -2141,6 +2141,11 @@ class Device360WebElementDefs:
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
             'wait_for': 5
         }
+
+    close_port_type_dialog_box = \
+        {
+            'XPATH': '//div[@id="dijit_Dialog_1"]//span[@data-automation-tag="automation-dialog-close-button"]'
+        }
     # tab
     select_element_port_type_tab_usage = \
         {
@@ -2830,4 +2835,9 @@ class Device360WebElementDefs:
     select_element_port_type_pse_edit = \
         {
             'XPATH': '//span[@data-automation-tag="automation-port-type-editor-pse-profile-edit-btn"]'
+        }
+
+    select_more_button_pse_profile = \
+        {
+            'XPATH': '//div[@class="J-ip-more"]'
         }

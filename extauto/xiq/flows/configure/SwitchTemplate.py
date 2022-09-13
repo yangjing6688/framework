@@ -1641,32 +1641,50 @@ class SwitchTemplate(object):
         sleep(3)
         return 1
 
-    def save_template(self):
+    def save_template(self, **kwargs):
         """
         This function is used to save the current device template
         :return: 1 - if the save was successful ; -1 - if not
         """
-        try:
-            save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
-            if not save_template_button.is_displayed():
-                self.utils.print_info("SAVE button is not displayed")
-                return -1
+        save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+        found_save_button = False
+        for save_btn in save_btns:
+            if save_btn.is_displayed():
+                self.utils.print_info("Click on the save template button")
+                found_save_button = True
+                self.auto_actions.click(save_btn)
+                save_successful = False
 
-            self.utils.print_info("Click on SAVE button")
-            self.auto_actions.click(save_template_button)
+                def _check_succesful_message():
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    for cnt3 in tool_tip_text:
+                        if 'successfully' in cnt3:
+                            self.utils.print_info("Found successfully message")
+                            return True
+                        else:
+                            self.utils.print_info("Not found successfully message yet ")
+                            return False
 
-            # In the case of a pop-up message, press yes
-            sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
-            if sw_yes_button is not None and sw_yes_button.is_displayed():
-                self.utils.print_info("YES button is displayed")
-                self.auto_actions.click(sw_yes_button)
+                save_successful = self.utils.wait_till(_check_succesful_message, silent_failure=True, delay=3)
+                if save_successful:
+                    self.utils.print_info("Template has been saved successfully.")
+                    kwargs['pass_msg'] = "Template has been saved successfully."
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    self.utils.print_info("Template failed to save")
+                    kwargs['fail_msg'] = "Template failed to save"
+                    self.screen.save_screen_shot()
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
-            return 1
-        except Exception as exc:
-            self.utils.print_info(exc)
+        if not found_save_button:
+            self.utils.print_info("Save template button has been not found ")
+            kwargs['fail_msg'] = "Save template button has been not found "
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
-        sleep(3)
-        return 1
 
     def configure_oob_mgmt_int(self, nw_policy, sw_template_name, mgmtVlan="4092"):
         """
