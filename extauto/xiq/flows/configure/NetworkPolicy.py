@@ -920,6 +920,7 @@ class NetworkPolicy(object):
                     return -1
         self.utils.print_info(" Get all ssids in the policy")
         ssids = self.wireless_element.get_ssid_list()
+        self.utils.print_info(f"The SSIDs in the policy: {ssids}")
         if not ssids:
             self.utils.print_info(" There are no SSIDs configured on policy  " + str(policy))
             # return 1
