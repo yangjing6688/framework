@@ -258,13 +258,13 @@ class WirelessNetworksDefinitions:
 
     wireless_ssid_list = \
         {
-            'CSS_SELECTOR': '.dgrid-row',
+            'CSS_SELECTOR': '.wireless-ssid-container .dgrid-row',
             'wait_for': 15
         }
 
     wireless_chkbox = \
         {
-            'CSS_SELECTOR': '.dgrid-selector',
+            'CSS_SELECTOR': '.wireless-ssid-container .dgrid-row .dgrid-selector',
             'wait_for': 5
         }
 
