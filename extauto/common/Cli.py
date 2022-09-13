@@ -1010,9 +1010,9 @@ class Cli(object):
             # Make sure the iqagent is enabled
             self.send(connection, f'enable iqagent')
             current_version = self.send(connection, f'show iqagent | include Version')
-            current_version = current_version.split()[1]
+            current_version = current_version.replace("Version",'').split()[0]
             base_version = self.send(connection, f'show process iqagent  | include iqagent')
-            base_version = base_version.split()[1]
+            base_version = base_version.replace("iqagent",'').split()[5]
             # Adjust the verison down to 3 numbers
             parts = base_version.split('.')
             if len(parts) > 3:
@@ -1020,7 +1020,7 @@ class Cli(object):
 
             if current_version != base_version:
                 system_type = self.send(connection, f'show switch | include "System Type"')
-                system_type = system_type.split()[2]
+                system_type = system_type.replace("System Type:",'').split()[1]
                 self.utils.print_info(f"Getting the device type for EXOS: {system_type}")
                 exos_device_type = None
                 if '5320' in system_type or '5420' in system_type or '5520' in system_type:

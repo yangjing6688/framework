@@ -342,9 +342,11 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_enable_button)
         self.screen.save_screen_shot()
 
+        sleep(time_interval)
+
         retry_count = 0
         while retry_count <= retry_time:
-            self.utils.print_info(f"Checking SSH IP and Port Details after: {retry_count} seconds")
+            self.utils.print_info(f"Checking SSH IP and Port Details after: {time_interval} seconds")
             ip = self.get_device360_configure_ssh_cli_ip()
             port = self.get_device360_configure_ssh_cli_port()
             self.screen.save_screen_shot()
@@ -367,7 +369,7 @@ class Device360(Device360WebElements):
                 return ip_port_info
             else:
                 self.utils.print_info(
-                    f"****************** IP/Port Information is not available after {retry_count} seconds ************************")
+                    f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
                 retry_count += 30
 
