@@ -2805,9 +2805,7 @@ class Device360WebElementDefs:
 
     device360_leftpane_unique_clients = \
         {
-#            'XPATH': '//*[@data-automation-tag="device-entity-unique-clients-number"]',
             'XPATH': '//*[@data-dojo-attach-point="clientsNum"]',
-#            'XPATH': '//div[@data-dojo-attach-point="clientsNum" and @class="entity-page-metric"]',
             'wait_for': 15
         }
 
@@ -2819,31 +2817,25 @@ class Device360WebElementDefs:
 
     device360_total_wireless_clients = \
         {
-#            'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
             'XPATH': '//*[@data-automation-tag="wirelessinterfaces-total-client-count-ctn"]//div[@data-dojo-attach-point="totalClientCount"]',
-#            'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
             'wait_for': 15
         }
 
     device360_total_clients_clientspage = \
         {
             'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
-#            'XPATH': '//*[@data-automation-tag="wirelessinterfaces-total-client-count-ctn"]//div[@data-dojo-attach-point="totalClientCount"]',
-            #            'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
             'wait_for': 15
         }
 
     device360_wireless_wifi6gscore = \
         {
             'XPATH': '//div[@class="health-column"]//span[@data-dojo-attach-point="overallScoreValue"]',
-#            'XPATH': '//*[@data-dojo-attach-point="overallScoreValue"]',
             'wait_for': 15
         }
 
     device360_wireless_combinedscore = \
         {
             'XPATH': '//div[@class="health-column"]//span[@data-dojo-attach-point="overallScoreValue"]',
-#            'XPATH': '//div[@class="score-block"]//span[@data-dojo-attach-point="overallScoreValue"]',
             'wait_for': 15
         }
 
@@ -2856,13 +2848,11 @@ class Device360WebElementDefs:
     device360_wireless_combinedscoretab = \
         {
             'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-4"]',
-#            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@label for="radio-healthCardOptions-4"]',
             'wait_for': 15
         }
 
     device360_wireless_wifi6gscoretab = \
         {
             'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-3"]',
-#            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@label for="radio-healthCardOptions-3"]',
             'wait_for': 15
         }
