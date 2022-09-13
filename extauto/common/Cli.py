@@ -711,6 +711,8 @@ class Cli(object):
         try_cnt = 0
         while not mac_client_get_ipv4_addr:
             self.utils.print_info("Check if Mac client get IPv4 address")
+            wifi_ip_detail = self.send_paramiko_cmd(conn, IFCONFIG + wifi_port)
+            self.utils.print_info(f"Detail info for ifconfig {wifi_port}: \n{wifi_ip_detail}")
             wifi_ipv4 = self.send_paramiko_cmd(conn, IFCONFIG + wifi_port + MAC_IPV4_ADDRESS_FILTER)
             self.utils.print_info(f"mac wifi ipv4 address: {wifi_ipv4}")
             if not wifi_ipv4:
@@ -718,21 +720,24 @@ class Cli(object):
                 self.utils.print_info(f"Mac client is NOT got IPV4 address: {wifi_ipv4} so far, {try_cnt} attempts to check IPV4 address")
                 if try_cnt == 10:
                     self.utils.print_info(f"Max {try_cnt} attempts to check IPv4 address, still not got address: {wifi_ipv4}")
-                    return False
-                sleep(2)
-            elif '169.254.' in wifi_ipv4:
-                try_cnt += 1
-                self.utils.print_info(f"Mac client got invalid IPv4 address: {wifi_ipv4}, {try_cnt} attempts to check IPV4 address")
-                if try_cnt == 10:
-                    self.utils.print_info(f"Max {try_cnt} attempts to check IPv4 address, still get invalid address: {wifi_ipv4}")
+                    self.close_paramiko_spawn(conn)
                     return False
                 sleep(2)
             else:
-                self.utils.print_info(f"Mac client got IPv4 address: {wifi_ipv4}")
-                mac_client_get_ipv4_addr = True
-                self.utils.print_info(f"WiFi interface IPv4 address: {wifi_ipv4}")
-                self.close_paramiko_spawn(conn)
-                return wifi_ipv4
+                if '169.254.' in wifi_ipv4 or 'options=201' in wifi_ipv4:
+                    try_cnt += 1
+                    self.utils.print_info(f"Mac client got invalid IPv4 address: {wifi_ipv4}, {try_cnt} attempts to check IPV4 address")
+                    if try_cnt == 10:
+                        self.utils.print_info(f"Max {try_cnt} attempts to check IPv4 address, still get invalid address: {wifi_ipv4}")
+                        self.close_paramiko_spawn(conn)
+                        return False
+                    sleep(2)
+                else:
+                    mac_client_get_ipv4_addr = True
+                    self.close_paramiko_spawn(conn)
+        if mac_client_get_ipv4_addr:
+            self.utils.print_info(f"Mac client got IPv4 address: {wifi_ipv4}")
+            return wifi_ipv4
 
     def clear_ssh_host_key(self):
         """
