@@ -6,6 +6,12 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    device_actions_button_disable = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-manage-device-actions"] //button[contains(@class, "btn-disable")]',
+            'wait_for': 2
+        }
+
     device_actions_dropdown = \
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-actions"] //*[@class="ui-menu-list" and contains(@style, "display: block")]',
