@@ -29,8 +29,11 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_system_configuration(self):
         return self.weh.get_element(self.system_config_tab)
 
+    def get_system_configuration_menu_link(self):
+        return self.weh.get_element(self.system_configuration_menu)
 
+    def get_menu_popup_icon(self):
+        return self.weh.get_element(self.menu_popup_icon)
 
-
-
-
+    def get_management_menu_popup(self):
+        return self.weh.get_element(self.management_menu_popup)

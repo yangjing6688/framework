@@ -10,6 +10,9 @@ from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
 
 import a3.flows.common.Login
+import a3.flows.common.Navigator
+import a3.flows.a3.LicenseManagementFlow
+import a3.flows.a3.CIWebElementsFlow
 import xiq.flows.common.Login
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -35,6 +38,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from extauto.common.CloudDriver import CloudDriver
 
+
 class A3ToXiq:
     def __init__(self):
         self.utils = Utils()
@@ -44,7 +48,6 @@ class A3ToXiq:
         self.dialogue_web_elements = DialogWebElements()
         self.switch_web_elements = SwitchWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
-        self.common_validation = CommonValidation()
         self.navigator = Navigator()
         self.device_actions = DeviceActions()
         self.device_update = DeviceUpdate()
@@ -57,22 +60,42 @@ class A3ToXiq:
         self.cli = Cli()
         self.licenseManagement = LicenseManagement()
         self.a3login = a3.flows.common.Login.Login()
-        self.driver = CloudDriver().cloud_driver
+        self.a3_navigator = a3.flows.common.Navigator.Navigator()
+        self.a3_license_management = a3.flows.a3.LicenseManagementFlow.LicenseManagementFlow()
+        self.a3_cloud_web_flow = a3.flows.a3.CIWebElementsFlow.CIWebElementsFlow()
+        self.driver = None
 
-    def configure_a3_to_xiq_instance(self,  portal_username='username', portal_password='password123', a3website='website',
-                                     a3_username='username', a3_password='password', check_version_value=None, **kwargs):
+    def configure_a3_to_xiq_instance(self, xiq_username='', xiq_password='', xiq_website='', portal_username='',
+                                     portal_password='', a3website='', a3_username='', a3_password='',
+                                     check_version_value=None, confirm_cluster_id=False, **kwargs):
         """
         - Configure A3 To Xiq Instance
         - Keyword Usage:
         - ``Configure A3 To Xiq Instance``
 
+        :param xiq_username: Username to log into XIQ
+        :param xiq_password: Password to log into XIQ
+        :param xiq_website:  XIQ website to use
+        :param portal_username: Username to use to link to Extreme Portal
+        :param portal_password: Password to use to link to Extreme Portal
+        :param a3website: A3 website to link to XIQ
+        :param a3_username: Username to log into A3
+        :param a3_password: Password to log into A3
+        :param check_version_value: Used to determine if version should be checked
+        :param confirm_cluster_id: Used to determine if A3 has valid cluster id (successfully linked)
+
         :return: 1 if the connection is closed.  Note: an error will be raised if the connection fails to close
         """
+
+        self.login.login_user(xiq_username, xiq_password, url=xiq_website)
+
+        self.driver = CloudDriver().cloud_driver
 
         xiq_version = self.login._capture_xiq_version()
         if check_version_value:
             if xiq_version != check_version_value:
-                kwargs['fail_msg'] = "XIQ Version is " + xiq_version + " does not equal expected version " + check_version_value
+                kwargs[
+                    'fail_msg'] = "XIQ Version is " + xiq_version + " does not equal expected version " + check_version_value
                 self.common_validation.validate(-1, 1, **kwargs)
                 return -1
 
@@ -92,12 +115,13 @@ class A3ToXiq:
             return -1
 
         # go back to license management page and check for linked status
-        WebDriverWait(self.driver, 60).until(
+        WebDriverWait(self.driver, 120).until(
             ec.presence_of_element_located(
                 (By.XPATH, "//*[@data-automation-tag='automation-sider-list-licenseMng']")))
 
         self.utils.print_info("Returning to License Management Page to check link status")
         self.licenseManagement.open_license_management_page()
+        sleep(5)
 
         unlink_extreme_portal_btn = self.licenseManagement.get_unlink_xiq_from_extr_portal_btn()
         link_message = self.licenseManagement.get_account_successfully_linked()
@@ -113,7 +137,28 @@ class A3ToXiq:
             kwargs['fail_msg'] = "Status does NOT show successfully linked to customer account"
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
-        # log into a3
-        a3_login_success = self.a3login.login_a3_user(a3_username, a3_password, url=a3website)
+        self.login.logout_user()
+        self.login.quit_browser()
 
+        if a3_username and a3website:
+            # log into a3
+            a3_login_success = self.a3login.login_a3_user(a3_username, a3_password, url=a3website)
+            if a3_login_success == -1:
+                kwargs['fail_msg'] = "Unable to log into A3 Server"
+                self.common_validation.validate(-1, 1, **kwargs)
+                return -1
+            if confirm_cluster_id:
+                self.a3_navigator.navigate_to_license_management_page()
+                cluster_id = self.a3_license_management.get_a3_cluster_id()
+                if cluster_id == -1:
+                    kwargs['fail_msg'] = "Invalid value for Cluster Id"
+                    self.common_validation.validate(-1, 1, **kwargs)
+                    return -1
+            else:
+                self.a3_navigator.navigate_to_cloud_integration_page()
+                self.a3_cloud_web_flow.a3_link_with_extreme_cloud_iq_account(a3website, a3_username, a3_password)
+            self.a3login.logout_a3_user()
+            self.a3login.quit_browser()
+
+        self.utils.print_info("Successfully able to Configure A3 To Xiq Instance")
         return 1

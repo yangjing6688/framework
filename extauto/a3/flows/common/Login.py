@@ -36,7 +36,7 @@ class Login:
             self.window_index = 0
         else:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-            self.window_index = CloudDriver().open_window(url)
+            self.window_index = CloudDriver().open_window(url, "a3")
         self.driver = CloudDriver().cloud_driver
 
     def get_page_title(self):
