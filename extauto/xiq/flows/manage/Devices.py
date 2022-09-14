@@ -11464,3 +11464,19 @@ class Devices:
         else:
             self.utils.print_info("The Quick Add Devices panel is not visible.")
             return -1
+
+    def check_100_rows_per_page_button(self):
+        """
+        - This keyword check if 100 rows per page button is present in Devices
+        - If the button is present, it will be clicked
+        - If the button is not present, it will ignore
+        - It is assumed that 'Devices' page is open
+        :return:
+        """
+        self.utils.print_info("Searching for 100 rows per page button")
+        one_hundred_devices_per_page = self.devices_web_elements.get_100_rows_per_page_button()
+        if one_hundred_devices_per_page:
+            self.utils.print_info("Found 100 rows per page button")
+            self.auto_actions.click(one_hundred_devices_per_page)
+        else:
+            self.utils.print_info("Didn't find 100 rows per page button... Continuing run...")
