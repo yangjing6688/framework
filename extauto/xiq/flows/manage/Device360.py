@@ -366,6 +366,7 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
                 else:
                     self.common_validation.passed(**kwargs)
+                self.close_device360_window()
                 return ip_port_info
             else:
                 self.utils.print_info(
@@ -380,6 +381,7 @@ class Device360(Device360WebElements):
             return -1
         else:
             retry_counter += 1
+            self.close_device360_window()
             self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
             return self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
                                                               retry_time, retry_counter, **kwargs)
