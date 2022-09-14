@@ -937,7 +937,7 @@ class Cli(object):
                 count += 1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
-        return 1
+        return -1
 
     def downgrade_iqagent(self, cli_type, connection, **kwargs):
         """
@@ -1192,11 +1192,14 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
+            # These commands fail internally if there is a failure sending them
             self.send(connection, f'en')
             self.send(connection, f'config')
             # Delete the policy
             self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
             self.send(connection, f'commit write memory')
+            return 1
+        return -1
 
     def wait_for_cli_output(self, spawn, cmd, expected_output, retry_duration=30, retry_count=10):
         """
