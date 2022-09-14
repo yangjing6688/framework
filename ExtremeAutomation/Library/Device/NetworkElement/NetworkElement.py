@@ -313,13 +313,16 @@ class NetworkElement(ManagedDeviceObject):
         Attempt to connect to the device using the current agent, if a current agent is set.
         """
         if not self.current_agent.connected:
-            self.logger.log_debug("Agent is not connected. Attempting to connect...")
-            self.current_agent.connect()
-            if not self.current_agent.logged_in:
-                self.logger.log_debug("Agent is not logged in. Attempting to log in...")
-                logged_in = self.login()
-                if not logged_in:
-                    self.disconnect()
+            self.logger.log_debug(f"Agent {self.current_agent.type} is not connected. Attempting to connect...")
+            try:
+                self.current_agent.connect()
+                if not self.current_agent.logged_in:
+                    self.logger.log_debug(f"Agent {self.current_agent.type} is not logged in. Attempting to log in...")
+                    logged_in = self.login()
+                    if not logged_in:
+                        self.disconnect()
+            except Exception as e:
+                self.logger.log_error(f"Agent {self.current_agent.type} failed to connect or login: {e}")
 
     def disconnect(self):
         """

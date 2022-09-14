@@ -73,14 +73,14 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             try:
                 dev.connect()
             except socket.error:
-                self.logger.log_debug("Agent connection attempt #" + str(i) + " failed.")
+                self.logger.log_debug(f"Agent connection attempt #{i} failed.")
             time.sleep(5)
             i += 1
 
         if not dev.current_agent.logged_in:
             if not expect_error:
-                raise FailureException("Unable to establish a connection with network element " + net_elem_name +
-                                       " within " + max_wait + " seconds.")
+                raise FailureException(f"Unable to establish a connection with network element {net_elem_name} \
+                                         within {max_wait} seconds.")
             else:
                 self.logger.log_info("Device connection and/or login was unsuccessful. Error was expected.")
         else:
