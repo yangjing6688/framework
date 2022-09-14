@@ -348,6 +348,7 @@ class Device360(Device360WebElements):
             self.screen.save_screen_shot()
             self.auto_actions.click(self.get_device_ssh_ui_tip_close())
             kwargs['fail_msg'] = f"Encountered an error. Clicking to exit the error window. Please see the screenshot"
+            self.close_device360_window()
             self.common_validation.failed(**kwargs)
             return -1
 
