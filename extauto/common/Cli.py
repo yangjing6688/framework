@@ -815,9 +815,10 @@ class Cli(object):
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            # self.send(_spawn, f'do application stop hiveagent')
+            self.send(_spawn, f'do application stop hiveagent')
             self.send(_spawn, f'do Hivemanager address {server_name}')
-            # self.send(_spawn, f'do application start hiveagent')
+            self.send(_spawn, f'do application start hiveagent')
+
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'capwap client server name {server_name}')
             self.send(connection, f'capwap client default-server-name {server_name}')
