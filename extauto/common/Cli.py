@@ -792,20 +792,15 @@ class Cli(object):
     #         self.utils.print_info("OUTPUT : ", output)
     #         return -1
 
-    def configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                             connection_type='ssh', vr='VR-Default', retry_count=10):
+    def configure_device_to_connect_to_cloud(self, cli_type, server_name, connection, vr='VR-Default', retry_count=10):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${SERVER_NAME}``
+         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
 
         :param cli_type: Device Cli Type
-        :param ip: Console IP Address of the Device
-        :param port: Console Port
-        :param username: username to access console
-        :param password: Password to access console
+        :param connection: The open connection
         :param server_name: Cloud Server Name to connect the device
-        :param connection_type: The connection type, will default to ssh. (ssh, telnet, console)
         :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
         :param retry_count: Retry count to check device connection status with capwap server
         :return: 1 id device successfully connected with capwap server else -1
@@ -817,72 +812,64 @@ class Cli(object):
         if the verification check passed. Since I took out the verification I am blindly
         return "1".
         """
-
-        _spawn = self.open_spawn(ip, port, username, password, cli_type, connection_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'do Hivemanager address {server_name}')
-
+            self.send(connection, f'do Hivemanager address {server_name}')
+    
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
-            self.send(_spawn, f'capwap client server name {server_name}')
-            self.send(_spawn, f'capwap client default-server-name {server_name}')
-            self.send(_spawn, f'capwap client server backup name {server_name}')
-            self.send(_spawn, f'no capwap client enable')
-            self.send(_spawn, f'capwap client enable')
-            self.send(_spawn, f'save config')
+            self.send(connection, f'capwap client server name {server_name}')
+            self.send(connection, f'capwap client default-server-name {server_name}')
+            self.send(connection, f'capwap client server backup name {server_name}')
+            self.send(connection, f'no capwap client enable')
+            self.send(connection, f'capwap client enable')
+            self.send(connection, f'save config')
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'configure iqagent server ipaddress {server_name}')
-            self.send(_spawn, f'configure iqagent server vr {vr}')
-
+            self.send(connection, f'configure iqagent server ipaddress {server_name}')
+            self.send(connection, f'configure iqagent server vr {vr}')
+        
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(_spawn, f'enable')
-            self.send(_spawn, f'configure terminal')
-            self.send(_spawn, f'application')
-            self.send(_spawn, f'no iqagent enable')
-            self.send(_spawn, f'iqagent server {server_name}')
-            self.send(_spawn, f'iqagent enable')
-            self.send(_spawn, f'end')
+            self.send(connection, f'enable')
+            self.send(connection, f'configure terminal')
+            self.send(connection, f'application')
+            self.send(connection, f'no iqagent enable')
+            self.send(connection, f'iqagent server {server_name}')
+            self.send(connection, f'iqagent enable')
+            self.send(connection, f'end')
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
-            self.send(_spawn, f'en')
-            self.send(_spawn, f'self')
-            self.send(_spawn, f'virtual-controller')
-            self.send(_spawn, f'show adoption status')
-            self.send(_spawn, f'end')
-            self.send(_spawn, f'en')
-            self.send(_spawn, f'config')
+            self.send(connection, f'en')
+            self.send(connection, f'self')
+            self.send(connection, f'virtual-controller')
+            self.send(connection, f'show adoption status')
+            self.send(connection, f'end')
+            self.send(connection, f'en')
+            self.send(connection, f'config')
             # Delete the policy
-            self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
-            self.send(_spawn, f'commit write memory')
+            self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(connection, f'commit write memory')
             # Create the new policy
-            self.send(_spawn, f'nsight-policy xiq')
-            self.send(_spawn, f'server host {server_name} https enforce-verification poll-work-queue')
-            self.send(_spawn, f'commit write memory')
-            self.send(_spawn, f'rf-domain default')
-            self.send(_spawn, f'use nsight-policy xiq')
-            self.send(_spawn, f'commit write memory')
+            self.send(connection, f'nsight-policy xiq')
+            self.send(connection, f'server host {server_name} https enforce-verification poll-work-queue')
+            self.send(connection, f'commit write memory')
+            self.send(connection, f'rf-domain default')
+            self.send(connection, f'use nsight-policy xiq')
+            self.send(connection, f'commit write memory')
             # show run nsight-policy ECIQ
         return 1
 
-    def wait_for_configure_device_to_connect_to_cloud(self, cli_type, ip, port, username, password, server_name,
-                                                     connection_type='ssh', vr='VR-Default', retry_count=10, retry_duration=30):
+    def wait_for_configure_device_to_connect_to_cloud(self, cli_type, server_name, connection, retry_count=10, retry_duration=30):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${SERVER_NAME}``
+         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
 
         :param cli_type: Device Cli Type
-        :param ip: Console IP Address of the Device
-        :param port: Console Port
-        :param username: username to access console
-        :param password: Password to access console
         :param server_name: Cloud Server Name to connect the device
-        :param connection_type: The connection type, will default to ssh. (ssh, telnet, console)
-        :param vr : VR configuration Option for EXOS device. options: VR-Default and VR-Mgmt
+        :param connection: The open connection
         :param retry_count: Retry count to check device connection status with capwap server
-        :return: 1 id device successfully connected with capwap server else -1
+        :return: 1 if device successfully connected with capwap server else -1
         On July 26 2022, it was decide to disable the verification steps for the following reason
         Depending on the order of configuration in a test case the verification check will fail.
             As an example:
@@ -891,8 +878,6 @@ class Cli(object):
         if the verification check passed. Since I took out the verification I am blindly
         return "1".
         """
-
-        _spawn = self.open_spawn(ip, port, username, password, cli_type, connection_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
                 NetworkElementConstants.OS_AHXR in cli_type.upper():
@@ -900,11 +885,10 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(retry_duration)
-                hm_status = self.send(_spawn, f'do show hivemanager status | include Status')
-                hm_address = self.send(_spawn, f'do show hivemanager address')
+                hm_status = self.send(connection, f'do show hivemanager status | include Status')
+                hm_address = self.send(connection, f'do show hivemanager address')
 
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
                 count += 1
@@ -913,13 +897,12 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                output = self.send(_spawn, f'show capwap client | include "RUN state"')
+                output = self.send(connection, f'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' in output:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
-                count +=1
+                count += 1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With CAPWAP Server : {server_name}")
 
@@ -928,14 +911,13 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                output = self.send(_spawn, f'show iqagent | include "XIQ Address"')
-                output1 = self.send(_spawn, f'show iqagent | include "Status"')
+                output = self.send(connection, f'show iqagent | include "XIQ Address"')
+                output1 = self.send(connection, f'show iqagent | include "Status"')
 
                 if server_name in output and 'CONNECTED TO XIQ' in output1:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
-                count +=1
+                count += 1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
 
@@ -945,41 +927,36 @@ class Cli(object):
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
 
-                output1 = self.send(_spawn, f'show application iqagent | include "Server Address"')
-                output2 = self.send(_spawn, f'show application iqagent status | include "Connection Status"')
+                output1 = self.send(connection, f'show application iqagent | include "Server Address"')
+                output2 = self.send(connection, f'show application iqagent status | include "Connection Status"')
 
                 if server_name in output1 and 'Connected' in output2:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
                 count += 1
 
             self.builtin.fail(msg=f"Device is Not Connected Successfully With Cloud Server {server_name} ")
-        return 1
+        return -1
 
-    def downgrade_iqagent(self, ip, port, username, password, cli_type, **kwargs):
+    def downgrade_iqagent(self, cli_type, connection, **kwargs):
         """
-               - This Keyword will downgrade iqagent
-               - Keyword Usage:
-                - ``Downgrade Iqagent  ${IP}   ${PORT}      ${USERNAME}       ${PASSWORD}        ${PLATFORM}
+       - This Keyword will downgrade iqagent
+       - Keyword Usage:
+        - ``Downgrade Iqagent       ${CLI_TYPE}     ${CONNECTION}
 
-               :param ip: IP Address of the Device
-               :param port: Port
-               :param username: username to access console
-               :param password: Password to access console
-               :param cli_type: Device Cli Type
-               :param url_image: image for exos device
-               :return: 1 commands successfully configured  else -1
-               """
-        if cli_type.upper()=='VOSS':
-            return self.downgrade_iqagent_voss(ip, port, username, password, cli_type, **kwargs)
-        elif cli_type.upper()=='EXOS':
+       :param cli_type: Device Cli Type
+       :param connection: The open connection
+       :return: 1 commands successfully configured  else -1
+        """
+        if cli_type.upper() == 'VOSS':
+            return self.downgrade_iqagent_voss(cli_type, connection, **kwargs)
+        elif cli_type.upper() == 'EXOS':
             count = 0
             retries = 6
             results = -1
             while count < retries:
                 try:
-                    results = self.downgrade_iqagent_exos(ip, port, username, password, cli_type, **kwargs)
+                    results = self.downgrade_iqagent_exos(cli_type, connection, **kwargs)
                     break
                 except Exception as e:
                     self.utils.print_info(f"Unable to downgrade IQAgent {e}, waiting 30 seconds and trying again...")
@@ -990,33 +967,50 @@ class Cli(object):
             self.utils.print_info(f"cli_type: {cli_type} doesn't need to be downgraded and isn't supported")
             return 1
 
-    def downgrade_iqagent_voss(self, ip, port, username, password, cli_type, **kwargs):
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
+    def downgrade_iqagent_voss(self, cli_type, connection, **kwargs):
+        """
+        - This Keyword will downgrade iqagent for VOSS devices
+        - Keyword Usage:
+         - ``downgrade iqagent voss     ${CLI_TYPE}  ${CONNECTION}``
+
+        :param cli_type: The cli type
+        :param connection: The open connection
+        :return:  1 if commands successfully configured else -1
+        """
+
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(_spawn, f'enable')
-            self.send(_spawn, f'config t')
-            self.send(_spawn, f'application')
-            output_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
-            self.send(_spawn, f'no iqagent enable')
-            self.send(_spawn, f'software iqagent reinstall')
-            self.send(_spawn, f'iqagent enable')
-            output_new_version=self.send(_spawn, f'show application iqagent | include "Agent Version"')
-            self.close_spawn(_spawn)
+            self.send(connection, f'enable')
+            self.send(connection, f'config t')
+            self.send(connection, f'application')
+            self.send(connection, f'show application iqagent | include "Agent Version"')
+            self.send(connection, f'no iqagent enable')
+            self.send(connection, f'software iqagent reinstall')
+            self.send(connection, f'iqagent enable')
+            self.send(connection, f'show application iqagent | include "Agent Version"')
             return 1
         else:
-            self.builtin.fail(msg="Failed to Open The Spawn to Device. So Exiting the Testcase")
+            kwargs['fail_msg'] = "Failed to downgrade IQAgent "
+            self.commonValidation.failed(**kwargs)
             return -1
 
+    def downgrade_iqagent_exos(self, cli_type, connection, **kwargs):
+        """
+        - This Keyword will downgrade iqagent for EXOS devices
+        - Keyword Usage:
+         - ``downgrade iqagent exos    ${CLI_TYPE}  ${CONNECTION}``
 
-    def downgrade_iqagent_exos(self, ip, port, username, password, cli_type, **kwargs):
+        :param cli_type: The cli type
+        :param connection: The open connection
+        :return:  1 if commands successfully configured else -1
+        """
+
         returnCode = -1
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
         try:
             # Make sure the iqagent is enabled
-            self.send(_spawn, f'enable iqagent')
-            current_version = self.send(_spawn, f'show iqagent | include Version')
+            self.send(connection, f'enable iqagent')
+            current_version = self.send(connection, f'show iqagent | include Version')
             current_version = current_version.split()[1]
-            base_version = self.send(_spawn, f'show process iqagent  | include iqagent')
+            base_version = self.send(connection, f'show process iqagent  | include iqagent')
             base_version = base_version.split()[1]
             # Adjust the verison down to 3 numbers
             parts = base_version.split('.')
@@ -1024,7 +1018,7 @@ class Cli(object):
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
-                system_type = self.send(_spawn, f'show switch | include "System Type"')
+                system_type = self.send(connection, f'show switch | include "System Type"')
                 system_type = system_type.split()[2]
                 self.utils.print_info(f"Getting the device type for EXOS: {system_type}")
                 exos_device_type = None
@@ -1048,7 +1042,7 @@ class Cli(object):
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
                     url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
                     self.utils.print_info(f"Sending URL: {url_image}")
-                    self.send(_spawn, f'download url {url_image}', \
+                    self.send(connection, f'download url {url_image}', \
                               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                               confirmation_args='yes')
 
@@ -1064,7 +1058,7 @@ class Cli(object):
                         if count == max_tries:
                             break
                         time.sleep(1)
-                        new_version = self.send(_spawn, f'show iqagent | include Version')
+                        new_version = self.send(connection, f'show iqagent | include Version')
                         count = count + 1
                     try:
                         new_version = new_version.split()[1]
@@ -1079,10 +1073,9 @@ class Cli(object):
             else:
                 # We should be good as we are running the base version
                 returnCode = 1
-        except Exception as e :
+        except Exception as e:
             raise e
-        finally:
-            self.close_spawn(_spawn)
+
         self.commonValidation.validate(returnCode, 1, **kwargs)
         return returnCode
 
@@ -1111,34 +1104,29 @@ class Cli(object):
         #     self.builtin.fail(msg="Failed to Open The Spawn to Device. So Exiting the Testcase")
         #     return -1
 
-    def disconnect_device_from_cloud(self, cli_type, ip, port, username, password, retry_count=10):
+    def disconnect_device_from_cloud(self, cli_type, connection, retry_count=10):
         """
         - This Keyword Disconnect Device From Cloud
         - Keyword Usage:
-         - ``disconnect device from cloud  ${CLI_TYPE}  ${CONSOLE_IP}  ${PORT}  ${USERNAME}  ${PASSWORD}``
+         - ``disconnect device from cloud  ${CLI_TYPE}  ${CONNECTION}``
 
         :param cli_type: The cli type
-        :param ip: Console IP Address of the Device
-        :param port: Console Port
-        :param username: username to access console
-        :param password: Password to access console
+        :param connection: The open connection
         :param retry_count: Retry count to check device connection status with Cloud server
         :return: 1 id device successfully disconnected with cloud server else -1
         """
-        _spawn = self.open_spawn(ip, port, username, password, cli_type)
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'no Hivemanager address ')
-            self.send(_spawn, f'Application stop hiveagent')
-            self.send(_spawn, f'Application start hiveagent')
+            self.send(connection, f'no Hivemanager address ')
+            self.send(connection, f'Application stop hiveagent')
+            self.send(connection, f'Application start hiveagent')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                hm_status = self.send(_spawn, f'show hivemanager status | include Status')
+                hm_status = self.send(connection, f'show hivemanager status | include Status')
                 if 'CONNECTED TO HIVEMANAGER' not in hm_status:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
@@ -1146,19 +1134,18 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
-            self.send(_spawn, f'no capwap client server name')
-            self.send(_spawn, f'no capwap client default-server-name')
-            self.send(_spawn, f'no capwap client server backup name')
-            self.send(_spawn, f'no capwap client enable')
-            self.send(_spawn, f'save config')
+            self.send(connection, f'no capwap client server name')
+            self.send(connection, f'no capwap client default-server-name')
+            self.send(connection, f'no capwap client server backup name')
+            self.send(connection, f'no capwap client enable')
+            self.send(connection, f'save config')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                output = self.send(_spawn, f'show capwap client | include "RUN state"')
+                output = self.send(connection, f'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' not in output:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
@@ -1166,16 +1153,15 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(_spawn, f'configure iqagent server ipaddress none')
-            self.send(_spawn, f'configure iqagent server vr none')
+            self.send(connection, f'configure iqagent server ipaddress none')
+            self.send(connection, f'configure iqagent server vr none')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
-                output = self.send(_spawn, f'show iqagent | include "Status"')
+                output = self.send(connection, f'show iqagent | include "Status"')
 
                 if 'CONNECTED TO XIQ' not in output:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Disconnected From Cloud server")
                     return 1
                 count += 1
@@ -1183,22 +1169,21 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(_spawn, f'enable')
-            self.send(_spawn, f'configure terminal')
-            self.send(_spawn, f'application')
-            self.send(_spawn, f'no iqagent enable')
-            self.send(_spawn, f'no iqagent server')
-            self.send(_spawn, f'end')
+            self.send(connection, f'enable')
+            self.send(connection, f'configure terminal')
+            self.send(connection, f'application')
+            self.send(connection, f'no iqagent enable')
+            self.send(connection, f'no iqagent server')
+            self.send(connection, f'end')
 
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
                 time.sleep(10)
 
-                output = self.send(_spawn, f'show application iqagent status | include "Connection Status"')
+                output = self.send(connection, f'show application iqagent status | include "Connection Status"')
 
                 if 'Disconnected' in output:
-                    self.close_spawn(_spawn)
                     self.utils.print_info(f"Device Successfully Disconnected from Cloud server")
                     return 1
                 count += 1
@@ -1206,12 +1191,14 @@ class Cli(object):
             self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
-            self.send(_spawn, f'en')
-            self.send(_spawn, f'config')
+            # These commands fail internally if there is a failure sending them
+            self.send(connection, f'en')
+            self.send(connection, f'config')
             # Delete the policy
-            self.send(_spawn, f'no nsight-policy xiq', ignore_cli_feedback=True)
-            self.send(_spawn, f'commit write memory')
-
+            self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(connection, f'commit write memory')
+            return 1
+        return -1
 
     def wait_for_cli_output(self, spawn, cmd, expected_output, retry_duration=30, retry_count=10):
         """

@@ -342,6 +342,13 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_enable_button)
         self.screen.save_screen_shot()
 
+        if self.get_device_ssh_ui_tip_error() != None:
+            self.screen.save_screen_shot()
+            self.auto_actions.click(self.get_device_ssh_ui_tip_close())
+            kwargs['fail_msg'] = f"Encountered an error. Clicking to exit the error window. Please see the screenshot"
+            self.common_validation.failed(**kwargs)
+            return -1
+
         retry_count = 0
         while retry_count <= retry_time:
             self.utils.print_info(f"Checking SSH IP and Port Details after: {retry_count} seconds")

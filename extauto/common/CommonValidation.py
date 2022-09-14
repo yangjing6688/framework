@@ -38,6 +38,7 @@ class CommonValidation():
         """
         test_result = False
         ivr_flag = self.get_kwarg(kwargs, "IRV", True)
+        xapi_flag = self.get_kwarg(kwargs, "XAPI", True)
         if ivr_flag:
             self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             self.logger.info("Internal Result Verification is Enabled")
@@ -91,7 +92,8 @@ class CommonValidation():
             test_result = True
 
         # Added screen capture in case of errors or problems
-        self.screen.save_screen_shot()
+        if not xapi_flag:
+            self.screen.save_screen_shot()
 
         return test_result
 

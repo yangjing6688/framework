@@ -2813,3 +2813,13 @@ class Device360WebElementDefs:
             'DESC': 'D360 > Shutdown Digital Twin button',
             'XPATH': '//button[@data-automation-tag="automation-switch-config-shutdown-dt-btn"]'
         }
+
+    device_ssh_ui_tip_close = \
+        {
+            'XPATH': '//div[contains(@widgetid,"MessageBase_1")]//div/i[@data-dojo-attach-point="xEl"]'
+        }
+
+    device_ssh_ui_tip_error = \
+        {
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-error"]//div[@class="ui-tipbox-icon"]'
+        }
