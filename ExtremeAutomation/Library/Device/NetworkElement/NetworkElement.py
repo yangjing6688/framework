@@ -34,9 +34,9 @@ class NetworkElement(ManagedDeviceObject):
         self.platform = platform
         self.unit = unit
         self.version = version
-        self.login_prompt = ""
-        self.pass_prompt = ""
-        self.main_prompt = ""
+        self.login_prompt = []
+        self.pass_prompt = []
+        self.main_prompt = ''
         self.model = ""
         self.running_version = ""
         self.connection_method = ""
@@ -273,8 +273,8 @@ class NetworkElement(ManagedDeviceObject):
                 self.logger.log_debug("Initializing current agent with type " + agent_type)
                 self.logger.log_debug("    Username: " + self.username)
                 self.logger.log_debug("    Password: " + self.password)
-                self.logger.log_debug("    Login Prompt: " + self.login_prompt)
-                self.logger.log_debug("    Password Prompt: " + self.pass_prompt)
+                self.logger.log_debug("    Login Prompt: " + ",".join(self.login_prompt))
+                self.logger.log_debug("    Password Prompt: " + ",".join(self.pass_prompt))
                 self.logger.log_debug("    Main Prompt: " + self.main_prompt)
                 self.logger.log_debug("    Hostname: " + self.hostname)
                 self.logger.log_debug("    Port: " + str(self.port))
