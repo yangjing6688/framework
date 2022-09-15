@@ -935,7 +935,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("Clicking Device 360 SSH Disable SSH button...")
         disable_ssh_btn = self.get_device360_configure_ssh_disable_button()
         if disable_ssh_btn:
-            self.auto_actions.click_reference(disable_ssh_btn)
+            self.auto_actions.click(disable_ssh_btn)
         else:
             self.utils.print_info("Disable SSH button not present - SSH may already be disabled")
 
