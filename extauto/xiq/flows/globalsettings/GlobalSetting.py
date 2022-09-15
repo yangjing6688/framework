@@ -608,6 +608,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Clicking Backup Confirm Button")
         self.auto_actions.click(self.get_viq_backup_confirm_button())
         sleep(2)
+        self.screen.save_screen_shot()
 
         """
         x = datetime.datetime.now()
@@ -663,6 +664,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Clicking Reset VIQ Confirm Button")
         self.auto_actions.click(self.get_reset_viq_confirm_button())
         sleep(2)
+        self.screen.save_screen_shot()
 
         """
         self.screen.save_screen_shot()
