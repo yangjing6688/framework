@@ -2124,25 +2124,24 @@ class Devices:
         serials = device_serial.split(",")
         self.utils.print_info("Serials: ", serials)
 
-        max_retires = 3
+        max_retries = 3
         count = 0
         ret_value = -1
-        while max_retires != count:
+        while max_retries != count:
             for serial in serials:
                 if self.search_device(device_serial=serial) == 1:
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
                     kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                    if count != max_reties:
-                        self.utils.print_info("fThe {serial} was not found, sleeping for 10 seconds")
+                    if count != max_retries:
+                        self.utils.print_info(f"The {serial} was not found, sleeping for 10 seconds")
                         sleep(10)
                         count += 1
-                        self.utils.print_info(f"new count value {count} of max reties {max_reties}")
+                        self.utils.print_info(f"new count value {count} of max reties {max_retries}")
 
         self.common_validation.failed(**kwargs)
         return -1
-
 
     def onboard_device_dt(self, device_serial=None, device_make=None, device_mac=None, device_type="Real", entry_type="Manual",
                            csv_file_name=None, csv_location=None, device_os=None, location=None, service_tag=None,
@@ -3129,13 +3128,15 @@ class Devices:
                         self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
                     except:
                         device_row = self.get_device_row(deviceKey)
+                        device_row = copy.copy(device_row)
                         self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
-                        pass
                 attempt_count = attempt_count - 1
                 try:
                     device_status = self.devices_web_elements.get_status_cell(device_row)
                 except:
+                    self.utils.print_info("Getting status from cell failed with Exception...Attempting to get status again")
                     device_row = self.get_device_row(deviceKey)
+                    device_row = copy.copy(device_row)
                     device_status = self.devices_web_elements.get_status_cell(device_row)
                 sleep(2)
                 if device_status:
