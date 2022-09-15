@@ -302,21 +302,28 @@ class Device360(Device360WebElements):
 
         :return: SSH String
         """
+
+
+
         if device_mac:
             self.utils.print_info("Using device MAC: ", device_mac.upper())
             self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
 
-        if device_name:
+        elif device_name:
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
-
+        else:
+            kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
         self.auto_actions.click_reference(self.get_device360_configure_button)
-
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
-
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI Run Time: ", run_time)
         if run_time == 5:
             self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_5min_radio)
@@ -337,13 +344,14 @@ class Device360(Device360WebElements):
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
-        sleep(5)
+        sleep(10)
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI Enable SSH button...")
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_enable_button)
         self.screen.save_screen_shot()
 
         sleep(time_interval)
-
+        self.screen.save_screen_shot()
         if self.get_device_ssh_ui_tip_error() != None:
             self.screen.save_screen_shot()
             self.auto_actions.click(self.get_device_ssh_ui_tip_close())
@@ -375,7 +383,7 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
                 else:
                     self.common_validation.passed(**kwargs)
-                self.close_device360_window()
+                # self.close_device360_window()
                 return ip_port_info
             else:
                 self.utils.print_info(
@@ -413,6 +421,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
         self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
