@@ -383,6 +383,7 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
                 else:
                     self.common_validation.passed(**kwargs)
+                self.close_device360_window()
                 return ip_port_info
             else:
                 self.utils.print_info(
