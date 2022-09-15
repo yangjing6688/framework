@@ -277,10 +277,6 @@ class LicenseManagement(LicenseManagementWebElements):
         self.common_validation.validate(1, 1, **kwargs)
         return 1
 
-
-
-
-
     def initiate_link_xiq_to_extr_portal_from_lic_mgt(self, sfdc_user_type=None, sfdc_email=None, sfdc_pwd=None, shared_cuid=None):
         """
              - links XIQ to extreme SFDC portal to get gemalto licenses
