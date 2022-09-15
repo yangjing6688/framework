@@ -815,8 +815,10 @@ class Cli(object):
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(connection, f'do Hivemanager address {server_name}')
-    
+            self.send(_spawn, f'do application stop hiveagent')
+            self.send(_spawn, f'do Hivemanager address {server_name}')
+            self.send(_spawn, f'do application start hiveagent')
+
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'capwap client server name {server_name}')
             self.send(connection, f'capwap client default-server-name {server_name}')
@@ -1009,9 +1011,15 @@ class Cli(object):
             # Make sure the iqagent is enabled
             self.send(connection, f'enable iqagent')
             current_version = self.send(connection, f'show iqagent | include Version')
-            current_version = current_version.split()[1]
+            # Output:
+            #   Version                             0.6.6
+            #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
+            current_version = current_version.replace("Version",'').split()[0]
             base_version = self.send(connection, f'show process iqagent  | include iqagent')
-            base_version = base_version.split()[1]
+            # Output:
+            #   iqagent          0.6.6.1     0    Ready        Fri Sep  2 13:26:44 2022  Vital
+            #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
+            base_version = base_version.replace("iqagent",'').split()[0]
             # Adjust the verison down to 3 numbers
             parts = base_version.split('.')
             if len(parts) > 3:
@@ -1019,7 +1027,10 @@ class Cli(object):
 
             if current_version != base_version:
                 system_type = self.send(connection, f'show switch | include "System Type"')
-                system_type = system_type.split()[2]
+                # Output:
+                # System Type:      5520-24T-SwitchEngine
+                # * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
+                system_type = system_type.replace("System Type:",'').split()[0]
                 self.utils.print_info(f"Getting the device type for EXOS: {system_type}")
                 exos_device_type = None
                 if '5320' in system_type or '5420' in system_type or '5520' in system_type:

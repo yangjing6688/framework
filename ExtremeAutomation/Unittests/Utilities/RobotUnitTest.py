@@ -45,8 +45,8 @@ class RobotUnitTest(unittest.TestCase):
         cls.eos_dev.hostname = "10.52.15.21"
         cls.eos_dev.username = "admin"
         cls.eos_dev.password = "extremeROBOT"
-        cls.eos_dev.login_prompt = "Username:"
-        cls.eos_dev.pass_prompt = "Password:"
+        cls.eos_dev.login_prompt = ["Username:"]
+        cls.eos_dev.pass_prompt = ["Password:"]
         cls.eos_dev.main_prompt = "->"
         cls.eos_dev.console_ip = "10.52.15.4"
         cls.eos_dev.console_port = "10031"
@@ -118,9 +118,9 @@ class RobotUnitTest(unittest.TestCase):
             netelem.hostname = str(index) + "." + str(index) + "." + str(index) + "." + str(index)
             netelem.username = "username"
             netelem.password = "password"
-            netelem.login_prompt = "login_prompt"
-            netelem.pass_prompt = "pass_prompt"
-            netelem.main_prompt = "main_prompt"
+            netelem.login_prompt = ["login_prompt"]
+            netelem.pass_prompt = ["pass_prompt"]
+            netelem.main_prompt = ["main_prompt"]
             cls.dummy_devices[oper_sys[3::].lower()] = netelem
             setattr(cls, obj_name, netelem)
 
