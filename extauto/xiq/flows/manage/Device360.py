@@ -383,7 +383,6 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
                 else:
                     self.common_validation.passed(**kwargs)
-                # self.close_device360_window()
                 return ip_port_info
             else:
                 self.utils.print_info(
@@ -902,7 +901,7 @@ class Device360(Device360WebElements):
         close_btn = self.dev360.get_close_dialog()
         if close_btn:
             self.utils.print_info("Closing device360 Dialog Window.")
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return 1
         else:
             self.utils.print_info("Could not obtain Device360 close button - make sure Device360 window is open")
@@ -930,13 +929,13 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
 
         self.utils.print_info("Clicking Device 360 SSH Disable SSH button...")
         disable_ssh_btn = self.get_device360_configure_ssh_disable_button()
         if disable_ssh_btn:
-            self.auto_actions.click(disable_ssh_btn)
+            self.auto_actions.click_reference(disable_ssh_btn)
         else:
             self.utils.print_info("Disable SSH button not present - SSH may already be disabled")
 
