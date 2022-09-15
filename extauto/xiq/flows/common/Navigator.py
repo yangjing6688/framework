@@ -201,7 +201,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click_referece(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab())
         sleep(5)
 
     def navigate_to_network_policies_tab(self, **kwargs):
