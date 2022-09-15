@@ -1857,3 +1857,8 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//a[@data-size="100"]'
         }
+
+    device_model = \
+        {
+            'CSS_SELECTOR': '.field-productType'
+        }
