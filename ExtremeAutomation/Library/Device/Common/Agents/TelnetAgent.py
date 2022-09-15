@@ -70,11 +70,11 @@ class TelnetAgent(CliAgent):
         # Also check for the main prompt for term server connections.
         if not found_login_prompt:
             for i in range(0, retries):
-                if output.strip().endswith(self.device.login_prompt):
+                if output.strip().endswith(tuple(self.device.login_prompt)):
                     self.write_encode_ln(self.device.username)
                     found_login_prompt = True
                     break
-                elif output.strip().endswith(self.device.main_prompt.strip()):
+                elif output.strip().endswith(self.device.main_prompt):
                     found_main_prompt = True
                     break
                 else:
@@ -87,7 +87,7 @@ class TelnetAgent(CliAgent):
         # If we found the login prompt try to find the password prompt.
         if found_login_prompt:
             for i in range(0, retries):
-                if output.strip().endswith(self.device.pass_prompt):
+                if output.strip().endswith(tuple(self.device.pass_prompt)):
                     self.write_encode_ln(self.device.password)
                     break
                 else:
@@ -98,7 +98,7 @@ class TelnetAgent(CliAgent):
         # Try to find the main prompt.
         if not found_main_prompt:
             for i in range(0, retries):
-                if output.strip().endswith(self.device.main_prompt.strip()):
+                if output.strip().endswith(self.device.main_prompt):
                     found_main_prompt = True
                     break
                 else:
@@ -218,7 +218,7 @@ class TelnetAgent(CliAgent):
                 self.wait_no_parse(250, 1)
                 self.write_encode_ln('enable')
                 output = self.wait_no_parse(250, 1)
-                if output.strip().endswith(self.device.main_prompt.strip()):
+                if output.strip().endswith(self.device.main_prompt):
                     return True
                 return False
         return False

@@ -24,119 +24,119 @@ class NetworkElementUtils(object):
         if formatted_dev_os == NetworkElementConstants.OS_EOS:
             device_os = NetworkElementConstants.OS_EOS
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_EOS_BASE
-            login_prompt = "Username:"
-            pass_prompt = "Password:"
+            login_prompt = ["Username:"]
+            pass_prompt = ["Password:"]
             main_prompt = "->"
         elif formatted_dev_os == NetworkElementConstants.OS_EXOS:
             device_os = NetworkElementConstants.OS_EXOS
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_EXOS_BASE
-            login_prompt = "login:"
-            pass_prompt = "password:"
-            main_prompt = "# "
+            login_prompt = ["login:"]
+            pass_prompt = ["password:"]
+            main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_LINUX.upper():
             device_os = NetworkElementConstants.OS_LINUX
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_LINUX_BASE
-            login_prompt = "login as:"
-            pass_prompt = "password:"
+            login_prompt = ["login as:"]
+            pass_prompt = ["password:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_EXTR_WIRELESS:
             device_os = NetworkElementConstants.OS_EXTR_WIRELESS
             device_platform = (dev_platform if dev_platform is not None
                                else NetworkElementConstants.PLATFORM_EXTR_WIRELESS_BASE)
-            login_prompt = "Username:"
-            pass_prompt = "Password:"
+            login_prompt = ["Username:"]
+            pass_prompt = ["Password:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_SNAP_ROUTE:
             device_os = NetworkElementConstants.OS_SNAP_ROUTE
             device_platform = (dev_platform if dev_platform is not None
                                else NetworkElementConstants.PLATFORM_SNAP_ROUTE_BASE)
-            login_prompt = "Username:"
-            pass_prompt = "password:"
+            login_prompt = ["Username:"]
+            pass_prompt = ["password:"]
             main_prompt = "$"
         elif formatted_dev_os == NetworkElementConstants.OS_VOSS:
             device_os = NetworkElementConstants.OS_VOSS
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_VOSS_BASE
-            login_prompt = "Login:"
-            pass_prompt = "Password:"
+            login_prompt = ["Login:"]
+            pass_prompt = ["Password:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_ALPHA:
             device_os = NetworkElementConstants.OS_ALPHA
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_ALPHA_BASE
-            login_prompt = "User:"
-            pass_prompt = "Password:"
+            login_prompt = ["User:"]
+            pass_prompt = ["Password:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_EOS_STACKS:
             device_os = NetworkElementConstants.OS_EOS_STACKS
             device_platform = dev_platform if dev_platform is not None \
                 else NetworkElementConstants.PLATFORM_EOS_STACKS_BASE
-            login_prompt = "Username:"
-            pass_prompt = "Password:"
+            login_prompt = ["Username:"]
+            pass_prompt = ["Password:"]
             main_prompt = "->"
         elif formatted_dev_os == NetworkElementConstants.OS_BOSS:
             device_os = NetworkElementConstants.OS_BOSS
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_BOSS_BASE
-            login_prompt = "login as:"
-            pass_prompt = "password:"
+            login_prompt = ["login as:"]
+            pass_prompt = ["password:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_SLX:
             device_os = NetworkElementConstants.OS_SLX
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_BOSS_BASE
-            login_prompt = "login:"
-            pass_prompt = "Password:"
+            login_prompt = ["login:"]
+            pass_prompt = ["Password:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_VDX:
             device_os = NetworkElementConstants.OS_VDX
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_BOSS_BASE
-            login_prompt = "login:"
-            pass_prompt = "Password:"
+            login_prompt = ["login:"]
+            pass_prompt = ["Password:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_ICX:
             device_os = NetworkElementConstants.OS_ICX
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_BOSS_BASE
-            login_prompt = "User Name:"
-            pass_prompt = "Password:"
+            login_prompt = ["User Name:"]
+            pass_prompt = ["Password:"]
             main_prompt = ">"
         elif formatted_dev_os == NetworkElementConstants.OS_MLX:
             device_os = NetworkElementConstants.OS_MLX
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_BOSS_BASE
-            login_prompt = "User Name:"
-            pass_prompt = "Password:"
+            login_prompt = ["User Name:"]
+            pass_prompt = ["Password:"]
             main_prompt = ">"
         elif formatted_dev_os == NetworkElementConstants.OS_EXOS_RO:
             device_os = NetworkElementConstants.OS_EXOS
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_EXOS_BASE
-            login_prompt = "login:"
-            pass_prompt = "password:"
+            login_prompt = ["login:"]
+            pass_prompt = ["password:"]
             main_prompt = "> "
         elif formatted_dev_os == NetworkElementConstants.OS_BOSS_RADIUS:
             device_os = NetworkElementConstants.OS_BOSS
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_BOSS_BASE
-            login_prompt = "Username:"
-            pass_prompt = "Password:"
+            login_prompt = ["Username:"]
+            pass_prompt = ["Password:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_AHFASTPATH:
             device_os = NetworkElementConstants.OS_AHFASTPATH
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_FASTPATH_BASE
-            login_prompt = "login as:"
-            pass_prompt = "Password:"
+            login_prompt = ["login as:"]
+            pass_prompt = ["assword:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_AHXR:
             device_os = NetworkElementConstants.OS_AHXR
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_XR_BASE
-            login_prompt = "login:"
-            pass_prompt = "Password:"
+            login_prompt = ["login:"]
+            pass_prompt = ["assword:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_AHAP:
             device_os = NetworkElementConstants.OS_AHAP
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_AH_AP_BASE
-            login_prompt = "username:"
-            pass_prompt = "password:"
+            login_prompt = ["login:", "login as:"]
+            pass_prompt = ["assword:"]
             main_prompt = "#"
         elif formatted_dev_os == NetworkElementConstants.OS_WING:
             device_os = NetworkElementConstants.OS_WING
             device_platform = dev_platform if dev_platform is not None else NetworkElementConstants.PLATFORM_WING_AP_BASE
-            login_prompt = "Username:"
-            pass_prompt = "Password:"
+            login_prompt = ["Username:"]
+            pass_prompt = ["Password:"]
             main_prompt = ">"
         else:
             logger = Logger()

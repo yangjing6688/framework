@@ -36,3 +36,17 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
+    system_configuration_menu = \
+        {
+            'XPATH': '//*[@href="#/configuration/system_configuration"]'
+        }
+
+    menu_popup_icon = \
+        {
+            'XPATH': '//*[@id="__BVID__33__BV_toggle_"]'
+        }
+
+    management_menu_popup = \
+        {
+            'XPATH': '//*[@href="#/licenses"]'
+        }
