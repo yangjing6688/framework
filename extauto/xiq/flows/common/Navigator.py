@@ -789,7 +789,9 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_manage_tab()
         sleep(5)
-        self.utils.print_info("Click on Alarms tab..")
+        self.utils.print_info("Click on Alerts tab..")
+        # import sys, pdb;
+        # pdb.Pdb(stdout=sys.__stdout__).set_trace()
         self.auto_actions.click(self.get_manage_alarms_nav())
         sleep(5)
         return 1

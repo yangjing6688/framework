@@ -256,7 +256,7 @@ class NavigatorWebElementDefinitions:
 
     manage_alarms_nav = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-nav-alarms"]//a',
+            'XPATH': '//div[@data-automation-tag="automation-header-nav-alerts"]//a',
             
         }
 
