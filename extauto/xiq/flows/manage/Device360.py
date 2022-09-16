@@ -302,21 +302,28 @@ class Device360(Device360WebElements):
 
         :return: SSH String
         """
+
+
+
         if device_mac:
             self.utils.print_info("Using device MAC: ", device_mac.upper())
             self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
 
-        if device_name:
+        elif device_name:
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
-
+        else:
+            kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
         self.auto_actions.click_reference(self.get_device360_configure_button)
-
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
-
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI Run Time: ", run_time)
         if run_time == 5:
             self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_5min_radio)
@@ -337,13 +344,14 @@ class Device360(Device360WebElements):
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
-        sleep(5)
+        sleep(10)
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI Enable SSH button...")
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_enable_button)
         self.screen.save_screen_shot()
 
         sleep(time_interval)
-
+        self.screen.save_screen_shot()
         if self.get_device_ssh_ui_tip_error() != None:
             self.screen.save_screen_shot()
             self.auto_actions.click(self.get_device_ssh_ui_tip_close())
@@ -413,6 +421,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
         self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
@@ -893,14 +902,14 @@ class Device360(Device360WebElements):
         close_btn = self.dev360.get_close_dialog()
         if close_btn:
             self.utils.print_info("Closing device360 Dialog Window.")
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return 1
         else:
             self.utils.print_info("Could not obtain Device360 close button - make sure Device360 window is open")
             self.screen.save_screen_shot()
             return -1
 
-    def device360_disable_ssh_connectivity(self, device_mac='', device_name=''):
+    def device360_disable_ssh_connectivity(self, device_mac='', device_name='', **kwargs):
         """
         - This keyword disables SSH Connectivity for the specified device
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname) -> Click Disable SSH button
@@ -912,25 +921,33 @@ class Device360(Device360WebElements):
         if device_mac:
             self.utils.print_info("Using device MAC: ", device_mac)
             self.navigator.navigate_to_device360_page_with_mac(device_mac)
-
-        if device_name:
+        elif device_name:
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
+        else:
+            kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+            self.common_validation.failed(**kwargs)
+            return -1
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
         self.auto_actions.click_reference(self.get_device360_configure_button)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH Disable SSH button...")
         disable_ssh_btn = self.get_device360_configure_ssh_disable_button()
         if disable_ssh_btn:
             self.auto_actions.click(disable_ssh_btn)
         else:
-            self.utils.print_info("Disable SSH button not present - SSH may already be disabled")
+            self.utils.print_info("SSH has been disabled")
 
+        kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def device360_disable_ssh_web_connectivity(self, device_mac='', device_name=''):
