@@ -129,3 +129,9 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_wips_popup_dialog_dont_show_again_checkbox(self):
         return self.weh.get_element(self.wips_popup_dialog_dont_show_again_checkbox)
+
+    def get_hide_advanced_button(self):
+        return self.weh.get_element(self.hide_advanced_button)
+
+    def get_proceed_to_link(self):
+        return self.weh.get_element(self.proceed_to_link)

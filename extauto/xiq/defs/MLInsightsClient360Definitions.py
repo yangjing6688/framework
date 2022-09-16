@@ -233,3 +233,9 @@ class MLInsightsClient360Definitions:
             'XPATH': '//*[@data-dojo-attach-point="channel"]',
             'wait_for': 5
         }
+
+    close_current_connection_status = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }

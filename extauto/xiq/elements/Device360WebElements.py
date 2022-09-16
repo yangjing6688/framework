@@ -1697,6 +1697,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_digital_twin_shutdown_button(self):
         return self.weh.get_element(self.device360_digital_twin_shutdown_button)
 
+    def get_device_ssh_ui_tip_close(self):
+        return self.weh.get_element(self.device_ssh_ui_tip_close)
+
+    def get_device_ssh_ui_tip_error(self):
+        return self.weh.get_element(self.device_ssh_ui_tip_error)
+
     def get_device360_port_configuration_path_cost_stp(self, row):
         return self.weh.get_element(self.device360_port_configuration_path_cost_stp, parent=row)
 

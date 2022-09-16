@@ -106,4 +106,14 @@ class LoginWebElementsDefinitions:
          'wait_for': 5
         }
 
+    hide_advanced_button = \
+        {
+            'XPATH':  '//*[@id="details-button"]'
+        }
+
+    proceed_to_link = \
+        {
+            'XPATH': '//*[@id="proceed-link"]'
+        }
+
 
