@@ -6463,7 +6463,7 @@ class Device360(Device360WebElements):
             if get_pse_profile:
                 self.auto_actions.click(get_pse_profile)
                 more_button_times_found = 0
-                while self.get_select_element_port_type('pse_more_button').is_displayed():
+                while self.get_select_element_port_type('pse_more_button'):
                     more_button_times_found += 1
                     self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
                                           f"Scrolling down...")
