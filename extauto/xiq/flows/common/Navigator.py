@@ -944,7 +944,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if navigated else -1
         """
         self.navigate_to_devices()
-        sleep(6)
+        sleep(10)
         return self.device_common.go_to_device360_window(device_mac=device_mac)
 
     def navigate_to_device360_page_with_host_name(self, device_host):

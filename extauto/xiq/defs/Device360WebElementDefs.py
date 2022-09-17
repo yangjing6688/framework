@@ -1140,6 +1140,28 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_asic_port_groups = \
+        {
+            'XPATH': '//li[contains(@class, "port-group port-group-") and not(contains(@class, "active-result"))]'
+        }
+
+    device360_ports_each_asic_port_group = \
+        {
+            'XPATH': './/div[contains(@data-automation-tag, "automation-port-")]',
+            'wait_for': 5
+        }
+
+    device360_asic_port_groups_stack = \
+        {
+            'XPATH': '//li[contains(@class, "port-group port-group-")]'
+        }
+
+    device360_ports_each_asic_port_group_stack = \
+        {
+            'XPATH': './/div[contains(@data-automation-tag, "automation-port-${slot}")]',
+            'wait_for': 5
+        }
+
     device360_stack_port_table_port_name = \
         {
             'XPATH': '//*[@class="portdetails-table"]//span[contains(text(), "Port Name")]//following-sibling::span[contains(text(), "")]',
@@ -1323,7 +1345,7 @@ class Device360WebElementDefs:
 
     device360_configure_stp_rows = \
         {
-            'XPATH': '//div[contains(@class, "port-stp-entry")]',
+            'XPATH': '//div[contains(@class, "port-stp-entry")] | //div[@data-dojo-attach-point="listArea"]//div[contains(@componentpath, "STPEntry")]',
             'wait_for': 5
         }
 
@@ -1467,7 +1489,7 @@ class Device360WebElementDefs:
 
     d360_configure_port_stp_tab_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="ahTabContainer"]//a[contains(text(), "STP")]',
+            'XPATH': "//a[text()='STP'] | //div[@data-automation-tag='automation-port-configuration-stp']//a[contains(text(), 'STP')]",
             'wait_for': 5
         }
 
@@ -2146,6 +2168,13 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@id="dijit_Dialog_1"]//span[@data-automation-tag="automation-dialog-close-button"]'
         }
+        
+    cancel_port_type_box = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
+            'wait_for': 5
+        }
+
     # tab
     select_element_port_type_tab_usage = \
         {
@@ -2829,13 +2858,18 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@class="ui-tipbox ui-tipbox-error"]//div[@class="ui-tipbox-icon"]'
         }
-        
-        
-    select_element_port_type_pse_profile_power_limit = \
+
+    device360_port_configuration_path_cost_stp = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+            'XPATH': './/input[contains(@data-automation-tag, "automation-port-stp-port-path-cost")]',
             'wait_for': 5
         }
+        
+    select_element_port_type_pse_profile_power_limit = \
+	{
+	    'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+	    'wait_for': 5
+	}
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
         {
@@ -2849,6 +2883,7 @@ class Device360WebElementDefs:
         }
 
     select_more_button_pse_profile = \
-        {
+        {       
             'CSS_SELECTOR': '.J-ip-more'
         }
+        
