@@ -2850,6 +2850,5 @@ class Device360WebElementDefs:
 
     select_more_button_pse_profile = \
         {
-            'XPATH': '//div[@class="J-ip-more"]'
+            'CSS_SELECTOR': '.J-ip-more'
         }
-        

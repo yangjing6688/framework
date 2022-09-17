@@ -6445,15 +6445,32 @@ class Device360(Device360WebElements):
             get_pse_profile = self.get_select_element_port_type(element)
             if get_pse_profile:
                 self.auto_actions.click(get_pse_profile)
-                get_more_button = self.get_select_element_port_type('pse_more_button')
-                if get_more_button:
-                    self.utils.print_info("'More' button present in PSE dropdown. Scrolling down...")
-                    self.auto_actions.move_to_element(get_more_button)
+                more_button_times_found = 0
+                while self.get_select_element_port_type('pse_more_button').is_displayed():
+                    more_button_times_found += 1
+                    self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
+                                          f"Scrolling down...")
+                    try:
+                        def _check_stale_element_exception_more_button():
+                            try:
+                                self.auto_actions.move_to_element(self.get_select_element_port_type('pse_more_button'))
+                                return True
+                            except StaleElementReferenceException as e:
+                                self.utils.print_info(f"Scrolling to 'More' button failed. Stale element exception "
+                                                      f"error detected {e} ; Retrying...")
+                                return False
 
-                    self.utils.print_info("'More' button present in PSE dropdown. Clicking...")
-                    self.auto_actions.click(get_more_button)
-                else:
-                    self.utils.print_info("'More' button not present in PSE dropdown. Continuing running...")
+                        self.utils.wait_till(_check_stale_element_exception_more_button,
+                                             msg="Waiting for StaleElementException to dissapear...")
+                        self.utils.print_info("Clicking 'More' button...")
+                        self.auto_actions.click(self.get_select_element_port_type('pse_more_button'))
+                    except ElementNotInteractableException as e:
+                        self.utils.print_info(f"Element not interactable error: {e} ; Element is inactive! "
+                                              f"Breaking loop. \n\nNOTE: If 'More' button is visible and active, but "
+                                              f"still getting: ElementNotInteractable error ; "
+                                              f"check that the CSS_SELECTOR is correct.")
+                        break
+
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
                 pse_profile_name = value['pse_profile_name']
