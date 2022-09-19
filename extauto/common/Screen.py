@@ -23,19 +23,23 @@ class Screen:
             pass
 
     def save_screen_shot(self, _driver=None):
-        output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
-        file_name = str(int(time.time())) + ".png"
-        file_path = output_folder + "/" + file_name
-        if _driver:
-            _driver.get_screenshot_as_file(file_path)
-            self.add_screen_shot_to_allure(file_name, _driver)
-            time.sleep(2)
-        else:
-            CloudDriver().cloud_driver.get_screenshot_as_file(file_path)
-            self.add_screen_shot_to_allure(file_name, CloudDriver().cloud_driver)
-            time.sleep(2)
-        print(
-            "*HTML* <a href=" + file_name + "> <img src=" + file_name + " width=\"600px\" style=\"border:5px solid red\"></a>")
+        file_name = ''
+        try:
+            output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
+            file_name = str(int(time.time())) + ".png"
+            file_path = output_folder + "/" + file_name
+            if _driver:
+                _driver.get_screenshot_as_file(file_path)
+                self.add_screen_shot_to_allure(file_name, _driver)
+                time.sleep(2)
+            else:
+                CloudDriver().cloud_driver.get_screenshot_as_file(file_path)
+                self.add_screen_shot_to_allure(file_name, CloudDriver().cloud_driver)
+                time.sleep(2)
+            print(
+                "*HTML* <a href=" + file_name + "> <img src=" + file_name + " width=\"600px\" style=\"border:5px solid red\"></a>")
+        except Exception as e:
+            print(f"Can't get the screenshot: {e}")
         return file_name
 
     def save_element_screen_shot64(self):
