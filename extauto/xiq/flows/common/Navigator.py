@@ -3120,6 +3120,7 @@ class Navigator(NavigatorWebElements):
                 self.utils.print_info("Waiting for port rows to load in d360 Port Configuration page...")
                 self.utils.wait_till(self.get_port_rows_d360, delay=3, timeout=120, is_logging_enabled=True,
                                      silent_failure=True)
+                self.utils.print_info("SAVING SCREENSHOT FOR D360 PORT CONFIGURATION PAGE...")
                 self.screen.save_screen_shot()
                 self.utils.print_info("Rows have been loaded! 'Port Configuration' button clicked!")
                 kwargs['pass_msg'] = " 'Port Configuration' button clicked!"
