@@ -36,7 +36,7 @@ class Login:
             self.window_index = 0
         else:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-            self.window_index = CloudDriver().open_window(url)
+            self.window_index = CloudDriver().open_window(url, "a3")
         self.driver = CloudDriver().cloud_driver
 
     def get_page_title(self):
@@ -75,6 +75,20 @@ class Login:
         browser = BuiltIn().get_variable_value("${BROWSER}")
 
         self.utils.print_info("Browser: ", browser)
+
+
+        #connection no private
+        try:
+            hide_advanced_button = self.login_web_elements.get_hide_advanced_button()
+            if hide_advanced_button:
+                self.auto_actions.click(hide_advanced_button)
+                sleep(5)
+                proceed_to_link = self.login_web_elements.get_proceed_to_link()
+                if proceed_to_link:
+                    self.auto_actions.click(proceed_to_link)
+                    sleep(5)
+        except Exception as e:
+            pass
 
         try:
          self.utils.print_info("Version: ", self.driver.capabilities['version'])
