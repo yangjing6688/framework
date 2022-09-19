@@ -66,8 +66,12 @@ class CloudDriver():
             element_identify = "xpath"
             utils.print_info("Approval")
         elif program == 'a3':
-            element_identify = "id"
-            element_identify_value_id = "username"
+            if "admin" in url and "login" in url:
+                element_identify = "class-name"
+                element_identify_value_css = ".secondary-button"
+            else:
+                element_identify = "id"
+                element_identify_value_id = "username"
         elif program == 'adsp':
             element_identify_value_name = "j_username"
             element_identify = "name"
@@ -436,6 +440,14 @@ class CloudDriver():
         if "resetverify" in url:
             element_identify = "class-name"
             element_identify_value_css = ".btn"
+
+        if program == 'a3':
+            element_identify = "id"
+            element_identify_value_id = "username"
+
+        if "admin" in url and "login" in url:
+            element_identify = "class-name"
+            element_identify_value_css = ".secondary-button"
 
         utils.print_info("Opening New Window")
         self.cloud_driver.execute_script("window.open();")

@@ -646,7 +646,7 @@ class CommonObjects(object):
                 self.utils.print_info("Trying to get the rows again on page: ", str(current_page))
                 continue
 
-    def delete_sub_network_profile(self, sub_network_name):
+    def delete_sub_network_profile(self, sub_network_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
         - Delete Sub Network in Common Object from the grid
@@ -1435,12 +1435,12 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi1_tab())
 
         if radio_status_wifi1.upper() == "OFF":
-            self.utils.print_info("Enable Client Access Checkbox on wifi1 Interface")
+            self.utils.print_info("Disable Client Access Checkbox on wifi1 Interface")
             if self.cobj_web_elements.get_common_object_wifi1_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_radio_status_button())
             return 1
         else:
-            self.utils.print_info("Disable Client Access check box on wifi1 Interface")
+            self.utils.print_info("Enable Client Access check box on wifi1 Interface")
             if not self.cobj_web_elements.get_common_object_wifi1_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_radio_status_button())
 
@@ -1528,26 +1528,42 @@ class CommonObjects(object):
         :return: 1 if WiFi2 Profile Configured Successfully else None
         """
 
-        radio_status_wifi2 = wifi2_profile.get('radio_status', 'Enable')
+        radio_status_wifi2         = wifi2_profile.get('radio_status'      , 'Off')
+        client_access_status_wifi2 = wifi2_profile.get('client_access'     , 'Enable')
+        backhaul_mesh_status_wifi2 = wifi2_profile.get('backhaul_mesh_link', 'Disable')
 
         self.utils.print_info("Click on WiFi2 Tab on AP Template page")
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi2_tab())
 
         self.auto_actions.scroll_down()
 
-        if radio_status_wifi2.upper() == "ENABLE":
-            self.utils.print_info("Enable Radio Status on WiFi2 Interface")
+        if radio_status_wifi2.upper() == "Off":
+            self.utils.print_info("Disable Radio Status on WiFi2 Interface")
             if not self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_radio_status_button())
-
-                self.screen.save_screen_shot()
-
+            return 1
         else:
-            self.utils.print_info("Disable Radio Status on WiFi2 Interface")
+            self.utils.print_info("Enable Radio Status on WiFi2 Interface")
             if self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_radio_status_button())
 
-                self.screen.save_screen_shot()
+        if client_access_status_wifi2.upper() == "ENABLE":
+            self.utils.print_info("Enable Client Access Checkbox on WiFi2 Interface")
+            if not self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_client_access())
+        else:
+            self.utils.print_info("Disable Client Mode check box on WiFi2Interface")
+            if self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_client_access())
+
+        if backhaul_mesh_status_wifi2.upper() == "ENABLE":
+            self.utils.print_info("Enable Backhaul Mesh Link Checkbox on WiFi2 Interface")
+            if not self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_mesh_link())
+        else:
+            self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi2 Interface")
+            if self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected():
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_mesh_link())
 
         """ 
         ##### APC-44337 UI Changes #####
