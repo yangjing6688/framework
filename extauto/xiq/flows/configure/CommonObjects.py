@@ -646,7 +646,7 @@ class CommonObjects(object):
                 self.utils.print_info("Trying to get the rows again on page: ", str(current_page))
                 continue
 
-    def delete_sub_network_profile(self, sub_network_name):
+    def delete_sub_network_profile(self, sub_network_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
         - Delete Sub Network in Common Object from the grid
