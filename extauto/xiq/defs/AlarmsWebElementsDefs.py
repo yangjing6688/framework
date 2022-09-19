@@ -58,3 +58,10 @@ class AlarmsWebElementsDefs:
             'XPATH': '//div[@data-dojo-attach-point="refresh"]',
             'wait_for': 5
         }
+
+    alarms_grid_legacy_alarm_button = \
+        {
+            'XPATH': '//button[contains(@class,"nui-auto-esp-alert-bashboard-go-to-legacy-alarms-btn")]',
+            'wait_for': 5
+        }
+

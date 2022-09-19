@@ -8,799 +8,799 @@ from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.common.CommonValidation import CommonValidation
 
 class Navigator(NavigatorWebElements):
-    def __init__(self):
-        super().__init__()
-        self.utils = Utils()
-        self.auto_actions = AutoActions()
-        self.screen = Screen()
-        self.device_common = DeviceCommon()
-        self.common_validation = CommonValidation()
-
-    def navigate_to_manage_tab(self):
-        """
-         - This keyword Navigates to Manage Tab
-         - Keyword Usage
-          - ``Navigate To Manage Tab``
-
-        :return: 1 if Navigation Successful to Monitor Tab else return -1
-        """
-        self.utils.print_info("Selecting Manage Tab...")
-        if self.auto_actions.click_reference(self.get_manage_tab) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to Manage tab")
-            self.screen.save_screen_shot()
-            return -1
-
-    def navigate_to_ml_insight_tab(self):
-        """
-         - This keyword Navigates to ML Insight tab
-         - Keyword Usage
-          - ``Navigate To ML Insight tab``
-
-        :return: 1 if Navigation Successful to ML Insight tab else return -1
-        """
-        self.utils.print_info("Selecting ML Insight Tab....")
-        if self.auto_actions.click_reference(self.get_ml_insight_tab) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to ML Insight tab")
-            self.screen.save_screen_shot()
-            return -1
-
-    def navigate_to_configure_tab(self):
-        """
-         - This keyword Navigates to configure tab
-         - Keyword Usage
-          - ``Navigate To Configure tab``
-
-        :return: 1 if Navigation Successful to configure tab else return -1
-        """
-        self.utils.print_info("Selecting Configure tab")
-        if self.auto_actions.click_reference(self.get_configure_tab) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to Configure tab")
-            self.screen.save_screen_shot()
-            return -1
-
-    def navigate_to_tools_sub_tab(self):
-        """
-         - This keyword Navigates to Tools Sub tab on Monitor Tab
-         - Keyword Usage
-          - ``Navigate To Tools Sub Tab``
-
-        :return: 1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
-        """
-        self.utils.print_info("Selecting Tools tab...")
-        if self.auto_actions.click_reference(self.get_manage_tools_menu_item) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to Tools tab")
-            self.screen.save_screen_shot()
-            return -1
-
-    def navigate_to_auto_provision(self):
-        """
-         - This keyword Navigates to Auto Provisioning on Common Objects
-         - Flow Configure --> Common Objects --> Policy --> Auto Provisioning
-         - Keyword Usage
-          - ``Navigate To Auto Provision``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_to_configure_tab()
-
-        self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
-        sleep(2)
-
-        if self.get_auto_provisioning_option() is None:
-            self.utils.print_info("Auto Provisioning is Not visible. Clicking Policy...")
-            self.auto_actions.click_reference(self.get_policy_toggle)
-            sleep(2)
-
-        self.utils.print_info("Auto Provision menu is visible. Selecting...")
-        self.auto_actions.click_reference(self.get_auto_provisioning_option)
-        sleep(2)
-
-        return 1
-
-    def navigate_to_devices(self, **kwargs):
-        """
-         - This keyword Navigates to Devices on Manage Menu
-         - Flow Manage--> Devices
-         - Keyword Usage
-          - ``Navigate To Devices``
-
-        :return: 1 if Navigation Successful to Devices Sub tab on Monitor Tab else return -1
-        """
-        if self.navigate_to_manage_tab() == 1:
-            self.utils.print_info("Clicking Devices Tab...")
-            if self.auto_actions.click_reference(self.get_devices_nav) == 1:
-                sleep(2)
-                return 1
-            else:
-                self.utils.print_info("Unable to navigate to Devices tab")
-                self.screen.save_screen_shot()
-                return -1
-        else:
-            return -1
-
-    def navigate_to_ssids(self):
-        """
-        - This keyword Navigates to SSIDs Menu on Common Objects
-        - Flow Configure --> Common Objects --> Policy --> SSIDs
-        - Keyword Usage
-         - ``Navigate To SSIDs``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_to_configure_tab()
-
-        self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
-        sleep(2)
-
-        if self.get_ssid_option() is None:
-            self.utils.print_info("SSID menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click_reference(self.get_policy_toggle)
-            sleep(2)
-        self.utils.print_info("SSID menu is visible. Selecting...")
-        self.auto_actions.click_reference(self.get_ssid_option)
-        sleep(2)
-
-        return 1
-
-    def navigate_to_tools_page(self):
-        """
-        - This keyword Navigates to Tools Page on Monitor Menu
-        - Flow MANAGE->Tools
-        - Keyword Usage
-         - ``Navigate To Tools Page``
-
-        :return:  1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
-        """
-        self.navigate_to_devices()
-        self.navigate_to_device_utilities_tools()
-
-
-    def navigate_configure_network_policies(self):
-        """
-         - This keyword Navigates to Network Policies On Configure Menu
-         - Flow Configure--> Network Policies
-         - Keyword Usage
-          - ``Navigate Configure Network Policies``
-
-        :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
-        """
-        self.utils.print_info("Selecting Configure tab...")
-        if self.get_configure_tab().is_displayed():
-            self.navigate_to_configure_tab()
-            sleep(2)
-        else:
-            return -2
-
-        return self.navigate_to_network_policies_tab()
-
-    def navigate_configure_common_objects(self):
-        """
-        - This keyword Navigates to Common Objects On Configure Menu
-        - Flow: Configure --> Common Objects
-        - Keyword Usage
-         - ``Navigate Configure Common Objects``
-
-        :return: -1 if Navigation Not Successful to Configure Menu else return None
-        """
-        self.navigate_to_configure_tab()
-
-        self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
-        sleep(5)
-
-    def navigate_to_network_policies_tab(self, **kwargs):
-        """
-         - This keyword Navigates to Network Policies
-         - Keyword Usage
-          - ``Navigate To Network Policies Tab``
-
-        :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
-        """
-        self.utils.print_info("Selecting Network Policies Tab...")
-        if self.auto_actions.click_reference(self.get_network_policies_sub_tab) == 1:
-            sleep(2)
-            kwargs['pass_msg'] = "Navigated to Network Policies  tab"
-            self.common_validation.passed(**kwargs)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to Network Policies tab")
-            kwargs['fail_msg'] = "Unable to navigate to Network Policies tab"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-    def navigate_to_clients_tab(self, **kwargs):
-        """
-         - This keyword Navigates to Client 360 Tab on Manage Menu
-         - Keyword Usage
-          - ``Navigate To Clients Tab``
-
-        :return: 1 if Navigation Successful to Clients On Manage Menu else return -1
-        """
-        self.utils.print_info("Selecting Client 360 Tab...")
-        if self.auto_actions.click_reference(self.get_clients_sub_tab) == 1:
-            sleep(2)
-            kwargs['pass_msg'] = "Navigated to Client 360 tab"
-            self.common_validation.passed(**kwargs)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to Client 360 tab")
-            kwargs['fail_msg'] = "Unable to navigate to Client 360 tab"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-    def navigate_to_clients(self):
-        """
-        - This keyword Navigates to Clients On Manage Menu
-        - Flow: Manage --> Client 360
-        - Keyword Usage
-         - ``Navigate To Clients``
-
-        :return: 1 if Navigation Successful to Clients Tab on Monitor else return -1
-        :return: -2 if Navigation Not Successful to Monitor Tab
-        """
-        if self.navigate_to_manage_tab() == 1:
-            self.utils.print_info("Clicking Client 360 Tab...")
-            if self.auto_actions.click_reference(self.get_clients_sub_tab) == 1:
-                sleep(2)
-                return 1
-            else:
-                self.utils.print_info("Unable to navigate to Client 360 tab")
-                self.screen.save_screen_shot()
-                return -1
-        else:
-            return -1
-
-    def navigate_to_client_mode_profiles(self):
-        """
-        - This Keyword Navigate to Client Mode Profile on Common Objects
-        - Flow: CONFIGURE-->COMMON OBJECTS-->Basic-->Client Mode Profiles
-        - Keyword Usage:
-         - ``Navigate To Client Mode Profiles``
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        self.utils.print_info("Click on Basic tab")
-        self.navigate_to_common_object_basic_tab()
-        self.utils.print_info("Click on Client Mode Profiles...")
-        self.auto_actions.click_reference(self.get_common_object_basic_client_mode_profiles)
-        return 1
-
-    def navigate_to_user_account(self, **kwargs):
-        """
-        - This keyword Navigates to User Account Menu
-        - Keyword Usage
-         - ``Navigate To User Account``
-
-        :return: 1 if Navigation Successful to User Account Menu else return -1
-        """
-        self.utils.print_info("Selecting user account...")
-        if self.auto_actions.click_reference(self.get_user_account_nav) == 1:
-            sleep(2)
-            kwargs['pass_msg'] = "Navigated to user account"
-            self.common_validation.passed(**kwargs)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to user account")
-            kwargs['fail_msg'] = "Failed: Unable to navigate to user account"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-    def _navigate_to_global_settings(self, **kwargs):
-        """
-        - This method is used to click on the global setting button
-        """
-        self.utils.print_info("Selecting global settings...")
-        if self.auto_actions.click_reference(self.get_global_settings_nav) == 1:
-            sleep(2)
-            kwargs['pass_msg'] = "Navigated to global settings"
-            self.common_validation.passed(**kwargs)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to global settings")
-            kwargs['fail_msg'] = "Unable to navigate to global settings"
-            self.common_validation.passed(**kwargs)
-            return -1
-
-    def navigate_to_configure_user_sub_tab(self):
-        """
-        - This keyword Navigates to Global Settings on User Account Menu which is already Navigated
-        - Keyword Usage
-         - ``Navigate To Configure User Sub Tab``
-
-        :return: 1 if Navigation Successful to Global Settings on User Account Menu else return -1
-        """
-        self.utils.print_info("Clicking on the Users Sub tab")
-        if self.auto_actions.click_reference(self.get_configure_users_nav) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to the Configure Users sub tab")
-            self.screen.save_screen_shot()
-            return -1
-
-    def navigate_to_global_settings_page(self):
-        """
-        - This keyword Navigates to Global Settings On User Account Menu
-        - Flow: User Account Menu --> Global Settings
-        - Keyword Usage
-         - ``Navigate To Global Settings Page``
-
-        :return: 1 if Navigation Successful to Clients Tab on Monitor else return -1
-        :return: -2 if Navigation Not Successful to Monitor Tab
-        """
-        self.navigate_to_user_account()
-        return self._navigate_to_global_settings()
-
-    def navigate_to_configure_user_groups(self):
-        """
-        - This keyword Navigates to User Groups On Configure Menu
-        - Flow: Configure --> Users --> User Management --> User Groups
-        - Keyword Usage
-         - ``Navigate To Configure User Groups``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_to_configure_tab()
-        self.navigate_to_configure_user_sub_tab()
-        sleep(5)
-
-        if self.get_configure_users_user_management_side_menu():
-            self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
-            sleep(5)
-
-        self.utils.print_info("Click on users group sub menu")
-        self.auto_actions.click_reference(self.get_configure_user_group_side_nav_item)
-        sleep(2)
-
-        return 1
-
-    def navigate_to_authentication_logs_menu(self):
-        """
-        - This keyword Navigate to the Authentication Logs Slider Menu
-        - Flow: Authentication Logs
-        - Keyword Usage
-         - ``Navigate To Authentication Logs Menu``
-
-        :return: 1 if Navigation Successful to Authentication Logs Slider Menu else return -1
-        """
-        self.utils.print_info("Selecting Authentication Logs...")
-
-        if self.auto_actions.click_reference(self.get_global_settings_authentication_logs_slider) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to Authentication Logs")
-            self.screen.save_screen_shot()
-            return -1
-
-    def navigate_to_accounting_logs_menu(self):
-        """
-        - This keyword Navigate to the Accounting Logs Slider Menu
-        - Flow: Accounting Logs
-        - Keyword Usage
-         - ``Navigate To Accounting Logs Menu``
-
-        :return: 1 if Navigation Successful to Accounting Logs Slider
-        """
-        self.utils.print_info("Selecting Accounting Logs...")
-        if self.auto_actions.click_reference(self.get_global_settings_accounting_logs_slider) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to navigate to Accounting Logs")
-            self.screen.save_screen_shot()
-            return -1
-
-    def navigate_to_authentication_logs(self):
-        """
-        - This keyword Navigate to the Authentication Logs Slider Menu
-        - Flow: User account --> Global Settings --> LOGS--> Authentication Logs
-        - Keyword Usage
-         - ``Navigate To Authentication Logs Menu``
-
-        :return: 1 if Navigation Successful to Authentication Logs Slider Menu else return -1
-        """
-        self.navigate_to_global_settings_page()
-        self.navigate_to_authentication_logs_menu()
-
-    def navigate_to_accounting_logs(self):
-        """
-        - This keyword Navigate to the Accounting Logs Slider Menu
-        - Flow: User account --> Global Settings --> LOGS--> Accounting Logs
-        - Keyword Usage
-         - ``Navigate To Accounting Logs Menu``
-
-        :return: 1 if Navigation Successful to Accounting Logs Slider else return -1
-        """
-        self.navigate_to_global_settings_page()
-        self.navigate_to_accounting_logs_menu()
-
-    def navigate_to_common_object_authentication_tab(self):
-        """
-        - This keyword Navigate to the Authentication Tab on common objects
-        - Assumes that already navigated to the configure --> common object
-        - Flow: Authentication
-        - Keyword Usage
-         - ``Navigate To Common Object Authentication Tab``
-
-        :return: 1 if Navigation Successful
-        """
-        if not self.get_common_object_authentication_tab().is_selected():
-            self.auto_actions.click_reference(self.get_common_object_authentication_tab)
-            sleep(2)
-            return 1
-
-    def navigate_to_captive_web_portal(self):
-        """
-        - This keyword Navigate to the captive web portal tab on common objects
-        - FLow: Configure --> Common Object --> Authentication --> Captive Web Portal
-        - Keyword Usage
-         - ``Navigate To Captive Web Portal``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        self.utils.print_info("Click on common authentication tab")
-        self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on captive web portal tab...")
-        self.auto_actions.click_reference(self.get_common_object_authentication_captive_portal)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_aaa_server_settings(self):
-        """
-        - This Keyword Navigate to AAA server Settings on common objects
-        - Flow: Configure --> Common Object --> Authentication --> AAA Server Settings
-        - Keyword Usage
-         - ``Navigate To AAA Server Settings``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        self.utils.print_info("Click on common authentication tab")
-        self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on AAA server Settings...")
-        self.auto_actions.click_reference(self.get_common_object_authentication_aaa_server_settings)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_ad_servers(self):
-        """
-        - This Keyword Navigate to AD servers on common objects
-        - Flow: Configure --> Common Object --> Authentication --> Ad Servers
-        - Keyword Usage
-         - ``Navigate To Ad Servers``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        self.utils.print_info("Click on common authentication tab")
-        self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on AAA server Settings...")
-        self.auto_actions.click_reference(self.get_common_object_authentication_ad_servers)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_external_radius_server(self):
-        """
-        - This Keyword Navigate to External Radius Server on common objects
-        - Flow: Configure --> Common Object --> Authentication --> External Radius Server
-        - Keyword Usage
-         - ``Navigate To External Radius Server``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        self.utils.print_info("Click on common authentication tab")
-        self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on  external radius server...")
-        self.auto_actions.click_reference(self.get_common_object_authentication_external_radius_server)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_a3_menu(self):
-        """
-        - This Keyword Navigate to A3 menu
-        - Keyword Usage
-         - ``Navigate To A3 Menu``
-        :return: 1 if Navigation Successful
-        """
-        self.utils.print_info("Clicking on A3 Icon")
-        self.auto_actions.click_reference(self.get_a3_tab)
-        sleep(2)
-        return 1
-
-    def navigate_to_extreme_networks_a3(self):
-        """
-        - This Keyword Navigate to Extreme Networks A3 on common objects
-        - Flow: Configure --> Common Object --> Authentication --> Extreme Networks A3
-        - Keyword Usage
-         - ``Navigate To Extreme Networks A3``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        self.utils.print_info("Click on common authentication tab")
-        self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on External network A3...")
-        self.auto_actions.click_reference(self.get_common_object_authentication_extreme_networks_a3)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_servers(self):
-        """
-        - This Keyword Navigate to Servers on common objects
-        - Flow: Configure --> Common Object --> Authentication --> Servers
-        - Keyword Usage
-         - ``Navigate To Servers``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        self.utils.print_info("Click on common authentication tab")
-        self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on servers tab...")
-        self.auto_actions.click_reference(self.get_common_object_authentication_servers)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_ldap_servers(self):
-        """
-        - This Keyword Navigate to LDAP Servers on common objects
-        - Flow: Configure --> Common Object --> Authentication --> LDAP Servers
-        - Keyword Usage
-         - ``Navigate To Ldap Servers``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        self.utils.print_info("Click on common authentication tab")
-        self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on servers tab...")
-        self.auto_actions.click_reference(self.get_common_object_authentication_ldap_servers)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_security_option(self):
-        """
-        - This Keyword Navigate to the Security option on Monitor Tab
-        - Flow: Security
-        - Keyword Usage
-         - ``Navigate To Security Option``
-
-        :return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
-        """
-        self.utils.print_info("Selecting Security on Monitor Page...")
-        if self.auto_actions.click_reference(self.get_manage_security_nav) == 1:
-            sleep(2)
-            return 1
-        else:
-            self.utils.print_info("Unable to Security on Monitor Page")
-            self.screen.save_screen_shot()
-            return -1
-
-    def navigate_manage_security(self):
-        """
-        - This Keyword Navigate to Manage --> Security
-        - Flow: Manage--->Security
-        - Keyword Usage
-          - ``Navigate Manage Security``
-
-        :return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
-        """
-        if self.navigate_to_manage_tab() == 1:
-            return self.navigate_to_security_option()
-        else:
-            return -1
-
-    def navigate_to_common_object_security_tab(self):
-        """
-        - This Keyword Navigate to Security Tab on Common Objects
-        - Assumes that already navigated to the configure --> common object
-        - Flow: Security
-        - Keyword Usage
-         - ``Navigate To Common Object Security Tab``
-
-        :return: 1 if Navigation Successful to Security tab on common Objects else return -1
-        :return:
-        """
-        if not self.get_common_object_security_tab().is_selected():
-            self.auto_actions.click_reference(self.get_common_object_security_tab)
-            sleep(2)
-
-    def navigate_to_security_wips_policies(self):
-        """
-        - This Keyword Navigate to WIPS Policies on Common Objects
-        - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
-        - Keyword Usage:
-         - ``Navigate To Security Wips Policies``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        sleep(3)
-        self.utils.print_info("Click on common Security tab")
-        self.navigate_to_common_object_security_tab()
-        self.utils.print_info("Click on WIPS Policies tab...")
-        self.auto_actions.click_reference(self.get_common_object_security_wips_policies)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_common_object_policy_tab(self):
-        """
-        - This Keyword Navigate to Policies option Menu on Common Objects
-        - Assumes that already navigated to the configure --> common object
-        - Keyword Usage:
-         - ``Navigate To Common Object Policy Tab``
-
-        :return: 1 if Navigation Successful
-        """
-
-        if not self.get_subtab_common_object():
-            self.auto_actions.click_reference(self.get_common_object_policy_tab)
-            sleep(2)
-            return 1
-
-    def navigate_to_policy_ap_template(self):
-        """
-        - This Keyword Navigate to AP Templates on Common Objects
-        - Flow: CONFIGURE-->COMMON OBJECTS-->AP Templates
-        - Keyword Usage:
-         - ``Navigate To Policy Ap Template``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        sleep(3)
-        self.utils.print_info("Click on common Policy tab")
-        self.navigate_to_common_object_policy_tab()
-        self.utils.print_info("Click on Ap Template tab...")
-        self.auto_actions.click_reference(self.get_common_object_policy_ap_template)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_manage_reports(self):
-        """
-        - This Keyword Navigate to Reports on Manage Menu
-        - Flow: Manage --> Reports
-        - Keyword Usage:
-         - ``Navigate To Manage Reports``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_to_manage_tab()
-        self.utils.print_info("Click on reports tab....")
-        self.auto_actions.click_reference(self.get_manage_reports_nav)
-        sleep(2)
-
-        return 1
-
-    def navigate_to_policy_port_types(self):
-        """
-        - This Keyword Navigate to Port Types On Common Objects
-        - Flow: CONFIGURE-->COMMON OBJECTS-->POLICIES-->PORT TYPES
-        - Keyword Usage:
-         - ``Navigate To Policy Port Types``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        sleep(3)
-        self.utils.print_info("Click on common Policy tab")
-        self.navigate_to_common_object_policy_tab()
-
-        self.utils.print_info("Click on Port Types tab...")
-        el = self.get_common_object_policy_port_types()
-        if el is None:
-            self.navigate_to_common_object_policy_tab()
-            el = self.get_common_object_policy_port_types()
-
-        self.auto_actions.click(el)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_common_object_network_tab(self):
-        """
-        - This Keyword Navigate to Network Tab On Common Objects
-        - Assumes that already navigated to the configure --> common object
-        - Flow: Networks
-        - Keyword Usage:
-          - ``Navigate To Common Object Network Tab``
-
-        :return: 1 if Navigation Successful
-        """
-        if not self.get_common_object_network_tab().is_selected():
-            self.auto_actions.click_reference(self.get_common_object_network_tab)
-            sleep(2)
-            return 1
-
-    def navigate_to_network_subnetwork_space(self):
-        """
-        - This Keyword Navigate to SubNetwork Space Tab On Common Objects
-        - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
-        - Keyword Usage:
-         - ``Navigate To Network Subnetwork Space``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        sleep(3)
-        self.utils.print_info("Click on common object Network tab")
-        self.navigate_to_common_object_network_tab()
-        self.utils.print_info("Click on Subnetwork Space tab...")
-        self.auto_actions.click_reference(self.get_common_object_network_sub_network_space)
-        sleep(5)
-
-        return 1
-
-    def navigate_to_common_object_basic_tab(self):
-        """
-        - This Keyword Navigate to Basic Tab On Common Objects
-        - Assumes that already navigated to the configure --> common object
-        - Flow: Basic
-        - Keyword Usage:
-         - ``Navigate To Common Object Basic Tab``
-
-        :return: 1 if Navigation Successful
-        """
-        if not self.get_common_object_basic_tab().is_selected():
-            self.auto_actions.click_reference(self.get_common_object_basic_tab)
-            sleep(2)
-            return 1
-
-    def navigate_to_basic_vlans_tab(self):
-        """
-        - This Keyword Navigate to Vlans Tabs On Common Objects
-        - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
-        - Keyword Usage:
-         - ``Navigate To Basic Vlans Tab``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_configure_common_objects()
-        sleep(3)
-        self.utils.print_info("Click on common object Basic tab")
-        self.navigate_to_common_object_basic_tab()
-        self.utils.print_info("Click on Vlan tab...")
-        self.auto_actions.click_reference(self.get_common_object_basic_vlans)
-        sleep(5)
-        return 1
-
-    def navigate_to_manage_alarms(self):
-        """
-        - This Keyword Navigate to Alarms on manage Menu
-        - Flow: Manage --> Alarms
-        - Keyword Usage:
-         - `` Navigate To Manage Alarms``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_to_manage_tab()
-        sleep(5)
+def __init__(self):
+super().__init__()
+self.utils = Utils()
+self.auto_actions = AutoActions()
+self.screen = Screen()
+self.device_common = DeviceCommon()
+self.common_validation = CommonValidation()
+
+def navigate_to_manage_tab(self):
+"""
+ - This keyword Navigates to Manage Tab
+ - Keyword Usage
+  - ``Navigate To Manage Tab``
+
+:return: 1 if Navigation Successful to Monitor Tab else return -1
+"""
+self.utils.print_info("Selecting Manage Tab...")
+if self.auto_actions.click_reference(self.get_manage_tab) == 1:
+    sleep(2)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to Manage tab")
+    self.screen.save_screen_shot()
+    return -1
+
+def navigate_to_ml_insight_tab(self):
+"""
+ - This keyword Navigates to ML Insight tab
+ - Keyword Usage
+  - ``Navigate To ML Insight tab``
+
+:return: 1 if Navigation Successful to ML Insight tab else return -1
+"""
+self.utils.print_info("Selecting ML Insight Tab....")
+if self.auto_actions.click_reference(self.get_ml_insight_tab) == 1:
+    sleep(2)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to ML Insight tab")
+    self.screen.save_screen_shot()
+    return -1
+
+def navigate_to_configure_tab(self):
+"""
+ - This keyword Navigates to configure tab
+ - Keyword Usage
+  - ``Navigate To Configure tab``
+
+:return: 1 if Navigation Successful to configure tab else return -1
+"""
+self.utils.print_info("Selecting Configure tab")
+if self.auto_actions.click_reference(self.get_configure_tab) == 1:
+    sleep(2)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to Configure tab")
+    self.screen.save_screen_shot()
+    return -1
+
+def navigate_to_tools_sub_tab(self):
+"""
+ - This keyword Navigates to Tools Sub tab on Monitor Tab
+ - Keyword Usage
+  - ``Navigate To Tools Sub Tab``
+
+:return: 1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
+"""
+self.utils.print_info("Selecting Tools tab...")
+if self.auto_actions.click_reference(self.get_manage_tools_menu_item) == 1:
+    sleep(2)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to Tools tab")
+    self.screen.save_screen_shot()
+    return -1
+
+def navigate_to_auto_provision(self):
+"""
+ - This keyword Navigates to Auto Provisioning on Common Objects
+ - Flow Configure --> Common Objects --> Policy --> Auto Provisioning
+ - Keyword Usage
+  - ``Navigate To Auto Provision``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_to_configure_tab()
+
+self.utils.print_info("Selecting Common Objects")
+self.auto_actions.click_reference(self.get_common_objects_sub_tab)
+sleep(2)
+
+if self.get_auto_provisioning_option() is None:
+    self.utils.print_info("Auto Provisioning is Not visible. Clicking Policy...")
+    self.auto_actions.click_reference(self.get_policy_toggle)
+    sleep(2)
+
+self.utils.print_info("Auto Provision menu is visible. Selecting...")
+self.auto_actions.click_reference(self.get_auto_provisioning_option)
+sleep(2)
+
+return 1
+
+def navigate_to_devices(self, **kwargs):
+"""
+ - This keyword Navigates to Devices on Manage Menu
+ - Flow Manage--> Devices
+ - Keyword Usage
+  - ``Navigate To Devices``
+
+:return: 1 if Navigation Successful to Devices Sub tab on Monitor Tab else return -1
+"""
+if self.navigate_to_manage_tab() == 1:
+    self.utils.print_info("Clicking Devices Tab...")
+    if self.auto_actions.click_reference(self.get_devices_nav) == 1:
+	sleep(2)
+	return 1
+    else:
+	self.utils.print_info("Unable to navigate to Devices tab")
+	self.screen.save_screen_shot()
+	return -1
+else:
+    return -1
+
+def navigate_to_ssids(self):
+"""
+- This keyword Navigates to SSIDs Menu on Common Objects
+- Flow Configure --> Common Objects --> Policy --> SSIDs
+- Keyword Usage
+ - ``Navigate To SSIDs``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_to_configure_tab()
+
+self.utils.print_info("Selecting Common Objects")
+self.auto_actions.click_reference(self.get_common_objects_sub_tab)
+sleep(2)
+
+if self.get_ssid_option() is None:
+    self.utils.print_info("SSID menu is NOT visible. Clicking Policy...")
+    self.auto_actions.click_reference(self.get_policy_toggle)
+    sleep(2)
+self.utils.print_info("SSID menu is visible. Selecting...")
+self.auto_actions.click_reference(self.get_ssid_option)
+sleep(2)
+
+return 1
+
+def navigate_to_tools_page(self):
+"""
+- This keyword Navigates to Tools Page on Monitor Menu
+- Flow MANAGE->Tools
+- Keyword Usage
+ - ``Navigate To Tools Page``
+
+:return:  1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
+"""
+self.navigate_to_devices()
+self.navigate_to_device_utilities_tools()
+
+
+def navigate_configure_network_policies(self):
+"""
+ - This keyword Navigates to Network Policies On Configure Menu
+ - Flow Configure--> Network Policies
+ - Keyword Usage
+  - ``Navigate Configure Network Policies``
+
+:return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
+"""
+self.utils.print_info("Selecting Configure tab...")
+if self.get_configure_tab().is_displayed():
+    self.navigate_to_configure_tab()
+    sleep(2)
+else:
+    return -2
+
+return self.navigate_to_network_policies_tab()
+
+def navigate_configure_common_objects(self):
+"""
+- This keyword Navigates to Common Objects On Configure Menu
+- Flow: Configure --> Common Objects
+- Keyword Usage
+ - ``Navigate Configure Common Objects``
+
+:return: -1 if Navigation Not Successful to Configure Menu else return None
+"""
+self.navigate_to_configure_tab()
+
+self.utils.print_info("Selecting Common Objects")
+self.auto_actions.click_reference(self.get_common_objects_sub_tab)
+sleep(5)
+
+def navigate_to_network_policies_tab(self, **kwargs):
+"""
+ - This keyword Navigates to Network Policies
+ - Keyword Usage
+  - ``Navigate To Network Policies Tab``
+
+:return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
+"""
+self.utils.print_info("Selecting Network Policies Tab...")
+if self.auto_actions.click_reference(self.get_network_policies_sub_tab) == 1:
+    sleep(2)
+    kwargs['pass_msg'] = "Navigated to Network Policies  tab"
+    self.common_validation.passed(**kwargs)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to Network Policies tab")
+    kwargs['fail_msg'] = "Unable to navigate to Network Policies tab"
+    self.common_validation.failed(**kwargs)
+    return -1
+
+def navigate_to_clients_tab(self, **kwargs):
+"""
+ - This keyword Navigates to Client 360 Tab on Manage Menu
+ - Keyword Usage
+  - ``Navigate To Clients Tab``
+
+:return: 1 if Navigation Successful to Clients On Manage Menu else return -1
+"""
+self.utils.print_info("Selecting Client 360 Tab...")
+if self.auto_actions.click_reference(self.get_clients_sub_tab) == 1:
+    sleep(2)
+    kwargs['pass_msg'] = "Navigated to Client 360 tab"
+    self.common_validation.passed(**kwargs)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to Client 360 tab")
+    kwargs['fail_msg'] = "Unable to navigate to Client 360 tab"
+    self.common_validation.failed(**kwargs)
+    return -1
+
+def navigate_to_clients(self):
+"""
+- This keyword Navigates to Clients On Manage Menu
+- Flow: Manage --> Client 360
+- Keyword Usage
+ - ``Navigate To Clients``
+
+:return: 1 if Navigation Successful to Clients Tab on Monitor else return -1
+:return: -2 if Navigation Not Successful to Monitor Tab
+"""
+if self.navigate_to_manage_tab() == 1:
+    self.utils.print_info("Clicking Client 360 Tab...")
+    if self.auto_actions.click_reference(self.get_clients_sub_tab) == 1:
+	sleep(2)
+	return 1
+    else:
+	self.utils.print_info("Unable to navigate to Client 360 tab")
+	self.screen.save_screen_shot()
+	return -1
+else:
+    return -1
+
+def navigate_to_client_mode_profiles(self):
+"""
+- This Keyword Navigate to Client Mode Profile on Common Objects
+- Flow: CONFIGURE-->COMMON OBJECTS-->Basic-->Client Mode Profiles
+- Keyword Usage:
+ - ``Navigate To Client Mode Profiles``
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+self.utils.print_info("Click on Basic tab")
+self.navigate_to_common_object_basic_tab()
+self.utils.print_info("Click on Client Mode Profiles...")
+self.auto_actions.click_reference(self.get_common_object_basic_client_mode_profiles)
+return 1
+
+def navigate_to_user_account(self, **kwargs):
+"""
+- This keyword Navigates to User Account Menu
+- Keyword Usage
+ - ``Navigate To User Account``
+
+:return: 1 if Navigation Successful to User Account Menu else return -1
+"""
+self.utils.print_info("Selecting user account...")
+if self.auto_actions.click_reference(self.get_user_account_nav) == 1:
+    sleep(2)
+    kwargs['pass_msg'] = "Navigated to user account"
+    self.common_validation.passed(**kwargs)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to user account")
+    kwargs['fail_msg'] = "Failed: Unable to navigate to user account"
+    self.common_validation.failed(**kwargs)
+    return -1
+
+def _navigate_to_global_settings(self, **kwargs):
+"""
+- This method is used to click on the global setting button
+"""
+self.utils.print_info("Selecting global settings...")
+if self.auto_actions.click_reference(self.get_global_settings_nav) == 1:
+    sleep(2)
+    kwargs['pass_msg'] = "Navigated to global settings"
+    self.common_validation.passed(**kwargs)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to global settings")
+    kwargs['fail_msg'] = "Unable to navigate to global settings"
+    self.common_validation.passed(**kwargs)
+    return -1
+
+def navigate_to_configure_user_sub_tab(self):
+"""
+- This keyword Navigates to Global Settings on User Account Menu which is already Navigated
+- Keyword Usage
+ - ``Navigate To Configure User Sub Tab``
+
+:return: 1 if Navigation Successful to Global Settings on User Account Menu else return -1
+"""
+self.utils.print_info("Clicking on the Users Sub tab")
+if self.auto_actions.click_reference(self.get_configure_users_nav) == 1:
+    sleep(2)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to the Configure Users sub tab")
+    self.screen.save_screen_shot()
+    return -1
+
+def navigate_to_global_settings_page(self):
+"""
+- This keyword Navigates to Global Settings On User Account Menu
+- Flow: User Account Menu --> Global Settings
+- Keyword Usage
+ - ``Navigate To Global Settings Page``
+
+:return: 1 if Navigation Successful to Clients Tab on Monitor else return -1
+:return: -2 if Navigation Not Successful to Monitor Tab
+"""
+self.navigate_to_user_account()
+return self._navigate_to_global_settings()
+
+def navigate_to_configure_user_groups(self):
+"""
+- This keyword Navigates to User Groups On Configure Menu
+- Flow: Configure --> Users --> User Management --> User Groups
+- Keyword Usage
+ - ``Navigate To Configure User Groups``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_to_configure_tab()
+self.navigate_to_configure_user_sub_tab()
+sleep(5)
+
+if self.get_configure_users_user_management_side_menu():
+    self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
+    sleep(5)
+
+self.utils.print_info("Click on users group sub menu")
+self.auto_actions.click_reference(self.get_configure_user_group_side_nav_item)
+sleep(2)
+
+return 1
+
+def navigate_to_authentication_logs_menu(self):
+"""
+- This keyword Navigate to the Authentication Logs Slider Menu
+- Flow: Authentication Logs
+- Keyword Usage
+ - ``Navigate To Authentication Logs Menu``
+
+:return: 1 if Navigation Successful to Authentication Logs Slider Menu else return -1
+"""
+self.utils.print_info("Selecting Authentication Logs...")
+
+if self.auto_actions.click_reference(self.get_global_settings_authentication_logs_slider) == 1:
+    sleep(2)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to Authentication Logs")
+    self.screen.save_screen_shot()
+    return -1
+
+def navigate_to_accounting_logs_menu(self):
+"""
+- This keyword Navigate to the Accounting Logs Slider Menu
+- Flow: Accounting Logs
+- Keyword Usage
+ - ``Navigate To Accounting Logs Menu``
+
+:return: 1 if Navigation Successful to Accounting Logs Slider
+"""
+self.utils.print_info("Selecting Accounting Logs...")
+if self.auto_actions.click_reference(self.get_global_settings_accounting_logs_slider) == 1:
+    sleep(2)
+    return 1
+else:
+    self.utils.print_info("Unable to navigate to Accounting Logs")
+    self.screen.save_screen_shot()
+    return -1
+
+def navigate_to_authentication_logs(self):
+"""
+- This keyword Navigate to the Authentication Logs Slider Menu
+- Flow: User account --> Global Settings --> LOGS--> Authentication Logs
+- Keyword Usage
+ - ``Navigate To Authentication Logs Menu``
+
+:return: 1 if Navigation Successful to Authentication Logs Slider Menu else return -1
+"""
+self.navigate_to_global_settings_page()
+self.navigate_to_authentication_logs_menu()
+
+def navigate_to_accounting_logs(self):
+"""
+- This keyword Navigate to the Accounting Logs Slider Menu
+- Flow: User account --> Global Settings --> LOGS--> Accounting Logs
+- Keyword Usage
+ - ``Navigate To Accounting Logs Menu``
+
+:return: 1 if Navigation Successful to Accounting Logs Slider else return -1
+"""
+self.navigate_to_global_settings_page()
+self.navigate_to_accounting_logs_menu()
+
+def navigate_to_common_object_authentication_tab(self):
+"""
+- This keyword Navigate to the Authentication Tab on common objects
+- Assumes that already navigated to the configure --> common object
+- Flow: Authentication
+- Keyword Usage
+ - ``Navigate To Common Object Authentication Tab``
+
+:return: 1 if Navigation Successful
+"""
+if not self.get_common_object_authentication_tab().is_selected():
+    self.auto_actions.click_reference(self.get_common_object_authentication_tab)
+    sleep(2)
+    return 1
+
+def navigate_to_captive_web_portal(self):
+"""
+- This keyword Navigate to the captive web portal tab on common objects
+- FLow: Configure --> Common Object --> Authentication --> Captive Web Portal
+- Keyword Usage
+ - ``Navigate To Captive Web Portal``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+self.utils.print_info("Click on common authentication tab")
+self.navigate_to_common_object_authentication_tab()
+self.utils.print_info("Click on captive web portal tab...")
+self.auto_actions.click_reference(self.get_common_object_authentication_captive_portal)
+sleep(5)
+
+return 1
+
+def navigate_to_aaa_server_settings(self):
+"""
+- This Keyword Navigate to AAA server Settings on common objects
+- Flow: Configure --> Common Object --> Authentication --> AAA Server Settings
+- Keyword Usage
+ - ``Navigate To AAA Server Settings``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+self.utils.print_info("Click on common authentication tab")
+self.navigate_to_common_object_authentication_tab()
+self.utils.print_info("Click on AAA server Settings...")
+self.auto_actions.click_reference(self.get_common_object_authentication_aaa_server_settings)
+sleep(5)
+
+return 1
+
+def navigate_to_ad_servers(self):
+"""
+- This Keyword Navigate to AD servers on common objects
+- Flow: Configure --> Common Object --> Authentication --> Ad Servers
+- Keyword Usage
+ - ``Navigate To Ad Servers``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+self.utils.print_info("Click on common authentication tab")
+self.navigate_to_common_object_authentication_tab()
+self.utils.print_info("Click on AAA server Settings...")
+self.auto_actions.click_reference(self.get_common_object_authentication_ad_servers)
+sleep(5)
+
+return 1
+
+def navigate_to_external_radius_server(self):
+"""
+- This Keyword Navigate to External Radius Server on common objects
+- Flow: Configure --> Common Object --> Authentication --> External Radius Server
+- Keyword Usage
+ - ``Navigate To External Radius Server``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+self.utils.print_info("Click on common authentication tab")
+self.navigate_to_common_object_authentication_tab()
+self.utils.print_info("Click on  external radius server...")
+self.auto_actions.click_reference(self.get_common_object_authentication_external_radius_server)
+sleep(5)
+
+return 1
+
+def navigate_to_a3_menu(self):
+"""
+- This Keyword Navigate to A3 menu
+- Keyword Usage
+ - ``Navigate To A3 Menu``
+:return: 1 if Navigation Successful
+"""
+self.utils.print_info("Clicking on A3 Icon")
+self.auto_actions.click_reference(self.get_a3_tab)
+sleep(2)
+return 1
+
+def navigate_to_extreme_networks_a3(self):
+"""
+- This Keyword Navigate to Extreme Networks A3 on common objects
+- Flow: Configure --> Common Object --> Authentication --> Extreme Networks A3
+- Keyword Usage
+ - ``Navigate To Extreme Networks A3``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+self.utils.print_info("Click on common authentication tab")
+self.navigate_to_common_object_authentication_tab()
+self.utils.print_info("Click on External network A3...")
+self.auto_actions.click_reference(self.get_common_object_authentication_extreme_networks_a3)
+sleep(5)
+
+return 1
+
+def navigate_to_servers(self):
+"""
+- This Keyword Navigate to Servers on common objects
+- Flow: Configure --> Common Object --> Authentication --> Servers
+- Keyword Usage
+ - ``Navigate To Servers``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+self.utils.print_info("Click on common authentication tab")
+self.navigate_to_common_object_authentication_tab()
+self.utils.print_info("Click on servers tab...")
+self.auto_actions.click_reference(self.get_common_object_authentication_servers)
+sleep(5)
+
+return 1
+
+def navigate_to_ldap_servers(self):
+"""
+- This Keyword Navigate to LDAP Servers on common objects
+- Flow: Configure --> Common Object --> Authentication --> LDAP Servers
+- Keyword Usage
+ - ``Navigate To Ldap Servers``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+self.utils.print_info("Click on common authentication tab")
+self.navigate_to_common_object_authentication_tab()
+self.utils.print_info("Click on servers tab...")
+self.auto_actions.click_reference(self.get_common_object_authentication_ldap_servers)
+sleep(5)
+
+return 1
+
+def navigate_to_security_option(self):
+"""
+- This Keyword Navigate to the Security option on Monitor Tab
+- Flow: Security
+- Keyword Usage
+ - ``Navigate To Security Option``
+
+:return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
+"""
+self.utils.print_info("Selecting Security on Monitor Page...")
+if self.auto_actions.click_reference(self.get_manage_security_nav) == 1:
+    sleep(2)
+    return 1
+else:
+    self.utils.print_info("Unable to Security on Monitor Page")
+    self.screen.save_screen_shot()
+    return -1
+
+def navigate_manage_security(self):
+"""
+- This Keyword Navigate to Manage --> Security
+- Flow: Manage--->Security
+- Keyword Usage
+  - ``Navigate Manage Security``
+
+:return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
+"""
+if self.navigate_to_manage_tab() == 1:
+    return self.navigate_to_security_option()
+else:
+    return -1
+
+def navigate_to_common_object_security_tab(self):
+"""
+- This Keyword Navigate to Security Tab on Common Objects
+- Assumes that already navigated to the configure --> common object
+- Flow: Security
+- Keyword Usage
+ - ``Navigate To Common Object Security Tab``
+
+:return: 1 if Navigation Successful to Security tab on common Objects else return -1
+:return:
+"""
+if not self.get_common_object_security_tab().is_selected():
+    self.auto_actions.click_reference(self.get_common_object_security_tab)
+    sleep(2)
+
+def navigate_to_security_wips_policies(self):
+"""
+- This Keyword Navigate to WIPS Policies on Common Objects
+- Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
+- Keyword Usage:
+ - ``Navigate To Security Wips Policies``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+sleep(3)
+self.utils.print_info("Click on common Security tab")
+self.navigate_to_common_object_security_tab()
+self.utils.print_info("Click on WIPS Policies tab...")
+self.auto_actions.click_reference(self.get_common_object_security_wips_policies)
+sleep(5)
+
+return 1
+
+def navigate_to_common_object_policy_tab(self):
+"""
+- This Keyword Navigate to Policies option Menu on Common Objects
+- Assumes that already navigated to the configure --> common object
+- Keyword Usage:
+ - ``Navigate To Common Object Policy Tab``
+
+:return: 1 if Navigation Successful
+"""
+
+if not self.get_subtab_common_object():
+    self.auto_actions.click_reference(self.get_common_object_policy_tab)
+    sleep(2)
+    return 1
+
+def navigate_to_policy_ap_template(self):
+"""
+- This Keyword Navigate to AP Templates on Common Objects
+- Flow: CONFIGURE-->COMMON OBJECTS-->AP Templates
+- Keyword Usage:
+ - ``Navigate To Policy Ap Template``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+sleep(3)
+self.utils.print_info("Click on common Policy tab")
+self.navigate_to_common_object_policy_tab()
+self.utils.print_info("Click on Ap Template tab...")
+self.auto_actions.click_reference(self.get_common_object_policy_ap_template)
+sleep(5)
+
+return 1
+
+def navigate_to_manage_reports(self):
+"""
+- This Keyword Navigate to Reports on Manage Menu
+- Flow: Manage --> Reports
+- Keyword Usage:
+ - ``Navigate To Manage Reports``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_to_manage_tab()
+self.utils.print_info("Click on reports tab....")
+self.auto_actions.click_reference(self.get_manage_reports_nav)
+sleep(2)
+
+return 1
+
+def navigate_to_policy_port_types(self):
+"""
+- This Keyword Navigate to Port Types On Common Objects
+- Flow: CONFIGURE-->COMMON OBJECTS-->POLICIES-->PORT TYPES
+- Keyword Usage:
+ - ``Navigate To Policy Port Types``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+sleep(3)
+self.utils.print_info("Click on common Policy tab")
+self.navigate_to_common_object_policy_tab()
+
+self.utils.print_info("Click on Port Types tab...")
+el = self.get_common_object_policy_port_types()
+if el is None:
+    self.navigate_to_common_object_policy_tab()
+    el = self.get_common_object_policy_port_types()
+
+self.auto_actions.click(el)
+sleep(5)
+
+return 1
+
+def navigate_to_common_object_network_tab(self):
+"""
+- This Keyword Navigate to Network Tab On Common Objects
+- Assumes that already navigated to the configure --> common object
+- Flow: Networks
+- Keyword Usage:
+  - ``Navigate To Common Object Network Tab``
+
+:return: 1 if Navigation Successful
+"""
+if not self.get_common_object_network_tab().is_selected():
+    self.auto_actions.click_reference(self.get_common_object_network_tab)
+    sleep(2)
+    return 1
+
+def navigate_to_network_subnetwork_space(self):
+"""
+- This Keyword Navigate to SubNetwork Space Tab On Common Objects
+- Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
+- Keyword Usage:
+ - ``Navigate To Network Subnetwork Space``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+sleep(3)
+self.utils.print_info("Click on common object Network tab")
+self.navigate_to_common_object_network_tab()
+self.utils.print_info("Click on Subnetwork Space tab...")
+self.auto_actions.click_reference(self.get_common_object_network_sub_network_space)
+sleep(5)
+
+return 1
+
+def navigate_to_common_object_basic_tab(self):
+"""
+- This Keyword Navigate to Basic Tab On Common Objects
+- Assumes that already navigated to the configure --> common object
+- Flow: Basic
+- Keyword Usage:
+ - ``Navigate To Common Object Basic Tab``
+
+:return: 1 if Navigation Successful
+"""
+if not self.get_common_object_basic_tab().is_selected():
+    self.auto_actions.click_reference(self.get_common_object_basic_tab)
+    sleep(2)
+    return 1
+
+def navigate_to_basic_vlans_tab(self):
+"""
+- This Keyword Navigate to Vlans Tabs On Common Objects
+- Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
+- Keyword Usage:
+ - ``Navigate To Basic Vlans Tab``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_configure_common_objects()
+sleep(3)
+self.utils.print_info("Click on common object Basic tab")
+self.navigate_to_common_object_basic_tab()
+self.utils.print_info("Click on Vlan tab...")
+self.auto_actions.click_reference(self.get_common_object_basic_vlans)
+sleep(5)
+return 1
+
+def navigate_to_manage_alarms(self):
+"""
+- This Keyword Navigate to Alarms on manage Menu
+- Flow: Manage --> Alarms
+- Keyword Usage:
+ - `` Navigate To Manage Alarms``
+
+:return: 1 if Navigation Successful
+"""
+self.navigate_to_manage_tab()
+sleep(5)
         self.utils.print_info("Click on Alarms tab..")
         self.auto_actions.click_reference(self.get_manage_alarms_nav)
         sleep(5)

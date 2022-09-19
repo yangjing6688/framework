@@ -33,6 +33,34 @@ class DevicesActions:
         self.screen = Screen()
         self.robot_built_in = BuiltIn()
 
+    def is_actions_button_enabled(self):
+        """
+        - This keyword checks if the 'Actions' button is enabled within Manage > Devices view.
+        - It is assumed that the Manage > Device view is open.
+        - Keyword Usage
+         - ``Is Actions Button Enabled``
+        :return: True if the button is enabled, False if the button is disabled, else -1
+        """
+        ret_val = -1
+        self.utils.print_info("Checking if 'Actions' button is enabled.")
+        actions_btn = self.device_actions.get_device_actions_button()
+
+        if actions_btn:
+            btn_state = actions_btn.get_attribute("class")
+            self.utils.print_debug(f"'Actions' button Class value: {btn_state}")
+            if "btn-disabled" in btn_state:
+                self.utils.print_info("The 'Actions' button is disabled.")
+                self.screen.save_screen_shot()
+                ret_val = False
+            else:
+                self.utils.print_info("The 'Actions' button is enabled.")
+                self.screen.save_screen_shot()
+                ret_val = True
+        else:
+            self.utils.print_info("Could not find the 'Actions' button.")
+
+        return ret_val
+
     def clear_audit_mismatch_on_device(self, device_serial):
         """
         - Assumes that already navigated to Manage --> Devices
