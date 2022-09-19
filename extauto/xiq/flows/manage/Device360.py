@@ -6606,7 +6606,8 @@ class Device360(Device360WebElements):
                         if get_pse_profile_save:
                             self.auto_actions.click(get_pse_profile_save)
                             self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
-                                                 delay=5, silent_failure=True)
+                                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
+                                                                                   "save...")
                             return 1
                         else:
                             self.utils.print_info("get_pse_profile_save not found ")
@@ -6686,7 +6687,8 @@ class Device360(Device360WebElements):
                         if get_pse_profile_save:
                             self.auto_actions.click(get_pse_profile_save)
                             self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
-                                                 delay=5, silent_failure=True)
+                                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
+                                                                                   "save...")
                             return 1
                         else:
                             self.utils.print_info("get_pse_profile_save not found ")
