@@ -256,7 +256,7 @@ class NavigatorWebElementDefinitions:
 
     manage_alarms_nav = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-nav-alarms"]//a',
+            'XPATH': '//div[@data-automation-tag="automation-header-nav-alerts"]//a',
             
         }
 
@@ -1278,6 +1278,12 @@ class NavigatorWebElementDefinitions:
     vpn_management_tab = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-vpnMgmt"]',
+            'wait_for': 5
+        }
+
+    vpn_services_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-vpnServices"]',
             'wait_for': 5
         }
 
