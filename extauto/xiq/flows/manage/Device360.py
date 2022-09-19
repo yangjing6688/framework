@@ -5897,6 +5897,15 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
+
+            def _check_that_port_type_is_closed():
+                if not self.get_close_port_type_box():
+                    self.utils.print_info("Port type profile dialog has been closed")
+                    return True
+                else:
+                    self.utils.print_info("Port type profile dialog box hasn't closed yet... Retrying...")
+                    return False
+
             sleep(5)
             close_port_type_box = self.get_close_port_type_box()
             sleep(5)
@@ -5904,6 +5913,9 @@ class Device360(Device360WebElements):
             if close_port_type_box:
                 self.utils.print_info(" The button close_port_type_box from policy  was found")
                 self.auto_actions.click(close_port_type_box)
+                self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
+                                     silent_failure=True, msg="Checking that create new port type profile has been"
+                                                              "dialog box has been closed...")
                 sleep(2)
             else:
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
@@ -6017,6 +6029,17 @@ class Device360(Device360WebElements):
         else:
             for row in rows:
                 if port in row.text:
+
+                    def _wait_for_edit_button_to_load():
+                        if self.get_policy_edit_port_type(row):
+                            self.utils.print_info("Edit port type profile button has been found")
+                            return True
+                        else:
+                            self.utils.print_info("Edit port type profile hasn't been found yet... Retrying...")
+                            return False
+
+                    self.utils.wait_till(_wait_for_edit_button_to_load, timeout=40, delay=3, is_logging_enabled=True,
+                                         silent_failure=True, msg="Waiting for edit port type profile button to show..")
                     policy_edit_port_type = self.get_policy_edit_port_type(row)
                     if policy_edit_port_type:
                         self.utils.print_info(" The button policy_edit_port_type from policy  was found")
@@ -6052,10 +6075,22 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
+
+            def _check_that_port_type_is_closed():
+                if not self.get_close_port_type_box():
+                    self.utils.print_info("Port type profile dialog box has been closed")
+                    return True
+                else:
+                    self.utils.print_info("Port type profile dialog box hasn't closed yet... Retrying...")
+                    return False
+
             close_port_type_box = self.get_close_port_type_box()
             if close_port_type_box:
                 self.utils.print_info(" The button close_port_type_box from policy  was found")
                 self.auto_actions.click(close_port_type_box)
+                self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
+                                     silent_failure=True, msg="Checking that create new port type profile has been"
+                                                              "dialog box has been closed...")
                 sleep(2)
             else:
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
@@ -6085,10 +6120,22 @@ class Device360(Device360WebElements):
                     return -1
             else:
                 pass
+
+        def _check_that_port_type_is_closed():
+            if not self.get_close_port_type_box():
+                self.utils.print_info("Port type profile dialog box has been closed")
+                return True
+            else:
+                self.utils.print_info("Port type profile dialog box hasn't closed yet... Retrying...")
+                return False
+
         close_port_type_box = self.get_close_port_type_box()
         if close_port_type_box:
             self.utils.print_info(" The button close_port_type_box from policy  was found")
             self.auto_actions.click(close_port_type_box)
+            self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
+                                 silent_failure=True, msg="Checking that create new port type profile has been"
+                                                          "dialog box has been closed...")
             sleep(2)
         else:
             self.utils.print_info(" The button close_port_type_box from policy was not found")
@@ -6546,9 +6593,20 @@ class Device360(Device360WebElements):
                         else:
                             self.utils.print_info("get_pse_profile_description not found ")
                         sleep(5)
+
+                        def _check_save_pse_profile_closure():
+                            if not self.get_select_element_port_type("pse_profile_save"):
+                                self.utils.print_info("PSE profile save button not present anymore.")
+                                return True
+                            else:
+                                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                                return False
+
                         get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
                         if get_pse_profile_save:
                             self.auto_actions.click(get_pse_profile_save)
+                            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
+                                                 delay=5, silent_failure=True)
                             return 1
                         else:
                             self.utils.print_info("get_pse_profile_save not found ")
@@ -6615,9 +6673,20 @@ class Device360(Device360WebElements):
                         else:
                             self.utils.print_info("get_pse_profile_description not found ")
                         sleep(5)
+
+                        def _check_save_pse_profile_closure():
+                            if not self.get_select_element_port_type("pse_profile_save"):
+                                self.utils.print_info("PSE profile save button not present anymore.")
+                                return True
+                            else:
+                                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                                return False
+
                         get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
                         if get_pse_profile_save:
                             self.auto_actions.click(get_pse_profile_save)
+                            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
+                                                 delay=5, silent_failure=True)
                             return 1
                         else:
                             self.utils.print_info("get_pse_profile_save not found ")
