@@ -183,7 +183,7 @@ class Cli(object):
             result = self.networkElementCliSend.send_cmd(spawn, line, **kwargs)
             try:
                 output = str(result[0].return_text)
-                self.utils.print_info(f"Got response to commandf from device {spawn}: {output}")
+                self.utils.print_info(f"Got response to command from device {spawn}: {output}")
             except Exception as e:
                 self.utils.print_info("Keyword had an error: " + str(e))
         return output
@@ -536,7 +536,7 @@ class Cli(object):
         cli_spawn.exec_command('TASKKILL /IM iperf.exe /F', timeout=200)
 
         return stdout.readlines()
-    
+
     def close_netmiko_spawn(self, spawn):
         """
         - Closing netmiko spawn object
@@ -614,7 +614,7 @@ class Cli(object):
             self.send(self.conn, AP_CAPWAP_ON, time_out="default", platform="aerohive")
         self.close_spawn(self.conn)
 
-        
+
     def mac_wifi_connection(self, ip, usr, passwd, ssid, ssid_pass='badpassword20*rd', mode='pass', ntimes=1):
 
         """
@@ -659,10 +659,10 @@ class Cli(object):
             while not cn1:
                 rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
                 self.utils.print_info("RC is ---------" + str(rc))
-                if self.utils.check_match(rc, 'Failed to join') == 1   : return -1,  " Fail to Join "
-                if self.utils.check_match(rc, 'not find network') == 1 : return -1,  " Could not find network " + str(ssid)
-                if self.utils.check_match(rc, 'Exception') == 1        : return -1,  " Fail with an Exception"
-                if self.utils.check_match(rc, 'Error') == 1            : return -1,  " There is an Error "
+                if self.utils.check_match(rc, 'Failed to join') == 1: return -1,  " Fail to Join "
+                if self.utils.check_match(rc, 'not find network') == 1: return -1,  " Could not find network " + str(ssid)
+                if self.utils.check_match(rc, 'Exception') == 1: return -1,  " Fail with an Exception"
+                if self.utils.check_match(rc, 'Error') == 1: return -1,  " There is an Error "
                 check_wifi_connection = self.send_paramiko_cmd(conn, MAC_CHECK_WIFI_CONNECTION + wifi_port, 10)
                 self.utils.print_info(f"WiFi Network status: {check_wifi_connection}")
                 if ssid in check_wifi_connection:
