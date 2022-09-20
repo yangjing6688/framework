@@ -1196,13 +1196,9 @@ class Devices:
         if self.device_actions.get_device_actions_dropdown():
             self.utils.print_info("Move to Assign Network policy action")
             self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
-            self.screen.save_screen_shot()
-
             self.utils.print_info("Click on Assign Network policy action")
             self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
             sleep(4)
-
-
             select_is_shown = self.devices_web_elements.get_nw_policy_drop()
             if select_is_shown:
                 self.utils.print_info("Click on network policy drop down")
