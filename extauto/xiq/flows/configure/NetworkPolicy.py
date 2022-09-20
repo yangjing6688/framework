@@ -45,6 +45,7 @@ class NetworkPolicy(object):
         self.common_validation = CommonValidation()
         self.user_group = UserGroups()
         self.user_group_elements = UserGroupsWebElements()
+        self.use_existing_policy = False
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
@@ -114,6 +115,11 @@ class NetworkPolicy(object):
             self.auto_actions.click(confirm_delete_btn)
             sleep(3)
 
+    def create_network_policy_if_does_not_exist(self, policy, **wireless_profile):
+        self.use_existing_policy = True
+        out = self.create_network_policy(policy, wireless_profile)
+        return out
+
     def create_network_policy(self, policy, **wireless_profile):
         """
         - Create the network policy from CONFIGURE-->NETWORK POLICIES
@@ -131,6 +137,9 @@ class NetworkPolicy(object):
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             return -2
+
+        self.screen.save_screen_shot()
+        sleep(2)
 
         self.utils.print_info("Checking for network policy add button")
         if self.np_web_elements.check_np_add_button() == -2:
