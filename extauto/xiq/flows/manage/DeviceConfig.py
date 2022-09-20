@@ -32,6 +32,7 @@ class DeviceConfig(DeviceConfigElements):
         self.common_validation = CommonValidation()
         self.tools = Tools()
         self.devices = Devices()
+        self.cloud_driver = CloudDriver()
 
     def _override_wifi0_psk_ssid_settings(self, **override_args):
         """
@@ -2649,54 +2650,64 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info("Failed to navigate the Devices page ...")
                 return -1
         self.utils.print_info(f"Select AP serial {ap_serial} ...")
-        self.devices.select_ap(ap_serial)
-        self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
-        self.auto_actions.click(self.get_edit_button())
-        device_360_page = self.get_device_360_page()
-        if not device_360_page:
-            wait_times = 0
-            while wait_times <= 30:
-                self.utils.print_info("The device 360 page is still not loaded, sleep 2 seconds")
-                sleep(2)
-                wait_times += 1
-                if device_360_page:
-                    self.utils.print_info("Device 360 page is already loaded, move to next step")
-                    break
+        ap_selected = False
+        while not ap_selected:
+            try_cnt = 0
+            if self.devices.select_ap(ap_serial):
+                self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
+                self.auto_actions.click(self.get_edit_button())
+                device_360_page = self.get_device_360_page()
+                if not device_360_page:
+                    wait_times = 0
+                    while wait_times <= 30:
+                        self.utils.print_info("The device 360 page is still not loaded, sleep 2 seconds")
+                        sleep(2)
+                        wait_times += 1
+                        if device_360_page:
+                            self.utils.print_info("Device 360 page is already loaded, move to next step")
+                            break
+                        else:
+                            continue
+                self.utils.print_info("Click Configure tab...")
+                self.auto_actions.click(self.get_devices_edit_config_button())
+                self.utils.print_info("Click Device Configuration...")
+                self.auto_actions.click(self.get_device_configuration_tab())
+                device_config_node_not_load = True
+                while device_config_node_not_load:
+                    if not self.get_device_configuration_node():
+                        self.utils.print_info("Device config node page is still loading ...")
+                        sleep(2)
+                    else:
+                        device_config_node_not_load = False
+                        self.utils.print_info("Device config node page is loaded successfully ...")
+                        sleep(6)
+                if self.get_devices_device_config_device_function_set_ap():
+                    self.utils.print_info("Click Device Function dropdown button...")
+                    self.auto_actions.click(self.get_devices_device_config_device_function_set_ap())
+                    device_function_options = self.get_devices_device_config_device_function()
+                    for opt in device_function_options:
+                        self.utils.print_info(f"Option is {opt}")
+                        if device_function.upper() == opt.text.upper():
+                            self.utils.print_info(f"Select {device_function} as Device Function")
+                            self.auto_actions.click(opt)
+                            break
+                elif self.get_devices_device_config_device_function_set_router:
+                    self.utils.print_info("Device function already is set as router mode...")
+                    pass
                 else:
-                    continue
-        self.utils.print_info("Click Configure tab...")
-        self.auto_actions.click(self.get_devices_edit_config_button())
-        self.utils.print_info("Click Device Configuration...")
-        self.auto_actions.click(self.get_device_configuration_tab())
-        device_config_node_not_load = True
-        while device_config_node_not_load:
-            if not self.get_device_configuration_node():
-                self.utils.print_info("Device config node page is still loading ...")
-                sleep(2)
+                    self.utils.print_info("No valid device function found!!!")
+                    return -1
+                sleep(3)
+                self.utils.print_info("Click Save Device Configuration button...")
+                self.auto_actions.click(self.get_devices_device_config_page_save_button())
+                sleep(3)
+                self.utils.print_info("Close device config windows...")
+                self.auto_actions.click(self.get_close_dialog())
+                return 1
             else:
-                device_config_node_not_load = False
-                self.utils.print_info("Device config node page is loaded successfully ...")
-                sleep(6)
-        if self.get_devices_device_config_device_function_set_ap():
-            self.utils.print_info("Click Device Function dropdown button...")
-            self.auto_actions.click(self.get_devices_device_config_device_function_set_ap())
-            device_function_options = self.get_devices_device_config_device_function()
-            for opt in device_function_options:
-                self.utils.print_info(f"Option is {opt}")
-                if device_function.upper() == opt.text.upper():
-                    self.utils.print_info(f"Select {device_function} as Device Function")
-                    self.auto_actions.click(opt)
-                    break
-        elif self.get_devices_device_config_device_function_set_router:
-            self.utils.print_info("Device function already is set as router mode...")
-            pass
-        else:
-            self.utils.print_info("No valid device function found!!!")
-            return -1
-        sleep(3)
-        self.utils.print_info("Click Save Device Configuration button...")
-        self.auto_actions.click(self.get_devices_device_config_page_save_button())
-        sleep(3)
-        self.utils.print_info("Close device config windows...")
-        self.auto_actions.click(self.get_close_dialog())
-        return 1
+                self.utils.wait_till(self.cloud_driver.refresh_page, timeout=60, delay=1, is_logging_enabled=True)
+                self.utils.print_info("Refresh page and try to select AP again")
+                try_cnt += 1
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} to select device is reached")
+                    return -1
