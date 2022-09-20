@@ -283,7 +283,10 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
-    
+
+    def get_action_assign_network_policy_dialog_cancel_button(self):
+        return self.weh.get_element(self.action_assign_network_policy_dialog_cancel_button)
+
     def get_nw_policy_drop(self):
         return self.weh.get_element(self.nw_policy_drop)
 
