@@ -49,6 +49,9 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_enable_rstp(self):
         return self.weh.get_element(self.sw_template_enable_rstp)
 
+    def get_sw_template_enable_mstp(self):
+        return self.weh.get_element(self.sw_template_enable_mstp)
+
     def get_sw_template_port_configuration_tab(self):
         return self.weh.get_element(self.sw_template_port_configuration_tab)
 
@@ -387,7 +390,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.save_button_pse)
 
     def existing_port_type_button(self):
-        return self.weh.get_elements(self.existing_port_type)
+        return self.weh.get_element(self.existing_port_type)
 
     def port_type_list(self):
         return self.weh.get_elements(self.switch_template_port_types_list)
@@ -487,6 +490,18 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_template_link(self, template):
         return self.weh.get_template_element(self.template_link, template=template)
+
+    def get_sw_template_stp_tab(self):
+        return self.weh.get_element(self.sw_template_stp_tab)
+    
+    def get_sw_template_port_details_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_tab)
+
+    def get_sw_template_stp_port_rows(self):
+        return self.weh.get_elements(self.sw_template_stp_port_rows)
+
+    def get_sw_template_path_cost_row(self, row):
+        return self.weh.get_element(self.sw_template_path_cost_row, parent=row)
 
     def get_template_slot(self, slot):
         return self.weh.get_template_element(self.template_slot, slot=slot)

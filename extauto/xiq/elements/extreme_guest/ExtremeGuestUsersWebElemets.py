@@ -80,6 +80,9 @@ class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
     def get_extreme_guest_users_delete_ok_button(self):
         return self.weh.get_element(self.extreme_guest_users_delete_ok_button)
 
+    def get_extreme_guest_users_delete_ok_button_duplicate(self):
+        return self.weh.get_element(self.extreme_guest_users_delete_ok_button_duplicate)
+
     def get_extreme_guest_users_delete_status_ok_button(self):
         return self.weh.get_element(self.extreme_guest_users_delete_status_ok_button)
 

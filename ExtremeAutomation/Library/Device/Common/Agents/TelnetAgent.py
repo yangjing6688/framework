@@ -70,7 +70,7 @@ class TelnetAgent(CliAgent):
         # Also check for the main prompt for term server connections.
         if not found_login_prompt:
             for i in range(0, retries):
-                if output.strip().endswith(self.device.login_prompt):
+                if output.strip().endswith(tuple(self.device.login_prompt)):
                     self.write_encode_ln(self.device.username)
                     found_login_prompt = True
                     break
@@ -78,13 +78,16 @@ class TelnetAgent(CliAgent):
                     found_main_prompt = True
                     break
                 else:
-                    self.write_encode_ln("\n")
-                    output += self.wait_no_parse(250, 1)
+                    if output.strip().endswith('Press [Ctrl+ d] to go to the Suspend Menu.'):
+                        self.write_encode_ln("\r")
+                    else:
+                        self.write_encode_ln("\n")
+                    output += self.wait_no_parse(500, 1)
 
         # If we found the login prompt try to find the password prompt.
         if found_login_prompt:
             for i in range(0, retries):
-                if output.strip().endswith(self.device.pass_prompt):
+                if output.strip().endswith(tuple(self.device.pass_prompt)):
                     self.write_encode_ln(self.device.password)
                     break
                 else:
@@ -95,7 +98,7 @@ class TelnetAgent(CliAgent):
         # Try to find the main prompt.
         if not found_main_prompt:
             for i in range(0, retries):
-                if output.strip().endswith(self.device.main_prompt.strip()):
+                if output.strip().endswith(self.device.main_prompt):
                     found_main_prompt = True
                     break
                 else:
@@ -205,18 +208,19 @@ class TelnetAgent(CliAgent):
         self.connected = False
 
     def __pre_login_commands(self, output):
-        # This is for login on BOSS, there is no login prompt.
-        if "ctrl" in output.lower():
-            ctrl_output = output.lower().split("ctrl")
-            output_chars_after_ctrl = ctrl_output[1][:3]
-            prompt_char = re.sub('[^a-zA-Z]+', '', output_chars_after_ctrl)
-            self.write_encode_ln("^" + prompt_char.upper())
-            self.wait_no_parse(250, 1)
-            self.write_encode_ln('enable')
-            output = self.wait_no_parse(250, 1)
-            if output.strip().endswith(self.device.main_prompt.strip()):
-                return True
-            return False
+        if self.device.oper_sys == 'BOSS':
+            # This is for login on BOSS, there is no login prompt.
+            if "ctrl" in output.lower():
+                ctrl_output = output.lower().split("ctrl")
+                output_chars_after_ctrl = ctrl_output[1][:3]
+                prompt_char = re.sub('[^a-zA-Z]+', '', output_chars_after_ctrl)
+                self.write_encode_ln("^" + prompt_char.upper())
+                self.wait_no_parse(250, 1)
+                self.write_encode_ln('enable')
+                output = self.wait_no_parse(250, 1)
+                if output.strip().endswith(self.device.main_prompt):
+                    return True
+                return False
         return False
 
     def __post_login_commands(self, output):

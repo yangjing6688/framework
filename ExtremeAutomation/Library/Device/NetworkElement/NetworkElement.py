@@ -34,9 +34,9 @@ class NetworkElement(ManagedDeviceObject):
         self.platform = platform
         self.unit = unit
         self.version = version
-        self.login_prompt = ""
-        self.pass_prompt = ""
-        self.main_prompt = ""
+        self.login_prompt = []
+        self.pass_prompt = []
+        self.main_prompt = ''
         self.model = ""
         self.running_version = ""
         self.connection_method = ""
@@ -273,8 +273,8 @@ class NetworkElement(ManagedDeviceObject):
                 self.logger.log_debug("Initializing current agent with type " + agent_type)
                 self.logger.log_debug("    Username: " + self.username)
                 self.logger.log_debug("    Password: " + self.password)
-                self.logger.log_debug("    Login Prompt: " + self.login_prompt)
-                self.logger.log_debug("    Password Prompt: " + self.pass_prompt)
+                self.logger.log_debug("    Login Prompt: " + ",".join(self.login_prompt))
+                self.logger.log_debug("    Password Prompt: " + ",".join(self.pass_prompt))
                 self.logger.log_debug("    Main Prompt: " + self.main_prompt)
                 self.logger.log_debug("    Hostname: " + self.hostname)
                 self.logger.log_debug("    Port: " + str(self.port))
@@ -313,13 +313,16 @@ class NetworkElement(ManagedDeviceObject):
         Attempt to connect to the device using the current agent, if a current agent is set.
         """
         if not self.current_agent.connected:
-            self.logger.log_debug("Agent is not connected. Attempting to connect...")
-            self.current_agent.connect()
-            if not self.current_agent.logged_in:
-                self.logger.log_debug("Agent is not logged in. Attempting to log in...")
-                logged_in = self.login()
-                if not logged_in:
-                    self.disconnect()
+            self.logger.log_debug(f"Agent {self.current_agent.type} is not connected. Attempting to connect...")
+            try:
+                self.current_agent.connect()
+                if not self.current_agent.logged_in:
+                    self.logger.log_debug(f"Agent {self.current_agent.type} is not logged in. Attempting to log in...")
+                    logged_in = self.login()
+                    if not logged_in:
+                        self.disconnect()
+            except Exception as e:
+                self.logger.log_error(f"Agent {self.current_agent.type} failed to connect or login: {e}")
 
     def disconnect(self):
         """
@@ -340,6 +343,11 @@ class NetworkElement(ManagedDeviceObject):
             retries += 1
             try:
                 logged_in = self.current_agent.login()
+                if not logged_in and self.oper_sys == NetworkElementConstants.OS_AHAP and \
+                        not self.current_agent.get_enable_default_password_mode():
+                    self.current_agent.enable_default_password_mode(True)
+                    logged_in = self.current_agent.login()
+                    self.current_agent.enable_default_password_mode(False)
                 if not logged_in:
                     self.logger.log_debug("Attempt Connection failed, retry attempt " + str(retries))
             except (EOFError, socket.error):

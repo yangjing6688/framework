@@ -52,6 +52,12 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    sw_template_enable_mstp = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='stpMode-mstp']",
+            'wait_for': 5
+        }
+
     sw_template_device_configuration_tab = \
         {
             'CSS_SELECTOR': '.nav-configuration-device',
@@ -695,6 +701,31 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    sw_template_stp_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-stp"]',
+            'wait_for': 5
+        }
+    
+    sw_template_port_details_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-details"]',
+            'wait_for': 5
+        }
+
+    sw_template_stp_port_rows = \
+        {
+            'XPATH': '//portentry-row[contains(@componentpath, "PortSTPEntry")]',
+            'wait_for': 5
+        }
+
+    sw_template_path_cost_row = \
+        {
+            'XPATH': './/input[@data-dojo-attach-point="pathCostField"]',
+
+            'wait_for': 5
+        }
+
     template_slot = \
         {
             'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
@@ -706,3 +737,4 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="portsInAgg"]//option',
             'wait_for': 5
         }
+

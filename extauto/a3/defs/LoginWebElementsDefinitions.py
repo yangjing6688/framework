@@ -1,5 +1,3 @@
-
-
 class LoginWebElementsDefinitions:
     login_page_username_text_ids = \
         {
@@ -106,6 +104,16 @@ class LoginWebElementsDefinitions:
         {
          'CSS_SELECTOR': '.warning-msg',
          'wait_for': 5
+        }
+
+    hide_advanced_button = \
+        {
+            'XPATH':  '//*[@id="details-button"]'
+        }
+
+    proceed_to_link = \
+        {
+            'XPATH': '//*[@id="proceed-link"]'
         }
 
 

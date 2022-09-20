@@ -57,7 +57,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
 
         self.__base_connect_to_network_element(net_elem_name, ip, username, password, connection_method, device_cli_type,
                                                port, device_platform, device_version, device_unit, debug_password,
-                                               **kwargs)
+                                            **kwargs)
 
         dev, _, _ = self._init_keyword(net_elem_name, **kwargs)
         expect_error = self.get_kwarg_bool(kwargs, "expect_error", False)
@@ -73,14 +73,14 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             try:
                 dev.connect()
             except socket.error:
-                self.logger.log_debug("Agent connection attempt #" + str(i) + " failed.")
+                self.logger.log_debug(f"Agent connection attempt #{i} failed.")
             time.sleep(5)
             i += 1
 
         if not dev.current_agent.logged_in:
             if not expect_error:
-                raise FailureException("Unable to establish a connection with network element " + net_elem_name +
-                                       " within " + max_wait + " seconds.")
+                raise FailureException(f"Unable to establish a connection with network element {net_elem_name} \
+                                         within {max_wait} seconds.")
             else:
                 self.logger.log_info("Device connection and/or login was unsuccessful. Error was expected.")
         else:
@@ -380,11 +380,14 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         aerohive_sw = NetworkElementUtils.get_device_names_from_variables(variables, "aerohive_sw")
         # We consider router as an netelem
         router = NetworkElementUtils.get_device_names_from_variables(variables, "router")
+        # We consider wing as an netelem
+        wing = NetworkElementUtils.get_device_names_from_variables(variables, "wing")
 
         # Add the results together
         netelems.extend(ap)
         netelems.extend(aerohive_sw)
         netelems.extend(router)
+        netelems.extend(wing)
         netelem_dict = {}
         for netelem in netelems:
             netelem_id = netelem

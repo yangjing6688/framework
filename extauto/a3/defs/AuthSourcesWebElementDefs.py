@@ -5,6 +5,24 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    auth_source_button = \
+        {
+            'XPATH': '//button[normalize-space()="New Internal Source"]',
+            'wait_for': 5,
+        }
+
+    auth_source_options = \
+        {
+            'XPATH': '//ul[@class="dropdown-menu show"]//li/a',
+            'wait_for': 5,
+        }
+
+    host_input = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-host"]//input',
+            'wait_for': 5,
+        }
+
     ad_name = \
         {
             'XPATH': '//*[@data-automation-tag="automation-id"]',
@@ -47,6 +65,18 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    associated_realms = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-realms"]',
+            'wait_for': 5,
+        }
+
+    realm_value = \
+        {
+                'XPATH': '//span[text()="a3154"]',
+                'wait_for': 5
+        }
+
     ad_auth_add_rule = \
         {
             'XPATH': '//*[@data-automation-tag="Add Rule"]',
@@ -77,9 +107,21 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    rule_row1_select_option = \
+        {
+                'XPATH': '//span[text()="Role"]',
+                'wait_for': 5
+        }
+
     add_rule_row1_act2 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]',
+            'XPATH': '//*[@data-automation-tag="automation-authentication_rules,0,actions,0,value"]//input',
+            'wait_for': 5,
+        }
+
+    value_row1_select_option = \
+        {
+            'XPATH': '//span[text()="roleE"]',
             'wait_for': 5,
         }
 
@@ -95,10 +137,24 @@ class AuthSourcesWebElementDefs:
             'wait_for': 5,
         }
 
+    rule_row2_select_option = \
+        {
+                # 'XPATH': '(//span[text()="Access duration"])' , the prev XPATH gives 2 elements, to make it unique
+                # added the index value
+                'XPATH': '(//span[text()="Access duration"])[2]',
+                'wait_for': 5
+        }
+
     add_rule_row2_act2 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-authentication_rules,0,actions,1,value"]',
+            'XPATH': '//*[@data-automation-tag="automation-authentication_rules,0,actions,1,value"]//input',
             'wait_for': 5
+        }
+
+    value_row2_select_option = \
+        {
+            'XPATH': '//span[text()="5 days"]',
+            'wait_for': 5,
         }
 
     save_button = \

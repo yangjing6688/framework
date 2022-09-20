@@ -61,8 +61,12 @@ class AutoProvisioning:
                 sleep(3)
                 self.screen.save_screen_shot()
                 return 1
-        self.screen.save_screen_shot()
-        return -1
+            else:
+                self.utils.print_info("Unable to select country code for AP model")
+                return -1
+        else:
+            self.screen.save_screen_shot()
+            return 1
 
     def auto_provision_advanced_settings(self, **advance_setting):
         """
@@ -271,7 +275,6 @@ class AutoProvisioning:
         network_policy = auto_provision_policy.get('network_policy')
 
         self.devices.refresh_devices_page()
-        sleep(3)
 
         row = self.devices.get_manage_device_row(serial)
         self.utils.print_info("RoW Data: ", self.devices.format_row(row.text))
@@ -447,7 +450,7 @@ class AutoProvisioning:
         cur_count = self.get_auto_provision_policy_count()
         if cur_count == 0:
             kwargs['pass_msg'] = "No Auto Provision Policy is present"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
         header = self.app_web_elements.get_auto_provisioning_grid_header()
@@ -467,11 +470,11 @@ class AutoProvisioning:
         new_count = self.get_auto_provision_policy_count()
         if new_count == 0:
             kwargs['pass_msg'] = "Successfully Deleted all the Policies"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "Unable to Deleted all the Policies"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def search_auto_provisioning_policy(self, policy_name):

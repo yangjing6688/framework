@@ -72,6 +72,11 @@ class NetworkPolicyWebElementDefinition:
             'XPATH': "//*[@data-automation-tag='automation-policy-save']",
             'wait_for': 5
         }
+    np_save_tool_tip = \
+        {
+            'XPATH': '//*[contains(@class, "ui-tipbox-success")]//*[@data-dojo-attach-point="textEl"]',
+            'wait_for': 5
+        }
 
     policy_exit_button = \
         {
@@ -734,4 +739,21 @@ class NetworkPolicyWebElementDefinition:
         {
             'XPATH': '//*[@data-automation-tag="automation-tab-switch-settings"]',
             'wait_for': 5
+        }
+
+    nw_policy_port_types_view_all_pages = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    next_page_element_disabled = \
+        {
+            'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable'
+        }
+
+    next_page_element = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            'index': 1
         }

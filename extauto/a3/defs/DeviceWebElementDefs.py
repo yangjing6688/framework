@@ -7,7 +7,25 @@ class DeviceWebElementDefs:
 
     new_dev_btn = \
         {
+            'XPATH': '//button[normalize-space()="New Device"]',
+            'wait_for': 5
+        }
+
+    new_dev_options = \
+        {
+            'XPATH': '//ul[@class="dropdown-menu show"]//li[2]/a',
+            'wait_for': 5
+        }
+
+    options = \
+        {
             'XPATH': '//*[@class="btn dropdown-toggle btn-outline-primary"]',
+            'wait_for': 5
+        }
+
+    toggle_option = \
+        {
+            'XPATH': '//*[@class="base-input-range-label col-form-label text-nowrap mr-2"]',
             'wait_for': 5
         }
 
