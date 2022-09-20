@@ -533,7 +533,7 @@ class WirelessNetworks:
 
         if self._search_wireless_network_name_in_grid(ssid_name):
             self.utils.print_info("Wireless network already exists")
-            return 1
+            return -1
 
         if network_type.upper() == "STANDARD" or network_type == 'None':
             return self._config_standard_wireless_network(**wireless_network_conf)
