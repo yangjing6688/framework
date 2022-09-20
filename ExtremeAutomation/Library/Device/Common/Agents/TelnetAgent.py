@@ -250,8 +250,7 @@ class TelnetAgent(CliAgent):
             self.debug_print(self.send_command("terminal more disable"))
         elif self.device.oper_sys == NetworkElementConstants.OS_AHAP:
             self.debug_print(self.send_command("console page 0"))
-        elif self.device.oper_sys in [NetworkElementConstants.OS_AHFASTPATH,
-                                      NetworkElementConstants.OS_AHXR]:
+        elif self.device.oper_sys in [NetworkElementConstants.OS_AHXR]:
             self.debug_print(self.send_command("enable"))
             self.debug_print(self.send_command("configure"))
             self.debug_print(self.send_command("do terminal length 0"))
