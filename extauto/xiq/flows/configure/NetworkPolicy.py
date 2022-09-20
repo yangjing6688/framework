@@ -110,6 +110,15 @@ class NetworkPolicy(object):
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirmation Yes button")
             self.auto_actions.click(confirm_delete_btn)
+            confirm_dialog_box_display = True
+            confirm_dialog_box = self.dialogue_web_elements.get_confirm_message_dialog_box()
+            while confirm_dialog_box_display:
+                if confirm_dialog_box.is_displayed():
+                    self.utils.print_info("Network policy is deleting, still need some time")
+                    sleep(1)
+                else:
+                    self.utils.print_info("Network policy is deleted successfully")
+                    confirm_dialog_box_display = False
             self.screen.save_screen_shot()
             sleep(3)
 
@@ -138,7 +147,7 @@ class NetworkPolicy(object):
 
         if self._search_network_policy_in_list_view(policy):
             self.utils.print_info(f"Network policy {policy} already exists in the network polices list")
-            return 1
+            return -1
 
         self.utils.print_info("Click on network policy add button")
         self.auto_actions.click(self.np_web_elements.get_np_add_button())
@@ -160,7 +169,7 @@ class NetworkPolicy(object):
         for tip_text in tool_tp_text:
             if "The Network Policy cannot be saved because" in tip_text:
                 self.utils.print_info(f"{tip_text}")
-                return 1
+                return -1
             if "Your account does not have permission to perform that action" in tip_text:
                 self.utils.print_info(f"{tip_text}")
                 return -2
