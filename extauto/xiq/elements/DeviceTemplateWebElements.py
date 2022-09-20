@@ -27,6 +27,13 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
         """
         return self.weh.get_elements(self.device_ap_template_items)
 
+    def get_switch_template_platform_from_drop_down(self):
+        """
+
+        :return:
+        """
+        return self.weh.get_elements(self.device_switch_template_items)
+
     def get_ap_template_text(self):
         """
 
@@ -261,4 +268,8 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
     def get_switch_template_save_template(self):
         return self.weh.get_element(self.switch_template_save_template)
 
+    def get_ap_template_country_code_drop_down(self):
+        return self.weh.get_element(self.ap_template_country_code_drop_down)
 
+    def get_ap_template_country_code_list(self):
+        return self.weh.get_elements(self.ap_template_country_code_list)

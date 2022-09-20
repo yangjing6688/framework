@@ -508,6 +508,7 @@ class CliAgent(LoginManagementAgent, metaclass=abc.ABCMeta):
         This function will check <output> for the <cmd> issued. If it is found it will be removed
         otherwise the output is returned untouched.
         """
+        output = output.replace('\x1bE','')
         output_split = output.splitlines(True)
 
         if len(output_split) == 0:
