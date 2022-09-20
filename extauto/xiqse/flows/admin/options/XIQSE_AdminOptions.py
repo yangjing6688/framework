@@ -58,6 +58,25 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
         return ret_val
 
+    def xiqse_select_alarm_event_option(self):
+        """
+        - This keyword selects the Alam/Event Logs and Tables option in the options tree.
+        - Keyword Usage
+         - ``XIQSE Select Alarm Event Option``
+        :return:  1 if selection was made, else -1
+        """
+        ret_val = -1
+        sleep(2)
+        tree_option = self.get_alarm_event_option()
+        if tree_option:
+            self.utils.print_info("Selecting the Alarm/Event option in the tree")
+            self.auto_actions.click(tree_option)
+            ret_val = 1
+        else:
+            self.utils.print_info("Unable to find the Alarm/Event option in the tree")
+            self.screen.save_screen_shot()
+        return ret_val
+
     def xiqse_select_web_server_option(self):
         """
          - This keyword selects the Web Server option in the Options tree.
@@ -514,6 +533,75 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
                 self.auto_actions.click(the_field)
         else:
             self.utils.print_info("Unable to find the Session Timeout units field")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_event_search_scope_and_save(self, value):
+        """
+        - This keyword sets the Event Search Scope to include Client, Event and Source Host Name columns.
+        - Keyword Usage
+        - ``XIQSE ENABLE EVENT SEARCH SCOPE``
+        :return:  1 if action was successful, else -1
+        """
+        ret_val = 1
+        if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
+            if self.xiqse_select_alarm_event_option():
+                # enable the client event search scope
+                the_button = self.get_alarm_event_search_scope_client_checkbox()
+                if the_button:
+                    if value.lower() == "true":
+                        self.utils.print_info("Enabling 'Event Search Scope - Client' checkbox")
+                        self.auto_actions.enable_check_box(the_button)
+                    else:
+                        self.utils.print_info("Disabling 'Event Search Scope - Client' checkbox")
+                        self.auto_actions.disable_check_box(the_button)
+                else:
+                    ret_val = -1
+                    self.utils.print_info("Unable to find the 'Event Search Scope - Client' checkbox")
+                    self.screen.save_screen_shot()
+
+                the_button = self.get_alarm_event_search_scope_event_checkbox()
+                if the_button:
+                    if value.lower() == "true":
+                        self.utils.print_info("Enabling 'Event Search Scope - Event' checkbox")
+                        self.auto_actions.enable_check_box(the_button)
+                    else:
+                        self.utils.print_info("Disabling 'Event Search Scope - Event' checkbox")
+                        self.auto_actions.disable_check_box(the_button)
+                else:
+                    ret_val = -1
+                    self.utils.print_info("Unable to find the 'Event Search Scope - Event' checkbox")
+                    self.screen.save_screen_shot()
+
+                the_button = self.get_alarm_event_search_scope_source_host_name_checkbox()
+                if the_button:
+                    if value.lower() == "true":
+                        self.utils.print_info("Enabling 'Event Search Scope - Source Host Name' checkbox")
+                        self.auto_actions.enable_check_box(the_button)
+                    else:
+                        self.utils.print_info("Disabling 'Event Search Scope - Source Host Name' checkbox")
+                        self.auto_actions.disable_check_box(the_button)
+                else:
+                    ret_val = -1
+                    self.utils.print_info("Unable to find the 'Event Search Scope - Source Host Name' checkbox")
+                    self.screen.save_screen_shot()
+
+                # Save Changes
+                save_result = self.xiqse_save_options()
+                if save_result == -1:
+                    self.utils.print_info("Save Event Search Scope Settings was not successful")
+                    ret_val = -1
+                else:
+                    self.utils.print_info("Save Event Search Scope Settings was successful")
+
+            else:
+                ret_val = -1;
+                self.utils.print_info("Unable to find the Alarm/Event option in the tree")
+                self.screen.save_screen_shot()
+        else:
+            ret_val = -1;
+            self.utils.print_info("Unable to navigate to Administration> Options tab")
             self.screen.save_screen_shot()
 
         return ret_val
