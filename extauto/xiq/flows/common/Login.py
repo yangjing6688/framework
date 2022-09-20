@@ -197,10 +197,13 @@ class Login:
         self.utils.print_info("Check for wrong credentials..")
         credential_warnings = self.login_web_elements.get_credentials_error_message()
         self.utils.print_info("Wrong Credential Message: ", credential_warnings)
-        if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
-            # self.utils.print_info("Wrong Credentials. Try Again")
-            kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            return -1
+        if credential_warnings is None:
+            pass
+        else:
+            if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
+                # self.utils.print_info("Wrong Credentials. Try Again")
+                kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+                return -1
 
         page_still_loading = True
         while page_still_loading:
@@ -208,7 +211,7 @@ class Login:
             self.utils.print_info(f"Page loading element: {page_loading}")
             if page_loading:
                 self.utils.print_info("Page is still loading")
-                sleep(2)
+                sleep(3)
             else:
                 page_still_loading = False
                 self.utils.print_info("Page is loaded successfully")
