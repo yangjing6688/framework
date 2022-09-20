@@ -265,6 +265,9 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
     def get_n360_delete_yes(self):
         return self.weh.get_element(self.n360_delete_yes)
 
+    def get_n360_more_actions(self):
+        return self.weh.get_element(self.n360_more_actions)
+
     def get_n360_country_list_click(self):
         return self.weh.get_element(self.n360_country_list_click)
 
