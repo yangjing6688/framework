@@ -130,7 +130,6 @@ class DevicesWebElementsDefinitions:
 
     devices_serial_text_area = \
         {
-            # 'CSS_SELECTOR': '.serial-numbers.aerohive',
             'XPATH': "//*[@data-automation-tag='automation-quick-add-onboard-serial-number-textbox']",
             'wait_for': 1
         }
@@ -364,7 +363,6 @@ class DevicesWebElementsDefinitions:
 
     quick_onboard_simulated = \
         {
-            # 'XPATH': '//*[@class="chzn-results qa-chzn-results-quickdeviceselect"]//li[@data-automation-tag="chzn-option-Simulated"]',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-sim-device-radio-button"]',
             'wait_for': 5
         }
@@ -383,7 +381,6 @@ class DevicesWebElementsDefinitions:
 
     simulated_device_dropdown_options = \
         {
-            # 'CSS_SELECTOR': '.active-result',
             'XPATH': '//*[@data-automation-tag="-dropdown"]',
             'wait_for': 5
         }
@@ -426,7 +423,6 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-            # 'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
             'CSS_SELECTOR': '.dijitDownArrowButton.select-policy .dijitButtonContents .honeycomb-ui-form-selectLabel',
             'wait_for': 5
         }
@@ -451,14 +447,12 @@ class DevicesWebElementsDefinitions:
 
     actions_network_policy_drop_down_items = \
         {
-            # 'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"] //td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'XPATH': '//*[@class="dijitPopup dijitMenuPopup" and not(contains(@style, "display: none"))] //table[@data-automation-tag="automation-assign-policy-select-dropdown"] //td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
         }
 
     nw_policy_drop = \
         {
-            # 'XPATH': '//table[@data-automation-tag="automation-assign-policy-select"]//td[@data-dojo-attach-point="titleNode"]',
             'CSS_SELECTOR': '.assign-policy .select-policy .honeycomb-ui-form-selectLabel',
             'wait_for': 5,
         }
