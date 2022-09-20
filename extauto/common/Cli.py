@@ -813,8 +813,10 @@ class Cli(object):
         return "1".
         """
 
-        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
-           NetworkElementConstants.OS_AHXR in cli_type.upper():
+        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.send(connection, f'hivemanager address {server_name}')
+
+        elif  NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, f'do Hivemanager address {server_name}')
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
@@ -879,8 +881,19 @@ class Cli(object):
         return "1".
         """
 
-        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
-                NetworkElementConstants.OS_AHXR in cli_type.upper():
+        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            count = 1
+            while count <= retry_count:
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                time.sleep(retry_duration)
+                hm_status = self.send(connection, f'show hivemanager status | include Status')
+                hm_address = self.send(connection, f'show hivemanager address')
+
+                if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
+                    self.utils.print_info(f"Device Successfully Connected to {server_name}")
+                    return 1
+                count += 1
+        elif NetworkElementConstants.OS_AHXR in cli_type.upper():
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
