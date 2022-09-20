@@ -1535,6 +1535,73 @@ class DeviceConfig(DeviceConfigElements):
         self.get_close_device360_dialog_window().click()
         return 1
 
+    def override_ap_config_wireless_channel(self, device_mac='', interface='WiFi0', override_channel='6'):
+        """
+        - - This keyword will Configure the WiFi2 interface power status of AP4000 or AP4000U
+        - Flow : Manage --> Device --> Click AP MAC Link --> Configure--> Interface Setttings --> Wireless Interface
+        - Keyword Usage:
+        - ``Override AP Config Wireless Channel   device_serial=${AP1_SERIAL}   interface='WiFi0'  override_channel='6' ``
+
+        :param device_mac:  device_mac address
+        :param interface: device interface i.e WiFi0/WiFi1/WIFI2
+        :param override_channel:  override channel
+        :return: returns 1 if successful or otherwise -1
+        """
+        try:
+            self.utils.print_info("Navigating to device page")
+            if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                return -1
+            self.utils.print_info("click on configuration tab")
+            self.auto_actions.click(self.get_configuration_tab())
+            self.utils.print_info("Click on interface settings tab")
+            self.auto_actions.click(self.get_interface_settings_tab())
+            self._go_to_wireless_interface_settings_page()
+            sleep(3)
+            self.auto_actions.click(self.get_wifi0_interface_tab())
+            self.auto_actions.click(self.get_override_client_access_wifi0_checked())
+            self.auto_actions.click(self.get_override_client_access_wifi0_checked())
+            self.auto_actions.click(self.get_interface_settings_save_button())
+            sleep(3)
+            self._go_to_wireless_interface_settings_page()
+
+            if interface.lower() == 'wifi0':
+                self.utils.print_info("Click on WiFi0 interface tab")
+                self.auto_actions.click(self.get_wifi0_interface_tab())
+                self.utils.print_info(f"select the channel: {override_channel}")
+                self.auto_actions.click(self.get_wireless_wifi0_channel_dropdown())
+                self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi0_channel_options(), override_channel)
+            elif interface.lower() == 'wifi1':
+                self.utils.print_info("Click on WiFi1 interface tab")
+                self.auto_actions.click(self.get_wifi1_interface_tab())
+                self.utils.print_info(f"select the channel: {override_channel}")
+                self.auto_actions.click(self.get_wireless_wifi1_channel_dropdown())
+                self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi1_channel_options(), override_channel)
+            elif interface.lower() == 'wifi2':
+                self.utils.print_info("Click on WiFi2 interface tab")
+                self.auto_actions.click(self.get_wifi2_interface_tab())
+                self.utils.print_info(f"select the channel: {override_channel}")
+                self.auto_actions.click(self.get_wireless_wifi2_channel_dropdown())
+                self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi2_channel_options(), override_channel)
+            else:
+                self.utils.print_info(f"Can you specify interface(wifi0, wifi1, or wifi1)?")
+
+            self.utils.print_info("Click on interface settings save button")
+            self.auto_actions.click(self.get_interface_settings_save_button())
+            sleep(3)
+            self.screen.save_screen_shot()
+            tool_tp_text = tool_tip.tool_tip_text
+            self.utils.print_info(tool_tp_text)
+            self.utils.print_info("Close the override device page dialog window")
+            self.auto_actions.click(self.get_close_device360_dialog_window())
+
+            if 'Interface Settings were updated successfully.' in tool_tp_text:
+                return 1
+            else:
+                return -1
+        except:
+            self.utils.print_info("Not able to navigate/set to the page")
+            return -1
 
     def override_wifi2_channel(self, channel_input='default'):
         """

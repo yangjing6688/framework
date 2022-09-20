@@ -21,69 +21,69 @@ class EndsystemElementUtils(object):
             device_os = EndsystemElementConstants.OS_LINUX
             device_platform = dev_platform if dev_platform is not None \
                 else EndsystemElementConstants.PLATFORM_LINUX_BASE
-            login_prompt = "login as:"
-            pass_prompt = "password:"
+            login_prompt = ["login as:"]
+            pass_prompt = ["password:"]
             main_prompt = "$"
         elif formatted_dev_os == EndsystemElementConstants.OS_EMC:
             device_os = EndsystemElementConstants.OS_EMC
             device_platform = dev_platform if dev_platform is not None else EndsystemElementConstants.PLATFORM_EMC_BASE
-            login_prompt = ""
-            pass_prompt = ""
+            login_prompt = [""]
+            pass_prompt = [""]
             main_prompt = ""
         elif formatted_dev_os == EndsystemElementConstants.OS_GIM:
             device_os = EndsystemElementConstants.OS_GIM
             device_platform = dev_platform if dev_platform is not None else EndsystemElementConstants.PLATFORM_GIM_BASE
-            login_prompt = ""
-            pass_prompt = ""
+            login_prompt = [""]
+            pass_prompt = [""]
             main_prompt = ""
         elif formatted_dev_os == EndsystemElementConstants.OS_CCSERVER.upper():
             device_os = EndsystemElementConstants.OS_CCSERVER
             device_platform = dev_platform if dev_platform is not None \
                 else EndsystemElementConstants.PLATFORM_LINUX_BASE
-            login_prompt = ""
-            pass_prompt = ""
+            login_prompt = [""]
+            pass_prompt = [""]
             main_prompt = ""
         elif formatted_dev_os == EndsystemElementConstants.OS_ECIQ.upper():
             device_os = EndsystemElementConstants.OS_ECIQ
             device_platform = dev_platform if dev_platform is not None \
                 else EndsystemElementConstants.PLATFORM_ECIQ_BASE
-            login_prompt = ""
-            pass_prompt = ""
+            login_prompt = [""]
+            pass_prompt = [""]
             main_prompt = ""
         # If an unknown device type is received default to EOS.
         elif formatted_dev_os == EndsystemElementConstants.OS_WINDOWS.upper():
             device_os = EndsystemElementConstants.OS_WINDOWS
             device_platform = EndsystemElementConstants.PLATFORM_WINDOWS_BASE
-            login_prompt = "login:"
-            pass_prompt = "password:"
+            login_prompt = ["login:"]
+            pass_prompt = ["password:"]
             main_prompt = ">"
             end_of_line = "\r\n"
             slow_login = 20
         elif formatted_dev_os == EndsystemElementConstants.OS_WINDOWS_MU.upper():
             device_os = EndsystemElementConstants.OS_WINDOWS_MU
             device_platform = EndsystemElementConstants.PLATFORM_MU_WINDOWS_BASE
-            login_prompt = "login as:"
-            pass_prompt = "password:"
+            login_prompt = ["login as:"]
+            pass_prompt = ["password:"]
             main_prompt = ">"
             end_of_line = "\r\n"
             slow_login = 20
         elif formatted_dev_os == EndsystemElementConstants.OS_MAC_MU.upper():
             device_os = EndsystemElementConstants.OS_MAC_MU
             device_platform = EndsystemElementConstants.PLATFORM_MU_MAC_BASE
-            login_prompt = "login as:"
-            pass_prompt = "password:"
+            login_prompt = ["login as:"]
+            pass_prompt = ["password:"]
             main_prompt = "#"
         elif formatted_dev_os == EndsystemElementConstants.OS_LINUX_MU.upper():
             device_os = EndsystemElementConstants.OS_LINUX_MU
             device_platform = EndsystemElementConstants.PLATFORM_LINUX_BASE
-            login_prompt = "login:"
-            pass_prompt = "password:"
+            login_prompt = ["login:"]
+            pass_prompt = ["password:"]
             main_prompt = "#"
         elif formatted_dev_os == EndsystemElementConstants.OS_A3.upper():
             device_os = EndsystemElementConstants.OS_A3
             device_platform = EndsystemElementConstants.PLATFORM_A3_BASE
-            login_prompt = "login as:"
-            pass_prompt = "password:"
+            login_prompt = ["login as:"]
+            pass_prompt = ["password:"]
             main_prompt = "$"
         else:
             raise Exception("Unknown OS Type: " + str(formatted_dev_os))

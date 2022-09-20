@@ -255,6 +255,7 @@ class XiqLibrary():
         self.Xapi = Xapi()
         self.Utils = Utils()
 
+        self.xflowscommonAutoActions = AutoActions()
         self.xflowsmanageFilterManageDevices = FilterManageDevices()
         self.xflowsAirDefenceAirDefenceAlarms = AirDefenceAlarms()
         self.xflowscommonAdsp = Adsp()

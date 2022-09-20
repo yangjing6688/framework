@@ -180,9 +180,6 @@ class DeviceActions(DeviceActionsDefs):
     def get_warning_rvk_xiq_text(self):
         return self.weh.get_element(self.warning_rvk_xiq_text)
 
-    def get_confirm_msg_no(self):
-        return self.weh.get_element(self.confirm_msg_no)
-
     def get_confirm_msg_yes(self):
         return self.weh.get_element(self.confirm_msg_yes)
 

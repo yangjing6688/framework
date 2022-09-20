@@ -66,8 +66,12 @@ class CloudDriver():
             element_identify = "xpath"
             utils.print_info("Approval")
         elif program == 'a3':
-            element_identify = "id"
-            element_identify_value_id = "username"
+            if "admin" in url and "login" in url:
+                element_identify = "class-name"
+                element_identify_value_css = ".secondary-button"
+            else:
+                element_identify = "id"
+                element_identify_value_id = "username"
         elif program == 'adsp':
             element_identify_value_name = "j_username"
             element_identify = "name"
@@ -437,6 +441,14 @@ class CloudDriver():
             element_identify = "class-name"
             element_identify_value_css = ".btn"
 
+        if program == 'a3':
+            element_identify = "id"
+            element_identify_value_id = "username"
+
+        if "admin" in url and "login" in url:
+            element_identify = "class-name"
+            element_identify_value_css = ".secondary-button"
+
         utils.print_info("Opening New Window")
         self.cloud_driver.execute_script("window.open();")
         window_handles = self.cloud_driver.window_handles
@@ -483,6 +495,7 @@ class CloudDriver():
         :return:None
         """
         utils = Utils()
+        win_index=int(win_index)
         window_handles = self.cloud_driver.window_handles
         win_count = len(window_handles)
         utils.print_debug(f"Window Handle Count: {win_count}")
@@ -503,6 +516,7 @@ class CloudDriver():
         :return:None
         """
         utils = Utils()
+        win_index=int(win_index)
         window_handles = self.cloud_driver.window_handles
         win_count = len(window_handles)
         utils.print_debug(f"Window Handle Count: {win_count}")

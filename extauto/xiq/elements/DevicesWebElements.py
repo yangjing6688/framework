@@ -303,9 +303,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_network_policy_assign_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_button)
-    
-    def get_perform_update_tooltip(self):
-        return self.weh.get_element(self.perform_update_tooltip)
+
+    def get_ui_banner_error_message(self):
+        return self.weh.get_element(self.ui_banner_error_message)
 
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)

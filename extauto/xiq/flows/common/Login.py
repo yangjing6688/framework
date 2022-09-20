@@ -250,6 +250,10 @@ class Login:
                     self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
             except Exception as e:
                 pass
+        # if self.login_web_elements.get_devices_list_check().is_displayed():
+        #     self.utils.print_info("webelement exists in the mainpage")
+
+        #self.get_version()
         if co_pilot_status:
             url = BuiltIn().get_variable_value("${TEST_URL}")
             copilot_url = f"{url}/hm-webapp/?copilotBeta=true"
@@ -261,6 +265,14 @@ class Login:
         if capture_version:
             self._capture_xiq_version()
         kwargs['pass_msg'] = "User has been logged in"
+        
+        try:
+            if self.login_web_elements.get_right_arrow().is_displayed():
+                self.utils.print_info("Clicking welcome popup")
+                self.auto_actions.click(self.login_web_elements.click_right_arrow())
+        except Exception as er:
+            pass
+
         return 1
 
     def logout_user(self):
@@ -951,7 +963,7 @@ class Login:
         self.utils.print_info("Redirected to SFDC to complete oauth...")
         sfdc_url = self.get_base_url_of_current_page()
         self.utils.print_info("Completing OAuth...", sfdc_url)
-        if "force.com" in sfdc_url:
+        if "extreme" in sfdc_url:
             self.utils.print_info("Extreme SFDC URL", sfdc_url)
             self.auto_actions.send_keys(self.login_web_elements.get_sfdc_login_username(), sfdc_email)
             self.auto_actions.send_keys(self.login_web_elements.get_sfdc_login_pwd(), sfdc_pwd)
@@ -1698,3 +1710,21 @@ class Login:
         CloudDriver().cloud_driver.get(url)
         sleep(5)
         return 1
+
+    def switch_to_extreme_guest_window(self, win_index=1):
+        """
+        - Switches to the specified window
+
+        :param:  win_index - Index of the window to switch to
+        :return: None
+        """
+        CloudDriver().switch_to_window(win_index)
+
+    def close_extreme_guest_window(self, win_index=1):
+        """
+        - Closes the specified window
+
+        :param:  win_index - Index of the window to close
+        :return: None
+        """
+        CloudDriver().close_window(win_index)
