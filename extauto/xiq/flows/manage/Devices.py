@@ -1440,10 +1440,9 @@ class Devices:
                 if try_cnt == 10:
                     self.utils.print_info(f"Max {try_cnt} attempts are reached, return -1")
                     return -1
-                self.utils.print_info("Refresh the current page")
-                # self.login.refresh_page()
-                self.utils.wait_till(self.cloud_driver.refresh_page(), is_logging_enabled=True)
-
+                self.utils.print_info("Cancel Network Policy assignment dialog")
+                self.auto_actions.click(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button())
+                sleep(2)
         self.utils.print_info("Select ap row")
         self.select_ap(ap_serial)
 
@@ -3415,8 +3414,8 @@ class Devices:
         """
         device_row = -1
 
-        self.refresh_devices_page()
-
+        # self.refresh_devices_page()
+        self.utils.wait_till(self.refresh_devices_page)
         self.utils.print_info('Getting device Updated Status using')
         if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
@@ -3431,7 +3430,7 @@ class Devices:
             device_row = self.get_device_row(device_mac)
 
         if device_row:
-            sleep(5)
+            self.utils.print_info(f"Device row debugging: {self.devices_web_elements.get_updated_status_cell(device_row)}")
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status is :", device_updated_status)
             if "Querying" in device_updated_status:
@@ -11102,39 +11101,52 @@ class Devices:
                 if self.device_actions.get_device_actions_button_disable():
                     try_cnt += 1
                     self.utils.print_info(f"Actions button is grayed, can NOT click it, {try_cnt} attempts to try")
-                    self.utils.wait_till(self.login.refresh_page(), is_logging_enabled=True)
+                    self.utils.wait_till(self.cloud_driver.refresh_page(), is_logging_enabled=True)
                     actions_disabled = True
                     if try_cnt == 10:
-                        self.utils.print_info("Max {try_cnt} attempts reach...")
+                        self.utils.print_info(f"Max {try_cnt} attempts reach for active Action button")
                         return -1
                 else:
-                    self.utils.print_info("Click Actions button ...")
-                    self.auto_actions.click(self.device_actions.get_device_actions_button())
-                    action_dropdown = self.device_actions.get_device_actions_dropdown()
-                    if action_dropdown:
-                        self.utils.print_info("Move to Advance button ...")
-                        self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
-                        cli_access = self.device_actions.get_device_actions_advance_cli_access()
-                        self.utils.print_info(f"CLI access element: {cli_access}")
-                        self.utils.print_info(f"Move to CLI Access button {cli_access}...")
-                        self.auto_actions.move_to_element(cli_access)
-                        self.utils.print_info("Click CLI Access button ...")
-                        self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
-                        if self.device_actions.get_device_actions_cli_windows():
-                            self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
-                            self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
-                            self.utils.print_info("Click Apply button to send CLI to AP ...")
-                            self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
-                            self.utils.print_info("Close CLI windows ...")
-                            self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
-                            return 1
+                    cli_access_none = True
+                    try_cnt1 = 0
+                    while cli_access_none:
+                        self.utils.print_info("Click Actions button ...")
+                        self.auto_actions.click(self.device_actions.get_device_actions_button())
+                        action_dropdown = self.device_actions.get_device_actions_dropdown()
+                        if action_dropdown:
+                            self.utils.print_info("Move to Advance button ...")
+                            self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
+                            cli_access = self.device_actions.get_device_actions_advance_cli_access()
+                            self.utils.print_info(f"CLI access element: {cli_access}")
+                            if cli_access:
+                                cli_access_none = False
+                                self.utils.print_info(f"Move to CLI Access button {cli_access}...")
+                                self.auto_actions.move_to_element(cli_access)
+                                self.utils.print_info("Click CLI Access button ...")
+                                self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
+                                if self.device_actions.get_device_actions_cli_windows():
+                                    self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
+                                    self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
+                                    self.utils.print_info("Click Apply button to send CLI to AP ...")
+                                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
+                                    self.utils.print_info("Close CLI windows ...")
+                                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
+                                    return 1
+                                else:
+                                    self.utils.print_info("There is no CLI window popup ...")
+                                    return -1
+                            else:
+                                self.utils.print_info(f"Cli access buttion is got: {cli_access}, refresh page and try again")
+                                try_cnt1 += 1
+                                self.utils.wait_till(self.cloud_driver.refresh_page(), is_logging_enabled=True)
+                                if try_cnt1 == 10:
+                                    self.utils.print_info(f"Max {try_cnt1} attempts reach for going to cli_access")
+                                    return -1
+
                         else:
-                            self.utils.print_info("There is no CLI window popup ...")
+                            self.utils.print_info(f"Actions dropdown is NOT shown: {action_dropdown}")
+                            self.screen.save_screen_shot()
                             return -1
-                    else:
-                        self.utils.print_info(f"Actions dropdown is NOT shown: {action_dropdown}")
-                        self.screen.save_screen_shot()
-                        return -1
             else:
                 self.utils.print_info("No device is selected ...")
                 return -1
