@@ -443,10 +443,16 @@ class DevicesWebElementsDefinitions:
             "CSS_SELECTOR": '.ui-dialog-content',
             'wait_for': 5
         }
+    action_assign_network_policy_dialog_cancel_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 2
+        }
 
     actions_network_policy_drop_down_items = \
         {
-            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"] //td[@data-dojo-attach-point="containerNode,textDirNode"]',
+            # 'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"] //td[@data-dojo-attach-point="containerNode,textDirNode"]',
+            'XPATH': '//*[@class="dijitPopup dijitMenuPopup" and not(contains(@style, "display: none"))] //table[@data-automation-tag="automation-assign-policy-select-dropdown"] //td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
         }
 
