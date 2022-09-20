@@ -11373,6 +11373,40 @@ class Devices:
         self.common_validation.passed(**kwargs)
         return 1
 
+    def assign_network_policy_to_a_device(self, device_serial, policy_name):
+        """
+        - This keyword will assign the network policy to single device
+        - flow:
+            -- If Not in devices page, go to it
+            -- Select the device
+            -- Actions
+            -- Assign Network Policy
+            -- Select the network policy from drop-down window
+            -- Assign
+        - Keyword Usage:
+         - ``Assign Network Policy To A Device  ${device_serial}   ${policy_name}``
+        :param policy_name: policy name to be applied
+        :param device_serial: serial number of the device
+        :return: Success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, Navigating to devices page now")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("Navigated to the devices page successfully")
+            else:
+                self.utils.print_info("Failed to navigate to the Devices page ...")
+                return -1
+        if self.select_device(device_serial):
+            self.utils.print_info("Device is selected ...")
+        else:
+            self.utils.print_info("Failed to Select the device ...")
+            return -1
+        if self._assign_network_policy(policy_name):
+            self.utils.print_info("Network Policy is assigned to selected device ...")
+            return 1
+        else:
+            self.utils.print_info("Failed to assign Network Policy to the device...")
+
     def is_digital_twin_option_visible(self):
         """
         - This Keyword checks if the Digital Twin option is visible within the 'Quick Add Devices' panel.
