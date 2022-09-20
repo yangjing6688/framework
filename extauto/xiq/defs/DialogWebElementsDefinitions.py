@@ -27,6 +27,12 @@ class DialogWebElementsDefinitions:
          'wait_for': 5
          }
 
+    confirm_message_dialog_box = \
+        {
+            'CSS_SELECTOR': '.ui-cfmsg.confirm',
+            'wait_for': 3
+        }
+
     confirm_yes_button = \
         {
             'XPATH': "//*[@data-dojo-attach-point='yesBtn']",
