@@ -125,7 +125,7 @@ class ExtremeGuestOnboardingWebElementsDefs:
 
     extreme_guest_onboarding_policy_add_save_ok_button = \
         {
-            'XPATH': '//span[text()="OK"]',
+            'XPATH': '//div[contains(@data-automation-tag, "eguest-popup-message-OK")]',
             'wait_for': 1
         }
 

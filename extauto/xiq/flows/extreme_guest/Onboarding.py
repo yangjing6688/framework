@@ -134,7 +134,7 @@ class Onboarding(object):
 
         self.utils.print_info("Clicking Save Button")
         self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_button())
-
+        sleep(5)
         self.utils.print_info("Clicking OK Button")
         self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button())
 
