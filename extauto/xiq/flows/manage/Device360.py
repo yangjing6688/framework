@@ -6154,6 +6154,18 @@ class Device360(Device360WebElements):
         sleep(2)
         if "next_page" in value:
             sleep(5)
+
+            def _check_next_button():
+                if self.get_select_element_port_type("next_button"):
+                    self.utils.print_info("Found 'next' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find next button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_next_button, timeout=30, delay=1, silent_failure=True, is_logging_enabled=True,
+                                 msg="Waiting for 'next' button to load...")
+
             get_next_button = self.get_select_element_port_type("next_button")
             if get_next_button:
                 sleep(5)
@@ -6165,6 +6177,18 @@ class Device360(Device360WebElements):
 
         elif "usagePage" in element:
             sleep(5)
+
+            def _check_usage_page():
+                if self.get_select_element_port_type("usagePage"):
+                    self.utils.print_info("Found 'usagePage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'usagePage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_usage_page, timeout=30, delay=1, silent_failure=True, is_logging_enabled=True,
+                                 msg="Waiting for 'usagePage' button to load...")
+
             get_tab_usagePage = self.get_select_element_port_type("usagePage")
             if get_tab_usagePage:
                 sleep(5)
@@ -6173,6 +6197,18 @@ class Device360(Device360WebElements):
 
         elif "trunkVlanPage" in element or "accessVlanPage" in element:
             sleep(5)
+
+            def _check_vlan_page():
+                if self.get_select_element_port_type("tab_vlan"):
+                    self.utils.print_info("Found 'tab_vlan' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'tab_vlan' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_vlan_page, timeout=30, delay=1, silent_failure=True, is_logging_enabled=True,
+                                 msg="Waiting for 'vlanPage' to load...")
+
             get_tab_vlan = self.get_select_element_port_type("tab_vlan")
             if get_tab_vlan:
                 sleep(5)
@@ -6181,6 +6217,18 @@ class Device360(Device360WebElements):
 
         elif "transmissionSettingsPage" in element:
             sleep(5)
+
+            def _check_transmission_settings_page():
+                if self.get_select_element_port_type("transmissionSettingsPage"):
+                    self.utils.print_info("Found 'transmissionSettingsPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'transmissionSettingsPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_transmission_settings_page, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'transmissionSettingsPage' to load...")
+
             get_tab_transmission = self.get_select_element_port_type("transmissionSettingsPage")
             if get_tab_transmission:
                 sleep(5)
@@ -6189,6 +6237,18 @@ class Device360(Device360WebElements):
 
         elif "stpPage" in element:
             sleep(5)
+
+            def _check_stp_page():
+                if self.get_select_element_port_type("stpPage"):
+                    self.utils.print_info("Found 'stpPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'stpPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_stp_page, timeout=30, delay=1, silent_failure=True, is_logging_enabled=True,
+                                 msg="Waiting for 'stpPage' to load...")
+
             get_tab_stp = self.get_select_element_port_type("stpPage")
             if get_tab_stp:
                 sleep(5)
@@ -6197,6 +6257,18 @@ class Device360(Device360WebElements):
 
         elif "stormControlSettingsPage" in element:
             sleep(5)
+
+            def _check_stormControlSettingsPage():
+                if self.get_select_element_port_type("stormControlSettingsPage"):
+                    self.utils.print_info("Found 'stormControlSettingsPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'stormControlSettingsPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_stormControlSettingsPage, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'stormControlSettingsPage' to load...")
+
             get_storm_control = self.get_select_element_port_type("stormControlSettingsPage")
             if get_storm_control:
                 sleep(5)
@@ -6205,6 +6277,19 @@ class Device360(Device360WebElements):
 
         elif "ELRPSettingsPage" in element:
             sleep(5)
+
+            def _check_stormControlSettingsPage():
+                if self.get_select_element_port_type("ELRPSettingsPage"):
+                    self.utils.print_info("Found 'ELRPSettingsPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'ELRPSettingsPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+
+            self.utils.wait_till(_check_stormControlSettingsPage, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'ELRPSettingsPage' to load...")
+
             get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
             if get_elrp:
                 sleep(5)
@@ -6213,6 +6298,19 @@ class Device360(Device360WebElements):
 
         elif "pseSettingsPage" in element:
             sleep(5)
+
+            def _check_pse_settings_page():
+                if self.get_select_element_port_type("pseSettingsPage"):
+                    self.utils.print_info("Found 'pseSettingsPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'pseSettingsPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+
+            self.utils.wait_till(_check_pse_settings_page, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'pseSettingsPage' to load...")
+
             get_tab_pse_settings = self.get_select_element_port_type("pseSettingsPage")
             if get_tab_pse_settings:
                 sleep(5)
@@ -6221,6 +6319,19 @@ class Device360(Device360WebElements):
 
         elif "summaryPage" in element:
             sleep(5)
+
+            def _check_pse_settings_page():
+                if self.get_select_element_port_type("summaryPage"):
+                    self.utils.print_info("Found 'summaryPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'summaryPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+
+            self.utils.wait_till(_check_pse_settings_page, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'summaryPage' to load...")
+
             get_tab_summary = self.get_select_element_port_type("summaryPage")
             if get_tab_summary:
                 sleep(5)
