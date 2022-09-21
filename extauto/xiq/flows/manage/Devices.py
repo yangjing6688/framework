@@ -11499,3 +11499,24 @@ class Devices:
         else:
             self.utils.print_info("The Quick Add Devices panel is not visible.")
             return -1
+
+    def confirm_not_enough_copilot_licenses_message_displayed(self, value):
+        """
+         - This keyword confirms if the "Not enough CoPilot licenses" banner message is displayed or not
+         - Keyword Usage
+          - ``Confirm Not Enough CoPilot Licenses Message Displayed  true``
+          - ``Confirm Not Enough CoPilot Licenses Message Displayed  false``
+
+        :param value: Specifies if value is true or false
+        """
+
+        if self.devices_web_elements.get_ui_banner_warning_message():
+            tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
+            if "Not enough CoPilot licenses" in tool_tp_text_warning.text:
+                self.utils.print_info(tool_tp_text_warning.text)
+                self.screen.save_screen_shot()
+                return True
+        else:
+            self.utils.print_info("Not enough CoPilot licenses warning message not displayed")
+            self.screen.save_screen_shot()
+            return False
