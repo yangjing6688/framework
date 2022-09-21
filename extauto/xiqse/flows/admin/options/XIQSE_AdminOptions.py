@@ -2,6 +2,7 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 from xiqse.elements.admin.options.AdminOptionsWebElements import AdminOptionsWebElements
 from xiqse.elements.common.CommonViewWebElements import CommonViewWebElements
 from xiqse.flows.common.XIQSE_CommonNavigator import XIQSE_CommonNavigator
@@ -15,6 +16,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         self.screen = Screen()
         self.view_el = CommonViewWebElements()
         self.xiqse_nav = XIQSE_CommonNavigator()
+        self.common_validation = CommonValidation()
 
     def xiqse_select_site_engine_general_option(self):
         """
@@ -537,12 +539,12 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
         return ret_val
 
-    def xiqse_set_event_search_scope_and_save(self, value):
+    def xiqse_set_event_search_scope_and_save(self, value, **kwargs):
         """
         - This keyword sets the Event Search Scope to include Client, Event and Source Host Name columns.
         - Keyword Usage
-        - ``XIQSE ENABLE EVENT SEARCH SCOPE``
-        :return:  1 if action was successful, else -1
+        - ``XIQSE SET EVENT SEARCH SCOPE AND SAVE   true``
+        - ``XIQSE SET EVENT SEARCH SCOPE AND SAVE   false``
         """
         ret_val = 1
         if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
@@ -557,9 +559,11 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
                         self.utils.print_info("Disabling 'Event Search Scope - Client' checkbox")
                         self.auto_actions.disable_check_box(the_button)
                 else:
-                    ret_val = -1
-                    self.utils.print_info("Unable to find the 'Event Search Scope - Client' checkbox")
+                    msg = "Unable to find the 'Event Search Scope - Client' checkbox"
+                    self.utils.print_info(msg)
                     self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"{msg}"
+                    self.common_validation.failed(**kwargs)
 
                 the_button = self.get_alarm_event_search_scope_event_checkbox()
                 if the_button:
@@ -570,9 +574,11 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
                         self.utils.print_info("Disabling 'Event Search Scope - Event' checkbox")
                         self.auto_actions.disable_check_box(the_button)
                 else:
-                    ret_val = -1
-                    self.utils.print_info("Unable to find the 'Event Search Scope - Event' checkbox")
+                    msg = "Unable to find the 'Event Search Scope - Event' checkbox"
+                    self.utils.print_info(msg)
                     self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"{msg}"
+                    self.common_validation.failed(**kwargs)
 
                 the_button = self.get_alarm_event_search_scope_source_host_name_checkbox()
                 if the_button:
@@ -583,28 +589,34 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
                         self.utils.print_info("Disabling 'Event Search Scope - Source Host Name' checkbox")
                         self.auto_actions.disable_check_box(the_button)
                 else:
-                    ret_val = -1
-                    self.utils.print_info("Unable to find the 'Event Search Scope - Source Host Name' checkbox")
+                    msg = "Unable to find the 'Event Search Scope - Source Host Name' checkbox"
+                    self.utils.print_info(msg)
                     self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"{msg}"
+                    self.common_validation.failed(**kwargs)
 
                 # Save Changes
                 save_result = self.xiqse_save_options()
                 if save_result == -1:
-                    self.utils.print_info("Save Event Search Scope Settings was not successful")
-                    ret_val = -1
+                    msg = "Save Event Search Scope Settings was not successful"
+                    self.utils.print_info(msg)
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"{msg}"
+                    self.common_validation.failed(**kwargs)
                 else:
                     self.utils.print_info("Save Event Search Scope Settings was successful")
-
             else:
-                ret_val = -1;
-                self.utils.print_info("Unable to find the Alarm/Event option in the tree")
+                msg = "Unable to find the Alarm/Event option in the tree"
+                self.utils.print_info(msg)
                 self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"{msg}"
+                self.common_validation.failed(**kwargs)
         else:
-            ret_val = -1;
-            self.utils.print_info("Unable to navigate to Administration> Options tab")
+            msg = "Unable to navigate to Administration> Options tab"
+            self.utils.print_info(msg)
             self.screen.save_screen_shot()
-
-        return ret_val
+            kwargs['fail_msg'] = f"{msg}"
+            self.common_validation.failed(**kwargs)
 
     def xiqse_set_web_server_session_timeout_and_save(self, value="20", units="min(s)"):
         """
