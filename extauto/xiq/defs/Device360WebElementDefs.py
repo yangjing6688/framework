@@ -2859,3 +2859,13 @@ class Device360WebElementDefs:
             'XPATH': './/input[contains(@data-automation-tag, "automation-port-stp-port-path-cost")]',
             'wait_for': 5
         }
+
+    device360_overview_select_port = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-$index"]'
+        }
+
+    device360_overview_port_info_bounce_port = \
+        {
+            'XPATH': '//div[@class="port-action action-bounce-port "]'
+        }
