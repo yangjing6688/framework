@@ -545,6 +545,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         - Keyword Usage
         - ``XIQSE SET EVENT SEARCH SCOPE AND SAVE   true``
         - ``XIQSE SET EVENT SEARCH SCOPE AND SAVE   false``
+        :param value: true to enable the extended scoping and false to disable
         """
         ret_val = 1
         if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
