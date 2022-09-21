@@ -11506,7 +11506,7 @@ class Devices:
          - Keyword Usage
           - ``Confirm Not Enough CoPilot Licenses Message Displayed``
 
-        :return true if banner is displayed and return false if banner is not displayed
+        :return: true if banner is displayed and return false if banner is not displayed
         """
 
         if self.devices_web_elements.get_ui_banner_warning_message():
