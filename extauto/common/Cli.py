@@ -1024,6 +1024,14 @@ class Cli(object):
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
+                vr = self.send(connection, f'show iqagent | include Active\ VR')
+                # Output:
+                # X465-48W.3 # show iqagent | include Active\ VR
+                # Active VR                           VR-Default
+                vr = vr.replace("Active VR", '').split()[0]
+                vrString = ''
+                if vr.split('-')[0] == 'VR' and vr.split('-')[1] != 'Mgmt':
+                    vrString = f' vr {vr}'
                 system_type = self.send(connection, f'show switch | include "System Type"')
                 # Output:
                 # System Type:      5520-24T-SwitchEngine
@@ -1051,7 +1059,7 @@ class Cli(object):
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
                     url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
                     self.utils.print_info(f"Sending URL: {url_image}")
-                    self.send(connection, f'download url {url_image}', \
+                    self.send(connection, f'download url {url_image}{vrString}', \
                               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                               confirmation_args='yes')
 
