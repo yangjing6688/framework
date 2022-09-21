@@ -1013,18 +1013,25 @@ class Cli(object):
             #   Version                             0.6.6
             #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
             current_version = current_version.replace("Version",'').split()[0]
-            base_version = self.send(connection, f'show process iqagent  | include iqagent')
-            # Output:
-            #   iqagent          0.6.6.1     0    Ready        Fri Sep  2 13:26:44 2022  Vital
-            #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
-            base_version = base_version.replace("iqagent",'').split()[0]
+            base_version = self.send(connection, f'show process iqagent  | include Slot-1.iqagent')
+            if 'iqagent' in base_version:
+                # Output:
+                #   Slot-1 iqagent          0.5.42.1    0    Ready        Tue Sep 20 13:02:14 2022  Vital
+                #   * Slot-1 Stack.12 #
+                base_version = base_version.replace("Slot-1 iqagent",'').split()[0]
+            else:
+                base_version = self.send(connection, f'show process iqagent  | include iqagent')
+                # Output:
+                #   iqagent          0.6.6.1     0    Ready        Fri Sep  2 13:26:44 2022  Vital
+                #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
+                base_version = base_version.replace("iqagent",'').split()[0]
             # Adjust the verison down to 3 numbers
             parts = base_version.split('.')
             if len(parts) > 3:
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
-                vr = self.send(connection, f'show iqagent | include Active\ VR')
+                vr = self.send(connection, f'show iqagent | include Active.VR')
                 # Output:
                 # X465-48W.3 # show iqagent | include Active\ VR
                 # Active VR                           VR-Default
