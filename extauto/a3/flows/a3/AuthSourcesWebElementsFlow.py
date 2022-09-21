@@ -1,11 +1,9 @@
-
 from common.AutoActions import *
 from a3.elements.AuthSourcesWebElements import AuthSourcesWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
 from common.CloudDriver import *
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
@@ -17,12 +15,10 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.auth_source_web_elements = AuthSourcesWebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
         self.driver = webdriver.Chrome()
-        #self.action = ActionChains()
 
-    def create_auth_source(self):
+    def create_auth_source(self, name_value, name_desc, host_name, host_pwd):
         """
         - This keyword will define the authentication source and create authentication rules
         - Keyword Usage
@@ -43,16 +39,16 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             sleep(5)
             self.utils.print_info("Enter Active Directory name")
             name = self.weh.get_element(self.ad_name)
-            self.auto_actions.send_keys(name, "AS154")
+            self.auto_actions.send_keys(name, name_value)
             sleep(5)
             self.utils.print_info("Enter Description")
             description = self.weh.get_element(self.ad_description)
-            self.auto_actions.send_keys(description, "AS154")
-            sleep(10)
+            self.auto_actions.send_keys(description, name_desc)
+            sleep(5)
             self.utils.print_info("Enter Host")
             description.send_keys(Keys.TAB)
             host = self.weh.get_element(self.host_input)
-            self.auto_actions.send_keys(host, "10.234.63.27")
+            self.auto_actions.send_keys(host, host_name)
             host.send_keys(Keys.ENTER)
             sleep(5)
             self.utils.print_info("Enter Base DN")
@@ -65,30 +61,36 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             sleep(5)
             self.utils.print_info("Enter Password")
             password = self.weh.get_element(self.passwd)
-            self.auto_actions.send_keys(password, "Aquaman123")
+            self.auto_actions.send_keys(password, host_pwd)
             sleep(5)
             self.utils.print_info("Test Password")
             test_passwd = self.weh.get_element(self.test_pwd)
             self.auto_actions.click(test_passwd)
             sleep(5)
+            self.utils.print_info("Select associated Realm")
+            a_realm = self.weh.get_element(self.associated_realms)
+            self.auto_actions.click(a_realm)
+            realm = self.weh.get_element(self.realm_value)
+            self.auto_actions.click(realm)
+            sleep(5)
             self.utils.print_info("Add Authentication Rule")
             auth_add_rule = self.weh.get_element(self.ad_auth_add_rule)
             self.auto_actions.click(auth_add_rule)
-            sleep(10)
+            sleep(5)
             self.utils.print_info("Click on Rule")
             add_rule_unknown = self.weh.get_element(self.auth_add_rule_unknown)
             self.auto_actions.click(add_rule_unknown)
-            sleep(10)
+            sleep(5)
             self.utils.print_info("Enter Rule Name")
             rule_name = self.weh.get_element(self.add_rule_name)
             self.auto_actions.send_keys(rule_name, "rule1")
-            sleep(10)
+            sleep(5)
             self.utils.print_info("Click on Add Action")
             action_button = self.weh.get_element(self.add_action)
             self.auto_actions.click(action_button)
             sleep(5)
             self.utils.print_info("Select action 1 for row 1")
-            auth_row1_act1 = self.weh.get_elements(self.add_rule_row1_act1)
+            auth_row1_act1 = self.weh.get_element(self.add_rule_row1_act1)
             sleep(5)
             option1 = self.weh.get_element(self.rule_row1_select_option)
             self.auto_actions.click(option1)
@@ -102,17 +104,18 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             self.utils.print_info("Add another row")
             new_row = self.weh.get_element(self.add_row)
             self.auto_actions.click(new_row)
-            sleep(10)
+            sleep(5)
             self.utils.print_info("Select action 1 for row 2")
-            auth_row2_act1 = self.weh.get_elements(self.add_rule_row2_act1)
-            self.auto_actions.click(auth_row2_act1)
+            auth_row2_act1 = self.weh.get_element(self.add_rule_row2_act1)
+            sleep(5)
             option3 = self.weh.get_element(self.rule_row2_select_option)
             self.auto_actions.click(option3)
             self.utils.print_info("Select action 2 for row 2")
-            auth_row2_act2 = self.weh.get_elements(self.add_rule_row2_act2)
+            auth_row2_act2 = self.weh.get_element(self.add_rule_row2_act2)
+            self.auto_actions.click(auth_row2_act2)
             option4 = self.weh.get_element(self.value_row2_select_option)
             self.auto_actions.click(option4)
-            sleep(10)
+            sleep(5)
             create_ad = self.weh.get_element(self.save_button)
             self.auto_actions.click(create_ad)
             sleep(5)

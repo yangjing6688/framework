@@ -315,11 +315,11 @@ class ExtremeGuest(object):
 
         :return: CLI Command Output
         """
-        ip = self.utils.get_config_value("AP1_CONSOLE_IP")
-        port = self.utils.get_config_value("AP1_CONSOLE_PORT")
-        username = self.utils.get_config_value("AP1_USERNAME")
-        password = self.utils.get_config_value("AP1_PASSWORD")
-        platform = self.utils.get_config_value("AP1_PLATFORM")
+        ip = self.utils.get_config_value("ap1.ip")
+        port = self.utils.get_config_value("ap1.port")
+        username = self.utils.get_config_value("ap1.username")
+        password = self.utils.get_config_value("ap1.password")
+        platform = self.utils.get_config_value("ap1.cli_type")
 
         self.utils.print_info("AP1 IP         : ", ip)
         self.utils.print_info("AP1 Port       : ", port)

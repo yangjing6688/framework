@@ -1363,6 +1363,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_close_port_type_box(self):
         return self.weh.get_element(self.close_port_type_box)
 
+    def get_cancel_port_type_box(self):
+        return self.weh.get_element(self.cancel_port_type_box)
+
     def get_select_element_port_type(self, element, value=None):
         if element == "tab_vlan":
             return self.weh.get_element(self.select_element_port_type_tab_vlan)
@@ -1699,6 +1702,29 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_digital_twin_shutdown_button(self):
         return self.weh.get_element(self.device360_digital_twin_shutdown_button)
+
+    def get_device_ssh_ui_tip_close(self):
+        return self.weh.get_element(self.device_ssh_ui_tip_close)
+
+    def get_device_ssh_ui_tip_error(self):
+        return self.weh.get_element(self.device_ssh_ui_tip_error)
+
+    def get_device360_port_configuration_path_cost_stp(self, row):
+        return self.weh.get_element(self.device360_port_configuration_path_cost_stp, parent=row)
+
+    def get_device360_asic_port_groups(self):
+        return self.weh.get_elements(self.device360_asic_port_groups)
+
+    def get_device360_ports_each_asic_port_group(self, port_asic):
+        return self.weh.get_elements(self.device360_ports_each_asic_port_group, parent=port_asic)
+
+    def get_device360_asic_port_groups_stack(self):
+        return self.weh.get_elements(self.device360_asic_port_groups_stack)
+
+    def get_device360_ports_each_asic_port_group_stack(self, port_asic, slot):
+        return self.weh.get_template_elements(self.device360_ports_each_asic_port_group_stack, parent=port_asic, slot=slot)
+
+
 
     def get_device360_configure_port_access_vlan_textfield_VOSS(self, row):
         return self.weh.get_element(self.device360_configure_port_access_vlan_textfield_VOSS, row)

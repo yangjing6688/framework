@@ -1,7 +1,7 @@
 class DeviceConfigDefs:
     interface_settings_tab = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-sider-list-interfaceSettings"]//a',
+            'XPATH': '//*[@data-dojo-attach-point="interfaceSettingsTab"]',
             'wait_for': 5
         }
 
@@ -198,7 +198,7 @@ class DeviceConfigDefs:
 
     wireless_interface_wifi0_channel_options = \
         {
-            'XPATH': '//ul[@class="chzn-results qa-chzn-results-channel2ghz,channel5dualghz"]//li',
+            'XPATH':  '//*[@data-automation-tag="automation-interface-settings-wifi1-channel-chzn-results-ctn"]//li',
             'wait_for': 5
         }
 
@@ -210,7 +210,13 @@ class DeviceConfigDefs:
 
     wireless_interface_wifi1_channel_options = \
         {
-            'XPATH': '//ul[@class="chzn-results qa-chzn-results-channel5ghz"]//li',
+            'XPATH': '//*[@data-automation-tag="automation-interface-settings-wifi1-channel-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    wireless_interface_wifi2_channel_options = \
+        {
+            'XPATH': '//div[@class="grid_10 column"]//*[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-results-ctn"]//li',
             'wait_for': 5
         }
 

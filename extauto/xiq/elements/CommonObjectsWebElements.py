@@ -527,6 +527,12 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_wifi1_sensor(self):
         return self.weh.get_element(self.common_object_wifi1_sensor)
 
+    def get_common_object_wifi2_client_access(self):
+        return self.weh.get_element(self.common_object_wifi2_client_access)
+
+    def get_common_object_wifi2_mesh_link(self):
+        return self.weh.get_element(self.common_object_wifi2_mesh_link)
+
     def get_common_object_ap_template_enable_sdr(self):
         return self.weh.get_element(self.common_object_ap_template_enable_sdr)
 

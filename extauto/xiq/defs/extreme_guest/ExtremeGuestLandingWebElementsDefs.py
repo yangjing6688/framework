@@ -11,9 +11,9 @@ class ExtremeGuestLandingWebElementsDefs:
             'wait_for': 5
         }
 
-    extreme_guest_landing_user_dwell_time_widget = \
+    extreme_guest_landing_sessions_dwell_time_widget = \
         {
-            'XPATH': '//span[text()="Users Dwell Time"]',
+            'XPATH': '//span[text()="Sessions Dwell Time"]',
             'wait_for': 5
         }
 
