@@ -573,22 +573,22 @@ class Cli(object):
             self.utils.print_info(e)
             return -1
 
-    def get_ap_interface_ipv4_addr(self,spawn=None, ap_interface='mgt0'):
+    def get_ah_device_interface_ipv4_addr(self, spawn=None, ah_device_interface='mgt0'):
         """
-        - This method returns the AP interface ipv4 address
+        - This method returns AH device interface ipv4 address
         - Keyword Usage:
-         - ``Get AP Interface IPv4 Addr    ${SPAWN}    ${Interface_name}``
+         - ``Get AH Device Interface IPv4 Addr    ${SPAWN}    ${Interface_name}``
 
-        :param spawn: spawn to AP
-        :param ap_interface: AP interface name, such as mgt0, eth0
+        :param spawn: spawn to AH device
+        :param ah_device_interface: AH device interface name, such as mgt0, eth0
         :return: returns the interface ipv4 address if success else -1
         """
-        self.utils.print_info(f"Getting AP {ap_interface} IPv4 address")
-        output = self.send(spawn, f'show interface {ap_interface} | in "IP addr"')
+        self.utils.print_info(f"Getting AP {ah_device_interface} IPv4 address")
+        output = self.send(spawn, f'show interface {ah_device_interface} | in "IP addr"')
         try:
-            self.utils.print_info(f"AP {ap_interface} IPv4 info: ", output)
+            self.utils.print_info(f"AP {ah_device_interface} IPv4 info: ", output)
             ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
-            self.utils.print_info(f"{ap_interface} IPv4 address is: {ipv4_addr}")
+            self.utils.print_info(f"{ah_device_interface} IPv4 address is: {ipv4_addr}")
             return ipv4_addr
         except Exception as e:
             self.utils.print_info(e)
