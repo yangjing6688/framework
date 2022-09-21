@@ -2,6 +2,33 @@
 
 class AdminOptionsWebElementsDefinitions:
 
+    alarm_event_option = \
+        {
+            'DESC': 'Alarm/Event Logs and Tables',
+            'XPATH': '//td[contains(@class, "x-grid-cell-treecolumn")]//span[text()="Alarm/Event Logs and Tables"]',
+
+        }
+
+    event_search_scope_client_checkbox = \
+        {
+            'DESC': 'Event Search Scope - Client Checkbox',
+            'XPATH': '//input[@name="aeloClientField"]',
+
+        }
+
+    event_search_scope_event_checkbox = \
+        {
+            'DESC': 'Event Search Scope - Event Checkbox',
+            'XPATH': '//input[@name="aeloEventField"]',
+
+        }
+
+    event_search_scope_source_host_name_checkbox = \
+        {
+            'DESC': 'Event Search Scope - Source Host NAme Checkbox',
+            'XPATH': '//input[@name="aeloSourceHostNameField"]',
+
+        }
     save_options_button = \
         {
             'DESC': 'Save Options Button',

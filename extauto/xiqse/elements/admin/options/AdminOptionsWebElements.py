@@ -60,6 +60,30 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
         """
         return self.weh.get_element(self.xiqse_serial_number_label)
 
+    def get_alarm_event_option(self):
+        """
+        :return: Alarm/Event Logs and Tables option in the tree on the Administration> Options page
+        """
+        return self.weh.get_element(self.alarm_event_option);
+
+    def get_alarm_event_search_scope_client_checkbox(self):
+        """
+        :return: Event Search Scope Client checkox on the Administration> Options page
+        """
+        return self.weh.get_element(self.event_search_scope_client_checkbox);
+
+    def get_alarm_event_search_scope_event_checkbox(self):
+        """
+        :return: Event Search Scope Event checkox on the Administration> Options page
+        """
+        return self.weh.get_element(self.event_search_scope_event_checkbox);
+
+    def get_alarm_event_search_scope_source_host_name_checkbox(self):
+        """
+        :return: Event Search Scope Source Host Name checkox on the Administration> Options page
+        """
+        return self.weh.get_element(self.event_search_scope_source_host_name_checkbox);
+
     def get_web_server_option(self):
         """
         :return: Web Server option in the tree on the Administration> Options page
