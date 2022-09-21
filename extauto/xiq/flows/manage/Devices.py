@@ -11500,14 +11500,13 @@ class Devices:
             self.utils.print_info("The Quick Add Devices panel is not visible.")
             return -1
 
-    def confirm_not_enough_copilot_licenses_message_displayed(self, value):
+    def confirm_not_enough_copilot_licenses_message_displayed(self):
         """
          - This keyword confirms if the "Not enough CoPilot licenses" banner message is displayed or not
          - Keyword Usage
-          - ``Confirm Not Enough CoPilot Licenses Message Displayed  true``
-          - ``Confirm Not Enough CoPilot Licenses Message Displayed  false``
+          - ``Confirm Not Enough CoPilot Licenses Message Displayed``
 
-        :param value: Specifies if value is true or false
+        :return true if banner is displayed and return false if banner is not displayed
         """
 
         if self.devices_web_elements.get_ui_banner_warning_message():
