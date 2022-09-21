@@ -1036,9 +1036,10 @@ class Cli(object):
                 # X465-48W.3 # show iqagent | include Active\ VR
                 # Active VR                           VR-Default
                 vr = vr.replace("Active VR", '').split()[0]
-                vrString = ''
-                if vr.split('-')[0] == 'VR' and vr.split('-')[1] != 'Mgmt':
+                if len(vr)> 0 and vr != 'None':
                     vrString = f' vr {vr}'
+                else:
+                    vrString = f' vr vr-mgmt'
                 system_type = self.send(connection, f'show switch | include "System Type"')
                 # Output:
                 # System Type:      5520-24T-SwitchEngine
