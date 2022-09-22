@@ -1275,3 +1275,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         parent = self.get_digital_twin_os_version_dropdown()
         return self.weh.get_elements(self.digital_twin_os_version_dropdown_items, parent)
+
+    def get_100_rows_per_page_button(self):
+        """
+        :return: Devices > 100 rows per page button
+        """
+        return self.weh.get_element(self.one_hundred_rows_per_page_button)
