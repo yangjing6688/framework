@@ -234,6 +234,13 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    device_update_error_message = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
     device_select_check_box = \
         {
             'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',

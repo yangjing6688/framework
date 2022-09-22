@@ -163,6 +163,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.device_os_change_error_message)
 
+    def get_device_update_error_message(self):
+        """
+        :return error message
+        """
+        return self.weh.get_element(self.device_update_error_message)
+
     def get_device_delete_confirm_ok_button(self):
         """
         :return: device delete button triggers confirmation dialog
