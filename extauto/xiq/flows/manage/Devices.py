@@ -8071,7 +8071,7 @@ class Devices:
                 else:
                     return 1
 
-    def create_stack_auto_template(self, device_mac, name_stack_template='default'):
+    def create_stack_auto_template(self, device_mac='default', name_stack_template='default'):
         """
         - This Keyword will create EXOS Stack Auto Template after assigned a policy to the stack
         - Keyword Usage
@@ -8085,31 +8085,31 @@ class Devices:
 
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
+        device_row = -1
 
-        device_row = self.get_device_row(device_mac)
-        
-        if self.auto_actions.click(self.devices_web_elements.get_device_stack_template_click(device_row)) == -1:
-            self.utils.print_info("Unable to click on Template Column button")
-            return -1
-        else:
-            self.utils.print_info("Click on Template Column button")
+        if device_mac != 'default':
 
-        sleep(5)
+            if self.auto_actions.click(self.devices_web_elements.get_device_stack_template_click()) == -1:
+                self.utils.print_info("Unable to click on Template Column button")
+                return -1
+            else:
+                self.utils.print_info("Click on Template Column button")
 
-        if self.auto_actions.click(self.devices_web_elements.get_create_template_click()) == -1:
-            self.utils.print_info("Unable to click on Create template based on currently selected device button")
-            return -1
-        else:
-            self.utils.print_info("Click on Create template based on currently selected device button")
+            sleep(5)
 
-        sleep(30)
+            if self.auto_actions.click(self.devices_web_elements.get_create_template_click()) == -1:
+                self.utils.print_info("Unable to click on Create template based on currently selected device button")
+                return -1
+            else:
+                self.utils.print_info("Click on Create template based on currently selected device button")
 
-        self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
-        self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
-                                    name_stack_template)
-        self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())
-        sleep(10)
-        
+            sleep(30)
+
+            self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
+            self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
+                                        name_stack_template)
+            self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())
+            sleep(10)
         return 1
 
     def assign_network_policy_to_switch_mac(self, policy_name, mac):
