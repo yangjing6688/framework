@@ -1730,3 +1730,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_overview_port_info_bounce_port(self):
         return self.weh.get_element(self.device360_overview_port_info_bounce_port)
+
+    def get_device360_overview_port_info_bounce_poe(self):
+        return self.weh.get_element(self.device360_overview_port_info_bounce_poe)

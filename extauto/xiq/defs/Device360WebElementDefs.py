@@ -2869,3 +2869,8 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@class="port-action action-bounce-port "]'
         }
+
+    device360_overview_port_info_bounce_poe = \
+        {
+            'XPATH': '//div[@class="port-action action-bounce-poe "]'
+        }
