@@ -1636,6 +1636,13 @@ class DevicesWebElementsDefinitions:
             'wait_for': 3
         }
 
+    ui_banner_warning_message = \
+        {
+            'DESC': 'XIQ UI Banner containing a warning message.',
+            'XPATH':  '//*[contains(@class, "ui-tipbox ui-tipbox-warning") and contains(@data-dojo-attach-point, "wrapEl")]',
+            'wait_for': 3
+        }
+
     license_button = \
         {
             'XPATH': '//li[@data-automation-tag="automation-sider-list-licenseMng"]',
