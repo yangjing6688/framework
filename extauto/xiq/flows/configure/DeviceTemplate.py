@@ -111,12 +111,14 @@ class DeviceTemplate(object):
             self.config_ap_template_wifi2(**wifi2_config)
 
         self.utils.print_info("Click on the save template button")
+        self.auto_actions.scroll_up()
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
-        sleep(1)
+        sleep(5)
 
-        self.utils.print_info("Checking the Save template message...")
-        observed_temp_message = self.device_template_web_elements.get_ap_template_save_tool_tip().text
-        self.utils.print_info("Observed Message: ", observed_temp_message)
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+        observed_temp_message = tool_tp_text[-1]
+        self.utils.print_info("Tooltip Message Displayed on UI is : ", observed_temp_message)
 
         if "AP template was saved successfully" in observed_temp_message:
             return 1
