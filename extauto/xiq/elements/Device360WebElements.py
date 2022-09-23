@@ -1374,6 +1374,8 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_tab_summary)
         elif element == "elrdp":
             return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "MACLOCKINGSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_maclocking)
         # page Port Name
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
@@ -1478,6 +1480,19 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
+            # maclocking page
+        elif element == "mac locking":
+            return self.weh.get_element(self.select_element_port_type_macLock_status)
+        elif element == "max first arrival":
+            return self.weh.get_element(self.select_element_port_type_macLock_max_first_arrival)
+        elif element == "disable port":
+            return self.weh.get_element(self.select_element_port_type_macLock_disable_port)
+        elif element == "link down clear":
+            return self.weh.get_element(self.select_element_port_type_macLock_link_down_clear)
+        elif element == "link down retain":
+            return self.weh.get_element(self.select_element_port_type_macLock_link_down_retain)
+        elif element == "remove aged MACs":
+            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)
         return -1
 
     def get_select_element_port_type_summary(self, element):
@@ -1531,6 +1546,18 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_pse_profile_summary)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status_summary)
+        elif element == "mac locking":
+            return self.weh.get_element(self.select_mac_locking_summary)
+        elif element == "max first arrival":
+            return self.weh.get_element(self.select_mac_locking_first_arrival_summary)
+        elif element == "disable port":
+            return self.weh.get_element(self.select_mac_locking_port_disable_summary)
+        elif element == "link down clear":
+            return self.weh.get_element(self.select_mac_locking_link_down_action_clear_summary)
+        elif element == "link down retain":
+            return self.weh.get_element(self.select_mac_locking_link_down_action_retain_summary)
+        elif element == "remove aged MACs":
+            return self.weh.get_element(self.select_mac_locking_remove_aged_macs_summary)
         return None
 
     def get_device_d360_save_port_configuration(self):
@@ -1684,3 +1711,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_ports_table_current_pagin_number(self):
         return self.weh.get_element(self.device360_ports_table_current_pagin_number)
+
+    def get_cancel_button_port_type(self):
+        return self.weh.get_element(self.cancel_button_port_type)

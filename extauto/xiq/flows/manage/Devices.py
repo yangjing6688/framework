@@ -5748,9 +5748,9 @@ class Devices:
                 if re.search(r'field-\w*', cell.get_attribute("class")):
                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
                     for label_str in col_labels:
-                        self.utils.print_debug(f"Getting Data For Column {label_str}")
+                        #self.utils.print_debug(f"Getting Data For Column {label_str}")
                         map_value = label_map.get(label_str)
-                        self.utils.print_debug(f"Comparing label {label} with map value {map_value}")
+                        #self.utils.print_debug(f"Comparing label {label} with map value {map_value}")
                         if label == map_value:
                             if label == "productType":
                                 if cell.text:
@@ -7507,6 +7507,7 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
+        self.refresh_devices_page()
         self.utils.print_info(f"Select switch row with serial {mac}")
         if not self.select_device(mac):
             self.utils.print_info(f"Switch {mac} is not present in the grid")
@@ -7815,24 +7816,34 @@ class Devices:
         :return: 1 if update configuration is pushed on the device with Reboot/Rollback option
         """
 
-        self.navigator.navigate_to_devices()
+        self.utils.print_info("Navigate to Manage-->Devices")
+
+        def _navigate_to_devices():
+            return self.navigator.navigate_to_devices()
+        self.utils.wait_till(_navigate_to_devices)
+
         self.utils.print_info("Check the Device is up")
         if device_serial:
             device_status = self.get_device_status(device_serial)
+            self.utils.print_info("Result is:", device_status)
+            if device_status == 'green' or device_status == 'config audit mismatch':
+                self.utils.print_info("Select the device")
+                if device_serial:
+                    self.select_device(device_serial)
+            else:
+                self.utils.print_info("Device is down")
+                return -1
         if device_mac:
             device_status = self.get_device_status(device_mac)
-
-        self.utils.print_info("Result is:", device_status)
-        if device_status == 'green' or device_status == 'config audit mismatch':
-            self.utils.print_info("Select the device")
-            if device_serial:
-                self.select_device(device_serial)
-            if device_mac:
-                self.select_device(device_mac)
-                sleep(10)
-        else:
-            self.utils.print_info("Device is down")
-            return -1
+            self.utils.print_info("Result is:", device_status)
+            if device_status == 'green' or device_status == 'config audit mismatch':
+                self.utils.print_info("Select the device")
+                if device_mac:
+                    self.select_device(device_mac)
+                    sleep(10)
+            else:
+                self.utils.print_info("Device is down")
+                return -1
 
         self.utils.print_info("Check if device has policy")
         if self.devices_web_elements.get_assign_policy_device_selected():
@@ -11186,6 +11197,10 @@ class Devices:
 
     def select_clone_device(self, device_serial, replacement_device_type, replacement_serial, option="disable"):
 
+        self.utils.print_info("Navigate to Manage-->Devices")
+        def _navigate_to_devices():
+            return self.navigator.navigate_to_devices()
+        self.utils.wait_till(_navigate_to_devices)
         select_flag = False
         if device_serial:
             self.select_device(device_serial)
