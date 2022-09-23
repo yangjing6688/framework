@@ -90,6 +90,10 @@ class AutoActions:
                         self.utils.print_warning("Unable to click the element. Saving Screenshot...")
                         self.screen.save_screen_shot()
 
+    def click_with_js(self, element):
+        CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
+        sleep(2)
+
     def move_to_element(self, element):
         """
         - This Keyword Uses to Move the Mentioned Web Element using Mouse Actions
