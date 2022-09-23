@@ -301,6 +301,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_ui_banner_error_message(self):
         return self.weh.get_element(self.ui_banner_error_message)
 
+    def get_ui_banner_warning_message(self):
+        return self.weh.get_element(self.ui_banner_warning_message)
+
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
 
