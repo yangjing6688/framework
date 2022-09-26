@@ -89,7 +89,7 @@ class ExtremeGuestOnboardingWebElementsDefs:
 
     extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown = \
         {
-            'XPATH': '//div[contains(@data-automation-tag, "eguest-onboarding-policy-criteria-notify-user")]',
+            'XPATH': '(//div[contains(@class, "x-form-trigger x-form-trigger-select-box x-form-arrow-trigger x-form-arrow-trigger-select-box")])[4]',
             'wait_for': 1
         }
 
