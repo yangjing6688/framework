@@ -815,9 +815,7 @@ class Cli(object):
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
            NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(_spawn, f'do application stop hiveagent')
-            self.send(_spawn, f'do Hivemanager address {server_name}')
-            self.send(_spawn, f'do application start hiveagent')
+            self.send(connection, f'do Hivemanager address {server_name}')
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'capwap client server name {server_name}')
@@ -1015,17 +1013,33 @@ class Cli(object):
             #   Version                             0.6.6
             #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
             current_version = current_version.replace("Version",'').split()[0]
-            base_version = self.send(connection, f'show process iqagent  | include iqagent')
-            # Output:
-            #   iqagent          0.6.6.1     0    Ready        Fri Sep  2 13:26:44 2022  Vital
-            #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
-            base_version = base_version.replace("iqagent",'').split()[0]
+            base_version = self.send(connection, f'show process iqagent  | include Slot-1.iqagent')
+            if 'iqagent' in base_version:
+                # Output:
+                #   Slot-1 iqagent          0.5.42.1    0    Ready        Tue Sep 20 13:02:14 2022  Vital
+                #   * Slot-1 Stack.12 #
+                base_version = base_version.replace("Slot-1 iqagent",'').split()[0]
+            else:
+                base_version = self.send(connection, f'show process iqagent  | include iqagent')
+                # Output:
+                #   iqagent          0.6.6.1     0    Ready        Fri Sep  2 13:26:44 2022  Vital
+                #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
+                base_version = base_version.replace("iqagent",'').split()[0]
             # Adjust the verison down to 3 numbers
             parts = base_version.split('.')
             if len(parts) > 3:
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
+                vr = self.send(connection, f'show iqagent | include Active.VR')
+                # Output:
+                # X465-48W.3 # show iqagent | include Active\ VR
+                # Active VR                           VR-Default
+                vr = vr.replace("Active VR", '').split()[0]
+                if len(vr)> 0 and vr != 'None':
+                    vrString = f' vr {vr}'
+                else:
+                    vrString = f' vr vr-mgmt'
                 system_type = self.send(connection, f'show switch | include "System Type"')
                 # Output:
                 # System Type:      5520-24T-SwitchEngine
@@ -1053,7 +1067,7 @@ class Cli(object):
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
                     url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
                     self.utils.print_info(f"Sending URL: {url_image}")
-                    self.send(connection, f'download url {url_image}', \
+                    self.send(connection, f'download url {url_image}{vrString}', \
                               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
                               confirmation_args='yes')
 
