@@ -189,6 +189,14 @@ class SideNavMenu(NavigatorWebElements):
                 if self.get_configure_guest_essentials_users_menu_item().is_displayed():
                     return 1
 
+            if tag == "automation-header-nav-alerts":
+                if self.get_manage_alerts_menu_item().is_displayed():
+                    return 1
+
+            if tag == "automation-header-vpnMgmt":
+                if self.get_vpn_management_tab().is_displayed():
+                    return 1
+
             return -1
 
         except Exception as e:
@@ -316,6 +324,14 @@ class SideNavMenu(NavigatorWebElements):
 
         if tag == "automation-header-nav-configure-guest-essentials-users":
             if self.get_configure_guest_essentials_users_menu_item().is_enabled():
+                return 1
+
+        if tag == "automation-header-nav-alerts":
+            if self.get_manage_alerts_menu_item().is_enabled():
+                return 1
+
+        if tag == "automation-header-vpnMgmt":
+            if self.get_vpn_management_tab().is_enabled():
                 return 1
 
         return -1
