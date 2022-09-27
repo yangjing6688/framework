@@ -1061,7 +1061,7 @@ class Devices:
             for option in options:
                 if device_model in option.text:
                     self.utils.print_info("Simulated device option: ", option.text)
-                    self.auto_actions.click(option)
+                    self.auto_actions.click_with_js(option)
 
             self.utils.print_info(f"Entering Device Count: {count}")
             self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), count)
