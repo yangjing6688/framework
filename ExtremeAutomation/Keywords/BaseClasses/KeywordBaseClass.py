@@ -55,7 +55,7 @@ class KeywordBaseClass(object):
 
         if device_name:
             do_init = StringUtils.string_to_boolean(kwargs.get("check_initial_prompt", True))
-            device = self.device_collection.get_device(device_name, init=do_init)
+            device = self.device_collection.get_device(device_name, init=do_init )
 
             if not device:
                 self.logger.log_info("ERROR - Device not found, verify it was created.")

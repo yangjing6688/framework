@@ -34,7 +34,7 @@ class DeviceTemplateWebElementDefinitions:
     device_template_ap_template_name_textfield = \
         {
             'XPATH': "//*[@data-dojo-attach-point='tplName']",
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_template_ap_template_wifi0_tab = \
@@ -126,6 +126,12 @@ class DeviceTemplateWebElementDefinitions:
     device_ap_template_items = \
         {
             'XPATH': '//div[@class="ui-menu-filter-list"]//*[@class="ui-menu-list"]//*[@class="ui-menu-item"]',
+            'wait_for': 15
+        }
+
+    device_switch_template_items = \
+        {
+            'XPATH': '//div[@class="ui-menu-filter-list"]//*[@class="ui-menu-list ui-scroll-menu-list"]//*[@class="ui-menu-item"]',
             'wait_for': 5
         }
 
@@ -136,24 +142,30 @@ class DeviceTemplateWebElementDefinitions:
     device_ap_template_add_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-wireless-device-templates-menu-button"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_ap_template_drop_box = \
         {
             'XPATH': '//*[@id="ah/util/layout/Menu_6"]/ul',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     ap_template_name = \
         {
             'XPATH': '//*[@id="ah/comp/configuration/deviceTemplate/APTemplate_0"]/div[2]/div[1]/div[2]/div[2]/input',
-            'wait_for': 2
+            'wait_for': 5
         }
 
     ap_template_save_button = \
         {
             'XPATH': '//*[@id="ah/comp/configuration/deviceTemplate/APTemplate_0"]/div[2]/fixed-bar/button[2]',
+            'wait_for': 7
+        }
+
+    ap_template_save_tool_tip = \
+        {
+            'XPATH': '//*[contains(@class, "ui-tipbox-success")]//*[@data-dojo-attach-point="textEl"]',
             'wait_for': 5
         }
 
@@ -343,25 +355,25 @@ class DeviceTemplateWebElementDefinitions:
     network_policy_add_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@class="table-action-icons table-add"]',
-            'wait_for': 3
+            'wait_for': 5
         }
 
     network_policy_name_text = \
         {
             'XPATH': "//input[@data-automation-tag='automation-policy-name']",
-            'wait_for': 5
+            'wait_for': 10
         }
 
     network_policy_save_button = \
         {
             'XPATH': "//button[@data-automation-tag='automation-policy-save']",
-            'wait_for': 5
+            'wait_for': 10
         }
 
     select_device_template = \
         {
             'XPATH': '//div[@data-dojo-attach-point="configwizardNav"]//li[@class="wiz-item wiz-item-2"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     select_ap_template = \
@@ -373,7 +385,7 @@ class DeviceTemplateWebElementDefinitions:
     ap_template_advanced_settings = \
         {
             'XPATH': '//li[@class="ui-nav-sider-item has-cap-advanced nav-configuration-advanced active-result"]',
-            'wait_for': 3
+            'wait_for': 15
         }
 
     ap_template_enable_scli = \
@@ -422,4 +434,17 @@ class DeviceTemplateWebElementDefinitions:
         {
             'XPATH': '//fixed-bar[@class="bottom"]//button[@class="btn btn-primary"]',
             'wait_for': 5
+        }
+
+    ap_template_country_code_drop_down = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="countryCodeCtn"]//*[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 20
+        }
+
+    ap_template_country_code_list = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-country-code"]'
+                     '//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
+            'wait_for': 20
         }

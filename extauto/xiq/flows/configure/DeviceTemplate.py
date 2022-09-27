@@ -111,17 +111,16 @@ class DeviceTemplate(object):
             self.config_ap_template_wifi2(**wifi2_config)
 
         self.utils.print_info("Click on the save template button")
+        self.auto_actions.scroll_up()
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
-        sleep(3)
+        sleep(5)
 
-        tool_tip_text = tool_tip.tool_tip_text
-        self.screen.save_screen_shot()
-        sleep(2)
-        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-        sub_string = "template"
-        strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
-        self.utils.print_info("Tool tip Text ap template", strings_with_substring)
-        if "AP template was saved successfully" in str(strings_with_substring):
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+        observed_temp_message = tool_tp_text[-1]
+        self.utils.print_info("Tooltip Message Displayed on UI is : ", observed_temp_message)
+
+        if "AP template was saved successfully" in observed_temp_message:
             return 1
         else:
             return -1
@@ -815,7 +814,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("select the Switch: ", switch_model)
-        switch_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
+        switch_list_items = self.device_template_web_elements.get_switch_template_platform_from_drop_down()
         for el in switch_list_items:
             if not el:
                 pass
@@ -863,6 +862,96 @@ class DeviceTemplate(object):
         self.utils.print_info(tool_tp_text)
 
         if "Switch template has been saved successfully." in tool_tp_text[-1]:
+            return 1
+        else:
+            self.utils.print_info("Unable to save the template")
+            return -1
+
+    def add_ap_template_with_country_code(self, policy_name, ap_model, ap_template_name, country_code):
+        """
+        - This Keyword is to create Country Code in AP Template
+        - Flow: Network Policies --> Device Template --> AP Template --> Advanced Settings --> Country Code
+        - Keyword Usage:
+         - ``Choose Country Code in AP Template   ${POLICY_NAME}    ${AP_MODEL}    ${AP_TEMPLATE_NAME}   ${COUNTRY}``
+
+        :param policy_name: Name of the Network policy
+        :param ap_model: AP Model
+        :param ap_template_name: Name of the AP Template
+        :param country_code: Name of the country code
+        :return: 1 if AP Template is saved successfully else -1
+        """
+
+        self.utils.print_info("Selecting Configure tab...")
+        self.navigator.navigate_to_configure_tab()
+
+        self.utils.print_info("Navigating to network policies...")
+        self.navigator.navigate_to_network_policies_tab()
+
+        self.utils.print_info("Click on network policy add button")
+        self.auto_actions.click(self.device_template_web_elements.get_network_policy_add_button())
+
+        self.utils.print_info("Enter the policy name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
+
+        self.utils.print_info("Click on network policy save button")
+        self.auto_actions.click(self.device_template_web_elements.get_network_policy_save_button())
+
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Click on Device Template tab")
+        self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
+
+        self.utils.print_info("Click on AP Template add button")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_add_button())
+
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("select the AP: ", ap_model)
+        ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
+        for el in ap_list_items:
+            if not el:
+                pass
+            if ap_model.upper() in el.text.upper():
+                self.auto_actions.click(el)
+                break
+            print(el.text)
+
+        self.utils.print_info("Enter the AP Template Name")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_text(), ap_template_name)
+
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Clicking Advanced Settings ... ")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_advanced_settings())
+
+        self.auto_actions.scroll_down()
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Clicking on Country Code dropdown")
+        self.auto_actions.click(self.device_template_web_elements.get_ap_template_country_code_drop_down())
+
+        self.utils.print_info("Select the Country Code")
+        countries = self.device_template_web_elements.get_ap_template_country_code_list()
+        if countries:
+            for country in countries:
+                self.utils.print_debug("country: ", country.text)
+                if country_code in country.text:
+                    self.auto_actions.click(country)
+                    self.utils.print_info("Selected country: ", country_code)
+                    self.screen.save_screen_shot()
+        else:
+            self.utils.print_info(f" Not able to find auto provision country dropdown items ")
+            self.screen.save_screen_shot()
+
+        self.utils.print_info("Saving template ... ")
+        self.auto_actions.click(self.device_template_web_elements.get_switch_template_save_template())
+
+        self.screen.save_screen_shot()
+
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        if "AP template was saved successfully." in tool_tp_text[-1]:
             return 1
         else:
             self.utils.print_info("Unable to save the template")

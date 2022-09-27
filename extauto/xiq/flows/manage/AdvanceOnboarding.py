@@ -9,6 +9,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.AdvanceOnboardingWebElements import AdvanceOnboardingWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class AdvanceOnboarding(AdvanceOnboardingWebElements):
@@ -17,18 +18,18 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.dialogue_web_elements = DialogWebElements()
-        self.devices_web_elements = DevicesWebElements()
-
+        self.common_validation = CommonValidation()
         self.screen = Screen()
         self.navigator = Navigator()
         self.devices = Devices()
+        self.commonValidation = CommonValidation()
 
     def advance_onboard_device(self, device_serial, device_make="", dev_location="", device_type="Real",
-                               entry_type="Manual", csv_location='', create_location=False):
+                               entry_type="Manual", csv_location='', create_location=False, device_mac=None, **kwargs):
         """
          - This keyword is used to onboard Device using Advance Onboarding Method
          - Keyword Usage:
-          - ``Onboard Device  ${DEVICE_SERIAL}   device_make=${DEVICE_MAKE_AEROHIVE}   dev_location=${LOCATION}``
+          - ``Onboard Device  ${DEVICE_SERIAL}   device_make=${device1.make}   dev_location=${LOCATION}``
 
         :param device_serial: serial number of Device
         :param device_make: Model of the Device ex:Extreme-aerohive,ExOS,VOSS,DELL
@@ -39,6 +40,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         :param create_location: Create new location during onboarding
         :return: 1 if Device Onboarded Sucessfully else -1
         """
+
         self.utils.print_info("Navigate to advance on board tab")
         self._got_to_advanced_onboard_tab()
 
@@ -150,11 +152,13 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                     self.screen.save_screen_shot()
                     sleep(2)
 
-                if self.get_advance_onboard_cloudiq_engine_button().is_displayed():
-                    self.utils.print_info("Selecting CloudIQEngine Radio Button")
-                    self.auto_actions.click(self.get_advance_onboard_cloudiq_engine_button())
+                if self.get_advance_onboard_mac_textfield().is_displayed() and device_mac != None:
+                    self.utils.print_info("Added the Wing Mac Address")
+                    self.auto_actions.send_keys(self.get_advance_onboard_mac_textfield(), device_mac)
                     sleep(3)
-
+                if self.get_advance_onboard_mac_textfield().is_displayed() and device_mac == None:
+                    kwargs['fail_msg'] = ">>> The Wing device needs the 'device_mac' to be passed into this method"
+                    self.commonValidation.failed(**kwargs)
         else:
             self.utils.print_info("Selecting Entry Type as CSV")
             self.auto_actions.click(self.get_entry_type_csv_radio_button())
@@ -174,20 +178,23 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                             self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
                             self.auto_actions.send_keys(upload_button, csv_location)
                         else:
-                            self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                            self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
+                            kwargs['fail_msg'] = ">>> CSV file could not be specified - upload button not located\n"
+                            kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                             self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                            self.commonValidation.failed(**kwargs)
                             return -1
                     else:
-                        self.utils.print_info(">>> CSV file was not specified")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
+                        kwargs['fail_msg'] =">>> CSV file was not specified\n"
+                        kwargs['fail_msg'] +=">>> Clicking Cancel and exiting - device NOT on-boarded"
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        self.commonValidation.failed(**kwargs)
                         return -1
 
             else:
-                self.utils.print_info(">>> Unsupported device type " + device_make)
-                self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
+                kwargs['fail_msg'] =">>> Unsupported device type " + device_make + "\n"
+                kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                 self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                self.commonValidation.failed(**kwargs)
                 return -1
 
         self.utils.print_info("Click Onboard Devices Button")
@@ -205,10 +212,14 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                kwargs['fail_msg'] = f"Error: {dialog_message}"
+                self.commonValidation.failed(**kwargs)
                 return -1
             if "A stake record of the device was found in the redirector." in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                kwargs['fail_msg'] = f"Error: {dialog_message}"
+                self.commonValidation.failed(**kwargs)
                 return -2
 
         sleep(3)
@@ -218,6 +229,8 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         if success_message:
             if not "Device(s) Successfully Onboarded" in success_message:
                 self.utils.print_info("Tooltip Validation Failed on Advance Onboard Page")
+                kwargs['fail_msg'] = f"Error: Tooltip Validation Failed on Advance Onboard Page"
+                self.commonValidation.failed(**kwargs)
                 return -1
 
         sleep(3)
@@ -242,12 +255,25 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         serials = device_serial.split(",")
         self.utils.print_info("Device Serials Numbers: ", serials)
 
-        for serial in serials:
-            if self.devices.search_ap_serial(serial):
-                self.utils.print_info("Successfully Onboarded Device(s): ", serials)
-                return 1
-            else:
-                return -1
+        max_retires = 3
+        count = 0
+        ret_value = -1
+        while max_retires != count:
+            for serial in serials:
+                if self.devices.search_device(device_serial=serial) == 1:
+                    kwargs['pass_msg'] = f"Found the device for Serial: {device_serial}"
+                    self.commonValidation.passed(**kwargs)
+                    return 1
+                else:
+                    if count != max_reties:
+                        self.utils.print_info("fThe {serial} was not found, sleeping for 10 seconds")
+                        sleep(10)
+                        count += 1
+                        self.utils.print_info(f"new count value {count} of max reties {max_reties}")
+
+        kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serial}"
+        self.commonValidation.failed(**kwargs)
+        return -1
 
     def _got_to_advanced_onboard_tab(self):
         """

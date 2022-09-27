@@ -87,7 +87,7 @@ class SwitchTemplate(object):
             self.utils.print_info("  -- could not find page size element 100")
         if self.common_objects.search_switch_template(sw_template_name):
             kwargs['pass_msg'] = "Switch Template exists on first page!!"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
         elif not self.common_objects.search_switch_template(sw_template_name):
@@ -103,7 +103,7 @@ class SwitchTemplate(object):
                     page_len = page_len - 1
                     if self.common_objects.search_switch_template(sw_template_name):
                         kwargs['pass_msg'] = "Switch Template exists in the list!!"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
 
         self.utils.print_info("Navigating Network Policies")
@@ -151,7 +151,7 @@ class SwitchTemplate(object):
                         break
                 if not model_found:
                     kwargs['fail_msg'] = "Device model NOT found!"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
 
                 sleep(1)
@@ -1568,88 +1568,105 @@ class SwitchTemplate(object):
                     else:
                         return -1
 
-    def add_supplimental_cli_into_template(self, nw_policy, sw_template_name, s_cli_name, commands=None):
+    def add_supplemental_cli_into_template(self, nw_policy, sw_template_name, s_cli_name, commands=None,
+                                           navigate_to_scli=True, save_template=True):
         """
         This function is used to add commands into S-CLI by using network policy and template
         :param nw_policy: name of policy
         :param sw_template_name: name of template
         :param s_cli_name: name of s-cli profile
         :param commands:  The commands which will be added into S-CLI. Multiple commands are supported
-        :return:
+        :param navigate_to_scli: True - it will navigate: Devices --> Device Templates -> Advanced Settings ; False - it
+        will not navigate(e.g. in the case if the program is already there)
+        :param save_template: True - will save the template ; False - will not save the template (More configures can be
+        added after)
+        :return: 1 - if Supplemental CLI was added successfully; -1 - if not
         """
 
-        self.utils.print_info("Navigate to devices")
-        self.navigator.navigate_to_devices()
+        if navigate_to_scli:
+            if self.select_adv_settings_tab(nw_policy, sw_template_name) == -1:
+                return -1
 
-        self.nw_policy.navigate_to_np_edit_tab(nw_policy)
-        sleep(5)
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
-        sleep(2)
-        sw_template_tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if sw_template_tab:
-            if sw_template_tab.is_displayed():
-                self.utils.print_info("Click on switch Template tab")
-                self.auto_actions.click(sw_template_tab)
+        supple_cli_on = self.sw_template_web_elements.get_sw_template_supplemental_cli_on_button()
+        if supple_cli_on:
+            if supple_cli_on.get_attribute('checked') != 'checked':
+                self.utils.print_info("Click on ON supplemental cli ")
+                AutoActions().click(supple_cli_on)
+
+            supple_cli_name_text = self.sw_template_web_elements.get_sw_template_supplemental_cli_name_text()
+            if supple_cli_name_text:
+                self.utils.print_info("Enter name for s-cli ")
+                self.auto_actions.send_keys(supple_cli_name_text, s_cli_name)
             else:
-                self.utils.print_info("Switch Template tab was not found ")
-        else:
-            self.utils.print_info("Switch Template tab was not found ")
+                return -1
 
-        sleep(2)
-        rows = self.sw_template_web_elements.get_sw_template_rows()
-        if not rows:
-            self.utils.print_info("Switch templates not exists in switch device template page")
-            return False
-        for row in rows:
-            cells = self.sw_template_web_elements.get_sw_template_row_cell(row)
-            for cell in cells:
-                if sw_template_name in cell.text:
-                    self.utils.print_info("Click on template name ")
-                    self.auto_actions.click(cell)
-                    supple_cli = self.sw_template_web_elements.get_sw_template_supplemental_cli_button()
-                    if supple_cli:
-                        self.utils.print_info("Click on supplemental cli ")
-                        self.auto_actions.click(supple_cli)
-                        supple_cli_on = self.sw_template_web_elements.get_sw_template_supplemental_cli_on_button()
-                        self.utils.print_info()
-                        if supple_cli_on:
-                            if supple_cli_on.get_attribute('checked') == 'checked':
-                                pass
-                            else:
-                                self.utils.print_info("Click on ON supplemental cli ")
-                                self.auto_actions.click(supple_cli_on)
-                        else:
-                            return -1
-                        supple_cli_name_text = \
-                            self.sw_template_web_elements.get_sw_template_supplemental_cli_name_text()
-                        if supple_cli_name_text:
-                            self.utils.print_info("Enter name for s-cli ")
-                            self.auto_actions.send_keys(supple_cli_name_text, s_cli_name)
-                        else:
-                            return -1
-                        cli_command_list = commands.split(",")
-                        new_line_cli_commands = "\n".join(cli_command_list)
-                        supple_cli_name_commands = \
-                            self.sw_template_web_elements.get_sw_template_supplemental_cli_commands_text()
-                        if supple_cli_name_commands:
-                            self.utils.print_info("Enter the commands  ")
-                            self.auto_actions.send_keys(supple_cli_name_commands, new_line_cli_commands)
-                        else:
-                            return -1
-                        save_btn = self.sw_template_web_elements.get_sw_template_scli_save_btn()
-                        if save_btn:
-                            self.utils.print_info("Saving S-cli")
-                            self.auto_actions.click(save_btn)
-                            return 1
-                        else:
-                            self.utils.print_info("Saving S-cli not found ")
-                        sleep(3)
-                    else:
-                        return -1
-                else:
-                    pass
-        return -1
+            cli_command_list = commands.split(",")
+            new_line_cli_commands = "\n".join(cli_command_list)
+            supple_cli_name_commands = \
+                self.sw_template_web_elements.get_sw_template_supplemental_cli_commands_text()
+            if supple_cli_name_commands:
+                self.utils.print_info("Enter the commands  ")
+                self.auto_actions.send_keys(supple_cli_name_commands, new_line_cli_commands)
+            else:
+                return -1
+
+            if save_template:
+                self.utils.print_info("Saving S-cli")
+                if self.save_template() == -1:
+                    self.utils.print_info("Failed to save S-cli")
+                    return -1
+            sleep(3)
+            return 1
+        else:
+            return -1
+
+    def select_adv_settings_tab(self, network_policy_name, device_template_name):
+        """
+        This function is used to select the Advanced Settings tab of a device template within a policy
+        :param network_policy_name: name of policy
+        :param device_template_name: name of template
+        :return: 1 - if the navigation was successful ; -1 - if not
+        """
+        try:
+            self.select_sw_template(network_policy_name, device_template_name)
+            if not self.sw_template_web_elements.get_sw_template_adv_settings_tab():
+                self.utils.print_info("Advanced Settings tab is not displayed!")
+                return -1
+
+            self.utils.print_info("Click on Advanced Settings tab")
+            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_adv_settings_tab())
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        sleep(3)
+        return 1
+
+    def save_template(self):
+        """
+        This function is used to save the current device template
+        :return: 1 - if the save was successful ; -1 - if not
+        """
+        try:
+            save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
+            if not save_template_button.is_displayed():
+                self.utils.print_info("SAVE button is not displayed")
+                return -1
+
+            self.utils.print_info("Click on SAVE button")
+            self.auto_actions.click(save_template_button)
+
+            # In the case of a pop-up message, press yes
+            sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
+            if sw_yes_button is not None and sw_yes_button.is_displayed():
+                self.utils.print_info("YES button is displayed")
+                self.auto_actions.click(sw_yes_button)
+
+            return 1
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        sleep(3)
+        return 1
 
     def configure_oob_mgmt_int(self, nw_policy, sw_template_name, mgmtVlan="4092"):
         """
@@ -1721,6 +1738,7 @@ class SwitchTemplate(object):
             choose_existing_port_type = self.sw_template_web_elements.existing_port_type_button()
             if choose_existing_port_type:
                 self.auto_actions.click(choose_existing_port_type)
+            self.utils.wait_till(self.sw_template_web_elements.port_type_list)
             existing_port_type_list = self.sw_template_web_elements.port_type_list()
             if existing_port_type_list:
                 self.utils.print_info("Found the port type list!")
@@ -1761,14 +1779,14 @@ class SwitchTemplate(object):
                                                               f"ports: {ports}")
                                     else:
                                         kwargs['fail_msg'] = 'Did not find the successful Trunk Port message.'
-                                        self.common_validation.validate(-1, 1, **kwargs)
+                                        self.common_validation.failed(**kwargs)
                                         return -1
 
                                 else:
                                     self.utils.print_info("Unable to find the 'Save' button in this section!")
                                     kwargs['fail_msg'] = "Unable to find the 'Save' button in this section!"
                                     self.screen.save_screen_shot()
-                                    self.common_validation.validate(-1, 1, **kwargs)
+                                    self.common_validation.failed(**kwargs)
                                     return -1
                             else:
                                 pass
@@ -1795,12 +1813,12 @@ class SwitchTemplate(object):
                                         rc = 1
                                         self.utils.print_info("Template has been saved successfully.")
                                         kwargs['pass_msg'] = "Template has been saved successfully."
-                                        self.common_validation.validate(1, 1, **kwargs)
+                                        self.common_validation.passed(**kwargs)
                                     else:
                                         self.utils.print_info("Successful message not found")
                                         kwargs['fail_msg'] = "Successful message not found"
                                         self.screen.save_screen_shot()
-                                        self.common_validation.validate(-1, 1, **kwargs)
+                                        self.common_validation.failed(**kwargs)
                                         return -1
                                     break
                             return rc
@@ -1808,13 +1826,13 @@ class SwitchTemplate(object):
                             self.utils.print_info("Did not find the save button!")
                             kwargs['fail_msg'] = "Did not find the save button!"
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
         else:
             self.utils.print_info("Could not find the assign button!")
             kwargs['fail_msg'] = "Could not find the assign button!"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def add_5520_sw_template(self, nw_policy, sw_model, sw_template_name, save_template=True):
@@ -1926,7 +1944,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Not found the network policy. Make sure that it was created")
             kwargs['fail_msg'] = f"Policy: {nw_policy} has not been found."
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Click on Device Template tab button")
         self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
@@ -1951,36 +1969,39 @@ class SwitchTemplate(object):
                         def check_for_confirmation():
                             tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
                             self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
-                            return "Template was successfully removed from policy." in tool_tip_text
+                            if tool_tip_text:
+                                return "Template was successfully removed from policy." in tool_tip_text
+                            else:
+                                return False
 
                         confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                         if confirmation_message:
                             rc = 1
                             self.utils.print_info("Template was successfully removed from policy.")
                             kwargs['pass_msg'] = "Template was successfully removed from policy."
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                         else:
                             self.utils.print_info("Successful message not found")
                             kwargs['fail_msg'] = "Successful message not found"
                             self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            self.common_validation.failed(**kwargs)
                             return -1
                     else:
                         kwargs['fail_msg'] = "Delete button hasn't been found."
                         self.screen.save_screen_shot()
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
             if not found:
                 self.utils.print_info(f"The template {sw_template_name} is not present here, it may have been "
                                       "already deleted or it wasn't created.")
                 kwargs['pass_msg'] = f"The template {sw_template_name} is not present here, it may have been " \
                                      f"already deleted or it wasn't created."
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
         else:
             self.utils.print_info("There aren't any templates here.")
             kwargs['pass_msg'] = "There are no templates configured."
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
     def sw_template_stack_select_slot(self, slot, **kwargs):
@@ -2003,24 +2024,24 @@ class SwitchTemplate(object):
                         self.auto_actions.click(stack_item)
                         slot_found = True
                         kwargs['pass_msg'] = f"Slot {str(slot)} found in the stack"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
                     slot_index = slot_index + 1
                 if not slot_found:
                     kwargs['fail_msg'] = f"Slot {str(slot)} not found in the stack, check the numbers of slots"
                     self.screen.save_screen_shot()
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 kwargs['fail_msg'] = f"Something went wrong with selecting the slot {str(slot)}"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
             else:
                 self.utils.print_info("Cannot find the slot list for the stack in this template")
                 kwargs['fail_msg'] = "Cannot find the slot list for the stack in this template"
                 self.screen.save_screen_shot()
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             kwargs['fail_msg'] = "Unable to gather the list of the devices in the stack"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)

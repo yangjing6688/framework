@@ -225,12 +225,24 @@ class ExtremeGuestUsers(object):
             search_string = list(search_string.keys())[0]
         self.auto_actions.click(self._get_extreme_guest_users_page_user_row(search_string))
         sleep(2)
+        self.screen.save_screen_shot()
         self.utils.print_info("Deleting the User")
+        self.utils.print_info("Click Delete Button")
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_button())
+        self.screen.save_screen_shot()
         sleep(2)
+        self.utils.print_info("Click OK Button")
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_ok_button())
+        self.screen.save_screen_shot()
+        try:
+            self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate())
+            self.utils.print_info("Click OK Button")
+        except Exception as e:
+            self.utils.print_info("OK Button is already clicked")
+            pass
         sleep(2)
         self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_status_ok_button())
+        self.screen.save_screen_shot()
 
         return 1
 

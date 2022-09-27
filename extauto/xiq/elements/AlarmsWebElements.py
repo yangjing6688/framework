@@ -35,3 +35,6 @@ class AlarmsWebElements(AlarmsWebElementsDefs):
 
     def get_alarms_grid_refresh_button(self):
         return self.weh.get_element(self.alarms_grid_refresh_button)
+
+    def get_alarms_grid_legacy_alarm_button(self):
+        return self.weh.get_element(self.alarms_grid_legacy_alarm_button)

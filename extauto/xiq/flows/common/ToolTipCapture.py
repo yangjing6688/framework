@@ -18,10 +18,17 @@ def tool_tip_capture():
     t = threading.current_thread()
     while getattr(t, "do_run", True):
         try:
-            tool_tip_elemnt = CloudDriver().cloud_driver.find_element_by_css_selector(".ui-tipbox-ctn")
+            # Generic Tool tip needs to be changed as part of XIQ-8761 from "ui-tipbox-ctn" to "ui-tipbox-single"
+            tool_tip_elemnt = CloudDriver().cloud_driver.find_element_by_css_selector(".ui-tipbox-single")
             if text := tool_tip_elemnt.text:
                 if text not in tool_tip_text:
                     tool_tip_text.append(text)
+
+            tool_tip_elemnts = CloudDriver().cloud_driver.find_elements_by_css_selector(".ui-tipbox-title")
+            for tool_tip_element in tool_tip_elemnts:
+                if text := tool_tip_element.text:
+                    if text not in tool_tip_text:
+                        tool_tip_text.append(text)
             sleep(1)
         except Exception as e:
             pass

@@ -760,6 +760,18 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_wifi2_client_access = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage6GHzClientAccess"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_mesh_link = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage6GHzMeshLink"]',
+            'wait_for': 3
+        }
+
     common_object_ap_template_enable_sdr = \
         {
             'XPATH': '//input[@data-dojo-attach-point="enableSdrProfile"]',
@@ -1147,4 +1159,10 @@ class CommonObjectsWebElementsDefinitions:
         {
             'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
             'wait_for': 1
+        }
+
+    next_page_element_disabled = \
+        {
+            'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable',
+            'index': 0
         }

@@ -825,7 +825,7 @@ class TelnetTests(RobotUnitTest):
     def __test_setup(device):
         telnet = TelnetAgent(device)
         telnet.prompt_snapshot = "snapshot"
-        device.login_prompt = "1"
+        device.login_prompt = ["1"]
         device.pass_prompt = "1"
         device.main_prompt = "1"
         device.port = 23

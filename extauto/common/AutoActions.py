@@ -10,6 +10,7 @@ from selenium.common.exceptions import ElementNotInteractableException
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.CloudDriver import CloudDriver
+from extauto.common.WebElementController import WebElementController
 
 
 class AutoActions:
@@ -19,6 +20,10 @@ class AutoActions:
         self.utils = Utils()
         self.screen = Screen()
         self.builtin = BuiltIn()
+        self.web_element_ctrl = WebElementController()
+
+    def click_reference(self, element_object_ref):
+        return self.web_element_ctrl.action_method(self.click, element_object_ref)
 
     def click(self, element):
         """
@@ -84,6 +89,10 @@ class AutoActions:
                     if count == self.retries:
                         self.utils.print_warning("Unable to click the element. Saving Screenshot...")
                         self.screen.save_screen_shot()
+
+    def click_with_js(self, element):
+        CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
+        sleep(2)
 
     def move_to_element(self, element):
         """
