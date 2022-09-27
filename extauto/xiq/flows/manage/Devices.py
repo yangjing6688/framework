@@ -869,6 +869,7 @@ class Devices:
             try:
                 device_detail_dict = {}
                 device_row = self.get_manage_device_row(search_string)
+                device_row = copy.copy(device_row)
                 if device_row:
                     cells = self.devices_web_elements.get_device_row_cells(device_row)
                     for cell in cells:
@@ -3859,6 +3860,8 @@ class Devices:
         if device_mac:
             self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac)
+        # get a snap shot of the object at this instant, so values can't change or become undefined.
+        device_row = copy.copy(device_row)
 
         if device_row:
             sleep(5)
