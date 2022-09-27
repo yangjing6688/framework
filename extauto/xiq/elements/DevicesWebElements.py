@@ -301,6 +301,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_ui_banner_error_message(self):
         return self.weh.get_element(self.ui_banner_error_message)
 
+    def get_ui_banner_warning_message(self):
+        return self.weh.get_element(self.ui_banner_warning_message)
+
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
 
@@ -1275,3 +1278,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         parent = self.get_digital_twin_os_version_dropdown()
         return self.weh.get_elements(self.digital_twin_os_version_dropdown_items, parent)
+
+    def get_100_rows_per_page_button(self):
+        """
+        :return: Devices > 100 rows per page button
+        """
+        return self.weh.get_element(self.one_hundred_rows_per_page_button)

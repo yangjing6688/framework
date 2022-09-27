@@ -95,14 +95,17 @@ class Alarms(AlarmsWebElements):
         """
         alarm_details = {}
         self.navigator.navigate_to_manage_alarms()
+        self.screen.save_screen_shot()
 
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.utils.print_info("Clicking View Legacy Alarm Button")
         self.auto_actions.click(self.get_alarms_grid_legacy_alarm_button())
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Alarm Refresh Button")
         self.auto_actions.click(self.get_alarms_grid_refresh_button())
+        self.screen.save_screen_shot()
 
         row = self._get_alarm_grid_row(search_string)
         if row:
@@ -112,8 +115,10 @@ class Alarms(AlarmsWebElements):
                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
                     alarm_details[label] = cell.text
             self.utils.print_info(alarm_details)
+            self.screen.save_screen_shot()
             return alarm_details
 
         else:
             self.utils.print_info(f"Unable to Find Alarm with string {search_string}")
+            self.screen.save_screen_shot()
             return -1

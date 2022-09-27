@@ -1636,6 +1636,13 @@ class DevicesWebElementsDefinitions:
             'wait_for': 3
         }
 
+    ui_banner_warning_message = \
+        {
+            'DESC': 'XIQ UI Banner containing a warning message.',
+            'XPATH':  '//*[contains(@class, "ui-tipbox ui-tipbox-warning") and contains(@data-dojo-attach-point, "wrapEl")]',
+            'wait_for': 3
+        }
+
     license_button = \
         {
             'XPATH': '//li[@data-automation-tag="automation-sider-list-licenseMng"]',
@@ -1851,4 +1858,9 @@ class DevicesWebElementsDefinitions:
             'DESC': 'Quick Add Devices - Digital Twin > OS Version dropdown menu items',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-os-version-select-dropdown"]'
                      '//tr[contains(@class, "dijitMenuItem")]'
+        }
+
+    one_hundred_rows_per_page_button = \
+        {
+            'XPATH': '//a[@data-size="100"]'
         }
