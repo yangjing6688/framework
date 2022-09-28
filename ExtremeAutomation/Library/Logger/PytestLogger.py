@@ -48,18 +48,11 @@ class PytestLogger(logging.Logger, metaclass=Singleton):
         self.logging = logging
         self._new_record_factory = None
         self._formatter_cls = None
-
-        self.configure_new_logging_levels()
-
-        self.logger_level = min(*[v for v in colors_mapping if isinstance(v, int)]) 
-        self.old_record_factory = logging.getLogRecordFactory()
-        logging.setLogRecordFactory(self.new_record_factory)
-
-        self.setLevel(self.logger_level)
-        stream_handler = logging.StreamHandler(sys.stdout)
-        stream_handler.setFormatter(self.formatter_cls())
-        stream_handler.setLevel(self.logger_level)
-        self.addHandler(stream_handler)
+        self._stream_handler = None
+        self._logger_level = None
+        self._logger_initialised = False
+    
+        self.init_logger()
 
     @property
     def new_record_factory(self):
@@ -74,13 +67,20 @@ class PytestLogger(logging.Logger, metaclass=Singleton):
     @property
     def formatter_cls(self):
         if not self._formatter_cls:
-            class Formatter(logging.Formatter):
+            class Formatter(self.logging.Formatter):
                 def format(cls, record):
                     cls._style._fmt = f"{colors_mapping[record.levelno]}{LOG_FORMAT}{colors_mapping['reset']}"
                     return super().format(record)
             self._formatter_cls = Formatter
         return self._formatter_cls
 
+    def logger_not_initialised(func):
+        def wrapped_func(self, *args, **kwargs):
+            if not self._logger_initialised:
+                func(self, *args, **kwargs)
+        return wrapped_func
+
+    @logger_not_initialised
     def configure_new_logging_levels(self):
         for level_name, log_info in new_log_levels.items():
             setattr(self.logging, level_name, log_info["log_level_value"])
@@ -88,3 +88,32 @@ class PytestLogger(logging.Logger, metaclass=Singleton):
             setattr(self.logging.Logger, level_name.lower(), partialmethod(self.logging.Logger.log, getattr(self.logging, level_name)))
             setattr(self.logging, level_name.lower(), partial(self.logging.log, getattr(self.logging, level_name)))
             colors_mapping[getattr(self.logging, level_name)] = log_info["log_color"]
+    
+    @property
+    def stream_handler(self):
+        if not self._stream_handler:
+            self._stream_handler = self.logging.StreamHandler(sys.stdout)
+        return self._stream_handler
+
+    @logger_not_initialised
+    def configure_stream_handler(self):
+        self.stream_handler.setFormatter(self.formatter_cls())
+        self.stream_handler.setLevel(self.logger_level)
+        self.addHandler(self.stream_handler)
+
+    @property
+    def logger_level(self):
+        self._logger_level = min(*[v for v in colors_mapping if isinstance(v, int)])
+        return self._logger_level
+
+    @logger_not_initialised
+    def init_logger(self):
+        self.configure_new_logging_levels()
+
+        self.old_record_factory = self.logging.getLogRecordFactory()
+        self.logging.setLogRecordFactory(self.new_record_factory)
+
+        self.setLevel(self.logger_level)
+        self.configure_stream_handler()
+        
+        self._logger_initialised = True
