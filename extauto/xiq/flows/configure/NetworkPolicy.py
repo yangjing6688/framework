@@ -210,7 +210,7 @@ class NetworkPolicy(object):
         self.utils.print_info(tool_tp_text)
 
         for value in tool_tp_text:
-            if "Network policy was deleted successfully" in value:
+            if "Network policy was deleted successfully" in value or "Network policy was deleted successfully." in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully!"
                 self.common_validation.passed(**kwargs)
                 return 1
