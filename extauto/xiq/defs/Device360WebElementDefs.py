@@ -138,6 +138,12 @@ class Device360WebElementDefs:
             'wait_for': 10
         }
 
+    select_100_elements_display_on_page = \
+        {
+            'XPATH': '//a[@data-size="100"]',
+            'wait_for': 5
+        }
+
     actions_adv_cli_access_cmd_input = \
         {
             'XPATH': '//*[@data-dojo-attach-point="cli"]',
@@ -1266,7 +1272,6 @@ class Device360WebElementDefs:
     sw_template_stack_add_items = \
         {
             'XPATH': '//div[@id="switchesMenu"]//ul/li/a',
-
             'wait_for': 5
         }
 
@@ -2822,6 +2827,12 @@ class Device360WebElementDefs:
     device360_ports_table_current_pagin_number = \
         {
             "XPATH": "//div[@class='pagination-num-ctn']//span[@class='pagination-page current-pagination']",
+            'wait_for': 5
+        }
+
+    device360_event = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-events"]',
             'wait_for': 5
         }
 

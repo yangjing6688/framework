@@ -85,6 +85,12 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    sw_template_row_table_cells = \
+        {
+            'CSS_SELECTOR': '.dgrid-cell',
+            'wait_for': 5
+        }
+
     sw_template_select_button = \
         {
             'CSS_SELECTOR': '.table-select',
@@ -590,6 +596,114 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': "//*[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
+        }
+
+    select_all_rows = \
+        {
+            'XPATH': '//div[@id="ah/util/AHGrid_1_rowSelector_-1"]',
+            'wait_for': 5
+        }
+
+    confirm_message_yes_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 5
+        }
+
+    sw_template_adv_tab_textfield = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-switch-template-name"]',
+            'wait_for': 2
+        }
+
+    sw_template_save_btn_adv_tab = \
+        {
+            'XPATH': '//*[@class = "bottom"]//*[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgrade_device_text = \
+        {
+            'XPATH': '//*[contains(text(),"Upgrade device firmware upon device authentication")]/text()',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgrade_device_on_off_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableUploadAuthExos"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upload_config_text = \
+        {
+            'XPATH': '//*[contains(text(),"Upload configuration automatically")]/text()',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upload_configuration_on_off_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="configPushAuto"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgr_firm_latest_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="downloadFirmwareOption-latest"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgr_firm_specific_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="downloadFirmwareOption-specific"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-container-ctn"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_items = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-drop-ctn"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_item16 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-16"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_item15 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-15"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_download_specific_firmware_drop_down_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="importImageArea"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    sw_template_adv_settings_download_specific_firmware_drop_down_items = \
+        {
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-deviceimagemetadata"]//li[contains(@class,"active-result")]',
+            'wait_for': 2
+        }
+
+    sw_template_row_cells_hyperlink = \
+        {
+            'CSS_SELECTOR': '.J-tmplName',
+            'wait_for': 10
         }
 
     sw_template_stp_tab = \
