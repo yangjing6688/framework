@@ -113,7 +113,7 @@ class DeviceTemplate(object):
         self.utils.print_info("Click on the save template button")
         self.auto_actions.scroll_up()
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
-        sleep(5)
+        sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
