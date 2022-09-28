@@ -573,15 +573,15 @@ class Cli(object):
             self.utils.print_info(e)
             return -1
 
-    def get_ah_device_interface_ipv4_addr(self, spawn=None, device_make='Extreme - Aerohive', ah_device_interface='mgt0'):
+    def get_device_interface_ipv4_addr(self, spawn=None, device_make='Extreme - Aerohive', ah_device_interface='mgt0'):
         """
-        - This method returns AH device interface ipv4 address
+        - This method returns device interface ipv4 address based on device make
         - Keyword Usage:
-         - ``Get AH Device Interface IPv4 Addr    ${SPAWN}  ${Device_make}  ${Interface_name}``
+         - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${Device_make}  ${Interface_name}``
 
-        :param spawn: spawn to AH device
+        :param spawn: spawn to device
         :param device_make: Only support 'Extreme - Aerohive', others device types are not supported, such as  Dell, EXOS, VOSS, Controllers
-        :param ah_device_interface: AH devices(AP, XR, CVG appliance, VGVA) interface name, such as mgt0, eth0
+        :param ah_device_interface: Such as mgt0, eth0
         :return: returns the interface ipv4 address if success else -1
         """
         if device_make == 'Extreme - Aerohive':
