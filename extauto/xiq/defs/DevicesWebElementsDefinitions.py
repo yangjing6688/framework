@@ -1859,3 +1859,8 @@ class DevicesWebElementsDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-os-version-select-dropdown"]'
                      '//tr[contains(@class, "dijitMenuItem")]'
         }
+
+    one_hundred_rows_per_page_button = \
+        {
+            'XPATH': '//a[@data-size="100"]'
+        }

@@ -1745,6 +1745,21 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_ports_each_asic_port_group_stack(self, port_asic, slot):
         return self.weh.get_template_elements(self.device360_ports_each_asic_port_group_stack, parent=port_asic, slot=slot)
 
+    def get_device360_overview_port(self, port):
+        """
+        :param port: -voss: x/y (Ex: 1/2)
+                     -exos: x (Ex: 1)
+                     -stack: slot:port (Ex: 1:2)
+                     -management: mgmt
+                     -console: console
+        """
+        return self.weh.get_template_element(self.device360_overview_select_port, index=port)
+
+    def get_device360_overview_port_info_bounce_port(self):
+        return self.weh.get_element(self.device360_overview_port_info_bounce_port)
+        
+    def get_device360_overview_port_info_bounce_poe(self):
+        return self.weh.get_element(self.device360_overview_port_info_bounce_poe)
 
     def get_device360_ports_description_table_header(self):
         header_element = self.weh.get_element(self.device360_ports_description_table_header)
@@ -1848,3 +1863,4 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_d360_monitor_mac_locking_header(self):
         return self.weh.get_element(self.d360_monitor_mac_locking_header)
+
