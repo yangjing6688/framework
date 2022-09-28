@@ -6416,6 +6416,7 @@ class Device360(Device360WebElements):
         elif element == "mac locking":
             get_maclocking = self.get_select_element_port_type(element, value)
             if get_maclocking:
+                sleep(3)
                 self.auto_actions.click(get_maclocking)
                 return 1
 
