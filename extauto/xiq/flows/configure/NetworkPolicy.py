@@ -940,7 +940,6 @@ class NetworkPolicy(object):
         self.utils.print_info(f"The SSIDs in the policy: {ssids}")
         if not ssids:
             self.utils.print_info(" There are no SSIDs configured on policy  " + str(policy))
-            # return 1
         else:
             self.utils.print_info(" Select all SSIDs to be deleted")
             for ssid in ssids:
