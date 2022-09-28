@@ -381,7 +381,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info(
                     f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
-                retry_count += 30
+                retry_count += 1
 
         # we got here, so let's try this again
         if (retry_counter == 5):
