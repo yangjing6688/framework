@@ -2,19 +2,19 @@ class AlarmsWebElementsDefs:
     alarms_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="alarmsList"]//table[@class="dgrid-row-table"]',
-            'wait_for': 5
+            'wait_for': 20
         }
 
     alarm_grid_row_check_box = \
         {
             'CSS_SELECTOR': '.dgrid-selector',
-            'wait_for': 5
+            'wait_for': 20
         }
 
     alarms_grid_row_cells = \
         {
             'CSS_SELECTOR': '.dgrid-cell',
-            'wait_for': 5
+            'wait_for': 20
         }
 
     alarm_clear_button = \
