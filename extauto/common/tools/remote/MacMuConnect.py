@@ -297,6 +297,8 @@ class MacMuConnect(object):
         cmd2 = "killall 'Captive Network Assistant'"
         out1 = self._execute_commands(cmd1)
         out2 = self._execute_commands(cmd2)
+        sleep(2)
+        out2 = self._execute_commands(cmd2)
         print(f"{out1}\n{out2}")
 
     @staticmethod
