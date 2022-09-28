@@ -2273,8 +2273,7 @@ class Devices:
 
     # EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
-                       csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False,
-                       **kwargs):
+                       csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False, **kwargs):
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
@@ -2814,6 +2813,7 @@ class Devices:
                 kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
                 self.common_validation.failed(**kwargs)
                 return -1
+
 
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
                             csv_location='', policy_name=None, loc_name=None):
@@ -7044,6 +7044,7 @@ class Devices:
         :param version: version to which device(s) should get upgraded. This string should be contains into image name . e.g : 5520.8.3.0.0
         :return: 1 if success else -1
         """
+
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click(self.device_update.get_update_devices_button())
@@ -7076,6 +7077,8 @@ class Devices:
                 for opt in update_version_items:
                     self.utils.print_info("Image: {} is in drop down ".format(opt.text))
                     if version in opt.text:
+                        if "patch" not in version and "patch" in opt.text:
+                            continue
                         self.utils.print_info(
                             "Image version {} match the image {} from drop down".format(version, opt.text))
                         cont_images_found += 1

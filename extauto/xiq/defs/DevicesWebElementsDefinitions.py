@@ -400,9 +400,46 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    # This Xpath has been changed to a more specific path in order to solve an intermitent issue
     manage_device_actions_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-button"]',
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-button"]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status = \
+        {
+            'XPATH': '//li[6]//a[@data-automation-tag="automation-manage-device-actions-changemanagementstatus"]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_manage = \
+        {
+            'XPATH': '//li[6]//a[@data-automation-tag="automation-manage-device-actions-switch-manage-device"]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_unmanage = \
+        {
+            'XPATH': '//li[6]//a[@data-automation-tag="automation-manage-device-actions-switch-unmanage-device"]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_yes_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-no-button"]/following-sibling::button[1]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_no_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="noBtn"]',
+            'wait_for': 5
+        }
+
+    manage_device_actions_change_management_status_close_dialog = \
+        {
+            'XPATH': '//span[@class="device-utilities-icons device-utilities-close"]',
             'wait_for': 5
         }
 
@@ -421,6 +458,12 @@ class DevicesWebElementsDefinitions:
     actions_assign_network_policy_drop_down = \
         {
             'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
+            'wait_for': 5
+        }
+
+    actions_assign_network_policy_drop_down2 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]//tbody',
             'wait_for': 5
         }
 
@@ -816,6 +859,7 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
          }
 
+    # This Xpath has been changed to a more specific path in order to solve an interminte
     devices_quick_add_policy_drop_down = \
         {
             'XPATH': '//table[@data-automation-tag="automation-quick-add-onboard-policy-select"]//tbody//tr//td[2]',
