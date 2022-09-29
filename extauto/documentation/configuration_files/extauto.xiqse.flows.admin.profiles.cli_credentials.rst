@@ -1,0 +1,45 @@
+extauto.xiqse.flows.admin.profiles.cli\_credentials package
+===========================================================
+
+Submodules
+----------
+
+extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICredentials module
+---------------------------------------------------------------------------------------------
+
+.. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials.XIQSE_AdminProfilesCLICredentials
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICredentialsAddCred module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials.XIQSE_AdminProfilesCLICredentialsAddCred
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICredentialsDeleteCred module
+-------------------------------------------------------------------------------------------------------
+
+.. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials.XIQSE_AdminProfilesCLICredentialsDeleteCred
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICredentialsSaveFailed module
+-------------------------------------------------------------------------------------------------------
+
+.. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials.XIQSE_AdminProfilesCLICredentialsSaveFailed
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -3,7 +3,7 @@ class DeviceUpdateDefs:
 
     update_devices_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-update-config"]',
+            'XPATH': '//span[@data-automation-tag="automation-manage-update-config"]',
             'wait_for': 5
         }
 
@@ -27,7 +27,7 @@ class DeviceUpdateDefs:
 
     upgrade_iq_engine_checkbox = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="updateHiveOS"]',
+            'XPATH': '//input[@data-automation-tag="automation-config-download-options-update-hive-os"]',
             'wait_for': 5
         }
 
@@ -199,7 +199,7 @@ class DeviceUpdateDefs:
             'XPATH': '//*[@data-dojo-attach-point="deployNowBtn"]',
             'wait_for': 2
         }
-        
+
     upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
         {
             'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-hive-os"]',
@@ -222,4 +222,16 @@ class DeviceUpdateDefs:
         {
             'XPATH': '//*[@data-automation-tag="automation-config-download-options-checkbox-network-policy-configuration"]',
             'wait_for': 5
+        }
+
+    upgrade_specific_firmware_drop_down_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="importImageArea"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    upgrade_specific_firmware_drop_down_items = \
+        {
+            'XPATH': '//ul[@class="chzn-results "]//li[contains(@class,"active-result")]',
+            'wait_for': 2
         }
