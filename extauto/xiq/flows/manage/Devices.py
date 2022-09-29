@@ -1616,15 +1616,15 @@ class Devices:
 
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
 
             self.utils.print_info("Selecting Reboot menu item")
-            self.auto_actions.click(self.device_actions.get_device_actions_reboot_menu_item())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_reboot_menu_item)
             sleep(2)
 
             self.utils.print_info("Confirming...")
-            self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+            self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
 
             return 1
 
