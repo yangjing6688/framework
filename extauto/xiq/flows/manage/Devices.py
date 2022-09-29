@@ -1252,7 +1252,7 @@ class Devices:
             update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
                                   "you must select a Complete Configuration Update."
             if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
-                self.utils.print_info(value)
+                self.utils.print_info('Convert to Complete. Delta not supported')
                 update_method = "Complete"
 
         if update_method == "Complete":
