@@ -64,10 +64,10 @@ class NetworkElementCliSend(NetworkElementKeywordBaseClass):
         """
         
         dev, _, _ = self._init_keyword(device_name, **kwargs)
-        wait_for_sleep_override_value = int(kwargs.get("wait_for_sleep_override", 3))
+        wait_for_sleep_override_value = int(kwargs.get("wait_for_sleep_override", 500))
         dev.agent_constants.WAIT_FOR_SLEEP = wait_for_sleep_override_value
         cmd_obj = self.__send_command(dev, command, **kwargs)
-        dev.agent_constants.WAIT_FOR_SLEEP = 3
+        dev.agent_constants.WAIT_FOR_SLEEP = 500
         kw_result = self._determine_result(dev, cmd_obj, **kwargs)
         return self._keyword_cleanup([kw_result])
 
