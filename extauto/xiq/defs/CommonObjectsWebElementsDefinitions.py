@@ -363,25 +363,25 @@ class CommonObjectsWebElementsDefinitions:
     common_object_grid_row_cells = \
         {
             'CSS_SELECTOR': '.dgrid-cell',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     common_object_edit_button = \
         {
             'CSS_SELECTOR': '.table-action-icons.table-edit',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     common_object_delete_button = \
         {
-            'CSS_SELECTOR': '.table-action-icons.table-remove',
-            'wait_for': 2
+            'CSS_SELECTOR': '.hc-delete-action',
+            'wait_for': 10
         }
 
     common_object_confirm_delete_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     cwp_self_reg_employee_approval_button = \
