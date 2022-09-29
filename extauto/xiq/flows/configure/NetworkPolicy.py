@@ -167,7 +167,7 @@ class NetworkPolicy(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        for tip_text in tool_tp_text:
+        for tip_text in reversed(tool_tp_text):
             if "The Network Policy cannot be saved because" in tip_text:
                 self.utils.print_info(f"{tip_text}")
                 return 1
@@ -209,8 +209,8 @@ class NetworkPolicy(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        for value in tool_tp_text:
-            if "Network policy was deleted successfully" in value or "Network policy was deleted successfully." in value:
+        for value in reversed(tool_tp_text):
+            if "Network policy was deleted successfully" in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully!"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -275,7 +275,7 @@ class NetworkPolicy(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        for value in tool_tp_text:
+        for value in reversed(tool_tp_text):
             if "Network policy was deleted successfully" in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully"
                 self.common_validation.passed(**kwargs)
