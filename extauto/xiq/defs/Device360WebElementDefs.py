@@ -2682,7 +2682,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_stack_units_dropdown = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]'
+            'XPATH': '//div[@class="port-configuration-view"]'
                      '//div[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
