@@ -459,6 +459,8 @@ class NetworkPolicy(object):
         self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
         sleep(5)
 
+        self.navigator.enable_page_size()
+
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
         for tip_text in tool_tp_text:

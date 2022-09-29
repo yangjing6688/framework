@@ -652,6 +652,7 @@ class Devices:
         :param ap_mac: ap Mac address
         :return: 1 if deleted else -1
         """
+        self.navigator.enable_page_size()
         if ap_serial:
             self.utils.print_info("Deleting AP: ", ap_serial)
             search_result = self.search_ap(ap_serial=ap_serial)
@@ -1002,6 +1003,7 @@ class Devices:
         :return: 1 if deleted else -1
         """
         aps = -1
+        self.navigator.enable_page_size()
         try:
             aps = ap_serials.split(",")
             result = -1
@@ -3226,6 +3228,8 @@ class Devices:
         search_device = None
         search_type = None
 
+        self.navigator.enable_page_size()
+
         if device_serial:
             num_device_params += 1
             search_type = "device_serial"
@@ -3304,6 +3308,8 @@ class Devices:
         ret_val = 1
         deleted_devices = []
         not_deleted_devices = []
+
+        self.navigator.enable_page_size()
 
         # Select all the specified devices
         self.utils.print_info("Deleting devices: ", device_list)
@@ -4073,6 +4079,7 @@ class Devices:
         :return: 1 if Devices Deleted Successfully else -1
         """
 
+        self.navigator.enable_page_size()
         check_page = self.devices_web_elements.get_delete_button()
         if check_page:
             if check_page.is_displayed():
