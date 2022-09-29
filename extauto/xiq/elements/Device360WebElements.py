@@ -1736,3 +1736,20 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_overview_port_info_bounce_poe(self):
         return self.weh.get_element(self.device360_overview_port_info_bounce_poe)
+
+    def get_device360_port_configuration_pse_profile_add_button(self, row):
+        return self.weh.get_element(self.device360_port_configuration_pse_profile_add_button, row)
+
+    def get_device360_port_configuration_pse_profile_edit_button(self, row):
+        return self.weh.get_element(self.device360_port_configuration_pse_profile_edit_button, row)
+
+    def get_device360_configure_port_pse_rows(self):
+        return self.weh.get_elements(self.device360_configure_port_pse_rows)
+
+    def get_device360_port_configuration_pse_profile_port_interface(self, row):
+        return self.weh.get_element(self.device360_port_configuration_pse_profile_port_interface, row)
+
+    def get_common_save_button(self):
+        return self.weh.get_element(self.common_save_button)
+
+

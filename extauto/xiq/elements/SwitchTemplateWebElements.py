@@ -511,3 +511,13 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_template_slot(self, slot):
         return self.weh.get_template_element(self.template_slot, slot=slot)
+
+    def get_sw_template_error_message(self):
+        rez = []
+        elements = self.weh.get_elements(self.pse_error_message)
+        for el in elements:
+            if el.is_displayed():
+                rez.append(el)
+        if len(rez) != 0:
+            return rez
+        return None

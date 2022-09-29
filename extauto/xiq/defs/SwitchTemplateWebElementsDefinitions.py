@@ -735,3 +735,10 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
             'wait_for': 5
         }
+
+    pse_error_message = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'index': 0,
+            'wait_for': 5
+        }

@@ -2885,3 +2885,33 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@class="port-action action-bounce-poe "]'
         }
+
+    device360_port_configuration_pse_profile_add_button = \
+        {
+            'CSS_SELECTOR': '.ui-ip-save',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_edit_button = \
+        {
+            'CSS_SELECTOR': '.ui-ip-edit-active',
+            'wait_for': 5
+        }
+
+    device360_configure_port_pse_rows = \
+        {
+            'XPATH': '//div[@class="port-pse-entry "]',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_port_interface = \
+        {
+            'CSS_SELECTOR': '.port-interface',
+            'wait_for': 5
+        }
+
+    common_save_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
+            'wait_for': 5
+        }

@@ -2068,4 +2068,181 @@ class SwitchTemplate(object):
                 hyperlink = self.sw_template_web_elements.get_sw_template_row_cells_hyperlink(template_cell)
                 return hyperlink
         return False
+
+    def add_sw_template_from_policy_tab(self, sw_model, sw_template_name, save_template=True):
+
+        if self.check_sw_template(sw_template_name):
+            self.utils.print_info(
+                "Template with name {} already present in the template grid".format(sw_template_name))
+            return -1
+
+        add_btn = self.sw_template_web_elements.get_new_sw_template_add_button()
+        sleep(2)
+
+        if add_btn:
+            self.utils.print_info("Click on sw Template Add button")
+            self.auto_actions.click(add_btn)
+            sleep(1)
+
+            self.utils.print_info("select the sw: ", sw_model)
+            sw_list_items = self.sw_template_web_elements.get_sw_template_platform_from_drop_down()
+            sleep(2)
+            for el in sw_list_items:
+                self.utils.print_debug("Switch template names: ", el.text.upper())
+                if not el:
+                    pass
+                if sw_model.upper() in el.text.upper():
+                    self.auto_actions.click(el)
+                    break
+                print(el.text)
+            sleep(3)
+
+            self.utils.print_info("Enter the switch Template Name: ", sw_template_name)
+            self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
+                                        sw_template_name)
+            sleep(3)
+        if save_template:
+            sleep(5)
+            save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+            for save_btn in save_btns:
+                if save_btn.is_displayed():
+                    self.utils.print_info("Click on the save template button")
+                    self.auto_actions.click(save_btn)
+                    sleep(10)
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    sleep(15)
+                    for cnt3 in tool_tip_text:
+                        if 'successfully' in cnt3:
+                            self.utils.print_info("Found successfully message")
+                            return 1
+                        else:
+                            self.utils.print_info("Not found successfully message yet ")
+                else:
+                    self.utils.print_info("Not found 'Save template' button ")
+        else:
+            self.utils.print_info("User choose not to save the policy. More configs could be added")
+            return 1
+
+    def nav_to_template_tab(self, nw_policy):
+        '''
+
+        :param nw_policy:
+        :return:
+        '''
+
+        self.utils.print_info("Navigate to devices")
+        self.navigator.navigate_to_devices()
+        self.utils.print_info("Navigating Network Policies")
+        self.navigator.navigate_configure_network_policies()
+
+        if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
+            self.utils.print_info("Not found the network policy. Make sure that it was created before ")
+            return -1
+
+        self.utils.print_debug("Click on Device Template tab button")
+        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+
+        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        if tab.is_displayed():
+            self.utils.print_info("Click on Switch Templates tab")
+            self.auto_actions.click(tab)
+        return True
+
+    def open_template_from_policy(self, sw_template):
+        '''
+
+        :param template:
+        :return:
+        '''
+        row = self.get_sw_template_row(sw_template)
+        if row:
+            self.auto_actions.click(row)
+            return 1
+        return -1
+
+    def delete_switch_templates_from_policy(self, nw_policy, sw_templates_name, **kwargs):
+        """
+        - This keyword will delete the switch multiple templates from a newtwork policy
+        - Flow: Network Policies -> Edit nw_policy -> Device Templates -> Select Template -> Delete Template
+        :param nw_policy: The name of the network policy
+        :param sw_template_name: The name of the template
+        :return: Returns 1 if template is succesfully deleted,
+                 Returns -1 if network policy not found
+        """
+        if isinstance(sw_templates_name, list):
+            sw_template_name_list = sw_templates_name.copy()
+        else:
+            sw_template_name_list = sw_templates_name.split(',')
+        self.utils.print_info("Navigate to devices")
+        self.navigator.navigate_to_devices()
+        self.utils.print_info("Navigating Network Policies")
+        self.navigator.navigate_configure_network_policies()
+        if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
+            self.utils.print_info("Not found the network policy. Make sure that it was created")
+            kwargs['fail_msg'] = f"Policy: {nw_policy} has not been found."
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.utils.print_info("Click on Device Template tab button")
+        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        sw_templates_rows = self.sw_template_web_elements.get_sw_template_rows()
+        if sw_templates_rows:
+            for sw_template_name in sw_template_name_list:
+                self.utils.print_info("Found the template rows.")
+                found = False
+                for sw_template_row in sw_templates_rows:
+                    self.utils.print_info("Searching the template: ", sw_template_name)
+                    if sw_template_name in sw_template_row.text:
+                        self.utils.print_info("Found the template row: ", sw_template_row.text)
+                        found = True
+                        self.utils.print_info("Clicking the template checkbox...")
+                        self.auto_actions.click(
+                            self.sw_template_web_elements.get_sw_template_check_box_row(sw_template_row))
+                        self.utils.print_info("Searching for the delete button...")
+                        delete_button = self.sw_template_web_elements.get_sw_template_delete_button()
+                        if delete_button:
+                            self.utils.print_info("Found the delete button.")
+                            self.utils.print_info("Clicking the delete button...")
+                            self.auto_actions.click(delete_button)
+
+                            def check_for_confirmation():
+                                tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
+                                self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
+                                if tool_tip_text:
+                                    if "Template was successfully removed from policy." in tool_tip_text:
+                                        self.utils.print_info("Clicking the delete button...")
+                                else:
+                                    return False
+
+                            confirmation_message = \
+                            self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
+                            if confirmation_message:
+                                self.utils.print_info("Template was successfully removed from policy.")
+                                kwargs['pass_msg'] = "Template was successfully removed from policy."
+                                self.common_validation.passed(**kwargs)
+                            else:
+                                self.utils.print_info("Successful message not found")
+                                kwargs['fail_msg'] = "Successful message not found"
+                                self.screen.save_screen_shot()
+                                self.common_validation.failed(**kwargs)
+                                return -1
+                        else:
+                            kwargs['fail_msg'] = "Delete button hasn't been found."
+                            self.screen.save_screen_shot()
+                            self.common_validation.failed(**kwargs)
+                            return -1
+                if not found:
+                    self.utils.print_info(f"The template {sw_template_name} is not present here, it may have been "
+                                          "already deleted or it wasn't created.")
+                    kwargs['pass_msg'] = f"The template {sw_template_name} is not present here, it may have been " \
+                                         f"already deleted or it wasn't created."
+                    self.common_validation.passed(**kwargs)
+                    return 1
+        else:
+            self.utils.print_info("There aren't any templates here.")
+            kwargs['pass_msg'] = "There are no templates configured."
+            self.common_validation.passed(**kwargs)
+            return 1
+        return -1
     
