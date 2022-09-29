@@ -2688,7 +2688,8 @@ class Device360WebElementDefs:
 
     device360_port_configuration_stack_units_dropdown = \
         {
-            'XPATH': '//div[@class="stack-member-chooser"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'XPATH': '//div[@class="port-configuration-view"]'
+                     '//div[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
 
