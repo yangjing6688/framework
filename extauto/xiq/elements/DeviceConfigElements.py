@@ -697,3 +697,11 @@ class DeviceConfigElements(DeviceConfigDefs):
 
     def get_config_audit_delta_view_button_yellow(self, row):
         return self.weh.get_element(self.config_audit_delta_view_button_yellow, parent=row)
+
+    def get_stack_edit_template_drop_down(self):
+        return self.weh.get_element(self.stack_edit_template_drop_down)
+
+    def get_device_edit_template_drop_down_options_stack(self):
+        return self.weh.get_elements(self.device_edit_template_drop_down_options_stack)
+
+
