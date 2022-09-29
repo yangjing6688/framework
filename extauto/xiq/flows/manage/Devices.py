@@ -2684,6 +2684,7 @@ class Devices:
         # Code specific to Digital Twin devices
         elif device_type.lower() == "digital_twin":
             add_device_button = "Launch Digital Twin"
+            sleep(3)
             attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
             if "fn-hidden" not in attribute:
                 self.utils.print_info("Selecting 'Digital Twin' radio button")
@@ -2773,14 +2774,23 @@ class Devices:
         dialog_message = self.dialogue_web_elements.get_dialog_message()
 
         if dialog_message:
-            self.utils.print_info("Dialog Message: ", dialog_message)
+            self.screen.save_screen_shot()
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
 
-            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+            elif "failed to onboard Digital Twin device" in dialog_message:
+                self.utils.print_info(f"Dialog Message: {dialog_message}")
+                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                kwargs['fail_msg'] = f"failed to onboard Digital Twin device"
+
+            else:
+                self.utils.print_info(f"Dialog Message: {dialog_message}")
+                kwargs['fail_msg'] = f"{dialog_message}"
+
             self.common_validation.failed(**kwargs)
             return -1
         else:
@@ -4863,6 +4873,7 @@ class Devices:
 
             kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
             self.common_validation.failed(**kwargs)
+            self.screen.save_screen_shot()
             return -1
 
     def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10):
@@ -11810,8 +11821,9 @@ class Devices:
         - The 'Quick Add Devices' panel will be closed.
         - Keyword Usage:
          - ``Is Digital Twin Option Visible``
-        :return: 1 if visible, -1 if not
+        :return: True if visible, False if not visible, else -1
         """
+        ret_val = -1
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
 
@@ -11820,18 +11832,24 @@ class Devices:
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud")
         self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
-        self.screen.save_screen_shot()
+        sleep(3)
 
-        attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
-        self.utils.print_info(f"Class Attribute Value: {attribute}")
+        if self.devices_web_elements.get_digital_twin_container_feature():
+            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+            self.utils.print_info(f"Class Attribute Value: {attribute}")
+            if "fn-hidden" in attribute:
+                self.screen.save_screen_shot()
+                ret_val = False
+            else:
+                self.screen.save_screen_shot()
+                ret_val = True
+        else:
+            self.utils.print_info("Digital Twin option not found in Quick Add Devices panel.")
+            self.screen.save_screen_shot()
 
         self.utils.print_info("Click the Quick Add Devices > Cancel button")
         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
-
-        if attribute == "":
-            return 1
-
-        return -1
+        return ret_val
 
     def get_device_status_icon(self, device_serial=None):
         """
