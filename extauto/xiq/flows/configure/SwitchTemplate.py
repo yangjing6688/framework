@@ -320,7 +320,12 @@ class SwitchTemplate(object):
             return -1
 
     def go_to_port_configuration(self):
-        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_port_configuration_tab())
+        nav_button = self.sw_template_web_elements.get_sw_template_port_configuration_tab()
+        if nav_button:
+            self.auto_actions.click(nav_button)
+            return 1
+        else:
+            return -1
 
     def switch_template_save(self):
         save_btns = self.sw_template_web_elements.get_sw_template_save_button()

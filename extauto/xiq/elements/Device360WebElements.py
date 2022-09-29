@@ -1472,14 +1472,18 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_pse_profile_add)
         elif element == "pse_profile_name":
             return self.weh.get_element(self.select_element_port_type_pse_profile_name)
+        elif element == "pse_profile_power_mode_dropdown":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_power_mode_dropdown)
         elif element == "pse_profile_power_mode_items":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_power_mode_items)
+        elif element == 'pse_profile_power_limit':
+            return self.weh.get_element(self.select_element_port_type_pse_profile_power_limit)
         elif element == "pse_profile_priority":
             return self.weh.get_element(self.select_element_port_type_pse_profile_priority)
         elif element == "pse_profile_priority_items":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_priority_items)
         elif element == "pse_profile_description":
-            return self.weh.get_elements(self.select_element_port_type_pse_profile_description)
+            return self.weh.get_element(self.select_element_port_type_pse_profile_description)
         elif element == "pse_profile_save":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
@@ -1751,5 +1755,8 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_common_save_button(self):
         return self.weh.get_element(self.common_save_button)
+
+    def get_save_and_close_port_type_box(self):
+        return self.weh.get_element(self.save_and_close_port_type_box)
 
 

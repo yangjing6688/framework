@@ -2477,7 +2477,13 @@ class Device360WebElementDefs:
 
     select_element_port_type_pse_profile_power_mode_items = \
         {
-            'XPATH': '.J-ip-item',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-powermode"]//li',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_limit = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
             'wait_for': 5
         }
 
@@ -2491,6 +2497,12 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
             'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode_dropdown = \
+        {
+            'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
+            'index': 0
         }
 
     select_element_port_type_pse_profile_description = \
@@ -2911,6 +2923,12 @@ class Device360WebElementDefs:
         }
 
     common_save_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
+            'wait_for': 5
+        }
+
+    save_and_close_port_type_box = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
             'wait_for': 5
