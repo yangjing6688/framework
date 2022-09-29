@@ -1406,6 +1406,17 @@ class Devices:
                 return UpdateStatus, ConfigErrorToolTip
         return UpdateStatus
 
+    def update_network_policy_to_ap_if_needed(self, policy_name=None, ap_serial=None, update_method="Delta"):
+        dev_policy = self.get_device_details(ap_serial, 'POLICY')
+        if dev_policy == policy_name:
+            dev_status = self.get_device_status(device_serial=ap_serial)
+            if dev_status == 'green':
+                return 1
+            else:
+                return self.update_network_policy_to_ap(policy_name, ap_serial, update_method)
+        else:
+            return self.update_network_policy_to_ap(policy_name, ap_serial, update_method)
+
     def update_network_policy_to_ap(self, policy_name=None, ap_serial=None, update_method="Delta"):
         """
         - By default this keyword do delta config push
