@@ -138,6 +138,12 @@ class Device360WebElementDefs:
             'wait_for': 10
         }
 
+    select_100_elements_display_on_page = \
+        {
+            'XPATH': '//a[@data-size="100"]',
+            'wait_for': 5
+        }
+
     actions_adv_cli_access_cmd_input = \
         {
             'XPATH': '//*[@data-dojo-attach-point="cli"]',
@@ -1267,7 +1273,6 @@ class Device360WebElementDefs:
     sw_template_stack_add_items = \
         {
             'XPATH': '//div[@id="switchesMenu"]//ul/li/a',
-
             'wait_for': 5
         }
 
@@ -2830,6 +2835,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_event = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-events"]',
+            'wait_for': 5
+        }
+
     device360_digital_twin_status_icon = \
         {
             'DESC': 'D360 > Digital Twin Status Icon',
@@ -2863,7 +2874,22 @@ class Device360WebElementDefs:
             'XPATH': './/input[contains(@data-automation-tag, "automation-port-stp-port-path-cost")]',
             'wait_for': 5
         }
-        
+
+    device360_overview_select_port = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-$index"]'
+        }
+
+    device360_overview_port_info_bounce_port = \
+        {
+            'XPATH': '//div[@class="port-action action-bounce-port "]'
+        }
+
+    device360_overview_port_info_bounce_poe = \
+        {
+            'XPATH': '//div[@class="port-action action-bounce-poe "]'
+        }
+
     select_element_port_type_pse_profile_power_limit = \
 	    {
 	    'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',

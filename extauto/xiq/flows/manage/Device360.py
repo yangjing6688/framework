@@ -8442,3 +8442,114 @@ class Device360(Device360WebElements):
                 except IndexError:
                     ret.append(asic[-1])
         return ret
+
+    def port_info_bounce_port(self, port, **kwargs):
+        """
+        - This keyword will bounce a port in D360
+        - Assume that already in D360
+        - Flow: D360 -> Monitor -> Overview -> Click on a port with 'connected' status ->
+        :param port: A port in connected status ;
+                     Usage Ex: voss(1/1) , exos(1), stack(1:1)
+        :return: 1 if 'Bounce Port' button has been successfully pressed; -1 if otherwise
+        """
+        def _check_port_is_loaded():
+            if self.get_device360_overview_port(port):
+                self.utils.print_info("Port has been loaded.")
+                return True
+            self.utils.print_info("Port hasn't been loaded yet... Saving screenshot...")
+            self.screen.save_screen_shot()
+            return False
+        self.utils.wait_till(_check_port_is_loaded, silent_failure=True, timeout=5, delay=3,
+                             msg='Waiting for the port to load...')
+
+        port_search = self.get_device360_overview_port(port)
+        if port_search:
+            self.auto_actions.click(port_search)
+        else:
+            self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
+            kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Searching for the 'Bounce Port' button...")
+        bounce_port_button = self.get_device360_overview_port_info_bounce_port()
+        if bounce_port_button:
+            self.utils.print_info("Found 'Bounce Port' button. Clicking...")
+            self.auto_actions.click(bounce_port_button)
+            self.utils.print_info("'Bounce Port' clicked!")
+
+            def _check_successful_message():
+                for tool_tp in tool_tip.tool_tip_text:
+                    if f'Bounce Port {port} successful' in tool_tp:
+                        self.utils.print_info(f"Found Bounce Port successful message: {tool_tp}")
+                        return True
+                self.utils.print_info("Did not find Bounce port successful message yet. Retrying...")
+                return False
+            message = self.utils.wait_till(_check_successful_message, timeout=10, delay=1, silent_failure=True,
+                                           msg="Looking for Bounce Port successful message...")
+            if message[0]:
+                kwargs['pass_msg'] = "'Bounce Port' clicked! Successful message found!"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"'Bounce Port' successful message not found!\nGot this instead: " \
+                                     f"{tool_tip.tool_tip_text}"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
+
+    def port_info_bounce_poe(self, port, **kwargs):
+        """
+        - This keyword will bounce PoE on a port in D360
+        - Assume that already in D360
+        - Flow: D360 -> Monitor -> Overview -> Click on a port with 'connected' status ->
+        :param port: A port in connected status ;
+                     Usage Ex: voss(1/1) , exos(1), stack(1:1)
+        :return: 1 if 'Bounce PoE' button has been successfully pressed; -1 if otherwise
+        """
+        def _check_port_is_loaded():
+            if self.get_device360_overview_port(port):
+                self.utils.print_info("Port has been loaded.")
+                return True
+            self.utils.print_info("Port hasn't been loaded yet... Saving screenshot...")
+            self.screen.save_screen_shot()
+            return False
+        self.utils.wait_till(_check_port_is_loaded, silent_failure=True, timeout=5, delay=3,
+                             msg='Waiting for the port to load...')
+
+        port_search = self.get_device360_overview_port(port)
+        if port_search:
+            self.auto_actions.click(port_search)
+        else:
+            self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
+            kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Searching for the 'Bounce PoE' button...")
+        bounce_poe_button = self.get_device360_overview_port_info_bounce_poe()
+        if bounce_poe_button:
+            self.utils.print_info("Found 'Bounce PoE' button. Clicking...")
+            self.auto_actions.click(bounce_poe_button)
+            self.utils.print_info("'Bounce PoE' clicked!")
+
+            def _check_successful_message():
+                for tool_tp in tool_tip.tool_tip_text:
+                    if f'Bounce PoE Port {port} successful' in tool_tp:
+                        self.utils.print_info(f"Found Bounce PoE successful message: {tool_tp}")
+                        return True
+                self.utils.print_info("Did not find Bounce PoE successful message yet. Retrying...")
+                print(tool_tip.tool_tip_text)
+                return False
+            message = self.utils.wait_till(_check_successful_message, timeout=10, delay=1, silent_failure=True,
+                                           msg="Looking for Bounce PoE successful message...")
+            if message[0]:
+                kwargs['pass_msg'] = "'Bounce PoE' clicked! Successful message found!"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"'Bounce PoE' successful message not found!\nGot this instead: " \
+                                     f"{tool_tip.tool_tip_text}"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
