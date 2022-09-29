@@ -22,7 +22,7 @@ class AutoActions:
         self.builtin = BuiltIn()
         self.web_element_ctrl = WebElementController()
 
-    def click_reference(self, element_object_ref):
+    def click_reference(self, element_object_ref, counter=0):
         return self.web_element_ctrl.action_method(self.click, element_object_ref)
 
     def click(self, element):
@@ -36,8 +36,9 @@ class AutoActions:
 
         if element is None:
             self.screen.save_screen_shot()
-            self.builtin.fail(msg="Unable to Click the Element..No WebElement Handler Present for the Element."
+            self.builtin.fail(msg="Unable to Click the Element. The element is None. No WebElement Handler Present for the Element."
                                   "So Exiting the Testcase")
+            return -1
 
         else:
             self.utils.print_debug("Clicking Element: ", element)
@@ -89,6 +90,7 @@ class AutoActions:
                     if count == self.retries:
                         self.utils.print_warning("Unable to click the element. Saving Screenshot...")
                         self.screen.save_screen_shot()
+        return -1
 
     def move_to_element(self, element):
         """
