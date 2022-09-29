@@ -1359,3 +1359,16 @@ class DeviceConfigDefs:
         {
             'CSS_SELECTOR': '.ui-icon-sprite-mismatch'
         }
+
+    stack_edit_template_drop_down = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="stackTemplateArea"]//div['
+                     '@data-automation-tag="automation-chzn-container-ctn"]/a',
+            'wait_for': 5
+        }
+
+    device_edit_template_drop_down_options_stack = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]//ul[contains(@class, "chzn-results '
+                     'qa-chzn-results-stacktemplatelist")]//li',
+        }
