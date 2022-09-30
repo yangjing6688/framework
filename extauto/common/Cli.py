@@ -587,14 +587,18 @@ class Cli(object):
         if cli_type.upper() == 'AH-AP':
             self.utils.print_info(f"Getting AP {device_interface} IPv4 address")
             output = self.send(spawn, f'show interface {device_interface} | in "IP addr"')
-            self.utils.print_info(f"AP {device_interface} IPv4 info: ", output)
-            ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
-            self.utils.print_info(f"{device_interface} IPv4 address is: {ipv4_addr}")
-            return ipv4_addr
+            try:
+                self.utils.print_info(f"AP {device_interface} IPv4 info: ", output)
+                ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
+                self.utils.print_info(f"{device_interface} IPv4 address is: {ipv4_addr}")
+                return ipv4_addr
+            except Exception as e:
+                self.utils.print_info(e)
+                return -1
         else:
             self.utils.print_info(f"The {cli_type} type is NOT supported currently")
             return -1
-        
+
     def capwap_ap_on_off(self, ip, usr, passwd, mode):
         """
         - This Keyword will enable/disable capwap mode
