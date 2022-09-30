@@ -2954,6 +2954,11 @@ class Devices:
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
 
+        # reset the page number to 1
+        pageOne = self.devices_web_elements.get_devices_page_number_one()
+        self.utils.print_info("Clicking on Page 1 in devices page.")
+        self.auto_actions.click(pageOne)
+
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
             self.common_validation.failed(**kwargs)

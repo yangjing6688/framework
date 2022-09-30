@@ -22,14 +22,14 @@ class AutoProvisioning:
         :param policy_name: app policy name
         :param country_code: country code
         :param auto_provision_profile: policy_name, device_function, device_model, service_tags, ip sub networks,
-        - network_policy,country_code
+        - network_policy,country_code. This will also include any **kwargs
         :return: 1 if success else -1
         """
         self.navigator.navigate_to_auto_provision()
         sleep(5)
 
         self.utils.print_info("Clicking on add button")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_add_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_add_button)
 
         device_function = auto_provision_profile.get('device_function')
         dev_model = auto_provision_profile.get('device_model')
@@ -39,15 +39,27 @@ class AutoProvisioning:
         self.auto_actions.send_keys(self.app_web_elements.get_auto_provisioning_name(), policy_name)
 
         self.utils.print_info("Selecting Device Function: ", device_function)
-        self.choose_auto_provision_device_function(device_function)
+        ret_val = self.choose_auto_provision_device_function(device_function)
+        if ret_val != 1:
+            auto_provision_profile['fail_msg'] = "Choose auto provision device function has failed"
+            self.common_validation.failed(**auto_provision_profile)
+            return -1
         sleep(3)
 
         self.utils.print_info("Selecting Device Function: ", device_function)
-        self.choose_auto_provision_device_model(dev_model, device_function)
+        ret_val = self.choose_auto_provision_device_model(dev_model, device_function)
+        if ret_val != 1:
+            auto_provision_profile['fail_msg'] = "Choose provision device model has failed"
+            self.common_validation.failed(**auto_provision_profile)
+            return -1
         sleep(3)
 
         self.utils.print_info("Selecting Network Policy: ", network_policy)
-        self.choose_auto_provision_network_policy(network_policy)
+        ret_val = self.choose_auto_provision_network_policy(network_policy)
+        if ret_val != 1:
+            auto_provision_profile['fail_msg'] = "Choose auto provision network policy has failed"
+            self.common_validation.failed(**auto_provision_profile)
+            return -1
         sleep(3)
 
         self.auto_actions.scroll_down()
@@ -57,13 +69,17 @@ class AutoProvisioning:
             # country_code = auto_provision_profile.get('country_code')
             if self.choose_auto_provision_country_code(country_code):
                 sleep(3)
-                self.screen.save_screen_shot()
+                auto_provision_profile['pass_msg'] = "auto provision basic settings completed"
+                self.common_validation.passed(**auto_provision_profile)
                 return 1
             else:
                 self.utils.print_info("Unable to select country code for AP model")
+                auto_provision_profile['fail_msg'] = "Unable to select country code for AP model"
+                self.common_validation.failed(**auto_provision_profile)
                 return -1
         else:
-            self.screen.save_screen_shot()
+            auto_provision_profile['pass_msg'] = "auto provision basic settings completed"
+            self.common_validation.passed(**auto_provision_profile)
             return 1
 
     def auto_provision_advanced_settings(self, **advance_setting):
@@ -243,14 +259,22 @@ class AutoProvisioning:
         self.utils.print_info("Clicking on Network Policy")
         self.auto_actions.click(self.app_web_elements.get_auto_provisioning_network_policy())
         sleep(5)
+        network_policy_list = []
         net_results = self.app_web_elements.get_auto_provisioning_network_policy_list()
         for net_result in net_results:
             val = net_result.text
+            network_policy_list.append(val)
             if val == network_policy:
                 self.utils.print_info("Network Policy Match Found")
                 self.auto_actions.click(net_result)
                 self.screen.save_screen_shot()
-                break
+                return 1
+
+        self.utils.print_info(f" Not able to find Network Policy dropdown items for {network_policy} in list {*network_policy_list,}")
+        return -1
+
+
+
 
     def verify_auto_provision_policy_update(self, serial, country_code='NA', **auto_provision_policy):
         """
@@ -312,20 +336,22 @@ class AutoProvisioning:
         :return: 1 if Device Function Selected Successfully else -1
         """
         sleep(3)
+        device_function_list = []
         self.utils.print_info("Clicking on Device Function drop down")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_device_function())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_function)
         results = self.app_web_elements.get_auto_provisioning_device_function_list()
         if results:
             for result in results:
+                device_function_list.append(result.text)
                 if device_function in result.text:
                     self.utils.print_info("Device Function Match Found")
                     self.auto_actions.click(result)
                     self.screen.save_screen_shot()
                     return 1
-        else:
-            self.utils.print_info(f" Not able to find auto provision device function dropdown items ")
-            self.screen.save_screen_shot()
-            return -1
+
+        self.utils.print_info(f" Not able to find auto provision device function dropdown items for {device_function} in list {*device_function_list,}")
+        self.screen.save_screen_shot()
+        return -1
 
     def choose_auto_provision_device_model(self, dev_model, device_function):
         """
@@ -337,29 +363,31 @@ class AutoProvisioning:
         :return:None
         """
         sleep(3)
-        self.utils.print_info("Clicking on Device Model")
+        self.utils.print_info(f"Clicking on Device Model {device_function}")
         if device_function == "AP":
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_device_model())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_model)
         elif device_function == "Extreme Networks SR22xx / SR23xx Switches":
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_SR22_23())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_SR22_23)
         elif device_function == "Extreme Networks SR20xx / SR21xx Switches":
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_SR20_21())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_SR20_21)
         else:
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_dell())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_dell)
         sleep(3)
 
+        device_model_list = []
         results = self.app_web_elements.get_auto_provisioning_device_model_dropdown_list()
         if results:
             for result in results:
                 val = result.text
+                device_model_list.append(val)
                 if val == dev_model:
                     self.utils.print_info("Device Model Match Found")
                     self.auto_actions.click(result)
                     self.screen.save_screen_shot()
-                    break
-        else:
-            self.utils.print_info(f" Not able to find auto provision device model dropdown items ")
-            return -1
+                    return 1
+
+        self.utils.print_info(f" Not able to find auto provision device model dropdown items for {dev_model} in list {*device_model_list,}")
+        return -1
 
     def choose_auto_provision_country_code(self, country_code):
         """
@@ -370,23 +398,24 @@ class AutoProvisioning:
         :return: 1 if Country Code Successfully configured else -1
         """
         self.utils.print_info("Clicking on Country Code dropdown")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_country_code())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_country_code)
         self.screen.save_screen_shot()
         sleep(5)
-
+        countries_list = []
         countries = self.app_web_elements.get_auto_provisioning_country_code_list()
         if countries:
             for country in countries:
                 self.utils.print_debug("country: ", country.text)
+                countries_list.append(country.text)
                 if country_code in country.text:
                     self.auto_actions.click(country)
                     self.utils.print_info("Selected country: ", country_code)
                     self.screen.save_screen_shot()
                     return 1
-        else:
-            self.utils.print_info(f" Not able to find auto provision country dropdown items ")
-            self.screen.save_screen_shot()
-            return -1
+
+        self.utils.print_info(f"Not able to find auto provision country {country_code} dropdown items in the list {*countries_list,}")
+        self.screen.save_screen_shot()
+        return -1
 
     def delete_auto_provisioning_policy(self, policy_name):
         """
