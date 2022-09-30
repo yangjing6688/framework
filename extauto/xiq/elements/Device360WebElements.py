@@ -1684,3 +1684,18 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_ports_table_current_pagin_number(self):
         return self.weh.get_element(self.device360_ports_table_current_pagin_number)
+
+    def get_device360_event_expand_more(self, row):
+        """
+        :return: Events more expand link for showing detail description of the event.
+        """
+        return self.weh.get_element(self.device360_event_expand_more, parent = row)
+
+    def get_device360_event_more_expand_value(self):
+        """
+        :return: value of the expand more in the Device360 Events grid for the specified row
+        """
+        return self.weh.get_element(self.device360_event_more_expand_value)
+
+    def get_device360_event_more_close_btn(self):
+        return self.weh.get_element(self.device360_event_more_close_btn)

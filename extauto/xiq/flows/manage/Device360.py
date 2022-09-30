@@ -3135,24 +3135,50 @@ class Device360(Device360WebElements):
                 for row in event_rows:
                     self.utils.print_info(str(i))
                     i += 1
-                    desc_val = self.get_device360_event_description_cell_value(row)
-                    self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
-                    # Check if the event description value for this row contains what we are looking for
-                    if event_str in desc_val:
-                        # If a time was specified, make sure the timestamp for the event is more recent
-                        if after_time:
-                            time_val = self.get_device360_event_timestamp_cell_value(row)
-                            if time_val > after_time:
-                                self.utils.print_debug(
-                                    "Found a match for '" + event_str + ''" after "'' + after_time + "'")
-                                cont_rows_match += 1
+                    expand_more = self.dev360.get_device360_event_expand_more(row)
+                    if expand_more:
+                        self.utils.print_info("Clicking on ...more to expand event details.")
+                        self.auto_actions.click(expand_more)
+                        sleep(5)
+                        desc_val = self.get_device360_event_more_expand_value().text
+                        self.auto_actions.click(self.get_device360_event_more_close_btn())
+                        self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
+                        # Check if the event description value for this row contains what we are looking for
+                        if event_str in desc_val:
+                            # If a time was specified, make sure the timestamp for the event is more recent
+                            if after_time:
+                                time_val = self.get_device360_event_timestamp_cell_value(row)
+                                if time_val > after_time:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + ''" after "'' + after_time + "'")
+                                    cont_rows_match += 1
+                                else:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
+                                        + "' (" + time_val + ") - looking at next row...")
                             else:
-                                self.utils.print_debug(
-                                    "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
-                                    + "' (" + time_val + ") - looking at next row...")
-                        else:
-                            self.utils.print_debug("Found a match for '" + event_str + "'")
-                            cont_rows_match += 1
+                                self.utils.print_debug("Found a match for '" + event_str + "'")
+                                cont_rows_match += 1
+
+                    else:
+                        desc_val = self.get_device360_event_description_cell_value(row)
+                        self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
+                        # Check if the event description value for this row contains what we are looking for
+                        if event_str in desc_val:
+                            # If a time was specified, make sure the timestamp for the event is more recent
+                            if after_time:
+                                time_val = self.get_device360_event_timestamp_cell_value(row)
+                                if time_val > after_time:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + ''" after "'' + after_time + "'")
+                                    cont_rows_match += 1
+                                else:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
+                                        + "' (" + time_val + ") - looking at next row...")
+                            else:
+                                self.utils.print_debug("Found a match for '" + event_str + "'")
+                                cont_rows_match += 1
                 if cont_rows_match == 0:
                     self.utils.print_info("Not found a match for '" + event_str + "'")
                     return -1
