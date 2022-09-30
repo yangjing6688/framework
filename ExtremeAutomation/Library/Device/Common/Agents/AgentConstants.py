@@ -3,7 +3,7 @@ from ExtremeAutomation.Library.Utils.Constants.Constants import Constants
 
 class AgentConstants(Constants):
     DEFAULT_SLEEP_BETWEEN_COMMANDS = 500
-    WAIT_FOR_SLEEP = 3
+    WAIT_FOR_SLEEP = 500
     WAIT_FOR_RETRIES = 10
 
     # Supported agents
