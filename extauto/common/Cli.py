@@ -573,31 +573,28 @@ class Cli(object):
             self.utils.print_info(e)
             return -1
 
-    def get_device_interface_ipv4_addr(self, spawn=None, device_make='Extreme - Aerohive', ah_device_interface='mgt0'):
+    def get_device_interface_ipv4_addr(self, spawn=None, cli_type='AH-AP', device_interface='mgt0'):
         """
-        - This method returns device interface ipv4 address based on device make
+        - This method returns device interface ipv4 address based on cli type
         - Keyword Usage:
-         - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${Device_make}  ${Interface_name}``
+         - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${CLI_TYPE}  ${Interface_name}``
 
         :param spawn: spawn to device
-        :param device_make: Only support 'Extreme - Aerohive', others device types are not supported, such as  Dell, EXOS, VOSS, Controllers
+        :param device_make: Currently this function just support AH-AP cli type, others cli types can be developed in the future
         :param ah_device_interface: Such as mgt0, eth0
         :return: returns the interface ipv4 address if success else -1
         """
-        if device_make == 'Extreme - Aerohive':
-            self.utils.print_info(f"Getting AP {ah_device_interface} IPv4 address")
-            output = self.send(spawn, f'show interface {ah_device_interface} | in "IP addr"')
-            try:
-                self.utils.print_info(f"AP {ah_device_interface} IPv4 info: ", output)
-                ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
-                self.utils.print_info(f"{ah_device_interface} IPv4 address is: {ipv4_addr}")
-                return ipv4_addr
-            except Exception as e:
-                self.utils.print_info(e)
-                return -1
+        if cli_type.upper() == 'AH-AP':
+            self.utils.print_info(f"Getting AP {device_interface} IPv4 address")
+            output = self.send(spawn, f'show interface {device_interface} | in "IP addr"')
+            self.utils.print_info(f"AP {device_interface} IPv4 info: ", output)
+            ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
+            self.utils.print_info(f"{device_interface} IPv4 address is: {ipv4_addr}")
+            return ipv4_addr
         else:
-            self.utils.print_info(f"{device_make} is NOT supported by this function")
+            self.utils.print_info(f"The {cli_type} type is NOT supported currently")
             return -1
+        
     def capwap_ap_on_off(self, ip, usr, passwd, mode):
         """
         - This Keyword will enable/disable capwap mode
