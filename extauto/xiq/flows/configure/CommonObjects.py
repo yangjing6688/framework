@@ -3006,7 +3006,7 @@ class CommonObjects(object):
             else:
                 self.utils.print_info("Can not navigate to first page")
             for page in page_number:
-                self.utils.print_info(f"Searching Template: {template_name} on page: ", cnt_page )
+                self.utils.print_info(f"Searching Template: {template_name} on page: ", cnt_page)
                 found_template = False
                 rows = self.cobj_web_elements.get_common_object_grid_rows()
                 if rows:

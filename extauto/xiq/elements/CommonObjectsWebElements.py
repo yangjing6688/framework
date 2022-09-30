@@ -698,3 +698,12 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_next_page_element_disabled(self):
         return self.weh.get_element(self.next_page_element_disabled)
+
+    def get_common_object_policy_max_page_number(self):
+        return self.weh.get_elements(self.common_object_policy_max_page_number)
+
+    def get_common_object_policy_go_to_first_page(self):
+        elements = self.weh.get_elements(self.common_object_policy_go_to_first_page)
+        for el in elements:
+            if el.is_displayed():
+                return el
