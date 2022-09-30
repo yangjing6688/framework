@@ -580,8 +580,8 @@ class Cli(object):
          - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${CLI_TYPE}  ${Interface_name}``
 
         :param spawn: spawn to device
-        :param device_make: Currently this function just support AH-AP cli type, others cli types can be developed in the future
-        :param ah_device_interface: Such as mgt0, eth0
+        :param cli_type: Currently this function just support AH-AP cli type, others cli types can be developed in the future
+        :param device_interface: Such as mgt0, eth0
         :return: returns the interface ipv4 address if success else -1
         """
         if cli_type.upper() == 'AH-AP':
