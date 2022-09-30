@@ -271,6 +271,24 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_actions_button(self):
         return self.weh.get_element(self.manage_device_actions_button)
 
+    def get_manage_device_actions_change_management_status(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status)
+
+    def get_manage_device_actions_change_management_status_manage(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_manage)
+
+    def get_manage_device_actions_change_management_status_unmanage(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_unmanage)
+
+    def get_manage_device_actions_change_management_status_yes_button(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_yes_button)
+
+    def get_manage_device_actions_change_management_status_no_button(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_no_button)
+
+    def get_manage_device_actions_change_management_status_close_dialog(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_close_dialog)
+
     def get_manage_device_utilities_button(self):
         return self.weh.get_element(self.manage_device_utilities_button)
 
@@ -288,6 +306,10 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         dialog = self.get_action_assign_network_policy_dialog()
         return self.weh.get_element(self.actions_assign_network_policy_drop_down, parent=dialog)
 
+    def get_actions_assign_network_policy_drop_down2(self):
+        dialog = self.get_action_assign_network_policy_dialog()
+        return self.weh.get_element(self.actions_assign_network_policy_drop_down2, parent=dialog)
+
     def get_actions_assign_network_policy_drop_down_router(self):
         dialog = self.get_action_assign_network_policy_dialog()
         return self.weh.get_element(self.actions_assign_network_policy_drop_down_router, parent=dialog)
@@ -300,6 +322,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_ui_banner_error_message(self):
         return self.weh.get_element(self.ui_banner_error_message)
+
+    def get_ui_banner_warning_message(self):
+        return self.weh.get_element(self.ui_banner_warning_message)
 
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
@@ -1275,3 +1300,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         parent = self.get_digital_twin_os_version_dropdown()
         return self.weh.get_elements(self.digital_twin_os_version_dropdown_items, parent)
+
+    def get_100_rows_per_page_button(self):
+        """
+        :return: Devices > 100 rows per page button
+        """
+        return self.weh.get_element(self.one_hundred_rows_per_page_button)
