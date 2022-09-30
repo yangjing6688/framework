@@ -112,6 +112,16 @@ class NetworkPolicy(object):
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirmation Yes button")
             self.auto_actions.click(confirm_delete_btn)
+            confirm_dialog_box_display = True
+            confirm_dialog_box = self.dialogue_web_elements.get_confirm_message_dialog_box()
+            while confirm_dialog_box_display:
+                if confirm_dialog_box.is_displayed():
+                    self.utils.print_info("Network policy is deleting, still need some time")
+                    sleep(1)
+                else:
+                    self.utils.print_info("Network policy is deleted successfully")
+                    confirm_dialog_box_display = False
+            self.screen.save_screen_shot()
             sleep(3)
 
     def create_network_policy(self, policy, **wireless_profile):
@@ -139,7 +149,7 @@ class NetworkPolicy(object):
 
         if self._search_network_policy_in_list_view(policy) == 1:
             self.utils.print_info(f"Network policy {policy} already exists in the network polices list")
-            return 1
+            return -1
 
         self.utils.print_info("Click on network policy add button")
         self.auto_actions.click(self.np_web_elements.get_np_add_button())
@@ -161,7 +171,7 @@ class NetworkPolicy(object):
         for tip_text in tool_tp_text:
             if "The Network Policy cannot be saved because" in tip_text:
                 self.utils.print_info(f"{tip_text}")
-                return 1
+                return -1
             if "Your account does not have permission to perform that action" in tip_text:
                 self.utils.print_info(f"{tip_text}")
                 return -2
@@ -912,13 +922,26 @@ class NetworkPolicy(object):
         self.navigate_to_np_edit_tab(policy)
 
         self.utils.print_info(" Click on the wireless network tab")
-        self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
-        self.tools.wait_til_elements_avail(self.wireless_element.wireless_nw_add_button, 60, False)
+        try_cnt = 0
+        wireless_networks_page = self.wireless_element.get_wireless_nw_tab_page()
+        while try_cnt < 10:
+            self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
+            self.utils.print_info(f" The value of wireless networks page {wireless_networks_page}")
+            if wireless_networks_page:
+                self.utils.print_info("Go to Wireless Networks tab successfully")
+                break
+            else:
+                try_cnt += 1
+                self.utils.print_info(f"Failed to go to Wireless Networks tab, try {try_cnt} times")
+                sleep(1)
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt}  times to switch to Wireless Networks tab, but still failed, need figure out issue manually")
+                    return -1
         self.utils.print_info(" Get all ssids in the policy")
         ssids = self.wireless_element.get_ssid_list()
+        self.utils.print_info(f"The SSIDs in the policy: {ssids}")
         if not ssids:
             self.utils.print_info(" There are no SSIDs configured on policy  " + str(policy))
-            return 1
         else:
             self.utils.print_info(" Select all SSIDs to be deleted")
             for ssid in ssids:
@@ -937,58 +960,57 @@ class NetworkPolicy(object):
                 confirm_yes = self.wireless_element.get_confirm_dialog_yes_button()
                 if confirm_yes:
                     self.auto_actions.click(confirm_yes)
+                    self.screen.save_screen_shot()
                     sleep(5)
-                    reuse_button = self.wireless_element.get_wireless_re_use_button()
-                    if reuse_button:
-                        self.auto_actions.click(reuse_button)
-                        sleep(5)
-                        all_reusable_rows = self.wireless_element.get_wireless_ssid_select_window_rows()
-                        if all_reusable_rows:
-                            for ssid_row in all_reusable_rows:
-                                if ssid_row.text != 'ssid0' and ssid_row.text != 'Name':
-                                    self.utils.print_info(" Selecting  ssid : " + ssid_row.text + " from SSID list")
-                                    check_box_reusable = self.wireless_element.get_wireless_select_ssid_row_check_box(ssid_row)
-                                    if check_box_reusable:
-                                        self.auto_actions.click(check_box_reusable)
-                                    else:
-                                        self.utils.print_info(" Unable to select SSID ")
-                                        return -1
-                            self.utils.print_info(" Clicking  delete button ")
-                            re_use_delete_button = self.wireless_element.get_wireless_re_use_delete_button()
-                            if re_use_delete_button:
-                                self.auto_actions.click(re_use_delete_button)
-                                sleep(5)
-                                confirm_yes_re_usable = self.wireless_element.get_confirm_dialog_yes_button()
-                                if confirm_yes_re_usable:
-                                    self.auto_actions.click(confirm_yes_re_usable)
-                                    tool_tp_text = tool_tip.tool_tip_text
-                                    self.utils.print_info(tool_tp_text)
-                                    self.utils.print_info(" Closing SSID pop-up window ")
-                                    self.auto_actions.click(self.wireless_element.get_wireless_re_use_cancel_button())
-                                    if "deleted successfully" in str(tool_tp_text):
-                                        self.utils.print_info(" SSIDs were successfully deleted ")
-                                        return 1
-                                    else:
-                                        self.utils.print_info(" SSIDs were NOT successfully deleted ")
-                                        return -1
-                                else:
-                                    self.utils.print_info(" Unable to click on confirm yes button ")
-                                    return -1
-                            else:
-                                self.utils.print_info(" Unable to click the delete button ")
-                                return -1
-                        else:
-                            self.utils.print_info(" Unable to gather SSID rows ")
-                            return -1
-                    else:
-                        self.utils.print_info(" Unable click the reusable [select] button")
-                        return -1
                 else:
                     self.utils.print_info(" Unable click the corfirm Yes button")
                     return -1
             else:
                  self.utils.print_info(" Unable to click the Delete button")
                  return -1
+        reuse_button = self.wireless_element.get_wireless_re_use_button()
+        if reuse_button:
+            self.auto_actions.click(reuse_button)
+            sleep(5)
+            all_reusable_rows = self.wireless_element.get_wireless_ssid_select_window_rows()
+            if all_reusable_rows:
+                for ssid_row in all_reusable_rows:
+                    if ssid_row.text != 'ssid0' and ssid_row.text != 'Name':
+                        self.utils.print_info(" Selecting  ssid : " + ssid_row.text + " from SSID list")
+                        check_box_reusable = self.wireless_element.get_wireless_select_ssid_row_check_box(ssid_row)
+                        if check_box_reusable:
+                            self.auto_actions.click(check_box_reusable)
+                        else:
+                            self.utils.print_info(" Unable to select SSID ")
+                            return -1
+                self.utils.print_info(" Clicking  delete button ")
+                re_use_delete_button = self.wireless_element.get_wireless_re_use_delete_button()
+                if re_use_delete_button:
+                    self.auto_actions.click(re_use_delete_button)
+                    sleep(5)
+                    confirm_yes_re_usable = self.wireless_element.get_confirm_dialog_yes_button()
+                    if confirm_yes_re_usable:
+                        self.auto_actions.click(confirm_yes_re_usable)
+                        tool_tp_text = tool_tip.tool_tip_text
+                        self.utils.print_info(tool_tp_text)
+                        self.utils.print_info(" Closing SSID pop-up window ")
+                        self.auto_actions.click(self.wireless_element.get_wireless_re_use_cancel_button())
+                        if "deleted successfully" in str(tool_tp_text):
+                            self.utils.print_info(" SSIDs were successfully deleted ")
+                            return 1
+                        else:
+                            self.screen.save_screen_shot()
+                            self.utils.print_info(" SSIDs were NOT successfully deleted ")
+                            return -1
+                    else:
+                        self.utils.print_info(" Unable to click on confirm yes button ")
+                        return -1
+                else:
+                    self.utils.print_info(" Unable to click the delete button ")
+                    return -1
+            else:
+                self.utils.print_info(" Unable to gather SSID rows ")
+                return -1
         self.utils.print_info(" Error : Unable to delete all SSIDs")
         return -1
 

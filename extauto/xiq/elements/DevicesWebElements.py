@@ -292,13 +292,19 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_utilities_button(self):
         return self.weh.get_element(self.manage_device_utilities_button)
 
+    def get_manage_device_utilities_wan_access(self):
+        return self.weh.get_element(self.manage_device_utilities_wan_access())
+
     def get_actions_assign_network_policy_combo(self):
         elements = self.weh.get_elements(self.actions_assign_network_policy)
         return self.get_dislayed_element(elements)
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
-    
+
+    def get_action_assign_network_policy_dialog_cancel_button(self):
+        return self.weh.get_element(self.action_assign_network_policy_dialog_cancel_button)
+
     def get_nw_policy_drop(self):
         return self.weh.get_element(self.nw_policy_drop)
 
@@ -544,6 +550,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: advanced add device make drop down to select the make of device (aerohive, voss, etc.)
         """
         return self.weh.get_element(self.devices_advanced_add_device_make_drop_down)
+
+    def get_devices_quick_add_block_show(self):
+        return self.weh.get_element(self.devices_quick_add_block_show)
 
     def get_devices_quick_add_device_make_aerohive_choice(self):
         """

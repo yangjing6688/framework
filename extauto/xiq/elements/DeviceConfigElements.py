@@ -92,8 +92,14 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_configuration_tab(self):
         return self.weh.get_element(self.configuration_tab)
 
+    def get_device_360_page(self):
+        return self.weh.get_element(self.device_360_page)
+
     def get_device_configuration_tab(self):
         return self.weh.get_element(self.device_configuration_tab)
+
+    def get_device_configuration_node(self):
+        return self.weh.get_element(self.device_configuration_node)
 
     def get_device_configuration_dhcp_checkbox(self):
         return self.weh.get_element(self.device_configuration_dhcp_checkbox)
@@ -691,6 +697,18 @@ class DeviceConfigElements(DeviceConfigDefs):
             return grid_rows
         else:
             return False
+
+    def get_devices_device_config_device_function_set_ap(self):
+        return self.weh.get_element(self.devices_device_config_device_function_set_ap)
+
+    def get_devices_device_config_device_function_set_router(self):
+        return self.weh.get_element(self.devices_device_config_device_function_set_apasrouter)
+
+    def get_devices_device_config_device_function(self):
+        return self.weh.get_elements(self.devices_device_config_device_function)
+
+    def get_devices_device_config_page_save_button(self):
+        return self.weh.get_element(self.devices_device_config_page_save_button)
 
     def get_config_audit_content(self):
         return self.weh.get_element(self.config_audit_content)

@@ -27,8 +27,9 @@ from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.defs.DevicesWebElementsDefinitions import *
 from extauto.common.WebElementController import WebElementController
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
-
 
 class Devices:
     def __init__(self):
@@ -51,6 +52,8 @@ class Devices:
         self.login = Login()
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
+        self.web_elements_handler = WebElementHandler()
+        self.cloud_driver = CloudDriver()
         self.xapi = Xapi()
 
     def onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
@@ -102,6 +105,15 @@ class Devices:
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+
+        quick_add_ongoing = True
+        while quick_add_ongoing:
+            if self.devices_web_elements.get_devices_quick_add_block_show():
+                self.utils.print_info("Still in adding device process, wait for finishing ...")
+                sleep(2)
+            else:
+                quick_add_ongoing = False
+                self.utils.print_info("Finish device adding process ...")
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
@@ -1194,39 +1206,47 @@ class Devices:
         self.utils.print_info("Click on actions button")
         self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
         sleep(3)
+        if self.device_actions.get_device_actions_dropdown():
+            self.utils.print_info("Move to Assign Network policy action")
+            self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
+            self.utils.print_info("Click on Assign Network policy action")
+            self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
+            sleep(4)
+            select_is_shown = self.devices_web_elements.get_nw_policy_drop()
+            if select_is_shown:
+                self.utils.print_info("Click on network policy drop down")
+                self.auto_actions.click(select_is_shown)
+                sleep(3)
+                network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
+                if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
+                    self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
+                else:
+                    self.utils.print_info("Network policy is not present in drop down")
+                    self.screen.save_screen_shot()
+                    return False
 
-        self.utils.print_info("Click on Assign Network policy action")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
-        sleep(4)
-
-        self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
-
-        network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
-        sleep(2)
-        if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
-            self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
-        else:
-            self.utils.print_info("Network policy is not present in drop down")
-            return False
-
-        self.screen.save_screen_shot()
-        sleep(5)
-
-        self.utils.print_info("Click on network policy assign button")
-        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
-        sleep(10)
-
-        tooltip_text = self.dialogue_web_elements.get_tooltip_text()
-        sleep(2)
-
-        self.utils.print_info("tooltip_text: ", tooltip_text)
-        if tooltip_text:
-            if "Your account does not have permission to perform that action" in tooltip_text:
-                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
                 sleep(5)
+                self.utils.print_info("Click on network policy assign button")
+                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+                sleep(10)
+
+                tooltip_text = self.dialogue_web_elements.get_tooltip_text()
+                sleep(2)
+
+                self.utils.print_info("tooltip_text: ", tooltip_text)
+                if tooltip_text:
+                    if "Your account does not have permission to perform that action" in tooltip_text:
+                        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
+                        sleep(5)
+                        return False
+                return True
+            else:
+                self.utils.print_info("Nothing is shown in network policy drop list")
                 return False
-        return True
+        else:
+            self.screen.save_screen_shot()
+            self.utils.print_info(f"Actions dropdown is NOT shown")
+            return False
 
     def _update_network_policy(self, update_method="Delta"):
         """
@@ -1425,16 +1445,26 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         sleep(5)
+        network_policy_assigned = False
+        try_cnt = 0
+        while not network_policy_assigned:
+            self.utils.print_info("Select ap row for network policy assignment")
+            if not self.select_ap(ap_serial):
+                self.utils.print_info(f"AP {ap_serial} is not present in the grid")
+                return -1
+            sleep(2)
 
-        self.utils.print_info("Select ap row")
-        if not self.select_ap(ap_serial):
-            self.utils.print_info(f"AP {ap_serial} is not present in the grid")
-            return -1
-        sleep(2)
-
-        if not self._assign_network_policy(policy_name):
-            return -1
-
+            if self._assign_network_policy(policy_name):
+                network_policy_assigned = True
+            else:
+                try_cnt += 1
+                self.utils.print_info(f"{try_cnt} attempts to select device --> click action --> click assign network policy --> select the policy and assign it to device")
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} attempts are reached, return -1")
+                    return -1
+                self.utils.print_info("Cancel Network Policy assignment dialog")
+                self.auto_actions.click(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button())
+                sleep(2)
         self.utils.print_info("Select ap row")
         self.select_ap(ap_serial)
 
@@ -1737,34 +1767,37 @@ class Devices:
         :return: 1 if success
         """
         specific_version = -1
-
         if self.select_ap(device_serial):
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click(self.device_update.get_update_devices_button())
             sleep(5)
-
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
             sleep(5)
-
             self.utils.print_info("Selecting upgrade to specific version checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
             sleep(2)
-
+            self.utils.print_info("Click specific version Dropdown")
+            self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_dropdown())
+            while not self.device_update.get_is_specific_version_dropdown_open():
+                self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_dropdown())
+            self.utils.print_info(f"Selected specific upgrade version as '{version}' from drop down")
+            options = self.device_update.get_upgrade_to_specific_version_dropdown_list()
+            for option in options:
+                self.utils.print_info(option.get_attribute('data-automation-tag'))
+                if version in option.get_attribute('data-automation-tag'):
+                    self.utils.print_info(option.get_attribute('data-automation-tag'))
+                    self.auto_actions.click(option)
             specific_version = self.device_update.get_specific_version()
-            sleep(2)
-
             self.utils.print_info("Device Specific Version: ", specific_version)
-
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same")
+            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
-
             self.utils.print_info("Setting Activate time to 60 seconds")
             self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), '60')
-
             self.utils.print_info("Selecting Perform Update button...")
             self.auto_actions.click(self.device_update.get_perform_update_button())
-
         return specific_version
 
     def xiq_upgrade_device_to_specific_version(self, device_serial, version=None):
@@ -3870,8 +3903,8 @@ class Devices:
         """
         device_row = -1
 
-        self.refresh_devices_page()
-
+        # self.refresh_devices_page()
+        self.utils.wait_till(self.refresh_devices_page)
         self.utils.print_info('Getting device Updated Status using')
         if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
@@ -3886,7 +3919,7 @@ class Devices:
             device_row = self.get_device_row(device_mac)
 
         if device_row:
-            sleep(5)
+            self.utils.print_info(f"Device row debugging: {self.devices_web_elements.get_updated_status_cell(device_row)}")
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status is :", device_updated_status)
             if "Querying" in device_updated_status:
@@ -4902,7 +4935,7 @@ class Devices:
          - check the device status for a device based on passed device serial
         - Keyword Usage:
          - ``Wait Until Device Offline       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
-         - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+         - ``Wait Until Device Offline       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
@@ -11746,6 +11779,79 @@ class Devices:
         self.screen.save_screen_shot()
 
         return self._check_device_update_status(device_serial_mac_or_name)
+
+    def enable_device_wan_access(self, device_serial):
+        """
+        - This keyword will enable WAN access for XR or AP as Router mode
+        :param device_serial:   The serial of the device
+        :return: success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        else:
+            self.utils.print_info("enable_device_wan_access: Already in Devices page, go to next step")
+        actions_disabled = False
+        try_cnt = 0
+        while not actions_disabled:
+            if self.select_device(device_serial):
+                self.utils.print_info("Check if Actions buttion is enable")
+                if self.device_actions.get_device_actions_button_disable():
+                    try_cnt += 1
+                    self.utils.print_info(f"Actions button is grayed, can NOT click it, {try_cnt} attempts to try")
+                    self.utils.wait_till(self.cloud_driver.refresh_page(), is_logging_enabled=True)
+                    actions_disabled = True
+                    if try_cnt == 10:
+                        self.utils.print_info(f"Max {try_cnt} attempts reach for active Action button")
+                        return -1
+                else:
+                    cli_access_none = True
+                    try_cnt1 = 0
+                    while cli_access_none:
+                        self.utils.print_info("Click Actions button ...")
+                        self.auto_actions.click(self.device_actions.get_device_actions_button())
+                        action_dropdown = self.device_actions.get_device_actions_dropdown()
+                        if action_dropdown:
+                            self.utils.print_info("Move to Advance button ...")
+                            self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
+                            cli_access = self.device_actions.get_device_actions_advance_cli_access()
+                            self.utils.print_info(f"CLI access element: {cli_access}")
+                            if cli_access:
+                                cli_access_none = False
+                                self.utils.print_info(f"Move to CLI Access button {cli_access}...")
+                                self.auto_actions.move_to_element(cli_access)
+                                self.utils.print_info("Click CLI Access button ...")
+                                self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
+                                if self.device_actions.get_device_actions_cli_windows():
+                                    self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
+                                    self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
+                                    self.utils.print_info("Click Apply button to send CLI to AP ...")
+                                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
+                                    self.utils.print_info("Close CLI windows ...")
+                                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
+                                    return 1
+                                else:
+                                    self.utils.print_info("There is no CLI window popup ...")
+                                    return -1
+                            else:
+                                self.utils.print_info(f"Cli access buttion is got: {cli_access}, refresh page and try again")
+                                try_cnt1 += 1
+                                self.utils.wait_till(self.cloud_driver.refresh_page(), is_logging_enabled=True)
+                                if try_cnt1 == 10:
+                                    self.utils.print_info(f"Max {try_cnt1} attempts reach for going to cli_access")
+                                    return -1
+
+                        else:
+                            self.utils.print_info(f"Actions dropdown is NOT shown: {action_dropdown}")
+                            self.screen.save_screen_shot()
+                            return -1
+            else:
+                self.utils.print_info("No device is selected ...")
+                return -1
 
     def wait_for_policy_config_push_to_complete(self, device_serial, boot_wait_time=60, **kwargs):
         """
