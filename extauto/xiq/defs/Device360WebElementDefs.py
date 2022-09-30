@@ -2523,6 +2523,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_element_port_type_pse_edit = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-port-type-editor-pse-profile-edit-btn"]',
+            'wait_for': 5
+        }
+
     # Page summary
     select_element_port_type_name_summary = \
         {

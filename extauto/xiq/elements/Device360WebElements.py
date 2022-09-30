@@ -1488,7 +1488,9 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
-        return -1
+        elif element == "pse_profile_edit":
+            return self.weh.get_element(self.select_element_port_type_pse_edit)
+        return None
 
     def get_select_element_port_type_summary(self, element):
         if element == "name":
@@ -1599,6 +1601,7 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_thunderbold_icon_stack(self,row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
+
     def get_device360_cpu_utilized_button(self):
         return self.weh.get_element(self.device360_cpu_utilized_button)
 
