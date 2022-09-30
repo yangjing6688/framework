@@ -51,20 +51,24 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_ip_object_host_name_button())
         sleep(2)
 
-    def _get_common_object_row(self, search_string):
+    def _get_common_object_row(self, search_string, retries=0):
         """
         Getting the row in Common Object is same for all the objects
         :param search_string:
         :return:
         """
-        self.utils.print_info("Getting common object rows")
-        rows = self.cobj_web_elements.get_common_object_grid_rows()
-        if rows:
-            for row in rows:
-                if cell := self.cobj_web_elements.get_common_object_grid_row_cells(row):
-                    if cell.text == search_string:
-                        return row
-
+        try:
+            self.utils.print_info("Getting common object rows")
+            rows = self.cobj_web_elements.get_common_object_grid_rows()
+            if rows:
+                for row in rows:
+                    if cell := self.cobj_web_elements.get_common_object_grid_row_cells(row):
+                        if cell.text == search_string:
+                            return row
+        except Exception as e:
+            if retries > 5:
+                retries += 1
+                return _get_common_object_row(search_string, retries)
         self.utils.print_info(f"common object row {search_string} not present")
         return False
 
@@ -191,7 +195,7 @@ class CommonObjects(object):
 
         self.utils.print_info("Click on full page view")
         if self.cobj_web_elements.get_paze_size_element():
-            self.auto_actions.click(self.cobj_web_elements.get_paze_size_element())
+            self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
             sleep(5)
 
         select_ssid_flag = None
@@ -244,7 +248,7 @@ class CommonObjects(object):
 
         self.utils.print_info("Click on full page view")
         if self.cobj_web_elements.get_paze_size_element():
-            self.auto_actions.click(self.cobj_web_elements.get_paze_size_element())
+            self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
             sleep(3)
 
         exclude_list = exclude_list.split(",")

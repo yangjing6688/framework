@@ -882,6 +882,7 @@ class Devices:
             try:
                 device_detail_dict = {}
                 device_row = self.get_manage_device_row(search_string)
+                device_row = copy.copy(device_row)
                 if device_row:
                     cells = self.devices_web_elements.get_device_row_cells(device_row)
                     for cell in cells:
@@ -1261,27 +1262,27 @@ class Devices:
 
         if update_method == "Delta":
             self.utils.print_info("click on delta config radio button")
-            self.auto_actions.click(self.devices_web_elements.get_delta_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_delta_config_update_button)
             sleep(2)
             self.utils.print_info("click on perform update button")
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
-            sleep(2)
-            tool_tp_text = tool_tip.tool_tip_text
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
+            sleep(30)
+            tool_tip = self.devices_web_elements.get_device_update_error_message()
+            tool_tp_text = tool_tip.text
             self.utils.print_info(tool_tp_text)
-            for value in tool_tp_text:
-                update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
-                update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
-                                      "you must select a Complete Configuration Update."
-                if update_tooltip_msg2 in value or update_tooltip_msg1 in value:
-                    self.utils.print_info(value)
-                    update_method = "Complete"
+            update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
+            update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
+                                  "you must select a Complete Configuration Update."
+            if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
+                self.utils.print_info('Convert to Complete. Delta not supported')
+                update_method = "Complete"
 
         if update_method == "Complete":
             self.utils.print_info("click on complete config radio button")
-            self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_full_config_update_button)
             sleep(2)
             self.utils.print_info("click on perform update button")
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(2)
 
         self.screen.save_screen_shot()
@@ -1363,7 +1364,7 @@ class Devices:
     def update_network_policy_to_exos(self, serial=None, update_method="PolicyAndConfig"):
         """
         - Update the network policy to the selected devices
-        - Based on the update method, update the devices
+        - Based on the update method, update the device
         - Keyword Usage:
         - ``Update Network Policy To Exos      serial=${SW1_SERIAL}     update_method="PolicyAndConfig"``
         :param update_method:
@@ -1426,6 +1427,17 @@ class Devices:
                 self.utils.print_info("There is a failure during config push")
                 return UpdateStatus, ConfigErrorToolTip
         return UpdateStatus
+
+    def update_network_policy_to_ap_if_needed(self, policy_name=None, ap_serial=None, update_method="Delta"):
+        dev_policy = self.get_device_details(ap_serial, 'POLICY')
+        if dev_policy == policy_name:
+            dev_status = self.get_device_status(device_serial=ap_serial)
+            if dev_status == 'green':
+                return 1
+            else:
+                return self.update_network_policy_to_ap(policy_name, ap_serial, update_method)
+        else:
+            return self.update_network_policy_to_ap(policy_name, ap_serial, update_method)
 
     def update_network_policy_to_ap(self, policy_name=None, ap_serial=None, update_method="Delta"):
         """
@@ -3917,6 +3929,8 @@ class Devices:
         if device_mac:
             self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac)
+        # get a snap shot of the object at this instant, so values can't change or become undefined.
+        device_row = copy.copy(device_row)
 
         if device_row:
             self.utils.print_info(f"Device row debugging: {self.devices_web_elements.get_updated_status_cell(device_row)}")

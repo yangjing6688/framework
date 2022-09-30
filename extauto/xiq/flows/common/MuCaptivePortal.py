@@ -189,7 +189,21 @@ class MuCaptivePortal(MuCPWebElement):
         sleep(2)
 
         self.utils.print_info("Enter Facebook Username")
-        self.auto_actions.send_keys(self.get_social_login_with_facebook_username_field(), username)
+        for getFB in range(0,2):
+            if getFB < 2:
+                sendres = self.auto_actions.send_keys(self.get_social_login_with_facebook_username_field(), username,
+                                                  allow_fail=True)
+            else:
+                sendres = self.auto_actions.send_keys(self.get_social_login_with_facebook_username_field(), username,
+                                                      allow_fail=False)
+            if sendres != 1:
+                self.utils.print_info(f"Attempt {getFB} failed. Delay 10 seconds and attempt to refresh the social page")
+                sleep(10)
+                self.refresh_cp_browser()
+            else:
+                self.utils.print_info(f"Break b/c result is {sendres}")
+                break
+
 
         self.utils.print_info("Enter Facebook Password")
         self.auto_actions.send_keys(self.get_social_login_with_facebook_password_field(), password)
