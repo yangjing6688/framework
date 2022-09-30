@@ -735,3 +735,20 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
             'wait_for': 5
         }
+
+    sw_template_hyperlink = \
+        {
+            'XPATH': "//a[@class='J-tmplName']",
+            'wait_for': 5
+        }
+
+    sw_template_enable_mac_locking = \
+        {
+            'XPATH': "//*[@data-automation-tag='template-maclock-enable']",
+            'wait_for': 5
+        }
+    sw_template_enable_mac_locking_confirm_message_yes_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 5
+        }

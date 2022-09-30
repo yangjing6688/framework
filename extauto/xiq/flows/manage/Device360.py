@@ -302,9 +302,6 @@ class Device360(Device360WebElements):
 
         :return: SSH String
         """
-
-
-
         if device_mac:
             self.utils.print_info("Using device MAC: ", device_mac.upper())
             self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
@@ -359,7 +356,6 @@ class Device360(Device360WebElements):
             self.close_device360_window()
             self.common_validation.failed(**kwargs)
             return -1
-
 
         retry_count = 0
         while retry_count <= retry_time:
@@ -6122,6 +6118,12 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_storm_control)
                 return 1
 
+        elif "MACLOCKINGSettingsPage" in element:
+            get_mac_locking = self.get_select_element_port_type("MACLOCKINGSettings")
+            if get_mac_locking:
+                self.auto_actions.click(get_mac_locking)
+                return 1
+
         elif "ELRPSettingsPage" in element:
             sleep(5)
             get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
@@ -6406,7 +6408,46 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(get_rate_limit_val_el, value)
                 return 1
 
-        # page ELRP (ONLY FOR EXOS)
+        # page MAC LOCKING
+        elif element == "mac locking":
+            get_maclocking = self.get_select_element_port_type(element, value)
+            if get_maclocking:
+                sleep(3)
+                self.auto_actions.click(get_maclocking)
+                return 1
+
+        elif element == "max first arrival":
+            get_max_first_arrival_el = self.get_select_element_port_type(element)
+            if get_max_first_arrival_el:
+                self.auto_actions.send_keys(get_max_first_arrival_el, value)
+                return 1
+
+        elif element == "disable port":
+            get_maclocking_disable_port = self.get_select_element_port_type(element, value)
+            if get_maclocking_disable_port:
+                self.auto_actions.click(get_maclocking_disable_port)
+                return 1
+
+        elif element == "link down clear":
+            get_maclocking_link_down_clear = self.get_select_element_port_type(element, value)
+            if get_maclocking_link_down_clear:
+                self.auto_actions.click(get_maclocking_link_down_clear)
+                return 1
+
+        elif element == "link down retain":
+            get_maclocking_link_down_retain = self.get_select_element_port_type(element, value)
+            if get_maclocking_link_down_retain:
+                self.auto_actions.click(get_maclocking_link_down_retain)
+                return 1
+
+        elif element == "remove aged MACs":
+            get_maclocking_remove_aged_MACs = self.get_select_element_port_type(element, value)
+            if get_maclocking_remove_aged_MACs:
+                self.auto_actions.click(get_maclocking_remove_aged_MACs)
+                return 1
+
+        #page ELRP (ONLY FOR EXOS)
+
         elif element == "elrp status":
             sleep(5)
             get_elrp_status = self.get_select_element_port_type(element, value)
@@ -7093,11 +7134,11 @@ class Device360(Device360WebElements):
 
     def is_device360_relaunch_digital_twin_button_visible(self):
         """
-        - This keyword checks if the ACTIONS > Relaunch Digital Twin menu option is visible
+        - This keyword checks if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Is Device360 Relaunch Digital Twin Button Visible``
-        :return: 1 if the menu item is displayed, else -1
+        :return: True if visible, False if not visible, else -1
         """
         relaunch_link = self.dev360.get_device360_digital_twin_relaunch_button()
         if relaunch_link:
@@ -7106,10 +7147,11 @@ class Device360(Device360WebElements):
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is not displayed.")
                 self.screen.save_screen_shot()
+                return False
             else:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is displayed.")
                 self.screen.save_screen_shot()
-                return 1
+                return True
         else:
             self.utils.print_info("Could not find the 'Relaunch Digital Twin' button.")
 
@@ -7117,7 +7159,7 @@ class Device360(Device360WebElements):
 
     def device360_relaunch_digital_twin_device(self, confirm="yes"):
         """
-        - This keyword clicks on the ACTIONS > Relaunch Digital Twin
+        - This keyword clicks the 'Relaunch Digital Twin' button in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Device360 Relaunch Digital Twin Device   confirm="no"``
@@ -7133,17 +7175,15 @@ class Device360(Device360WebElements):
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Relaunch Digital Twin' button.")
-                # self.screen.save_screen_shot()
                 self.auto_actions.click(relaunch_button)
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
                     self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
                     self.utils.print_info("Confirming the relaunch.")
-                    # self.screen.save_screen_shot()
-                    tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
-                    if tool_tp_text_error:
-                        self.utils.print_info(tool_tp_text_error.text)
+                    banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
+                    if banner_text_error:
+                        self.utils.print_info(banner_text_error.text)
                         return -1
                     return 1
                 else:
@@ -7156,11 +7196,11 @@ class Device360(Device360WebElements):
 
     def is_device360_shutdown_digital_twin_button_visible(self):
         """
-        - This keyword checks if the ACTIONS > Shutdown Digital Twin menu option is visible
+        - This keyword checks if the 'Shutdown Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Is Device360 Shutdown Digital Twin Button Visible``
-        :return: 1 if the menu item is displayed, else -1
+        :return: True if visible, False if not visible, else -1
         """
         shutdown_link = self.dev360.get_device360_digital_twin_shutdown_button()
         if shutdown_link:
@@ -7169,10 +7209,11 @@ class Device360(Device360WebElements):
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is not displayed.")
                 self.screen.save_screen_shot()
+                return False
             else:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is displayed.")
                 self.screen.save_screen_shot()
-                return 1
+                return True
         else:
             self.utils.print_info("Could not find the 'Shutdown Digital Twin' button.")
 
@@ -7180,7 +7221,7 @@ class Device360(Device360WebElements):
 
     def device360_shutdown_digital_twin_device(self, confirm="yes"):
         """
-        - This keyword clicks on the ACTIONS > Shutdown Digital Twin
+        - This keyword clicks the 'Shutdown Digital Twin' button in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Device360 Shutdown Digital Twin Device   confirm="no"``
@@ -7196,17 +7237,15 @@ class Device360(Device360WebElements):
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Shutdown Digital Twin' button.")
-                # self.screen.save_screen_shot()
                 self.auto_actions.click(shutdown_button)
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
                     self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
                     self.utils.print_info("Confirming the shutdown.")
-                    # self.screen.save_screen_shot()
-                    tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
-                    if tool_tp_text_error:
-                        self.utils.print_info(tool_tp_text_error.text)
+                    banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
+                    if banner_text_error:
+                        self.utils.print_info(banner_text_error.text)
                         return -1
                     return 1
                 else:
@@ -7219,7 +7258,7 @@ class Device360(Device360WebElements):
 
     def get_device360_digital_twin_device_status(self):
         """
-        - This keyword obtains the Digital Twin status icon within the D360 view.
+        - This keyword obtains the Digital Twin status icon within the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Get Device360 Digital Twin Device Status``
@@ -7232,6 +7271,7 @@ class Device360(Device360WebElements):
         status_icon = self.get_device360_digital_twin_status_icon().get_attribute("class")
         if status_icon:
             self.utils.print_info(f"Status Icon class value: {status_icon}")
+            self.screen.save_screen_shot()
             if "dt-icon" in status_icon:
                 #  vv 22R5 Device360 UI Issue, not seen in 22R6
                 if "hive-status-true hive-status-false" in status_icon:
@@ -7255,7 +7295,7 @@ class Device360(Device360WebElements):
 
     def device360_wait_until_device_online(self, retry_duration=30, retry_count=20, **kwargs):
         """
-        - This keyword waits till the device status updates to connected in the XIQ Device360 view.
+        - This keyword waits till the device status updates to connected in the XIQ Device 360 view.
         - This keyword by default loops every 30 seconds for 20 times to check the device status.
         - It is assumed that the Device 360 window is already opened for the Device.
         - Keyword Usage:
@@ -7284,7 +7324,6 @@ class Device360(Device360WebElements):
                             self.utils.print_info(
                                 f"Device status is disconnected. Waiting for {retry_duration} seconds")
                         elif "Connected" in connected_text:
-                            # self.utils.print_info("Device status is Connected")
                             kwargs['pass_msg'] = "Device status is connected!"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -7304,7 +7343,7 @@ class Device360(Device360WebElements):
 
     def device360_wait_until_device_offline(self, retry_duration=30, retry_count=20, **kwargs):
         """
-        - This keyword waits till the device status updates to disconnected in the XIQ Device360 view.
+        - This keyword waits till the device status updates to disconnected in the XIQ Device 360 view.
         - This keyword by default loops every 30 seconds for 20 times to check the device status.
         - It is assumed that the Device 360 window is already opened for the Device.
         - Keyword Usage:
@@ -7332,7 +7371,6 @@ class Device360(Device360WebElements):
                         if "Connected" in connected_text:
                             self.utils.print_info(f"Device status is connected. Waiting for {retry_duration} seconds")
                         elif "Disconnected" in connected_text:
-                            # self.utils.print_info("Device status is disconnected")
                             kwargs['pass_msg'] = "Device status is disconnected!"
                             self.common_validation.passed(**kwargs)
                             return 1
