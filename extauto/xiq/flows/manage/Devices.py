@@ -3484,13 +3484,24 @@ class Devices:
 
         return False
 
+    def _get_row(self, key, value):
+        device_row = ''
+        if key == "device_serial":
+            device_row = self.get_device_row(device_serial=value)
+        elif key == "device_mac":
+            device_row = self.get_device_row(device_mac=value)
+        elif key == "device_name":
+            device_row = self.get_device_row(device_name=value)
+        return device_row
+
     def get_device_status(self, device_serial='default', device_name='default', device_mac='default', **kwargs):
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
          - ``Get Device Status   device_serial=${DEVICE_SERIAL}``
-         - ``Get Device Status   device_name=${DEVICE_NAme}``
+         - ``Get Device Status   device_name=${DEVICE_NAME}``
          - ``Get Device Status   device_mac=${DEVICE_MAC}``
+         - ``Get Device Status   device_serial=${DEVICE_SERIAL}  device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
         :param device_name: device host name
@@ -3502,104 +3513,102 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
-        device_row = -1
-
-        self.utils.print_info('Getting device Status using')
-        deviceKey = None
+        device_row = ''
+        device_keys = {}
+        device_status = ''
+        audit_config_status = ''
+        if device_mac != 'default':
+            device_keys['device_mac'] = device_mac
         if device_serial != 'default':
-            self.utils.print_info("Getting status of device with serial: ", device_serial)
-            deviceKey = device_serial
-        elif device_name != 'default':
-            self.utils.print_info("Getting status of device with name: ", device_name)
-            deviceKey = device_name
-        elif device_mac != 'default':
-            self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            deviceKey = device_mac
-        else:
+            device_keys['device_serial'] = device_serial
+        if device_name != 'default':
+            device_keys['device_name'] = device_name
+        if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "No valid args passed.  Must be device_serial, device_name, device_mac!"
             self.common_validation.failed(**kwargs)
             return -1
-        # initial device_row is a pointer to the selenium object for the element.  The object can change unexpectedly
-        #   when the page auto refreshes or XIQ takes some other 'under the covers action'
-        #   Copying the object takes a snapshot in time and illegal references should go away.
-        device_row = self.get_device_row(deviceKey)
-        device_row = copy.copy(device_row)
 
-        if device_row:
-            # sleep(5)
-            device_status = ''
-            attempt_count = 3
-            while attempt_count > 0:
-                if attempt_count == 3:
-                    self.utils.print_info("Getting status from cell")
-                else:
-                    self.utils.print_info("Getting status from cell failed...Attempting to get status again")
-                    self.screen.save_screen_shot()
+        # Printing all the rows in the table for troubleshooting
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            for row in rows:
+                self.utils.print_info("row data: ", self.format_row(row.text))
+        else:
+            self.utils.print_info("No rows present")
+
+        for key, value in device_keys.items():
+            self.utils.print_info(f"Getting device status using {key} : {value}")
+            self.refresh_devices_page()
+            device_row = self._get_row(key, value)
+            device_row = copy.copy(device_row)
+
+            if device_row != -1:
+                device_status = ''
+                attempt_count = 1
+                while attempt_count <= 3:
+                    self.utils.print_info(f"Trying to get status from cell. Attempt {attempt_count} of 3 attempts")
                     try:
-                        self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
+                        device_status = self.devices_web_elements.get_status_cell(device_row)
                     except:
-                        device_row = self.get_device_row(deviceKey)
-                        device_row = copy.copy(device_row)
-                        self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
-                attempt_count = attempt_count - 1
-                try:
-                    device_status = self.devices_web_elements.get_status_cell(device_row)
-                except:
-                    self.utils.print_info("Getting status from cell failed with Exception...Attempting to get status again")
-                    device_row = self.get_device_row(deviceKey)
-                    device_row = copy.copy(device_row)
-                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                        self.utils.print_info(
+                            "Getting status from cell failed with Exception.Attempting to get status again")
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                    if device_status:
+                        break
+                    attempt_count += 1
+                audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
+                self.screen.save_screen_shot()
                 sleep(2)
-                if device_status:
-                    break
-            audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
-            self.screen.save_screen_shot()
-            sleep(2)
 
             if device_status:
-                if "hive-status-true" in device_status:
-                    if audit_config_status:
-                        if "ui-icon-sprite-match" in audit_config_status:
-                            kwargs['pass_msg'] = "Device Status: Connected, audit status matched"
-                            self.common_validation.passed(**kwargs)
-                            return 'green'
-                        if "ui-icon-sprite-mismatch" in audit_config_status:
-                            kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
-                            self.common_validation.passed(**kwargs)
-                            return "config audit mismatch"
-                    else:
-                        kwargs['pass_msg'] = "Unable to obtain audit config status for the row - returning connection " \
-                                             "status 'green'"
+                self.utils.print_info(f"Device status is: {device_status}")
+                break
+
+        if device_status:
+            if "hive-status-true" in device_status:
+                if audit_config_status:
+                    if "ui-icon-sprite-match" in audit_config_status:
+                        kwargs['pass_msg'] = "Device Status: Connected, audit status matched"
                         self.common_validation.passed(**kwargs)
                         return 'green'
-
-                if "local-managed-icon" in device_status:
-                    kwargs['pass_msg'] = "Device Status: Connected, locally managed"
+                    if "ui-icon-sprite-mismatch" in audit_config_status:
+                        kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
+                        self.common_validation.passed(**kwargs)
+                        return "config audit mismatch"
+                else:
+                    kwargs['pass_msg'] = "Unable to obtain audit config status for the row - returning connection " \
+                                         "status 'green'"
                     self.common_validation.passed(**kwargs)
                     return 'green'
 
-                if "hive-status-false" in device_status:
-                    if self.devices_web_elements.get_device_conn_status_after_ten_min(device_row):
-                        kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
-                        self.common_validation.passed(**kwargs)
-                        return "disconnected"
-                    kwargs['pass_msg'] = "Device is disconnected!"
+            if "local-managed-icon" in device_status:
+                kwargs['pass_msg'] = "Device Status: Connected, locally managed"
+                self.common_validation.passed(**kwargs)
+                return 'green'
+
+            if "hive-status-false" in device_status:
+                if self.devices_web_elements.get_device_conn_status_after_ten_min(device_row):
+                    kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
                     self.common_validation.passed(**kwargs)
                     return "disconnected"
+                kwargs['pass_msg'] = "Device is disconnected!"
+                self.common_validation.passed(**kwargs)
+                return "disconnected"
 
-                if "local-icon" in device_status:
-                    kwargs['pass_msg'] = "Device Status: Disconnected, locally managed"
-                    self.common_validation.passed(**kwargs)
-                    return 'disconnected'
+            if "local-icon" in device_status:
+                kwargs['pass_msg'] = "Device Status: Disconnected, locally managed"
+                self.common_validation.passed(**kwargs)
+                return 'disconnected'
 
-                if "device-status-unknown" in device_status:
-                    kwargs['pass_msg'] = "Device Status: Unknown"
-                    self.common_validation.passed(**kwargs)
-                    return 'unknown'
-            else:
-                kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
-                self.common_validation.failed(**kwargs)
-                return -1
+            if "device-status-unknown" in device_status:
+                kwargs['pass_msg'] = "Device Status: Unknown"
+                self.common_validation.passed(**kwargs)
+                return 'unknown'
+        else:
+            kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
+            self.common_validation.failed(**kwargs)
+            return -1
 
         kwargs['fail_msg'] = "Unable to obtain device status!"
         self.common_validation.failed(**kwargs)
@@ -4851,7 +4860,7 @@ class Devices:
                             self.utils.print_info(f"Looking for Device by Serial: {device_serial}")
                             device_row = self.get_device_row(device_serial=device_serial)
                         elif device_mac:
-                            self.utils.print_info(f"Looking for Device by MAC: {device_serial}")
+                            self.utils.print_info(f"Looking for Device by MAC: {device_mac}")
                             device_row = self.get_device_row(device_mac=device_mac)
 
                         if device_row and device_row != -1:
