@@ -573,7 +573,7 @@ class Cli(object):
             self.utils.print_info(e)
             return -1
 
-    def get_device_interface_ipv4_addr(self, spawn=None, cli_type='AH-AP', device_interface='mgt0'):
+    def get_device_interface_ipv4_addr(self, spawn=None, cli_type='AH-AP', device_interface='mgt0', **kwargs):
         """
         - This method returns device interface ipv4 address based on cli type
         - Keyword Usage:
@@ -594,9 +594,13 @@ class Cli(object):
                 return ipv4_addr
             except Exception as e:
                 self.utils.print_info(e)
+                kwargs['fail_msg'] = "^-- unknown keyword or invalid input"
+                self.commonValidation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info(f"The {cli_type} type is NOT supported currently")
+            kwargs['fail_msg'] = f"The {cli_type} type is NOT supported currently"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def capwap_ap_on_off(self, ip, usr, passwd, mode):
