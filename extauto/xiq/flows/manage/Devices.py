@@ -8123,7 +8123,7 @@ class Devices:
             return -1
         else:
             self.utils.print_info("Click on Create template based on currently selected device button")
-        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_name_textfiel,
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_name_textfield,
                              timeout=30, delay=5, is_logging_enabled=True)
         self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
         self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
