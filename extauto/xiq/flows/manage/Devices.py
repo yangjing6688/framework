@@ -913,6 +913,9 @@ class Devices:
         network_policy = self.get_device_details(search_string, 'POLICY')
         if network_policy:
             return network_policy
+        else:
+            self.utils.print_info("Can not get network policy")
+
 
     def check_device_reboot_message(self, device_serial, config_update_option, reboot_message):
         """
@@ -8090,29 +8093,43 @@ class Devices:
         self.refresh_devices_page()
         device_row = -1
 
-        if device_mac != 'default':
-
-            if self.auto_actions.click(self.devices_web_elements.get_device_stack_template_click()) == -1:
-                self.utils.print_info("Unable to click on Template Column button")
-                return -1
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            if device_mac != 'default':
+                self.utils.print_info("Selecting Device with mac: ", device_mac)
+                for row in rows:
+                    self.utils.print_info("ALL ROWS: ", self.format_row(row.text))
+                    if device_mac in row.text:
+                        self.utils.print_debug("Found device Row: ", self.format_row(row.text))
+                        assign_template = self.devices_web_elements.get_device_stack_template_click(row)
+                        if assign_template:
+                            self.utils.print_info("Click on Template Column button")
+                            self.auto_actions.click(assign_template)
+                            break
+                        else:
+                            self.screen.save_screen_shot()
+                            self.utils.print_info("Unable to click on Template Column button")
+                            return -1
+                    else:
+                        pass
             else:
-                self.utils.print_info("Click on Template Column button")
-
-            sleep(5)
-
-            if self.auto_actions.click(self.devices_web_elements.get_create_template_click()) == -1:
-                self.utils.print_info("Unable to click on Create template based on currently selected device button")
+                self.utils.print_info("device mac is default")
                 return -1
-            else:
-                self.utils.print_info("Click on Create template based on currently selected device button")
-
-            sleep(30)
-
-            self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
-            self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
-                                        name_stack_template)
-            self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())
-            sleep(10)
+        else:
+            self.utils.print_info("rows were not found ")
+            return -1
+        if self.auto_actions.click(self.devices_web_elements.get_create_template_click()) == -1:
+            self.utils.print_info("Unable to click on Create template based on currently selected device button")
+            return -1
+        else:
+            self.utils.print_info("Click on Create template based on currently selected device button")
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_name_textfiel,
+                             timeout=30, delay=5, is_logging_enabled=True)
+        self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
+        self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
+                                    name_stack_template)
+        self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())
+        sleep(10)
         return 1
 
     def assign_network_policy_to_switch_mac(self, policy_name, mac):
