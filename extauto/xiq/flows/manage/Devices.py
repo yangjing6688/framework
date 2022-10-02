@@ -3432,7 +3432,7 @@ class Devices:
         :param device_mac: device MAC address
         :return: return 1 if device found else False
         """
-        self.utils.wait_till(self.devices_web_elements.get_grid_rows(), timeout=20, delay=1, is_logging_enabled=True)
+        self.utils.wait_till(self.devices_web_elements.get_grid_rows, timeout=20, delay=1, is_logging_enabled=True)
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             if device_serial:
@@ -3440,15 +3440,15 @@ class Devices:
                 for row in rows:
                     self.utils.print_info("All rows: ", self.format_row(row.text))
                     if device_serial in row.text:
-                        self.utils.print_debug("Found device Row: ", self.format_row(row.text))
+                        self.utils.print_info("Found device Row: ", self.format_row(row.text))
                         check_box = self.devices_web_elements.get_device_select_checkbox(row)
                         if check_box:
                             self.auto_actions.click(check_box)
+                            self.utils.print_info("checkbox selected ")
+                            return 1
                         else:
                             self.utils.print_info("checkbox not found ")
                         self.screen.save_screen_shot()
-                        sleep(2)
-                        return 1
 
             if device_name:
                 self.utils.print_info("Selecting Device with Name: ", device_name)
@@ -5260,7 +5260,8 @@ class Devices:
         :return: 1
         """
         self.utils.print_info("Select Switch row")
-        self.select_device(serial)
+        if not self.select_device(serial) == 1:
+            return -1
 
         self._update_switch(update_method="Complete")
 
