@@ -8471,3 +8471,17 @@ class Device360(Device360WebElements):
             return message
         else:
             return None
+
+    def device360_navigate_to_pse_tab(self):
+        '''
+
+        :return:
+        '''
+
+        self.utils.print_info("Click PortConfiguration Button")
+        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+
+        self.utils.print_info("Click PSE Tab")
+        self.auto_actions.click(self.get_device360_port_configuration_pse_tab())
+
+        return 1
