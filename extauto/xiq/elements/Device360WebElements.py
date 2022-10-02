@@ -1485,7 +1485,7 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "pse_profile_description":
             return self.weh.get_element(self.select_element_port_type_pse_profile_description)
         elif element == "pse_profile_save":
-            return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
+            return self.weh.get_element(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
         elif element == "pse_profile_edit":
@@ -1761,5 +1761,8 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_save_and_close_port_type_box(self):
         return self.weh.get_element(self.save_and_close_port_type_box)
+
+    def get_common_cancel_button(self):
+        return self.weh.get_element(self.common_cancel_button)
 
 

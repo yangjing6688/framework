@@ -2934,6 +2934,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    common_cancel_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="cancelBtn"]',
+            'wait_for': 5
+        }
+
     save_and_close_port_type_box = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',

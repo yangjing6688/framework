@@ -3835,6 +3835,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(self.dev360.get_device360_device_configuration_exit_button())
         else:
             self.utils.print_info("The exit button was not found")
+            return -1
         return 1
 
     def device360_transmission_mode_overview(self, port_name):
@@ -8369,8 +8370,8 @@ class Device360(Device360WebElements):
         if get_pse_profile_description:
             self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
         else:
-            return -1
             self.utils.print_info("get_pse_profile_description not found ")
+            return -1
 
         get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
         if get_pse_profile_save:
@@ -8485,3 +8486,17 @@ class Device360(Device360WebElements):
         self.auto_actions.click(self.get_device360_port_configuration_pse_tab())
 
         return 1
+
+    def common_cancel_button(self):
+
+        cancel_button = self.get_common_cancel_button()
+        if cancel_button:
+            self.utils.print_info("Click cancel button")
+            self.auto_actions.click(cancel_button)
+            return 1
+        else:
+            self.utils.print_info("cancel button not found")
+            return -1
+
+
+
