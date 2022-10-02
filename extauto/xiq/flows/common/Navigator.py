@@ -25,8 +25,11 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Monitor Tab else return -1
         """
         self.utils.print_info("Selecting Manage Tab...")
-        if self.auto_actions.click_reference(self.get_manage_tab) == 1:
+        manage_tab = self.get_manage_tab()
+        if manage_tab:
+            self.auto_actions.click(manage_tab)
             sleep(2)
+            self.utils.print_info("Manage Tab was selected")
             return 1
         else:
             self.utils.print_info("Unable to navigate to Manage tab")
@@ -121,8 +124,11 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_manage_tab() == 1:
             self.utils.print_info("Clicking Devices Tab...")
-            if self.auto_actions.click_reference(self.get_devices_nav) == 1:
+            device_nav = self.get_devices_nav()
+            if device_nav:
+                self.auto_actions.click(device_nav)
                 sleep(2)
+                self.utils.print_info("Navigated To Devices")
                 return 1
             else:
                 self.utils.print_info("Unable to navigate to Devices tab")

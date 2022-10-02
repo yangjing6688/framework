@@ -286,7 +286,7 @@ class NavigatorWebElementDefinitions:
 
     device_nav = \
         {
-            'XPATH': ' //*[@data-automation-tag="automation-header-nav-devices"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-devices"]',
             
         }
 
