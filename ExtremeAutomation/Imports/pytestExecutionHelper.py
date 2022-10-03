@@ -4,7 +4,7 @@ from ExtremeAutomation.Library.Logger.Logger import Logger
 
 
 class PytestExecutionHelper():
-    def __init__(self, defaultAction="fail"):
+    def __init__(self, defaultAction="skip"):
         """
         The pytest execution helper class will allow users to be able to set the action for all test cases when the setup fails.
 
