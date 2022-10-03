@@ -34,3 +34,4 @@ class PytestExecutionHelper():
     def __printException(self):
         tb = traceback.format_exc()
         self.logger.log_error("Detected Exception: " + tb)
+#s
