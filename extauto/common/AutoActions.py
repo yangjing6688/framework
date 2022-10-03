@@ -22,7 +22,7 @@ class AutoActions:
         self.builtin = BuiltIn()
         self.web_element_ctrl = WebElementController()
 
-    def click_reference(self, element_object_ref, counter=0):
+    def click_reference(self, element_object_ref):
         return self.web_element_ctrl.action_method(self.click, element_object_ref)
 
     def click(self, element):

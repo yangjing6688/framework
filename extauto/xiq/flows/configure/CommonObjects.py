@@ -194,7 +194,7 @@ class CommonObjects(object):
         sleep(5)
 
         self.utils.print_info("Click on full page view")
-        if self.cobj_web_elements.get_paze_size_element(page_size='100'):
+        if self.cobj_web_elements.get_paze_size_element():
             self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
             sleep(5)
 
