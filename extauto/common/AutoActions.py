@@ -108,19 +108,23 @@ class AutoActions:
         action.perform()
         sleep(2)
 
-    def send_keys(self, element, value):
+    def send_keys(self, element, value, allow_fail=False):
         """
         - This Keyword Uses to Send Clear the Text Area and Input the Mentioned Value on Text Field Web Element.
 
         :param element: Web Element To enter Text Field
         :param value: Element Text Field Value
+        :param allow_fail: default False. True= Instead of force FAIL on error, return -1
         :return: None
         """
         self.utils.print_info("Sending Value to Element: ", value)
         if element is None:
             self.screen.save_screen_shot()
-            self.builtin.fail(msg="Unable to Send value to the Element..No WebElement Handler Present for the Element."
+            if not allow_fail:
+                self.builtin.fail(msg="Unable to Send value to the Element..No WebElement Handler Present for the Element."
                                   "So Exiting the Testcase")
+            else:
+                return -1
         else:
             count = 0
             while count < self.retries:

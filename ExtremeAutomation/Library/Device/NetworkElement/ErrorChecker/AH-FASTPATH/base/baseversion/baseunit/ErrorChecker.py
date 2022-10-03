@@ -9,8 +9,6 @@ class ErrorChecker(BaseErrorChecker):
         self.gen_errors.append('does not exist')
         self.gen_errors.append('Error')
         self.gen_errors.append('ERROR')
-        self.gen_errors.append('Invalid IP')
-        self.gen_errors.append("% Invalid input detected at '^' marker.")
         self.gen_errors.append('Command not found / Incomplete command. Use ? to list commands.')
 
 

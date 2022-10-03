@@ -11,6 +11,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
+    subtab_head_img_nav = \
+        {
+            'CSS_SELECTOR': '.subTab-head.img-nav',
+            'wait_for': 5
+        }
+
     configure_network_policy_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-policy"]',
@@ -49,7 +55,7 @@ class NavigatorWebElementDefinitions:
 
     manage_device_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     manage_clients_menu_item = \
@@ -60,7 +66,7 @@ class NavigatorWebElementDefinitions:
 
     manage_clients_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     manage_devices_menu_item = \
@@ -71,7 +77,7 @@ class NavigatorWebElementDefinitions:
 
     manage_devices_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     configure_users_nav = \
@@ -165,7 +171,7 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
-    dashboard  = \
+    dashboard = \
         {
             'XPATH': "//*[@data-dojo-attach-point='appLogo']",
             'wait_for': 5
@@ -185,7 +191,7 @@ class NavigatorWebElementDefinitions:
 
     manage_tools_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     network_policy_additional_settings_tab = \
@@ -286,7 +292,7 @@ class NavigatorWebElementDefinitions:
 
     device_nav = \
         {
-            'XPATH': ' //*[@data-automation-tag="automation-header-nav-devices"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-devices"]',
             
         }
 
@@ -1213,7 +1219,6 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-header-nav-clientmonitor-Diagnosis"]',
             'wait_for': 5
         }
-
 
     configure_alert_nav = \
         {

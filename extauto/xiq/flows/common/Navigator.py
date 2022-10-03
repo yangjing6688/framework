@@ -27,7 +27,13 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Manage Tab...")
         if self.auto_actions.click_reference(self.get_manage_tab) == 1:
             sleep(2)
-            return 1
+            if self.get_subtab_head_img_nav():
+                self.utils.print_info("Subtab nav is already shown")
+                return 1
+            else:
+                self.screen.save_screen_shot()
+                self.utils.print_info("Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step")
+                return -1
         else:
             self.utils.print_info("Unable to navigate to Manage tab")
             self.screen.save_screen_shot()
@@ -119,19 +125,24 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Devices Sub tab on Monitor Tab else return -1
         """
-        if self.navigate_to_manage_tab() == 1:
-            self.utils.print_info("Manage page is present")
-            if self.auto_actions.click_reference(self.get_devices_nav) == 1:
-                self.utils.print_info("Clicking Devices Tab...")
-                sleep(5)
-                self.enable_page_size(page_size='100')
-                return 1
-            else:
-                self.utils.print_info("Unable to navigate to Devices tab")
-                self.screen.save_screen_shot()
-                return -1
+        if self.get_devices_page():
+            self.utils.print_info("Already in Devices page")
+            self.enable_page_size(page_size='100')
+            return 1
         else:
-            return -1
+            if self.navigate_to_manage_tab() == 1:
+                self.utils.print_info("Manage page is present")
+                if self.auto_actions.click(self.get_devices_nav()) == 1:
+                    self.utils.print_info("Clicking Devices Tab...")
+                    sleep(5)
+                    self.enable_page_size(page_size='100')
+                    return 1
+                else:
+                    self.utils.print_info("Unable to navigate to Devices tab")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                return -1
 
     def navigate_to_ssids(self):
         """
@@ -212,16 +223,27 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
         """
-        self.utils.print_info("Selecting Network Policies Tab...")
-        if self.auto_actions.click_reference(self.get_network_policies_sub_tab) == 1:
-            sleep(2)
-            kwargs['pass_msg'] = "Navigated to Network Policies  tab"
-            self.common_validation.passed(**kwargs)
+        network_policy_tab_display = False
+        try_cnt = 0
+        while not network_policy_tab_display:
+            self.utils.print_info("Navigate to Configure Tab first")
+            self.navigate_to_configure_tab()
+            if self.get_subtab_head_img_nav():
+                self.utils.print_info("Selecting Network Policies Tab...")
+                self.auto_actions.click(self.get_network_policies_sub_tab())
+                sleep(2)
+                network_policy_tab_display = True
+            else:
+                sleep(2)
+                self.utils.print_info("Network Policy tab is NOT displayed, try to navigate to the tab again")
+                self.screen.save_screen_shot()
+                try_cnt += 1
+                if try_cnt == 10:
+                    self.utils.print_info(f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
+                    return False
+        if network_policy_tab_display:
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Network Policies tab")
-            kwargs['fail_msg'] = "Unable to navigate to Network Policies tab"
-            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_clients_tab(self, **kwargs):
