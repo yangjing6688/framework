@@ -8536,5 +8536,8 @@ class Device360(Device360WebElements):
             self.utils.print_info("cancel button not found")
             return -1
 
+    def poe_pse_profiles_elements(self, element):
+        return self.get_select_element_port_type(element)
+
 
 

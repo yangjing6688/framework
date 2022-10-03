@@ -1492,6 +1492,10 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_poe_status)
         elif element == "pse_profile_edit":
             return self.weh.get_element(self.select_element_port_type_pse_edit)
+        elif element == "pse_profile_error_text":
+            el = self.weh.get_element(self.select_element_port_type_pse_profile_error_text)
+            if el.is_displayed():
+                return el
         #maclocking page
         elif element == "mac locking":
             return self.weh.get_element(self.select_element_port_type_macLock_status)

@@ -2529,6 +2529,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_element_port_type_pse_profile_error_text = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="powerLimitContainer"]//span',
+            'wait_for': 5
+        }
+
     # Page summary
     select_element_port_type_name_summary = \
         {
