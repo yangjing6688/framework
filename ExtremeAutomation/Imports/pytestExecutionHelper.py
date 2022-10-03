@@ -18,18 +18,19 @@ class PytestExecutionHelper():
         self.logger.log_info("PytestExecutionHelper: setting default action for test cases as: [" + defaultAction + "]")
         self.action = defaultAction
         self.setup_failure = False
-
+        
     def setSetupFailure(self, value):
         self.setup_failure = value
         self.__printException()
-
+         
     def testSkipCheck(self):
         if self.setup_failure:
             if self.action == "skip":
                 skip("Setup failed, so skipping the test")
             elif self.action == "fail":
                 fail("Setup failed, so failing the test")
-
+            
     def __printException(self):
         tb = traceback.format_exc()
         self.logger.log_error("Detected Exception: " + tb)
+            
