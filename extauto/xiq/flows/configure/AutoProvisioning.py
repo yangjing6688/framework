@@ -366,16 +366,22 @@ class AutoProvisioning:
         self.utils.print_info(f"Clicking on Device Model {device_function}")
         if device_function == "AP":
             self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_model)
+            sleep(3)
+            results = self.app_web_elements.get_auto_provisioning_device_model_dropdown_list()
         elif device_function == "Extreme Networks SR22xx / SR23xx Switches":
             self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_SR22_23)
+            sleep(3)
+            results = self.app_web_elements.get_auto_provisioning_device_model_dropdown_list_SR22_23()
         elif device_function == "Extreme Networks SR20xx / SR21xx Switches":
             self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_SR20_21)
+            sleep(3)
+            results = self.app_web_elements.get_auto_provisioning_device_model_dropdown_list()
         else:
             self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_device_model_dropdown_switch_dell)
-        sleep(3)
+            sleep(3)
+            results = self.app_web_elements.get_auto_provisioning_device_model_dropdown_list()
 
         device_model_list = []
-        results = self.app_web_elements.get_auto_provisioning_device_model_dropdown_list()
         if results:
             for result in results:
                 val = result.text
