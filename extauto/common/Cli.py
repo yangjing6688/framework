@@ -15,7 +15,7 @@ from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementCon
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 from ExtremeAutomation.Utilities.deprecated import deprecated
-
+from time import sleep
 
 from extauto.common.Utils import Utils
 from extauto.common.CommonValidation import CommonValidation
@@ -536,7 +536,7 @@ class Cli(object):
         cli_spawn.exec_command('TASKKILL /IM iperf.exe /F', timeout=200)
 
         return stdout.readlines()
-    
+
     def close_netmiko_spawn(self, spawn):
         """
         - Closing netmiko spawn object
@@ -573,6 +573,36 @@ class Cli(object):
             self.utils.print_info(e)
             return -1
 
+    def get_device_interface_ipv4_addr(self, spawn=None, cli_type='AH-AP', device_interface='mgt0', **kwargs):
+        """
+        - This method returns device interface ipv4 address based on cli type
+        - Keyword Usage:
+         - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${CLI_TYPE}  ${Interface_name}``
+
+        :param spawn: spawn to device
+        :param cli_type: Currently this function just support AH-AP cli type, others cli types can be developed in the future
+        :param device_interface: Such as mgt0, eth0
+        :return: returns the interface ipv4 address if success else -1
+        """
+        if cli_type.upper() == 'AH-AP':
+            self.utils.print_info(f"Getting AP {device_interface} IPv4 address")
+            output = self.send(spawn, f'show interface {device_interface} | in "IP addr"')
+            try:
+                self.utils.print_info(f"AP {device_interface} IPv4 info: ", output)
+                ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
+                self.utils.print_info(f"{device_interface} IPv4 address is: {ipv4_addr}")
+                return ipv4_addr
+            except Exception as e:
+                self.utils.print_info(e)
+                kwargs['fail_msg'] = "^-- unknown keyword or invalid input"
+                self.commonValidation.failed(**kwargs)
+                return -1
+        else:
+            self.utils.print_info(f"The {cli_type} type is NOT supported currently")
+            kwargs['fail_msg'] = f"The {cli_type} type is NOT supported currently"
+            self.commonValidation.failed(**kwargs)
+            return -1
+
     def capwap_ap_on_off(self, ip, usr, passwd, mode):
         """
         - This Keyword will enable/disable capwap mode
@@ -593,9 +623,8 @@ class Cli(object):
             self.send(self.conn, AP_CAPWAP_ON, time_out="default", platform="aerohive")
         self.close_spawn(self.conn)
 
-        
-    def mac_wifi_connection(self, ip, usr, passwd, ssid, ssid_pass='badpassword20*rd', wifi_port='en1', mode='pass',
-                            ntimes=1):
+
+    def mac_wifi_connection(self, ip, usr, passwd, ssid, ssid_pass='badpassword20*rd', mode='pass', ntimes=1):
 
         """
         - This Keyword will establish WiFi Connection in MAC PC/Laptop
@@ -608,45 +637,55 @@ class Cli(object):
         :param passwd: Password of MAC book
         :param ssid: WiFI SSID
         :param ssid_pass:  ssid Password
-        :param wifi_port: WiFi interface
         :param mode: WiFi Mode
         :param ntimes: No.of times to try to establish the WiFi Connections
-        :return:  None
+        :return:  connection successfully return 1 else return -1
         """
 
-        self.conn = self.open_paramiko_ssh_spawn(ip, usr, passwd)
-        self.send_paramiko_cmd(self.conn, TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' ON', 30)
+        conn = self.open_paramiko_ssh_spawn(ip, usr, passwd)
+        wifi_port = self.send_paramiko_cmd(conn, MAC_GET_WIFI_INTERFACE_NAME, 10)
+        self.send_paramiko_cmd(conn, MAC_TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' OFF', 30)
+        self.send_paramiko_cmd(conn, MAC_TURN_ON_OFF_WIFI_INTERFACE + wifi_port + ' ON', 30)
 
         cnt = -1
         for i in range(1, 6):
-            self.utils.print_info( " ***** Number of attempts ", str(i))
+            self.utils.print_info(" ***** Number of attempts ", str(i))
             time.sleep(30)
-            listSSIDs = str(self.send_paramiko_cmd(self.conn, SCAN_FOR_LIST_WIFI, 300))
+            listSSIDs = str(self.send_paramiko_cmd(conn, MAC_SCAN_FOR_LIST_WIFI, 300))
             cnt = self.utils.check_match(listSSIDs, ssid)
+            self.utils.print_info(f"The ssid match cnt is {cnt}.\n The searched ssid is {ssid}")
             if cnt == 1:
                 self.utils.print_info('ssid ' + ssid + ' is found')
                 break
 
-        if cnt != 1: return -1, "Not able to find the SSID"
+        if cnt != 1:
+            self.utils.print_info("Not able to find the SSID")
+            return -1
 
         cn1 = False
+        try_cnt = 0
         if mode == 'pass':
-            rc = self.send_paramiko_cmd(self.conn, CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
-            self.utils.print_info("RC is ---------" + str(rc))
-            if self.utils.check_match(rc, 'Failed to join') == 1   : return -1,  " Fail to Join "
-            if self.utils.check_match(rc, 'not find network') == 1 : return -1,  " Could not find network " + str(ssid)
-            if self.utils.check_match(rc, 'Exception') == 1        : return -1,  " Fail with an Exception"
-            if self.utils.check_match(rc, 'Error') == 1            : return -1,  " There is an Error "
-
-            self.utils.print_info('Connect successfully!')
-        else:
-            for i in range(1, ntimes):
-                self.utils.print_info(str(i) + ' attempt(s)')
-                rc = self.send_paramiko_cmd(self.conn, CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 40)
-        self.close_spawn(self.conn)
-
-        return str(1), None
-
+            while not cn1:
+                rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
+                self.utils.print_info("RC is ---------" + str(rc))
+                if self.utils.check_match(rc, 'Failed to join') == 1: return -1,  " Fail to Join "
+                if self.utils.check_match(rc, 'not find network') == 1: return -1,  " Could not find network " + str(ssid)
+                if self.utils.check_match(rc, 'Exception') == 1: return -1,  " Fail with an Exception"
+                if self.utils.check_match(rc, 'Error') == 1: return -1,  " There is an Error "
+                check_wifi_connection = self.send_paramiko_cmd(conn, MAC_CHECK_WIFI_CONNECTION + wifi_port, 10)
+                self.utils.print_info(f"WiFi Network status: {check_wifi_connection}")
+                if ssid in check_wifi_connection:
+                    self.utils.print_info('Connect successfully!')
+                    self.close_paramiko_spawn(conn)
+                    cn1 = True
+                    return 1
+                else:
+                    try_cnt += 1
+                    self.utils.print_info(f"WiFi client doesn't connect to {ssid}, {try_cnt} attempt(s)")
+                    if try_cnt == 10:
+                        self.utils.print_info(f"Max attempt(s) {try_cnt}, still can NOT make client to connect to SSID: {ssid}")
+                        self.close_paramiko_spawn(conn)
+                        return -1
 
     def get_mac_hostname(self, ip, userid, passwd):
         """
@@ -663,6 +702,51 @@ class Cli(object):
         hostname = self.send_paramiko_cmd(conn, 'hostname')
         self.close_spawn(conn)
         return hostname
+
+    def get_mac_wifi_ipv4_addr(self, ip, userid, passwd):
+        """
+        - This keyword will get the wifi ipv4 address of Mac book
+        - Keyword Usage:
+         - ``Get MAC Wifi IPv4 Addr    ${IP}    ${USERNAME}    {PASSWORD}``
+
+        :param ip: IP Address of MAC book
+        :param userid:  username of MAC book
+        :param passwd: Password of MAC book
+        :return: wifi ipv4 address of mac book
+        """
+        conn = self.open_paramiko_ssh_spawn(ip, userid, passwd)
+        wifi_port = self.send_paramiko_cmd(conn, MAC_GET_WIFI_INTERFACE_NAME, 10)
+        mac_client_get_ipv4_addr = False
+        try_cnt = 0
+        while not mac_client_get_ipv4_addr:
+            self.utils.print_info("Check if Mac client get IPv4 address")
+            wifi_ip_detail = self.send_paramiko_cmd(conn, IFCONFIG + wifi_port)
+            self.utils.print_info(f"Detail info for ifconfig {wifi_port}: \n{wifi_ip_detail}")
+            wifi_ipv4 = self.send_paramiko_cmd(conn, IFCONFIG + wifi_port + MAC_IPV4_ADDRESS_FILTER)
+            self.utils.print_info(f"mac wifi ipv4 address: {wifi_ipv4}")
+            if not wifi_ipv4:
+                try_cnt += 1
+                self.utils.print_info(f"Mac client is NOT got IPV4 address: {wifi_ipv4} so far, {try_cnt} attempts to check IPV4 address")
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} attempts to check IPv4 address, still not got address: {wifi_ipv4}")
+                    self.close_paramiko_spawn(conn)
+                    return False
+                sleep(2)
+            else:
+                if '169.254.' in wifi_ipv4 or 'options=201' in wifi_ipv4:
+                    try_cnt += 1
+                    self.utils.print_info(f"Mac client got invalid IPv4 address: {wifi_ipv4}, {try_cnt} attempts to check IPV4 address")
+                    if try_cnt == 10:
+                        self.utils.print_info(f"Max {try_cnt} attempts to check IPv4 address, still get invalid address: {wifi_ipv4}")
+                        self.close_paramiko_spawn(conn)
+                        return False
+                    sleep(2)
+                else:
+                    mac_client_get_ipv4_addr = True
+                    self.close_paramiko_spawn(conn)
+        if mac_client_get_ipv4_addr:
+            self.utils.print_info(f"Mac client got IPv4 address: {wifi_ipv4}")
+            return wifi_ipv4
 
     def clear_ssh_host_key(self):
         """
@@ -813,8 +897,10 @@ class Cli(object):
         return "1".
         """
 
-        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
-           NetworkElementConstants.OS_AHXR in cli_type.upper():
+        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.send(connection, f'hivemanager address {server_name}')
+
+        elif  NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, f'do Hivemanager address {server_name}')
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
@@ -879,8 +965,19 @@ class Cli(object):
         return "1".
         """
 
-        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
-                NetworkElementConstants.OS_AHXR in cli_type.upper():
+        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            count = 1
+            while count <= retry_count:
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                time.sleep(retry_duration)
+                hm_status = self.send(connection, f'show hivemanager status | include Status')
+                hm_address = self.send(connection, f'show hivemanager address')
+
+                if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
+                    self.utils.print_info(f"Device Successfully Connected to {server_name}")
+                    return 1
+                count += 1
+        elif NetworkElementConstants.OS_AHXR in cli_type.upper():
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)

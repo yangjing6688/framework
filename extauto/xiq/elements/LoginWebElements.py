@@ -379,3 +379,6 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_cancel_button(self):
         return self.weh.get_element(self.cancel_button)
+
+    def get_page_loading(self):
+        return self.weh.get_element(self.page_loading)

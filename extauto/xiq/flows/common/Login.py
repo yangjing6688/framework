@@ -197,10 +197,24 @@ class Login:
         self.utils.print_info("Check for wrong credentials..")
         credential_warnings = self.login_web_elements.get_credentials_error_message()
         self.utils.print_info("Wrong Credential Message: ", credential_warnings)
-        if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
-            # self.utils.print_info("Wrong Credentials. Try Again")
-            kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            return -1
+        if credential_warnings is None:
+            pass
+        else:
+            if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
+                # self.utils.print_info("Wrong Credentials. Try Again")
+                kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+                return -1
+
+        page_still_loading = True
+        while page_still_loading:
+            page_loading = self.login_web_elements.get_page_loading()
+            self.utils.print_info(f"Page loading element: {page_loading}")
+            if page_loading:
+                self.utils.print_info("Page is still loading")
+                sleep(3)
+            else:
+                page_still_loading = False
+                self.utils.print_info("Page is loaded successfully")
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid) == -1:
@@ -1089,7 +1103,9 @@ class Login:
 
     def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
                             salesforce_password=False, saleforce_shared_cuid=False):
-        if self.login_web_elements.get_welcome_wizard_heading():
+        welcome_wizard_page = self.login_web_elements.get_welcome_wizard_heading()
+        self.utils.print_info(f"Welcome wizard page: {welcome_wizard_page}")
+        if welcome_wizard_page:
             self.utils.print_info("Welcome page wizard found. Looks like you are logging in for the first time!")
             self.utils.print_info("Selecting login option: ", login_option)
             self.screen.save_screen_shot()

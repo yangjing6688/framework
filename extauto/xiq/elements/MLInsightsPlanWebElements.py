@@ -265,6 +265,9 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
     def get_n360_delete_yes(self):
         return self.weh.get_element(self.n360_delete_yes)
 
+    def get_n360_more_actions(self):
+        return self.weh.get_element(self.n360_more_actions)
+
     def get_n360_country_list_click(self):
         return self.weh.get_element(self.n360_country_list_click)
 
@@ -291,6 +294,9 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
 
     def get_n360_save_button_floor(self):
         return self.weh.get_element(self.n360_save_button_floor)
+
+    def get_n360_scale_floor_plan_windows(self):
+        return self.weh.get_element(self.n360_scale_floor_plan_windows)
 
     def get_n360_size_floor_plan(self):
         return self.weh.get_element(self.n360_size_floor_plan)

@@ -533,7 +533,7 @@ class WirelessNetworks:
 
         if self._search_wireless_network_name_in_grid(ssid_name):
             self.utils.print_info("Wireless network already exists")
-            return 1
+            return -1
 
         if network_type.upper() == "STANDARD" or network_type == 'None':
             return self._config_standard_wireless_network(**wireless_network_conf)
@@ -638,8 +638,8 @@ class WirelessNetworks:
 
         self.utils.print_info("click on wireless network save button")
         self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
-        self.screen.save_screen_shot()
         sleep(2)
+        self.screen.save_screen_shot()
         return 1
 
     def _config_personal_wpa2_key_type_value_method(self, key_type, key_value):

@@ -29,8 +29,14 @@ class Navigator(NavigatorWebElements):
         if manage_tab:
             self.auto_actions.click(manage_tab)
             sleep(2)
-            self.utils.print_info("Manage Tab was selected")
-            return 1
+            if self.get_subtab_head_img_nav():
+                self.utils.print_info("Subtab nav is already shown")
+                return 1
+            else:
+                self.screen.save_screen_shot()
+                self.utils.print_info("Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step")
+                return -1
+
         else:
             self.utils.print_info("Unable to navigate to Manage tab")
             self.screen.save_screen_shot()
@@ -122,20 +128,24 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Devices Sub tab on Monitor Tab else return -1
         """
-        if self.navigate_to_manage_tab() == 1:
-            self.utils.print_info("Clicking Devices Tab...")
-            device_nav = self.get_devices_nav()
-            if device_nav:
-                self.auto_actions.click(device_nav)
-                sleep(2)
-                self.utils.print_info("Navigated To Devices")
-                return 1
-            else:
-                self.utils.print_info("Unable to navigate to Devices tab")
-                self.screen.save_screen_shot()
-                return -1
+        if self.get_devices_page():
+            self.utils.print_info("Already in Devices page")
+            self.enable_page_size(page_size='100')
+            return 1
         else:
-            return -1
+            if self.navigate_to_manage_tab() == 1:
+                self.utils.print_info("Manage page is present")
+                if self.auto_actions.click(self.get_devices_nav()) == 1:
+                    self.utils.print_info("Clicking Devices Tab...")
+                    sleep(5)
+                    self.enable_page_size(page_size='100')
+                    return 1
+                else:
+                    self.utils.print_info("Unable to navigate to Devices tab")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                return -1
 
     def navigate_to_ssids(self):
         """
@@ -216,16 +226,27 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
         """
-        self.utils.print_info("Selecting Network Policies Tab...")
-        if self.auto_actions.click_reference(self.get_network_policies_sub_tab) == 1:
-            sleep(2)
-            kwargs['pass_msg'] = "Navigated to Network Policies  tab"
-            self.common_validation.passed(**kwargs)
+        network_policy_tab_display = False
+        try_cnt = 0
+        while not network_policy_tab_display:
+            self.utils.print_info("Navigate to Configure Tab first")
+            self.navigate_to_configure_tab()
+            if self.get_subtab_head_img_nav():
+                self.utils.print_info("Selecting Network Policies Tab...")
+                self.auto_actions.click(self.get_network_policies_sub_tab())
+                sleep(2)
+                network_policy_tab_display = True
+            else:
+                sleep(2)
+                self.utils.print_info("Network Policy tab is NOT displayed, try to navigate to the tab again")
+                self.screen.save_screen_shot()
+                try_cnt += 1
+                if try_cnt == 10:
+                    self.utils.print_info(f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
+                    return False
+        if network_policy_tab_display:
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Network Policies tab")
-            kwargs['fail_msg'] = "Unable to navigate to Network Policies tab"
-            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_clients_tab(self, **kwargs):
@@ -3140,3 +3161,25 @@ class Navigator(NavigatorWebElements):
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
+
+    def enable_page_size(self, page_size='100', **kwargs):
+        """
+            - This keyword clicks the page size of that page
+                 - Flow Manage--> Common --> Navigator
+                 - Keyword Usage
+                  - ``enable_page_size  page_size=20``
+
+                :return: 1 if enabling page size successfully else returns -1
+        """
+        if self.get_network_policy_page_size() != None:
+            self.utils.print_info("Clicking on page size...")
+            if self.auto_actions.click(self.get_network_policy_page_size(page_size)) == 1:
+                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = " Clicking on page size "
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = " Not able to click on page size "
+                self.common_validation.failed(**kwargs)
+                return -1

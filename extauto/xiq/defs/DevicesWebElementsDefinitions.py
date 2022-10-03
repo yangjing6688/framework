@@ -130,7 +130,6 @@ class DevicesWebElementsDefinitions:
 
     devices_serial_text_area = \
         {
-            # 'CSS_SELECTOR': '.serial-numbers.aerohive',
             'XPATH': "//*[@data-automation-tag='automation-quick-add-onboard-serial-number-textbox']",
             'wait_for': 1
         }
@@ -228,6 +227,13 @@ class DevicesWebElementsDefinitions:
         }
 
     device_os_change_error_message = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    device_update_error_message = \
         {
             'XPATH': '//*[@data-dojo-attach-point="textEl"]',
             'index': 0,
@@ -364,7 +370,6 @@ class DevicesWebElementsDefinitions:
 
     quick_onboard_simulated = \
         {
-            # 'XPATH': '//*[@class="chzn-results qa-chzn-results-quickdeviceselect"]//li[@data-automation-tag="chzn-option-Simulated"]',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-sim-device-radio-button"]',
             'wait_for': 5
         }
@@ -383,7 +388,6 @@ class DevicesWebElementsDefinitions:
 
     simulated_device_dropdown_options = \
         {
-            # 'CSS_SELECTOR': '.active-result',
             'XPATH': '//*[@data-automation-tag="-dropdown"]',
             'wait_for': 5
         }
@@ -449,6 +453,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 2
         }
 
+    manage_device_utilities_wan_access = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-utilities-device-wan-access"]',
+            'wait_for': 2
+        }
+
     actions_assign_network_policy = \
         {
             'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions") and contains(@data-automation-tag, "-assign-policy")]',
@@ -457,7 +467,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-assign-policy-select"]',
+            'CSS_SELECTOR': '.dijitDownArrowButton.select-policy .dijitButtonContents .honeycomb-ui-form-selectLabel',
             'wait_for': 5
         }
 
@@ -478,16 +488,21 @@ class DevicesWebElementsDefinitions:
             "CSS_SELECTOR": '.ui-dialog-content',
             'wait_for': 5
         }
+    action_assign_network_policy_dialog_cancel_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 2
+        }
 
     actions_network_policy_drop_down_items = \
         {
-            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select-dropdown"]//td[@data-dojo-attach-point="containerNode,textDirNode"]',
+            'XPATH': '//*[@class="dijitPopup dijitMenuPopup" and not(contains(@style, "display: none"))] //table[@data-automation-tag="automation-assign-policy-select-dropdown"] //td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
         }
 
     nw_policy_drop = \
         {
-            'XPATH': '//table[@data-automation-tag="automation-assign-policy-select"]//td[@data-dojo-attach-point="titleNode"]',
+            'CSS_SELECTOR': '.assign-policy .select-policy .honeycomb-ui-form-selectLabel',
             'wait_for': 5,
         }
 
@@ -674,7 +689,8 @@ class DevicesWebElementsDefinitions:
 
     devices_ap_updated_status_cell = \
         {
-            'CSS_SELECTOR': '.field-updatedOn',
+            # 'CSS_SELECTOR': '.field-updatedOn',
+            'CSS_SELECTOR': '.ui-state-default .dgrid-row-table .field-updatedOn',
             'wait_for': 1
          }
 
@@ -874,6 +890,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+    devices_quick_add_block_show = \
+        {
+            'CSS_SELECTOR': '.show-quick-add',
+            'wait_for': 1
+        }
+
     devices_add_devices_cancel_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-cancel-button"]',
@@ -910,11 +932,7 @@ class DevicesWebElementsDefinitions:
 
     device_make_drop_down_options = \
         {
-            # 'XPATH': '//div[@data-dojo-attach-point="quickMakeSelect"]'
-            #          '//ul[contains(@class, "qa-chzn-results-quickaddselect")]//li',
-
-            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-make-select-dropdown"]'
-                     '//tr[contains(@class, "dijitMenuItem")]',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-make-select-dropdown"]  //td[@data-dojo-attach-point="containerNode,textDirNode"]',
             'wait_for': 5
         }
 

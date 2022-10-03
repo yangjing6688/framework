@@ -124,6 +124,9 @@ class DeviceUpdate(DeviceUpdateDefs):
         except AttributeError:
             return -1
 
+    def get_is_specific_version_dropdown_open(self):
+        return self.weh.get_element(self.is_specific_version_dropdown_open)
+
     def get_device_update_form_error(self, row):
         return self.weh.get_element(self.device_update_form_error, row).get_attribute("title")
 
@@ -154,5 +157,4 @@ class DeviceUpdate(DeviceUpdateDefs):
 
     def get_actions_update_version_drop_down_items(self):
         return self.weh.get_elements(self.upgrade_specific_firmware_drop_down_items)
-
         
