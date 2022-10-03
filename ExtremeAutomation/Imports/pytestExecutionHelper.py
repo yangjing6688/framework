@@ -13,8 +13,7 @@ class PytestExecutionHelper():
         self.logger = Logger()
 
         if defaultAction != "skip" and defaultAction != "fail":
-            fail(
-                "Unable to create the PytestExecutionHelper class, the defaultAction must be set to 'skip' or 'fail'. the value " + defaultAction + " is not valid")
+            fail("Unable to create the PytestExecutionHelper class, the defaultAction must be set to 'skip' or 'fail'. the value " + defaultAction + " is not valid")
 
         self.logger.log_info("PytestExecutionHelper: setting default action for test cases as: [" + defaultAction + "]")
         self.action = defaultAction
@@ -34,4 +33,3 @@ class PytestExecutionHelper():
     def __printException(self):
         tb = traceback.format_exc()
         self.logger.log_error("Detected Exception: " + tb)
-#s
